@@ -1,0 +1,1222 @@
+[
+ {
+  "start": 0.496,
+  "end": 3.685,
+  "en": "Now you can implement tool use and build"
+ },
+ {
+  "start": 3.781,
+  "end": 6.617,
+  "en": "agents as shown in the previous lecture. The"
+ },
+ {
+  "start": 6.617,
+  "end": 8.652,
+  "en": "advantage of this approach is that it should"
+ },
+ {
+  "start": 8.684,
+  "end": 11.296,
+  "en": "work with all large language models because"
+ },
+ {
+  "start": 11.889,
+  "end": 14.885,
+  "en": "the prompts didn't contain anything OpenAI"
+ },
+ {
+  "start": 14.949,
+  "end": 16.856,
+  "en": "specific. You could have sent them to any"
+ },
+ {
+  "start": 16.856,
+  "end": 17.225,
+  "en": "models."
+ },
+ {
+  "start": 17.802,
+  "end": 20.99,
+  "en": "But exposing tools to large language models"
+ },
+ {
+  "start": 21.183,
+  "end": 24.708,
+  "en": "and describing tools that may be used by"
+ },
+ {
+  "start": 24.708,
+  "end": 26.743,
+  "en": "these models is such a common"
+ },
+ {
+  "start": 27.272,
+  "end": 29.883,
+  "en": "use case, such a common scenario that many"
+ },
+ {
+  "start": 30.219,
+  "end": 33.439,
+  "en": "AI providers actually have built-in support"
+ },
+ {
+  "start": 33.439,
+  "end": 33.792,
+  "en": "for it."
+ },
+ {
+  "start": 34.465,
+  "end": 37.973,
+  "en": "Like for example, OpenAI. They are calling"
+ },
+ {
+  "start": 38.069,
+  "end": 40.729,
+  "en": "it function calling, but chances are high"
+ },
+ {
+  "start": 40.729,
+  "end": 42.78,
+  "en": "that if you're going through the docs of"
+ },
+ {
+  "start": 42.972,
+  "end": 45.423,
+  "en": "some other provider, you'll also find"
+ },
+ {
+  "start": 45.455,
+  "end": 47.201,
+  "en": "official tool support."
+ },
+ {
+  "start": 48.082,
+  "end": 51.126,
+  "en": "In case of OpenAI, you will actually also"
+ },
+ {
+  "start": 51.126,
+  "end": 54.443,
+  "en": "find a tools section in their docs, but this"
+ },
+ {
+  "start": 54.651,
+  "end": 57.182,
+  "en": "actually refers to tools that are running on"
+ },
+ {
+  "start": 57.374,
+  "end": 61.099,
+  "en": "OpenAI's servers, so tools, functions"
+ },
+ {
+  "start": 61.468,
+  "end": 63.782,
+  "en": "written by the OpenAI developers."
+ },
+ {
+  "start": 64.617,
+  "end": 66.642,
+  "en": "This can also be useful because it, for"
+ },
+ {
+  "start": 66.642,
+  "end": 68.04,
+  "en": "example, allows you to"
+ },
+ {
+  "start": 68.714,
+  "end": 72.136,
+  "en": "request web search or expose a web search"
+ },
+ {
+  "start": 72.249,
+  "end": 74.948,
+  "en": "tool to the large language model that you"
+ },
+ {
+  "start": 74.98,
+  "end": 77.246,
+  "en": "don't have to write yourself, which can be"
+ },
+ {
+  "start": 77.47,
+  "end": 80.202,
+  "en": "pretty good because web search is complex,"
+ },
+ {
+  "start": 80.587,
+  "end": 82.194,
+  "en": "but it's not the focus of this course."
+ },
+ {
+  "start": 82.371,
+  "end": 84.508,
+  "en": "Instead, we will focus on building our own"
+ },
+ {
+  "start": 84.62,
+  "end": 84.909,
+  "en": "tools."
+ },
+ {
+  "start": 86.146,
+  "end": 88.363,
+  "en": "And that takes us back to this function"
+ },
+ {
+  "start": 88.7,
+  "end": 91.206,
+  "en": "calling topic because that's simply the term"
+ },
+ {
+  "start": 91.35,
+  "end": 92.844,
+  "en": "OpenAI is using for"
+ },
+ {
+  "start": 93.454,
+  "end": 96.811,
+  "en": "allowing you to expose tools, which are just"
+ },
+ {
+  "start": 96.811,
+  "end": 99.269,
+  "en": "functions, to a large language model."
+ },
+ {
+  "start": 100.666,
+  "end": 103.831,
+  "en": "And to do that, their docs show us that you"
+ },
+ {
+  "start": 103.831,
+  "end": 107.509,
+  "en": "should expose a tools argument or that you"
+ },
+ {
+  "start": 107.509,
+  "end": 110.882,
+  "en": "should pass a tools argument to this create"
+ },
+ {
+  "start": 110.882,
+  "end": 113.837,
+  "en": "method when using the Python SDK. There the"
+ },
+ {
+  "start": 113.837,
+  "end": 114.898,
+  "en": "Responses API."
+ },
+ {
+  "start": 116.102,
+  "end": 117.789,
+  "en": "If you are using some other programming"
+ },
+ {
+  "start": 117.869,
+  "end": 119.716,
+  "en": "language, you can of course also just send"
+ },
+ {
+  "start": 119.716,
+  "end": 122.977,
+  "en": "an HTTP request to the API endpoint and then"
+ },
+ {
+  "start": 123.009,
+  "end": 125.434,
+  "en": "just include a tools property in the request"
+ },
+ {
+  "start": 125.579,
+  "end": 127.876,
+  "en": "body. So of course you can use this feature"
+ },
+ {
+  "start": 127.892,
+  "end": 129.562,
+  "en": "from any programming language."
+ },
+ {
+  "start": 130.237,
+  "end": 133.257,
+  "en": "Now the value for this tools parameter then"
+ },
+ {
+  "start": 133.514,
+  "end": 135.746,
+  "en": "actually should be a list of tool"
+ },
+ {
+  "start": 135.843,
+  "end": 137.915,
+  "en": "descriptions, a list of function"
+ },
+ {
+  "start": 138.188,
+  "end": 141.012,
+  "en": "descriptions. Which must have this shape."
+ },
+ {
+  "start": 141.782,
+  "end": 143.723,
+  "en": "And if that looks familiar from the"
+ },
+ {
+  "start": 143.723,
+  "end": 146.37,
+  "en": "structured output lecture, that's no"
+ },
+ {
+  "start": 146.37,
+  "end": 148.68,
+  "en": "coincidence because the idea is kind of the"
+ },
+ {
+  "start": 148.68,
+  "end": 148.985,
+  "en": "same."
+ },
+ {
+  "start": 149.659,
+  "end": 152.193,
+  "en": "With structured outputs, we tried to"
+ },
+ {
+  "start": 152.226,
+  "end": 155.883,
+  "en": "describe the data format we wanted the LLM"
+ },
+ {
+  "start": 155.979,
+  "end": 159.011,
+  "en": "to generate. With this function calling"
+ },
+ {
+  "start": 159.428,
+  "end": 161.851,
+  "en": "feature here, we're trying to describe the"
+ },
+ {
+  "start": 161.995,
+  "end": 164.642,
+  "en": "functions it may request from us. So the"
+ },
+ {
+  "start": 164.642,
+  "end": 166.47,
+  "en": "functions it requests to call."
+ },
+ {
+  "start": 167.785,
+  "end": 170.318,
+  "en": "And therefore, this is the shape of this"
+ },
+ {
+  "start": 170.831,
+  "end": 173.379,
+  "en": "definition you have to use in your code. And"
+ },
+ {
+  "start": 173.46,
+  "end": 175.239,
+  "en": "that is how you can define different"
+ },
+ {
+  "start": 175.303,
+  "end": 178.204,
+  "en": "functions and their parameters that may be"
+ },
+ {
+  "start": 178.204,
+  "end": 181.154,
+  "en": "invoked by the tool or that may be requested"
+ },
+ {
+  "start": 181.346,
+  "end": 183.334,
+  "en": "to be invoked by the tool, I should say."
+ },
+ {
+  "start": 184.039,
+  "end": 186.572,
+  "en": "If you do provide such a tools parameter,"
+ },
+ {
+  "start": 187.021,
+  "end": 189.73,
+  "en": "then you will actually get back an output"
+ },
+ {
+  "start": 189.73,
+  "end": 190.724,
+  "en": "that may look like this"
+ },
+ {
+  "start": 191.253,
+  "end": 193.561,
+  "en": "if the model decides to call a tool. Of"
+ },
+ {
+  "start": 193.577,
+  "end": 195.068,
+  "en": "course, it might not always do that"
+ },
+ {
+  "start": 195.501,
+  "end": 197.521,
+  "en": "depending on the prompt that was sent to it"
+ },
+ {
+  "start": 197.521,
+  "end": 197.809,
+  "en": "by the user."
+ },
+ {
+  "start": 198.724,
+  "end": 201.227,
+  "en": "That prompt, by the way, then no longer"
+ },
+ {
+  "start": 201.227,
+  "end": 203.538,
+  "en": "needs to contain any information about the"
+ },
+ {
+  "start": 203.538,
+  "end": 206.555,
+  "en": "tools. The OpenAI API will handle that"
+ },
+ {
+  "start": 206.668,
+  "end": 209.123,
+  "en": "behind the scenes for you when you're using"
+ },
+ {
+  "start": 209.155,
+  "end": 210.294,
+  "en": "this tools feature."
+ },
+ {
+  "start": 211.241,
+  "end": 213.712,
+  "en": "But if the model then decides to use a tool,"
+ },
+ {
+  "start": 213.969,
+  "end": 216.344,
+  "en": "it will send back an output which contains"
+ },
+ {
+  "start": 216.537,
+  "end": 217.628,
+  "en": "one or more items."
+ },
+ {
+  "start": 218.206,
+  "end": 221.046,
+  "en": "And the first item then would be of type"
+ },
+ {
+  "start": 221.175,
+  "end": 223.678,
+  "en": "function call containing the name of the"
+ },
+ {
+  "start": 223.678,
+  "end": 225.684,
+  "en": "tool, the name of the function it wants to"
+ },
+ {
+  "start": 225.748,
+  "end": 225.877,
+  "en": "call,"
+ },
+ {
+  "start": 226.47,
+  "end": 228.139,
+  "en": "and the values for the arguments."
+ },
+ {
+  "start": 228.894,
+  "end": 231.142,
+  "en": "And of course, the name and the argument"
+ },
+ {
+  "start": 231.142,
+  "end": 233.438,
+  "en": "shape here depends on the structure you"
+ },
+ {
+  "start": 233.551,
+  "end": 235.06,
+  "en": "defined. That's the idea."
+ },
+ {
+  "start": 236.12,
+  "end": 239.46,
+  "en": "And you can build pretty complex workflows"
+ },
+ {
+  "start": 239.492,
+  "end": 243.394,
+  "en": "here because the OpenAI API and their models"
+ },
+ {
+  "start": 243.892,
+  "end": 247.409,
+  "en": "actually also support multiple tool calls in"
+ },
+ {
+  "start": 247.666,
+  "end": 250.235,
+  "en": "one single request. So the model could"
+ },
+ {
+  "start": 250.235,
+  "end": 253.045,
+  "en": "request multiple tool calls. You could get"
+ },
+ {
+  "start": 253.045,
+  "end": 255.614,
+  "en": "back a response which requests multiple tool"
+ },
+ {
+  "start": 255.63,
+  "end": 255.919,
+  "en": "calls."
+ },
+ {
+  "start": 256.674,
+  "end": 258.472,
+  "en": "And you can go through the official"
+ },
+ {
+  "start": 258.52,
+  "end": 260.703,
+  "en": "documentation to learn more about that if"
+ },
+ {
+  "start": 260.767,
+  "end": 260.88,
+  "en": "you"
+ },
+ {
+  "start": 261.554,
+  "end": 262.886,
+  "en": "want to dive deeper here."
+ },
+ {
+  "start": 263.416,
+  "end": 266.081,
+  "en": "This course is not an OpenAI course though."
+ },
+ {
+  "start": 266.145,
+  "end": 268.601,
+  "en": "I'm just using it for my examples. Instead,"
+ },
+ {
+  "start": 268.633,
+  "end": 270.608,
+  "en": "I wanna focus on how you can generally"
+ },
+ {
+  "start": 270.8,
+  "end": 272.727,
+  "en": "implement tool call. And for that, we'll for"
+ },
+ {
+  "start": 272.727,
+  "end": 275.52,
+  "en": "now focus on one tool being called at a"
+ },
+ {
+  "start": 275.52,
+  "end": 275.825,
+  "en": "time."
+ },
+ {
+  "start": 276.419,
+  "end": 279.565,
+  "en": "And therefore I prepared an updated version"
+ },
+ {
+  "start": 279.614,
+  "end": 282.134,
+  "en": "of this demo program we built in the last"
+ },
+ {
+  "start": 282.182,
+  "end": 285.088,
+  "en": "lecture of this first_demo_agent,"
+ },
+ {
+  "start": 285.65,
+  "end": 288.059,
+  "en": "and you find that updated main.py file"
+ },
+ {
+  "start": 288.059,
+  "end": 288.364,
+  "en": "attached."
+ },
+ {
+  "start": 289.327,
+  "end": 291.575,
+  "en": "In there, I still have the get_temperature"
+ },
+ {
+  "start": 291.575,
+  "end": 294.096,
+  "en": "function, but the rest of the code changed."
+ },
+ {
+  "start": 294.867,
+  "end": 297.66,
+  "en": "I do, for example, now have a tools list"
+ },
+ {
+  "start": 297.933,
+  "end": 301.386,
+  "en": "which contains one tool description in that"
+ },
+ {
+  "start": 301.386,
+  "end": 303.473,
+  "en": "shape we saw here in the OpenAI"
+ },
+ {
+  "start": 303.473,
+  "end": 304.244,
+  "en": "documentation"
+ },
+ {
+  "start": 304.902,
+  "end": 308.049,
+  "en": "because I'm talking to the OpenAI API here."
+ },
+ {
+  "start": 309.014,
+  "end": 309.594,
+  "en": "So I got that."
+ },
+ {
+  "start": 310.304,
+  "end": 312.45,
+  "en": "I also got the available functions"
+ },
+ {
+  "start": 312.563,
+  "end": 315.273,
+  "en": "dictionary here, which simply keeps track of"
+ },
+ {
+  "start": 315.369,
+  "end": 317.531,
+  "en": "all the functions I wanna expose as tools."
+ },
+ {
+  "start": 317.725,
+  "end": 319.483,
+  "en": "And I need that a little bit later in my"
+ },
+ {
+  "start": 319.483,
+  "end": 319.709,
+  "en": "code."
+ },
+ {
+  "start": 321.28,
+  "end": 323.495,
+  "en": "But first things first, in the main"
+ },
+ {
+  "start": 323.495,
+  "end": 325.985,
+  "en": "function, I'm now working with a chat"
+ },
+ {
+  "start": 325.985,
+  "end": 328.573,
+  "en": "history, which I manage. This is optional,"
+ },
+ {
+  "start": 328.589,
+  "end": 331.13,
+  "en": "but it helps if you wanna build a chatbot."
+ },
+ {
+  "start": 331.179,
+  "end": 333.215,
+  "en": "And that is what I do here because I"
+ },
+ {
+  "start": 333.443,
+  "end": 335.658,
+  "en": "actually changed this program to have an"
+ },
+ {
+  "start": 335.821,
+  "end": 338.034,
+  "en": "infinite loop There is a way of getting out"
+ },
+ {
+  "start": 338.034,
+  "end": 340.902,
+  "en": "of it though. The user can type exit. But"
+ },
+ {
+  "start": 340.902,
+  "end": 342.921,
+  "en": "other than that, we keep asking for more"
+ },
+ {
+  "start": 342.921,
+  "end": 345.068,
+  "en": "questions and we keep prompting the model."
+ },
+ {
+  "start": 346.19,
+  "end": 348.626,
+  "en": "That's why I'm managing a chat history here"
+ },
+ {
+  "start": 348.69,
+  "end": 350.661,
+  "en": "and I start with a developer message, which"
+ },
+ {
+  "start": 350.709,
+  "end": 353.129,
+  "en": "is a system message with some general"
+ },
+ {
+  "start": 353.257,
+  "end": 355.1,
+  "en": "instructions that should be followed by the"
+ },
+ {
+  "start": 355.1,
+  "end": 355.308,
+  "en": "tool."
+ },
+ {
+  "start": 356.141,
+  "end": 358.593,
+  "en": "Then I append the user input"
+ },
+ {
+  "start": 359.186,
+  "end": 362.006,
+  "en": "to that chat history and then I send that to"
+ },
+ {
+  "start": 362.006,
+  "end": 364.843,
+  "en": "the model. And here I also set up those"
+ },
+ {
+  "start": 364.956,
+  "end": 367.328,
+  "en": "tools. I make the model aware of the tools,"
+ },
+ {
+  "start": 367.456,
+  "end": 368.113,
+  "en": "so to say,"
+ },
+ {
+  "start": 368.867,
+  "end": 372.954,
+  "en": "or the OpenAI Python SDK and API does that"
+ },
+ {
+  "start": 373.034,
+  "end": 375.391,
+  "en": "for me because I'm using this tools feature"
+ },
+ {
+  "start": 375.519,
+  "end": 376.224,
+  "en": "to be precise."
+ },
+ {
+  "start": 376.898,
+  "end": 378.885,
+  "en": "I then take a look at the output I get back"
+ },
+ {
+  "start": 378.965,
+  "end": 380.969,
+  "en": "at the first output because as mentioned"
+ },
+ {
+  "start": 380.969,
+  "end": 383.694,
+  "en": "here, I'll only deal with one tool call at"
+ },
+ {
+  "start": 383.694,
+  "end": 384.127,
+  "en": "most."
+ },
+ {
+  "start": 385.137,
+  "end": 387.637,
+  "en": "I append that output object to the chat"
+ },
+ {
+  "start": 387.637,
+  "end": 389.737,
+  "en": "history just to keep track of it."
+ },
+ {
+  "start": 390.282,
+  "end": 393.456,
+  "en": "So that the model also knows what it replied"
+ },
+ {
+  "start": 393.488,
+  "end": 395.796,
+  "en": "in the past. And then I check whether the"
+ },
+ {
+  "start": 395.877,
+  "end": 398.602,
+  "en": "output type is maybe not a function call,"
+ },
+ {
+  "start": 398.762,
+  "end": 401.712,
+  "en": "which means the model did not request to"
+ },
+ {
+  "start": 401.728,
+  "end": 403.892,
+  "en": "call a function. It sent back a normal"
+ },
+ {
+  "start": 404.068,
+  "end": 405.078,
+  "en": "response instead."
+ },
+ {
+  "start": 405.735,
+  "end": 408.428,
+  "en": "In that case, I simply output that response"
+ },
+ {
+  "start": 408.54,
+  "end": 412.452,
+  "en": "text and I continue with the loop, skipping"
+ },
+ {
+  "start": 412.965,
+  "end": 413.894,
+  "en": "these lines of code."
+ },
+ {
+  "start": 414.568,
+  "end": 416.844,
+  "en": "Instead, we restart the loop asking for more"
+ },
+ {
+  "start": 416.956,
+  "end": 419.168,
+  "en": "input because I'm building a versatile"
+ },
+ {
+  "start": 419.441,
+  "end": 421.541,
+  "en": "agent, a versatile chatbot here, and a"
+ },
+ {
+  "start": 421.541,
+  "end": 424.409,
+  "en": "chatbot is just an AI agent in the end. And"
+ },
+ {
+  "start": 424.505,
+  "end": 426.62,
+  "en": "that chatbot, of course, can help with all"
+ },
+ {
+  "start": 426.668,
+  "end": 429.04,
+  "en": "kinds of questions and not all questions"
+ },
+ {
+  "start": 429.136,
+  "end": 430.162,
+  "en": "require tool use."
+ },
+ {
+  "start": 430.995,
+  "end": 433.559,
+  "en": "If we make it past this if check though, we"
+ },
+ {
+  "start": 433.559,
+  "end": 436.106,
+  "en": "know that a tool call, a function call to be"
+ },
+ {
+  "start": 436.106,
+  "end": 437.693,
+  "en": "precise, was requested."
+ },
+ {
+  "start": 438.286,
+  "end": 440.961,
+  "en": "And that's where executeToolCall comes into"
+ },
+ {
+  "start": 441.074,
+  "end": 441.346,
+  "en": "play."
+ },
+ {
+  "start": 442.051,
+  "end": 444.567,
+  "en": "That is a utility function I added here,"
+ },
+ {
+  "start": 445.096,
+  "end": 447.547,
+  "en": "which gets that output object that was"
+ },
+ {
+  "start": 447.579,
+  "end": 448.893,
+  "en": "returned by OpenAI."
+ },
+ {
+  "start": 449.503,
+  "end": 451.27,
+  "en": "And that then extracts the name of the"
+ },
+ {
+  "start": 451.334,
+  "end": 453.728,
+  "en": "function and the arguments of the function"
+ },
+ {
+  "start": 453.841,
+  "end": 454.805,
+  "en": "the model gave me."
+ },
+ {
+  "start": 455.849,
+  "end": 459.046,
+  "en": "So it extracts that information about that"
+ },
+ {
+  "start": 459.046,
+  "end": 462.098,
+  "en": "intended tool call the model provided to me."
+ },
+ {
+  "start": 462.58,
+  "end": 465.183,
+  "en": "Then I check whether the requested function"
+ },
+ {
+  "start": 465.183,
+  "end": 467.754,
+  "en": "name is in my available functions. So if the"
+ },
+ {
+  "start": 467.754,
+  "end": 469.971,
+  "en": "model requested a function I wanna support,"
+ },
+ {
+  "start": 470.694,
+  "end": 473.2,
+  "en": "just to make sure I'm not executing some"
+ },
+ {
+  "start": 473.2,
+  "end": 475.947,
+  "en": "function I don't want the model to request."
+ },
+ {
+  "start": 476.958,
+  "end": 479.722,
+  "en": "And if the function that is requested by the"
+ },
+ {
+  "start": 479.722,
+  "end": 482.519,
+  "en": "model is supported, I try executing it."
+ },
+ {
+  "start": 483.307,
+  "end": 485.927,
+  "en": "I get that function from my dictionary here."
+ },
+ {
+  "start": 486.475,
+  "end": 489.164,
+  "en": "I execute it. I check whether that works and"
+ },
+ {
+  "start": 489.502,
+  "end": 492.046,
+  "en": "handle the exception if it doesn't. And I"
+ },
+ {
+  "start": 492.094,
+  "end": 495.367,
+  "en": "return the result of that tool call."
+ },
+ {
+  "start": 496.857,
+  "end": 498.818,
+  "en": "And that's then what I'm using here, the"
+ },
+ {
+  "start": 498.818,
+  "end": 499.677,
+  "en": "tool output."
+ },
+ {
+  "start": 500.422,
+  "end": 503.144,
+  "en": "I add that back into the chat history using"
+ },
+ {
+  "start": 503.177,
+  "end": 505.3,
+  "en": "this special type, which I know from the"
+ },
+ {
+  "start": 505.384,
+  "end": 505.955,
+  "en": "OpenAI documentation."
+ },
+ {
+  "start": 507.292,
+  "end": 509.187,
+  "en": "And that's why it's important to dive into"
+ },
+ {
+  "start": 509.203,
+  "end": 510.921,
+  "en": "the documentation if you're building more"
+ },
+ {
+  "start": 510.969,
+  "end": 514.598,
+  "en": "advanced things with an AI model, with an AI"
+ },
+ {
+  "start": 514.598,
+  "end": 516.975,
+  "en": "provider, because they do offer all kinds of"
+ },
+ {
+  "start": 517.151,
+  "end": 519.415,
+  "en": "features. For example, here I can set the"
+ },
+ {
+  "start": 519.479,
+  "end": 522.032,
+  "en": "type to function call output. This is"
+ },
+ {
+  "start": 522.241,
+  "end": 523.381,
+  "en": "supported by OpenAI"
+ },
+ {
+  "start": 523.911,
+  "end": 527.427,
+  "en": "to give the model the information about the"
+ },
+ {
+  "start": 527.444,
+  "end": 529.74,
+  "en": "result of the intended tool call, because I"
+ },
+ {
+  "start": 529.756,
+  "end": 532.228,
+  "en": "also put that result into this message."
+ },
+ {
+  "start": 533.127,
+  "end": 535.76,
+  "en": "And then I request a new response based on"
+ },
+ {
+  "start": 535.793,
+  "end": 538.49,
+  "en": "these updated messages, which includes that"
+ },
+ {
+  "start": 538.586,
+  "end": 541.492,
+  "en": "tool call result. And I output the final"
+ },
+ {
+  "start": 541.492,
+  "end": 543.547,
+  "en": "result I get back, the final response."
+ },
+ {
+  "start": 544.205,
+  "end": 546.517,
+  "en": "Please note that here I no longer expose"
+ },
+ {
+  "start": 546.629,
+  "end": 548.957,
+  "en": "tools to the model because in this app here,"
+ },
+ {
+  "start": 549.038,
+  "end": 551.574,
+  "en": "in this chat app, I don't wanna support"
+ },
+ {
+  "start": 551.863,
+  "end": 555.106,
+  "en": "subsequent multi-step tool calls. Instead,"
+ },
+ {
+  "start": 555.219,
+  "end": 556.535,
+  "en": "just one tool call"
+ },
+ {
+  "start": 557.065,
+  "end": 558.975,
+  "en": "per user question, so to say."
+ },
+ {
+  "start": 559.697,
+  "end": 561.62,
+  "en": "But that's then one way of implementing this"
+ },
+ {
+  "start": 561.636,
+  "end": 564.137,
+  "en": "in a relatively clean way. And therefore, of"
+ },
+ {
+  "start": 564.185,
+  "end": 567.568,
+  "en": "course, here, if I run this main file and I"
+ },
+ {
+  "start": 567.568,
+  "end": 571.03,
+  "en": "ask, what can you do for me? It should not"
+ },
+ {
+  "start": 571.078,
+  "end": 573.226,
+  "en": "execute this get temperature function."
+ },
+ {
+  "start": 574.204,
+  "end": 576.16,
+  "en": "I should not get any log regarding that."
+ },
+ {
+  "start": 576.208,
+  "end": 578.532,
+  "en": "Instead, I get the default response, which"
+ },
+ {
+  "start": 578.532,
+  "end": 581.305,
+  "en": "is good. And if I now ask, what's"
+ },
+ {
+  "start": 581.834,
+  "end": 586.163,
+  "en": "the temperature in Tokyo? Then I should see"
+ },
+ {
+  "start": 586.163,
+  "end": 588.856,
+  "en": "that that function gets executed and I then"
+ },
+ {
+  "start": 588.952,
+  "end": 591.373,
+  "en": "get a reply that takes the result of that"
+ },
+ {
+  "start": 591.373,
+  "end": 592.72,
+  "en": "tool call into account."
+ },
+ {
+  "start": 593.538,
+  "end": 596.153,
+  "en": "And now I'll type exit to quit. And then"
+ },
+ {
+  "start": 596.169,
+  "end": 598.367,
+  "en": "here in this program, I actually output the"
+ },
+ {
+  "start": 598.367,
+  "end": 600.982,
+  "en": "entire chat history so that we can see what"
+ },
+ {
+  "start": 600.982,
+  "end": 601.784,
+  "en": "was inside of it,"
+ },
+ {
+  "start": 602.441,
+  "end": 604.527,
+  "en": "like that system message I set at the"
+ },
+ {
+  "start": 604.527,
+  "end": 607.061,
+  "en": "beginning, the initial user message,"
+ },
+ {
+  "start": 607.655,
+  "end": 609.821,
+  "en": "the initial response to the first user"
+ },
+ {
+  "start": 609.821,
+  "end": 611.97,
+  "en": "message, the subsequent messages, the tool"
+ },
+ {
+  "start": 611.986,
+  "end": 613.639,
+  "en": "call results, and so on."
+ },
+ {
+  "start": 614.537,
+  "end": 616.703,
+  "en": "And that's how you could build or how you"
+ },
+ {
+  "start": 616.703,
+  "end": 619.478,
+  "en": "could handle tool calls when using OpenAI"
+ },
+ {
+  "start": 619.686,
+  "end": 621.531,
+  "en": "and in this case, the Python SDK."
+ }
+]

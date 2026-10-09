@@ -1,0 +1,271 @@
+1
+00:00:02,259 --> 00:00:04,919
+We built the stack with the regular array
+
+2
+00:00:05,384 --> 00:00:07,066
+that we use inside of it, and there's
+
+3
+00:00:07,082 --> 00:00:09,278
+nothing wrong with it, but we could also
+
+4
+00:00:09,326 --> 00:00:11,008
+build the stack in a different way.
+
+5
+00:00:11,569 --> 00:00:13,733
+We can utilize the linked list which we
+
+6
+00:00:13,813 --> 00:00:15,623
+built in the first course section,
+
+7
+00:00:16,216 --> 00:00:17,787
+and therefore make sure you go through that
+
+8
+00:00:17,819 --> 00:00:20,367
+first course section first so that you are
+
+9
+00:00:20,367 --> 00:00:22,482
+aware of how the linked list works.
+
+10
+00:00:23,652 --> 00:00:25,575
+Why could we use a linked list instead of an
+
+11
+00:00:25,575 --> 00:00:25,751
+array?
+
+12
+00:00:26,537 --> 00:00:29,102
+Well, for one, because the linked list also
+
+13
+00:00:29,118 --> 00:00:29,247
+is,
+
+14
+00:00:29,824 --> 00:00:32,887
+well, a list, and a stack is a list, so we
+
+15
+00:00:32,951 --> 00:00:35,693
+can definitely extend a linked list to
+
+16
+00:00:35,693 --> 00:00:36,896
+behave like a stack.
+
+17
+00:00:37,522 --> 00:00:40,392
+And in addition, a linked list also has
+
+18
+00:00:40,665 --> 00:00:43,535
+everything we need. We can call prepend to
+
+19
+00:00:43,535 --> 00:00:44,722
+add something at the beginning,
+
+20
+00:00:45,299 --> 00:00:47,945
+or append to add something at the end, but
+
+21
+00:00:47,945 --> 00:00:50,511
+we can go with prepend and treat the first
+
+22
+00:00:50,527 --> 00:00:52,853
+item as the topmost one, basically. That's
+
+23
+00:00:52,853 --> 00:00:54,491
+up to you how you wanna define this.
+
+24
+00:00:55,181 --> 00:00:58,103
+And it's also easy to remove the first item
+
+25
+00:00:58,376 --> 00:01:00,399
+of a linked list. You learned about that in
+
+26
+00:01:00,399 --> 00:01:03,306
+the first course section. By keeping track
+
+27
+00:01:03,434 --> 00:01:05,586
+of both the head and the tail, it's very
+
+28
+00:01:05,698 --> 00:01:07,384
+easy to get access to the last and to the
+
+29
+00:01:07,384 --> 00:01:09,600
+first item. And therefore, it's very
+
+30
+00:01:09,632 --> 00:01:12,201
+efficient to add items at the beginning or
+
+31
+00:01:12,201 --> 00:01:14,513
+the end and to remove items from there.
+
+32
+00:01:15,477 --> 00:01:18,270
+Hence, we can also rebuild this stack. And
+
+33
+00:01:18,286 --> 00:01:21,445
+here I'll add my stack array JavaScript file
+
+34
+00:01:22,071 --> 00:01:23,931
+and then add a new app.js file
+
+35
+00:01:24,541 --> 00:01:27,299
+where I again want to build a stack but now
+
+36
+00:01:27,443 --> 00:01:28,775
+based on a linked list.
+
+37
+00:01:29,769 --> 00:01:32,656
+Therefore, in linkedList.js, I will first of
+
+38
+00:01:32,656 --> 00:01:35,414
+all export the linked list so that we can
+
+39
+00:01:35,606 --> 00:01:37,162
+import it in app.js.
+
+40
+00:01:37,723 --> 00:01:39,760
+So with it being exported with the export
+
+41
+00:01:39,792 --> 00:01:40,241
+keyword,
+
+42
+00:01:40,819 --> 00:01:41,027
+here
+
+43
+00:01:41,717 --> 00:01:45,225
+we can import linked List from,
+
+44
+00:01:46,000 --> 00:01:48,856
+and then it's from the linkedList.js file
+
+45
+00:01:48,969 --> 00:01:49,146
+here.
+
+46
+00:01:50,841 --> 00:01:52,067
+And now in the constructor function,
+
+47
+00:01:53,162 --> 00:01:53,615
+we can
+
+48
+00:01:54,374 --> 00:01:56,121
+again create our items.
+
+49
+00:01:56,864 --> 00:01:58,902
+We can of course also call this list, it's
+
+50
+00:01:58,902 --> 00:01:59,500
+totally up to you,
+
+51
+00:02:00,181 --> 00:02:02,939
+by instantiating the LinkedList like that.
+
+52
+00:02:03,569 --> 00:02:05,262
+This is something we can absolutely do, and
+
+53
+00:02:05,262 --> 00:02:06,489
+now we're using the LinkedList.
+
+54
+00:02:07,376 --> 00:02:09,457
+Now again, we want a push method that takes
+
+55
+00:02:09,457 --> 00:02:10,005
+a value
+
+56
+00:02:10,805 --> 00:02:11,895
+And we want a pop
+
+57
+00:02:12,680 --> 00:02:15,884
+method that pops off the topmost value.
+
+58
+00:02:16,829 --> 00:02:19,265
+We can add our isEmpty check here,
+
+59
+00:02:19,857 --> 00:02:21,732
+and last but not least, we can add the
+
+60
+00:02:21,860 --> 00:02:22,981
+toArray method.
+
+61
+00:02:23,799 --> 00:02:26,090
+Now definitely feel free to implement those
+
+62
+00:02:26,122 --> 00:02:26,955
+methods on your own.
+
+63
+00:02:27,564 --> 00:02:30,576
+An important note, you might need to edit
+
+64
+00:02:30,752 --> 00:02:32,114
+the linked list code a little bit
+
+65
+00:02:32,690 --> 00:02:33,540
+to, for example,
+
+66
+00:02:34,116 --> 00:02:35,815
+implement isEmpty in a convenient way,
+
+67
+00:02:36,519 --> 00:02:37,913
+but we'll also do it together
+
+68
+00:02:38,442 --> 00:02:39,387
+in the next lectures.

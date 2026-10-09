@@ -1,0 +1,655 @@
+1
+00:00:00,176 --> 00:00:03,709
+I mentioned that another important way of
+
+2
+00:00:03,709 --> 00:00:03,917
+giving
+
+3
+00:00:04,608 --> 00:00:06,502
+the agent feedback or allowing it to
+
+4
+00:00:06,775 --> 00:00:09,633
+self-verify its work would be browser use.
+
+5
+00:00:10,372 --> 00:00:12,186
+And I want to give my
+
+6
+00:00:13,021 --> 00:00:14,194
+agent Codex here
+
+7
+00:00:14,788 --> 00:00:17,630
+access to my browser so that it can work on
+
+8
+00:00:17,774 --> 00:00:20,391
+these changes, which I'll soon ask it to
+
+9
+00:00:20,584 --> 00:00:20,985
+implement.
+
+10
+00:00:21,612 --> 00:00:23,956
+I want it to be able to verify whether it
+
+11
+00:00:23,956 --> 00:00:25,096
+did so successfully.
+
+12
+00:00:25,882 --> 00:00:28,208
+Now, how can it use the browser? Well, it
+
+13
+00:00:28,288 --> 00:00:31,672
+can use it using Playwright, a tool we
+
+14
+00:00:31,800 --> 00:00:34,767
+already use or a library we already use for
+
+15
+00:00:34,767 --> 00:00:37,653
+our end-to-end tests. Now, it turns out this
+
+16
+00:00:37,653 --> 00:00:39,882
+library cannot just be used for end-to-end
+
+17
+00:00:39,995 --> 00:00:42,416
+testing, but can instead also directly be
+
+18
+00:00:42,464 --> 00:00:45,720
+exposed to AI agents like Codex so that they
+
+19
+00:00:45,912 --> 00:00:48,045
+can use it to access the browser in an
+
+20
+00:00:48,237 --> 00:00:50,980
+automated way. And one popular way of
+
+21
+00:00:50,980 --> 00:00:54,235
+exposing Playwright to agents is by using
+
+22
+00:00:54,347 --> 00:00:57,845
+the Playwright MCP. Which you can install as
+
+23
+00:00:57,942 --> 00:00:59,371
+instructed on this page.
+
+24
+00:01:00,029 --> 00:01:01,924
+You find a link to it attached. There are
+
+25
+00:01:02,117 --> 00:01:04,862
+the Codex instructions and there is a codex
+
+26
+00:01:04,942 --> 00:01:07,672
+mcp add command you can execute to
+
+27
+00:01:07,736 --> 00:01:11,124
+conveniently add MCPs like this. But there
+
+28
+00:01:11,140 --> 00:01:12,409
+is an even easier way
+
+29
+00:01:12,955 --> 00:01:16,632
+in the desktop app, but also in this IDE
+
+30
+00:01:16,905 --> 00:01:17,675
+integration.
+
+31
+00:01:18,366 --> 00:01:19,249
+If you go to
+
+32
+00:01:19,795 --> 00:01:20,887
+MCP settings,
+
+33
+00:01:21,882 --> 00:01:26,022
+you'll also find some recommended servers
+
+34
+00:01:26,118 --> 00:01:28,509
+here, just as we had some recommended skills
+
+35
+00:01:28,542 --> 00:01:29,552
+when browsing skills.
+
+36
+00:01:30,291 --> 00:01:32,794
+And Playwright is here too, at least at the
+
+37
+00:01:32,794 --> 00:01:34,575
+point of time where I'm recording this. If
+
+38
+00:01:34,575 --> 00:01:36,742
+it's not, you can install it manually
+
+39
+00:01:37,271 --> 00:01:39,357
+as instructed on this page, which I attached
+
+40
+00:01:39,357 --> 00:01:40,015
+to this lecture.
+
+41
+00:01:40,898 --> 00:01:42,374
+But I can press Install here
+
+42
+00:01:42,984 --> 00:01:44,524
+and this does install Playwright.
+
+43
+00:01:45,535 --> 00:01:47,477
+You can also configure it, but the default
+
+44
+00:01:47,477 --> 00:01:48,809
+configuration should be fine.
+
+45
+00:01:49,403 --> 00:01:51,633
+And this will install it globally. So it's
+
+46
+00:01:51,713 --> 00:01:54,136
+also available here in the desktop app. If
+
+47
+00:01:54,136 --> 00:01:55,853
+you go to settings, settings there
+
+48
+00:01:56,784 --> 00:01:58,998
+under MCP servers, you see Playwright is
+
+49
+00:01:59,110 --> 00:02:00,041
+enabled here as well.
+
+50
+00:02:00,635 --> 00:02:00,988
+So if I
+
+51
+00:02:01,533 --> 00:02:03,443
+temporarily remove my
+
+52
+00:02:04,245 --> 00:02:04,678
+prompt here
+
+53
+00:02:05,833 --> 00:02:08,657
+and I run the /mcp command here in the
+
+54
+00:02:08,657 --> 00:02:11,000
+desktop app, I can verify that Playwright is
+
+55
+00:02:11,128 --> 00:02:11,433
+active.
+
+56
+00:02:12,011 --> 00:02:15,204
+Obviously the same command /mcp exists in
+
+57
+00:02:15,397 --> 00:02:16,825
+the Codex CLI.
+
+58
+00:02:17,707 --> 00:02:19,727
+I need to restart my session though to make
+
+59
+00:02:19,727 --> 00:02:22,598
+sure all newly installed MCP servers are
+
+60
+00:02:22,598 --> 00:02:22,918
+loaded,
+
+61
+00:02:23,640 --> 00:02:24,009
+but then
+
+62
+00:02:25,420 --> 00:02:26,318
+it does show up here.
+
+63
+00:02:27,184 --> 00:02:28,932
+And therefore now Codex has access to
+
+64
+00:02:29,012 --> 00:02:31,545
+various tools that allow it to interact with
+
+65
+00:02:31,674 --> 00:02:34,143
+a browser, a browser which it will start and
+
+66
+00:02:34,255 --> 00:02:37,238
+control. So back in the desktop app here, I
+
+67
+00:02:37,286 --> 00:02:39,932
+can send this follow-up prompt and I also
+
+68
+00:02:39,932 --> 00:02:42,097
+tell the agent to use the Playwright MCP
+
+69
+00:02:42,097 --> 00:02:44,117
+because I wanna make sure that it uses that
+
+70
+00:02:44,310 --> 00:02:46,331
+to verify those changes. And since it will
+
+71
+00:02:46,347 --> 00:02:48,320
+need to log in, I tell it which credentials
+
+72
+00:02:48,353 --> 00:02:48,722
+to use.
+
+73
+00:02:50,021 --> 00:02:51,930
+And then we can plan this
+
+74
+00:02:52,604 --> 00:02:54,289
+or send it directly here. I'll plan it
+
+75
+00:02:54,449 --> 00:02:56,599
+because it's a bit more complex and it
+
+76
+00:02:56,599 --> 00:02:58,300
+should now make a plan, implement those
+
+77
+00:02:58,364 --> 00:03:00,353
+changes once we approve the plan, and then
+
+78
+00:03:00,401 --> 00:03:02,872
+of course use the Playwright MCP to verify
+
+79
+00:03:02,872 --> 00:03:03,482
+those changes.
+
+80
+00:03:04,300 --> 00:03:07,172
+And it doesn't seem to get that it has
+
+81
+00:03:07,284 --> 00:03:09,065
+access to the Playwright MCP.
+
+82
+00:03:09,771 --> 00:03:12,210
+So I'll tell it again to do so. Maybe that
+
+83
+00:03:12,258 --> 00:03:15,661
+is because that session existed before
+
+84
+00:03:16,352 --> 00:03:19,098
+Playwright was enabled, though it does list
+
+85
+00:03:19,098 --> 00:03:19,516
+it if I
+
+86
+00:03:20,367 --> 00:03:21,571
+use /mcp.
+
+87
+00:03:22,358 --> 00:03:23,450
+And therefore to be sure,
+
+88
+00:03:23,996 --> 00:03:26,967
+I'll actually repeat this in a new thread
+
+89
+00:03:27,754 --> 00:03:29,730
+and I'll send that same prompt in plain mode
+
+90
+00:03:29,842 --> 00:03:30,452
+in a new thread.
+
+91
+00:03:31,271 --> 00:03:32,010
+And indeed
+
+92
+00:03:32,556 --> 00:03:33,456
+it did now
+
+93
+00:03:34,162 --> 00:03:36,892
+use Playwright to open a browser window and
+
+94
+00:03:36,908 --> 00:03:39,285
+navigate around it. So this all here is
+
+95
+00:03:39,382 --> 00:03:40,072
+coming from
+
+96
+00:03:40,842 --> 00:03:43,456
+Codex, and that of course is a very powerful
+
+97
+00:03:43,488 --> 00:03:46,311
+tool because that allows it to test this
+
+98
+00:03:46,375 --> 00:03:48,331
+website. And here, for example, it's now
+
+99
+00:03:48,379 --> 00:03:50,705
+taking a look at it so that it understands
+
+100
+00:03:50,849 --> 00:03:52,998
+how exactly the site works before it
+
+101
+00:03:53,174 --> 00:03:54,361
+actually makes that plan.
+
+102
+00:03:55,115 --> 00:03:57,199
+That's of course super powerful. It was able
+
+103
+00:03:57,199 --> 00:03:59,508
+to reproduce that bug. Now it has some
+
+104
+00:03:59,508 --> 00:04:00,054
+questions,
+
+105
+00:04:00,631 --> 00:04:03,277
+and I wanna keep the clear button below.
+
+106
+00:04:03,838 --> 00:04:06,228
+And now after exploring this app, playing
+
+107
+00:04:06,276 --> 00:04:06,837
+around with it,
+
+108
+00:04:08,089 --> 00:04:08,233
+And
+
+109
+00:04:09,052 --> 00:04:11,588
+actually I think I wanna move clear up now
+
+110
+00:04:11,636 --> 00:04:13,594
+that I think about it. So I'll add this
+
+111
+00:04:13,642 --> 00:04:15,183
+instruction and send this
+
+112
+00:04:15,889 --> 00:04:18,569
+to Codex so that it updates its plan. Here
+
+113
+00:04:18,698 --> 00:04:20,752
+we go, that's the updated plan.
+
+114
+00:04:21,571 --> 00:04:23,561
+And now I'll submit this and let it
+
+115
+00:04:23,674 --> 00:04:24,749
+implement this plan.
+
+116
+00:04:26,017 --> 00:04:26,852
+And the good thing is
+
+117
+00:04:27,429 --> 00:04:30,078
+that now it can edit the code, it has all
+
+118
+00:04:30,190 --> 00:04:32,582
+these skills, it can use MCP servers if it
+
+119
+00:04:32,582 --> 00:04:35,246
+needs to look up docs and it can lint the
+
+120
+00:04:35,310 --> 00:04:37,701
+code. Check for type errors, it can run the
+
+121
+00:04:37,781 --> 00:04:40,203
+unit tests and it can use the browser to
+
+122
+00:04:40,203 --> 00:04:42,048
+verify that everything's working as it
+
+123
+00:04:42,048 --> 00:04:44,117
+should. And therefore once it's done, we
+
+124
+00:04:44,117 --> 00:04:46,074
+hopefully have an app that behaves the way
+
+125
+00:04:46,074 --> 00:04:48,401
+it should behave without us having to test
+
+126
+00:04:48,401 --> 00:04:48,962
+it first.
+
+127
+00:04:50,293 --> 00:04:53,855
+I can already edit my agents.md file whilst
+
+128
+00:04:53,855 --> 00:04:57,336
+it's still working to also tell it to always
+
+129
+00:04:57,432 --> 00:04:59,582
+use the Playwright MCP to verify changes
+
+130
+00:04:59,614 --> 00:05:01,603
+that have an impact on the UI or user
+
+131
+00:05:01,619 --> 00:05:02,229
+experience.
+
+132
+00:05:03,465 --> 00:05:04,349
+So now here it
+
+133
+00:05:05,072 --> 00:05:08,012
+executed its tests and now it's using
+
+134
+00:05:08,269 --> 00:05:10,390
+Playwright to interact with the browser to
+
+135
+00:05:10,422 --> 00:05:12,929
+manually verify that everything works the
+
+136
+00:05:12,929 --> 00:05:14,439
+way it should and looks the way it should.
+
+137
+00:05:15,451 --> 00:05:17,781
+So here, that is again Codex interacting
+
+138
+00:05:17,909 --> 00:05:20,014
+with the browser and I can already tell that
+
+139
+00:05:20,014 --> 00:05:21,701
+this looks better, got the buttons in the
+
+140
+00:05:21,701 --> 00:05:23,935
+same row as the title as I wanted it to.
+
+141
+00:05:24,899 --> 00:05:27,742
+It took a snapshot here so that it can see
+
+142
+00:05:27,791 --> 00:05:28,755
+what is in the browser.
+
+143
+00:05:29,477 --> 00:05:32,560
+And with that, it's done. It verified its
+
+144
+00:05:32,624 --> 00:05:35,177
+changes. Obviously, as always, we can and
+
+145
+00:05:35,193 --> 00:05:37,361
+should verify them too. Also take a look at
+
+146
+00:05:37,361 --> 00:05:39,448
+the concrete code changes, of course, do a
+
+147
+00:05:39,448 --> 00:05:40,123
+code review,
+
+148
+00:05:40,877 --> 00:05:43,591
+and also of course test them manually. You
+
+149
+00:05:43,623 --> 00:05:45,855
+don't wanna rely on the AI tests.
+
+150
+00:05:46,578 --> 00:05:48,087
+And for example, these heading
+
+151
+00:05:49,564 --> 00:05:51,025
+changes here don't seem to work.
+
+152
+00:05:51,571 --> 00:05:54,606
+Making it italic and bold, that works. But
+
+153
+00:05:54,606 --> 00:05:56,868
+changing the heading level does not work. I
+
+154
+00:05:57,093 --> 00:05:59,499
+also don't see those bullet points. Might be
+
+155
+00:05:59,499 --> 00:06:01,697
+a styling issue though, but that is
+
+156
+00:06:01,761 --> 00:06:04,344
+definitely something that must be changed.
+
+157
+00:06:05,676 --> 00:06:07,906
+If I save that and I go back to Notes, I can
+
+158
+00:06:07,954 --> 00:06:10,168
+see that here though. I can open it, edit
+
+159
+00:06:10,168 --> 00:06:11,692
+it, and obviously you can improve the
+
+160
+00:06:11,692 --> 00:06:13,971
+overall look and feel. I wanna next make
+
+161
+00:06:14,019 --> 00:06:16,891
+sure that these tools all work correctly,
+
+162
+00:06:17,308 --> 00:06:19,602
+that I got proper styles here. I think it's
+
+163
+00:06:19,650 --> 00:06:21,896
+just a styling issue. And then thereafter we
+
+164
+00:06:21,896 --> 00:06:23,388
+can move on to the next tasks.

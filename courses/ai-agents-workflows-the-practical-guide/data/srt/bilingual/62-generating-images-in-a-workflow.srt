@@ -1,0 +1,759 @@
+1
+00:00:00,369 --> 00:00:03,002
+So thus far in this section, we only dealt
+到目前為止，在本節中，我們只處理了
+
+2
+00:00:03,002 --> 00:00:05,909
+with generating text. And that is a common
+與生成文字。這是一個常見的
+
+3
+00:00:05,909 --> 00:00:08,430
+task because you are dealing with lots of
+任務，因為你正在處理很多
+
+4
+00:00:08,526 --> 00:00:11,176
+large language models, which are all about
+大型語言模型，都是關於
+
+5
+00:00:11,176 --> 00:00:12,011
+generating text.
+生成文字。
+
+6
+00:00:12,637 --> 00:00:15,496
+But of course, there also are many AI tools
+當然，還有很多人工智慧工具
+
+7
+00:00:15,753 --> 00:00:17,664
+that allow you to generate images.
+允許您生成圖像。
+
+8
+00:00:18,242 --> 00:00:22,288
+For example, OpenAI. They do not just offer
+例如，OpenAI。他們不只是提供
+
+9
+00:00:22,818 --> 00:00:26,367
+endpoints for generating text with various
+用於產生具有各種文字的端點
+
+10
+00:00:26,448 --> 00:00:29,210
+AI models. Instead, they also support
+人工智慧模型。相反，他們還支援
+
+11
+00:00:29,242 --> 00:00:31,408
+generating images. They actually also
+生成圖像。他們其實也
+
+12
+00:00:31,408 --> 00:00:34,119
+support analyzing images. So you could send
+支援分析圖像。所以你可以發送
+
+13
+00:00:34,167 --> 00:00:37,263
+images to their API to have the AI model
+圖像到他們的 API 以獲得 AI 模型
+
+14
+00:00:37,263 --> 00:00:38,049
+have a look at them.
+看看他們。
+
+15
+00:00:38,707 --> 00:00:40,648
+And you can take a look at the official
+還有你可以看一下官方的
+
+16
+00:00:40,648 --> 00:00:42,733
+documentation to see how that would work.
+檔案以了解其如何工作。
+
+17
+00:00:43,198 --> 00:00:46,117
+You would send a message that actually has a
+您將發送一條實際上包含
+
+18
+00:00:46,117 --> 00:00:50,529
+multipart content where you can combine text
+您可以在其中組合文字的多部分內容
+
+19
+00:00:51,058 --> 00:00:52,293
+and then an image.
+然後是圖像。
+
+20
+00:00:52,822 --> 00:00:54,972
+But here I'm looking to generate an image.
+但在這裡我想要產生一個圖像。
+
+21
+00:00:55,148 --> 00:00:57,041
+And for that, again, you have different
+為此，你有不同的
+
+22
+00:00:57,314 --> 00:00:57,779
+options.
+選項。
+
+23
+00:00:58,597 --> 00:01:01,546
+You can use this create endpoint, which
+您可以使用此建立端點，它
+
+24
+00:01:01,578 --> 00:01:03,037
+we've been using all the time now,
+我們現在一直在使用，
+
+25
+00:01:03,743 --> 00:01:03,919
+to
+到
+
+26
+00:01:04,560 --> 00:01:07,815
+send a prompt that describes your image
+發送描述您的圖像的提示
+
+27
+00:01:08,392 --> 00:01:11,309
+and then add this tools instruction where
+然後在其中添加此工具指令
+
+28
+00:01:11,502 --> 00:01:11,566
+you
+你
+
+29
+00:01:12,239 --> 00:01:15,654
+tell the AI to use a tool called image
+告訴人工智慧使用一種名為圖像的工具
+
+30
+00:01:15,766 --> 00:01:17,818
+generation, which is one of the default
+生成，這是預設之一
+
+31
+00:01:17,914 --> 00:01:21,874
+tools available to the GPT models through
+GPT 模型可透過以下方式使用工具
+
+32
+00:01:21,938 --> 00:01:23,541
+the OpenAI API.
+OpenAI API。
+
+33
+00:01:24,343 --> 00:01:27,119
+So that's one way of triggering image
+這是觸發圖像的一種方式
+
+34
+00:01:27,376 --> 00:01:27,921
+generation.
+一代。
+
+35
+00:01:29,076 --> 00:01:32,814
+Now, this approach here is especially useful
+現在，這種方法特別有用
+
+36
+00:01:33,151 --> 00:01:35,461
+if you plan on going back and forth, if you
+如果你打算來回，如果你
+
+37
+00:01:35,494 --> 00:01:38,044
+plan on maybe building your own chat
+計劃也許建立自己的聊天室
+
+38
+00:01:38,044 --> 00:01:40,996
+application where users can refine images
+使用者可以優化圖像的應用程式
+
+39
+00:01:41,109 --> 00:01:43,307
+over time and where you maybe don't just
+隨著時間的推移，你可能不只是
+
+40
+00:01:43,419 --> 00:01:45,665
+wanna send a single prompt like this, but
+想發送這樣的單一提示，但是
+
+41
+00:01:45,665 --> 00:01:48,810
+where you maybe wanna include a growing chat
+您可能想在其中添加不斷增長的聊天內容
+
+42
+00:01:48,810 --> 00:01:52,466
+history. By the way, managing history and
+歷史。順便說一句，管理歷史和
+
+43
+00:01:52,562 --> 00:01:54,663
+memory is also something we'll get back to
+記憶也是我們會回到的東西
+
+44
+00:01:54,663 --> 00:01:55,192
+in this course.
+在這門課程中。
+
+45
+00:01:56,010 --> 00:01:58,688
+If you just wanna generate one single image
+如果您只想生成一張圖像
+
+46
+00:01:58,897 --> 00:02:01,078
+based on one prompt, you could use this
+根據一個提示，你可以使用這個
+
+47
+00:02:01,078 --> 00:02:03,098
+approach, but you can also take a look at
+方法，但你也可以看看
+
+48
+00:02:03,146 --> 00:02:04,734
+their image generation guide
+他們的圖像生成指南
+
+49
+00:02:05,712 --> 00:02:07,188
+and then use the
+然後使用
+
+50
+00:02:07,877 --> 00:02:10,684
+image API, which they recommend, at least at
+圖像 API，他們推薦至少在
+
+51
+00:02:10,684 --> 00:02:12,544
+the point of time where I'm recording this,
+我記錄這個的時間點
+
+52
+00:02:12,864 --> 00:02:14,949
+if you only need to generate or edit a
+如果您只需要產生或編輯
+
+53
+00:02:14,965 --> 00:02:17,654
+single image. Which is what I wanna do here
+單一圖像。這就是我想在這裡做的
+
+54
+00:02:17,947 --> 00:02:19,967
+because I only wanna generate a single
+因為我只想生成一個
+
+55
+00:02:20,293 --> 00:02:20,749
+thumbnail.
+縮圖。
+
+56
+00:02:21,480 --> 00:02:23,608
+So in that case, they recommend that we use
+所以在這種情況下，他們建議我們使用
+
+57
+00:02:23,608 --> 00:02:26,107
+the image API. And of course that may be
+圖像 API。當然，這可能是
+
+58
+00:02:26,172 --> 00:02:27,848
+different for other providers.
+對於其他提供者來說有所不同。
+
+59
+00:02:28,429 --> 00:02:30,477
+This is just the example for OpenAI.
+這只是 OpenAI 的一個範例。
+
+60
+00:02:31,036 --> 00:02:31,553
+And therefore
+因此
+
+61
+00:02:32,086 --> 00:02:34,155
+if I click on this image API,
+如果我點擊這個圖像 API，
+
+62
+00:02:34,753 --> 00:02:37,857
+I now finally get some instructions on how
+我現在終於得到了一些關於如何進行的說明
+
+63
+00:02:38,180 --> 00:02:38,988
+to do that
+這樣做
+
+64
+00:02:39,537 --> 00:02:42,107
+because now I can actually target
+因為現在我可以真正瞄準
+
+65
+00:02:42,107 --> 00:02:44,191
+client.images instead of
+client.images 而非
+
+66
+00:02:44,224 --> 00:02:44,919
+client.responses.generate.
+使用者端.回應.產生。
+
+67
+00:02:47,778 --> 00:02:51,178
+To tell OpenAI which image model I wanna
+告訴 OpenAI 我想要哪種圖像模型
+
+68
+00:02:51,194 --> 00:02:53,054
+use. And at the point of time where I'm
+使用。在我現在所處的時刻
+
+69
+00:02:53,054 --> 00:02:56,743
+recording this, GPT Image 1 is the latest,
+記錄一下，GPT Image 1 是最新的，
+
+70
+00:02:56,903 --> 00:02:58,395
+best model they're offering.
+他們提供的最佳型號。
+
+71
+00:02:59,309 --> 00:03:01,394
+Then you would include your prompt that
+然後你會包含你的提示
+
+72
+00:03:01,394 --> 00:03:02,404
+describes the image.
+描述圖像。
+
+73
+00:03:03,302 --> 00:03:05,563
+You would set the number of images you wanna
+你可以設定你想要的圖像數量
+
+74
+00:03:05,563 --> 00:03:08,306
+get back. You can define the size, though
+回來吧。不過，您可以定義大小
+
+75
+00:03:08,386 --> 00:03:09,364
+you should take a look at their
+你應該看看他們的
+
+76
+00:03:09,412 --> 00:03:12,571
+documentation because only certain sizes are
+文檔，因為只有某些尺寸
+
+77
+00:03:12,636 --> 00:03:13,245
+supported.
+支援。
+
+78
+00:03:14,607 --> 00:03:16,755
+And you can also tweak some other settings.
+您也可以調整一些其他設定。
+
+79
+00:03:16,931 --> 00:03:19,463
+You could request a certain quality. The
+您可以要求一定的品質。這
+
+80
+00:03:19,591 --> 00:03:22,315
+default is auto though, so OpenAI will
+預設是自動，所以 OpenAI 會
+
+81
+00:03:22,315 --> 00:03:24,366
+decide based on your prompt which image
+根據您的提示決定使用哪個圖像
+
+82
+00:03:24,478 --> 00:03:25,920
+quality it will generate.
+它將產生的品質。
+
+83
+00:03:26,706 --> 00:03:29,125
+You can request different output formats,
+您可以請求不同的輸出格式，
+
+84
+00:03:29,286 --> 00:03:31,144
+PNG, JPEG, or WebP,
+PNG、JPEG 或 WebP，
+
+85
+00:03:31,914 --> 00:03:33,981
+and also control other settings.
+並控制其他設定。
+
+86
+00:03:34,798 --> 00:03:37,795
+Now, what's important is that at the point
+現在，重要的是在這一點上
+
+87
+00:03:37,795 --> 00:03:40,183
+of time where I'm recording this, You must
+在我錄製這個的時候，你必須
+
+88
+00:03:40,183 --> 00:03:43,219
+have a verified account in order to generate
+有一個經過驗證的帳戶才能生成
+
+89
+00:03:43,331 --> 00:03:43,765
+images.
+圖像。
+
+90
+00:03:44,359 --> 00:03:47,170
+So in your organization settings, you must
+因此，在您的組織設置中，您必須
+
+91
+00:03:47,170 --> 00:03:50,270
+make sure that you are verified. Otherwise,
+確保您已通過驗證。否則，
+
+92
+00:03:50,366 --> 00:03:52,679
+you can't use these image generation
+你不能使用這些圖像生成
+
+93
+00:03:52,695 --> 00:03:55,105
+endpoints. You need to go through that
+端點。你需要經歷這個
+
+94
+00:03:55,105 --> 00:03:57,369
+verification process in order to do so.
+驗證過程，以便這樣做。
+
+95
+00:03:57,996 --> 00:03:59,570
+But with that out of the way, you can
+但排除了這一點，你就可以
+
+96
+00:03:59,682 --> 00:04:01,433
+generate images and that's what I'm doing
+生成圖像，這就是我正在做的
+
+97
+00:04:01,465 --> 00:04:03,874
+here in this generate thumbnail step.
+在此產生縮圖步驟中。
+
+98
+00:04:04,902 --> 00:04:07,681
+There, I'm using exactly that API I just
+在那裡，我正在使用剛剛的 API
+
+99
+00:04:07,713 --> 00:04:10,808
+showed you, the GPT image 1 model with my
+向您展示了我的 GPT 圖像 1 模型
+
+100
+00:04:10,840 --> 00:04:13,549
+prompt where I include the entire article
+提示我包含整篇文章
+
+101
+00:04:13,581 --> 00:04:16,498
+that was generated and I tell the AI that it
+這是生成的，我告訴人工智慧它
+
+102
+00:04:16,530 --> 00:04:19,111
+should generate a fitting thumbnail for this
+應該為此產生一個合適的縮圖
+
+103
+00:04:19,111 --> 00:04:19,496
+article.
+文章。
+
+104
+00:04:20,394 --> 00:04:21,323
+I want one image
+我想要一張圖片
+
+105
+00:04:21,916 --> 00:04:25,218
+and I want a JPEG image in this format
+我想要這種格式的 JPEG 影像
+
+106
+00:04:25,763 --> 00:04:29,771
+and then I get back that image as a base64
+然後我以 base64 的形式傳回該映像
+
+107
+00:04:29,771 --> 00:04:32,367
+encoded string and I convert that to some
+編碼的字串，我將其轉換為一些
+
+108
+00:04:32,416 --> 00:04:34,996
+raw bytes which then are returned by that
+然後回傳原始位元組
+
+109
+00:04:35,060 --> 00:04:37,786
+generate thumbnail function and then it's
+產生縮圖函式然後就是
+
+110
+00:04:37,786 --> 00:04:40,256
+these raw bytes that are actually getting
+這些原始位元組實際上正在獲取
+
+111
+00:04:40,288 --> 00:04:43,688
+stored in an image file next to my outline.
+儲存在我的輪廓旁邊的圖像檔案中。
+
+112
+00:04:44,362 --> 00:04:46,912
+I also store the blog post next to that
+我還將部落格文章儲存在旁邊
+
+113
+00:04:46,992 --> 00:04:47,537
+outline then.
+然後概述。
+
+114
+00:04:48,932 --> 00:04:50,937
+And therefore, we can now take a look at
+因此，我們現在可以看一下
+
+115
+00:04:50,937 --> 00:04:52,990
+that. I can now run this file
+那。我現在可以運行這個檔案
+
+116
+00:04:53,583 --> 00:04:56,005
+and as an input to this command, I should
+作為這個命令的輸入，我應該
+
+117
+00:04:56,213 --> 00:04:58,443
+point at the outline file I prepared,
+指向我準備的大綱檔案，
+
+118
+00:04:59,052 --> 00:05:01,185
+so new_post-outline.txt.
+所以new_post-outline.txt。
+
+119
+00:05:02,585 --> 00:05:04,756
+And it'll now go ahead, generate that
+現在它會繼續生成
+
+120
+00:05:04,869 --> 00:05:06,278
+article draft, and then
+文章草稿，然後
+
+121
+00:05:06,877 --> 00:05:09,695
+also hopefully generate a thumbnail and save
+也希望產生縮圖並儲存
+
+122
+00:05:09,792 --> 00:05:12,440
+all next to my outline.txt file.
+全部位於我的outline.txt 檔案旁邊。
+
+123
+00:05:13,342 --> 00:05:15,791
+And that's then an example for a multi-step
+這就是多步驟的範例
+
+124
+00:05:16,001 --> 00:05:16,774
+workflow again
+再次工作流程
+
+125
+00:05:17,306 --> 00:05:19,546
+that has some special tweaks and
+有一些特殊的調整和
+
+126
+00:05:19,546 --> 00:05:22,514
+adjustments, and that's also including image
+調整，其中還包括圖像
+
+127
+00:05:22,708 --> 00:05:23,160
+generation.
+一代。
+
+128
+00:05:24,709 --> 00:05:26,855
+So the workflow did finish for me here,
+所以工作流程確實在這裡完成了，
+
+129
+00:05:27,613 --> 00:05:29,839
+and let's take a look at the markdown file.
+讓我們來看看 markdown 檔案。
+
+130
+00:05:30,583 --> 00:05:32,849
+Here we can see it also generated this
+在這裡我們可以看到它也產生了這個
+
+131
+00:05:32,849 --> 00:05:35,243
+metadata and then wrote this article,
+元資料然後寫了這篇文章，
+
+132
+00:05:36,207 --> 00:05:36,400
+which
+哪個
+
+133
+00:05:37,171 --> 00:05:38,537
+looks quite good, I'd say.
+我想說，看起來不錯。
+
+134
+00:05:39,164 --> 00:05:42,040
+And it also generated this image,
+它也生成了這個圖像，
+
+135
+00:05:42,859 --> 00:05:43,888
+which also isn't too bad.
+這也還不錯。
+
+136
+00:05:44,884 --> 00:05:47,905
+Now, I will of course say that you always
+現在，我當然會說你總是
+
+137
+00:05:48,419 --> 00:05:48,901
+wanna
+想要
+
+138
+00:05:49,544 --> 00:05:52,404
+carefully evaluate those AI-generated
+仔細評估那些人工智慧產生的
+
+139
+00:05:52,420 --> 00:05:54,830
+results. You can use the generated article
+結果。您可以使用生成的文章
+
+140
+00:05:54,910 --> 00:05:57,079
+here as a starting point. You can of course
+這裡作為起點。當然可以
+
+141
+00:05:57,159 --> 00:05:59,760
+also publish it as is, but for example, here
+也按原樣發布，但例如，在這裡
+
+142
+00:05:59,808 --> 00:06:01,992
+you can already see the date makes no sense
+你已經可以看到日期毫無意義
+
+143
+00:06:01,992 --> 00:06:04,946
+at all. So you wanna carefully evaluate it,
+根本不。所以你要仔細評估一下，
+
+144
+00:06:05,363 --> 00:06:07,820
+not just the date, but the overall article
+不只是日期，還有整篇文章
+
+145
+00:06:08,093 --> 00:06:09,971
+and tweak it. But of course you can still
+並調整它。但當然你仍然可以
+
+146
+00:06:10,035 --> 00:06:12,508
+save a lot of time if the AI gets you
+如果人工智慧抓住你，可以節省很多時間
+
+147
+00:06:12,508 --> 00:06:15,398
+started with it and you then just put some
+從它開始，然後你只需放一些
+
+148
+00:06:15,398 --> 00:06:16,682
+final touches on it.
+最後的潤飾。
+
+149
+00:06:17,790 --> 00:06:19,668
+And that's therefore another example for a
+因此，這是另一個例子
+
+150
+00:06:19,732 --> 00:06:22,462
+multi-step workflow that actually includes
+多步驟工作流程，實際上包括
+
+151
+00:06:22,462 --> 00:06:22,895
+some more
+還有一些
+
+152
+00:06:23,425 --> 00:06:25,448
+advanced settings and steps.
+進階設定和步驟。

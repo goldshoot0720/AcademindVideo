@@ -1,0 +1,1003 @@
+1
+00:00:02,288 --> 00:00:05,014
+So we can add nodes, we can add edges, and
+
+2
+00:00:05,030 --> 00:00:07,305
+we have our utility methods for finding
+
+3
+00:00:07,450 --> 00:00:07,741
+edges.
+
+4
+00:00:08,499 --> 00:00:10,643
+But one thing is missing, or 2 things,
+
+5
+00:00:11,061 --> 00:00:13,054
+removing nodes and removing edges.
+
+6
+00:00:13,907 --> 00:00:16,318
+So we want a remove node method
+
+7
+00:00:17,010 --> 00:00:18,911
+which gets the node identifier,
+
+8
+00:00:20,721 --> 00:00:23,048
+and we want a remove edge method
+
+9
+00:00:23,711 --> 00:00:26,542
+which in the end gets the start node and and
+
+10
+00:00:26,574 --> 00:00:27,186
+the end node
+
+11
+00:00:27,782 --> 00:00:29,166
+for which we wanna remove the edge.
+
+12
+00:00:29,794 --> 00:00:32,419
+Because removing edges is very similar to
+
+13
+00:00:32,516 --> 00:00:35,237
+adding edges, we need to know which 2 nodes
+
+14
+00:00:35,495 --> 00:00:37,731
+are connected and therefore which connection
+
+15
+00:00:37,747 --> 00:00:38,471
+we should delete.
+
+16
+00:00:39,613 --> 00:00:41,673
+Now let's start with removing nodes.
+
+17
+00:00:42,750 --> 00:00:44,295
+When we remove a node,
+
+18
+00:00:45,840 --> 00:00:47,839
+we of course wanna reach out
+
+19
+00:00:49,001 --> 00:00:51,952
+to this node for the given node identifier.
+
+20
+00:00:52,796 --> 00:00:54,690
+And for example, simply set this to null
+
+21
+00:00:55,532 --> 00:00:58,318
+or to undefined to get rid of the data
+
+22
+00:00:58,318 --> 00:01:01,103
+stored for that node identifier in nodes.
+
+23
+00:01:04,180 --> 00:01:06,725
+Of course, JavaScript also has other ways of
+
+24
+00:01:06,774 --> 00:01:09,287
+deleting things from objects. We can use the
+
+25
+00:01:09,287 --> 00:01:12,591
+delete operator, we can use the Reflect API
+
+26
+00:01:13,074 --> 00:01:14,493
+with deleteProperty.
+
+27
+00:01:15,154 --> 00:01:18,040
+There are various ways of deleting something
+
+28
+00:01:18,360 --> 00:01:20,474
+I'll use this very simple approach here.
+
+29
+00:01:21,900 --> 00:01:24,079
+Now deleting just a node is not enough
+
+30
+00:01:24,224 --> 00:01:26,931
+though. When we remove a node, we of course
+
+31
+00:01:27,188 --> 00:01:29,495
+also need to delete all the edges
+
+32
+00:01:30,072 --> 00:01:32,139
+in which this node was involved.
+
+33
+00:01:33,468 --> 00:01:35,615
+So therefore, of course, we reach out to
+
+34
+00:01:35,695 --> 00:01:38,692
+this edges for the given node identifier
+
+35
+00:01:39,381 --> 00:01:42,200
+and also set that to undefined.
+
+36
+00:01:42,745 --> 00:01:43,082
+So we
+
+37
+00:01:43,610 --> 00:01:43,979
+clear
+
+38
+00:01:44,668 --> 00:01:47,873
+the list of edges that were stored for that
+
+39
+00:01:47,873 --> 00:01:48,162
+node.
+
+40
+00:01:48,916 --> 00:01:49,590
+But that's not all.
+
+41
+00:01:50,425 --> 00:01:54,100
+Other nodes might have pointed at this node.
+
+42
+00:01:54,951 --> 00:01:57,342
+So what we'll have to do is we'll have to go
+
+43
+00:01:57,342 --> 00:01:59,942
+through all the other edges entries for all
+
+44
+00:02:00,086 --> 00:02:02,573
+the other nodes and check whether one of
+
+45
+00:02:02,622 --> 00:02:05,558
+those nodes points at this node identifier.
+
+46
+00:02:06,955 --> 00:02:09,779
+And if that's the case, we need to delete
+
+47
+00:02:09,779 --> 00:02:10,951
+the respective entry.
+
+48
+00:02:11,625 --> 00:02:13,390
+Now that will be some work, but we have to
+
+49
+00:02:13,390 --> 00:02:13,663
+do it.
+
+50
+00:02:16,015 --> 00:02:18,718
+We could do that since edges is
+
+51
+00:02:19,539 --> 00:02:20,874
+an object here.
+
+52
+00:02:21,566 --> 00:02:24,044
+We could do this here with a for-in loop.
+
+53
+00:02:25,740 --> 00:02:27,508
+For const edge in
+
+54
+00:02:28,408 --> 00:02:28,794
+edges
+
+55
+00:02:30,932 --> 00:02:31,447
+or edge
+
+56
+00:02:32,845 --> 00:02:34,425
+identifier in edges.
+
+57
+00:02:35,824 --> 00:02:37,564
+With that, we can go through our edges here.
+
+58
+00:02:39,057 --> 00:02:40,945
+And edges is an object where we have our
+
+59
+00:02:40,945 --> 00:02:43,414
+node identifiers and then a list for every
+
+60
+00:02:43,414 --> 00:02:44,777
+node with the connections
+
+61
+00:02:45,761 --> 00:02:46,858
+and now in there
+
+62
+00:02:47,778 --> 00:02:49,892
+we want a nested loop
+
+63
+00:02:51,505 --> 00:02:54,100
+where we go through all the end nodes
+
+64
+00:02:55,112 --> 00:02:56,141
+of the given
+
+65
+00:02:58,968 --> 00:02:59,274
+edge
+
+66
+00:03:02,905 --> 00:03:05,951
+and we check if end node is equal to the
+
+67
+00:03:05,951 --> 00:03:06,924
+node identifier
+
+68
+00:03:08,011 --> 00:03:09,048
+we want to remove.
+
+69
+00:03:10,798 --> 00:03:13,106
+And if that's the case, we want to remove
+
+70
+00:03:13,138 --> 00:03:14,420
+that node identifier.
+
+71
+00:03:15,478 --> 00:03:17,385
+Now we got various ways of doing that. We
+
+72
+00:03:17,449 --> 00:03:20,190
+could have our helper variable i here before
+
+73
+00:03:20,190 --> 00:03:22,450
+we start looping through all the end nodes
+
+74
+00:03:22,659 --> 00:03:23,364
+for a given edge.
+
+75
+00:03:24,582 --> 00:03:26,906
+And after this if block at the end of this
+
+76
+00:03:26,922 --> 00:03:28,364
+nested loop, we increment i.
+
+77
+00:03:29,262 --> 00:03:30,929
+If we make it into this if block, we know
+
+78
+00:03:30,929 --> 00:03:32,179
+that we now have
+
+79
+00:03:32,756 --> 00:03:33,221
+a match
+
+80
+00:03:33,958 --> 00:03:36,362
+for the given index, and therefore then we
+
+81
+00:03:36,362 --> 00:03:37,789
+could reach out to edges
+
+82
+00:03:41,513 --> 00:03:42,204
+thisEdges,
+
+83
+00:03:43,424 --> 00:03:45,351
+and here of course it should also be
+
+84
+00:03:46,635 --> 00:03:47,743
+thisEdges.
+
+85
+00:03:48,498 --> 00:03:49,012
+So here
+
+86
+00:03:49,622 --> 00:03:51,276
+and here, that should be thisEdges
+
+87
+00:03:51,950 --> 00:03:53,829
+for the given edge identifier here.
+
+88
+00:03:54,519 --> 00:03:57,554
+And we can use splice then to splice this
+
+89
+00:03:57,570 --> 00:04:00,845
+one object at this index, and thereafter we
+
+90
+00:04:00,845 --> 00:04:04,136
+can of course break out of this loop of this
+
+91
+00:04:04,153 --> 00:04:06,414
+inner loop because we don't need to continue
+
+92
+00:04:06,478 --> 00:04:09,156
+looping through that list for that given
+
+93
+00:04:09,429 --> 00:04:12,043
+node because we already removed that one
+
+94
+00:04:12,171 --> 00:04:13,967
+connection it might have to our
+
+95
+00:04:14,416 --> 00:04:17,110
+to-be-deleted node. Since one node can't
+
+96
+00:04:17,126 --> 00:04:19,243
+have more than one connection to one and the
+
+97
+00:04:19,291 --> 00:04:21,809
+same node, we don't need to continue looping
+
+98
+00:04:21,873 --> 00:04:22,034
+here.
+
+99
+00:04:22,836 --> 00:04:24,792
+And then we continue with the next other
+
+100
+00:04:25,017 --> 00:04:26,909
+node we might have in our graph.
+
+101
+00:04:27,887 --> 00:04:31,257
+So that is how we clear all the edges for a
+
+102
+00:04:31,257 --> 00:04:32,220
+node we wanna remove.
+
+103
+00:04:33,264 --> 00:04:34,259
+Now let's give this a try.
+
+104
+00:04:35,030 --> 00:04:35,784
+Let's say here
+
+105
+00:04:36,394 --> 00:04:39,060
+we actually reach out to our graph and we
+
+106
+00:04:39,670 --> 00:04:42,415
+remove a node. We remove the node with
+
+107
+00:04:42,495 --> 00:04:43,154
+identifier
+
+108
+00:04:43,764 --> 00:04:43,972
+2,
+
+109
+00:04:44,647 --> 00:04:45,177
+Manuel.
+
+110
+00:04:46,027 --> 00:04:46,702
+Now there are
+
+111
+00:04:47,456 --> 00:04:52,433
+2 edges we have. 1, Max, points at 2 and 3,
+
+112
+00:04:52,755 --> 00:04:54,087
+Jules, points at 2.
+
+113
+00:04:54,617 --> 00:04:57,801
+So those 2 edges should be gone now besides
+
+114
+00:04:58,139 --> 00:04:59,379
+manual as a node.
+
+115
+00:05:00,072 --> 00:05:01,746
+If we save that and reload,
+
+116
+00:05:02,584 --> 00:05:04,693
+I get an error here. This edges edge
+
+117
+00:05:04,693 --> 00:05:06,376
+identifier is not iterable.
+
+118
+00:05:07,009 --> 00:05:08,209
+And this is now happening
+
+119
+00:05:08,875 --> 00:05:10,368
+because I just set
+
+120
+00:05:12,299 --> 00:05:13,808
+this here to undefined,
+
+121
+00:05:14,888 --> 00:05:17,713
+this node which should be removed. Now, this
+
+122
+00:05:17,713 --> 00:05:20,926
+node here, node 2, actually didn't have any
+
+123
+00:05:21,023 --> 00:05:23,527
+edges before. So it had no entry in the
+
+124
+00:05:23,527 --> 00:05:24,607
+edges object before.
+
+125
+00:05:25,283 --> 00:05:28,574
+But now I always set an entry of undefined
+
+126
+00:05:28,574 --> 00:05:28,847
+here
+
+127
+00:05:29,522 --> 00:05:30,308
+when we remove it.
+
+128
+00:05:31,368 --> 00:05:33,712
+Now that is what I meant before. This is the
+
+129
+00:05:34,034 --> 00:05:36,121
+quickest and dirtiest way of removing a
+
+130
+00:05:36,121 --> 00:05:38,738
+value. It might work for nodes, but for
+
+131
+00:05:38,995 --> 00:05:39,380
+edges
+
+132
+00:05:39,958 --> 00:05:42,431
+where we then try to loop through the values
+
+133
+00:05:42,560 --> 00:05:43,555
+stored for the edges,
+
+134
+00:05:44,230 --> 00:05:46,670
+that fails because we can't loop through
+
+135
+00:05:46,783 --> 00:05:47,377
+undefined.
+
+136
+00:05:48,083 --> 00:05:49,560
+So therefore here we want to delete this
+
+137
+00:05:49,689 --> 00:05:52,214
+differently. And I'll use the reflect API
+
+138
+00:05:52,408 --> 00:05:55,499
+with deleteProperty where I simply point at
+
+139
+00:05:55,499 --> 00:05:58,107
+a target object which is this.edges
+
+140
+00:05:58,783 --> 00:06:00,988
+and then the key which is node identifier.
+
+141
+00:06:01,519 --> 00:06:04,414
+And this will now safely remove that data,
+
+142
+00:06:04,495 --> 00:06:07,777
+that property from that edges object if it
+
+143
+00:06:07,777 --> 00:06:08,613
+exists there.
+
+144
+00:06:11,140 --> 00:06:12,608
+So now with that, if we reload,
+
+145
+00:06:13,196 --> 00:06:13,767
+this works.
+
+146
+00:06:14,338 --> 00:06:16,198
+And in our graph we see for nodes
+
+147
+00:06:16,956 --> 00:06:19,763
+2 is undefined. We could have used the
+
+148
+00:06:19,763 --> 00:06:22,313
+reflect API for deleting this in a different
+
+149
+00:06:22,345 --> 00:06:22,858
+way as well.
+
+150
+00:06:23,692 --> 00:06:26,306
+But for edges, we now also see that I
+
+151
+00:06:26,498 --> 00:06:30,171
+cleared all the connections to manual
+
+152
+00:06:30,443 --> 00:06:32,095
+because manual was deleted.
+
+153
+00:06:32,768 --> 00:06:35,286
+Now we could also add an extra check to
+
+154
+00:06:35,559 --> 00:06:36,970
+remove this entire array
+
+155
+00:06:37,515 --> 00:06:40,193
+if we have no remaining edges, but we should
+
+156
+00:06:40,290 --> 00:06:43,053
+also be fine like this. So ultimately, That
+
+157
+00:06:43,053 --> 00:06:44,154
+is totally up to you.
+
+158
+00:06:47,040 --> 00:06:49,588
+Now last but not least, let's make sure we
+
+159
+00:06:49,588 --> 00:06:52,879
+can also remove just an edge and not just
+
+160
+00:06:52,879 --> 00:06:53,734
+entire nodes.
+
+161
+00:06:54,776 --> 00:06:56,240
+Removing an edge is a bit easier.
+
+162
+00:06:56,804 --> 00:06:59,219
+We first of all have to find out if that
+
+163
+00:06:59,283 --> 00:07:01,295
+edge which we wanna remove exists.
+
+164
+00:07:02,196 --> 00:07:05,506
+So we can check if this has edge for start
+
+165
+00:07:05,506 --> 00:07:06,840
+node and end node
+
+166
+00:07:08,238 --> 00:07:10,712
+using this utility method which will return
+
+167
+00:07:10,712 --> 00:07:12,557
+true or false and if this returns
+
+168
+00:07:15,776 --> 00:07:17,878
+false. So we can add an exclamation mark
+
+169
+00:07:17,878 --> 00:07:20,367
+here to check for that. If we don't find
+
+170
+00:07:20,561 --> 00:07:21,014
+this edge,
+
+171
+00:07:21,838 --> 00:07:24,052
+we can throw an error, for example,
+
+172
+00:07:25,068 --> 00:07:28,391
+edge does not exist, because we can't remove
+
+173
+00:07:28,391 --> 00:07:30,230
+a connection that does not exist.
+
+174
+00:07:33,203 --> 00:07:35,313
+Now if we make it past this if check, we
+
+175
+00:07:35,313 --> 00:07:37,359
+know that the connection does exist
+
+176
+00:07:37,939 --> 00:07:40,307
+and then of course we can get rid of it.
+
+177
+00:07:41,073 --> 00:07:43,883
+Now to get rid of it, we want to reach out
+
+178
+00:07:43,883 --> 00:07:44,028
+to
+
+179
+00:07:44,590 --> 00:07:46,581
+edges for the start node
+
+180
+00:07:47,319 --> 00:07:50,755
+and then find the to-be-removed end node
+
+181
+00:07:51,109 --> 00:07:54,336
+with indexOf, for example. So basically what
+
+182
+00:07:54,336 --> 00:07:56,263
+I'm also doing down there when I check
+
+183
+00:07:56,391 --> 00:07:57,290
+whether this exists.
+
+184
+00:07:58,174 --> 00:08:00,711
+And therefore, of course, to not do the same
+
+185
+00:08:00,743 --> 00:08:01,481
+thing twice,
+
+186
+00:08:02,107 --> 00:08:03,970
+we can also get rid of this check again
+
+187
+00:08:04,098 --> 00:08:04,227
+here,
+
+188
+00:08:05,062 --> 00:08:05,656
+get our
+
+189
+00:08:06,574 --> 00:08:08,057
+node index here
+
+190
+00:08:10,184 --> 00:08:11,377
+and check if node
+
+191
+00:08:12,602 --> 00:08:15,359
+index is equal to -1, which means we didn't
+
+192
+00:08:15,359 --> 00:08:18,131
+find it, and then we could throw our error,
+
+193
+00:08:21,116 --> 00:08:22,765
+edge does not exist.
+
+194
+00:08:24,042 --> 00:08:25,934
+And if we make it past this if check now,
+
+195
+00:08:26,790 --> 00:08:28,973
+we don't just know whether it exists or not,
+
+196
+00:08:29,037 --> 00:08:30,841
+but now we also have the index
+
+197
+00:08:31,505 --> 00:08:33,627
+of the end node we want to remove. And
+
+198
+00:08:33,659 --> 00:08:35,787
+therefore removing will be easier because
+
+199
+00:08:35,803 --> 00:08:37,737
+now we can reach out to our edges for the
+
+200
+00:08:37,737 --> 00:08:40,268
+given start node and simply call splice
+
+201
+00:08:40,332 --> 00:08:40,526
+there
+
+202
+00:08:41,122 --> 00:08:43,977
+with help of the node index and splice that
+
+203
+00:08:44,106 --> 00:08:46,865
+one element with that index to effectively
+
+204
+00:08:47,026 --> 00:08:47,494
+remove it.
+
+205
+00:08:48,397 --> 00:08:50,785
+And that's all we need to remove an edge.
+
+206
+00:08:52,522 --> 00:08:53,683
+We can now go down
+
+207
+00:08:54,441 --> 00:08:54,908
+and
+
+208
+00:08:55,650 --> 00:08:56,440
+get rid of that
+
+209
+00:08:57,020 --> 00:08:59,373
+remove node call here and instead let's
+
+210
+00:08:59,438 --> 00:09:00,276
+remove an edge.
+
+211
+00:09:02,007 --> 00:09:03,636
+And let's remove an edge that does not
+
+212
+00:09:03,636 --> 00:09:05,508
+exist, for example, 2 to 1.
+
+213
+00:09:06,444 --> 00:09:08,509
+But then let's also remove an edge that does
+
+214
+00:09:08,558 --> 00:09:10,574
+exist, let's say 1 to 3.
+
+215
+00:09:11,847 --> 00:09:13,701
+If we save that and reload, we'll get an
+
+216
+00:09:13,846 --> 00:09:15,683
+error because we try to remove
+
+217
+00:09:16,424 --> 00:09:17,714
+an edge that does not exist.
+
+218
+00:09:18,312 --> 00:09:20,141
+But actually we got a technical error here
+
+219
+00:09:20,740 --> 00:09:23,200
+because with indexOf, of course,
+
+220
+00:09:24,948 --> 00:09:25,142
+here
+
+221
+00:09:25,676 --> 00:09:27,829
+we might be calling this on undefined.
+
+222
+00:09:28,394 --> 00:09:30,528
+The same problem we faced down there in
+
+223
+00:09:30,641 --> 00:09:31,110
+hasEdge.
+
+224
+00:09:31,789 --> 00:09:34,458
+So we can also copy the solution from there,
+
+225
+00:09:34,862 --> 00:09:35,929
+this extra if check
+
+226
+00:09:36,544 --> 00:09:38,533
+where we see if we have any entries at all
+
+227
+00:09:38,663 --> 00:09:39,795
+for the given start node.
+
+228
+00:09:40,507 --> 00:09:41,639
+And if we don't,
+
+229
+00:09:42,286 --> 00:09:44,066
+we throw that error as well.
+
+230
+00:09:45,612 --> 00:09:48,147
+So let's now save this and reload. And now
+
+231
+00:09:48,260 --> 00:09:49,503
+we get our custom error.
+
+232
+00:09:50,778 --> 00:09:52,795
+And now to also see whether this works if we
+
+233
+00:09:52,795 --> 00:09:55,667
+try to delete something valid, Let's comment
+
+234
+00:09:55,667 --> 00:09:57,304
+out this remove edge call,
+
+235
+00:09:59,629 --> 00:10:00,245
+reload again,
+
+236
+00:10:01,087 --> 00:10:03,402
+and in our graph we see all nodes are there,
+
+237
+00:10:04,179 --> 00:10:05,037
+but in the edges
+
+238
+00:10:06,106 --> 00:10:06,818
+we removed
+
+239
+00:10:07,498 --> 00:10:10,861
+this 1 to 3 edge which we previously had
+
+240
+00:10:11,443 --> 00:10:14,127
+here. We added it previously, but here we
+
+241
+00:10:14,127 --> 00:10:15,938
+removed it, and therefore 1
+
+242
+00:10:16,536 --> 00:10:18,712
+max is now only pointing at 2
+
+243
+00:10:19,322 --> 00:10:22,535
+and no longer at 3. So that is working.
+
+244
+00:10:25,410 --> 00:10:27,370
+And these are the core functionalities we
+
+245
+00:10:27,370 --> 00:10:30,873
+might want in our graph to use it to, for
+
+246
+00:10:30,906 --> 00:10:34,409
+example, store contacts and their relation
+
+247
+00:10:34,441 --> 00:10:34,926
+to each other.
+
+248
+00:10:35,719 --> 00:10:38,843
+Now this graph has a relatively big flaw
+
+249
+00:10:39,054 --> 00:10:41,385
+though when it comes to time complexity.
+
+250
+00:10:42,010 --> 00:10:44,586
+So let's find plus fix that over the next
+
+251
+00:10:44,586 --> 00:10:44,963
+lectures.

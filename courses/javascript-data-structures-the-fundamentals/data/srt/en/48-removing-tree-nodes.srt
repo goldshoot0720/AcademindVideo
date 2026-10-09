@@ -1,0 +1,719 @@
+1
+00:00:02,195 --> 00:00:05,143
+So how can we make remove work? Now first of
+
+2
+00:00:05,143 --> 00:00:07,290
+all, I'm going to remove that slash here to
+
+3
+00:00:07,306 --> 00:00:08,748
+be in line with the other paths.
+
+4
+00:00:09,709 --> 00:00:13,426
+And now in remove, we in the end get a path
+
+5
+00:00:13,554 --> 00:00:15,140
+to the value we wanna remove.
+
+6
+00:00:15,974 --> 00:00:17,752
+And now it's up to you how you interpret
+
+7
+00:00:17,800 --> 00:00:21,229
+this. My goal is not to remove all nodes
+
+8
+00:00:21,261 --> 00:00:22,318
+that are included here,
+
+9
+00:00:23,023 --> 00:00:25,427
+but really just the final node. So really
+
+10
+00:00:25,427 --> 00:00:28,295
+just Call of Duty executable, not the game's
+
+11
+00:00:28,295 --> 00:00:28,615
+folder.
+
+12
+00:00:29,738 --> 00:00:31,712
+And therefore, again, we need to drill into
+
+13
+00:00:31,824 --> 00:00:32,611
+our nodes.
+
+14
+00:00:33,365 --> 00:00:34,970
+I'm going to reach out to the root node,
+
+15
+00:00:35,515 --> 00:00:37,505
+and there, of course, on every node will
+
+16
+00:00:37,537 --> 00:00:38,629
+have a remove_node
+
+17
+00:00:39,287 --> 00:00:40,651
+method which I can call.
+
+18
+00:00:41,389 --> 00:00:43,234
+And this method wants an index.
+
+19
+00:00:43,860 --> 00:00:44,775
+This is how we
+
+20
+00:00:45,401 --> 00:00:47,760
+implemented this before, but this is not how
+
+21
+00:00:47,808 --> 00:00:48,723
+I want it to work now.
+
+22
+00:00:49,413 --> 00:00:51,547
+Instead, this should take the path which I'm
+
+23
+00:00:51,580 --> 00:00:52,735
+getting as an argument here,
+
+24
+00:00:53,265 --> 00:00:56,024
+which I want to forward to remove_node. So
+
+25
+00:00:56,072 --> 00:00:58,749
+in remove node, I also get that path or as I
+
+26
+00:00:58,861 --> 00:01:01,426
+call it from a node perspective, a value
+
+27
+00:01:01,746 --> 00:01:03,846
+because it could be a path with multiple
+
+28
+00:01:03,846 --> 00:01:06,619
+segments or it could already be the final
+
+29
+00:01:06,651 --> 00:01:09,664
+value we wanna remove just as with add node.
+
+30
+00:01:10,097 --> 00:01:12,421
+There it could be a path with multiple
+
+31
+00:01:12,421 --> 00:01:15,273
+segments or it already is the final value we
+
+32
+00:01:15,290 --> 00:01:15,770
+wanna add.
+
+33
+00:01:17,245 --> 00:01:20,627
+So again, just as before, we wanna split our
+
+34
+00:01:20,979 --> 00:01:23,528
+value here into segments just as we're doing
+
+35
+00:01:23,560 --> 00:01:24,297
+it for adding.
+
+36
+00:01:24,859 --> 00:01:26,754
+Because we still need to find out if we
+
+37
+00:01:26,914 --> 00:01:29,580
+already are working on the final value that
+
+38
+00:01:29,580 --> 00:01:32,101
+should be removed or if we got additional
+
+39
+00:01:32,150 --> 00:01:33,884
+segments into which we need to drill.
+
+40
+00:01:35,201 --> 00:01:37,545
+So therefore, just as before, we wanna check
+
+41
+00:01:37,674 --> 00:01:40,468
+if we got no segments or if we got one
+
+42
+00:01:40,516 --> 00:01:41,079
+segment.
+
+43
+00:01:42,283 --> 00:01:44,563
+So I'm going to copy this. If we got no
+
+44
+00:01:44,676 --> 00:01:47,149
+segments, I'm just returning. We didn't find
+
+45
+00:01:47,149 --> 00:01:49,397
+anything then, so well, nothing we can do.
+
+46
+00:01:50,120 --> 00:01:52,227
+We didn't get any value, I mean. If it's
+
+47
+00:01:52,227 --> 00:01:55,714
+just one segment, then I know I wanna look
+
+48
+00:01:55,762 --> 00:01:56,763
+for a node
+
+49
+00:01:57,296 --> 00:02:00,267
+with this exact value inside of this node on
+
+50
+00:02:00,363 --> 00:02:01,699
+which removeNode is called.
+
+51
+00:02:02,254 --> 00:02:04,227
+And if I find such a node, I wanna remove
+
+52
+00:02:04,227 --> 00:02:04,325
+it.
+
+53
+00:02:06,478 --> 00:02:08,905
+So I'll get my existing node index here
+
+54
+00:02:09,901 --> 00:02:11,572
+by reaching out to this.children
+
+55
+00:02:12,167 --> 00:02:14,143
+and calling findIndex on it.
+
+56
+00:02:14,882 --> 00:02:17,334
+findIndex is a default method we can call on
+
+57
+00:02:17,384 --> 00:02:18,513
+arrays in JavaScript.
+
+58
+00:02:19,593 --> 00:02:21,003
+There we get a child,
+
+59
+00:02:21,900 --> 00:02:24,240
+and we want to return true if the child
+
+60
+00:02:24,240 --> 00:02:25,233
+value is equal
+
+61
+00:02:26,067 --> 00:02:28,022
+to the first segment
+
+62
+00:02:29,031 --> 00:02:29,560
+we got here.
+
+63
+00:02:30,570 --> 00:02:32,893
+Then we know this is the index of the node
+
+64
+00:02:32,893 --> 00:02:33,502
+we want to remove.
+
+65
+00:02:34,576 --> 00:02:37,172
+Now if existing node index
+
+66
+00:02:38,085 --> 00:02:40,088
+is smaller than 0,
+
+67
+00:02:40,889 --> 00:02:42,828
+which is the return value we'll get if we
+
+68
+00:02:42,908 --> 00:02:44,639
+don't find a matching child,
+
+69
+00:02:45,233 --> 00:02:47,784
+I'll actually throw a new error here, could
+
+70
+00:02:47,784 --> 00:02:51,057
+not find matching value, to let the user of
+
+71
+00:02:51,089 --> 00:02:53,287
+this code know that he passed in some
+
+72
+00:02:53,336 --> 00:02:54,346
+incorrect information.
+
+73
+00:02:55,742 --> 00:02:58,711
+If we do get an index greater or equal to 0,
+
+74
+00:02:58,791 --> 00:03:01,150
+we know we did find a child with that value
+
+75
+00:03:01,278 --> 00:03:03,123
+and then we wanna remove it. So then we
+
+76
+00:03:03,123 --> 00:03:04,856
+simply reach out to this children
+
+77
+00:03:05,450 --> 00:03:07,745
+and there we can call splice for existing
+
+78
+00:03:08,017 --> 00:03:11,114
+node index and then 1 element so that this 1
+
+79
+00:03:11,291 --> 00:03:13,638
+element starting at this index and therefore
+
+80
+00:03:13,638 --> 00:03:15,623
+the element with that index is being
+
+81
+00:03:15,801 --> 00:03:16,269
+removed.
+
+82
+00:03:17,512 --> 00:03:19,627
+Now that happens if we have one segment.
+
+83
+00:03:20,152 --> 00:03:23,250
+Now if we have more segments than that, so
+
+84
+00:03:23,298 --> 00:03:27,607
+if segments.length is greater than 1,
+
+85
+00:03:29,172 --> 00:03:31,581
+then we know we need to drill into our nodes
+
+86
+00:03:31,856 --> 00:03:32,227
+deeper.
+
+87
+00:03:33,149 --> 00:03:35,089
+And for that, again, we need to find any
+
+88
+00:03:35,170 --> 00:03:37,159
+existing child node first of all.
+
+89
+00:03:37,838 --> 00:03:39,814
+So I'm going to copy that code from adding a
+
+90
+00:03:39,814 --> 00:03:40,205
+node
+
+91
+00:03:40,777 --> 00:03:42,897
+to search for an existing child node
+
+92
+00:03:43,588 --> 00:03:43,797
+where
+
+93
+00:03:44,471 --> 00:03:47,298
+I have the first segment of all the segments
+
+94
+00:03:47,298 --> 00:03:49,274
+that might be left as a value.
+
+95
+00:03:50,189 --> 00:03:52,261
+Now here we have the problem that if we
+
+96
+00:03:52,277 --> 00:03:53,884
+don't find this child node,
+
+97
+00:03:54,446 --> 00:03:55,891
+we can't drill in deeper.
+
+98
+00:03:56,679 --> 00:03:58,718
+For adding a node, that was no problem.
+
+99
+00:03:59,971 --> 00:04:00,405
+If we
+
+100
+00:04:00,935 --> 00:04:03,425
+didn't find a child node here in the else
+
+101
+00:04:03,425 --> 00:04:05,256
+case, we simply created it.
+
+102
+00:04:05,850 --> 00:04:06,701
+But for deleting,
+
+103
+00:04:07,280 --> 00:04:09,946
+well, we wanna delete it. And we can't
+
+104
+00:04:09,946 --> 00:04:11,424
+delete what's not there.
+
+105
+00:04:12,436 --> 00:04:13,593
+So therefore, here,
+
+106
+00:04:14,268 --> 00:04:14,782
+if we
+
+107
+00:04:15,392 --> 00:04:17,899
+don't find an existing child node, if this
+
+108
+00:04:17,899 --> 00:04:20,469
+is falsy— so if it's undefined, for example,
+
+109
+00:04:20,485 --> 00:04:22,044
+if we find no child node—
+
+110
+00:04:22,863 --> 00:04:23,474
+well, then
+
+111
+00:04:24,229 --> 00:04:24,775
+I again
+
+112
+00:04:25,434 --> 00:04:26,783
+will throw an
+
+113
+00:04:27,361 --> 00:04:27,635
+error.
+
+114
+00:04:28,406 --> 00:04:29,193
+Could not find
+
+115
+00:04:30,334 --> 00:04:32,117
+matching path, for example.
+
+116
+00:04:32,824 --> 00:04:34,768
+And we could also provide more information
+
+117
+00:04:34,768 --> 00:04:35,442
+if we wanted to.
+
+118
+00:04:36,311 --> 00:04:38,147
+For example, the path segment for which we
+
+119
+00:04:38,147 --> 00:04:40,772
+failed. There I could then return
+
+120
+00:04:41,544 --> 00:04:45,055
+segments because that was the segment we
+
+121
+00:04:45,055 --> 00:04:47,428
+were looking for and we didn't find a child
+
+122
+00:04:47,428 --> 00:04:48,935
+node with that segment.
+
+123
+00:04:51,917 --> 00:04:54,060
+Now if we make it past this if check here,
+
+124
+00:04:54,350 --> 00:04:56,702
+we know that we did find a child node,
+
+125
+00:04:57,330 --> 00:04:59,360
+and then we'll repeat the same from adding a
+
+126
+00:04:59,360 --> 00:05:02,056
+node. We'll simply call remove_node in this
+
+127
+00:05:02,171 --> 00:05:03,559
+case on that node
+
+128
+00:05:04,158 --> 00:05:06,810
+and forward our remaining segments.
+
+129
+00:05:07,554 --> 00:05:09,754
+So we call slice with the index of 1 to
+
+130
+00:05:09,754 --> 00:05:11,890
+start with the second segment, skipping the
+
+131
+00:05:11,890 --> 00:05:14,035
+first one, which is the value of the
+
+132
+00:05:14,035 --> 00:05:15,583
+existing child node. Therefore, it's
+
+133
+00:05:15,583 --> 00:05:15,841
+skipped.
+
+134
+00:05:16,502 --> 00:05:18,535
+And we join this back together into a
+
+135
+00:05:18,535 --> 00:05:18,873
+string.
+
+136
+00:05:21,663 --> 00:05:23,581
+And this should hopefully do the trick.
+
+137
+00:05:24,161 --> 00:05:25,933
+With that, we should be able to remove the
+
+138
+00:05:25,933 --> 00:05:27,157
+Call of Duty executable,
+
+139
+00:05:27,866 --> 00:05:30,009
+but, uh, Call of Duty 3 should fail.
+
+140
+00:05:30,647 --> 00:05:30,775
+Or
+
+141
+00:05:31,692 --> 00:05:34,055
+a wrong folder name up here should also
+
+142
+00:05:34,120 --> 00:05:34,393
+fail.
+
+143
+00:05:35,309 --> 00:05:35,808
+Let's see,
+
+144
+00:05:36,515 --> 00:05:38,670
+if I reload, I get an error: could not find
+
+145
+00:05:38,670 --> 00:05:39,444
+matching value.
+
+146
+00:05:40,154 --> 00:05:42,202
+That's good. Let's now comment out this here
+
+147
+00:05:43,945 --> 00:05:44,477
+and reload.
+
+148
+00:05:45,402 --> 00:05:47,169
+And now I also get an error, but this time
+
+149
+00:05:47,169 --> 00:05:49,644
+for the path segment games, which is not
+
+150
+00:05:49,644 --> 00:05:52,520
+found because we didn't create any node that
+
+151
+00:05:52,617 --> 00:05:53,693
+would have that name.
+
+152
+00:05:54,561 --> 00:05:56,233
+And if I now also comment out this, we
+
+153
+00:05:56,233 --> 00:05:56,572
+should have
+
+154
+00:05:57,798 --> 00:05:59,930
+Removed all the failing code, and now
+
+155
+00:06:00,123 --> 00:06:01,069
+reloading works.
+
+156
+00:06:02,063 --> 00:06:04,469
+And now let's see, we got our documents,
+
+157
+00:06:05,030 --> 00:06:06,874
+and there everything is in order. We got the
+
+158
+00:06:06,874 --> 00:06:09,616
+personal folder with the text document.
+
+159
+00:06:10,482 --> 00:06:13,016
+But if we scroll down to the games, we still
+
+160
+00:06:13,112 --> 00:06:15,373
+have that, which is good. It shouldn't have
+
+161
+00:06:15,437 --> 00:06:16,030
+been removed.
+
+162
+00:06:16,896 --> 00:06:19,751
+But in the children array of games, we only
+
+163
+00:06:19,767 --> 00:06:22,573
+have one node left even though we added 2
+
+164
+00:06:22,845 --> 00:06:23,439
+originally.
+
+165
+00:06:24,514 --> 00:06:26,361
+And we see that the only node that is left
+
+166
+00:06:26,361 --> 00:06:27,854
+here is Call of Duty 2,
+
+167
+00:06:28,609 --> 00:06:30,262
+which makes sense because Call of Duty
+
+168
+00:06:30,840 --> 00:06:34,437
+without a number, just cod.executable, was
+
+169
+00:06:34,453 --> 00:06:34,839
+removed.
+
+170
+00:06:35,914 --> 00:06:38,853
+So removing also seems to work again
+
+171
+00:06:39,110 --> 00:06:41,309
+recursively with those checks.
+
+172
+00:06:42,016 --> 00:06:44,505
+And with that, we built a basic tree, which
+
+173
+00:06:44,505 --> 00:06:47,539
+is great for file systems or for dummy file
+
+174
+00:06:47,539 --> 00:06:48,872
+systems as we have it here.
+
+175
+00:06:49,483 --> 00:06:52,382
+And you hopefully have an idea of how a tree
+
+176
+00:06:52,382 --> 00:06:54,589
+data structure looks and works
+
+177
+00:06:55,120 --> 00:06:57,697
+and how those theoretical concepts from
+
+178
+00:06:57,697 --> 00:07:00,371
+before are translated into code here.
+
+179
+00:07:01,161 --> 00:07:04,124
+Now let's analyze this tree data structure a
+
+180
+00:07:04,124 --> 00:07:04,479
+little bit.

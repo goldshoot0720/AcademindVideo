@@ -1,0 +1,404 @@
+1
+00:00:00,817 --> 00:00:03,508
+Just as before with the workflows, we'll
+就像之前的工作流程一樣，我們將
+
+2
+00:00:03,556 --> 00:00:04,966
+start with a visual
+從視覺開始
+
+3
+00:00:05,703 --> 00:00:08,602
+AI agent and we'll use N8N as a service that
+AI 代理，我們將使用 N8N 作為服務
+
+4
+00:00:08,602 --> 00:00:11,310
+allows us to create workflows and agents
+允許我們創建工作流程和代理
+
+5
+00:00:11,646 --> 00:00:12,095
+visually.
+視覺上。
+
+6
+00:00:12,928 --> 00:00:16,196
+Now, there are other services as well. And
+現在，還有其他服務。和
+
+7
+00:00:16,212 --> 00:00:18,214
+of course, you can also follow along without
+當然，你也可以不跟隨
+
+8
+00:00:18,214 --> 00:00:18,983
+building anything.
+建造任何東西。
+
+9
+00:00:19,640 --> 00:00:22,027
+If you want to follow along, you could sign
+如果您想跟隨，您可以簽名
+
+10
+00:00:22,123 --> 00:00:23,213
+up with N8N.
+跟N8N一樣。
+
+11
+00:00:23,821 --> 00:00:26,064
+They have a cloud offering where you would
+他們有雲端產品，您可以
+
+12
+00:00:26,144 --> 00:00:28,195
+be building your workflows and agents in
+正在建立您的工作流程和代理
+
+13
+00:00:28,371 --> 00:00:30,438
+their cloud. And therefore they would also
+他們的雲。因此他們也會
+
+14
+00:00:30,534 --> 00:00:32,841
+offer hosting. So that you could immediately
+提供託管。這樣您就可以立即
+
+15
+00:00:33,354 --> 00:00:35,310
+share them with others, which is nice, but
+與他人分享，這很好，但是
+
+16
+00:00:35,583 --> 00:00:37,442
+you'd be paying for it. And that's not the
+你會為此付出代價的。那不是
+
+17
+00:00:37,442 --> 00:00:39,430
+focus of this course. Instead, we'll use
+本課程的重點。相反，我們將使用
+
+18
+00:00:39,430 --> 00:00:42,139
+another feature offered by n8n, which is to
+n8n 提供的另一個功能是
+
+19
+00:00:42,251 --> 00:00:42,460
+run
+跑步
+
+20
+00:00:43,117 --> 00:00:45,361
+a local server, which allows us to build and
+本地伺服器，它允許我們建置和
+
+21
+00:00:45,441 --> 00:00:45,585
+run
+跑步
+
+22
+00:00:46,163 --> 00:00:49,064
+AI workflows and agents with n8n locally.
+本地使用 n8n 的 AI 工作流程和代理。
+
+23
+00:00:49,465 --> 00:00:52,094
+And therefore, just as before in the
+因此，就像之前一樣
+
+24
+00:00:52,174 --> 00:00:54,113
+workflows section attached, you find a
+附加的工作流程部分，您會發現
+
+25
+00:00:54,130 --> 00:00:56,245
+starting project. For example, you'll need
+啟動專案。例如，您需要
+
+26
+00:00:56,582 --> 00:00:59,580
+the Node.js runtime installed on your
+安裝在您的 Node.js 運行時
+
+27
+00:00:59,580 --> 00:01:02,834
+system. You'll also need an OpenAI API key
+系統。您還需要一個 OpenAI API 金鑰
+
+28
+00:01:02,834 --> 00:01:05,335
+for this demo here. So that you can actually
+對於這個演示在這裡。這樣你其實可以
+
+29
+00:01:05,335 --> 00:01:08,108
+send requests to a model in the cloud, to an
+將請求傳送到雲端的模型、
+
+30
+00:01:08,204 --> 00:01:09,054
+OpenAI model.
+OpenAI 模型。
+
+31
+00:01:09,663 --> 00:01:12,115
+And regarding Node.js, you should visit
+關於 Node.js，您應該訪問
+
+32
+00:01:12,452 --> 00:01:14,953
+nodejs.org and then there head to the
+nodejs.org 然後前往
+
+33
+00:01:15,017 --> 00:01:17,950
+download page and download it for your
+下載頁面並下載適合您的
+
+34
+00:01:17,998 --> 00:01:18,928
+operating system.
+作業系統.
+
+35
+00:01:19,746 --> 00:01:21,830
+Just run these commands in your local
+只需在本地運行這些命令即可
+
+36
+00:01:21,846 --> 00:01:23,320
+terminal or PowerShell.
+終端機或 PowerShell。
+
+37
+00:01:24,250 --> 00:01:25,725
+That is what you should do to install
+這就是你該做的安裝
+
+38
+00:01:25,789 --> 00:01:26,575
+Node.js.
+Node.js。
+
+39
+00:01:27,536 --> 00:01:30,101
+And for the OpenAI API key, you'll need an
+對於 OpenAI API 金鑰，您需要一個
+
+40
+00:01:30,181 --> 00:01:33,339
+OpenAI API account. And then there under API
+OpenAI API 帳戶。然後在 API 下
+
+41
+00:01:33,371 --> 00:01:35,295
+keys, you need to create such a key and
+鍵，您需要建立這樣一個鍵並且
+
+42
+00:01:35,295 --> 00:01:36,932
+we'll need that in a second.
+我們稍後會需要它。
+
+43
+00:01:38,040 --> 00:01:40,256
+And then you also find the instructions
+然後你還可以找到說明
+
+44
+00:01:40,272 --> 00:01:42,344
+regarding the commands you need to run in
+關於您需要運行的命令
+
+45
+00:01:42,440 --> 00:01:45,635
+your project to install all the dependencies
+您的專案安裝所有相依性
+
+46
+00:01:45,812 --> 00:01:48,702
+locally on your system of this project. And
+該專案的本地系統上。和
+
+47
+00:01:48,718 --> 00:01:50,196
+for that, you should open a terminal,
+為此，你應該打開一個終端機，
+
+48
+00:01:50,629 --> 00:01:53,038
+navigate into your project folder. Here I'm
+導航到您的專案資料夾。我在這裡
+
+49
+00:01:53,038 --> 00:01:55,286
+using Visual Studio Code, and if I open the
+使用 Visual Studio Code，如果我打開
+
+50
+00:01:55,286 --> 00:01:57,759
+built-in terminal there, it's automatically
+那裡有內建終端機，它會自動
+
+51
+00:01:57,807 --> 00:02:00,055
+navigated into the folder. If you're using
+導航到該資料夾。如果您正在使用
+
+52
+00:02:00,055 --> 00:02:02,528
+an external terminal or PowerShell, you need
+外部終端機或 PowerShell，您需要
+
+53
+00:02:02,528 --> 00:02:05,563
+to navigate manually into the project folder
+手動導航至專案資料夾
+
+54
+00:02:05,563 --> 00:02:06,205
+you downloaded.
+你下載了。
+
+55
+00:02:07,023 --> 00:02:09,527
+And then just run these commands there
+然後在那裡運行這些命令
+
+56
+00:02:10,073 --> 00:02:12,095
+to install the dependencies and start the
+安裝相依性並啟動
+
+57
+00:02:12,143 --> 00:02:15,256
+local n8n server. You may see a few warnings
+本地 n8n 伺服器。您可能會看到一些警告
+
+58
+00:02:15,288 --> 00:02:17,214
+during installation. That is no problem. You
+在安裝過程中。那沒問題。你
+
+59
+00:02:17,214 --> 00:02:19,621
+can ignore them. And this may also take a
+可以忽略它們。這可能還需要一個
+
+60
+00:02:19,621 --> 00:02:22,317
+while. And then after a while, the n8n
+儘管。然後過了一會兒，n8n
+
+61
+00:02:22,413 --> 00:02:24,483
+server will start up and you'll see an
+伺服器將啟動，您將看到
+
+62
+00:02:24,580 --> 00:02:26,281
+address which you can visit in your browser
+您可以在瀏覽器中存取的地址
+
+63
+00:02:26,281 --> 00:02:28,271
+to see it there, or you should be able to
+在那裡看到它，或者你應該能夠
+
+64
+00:02:28,287 --> 00:02:30,710
+press O and you should keep that process up
+按 O 鍵，您應該繼續該過程
+
+65
+00:02:30,710 --> 00:02:32,619
+and running as long as you are working with
+只要你在工作，就可以運行
+
+66
+00:02:32,619 --> 00:02:34,625
+your agent or if you wanna run it and you
+你的代理人，或者如果你想經營它，你
+
+67
+00:02:34,625 --> 00:02:36,776
+can quit it with Ctrl+C if you're done. And
+如果完成，可以使用 Ctrl+C 退出。和
+
+68
+00:02:36,792 --> 00:02:38,686
+then restart it by running npm start again.
+然後再次運行 npm start 重新啟動它。
+
+69
+00:02:39,441 --> 00:02:42,202
+So I'll visit that address now and I'm now
+所以我現在就訪問該地址，我現在
+
+70
+00:02:42,331 --> 00:02:44,659
+on the n8n dashboard. Now when you run this
+在 n8n 儀表板上。現在當你運行這個
+
+71
+00:02:44,659 --> 00:02:46,585
+for the first time, you'll need to create an
+第一次，您需要建立一個
+
+72
+00:02:46,585 --> 00:02:48,496
+account even though it's running locally.
+帳戶，即使它在本地運行。
+
+73
+00:02:48,576 --> 00:02:50,326
+You can enter any data you want there, but
+您可以在那裡輸入任何您想要的資料，但是
+
+74
+00:02:50,342 --> 00:02:51,996
+you will need an account there
+你需要在那裡有一個帳戶
+
+75
+00:02:52,750 --> 00:02:54,228
+and then you'll need to sign in with that
+然後你需要用它登入
+
+76
+00:02:54,228 --> 00:02:56,539
+account if you come back in the future. But
+如果你將來回來的話。但
+
+77
+00:02:56,604 --> 00:02:59,702
+then you should see 3 workflows in there.
+那麼您應該會在其中看到 3 個工作流程。
+
+78
+00:02:59,831 --> 00:03:01,228
+And again, if you wanna learn a bit more
+再說一次，如果你想了解更多
+
+79
+00:03:01,260 --> 00:03:03,861
+about n8n, go back to that AI workflow
+關於n8n，回到AI工作流程
+
+80
+00:03:03,861 --> 00:03:05,643
+section where I give you a bit of a more
+我給你更多資訊的部分
+
+81
+00:03:06,095 --> 00:03:07,318
+comprehensive introduction.
+全面介紹。

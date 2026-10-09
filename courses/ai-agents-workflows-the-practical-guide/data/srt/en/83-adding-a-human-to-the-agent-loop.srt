@@ -1,0 +1,251 @@
+1
+00:00:00,593 --> 00:00:03,045
+Now if we take a look at the issue refund
+
+2
+00:00:03,141 --> 00:00:04,151
+tool down here,
+
+3
+00:00:04,825 --> 00:00:07,277
+it's interesting to see that in there
+
+4
+00:00:07,966 --> 00:00:08,960
+we have logic for
+
+5
+00:00:09,650 --> 00:00:10,098
+loading
+
+6
+00:00:11,076 --> 00:00:13,657
+an order from a JSON file that is our
+
+7
+00:00:13,657 --> 00:00:15,949
+database here. In the end, that is simply
+
+8
+00:00:16,046 --> 00:00:18,530
+that orders.json file which we have. And
+
+9
+00:00:18,691 --> 00:00:20,646
+actually that orders.json file is outside of
+
+10
+00:00:20,646 --> 00:00:22,794
+the sandbox. I accidentally moved it there
+
+11
+00:00:22,810 --> 00:00:24,526
+before, but it's outside of the sandbox.
+
+12
+00:00:25,263 --> 00:00:27,972
+And that is also hardcoded here because that
+
+13
+00:00:28,148 --> 00:00:30,489
+acts as our database, simulates a database
+
+14
+00:00:30,489 --> 00:00:32,529
+here. We load the order from there,
+
+15
+00:00:33,287 --> 00:00:36,853
+and that allows the agent to try to issue a
+
+16
+00:00:36,853 --> 00:00:38,595
+refund for a given order
+
+17
+00:00:40,886 --> 00:00:42,195
+wanting the order ID.
+
+18
+00:00:42,744 --> 00:00:44,555
+And actually, I'll mirror it into the
+
+19
+00:00:44,604 --> 00:00:47,013
+sandbox as well. This orders.json file could
+
+20
+00:00:47,094 --> 00:00:49,276
+be edited. This one out here can't be
+
+21
+00:00:49,276 --> 00:00:51,120
+because it's outside of the sandbox. I'm
+
+22
+00:00:51,120 --> 00:00:53,997
+just also putting it in the sandbox and look
+
+23
+00:00:54,127 --> 00:00:56,730
+up orders so that we could ask for a refund
+
+24
+00:00:56,730 --> 00:00:59,397
+for a specific customer, for example, and
+
+25
+00:00:59,397 --> 00:01:01,289
+the agent could then find the order ID.
+
+26
+00:01:01,600 --> 00:01:04,342
+That's why I'm mirroring it in there. And
+
+27
+00:01:04,439 --> 00:01:06,732
+what we're then doing in issue refunds is
+
+28
+00:01:06,909 --> 00:01:09,972
+we're taking a look at what the refund
+
+29
+00:01:09,972 --> 00:01:13,036
+amount would be. And then we're checking if
+
+30
+00:01:13,581 --> 00:01:14,431
+the amount of
+
+31
+00:01:14,961 --> 00:01:17,752
+cents in the end, so the amount of money we
+
+32
+00:01:17,752 --> 00:01:20,125
+want to refund is above a certain threshold,
+
+33
+00:01:20,623 --> 00:01:22,371
+which is configurable, which in my case is
+
+34
+00:01:22,547 --> 00:01:24,087
+1,000 cents, so $10.
+
+35
+00:01:24,889 --> 00:01:27,456
+And if it is above that threshold, we
+
+36
+00:01:27,600 --> 00:01:29,701
+actually don't auto approve. Instead, we
+
+37
+00:01:30,086 --> 00:01:32,491
+trigger another function, request refund
+
+38
+00:01:32,491 --> 00:01:34,863
+approval. And that is a function where I
+
+39
+00:01:34,911 --> 00:01:37,380
+simply ask the user who's using the agent
+
+40
+00:01:37,780 --> 00:01:38,566
+for approval.
+
+41
+00:01:39,239 --> 00:01:41,548
+So I'm taking a look at the user's answer
+
+42
+00:01:41,628 --> 00:01:42,878
+expecting Y or
+
+43
+00:01:43,471 --> 00:01:45,651
+N. N is the default. If the user basically
+
+44
+00:01:45,651 --> 00:01:48,729
+does not enter a Y, it's not granted, or Y
+
+45
+00:01:49,114 --> 00:01:50,556
+or yes to be specific.
+
+46
+00:01:51,085 --> 00:01:52,672
+So I then take a look at the answer and
+
+47
+00:01:52,721 --> 00:01:55,766
+simply return whether it is Y or yes. And if
+
+48
+00:01:55,766 --> 00:01:58,203
+it's not, it's denied, it's not granted.
+
+49
+00:01:58,876 --> 00:02:01,505
+And then down here I get approved back. That
+
+50
+00:02:01,665 --> 00:02:04,569
+is basically true or false. So was it Y or
+
+51
+00:02:04,569 --> 00:02:06,863
+yes, then it's true, otherwise it's denied.
+
+52
+00:02:07,521 --> 00:02:10,409
+And if it's not approved, we return a tool
+
+53
+00:02:10,409 --> 00:02:13,248
+call result to the model which requested the
+
+54
+00:02:13,248 --> 00:02:15,414
+tool call, of course, as you learned, that
+
+55
+00:02:15,414 --> 00:02:17,724
+the refund was not granted, that the human
+
+56
+00:02:17,724 --> 00:02:18,864
+approval was denied.
+
+57
+00:02:19,553 --> 00:02:21,430
+And otherwise, if we make it past this
+
+58
+00:02:21,559 --> 00:02:24,190
+check, if the human did approve, we actually
+
+59
+00:02:24,302 --> 00:02:27,174
+execute that refund. We simulate it here in
+
+60
+00:02:27,174 --> 00:02:27,639
+this code.
+
+61
+00:02:28,398 --> 00:02:30,177
+And then we'd return a different response to
+
+62
+00:02:30,177 --> 00:02:32,733
+the model telling it that the refund was
+
+63
+00:02:33,250 --> 00:02:33,752
+performed.

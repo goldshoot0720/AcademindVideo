@@ -1,0 +1,811 @@
+1
+00:00:02,195 --> 00:00:05,304
+Let's dig into one more algorithm before
+
+2
+00:00:05,320 --> 00:00:08,012
+we'll then have a look at an alternative way
+
+3
+00:00:08,268 --> 00:00:11,057
+of solving some problems, of implementing
+
+4
+00:00:11,089 --> 00:00:12,259
+some algorithms.
+
+5
+00:00:13,076 --> 00:00:15,319
+Here we'll use nothing too special though,
+
+6
+00:00:15,352 --> 00:00:17,259
+nothing too fancy for this problem.
+
+7
+00:00:17,819 --> 00:00:20,640
+And this problem is called is power of 2.
+
+8
+00:00:21,585 --> 00:00:24,085
+The goal is to determine whether an input
+
+9
+00:00:24,085 --> 00:00:24,454
+number
+
+10
+00:00:25,015 --> 00:00:26,954
+is a power of 2 or not.
+
+11
+00:00:27,531 --> 00:00:29,807
+So if we would call that function that has
+
+12
+00:00:29,983 --> 00:00:31,089
+our algorithm in it,
+
+13
+00:00:31,682 --> 00:00:33,093
+and this function would be called
+
+14
+00:00:33,269 --> 00:00:36,282
+isPowerOf2, then this function should return
+
+15
+00:00:36,330 --> 00:00:39,873
+true for 8, which is 2 at the power of 3,
+
+16
+00:00:40,498 --> 00:00:43,030
+but it should return false for 5, which is
+
+17
+00:00:43,367 --> 00:00:44,200
+not a number
+
+18
+00:00:44,970 --> 00:00:47,262
+that can be calculated with 2 at the power
+
+19
+00:00:47,470 --> 00:00:48,079
+of something.
+
+20
+00:00:48,928 --> 00:00:52,455
+So our algorithm needs to make sure that we
+
+21
+00:00:52,583 --> 00:00:55,053
+produce that result. And therefore we could
+
+22
+00:00:55,069 --> 00:00:56,771
+say we write an algorithm
+
+23
+00:00:57,333 --> 00:00:58,810
+that does one core thing.
+
+24
+00:00:59,485 --> 00:01:01,154
+It divides the input number
+
+25
+00:01:01,732 --> 00:01:02,680
+8 or 5
+
+26
+00:01:03,418 --> 00:01:03,788
+and all
+
+27
+00:01:04,558 --> 00:01:07,256
+future division results it produces
+
+28
+00:01:07,930 --> 00:01:11,688
+until 1 is reached. And then we check if the
+
+29
+00:01:11,688 --> 00:01:12,394
+remainder
+
+30
+00:01:12,972 --> 00:01:14,899
+is always 0.
+
+31
+00:01:15,493 --> 00:01:18,255
+So if we basically were able to make that
+
+32
+00:01:18,287 --> 00:01:19,202
+division by 2
+
+33
+00:01:19,796 --> 00:01:22,076
+without ever producing some remainder.
+
+34
+00:01:22,381 --> 00:01:25,015
+Because if we do produce a remainder, like
+
+35
+00:01:25,015 --> 00:01:27,841
+when we try to divide 5 by 2, that doesn't
+
+36
+00:01:27,841 --> 00:01:29,848
+work. We can't produce just an integer
+
+37
+00:01:29,848 --> 00:01:30,024
+there.
+
+38
+00:01:30,570 --> 00:01:33,364
+If we use the modulus operator on 5 divided
+
+39
+00:01:33,364 --> 00:01:34,536
+by 2, we would get 1
+
+40
+00:01:35,211 --> 00:01:37,555
+as a remainder. So if we do get a remainder,
+
+41
+00:01:37,716 --> 00:01:40,381
+we know this number can't be divided by 2,
+
+42
+00:01:40,766 --> 00:01:43,030
+and therefore it can't be calculated with 2
+
+43
+00:01:43,175 --> 00:01:44,556
+at the power of something.
+
+44
+00:01:45,102 --> 00:01:47,189
+And if we get such a remainder for any
+
+45
+00:01:47,189 --> 00:01:50,322
+division then we know this will not work.
+
+46
+00:01:51,189 --> 00:01:53,359
+Now this might sound very abstract, so
+
+47
+00:01:53,375 --> 00:01:54,981
+therefore let's simply implement this
+
+48
+00:01:54,981 --> 00:01:57,761
+together, and then I'll also show you one
+
+49
+00:01:57,809 --> 00:02:01,055
+super nice smart trick with which you can
+
+50
+00:02:01,087 --> 00:02:02,356
+shine in any interview.
+
+51
+00:02:03,272 --> 00:02:06,068
+So here I'm again in an empty app.js file,
+
+52
+00:02:06,630 --> 00:02:09,956
+and in there let's implement this isPowerOf2
+
+53
+00:02:10,326 --> 00:02:10,695
+function.
+
+54
+00:02:11,290 --> 00:02:13,909
+It gets a number as a parameter
+
+55
+00:02:14,808 --> 00:02:16,639
+And the goal is that we can call it
+
+56
+00:02:17,233 --> 00:02:20,444
+isPowerOfTwo, let's say with 8, and here we
+
+57
+00:02:20,444 --> 00:02:23,109
+should get true as a result. For 5, we
+
+58
+00:02:23,109 --> 00:02:25,984
+should get false. For 16, we should get
+
+59
+00:02:25,984 --> 00:02:26,256
+true.
+
+60
+00:02:26,851 --> 00:02:29,131
+And for, let's say, 13, we should get false.
+
+61
+00:02:29,195 --> 00:02:31,764
+That's the idea. Now, how can we write this?
+
+62
+00:02:32,390 --> 00:02:35,152
+I had a verbal description on the slide, but
+
+63
+00:02:35,200 --> 00:02:36,902
+that might have been a bit difficult to
+
+64
+00:02:36,902 --> 00:02:39,102
+grasp. So let's simply implement it step by
+
+65
+00:02:39,150 --> 00:02:39,407
+step.
+
+66
+00:02:40,514 --> 00:02:42,903
+Well, first of all, we can check if the
+
+67
+00:02:42,903 --> 00:02:43,849
+number we're getting
+
+68
+00:02:44,427 --> 00:02:47,217
+is smaller than 1.
+
+69
+00:02:48,035 --> 00:02:50,617
+If that's the case, we can return false
+
+70
+00:02:50,617 --> 00:02:52,686
+because we know that won't work. We can't
+
+71
+00:02:52,686 --> 00:02:55,123
+divide this by 2. It's certainly not
+
+72
+00:02:55,813 --> 00:02:58,154
+at the power of 2. This also rules out
+
+73
+00:02:58,154 --> 00:03:00,335
+negative numbers to be fed in. You could of
+
+74
+00:03:00,384 --> 00:03:02,885
+course omit this if you know that you get a
+
+75
+00:03:02,885 --> 00:03:04,232
+number that's at least 2
+
+76
+00:03:04,794 --> 00:03:05,435
+as an input.
+
+77
+00:03:06,530 --> 00:03:08,076
+So let's therefore now have a look at the
+
+78
+00:03:08,157 --> 00:03:09,394
+core of this algorithm.
+
+79
+00:03:10,273 --> 00:03:12,307
+For that, I'll add a new variable here,
+
+80
+00:03:14,140 --> 00:03:16,152
+dividedNumber,
+
+81
+00:03:17,617 --> 00:03:19,629
+and initially that's just my input number,
+
+82
+00:03:19,806 --> 00:03:21,400
+but we're going to change this variable
+
+83
+00:03:21,802 --> 00:03:22,881
+throughout a loop.
+
+84
+00:03:23,589 --> 00:03:25,606
+And now here we could add a for loop and
+
+85
+00:03:25,671 --> 00:03:26,914
+make it work with that somehow,
+
+86
+00:03:27,463 --> 00:03:29,288
+but I will actually use a while loop here
+
+87
+00:03:29,805 --> 00:03:33,223
+and basically check if dividedNumber is not
+
+88
+00:03:33,223 --> 00:03:33,896
+equal to 1.
+
+89
+00:03:34,490 --> 00:03:36,318
+And inside of the while loop, I will then
+
+90
+00:03:36,415 --> 00:03:38,885
+change divided number and will gradually
+
+91
+00:03:38,981 --> 00:03:40,152
+approach 1 there.
+
+92
+00:03:40,842 --> 00:03:43,088
+So how will we do that? Well, we take
+
+93
+00:03:43,088 --> 00:03:43,938
+divided number
+
+94
+00:03:44,676 --> 00:03:46,729
+and we set this equal to divided number
+
+95
+00:03:47,002 --> 00:03:49,953
+divided by 2. So we divide this number by 2,
+
+96
+00:03:50,226 --> 00:03:52,375
+and we do this inside of a loop so this
+
+97
+00:03:52,375 --> 00:03:55,182
+divided number gets smaller and smaller. If
+
+98
+00:03:55,199 --> 00:03:57,332
+we feed in 8 to this function,
+
+99
+00:03:57,925 --> 00:04:00,059
+we'll set divided number to 8 initially.
+
+100
+00:04:00,637 --> 00:04:02,562
+Then we go in the while loop and we divide
+
+101
+00:04:02,562 --> 00:04:03,028
+it by 2.
+
+102
+00:04:03,557 --> 00:04:06,334
+So now we have 4, which is not 1, so we
+
+103
+00:04:06,334 --> 00:04:06,719
+continue.
+
+104
+00:04:07,473 --> 00:04:09,961
+In the next loop iteration, we divide 4 by
+
+105
+00:04:09,961 --> 00:04:12,657
+2, so we have 2 in divided number then,
+
+106
+00:04:13,010 --> 00:04:14,808
+which is not 1, so we continue.
+
+107
+00:04:15,498 --> 00:04:17,328
+And then we go again into the loop, and
+
+108
+00:04:17,424 --> 00:04:20,489
+there we had 2, we divided by 2, now we have
+
+109
+00:04:20,537 --> 00:04:23,089
+1. That's our exit condition, and we're
+
+110
+00:04:23,121 --> 00:04:23,378
+done.
+
+111
+00:04:24,309 --> 00:04:25,850
+Now of course we'll have a problem if we
+
+112
+00:04:25,850 --> 00:04:27,198
+feed in 5 though?
+
+113
+00:04:27,840 --> 00:04:31,437
+With 5, we have divided number equal to 5.
+
+114
+00:04:32,192 --> 00:04:34,375
+We go into the loop, we divide it by 2, so
+
+115
+00:04:34,375 --> 00:04:35,821
+now we have 2.5.
+
+116
+00:04:36,752 --> 00:04:40,140
+And in the next iteration, we divide 2.5 by
+
+117
+00:04:40,140 --> 00:04:40,365
+2,
+
+118
+00:04:40,927 --> 00:04:44,764
+which is 1.25, which is not 1. So we go into
+
+119
+00:04:44,796 --> 00:04:45,679
+a new iteration
+
+120
+00:04:46,305 --> 00:04:49,212
+and we divide 1.25 by 2,
+
+121
+00:04:49,774 --> 00:04:52,647
+which is a number smaller than 1. So this
+
+122
+00:04:52,727 --> 00:04:54,716
+exit condition will not be met and we would
+
+123
+00:04:54,732 --> 00:04:57,298
+have an infinite loop and we would continue
+
+124
+00:04:57,298 --> 00:04:59,607
+dividing that number and we would approach
+
+125
+00:04:59,719 --> 00:05:02,718
+0, therefore, we would get closer to 0 with
+
+126
+00:05:02,830 --> 00:05:03,584
+every iteration.
+
+127
+00:05:04,274 --> 00:05:06,038
+We would never reach 0 though
+
+128
+00:05:06,599 --> 00:05:08,459
+and we therefore in the end have just an
+
+129
+00:05:08,459 --> 00:05:10,704
+infinite loop because this exit condition in
+
+130
+00:05:10,704 --> 00:05:13,286
+the end is never met. We never have equal to
+
+131
+00:05:13,350 --> 00:05:15,130
+1, so we never would make it out of this
+
+132
+00:05:15,130 --> 00:05:15,275
+loop.
+
+133
+00:05:16,237 --> 00:05:17,760
+And therefore we need to add an if check
+
+134
+00:05:17,760 --> 00:05:17,953
+here.
+
+135
+00:05:18,947 --> 00:05:21,096
+And we need to check if divided number
+
+136
+00:05:21,754 --> 00:05:22,796
+modulus 2
+
+137
+00:05:23,550 --> 00:05:26,661
+is not equal to 0. And that if check simply
+
+138
+00:05:26,661 --> 00:05:29,114
+makes sure that if we feed in a number that
+
+139
+00:05:29,146 --> 00:05:31,231
+can't be divided by 2 anymore,
+
+140
+00:05:32,113 --> 00:05:34,246
+we know about that and we have a way of
+
+141
+00:05:34,262 --> 00:05:35,192
+reacting to that.
+
+142
+00:05:35,962 --> 00:05:38,271
+And in there I will return false because if
+
+143
+00:05:38,271 --> 00:05:40,035
+we ever make it into there, we know
+
+144
+00:05:40,596 --> 00:05:43,194
+the number we fed in originally when we
+
+145
+00:05:43,194 --> 00:05:46,354
+started dividing it eventually reach a point
+
+146
+00:05:46,706 --> 00:05:48,904
+where we can't divide it by 2 anymore
+
+147
+00:05:49,417 --> 00:05:51,679
+without creating a number that has a decimal
+
+148
+00:05:51,679 --> 00:05:54,181
+place, so a non-integer number. And if
+
+149
+00:05:54,245 --> 00:05:56,619
+that's the case, we know we certainly can't
+
+150
+00:05:56,619 --> 00:05:59,698
+have a number that can be produced with 2 at
+
+151
+00:05:59,698 --> 00:06:02,104
+the power of something. So that makes sure
+
+152
+00:06:02,104 --> 00:06:03,644
+that we return false eventually.
+
+153
+00:06:04,734 --> 00:06:07,204
+If we make it past this while loop, we on
+
+154
+00:06:07,237 --> 00:06:09,001
+the other hand know that we have a number
+
+155
+00:06:09,001 --> 00:06:10,717
+that is 2 at the power of something,
+
+156
+00:06:11,230 --> 00:06:12,914
+otherwise we would have made it into the if
+
+157
+00:06:12,914 --> 00:06:14,312
+check. At some point.
+
+158
+00:06:15,420 --> 00:06:16,963
+That's how this works.
+
+159
+00:06:18,554 --> 00:06:21,704
+Now it's not enough to just generally check
+
+160
+00:06:21,785 --> 00:06:24,235
+if the number that's fed in can be divided
+
+161
+00:06:24,251 --> 00:06:27,221
+by 2 without producing a remainder, because
+
+162
+00:06:27,318 --> 00:06:30,643
+consider the case that we feed in 20. This
+
+163
+00:06:30,643 --> 00:06:33,183
+can be divided by 2, so if that would be our
+
+164
+00:06:33,458 --> 00:06:35,630
+only check, if we hadn't the code down
+
+165
+00:06:35,662 --> 00:06:35,857
+there,
+
+166
+00:06:36,699 --> 00:06:39,454
+then we would be able to divide 20 by 2 and
+
+167
+00:06:39,471 --> 00:06:42,204
+we might return false here but return true
+
+168
+00:06:42,541 --> 00:06:45,269
+here therefore. So since we can divide 20 by
+
+169
+00:06:45,269 --> 00:06:47,355
+2, we would not make it in there and we
+
+170
+00:06:47,372 --> 00:06:49,779
+would return true. And we would indicate
+
+171
+00:06:49,779 --> 00:06:52,186
+that 20 can be constructed with 2 at the
+
+172
+00:06:52,186 --> 00:06:53,085
+power of something.
+
+173
+00:06:53,614 --> 00:06:56,278
+But that would be wrong because 20 can be
+
+174
+00:06:56,278 --> 00:06:57,016
+divided by 2
+
+175
+00:06:57,867 --> 00:07:00,322
+and so can the result of that division, 10.
+
+176
+00:07:01,093 --> 00:07:03,468
+But the result of that division, 10 divided
+
+177
+00:07:03,500 --> 00:07:06,870
+by 2, which is 5, cannot be divided by 2
+
+178
+00:07:06,870 --> 00:07:09,036
+anymore, at least not without producing a
+
+179
+00:07:09,052 --> 00:07:10,529
+number that has a decimal place.
+
+180
+00:07:11,596 --> 00:07:14,845
+So that means that whilst 20 is divisible by
+
+181
+00:07:14,894 --> 00:07:15,072
+2,
+
+182
+00:07:15,702 --> 00:07:18,031
+it can't be calculated with 2 at the power
+
+183
+00:07:18,111 --> 00:07:18,257
+of
+
+184
+00:07:18,790 --> 00:07:19,227
+something.
+
+185
+00:07:19,830 --> 00:07:21,629
+And therefore we need this more elaborate
+
+186
+00:07:21,629 --> 00:07:24,119
+solution where we don't just check the input
+
+187
+00:07:24,119 --> 00:07:27,380
+number but also all the results of divisions
+
+188
+00:07:27,492 --> 00:07:27,974
+by 2.
+
+189
+00:07:29,838 --> 00:07:32,847
+And therefore now we derived a function that
+
+190
+00:07:32,879 --> 00:07:33,458
+hopefully
+
+191
+00:07:34,085 --> 00:07:35,003
+gives us true,
+
+192
+00:07:35,534 --> 00:07:36,756
+false, false, true,
+
+193
+00:07:37,425 --> 00:07:39,139
+true, false as an output.
+
+194
+00:07:39,683 --> 00:07:40,490
+Well, let's check this.
+
+195
+00:07:43,252 --> 00:07:45,325
+And that is the case. True, false, false,
+
+196
+00:07:45,405 --> 00:07:47,430
+true, false, as expected.
+
+197
+00:07:48,073 --> 00:07:50,242
+So this is an algorithm that allows us to
+
+198
+00:07:50,242 --> 00:07:52,945
+determine whether a number can be calculated
+
+199
+00:07:53,042 --> 00:07:54,560
+with 2 at the power of something.
+
+200
+00:07:55,319 --> 00:07:57,564
+And I hope I could make it clear why we need
+
+201
+00:07:57,564 --> 00:08:00,131
+a solution like this and why just checking
+
+202
+00:08:00,244 --> 00:08:02,420
+for the divisibility by 2
+
+203
+00:08:02,963 --> 00:08:03,671
+is not enough.

@@ -1,0 +1,287 @@
+1
+00:00:02,119 --> 00:00:04,561
+So we're not fully convinced by the time
+
+2
+00:00:04,609 --> 00:00:07,709
+complexity we have with our current priority
+
+3
+00:00:07,725 --> 00:00:10,519
+queue. We might be able to do better than
+
+4
+00:00:10,551 --> 00:00:13,603
+linear time in the worst case insert
+
+5
+00:00:13,603 --> 00:00:14,213
+operation.
+
+6
+00:00:15,032 --> 00:00:18,100
+And therefore, let me introduce the other
+
+7
+00:00:18,260 --> 00:00:21,729
+big topic of this course section, heaps.
+
+8
+00:00:22,516 --> 00:00:25,407
+We can actually use a heap to build our
+
+9
+00:00:25,407 --> 00:00:28,957
+priority queue to get a better insert time.
+
+10
+00:00:29,503 --> 00:00:30,789
+Now what is a heap though?
+
+11
+00:00:31,672 --> 00:00:35,191
+There are 2 main kinds of heaps and that
+
+12
+00:00:35,191 --> 00:00:37,199
+would be min-heaps and max-heaps.
+
+13
+00:00:38,002 --> 00:00:40,717
+Min-heaps are trees where the parent node
+
+14
+00:00:40,749 --> 00:00:41,280
+values
+
+15
+00:00:42,019 --> 00:00:45,537
+are smaller or equal than the child node
+
+16
+00:00:45,569 --> 00:00:46,019
+values.
+
+17
+00:00:46,758 --> 00:00:48,911
+And for a max-heap, it's the other way
+
+18
+00:00:48,927 --> 00:00:49,393
+around.
+
+19
+00:00:49,987 --> 00:00:52,397
+Here is how a min-heap could look like. This
+
+20
+00:00:52,397 --> 00:00:53,345
+is a min-heap tree.
+
+21
+00:00:54,630 --> 00:00:57,407
+It has a root node of 3, let's say,
+
+22
+00:00:58,017 --> 00:01:00,603
+and because it's a min heap, the parent node
+
+23
+00:01:00,667 --> 00:01:03,525
+value has to be smaller than the child node
+
+24
+00:01:03,718 --> 00:01:06,752
+values. So the child node level would look
+
+25
+00:01:06,752 --> 00:01:09,819
+like this. These are values bigger than 3.
+
+26
+00:01:10,461 --> 00:01:12,629
+Well, and then it continues like that. The
+
+27
+00:01:12,629 --> 00:01:15,808
+next level has bigger values than the level
+
+28
+00:01:16,145 --> 00:01:16,515
+before.
+
+29
+00:01:17,189 --> 00:01:20,221
+This is a min heap. And a max heap is
+
+30
+00:01:20,253 --> 00:01:22,865
+basically just the opposite. There you would
+
+31
+00:01:22,881 --> 00:01:25,027
+have the biggest value at the top and the
+
+32
+00:01:25,027 --> 00:01:26,742
+smallest value at the bottom.
+
+33
+00:01:27,286 --> 00:01:29,754
+Now this heap specifically, which you see on
+
+34
+00:01:29,802 --> 00:01:33,038
+this slide, is a binary heap, a very common
+
+35
+00:01:33,230 --> 00:01:37,075
+heap form. There we have only 2 child nodes
+
+36
+00:01:37,316 --> 00:01:40,103
+per level, as you can see. So it's a bit
+
+37
+00:01:40,103 --> 00:01:43,564
+like a binary search tree in regards to the
+
+38
+00:01:43,564 --> 00:01:46,704
+amount of children per node, but it doesn't
+
+39
+00:01:46,704 --> 00:01:48,803
+have anything else in common with that in
+
+40
+00:01:48,851 --> 00:01:51,337
+the end. For example, here, as you can see,
+
+41
+00:01:51,578 --> 00:01:53,985
+the left child is not smaller than the
+
+42
+00:01:53,985 --> 00:01:56,457
+parent. Indeed, that would be horrible
+
+43
+00:01:56,713 --> 00:01:59,409
+because the entire idea behind a heap is
+
+44
+00:01:59,602 --> 00:02:02,378
+that the parent is smaller or bigger than
+
+45
+00:02:02,635 --> 00:02:05,925
+all its children. So we don't have that left
+
+46
+00:02:05,957 --> 00:02:09,455
+is smaller, right is bigger differentiation.
+
+47
+00:02:09,937 --> 00:02:13,676
+All children are smaller or all children are
+
+48
+00:02:13,884 --> 00:02:16,051
+bigger. That's the idea behind a heap.
+
+49
+00:02:17,478 --> 00:02:20,330
+And now that we see this heap tree here,
+
+50
+00:02:20,859 --> 00:02:23,071
+you might see how this could help us with
+
+51
+00:02:23,263 --> 00:02:24,369
+priority queues.
+
+52
+00:02:24,962 --> 00:02:27,863
+Since we always have bigger values or
+
+53
+00:02:28,007 --> 00:02:30,843
+smaller values depending on which kind of
+
+54
+00:02:30,859 --> 00:02:31,485
+heap we build
+
+55
+00:02:32,142 --> 00:02:35,299
+at the top, we can easily add new items with
+
+56
+00:02:35,347 --> 00:02:37,895
+a high priority and we know that they will
+
+57
+00:02:37,927 --> 00:02:39,161
+be at the top. Or
+
+58
+00:02:40,075 --> 00:02:42,398
+if we use a min heap, a low priority would
+
+59
+00:02:42,414 --> 00:02:45,283
+be at the top. Whatever our ordering logic
+
+60
+00:02:45,363 --> 00:02:48,633
+is with a heap, we have easy access to those
+
+61
+00:02:48,889 --> 00:02:52,207
+extreme values. So either to the big or to
+
+62
+00:02:52,207 --> 00:02:54,596
+the small ones. And that's exactly what we
+
+63
+00:02:54,596 --> 00:02:56,054
+need with a priority queue.
+
+64
+00:02:56,599 --> 00:02:59,468
+We wanna put the unimportant items to the
+
+65
+00:02:59,565 --> 00:03:02,290
+bottom of that tree, so to say, and put the
+
+66
+00:03:02,290 --> 00:03:04,117
+important items to the top.
+
+67
+00:03:05,014 --> 00:03:08,028
+Now what's interesting is how we can build
+
+68
+00:03:08,156 --> 00:03:11,153
+such a heap tree because it's actually built
+
+69
+00:03:11,169 --> 00:03:13,830
+differently than our other trees, as you
+
+70
+00:03:13,830 --> 00:03:14,311
+will see.
+
+71
+00:03:15,860 --> 00:03:18,283
+So let's switch back to code and let's
+
+72
+00:03:18,332 --> 00:03:19,818
+slowly build up a heap.

@@ -1,0 +1,1215 @@
+1
+00:00:02,521 --> 00:00:04,625
+For that, let's first of all define our
+
+2
+00:00:04,625 --> 00:00:07,323
+inputs. We got the, the coins which are
+
+3
+00:00:07,323 --> 00:00:07,708
+available,
+
+4
+00:00:08,367 --> 00:00:09,443
+so we can also name this
+
+5
+00:00:10,149 --> 00:00:10,856
+available
+
+6
+00:00:11,418 --> 00:00:12,735
+coins to make that super clear.
+
+7
+00:00:13,345 --> 00:00:15,433
+And there we got the 100-cent coin, we got
+
+8
+00:00:15,433 --> 00:00:17,408
+the 50-cent coin, 20, 10,
+
+9
+00:00:18,404 --> 00:00:22,146
+5, 2, and 1 cent. And it matters for now
+
+10
+00:00:22,339 --> 00:00:24,330
+that we use exactly those coins.
+
+11
+00:00:25,390 --> 00:00:26,514
+Then we got the target
+
+12
+00:00:27,070 --> 00:00:31,680
+amount, which could be 127 or 129 to use the
+
+13
+00:00:31,972 --> 00:00:33,936
+same amount as we saw on the slide.
+
+14
+00:00:35,153 --> 00:00:36,875
+And now I want to come up with my
+
+15
+00:00:37,809 --> 00:00:40,466
+function for deriving the coins we want to
+
+16
+00:00:40,611 --> 00:00:40,804
+pick.
+
+17
+00:00:42,180 --> 00:00:43,047
+So I'll name this
+
+18
+00:00:43,722 --> 00:00:46,373
+computeChange. So to compute the change
+
+19
+00:00:46,389 --> 00:00:48,638
+which we want to give the customer who
+
+20
+00:00:48,638 --> 00:00:50,068
+purchased something, for example.
+
+21
+00:00:51,595 --> 00:00:53,012
+This is our change and we now want to
+
+22
+00:00:53,077 --> 00:00:53,567
+compute
+
+23
+00:00:54,139 --> 00:00:55,658
+the coins we should give back.
+
+24
+00:00:56,957 --> 00:01:00,035
+Now computeChange of course should get our
+
+25
+00:01:00,260 --> 00:01:03,033
+availableCoins as an argument and the amount
+
+26
+00:01:03,065 --> 00:01:03,915
+which we want to get
+
+27
+00:01:04,748 --> 00:01:05,502
+so that down there
+
+28
+00:01:06,351 --> 00:01:07,922
+we can calculate our change
+
+29
+00:01:09,237 --> 00:01:12,106
+by calling computeChange and passing in the
+
+30
+00:01:12,106 --> 00:01:12,892
+availableCoins
+
+31
+00:01:13,549 --> 00:01:16,050
+and then the target amount. And thereafter I
+
+32
+00:01:16,050 --> 00:01:18,967
+can console.log the change. That's the goal
+
+33
+00:01:19,079 --> 00:01:19,208
+here.
+
+34
+00:01:20,362 --> 00:01:21,740
+So what should happen inside of this
+
+35
+00:01:21,740 --> 00:01:23,748
+function? As I said, I wanna start with a
+
+36
+00:01:23,748 --> 00:01:26,158
+greedy approach and in the end, I wanna
+
+37
+00:01:26,785 --> 00:01:29,774
+return an object which describes the picked
+
+38
+00:01:29,774 --> 00:01:31,495
+coins. So here I'll have my
+
+39
+00:01:32,334 --> 00:01:35,141
+calculated change, let's say, and that is an
+
+40
+00:01:35,238 --> 00:01:39,578
+object where I have a selectedCoins property
+
+41
+00:01:40,174 --> 00:01:43,524
+which itself is an object where every coin
+
+42
+00:01:45,177 --> 00:01:47,380
+which I receive here is used as a key.
+
+43
+00:01:48,458 --> 00:01:49,292
+And we have the
+
+44
+00:01:50,705 --> 00:01:54,334
+number of coins as well, and by default that
+
+45
+00:01:54,334 --> 00:01:57,321
+is, let's say, 0 for the moment. Now we
+
+46
+00:01:57,321 --> 00:01:58,878
+should fill selected coins
+
+47
+00:01:59,472 --> 00:02:03,165
+with some life, so these values in this
+
+48
+00:02:03,165 --> 00:02:06,312
+array should be used as keys in this object
+
+49
+00:02:06,361 --> 00:02:06,489
+here.
+
+50
+00:02:07,565 --> 00:02:08,978
+And to achieve this,
+
+51
+00:02:09,749 --> 00:02:11,097
+we can work with a little
+
+52
+00:02:11,900 --> 00:02:12,815
+helper variable here.
+
+53
+00:02:14,228 --> 00:02:17,597
+TransformedCoins, which is, let's say, an
+
+54
+00:02:17,677 --> 00:02:19,409
+empty object. And then we have a little for
+
+55
+00:02:19,522 --> 00:02:21,399
+loop here, and that's just one possible
+
+56
+00:02:21,399 --> 00:02:22,345
+approach, of course,
+
+57
+00:02:22,907 --> 00:02:25,441
+where I in the end go through all my coins.
+
+58
+00:02:26,356 --> 00:02:27,976
+So here I'm just doing this to transform
+
+59
+00:02:28,040 --> 00:02:28,393
+this all,
+
+60
+00:02:29,083 --> 00:02:30,912
+and for every coin I reach out to
+
+61
+00:02:30,912 --> 00:02:31,778
+transformCoins,
+
+62
+00:02:32,452 --> 00:02:33,703
+then use the coin
+
+63
+00:02:34,778 --> 00:02:38,660
+value here as a key in that object and set
+
+64
+00:02:38,853 --> 00:02:39,623
+its value
+
+65
+00:02:40,377 --> 00:02:43,251
+equal to 0. So this adds a property
+
+66
+00:02:43,990 --> 00:02:46,495
+of the name of this coin value. So it adds a
+
+67
+00:02:46,495 --> 00:02:49,160
+property 100 and a property 50 and so on,
+
+68
+00:02:49,385 --> 00:02:51,954
+and sets the value of each property to 0.
+
+69
+00:02:52,435 --> 00:02:54,571
+And I want to set it to 0 right now because
+
+70
+00:02:54,764 --> 00:02:56,963
+we haven't added any coins yet. Right now
+
+71
+00:02:56,996 --> 00:02:58,585
+we're not using any coins
+
+72
+00:02:59,340 --> 00:03:01,283
+for our solution. And then it's this
+
+73
+00:03:01,893 --> 00:03:04,044
+transformed coins object which I want to
+
+74
+00:03:04,060 --> 00:03:05,377
+assign to selected coins.
+
+75
+00:03:06,070 --> 00:03:08,003
+For the moment, if I then just console.log
+
+76
+00:03:08,003 --> 00:03:11,355
+my calculated change, this will not hold the
+
+77
+00:03:11,403 --> 00:03:12,257
+final result.
+
+78
+00:03:14,150 --> 00:03:15,263
+But if I reload here,
+
+79
+00:03:15,876 --> 00:03:18,748
+we see selectedCoins has the format we want
+
+80
+00:03:18,958 --> 00:03:21,669
+so that we can store how many 100 coins we
+
+81
+00:03:21,669 --> 00:03:23,991
+want, how many 50 coins, and so on.
+
+82
+00:03:24,908 --> 00:03:27,193
+So that's all just some starting setup, and
+
+83
+00:03:27,305 --> 00:03:29,011
+you can also find different approaches to
+
+84
+00:03:29,011 --> 00:03:30,700
+achieve this, but in the end, that's just
+
+85
+00:03:30,861 --> 00:03:33,139
+the the object which I wanna use to store
+
+86
+00:03:33,139 --> 00:03:35,692
+the result. Now the more important part
+
+87
+00:03:35,692 --> 00:03:38,566
+follows. Now we wanna derive that result, of
+
+88
+00:03:38,582 --> 00:03:38,807
+course.
+
+89
+00:03:39,786 --> 00:03:42,388
+Now for that, in a greedy approach, we
+
+90
+00:03:42,388 --> 00:03:45,037
+simply go through all the coins like we're
+
+91
+00:03:45,101 --> 00:03:47,221
+doing it here, but here we're doing it for
+
+92
+00:03:47,253 --> 00:03:49,645
+transformation purposes. Now we're going to
+
+93
+00:03:49,758 --> 00:03:51,379
+go through all the coins
+
+94
+00:03:51,909 --> 00:03:54,928
+to derive whether we wanna have them in our
+
+95
+00:03:55,056 --> 00:03:56,389
+result set or not.
+
+96
+00:03:57,304 --> 00:03:59,424
+So for that, we can again go through all
+
+97
+00:03:59,937 --> 00:04:00,403
+coins
+
+98
+00:04:01,864 --> 00:04:03,197
+with the same loop as before.
+
+99
+00:04:03,887 --> 00:04:06,055
+But now for every coin, we wanna check if it
+
+100
+00:04:06,055 --> 00:04:09,748
+should be included and if yes, how often it
+
+101
+00:04:09,748 --> 00:04:10,599
+should be included.
+
+102
+00:04:11,691 --> 00:04:13,601
+For this, we will also need another helper
+
+103
+00:04:13,601 --> 00:04:16,877
+variable which I'll name remainingAmount.
+
+104
+00:04:16,973 --> 00:04:18,980
+And initially that's just the amount we're
+
+105
+00:04:18,980 --> 00:04:21,132
+getting here, but we wanna now update the
+
+106
+00:04:21,132 --> 00:04:23,910
+remainingAmount whenever we register a coin
+
+107
+00:04:24,102 --> 00:04:24,809
+as change.
+
+108
+00:04:25,643 --> 00:04:28,272
+So now here inside of that for loop where we
+
+109
+00:04:28,368 --> 00:04:29,778
+go through all coins,
+
+110
+00:04:30,532 --> 00:04:32,712
+I now also for every coin want to check how
+
+111
+00:04:32,920 --> 00:04:34,315
+often it should be included.
+
+112
+00:04:35,565 --> 00:04:36,495
+And for that, we can
+
+113
+00:04:37,970 --> 00:04:40,246
+get our count of this specific
+
+114
+00:04:40,935 --> 00:04:41,224
+coin
+
+115
+00:04:42,074 --> 00:04:42,186
+by
+
+116
+00:04:42,715 --> 00:04:45,296
+dividing our remaining amount
+
+117
+00:04:46,402 --> 00:04:46,578
+by
+
+118
+00:04:47,347 --> 00:04:48,197
+the coin value,
+
+119
+00:04:49,063 --> 00:04:50,586
+so by 100 for example.
+
+120
+00:04:51,355 --> 00:04:55,811
+And for example, for 129, dividing that by
+
+121
+00:04:55,843 --> 00:04:57,030
+100 would give us
+
+122
+00:04:57,830 --> 00:04:58,992
+1.29, of course.
+
+123
+00:04:59,573 --> 00:05:02,898
+So if we now use Math.floor here,
+
+124
+00:05:05,031 --> 00:05:06,000
+we actually get
+
+125
+00:05:06,525 --> 00:05:07,477
+an integer number,
+
+126
+00:05:09,709 --> 00:05:11,641
+which is the count we want here. We wanna
+
+127
+00:05:11,641 --> 00:05:14,395
+round down here because we can't use more
+
+128
+00:05:14,395 --> 00:05:16,391
+than that coin, and we also can't use
+
+129
+00:05:16,391 --> 00:05:18,726
+fractional coins, which is why we have to
+
+130
+00:05:18,726 --> 00:05:19,049
+round.
+
+131
+00:05:19,614 --> 00:05:22,182
+So now we know how many 100 coins we need,
+
+132
+00:05:22,375 --> 00:05:22,989
+for example.
+
+133
+00:05:23,578 --> 00:05:25,485
+So now we can reach out to the calculated
+
+134
+00:05:25,485 --> 00:05:26,014
+change
+
+135
+00:05:26,607 --> 00:05:29,699
+and access the property of value coin. So
+
+136
+00:05:30,036 --> 00:05:32,199
+access the property with the name coin to be
+
+137
+00:05:32,199 --> 00:05:34,971
+precise. So the 100 property, for example,
+
+138
+00:05:35,580 --> 00:05:37,744
+and set its value equal to count.
+
+139
+00:05:38,945 --> 00:05:42,038
+And then also update our remaining amount to
+
+140
+00:05:42,134 --> 00:05:45,724
+be the old remaining amount minus the coin
+
+141
+00:05:45,756 --> 00:05:49,329
+value times count. If we add the 100 coin
+
+142
+00:05:49,570 --> 00:05:52,324
+twice, we of course need to deduct twice the
+
+143
+00:05:52,357 --> 00:05:54,334
+100 coin from the remaining amount.
+
+144
+00:05:55,193 --> 00:05:57,526
+And we'll do this for every coin which we
+
+145
+00:05:57,526 --> 00:05:57,753
+have.
+
+146
+00:05:59,282 --> 00:06:01,756
+And since we use Math.floor here, actually
+
+147
+00:06:01,773 --> 00:06:04,118
+for a coin that will not get used, for
+
+148
+00:06:04,118 --> 00:06:06,512
+example the 50 coin will not get used here
+
+149
+00:06:06,722 --> 00:06:07,498
+with this approach,
+
+150
+00:06:08,178 --> 00:06:10,562
+this will automatically derive 0. So
+
+151
+00:06:10,594 --> 00:06:12,752
+therefore we can even remove that
+
+152
+00:06:12,752 --> 00:06:14,410
+transformation here at the beginning
+
+153
+00:06:15,022 --> 00:06:17,083
+and just set selected coin to an empty
+
+154
+00:06:17,179 --> 00:06:18,129
+object here initially.
+
+155
+00:06:18,742 --> 00:06:20,894
+And get rid of this constant because this
+
+156
+00:06:20,910 --> 00:06:22,981
+initialization which I did previously is
+
+157
+00:06:22,981 --> 00:06:25,390
+actually not required because we'll on the
+
+158
+00:06:25,390 --> 00:06:28,713
+fly add all coins with this loop and either
+
+159
+00:06:28,713 --> 00:06:31,587
+set it to 0 if it's not getting used or set
+
+160
+00:06:31,587 --> 00:06:33,000
+it to the actual count we need.
+
+161
+00:06:34,381 --> 00:06:35,778
+And of course we also want to update the
+
+162
+00:06:35,778 --> 00:06:37,705
+number of coins in total which we have.
+
+163
+00:06:38,267 --> 00:06:41,446
+So here on our calculated change,
+
+164
+00:06:42,008 --> 00:06:44,336
+I also want to access number of coins and
+
+165
+00:06:44,352 --> 00:06:47,658
+set that equal to numberOfCoins plus count.
+
+166
+00:06:48,765 --> 00:06:50,691
+And then in the end here, we can return the
+
+167
+00:06:50,691 --> 00:06:52,023
+calculated change.
+
+168
+00:06:53,242 --> 00:06:54,333
+Now let's give this a try.
+
+169
+00:06:55,168 --> 00:06:55,986
+Let's reload here.
+
+170
+00:06:56,708 --> 00:06:58,875
+And this doesn't look too bad. The result we
+
+171
+00:06:58,955 --> 00:07:00,929
+get is that we need a total number of 5
+
+172
+00:07:00,961 --> 00:07:05,422
+coins, which is 1 100 coin, 1 20 coin, 1 5
+
+173
+00:07:05,454 --> 00:07:08,712
+coin, and 2 2 coins, which looks pretty good
+
+174
+00:07:08,808 --> 00:07:11,327
+for the target value of 129.
+
+175
+00:07:11,938 --> 00:07:14,460
+Now let's try a different value like 66 here
+
+176
+00:07:14,990 --> 00:07:16,244
+and see which result we get there.
+
+177
+00:07:17,095 --> 00:07:19,329
+Because that's important, we want to verify
+
+178
+00:07:19,409 --> 00:07:21,546
+our results. We don't just want to verify
+
+179
+00:07:21,594 --> 00:07:24,374
+with one value and assume that it's always
+
+180
+00:07:24,406 --> 00:07:26,382
+going to work. We want to test it with
+
+181
+00:07:26,479 --> 00:07:27,346
+different values.
+
+182
+00:07:28,021 --> 00:07:30,463
+So 66 is the target amount now.
+
+183
+00:07:31,154 --> 00:07:32,890
+And for that, if I reload, we get a total
+
+184
+00:07:32,938 --> 00:07:35,701
+number of 4 coins, which is one 50 coin, one
+
+185
+00:07:35,814 --> 00:07:38,840
+10 coin, one 5 coin, and one 1 coin, which
+
+186
+00:07:38,937 --> 00:07:40,002
+sounds about right to me.
+
+187
+00:07:41,439 --> 00:07:43,521
+Now let's maybe try with 30.
+
+188
+00:07:44,618 --> 00:07:45,570
+If we do that,
+
+189
+00:07:46,570 --> 00:07:46,798
+here
+
+190
+00:07:47,321 --> 00:07:50,947
+I get one 20 and one 10 coin, which also
+
+191
+00:07:50,947 --> 00:07:51,469
+makes sense.
+
+192
+00:07:53,347 --> 00:07:55,529
+And if we try something like 50, we
+
+193
+00:07:55,545 --> 00:07:57,597
+hopefully just get one 50 coin.
+
+194
+00:07:59,070 --> 00:07:59,572
+And we do.
+
+195
+00:08:00,155 --> 00:08:02,972
+So here this greedy algorithm seems to work
+
+196
+00:08:03,037 --> 00:08:03,669
+just fine.
+
+197
+00:08:04,486 --> 00:08:06,425
+So therefore, let's now move on to the next
+
+198
+00:08:06,425 --> 00:08:09,171
+step. Let's derive the time complexity here.
+
+199
+00:08:11,210 --> 00:08:13,170
+Now, what is the time complexity of our
+
+200
+00:08:13,349 --> 00:08:15,261
+computeChange algorithm here?
+
+201
+00:08:16,169 --> 00:08:19,086
+Well, in the end, this is just some constant
+
+202
+00:08:19,086 --> 00:08:22,006
+time initialization work. And then here we
+
+203
+00:08:22,022 --> 00:08:24,829
+got a for loop where we go through all the
+
+204
+00:08:24,829 --> 00:08:25,281
+coins.
+
+205
+00:08:25,878 --> 00:08:27,056
+And that is basically all.
+
+206
+00:08:27,652 --> 00:08:29,630
+In there, we use the floor method, which
+
+207
+00:08:30,046 --> 00:08:32,210
+doesn't add anything to our time complexity,
+
+208
+00:08:32,468 --> 00:08:35,149
+so the time inside of the for loop actually
+
+209
+00:08:35,149 --> 00:08:36,327
+is constant time.
+
+210
+00:08:36,982 --> 00:08:38,965
+And therefore, all we have here is n
+
+211
+00:08:39,303 --> 00:08:42,205
+repetitions where n is the length of our
+
+212
+00:08:42,205 --> 00:08:42,785
+coins array.
+
+213
+00:08:43,366 --> 00:08:45,493
+So therefore, here the time complexity
+
+214
+00:08:47,604 --> 00:08:51,842
+of this greedy solution is O, so we have
+
+215
+00:08:51,971 --> 00:08:54,439
+linear time, which isn't too bad.
+
+216
+00:08:55,440 --> 00:08:58,008
+Now the question of course is if we can do
+
+217
+00:08:58,169 --> 00:08:59,978
+better than that. Can we do better than
+
+218
+00:09:00,362 --> 00:09:02,814
+linear time for this algorithm because of
+
+219
+00:09:02,846 --> 00:09:04,786
+course we wanna explore alternative
+
+220
+00:09:04,786 --> 00:09:05,298
+approaches.
+
+221
+00:09:06,517 --> 00:09:08,745
+Now in general, better than linear time
+
+222
+00:09:08,937 --> 00:09:11,774
+would typically mean constant time or
+
+223
+00:09:12,207 --> 00:09:13,152
+logarithmic time.
+
+224
+00:09:13,986 --> 00:09:16,919
+Now constant time, I don't see how that
+
+225
+00:09:17,015 --> 00:09:19,387
+works because we need to analyze our
+
+226
+00:09:19,516 --> 00:09:20,990
+different coins somehow,
+
+227
+00:09:21,519 --> 00:09:23,651
+so we of course depend on the number of
+
+228
+00:09:23,747 --> 00:09:24,613
+coins we're getting.
+
+229
+00:09:25,542 --> 00:09:27,450
+Now what about logarithmic time? Is there
+
+230
+00:09:27,450 --> 00:09:30,691
+some way of using logarithmic time for this
+
+231
+00:09:30,803 --> 00:09:31,397
+algorithm here.
+
+232
+00:09:32,425 --> 00:09:34,576
+To achieve logarithmic time, we typically
+
+233
+00:09:34,576 --> 00:09:36,486
+need to split our problem
+
+234
+00:09:37,241 --> 00:09:40,661
+into smaller chunks and then analyze those
+
+235
+00:09:40,837 --> 00:09:43,149
+chunks without analyzing all chunks.
+
+236
+00:09:44,321 --> 00:09:46,601
+So as with the binary search where we, for
+
+237
+00:09:46,617 --> 00:09:48,848
+example, had this where we split an array in
+
+238
+00:09:48,945 --> 00:09:50,807
+half and then we would continue splitting it
+
+239
+00:09:50,807 --> 00:09:52,685
+so that we never look at the entire array.
+
+240
+00:09:53,215 --> 00:09:55,672
+Well, here it's different. We kind of need
+
+241
+00:09:55,704 --> 00:09:57,662
+to look at all coins, I guess.
+
+242
+00:09:58,913 --> 00:10:02,022
+I think there is one potential optimization
+
+243
+00:10:02,022 --> 00:10:03,929
+we could look into, and that is
+
+244
+00:10:04,505 --> 00:10:06,861
+that we check if the target amount
+
+245
+00:10:07,470 --> 00:10:09,617
+actually is maybe smaller than
+
+246
+00:10:10,354 --> 00:10:13,239
+our biggest coin, or in general that we find
+
+247
+00:10:13,239 --> 00:10:15,659
+the coins that are smaller than our target
+
+248
+00:10:15,659 --> 00:10:18,223
+amount so that for target amounts smaller
+
+249
+00:10:18,223 --> 00:10:21,171
+than 100, we potentially don't have to go
+
+250
+00:10:21,171 --> 00:10:23,511
+through the entire array but just a part of
+
+251
+00:10:23,511 --> 00:10:25,723
+this array. But that's such a tiny
+
+252
+00:10:25,819 --> 00:10:28,626
+optimization that it might not help that
+
+253
+00:10:28,626 --> 00:10:28,770
+much,
+
+254
+00:10:30,245 --> 00:10:32,346
+especially since one assumption we have here
+
+255
+00:10:32,795 --> 00:10:35,200
+is that our coins are set in stone. So we
+
+256
+00:10:35,360 --> 00:10:37,172
+actually know that we'll never have more
+
+257
+00:10:37,445 --> 00:10:38,792
+available coins than that.
+
+258
+00:10:39,321 --> 00:10:40,459
+So therefore,
+
+259
+00:10:41,550 --> 00:10:43,859
+I'm not too sure if we really would gain a
+
+260
+00:10:43,859 --> 00:10:44,709
+lot by this.
+
+261
+00:10:45,543 --> 00:10:47,371
+So that's not something I'm going to do
+
+262
+00:10:47,387 --> 00:10:50,626
+here, and therefore here for this set amount
+
+263
+00:10:50,626 --> 00:10:53,163
+of coins, where we know that we always get
+
+264
+00:10:53,163 --> 00:10:56,121
+exactly this input for the available coins
+
+265
+00:10:56,539 --> 00:10:58,853
+and where only the target amount changes,
+
+266
+00:10:59,432 --> 00:11:00,624
+for this problem
+
+267
+00:11:01,710 --> 00:11:04,772
+linear time complexity should be the best we
+
+268
+00:11:04,772 --> 00:11:05,161
+can do.
+
+269
+00:11:06,720 --> 00:11:08,439
+Now here is one interesting thought though.
+
+270
+00:11:09,002 --> 00:11:11,220
+If our coins array is always the same, of
+
+271
+00:11:11,252 --> 00:11:13,004
+course we could also argue that we don't
+
+272
+00:11:13,004 --> 00:11:15,479
+have linear time complexity but actually
+
+273
+00:11:15,905 --> 00:11:18,777
+constant time complexity. Because we don't
+
+274
+00:11:18,777 --> 00:11:19,868
+really have an n.
+
+275
+00:11:20,542 --> 00:11:22,804
+If the coins array is always the same array,
+
+276
+00:11:22,949 --> 00:11:25,900
+we know its length in advance and its length
+
+277
+00:11:26,077 --> 00:11:28,146
+is constant. It never changes.
+
+278
+00:11:28,836 --> 00:11:30,986
+So if you really assume that the coins array
+
+279
+00:11:31,066 --> 00:11:33,938
+is set in stone, we would have constant time
+
+280
+00:11:34,018 --> 00:11:36,569
+here. But we could have a tiny variation
+
+281
+00:11:37,082 --> 00:11:40,708
+where we say that the nature of the coins
+
+282
+00:11:40,708 --> 00:11:43,708
+array is set in stone, so its length might
+
+283
+00:11:43,740 --> 00:11:46,834
+differ But the coins are always such
+
+284
+00:11:47,283 --> 00:11:49,191
+structured like in the coins array we're
+
+285
+00:11:49,191 --> 00:11:52,910
+using here at the moment that we are never
+
+286
+00:11:53,103 --> 00:11:55,956
+able to come up with a better solution by
+
+287
+00:11:56,149 --> 00:11:58,970
+potentially skipping a bigger coin. And I'll
+
+288
+00:11:58,970 --> 00:12:00,557
+show you what I mean and what the
+
+289
+00:12:00,557 --> 00:12:02,641
+alternative would be in the very next
+
+290
+00:12:02,641 --> 00:12:04,789
+lecture. There you will see how we could
+
+291
+00:12:04,821 --> 00:12:07,451
+manipulate the coins array such that a
+
+292
+00:12:07,451 --> 00:12:09,695
+greedy algorithm doesn't really do the
+
+293
+00:12:09,695 --> 00:12:12,921
+trick. So long story short, if we assume
+
+294
+00:12:12,921 --> 00:12:14,670
+that coins array is always the same, we
+
+295
+00:12:14,750 --> 00:12:16,965
+actually have constant time. If we assume
+
+296
+00:12:17,014 --> 00:12:20,834
+that it is flexible but that its nature is
+
+297
+00:12:20,946 --> 00:12:24,589
+the same so that we can rely on the fact
+
+298
+00:12:24,702 --> 00:12:25,023
+that
+
+299
+00:12:26,162 --> 00:12:28,538
+looking at the biggest number first always
+
+300
+00:12:28,650 --> 00:12:30,432
+gives us the best possible solution,
+
+301
+00:12:30,977 --> 00:12:32,149
+we have linear time.
+
+302
+00:12:33,224 --> 00:12:34,797
+And therefore here the greedy approach
+
+303
+00:12:35,054 --> 00:12:38,007
+should be all we need to solve this problem
+
+304
+00:12:38,023 --> 00:12:38,168
+here.

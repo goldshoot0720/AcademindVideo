@@ -1,0 +1,854 @@
+1
+00:00:00,096 --> 00:00:02,328
+As always, you can of course use the CLI,
+像往常一樣，您當然可以使用 CLI，
+
+2
+00:00:02,440 --> 00:00:05,251
+IDE integration, or native app. Here I'm
+IDE 整合或本機應用程式。我在這裡
+
+3
+00:00:05,315 --> 00:00:07,868
+using the CLI to mix things up again.
+使用 CLI 再次混合。
+
+4
+00:00:08,462 --> 00:00:12,461
+And I want to use AI to add testing to this
+我想用人工智慧來添加測試
+
+5
+00:00:12,541 --> 00:00:14,693
+app in the first place, to add unit and
+首先應用程式，添加單位和
+
+6
+00:00:14,789 --> 00:00:18,129
+end-to-end tests. Now for the unit tests, I
+端對端測試。現在對於單元測試，我
+
+7
+00:00:18,322 --> 00:00:21,084
+want to use Vitest, which is a very popular
+想要使用Vitest，這是一個非常受歡迎的
+
+8
+00:00:21,213 --> 00:00:24,280
+JavaScript testing library and framework.
+JavaScript 測試函式庫和框架。
+
+9
+00:00:24,745 --> 00:00:27,299
+And there also is a Next.js documentation
+還有一個 Next.js 文檔
+
+10
+00:00:27,331 --> 00:00:29,515
+article about how to use Vitest with
+關於如何使用 Vitest 的文章
+
+11
+00:00:29,515 --> 00:00:32,165
+Next.js, And since I'm using Next.js, that
+Next.js，由於我使用的是 Next.js，所以
+
+12
+00:00:32,165 --> 00:00:34,767
+of course is something I wanna follow and
+當然是我想要遵循的東西
+
+13
+00:00:34,880 --> 00:00:36,004
+use. So I
+使用。所以我
+
+14
+00:00:36,631 --> 00:00:38,896
+wanna install these dependencies here since
+想在這裡安裝這些依賴項
+
+15
+00:00:38,960 --> 00:00:41,257
+I'm using Next.js with TypeScript in my
+我在我的應用程式中使用 Next.js 和 TypeScript
+
+16
+00:00:41,305 --> 00:00:43,362
+case, and I'll execute them manually.
+情況，我將手動執行它們。
+
+17
+00:00:43,619 --> 00:00:46,173
+Obviously, I could also point the AI at
+顯然，我也可以將人工智慧指向
+
+18
+00:00:46,269 --> 00:00:48,181
+those instructions, but installing
+這些說明，但安裝
+
+19
+00:00:48,213 --> 00:00:50,590
+dependencies is something I often like doing
+依賴是我常喜歡做的事情
+
+20
+00:00:50,623 --> 00:00:53,112
+myself because that way I can ensure that
+我自己，因為這樣我可以確保
+
+21
+00:00:53,112 --> 00:00:55,522
+the right things are installed. And I'll
+安裝了正確的東西。我會
+
+22
+00:00:55,522 --> 00:00:57,450
+then get back to this article a little bit
+然後再回到這篇文章
+
+23
+00:00:57,450 --> 00:01:00,080
+later. Because I also wanna set up
+之後。因為我也想設定
+
+24
+00:01:00,337 --> 00:01:03,480
+Playwright for end-to-end testing. And there
+用於端到端測試的劇作家。還有那裡
+
+25
+00:01:03,688 --> 00:01:06,014
+also is a documentation article on that. And
+還有一篇相關的檔案文章。和
+
+26
+00:01:06,030 --> 00:01:08,403
+of course you find those articles attached
+當然你會發現這些文章附件
+
+27
+00:01:08,435 --> 00:01:10,728
+to the lecture. So I wanna run this command
+去聽講座。所以我想運行這個命令
+
+28
+00:01:10,840 --> 00:01:13,230
+to initialize Playwright in this project and
+在此專案中初始化 Playwright 並
+
+29
+00:01:13,310 --> 00:01:15,651
+we'll see Playwright again a little bit
+我們稍後會再見到劇作家
+
+30
+00:01:15,651 --> 00:01:17,816
+later when it comes to the AI using the
+稍後當談到使用人工智慧時
+
+31
+00:01:17,816 --> 00:01:20,398
+browser. But first and foremost, Playwright
+瀏覽器。但首先，劇作家
+
+32
+00:01:20,398 --> 00:01:22,386
+is a tool that can be used for end-to-end
+是一個可以用在端到端的工具
+
+33
+00:01:22,386 --> 00:01:24,535
+tests, which means it's a tool that can run
+測試，這意味著它是一個可以運行的工具
+
+34
+00:01:24,535 --> 00:01:27,085
+a browser to execute predefined tests and
+一個瀏覽器來執行預先定義的測試和
+
+35
+00:01:27,181 --> 00:01:29,057
+check if the app works as intended there.
+檢查應用程式是否按預期運行。
+
+36
+00:01:29,940 --> 00:01:32,188
+So I'll run this command in my project. I'm
+所以我將在我的專案中運行這個命令。我是
+
+37
+00:01:32,236 --> 00:01:34,645
+happy with the default here. Don't need a
+對這裡的預設值感到滿意。不需要一個
+
+38
+00:01:34,645 --> 00:01:35,849
+GitHub Actions workflow.
+GitHub Actions 工作流程。
+
+39
+00:01:36,507 --> 00:01:39,237
+I wanna install those browsers which it
+我想安裝那些瀏覽器
+
+40
+00:01:39,237 --> 00:01:40,537
+needs, which it opens and runs
+需要它打開並運行
+
+41
+00:01:40,666 --> 00:01:42,544
+automatically. Getting a bunch of warnings
+自動地。收到一堆警告
+
+42
+00:01:42,593 --> 00:01:45,306
+here, but that should not be a problem. And
+在這裡，但這應該不是問題。和
+
+43
+00:01:45,402 --> 00:01:47,747
+with that all set up, I will not write the
+一切準備就緒後，我不會寫
+
+44
+00:01:47,811 --> 00:01:50,364
+tests myself, but instead I wanna use AI for
+測試自己，但我想使用人工智慧
+
+45
+00:01:50,396 --> 00:01:52,853
+that. So I wanna make sure of course that it
+那。所以我當然想確保它
+
+46
+00:01:52,885 --> 00:01:55,181
+finishes setting up my project. For these
+完成我的專案設定。對於這些
+
+47
+00:01:55,213 --> 00:01:57,702
+tests. So I'll start by copying the Vitest
+測試。所以我先複製 Vitest
+
+48
+00:01:57,702 --> 00:02:00,528
+documentation page for Next.js and I'll use
+Next.js 的檔案頁面，我將使用
+
+49
+00:02:00,528 --> 00:02:02,422
+a prompt like this where I say add unit and
+像這樣的提示，我說添加單位和
+
+50
+00:02:02,422 --> 00:02:04,269
+end-to-end testing to this Next.js app, use
+對此 Next.js 應用程式進行端到端測試，請使用
+
+51
+00:02:04,269 --> 00:02:05,971
+Vitest for unit and Playwright for
+維泰斯特單位與劇作家
+
+52
+00:02:05,971 --> 00:02:06,742
+end-to-end testing.
+端對端測試。
+
+53
+00:02:07,336 --> 00:02:09,503
+The libraries are already installed and then
+庫已經安裝好了，然後
+
+54
+00:02:09,503 --> 00:02:11,832
+I point it at those docs. So here I'll paste
+我把它指向那些文檔。所以我在這裡貼上
+
+55
+00:02:11,832 --> 00:02:13,983
+in those Next.js Vitest docs.
+在那些 Next.js Vitest 檔案中。
+
+56
+00:02:14,625 --> 00:02:17,275
+Then I grab the content for the Playwright
+然後我為劇作家抓取內容
+
+57
+00:02:17,275 --> 00:02:19,298
+docs here. And of course again, I could rely
+檔案在這裡。當然，我可以信賴
+
+58
+00:02:19,523 --> 00:02:19,748
+on
+在
+
+59
+00:02:21,544 --> 00:02:24,156
+but knowing is better than hoping. So I'll
+但知道比希望更好。所以我會
+
+60
+00:02:24,332 --> 00:02:26,913
+also paste those Next.js Playwright docs
+也要貼上那些 Next.js Playwright 文檔
+
+61
+00:02:26,913 --> 00:02:27,874
+here into my prompt.
+進入我的提示。
+
+62
+00:02:28,499 --> 00:02:30,711
+And I'll finish my prompt by telling the AI
+我將透過告訴人工智慧來完成我的提示
+
+63
+00:02:30,759 --> 00:02:33,227
+to use Context7, the MCP, for looking up
+使用 Context7（MCP）進行查找
+
+64
+00:02:33,307 --> 00:02:34,189
+more docs as needed,
+根據需要提供更多文檔，
+
+65
+00:02:34,750 --> 00:02:36,657
+and that it should add both unit and
+並且它應該添加單位和
+
+66
+00:02:36,833 --> 00:02:39,429
+end-to-end tests for this existing app, that
+對此現有應用程式的端對端測試
+
+67
+00:02:39,429 --> 00:02:41,176
+it should add a comprehensive test suite,
+它應該添加一個全面的測試套件，
+
+68
+00:02:41,401 --> 00:02:42,138
+and of course
+當然
+
+69
+00:02:42,683 --> 00:02:45,343
+that it should write tests that test the
+它應該編寫測試來測試
+
+70
+00:02:45,343 --> 00:02:47,491
+intended behavior and do not just pass. I
+預期的行為，而不只是透過。我
+
+71
+00:02:47,507 --> 00:02:49,574
+don't want it to write a bunch of tests
+不希望它編寫一堆測試
+
+72
+00:02:49,590 --> 00:02:52,769
+that, pass but don't actually test what they
+那個，通過但不實際測試他們的內容
+
+73
+00:02:52,801 --> 00:02:53,749
+should test, of course.
+當然應該測試。
+
+74
+00:02:54,552 --> 00:02:56,222
+With that, I'll switch to plan mode since
+這樣，我將切換到計劃模式，因為
+
+75
+00:02:56,319 --> 00:02:58,278
+this is again a bit more complex and I'll
+這又有點複雜，我會
+
+76
+00:02:58,278 --> 00:02:59,884
+send it off. And obviously we could have
+發送它。顯然我們可以有
+
+77
+00:02:59,884 --> 00:03:02,310
+sent the same prompt in the desktop app or
+在桌面應用程式中發送相同的提示或
+
+78
+00:03:02,583 --> 00:03:04,092
+with the IDE integration.
+與 IDE 整合。
+
+79
+00:03:05,169 --> 00:03:07,465
+Now I got a couple of follow-up questions
+現在我有幾個後續問題
+
+80
+00:03:07,481 --> 00:03:07,610
+here
+這裡
+
+81
+00:03:08,284 --> 00:03:10,228
+and I only want to test the current
+我只想測試目前的
+
+82
+00:03:10,228 --> 00:03:12,958
+behavior. I'm fine with just using the
+行為。我只要使用就可以了
+
+83
+00:03:12,958 --> 00:03:15,095
+Chromium browser, which is in the end
+Chromium瀏覽器，到底是哪個
+
+84
+00:03:15,191 --> 00:03:16,123
+Chrome, you could say.
+Chrome，你可以說。
+
+85
+00:03:16,796 --> 00:03:20,098
+And that sounds reasonable to me too. And I
+這對我來說也聽起來很合理。而我
+
+86
+00:03:20,098 --> 00:03:22,391
+don't want to enforce any coverage
+不想強制執行任何承保範圍
+
+87
+00:03:22,663 --> 00:03:23,272
+thresholds.
+閾值。
+
+88
+00:03:24,010 --> 00:03:26,238
+I wanna let the AI make the choice about
+我想讓人工智慧做出選擇
+
+89
+00:03:26,334 --> 00:03:29,364
+which tests to add here for this demo. So
+在此演示中新增哪些測試。所以
+
+90
+00:03:29,460 --> 00:03:32,025
+it's generating a plan and as always, I'll
+它正在製定一個計劃，一如既往，我會
+
+91
+00:03:32,041 --> 00:03:33,355
+carefully review that.
+仔細檢查一下。
+
+92
+00:03:34,285 --> 00:03:37,042
+And that is all looking good to me. So yes,
+這對我來說看起來不錯。所以是的，
+
+93
+00:03:37,475 --> 00:03:39,383
+I wanted to implement this plan.
+我想實施這個計劃。
+
+94
+00:03:40,553 --> 00:03:43,551
+So here it's now done adding testing and it
+現在已經完成新增測試了
+
+95
+00:03:43,647 --> 00:03:44,256
+found some
+找到了一些
+
+96
+00:03:44,945 --> 00:03:47,815
+E2E test related issues or actual issues in
+E2E測試相關問題或實際問題
+
+97
+00:03:47,815 --> 00:03:48,296
+my code
+我的程式碼
+
+98
+00:03:49,259 --> 00:03:51,200
+But before we'll take a look at that, let me
+但在我們看一下之前，讓我先
+
+99
+00:03:51,200 --> 00:03:53,640
+check what it added. Added a tests folder,
+檢查它添加了什麼。新增了一個測試資料夾，
+
+100
+00:03:53,865 --> 00:03:56,641
+E2E folder, unit folder, and all the config
+E2E資料夾、單元資料夾和所有設定
+
+101
+00:03:56,641 --> 00:04:00,156
+files. And it brought up some valid concerns
+檔案。它提出了一些合理的擔憂
+
+102
+00:04:00,252 --> 00:04:00,461
+here
+這裡
+
+103
+00:04:01,055 --> 00:04:01,440
+actually
+實際上
+
+104
+00:04:02,274 --> 00:04:04,923
+because it's mentioning issues related to my
+因為它提到了與我相關的問題
+
+105
+00:04:04,923 --> 00:04:06,816
+content security policy.
+內容安全策略。
+
+106
+00:04:07,635 --> 00:04:09,159
+And I can see that here in the browser too,
+我也可以在瀏覽器中看到，
+
+107
+00:04:09,176 --> 00:04:11,053
+in the DevTools in development mode. Got a
+在開發模式下的 DevTools 中。得到了一個
+
+108
+00:04:11,182 --> 00:04:13,252
+bunch of errors related to that. We
+一堆與此相關的錯誤。我們
+
+109
+00:04:13,268 --> 00:04:15,419
+definitely wanna fix that. And it's good
+絕對想解決這個問題。而且很好
+
+110
+00:04:15,419 --> 00:04:17,393
+that it didn't just write tests that break
+它不只是會寫會破壞的測試
+
+111
+00:04:17,393 --> 00:04:20,326
+my site. Pass, but that also thanks to my
+我的網站。通過，不過這也要感謝我的
+
+112
+00:04:20,326 --> 00:04:23,259
+prompt, maybe it wrote proper tests and did
+提示，也許它編寫了正確的測試並做了
+
+113
+00:04:23,291 --> 00:04:25,664
+not change them just because they failed,
+不要因為他們失敗了就改變他們，
+
+114
+00:04:26,080 --> 00:04:28,886
+but instead pinpointed an actual issue,
+而是指出了一個實際問題，
+
+115
+00:04:29,447 --> 00:04:31,755
+which is of course the idea behind having
+這當然是背後的想法
+
+116
+00:04:31,787 --> 00:04:33,935
+feedback loops like this. It allows the
+像這樣的回饋迴圈。它允許
+
+117
+00:04:34,015 --> 00:04:36,051
+agent to find actual issues.
+代理尋找實際問題。
+
+118
+00:04:36,676 --> 00:04:38,888
+So since it has that feedback loop, we can
+既然它有回饋迴圈，我們就可以
+
+119
+00:04:39,001 --> 00:04:40,892
+now pass those error messages
+現在傳遞這些錯誤訊息
+
+120
+00:04:41,630 --> 00:04:42,351
+to Codex
+提交至食品法典委員會
+
+121
+00:04:43,008 --> 00:04:44,996
+in that same thread, maybe because here it
+在同一個執行緒中，也許是因為在這裡
+
+122
+00:04:45,012 --> 00:04:47,096
+already has some information about the
+已經有一些關於
+
+123
+00:04:47,096 --> 00:04:49,212
+issues. So I'll stay in this session. There
+問題。所以我將繼續參加本次會議。那裡
+
+124
+00:04:49,324 --> 00:04:51,649
+is a enough context left. So I'm preparing a
+剩下足夠的上下文。所以我正在準備一個
+
+125
+00:04:51,649 --> 00:04:53,958
+prompt like this where I agree that there
+像這樣提示我同意那裡
+
+126
+00:04:53,990 --> 00:04:56,843
+are CSP issues and where I share these
+是 CSP 問題，我在哪裡分享這些問題
+
+127
+00:04:57,100 --> 00:04:58,591
+errors. I paste them in here
+錯誤。我把它們貼在這裡
+
+128
+00:04:59,184 --> 00:05:01,604
+and I ask it to carefully analyze its
+我要求它仔細分析它的
+
+129
+00:05:01,604 --> 00:05:03,961
+findings, these errors and the config in
+發現，這些錯誤和設定
+
+130
+00:05:04,089 --> 00:05:07,086
+next.config.ts. I point it at that file
+next.config.ts。我把它指向那個檔案
+
+131
+00:05:07,151 --> 00:05:09,186
+since I know that the content security
+因為我知道內容安全
+
+132
+00:05:09,202 --> 00:05:09,667
+policy
+政策
+
+133
+00:05:10,325 --> 00:05:11,815
+items are set up in that file.
+專案在該檔案中設定。
+
+134
+00:05:12,425 --> 00:05:13,675
+It's these settings.
+就是這些設定。
+
+135
+00:05:14,348 --> 00:05:16,913
+And I ask it to fix or remove those policies
+我要求它修復或刪除這些政策
+
+136
+00:05:16,913 --> 00:05:18,997
+as needed and to also update the spec.md
+根據需要並更新spec.md
+
+137
+00:05:18,997 --> 00:05:20,888
+file to be in line with the changes because
+檔案與更改保持一致，因為
+
+138
+00:05:20,921 --> 00:05:22,284
+in that file I mentioned the Content
+在該檔案中我提到了內容
+
+139
+00:05:22,284 --> 00:05:24,370
+Security Policy and I want it to be in line
+安全政策，我希望它符合
+
+140
+00:05:24,370 --> 00:05:25,702
+with our actual project.
+與我們的實際專案。
+
+141
+00:05:26,553 --> 00:05:27,917
+So I'll send that off
+所以我會把它寄出去
+
+142
+00:05:28,848 --> 00:05:32,154
+and at the same time I'll edit my agents.md
+同時我將編輯我的agents.md
+
+143
+00:05:32,154 --> 00:05:33,807
+file because I wanna make sure that these
+檔案，因為我想確保這些
+
+144
+00:05:33,919 --> 00:05:36,166
+newly added tests are now always used
+現在總是使用新添加的測試
+
+145
+00:05:36,166 --> 00:05:37,578
+whenever I start new sessions.
+每當我開始新的工作階段時。
+
+146
+00:05:38,156 --> 00:05:39,793
+So I want it to of course
+所以我當然想要它
+
+147
+00:05:40,322 --> 00:05:43,403
+format, I want it to lint and check for type
+格式，我希望它能夠檢查型別
+
+148
+00:05:43,452 --> 00:05:46,051
+errors, but I also want it to always run my
+錯誤，但我也希望它始終運行我的
+
+149
+00:05:46,196 --> 00:05:47,929
+unit and end-to-end tests.
+單元測試和端對端測試。
+
+150
+00:05:50,128 --> 00:05:52,858
+Using the scripts we have here in the
+使用我們這裡的腳本
+
+151
+00:05:52,858 --> 00:05:55,442
+package.json file. Actually, for the unit
+package.json 檔。其實對於單位來說
+
+152
+00:05:55,490 --> 00:05:57,899
+tests, I think just bun run test should do
+測試，我認為只需發包運行測試就可以了
+
+153
+00:05:57,899 --> 00:05:58,220
+the trick.
+竅門。
+
+154
+00:05:59,504 --> 00:06:00,531
+Now it looks like here it's
+現在看起來就像在這裡
+
+155
+00:06:01,190 --> 00:06:03,822
+wrapping up, the errors are gone, and with
+結束後，錯誤消失了，並且
+
+156
+00:06:03,855 --> 00:06:05,733
+that I can type here. So it looks like this
+我可以在這裡輸入。所以看起來像這樣
+
+157
+00:06:05,861 --> 00:06:08,157
+was the issue before, the library probably
+之前是這個問題，圖書館可能
+
+158
+00:06:08,334 --> 00:06:09,490
+didn't load properly.
+沒有正確載入。
+
+159
+00:06:10,035 --> 00:06:12,556
+So that issue was fixed also thanks to our
+所以這個問題也得到了解決，感謝我們
+
+160
+00:06:12,588 --> 00:06:14,579
+tests and that feedback loop we're setting
+測試和我們正在設定的回饋迴圈
+
+161
+00:06:14,675 --> 00:06:17,594
+up. And hence in the future, I won't have to
+向上。因此，在未來，我將不必
+
+162
+00:06:17,658 --> 00:06:20,608
+worry about this issue anymore that I can't
+我不能再擔心這個問題了
+
+163
+00:06:20,608 --> 00:06:22,821
+type into the main editor. Looks like I now
+在主編輯器中輸入。看來我現在
+
+164
+00:06:22,933 --> 00:06:25,178
+can. Obviously the other issues persist and
+能。顯然其他問題仍然存在並且
+
+165
+00:06:25,178 --> 00:06:26,750
+we'll tackle them in the future, but our
+我們將來會解決這些問題，但是我們的
+
+166
+00:06:26,942 --> 00:06:29,139
+tests and that feedback loop already got rid
+測試和回饋迴圈已經擺脫了
+
+167
+00:06:29,203 --> 00:06:29,989
+of one issue.
+的一個問題。
+
+168
+00:06:30,790 --> 00:06:32,522
+And now here after a while,
+過了一會兒，現在在這裡，
+
+169
+00:06:33,051 --> 00:06:35,585
+it's done and it added all those tests, unit
+它已經完成並且添加了所有這些測試，單元
+
+170
+00:06:35,697 --> 00:06:37,830
+and end-to-end and ran them. And with that,
+並端到端地運行它們。就這樣，
+
+171
+00:06:37,862 --> 00:06:40,748
+we added one first important feedback loop.
+我們加入了第一個重要的回饋迴圈。

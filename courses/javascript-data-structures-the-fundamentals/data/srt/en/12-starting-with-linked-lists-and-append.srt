@@ -1,0 +1,1315 @@
+1
+00:00:02,262 --> 00:00:04,637
+So let's write our first custom data
+
+2
+00:00:04,685 --> 00:00:07,702
+structure, a linked list. Now, a linked list
+
+3
+00:00:07,878 --> 00:00:10,301
+is a data structure, of course. This entire
+
+4
+00:00:10,301 --> 00:00:12,291
+course is about data structures. And
+
+5
+00:00:12,371 --> 00:00:12,756
+therefore,
+
+6
+00:00:13,334 --> 00:00:15,548
+unlike in my algorithms course, we're now
+
+7
+00:00:15,596 --> 00:00:18,324
+not just going to write some function that
+
+8
+00:00:18,324 --> 00:00:20,779
+does something because we're not just going
+
+9
+00:00:20,811 --> 00:00:22,705
+to write the solution for a problem.
+
+10
+00:00:22,897 --> 00:00:26,074
+Instead, we wanna store data. And that has
+
+11
+00:00:26,187 --> 00:00:27,615
+one important implication.
+
+12
+00:00:28,417 --> 00:00:30,758
+In this course, the data structures we're
+
+13
+00:00:30,758 --> 00:00:33,837
+going to build will build up on the core
+
+14
+00:00:33,966 --> 00:00:36,099
+data structures that are built into
+
+15
+00:00:36,131 --> 00:00:37,093
+JavaScript,
+
+16
+00:00:37,638 --> 00:00:39,723
+obviously, because if that would not be the
+
+17
+00:00:39,723 --> 00:00:40,140
+case,
+
+18
+00:00:40,926 --> 00:00:42,946
+well, we would have to build up on the
+
+19
+00:00:42,946 --> 00:00:45,047
+language with which JavaScript is
+
+20
+00:00:45,111 --> 00:00:45,721
+implemented,
+
+21
+00:00:46,298 --> 00:00:48,575
+and ultimately we could go all the way down
+
+22
+00:00:48,640 --> 00:00:50,580
+to machine code, right, if we want to
+
+23
+00:00:50,628 --> 00:00:51,414
+reinvent the wheel.
+
+24
+00:00:52,104 --> 00:00:54,253
+So that's not what we're going to do. Not
+
+25
+00:00:54,253 --> 00:00:56,033
+that we could easily do it in JavaScript,
+
+26
+00:00:56,097 --> 00:00:57,942
+but that's not what we want to do either.
+
+27
+00:00:58,423 --> 00:01:00,845
+Instead, we'll take what JavaScript has—
+
+28
+00:01:01,455 --> 00:01:04,085
+arrays, objects, and so on— and we'll
+
+29
+00:01:04,181 --> 00:01:05,064
+enhance this.
+
+30
+00:01:05,882 --> 00:01:08,801
+We'll enhance this to build a new data
+
+31
+00:01:08,849 --> 00:01:12,105
+structure on top of those built-in ones, to
+
+32
+00:01:12,201 --> 00:01:15,073
+then with our new data structure use those
+
+33
+00:01:15,185 --> 00:01:16,917
+built-in ones in a better way,
+
+34
+00:01:17,575 --> 00:01:17,944
+to then
+
+35
+00:01:18,874 --> 00:01:21,264
+enhance those built-in structures such that
+
+36
+00:01:21,264 --> 00:01:24,121
+our custom data structure does a certain
+
+37
+00:01:24,233 --> 00:01:26,560
+thing in a better way. Otherwise, there
+
+38
+00:01:26,560 --> 00:01:28,582
+would be no reason to come up with a custom
+
+39
+00:01:28,582 --> 00:01:30,460
+data structure if it would do just the same
+
+40
+00:01:30,589 --> 00:01:32,515
+thing, right? So in the case of the linked
+
+41
+00:01:32,515 --> 00:01:34,858
+list, we're also going to build up on some
+
+42
+00:01:34,906 --> 00:01:37,233
+built-in data structures, and then we're
+
+43
+00:01:37,233 --> 00:01:38,742
+going to enhance those
+
+44
+00:01:39,320 --> 00:01:41,920
+with a certain functionality. Now therefore,
+
+45
+00:01:42,064 --> 00:01:44,151
+we're not going to write a function because
+
+46
+00:01:44,151 --> 00:01:46,205
+a function is basically there to execute
+
+47
+00:01:46,301 --> 00:01:49,046
+code, right? To, to solve a problem, to take
+
+48
+00:01:49,046 --> 00:01:50,715
+some inputs and produce a result.
+
+49
+00:01:51,292 --> 00:01:53,823
+Instead, a data structure of course is in
+
+50
+00:01:53,920 --> 00:01:57,028
+the end in JavaScript an object. Even arrays
+
+51
+00:01:57,284 --> 00:01:59,624
+are objects in the end, right? So we're
+
+52
+00:01:59,624 --> 00:02:01,738
+going to build our custom object here
+
+53
+00:02:01,787 --> 00:02:02,203
+therefore,
+
+54
+00:02:02,972 --> 00:02:06,064
+and specifically I will build my own class
+
+55
+00:02:06,096 --> 00:02:08,756
+here so that we have a blueprint for our
+
+56
+00:02:08,756 --> 00:02:10,903
+custom data structure and we can simply
+
+57
+00:02:10,919 --> 00:02:13,290
+instantiate our class to then have a new
+
+58
+00:02:13,403 --> 00:02:15,325
+instance of our custom data structure.
+
+59
+00:02:16,030 --> 00:02:17,648
+And I think that should make a lot of sense
+
+60
+00:02:17,648 --> 00:02:19,427
+because if you recall
+
+61
+00:02:19,972 --> 00:02:23,179
+the recaps about Sets and Maps, there we
+
+62
+00:02:23,323 --> 00:02:26,450
+also created a new Map or a new Set with the
+
+63
+00:02:26,450 --> 00:02:29,673
+constructor function. So those built-in data
+
+64
+00:02:29,673 --> 00:02:31,742
+structures also in the end are just
+
+65
+00:02:31,998 --> 00:02:34,564
+constructor functions and therefore just
+
+66
+00:02:34,564 --> 00:02:36,328
+classes behind the scenes, you could say.
+
+67
+00:02:36,793 --> 00:02:38,893
+And by the way, for objects and arrays, it's
+
+68
+00:02:38,893 --> 00:02:41,635
+not that different. We have those shortcuts
+
+69
+00:02:41,699 --> 00:02:43,303
+with the square brackets and the curly
+
+70
+00:02:43,367 --> 00:02:46,157
+braces, but ultimately we can create an
+
+71
+00:02:46,253 --> 00:02:48,562
+array with the array constructor function,
+
+72
+00:02:48,915 --> 00:02:51,319
+and we can also create an object with help
+
+73
+00:02:51,319 --> 00:02:53,515
+of the built-in object constructor function.
+
+74
+00:02:53,563 --> 00:02:55,808
+So that's all how JavaScript works, and
+
+75
+00:02:55,808 --> 00:02:57,379
+that's what we're going to utilize here as
+
+76
+00:02:57,491 --> 00:02:57,635
+well.
+
+77
+00:02:58,389 --> 00:03:00,200
+So I'm going to create a class, and I'll
+
+78
+00:03:00,200 --> 00:03:02,669
+name it LinkedList because we're going to
+
+79
+00:03:02,701 --> 00:03:05,827
+build a blueprint for a LinkedList object so
+
+80
+00:03:05,827 --> 00:03:08,424
+that we later can build as many different
+
+81
+00:03:08,536 --> 00:03:11,037
+linked lists as we want based on this
+
+82
+00:03:11,037 --> 00:03:13,201
+blueprint. That's what classes are there
+
+83
+00:03:13,201 --> 00:03:13,441
+for.
+
+84
+00:03:14,724 --> 00:03:17,049
+So what do we want to do inside of this
+
+85
+00:03:17,049 --> 00:03:18,075
+LinkedList class?
+
+86
+00:03:19,213 --> 00:03:20,977
+Well, we should add a constructor function
+
+87
+00:03:21,218 --> 00:03:23,334
+because the constructor function in a class
+
+88
+00:03:23,462 --> 00:03:26,477
+is the first code that executes whenever you
+
+89
+00:03:26,573 --> 00:03:30,469
+later call new LinkedList. So that is when
+
+90
+00:03:30,501 --> 00:03:31,961
+we want to construct a LinkedList,
+
+91
+00:03:33,003 --> 00:03:35,472
+LinkedList1. That is what we want to be able
+
+92
+00:03:35,472 --> 00:03:36,226
+to call later.
+
+93
+00:03:36,835 --> 00:03:39,144
+And of course, therefore, when we do that,
+
+94
+00:03:39,192 --> 00:03:41,469
+something should happen, and that something
+
+95
+00:03:41,822 --> 00:03:44,376
+when new is used, well, that goes into the
+
+96
+00:03:44,376 --> 00:03:45,323
+constructor function.
+
+97
+00:03:46,785 --> 00:03:49,339
+Now to get an idea for what we wanna do in
+
+98
+00:03:49,435 --> 00:03:51,797
+the constructor function, let's again have a
+
+99
+00:03:51,797 --> 00:03:54,367
+look at how a linked list should look like
+
+100
+00:03:54,367 --> 00:03:54,656
+in the end.
+
+101
+00:03:55,475 --> 00:03:57,435
+We have these elements in there
+
+102
+00:03:58,029 --> 00:04:00,278
+and we also typically call those elements in
+
+103
+00:04:00,278 --> 00:04:03,057
+a linked list nodes. So when you hear me say
+
+104
+00:04:03,490 --> 00:04:06,864
+node, I mean an element in a linked list. So
+
+105
+00:04:06,864 --> 00:04:08,968
+we have these nodes in this linked list
+
+106
+00:04:08,968 --> 00:04:10,734
+example, we have 4 nodes.
+
+107
+00:04:11,360 --> 00:04:14,137
+And to help us with efficiently inserting
+
+108
+00:04:14,426 --> 00:04:16,673
+new nodes, at least at the end and the
+
+109
+00:04:16,673 --> 00:04:19,048
+beginning of the list, we also typically
+
+110
+00:04:19,080 --> 00:04:21,696
+keep track of the first node, which is
+
+111
+00:04:21,728 --> 00:04:24,682
+called the head node or just head, and the
+
+112
+00:04:24,682 --> 00:04:27,234
+last node, which is called tail node or
+
+113
+00:04:27,506 --> 00:04:27,779
+tail.
+
+114
+00:04:28,646 --> 00:04:30,861
+So we have nodes in the linked list and we
+
+115
+00:04:30,861 --> 00:04:34,215
+got 2 specific nodes or 2 specific markers
+
+116
+00:04:34,408 --> 00:04:36,576
+which we wanna place end which we wanna keep
+
+117
+00:04:36,576 --> 00:04:39,243
+updated, and that's the head marker which
+
+118
+00:04:39,452 --> 00:04:41,621
+always points at the first node in the
+
+119
+00:04:41,621 --> 00:04:44,657
+linked list and the tail marker which always
+
+120
+00:04:44,754 --> 00:04:47,200
+points at the last node in the linked list.
+
+121
+00:04:47,667 --> 00:04:50,518
+And we'll need head and tail to make sure
+
+122
+00:04:50,872 --> 00:04:53,352
+that we can efficiently prepend and append
+
+123
+00:04:53,787 --> 00:04:55,404
+elements to that linked list.
+
+124
+00:04:57,043 --> 00:05:00,092
+So nodes, head, and tail, these are a couple
+
+125
+00:05:00,092 --> 00:05:01,131
+of important terms.
+
+126
+00:05:01,812 --> 00:05:04,772
+Now in the constructor, initially we have no
+
+127
+00:05:04,772 --> 00:05:07,726
+nodes because initially when we just create
+
+128
+00:05:07,726 --> 00:05:09,732
+the linked list, it's an empty linked list.
+
+129
+00:05:10,711 --> 00:05:13,472
+So therefore you could imagine that here you
+
+130
+00:05:13,504 --> 00:05:16,522
+want to, for example, add a nodes property
+
+131
+00:05:16,699 --> 00:05:19,283
+to our class and set this to an empty array,
+
+132
+00:05:19,685 --> 00:05:21,434
+right? That is something that could come to
+
+133
+00:05:21,434 --> 00:05:23,489
+your mind. You want to add this empty array
+
+134
+00:05:23,778 --> 00:05:25,833
+and in this array you later want to manage
+
+135
+00:05:25,865 --> 00:05:26,314
+the nodes.
+
+136
+00:05:27,390 --> 00:05:29,460
+We could do this, but if we do this, we're
+
+137
+00:05:29,557 --> 00:05:32,847
+back to basically just rebuilding an array.
+
+138
+00:05:33,490 --> 00:05:35,689
+We would just wrap the built-in array with
+
+139
+00:05:35,817 --> 00:05:36,861
+our own object,
+
+140
+00:05:37,407 --> 00:05:39,205
+and chances are that we
+
+141
+00:05:39,751 --> 00:05:42,255
+don't really have a much better data
+
+142
+00:05:42,255 --> 00:05:45,289
+structure thereafter. Maybe we can improve
+
+143
+00:05:45,289 --> 00:05:48,163
+it in some parts, but ultimately I don't
+
+144
+00:05:48,163 --> 00:05:50,105
+just want to rebuild an array here.
+
+145
+00:05:51,068 --> 00:05:53,557
+Instead, the idea will be that we don't
+
+146
+00:05:53,557 --> 00:05:55,836
+store the entire list anywhere.
+
+147
+00:05:56,591 --> 00:05:59,863
+We just store our different nodes and every
+
+148
+00:05:59,911 --> 00:06:02,396
+node knows about the next node but every
+
+149
+00:06:02,396 --> 00:06:04,672
+node itself does not necessarily know
+
+150
+00:06:04,784 --> 00:06:06,467
+something about the list it's part of.
+
+151
+00:06:07,028 --> 00:06:09,096
+And the list also doesn't know all its
+
+152
+00:06:09,096 --> 00:06:11,709
+nodes. Instead, the list should know the
+
+153
+00:06:11,918 --> 00:06:13,729
+first and the last node
+
+154
+00:06:14,306 --> 00:06:15,540
+of its list elements
+
+155
+00:06:16,406 --> 00:06:19,051
+and the nodes themselves then know about the
+
+156
+00:06:19,051 --> 00:06:20,125
+next one in line.
+
+157
+00:06:20,734 --> 00:06:23,107
+So there is no place where the entire list
+
+158
+00:06:23,203 --> 00:06:23,267
+is
+
+159
+00:06:23,796 --> 00:06:26,842
+stored, it's just implicitly stored because
+
+160
+00:06:26,842 --> 00:06:29,294
+a list knows its starting and ending value
+
+161
+00:06:29,471 --> 00:06:31,685
+and every value then knows the next value in
+
+162
+00:06:31,717 --> 00:06:34,270
+line. That's the idea of a linked list. And
+
+163
+00:06:34,350 --> 00:06:36,742
+therefore we won't have a nodes property
+
+164
+00:06:36,838 --> 00:06:39,599
+here. Instead, we'll have our head property,
+
+165
+00:06:40,145 --> 00:06:41,975
+which I add with this.head.
+
+166
+00:06:42,553 --> 00:06:44,447
+And initially that's null because initially
+
+167
+00:06:44,479 --> 00:06:45,892
+we have no head property.
+
+168
+00:06:46,566 --> 00:06:48,685
+And I'll add the tail property, which also
+
+169
+00:06:48,733 --> 00:06:49,552
+is null initially.
+
+170
+00:06:50,178 --> 00:06:53,067
+And that will be the first element of the
+
+171
+00:06:53,131 --> 00:06:55,876
+list, and that here will be the last element
+
+172
+00:06:55,956 --> 00:06:58,493
+of the list. Initially both is null because
+
+173
+00:06:58,525 --> 00:07:00,339
+initially we have no elements.
+
+174
+00:07:00,933 --> 00:07:02,765
+Of course, you, by the way, could tweak the
+
+175
+00:07:02,765 --> 00:07:05,239
+constructor to accept a starting and ending
+
+176
+00:07:05,272 --> 00:07:07,666
+value if you wanted to, but here I'll start
+
+177
+00:07:07,666 --> 00:07:10,381
+simple and not allow this functionality.
+
+178
+00:07:11,474 --> 00:07:13,949
+So this is now my LinkedList constructor.
+
+179
+00:07:14,350 --> 00:07:16,488
+Not too exciting. Right now it's an empty
+
+180
+00:07:16,520 --> 00:07:16,857
+list.
+
+181
+00:07:17,548 --> 00:07:19,894
+Now let's make sure we can add something to
+
+182
+00:07:19,894 --> 00:07:22,144
+the list. So therefore, we probably wanna
+
+183
+00:07:22,288 --> 00:07:24,763
+add an append method, and this is how we can
+
+184
+00:07:24,859 --> 00:07:26,048
+add a method in a class.
+
+185
+00:07:26,787 --> 00:07:28,633
+Append should take a value,
+
+186
+00:07:29,195 --> 00:07:31,538
+and that value can actually be of any kind.
+
+187
+00:07:31,618 --> 00:07:33,239
+We don't care. Can be a string, can be a
+
+188
+00:07:33,239 --> 00:07:34,989
+number, can be an object, can be an array.
+
+189
+00:07:35,454 --> 00:07:37,011
+Everything is allowed. It should be some
+
+190
+00:07:37,075 --> 00:07:37,412
+value,
+
+191
+00:07:37,958 --> 00:07:40,703
+and that value should be added to our linked
+
+192
+00:07:40,767 --> 00:07:41,104
+list.
+
+193
+00:07:42,212 --> 00:07:44,571
+Therefore, here I then want to create my
+
+194
+00:07:45,887 --> 00:07:46,272
+newNode.
+
+195
+00:07:46,850 --> 00:07:48,327
+You can of course name this constant however
+
+196
+00:07:48,327 --> 00:07:50,461
+you want, and that should always be an
+
+197
+00:07:50,622 --> 00:07:53,607
+object. Now, why is newNode an object and
+
+198
+00:07:53,623 --> 00:07:54,683
+not just a value?
+
+199
+00:07:55,838 --> 00:07:57,909
+Because you have to keep in mind that every
+
+200
+00:07:58,246 --> 00:08:00,926
+node knows about the next node in line.
+
+201
+00:08:01,054 --> 00:08:02,836
+Every element knows about the next element.
+
+202
+00:08:03,076 --> 00:08:05,548
+So it's not enough to just store the value.
+
+203
+00:08:05,965 --> 00:08:08,918
+We also need to store a pointer at the next
+
+204
+00:08:08,998 --> 00:08:11,325
+element in line. Otherwise, it's no linked
+
+205
+00:08:11,325 --> 00:08:13,315
+list. Otherwise, it's a standalone value
+
+206
+00:08:13,347 --> 00:08:14,567
+that doesn't know anything.
+
+207
+00:08:15,177 --> 00:08:17,071
+And since our list also doesn't know all
+
+208
+00:08:17,199 --> 00:08:19,494
+values, all values would be lost in the end.
+
+209
+00:08:20,072 --> 00:08:21,869
+So therefore, it's not enough to just store
+
+210
+00:08:21,869 --> 00:08:24,277
+the value. We want an object instead.
+
+211
+00:08:25,704 --> 00:08:27,628
+And this can be a very trivial object
+
+212
+00:08:27,628 --> 00:08:30,160
+though. It would have a value property which
+
+213
+00:08:30,257 --> 00:08:31,764
+holds the value we're getting.
+
+214
+00:08:32,373 --> 00:08:34,329
+So this is the name of the property, this is
+
+215
+00:08:34,361 --> 00:08:36,942
+the name of this parameter we're getting,
+
+216
+00:08:37,391 --> 00:08:39,747
+which value we're then storing as a value
+
+217
+00:08:39,891 --> 00:08:41,975
+for the value property. Okay, that's a lot
+
+218
+00:08:41,975 --> 00:08:42,424
+of values,
+
+219
+00:08:43,098 --> 00:08:44,765
+but I think value is a name that makes sense
+
+220
+00:08:44,765 --> 00:08:44,941
+here.
+
+221
+00:08:45,583 --> 00:08:48,356
+So we have value stored as a property with
+
+222
+00:08:48,388 --> 00:08:49,975
+the input value we received here.
+
+223
+00:08:51,017 --> 00:08:53,422
+And then, that's important, we'll also add
+
+224
+00:08:53,422 --> 00:08:56,211
+another property which is called next, and
+
+225
+00:08:56,323 --> 00:08:59,000
+this should point at the next element in
+
+226
+00:08:59,112 --> 00:08:59,337
+line.
+
+227
+00:09:00,395 --> 00:09:03,793
+Now of course, initially right now we have
+
+228
+00:09:03,793 --> 00:09:06,502
+no next element, right? So this can simply
+
+229
+00:09:06,582 --> 00:09:09,596
+be null, because if we just append a new
+
+230
+00:09:10,029 --> 00:09:12,706
+element, append means that it's added at the
+
+231
+00:09:12,898 --> 00:09:13,876
+end of the list,
+
+232
+00:09:14,421 --> 00:09:18,124
+and naturally such an element never has a
+
+233
+00:09:18,124 --> 00:09:20,432
+pointer at some next element because it's
+
+234
+00:09:20,432 --> 00:09:22,099
+the last one in the list. There is no next
+
+235
+00:09:22,276 --> 00:09:22,549
+element.
+
+236
+00:09:23,511 --> 00:09:25,660
+So therefore, this is our new node which we
+
+237
+00:09:25,660 --> 00:09:26,381
+want to create,
+
+238
+00:09:27,167 --> 00:09:30,904
+and this node should then be added to our
+
+239
+00:09:31,032 --> 00:09:33,341
+list. Now what does that mean? However,
+
+240
+00:09:33,903 --> 00:09:36,244
+we're not managing the list as an array, so
+
+241
+00:09:36,244 --> 00:09:36,917
+we don't do
+
+242
+00:09:37,607 --> 00:09:40,654
+this.list.push or anything like that. That's
+
+243
+00:09:40,654 --> 00:09:42,867
+not what we do because we have no list in
+
+244
+00:09:42,915 --> 00:09:43,701
+its entirety.
+
+245
+00:09:44,503 --> 00:09:47,790
+Instead, appending means that we now need to
+
+246
+00:09:47,854 --> 00:09:52,154
+go to the previously last element, so to our
+
+247
+00:09:52,346 --> 00:09:52,635
+tail,
+
+248
+00:09:53,630 --> 00:09:56,341
+and we need to update the next value
+
+249
+00:09:56,918 --> 00:09:57,528
+on the tail
+
+250
+00:09:58,122 --> 00:10:00,801
+and make sure that the next value of our
+
+251
+00:10:01,250 --> 00:10:04,763
+previous tail node now points at this new
+
+252
+00:10:04,876 --> 00:10:06,704
+node. That is what we need to do.
+
+253
+00:10:07,539 --> 00:10:08,421
+So for this,
+
+254
+00:10:09,432 --> 00:10:11,244
+we should reach out to this tail
+
+255
+00:10:11,774 --> 00:10:14,373
+and then to the next property of the tail
+
+256
+00:10:15,385 --> 00:10:18,085
+and set this equal to newNode.
+
+257
+00:10:18,905 --> 00:10:22,023
+So basically our newNode is now stored in
+
+258
+00:10:22,055 --> 00:10:24,837
+the next property of the previously last
+
+259
+00:10:24,837 --> 00:10:25,117
+node.
+
+260
+00:10:27,947 --> 00:10:31,089
+And once we updated the next property of our
+
+261
+00:10:31,330 --> 00:10:31,943
+old tail,
+
+262
+00:10:32,716 --> 00:10:34,891
+we can override the tail property of this
+
+263
+00:10:34,891 --> 00:10:38,013
+constructor with our newNode. Now this does
+
+264
+00:10:38,062 --> 00:10:41,361
+not mean that we replace the old tail object
+
+265
+00:10:41,377 --> 00:10:44,726
+in memory. The old element that was our tail
+
+266
+00:10:44,919 --> 00:10:47,066
+previously still exists in memory.
+
+267
+00:10:47,803 --> 00:10:50,512
+It's just that in this linked list object,
+
+268
+00:10:50,624 --> 00:10:53,429
+we store a new value for the tail property.
+
+269
+00:10:53,669 --> 00:10:55,640
+This does not delete the old object which
+
+270
+00:10:55,672 --> 00:10:58,317
+was the tail previously. It's just not tied
+
+271
+00:10:58,317 --> 00:11:00,544
+to the tail property anymore. That's why
+
+272
+00:11:00,544 --> 00:11:02,804
+this order here matters because here we
+
+273
+00:11:02,804 --> 00:11:05,304
+still reach out to the old tail and update
+
+274
+00:11:05,448 --> 00:11:07,291
+the old tail's next property.
+
+275
+00:11:08,077 --> 00:11:11,154
+And thereafter, we replace the old tail in
+
+276
+00:11:11,202 --> 00:11:13,269
+the linked list with our new node.
+
+277
+00:11:14,169 --> 00:11:15,989
+Now the element which was our tail
+
+278
+00:11:16,183 --> 00:11:18,695
+previously still exists, and the next
+
+279
+00:11:18,695 --> 00:11:21,659
+property of that previous tail element also
+
+280
+00:11:21,659 --> 00:11:23,788
+still points at the new node. So that is not
+
+281
+00:11:23,871 --> 00:11:25,020
+overwritten by this line.
+
+282
+00:11:26,950 --> 00:11:28,633
+Now of course, this implementation has one
+
+283
+00:11:28,681 --> 00:11:31,401
+flaw. Initially tail is null, so reaching
+
+284
+00:11:31,498 --> 00:11:33,651
+out to the next property will fail.
+
+285
+00:11:34,230 --> 00:11:37,137
+So we should actually check if we have a
+
+286
+00:11:37,268 --> 00:11:37,545
+tail
+
+287
+00:11:38,101 --> 00:11:40,004
+before we try to do so
+
+288
+00:11:40,795 --> 00:11:44,183
+before we try to edit our old tail. If we
+
+289
+00:11:44,264 --> 00:11:45,345
+don't have a tail,
+
+290
+00:11:45,894 --> 00:11:47,943
+so basically if our list is empty,
+
+291
+00:11:48,524 --> 00:11:50,751
+then of course we don't want to update the
+
+292
+00:11:50,880 --> 00:11:52,526
+tail because then there is nothing to
+
+293
+00:11:52,558 --> 00:11:55,156
+update. So if we don't have a tail yet, it's
+
+294
+00:11:55,156 --> 00:11:57,625
+enough to just set the tail to the new node.
+
+295
+00:11:58,061 --> 00:12:00,134
+We always wanna do that, but we only wanna
+
+296
+00:12:00,214 --> 00:12:02,207
+update the old tail if we have one.
+
+297
+00:12:04,006 --> 00:12:07,203
+We also of course want to set our head equal
+
+298
+00:12:07,235 --> 00:12:09,089
+to the new node if we don't have a head yet.
+
+299
+00:12:09,902 --> 00:12:11,475
+Which would be the case if the list is still
+
+300
+00:12:11,588 --> 00:12:11,845
+empty.
+
+301
+00:12:12,567 --> 00:12:14,782
+So I also want to add another if check and
+
+302
+00:12:14,879 --> 00:12:16,869
+check if we have a head property.
+
+303
+00:12:17,527 --> 00:12:19,277
+And if we don't have it, hence the
+
+304
+00:12:19,277 --> 00:12:20,947
+exclamation mark, if head is
+
+305
+00:12:21,781 --> 00:12:24,430
+falsy, so if it's null for example, then I
+
+306
+00:12:24,494 --> 00:12:26,517
+want to set this head equal to the new node
+
+307
+00:12:26,581 --> 00:12:26,806
+as well.
+
+308
+00:12:27,641 --> 00:12:28,171
+Typically
+
+309
+00:12:28,765 --> 00:12:31,429
+when we append a value, the head should not
+
+310
+00:12:31,494 --> 00:12:33,645
+be updated because the head is the first
+
+311
+00:12:33,661 --> 00:12:35,828
+value of the list and appending means that
+
+312
+00:12:35,828 --> 00:12:37,850
+we add it at the end. But if the list is
+
+313
+00:12:37,978 --> 00:12:40,047
+empty, if it has no element yet, if both
+
+314
+00:12:40,223 --> 00:12:42,484
+head and tail is null, then of course the
+
+315
+00:12:42,484 --> 00:12:44,649
+head should also be updated because then we
+
+316
+00:12:44,649 --> 00:12:47,440
+just added the only new element to this
+
+317
+00:12:47,440 --> 00:12:49,492
+list. So now the list has exactly one
+
+318
+00:12:49,621 --> 00:12:52,042
+element, and of course that element then, if
+
+319
+00:12:52,042 --> 00:12:54,111
+it's the only element, is both head and
+
+320
+00:12:54,111 --> 00:12:56,164
+tail. So this is kind of a special case.
+
+321
+00:12:56,901 --> 00:12:59,243
+So this is now an append function that
+
+322
+00:12:59,243 --> 00:13:00,509
+should do the trick.
+
+323
+00:13:01,728 --> 00:13:04,605
+Now in order to see Whether our linked list
+
+324
+00:13:04,686 --> 00:13:07,360
+and its append function works, we also
+
+325
+00:13:07,360 --> 00:13:09,357
+certainly want some method in our linked
+
+326
+00:13:09,357 --> 00:13:12,112
+list that outputs all the nodes so that we
+
+327
+00:13:12,112 --> 00:13:14,480
+can print it to the console, for example.
+
+328
+00:13:15,011 --> 00:13:16,461
+That's something we're going to implement
+
+329
+00:13:16,526 --> 00:13:16,864
+next.

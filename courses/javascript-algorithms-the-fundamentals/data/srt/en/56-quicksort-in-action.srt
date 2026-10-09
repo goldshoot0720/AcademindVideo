@@ -1,0 +1,1367 @@
+1
+00:00:02,197 --> 00:00:04,956
+For that, I'm back in an empty app.js file,
+
+2
+00:00:05,245 --> 00:00:07,667
+and in there we'll add a new sort function.
+
+3
+00:00:08,212 --> 00:00:11,147
+And that sort function will again take an
+
+4
+00:00:11,324 --> 00:00:11,500
+array
+
+5
+00:00:12,126 --> 00:00:12,912
+as an input
+
+6
+00:00:13,489 --> 00:00:14,756
+so that we can call it
+
+7
+00:00:16,232 --> 00:00:19,247
+with any input array of our choice: -3, 10,
+
+8
+00:00:19,680 --> 00:00:20,755
+1, 100,
+
+9
+00:00:21,284 --> 00:00:21,573
+-10,
+
+10
+00:00:22,166 --> 00:00:22,824
+22,
+
+11
+00:00:23,514 --> 00:00:24,781
+15, something like that.
+
+12
+00:00:25,390 --> 00:00:27,636
+Now this should then again give me a sorted
+
+13
+00:00:27,636 --> 00:00:27,893
+array.
+
+14
+00:00:28,486 --> 00:00:30,910
+And I want to console.log that sorted array
+
+15
+00:00:30,990 --> 00:00:32,820
+thereafter to see whether that worked.
+
+16
+00:00:33,237 --> 00:00:35,548
+Currently, it's of course not really sorted,
+
+17
+00:00:35,629 --> 00:00:36,238
+as you can tell.
+
+18
+00:00:36,768 --> 00:00:38,822
+-10 should be the first value after all, and
+
+19
+00:00:38,871 --> 00:00:39,144
+so on.
+
+20
+00:00:40,315 --> 00:00:42,305
+So previously, we implemented this with a
+
+21
+00:00:42,305 --> 00:00:44,312
+bubble sort. Now we're going to use the
+
+22
+00:00:44,312 --> 00:00:47,185
+quicksort algorithm. Now, how do we do that?
+
+23
+00:00:48,308 --> 00:00:51,598
+Inside of that sort function, I again first
+
+24
+00:00:51,598 --> 00:00:53,653
+of all copy that array.
+
+25
+00:00:54,903 --> 00:00:56,891
+Because I'm going to change it and I don't
+
+26
+00:00:56,891 --> 00:00:59,247
+want to change the original array. So I'll
+
+27
+00:00:59,247 --> 00:01:01,892
+name this copied array here, and again
+
+28
+00:01:01,940 --> 00:01:04,649
+simply use the spread operator to copy the
+
+29
+00:01:04,665 --> 00:01:06,668
+array we get as a parameter into a new
+
+30
+00:01:06,684 --> 00:01:09,233
+array. Now we can change that copied array
+
+31
+00:01:09,473 --> 00:01:11,637
+inside of the function without changing the
+
+32
+00:01:11,653 --> 00:01:12,134
+input array.
+
+33
+00:01:13,400 --> 00:01:15,821
+How does this algorithm now work? What are
+
+34
+00:01:15,885 --> 00:01:18,177
+we doing with that? Well, first of all,
+
+35
+00:01:18,946 --> 00:01:20,004
+we can check
+
+36
+00:01:20,613 --> 00:01:21,527
+the copied array
+
+37
+00:01:22,297 --> 00:01:22,907
+length here.
+
+38
+00:01:24,144 --> 00:01:26,345
+And we do this to have an exit condition, a
+
+39
+00:01:26,490 --> 00:01:28,498
+base case, since we're going to write the
+
+40
+00:01:28,498 --> 00:01:29,510
+recursive function.
+
+41
+00:01:30,506 --> 00:01:32,868
+So I want to check if the length is smaller
+
+42
+00:01:32,916 --> 00:01:35,712
+or equal than 1. If that's the case, I want
+
+43
+00:01:35,712 --> 00:01:38,427
+to return the copied array. I don't want to
+
+44
+00:01:38,443 --> 00:01:40,483
+call myself again. I don't want to have
+
+45
+00:01:40,483 --> 00:01:41,977
+another recursive step.
+
+46
+00:01:43,038 --> 00:01:45,223
+We don't have any recursive step right now,
+
+47
+00:01:45,351 --> 00:01:47,665
+but we're going to add one. And since, as
+
+48
+00:01:47,761 --> 00:01:49,703
+you saw on the slides, Since we're going to
+
+49
+00:01:49,703 --> 00:01:50,938
+split that array into
+
+50
+00:01:51,467 --> 00:01:53,455
+a bunch of individual arrays, which in the
+
+51
+00:01:53,455 --> 00:01:56,037
+end are always arrays with just one element,
+
+52
+00:01:56,358 --> 00:01:59,565
+we check if an array is one element long or
+
+53
+00:01:59,565 --> 00:02:01,761
+shorter, in which case we know we're done.
+
+54
+00:02:01,890 --> 00:02:03,846
+We don't need to split this array anymore,
+
+55
+00:02:04,150 --> 00:02:06,908
+so we just return that array with that one
+
+56
+00:02:07,021 --> 00:02:07,470
+element here.
+
+57
+00:02:08,464 --> 00:02:10,869
+Now, what are we doing outside of this base
+
+58
+00:02:10,869 --> 00:02:13,370
+case though? Now here we need to do that
+
+59
+00:02:13,370 --> 00:02:15,807
+splitting. So I'm going to construct 2 new
+
+60
+00:02:15,920 --> 00:02:16,497
+arrays here.
+
+61
+00:02:17,042 --> 00:02:19,319
+And I'll name it the smaller array,
+
+62
+00:02:19,848 --> 00:02:22,398
+or smaller elements array, to make it really
+
+63
+00:02:22,398 --> 00:02:23,969
+clear what will go into that array,
+
+64
+00:02:24,643 --> 00:02:27,545
+and the bigger elements array to make it
+
+65
+00:02:27,545 --> 00:02:28,988
+clear what will go into this array.
+
+66
+00:02:29,694 --> 00:02:33,591
+Now I'll also add a center elements array,
+
+67
+00:02:33,863 --> 00:02:36,509
+or I could also name it equal elements
+
+68
+00:02:36,509 --> 00:02:36,718
+array,
+
+69
+00:02:37,247 --> 00:02:39,139
+which will be our 3rd array in the middle.
+
+70
+00:02:39,476 --> 00:02:41,737
+And this array, the center elements array,
+
+71
+00:02:42,041 --> 00:02:43,725
+will contain our pivot element.
+
+72
+00:02:44,543 --> 00:02:46,901
+So I'll also get that pivot element here,
+
+73
+00:02:47,254 --> 00:02:50,559
+and that pivot element simply here could be
+
+74
+00:02:50,559 --> 00:02:53,768
+the first item of the array we got, so the
+
+75
+00:02:53,768 --> 00:02:55,132
+first item of the input array.
+
+76
+00:02:55,693 --> 00:02:58,581
+And for that, I'll use copiedArray.shift.
+
+77
+00:02:58,966 --> 00:03:01,084
+shift is a method which is available on
+
+78
+00:03:01,084 --> 00:03:04,068
+arrays in JavaScript, and it shifts the
+
+79
+00:03:04,116 --> 00:03:07,019
+array to the left, so it moves all items to
+
+80
+00:03:07,019 --> 00:03:09,763
+the left and therefore drops the first item
+
+81
+00:03:10,132 --> 00:03:12,024
+which however is not lost but instead
+
+82
+00:03:12,040 --> 00:03:15,167
+returned by shift. So this stores the first
+
+83
+00:03:15,183 --> 00:03:17,957
+item of copied array in pivot element and
+
+84
+00:03:17,973 --> 00:03:20,539
+changes copied array to only contain the
+
+85
+00:03:20,539 --> 00:03:23,217
+remaining items, and 10 would then be the
+
+86
+00:03:23,217 --> 00:03:24,323
+new first item.
+
+87
+00:03:24,964 --> 00:03:26,969
+So I change copied array, and that's why I
+
+88
+00:03:27,129 --> 00:03:29,727
+do copy array in the first place, and store
+
+89
+00:03:29,855 --> 00:03:32,405
+the first element of copied array in pivot
+
+90
+00:03:32,421 --> 00:03:32,742
+element.
+
+91
+00:03:33,447 --> 00:03:35,853
+And pivot element now is added to that
+
+92
+00:03:35,853 --> 00:03:37,905
+center elements array. That's also what I
+
+93
+00:03:37,953 --> 00:03:40,644
+showed on the slide. The pivot element goes
+
+94
+00:03:40,676 --> 00:03:43,689
+into that middle array. And now all items
+
+95
+00:03:43,721 --> 00:03:45,740
+that are equal to pivot element in copied
+
+96
+00:03:45,740 --> 00:03:47,678
+array would go into the center elements
+
+97
+00:03:47,727 --> 00:03:48,351
+array as well.
+
+98
+00:03:49,345 --> 00:03:51,652
+So that's something we will need to check,
+
+99
+00:03:51,812 --> 00:03:54,536
+but we need to check that for all items in
+
+100
+00:03:54,536 --> 00:03:55,898
+the remaining copied array.
+
+101
+00:03:56,683 --> 00:03:56,908
+So
+
+102
+00:03:57,981 --> 00:03:59,904
+we have to go through that array.
+
+103
+00:04:00,849 --> 00:04:03,012
+And I will use a while loop here because I'm
+
+104
+00:04:03,028 --> 00:04:04,871
+going to manipulate that copied array
+
+105
+00:04:05,256 --> 00:04:06,637
+throughout that while loop.
+
+106
+00:04:07,295 --> 00:04:09,447
+So here I have my while loop, and I want to
+
+107
+00:04:09,447 --> 00:04:11,743
+continue with this loop as long
+
+108
+00:04:12,321 --> 00:04:13,975
+as copied array length
+
+109
+00:04:14,729 --> 00:04:17,395
+is truthy, which basically will be the case
+
+110
+00:04:17,475 --> 00:04:20,494
+as long as length doesn't reach 0. So as
+
+111
+00:04:20,606 --> 00:04:22,420
+long as the array is not empty, we'll
+
+112
+00:04:22,452 --> 00:04:24,492
+continue in the while loop. Now we will
+
+113
+00:04:24,604 --> 00:04:27,671
+gradually make that array empty inside of
+
+114
+00:04:27,671 --> 00:04:29,662
+the while loop so that eventually the loop
+
+115
+00:04:29,662 --> 00:04:30,160
+will stop.
+
+116
+00:04:30,963 --> 00:04:33,453
+Now inside of that while loop, we have a
+
+117
+00:04:33,517 --> 00:04:34,674
+look at every element,
+
+118
+00:04:35,365 --> 00:04:38,562
+the current element, by simply repeating
+
+119
+00:04:38,674 --> 00:04:40,956
+that copied array shift process.
+
+120
+00:04:41,566 --> 00:04:43,334
+We used it once to get the pivot element.
+
+121
+00:04:43,655 --> 00:04:45,406
+Now inside of the while loop, we're doing it
+
+122
+00:04:45,406 --> 00:04:48,073
+to get access to the next element, so to the
+
+123
+00:04:48,073 --> 00:04:50,708
+new first element of that shifted— of that
+
+124
+00:04:50,708 --> 00:04:51,367
+copied array.
+
+125
+00:04:52,009 --> 00:04:54,259
+And that manipulates copied arrays, so the
+
+126
+00:04:54,259 --> 00:04:57,247
+length shrinks by 1 for the next iteration.
+
+127
+00:04:57,808 --> 00:04:59,876
+So we retrieve the first element of the
+
+128
+00:04:59,876 --> 00:05:02,007
+copied array and we remove it from that
+
+129
+00:05:02,039 --> 00:05:04,107
+copied array thereafter and shorten that
+
+130
+00:05:04,107 --> 00:05:04,684
+copied array.
+
+131
+00:05:05,389 --> 00:05:08,129
+And now we need to check this current
+
+132
+00:05:08,129 --> 00:05:08,514
+element.
+
+133
+00:05:09,075 --> 00:05:11,751
+We wanna find out if current element is
+
+134
+00:05:12,040 --> 00:05:13,787
+equal to the pivot element.
+
+135
+00:05:14,460 --> 00:05:17,521
+If that's the case, the current element, so
+
+136
+00:05:17,521 --> 00:05:18,787
+the element we're currently looking at,
+
+137
+00:05:18,931 --> 00:05:20,790
+should go into the center elements array.
+
+138
+00:05:21,608 --> 00:05:23,435
+So here we have the center elements array
+
+139
+00:05:23,835 --> 00:05:26,159
+and we push the current element into it if
+
+140
+00:05:26,159 --> 00:05:28,373
+this element is equal to the pivot element.
+
+141
+00:05:28,968 --> 00:05:31,621
+So in case we had another -3 in there, that
+
+142
+00:05:31,621 --> 00:05:33,550
+would go into that center elements array.
+
+143
+00:05:33,952 --> 00:05:35,447
+And let's add it here to prove that it
+
+144
+00:05:35,479 --> 00:05:35,768
+works.
+
+145
+00:05:36,842 --> 00:05:38,628
+Now we also of course might have the case
+
+146
+00:05:38,628 --> 00:05:41,470
+that the current element is smaller than the
+
+147
+00:05:41,470 --> 00:05:43,840
+pivot element. So I'll add an else if check
+
+148
+00:05:44,392 --> 00:05:47,860
+and check if current element is smaller than
+
+149
+00:05:47,876 --> 00:05:48,674
+the pivot element.
+
+150
+00:05:50,958 --> 00:05:52,653
+Since our pivot element for the first
+
+151
+00:05:52,653 --> 00:05:53,272
+iteration is
+
+152
+00:05:54,103 --> 00:05:56,862
+-3, that would for example be the case for
+
+153
+00:05:57,408 --> 00:05:59,593
+-10. Once we have this as a current element,
+
+154
+00:05:59,834 --> 00:06:01,810
+it will be smaller than our pivot element.
+
+155
+00:06:02,581 --> 00:06:03,544
+So here
+
+156
+00:06:04,171 --> 00:06:07,383
+we see that it is smaller, so we add it to
+
+157
+00:06:07,383 --> 00:06:09,873
+the smaller elements array. We push the
+
+158
+00:06:09,873 --> 00:06:12,058
+current element to the smaller elements
+
+159
+00:06:12,058 --> 00:06:12,202
+array.
+
+160
+00:06:13,086 --> 00:06:15,688
+And else, we know it's greater, so we use
+
+161
+00:06:15,720 --> 00:06:15,993
+that
+
+162
+00:06:16,523 --> 00:06:18,948
+bigger elements array and push current
+
+163
+00:06:19,029 --> 00:06:20,233
+element into that array.
+
+164
+00:06:20,876 --> 00:06:23,750
+So now every element of that array will be
+
+165
+00:06:23,750 --> 00:06:26,140
+put into one of those 3 arrays, which
+
+166
+00:06:26,189 --> 00:06:27,520
+therefore will have different lengths.
+
+167
+00:06:28,403 --> 00:06:30,633
+Since we change copied array with every
+
+168
+00:06:30,730 --> 00:06:33,313
+iteration, because shift does remove that
+
+169
+00:06:33,313 --> 00:06:35,896
+first item, it shrinks and shrinks, and
+
+170
+00:06:35,896 --> 00:06:38,351
+eventually copied array will be empty, at
+
+171
+00:06:38,351 --> 00:06:41,015
+which point it has a length of 0, which will
+
+172
+00:06:41,079 --> 00:06:42,555
+then exit this while loop.
+
+173
+00:06:43,743 --> 00:06:45,572
+Now we're done with the while loop. We got
+
+174
+00:06:45,572 --> 00:06:48,235
+our 3 new arrays: the center, the smaller,
+
+175
+00:06:48,316 --> 00:06:49,984
+and the larger, or the bigger elements
+
+176
+00:06:49,984 --> 00:06:50,161
+array.
+
+177
+00:06:50,723 --> 00:06:52,568
+And now the question is what?
+
+178
+00:06:53,194 --> 00:06:55,537
+Now we did this once, but now we need to
+
+179
+00:06:55,537 --> 00:06:58,104
+repeat this for every new array we
+
+180
+00:06:58,104 --> 00:06:58,794
+generated,
+
+181
+00:06:59,693 --> 00:07:02,100
+except for the center array because that
+
+182
+00:07:02,116 --> 00:07:04,266
+only contains elements which are equal
+
+183
+00:07:04,346 --> 00:07:06,786
+anyways. So we won't need to sort those into
+
+184
+00:07:06,834 --> 00:07:09,128
+different arrays. So we need to repeat it
+
+185
+00:07:09,160 --> 00:07:11,535
+twice for the smaller and bigger elements
+
+186
+00:07:11,584 --> 00:07:11,744
+array.
+
+187
+00:07:12,771 --> 00:07:15,724
+Hence, we will in the end call this sort
+
+188
+00:07:15,756 --> 00:07:18,742
+function again recursively. 2 times for the
+
+189
+00:07:18,742 --> 00:07:20,493
+smaller and bigger elements array.
+
+190
+00:07:21,377 --> 00:07:22,277
+So we got our
+
+191
+00:07:23,080 --> 00:07:25,523
+smaller elements sorted
+
+192
+00:07:26,744 --> 00:07:28,704
+array, a very long name, but I wanna be
+
+193
+00:07:28,769 --> 00:07:29,604
+clear what's in there,
+
+194
+00:07:30,456 --> 00:07:33,445
+by simply calling sort again and passing the
+
+195
+00:07:33,445 --> 00:07:35,405
+smaller elements array to it.
+
+196
+00:07:36,225 --> 00:07:37,928
+And we repeat that for the
+
+197
+00:07:38,490 --> 00:07:41,126
+bigger elements sorted array where we pass
+
+198
+00:07:41,142 --> 00:07:41,543
+in the
+
+199
+00:07:42,266 --> 00:07:43,713
+bigger elements array.
+
+200
+00:07:44,677 --> 00:07:47,215
+So here we call ourselves recursively with
+
+201
+00:07:47,231 --> 00:07:48,371
+the sort function,
+
+202
+00:07:49,319 --> 00:07:51,890
+and with that we'll get 2 new arrays in the
+
+203
+00:07:51,890 --> 00:07:54,476
+end. Now these are recursive calls which go
+
+204
+00:07:54,476 --> 00:07:56,147
+through that whole process again, but
+
+205
+00:07:56,308 --> 00:07:58,685
+ultimately, as always in recursion, all
+
+206
+00:07:58,814 --> 00:08:01,368
+those nested function calls are going to
+
+207
+00:08:01,368 --> 00:08:03,698
+finish, are going to return their overall
+
+208
+00:08:03,698 --> 00:08:04,276
+results,
+
+209
+00:08:04,902 --> 00:08:08,035
+and we're going to get those overall results
+
+210
+00:08:08,051 --> 00:08:10,477
+back in this main function call in the end.
+
+211
+00:08:10,798 --> 00:08:12,773
+So in the end, we'll have sorted arrays for
+
+212
+00:08:12,789 --> 00:08:15,117
+smaller and bigger elements. We have the
+
+213
+00:08:15,117 --> 00:08:17,333
+center elements array which contains only
+
+214
+00:08:17,365 --> 00:08:19,100
+equal values anyways.
+
+215
+00:08:19,790 --> 00:08:21,267
+So now we can return
+
+216
+00:08:21,942 --> 00:08:22,198
+the
+
+217
+00:08:23,242 --> 00:08:25,635
+smaller elements sorted array,
+
+218
+00:08:26,341 --> 00:08:29,376
+call concat on it, which is a default
+
+219
+00:08:30,130 --> 00:08:33,101
+array method in JavaScript, and concatenate
+
+220
+00:08:33,101 --> 00:08:35,413
+the center elements array as well as the
+
+221
+00:08:35,509 --> 00:08:37,996
+bigger elements sorted array
+
+222
+00:08:39,039 --> 00:08:41,958
+so that we build one new long array
+
+223
+00:08:42,487 --> 00:08:46,160
+by combining these smaller center and bigger
+
+224
+00:08:46,160 --> 00:08:47,027
+elements arrays.
+
+225
+00:08:47,780 --> 00:08:49,769
+And that's the overall result we return.
+
+226
+00:08:50,587 --> 00:08:53,009
+Now let's see whether that works before we
+
+227
+00:08:53,218 --> 00:08:55,688
+put in some logs and also judge the time
+
+228
+00:08:55,720 --> 00:08:56,281
+complexity.
+
+229
+00:08:57,308 --> 00:08:58,094
+Let's save that
+
+230
+00:08:58,848 --> 00:08:59,377
+and reload.
+
+231
+00:09:00,275 --> 00:09:02,312
+And you see what I get back is this array,
+
+232
+00:09:02,377 --> 00:09:04,141
+which looks quite sorted to me.
+
+233
+00:09:04,661 --> 00:09:07,179
+Sorted in an ascending order. If you want to
+
+234
+00:09:07,179 --> 00:09:09,421
+sort in descending order, you simply need to
+
+235
+00:09:09,421 --> 00:09:09,957
+switch your
+
+236
+00:09:10,477 --> 00:09:11,176
+IF logic here.
+
+237
+00:09:12,790 --> 00:09:14,799
+Now that looks pretty good. Now let's
+
+238
+00:09:14,847 --> 00:09:17,504
+understand how it works. And to understand
+
+239
+00:09:17,504 --> 00:09:19,692
+this, I'll shorten it a little bit. I'll
+
+240
+00:09:19,773 --> 00:09:20,647
+add, let's
+
+241
+00:09:21,488 --> 00:09:21,568
+say,
+
+242
+00:09:22,618 --> 00:09:23,296
+-3 here
+
+243
+00:09:24,070 --> 00:09:24,571
+and also
+
+244
+00:09:25,120 --> 00:09:25,410
+-10,
+
+245
+00:09:26,314 --> 00:09:28,025
+but that's it. I'll copy that,
+
+246
+00:09:28,655 --> 00:09:31,141
+comment this one out, and and now shorten
+
+247
+00:09:31,189 --> 00:09:32,467
+this one to only have,
+
+248
+00:09:34,035 --> 00:09:36,380
+yeah, let's say these 4 elements, -15 works
+
+249
+00:09:36,380 --> 00:09:36,510
+too.
+
+250
+00:09:37,205 --> 00:09:39,129
+So these 4 elements and now let's dump in a
+
+251
+00:09:39,129 --> 00:09:41,654
+couple of console logs. Let's add one here
+
+252
+00:09:43,085 --> 00:09:45,448
+at the beginning, function starting
+
+253
+00:09:47,153 --> 00:09:49,348
+and let's simply console.log the array we're
+
+254
+00:09:49,348 --> 00:09:51,611
+getting. I could also log the copied array
+
+255
+00:09:51,692 --> 00:09:53,373
+but that will be exactly the same here.
+
+256
+00:09:55,706 --> 00:09:57,653
+Well, if we make it into this check, I want
+
+257
+00:09:57,653 --> 00:09:57,958
+to know.
+
+258
+00:09:58,859 --> 00:09:59,181
+So
+
+259
+00:10:00,210 --> 00:10:01,159
+I will output
+
+260
+00:10:01,738 --> 00:10:02,832
+only one item
+
+261
+00:10:03,926 --> 00:10:07,035
+returning here so that we see when that is
+
+262
+00:10:07,067 --> 00:10:07,453
+the case.
+
+263
+00:10:08,420 --> 00:10:12,545
+And I can console.log my one item array in
+
+264
+00:10:12,545 --> 00:10:14,774
+that case. So I'll console.log the copied
+
+265
+00:10:14,774 --> 00:10:15,550
+array in this case.
+
+266
+00:10:17,427 --> 00:10:18,655
+And of course, we also want to know what's
+
+267
+00:10:18,655 --> 00:10:21,030
+going on down there. So after that while
+
+268
+00:10:21,159 --> 00:10:22,877
+loop I will console.log
+
+269
+00:10:23,811 --> 00:10:25,229
+after while—
+
+270
+00:10:25,825 --> 00:10:27,323
+whoops— after while,
+
+271
+00:10:29,853 --> 00:10:31,337
+and then console.log the
+
+272
+00:10:32,063 --> 00:10:35,113
+smaller element sorted array— and not the
+
+273
+00:10:35,113 --> 00:10:36,953
+sorted array, sorry, but the smaller
+
+274
+00:10:37,679 --> 00:10:38,260
+elements array—
+
+275
+00:10:39,051 --> 00:10:42,307
+and also the center elements array and the
+
+276
+00:10:42,550 --> 00:10:44,026
+bigger elements array.
+
+277
+00:10:47,166 --> 00:10:49,201
+And with that, let's save it and let's
+
+278
+00:10:49,201 --> 00:10:49,654
+reload.
+
+279
+00:10:50,251 --> 00:10:51,931
+And of course, we get quite some outputs
+
+280
+00:10:51,931 --> 00:10:53,853
+here, but not too bad. So let's go through
+
+281
+00:10:53,869 --> 00:10:56,145
+that to understand how this algorithm works.
+
+282
+00:10:57,112 --> 00:10:58,900
+We're starting the function unsurprisingly,
+
+283
+00:10:59,045 --> 00:11:01,477
+and we get an array with 4 elements, which
+
+284
+00:11:01,477 --> 00:11:03,830
+is of course that input array we got here.
+
+285
+00:11:06,647 --> 00:11:09,123
+Now after the while loop, you see that our
+
+286
+00:11:09,123 --> 00:11:11,289
+smaller elements array, which is the first
+
+287
+00:11:11,289 --> 00:11:12,201
+one we're logging here,
+
+288
+00:11:12,776 --> 00:11:15,489
+right, that's this log from line 29,
+
+289
+00:11:16,083 --> 00:11:18,651
+has only one element, -15, which makes
+
+290
+00:11:18,651 --> 00:11:21,236
+sense. Our first pivot element will be -3,
+
+291
+00:11:21,525 --> 00:11:23,098
+and there is only one smaller item here,
+
+292
+00:11:23,146 --> 00:11:24,061
+which is -15.
+
+293
+00:11:25,072 --> 00:11:26,742
+We have one other element in the center
+
+294
+00:11:26,742 --> 00:11:29,391
+array because -3 occurs again, and the
+
+295
+00:11:29,487 --> 00:11:31,863
+bigger elements array only contains only one
+
+296
+00:11:31,959 --> 00:11:34,479
+element, 10, which is the only one bigger
+
+297
+00:11:34,527 --> 00:11:34,848
+element.
+
+298
+00:11:35,587 --> 00:11:37,786
+Then the function starts again for our 15
+
+299
+00:11:37,834 --> 00:11:39,439
+array, but that's only one item, so we
+
+300
+00:11:39,439 --> 00:11:39,793
+return.
+
+301
+00:11:40,483 --> 00:11:43,998
+We then also start again for 10, but we only
+
+302
+00:11:43,998 --> 00:11:46,069
+have one item, so we return, and so we're
+
+303
+00:11:46,085 --> 00:11:46,278
+done.
+
+304
+00:11:46,888 --> 00:11:48,894
+Now that wasn't too interesting, so let's
+
+305
+00:11:48,974 --> 00:11:51,157
+add one more element here. Let's say we also
+
+306
+00:11:51,157 --> 00:11:53,228
+have 100 in there, so another bigger
+
+307
+00:11:53,308 --> 00:11:53,694
+element.
+
+308
+00:11:54,865 --> 00:11:55,973
+If I now reload,
+
+309
+00:11:56,760 --> 00:11:58,413
+you see we got this array.
+
+310
+00:11:59,103 --> 00:12:01,110
+Now after the while loop, we got still only
+
+311
+00:12:01,190 --> 00:12:03,678
+one element in the smaller array, 2 elements
+
+312
+00:12:03,678 --> 00:12:06,150
+in the equal or center array, but also 2
+
+313
+00:12:06,230 --> 00:12:07,900
+elements in the bigger elements array, 10
+
+314
+00:12:08,012 --> 00:12:10,131
+and 100, because they both are bigger than
+
+315
+00:12:10,500 --> 00:12:12,361
+-3, is our first pivot element.
+
+316
+00:12:13,388 --> 00:12:15,778
+The function starts again for -15, so for
+
+317
+00:12:15,794 --> 00:12:16,597
+the smaller array.
+
+318
+00:12:17,142 --> 00:12:19,147
+There's only one item, so we return. The
+
+319
+00:12:19,147 --> 00:12:21,570
+function starts again for 10 and 100. That's
+
+320
+00:12:21,570 --> 00:12:22,613
+our bigger elements array.
+
+321
+00:12:23,174 --> 00:12:24,842
+And after the while loop, you see the
+
+322
+00:12:24,842 --> 00:12:27,570
+smaller elements array is empty, which makes
+
+323
+00:12:27,570 --> 00:12:28,596
+a lot of sense because
+
+324
+00:12:29,350 --> 00:12:31,500
+10 was the pivot element that was picked,
+
+325
+00:12:31,596 --> 00:12:33,345
+which is why it's in the center elements
+
+326
+00:12:33,345 --> 00:12:35,655
+array. And there are no smaller elements in
+
+327
+00:12:35,703 --> 00:12:37,067
+there, so that array is empty.
+
+328
+00:12:37,613 --> 00:12:39,748
+The bigger elements array has one element in
+
+329
+00:12:39,796 --> 00:12:42,236
+it, 100 though, which also makes sense.
+
+330
+00:12:42,975 --> 00:12:45,560
+So we call the function again for the empty
+
+331
+00:12:45,560 --> 00:12:45,801
+array.
+
+332
+00:12:46,362 --> 00:12:48,931
+Well, that's only one item, or no item to be
+
+333
+00:12:48,931 --> 00:12:50,697
+precise, so we return that empty array,
+
+334
+00:12:51,259 --> 00:12:53,089
+which was that smaller elements array.
+
+335
+00:12:54,053 --> 00:12:56,637
+And we start the function again with the 100
+
+336
+00:12:56,637 --> 00:12:58,082
+array, so the bigger elements array.
+
+337
+00:12:58,821 --> 00:13:00,988
+It's only one item, so we return that. And
+
+338
+00:13:01,213 --> 00:13:03,541
+then we got that overall sorted array here.
+
+339
+00:13:04,023 --> 00:13:06,488
+And that's the quicksort algorithm. Really
+
+340
+00:13:06,520 --> 00:13:09,725
+not too complex. Now, does it perform better
+
+341
+00:13:10,144 --> 00:13:12,318
+than the bubble sort though? Is it better
+
+342
+00:13:12,318 --> 00:13:12,737
+than that?

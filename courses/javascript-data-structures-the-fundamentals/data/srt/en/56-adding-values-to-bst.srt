@@ -1,0 +1,447 @@
+1
+00:00:02,359 --> 00:00:05,698
+For this, back in my project, I got the old
+
+2
+00:00:05,795 --> 00:00:08,604
+tree stored in the first tree.js file and
+
+3
+00:00:08,620 --> 00:00:10,290
+got an empty app.js file.
+
+4
+00:00:11,172 --> 00:00:13,645
+And in here, I want to build this binary
+
+5
+00:00:13,773 --> 00:00:14,399
+search tree.
+
+6
+00:00:15,266 --> 00:00:16,903
+Now, how do we build this tree?
+
+7
+00:00:17,449 --> 00:00:19,440
+Well, we start quite similar to the other
+
+8
+00:00:19,440 --> 00:00:21,816
+tree. We can define our tree class,
+
+9
+00:00:22,410 --> 00:00:25,074
+and we will also work with nodes, so we also
+
+10
+00:00:25,074 --> 00:00:27,017
+might want to have a class for that.
+
+11
+00:00:28,188 --> 00:00:29,887
+And in the Tree class,
+
+12
+00:00:30,689 --> 00:00:33,223
+we definitely also want a constructor again
+
+13
+00:00:33,656 --> 00:00:35,724
+where we set the root node of the tree
+
+14
+00:00:36,302 --> 00:00:39,252
+to a new node which we create like that.
+
+15
+00:00:40,054 --> 00:00:41,930
+And of course, we can also initialize this
+
+16
+00:00:42,075 --> 00:00:45,137
+with a value here, or we say that we
+
+17
+00:00:45,137 --> 00:00:47,078
+initially don't want to have a value here
+
+18
+00:00:47,431 --> 00:00:49,836
+and values have to be set explicitly by
+
+19
+00:00:49,836 --> 00:00:52,867
+calling functions, methods on the tree which
+
+20
+00:00:52,899 --> 00:00:53,909
+we have yet to add.
+
+21
+00:00:54,567 --> 00:00:56,335
+That's the approach I'll follow, therefore I
+
+22
+00:00:56,335 --> 00:00:58,954
+will deliberately pass in null here to make
+
+23
+00:00:59,002 --> 00:01:01,573
+it clear that initially the root node has no
+
+24
+00:01:01,573 --> 00:01:01,910
+value.
+
+25
+00:01:02,778 --> 00:01:05,092
+Of course, in the Node class, we then also
+
+26
+00:01:05,172 --> 00:01:06,120
+add a constructor
+
+27
+00:01:06,779 --> 00:01:10,298
+and in there, we simply set this value equal
+
+28
+00:01:10,410 --> 00:01:13,463
+to the value we get here in the constructor
+
+29
+00:01:13,463 --> 00:01:13,913
+function,
+
+30
+00:01:14,572 --> 00:01:16,886
+which is null for the first node we create,
+
+31
+00:01:16,982 --> 00:01:19,232
+for the root node, but for other nodes, it
+
+32
+00:01:19,248 --> 00:01:19,923
+will not be null.
+
+33
+00:01:20,853 --> 00:01:22,760
+Now of course that's not all. We need to be
+
+34
+00:01:22,840 --> 00:01:24,987
+able to add new data, we need to be able to
+
+35
+00:01:25,083 --> 00:01:25,900
+remove data,
+
+36
+00:01:26,445 --> 00:01:28,544
+and we of course also later want to be able
+
+37
+00:01:28,544 --> 00:01:31,108
+to find out if a certain piece of data
+
+38
+00:01:31,108 --> 00:01:33,929
+exists in that tree so that we can retrieve
+
+39
+00:01:33,929 --> 00:01:34,041
+it.
+
+40
+00:01:34,970 --> 00:01:37,550
+So therefore I'll add an add method here,
+
+41
+00:01:37,855 --> 00:01:41,508
+I'll add a remove method here, and I'll add
+
+42
+00:01:41,508 --> 00:01:42,678
+a find method here.
+
+43
+00:01:43,591 --> 00:01:46,845
+Now for adding, we'll accept a value For
+
+44
+00:01:47,054 --> 00:01:49,671
+removing, we'll also accept a value because
+
+45
+00:01:49,687 --> 00:01:51,020
+we'll remove this value then.
+
+46
+00:01:52,015 --> 00:01:54,456
+And for finding, I'll also add a value.
+
+47
+00:01:55,082 --> 00:01:57,555
+Side note, if you would be storing objects,
+
+48
+00:01:57,587 --> 00:01:59,802
+of course you might need a little tweak
+
+49
+00:01:59,802 --> 00:02:02,323
+here. For example, you also might want to
+
+50
+00:02:02,468 --> 00:02:05,085
+accept some comparison function or anything
+
+51
+00:02:05,117 --> 00:02:07,798
+like that that allows you to find the object
+
+52
+00:02:07,927 --> 00:02:08,585
+by value.
+
+53
+00:02:09,693 --> 00:02:11,877
+Now what do we do in those methods here?
+
+54
+00:02:12,326 --> 00:02:14,810
+Well, in the end, we always operate on the
+
+55
+00:02:14,890 --> 00:02:17,037
+root node. So we simply reach out to the
+
+56
+00:02:17,053 --> 00:02:19,873
+root node, and I expect to have an add
+
+57
+00:02:19,873 --> 00:02:21,364
+method on that node as well.
+
+58
+00:02:21,972 --> 00:02:23,959
+It could of course also be called add_node
+
+59
+00:02:23,959 --> 00:02:25,786
+if you prefer that, but I'll just go with
+
+60
+00:02:25,866 --> 00:02:26,139
+add
+
+61
+00:02:26,764 --> 00:02:27,773
+and forward the value.
+
+62
+00:02:28,382 --> 00:02:30,449
+For removing, I'll also reach out to the
+
+63
+00:02:30,449 --> 00:02:33,029
+root node, call remove on that, and forward
+
+64
+00:02:33,029 --> 00:02:33,526
+the value.
+
+65
+00:02:34,439 --> 00:02:37,340
+And for finding, well, you guess it, I also
+
+66
+00:02:37,340 --> 00:02:39,907
+reach out to root, Call find and pass the
+
+67
+00:02:39,907 --> 00:02:42,957
+value. Important though, I wanna return the
+
+68
+00:02:42,957 --> 00:02:44,499
+node which I identified here.
+
+69
+00:02:45,109 --> 00:02:47,854
+We can also return the added node if we want
+
+70
+00:02:47,854 --> 00:02:49,733
+to, but I'm fine with just returning the
+
+71
+00:02:49,733 --> 00:02:50,745
+node we found here.
+
+72
+00:02:51,692 --> 00:02:54,405
+And now with that, it's time to move on to
+
+73
+00:02:54,437 --> 00:02:54,887
+the node.
+
+74
+00:02:55,642 --> 00:02:58,660
+There we now also need all those methods.
+
+75
+00:02:59,174 --> 00:03:01,149
+And let's start with the add method, which
+
+76
+00:03:01,197 --> 00:03:03,718
+of course receives a value. What do we do
+
+77
+00:03:03,750 --> 00:03:03,943
+here?
+
+78
+00:03:05,259 --> 00:03:08,694
+In this add method, we of course want to,
+
+79
+00:03:08,727 --> 00:03:11,343
+well, add this new value, but for that I'll
+
+80
+00:03:11,375 --> 00:03:14,441
+first of all wanna find out whether the node
+
+81
+00:03:14,490 --> 00:03:17,716
+we're trying to add this value to does have
+
+82
+00:03:17,716 --> 00:03:20,205
+a value already. Because initially for this
+
+83
+00:03:20,269 --> 00:03:22,661
+root node, for example, the value is null.
+
+84
+00:03:23,495 --> 00:03:25,438
+So here we can add an if check and check if
+
+85
+00:03:25,727 --> 00:03:26,786
+this value
+
+86
+00:03:27,412 --> 00:03:29,098
+is equal to null.
+
+87
+00:03:30,061 --> 00:03:33,609
+And if that's the case, if the current value
+
+88
+00:03:33,609 --> 00:03:36,819
+is null, Then adding a value simply means
+
+89
+00:03:36,899 --> 00:03:39,274
+that we wanna set the value of that node
+
+90
+00:03:39,306 --> 00:03:41,007
+because it doesn't have a value yet.
+
+91
+00:03:41,553 --> 00:03:43,607
+So in this case, we set value, this value
+
+92
+00:03:43,783 --> 00:03:44,602
+equal to value.
+
+93
+00:03:45,324 --> 00:03:47,250
+And we can return thereafter to make sure
+
+94
+00:03:47,250 --> 00:03:48,935
+that no other code executes.
+
+95
+00:03:49,817 --> 00:03:51,631
+Because now, of course, that's not the only
+
+96
+00:03:51,647 --> 00:03:53,781
+code we eventually want to execute here.
+
+97
+00:03:54,391 --> 00:03:56,622
+Sometimes this is enough, but sometimes this
+
+98
+00:03:56,638 --> 00:03:58,034
+node already has a value
+
+99
+00:03:58,868 --> 00:04:00,906
+and then of course we want to add a new
+
+100
+00:04:00,906 --> 00:04:03,760
+node. And now it depends on the value we're
+
+101
+00:04:03,776 --> 00:04:06,004
+about to add. We need to find out if the
+
+102
+00:04:06,004 --> 00:04:09,627
+value we wanna add is smaller or bigger than
+
+103
+00:04:09,627 --> 00:04:12,448
+the value of this node on which we wanna add
+
+104
+00:04:12,448 --> 00:04:12,528
+it.
+
+105
+00:04:13,297 --> 00:04:15,269
+So we check this node's value
+
+106
+00:04:15,942 --> 00:04:19,212
+and let's say if this node's value is
+
+107
+00:04:20,462 --> 00:04:21,280
+smaller
+
+108
+00:04:21,809 --> 00:04:24,838
+than value, so smaller than the value we
+
+109
+00:04:24,838 --> 00:04:27,756
+wanna add, then we know the incoming value
+
+110
+00:04:27,804 --> 00:04:30,395
+is bigger, right? Right? And as I mentioned
+
+111
+00:04:30,395 --> 00:04:32,825
+on the slide, such values need to go to the
+
+112
+00:04:32,841 --> 00:04:34,048
+right. So we add

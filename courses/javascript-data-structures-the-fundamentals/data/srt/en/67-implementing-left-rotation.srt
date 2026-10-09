@@ -1,0 +1,955 @@
+1
+00:00:02,196 --> 00:00:05,163
+Let's add a new method to our AVL tree
+
+2
+00:00:05,163 --> 00:00:07,472
+class. So to this new class we added a
+
+3
+00:00:07,472 --> 00:00:08,514
+couple of lectures ago.
+
+4
+00:00:09,091 --> 00:00:11,176
+And the method I wanna add is rotateLeft
+
+5
+00:00:11,176 --> 00:00:13,068
+because that's the first method we'll need
+
+6
+00:00:13,485 --> 00:00:14,784
+for this kind of tree.
+
+7
+00:00:16,163 --> 00:00:19,353
+So rotateLeft receives our node on which we
+
+8
+00:00:19,418 --> 00:00:21,085
+wanna perform the rotation.
+
+9
+00:00:21,999 --> 00:00:23,923
+And now in here, we need to do a couple of
+
+10
+00:00:23,923 --> 00:00:26,938
+steps in order to really move things around
+
+11
+00:00:26,970 --> 00:00:27,451
+correctly.
+
+12
+00:00:28,574 --> 00:00:29,023
+First of all,
+
+13
+00:00:29,921 --> 00:00:32,278
+it is important to realize that in this
+
+14
+00:00:32,326 --> 00:00:34,202
+scenario, the node on which we want to
+
+15
+00:00:34,266 --> 00:00:36,576
+perform the rotation, which in this example
+
+16
+00:00:36,592 --> 00:00:38,644
+would be the root node because that's the
+
+17
+00:00:38,740 --> 00:00:41,050
+only node that has too many child nodes,
+
+18
+00:00:41,563 --> 00:00:44,096
+which has a balance factor greater than 1 or
+
+19
+00:00:44,209 --> 00:00:45,219
+smaller than -1,
+
+20
+00:00:45,812 --> 00:00:48,715
+that node has no left children. That's
+
+21
+00:00:48,715 --> 00:00:49,196
+important.
+
+22
+00:00:49,741 --> 00:00:52,355
+It only has a right child, one right child,
+
+23
+00:00:52,371 --> 00:00:54,167
+which then in turn has another right child.
+
+24
+00:00:54,875 --> 00:00:57,178
+And we wanna switch this around such that
+
+25
+00:00:57,291 --> 00:00:58,595
+the right child
+
+26
+00:00:59,127 --> 00:01:00,335
+is the new root node
+
+27
+00:01:00,995 --> 00:01:04,504
+and the old root node is the left child of
+
+28
+00:01:04,536 --> 00:01:06,593
+that previous right child.
+
+29
+00:01:07,171 --> 00:01:09,950
+So the value 2 is now the root node, value 1
+
+30
+00:01:10,143 --> 00:01:12,859
+was the root node and is now the left child
+
+31
+00:01:12,971 --> 00:01:15,237
+of that new root node with the value 2.
+
+32
+00:01:17,310 --> 00:01:19,351
+With that in mind, what we need to do here
+
+33
+00:01:19,720 --> 00:01:22,807
+in rotateLeft is first of all, we wanna get
+
+34
+00:01:22,807 --> 00:01:25,542
+access to that right node. Keep in mind, we
+
+35
+00:01:25,703 --> 00:01:28,114
+only do have a right node, no left node.
+
+36
+00:01:28,794 --> 00:01:30,315
+We do so by accessing node.right.
+
+37
+00:01:32,922 --> 00:01:35,894
+Now, once we're saving that previous right
+
+38
+00:01:35,894 --> 00:01:37,356
+node in a new constant,
+
+39
+00:01:38,047 --> 00:01:40,296
+we can reach out to node.right and set this
+
+40
+00:01:40,296 --> 00:01:42,628
+equal to null. This does not delete the
+
+41
+00:01:42,709 --> 00:01:45,081
+object, it's still saved in this constant,
+
+42
+00:01:45,487 --> 00:01:48,302
+but it clears the pointer at this object on
+
+43
+00:01:48,334 --> 00:01:50,405
+the node we're trying to do the rotation on.
+
+44
+00:01:51,084 --> 00:01:52,669
+So at this point of time, the node has
+
+45
+00:01:52,717 --> 00:01:55,838
+neither a left nor a right child because it
+
+46
+00:01:55,838 --> 00:01:58,277
+never had a left one and we just removed the
+
+47
+00:01:58,277 --> 00:01:58,760
+right one.
+
+48
+00:01:59,388 --> 00:02:01,770
+We removed a pointer at the right one, I
+
+49
+00:02:01,883 --> 00:02:02,301
+should say.
+
+50
+00:02:03,090 --> 00:02:03,960
+But we're not done, of course.
+
+51
+00:02:04,636 --> 00:02:06,552
+Next, I wanna check if the node on which we
+
+52
+00:02:06,568 --> 00:02:09,063
+wanna perform the rotation has a parent.
+
+53
+00:02:11,681 --> 00:02:14,301
+Here, that will not be the case because if
+
+54
+00:02:14,301 --> 00:02:16,107
+we just work with free nodes,
+
+55
+00:02:16,643 --> 00:02:18,822
+This root node is the only one that needs a
+
+56
+00:02:18,822 --> 00:02:21,647
+rotation and it doesn't have a parent. But
+
+57
+00:02:21,647 --> 00:02:23,552
+of course, we could have other scenarios
+
+58
+00:02:23,745 --> 00:02:26,037
+where we have a deeper nested tree and in
+
+59
+00:02:26,104 --> 00:02:27,892
+that case, we'll need to make this check.
+
+60
+00:02:31,118 --> 00:02:34,048
+So if we would have a parent on the node on
+
+61
+00:02:34,144 --> 00:02:35,738
+which we wanna do the rotation,
+
+62
+00:02:36,479 --> 00:02:38,555
+then we should reach out to our parent
+
+63
+00:02:39,231 --> 00:02:40,792
+and access the right node there.
+
+64
+00:02:42,814 --> 00:02:46,106
+And set it equal to the right node we just
+
+65
+00:02:46,106 --> 00:02:46,555
+saved.
+
+66
+00:02:47,695 --> 00:02:50,280
+Thereafter, I wanna reach out to the parent,
+
+67
+00:02:51,147 --> 00:02:53,234
+to the right node of the parent, and to the
+
+68
+00:02:53,234 --> 00:02:55,915
+parent of that right node and give that a
+
+69
+00:02:55,915 --> 00:02:59,191
+new parent, which is node.parent. And yes, I
+
+70
+00:02:59,191 --> 00:03:00,796
+know this can be confusing, but in the end,
+
+71
+00:03:00,812 --> 00:03:03,253
+I'm reaching out to the parent of the node
+
+72
+00:03:03,751 --> 00:03:05,099
+on which we wanna do the rotation
+
+73
+00:03:06,079 --> 00:03:09,354
+and I set its right node to that right node
+
+74
+00:03:09,852 --> 00:03:11,923
+of the node we wanna do the rotation on.
+
+75
+00:03:13,384 --> 00:03:15,567
+Keep in mind that we detached that right
+
+76
+00:03:15,567 --> 00:03:16,659
+node from that node.
+
+77
+00:03:17,414 --> 00:03:20,721
+So now that detached right node is attached
+
+78
+00:03:20,721 --> 00:03:23,033
+again, but now not to the node but to the
+
+79
+00:03:23,033 --> 00:03:25,329
+parent of the node because we need to move
+
+80
+00:03:25,361 --> 00:03:27,608
+the node away from the parent. Hence, the
+
+81
+00:03:27,608 --> 00:03:29,696
+parent of the node receives a new right
+
+82
+00:03:29,696 --> 00:03:29,904
+node.
+
+83
+00:03:30,739 --> 00:03:32,586
+But we then of course also need to update
+
+84
+00:03:32,586 --> 00:03:36,087
+the parent of that new right node, which is
+
+85
+00:03:36,425 --> 00:03:37,019
+what I do here.
+
+86
+00:03:37,807 --> 00:03:40,748
+And the new parent is simply the parent of
+
+87
+00:03:40,940 --> 00:03:41,905
+the node we moved away
+
+88
+00:03:42,467 --> 00:03:44,628
+because the parent hasn't changed, just the
+
+89
+00:03:44,628 --> 00:03:45,615
+node was moved away.
+
+90
+00:03:46,165 --> 00:03:49,061
+The right node took its place, so the parent
+
+91
+00:03:49,239 --> 00:03:51,682
+of the node we moved away will now be the
+
+92
+00:03:51,682 --> 00:03:52,998
+parent of this right node.
+
+93
+00:03:53,785 --> 00:03:55,080
+I hope this makes sense.
+
+94
+00:03:57,380 --> 00:03:59,736
+However, here in our basic example, we don't
+
+95
+00:03:59,768 --> 00:04:01,198
+have a parent node anyways.
+
+96
+00:04:01,876 --> 00:04:03,207
+So instead we can check if
+
+97
+00:04:03,897 --> 00:04:06,944
+the node maybe is the root node of this
+
+98
+00:04:06,944 --> 00:04:07,521
+entire tree.
+
+99
+00:04:08,291 --> 00:04:10,280
+This root gives us access to the root node
+
+100
+00:04:10,552 --> 00:04:12,525
+because keep in mind that rotate_left is
+
+101
+00:04:12,637 --> 00:04:16,294
+part of the AVL tree class. It's not part of
+
+102
+00:04:16,326 --> 00:04:17,031
+the node class.
+
+103
+00:04:17,593 --> 00:04:19,389
+Therefore we have access to this root.
+
+104
+00:04:19,998 --> 00:04:22,003
+And if the node we wanna move away is the
+
+105
+00:04:22,003 --> 00:04:22,468
+root node,
+
+106
+00:04:23,382 --> 00:04:25,772
+which is the case in our example here, we
+
+107
+00:04:25,852 --> 00:04:28,883
+wanna move away the node with value 1 and
+
+108
+00:04:28,915 --> 00:04:31,048
+that node which we wanna move away is the
+
+109
+00:04:31,144 --> 00:04:33,262
+root node. So that is the scenario we are
+
+110
+00:04:33,327 --> 00:04:33,776
+having here.
+
+111
+00:04:34,370 --> 00:04:35,654
+So if that is the case,
+
+112
+00:04:36,296 --> 00:04:36,505
+then
+
+113
+00:04:37,340 --> 00:04:40,551
+we want to set our root node to this right
+
+114
+00:04:40,551 --> 00:04:40,807
+node.
+
+115
+00:04:41,433 --> 00:04:43,697
+So basically previously we would've changed
+
+116
+00:04:43,922 --> 00:04:45,993
+the right node of the parent, but if we have
+
+117
+00:04:45,993 --> 00:04:48,256
+no parent, we set the root node to the right
+
+118
+00:04:48,256 --> 00:04:48,802
+node instead.
+
+119
+00:04:49,621 --> 00:04:51,386
+And then of course we also need to update
+
+120
+00:04:51,386 --> 00:04:52,157
+the parent again.
+
+121
+00:04:53,168 --> 00:04:55,448
+So the new parent of the new root node is
+
+122
+00:04:55,576 --> 00:04:58,337
+null, of course, because the root node has
+
+123
+00:04:58,369 --> 00:04:58,787
+no parent.
+
+124
+00:04:59,893 --> 00:05:02,667
+But the old right node did have one. It did
+
+125
+00:05:02,699 --> 00:05:04,944
+have the node we move away as a parent, so
+
+126
+00:05:04,944 --> 00:05:06,034
+we needed to clear that.
+
+127
+00:05:07,429 --> 00:05:09,498
+Okay, so that's that. We're almost done
+
+128
+00:05:09,498 --> 00:05:11,518
+already. That's the good news. We just need
+
+129
+00:05:11,518 --> 00:05:14,115
+to do 2 more things. We need to check if
+
+130
+00:05:14,645 --> 00:05:15,494
+the right node,
+
+131
+00:05:16,088 --> 00:05:18,926
+which we now detached and attached again, if
+
+132
+00:05:18,974 --> 00:05:20,625
+that has a left child node.
+
+133
+00:05:21,219 --> 00:05:22,662
+Theoretically, that could be the case.
+
+134
+00:05:23,928 --> 00:05:25,981
+It will not be the case in our example here,
+
+135
+00:05:26,173 --> 00:05:27,039
+but it could be the case.
+
+136
+00:05:27,796 --> 00:05:30,365
+And if the right node, which we are also
+
+137
+00:05:30,365 --> 00:05:33,048
+moving around, if that has a left child
+
+138
+00:05:33,048 --> 00:05:33,258
+node,
+
+139
+00:05:33,920 --> 00:05:37,675
+then I want to set node.right, so the right
+
+140
+00:05:37,675 --> 00:05:40,050
+node of the node we're moving around, to
+
+141
+00:05:40,164 --> 00:05:40,535
+that
+
+142
+00:05:41,117 --> 00:05:41,456
+old
+
+143
+00:05:42,264 --> 00:05:44,413
+left child of the right node.
+
+144
+00:05:48,234 --> 00:05:50,136
+And of course, then we also need to update
+
+145
+00:05:50,490 --> 00:05:51,908
+the parent of that
+
+146
+00:05:52,810 --> 00:05:55,212
+left node of the right node, which is now
+
+147
+00:05:55,276 --> 00:05:57,979
+the new right node of the moved away node.
+
+148
+00:05:58,254 --> 00:06:00,325
+And yes, I know these are a lot of nodes.
+
+149
+00:06:01,409 --> 00:06:03,128
+And the parent here will simply be
+
+150
+00:06:04,234 --> 00:06:04,510
+node.
+
+151
+00:06:06,322 --> 00:06:07,704
+And now the last step
+
+152
+00:06:08,314 --> 00:06:10,274
+is that at the very end,
+
+153
+00:06:11,061 --> 00:06:13,166
+we give the right node, which we also moved
+
+154
+00:06:13,166 --> 00:06:15,078
+around, which we detached and attached
+
+155
+00:06:15,078 --> 00:06:17,912
+again, we give this a new left node. And the
+
+156
+00:06:17,912 --> 00:06:19,402
+new left node will be the node
+
+157
+00:06:20,180 --> 00:06:21,394
+which we try to balance out.
+
+158
+00:06:23,810 --> 00:06:25,178
+Because you have to keep in mind that we're
+
+159
+00:06:25,210 --> 00:06:26,386
+doing this transformation.
+
+160
+00:06:26,966 --> 00:06:28,801
+2 is our right node,
+
+161
+00:06:29,558 --> 00:06:30,814
+1 is our node,
+
+162
+00:06:31,571 --> 00:06:33,552
+and we basically made 2
+
+163
+00:06:34,132 --> 00:06:36,532
+our new root node, which is the desired
+
+164
+00:06:36,548 --> 00:06:39,028
+result. But now we also need to add the
+
+165
+00:06:39,028 --> 00:06:42,744
+node, the previous root node, as a new left
+
+166
+00:06:42,777 --> 00:06:46,141
+child to this new root node. So that we get
+
+167
+00:06:46,141 --> 00:06:47,144
+this final picture.
+
+168
+00:06:49,270 --> 00:06:52,291
+That's why we now have to set left on this
+
+169
+00:06:52,436 --> 00:06:54,654
+right node, which is the new root node,
+
+170
+00:06:55,731 --> 00:06:57,997
+and set this equal to the node which we
+
+171
+00:06:58,386 --> 00:06:59,471
+called balance on.
+
+172
+00:07:01,767 --> 00:07:03,888
+And also, of course, update the parent
+
+173
+00:07:04,739 --> 00:07:05,286
+of this new
+
+174
+00:07:06,041 --> 00:07:08,644
+left node, and the new parent is, of course,
+
+175
+00:07:08,692 --> 00:07:09,303
+the right node.
+
+176
+00:07:10,074 --> 00:07:12,173
+So the new parent of the left node of the
+
+177
+00:07:12,173 --> 00:07:14,036
+right node is obviously the right node.
+
+178
+00:07:17,076 --> 00:07:19,148
+And that's the rotateLeft method.
+
+179
+00:07:20,047 --> 00:07:22,167
+So let's now give this a try. For these
+
+180
+00:07:22,167 --> 00:07:24,368
+example numbers, it theoretically should
+
+181
+00:07:24,400 --> 00:07:24,721
+work,
+
+182
+00:07:25,283 --> 00:07:26,938
+though you will see if you now reload,
+
+183
+00:07:27,516 --> 00:07:29,684
+it actually doesn't work. If you inspect
+
+184
+00:07:29,684 --> 00:07:31,708
+your tree, it's the same tree as before.
+
+185
+00:07:32,334 --> 00:07:34,293
+Now why does it not work here?
+
+186
+00:07:35,723 --> 00:07:38,019
+The reason for that can be found in our add
+
+187
+00:07:38,212 --> 00:07:38,549
+method.
+
+188
+00:07:39,320 --> 00:07:42,276
+In the add method, we're calling balance on
+
+189
+00:07:42,308 --> 00:07:44,924
+the current node. So whenever we add a new
+
+190
+00:07:45,342 --> 00:07:47,316
+node, we call balance on it.
+
+191
+00:07:48,327 --> 00:07:49,338
+The problem just is,
+
+192
+00:07:50,012 --> 00:07:53,671
+when we add our nodes step by step, no node
+
+193
+00:07:53,848 --> 00:07:56,576
+will be unbalanced. We first of all add the
+
+194
+00:07:56,576 --> 00:07:59,176
+node with value 1, and at that point of
+
+195
+00:07:59,224 --> 00:08:01,455
+time, it's the only node in the tree, so of
+
+196
+00:08:01,487 --> 00:08:03,638
+course it'll have a balance factor of 0.
+
+197
+00:08:04,199 --> 00:08:05,933
+Hence, no balancing will take place.
+
+198
+00:08:06,767 --> 00:08:09,736
+We then add 2 as a child node to 1, And
+
+199
+00:08:09,768 --> 00:08:12,206
+whilst the balancing factor of 1 changes,
+
+200
+00:08:12,639 --> 00:08:14,771
+the balancing factor of 2 of course also is
+
+201
+00:08:14,819 --> 00:08:18,187
+0 and the same for this node with value 3
+
+202
+00:08:18,572 --> 00:08:19,598
+when we add that.
+
+203
+00:08:20,239 --> 00:08:22,741
+And therefore, if we just check the balance
+
+204
+00:08:22,741 --> 00:08:25,243
+factor of the node we just added, we'll
+
+205
+00:08:25,307 --> 00:08:26,622
+never balance anything.
+
+206
+00:08:27,295 --> 00:08:29,829
+We need to check the parent nodes as well
+
+207
+00:08:30,358 --> 00:08:32,892
+so that we find potential issues that arise
+
+208
+00:08:32,924 --> 00:08:34,094
+from adding a new node.
+
+209
+00:08:34,672 --> 00:08:36,243
+And therefore, actually here,
+
+210
+00:08:36,771 --> 00:08:38,886
+we need to put this into a while loop.
+
+211
+00:08:39,799 --> 00:08:42,843
+We can while on our current node and call
+
+212
+00:08:42,940 --> 00:08:45,407
+balance on it inside of the while loop and
+
+213
+00:08:45,423 --> 00:08:48,307
+then change our current node after balancing
+
+214
+00:08:48,307 --> 00:08:48,595
+it out.
+
+215
+00:08:49,188 --> 00:08:51,800
+And I change it to set current node equal to
+
+216
+00:08:51,832 --> 00:08:52,921
+current node.parent.
+
+217
+00:08:53,594 --> 00:08:56,462
+With that, we'll gradually move up in the
+
+218
+00:08:56,462 --> 00:08:56,751
+tree
+
+219
+00:08:57,279 --> 00:09:00,163
+from node to node until we have no more
+
+220
+00:09:00,163 --> 00:09:02,887
+parents left and we'll check all parent
+
+221
+00:09:02,887 --> 00:09:05,644
+nodes and see if they are unbalanced now
+
+222
+00:09:05,853 --> 00:09:08,241
+that we added a new node. And that's what we
+
+223
+00:09:08,241 --> 00:09:10,694
+need to do for this to work. If we now
+
+224
+00:09:10,966 --> 00:09:11,431
+reload,
+
+225
+00:09:12,009 --> 00:09:15,183
+now we got a balanced AVL tree where you now
+
+226
+00:09:15,327 --> 00:09:17,684
+see that the root node has a value of 2,
+
+227
+00:09:19,078 --> 00:09:20,313
+which was not the case before.
+
+228
+00:09:20,906 --> 00:09:24,256
+The left node is our old root node with
+
+229
+00:09:24,288 --> 00:09:24,898
+value 1,
+
+230
+00:09:25,475 --> 00:09:27,639
+which correctly points at the new parent
+
+231
+00:09:27,639 --> 00:09:28,633
+node with value 2.
+
+232
+00:09:29,338 --> 00:09:31,810
+And the right node is the one with value 3.
+
+233
+00:09:32,485 --> 00:09:34,366
+So this works and you see now we have
+
+234
+00:09:34,479 --> 00:09:36,247
+balance factors of 0
+
+235
+00:09:36,875 --> 00:09:37,534
+everywhere here.
+
+236
+00:09:38,499 --> 00:09:41,248
+And this is the rotate left operation. Now,
+
+237
+00:09:41,457 --> 00:09:44,062
+feel free to implement rotate right on your
+
+238
+00:09:44,110 --> 00:09:46,860
+own and also try it on your own. We'll do it
+
+239
+00:09:46,860 --> 00:09:48,532
+together in the next lecture.

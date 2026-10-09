@@ -1,0 +1,1257 @@
+[
+ {
+  "start": 2.288,
+  "end": 5.014,
+  "en": "So we can add nodes, we can add edges, and"
+ },
+ {
+  "start": 5.03,
+  "end": 7.305,
+  "en": "we have our utility methods for finding"
+ },
+ {
+  "start": 7.45,
+  "end": 7.741,
+  "en": "edges."
+ },
+ {
+  "start": 8.499,
+  "end": 10.643,
+  "en": "But one thing is missing, or 2 things,"
+ },
+ {
+  "start": 11.061,
+  "end": 13.054,
+  "en": "removing nodes and removing edges."
+ },
+ {
+  "start": 13.907,
+  "end": 16.318,
+  "en": "So we want a remove node method"
+ },
+ {
+  "start": 17.01,
+  "end": 18.911,
+  "en": "which gets the node identifier,"
+ },
+ {
+  "start": 20.721,
+  "end": 23.048,
+  "en": "and we want a remove edge method"
+ },
+ {
+  "start": 23.711,
+  "end": 26.542,
+  "en": "which in the end gets the start node and and"
+ },
+ {
+  "start": 26.574,
+  "end": 27.186,
+  "en": "the end node"
+ },
+ {
+  "start": 27.782,
+  "end": 29.166,
+  "en": "for which we wanna remove the edge."
+ },
+ {
+  "start": 29.794,
+  "end": 32.419,
+  "en": "Because removing edges is very similar to"
+ },
+ {
+  "start": 32.516,
+  "end": 35.237,
+  "en": "adding edges, we need to know which 2 nodes"
+ },
+ {
+  "start": 35.495,
+  "end": 37.731,
+  "en": "are connected and therefore which connection"
+ },
+ {
+  "start": 37.747,
+  "end": 38.471,
+  "en": "we should delete."
+ },
+ {
+  "start": 39.613,
+  "end": 41.673,
+  "en": "Now let's start with removing nodes."
+ },
+ {
+  "start": 42.75,
+  "end": 44.295,
+  "en": "When we remove a node,"
+ },
+ {
+  "start": 45.84,
+  "end": 47.839,
+  "en": "we of course wanna reach out"
+ },
+ {
+  "start": 49.001,
+  "end": 51.952,
+  "en": "to this node for the given node identifier."
+ },
+ {
+  "start": 52.796,
+  "end": 54.69,
+  "en": "And for example, simply set this to null"
+ },
+ {
+  "start": 55.532,
+  "end": 58.318,
+  "en": "or to undefined to get rid of the data"
+ },
+ {
+  "start": 58.318,
+  "end": 61.103,
+  "en": "stored for that node identifier in nodes."
+ },
+ {
+  "start": 64.18,
+  "end": 66.725,
+  "en": "Of course, JavaScript also has other ways of"
+ },
+ {
+  "start": 66.774,
+  "end": 69.287,
+  "en": "deleting things from objects. We can use the"
+ },
+ {
+  "start": 69.287,
+  "end": 72.591,
+  "en": "delete operator, we can use the Reflect API"
+ },
+ {
+  "start": 73.074,
+  "end": 74.493,
+  "en": "with deleteProperty."
+ },
+ {
+  "start": 75.154,
+  "end": 78.04,
+  "en": "There are various ways of deleting something"
+ },
+ {
+  "start": 78.36,
+  "end": 80.474,
+  "en": "I'll use this very simple approach here."
+ },
+ {
+  "start": 81.9,
+  "end": 84.079,
+  "en": "Now deleting just a node is not enough"
+ },
+ {
+  "start": 84.224,
+  "end": 86.931,
+  "en": "though. When we remove a node, we of course"
+ },
+ {
+  "start": 87.188,
+  "end": 89.495,
+  "en": "also need to delete all the edges"
+ },
+ {
+  "start": 90.072,
+  "end": 92.139,
+  "en": "in which this node was involved."
+ },
+ {
+  "start": 93.468,
+  "end": 95.615,
+  "en": "So therefore, of course, we reach out to"
+ },
+ {
+  "start": 95.695,
+  "end": 98.692,
+  "en": "this edges for the given node identifier"
+ },
+ {
+  "start": 99.381,
+  "end": 102.2,
+  "en": "and also set that to undefined."
+ },
+ {
+  "start": 102.745,
+  "end": 103.082,
+  "en": "So we"
+ },
+ {
+  "start": 103.61,
+  "end": 103.979,
+  "en": "clear"
+ },
+ {
+  "start": 104.668,
+  "end": 107.873,
+  "en": "the list of edges that were stored for that"
+ },
+ {
+  "start": 107.873,
+  "end": 108.162,
+  "en": "node."
+ },
+ {
+  "start": 108.916,
+  "end": 109.59,
+  "en": "But that's not all."
+ },
+ {
+  "start": 110.425,
+  "end": 114.1,
+  "en": "Other nodes might have pointed at this node."
+ },
+ {
+  "start": 114.951,
+  "end": 117.342,
+  "en": "So what we'll have to do is we'll have to go"
+ },
+ {
+  "start": 117.342,
+  "end": 119.942,
+  "en": "through all the other edges entries for all"
+ },
+ {
+  "start": 120.086,
+  "end": 122.573,
+  "en": "the other nodes and check whether one of"
+ },
+ {
+  "start": 122.622,
+  "end": 125.558,
+  "en": "those nodes points at this node identifier."
+ },
+ {
+  "start": 126.955,
+  "end": 129.779,
+  "en": "And if that's the case, we need to delete"
+ },
+ {
+  "start": 129.779,
+  "end": 130.951,
+  "en": "the respective entry."
+ },
+ {
+  "start": 131.625,
+  "end": 133.39,
+  "en": "Now that will be some work, but we have to"
+ },
+ {
+  "start": 133.39,
+  "end": 133.663,
+  "en": "do it."
+ },
+ {
+  "start": 136.015,
+  "end": 138.718,
+  "en": "We could do that since edges is"
+ },
+ {
+  "start": 139.539,
+  "end": 140.874,
+  "en": "an object here."
+ },
+ {
+  "start": 141.566,
+  "end": 144.044,
+  "en": "We could do this here with a for-in loop."
+ },
+ {
+  "start": 145.74,
+  "end": 147.508,
+  "en": "For const edge in"
+ },
+ {
+  "start": 148.408,
+  "end": 148.794,
+  "en": "edges"
+ },
+ {
+  "start": 150.932,
+  "end": 151.447,
+  "en": "or edge"
+ },
+ {
+  "start": 152.845,
+  "end": 154.425,
+  "en": "identifier in edges."
+ },
+ {
+  "start": 155.824,
+  "end": 157.564,
+  "en": "With that, we can go through our edges here."
+ },
+ {
+  "start": 159.057,
+  "end": 160.945,
+  "en": "And edges is an object where we have our"
+ },
+ {
+  "start": 160.945,
+  "end": 163.414,
+  "en": "node identifiers and then a list for every"
+ },
+ {
+  "start": 163.414,
+  "end": 164.777,
+  "en": "node with the connections"
+ },
+ {
+  "start": 165.761,
+  "end": 166.858,
+  "en": "and now in there"
+ },
+ {
+  "start": 167.778,
+  "end": 169.892,
+  "en": "we want a nested loop"
+ },
+ {
+  "start": 171.505,
+  "end": 174.1,
+  "en": "where we go through all the end nodes"
+ },
+ {
+  "start": 175.112,
+  "end": 176.141,
+  "en": "of the given"
+ },
+ {
+  "start": 178.968,
+  "end": 179.274,
+  "en": "edge"
+ },
+ {
+  "start": 182.905,
+  "end": 185.951,
+  "en": "and we check if end node is equal to the"
+ },
+ {
+  "start": 185.951,
+  "end": 186.924,
+  "en": "node identifier"
+ },
+ {
+  "start": 188.011,
+  "end": 189.048,
+  "en": "we want to remove."
+ },
+ {
+  "start": 190.798,
+  "end": 193.106,
+  "en": "And if that's the case, we want to remove"
+ },
+ {
+  "start": 193.138,
+  "end": 194.42,
+  "en": "that node identifier."
+ },
+ {
+  "start": 195.478,
+  "end": 197.385,
+  "en": "Now we got various ways of doing that. We"
+ },
+ {
+  "start": 197.449,
+  "end": 200.19,
+  "en": "could have our helper variable i here before"
+ },
+ {
+  "start": 200.19,
+  "end": 202.45,
+  "en": "we start looping through all the end nodes"
+ },
+ {
+  "start": 202.659,
+  "end": 203.364,
+  "en": "for a given edge."
+ },
+ {
+  "start": 204.582,
+  "end": 206.906,
+  "en": "And after this if block at the end of this"
+ },
+ {
+  "start": 206.922,
+  "end": 208.364,
+  "en": "nested loop, we increment i."
+ },
+ {
+  "start": 209.262,
+  "end": 210.929,
+  "en": "If we make it into this if block, we know"
+ },
+ {
+  "start": 210.929,
+  "end": 212.179,
+  "en": "that we now have"
+ },
+ {
+  "start": 212.756,
+  "end": 213.221,
+  "en": "a match"
+ },
+ {
+  "start": 213.958,
+  "end": 216.362,
+  "en": "for the given index, and therefore then we"
+ },
+ {
+  "start": 216.362,
+  "end": 217.789,
+  "en": "could reach out to edges"
+ },
+ {
+  "start": 221.513,
+  "end": 222.204,
+  "en": "thisEdges,"
+ },
+ {
+  "start": 223.424,
+  "end": 225.351,
+  "en": "and here of course it should also be"
+ },
+ {
+  "start": 226.635,
+  "end": 227.743,
+  "en": "thisEdges."
+ },
+ {
+  "start": 228.498,
+  "end": 229.012,
+  "en": "So here"
+ },
+ {
+  "start": 229.622,
+  "end": 231.276,
+  "en": "and here, that should be thisEdges"
+ },
+ {
+  "start": 231.95,
+  "end": 233.829,
+  "en": "for the given edge identifier here."
+ },
+ {
+  "start": 234.519,
+  "end": 237.554,
+  "en": "And we can use splice then to splice this"
+ },
+ {
+  "start": 237.57,
+  "end": 240.845,
+  "en": "one object at this index, and thereafter we"
+ },
+ {
+  "start": 240.845,
+  "end": 244.136,
+  "en": "can of course break out of this loop of this"
+ },
+ {
+  "start": 244.153,
+  "end": 246.414,
+  "en": "inner loop because we don't need to continue"
+ },
+ {
+  "start": 246.478,
+  "end": 249.156,
+  "en": "looping through that list for that given"
+ },
+ {
+  "start": 249.429,
+  "end": 252.043,
+  "en": "node because we already removed that one"
+ },
+ {
+  "start": 252.171,
+  "end": 253.967,
+  "en": "connection it might have to our"
+ },
+ {
+  "start": 254.416,
+  "end": 257.11,
+  "en": "to-be-deleted node. Since one node can't"
+ },
+ {
+  "start": 257.126,
+  "end": 259.243,
+  "en": "have more than one connection to one and the"
+ },
+ {
+  "start": 259.291,
+  "end": 261.809,
+  "en": "same node, we don't need to continue looping"
+ },
+ {
+  "start": 261.873,
+  "end": 262.034,
+  "en": "here."
+ },
+ {
+  "start": 262.836,
+  "end": 264.792,
+  "en": "And then we continue with the next other"
+ },
+ {
+  "start": 265.017,
+  "end": 266.909,
+  "en": "node we might have in our graph."
+ },
+ {
+  "start": 267.887,
+  "end": 271.257,
+  "en": "So that is how we clear all the edges for a"
+ },
+ {
+  "start": 271.257,
+  "end": 272.22,
+  "en": "node we wanna remove."
+ },
+ {
+  "start": 273.264,
+  "end": 274.259,
+  "en": "Now let's give this a try."
+ },
+ {
+  "start": 275.03,
+  "end": 275.784,
+  "en": "Let's say here"
+ },
+ {
+  "start": 276.394,
+  "end": 279.06,
+  "en": "we actually reach out to our graph and we"
+ },
+ {
+  "start": 279.67,
+  "end": 282.415,
+  "en": "remove a node. We remove the node with"
+ },
+ {
+  "start": 282.495,
+  "end": 283.154,
+  "en": "identifier"
+ },
+ {
+  "start": 283.764,
+  "end": 283.972,
+  "en": "2,"
+ },
+ {
+  "start": 284.647,
+  "end": 285.177,
+  "en": "Manuel."
+ },
+ {
+  "start": 286.027,
+  "end": 286.702,
+  "en": "Now there are"
+ },
+ {
+  "start": 287.456,
+  "end": 292.433,
+  "en": "2 edges we have. 1, Max, points at 2 and 3,"
+ },
+ {
+  "start": 292.755,
+  "end": 294.087,
+  "en": "Jules, points at 2."
+ },
+ {
+  "start": 294.617,
+  "end": 297.801,
+  "en": "So those 2 edges should be gone now besides"
+ },
+ {
+  "start": 298.139,
+  "end": 299.379,
+  "en": "manual as a node."
+ },
+ {
+  "start": 300.072,
+  "end": 301.746,
+  "en": "If we save that and reload,"
+ },
+ {
+  "start": 302.584,
+  "end": 304.693,
+  "en": "I get an error here. This edges edge"
+ },
+ {
+  "start": 304.693,
+  "end": 306.376,
+  "en": "identifier is not iterable."
+ },
+ {
+  "start": 307.009,
+  "end": 308.209,
+  "en": "And this is now happening"
+ },
+ {
+  "start": 308.875,
+  "end": 310.368,
+  "en": "because I just set"
+ },
+ {
+  "start": 312.299,
+  "end": 313.808,
+  "en": "this here to undefined,"
+ },
+ {
+  "start": 314.888,
+  "end": 317.713,
+  "en": "this node which should be removed. Now, this"
+ },
+ {
+  "start": 317.713,
+  "end": 320.926,
+  "en": "node here, node 2, actually didn't have any"
+ },
+ {
+  "start": 321.023,
+  "end": 323.527,
+  "en": "edges before. So it had no entry in the"
+ },
+ {
+  "start": 323.527,
+  "end": 324.607,
+  "en": "edges object before."
+ },
+ {
+  "start": 325.283,
+  "end": 328.574,
+  "en": "But now I always set an entry of undefined"
+ },
+ {
+  "start": 328.574,
+  "end": 328.847,
+  "en": "here"
+ },
+ {
+  "start": 329.522,
+  "end": 330.308,
+  "en": "when we remove it."
+ },
+ {
+  "start": 331.368,
+  "end": 333.712,
+  "en": "Now that is what I meant before. This is the"
+ },
+ {
+  "start": 334.034,
+  "end": 336.121,
+  "en": "quickest and dirtiest way of removing a"
+ },
+ {
+  "start": 336.121,
+  "end": 338.738,
+  "en": "value. It might work for nodes, but for"
+ },
+ {
+  "start": 338.995,
+  "end": 339.38,
+  "en": "edges"
+ },
+ {
+  "start": 339.958,
+  "end": 342.431,
+  "en": "where we then try to loop through the values"
+ },
+ {
+  "start": 342.56,
+  "end": 343.555,
+  "en": "stored for the edges,"
+ },
+ {
+  "start": 344.23,
+  "end": 346.67,
+  "en": "that fails because we can't loop through"
+ },
+ {
+  "start": 346.783,
+  "end": 347.377,
+  "en": "undefined."
+ },
+ {
+  "start": 348.083,
+  "end": 349.56,
+  "en": "So therefore here we want to delete this"
+ },
+ {
+  "start": 349.689,
+  "end": 352.214,
+  "en": "differently. And I'll use the reflect API"
+ },
+ {
+  "start": 352.408,
+  "end": 355.499,
+  "en": "with deleteProperty where I simply point at"
+ },
+ {
+  "start": 355.499,
+  "end": 358.107,
+  "en": "a target object which is this.edges"
+ },
+ {
+  "start": 358.783,
+  "end": 360.988,
+  "en": "and then the key which is node identifier."
+ },
+ {
+  "start": 361.519,
+  "end": 364.414,
+  "en": "And this will now safely remove that data,"
+ },
+ {
+  "start": 364.495,
+  "end": 367.777,
+  "en": "that property from that edges object if it"
+ },
+ {
+  "start": 367.777,
+  "end": 368.613,
+  "en": "exists there."
+ },
+ {
+  "start": 371.14,
+  "end": 372.608,
+  "en": "So now with that, if we reload,"
+ },
+ {
+  "start": 373.196,
+  "end": 373.767,
+  "en": "this works."
+ },
+ {
+  "start": 374.338,
+  "end": 376.198,
+  "en": "And in our graph we see for nodes"
+ },
+ {
+  "start": 376.956,
+  "end": 379.763,
+  "en": "2 is undefined. We could have used the"
+ },
+ {
+  "start": 379.763,
+  "end": 382.313,
+  "en": "reflect API for deleting this in a different"
+ },
+ {
+  "start": 382.345,
+  "end": 382.858,
+  "en": "way as well."
+ },
+ {
+  "start": 383.692,
+  "end": 386.306,
+  "en": "But for edges, we now also see that I"
+ },
+ {
+  "start": 386.498,
+  "end": 390.171,
+  "en": "cleared all the connections to manual"
+ },
+ {
+  "start": 390.443,
+  "end": 392.095,
+  "en": "because manual was deleted."
+ },
+ {
+  "start": 392.768,
+  "end": 395.286,
+  "en": "Now we could also add an extra check to"
+ },
+ {
+  "start": 395.559,
+  "end": 396.97,
+  "en": "remove this entire array"
+ },
+ {
+  "start": 397.515,
+  "end": 400.193,
+  "en": "if we have no remaining edges, but we should"
+ },
+ {
+  "start": 400.29,
+  "end": 403.053,
+  "en": "also be fine like this. So ultimately, That"
+ },
+ {
+  "start": 403.053,
+  "end": 404.154,
+  "en": "is totally up to you."
+ },
+ {
+  "start": 407.04,
+  "end": 409.588,
+  "en": "Now last but not least, let's make sure we"
+ },
+ {
+  "start": 409.588,
+  "end": 412.879,
+  "en": "can also remove just an edge and not just"
+ },
+ {
+  "start": 412.879,
+  "end": 413.734,
+  "en": "entire nodes."
+ },
+ {
+  "start": 414.776,
+  "end": 416.24,
+  "en": "Removing an edge is a bit easier."
+ },
+ {
+  "start": 416.804,
+  "end": 419.219,
+  "en": "We first of all have to find out if that"
+ },
+ {
+  "start": 419.283,
+  "end": 421.295,
+  "en": "edge which we wanna remove exists."
+ },
+ {
+  "start": 422.196,
+  "end": 425.506,
+  "en": "So we can check if this has edge for start"
+ },
+ {
+  "start": 425.506,
+  "end": 426.84,
+  "en": "node and end node"
+ },
+ {
+  "start": 428.238,
+  "end": 430.712,
+  "en": "using this utility method which will return"
+ },
+ {
+  "start": 430.712,
+  "end": 432.557,
+  "en": "true or false and if this returns"
+ },
+ {
+  "start": 435.776,
+  "end": 437.878,
+  "en": "false. So we can add an exclamation mark"
+ },
+ {
+  "start": 437.878,
+  "end": 440.367,
+  "en": "here to check for that. If we don't find"
+ },
+ {
+  "start": 440.561,
+  "end": 441.014,
+  "en": "this edge,"
+ },
+ {
+  "start": 441.838,
+  "end": 444.052,
+  "en": "we can throw an error, for example,"
+ },
+ {
+  "start": 445.068,
+  "end": 448.391,
+  "en": "edge does not exist, because we can't remove"
+ },
+ {
+  "start": 448.391,
+  "end": 450.23,
+  "en": "a connection that does not exist."
+ },
+ {
+  "start": 453.203,
+  "end": 455.313,
+  "en": "Now if we make it past this if check, we"
+ },
+ {
+  "start": 455.313,
+  "end": 457.359,
+  "en": "know that the connection does exist"
+ },
+ {
+  "start": 457.939,
+  "end": 460.307,
+  "en": "and then of course we can get rid of it."
+ },
+ {
+  "start": 461.073,
+  "end": 463.883,
+  "en": "Now to get rid of it, we want to reach out"
+ },
+ {
+  "start": 463.883,
+  "end": 464.028,
+  "en": "to"
+ },
+ {
+  "start": 464.59,
+  "end": 466.581,
+  "en": "edges for the start node"
+ },
+ {
+  "start": 467.319,
+  "end": 470.755,
+  "en": "and then find the to-be-removed end node"
+ },
+ {
+  "start": 471.109,
+  "end": 474.336,
+  "en": "with indexOf, for example. So basically what"
+ },
+ {
+  "start": 474.336,
+  "end": 476.263,
+  "en": "I'm also doing down there when I check"
+ },
+ {
+  "start": 476.391,
+  "end": 477.29,
+  "en": "whether this exists."
+ },
+ {
+  "start": 478.174,
+  "end": 480.711,
+  "en": "And therefore, of course, to not do the same"
+ },
+ {
+  "start": 480.743,
+  "end": 481.481,
+  "en": "thing twice,"
+ },
+ {
+  "start": 482.107,
+  "end": 483.97,
+  "en": "we can also get rid of this check again"
+ },
+ {
+  "start": 484.098,
+  "end": 484.227,
+  "en": "here,"
+ },
+ {
+  "start": 485.062,
+  "end": 485.656,
+  "en": "get our"
+ },
+ {
+  "start": 486.574,
+  "end": 488.057,
+  "en": "node index here"
+ },
+ {
+  "start": 490.184,
+  "end": 491.377,
+  "en": "and check if node"
+ },
+ {
+  "start": 492.602,
+  "end": 495.359,
+  "en": "index is equal to -1, which means we didn't"
+ },
+ {
+  "start": 495.359,
+  "end": 498.131,
+  "en": "find it, and then we could throw our error,"
+ },
+ {
+  "start": 501.116,
+  "end": 502.765,
+  "en": "edge does not exist."
+ },
+ {
+  "start": 504.042,
+  "end": 505.934,
+  "en": "And if we make it past this if check now,"
+ },
+ {
+  "start": 506.79,
+  "end": 508.973,
+  "en": "we don't just know whether it exists or not,"
+ },
+ {
+  "start": 509.037,
+  "end": 510.841,
+  "en": "but now we also have the index"
+ },
+ {
+  "start": 511.505,
+  "end": 513.627,
+  "en": "of the end node we want to remove. And"
+ },
+ {
+  "start": 513.659,
+  "end": 515.787,
+  "en": "therefore removing will be easier because"
+ },
+ {
+  "start": 515.803,
+  "end": 517.737,
+  "en": "now we can reach out to our edges for the"
+ },
+ {
+  "start": 517.737,
+  "end": 520.268,
+  "en": "given start node and simply call splice"
+ },
+ {
+  "start": 520.332,
+  "end": 520.526,
+  "en": "there"
+ },
+ {
+  "start": 521.122,
+  "end": 523.977,
+  "en": "with help of the node index and splice that"
+ },
+ {
+  "start": 524.106,
+  "end": 526.865,
+  "en": "one element with that index to effectively"
+ },
+ {
+  "start": 527.026,
+  "end": 527.494,
+  "en": "remove it."
+ },
+ {
+  "start": 528.397,
+  "end": 530.785,
+  "en": "And that's all we need to remove an edge."
+ },
+ {
+  "start": 532.522,
+  "end": 533.683,
+  "en": "We can now go down"
+ },
+ {
+  "start": 534.441,
+  "end": 534.908,
+  "en": "and"
+ },
+ {
+  "start": 535.65,
+  "end": 536.44,
+  "en": "get rid of that"
+ },
+ {
+  "start": 537.02,
+  "end": 539.373,
+  "en": "remove node call here and instead let's"
+ },
+ {
+  "start": 539.438,
+  "end": 540.276,
+  "en": "remove an edge."
+ },
+ {
+  "start": 542.007,
+  "end": 543.636,
+  "en": "And let's remove an edge that does not"
+ },
+ {
+  "start": 543.636,
+  "end": 545.508,
+  "en": "exist, for example, 2 to 1."
+ },
+ {
+  "start": 546.444,
+  "end": 548.509,
+  "en": "But then let's also remove an edge that does"
+ },
+ {
+  "start": 548.558,
+  "end": 550.574,
+  "en": "exist, let's say 1 to 3."
+ },
+ {
+  "start": 551.847,
+  "end": 553.701,
+  "en": "If we save that and reload, we'll get an"
+ },
+ {
+  "start": 553.846,
+  "end": 555.683,
+  "en": "error because we try to remove"
+ },
+ {
+  "start": 556.424,
+  "end": 557.714,
+  "en": "an edge that does not exist."
+ },
+ {
+  "start": 558.312,
+  "end": 560.141,
+  "en": "But actually we got a technical error here"
+ },
+ {
+  "start": 560.74,
+  "end": 563.2,
+  "en": "because with indexOf, of course,"
+ },
+ {
+  "start": 564.948,
+  "end": 565.142,
+  "en": "here"
+ },
+ {
+  "start": 565.676,
+  "end": 567.829,
+  "en": "we might be calling this on undefined."
+ },
+ {
+  "start": 568.394,
+  "end": 570.528,
+  "en": "The same problem we faced down there in"
+ },
+ {
+  "start": 570.641,
+  "end": 571.11,
+  "en": "hasEdge."
+ },
+ {
+  "start": 571.789,
+  "end": 574.458,
+  "en": "So we can also copy the solution from there,"
+ },
+ {
+  "start": 574.862,
+  "end": 575.929,
+  "en": "this extra if check"
+ },
+ {
+  "start": 576.544,
+  "end": 578.533,
+  "en": "where we see if we have any entries at all"
+ },
+ {
+  "start": 578.663,
+  "end": 579.795,
+  "en": "for the given start node."
+ },
+ {
+  "start": 580.507,
+  "end": 581.639,
+  "en": "And if we don't,"
+ },
+ {
+  "start": 582.286,
+  "end": 584.066,
+  "en": "we throw that error as well."
+ },
+ {
+  "start": 585.612,
+  "end": 588.147,
+  "en": "So let's now save this and reload. And now"
+ },
+ {
+  "start": 588.26,
+  "end": 589.503,
+  "en": "we get our custom error."
+ },
+ {
+  "start": 590.778,
+  "end": 592.795,
+  "en": "And now to also see whether this works if we"
+ },
+ {
+  "start": 592.795,
+  "end": 595.667,
+  "en": "try to delete something valid, Let's comment"
+ },
+ {
+  "start": 595.667,
+  "end": 597.304,
+  "en": "out this remove edge call,"
+ },
+ {
+  "start": 599.629,
+  "end": 600.245,
+  "en": "reload again,"
+ },
+ {
+  "start": 601.087,
+  "end": 603.402,
+  "en": "and in our graph we see all nodes are there,"
+ },
+ {
+  "start": 604.179,
+  "end": 605.037,
+  "en": "but in the edges"
+ },
+ {
+  "start": 606.106,
+  "end": 606.818,
+  "en": "we removed"
+ },
+ {
+  "start": 607.498,
+  "end": 610.861,
+  "en": "this 1 to 3 edge which we previously had"
+ },
+ {
+  "start": 611.443,
+  "end": 614.127,
+  "en": "here. We added it previously, but here we"
+ },
+ {
+  "start": 614.127,
+  "end": 615.938,
+  "en": "removed it, and therefore 1"
+ },
+ {
+  "start": 616.536,
+  "end": 618.712,
+  "en": "max is now only pointing at 2"
+ },
+ {
+  "start": 619.322,
+  "end": 622.535,
+  "en": "and no longer at 3. So that is working."
+ },
+ {
+  "start": 625.41,
+  "end": 627.37,
+  "en": "And these are the core functionalities we"
+ },
+ {
+  "start": 627.37,
+  "end": 630.873,
+  "en": "might want in our graph to use it to, for"
+ },
+ {
+  "start": 630.906,
+  "end": 634.409,
+  "en": "example, store contacts and their relation"
+ },
+ {
+  "start": 634.441,
+  "end": 634.926,
+  "en": "to each other."
+ },
+ {
+  "start": 635.719,
+  "end": 638.843,
+  "en": "Now this graph has a relatively big flaw"
+ },
+ {
+  "start": 639.054,
+  "end": 641.385,
+  "en": "though when it comes to time complexity."
+ },
+ {
+  "start": 642.01,
+  "end": 644.586,
+  "en": "So let's find plus fix that over the next"
+ },
+ {
+  "start": 644.586,
+  "end": 644.963,
+  "en": "lectures."
+ }
+]

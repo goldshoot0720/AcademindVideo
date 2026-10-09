@@ -1,0 +1,663 @@
+1
+00:00:02,088 --> 00:00:04,431
+So let's build a graph data structure now.
+
+2
+00:00:04,981 --> 00:00:06,500
+You know the game, I'm back in a new
+
+3
+00:00:06,613 --> 00:00:08,585
+project, empty app.js file,
+
+4
+00:00:10,089 --> 00:00:11,842
+and that's where I now wanna build the graph
+
+5
+00:00:12,003 --> 00:00:15,409
+data structure using adjacency lists or an
+
+6
+00:00:15,554 --> 00:00:17,258
+adjacency list under the hood.
+
+7
+00:00:18,527 --> 00:00:20,815
+For that, we can create a new class and call
+
+8
+00:00:20,944 --> 00:00:23,656
+it Graph because, well, that's what we're
+
+9
+00:00:23,672 --> 00:00:24,189
+going to build.
+
+10
+00:00:25,125 --> 00:00:27,763
+And in the constructor, we wanna do 2
+
+11
+00:00:27,763 --> 00:00:28,538
+important things.
+
+12
+00:00:29,215 --> 00:00:30,474
+We need our nodes
+
+13
+00:00:31,070 --> 00:00:33,200
+and that could be an array full of objects
+
+14
+00:00:33,555 --> 00:00:35,830
+or to make retrieving nodes a bit more
+
+15
+00:00:35,830 --> 00:00:38,169
+efficient, we could also store an object
+
+16
+00:00:38,169 --> 00:00:41,299
+here so that we can use any identifier like
+
+17
+00:00:41,299 --> 00:00:43,703
+a string ID for the different nodes.
+
+18
+00:00:45,884 --> 00:00:47,961
+And we'll also have our edges
+
+19
+00:00:48,707 --> 00:00:50,540
+and that could be an array now
+
+20
+00:00:51,221 --> 00:00:55,107
+or also an object where we then later also
+
+21
+00:00:55,172 --> 00:00:58,390
+have the identifiers of nodes and then as a
+
+22
+00:00:58,390 --> 00:01:01,688
+value for every identifier, an array full of
+
+23
+00:01:01,721 --> 00:01:04,358
+the identifiers of other nodes that node
+
+24
+00:01:04,536 --> 00:01:05,216
+should point at.
+
+25
+00:01:05,928 --> 00:01:07,676
+You'll see how it works very soon.
+
+26
+00:01:09,376 --> 00:01:12,557
+Now in this class, we need 2 very important
+
+27
+00:01:12,557 --> 00:01:12,992
+methods,
+
+28
+00:01:13,574 --> 00:01:17,625
+an addNode method and of course an addEdge
+
+29
+00:01:17,932 --> 00:01:20,470
+method because these are the 2 things that
+
+30
+00:01:20,470 --> 00:01:22,754
+make up graphs. Nodes and edges.
+
+31
+00:01:24,490 --> 00:01:27,891
+Now for a node, we probably should get some
+
+32
+00:01:28,150 --> 00:01:28,685
+identifier
+
+33
+00:01:29,284 --> 00:01:31,212
+and a value that should be stored.
+
+34
+00:01:34,129 --> 00:01:36,535
+And then we could reach out to this node
+
+35
+00:01:37,277 --> 00:01:39,344
+and for the given identifier,
+
+36
+00:01:40,103 --> 00:01:42,072
+we then store our value.
+
+37
+00:01:42,782 --> 00:01:45,209
+Now you could also store an object as a
+
+38
+00:01:45,209 --> 00:01:47,926
+value which has a val key and stores the
+
+39
+00:01:47,926 --> 00:01:50,546
+value and then maybe an ID and again stores
+
+40
+00:01:50,578 --> 00:01:51,173
+the identifier
+
+41
+00:01:51,747 --> 00:01:53,394
+even though we already have it as a key
+
+42
+00:01:53,394 --> 00:01:53,669
+name.
+
+43
+00:01:54,250 --> 00:01:56,107
+And you could store any kind of metadata
+
+44
+00:01:56,123 --> 00:01:56,914
+there as well.
+
+45
+00:01:57,576 --> 00:02:00,079
+But I'll keep it simple. I'll just store my
+
+46
+00:02:00,079 --> 00:02:00,805
+value here
+
+47
+00:02:01,757 --> 00:02:04,484
+on the given identifier in my nodes object.
+
+48
+00:02:06,372 --> 00:02:08,647
+Now, I don't add any edges here because for
+
+49
+00:02:08,647 --> 00:02:11,371
+the moment we just added a node. And in a
+
+50
+00:02:11,371 --> 00:02:14,157
+graph, you can also have unconnected nodes.
+
+51
+00:02:14,817 --> 00:02:16,910
+That might not be very useful, but if you
+
+52
+00:02:16,910 --> 00:02:19,326
+just signed up on Facebook and you have no
+
+53
+00:02:19,326 --> 00:02:21,483
+contacts yet, you would be an unconnected
+
+54
+00:02:21,483 --> 00:02:24,876
+node in that context graph, for example.
+
+55
+00:02:25,423 --> 00:02:27,640
+So we can add a node without edges.
+
+56
+00:02:28,459 --> 00:02:30,741
+But of course, typically we want edges. So
+
+57
+00:02:30,805 --> 00:02:33,119
+we need that addEdge method as well.
+
+58
+00:02:34,179 --> 00:02:37,601
+And addEdge needs 2 important parameters,
+
+59
+00:02:38,340 --> 00:02:42,004
+the start node and the end node. And here,
+
+60
+00:02:42,052 --> 00:02:44,735
+of course, I expect the identifiers for
+
+61
+00:02:44,783 --> 00:02:45,394
+those nodes.
+
+62
+00:02:46,535 --> 00:02:49,620
+And with that information provided, we can
+
+63
+00:02:49,684 --> 00:02:50,858
+reach out to edges
+
+64
+00:02:51,613 --> 00:02:53,735
+for the start node identifier.
+
+65
+00:02:54,282 --> 00:02:56,806
+So start and end node should be the node
+
+66
+00:02:56,838 --> 00:02:57,449
+identifiers.
+
+67
+00:02:59,290 --> 00:03:00,885
+So for the start node identifier,
+
+68
+00:03:01,804 --> 00:03:04,319
+and we then want to set this equal to an
+
+69
+00:03:04,319 --> 00:03:04,577
+array
+
+70
+00:03:05,528 --> 00:03:07,705
+which holds end node as a value.
+
+71
+00:03:08,827 --> 00:03:11,112
+This approach is dangerous though because if
+
+72
+00:03:11,112 --> 00:03:14,538
+we already did have a list of edges for that
+
+73
+00:03:14,538 --> 00:03:16,382
+given node, we now overrode it.
+
+74
+00:03:17,104 --> 00:03:19,609
+So instead, we'll need to check if this
+
+75
+00:03:19,882 --> 00:03:20,187
+edge's
+
+76
+00:03:21,279 --> 00:03:23,719
+start node already exists, if that is
+
+77
+00:03:23,832 --> 00:03:24,281
+truthy,
+
+78
+00:03:25,036 --> 00:03:27,492
+in which case we just want to add end node.
+
+79
+00:03:28,231 --> 00:03:30,639
+And we only want to add this brand new array
+
+80
+00:03:30,639 --> 00:03:33,321
+with end node if we didn't have a list of
+
+81
+00:03:33,449 --> 00:03:36,484
+edges for that given node yet. So we need to
+
+82
+00:03:36,500 --> 00:03:37,849
+make this differentiation.
+
+83
+00:03:38,924 --> 00:03:41,189
+Now in this if case here, we want to want to
+
+84
+00:03:41,318 --> 00:03:44,458
+add end node, but maybe we already had this
+
+85
+00:03:44,458 --> 00:03:46,632
+connection, right? In this case, we don't
+
+86
+00:03:46,648 --> 00:03:49,273
+want to add it again because a node can only
+
+87
+00:03:49,305 --> 00:03:51,868
+be connected to another node once. You can't
+
+88
+00:03:51,868 --> 00:03:54,740
+have 2 connections from node A to node B.
+
+89
+00:03:57,869 --> 00:04:00,339
+So therefore, we can fine-tune this a bit
+
+90
+00:04:00,840 --> 00:04:03,026
+and not just check whether we already have
+
+91
+00:04:03,026 --> 00:04:06,312
+an array for start node, but if that given
+
+92
+00:04:06,587 --> 00:04:08,079
+array which exists
+
+93
+00:04:08,688 --> 00:04:12,119
+if that given array maybe already contains
+
+94
+00:04:12,536 --> 00:04:13,209
+end node.
+
+95
+00:04:14,379 --> 00:04:16,639
+And we can do this in various ways. We
+
+96
+00:04:16,703 --> 00:04:20,022
+could, for example, use indexOf, which is a
+
+97
+00:04:20,022 --> 00:04:22,074
+method in JavaScript that will give us the
+
+98
+00:04:22,154 --> 00:04:23,677
+index of a given value.
+
+99
+00:04:24,254 --> 00:04:26,338
+And we want to get the index of end node,
+
+100
+00:04:26,883 --> 00:04:27,572
+and that will be
+
+101
+00:04:28,566 --> 00:04:29,480
+-1 if
+
+102
+00:04:30,009 --> 00:04:33,327
+end node is not part of that array yet.
+
+103
+00:04:34,023 --> 00:04:36,385
+And it will give us the index in all other
+
+104
+00:04:36,385 --> 00:04:36,776
+cases.
+
+105
+00:04:37,476 --> 00:04:38,959
+So if that is equal to -1,
+
+106
+00:04:39,840 --> 00:04:40,374
+then we know
+
+107
+00:04:40,909 --> 00:04:44,069
+end node was not connected to start node
+
+108
+00:04:44,069 --> 00:04:47,164
+before. So now here in this case, we want to
+
+109
+00:04:47,309 --> 00:04:48,184
+add the connection.
+
+110
+00:04:49,240 --> 00:04:51,124
+So then we'll reach out to the edges of
+
+111
+00:04:51,124 --> 00:04:53,717
+start node and simply push
+
+112
+00:04:54,329 --> 00:04:57,438
+end node as a new value to insert this here.
+
+113
+00:04:58,996 --> 00:04:59,900
+This is what we could do.
+
+114
+00:05:00,529 --> 00:05:02,902
+If end node did already exist as a
+
+115
+00:05:02,950 --> 00:05:03,547
+connection for start node,
+
+116
+00:05:04,616 --> 00:05:06,914
+we do nothing because we don't need to do
+
+117
+00:05:07,203 --> 00:05:07,573
+anything.
+
+118
+00:05:08,231 --> 00:05:10,368
+You could add an extra if check and throw an
+
+119
+00:05:10,497 --> 00:05:12,698
+error, but here I'll just do nothing.
+
+120
+00:05:13,935 --> 00:05:14,192
+Okay,
+
+121
+00:05:14,755 --> 00:05:17,583
+so that already is our first very basic
+
+122
+00:05:17,647 --> 00:05:20,378
+graph, not the final graph we'll have, but a
+
+123
+00:05:20,378 --> 00:05:21,166
+first graph.
+
+124
+00:05:21,905 --> 00:05:22,917
+Now we can
+
+125
+00:05:23,512 --> 00:05:24,154
+create it,
+
+126
+00:05:24,797 --> 00:05:25,584
+a new graph,
+
+127
+00:05:26,548 --> 00:05:29,408
+and we can replicate the example we had on
+
+128
+00:05:29,441 --> 00:05:30,501
+the slide earlier.
+
+129
+00:05:31,078 --> 00:05:33,435
+So on that graph, we can now add a bunch of
+
+130
+00:05:33,707 --> 00:05:34,781
+nodes first of all.
+
+131
+00:05:36,096 --> 00:05:38,708
+And here I wanna have a node with identifier
+
+132
+00:05:38,740 --> 00:05:40,888
+1, and let's say the value here is actually
+
+133
+00:05:40,920 --> 00:05:41,401
+max.
+
+134
+00:05:42,187 --> 00:05:43,597
+The node with identifier 2
+
+135
+00:05:44,431 --> 00:05:44,655
+has
+
+136
+00:05:45,409 --> 00:05:45,922
+manual,
+
+137
+00:05:46,755 --> 00:05:50,057
+and we have joules with identifier 3.
+
+138
+00:05:51,163 --> 00:05:53,552
+Now these identifiers are what you saw on
+
+139
+00:05:53,584 --> 00:05:54,754
+the slides previously.
+
+140
+00:05:56,068 --> 00:05:57,495
+Here, 1, 2, 3.
+
+141
+00:05:58,651 --> 00:06:00,610
+Now let's set up connections between those
+
+142
+00:06:00,658 --> 00:06:01,011
+nodes.
+
+143
+00:06:01,541 --> 00:06:03,773
+So on the graph, I'll add a
+
+144
+00:06:04,720 --> 00:06:05,186
+new edge
+
+145
+00:06:06,085 --> 00:06:09,023
+where the start node should be, let's say,
+
+146
+00:06:09,473 --> 00:06:09,666
+1,
+
+147
+00:06:10,260 --> 00:06:12,732
+max, and I wanna connect max to manual.
+
+148
+00:06:13,262 --> 00:06:17,662
+So the end node identifier is 2. I'll also
+
+149
+00:06:17,662 --> 00:06:19,075
+connect max to joules,
+
+150
+00:06:20,135 --> 00:06:22,045
+and I'll also connect joules
+
+151
+00:06:23,363 --> 00:06:23,945
+to manual.
+
+152
+00:06:27,565 --> 00:06:29,650
+And with that, we can console.log
+
+153
+00:06:31,024 --> 00:06:31,234
+our
+
+154
+00:06:31,833 --> 00:06:32,237
+graph.
+
+155
+00:06:35,308 --> 00:06:36,176
+Let's save that
+
+156
+00:06:37,092 --> 00:06:38,184
+and reload this screen.
+
+157
+00:06:39,502 --> 00:06:40,788
+And we see our graph here.
+
+158
+00:06:41,414 --> 00:06:44,598
+In nodes, we see Max, Manuel, and Jules with
+
+159
+00:06:44,631 --> 00:06:46,391
+their respective identifiers.
+
+160
+00:06:47,456 --> 00:06:48,490
+And in edges
+
+161
+00:06:49,127 --> 00:06:51,874
+We see that we have a list for 1, for Max,
+
+162
+00:06:52,035 --> 00:06:53,497
+who points at 2 and 3,
+
+163
+00:06:54,107 --> 00:06:57,160
+and an entry for 3, so for Jules, who points
+
+164
+00:06:57,160 --> 00:06:58,445
+at 2, Manuel.
+
+165
+00:06:59,024 --> 00:07:01,337
+And that is our first basic graph.
+
+166
+00:07:02,077 --> 00:07:03,474
+Now let's refine it a bit.

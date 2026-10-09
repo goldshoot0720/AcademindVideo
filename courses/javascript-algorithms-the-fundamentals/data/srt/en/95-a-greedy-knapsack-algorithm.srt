@@ -1,0 +1,975 @@
+1
+00:00:02,116 --> 00:00:04,104
+And for this, I'm back in code here. I got
+
+2
+00:00:04,104 --> 00:00:06,333
+the same items as before. I got the same
+
+3
+00:00:06,429 --> 00:00:07,584
+maximum capacity.
+
+4
+00:00:08,209 --> 00:00:09,363
+And now let's write a new
+
+5
+00:00:10,069 --> 00:00:13,420
+knapsack function that should give us the
+
+6
+00:00:13,500 --> 00:00:16,418
+best possible knapsack. So where we get all
+
+7
+00:00:16,771 --> 00:00:19,753
+elements and our max capacity,
+
+8
+00:00:20,956 --> 00:00:22,671
+or our capacity in general,
+
+9
+00:00:23,345 --> 00:00:25,814
+and then we want to write an algorithm that
+
+10
+00:00:25,846 --> 00:00:27,818
+gives us the best combination of those
+
+11
+00:00:27,915 --> 00:00:29,422
+items. Now important,
+
+12
+00:00:30,176 --> 00:00:32,679
+we're solving something here which is called
+
+13
+00:00:33,065 --> 00:00:35,584
+the 0-1 knapsack problem.
+
+14
+00:00:36,113 --> 00:00:37,958
+And that is the problem we solved before
+
+15
+00:00:37,958 --> 00:00:38,199
+too.
+
+16
+00:00:38,841 --> 00:00:41,408
+There also are variations of the knapsack
+
+17
+00:00:41,408 --> 00:00:44,183
+problem where you are, for example, allowed
+
+18
+00:00:44,296 --> 00:00:47,456
+to take parts of an item so that you say I
+
+19
+00:00:47,505 --> 00:00:50,874
+take 2/3 of item A and 1/3 of item B.
+
+20
+00:00:51,740 --> 00:00:53,810
+And a couple of other variations too where
+
+21
+00:00:53,906 --> 00:00:56,746
+you may reuse an item as often as you want.
+
+22
+00:00:57,292 --> 00:01:00,113
+These are variations. The 0-1 knapsack
+
+23
+00:01:00,177 --> 00:01:02,887
+problem is by far the most popular one and
+
+24
+00:01:03,047 --> 00:01:05,147
+also the hardest one to solve. So that's the
+
+25
+00:01:05,147 --> 00:01:06,445
+one we're going to stick to here.
+
+26
+00:01:07,375 --> 00:01:10,100
+And with that, let's write a new variation
+
+27
+00:01:10,100 --> 00:01:12,730
+of our algorithm, of our problem-solving
+
+28
+00:01:12,906 --> 00:01:16,096
+algorithm. Now, however, following a greedy
+
+29
+00:01:16,144 --> 00:01:19,046
+approach instead of the dynamic approach so
+
+30
+00:01:19,174 --> 00:01:21,194
+that you get an idea of how a greedy
+
+31
+00:01:21,194 --> 00:01:22,941
+approach works and might look like.
+
+32
+00:01:23,680 --> 00:01:26,218
+So the goal is simple. We get elements, so
+
+33
+00:01:26,218 --> 00:01:27,069
+we get such an array,
+
+34
+00:01:27,599 --> 00:01:30,313
+and we get a capacity restriction which we
+
+35
+00:01:30,313 --> 00:01:32,787
+have to adhere to, and we then want to find
+
+36
+00:01:32,883 --> 00:01:35,340
+the items we want to take into our knapsack.
+
+37
+00:01:36,689 --> 00:01:38,858
+So the goal again is that I have my
+
+38
+00:01:39,886 --> 00:01:42,086
+sack here in the end, which I get by calling
+
+39
+00:01:42,295 --> 00:01:44,849
+knapsack, where I then feed in the items and
+
+40
+00:01:44,945 --> 00:01:46,342
+my max capacity here,
+
+41
+00:01:47,097 --> 00:01:49,699
+and thereafter I can print this sack and I
+
+42
+00:01:49,763 --> 00:01:51,193
+hopefully have the best possible
+
+43
+00:01:51,193 --> 00:01:53,743
+combination. Now, a greedy approach is very
+
+44
+00:01:53,791 --> 00:01:54,545
+straightforward.
+
+45
+00:01:55,122 --> 00:01:56,949
+As I mentioned on the slide, a greedy
+
+46
+00:01:56,981 --> 00:01:59,129
+approach typically is easy to come up with.
+
+47
+00:01:59,707 --> 00:02:01,775
+So we would probably go ahead and just write
+
+48
+00:02:01,775 --> 00:02:04,308
+a loop and go through all items, all
+
+49
+00:02:04,820 --> 00:02:05,398
+elements
+
+50
+00:02:05,943 --> 00:02:07,177
+in my elements
+
+51
+00:02:07,786 --> 00:02:08,299
+array here.
+
+52
+00:02:09,309 --> 00:02:11,970
+And we would look at every element and check
+
+53
+00:02:12,050 --> 00:02:14,038
+whether it should go into the sack or not,
+
+54
+00:02:14,054 --> 00:02:15,305
+into the knapsack or not.
+
+55
+00:02:16,203 --> 00:02:18,671
+Because remember, with a greedy algorithm,
+
+56
+00:02:18,848 --> 00:02:21,573
+with a greedy approach, we make the best
+
+57
+00:02:21,589 --> 00:02:24,155
+possible decision in every step.
+
+58
+00:02:24,813 --> 00:02:27,059
+So we're not looking at an item and we see
+
+59
+00:02:27,348 --> 00:02:29,674
+how does it best combine with the other
+
+60
+00:02:29,674 --> 00:02:31,535
+items, which is what we're doing with the
+
+61
+00:02:31,535 --> 00:02:33,765
+dynamic approach. No, we're looking at an
+
+62
+00:02:33,765 --> 00:02:36,396
+item and we'll just have a look, is it good
+
+63
+00:02:36,493 --> 00:02:39,557
+to add this item to the knapsack or not? And
+
+64
+00:02:39,557 --> 00:02:41,980
+the question whether it's good or not to add
+
+65
+00:02:41,980 --> 00:02:44,162
+it is answered by one simple thing.
+
+66
+00:02:44,691 --> 00:02:47,483
+The question just is, is this item we're
+
+67
+00:02:47,483 --> 00:02:50,789
+currently looking at below our max capacity.
+
+68
+00:02:50,966 --> 00:02:54,177
+So we can check if L.weight,
+
+69
+00:02:54,867 --> 00:02:56,296
+every item has a weight property,
+
+70
+00:02:56,874 --> 00:03:00,004
+is smaller than our max capacity. And if it
+
+71
+00:03:00,004 --> 00:03:02,027
+is, we know, okay, we should add this item.
+
+72
+00:03:02,653 --> 00:03:03,729
+So here I have my,
+
+73
+00:03:04,580 --> 00:03:07,646
+my sack, let's say, my object that describes
+
+74
+00:03:07,646 --> 00:03:09,861
+the optimal knapsack I'm deriving here,
+
+75
+00:03:10,536 --> 00:03:12,831
+which will have some items, which will have
+
+76
+00:03:12,864 --> 00:03:15,737
+a value, and which will have a weight. So
+
+77
+00:03:15,737 --> 00:03:17,311
+that's my initial knapsack here.
+
+78
+00:03:17,922 --> 00:03:19,720
+And if my item I'm looking at here
+
+79
+00:03:20,877 --> 00:03:23,302
+has a weight that is smaller than the
+
+80
+00:03:23,302 --> 00:03:24,908
+current max capacity,
+
+81
+00:03:25,534 --> 00:03:26,691
+I will go to my sack
+
+82
+00:03:27,783 --> 00:03:30,818
+and to the items there and push this element
+
+83
+00:03:30,931 --> 00:03:31,637
+into the sack.
+
+84
+00:03:32,296 --> 00:03:34,769
+And of course, therefore update the value by
+
+85
+00:03:34,930 --> 00:03:35,235
+adding
+
+86
+00:03:36,295 --> 00:03:37,467
+the value
+
+87
+00:03:38,318 --> 00:03:38,495
+of my
+
+88
+00:03:39,266 --> 00:03:39,635
+item here
+
+89
+00:03:40,326 --> 00:03:42,866
+and update the weight by adding
+
+90
+00:03:44,912 --> 00:03:47,360
+the weight of my item here. And now
+
+91
+00:03:47,408 --> 00:03:49,711
+important, of course, we need to reduce the
+
+92
+00:03:49,727 --> 00:03:52,127
+available remaining capacity. So I'll
+
+93
+00:03:52,546 --> 00:03:53,850
+actually add a new variable here,
+
+94
+00:03:54,414 --> 00:03:56,073
+remaining capacity,
+
+95
+00:03:56,652 --> 00:03:58,650
+which initially is just the capacity I'm
+
+96
+00:03:58,682 --> 00:04:00,614
+getting here, but now it's the remaining
+
+97
+00:04:00,614 --> 00:04:02,673
+capacity we should actually check here.
+
+98
+00:04:03,413 --> 00:04:06,019
+And once we added an item, we should also
+
+99
+00:04:06,083 --> 00:04:08,881
+reduce the remaining capacity by the weight
+
+100
+00:04:09,170 --> 00:04:11,048
+of the element so that we have less
+
+101
+00:04:11,113 --> 00:04:13,441
+remaining capacity. Because of course, we
+
+102
+00:04:13,441 --> 00:04:16,347
+still can't pack more items into the sack
+
+103
+00:04:16,556 --> 00:04:18,178
+than we have available capacity.
+
+104
+00:04:18,980 --> 00:04:20,827
+So we're looking at one single item and we
+
+105
+00:04:20,827 --> 00:04:22,738
+decide whether this item should go into the
+
+106
+00:04:22,738 --> 00:04:23,540
+sack or not.
+
+107
+00:04:24,102 --> 00:04:25,788
+And of course, besides updating this, we
+
+108
+00:04:25,788 --> 00:04:27,747
+should also check if the weight of the item
+
+109
+00:04:27,812 --> 00:04:30,027
+we're trying to put into the knapsack is
+
+110
+00:04:30,059 --> 00:04:32,548
+smaller or equal than the remaining
+
+111
+00:04:32,548 --> 00:04:33,190
+capacity.
+
+112
+00:04:33,736 --> 00:04:35,566
+Because it doesn't just have to be smaller.
+
+113
+00:04:35,839 --> 00:04:38,021
+If it has the same weight, so if it, for
+
+114
+00:04:38,021 --> 00:04:40,252
+example, does have a weight of 8 and the max
+
+115
+00:04:40,252 --> 00:04:42,627
+capacity is 8, it should also be allowed to
+
+116
+00:04:42,643 --> 00:04:44,536
+go in there. So we need smaller than or
+
+117
+00:04:44,585 --> 00:04:44,873
+equal.
+
+118
+00:04:45,868 --> 00:04:46,671
+So with that,
+
+119
+00:04:47,473 --> 00:04:49,912
+let's now return our sack here.
+
+120
+00:04:50,939 --> 00:04:53,796
+So let's return this generated knapsack and
+
+121
+00:04:53,812 --> 00:04:56,123
+let's give this algorithm a try. Let's save
+
+122
+00:04:56,123 --> 00:04:56,171
+all
+
+123
+00:04:57,022 --> 00:04:59,108
+and reload this browser page and we get our
+
+124
+00:04:59,268 --> 00:05:00,103
+knapsack here.
+
+125
+00:05:01,098 --> 00:05:03,025
+And if we have a look at it, we see we got
+
+126
+00:05:03,025 --> 00:05:05,370
+the items A and C in there. So this looks
+
+127
+00:05:05,370 --> 00:05:08,421
+pretty good. The total value is 13 and the
+
+128
+00:05:08,421 --> 00:05:10,974
+total weight is 6. And this, if you
+
+129
+00:05:10,974 --> 00:05:13,832
+remember, is our best possible solution.
+
+130
+00:05:13,881 --> 00:05:16,739
+It's the best solution we can get for these
+
+131
+00:05:17,092 --> 00:05:18,184
+input values.
+
+132
+00:05:19,357 --> 00:05:20,031
+So clearly
+
+133
+00:05:20,689 --> 00:05:23,548
+our way shorter algorithm here
+
+134
+00:05:24,142 --> 00:05:26,824
+gives us the same result as the way more
+
+135
+00:05:26,952 --> 00:05:29,538
+complex dynamic programming approach we
+
+136
+00:05:29,538 --> 00:05:30,357
+followed before.
+
+137
+00:05:30,886 --> 00:05:33,519
+So why would we use that dynamic programming
+
+138
+00:05:33,567 --> 00:05:35,606
+approach at all then, if we get the same
+
+139
+00:05:35,638 --> 00:05:36,232
+result here?
+
+140
+00:05:37,565 --> 00:05:37,709
+Well,
+
+141
+00:05:38,368 --> 00:05:40,551
+this is a deceiving result.
+
+142
+00:05:41,081 --> 00:05:43,023
+We do get the best possible solution here,
+
+143
+00:05:43,344 --> 00:05:43,826
+that's true.
+
+144
+00:05:44,468 --> 00:05:47,181
+But it's easy to change our input such that
+
+145
+00:05:47,181 --> 00:05:49,525
+we don't get it anymore. So it's a random
+
+146
+00:05:49,525 --> 00:05:51,612
+result that we get the best solution here.
+
+147
+00:05:52,319 --> 00:05:55,144
+Watch what happens if I just swap B and A.
+
+148
+00:05:55,642 --> 00:05:58,674
+So I changed the order of B and A. The
+
+149
+00:05:58,754 --> 00:06:01,304
+values and the weights are the same. It's
+
+150
+00:06:01,304 --> 00:06:04,767
+just that B and A swapped their position in
+
+151
+00:06:04,767 --> 00:06:06,274
+this array. Nothing else changed.
+
+152
+00:06:07,156 --> 00:06:09,321
+With this little change, we should still get
+
+153
+00:06:09,401 --> 00:06:11,373
+our best possible solution, of course,
+
+154
+00:06:11,822 --> 00:06:13,987
+because that would be a valid input array
+
+155
+00:06:13,987 --> 00:06:14,163
+too.
+
+156
+00:06:15,093 --> 00:06:17,771
+Nonetheless, if I now reload, you see we get
+
+157
+00:06:17,771 --> 00:06:18,877
+a false result.
+
+158
+00:06:19,438 --> 00:06:21,763
+Now there is only one item in the knapsack,
+
+159
+00:06:22,084 --> 00:06:22,324
+B,
+
+160
+00:06:22,869 --> 00:06:24,938
+and the total value is 6 and the total
+
+161
+00:06:24,970 --> 00:06:25,483
+weight is 8.
+
+162
+00:06:26,173 --> 00:06:28,261
+And we only have one item in there because
+
+163
+00:06:28,261 --> 00:06:30,703
+now that I swapped the position of B and A,
+
+164
+00:06:31,458 --> 00:06:33,691
+that's the first item we're evaluating.
+
+165
+00:06:34,429 --> 00:06:37,594
+With its weight of 8, it clearly goes into
+
+166
+00:06:37,642 --> 00:06:40,035
+the knapsack because 8 is
+
+167
+00:06:40,565 --> 00:06:43,441
+equal to our max capacity. So this item is
+
+168
+00:06:43,441 --> 00:06:45,031
+allowed to go into the knapsack.
+
+169
+00:06:45,689 --> 00:06:48,227
+But once it's in there, we have no capacity
+
+170
+00:06:48,259 --> 00:06:48,661
+left.
+
+171
+00:06:49,287 --> 00:06:51,617
+So because of the greedy approach, where we
+
+172
+00:06:51,697 --> 00:06:54,172
+only have a look at one item at a time and
+
+173
+00:06:54,188 --> 00:06:56,019
+we try to make the best decision for every
+
+174
+00:06:56,116 --> 00:06:58,799
+item and hope that this altogether adds up
+
+175
+00:06:59,024 --> 00:06:59,876
+to the best decision,
+
+176
+00:07:00,695 --> 00:07:03,765
+we generate a wrong result because now we
+
+177
+00:07:04,247 --> 00:07:07,525
+decide to add B into the knapsack. So the
+
+178
+00:07:07,525 --> 00:07:09,196
+first item we're looking at, because of
+
+179
+00:07:09,228 --> 00:07:11,526
+course if we just look at this item, it is
+
+180
+00:07:11,622 --> 00:07:12,458
+correct to add it.
+
+181
+00:07:13,068 --> 00:07:15,206
+It has a weight that fits in there, so why
+
+182
+00:07:15,318 --> 00:07:15,880
+wouldn't we add it?
+
+183
+00:07:16,620 --> 00:07:19,300
+But by just looking at this item and by not
+
+184
+00:07:19,428 --> 00:07:21,850
+evaluating the other items and all possible
+
+185
+00:07:21,915 --> 00:07:22,524
+combinations,
+
+186
+00:07:23,182 --> 00:07:26,198
+we miss the fact that there would've been a
+
+187
+00:07:26,327 --> 00:07:27,369
+better combination.
+
+188
+00:07:27,915 --> 00:07:29,904
+And that's the problem with this greedy
+
+189
+00:07:29,952 --> 00:07:30,466
+approach.
+
+190
+00:07:31,461 --> 00:07:33,995
+Now, the greedy approach does not always
+
+191
+00:07:34,493 --> 00:07:37,044
+yield a wrong result. There are problems
+
+192
+00:07:37,140 --> 00:07:39,210
+which you can solve with a greedy approach,
+
+193
+00:07:39,498 --> 00:07:40,734
+so by just having a look at
+
+194
+00:07:41,488 --> 00:07:43,717
+one option at a time, and you will get the
+
+195
+00:07:43,733 --> 00:07:46,137
+best possible result. In such cases, you
+
+196
+00:07:46,137 --> 00:07:48,429
+might still have non-optimal time
+
+197
+00:07:48,461 --> 00:07:50,449
+complexity, but sometimes you even have
+
+198
+00:07:50,449 --> 00:07:52,628
+that. Sometimes the greedy approach is the
+
+199
+00:07:52,628 --> 00:07:54,808
+best possible approach, and therefore it's
+
+200
+00:07:54,872 --> 00:07:57,325
+never bad to consider a greedy approach.
+
+201
+00:07:57,998 --> 00:08:00,210
+But you should always be open to improving
+
+202
+00:08:00,258 --> 00:08:02,630
+it, and you should always verify your
+
+203
+00:08:02,630 --> 00:08:04,794
+results and do something like we did it
+
+204
+00:08:04,794 --> 00:08:08,175
+here. Change your inputs slightly and check
+
+205
+00:08:08,175 --> 00:08:10,179
+whether your algorithm still gives you the
+
+206
+00:08:10,179 --> 00:08:12,826
+best possible result. And if that's not the
+
+207
+00:08:12,826 --> 00:08:14,753
+case, you probably need a different
+
+208
+00:08:14,769 --> 00:08:15,283
+solution.
+
+209
+00:08:16,295 --> 00:08:19,572
+So long story short, it's always a good idea
+
+210
+00:08:19,572 --> 00:08:21,563
+if you're thinking about a problem, if
+
+211
+00:08:21,563 --> 00:08:24,165
+you're confronted with a problem, to maybe
+
+212
+00:08:24,454 --> 00:08:27,490
+check the greedy approach first and try to
+
+213
+00:08:27,506 --> 00:08:29,995
+approach the problem as simple as possible.
+
+214
+00:08:30,332 --> 00:08:32,645
+Don't make it overly complex. Just have a
+
+215
+00:08:32,645 --> 00:08:35,070
+look at one problem at a time. Just go
+
+216
+00:08:35,135 --> 00:08:36,805
+through all the different steps you might
+
+217
+00:08:36,821 --> 00:08:38,764
+have in your algorithm and try to make the
+
+218
+00:08:38,844 --> 00:08:40,898
+best decision on every step instead of
+
+219
+00:08:40,914 --> 00:08:42,871
+considering all combinations right from the
+
+220
+00:08:42,871 --> 00:08:45,567
+start. But then definitely verify your
+
+221
+00:08:45,567 --> 00:08:47,814
+result and check if it's the best possible
+
+222
+00:08:47,910 --> 00:08:50,381
+one. And if it is, check if it has the best
+
+223
+00:08:50,381 --> 00:08:53,221
+possible runtime and be open to using a
+
+224
+00:08:53,285 --> 00:08:54,184
+dynamic approach.
+
+225
+00:08:54,890 --> 00:08:57,762
+Dynamic approaches, dynamic algorithms, so
+
+226
+00:08:57,843 --> 00:08:59,832
+when you use dynamic programming in the end,
+
+227
+00:09:00,426 --> 00:09:03,122
+guarantee you the best possible solution
+
+228
+00:09:03,459 --> 00:09:05,801
+because you always evaluate all possible
+
+229
+00:09:05,801 --> 00:09:06,331
+solutions
+
+230
+00:09:06,909 --> 00:09:10,022
+and they also typically have the best
+
+231
+00:09:09,300 --> 00:09:10,359
+possible runtime.
+
+232
+00:09:11,017 --> 00:09:13,825
+So you're pretty much never wrong with the
+
+233
+00:09:13,825 --> 00:09:16,233
+dynamic approach, but the greedy one can be
+
+234
+00:09:16,233 --> 00:09:19,571
+faster. And in an interview situation, it is
+
+235
+00:09:19,603 --> 00:09:21,962
+perfectly fine to say, okay, I'm going to
+
+236
+00:09:21,994 --> 00:09:23,101
+start with a greedy
+
+237
+00:09:23,759 --> 00:09:26,889
+approach here and see how this works, and
+
+238
+00:09:26,889 --> 00:09:28,670
+then start with the greedy approach. That's
+
+239
+00:09:28,670 --> 00:09:31,206
+perfectly fine. You just need to be open to
+
+240
+00:09:31,302 --> 00:09:34,271
+refine it and to maybe deviate from it. And
+
+241
+00:09:34,287 --> 00:09:36,534
+that's why you need to know both terms, why
+
+242
+00:09:36,534 --> 00:09:37,947
+you need to know both approaches,
+
+243
+00:09:38,524 --> 00:09:42,163
+and it is worth evaluating both if you are
+
+244
+00:09:42,163 --> 00:09:43,700
+confronted with a problem.

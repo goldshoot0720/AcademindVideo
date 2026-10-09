@@ -1,0 +1,449 @@
+1
+00:00:00,432 --> 00:00:03,767
+So what we have here are 2 tool workflows,
+所以我們這裡有 2 個工具工作流程，
+
+2
+00:00:03,799 --> 00:00:06,011
+which we'll visit in just a second. And then
+我們稍後會訪問它。進而
+
+3
+00:00:06,027 --> 00:00:08,287
+our main agent workflow, because this
+我們的主要代理商工作流程，因為這
+
+4
+00:00:08,287 --> 00:00:10,467
+section is about creating an AI agent.
+部分是關於創建人工智慧代理。
+
+5
+00:00:11,317 --> 00:00:14,154
+If we inspect that agent workflow, we see
+如果我們檢查代理工作流程，我們會看到
+
+6
+00:00:14,282 --> 00:00:16,927
+that just like in the workflows section, we
+就像在工作流程部分一樣，我們
+
+7
+00:00:17,088 --> 00:00:19,075
+actually have a multi-step workflow because
+實際上有一個多步驟的工作流程，因為
+
+8
+00:00:19,107 --> 00:00:20,726
+that is what n8n is all about.
+這就是 n8n 的意義所在。
+
+9
+00:00:21,272 --> 00:00:23,804
+But in the end, it's just 2 steps where one
+但最終，只需 2 個步驟即可
+
+10
+00:00:24,141 --> 00:00:26,738
+is a trigger, a chat trigger here.
+是一個觸發器，這裡是聊天觸發器。
+
+11
+00:00:27,347 --> 00:00:29,447
+n8n has a built-in chat you can use, and
+n8n 有一個內建的聊天功能，您可以使用，並且
+
+12
+00:00:29,447 --> 00:00:31,659
+that's perfect for an agent because agents,
+這對代理人來說是完美的，因為代理人，
+
+13
+00:00:31,691 --> 00:00:33,262
+of course, course makes sense if you have
+當然，如果你有的話當然是有意義的
+
+14
+00:00:33,775 --> 00:00:37,254
+dynamic unknown input like a chat where
+動態未知輸入，例如聊天
+
+15
+00:00:37,526 --> 00:00:39,514
+users may enter different kinds of
+使用者可以輸入不同型別的
+
+16
+00:00:39,643 --> 00:00:40,156
+information.
+資訊.
+
+17
+00:00:40,909 --> 00:00:43,634
+And then we have the special AI agent node
+然後我們就有了特殊的AI代理節點
+
+18
+00:00:43,634 --> 00:00:46,568
+here, and that is a node built into n8n.
+這裡，這是 n8n 內建的一個節點。
+
+19
+00:00:46,921 --> 00:00:49,951
+Under AI, there is the AI agent node, and
+AI下有AI代理節點，
+
+20
+00:00:49,983 --> 00:00:51,137
+it's a special node
+這是一個特殊的節點
+
+21
+00:00:52,131 --> 00:00:55,033
+because unlike other workflow nodes, this
+因為與其他工作流程節點不同，這
+
+22
+00:00:55,033 --> 00:00:57,341
+node is about an agent making decisions.
+節點是關於做出決策的代理。
+
+23
+00:00:58,047 --> 00:01:00,617
+Therefore, you connect a model, the brain of
+因此，你連結一個模型，即大腦
+
+24
+00:01:00,617 --> 00:01:02,416
+the agent, which is the model that will make
+代理，即模型
+
+25
+00:01:02,416 --> 00:01:03,011
+the decisions.
+的決定。
+
+26
+00:01:03,669 --> 00:01:07,090
+In my case here, I'm using GPT-5.6 Sol
+就我而言，我使用的是 GPT-5.6 Sol
+
+27
+00:01:07,283 --> 00:01:09,596
+because you want to use a fairly capable
+因為你想使用一個相當有能力的
+
+28
+00:01:09,612 --> 00:01:11,925
+model here. I'm using it on high reasoning
+模型在這裡。我在高推理上使用它
+
+29
+00:01:12,038 --> 00:01:14,929
+effort, and I connected an OpenAI account
+努力，我連結了一個 OpenAI 帳戶
+
+30
+00:01:14,929 --> 00:01:15,105
+here.
+這裡。
+
+31
+00:01:15,876 --> 00:01:17,675
+And for that, you'll need that API key.
+為此，您需要該 API 金鑰。
+
+32
+00:01:17,820 --> 00:01:20,438
+You'll need to create a credential and then
+您需要建立一個憑證，然後
+
+33
+00:01:20,470 --> 00:01:23,088
+bring in your OpenAI account.
+輸入您的 OpenAI 帳戶。
+
+34
+00:01:23,666 --> 00:01:24,404
+API key
+API金鑰
+
+35
+00:01:24,966 --> 00:01:25,591
+and save that.
+並儲存它。
+
+36
+00:01:26,554 --> 00:01:28,735
+That's important. Otherwise the request to
+這很重要。否則請求
+
+37
+00:01:28,735 --> 00:01:29,570
+the model will fail.
+該模型將會失敗。
+
+38
+00:01:30,580 --> 00:01:33,227
+But then this agent node also allows you to
+但是這個代理節點還允許您
+
+39
+00:01:33,227 --> 00:01:34,799
+connect tools and memory.
+連接工具和記憶體。
+
+40
+00:01:35,393 --> 00:01:37,478
+Now memory is there if you want your agent
+如果你想要你的代理人，現在記憶就在那裡
+
+41
+00:01:37,478 --> 00:01:38,906
+to kind of learn over time.
+隨著時間的推移來學習。
+
+42
+00:01:39,724 --> 00:01:41,617
+And it has a built-in simple memory, which
+並且它有一個內建的簡單記憶體，
+
+43
+00:01:41,665 --> 00:01:43,238
+in the end is just a database, you could
+最後只是一個資料庫，你可以
+
+44
+00:01:43,238 --> 00:01:46,157
+say, to which it allows the agent to write
+比如說，它允許代理寫入
+
+45
+00:01:46,157 --> 00:01:48,628
+and read. So for some agents, this could
+並閱讀。因此對於某些代理商來說，這可能
+
+46
+00:01:48,628 --> 00:01:50,681
+make sense. But here we're actually building
+有道理。但這裡我們實際上正在建構
+
+47
+00:01:50,729 --> 00:01:53,777
+a task-specific agent that is all about
+一個特定於任務的代理
+
+48
+00:01:53,922 --> 00:01:57,695
+summarizing text and creating PDF files. So
+總結文字並建立 PDF 檔案。所以
+
+49
+00:01:57,839 --> 00:01:59,541
+actually this agent doesn't really need
+實際上這個代理並不真正需要
+
+50
+00:01:59,541 --> 00:02:01,869
+memory. It is about a specific task and it
+記憶。這是關於一個特定的任務
+
+51
+00:02:01,869 --> 00:02:04,053
+shouldn't need to learn too much about that.
+不需要對此了解太多。
+
+52
+00:02:04,117 --> 00:02:06,285
+But again, depending on which agent you're
+但同樣，取決於你是哪個代理人
+
+53
+00:02:06,285 --> 00:02:07,489
+building, that may be different.
+建築，可能會有所不同。
+
+54
+00:02:08,035 --> 00:02:10,588
+What all agents will need though are tools
+所有代理商都需要的是工具
+
+55
+00:02:10,700 --> 00:02:12,563
+because that is what makes agents agents.
+因為這就是代理商的本質。
+
+56
+00:02:12,611 --> 00:02:14,778
+They need a brain and they need tools as you
+他們需要大腦，他們需要工具，就像你一樣
+
+57
+00:02:14,778 --> 00:02:17,990
+learned. And here I connected 2 tools. You
+學到了。在這裡我連接了 2 個工具。你
+
+58
+00:02:17,990 --> 00:02:20,334
+could add all kinds of tools here. NNN, for
+可以在這裡添加各種工具。 NNN，對於
+
+59
+00:02:20,334 --> 00:02:23,433
+example, has a built-in HTTP request tool
+例如，有一個內建的HTTP請求工具
+
+60
+00:02:23,545 --> 00:02:26,211
+which allows your agent to make HTTP
+它允許您的代理進行 HTTP
+
+61
+00:02:26,275 --> 00:02:28,603
+requests to reach out to the World Wide Web.
+請求訪問萬維網。
+
+62
+00:02:29,004 --> 00:02:31,670
+Without that tool, it can't do that. It
+如果没有这个工具，它就无法做到这一点。它
+
+63
+00:02:31,814 --> 00:02:34,271
+can't make such requests. It can in general
+不能提出這樣的要求。一般情況下是可以的
+
+64
+00:02:34,608 --> 00:02:36,647
+only do what you give it. That is super
+只做你給它的事情。那是超級
+
+65
+00:02:36,647 --> 00:02:38,189
+important to learn and understand.
+學習和理解很重要。
+
+66
+00:02:38,719 --> 00:02:41,352
+An agent can only do what you allow it to
+代理人只能做你允許它做的事
+
+67
+00:02:41,352 --> 00:02:43,664
+do, which tools you give it. So without an
+做，你給它什麼工具。所以沒有
+
+68
+00:02:43,841 --> 00:02:46,859
+HTTP request tool, The agent can't make HTTP
+HTTP請求工具，代理無法進行HTTP
+
+69
+00:02:46,907 --> 00:02:47,356
+requests.
+請求。
+
+70
+00:02:48,191 --> 00:02:50,903
+The code tool would allow an agent to write
+程式碼工具將允許代理程式編寫
+
+71
+00:02:50,999 --> 00:02:52,412
+and run code
+並運行程式碼
+
+72
+00:02:53,150 --> 00:02:55,686
+inside of your N8N server, so to say,
+在你的 N8N 伺服器內部，可以這麼說，
+
+73
+00:02:56,199 --> 00:02:58,783
+JavaScript and Python code, which makes
+JavaScript 和 Python 程式碼，這使得
+
+74
+00:02:58,783 --> 00:03:00,597
+agents very, very powerful because
+代理人非常非常強大，因為
+
+75
+00:03:01,127 --> 00:03:03,325
+such a tool effectively allows them, for
+這樣的工具有效地使他們能夠
+
+76
+00:03:03,342 --> 00:03:06,487
+example, also to send HTTP requests. They
+例如，也可以傳送 HTTP 請求。他們
+
+77
+00:03:06,632 --> 00:03:08,445
+could just write their own little program
+可以寫自己的小程式
+
+78
+00:03:08,493 --> 00:03:11,751
+for that, but also all other kinds of If you
+為此，還有所有其他型別的如果你
+
+79
+00:03:11,783 --> 00:03:14,752
+allow an agent to effectively write its own
+允許代理有效地編寫自己的
+
+80
+00:03:14,752 --> 00:03:17,448
+little tools, which is what allowing them to
+小工具，這使他們能夠
+
+81
+00:03:17,544 --> 00:03:20,159
+write code does in the end, you make them
+最後編寫程式碼，你製作它們
+
+82
+00:03:20,207 --> 00:03:22,309
+very powerful. But that could of course be
+非常強大。但這當然可以是
+
+83
+00:03:22,309 --> 00:03:23,112
+something you wanna do.
+你想做的事。
+
+84
+00:03:24,042 --> 00:03:25,952
+You could also allow your agent to trigger
+您也可以允許您的代理觸發
+
+85
+00:03:26,048 --> 00:03:28,439
+actions in another app. For example, you
+另一個應用程式中的操作。例如，你
+
+86
+00:03:28,471 --> 00:03:31,359
+could add the Slack tool to allow the agent
+可以新增 Slack 工具以允許代理
+
+87
+00:03:31,359 --> 00:03:34,087
+to talk to Slack and send Slack messages to
+與 Slack 交談並向其發送 Slack 訊息
+
+88
+00:03:34,087 --> 00:03:35,034
+channels and so on.
+渠道等。
+
+89
+00:03:35,996 --> 00:03:38,371
+Or you could use another n8n workflow as a
+或者您可以使用另一個 n8n 工作流程作為
+
+90
+00:03:38,419 --> 00:03:40,361
+tool, which is what we are doing here.
+工具，這就是我們在這裡所做的。

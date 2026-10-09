@@ -1,0 +1,987 @@
+1
+00:00:02,677 --> 00:00:05,772
+Now that's how we can add values to a node.
+
+2
+00:00:06,526 --> 00:00:08,579
+Now we'll work on removing later because
+
+3
+00:00:08,691 --> 00:00:10,246
+turns out that this will be a bit more
+
+4
+00:00:10,359 --> 00:00:10,743
+tricky.
+
+5
+00:00:11,401 --> 00:00:13,502
+So for the moment, let's add the find method
+
+6
+00:00:13,502 --> 00:00:16,083
+instead where we also are looking for a
+
+7
+00:00:16,083 --> 00:00:16,500
+value.
+
+8
+00:00:17,446 --> 00:00:19,739
+So how do we now find a node?
+
+9
+00:00:20,958 --> 00:00:23,235
+Well, first of all, let's check if maybe
+
+10
+00:00:23,283 --> 00:00:25,897
+this node on which we're calling find has
+
+11
+00:00:26,009 --> 00:00:26,667
+this value.
+
+12
+00:00:27,196 --> 00:00:30,564
+So if this value is equal to the value we're
+
+13
+00:00:30,644 --> 00:00:33,322
+looking for, then we know we already are
+
+14
+00:00:33,450 --> 00:00:35,791
+looking on the right node. So in this case,
+
+15
+00:00:35,871 --> 00:00:38,164
+we just return this. Very simple.
+
+16
+00:00:39,062 --> 00:00:40,826
+Now if that's not the case, we need to dig
+
+17
+00:00:40,842 --> 00:00:41,211
+deeper.
+
+18
+00:00:41,804 --> 00:00:43,761
+And therefore now, of course, and that's the
+
+19
+00:00:43,761 --> 00:00:46,070
+huge advantage, since we know that it's a
+
+20
+00:00:46,214 --> 00:00:48,924
+binary search tree, we can check whether the
+
+21
+00:00:49,004 --> 00:00:51,586
+value we're looking for is bigger or smaller
+
+22
+00:00:51,586 --> 00:00:54,392
+than this node's value. And if it's smaller,
+
+23
+00:00:54,537 --> 00:00:56,894
+we know we only need to look in the left
+
+24
+00:00:56,942 --> 00:00:59,011
+child node and its children,
+
+25
+00:00:59,589 --> 00:01:01,500
+or if it's bigger, we only need to look in
+
+26
+00:01:01,532 --> 00:01:04,149
+the right child node and that child node's
+
+27
+00:01:04,245 --> 00:01:06,782
+children. So we'll never have to look in all
+
+28
+00:01:06,991 --> 00:01:09,736
+nodes because of that sorting which is built
+
+29
+00:01:09,801 --> 00:01:11,406
+into this binary search tree.
+
+30
+00:01:12,129 --> 00:01:14,152
+So here, let's check if
+
+31
+00:01:14,697 --> 00:01:17,764
+this node's value is, just like before,
+
+32
+00:01:17,973 --> 00:01:19,787
+smaller than the incoming value.
+
+33
+00:01:20,863 --> 00:01:24,267
+If that's the case, then we know that the
+
+34
+00:01:24,556 --> 00:01:25,421
+incoming value
+
+35
+00:01:25,998 --> 00:01:28,994
+was stored in the right node, because if
+
+36
+00:01:29,058 --> 00:01:31,558
+this node's value is smaller, then the value
+
+37
+00:01:31,558 --> 00:01:33,545
+is stored in the right node. So we want to
+
+38
+00:01:33,545 --> 00:01:35,372
+look in the right node, but for that I will
+
+39
+00:01:35,532 --> 00:01:35,836
+actually
+
+40
+00:01:36,654 --> 00:01:37,968
+add something to this if check.
+
+41
+00:01:38,496 --> 00:01:40,756
+I also want to check if a right node exists,
+
+42
+00:01:40,916 --> 00:01:43,175
+because maybe this node does have no right
+
+43
+00:01:43,223 --> 00:01:45,403
+child. We might simply be looking for a
+
+44
+00:01:45,403 --> 00:01:47,518
+value that doesn't exist in this entire
+
+45
+00:01:47,550 --> 00:01:49,970
+tree. So we should check whether we have a
+
+46
+00:01:50,034 --> 00:01:50,739
+right child.
+
+47
+00:01:51,300 --> 00:01:53,194
+But if that's the case, since the incoming
+
+48
+00:01:53,258 --> 00:01:55,730
+value is bigger than this node's value, we
+
+49
+00:01:55,730 --> 00:01:58,250
+know that this value we're looking for has
+
+50
+00:01:58,299 --> 00:02:00,819
+to be somewhere on the right child's branch.
+
+51
+00:02:01,365 --> 00:02:04,431
+And therefore now we call this right.find.
+
+52
+00:02:04,961 --> 00:02:07,626
+Keep in mind that right points at a node. So
+
+53
+00:02:07,626 --> 00:02:10,322
+we can call find on that because every node
+
+54
+00:02:10,338 --> 00:02:11,607
+will have a find method.
+
+55
+00:02:12,602 --> 00:02:14,641
+And we forward the value to that and return
+
+56
+00:02:14,689 --> 00:02:16,920
+the result of that. So this is again a
+
+57
+00:02:16,920 --> 00:02:19,554
+recursive call because this code will run in
+
+58
+00:02:19,650 --> 00:02:21,466
+every node until we find the value
+
+59
+00:02:22,061 --> 00:02:24,503
+or until we exhausted all nodes that made
+
+60
+00:02:24,712 --> 00:02:25,644
+sense to look into.
+
+61
+00:02:26,319 --> 00:02:28,842
+And therefore, ultimately, we can return the
+
+62
+00:02:28,842 --> 00:02:29,790
+value here. Of course,
+
+63
+00:02:30,657 --> 00:02:32,377
+of course, we also might have the case that
+
+64
+00:02:32,377 --> 00:02:34,932
+the incoming value is smaller than this
+
+65
+00:02:34,948 --> 00:02:35,783
+node's value.
+
+66
+00:02:36,442 --> 00:02:39,286
+Then we have to look in the left branch. So
+
+67
+00:02:39,286 --> 00:02:42,388
+therefore, I check if this left exists, and
+
+68
+00:02:42,404 --> 00:02:46,194
+if that's the case, we return this left find
+
+69
+00:02:46,243 --> 00:02:48,731
+value. And now we only look in the left
+
+70
+00:02:48,731 --> 00:02:50,160
+child and its children.
+
+71
+00:02:50,915 --> 00:02:53,115
+And this is called recursively, but keep in
+
+72
+00:02:53,147 --> 00:02:55,443
+mind that we'll never look in all
+
+73
+00:02:55,973 --> 00:02:58,831
+nodes here because of that binary search
+
+74
+00:02:58,943 --> 00:03:01,801
+tree nature. We know that only one branch
+
+75
+00:03:01,897 --> 00:03:04,322
+makes sense for a given value, so we'll
+
+76
+00:03:04,322 --> 00:03:06,248
+never have to evaluate all of them.
+
+77
+00:03:07,693 --> 00:03:10,518
+And with that, we have add and find And as I
+
+78
+00:03:10,518 --> 00:03:10,999
+mentioned,
+
+79
+00:03:11,848 --> 00:03:14,732
+for the moment, I will ignore remove and
+
+80
+00:03:14,748 --> 00:03:16,446
+let's instead play around with that.
+
+81
+00:03:17,552 --> 00:03:18,481
+Let's test this.
+
+82
+00:03:19,378 --> 00:03:20,692
+I will create a new
+
+83
+00:03:22,022 --> 00:03:24,521
+tree here by calling newTree like that.
+
+84
+00:03:25,322 --> 00:03:28,206
+And on that tree, I'll call add and I wanna
+
+85
+00:03:28,270 --> 00:03:29,183
+add, let's say, 10.
+
+86
+00:03:30,112 --> 00:03:31,875
+And I'll add a couple of other numbers. I'll
+
+87
+00:03:31,955 --> 00:03:32,179
+add
+
+88
+00:03:32,836 --> 00:03:34,310
+5 and 2
+
+89
+00:03:35,239 --> 00:03:39,437
+and 6 and I'll also add, let's say, 20
+
+90
+00:03:40,046 --> 00:03:42,694
+and also 25, and also
+
+91
+00:03:43,336 --> 00:03:46,290
+39. Just a couple of numbers that are being
+
+92
+00:03:46,466 --> 00:03:46,659
+added.
+
+93
+00:03:47,831 --> 00:03:50,575
+And with all of that added, I'll console.log
+
+94
+00:03:50,575 --> 00:03:53,320
+the entire tree so that we can inspect that.
+
+95
+00:03:53,866 --> 00:03:56,354
+But I'll also console.log tree.find,
+
+96
+00:03:56,980 --> 00:03:59,179
+and I want to look for 6, and I want to look
+
+97
+00:03:59,179 --> 00:04:01,811
+for 7, which does not exist, and I want to
+
+98
+00:04:01,811 --> 00:04:03,063
+look for 39.
+
+99
+00:04:03,882 --> 00:04:07,060
+And I should get back nodes for 6 and 39,
+
+100
+00:04:07,172 --> 00:04:08,119
+but not for 7.
+
+101
+00:04:09,017 --> 00:04:11,310
+And with that, if we go back to the browser,
+
+102
+00:04:12,064 --> 00:04:15,303
+we can see the tree. And then we see that
+
+103
+00:04:15,608 --> 00:04:19,360
+the 6 node and the 39 node were found, but
+
+104
+00:04:19,376 --> 00:04:22,632
+we got undefined for this 7 value, which
+
+105
+00:04:22,728 --> 00:04:25,149
+makes sense because there is no 7 in the
+
+106
+00:04:25,149 --> 00:04:25,390
+tree.
+
+107
+00:04:26,272 --> 00:04:28,389
+Now let's also inspect the entire tree. Here
+
+108
+00:04:28,902 --> 00:04:31,131
+we see the root node has a value of 10,
+
+109
+00:04:31,660 --> 00:04:33,825
+so that was added when we added the value
+
+110
+00:04:33,873 --> 00:04:34,659
+for the first time.
+
+111
+00:04:35,577 --> 00:04:36,740
+And then you simply see
+
+112
+00:04:37,580 --> 00:04:40,971
+on the left node we have a value of 6.
+
+113
+00:04:41,698 --> 00:04:42,441
+Makes sense,
+
+114
+00:04:43,313 --> 00:04:43,700
+here it is.
+
+115
+00:04:46,072 --> 00:04:48,557
+But you also see that the left and right
+
+116
+00:04:48,557 --> 00:04:50,493
+node of that 6 node is empty.
+
+117
+00:04:52,222 --> 00:04:55,092
+On the right side, you see we only have 39
+
+118
+00:04:55,205 --> 00:04:56,205
+and no other value.
+
+119
+00:04:57,120 --> 00:04:58,085
+And therefore, it was
+
+120
+00:04:58,841 --> 00:05:01,883
+basically just by chance that we found 6 and
+
+121
+00:05:01,883 --> 00:05:03,685
+39. If I look for
+
+122
+00:05:04,254 --> 00:05:06,644
+5 here, for example, which we should also
+
+123
+00:05:06,709 --> 00:05:07,168
+find,
+
+124
+00:05:08,840 --> 00:05:10,857
+you see I get undefined. So something is
+
+125
+00:05:10,954 --> 00:05:13,552
+wrong about our tree. Now what could be the
+
+126
+00:05:13,616 --> 00:05:15,424
+problem with the code we got here?
+
+127
+00:05:16,150 --> 00:05:18,232
+Of course it has to be a problem with the
+
+128
+00:05:18,232 --> 00:05:19,005
+add method,
+
+129
+00:05:19,665 --> 00:05:21,566
+because if we inspect the whole tree,
+
+130
+00:05:22,179 --> 00:05:23,773
+data is missing as you just saw.
+
+131
+00:05:24,712 --> 00:05:26,888
+And here the problem is that we either add
+
+132
+00:05:26,888 --> 00:05:28,951
+something on the right or the left side,
+
+133
+00:05:29,548 --> 00:05:32,990
+but there's one important check that we're
+
+134
+00:05:32,990 --> 00:05:33,776
+missing here.
+
+135
+00:05:34,963 --> 00:05:37,625
+We always set the right or the left to a new
+
+136
+00:05:38,010 --> 00:05:38,523
+node here,
+
+137
+00:05:39,614 --> 00:05:42,452
+but that of course means that we can never
+
+138
+00:05:42,660 --> 00:05:43,286
+add any
+
+139
+00:05:44,104 --> 00:05:46,333
+other nested nodes. We can never have any
+
+140
+00:05:46,349 --> 00:05:49,957
+more nested, any deeper nested nodes. We
+
+141
+00:05:50,037 --> 00:05:52,683
+always can just set left or right, but we
+
+142
+00:05:52,683 --> 00:05:55,057
+can never reach out to an existing left or
+
+143
+00:05:55,169 --> 00:05:57,767
+right node and insert a child node on that.
+
+144
+00:05:59,693 --> 00:06:02,053
+To explain what I mean, let's go back to
+
+145
+00:06:02,631 --> 00:06:04,333
+our example where we use the tree.
+
+146
+00:06:04,895 --> 00:06:08,041
+I first of all add 10. Now this is set as a
+
+147
+00:06:08,041 --> 00:06:10,514
+value for the root node as I explained
+
+148
+00:06:10,514 --> 00:06:12,858
+before, because in the add method we check
+
+149
+00:06:12,986 --> 00:06:15,169
+whether we already have a value on the given
+
+150
+00:06:15,169 --> 00:06:17,321
+node, which initially is the root node, and
+
+151
+00:06:17,353 --> 00:06:19,135
+if that's not the case, we store the value.
+
+152
+00:06:19,649 --> 00:06:22,025
+So that's how the 10 ends up here. Makes
+
+153
+00:06:22,025 --> 00:06:22,314
+sense.
+
+154
+00:06:23,261 --> 00:06:26,823
+Now we add 5. Now when we add 5, we make it
+
+155
+00:06:26,871 --> 00:06:29,053
+into the add code here. Of course,
+
+156
+00:06:29,679 --> 00:06:31,524
+obviously the value is now not null on the
+
+157
+00:06:31,540 --> 00:06:33,946
+root node, so we don't do that. But instead
+
+158
+00:06:33,946 --> 00:06:37,571
+we see that 5 is smaller than 10, so we make
+
+159
+00:06:37,571 --> 00:06:40,170
+it into this if check and we set the left
+
+160
+00:06:40,202 --> 00:06:44,293
+node to this 5 value, so to a new node that
+
+161
+00:06:44,293 --> 00:06:45,577
+holds that 5 value.
+
+162
+00:06:46,298 --> 00:06:48,464
+But we don't see that here. Here we see 6,
+
+163
+00:06:48,480 --> 00:06:50,630
+not 5. Well, I'll come back to that in a
+
+164
+00:06:50,630 --> 00:06:51,047
+second.
+
+165
+00:06:51,844 --> 00:06:54,515
+Because the problems start with the next
+
+166
+00:06:54,563 --> 00:06:56,237
+line here when we add 2.
+
+167
+00:06:57,218 --> 00:06:59,246
+When we do that, we call it on the tree,
+
+168
+00:06:59,632 --> 00:07:01,065
+right? So we first of all
+
+169
+00:07:01,660 --> 00:07:02,997
+call add on the root node.
+
+170
+00:07:03,754 --> 00:07:05,557
+We are adding a value of 2
+
+171
+00:07:06,153 --> 00:07:06,990
+on the root node.
+
+172
+00:07:07,683 --> 00:07:09,858
+The root node has a value by now, so this
+
+173
+00:07:09,858 --> 00:07:10,572
+code doesn't run.
+
+174
+00:07:11,415 --> 00:07:14,287
+But now we check if 2 is maybe smaller
+
+175
+00:07:15,795 --> 00:07:18,027
+than the root node's value. Which means we
+
+176
+00:07:18,027 --> 00:07:19,807
+again make it here into this if check.
+
+177
+00:07:20,913 --> 00:07:23,703
+And therefore we now set the left node of
+
+178
+00:07:23,735 --> 00:07:25,643
+the root node, and that's important, of the
+
+179
+00:07:25,723 --> 00:07:28,513
+root node to 2. Of course of the root node
+
+180
+00:07:28,545 --> 00:07:30,453
+because we never try adding it somewhere
+
+181
+00:07:30,453 --> 00:07:33,275
+else. Now we already set the left node of
+
+182
+00:07:33,275 --> 00:07:35,664
+the root node before. We set it to 5.
+
+183
+00:07:36,385 --> 00:07:38,582
+And now we're overriding it with 2. So we
+
+184
+00:07:38,710 --> 00:07:39,880
+lost the 5 now.
+
+185
+00:07:40,650 --> 00:07:42,478
+So the problem we have here is that we
+
+186
+00:07:42,718 --> 00:07:45,284
+always keep on overriding left and right on
+
+187
+00:07:45,284 --> 00:07:47,880
+the root node and we never dig deeper.
+
+188
+00:07:48,809 --> 00:07:51,229
+What we should do instead is something else.
+
+189
+00:07:52,014 --> 00:07:54,914
+In our if checks here, we should not just
+
+190
+00:07:54,978 --> 00:07:57,109
+check the values and then assign the left or
+
+191
+00:07:57,157 --> 00:07:57,894
+the right node.
+
+192
+00:07:58,423 --> 00:08:00,586
+Instead, we should also check if we maybe
+
+193
+00:08:00,602 --> 00:08:02,285
+already have a right node here.
+
+194
+00:08:03,086 --> 00:08:05,554
+And if we do have a right node here, we know
+
+195
+00:08:05,570 --> 00:08:07,797
+we don't wanna overwrite it. Instead, we
+
+196
+00:08:07,813 --> 00:08:10,553
+wanna add the value inside of it as a new
+
+197
+00:08:10,761 --> 00:08:13,517
+child node of that existing right node.
+
+198
+00:08:14,326 --> 00:08:16,793
+So we wanna reach out to this right and call
+
+199
+00:08:16,970 --> 00:08:19,647
+add on that node and forward the value to
+
+200
+00:08:19,711 --> 00:08:22,227
+that. We wanna have that recursive step
+
+201
+00:08:22,227 --> 00:08:22,340
+here.
+
+202
+00:08:23,502 --> 00:08:24,665
+And of course, not just here,
+
+203
+00:08:25,522 --> 00:08:27,073
+but also here for this
+
+204
+00:08:27,703 --> 00:08:28,269
+left.
+
+205
+00:08:30,242 --> 00:08:32,147
+And with that, we should now be prepared,
+
+206
+00:08:32,260 --> 00:08:33,955
+though there is one important thing we gotta
+
+207
+00:08:34,020 --> 00:08:34,165
+do.
+
+208
+00:08:34,907 --> 00:08:37,409
+We also have to return here so that this
+
+209
+00:08:37,409 --> 00:08:40,109
+code doesn't execute, otherwise we again
+
+210
+00:08:40,144 --> 00:08:42,152
+overwrite it. And we don't want to overwrite
+
+211
+00:08:42,152 --> 00:08:42,264
+it.
+
+212
+00:08:42,954 --> 00:08:46,037
+So here we return if we added a nested node.
+
+213
+00:08:46,391 --> 00:08:48,301
+So in both if statements here, I added a
+
+214
+00:08:48,301 --> 00:08:49,217
+return statement.
+
+215
+00:08:49,746 --> 00:08:51,368
+And with that, if we now save that and
+
+216
+00:08:51,368 --> 00:08:54,547
+reload, now you see I'm finding the 5 node,
+
+217
+00:08:54,579 --> 00:08:57,020
+which is a good sign. And if we inspect our
+
+218
+00:08:57,068 --> 00:08:59,332
+tree, we now see left and right
+
+219
+00:08:59,862 --> 00:09:02,784
+got values of 5 and 20, which makes a lot of
+
+220
+00:09:02,784 --> 00:09:06,188
+sense because 5 is the first smaller value
+
+221
+00:09:06,510 --> 00:09:09,482
+than 10, which is our root node value, which
+
+222
+00:09:09,579 --> 00:09:12,455
+we add. And 20 is the first bigger value
+
+223
+00:09:12,808 --> 00:09:15,138
+than 10, which we add. So it makes sense
+
+224
+00:09:15,138 --> 00:09:17,805
+that those are the direct children of the
+
+225
+00:09:17,934 --> 00:09:18,368
+root node.
+
+226
+00:09:19,155 --> 00:09:21,646
+And then if we dig deeper, on 5 we see on
+
+227
+00:09:21,646 --> 00:09:23,622
+the left the smaller value is 2,
+
+228
+00:09:24,297 --> 00:09:26,836
+on the right the bigger value is 6, and then
+
+229
+00:09:26,868 --> 00:09:28,683
+there we got no nested nodes.
+
+230
+00:09:29,664 --> 00:09:32,218
+And for the other branch, for 20,
+
+231
+00:09:32,812 --> 00:09:34,720
+We see there is no left node, which makes
+
+232
+00:09:34,720 --> 00:09:36,949
+sense because we never add any values
+
+233
+00:09:36,981 --> 00:09:39,275
+smaller than 20 but bigger than 10.
+
+234
+00:09:40,108 --> 00:09:42,097
+But we should have bigger nodes, we should
+
+235
+00:09:42,097 --> 00:09:43,011
+have right nodes,
+
+236
+00:09:43,716 --> 00:09:44,197
+and we do.
+
+237
+00:09:44,903 --> 00:09:48,607
+Here's the 25 right node and the 39 right
+
+238
+00:09:48,607 --> 00:09:51,542
+node. And this is now a working binary
+
+239
+00:09:51,750 --> 00:09:52,311
+search tree.
+
+240
+00:09:52,857 --> 00:09:55,150
+Now of course the remove functionality is
+
+241
+00:09:55,358 --> 00:09:58,276
+still missing, but we have a working add and
+
+242
+00:09:58,309 --> 00:10:00,523
+find functionality. And we'll work on
+
+243
+00:10:00,555 --> 00:10:02,306
+removing something as well.
+
+244
+00:10:02,884 --> 00:10:03,414
+But this is
+
+245
+00:10:04,073 --> 00:10:06,338
+the essence of a binary search tree.
+
+246
+00:10:06,964 --> 00:10:09,470
+And now let's also, of course, see how we
+
+247
+00:10:09,470 --> 00:10:11,510
+could implement a remove function.

@@ -1,0 +1,717 @@
+[
+ {
+  "start": 2.275,
+  "end": 4.534,
+  "en": "So let's now build an AVL tree."
+ },
+ {
+  "start": 5.063,
+  "end": 7.643,
+  "en": "And of course, as you learned, an AVL tree"
+ },
+ {
+  "start": 7.643,
+  "end": 10.447,
+  "en": "builds up on the binary search tree. So"
+ },
+ {
+  "start": 10.447,
+  "end": 12.722,
+  "en": "we'll actually start with that. I'll just"
+ },
+ {
+  "start": 12.77,
+  "end": 13.523,
+  "en": "clear out"
+ },
+ {
+  "start": 14.196,
+  "end": 16.504,
+  "en": "all those additions and all of that down"
+ },
+ {
+  "start": 16.6,
+  "end": 19.34,
+  "en": "there and just console.log my tree."
+ },
+ {
+  "start": 19.981,
+  "end": 22.0,
+  "en": "And I first of all want to come back to that"
+ },
+ {
+  "start": 22.048,
+  "end": 23.954,
+  "en": "problematic tree we could be facing."
+ },
+ {
+  "start": 24.772,
+  "end": 26.438,
+  "en": "For that, I'm just going to add a couple of"
+ },
+ {
+  "start": 26.486,
+  "end": 27.063,
+  "en": "numbers there"
+ },
+ {
+  "start": 27.672,
+  "end": 30.324,
+  "en": "And I'm going to add 1, 2, and 3 here."
+ },
+ {
+  "start": 31.288,
+  "end": 32.541,
+  "en": "And if we now save that"
+ },
+ {
+  "start": 33.858,
+  "end": 34.469,
+  "en": "and reload,"
+ },
+ {
+  "start": 35.064,
+  "end": 35.706,
+  "en": "we got a tree"
+ },
+ {
+  "start": 36.429,
+  "end": 40.285,
+  "en": "which is very right-heavy. So we got no left"
+ },
+ {
+  "start": 40.285,
+  "end": 42.133,
+  "en": "branch on the root node. Instead, we got a"
+ },
+ {
+  "start": 42.133,
+  "end": 44.623,
+  "en": "right branch, and in there, another right"
+ },
+ {
+  "start": 44.623,
+  "end": 46.729,
+  "en": "branch. And that's exactly the kind of"
+ },
+ {
+  "start": 46.778,
+  "end": 49.305,
+  "en": "problem we wanna solve with the AVL tree."
+ },
+ {
+  "start": 50.942,
+  "end": 53.647,
+  "en": "So therefore, we'll build up on this binary"
+ },
+ {
+  "start": 53.923,
+  "end": 56.997,
+  "en": "search tree and build our AVL tree."
+ },
+ {
+  "start": 57.558,
+  "end": 60.365,
+  "en": "And we need 2 main things for that."
+ },
+ {
+  "start": 61.407,
+  "end": 64.487,
+  "en": "We need a way of deriving all those balance"
+ },
+ {
+  "start": 64.695,
+  "end": 67.246,
+  "en": "factors here, and for that we need to find"
+ },
+ {
+  "start": 67.246,
+  "end": 70.213,
+  "en": "out the depth of our various trees and"
+ },
+ {
+  "start": 70.293,
+  "end": 70.983,
+  "en": "subtrees here."
+ },
+ {
+  "start": 71.737,
+  "end": 74.303,
+  "en": "And once we got those balance factors, we"
+ },
+ {
+  "start": 74.303,
+  "end": 77.238,
+  "en": "need those 4 rotation methods here."
+ },
+ {
+  "start": 77.928,
+  "end": 80.061,
+  "en": "Now let's start with the balance factors."
+ },
+ {
+  "start": 80.719,
+  "end": 83.189,
+  "en": "For this, I'll actually go to the node"
+ },
+ {
+  "start": 84.374,
+  "end": 86.167,
+  "en": "So to this Node class"
+ },
+ {
+  "start": 86.701,
+  "end": 88.801,
+  "en": "and then maybe here below the constructor,"
+ },
+ {
+  "start": 88.978,
+  "end": 90.384,
+  "en": "I'll add a couple of getters."
+ },
+ {
+  "start": 90.982,
+  "end": 93.795,
+  "en": "A getter in JavaScript is in the end like a"
+ },
+ {
+  "start": 93.795,
+  "end": 96.633,
+  "en": "property but a dynamically calculated"
+ },
+ {
+  "start": 96.957,
+  "end": 99.146,
+  "en": "property which is exactly what helps us"
+ },
+ {
+  "start": 99.146,
+  "end": 99.276,
+  "en": "here."
+ },
+ {
+  "start": 102.182,
+  "end": 103.199,
+  "en": "I will add a getter"
+ },
+ {
+  "start": 103.78,
+  "end": 105.216,
+  "en": "for the general depth"
+ },
+ {
+  "start": 105.797,
+  "end": 109.507,
+  "en": "of a certain node. So basically telling us"
+ },
+ {
+  "start": 109.507,
+  "end": 111.557,
+  "en": "how many nodes it has below itself."
+ },
+ {
+  "start": 112.547,
+  "end": 114.9,
+  "en": "And then I also have specific getters for"
+ },
+ {
+  "start": 114.965,
+  "end": 116.141,
+  "en": "the leftDepth"
+ },
+ {
+  "start": 117.624,
+  "end": 118.205,
+  "en": "like this"
+ },
+ {
+  "start": 118.898,
+  "end": 120.983,
+  "en": "and for the rightDepth."
+ },
+ {
+  "start": 121.647,
+  "end": 124.646,
+  "en": "And these are default JavaScript getters. So"
+ },
+ {
+  "start": 124.646,
+  "end": 126.947,
+  "en": "in case you don't know this getter syntax,"
+ },
+ {
+  "start": 127.362,
+  "end": 129.949,
+  "en": "definitely check out a dedicated JavaScript"
+ },
+ {
+  "start": 129.949,
+  "end": 130.854,
+  "en": "course first."
+ },
+ {
+  "start": 132.52,
+  "end": 133.83,
+  "en": "I will also add a"
+ },
+ {
+  "start": 134.379,
+  "end": 137.972,
+  "en": "balanceFactor getter to derive the balance"
+ },
+ {
+  "start": 137.972,
+  "end": 138.828,
+  "en": "factor thereafter."
+ },
+ {
+  "start": 140.031,
+  "end": 142.553,
+  "en": "So now with that, how do we calculate those"
+ },
+ {
+  "start": 142.585,
+  "end": 143.516,
+  "en": "different things?"
+ },
+ {
+  "start": 144.191,
+  "end": 147.002,
+  "en": "Let's maybe start with the left depth of a"
+ },
+ {
+  "start": 147.002,
+  "end": 149.395,
+  "en": "given node. For this, I first of all check"
+ },
+ {
+  "start": 149.427,
+  "end": 152.703,
+  "en": "if we have a left child. If we don't have a"
+ },
+ {
+  "start": 152.783,
+  "end": 156.14,
+  "en": "left child node, then there is no depth on"
+ },
+ {
+  "start": 156.14,
+  "end": 158.886,
+  "en": "the left side, so we can return 0 in this"
+ },
+ {
+  "start": 158.886,
+  "end": 161.857,
+  "en": "case because this node for which we're"
+ },
+ {
+  "start": 161.857,
+  "end": 164.572,
+  "en": "trying to get the left depth doesn't have a"
+ },
+ {
+  "start": 164.572,
+  "end": 167.448,
+  "en": "left child, so So its depth on the left"
+ },
+ {
+  "start": 167.464,
+  "end": 168.846,
+  "en": "branch is 0."
+ },
+ {
+  "start": 170.758,
+  "end": 172.847,
+  "en": "If we don't make it into the ZIF check, we"
+ },
+ {
+  "start": 172.847,
+  "end": 175.55,
+  "en": "know that we do have a left child and then"
+ },
+ {
+  "start": 176.147,
+  "end": 177.422,
+  "en": "our left depth"
+ },
+ {
+  "start": 178.003,
+  "end": 182.246,
+  "en": "is this.left.depth+ 1."
+ },
+ {
+  "start": 183.569,
+  "end": 186.093,
+  "en": "This will access the depth getter which we"
+ },
+ {
+  "start": 186.093,
+  "end": 189.026,
+  "en": "have yet to populate but this will then take"
+ },
+ {
+  "start": 189.026,
+  "end": 191.812,
+  "en": "the depth from the left child and simply add"
+ },
+ {
+  "start": 191.91,
+  "end": 195.078,
+  "en": "1. And that will be the left depth for this"
+ },
+ {
+  "start": 195.078,
+  "end": 196.543,
+  "en": "node for which we're checking it."
+ },
+ {
+  "start": 197.638,
+  "end": 199.361,
+  "en": "Now, of course, we'll have the same kind of"
+ },
+ {
+  "start": 199.409,
+  "end": 201.003,
+  "en": "logic in the right depth,"
+ },
+ {
+  "start": 201.599,
+  "end": 203.974,
+  "en": "but here we check for this right and then"
+ },
+ {
+  "start": 204.104,
+  "end": 206.093,
+  "en": "get the right depth and add 1."
+ },
+ {
+  "start": 206.934,
+  "end": 209.167,
+  "en": "And now, of course, we depend on this depth"
+ },
+ {
+  "start": 209.523,
+  "end": 212.804,
+  "en": "getter in both left and right depth."
+ },
+ {
+  "start": 214.872,
+  "end": 216.1,
+  "en": "So how do we derive this?"
+ },
+ {
+  "start": 216.794,
+  "end": 218.862,
+  "en": "Well, here we in the end just wanna return"
+ },
+ {
+  "start": 218.975,
+  "end": 222.38,
+  "en": "the maximum So Math.max is a useful method"
+ },
+ {
+  "start": 222.38,
+  "end": 224.275,
+  "en": "we can use here from this"
+ },
+ {
+  "start": 224.949,
+  "end": 225.639,
+  "en": "left depth"
+ },
+ {
+  "start": 226.233,
+  "end": 227.727,
+  "en": "and this right depth."
+ },
+ {
+  "start": 228.802,
+  "end": 230.986,
+  "en": "So we have a recursive call here in the end."
+ },
+ {
+  "start": 231.436,
+  "end": 232.576,
+  "en": "When we wanna get the"
+ },
+ {
+  "start": 233.138,
+  "end": 236.349,
+  "en": "depth for a given node, we simply look at"
+ },
+ {
+  "start": 236.349,
+  "end": 238.324,
+  "en": "the left depth and right"
+ },
+ {
+  "start": 239.159,
+  "end": 242.418,
+  "en": "depth of that node. And for those methods,"
+ },
+ {
+  "start": 242.691,
+  "end": 245.325,
+  "en": "we look for the depth of another nested"
+ },
+ {
+  "start": 245.325,
+  "end": 248.214,
+  "en": "node. Node. So ultimately, with those depth"
+ },
+ {
+  "start": 248.505,
+  "end": 251.589,
+  "en": "methods here, or with those depth getters I"
+ },
+ {
+  "start": 251.637,
+  "end": 251.993,
+  "en": "should say,"
+ },
+ {
+  "start": 252.59,
+  "end": 254.72,
+  "en": "we drill down into the node tree"
+ },
+ {
+  "start": 255.413,
+  "end": 258.89,
+  "en": "until we at some point find no more left and"
+ },
+ {
+  "start": 258.89,
+  "end": 261.628,
+  "en": "right children, which is when we then return"
+ },
+ {
+  "start": 261.628,
+  "end": 262.095,
+  "en": "0."
+ },
+ {
+  "start": 263.479,
+  "end": 265.815,
+  "en": "And then all those calls return and we"
+ },
+ {
+  "start": 265.879,
+  "end": 267.216,
+  "en": "gradually add 1."
+ },
+ {
+  "start": 270.47,
+  "end": 272.597,
+  "en": "With that, we can then also calculate the"
+ },
+ {
+  "start": 272.71,
+  "end": 275.206,
+  "en": "balance factor because that is simply"
+ },
+ {
+  "start": 277.175,
+  "end": 280.491,
+  "en": "this.leftDepth minus this.rightDepth."
+ },
+ {
+  "start": 282.816,
+  "end": 284.583,
+  "en": "And with that, we can simply have a look at"
+ },
+ {
+  "start": 284.583,
+  "end": 287.395,
+  "en": "that. If we save this and reload and we"
+ },
+ {
+  "start": 287.411,
+  "end": 288.632,
+  "en": "inspect our tree,"
+ },
+ {
+  "start": 289.178,
+  "end": 291.813,
+  "en": "we have those new getters here. And we see,"
+ },
+ {
+  "start": 291.829,
+  "end": 294.378,
+  "en": "for example, the depth of the root node is"
+ },
+ {
+  "start": 294.491,
+  "end": 294.621,
+  "en": "2,"
+ },
+ {
+  "start": 295.219,
+  "end": 297.206,
+  "en": "which makes a lot of sense because we added"
+ },
+ {
+  "start": 297.4,
+  "end": 299.145,
+  "en": "2 child nodes below it."
+ },
+ {
+  "start": 300.478,
+  "end": 303.979,
+  "en": "We see that its leftDepth is 0 though, Which"
+ },
+ {
+  "start": 304.043,
+  "end": 306.243,
+  "en": "also makes sense because the root node has a"
+ },
+ {
+  "start": 306.291,
+  "end": 307.222,
+  "en": "value of 1."
+ },
+ {
+  "start": 307.8,
+  "end": 310.61,
+  "en": "The child nodes have bigger values, so they"
+ },
+ {
+  "start": 310.61,
+  "end": 313.147,
+  "en": "are added to the right child node, to the"
+ },
+ {
+  "start": 313.179,
+  "end": 316.165,
+  "en": "right branch. So the left depth of the root"
+ },
+ {
+  "start": 316.165,
+  "end": 318.638,
+  "en": "node is 0, but the right depth is 2."
+ },
+ {
+  "start": 319.441,
+  "end": 321.4,
+  "en": "And therefore the overall depth of the root"
+ },
+ {
+  "start": 321.464,
+  "end": 324.194,
+  "en": "node is 2 because it's the bigger of these 2"
+ },
+ {
+  "start": 324.194,
+  "end": 325.221,
+  "en": "special depths."
+ },
+ {
+  "start": 326.201,
+  "end": 328.641,
+  "en": "And the balance factor therefore is -2."
+ },
+ {
+  "start": 329.694,
+  "end": 332.663,
+  "en": "Because we have a left depth of 0 minus the"
+ },
+ {
+  "start": 332.744,
+  "end": 333.825,
+  "en": "right depth of 2."
+ },
+ {
+  "start": 337.263,
+  "end": 338.925,
+  "en": "And in the end, that's just what we see here"
+ },
+ {
+  "start": 339.295,
+  "end": 341.131,
+  "en": "for the left rotation case."
+ },
+ {
+  "start": 341.775,
+  "end": 344.351,
+  "en": "This is exactly the example I just showed"
+ },
+ {
+  "start": 344.351,
+  "end": 346.46,
+  "en": "you in the browser. These are exactly the"
+ },
+ {
+  "start": 346.46,
+  "end": 349.283,
+  "en": "values I just added to the tree, and we see"
+ },
+ {
+  "start": 349.283,
+  "end": 351.613,
+  "en": "that indeed we have the expected balance"
+ },
+ {
+  "start": 351.613,
+  "end": 353.539,
+  "en": "factor of -2 on the root node."
+ },
+ {
+  "start": 355.104,
+  "end": 357.363,
+  "en": "And if we would drill into the tree, we see"
+ },
+ {
+  "start": 357.363,
+  "end": 359.219,
+  "en": "that on the right child node, we have a"
+ },
+ {
+  "start": 359.284,
+  "end": 360.203,
+  "en": "balance factor of"
+ },
+ {
+  "start": 360.736,
+  "end": 364.303,
+  "en": "-1, which is also exactly the factor I show"
+ },
+ {
+  "start": 364.303,
+  "end": 365.629,
+  "en": "here on the slide."
+ },
+ {
+  "start": 368.263,
+  "end": 370.607,
+  "en": "So with that, we have the depths and the"
+ },
+ {
+  "start": 370.753,
+  "end": 373.631,
+  "en": "balance factors calculated with this"
+ },
+ {
+  "start": 373.745,
+  "end": 374.86,
+  "en": "recursive approach."
+ },
+ {
+  "start": 375.556,
+  "end": 377.739,
+  "en": "Now that we got this, we'll be able to"
+ },
+ {
+  "start": 377.739,
+  "end": 379.932,
+  "en": "determine which kind of rotation we need,"
+ },
+ {
+  "start": 380.468,
+  "end": 382.497,
+  "en": "and then we can implement the rotation"
+ },
+ {
+  "start": 382.579,
+  "end": 382.903,
+  "en": "logic."
+ }
+]

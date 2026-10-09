@@ -1,0 +1,555 @@
+1
+00:00:00,449 --> 00:00:02,918
+Now what's really great about this project
+
+2
+00:00:02,918 --> 00:00:05,003
+here, and that's one of the reasons why I
+
+3
+00:00:05,003 --> 00:00:07,698
+chose it, is that it is a project that was
+
+4
+00:00:07,730 --> 00:00:10,809
+created by the CrewAI team. So it uses all
+
+5
+00:00:11,001 --> 00:00:13,167
+their recommendations, best practices, and
+
+6
+00:00:13,199 --> 00:00:13,551
+so on.
+
+7
+00:00:14,225 --> 00:00:16,791
+But it's actually tackling a similar problem
+
+8
+00:00:17,096 --> 00:00:19,710
+as my research demo I showed you earlier in
+
+9
+00:00:19,774 --> 00:00:21,763
+the section where all the code was written
+
+10
+00:00:21,763 --> 00:00:22,084
+by me.
+
+11
+00:00:22,629 --> 00:00:24,938
+Now we're doing almost the same thing,
+
+12
+00:00:25,516 --> 00:00:27,745
+but with a third-party library that
+
+13
+00:00:27,841 --> 00:00:30,263
+hopefully makes our life easier. So let's
+
+14
+00:00:30,263 --> 00:00:31,017
+see what we got here.
+
+15
+00:00:32,028 --> 00:00:35,493
+The idea behind CrewAI, behind this package,
+
+16
+00:00:36,344 --> 00:00:39,456
+is that you create so-called crews.
+
+17
+00:00:40,034 --> 00:00:42,585
+And a crew is simply just a collection of
+
+18
+00:00:42,697 --> 00:00:45,103
+agents, a team of agents, you could say.
+
+19
+00:00:46,291 --> 00:00:49,804
+Therefore, every crew is made up of a bunch
+
+20
+00:00:49,981 --> 00:00:50,606
+of agents.
+
+21
+00:00:51,906 --> 00:00:54,778
+And agents are registered by simply adding
+
+22
+00:00:54,810 --> 00:00:58,064
+methods to such a crew class, which is
+
+23
+00:00:58,161 --> 00:01:00,822
+decorated with the crew base decorator.
+
+24
+00:01:01,607 --> 00:01:04,589
+And decorators are simply a Python feature
+
+25
+00:01:04,989 --> 00:01:05,326
+that
+
+26
+00:01:05,951 --> 00:01:08,724
+do stuff to the thing they're attached to
+
+27
+00:01:08,901 --> 00:01:11,305
+behind the scenes. So that transform the
+
+28
+00:01:11,401 --> 00:01:13,549
+thing to which they are attached to behind
+
+29
+00:01:13,549 --> 00:01:13,934
+the scenes.
+
+30
+00:01:14,944 --> 00:01:17,172
+So we have a research crew class and in that
+
+31
+00:01:17,413 --> 00:01:19,320
+we have a researcher method
+
+32
+00:01:19,897 --> 00:01:22,590
+and that method is decorated with that agent
+
+33
+00:01:22,703 --> 00:01:24,466
+decorator. And behind the scenes,
+
+34
+00:01:25,027 --> 00:01:29,004
+the CrewAI SDK, which using in this package
+
+35
+00:01:29,357 --> 00:01:31,170
+and which will run our code in the end,
+
+36
+00:01:31,748 --> 00:01:35,614
+that SDK, that tool is registering this
+
+37
+00:01:35,614 --> 00:01:39,272
+method as an agent in that crew. So that
+
+38
+00:01:39,369 --> 00:01:41,374
+researcher here is the first agent we're
+
+39
+00:01:41,455 --> 00:01:41,679
+adding.
+
+40
+00:01:42,433 --> 00:01:43,877
+And therefore it makes sense that this
+
+41
+00:01:43,877 --> 00:01:47,070
+method actually returns an agent object by
+
+42
+00:01:47,150 --> 00:01:49,300
+instantiating that agent class.
+
+43
+00:01:50,135 --> 00:01:52,108
+Now where is this agent class coming from?
+
+44
+00:01:52,445 --> 00:01:55,911
+Well, that is coming from the CrewAI SDK.
+
+45
+00:01:56,889 --> 00:02:00,001
+So just as I showed you a base agent class
+
+46
+00:02:00,001 --> 00:02:02,648
+that I created in my code, here we're
+
+47
+00:02:02,648 --> 00:02:04,974
+getting an agent class by this third-party
+
+48
+00:02:04,974 --> 00:02:05,327
+package.
+
+49
+00:02:05,856 --> 00:02:08,230
+Internally, it will very likely do more than
+
+50
+00:02:08,262 --> 00:02:10,621
+my basic agent class in my code, but it's
+
+51
+00:02:11,054 --> 00:02:12,834
+generally the same idea, you could say.
+
+52
+00:02:13,877 --> 00:02:16,091
+So we're creating an agent here and we're
+
+53
+00:02:16,123 --> 00:02:18,336
+registering it by returning it in a method
+
+54
+00:02:18,529 --> 00:02:20,021
+which is decorated with @Agent.
+
+55
+00:02:20,999 --> 00:02:22,828
+And the same is done here with the reporting
+
+56
+00:02:22,860 --> 00:02:25,486
+analyst. Another agent in this crew.
+
+57
+00:02:26,261 --> 00:02:28,600
+So the idea is that we have a crew with 2
+
+58
+00:02:28,810 --> 00:02:31,214
+agents, one that seems to be responsible for
+
+59
+00:02:31,310 --> 00:02:33,553
+researching things and the other that seems
+
+60
+00:02:33,585 --> 00:02:35,683
+to be responsible for creating reports.
+
+61
+00:02:36,070 --> 00:02:39,072
+Again, not that far away from the example I
+
+62
+00:02:39,072 --> 00:02:39,492
+showed you.
+
+63
+00:02:41,072 --> 00:02:41,266
+Now
+
+64
+00:02:41,961 --> 00:02:44,110
+we have more in there, but before we get to
+
+65
+00:02:44,142 --> 00:02:46,291
+that, there's one important question.
+
+66
+00:02:47,034 --> 00:02:49,425
+How exactly are these agents configured? How
+
+67
+00:02:49,474 --> 00:02:50,120
+do they know
+
+68
+00:02:50,772 --> 00:02:52,919
+what they should do and which tools they
+
+69
+00:02:52,919 --> 00:02:53,112
+have?
+
+70
+00:02:54,137 --> 00:02:56,541
+Good question. At the moment, they have no
+
+71
+00:02:56,541 --> 00:02:58,673
+tools, but they have some configuration.
+
+72
+00:02:59,586 --> 00:03:01,061
+And that is loaded here.
+
+73
+00:03:01,734 --> 00:03:03,833
+And it's actually loaded with help of the
+
+74
+00:03:03,833 --> 00:03:08,016
+CrewAI package. So this agents config thing
+
+75
+00:03:08,144 --> 00:03:09,988
+here, which is coming from the base agent
+
+76
+00:03:09,988 --> 00:03:12,391
+class, that is some functionality, some
+
+77
+00:03:12,472 --> 00:03:14,747
+logic provided by the CrewAI package.
+
+78
+00:03:15,773 --> 00:03:18,417
+And what this does is it actually loads the
+
+79
+00:03:18,417 --> 00:03:20,613
+configuration from an external file.
+
+80
+00:03:21,242 --> 00:03:23,549
+Specifically a file that can be found in
+
+81
+00:03:23,662 --> 00:03:25,921
+this config folder, which is also part of
+
+82
+00:03:25,921 --> 00:03:27,001
+that created project.
+
+83
+00:03:28,542 --> 00:03:30,281
+In this config folder, we have an
+
+84
+00:03:30,378 --> 00:03:32,794
+agents.yaml file, which contains all the
+
+85
+00:03:32,794 --> 00:03:34,888
+configurations for all the agents you wanna
+
+86
+00:03:34,888 --> 00:03:37,207
+have. And of course you can edit this to add
+
+87
+00:03:37,303 --> 00:03:39,223
+more configurations for more agents
+
+88
+00:03:40,368 --> 00:03:42,546
+and a tasks.yaml file, which will describe
+
+89
+00:03:42,546 --> 00:03:44,579
+the tasks. And I'll get back to that.
+
+90
+00:03:46,031 --> 00:03:47,209
+So let's take a look at agents.yaml.
+
+91
+00:03:48,246 --> 00:03:49,576
+In there, we have 2
+
+92
+00:03:50,169 --> 00:03:51,836
+agent configuration
+
+93
+00:03:52,413 --> 00:03:54,240
+objects, if you wanna call it like this.
+
+94
+00:03:55,154 --> 00:03:56,965
+And if you were to add a new agent, you
+
+95
+00:03:56,981 --> 00:03:58,872
+could simply do so by adding it here,
+
+96
+00:03:59,722 --> 00:04:01,052
+like an evaluation
+
+97
+00:04:02,030 --> 00:04:04,017
+agent, maybe just called evaluation.
+
+98
+00:04:05,011 --> 00:04:07,880
+And every agent then has a role, a goal, and
+
+99
+00:04:07,960 --> 00:04:10,300
+a backstory, which in the end is used by
+
+100
+00:04:10,300 --> 00:04:13,890
+this CrewAI SDK to construct a system
+
+101
+00:04:13,890 --> 00:04:16,118
+prompt, a developer prompt that will be used
+
+102
+00:04:16,150 --> 00:04:16,839
+behind the scenes.
+
+103
+00:04:17,496 --> 00:04:20,613
+And in general, to adjust the prompts that
+
+104
+00:04:20,710 --> 00:04:22,172
+reach the large language model.
+
+105
+00:04:22,991 --> 00:04:26,253
+So what we did by hand in our code, what we
+
+106
+00:04:26,253 --> 00:04:29,033
+had to write by hand in our code, is done
+
+107
+00:04:29,226 --> 00:04:32,037
+automatically for us here in this project
+
+108
+00:04:32,037 --> 00:04:33,178
+when using CrewAI.
+
+109
+00:04:33,724 --> 00:04:36,054
+And this configuration is used as a base.
+
+110
+00:04:36,874 --> 00:04:38,593
+Now, what you'll see in this configuration
+
+111
+00:04:39,027 --> 00:04:41,597
+is that there are some placeholders for the
+
+112
+00:04:41,597 --> 00:04:43,204
+topic here, for example.
+
+113
+00:04:44,247 --> 00:04:46,796
+And these placeholders will be filled with
+
+114
+00:04:47,133 --> 00:04:50,531
+concrete values by the time the agent runs.
+
+115
+00:04:50,836 --> 00:04:52,679
+Because the idea is that, of course,
+
+116
+00:04:53,224 --> 00:04:56,542
+every configuration might need some dynamic,
+
+117
+00:04:56,831 --> 00:04:59,364
+flexible elements. Like, for example, here
+
+118
+00:04:59,396 --> 00:05:02,313
+for the researcher, we don't know the topic
+
+119
+00:05:02,361 --> 00:05:05,471
+this agent will be used on in advance. When
+
+120
+00:05:05,567 --> 00:05:07,635
+we write the code for this agent, we, of
+
+121
+00:05:07,651 --> 00:05:09,735
+course, don't know which topic it will cover
+
+122
+00:05:09,735 --> 00:05:12,044
+because the idea is that we have a flexible
+
+123
+00:05:12,140 --> 00:05:14,961
+agent that can cover all kinds of topics. So
+
+124
+00:05:15,025 --> 00:05:17,382
+this is a placeholder that will be populated
+
+125
+00:05:17,686 --> 00:05:19,225
+by the time we run the agent.
+
+126
+00:05:19,930 --> 00:05:22,351
+And I'll show you how it's populated in just
+
+127
+00:05:22,351 --> 00:05:22,784
+a second.
+
+128
+00:05:23,858 --> 00:05:26,791
+But that's the configuration for our agents.
+
+129
+00:05:27,368 --> 00:05:29,645
+And with that, we have configured agents
+
+130
+00:05:29,709 --> 00:05:30,767
+that are being registered.
+
+131
+00:05:31,392 --> 00:05:32,723
+Still no tools.
+
+132
+00:05:33,316 --> 00:05:35,271
+And therefore, depending on your definition,
+
+133
+00:05:35,640 --> 00:05:38,814
+not really agents, but we talked about this
+
+134
+00:05:38,926 --> 00:05:39,199
+before.
+
+135
+00:05:40,609 --> 00:05:42,773
+Now, before we give at least some of these
+
+136
+00:05:42,854 --> 00:05:44,184
+agents some tools,
+
+137
+00:05:44,841 --> 00:05:47,005
+let's see what else is in this crew.py file.
+
+138
+00:05:47,070 --> 00:05:50,505
+File because we also have tasks, not just
+
+139
+00:05:50,715 --> 00:05:51,102
+agents.

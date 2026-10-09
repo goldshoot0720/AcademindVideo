@@ -1,0 +1,651 @@
+1
+00:00:02,261 --> 00:00:05,083
+Now we built that basic tree. Let's now
+
+2
+00:00:05,227 --> 00:00:07,616
+analyze it so that we can make sense of all
+
+3
+00:00:07,729 --> 00:00:08,498
+those things.
+
+4
+00:00:09,252 --> 00:00:11,738
+And for analyzing it, I wanna look at the
+
+5
+00:00:11,738 --> 00:00:15,057
+various terms I introduced earlier in this
+
+6
+00:00:15,169 --> 00:00:15,618
+module.
+
+7
+00:00:16,773 --> 00:00:18,986
+You might remember this slide with some
+
+8
+00:00:19,034 --> 00:00:20,044
+important terms.
+
+9
+00:00:20,878 --> 00:00:23,348
+Now regarding the nodes and edges and the
+
+10
+00:00:23,364 --> 00:00:23,973
+root node,
+
+11
+00:00:24,550 --> 00:00:26,747
+that should all be fairly straightforward.
+
+12
+00:00:27,437 --> 00:00:30,180
+When we create a tree by calling new tree,
+
+13
+00:00:30,661 --> 00:00:32,682
+we create a root node automatically.
+
+14
+00:00:33,773 --> 00:00:36,629
+And then on every node, we can create more
+
+15
+00:00:36,757 --> 00:00:38,169
+nodes with add node.
+
+16
+00:00:38,987 --> 00:00:41,345
+And these are then the different nodes or
+
+17
+00:00:41,393 --> 00:00:43,334
+vertices of our tree.
+
+18
+00:00:43,879 --> 00:00:45,901
+The root node is also something I showed to
+
+19
+00:00:45,901 --> 00:00:46,013
+you.
+
+20
+00:00:46,687 --> 00:00:49,558
+And the edges, well, that exists implicitly
+
+21
+00:00:49,670 --> 00:00:52,028
+through this children and this parent. This
+
+22
+00:00:52,077 --> 00:00:54,132
+holds the information on every node which
+
+23
+00:00:54,391 --> 00:00:55,916
+other nodes are related.
+
+24
+00:00:56,501 --> 00:00:58,918
+So that's how we construct those edges in
+
+25
+00:00:59,097 --> 00:00:59,405
+code.
+
+26
+00:01:00,232 --> 00:01:01,157
+You could say in the browser,
+
+27
+00:01:01,690 --> 00:01:04,352
+the edges are basically those arrows which
+
+28
+00:01:04,400 --> 00:01:06,886
+we can expand, where we can look into the
+
+29
+00:01:06,886 --> 00:01:09,903
+children to see more nodes. And then for
+
+30
+00:01:09,935 --> 00:01:11,759
+every node, we can look into more children.
+
+31
+00:01:12,211 --> 00:01:14,066
+So these are our edges here.
+
+32
+00:01:16,002 --> 00:01:18,874
+We also learned about subtrees and leaves.
+
+33
+00:01:19,374 --> 00:01:21,718
+Now what are the subtrees and leaves in our
+
+34
+00:01:21,853 --> 00:01:22,305
+tree here?
+
+35
+00:01:24,228 --> 00:01:26,316
+Well, if we have a look at this tree we
+
+36
+00:01:26,380 --> 00:01:29,705
+built, then we have 2 subtrees on the root
+
+37
+00:01:29,705 --> 00:01:30,027
+node.
+
+38
+00:01:31,199 --> 00:01:33,657
+Basically every children constructs its own
+
+39
+00:01:33,769 --> 00:01:34,444
+subtree
+
+40
+00:01:34,974 --> 00:01:36,532
+because here we got our
+
+41
+00:01:37,159 --> 00:01:40,500
+document subtree and we got our games
+
+42
+00:01:40,676 --> 00:01:43,214
+subtree because those nodes contain more
+
+43
+00:01:43,519 --> 00:01:43,857
+nodes.
+
+44
+00:01:44,788 --> 00:01:46,989
+And basically every node builds its own
+
+45
+00:01:47,053 --> 00:01:50,073
+subtree except for nodes that have no
+
+46
+00:01:50,073 --> 00:01:53,349
+children. In this case, the text document
+
+47
+00:01:53,525 --> 00:01:55,709
+has no children. This is an empty array,
+
+48
+00:01:56,432 --> 00:01:58,760
+and therefore the text node, the text
+
+49
+00:01:58,760 --> 00:02:01,634
+document node here, that would be a leaf
+
+50
+00:02:02,052 --> 00:02:04,171
+because all the nodes that have no children
+
+51
+00:02:04,685 --> 00:02:07,928
+are leaves, the ends of our tree, so to say.
+
+52
+00:02:08,314 --> 00:02:10,802
+Now we also learned about path, distance,
+
+53
+00:02:11,124 --> 00:02:13,837
+parent-child, ancestor-descendant, and
+
+54
+00:02:13,933 --> 00:02:14,383
+sibling.
+
+55
+00:02:15,057 --> 00:02:15,892
+Let's look into that.
+
+56
+00:02:16,824 --> 00:02:18,077
+Now for the path,
+
+57
+00:02:18,656 --> 00:02:20,793
+we can see the paths really well here
+
+58
+00:02:21,468 --> 00:02:23,814
+when we insert elements. The path to the
+
+59
+00:02:23,814 --> 00:02:27,253
+text document is that we have, uh, Documents
+
+60
+00:02:27,333 --> 00:02:29,085
+and the Personal node above it.
+
+61
+00:02:29,679 --> 00:02:31,816
+For the Call of Duty executable, the Games
+
+62
+00:02:31,913 --> 00:02:33,921
+node is above it, and of course the root
+
+63
+00:02:33,921 --> 00:02:36,042
+node. So that's the path in the end.
+
+64
+00:02:36,830 --> 00:02:39,401
+Now for the distance, as you learned, that's
+
+65
+00:02:39,401 --> 00:02:41,779
+the number of edges between 2 nodes.
+
+66
+00:02:42,309 --> 00:02:44,445
+So in the end, you could say the distance
+
+67
+00:02:44,445 --> 00:02:48,172
+between tags document and documents is 2
+
+68
+00:02:48,702 --> 00:02:50,790
+because we have an edge between tags and
+
+69
+00:02:50,886 --> 00:02:53,038
+personal and we have an edge between
+
+70
+00:02:53,038 --> 00:02:55,062
+personal and documents. So we have a
+
+71
+00:02:55,062 --> 00:02:58,339
+distance of 2 between tags and documents. We
+
+72
+00:02:58,339 --> 00:03:00,202
+have a distance of 1 between Call of Duty
+
+73
+00:03:00,202 --> 00:03:02,628
+and games and a distance of 2 between Call
+
+74
+00:03:02,628 --> 00:03:05,037
+of Duty executable and the root node, for
+
+75
+00:03:05,037 --> 00:03:05,599
+example.
+
+76
+00:03:06,563 --> 00:03:09,082
+Now for parent-child, ancestor, descendant,
+
+77
+00:03:09,418 --> 00:03:10,124
+and siblings.
+
+78
+00:03:10,941 --> 00:03:14,532
+Well, tags is a child of personal. Personal
+
+79
+00:03:14,660 --> 00:03:15,734
+is a parent of tags.
+
+80
+00:03:16,567 --> 00:03:19,437
+Tags is a descendant of documents, and
+
+81
+00:03:19,533 --> 00:03:21,825
+documents is an ancestor of tags.
+
+82
+00:03:22,803 --> 00:03:26,329
+And regarding siblings, before we remove it,
+
+83
+00:03:26,586 --> 00:03:28,878
+Call of Duty 2 is a sibling of Call of Duty
+
+84
+00:03:28,974 --> 00:03:30,481
+because they have the same parent.
+
+85
+00:03:31,314 --> 00:03:34,280
+Games is a sibling of documents because they
+
+86
+00:03:34,280 --> 00:03:36,012
+have the same parent. Root node.
+
+87
+00:03:37,410 --> 00:03:39,082
+Of course, you can also see all of that in
+
+88
+00:03:39,082 --> 00:03:40,946
+the browser. It's just a bit easier with
+
+89
+00:03:40,946 --> 00:03:43,485
+those string paths, which is why I chose
+
+90
+00:03:43,582 --> 00:03:45,112
+them. But here you also see
+
+91
+00:03:46,017 --> 00:03:49,088
+2 sibling nodes here, both children of the
+
+92
+00:03:49,153 --> 00:03:49,621
+root node.
+
+93
+00:03:51,322 --> 00:03:53,866
+The text document is a child
+
+94
+00:03:54,526 --> 00:03:57,151
+of this node here, which is the personal
+
+95
+00:03:57,199 --> 00:03:59,454
+node, which is a child of the documents
+
+96
+00:03:59,454 --> 00:04:03,065
+node. That is why the text document is a
+
+97
+00:04:03,193 --> 00:04:04,494
+direct child of personal
+
+98
+00:04:05,023 --> 00:04:06,774
+and a descendant of documents.
+
+99
+00:04:07,368 --> 00:04:09,182
+Documents is a parent of personal
+
+100
+00:04:10,483 --> 00:04:13,357
+and an ancestor of the tax document.
+
+101
+00:04:14,657 --> 00:04:15,894
+These are all those terms.
+
+102
+00:04:16,745 --> 00:04:17,596
+In addition,
+
+103
+00:04:18,672 --> 00:04:21,546
+we also had degree, level, depth, breadth,
+
+104
+00:04:21,819 --> 00:04:22,349
+and size.
+
+105
+00:04:23,023 --> 00:04:24,324
+Now let's analyze that.
+
+106
+00:04:24,950 --> 00:04:27,342
+The degree is the number of child nodes of a
+
+107
+00:04:27,358 --> 00:04:27,968
+given node.
+
+108
+00:04:28,984 --> 00:04:31,518
+So for example, the degree of the root node
+
+109
+00:04:32,018 --> 00:04:34,665
+is 2 because it has 2 direct child nodes.
+
+110
+00:04:35,930 --> 00:04:36,901
+The degree of
+
+111
+00:04:37,484 --> 00:04:40,447
+the documents node is 1 because it has 1
+
+112
+00:04:40,496 --> 00:04:41,273
+direct child.
+
+113
+00:04:43,426 --> 00:04:46,378
+The level is the distance between a node and
+
+114
+00:04:46,410 --> 00:04:47,104
+the root node.
+
+115
+00:04:48,742 --> 00:04:51,298
+Well, therefore, the level of the root node
+
+116
+00:04:51,331 --> 00:04:52,042
+is 0.
+
+117
+00:04:52,690 --> 00:04:53,790
+The level of the
+
+118
+00:04:54,593 --> 00:04:56,072
+documents node is 1.
+
+119
+00:04:56,748 --> 00:04:58,501
+The level of the person—
+
+120
+00:04:59,080 --> 00:05:01,026
+where is it here— the level of the personal
+
+121
+00:05:01,026 --> 00:05:04,484
+node is 2 because it has a distance of 2 to
+
+122
+00:05:04,484 --> 00:05:05,145
+the root node.
+
+123
+00:05:05,692 --> 00:05:08,075
+And the level of the text document is 3, for
+
+124
+00:05:08,108 --> 00:05:08,607
+example.
+
+125
+00:05:10,507 --> 00:05:13,261
+Now the depth is the maximum level in a
+
+126
+00:05:13,390 --> 00:05:13,438
+tree,
+
+127
+00:05:14,152 --> 00:05:16,682
+and that is the level of the text document.
+
+128
+00:05:16,990 --> 00:05:19,975
+That's the deepest nested element we have in
+
+129
+00:05:19,991 --> 00:05:20,623
+this entire tree.
+
+130
+00:05:21,223 --> 00:05:23,030
+We can also see it really well here.
+
+131
+00:05:23,805 --> 00:05:27,000
+This is the longest path we have. It has 1,
+
+132
+00:05:27,274 --> 00:05:30,340
+2, 3 segments in the end. So therefore, this
+
+133
+00:05:30,340 --> 00:05:32,922
+is level 3. This is deeply nested in the
+
+134
+00:05:32,922 --> 00:05:35,907
+tree, and that is the depth of our tree. The
+
+135
+00:05:36,069 --> 00:05:38,166
+depth of this tree is 3
+
+136
+00:05:38,715 --> 00:05:41,316
+because the highest level we have is 3.
+
+137
+00:05:43,080 --> 00:05:45,249
+For the breadth, the number of leaves
+
+138
+00:05:45,346 --> 00:05:45,734
+matter,
+
+139
+00:05:46,576 --> 00:05:48,436
+and there, of course, it matters whether we
+
+140
+00:05:48,436 --> 00:05:50,948
+removed Call of Duty executable or not.
+
+141
+00:05:51,654 --> 00:05:53,725
+With it removed, the breadth is
+
+142
+00:05:54,400 --> 00:05:54,608
+1,
+
+143
+00:05:55,909 --> 00:05:56,102
+2.
+
+144
+00:05:57,531 --> 00:06:00,437
+Without it being removed, the breadth is 3.
+
+145
+00:06:00,646 --> 00:06:03,552
+1, 2, 3, because we have to count all the
+
+146
+00:06:03,632 --> 00:06:06,362
+leaves, so all the nodes that have no other
+
+147
+00:06:06,362 --> 00:06:08,305
+child nodes in that tree.
+
+148
+00:06:08,851 --> 00:06:11,693
+And in this case, that's 2 or 3 depending on
+
+149
+00:06:11,821 --> 00:06:14,133
+whether we removed this node or not.
+
+150
+00:06:15,673 --> 00:06:17,597
+And now for the size, that's the total
+
+151
+00:06:17,597 --> 00:06:18,975
+number of nodes in a tree.
+
+152
+00:06:19,665 --> 00:06:21,540
+Well, before we removed
+
+153
+00:06:22,069 --> 00:06:23,400
+Call of Duty, that's 1.
+
+154
+00:06:24,474 --> 00:06:26,670
+Here it already exists, so 1, 2,
+
+155
+00:06:27,311 --> 00:06:27,712
+3,
+
+156
+00:06:28,802 --> 00:06:29,828
+4, 5
+
+157
+00:06:30,421 --> 00:06:31,655
+exists, 6,
+
+158
+00:06:32,729 --> 00:06:33,995
+and the root node, 7.
+
+159
+00:06:34,893 --> 00:06:37,362
+After we removed it, it's 6 again.
+
+160
+00:06:38,035 --> 00:06:40,840
+So that is the size, and these are the core
+
+161
+00:06:40,840 --> 00:06:43,964
+terms which you might wanna keep in mind
+
+162
+00:06:44,077 --> 00:06:46,253
+because it helps understanding and
+
+163
+00:06:46,334 --> 00:06:47,454
+describing trees.

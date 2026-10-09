@@ -1,0 +1,243 @@
+1
+00:00:00,112 --> 00:00:02,452
+We're making good progress on this app.
+
+2
+00:00:02,661 --> 00:00:04,424
+Obviously, the next step is to work on this
+
+3
+00:00:04,424 --> 00:00:07,053
+authenticated area and add that rich text
+
+4
+00:00:07,085 --> 00:00:10,098
+editor and allow users to create and manage
+
+5
+00:00:10,195 --> 00:00:12,776
+their notes. But before we do that, I wanna
+
+6
+00:00:12,776 --> 00:00:15,645
+dive into the important concept of working
+
+7
+00:00:15,741 --> 00:00:17,232
+with agent skills.
+
+8
+00:00:17,985 --> 00:00:20,775
+Because that is a feature supported by Codex
+
+9
+00:00:20,775 --> 00:00:23,259
+and actually pretty much all coding
+
+10
+00:00:23,355 --> 00:00:24,942
+assistants and AI agents
+
+11
+00:00:25,584 --> 00:00:28,533
+that is all about overcoming the problem of
+
+12
+00:00:28,565 --> 00:00:31,258
+the AI agent and the underlying AI models
+
+13
+00:00:31,354 --> 00:00:34,308
+having limited knowledge about certain
+
+14
+00:00:34,484 --> 00:00:36,700
+features you may be using in your code or
+
+15
+00:00:36,764 --> 00:00:39,125
+certain patterns you want to use or certain
+
+16
+00:00:39,157 --> 00:00:41,485
+third-party libraries. And they also may
+
+17
+00:00:41,485 --> 00:00:43,781
+have been trained on bad patterns or in
+
+18
+00:00:43,877 --> 00:00:46,671
+general patterns or approaches you don't
+
+19
+00:00:46,703 --> 00:00:48,276
+wanna use in your codebase.
+
+20
+00:00:48,854 --> 00:00:52,242
+So they may be lacking some skills you want
+
+21
+00:00:52,242 --> 00:00:54,811
+them to have. And therefore those agents may
+
+22
+00:00:54,811 --> 00:00:57,476
+not write the code the way you want or they
+
+23
+00:00:57,476 --> 00:00:59,516
+may just not know about certain libraries,
+
+24
+00:00:59,628 --> 00:01:01,569
+patterns, et cetera. Now, of course, as we
+
+25
+00:01:01,569 --> 00:01:04,294
+saw before, there are ways of fixing some of
+
+26
+00:01:04,294 --> 00:01:07,516
+these problems. If you know that an agent or
+
+27
+00:01:07,645 --> 00:01:09,568
+the AI model doesn't know enough about a
+
+28
+00:01:09,568 --> 00:01:10,947
+certain library you'll use,
+
+29
+00:01:11,492 --> 00:01:14,185
+you can manually bring in the extra context
+
+30
+00:01:14,281 --> 00:01:17,118
+or use an MCP. Or you could, of course, also
+
+31
+00:01:17,247 --> 00:01:19,988
+put all that extra information into AgentsMD
+
+32
+00:01:19,988 --> 00:01:22,280
+because, as you learned, that will be loaded
+
+33
+00:01:22,777 --> 00:01:26,015
+every time a new session starts. Now,
+
+34
+00:01:26,159 --> 00:01:28,404
+putting it into AgentsMD is not a good idea
+
+35
+00:01:28,548 --> 00:01:30,119
+though, and I'll get back to why in a
+
+36
+00:01:30,167 --> 00:01:30,744
+second.
+
+37
+00:01:31,273 --> 00:01:33,566
+And relying on manually adding context or
+
+38
+00:01:33,694 --> 00:01:34,192
+MCPs
+
+39
+00:01:34,721 --> 00:01:37,704
+is a solution, but of course might not be
+
+40
+00:01:37,704 --> 00:01:40,608
+super reliable. And for certain things like
+
+41
+00:01:40,672 --> 00:01:43,142
+patterns you wanna use, there might not be
+
+42
+00:01:43,222 --> 00:01:45,403
+any documentation that could be referenced.
+
+43
+00:01:45,644 --> 00:01:48,018
+And that's the idea behind those skills. You
+
+44
+00:01:48,275 --> 00:01:51,001
+add extra skills, which are just files to
+
+45
+00:01:51,162 --> 00:01:53,584
+your project, to your coding agent. And
+
+46
+00:01:53,584 --> 00:01:56,118
+those skills give the agent extra knowledge
+
+47
+00:01:56,294 --> 00:01:59,149
+or even extra tools, extra scripts it may
+
+48
+00:01:59,502 --> 00:02:02,536
+use and execute. And this entire idea of
+
+49
+00:02:02,713 --> 00:02:05,733
+agent skills is actually standardized. And
+
+50
+00:02:06,006 --> 00:02:08,592
+as mentioned, pretty much all AI agents,
+
+51
+00:02:08,833 --> 00:02:11,130
+even outside of coding, support this idea of
+
+52
+00:02:11,339 --> 00:02:11,773
+skills.
+
+53
+00:02:12,367 --> 00:02:14,793
+And a skill is really just a folder with a
+
+54
+00:02:14,793 --> 00:02:17,620
+markdown file inside of it, a markdown file
+
+55
+00:02:17,652 --> 00:02:19,805
+which has that extra information or these
+
+56
+00:02:19,981 --> 00:02:22,150
+extra instructions you want to expose to
+
+57
+00:02:22,632 --> 00:02:25,411
+your agent. You can then also add more
+
+58
+00:02:25,796 --> 00:02:28,093
+subfolders and files, which may include
+
+59
+00:02:28,093 --> 00:02:30,576
+scripts. That can be executed by the agent
+
+60
+00:02:30,995 --> 00:02:33,028
+or extra references. If you have a more
+
+61
+00:02:33,028 --> 00:02:36,223
+detailed documentation you want

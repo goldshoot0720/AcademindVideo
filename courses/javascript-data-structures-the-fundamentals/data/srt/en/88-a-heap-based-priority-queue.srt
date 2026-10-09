@@ -1,0 +1,423 @@
+1
+00:00:02,276 --> 00:00:04,520
+Now moving from a heap, no matter if it's
+
+2
+00:00:04,520 --> 00:00:05,193
+max or min,
+
+3
+00:00:05,722 --> 00:00:07,037
+to a priority queue
+
+4
+00:00:07,566 --> 00:00:08,255
+is very easy.
+
+5
+00:00:09,249 --> 00:00:12,263
+Let me just rename this to priority queue to
+
+6
+00:00:12,263 --> 00:00:13,770
+make it really clear what we're building
+
+7
+00:00:13,818 --> 00:00:13,914
+now.
+
+8
+00:00:14,924 --> 00:00:17,825
+And let's also update this down there where
+
+9
+00:00:17,825 --> 00:00:18,803
+we instantiate it.
+
+10
+00:00:19,749 --> 00:00:21,256
+What changes do we need to make?
+
+11
+00:00:21,993 --> 00:00:23,724
+In the end, just one change.
+
+12
+00:00:24,302 --> 00:00:27,750
+When we insert a value, we also want to get
+
+13
+00:00:27,750 --> 00:00:31,507
+the priority of that value because the value
+
+14
+00:00:31,620 --> 00:00:33,755
+itself is not the priority.
+
+15
+00:00:34,976 --> 00:00:37,480
+That could be a string, an array, an object,
+
+16
+00:00:37,545 --> 00:00:38,428
+whatever you want.
+
+17
+00:00:39,086 --> 00:00:41,510
+We want to provide a priority together with
+
+18
+00:00:41,639 --> 00:00:42,185
+the value.
+
+19
+00:00:43,100 --> 00:00:44,995
+And therefore, we need to change the kind of
+
+20
+00:00:45,107 --> 00:00:47,756
+values we're storing in our heap elements
+
+21
+00:00:47,756 --> 00:00:48,061
+array.
+
+22
+00:00:48,944 --> 00:00:49,314
+We can
+
+23
+00:00:50,068 --> 00:00:51,947
+add a new class Node
+
+24
+00:00:52,492 --> 00:00:53,743
+where we get a constructor
+
+25
+00:00:54,560 --> 00:00:57,671
+where we get a value and a priority then
+
+26
+00:00:58,584 --> 00:01:00,685
+and simply store these 2 pieces of
+
+27
+00:01:00,685 --> 00:01:04,597
+information inside of the objects that are
+
+28
+00:01:04,597 --> 00:01:06,408
+created based on that class.
+
+29
+00:01:07,146 --> 00:01:09,021
+And now I created the Dad class
+
+30
+00:01:09,823 --> 00:01:12,340
+so that when we do store a new value,
+
+31
+00:01:13,158 --> 00:01:16,348
+we simply create a new node by instantiating
+
+32
+00:01:16,685 --> 00:01:17,230
+new Node
+
+33
+00:01:18,384 --> 00:01:21,671
+where we forward value and priority.
+
+34
+00:01:22,732 --> 00:01:25,740
+And then we push this new node instead of
+
+35
+00:01:25,773 --> 00:01:26,263
+the value.
+
+36
+00:01:29,316 --> 00:01:30,752
+And now in all the places
+
+37
+00:01:31,333 --> 00:01:34,238
+where we previously just compared the
+
+38
+00:01:34,254 --> 00:01:37,208
+element values, so the elements themselves,
+
+39
+00:01:37,936 --> 00:01:39,431
+we now just need to compare
+
+40
+00:01:40,202 --> 00:01:44,267
+.priority, so the priorities of our elements
+
+41
+00:01:44,540 --> 00:01:47,973
+because the elements are now objects based
+
+42
+00:01:48,086 --> 00:01:49,102
+on the Node class.
+
+43
+00:01:49,876 --> 00:01:54,295
+So it's.priority in those places where we
+
+44
+00:01:54,295 --> 00:01:55,633
+compare values.
+
+45
+00:01:57,210 --> 00:01:58,307
+So therefore here
+
+46
+00:01:59,242 --> 00:01:59,952
+and of course
+
+47
+00:02:00,614 --> 00:02:02,985
+also in the process method.
+
+48
+00:02:04,018 --> 00:02:07,854
+There we also now need to check the priority
+
+49
+00:02:08,191 --> 00:02:10,586
+when we derive the child element index.
+
+50
+00:02:11,261 --> 00:02:12,804
+So here we need to compare
+
+51
+00:02:13,334 --> 00:02:16,648
+.priority of the right child element with
+
+52
+00:02:16,778 --> 00:02:19,256
+the priority of the left child element.
+
+53
+00:02:21,890 --> 00:02:24,095
+And in the while loop, we also need to
+
+54
+00:02:24,095 --> 00:02:25,271
+compare priorities.
+
+55
+00:02:26,189 --> 00:02:29,006
+And that's it. With that, we have a priority
+
+56
+00:02:29,006 --> 00:02:29,216
+queue
+
+57
+00:02:29,812 --> 00:02:32,875
+where we now can store whatever we want with
+
+58
+00:02:32,956 --> 00:02:34,538
+an associated priority.
+
+59
+00:02:35,700 --> 00:02:37,686
+So for example, here we could insert
+
+60
+00:02:38,995 --> 00:02:39,463
+clean
+
+61
+00:02:40,934 --> 00:02:43,989
+up my room with a low priority
+
+62
+00:02:45,008 --> 00:02:47,626
+Then add a higher priority for
+
+63
+00:02:48,461 --> 00:02:49,489
+due taxes
+
+64
+00:02:50,228 --> 00:02:52,091
+and the highest priority
+
+65
+00:02:52,958 --> 00:02:53,311
+for
+
+66
+00:02:54,644 --> 00:02:55,688
+learn to code.
+
+67
+00:02:57,150 --> 00:02:59,366
+And if we now comment out the process
+
+68
+00:02:59,720 --> 00:03:01,214
+methods for a second,
+
+69
+00:03:02,225 --> 00:03:03,414
+if I reload,
+
+70
+00:03:04,538 --> 00:03:04,795
+we
+
+71
+00:03:05,679 --> 00:03:07,767
+see a broken priority queue
+
+72
+00:03:08,393 --> 00:03:11,493
+where due taxes is not in a node and does
+
+73
+00:03:11,605 --> 00:03:12,970
+not have a priority.
+
+74
+00:03:16,404 --> 00:03:18,217
+And the reason for that is down there,
+
+75
+00:03:18,891 --> 00:03:19,099
+here
+
+76
+00:03:19,853 --> 00:03:23,174
+where I swap elements around. Just using the
+
+77
+00:03:23,174 --> 00:03:25,854
+value is of course not enough. We also need
+
+78
+00:03:25,886 --> 00:03:27,121
+to use the newNode here.
+
+79
+00:03:27,651 --> 00:03:30,282
+Tiny mistake from my side, easy to overlook,
+
+80
+00:03:30,603 --> 00:03:32,929
+which is why I left it here in the video.
+
+81
+00:03:33,490 --> 00:03:33,763
+But now
+
+82
+00:03:34,293 --> 00:03:34,517
+with
+
+83
+00:03:35,255 --> 00:03:37,148
+newNode here instead of value,
+
+84
+00:03:37,838 --> 00:03:38,929
+if we now reload
+
+85
+00:03:39,523 --> 00:03:42,169
+we do have the proper order where the
+
+86
+00:03:42,169 --> 00:03:44,895
+highest priority item is at the top.
+
+87
+00:03:45,761 --> 00:03:47,894
+Now, as I mentioned before, the next item in
+
+88
+00:03:48,006 --> 00:03:50,668
+line is not necessarily the next highest
+
+89
+00:03:50,668 --> 00:03:51,358
+priority,
+
+90
+00:03:52,016 --> 00:03:54,598
+but if we do process one item
+
+91
+00:03:55,319 --> 00:03:57,773
+and we console.log it so that we can see
+
+92
+00:03:57,789 --> 00:03:58,848
+what was processed,
+
+93
+00:03:59,393 --> 00:04:02,360
+we'll see that thereafter the new top item
+
+94
+00:04:02,440 --> 00:04:03,514
+in the priority queue
+
+95
+00:04:04,044 --> 00:04:06,915
+in this heap will be the next important
+
+96
+00:04:07,092 --> 00:04:07,316
+item.
+
+97
+00:04:07,926 --> 00:04:10,606
+So if I now reload, we see learn to code was
+
+98
+00:04:10,782 --> 00:04:13,526
+processed and thereafter our new top
+
+99
+00:04:13,606 --> 00:04:15,740
+priority item is do taxes.
+
+100
+00:04:16,398 --> 00:04:18,740
+So this is now a working priority queue.
+
+101
+00:04:19,606 --> 00:04:21,323
+But was it worth it?
+
+102
+00:04:21,853 --> 00:04:21,965
+Why
+
+103
+00:04:22,494 --> 00:04:25,334
+did we build this heap which is arguably a
+
+104
+00:04:25,479 --> 00:04:28,319
+bit more complex than the linked list? What
+
+105
+00:04:28,447 --> 00:04:31,463
+do we gain by that if we consider the time
+
+106
+00:04:31,576 --> 00:04:32,217
+complexity?

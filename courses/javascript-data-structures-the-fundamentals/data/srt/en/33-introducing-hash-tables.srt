@@ -1,0 +1,423 @@
+1
+00:00:02,054 --> 00:00:04,415
+So now after exploring various list
+
+2
+00:00:04,463 --> 00:00:07,256
+structures, let's dive into tables, or
+
+3
+00:00:07,256 --> 00:00:10,114
+specifically into the hash table, which is
+
+4
+00:00:10,226 --> 00:00:13,020
+the main and actually the only table
+
+5
+00:00:13,036 --> 00:00:15,974
+structure we'll be using and which matters.
+
+6
+00:00:16,953 --> 00:00:18,045
+What is a hash table?
+
+7
+00:00:18,639 --> 00:00:20,710
+Before we learn what it is and how we can
+
+8
+00:00:20,742 --> 00:00:23,198
+build our own one, here's one important
+
+9
+00:00:23,214 --> 00:00:24,354
+thing you have to know.
+
+10
+00:00:24,916 --> 00:00:28,125
+In JavaScript, Under the hood, the
+
+11
+00:00:28,125 --> 00:00:31,122
+JavaScript object you're working with all
+
+12
+00:00:31,250 --> 00:00:31,699
+the time
+
+13
+00:00:32,276 --> 00:00:36,076
+is basically implemented as a hash table by
+
+14
+00:00:36,124 --> 00:00:38,079
+the JavaScript engine that's running your
+
+15
+00:00:38,143 --> 00:00:38,432
+code.
+
+16
+00:00:39,185 --> 00:00:41,462
+That means what you're now going to learn
+
+17
+00:00:41,510 --> 00:00:42,680
+about the hash table
+
+18
+00:00:43,417 --> 00:00:45,934
+really is important because it tells you, it
+
+19
+00:00:45,982 --> 00:00:48,659
+teaches you how the built-in JavaScript
+
+20
+00:00:48,787 --> 00:00:51,128
+object works under the hood. But of course,
+
+21
+00:00:51,208 --> 00:00:52,538
+another important implication
+
+22
+00:00:53,116 --> 00:00:56,225
+is that in reality, you won't really need to
+
+23
+00:00:56,257 --> 00:00:57,957
+build your own hash tables
+
+24
+00:00:58,502 --> 00:01:00,719
+because the JavaScript object already is
+
+25
+00:01:00,832 --> 00:01:03,193
+one, a very optimized one, and therefore
+
+26
+00:01:03,643 --> 00:01:05,363
+there don't really is a need to build your
+
+27
+00:01:05,411 --> 00:01:08,094
+own ones. Nonetheless, you'll learn it here
+
+28
+00:01:08,463 --> 00:01:10,938
+because knowing how something works which
+
+29
+00:01:10,938 --> 00:01:13,508
+you use every day is always important and
+
+30
+00:01:13,589 --> 00:01:16,272
+ultimately is what makes up a good
+
+31
+00:01:16,497 --> 00:01:18,634
+programmer. You need to know your tools.
+
+32
+00:01:19,485 --> 00:01:21,654
+So what is a hash table then? What is the
+
+33
+00:01:21,703 --> 00:01:23,454
+JavaScript object under the hood?
+
+34
+00:01:24,450 --> 00:01:26,198
+Well, it we wanna store something in a
+
+35
+00:01:26,198 --> 00:01:29,196
+JavaScript object, it's a key-value pair,
+
+36
+00:01:29,404 --> 00:01:33,396
+right? So our input is a key of our choice,
+
+37
+00:01:33,813 --> 00:01:34,599
+could be name,
+
+38
+00:01:35,256 --> 00:01:37,244
+could be an address, could be whatever you
+
+39
+00:01:37,276 --> 00:01:39,328
+want, and then you have a value for that
+
+40
+00:01:39,360 --> 00:01:42,486
+key. So for the key name, that would be Max,
+
+41
+00:01:42,550 --> 00:01:43,223
+for example.
+
+42
+00:01:43,768 --> 00:01:46,237
+But again, you're really free here to store
+
+43
+00:01:46,237 --> 00:01:48,562
+whatever you want as key-value pairs in the
+
+44
+00:01:48,562 --> 00:01:48,706
+end.
+
+45
+00:01:49,860 --> 00:01:49,973
+Now,
+
+46
+00:01:50,807 --> 00:01:53,249
+A hash table is then the data structure
+
+47
+00:01:53,393 --> 00:01:55,016
+where this data is getting stored.
+
+48
+00:01:55,546 --> 00:01:56,831
+And a hash table
+
+49
+00:01:57,393 --> 00:01:57,907
+actually
+
+50
+00:01:58,598 --> 00:02:01,875
+can simply be thought of as an array, so as
+
+51
+00:02:01,907 --> 00:02:02,758
+a list again,
+
+52
+00:02:03,337 --> 00:02:05,409
+which has an index and which then stores
+
+53
+00:02:05,586 --> 00:02:07,417
+values for the different indexes.
+
+54
+00:02:08,268 --> 00:02:12,108
+So in that hash table, for index 0, we might
+
+55
+00:02:12,108 --> 00:02:13,682
+be storing value 31.
+
+56
+00:02:14,341 --> 00:02:16,284
+We got a couple of other indexes as well for
+
+57
+00:02:16,284 --> 00:02:17,971
+which we store other kinds of data.
+
+58
+00:02:18,693 --> 00:02:20,985
+And now we got this new key-value pair which
+
+59
+00:02:21,001 --> 00:02:23,790
+you want to store. And of course, we're used
+
+60
+00:02:23,983 --> 00:02:26,002
+to the key being our
+
+61
+00:02:26,692 --> 00:02:29,032
+entry to the value once it's stored in an
+
+62
+00:02:29,096 --> 00:02:29,529
+object.
+
+63
+00:02:30,058 --> 00:02:32,158
+And that is how objects work in JavaScript,
+
+64
+00:02:32,222 --> 00:02:34,466
+but under the hood, they use such a hash
+
+65
+00:02:34,482 --> 00:02:34,787
+table.
+
+66
+00:02:35,364 --> 00:02:37,336
+Therefore, as you can see, we're working
+
+67
+00:02:37,368 --> 00:02:39,388
+with an index and not with a key.
+
+68
+00:02:40,269 --> 00:02:41,552
+So how does this work?
+
+69
+00:02:42,161 --> 00:02:44,549
+Well, we in the end need a process of
+
+70
+00:02:44,645 --> 00:02:48,332
+transforming this key to an index, and
+
+71
+00:02:48,348 --> 00:02:49,919
+that's called hashing.
+
+72
+00:02:50,512 --> 00:02:53,478
+We need a hashing function which converts a
+
+73
+00:02:53,478 --> 00:02:54,841
+key to an index.
+
+74
+00:02:55,498 --> 00:02:57,774
+So there are different ways of building such
+
+75
+00:02:57,822 --> 00:03:00,275
+a function and I'll show you one possible
+
+76
+00:03:00,355 --> 00:03:02,182
+implementation over the next lectures.
+
+77
+00:03:02,776 --> 00:03:04,779
+But we could have a function which takes the
+
+78
+00:03:04,779 --> 00:03:05,741
+key name
+
+79
+00:03:06,302 --> 00:03:09,091
+and spits out the index 1 for that. And this
+
+80
+00:03:09,091 --> 00:03:11,688
+is really just an example. But then we would
+
+81
+00:03:11,752 --> 00:03:14,301
+know that for index 1 we store Max.
+
+82
+00:03:15,359 --> 00:03:17,379
+And of course the hashing function is built
+
+83
+00:03:17,379 --> 00:03:20,056
+such that for the same input it always
+
+84
+00:03:20,152 --> 00:03:23,520
+generates the same hash. The same index so
+
+85
+00:03:23,520 --> 00:03:25,879
+that we always would store the value for key
+
+86
+00:03:25,879 --> 00:03:27,340
+name in index 1.
+
+87
+00:03:28,255 --> 00:03:30,437
+And if we later want to retrieve a value by
+
+88
+00:03:30,437 --> 00:03:32,556
+key, the same hashing function would
+
+89
+00:03:32,604 --> 00:03:35,813
+basically rehash that key. And since I just
+
+90
+00:03:35,813 --> 00:03:38,044
+said that the same key always yields the
+
+91
+00:03:38,044 --> 00:03:41,077
+same hash, the same index, we could retrieve
+
+92
+00:03:41,109 --> 00:03:41,831
+that data.
+
+93
+00:03:42,457 --> 00:03:44,527
+So under the hood, we're basically working
+
+94
+00:03:44,720 --> 00:03:45,876
+with an array here,
+
+95
+00:03:46,550 --> 00:03:49,309
+but we have that different kind of access
+
+96
+00:03:49,677 --> 00:03:51,985
+through the key. And since this is a really
+
+97
+00:03:52,002 --> 00:03:55,159
+useful pattern, JavaScript has this object
+
+98
+00:03:55,287 --> 00:03:55,415
+thing
+
+99
+00:03:55,944 --> 00:03:58,204
+which in the end gives us the direct access
+
+100
+00:03:58,333 --> 00:04:00,785
+through the key and takes care of the
+
+101
+00:04:00,817 --> 00:04:02,644
+hashing and so under the hood.
+
+102
+00:04:03,622 --> 00:04:07,452
+Now let's see why we need such tables, such
+
+103
+00:04:07,629 --> 00:04:09,857
+objects, such hash tables therefore in the
+
+104
+00:04:09,873 --> 00:04:12,742
+end, before we then also build our own one
+
+105
+00:04:12,918 --> 00:04:15,739
+to see what JavaScript in the end does under
+
+106
+00:04:15,739 --> 00:04:16,027
+the hood.

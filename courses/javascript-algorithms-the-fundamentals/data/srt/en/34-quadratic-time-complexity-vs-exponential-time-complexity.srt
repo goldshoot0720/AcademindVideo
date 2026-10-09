@@ -1,0 +1,463 @@
+1
+00:00:02,120 --> 00:00:04,118
+Now in the last lecture, we had a look at
+
+2
+00:00:04,151 --> 00:00:07,422
+this Fibonacci solution with our recursive
+
+3
+00:00:07,439 --> 00:00:09,405
+calls and you learned that it's bad because
+
+4
+00:00:09,405 --> 00:00:10,807
+it's actually O.
+
+5
+00:00:15,379 --> 00:00:17,941
+Now how do I know that it's this kind of
+
+6
+00:00:18,038 --> 00:00:19,827
+exponential growth and that it's not a
+
+7
+00:00:19,827 --> 00:00:21,648
+quadratic or cubic function?
+
+8
+00:00:22,980 --> 00:00:25,461
+Well, we can implement a simple check here
+
+9
+00:00:25,737 --> 00:00:26,856
+that allows us to find out.
+
+10
+00:00:27,458 --> 00:00:29,427
+Let's add a counter variable which is 0
+
+11
+00:00:29,427 --> 00:00:29,944
+initially,
+
+12
+00:00:30,541 --> 00:00:33,833
+and then here I add 1 to it in every call of
+
+13
+00:00:33,833 --> 00:00:36,512
+the fib function. So that will also increase
+
+14
+00:00:36,512 --> 00:00:38,787
+the counter if we have those nested calls.
+
+15
+00:00:40,697 --> 00:00:40,827
+Now
+
+16
+00:00:41,828 --> 00:00:43,412
+I will comment this out here
+
+17
+00:00:44,172 --> 00:00:47,436
+and instead now call fib with, let's say, 5,
+
+18
+00:00:48,454 --> 00:00:51,621
+and thereafter console.log the counter. I
+
+19
+00:00:51,621 --> 00:00:53,685
+don't care about the result of this call for
+
+20
+00:00:53,734 --> 00:00:55,098
+5, so I'll just log the counter.
+
+21
+00:00:55,714 --> 00:00:57,591
+And then reset the counter thereafter.
+
+22
+00:00:58,383 --> 00:01:00,486
+And then I'll repeat this and also call it
+
+23
+00:01:00,486 --> 00:01:00,939
+for 10
+
+24
+00:01:02,576 --> 00:01:04,635
+and also call it for 20
+
+25
+00:01:05,456 --> 00:01:07,483
+and also call it for 30 here.
+
+26
+00:01:09,413 --> 00:01:10,780
+And now let's see what we get here.
+
+27
+00:01:12,060 --> 00:01:15,407
+You see, I get 15, 170, and then some big
+
+28
+00:01:15,407 --> 00:01:15,779
+numbers.
+
+29
+00:01:16,361 --> 00:01:17,234
+Now that's interesting.
+
+30
+00:01:17,994 --> 00:01:21,439
+Now that's the output for 5, 10, 20, and 30.
+
+31
+00:01:21,913 --> 00:01:22,573
+That's our n.
+
+32
+00:01:24,329 --> 00:01:26,552
+Now if we had quadratic time,
+
+33
+00:01:27,212 --> 00:01:28,130
+then for
+
+34
+00:01:28,823 --> 00:01:31,786
+n equal to 5, we would expect 5 times 5
+
+35
+00:01:31,979 --> 00:01:33,396
+because that's 5 squared.
+
+36
+00:01:33,992 --> 00:01:36,311
+Now this gives us 25, but that doesn't say
+
+37
+00:01:36,311 --> 00:01:38,549
+much. It's a bigger number than we actually
+
+38
+00:01:38,581 --> 00:01:40,803
+got, so it seems that it's less than
+
+39
+00:01:40,835 --> 00:01:41,527
+quadratic time,
+
+40
+00:01:42,203 --> 00:01:45,035
+but for small n's we can have deviations. So
+
+41
+00:01:45,035 --> 00:01:47,046
+let's check a bigger n. Let's check 10.
+
+42
+00:01:48,577 --> 00:01:51,211
+For 10, if it were n squared, we have 10
+
+43
+00:01:51,211 --> 00:01:53,782
+times 10, which is 100, but we see, oh, we
+
+44
+00:01:53,782 --> 00:01:57,879
+had 177 executions. So now we already see
+
+45
+00:01:58,216 --> 00:02:01,671
+for a tiny increase in n, we certainly don't
+
+46
+00:02:01,671 --> 00:02:02,843
+have quadratic time
+
+47
+00:02:03,438 --> 00:02:05,655
+because if we had quadratic time,
+
+48
+00:02:06,410 --> 00:02:09,190
+we shouldn't see an increase in operations
+
+49
+00:02:09,222 --> 00:02:11,551
+from 15 to 177.
+
+50
+00:02:12,194 --> 00:02:14,571
+Instead, we should see 4 times as many
+
+51
+00:02:14,667 --> 00:02:16,849
+operations, right? Because for quadratic
+
+52
+00:02:16,849 --> 00:02:20,298
+time, we go from 25 to 100. So if we went
+
+53
+00:02:20,298 --> 00:02:21,373
+from 15 to
+
+54
+00:02:22,063 --> 00:02:24,999
+60 here, it would maybe be quadratic time,
+
+55
+00:02:25,031 --> 00:02:27,309
+but that's not what we have here. So we can
+
+56
+00:02:27,502 --> 00:02:29,571
+rule out quadratic time with this simple
+
+57
+00:02:29,603 --> 00:02:29,956
+check.
+
+58
+00:02:30,967 --> 00:02:34,144
+Now what about cubic time? Maybe we have
+
+59
+00:02:34,240 --> 00:02:34,994
+cubic time.
+
+60
+00:02:35,620 --> 00:02:37,801
+That would mean that for 5, we have 5 times
+
+61
+00:02:37,866 --> 00:02:38,716
+5 times 5,
+
+62
+00:02:39,310 --> 00:02:42,807
+125. And for 10, we have 10 times 10 times
+
+63
+00:02:42,839 --> 00:02:43,689
+10, 1,000.
+
+64
+00:02:44,364 --> 00:02:46,549
+Now that's bigger than what we have here, so
+
+65
+00:02:46,549 --> 00:02:49,344
+maybe we have cubic time. We should validate
+
+66
+00:02:49,344 --> 00:02:51,562
+it for a bigger n though because we have
+
+67
+00:02:51,594 --> 00:02:55,835
+quite a gap between 177 and 1,000. So maybe
+
+68
+00:02:55,835 --> 00:02:57,860
+we're between quadratic and cubic time.
+
+69
+00:02:59,225 --> 00:03:00,511
+Let's validate for 20.
+
+70
+00:03:01,314 --> 00:03:04,672
+If we had cubic time for 20, we would get 20
+
+71
+00:03:04,688 --> 00:03:06,985
+times 20 times 20, 8,000.
+
+72
+00:03:07,660 --> 00:03:08,431
+And what do we have?
+
+73
+00:03:09,090 --> 00:03:10,295
+Oh, we have 22,000.
+
+74
+00:03:12,238 --> 00:03:13,666
+So you're seeing the pattern here.
+
+75
+00:03:14,244 --> 00:03:17,022
+For relatively small increases in n,
+
+76
+00:03:17,921 --> 00:03:21,437
+our number of operations grows quickly,
+
+77
+00:03:22,111 --> 00:03:25,418
+way quicker than it would for cubic or
+
+78
+00:03:25,546 --> 00:03:26,237
+quadratic time.
+
+79
+00:03:26,911 --> 00:03:29,592
+And we can continue to play this game. Even
+
+80
+00:03:29,640 --> 00:03:33,718
+if I take 20, so n at the power of 4, even
+
+81
+00:03:33,766 --> 00:03:37,426
+in that case, here we have 160,000, Yes,
+
+82
+00:03:37,586 --> 00:03:39,590
+that's bigger, but if we have a look at
+
+83
+00:03:39,590 --> 00:03:41,898
+slightly bigger Ns, like 30,
+
+84
+00:03:42,555 --> 00:03:45,664
+we see that 30 times 30 times 30 times 30
+
+85
+00:03:46,321 --> 00:03:48,084
+is 810,000,
+
+86
+00:03:48,902 --> 00:03:52,476
+but here we already have over 2 million,
+
+87
+00:03:53,390 --> 00:03:53,566
+right?
+
+88
+00:03:54,175 --> 00:03:57,204
+So this will lead nowhere. It's definitely
+
+89
+00:03:57,252 --> 00:03:59,352
+not N at the power of anything.
+
+90
+00:03:59,881 --> 00:04:02,894
+Instead, only Q at the power of N yields
+
+91
+00:04:02,990 --> 00:04:06,453
+results that explain such big jumps. Because
+
+92
+00:04:06,453 --> 00:04:09,310
+indeed, 2 at the power of n, if I have
+
+93
+00:04:09,406 --> 00:04:10,080
+Math.pow,
+
+94
+00:04:11,027 --> 00:04:13,884
+2 at the power of 30, for example, yields
+
+95
+00:04:13,916 --> 00:04:15,825
+this number. Now this is certainly bigger
+
+96
+00:04:16,082 --> 00:04:18,939
+than the number we got there. So in reality,
+
+97
+00:04:19,292 --> 00:04:22,100
+for this algorithm, we might be a bit better
+
+98
+00:04:22,165 --> 00:04:23,336
+than 2 at the power of n.
+
+99
+00:04:24,010 --> 00:04:26,145
+But since we're always just caring about the
+
+100
+00:04:26,209 --> 00:04:28,921
+general trend, we're definitely closer to
+
+101
+00:04:29,066 --> 00:04:31,344
+this, especially if we test this for bigger
+
+102
+00:04:31,344 --> 00:04:32,019
+and bigger n's.
+
+103
+00:04:32,612 --> 00:04:35,518
+Than we are to cubic, quadratic, or any of
+
+104
+00:04:35,727 --> 00:04:37,155
+those time complexities.
+
+105
+00:04:37,749 --> 00:04:39,804
+And that's how you can validate this.
+
+106
+00:04:40,398 --> 00:04:42,886
+Now, with experience, you simply see
+
+107
+00:04:42,950 --> 00:04:44,539
+something like this. You don't need to run
+
+108
+00:04:44,652 --> 00:04:47,284
+these calculations I just ran. But to
+
+109
+00:04:47,284 --> 00:04:50,222
+explain it to you that I don't make up this
+
+110
+00:04:50,254 --> 00:04:52,373
+value, but that there is a reason behind
+
+111
+00:04:52,373 --> 00:04:53,849
+assuming this time complexity,
+
+112
+00:04:54,427 --> 00:04:56,578
+I think that's a nice way of understanding
+
+113
+00:04:56,835 --> 00:04:58,906
+why cubic and quadratic time and all those
+
+114
+00:04:58,938 --> 00:05:02,050
+time complexities are not suited to explain
+
+115
+00:05:02,325 --> 00:05:02,535
+this
+
+116
+00:05:03,295 --> 00:05:05,720
+strong growth which we indeed have here.

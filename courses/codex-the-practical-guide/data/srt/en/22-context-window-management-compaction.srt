@@ -1,0 +1,275 @@
+1
+00:00:00,000 --> 00:00:02,403
+And what's also important to understand when
+
+2
+00:00:02,435 --> 00:00:05,319
+working with Codex or similar tools is that
+
+3
+00:00:05,319 --> 00:00:07,530
+you're working on a limited context window.
+
+4
+00:00:08,428 --> 00:00:11,408
+All your prompts and all the code that's
+
+5
+00:00:11,552 --> 00:00:13,955
+analyzed by Codex and all the code that's
+
+6
+00:00:13,955 --> 00:00:17,272
+generated and also tool calls, so the
+
+7
+00:00:17,416 --> 00:00:20,285
+internal instructions it processes and a
+
+8
+00:00:20,301 --> 00:00:22,864
+bunch of other stuff, all of that goes into
+
+9
+00:00:22,864 --> 00:00:25,957
+a limited context window. And the size of
+
+10
+00:00:25,989 --> 00:00:28,377
+that window depends on the model. You're
+
+11
+00:00:28,457 --> 00:00:29,485
+using, and of course,
+
+12
+00:00:30,063 --> 00:00:32,407
+newer models will likely have a bigger
+
+13
+00:00:32,407 --> 00:00:35,442
+context window, but it will be limited. Now,
+
+14
+00:00:35,602 --> 00:00:38,428
+if you exceed that context window,
+
+15
+00:00:38,990 --> 00:00:41,768
+if you got some instructions or some code
+
+16
+00:00:41,800 --> 00:00:44,337
+that's loaded that goes outside of the
+
+17
+00:00:44,353 --> 00:00:46,264
+available context window size,
+
+18
+00:00:47,003 --> 00:00:50,471
+Codex will automatically compact that
+
+19
+00:00:50,696 --> 00:00:51,113
+window,
+
+20
+00:00:51,820 --> 00:00:54,164
+which means it will create a summary of the
+
+21
+00:00:54,164 --> 00:00:56,701
+context that was inside of it and then
+
+22
+00:00:56,797 --> 00:00:58,820
+continue with that summary, which of course
+
+23
+00:00:58,820 --> 00:01:01,339
+means some context will get lost. It's
+
+24
+00:01:01,532 --> 00:01:03,842
+summarized after all. And actually it will
+
+25
+00:01:03,954 --> 00:01:06,825
+technically start that compaction process
+
+26
+00:01:07,082 --> 00:01:09,087
+before it reaches the limit, of course,
+
+27
+00:01:09,312 --> 00:01:10,707
+because once it reaches it,
+
+28
+00:01:11,317 --> 00:01:13,851
+well, it couldn't continue. Now this
+
+29
+00:01:13,980 --> 00:01:16,514
+compaction can also be triggered manually
+
+30
+00:01:16,546 --> 00:01:16,723
+with
+
+31
+00:01:17,493 --> 00:01:20,172
+/compact. So if you know that your context
+
+32
+00:01:20,220 --> 00:01:21,808
+window is already pretty full
+
+33
+00:01:22,466 --> 00:01:24,278
+and you can tell by this indication,
+
+34
+00:01:24,712 --> 00:01:26,580
+obviously this one here is pretty much
+
+35
+00:01:26,777 --> 00:01:27,066
+empty.
+
+36
+00:01:28,492 --> 00:01:31,082
+But if you knew that it were pretty full and
+
+37
+00:01:31,082 --> 00:01:33,153
+that you had a bigger task coming up, which
+
+38
+00:01:33,347 --> 00:01:35,630
+for some reason you don't wanna run in a new
+
+39
+00:01:35,630 --> 00:01:38,730
+session, you could run compact to have it
+
+40
+00:01:38,826 --> 00:01:40,984
+generate that summary. And then it would
+
+41
+00:01:41,322 --> 00:01:44,366
+free up the majority of the context window
+
+42
+00:01:44,399 --> 00:01:46,573
+and just load that summary into it.
+
+43
+00:01:47,154 --> 00:01:49,495
+So here you see, of course, the summary here
+
+44
+00:01:49,543 --> 00:01:52,206
+is so short that we now got the full context
+
+45
+00:01:52,206 --> 00:01:53,159
+window available again.
+
+46
+00:01:53,797 --> 00:01:55,386
+Now, as mentioned, it will do that
+
+47
+00:01:55,418 --> 00:01:57,715
+compaction automatically if it runs out of
+
+48
+00:01:57,731 --> 00:01:58,180
+space,
+
+49
+00:01:58,710 --> 00:02:01,408
+but in most cases, you wanna try avoid
+
+50
+00:02:01,584 --> 00:02:03,912
+hitting those limits. And therefore,
+
+51
+00:02:03,993 --> 00:02:06,128
+typically, if you start working on a new
+
+52
+00:02:06,241 --> 00:02:09,885
+task, you wanna start a new session, either
+
+53
+00:02:09,950 --> 00:02:12,165
+by opening a new terminal window and running
+
+54
+00:02:12,198 --> 00:02:14,735
+Codex in there, in your project folder, of
+
+55
+00:02:14,751 --> 00:02:14,975
+course,
+
+56
+00:02:16,035 --> 00:02:16,147
+or
+
+57
+00:02:16,854 --> 00:02:17,288
+by running
+
+58
+00:02:17,882 --> 00:02:18,074
+/new.
+
+59
+00:02:19,487 --> 00:02:21,573
+This has the same effect. It clears the
+
+60
+00:02:21,573 --> 00:02:23,643
+context window and starts a new session.
+
+61
+00:02:24,301 --> 00:02:26,403
+In the IDE integration, as mentioned, it's
+
+62
+00:02:26,403 --> 00:02:27,943
+this New Chat button.
+
+63
+00:02:28,634 --> 00:02:31,345
+And in the Codex app, it's this New Thread
+
+64
+00:02:31,377 --> 00:02:31,811
+button here.
+
+65
+00:02:32,725 --> 00:02:35,453
+Auto-compaction works here in the desktop
+
+66
+00:02:35,534 --> 00:02:37,892
+app and in the IDE integration too though.
+
+67
+00:02:38,213 --> 00:02:40,572
+So it does that for you, but you typically
+
+68
+00:02:40,668 --> 00:02:44,022
+wanna avoid it because context is king, as
+
+69
+00:02:44,054 --> 00:02:45,868
+you will also learn throughout this course.

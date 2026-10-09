@@ -1,0 +1,314 @@
+1
+00:00:00,593 --> 00:00:03,045
+Now if we take a look at the issue refund
+現在我們來看看退款問題
+
+2
+00:00:03,141 --> 00:00:04,151
+tool down here,
+工具在這裡，
+
+3
+00:00:04,825 --> 00:00:07,277
+it's interesting to see that in there
+很有趣的是在那裡看到
+
+4
+00:00:07,966 --> 00:00:08,960
+we have logic for
+我們有邏輯
+
+5
+00:00:09,650 --> 00:00:10,098
+loading
+載入中
+
+6
+00:00:11,076 --> 00:00:13,657
+an order from a JSON file that is our
+來自我們的 JSON 檔案的訂單
+
+7
+00:00:13,657 --> 00:00:15,949
+database here. In the end, that is simply
+資料庫在這裡。歸根究底，就是簡單的
+
+8
+00:00:16,046 --> 00:00:18,530
+that orders.json file which we have. And
+我們擁有的 order.json 檔案。和
+
+9
+00:00:18,691 --> 00:00:20,646
+actually that orders.json file is outside of
+實際上，orders.json 檔案位於外部
+
+10
+00:00:20,646 --> 00:00:22,794
+the sandbox. I accidentally moved it there
+沙箱。我不小心把它移到了那裡
+
+11
+00:00:22,810 --> 00:00:24,526
+before, but it's outside of the sandbox.
+之前，但它在沙箱之外。
+
+12
+00:00:25,263 --> 00:00:27,972
+And that is also hardcoded here because that
+這也是在這裡硬編碼的，因為
+
+13
+00:00:28,148 --> 00:00:30,489
+acts as our database, simulates a database
+充當我們的資料庫，模擬資料庫
+
+14
+00:00:30,489 --> 00:00:32,529
+here. We load the order from there,
+這裡。我們從那裡載入訂單，
+
+15
+00:00:33,287 --> 00:00:36,853
+and that allows the agent to try to issue a
+這使得代理可以嘗試發出
+
+16
+00:00:36,853 --> 00:00:38,595
+refund for a given order
+給定訂單的退款
+
+17
+00:00:40,886 --> 00:00:42,195
+wanting the order ID.
+想要訂單 ID。
+
+18
+00:00:42,744 --> 00:00:44,555
+And actually, I'll mirror it into the
+實際上，我會將其鏡像到
+
+19
+00:00:44,604 --> 00:00:47,013
+sandbox as well. This orders.json file could
+沙箱也是如此。這個orders.json 檔案可以
+
+20
+00:00:47,094 --> 00:00:49,276
+be edited. This one out here can't be
+被編輯。這裡不可能有這個
+
+21
+00:00:49,276 --> 00:00:51,120
+because it's outside of the sandbox. I'm
+因為它在沙箱之外。我是
+
+22
+00:00:51,120 --> 00:00:53,997
+just also putting it in the sandbox and look
+只需將其放入沙箱中即可查看
+
+23
+00:00:54,127 --> 00:00:56,730
+up orders so that we could ask for a refund
+增加訂單以便我們可以要求退款
+
+24
+00:00:56,730 --> 00:00:59,397
+for a specific customer, for example, and
+例如，針對特定客戶，以及
+
+25
+00:00:59,397 --> 00:01:01,289
+the agent could then find the order ID.
+然後代理可以找到訂單 ID。
+
+26
+00:01:01,600 --> 00:01:04,342
+That's why I'm mirroring it in there. And
+這就是為什麼我把它鏡像在那裡。和
+
+27
+00:01:04,439 --> 00:01:06,732
+what we're then doing in issue refunds is
+我們在問題退款中要做的是
+
+28
+00:01:06,909 --> 00:01:09,972
+we're taking a look at what the refund
+我們正在查看退款內容
+
+29
+00:01:09,972 --> 00:01:13,036
+amount would be. And then we're checking if
+金額將是。然後我們檢查是否
+
+30
+00:01:13,581 --> 00:01:14,431
+the amount of
+的數量
+
+31
+00:01:14,961 --> 00:01:17,752
+cents in the end, so the amount of money we
+到底是幾分錢，所以我們
+
+32
+00:01:17,752 --> 00:01:20,125
+want to refund is above a certain threshold,
+想要退款超過一定閾值，
+
+33
+00:01:20,623 --> 00:01:22,371
+which is configurable, which in my case is
+這是可設定的，就我而言是
+
+34
+00:01:22,547 --> 00:01:24,087
+1,000 cents, so $10.
+1,000 美分，即 10 美元。
+
+35
+00:01:24,889 --> 00:01:27,456
+And if it is above that threshold, we
+如果它高於這個閾值，我們
+
+36
+00:01:27,600 --> 00:01:29,701
+actually don't auto approve. Instead, we
+實際上不自動批准。相反，我們
+
+37
+00:01:30,086 --> 00:01:32,491
+trigger another function, request refund
+觸發另一個功能，要求退款
+
+38
+00:01:32,491 --> 00:01:34,863
+approval. And that is a function where I
+贊同。這就是我的功能
+
+39
+00:01:34,911 --> 00:01:37,380
+simply ask the user who's using the agent
+只需詢問正在使用代理的使用者
+
+40
+00:01:37,780 --> 00:01:38,566
+for approval.
+供批准。
+
+41
+00:01:39,239 --> 00:01:41,548
+So I'm taking a look at the user's answer
+所以我來看看使用者的回答
+
+42
+00:01:41,628 --> 00:01:42,878
+expecting Y or
+期待 Y 或
+
+43
+00:01:43,471 --> 00:01:45,651
+N. N is the default. If the user basically
+N.N 是預設值。如果使用者基本上
+
+44
+00:01:45,651 --> 00:01:48,729
+does not enter a Y, it's not granted, or Y
+不輸入 Y，則未授予，或 Y
+
+45
+00:01:49,114 --> 00:01:50,556
+or yes to be specific.
+或者俱體來說是的。
+
+46
+00:01:51,085 --> 00:01:52,672
+So I then take a look at the answer and
+所以我然後看一下答案
+
+47
+00:01:52,721 --> 00:01:55,766
+simply return whether it is Y or yes. And if
+只需回傳是否為 Y 或 yes。如果
+
+48
+00:01:55,766 --> 00:01:58,203
+it's not, it's denied, it's not granted.
+不是，它被否認，它沒有被授予。
+
+49
+00:01:58,876 --> 00:02:01,505
+And then down here I get approved back. That
+然後在這裡我得到了批准。那
+
+50
+00:02:01,665 --> 00:02:04,569
+is basically true or false. So was it Y or
+基本上是真的還是假的。那麼是Y還是
+
+51
+00:02:04,569 --> 00:02:06,863
+yes, then it's true, otherwise it's denied.
+是的，那就是真的，否則就被否認了。
+
+52
+00:02:07,521 --> 00:02:10,409
+And if it's not approved, we return a tool
+如果未獲批准，我們將退回工具
+
+53
+00:02:10,409 --> 00:02:13,248
+call result to the model which requested the
+呼叫結果到請求的模型
+
+54
+00:02:13,248 --> 00:02:15,414
+tool call, of course, as you learned, that
+當然，正如您所知，工具調用
+
+55
+00:02:15,414 --> 00:02:17,724
+the refund was not granted, that the human
+未給予退款，該人
+
+56
+00:02:17,724 --> 00:02:18,864
+approval was denied.
+批准被拒絕。
+
+57
+00:02:19,553 --> 00:02:21,430
+And otherwise, if we make it past this
+否則的話，如果我們能渡過這個難關
+
+58
+00:02:21,559 --> 00:02:24,190
+check, if the human did approve, we actually
+檢查一下，如果人類確實批准了，我們實際上
+
+59
+00:02:24,302 --> 00:02:27,174
+execute that refund. We simulate it here in
+執行該退款。我們在這裡模擬它
+
+60
+00:02:27,174 --> 00:02:27,639
+this code.
+這段程式碼。
+
+61
+00:02:28,398 --> 00:02:30,177
+And then we'd return a different response to
+然後我們會回傳一個不同的回應
+
+62
+00:02:30,177 --> 00:02:32,733
+the model telling it that the refund was
+該模型告訴它退款是
+
+63
+00:02:33,250 --> 00:02:33,752
+performed.
+執行。

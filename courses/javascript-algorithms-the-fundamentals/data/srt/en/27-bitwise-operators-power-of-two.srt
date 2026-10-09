@@ -1,0 +1,827 @@
+1
+00:00:02,259 --> 00:00:04,535
+Now, I did promise you that there is a
+
+2
+00:00:04,535 --> 00:00:07,596
+little trick we can use for this power of 2
+
+3
+00:00:07,804 --> 00:00:10,240
+problem that would actually lead to a more
+
+4
+00:00:10,593 --> 00:00:13,302
+elegant or shorter solution. We can use some
+
+5
+00:00:13,494 --> 00:00:14,840
+bitwise magic.
+
+6
+00:00:15,481 --> 00:00:16,090
+Okay, what's that?
+
+7
+00:00:16,924 --> 00:00:19,215
+Well, in JavaScript, like in pretty much all
+
+8
+00:00:19,504 --> 00:00:21,459
+programming languages, you can also do
+
+9
+00:00:21,908 --> 00:00:24,937
+bitwise calculations and number
+
+10
+00:00:24,937 --> 00:00:27,245
+manipulations. And to be honest, it is
+
+11
+00:00:27,277 --> 00:00:29,873
+something most developers don't really know
+
+12
+00:00:30,306 --> 00:00:32,469
+And I would include myself into that, to be
+
+13
+00:00:32,549 --> 00:00:35,017
+honest, because I don't use that regularly.
+
+14
+00:00:35,273 --> 00:00:37,469
+But here we can use a nice little trick,
+
+15
+00:00:38,158 --> 00:00:40,337
+and that's not something you have to know by
+
+16
+00:00:40,337 --> 00:00:42,420
+heart for an interview. It is just
+
+17
+00:00:42,420 --> 00:00:44,551
+something— if you do keep it in mind, if you
+
+18
+00:00:44,567 --> 00:00:46,923
+can remember it, it's a great bonus point
+
+19
+00:00:46,971 --> 00:00:48,974
+for sure, but otherwise it won't be a
+
+20
+00:00:48,974 --> 00:00:49,391
+problem.
+
+21
+00:00:50,657 --> 00:00:52,483
+Now, to understand the approach we're going
+
+22
+00:00:52,515 --> 00:00:54,535
+to use, we have to understand how decimal
+
+23
+00:00:54,535 --> 00:00:57,947
+numbers are reflected in the binary system.
+
+24
+00:00:58,684 --> 00:01:02,257
+If we have unsigned numbers, so non-negative
+
+25
+00:01:02,273 --> 00:01:05,029
+numbers, here 1 to 4, which are of course
+
+26
+00:01:05,029 --> 00:01:07,416
+numbers that can be calculated with 2 at the
+
+27
+00:01:07,416 --> 00:01:08,201
+power of something,
+
+28
+00:01:09,563 --> 00:01:11,758
+we would represent them in binary form like
+
+29
+00:01:11,806 --> 00:01:15,875
+this: 1, 10, 100, or to be precise, 1, 10,
+
+30
+00:01:16,612 --> 00:01:18,823
+100, and so on.
+
+31
+00:01:19,432 --> 00:01:21,499
+And you can simply use a decimal to binary
+
+32
+00:01:21,499 --> 00:01:23,566
+converter to determine something like that.
+
+33
+00:01:24,078 --> 00:01:25,953
+So here, for example, if I enter 4,
+
+34
+00:01:26,546 --> 00:01:29,289
+I get this binary number. If I enter 8, you
+
+35
+00:01:29,289 --> 00:01:31,598
+see there's an extra 0 at the end, and
+
+36
+00:01:31,614 --> 00:01:34,469
+that's a pattern that continues for numbers
+
+37
+00:01:34,581 --> 00:01:36,843
+that are 2 at the power of something. We
+
+38
+00:01:36,843 --> 00:01:39,618
+simply add an extra 0 at the end. On the
+
+39
+00:01:39,618 --> 00:01:41,253
+other hand, other numbers like 7 look
+
+40
+00:01:41,318 --> 00:01:42,825
+totally different in binary
+
+41
+00:01:43,403 --> 00:01:45,199
+notation, if you want to call it like that.
+
+42
+00:01:46,129 --> 00:01:49,433
+Now we can use that in our algorithm. We can
+
+43
+00:01:49,481 --> 00:01:52,721
+use a bitwise operation to check if a number
+
+44
+00:01:52,801 --> 00:01:55,015
+is power of 2, and for that we use this
+
+45
+00:01:55,753 --> 00:01:56,362
+bitwise
+
+46
+00:01:57,020 --> 00:01:59,908
+AND here. Now this is not the logical, the
+
+47
+00:01:59,988 --> 00:02:02,748
+Boolean AND you might know, that would be 2
+
+48
+00:02:02,892 --> 00:02:03,582
+ampersands.
+
+49
+00:02:04,159 --> 00:02:06,791
+No, here we have one ampersand symbol
+
+50
+00:02:07,849 --> 00:02:09,967
+and this does something different.
+
+51
+00:02:10,689 --> 00:02:12,663
+So before we write any algorithm, let's
+
+52
+00:02:12,663 --> 00:02:15,213
+understand what this single AND does.
+
+53
+00:02:15,887 --> 00:02:16,770
+So what does the
+
+54
+00:02:17,331 --> 00:02:18,936
+bitwise AND operator do?
+
+55
+00:02:19,738 --> 00:02:22,285
+Keep in mind that a 4 is binary notation is
+
+56
+00:02:22,383 --> 00:02:23,389
+1000.
+
+57
+00:02:24,492 --> 00:02:26,780
+8 is 1000.
+
+58
+00:02:27,592 --> 00:02:31,104
+Now we can also write 0100 for 4
+
+59
+00:02:31,783 --> 00:02:32,252
+and
+
+60
+00:02:34,144 --> 00:02:38,512
+then 1000, so 1000 for 8. This here is also
+
+61
+00:02:38,512 --> 00:02:41,041
+still 4. You can add leading zeros, they
+
+62
+00:02:41,041 --> 00:02:42,144
+make no difference.
+
+63
+00:02:42,808 --> 00:02:44,980
+Now what the AND operator does is it
+
+64
+00:02:44,980 --> 00:02:47,577
+compares those different digits to each
+
+65
+00:02:47,577 --> 00:02:47,802
+other,
+
+66
+00:02:48,862 --> 00:02:51,304
+and it then generates a new number based on
+
+67
+00:02:51,304 --> 00:02:53,055
+that comparison. And the comparison works
+
+68
+00:02:53,055 --> 00:02:53,344
+like this:
+
+69
+00:02:53,923 --> 00:02:55,947
+it compares the first digit of the first
+
+70
+00:02:55,947 --> 00:02:57,618
+number to the first digit of the second
+
+71
+00:02:57,618 --> 00:02:59,545
+number, and it always compares that in
+
+72
+00:02:59,642 --> 00:03:00,493
+binary notation.
+
+73
+00:03:01,473 --> 00:03:04,108
+And for 0 compared to 1, it would give you
+
+74
+00:03:04,140 --> 00:03:08,108
+back a 0 because you have at least one 0 in
+
+75
+00:03:08,156 --> 00:03:08,316
+there.
+
+76
+00:03:09,425 --> 00:03:11,626
+For 1 compared to 0, you therefore also get
+
+77
+00:03:11,626 --> 00:03:15,562
+0, and for 0 to 0, you also get that. So the
+
+78
+00:03:15,626 --> 00:03:18,325
+bitwise AND would produce this new binary
+
+79
+00:03:18,582 --> 00:03:21,169
+number. Now it does that binary stuff behind
+
+80
+00:03:21,169 --> 00:03:23,386
+the scenes. You use it with decimal numbers,
+
+81
+00:03:23,740 --> 00:03:25,828
+but you get back a 0 because of that
+
+82
+00:03:25,828 --> 00:03:27,933
+behind-the-scenes work it does, which I just
+
+83
+00:03:27,933 --> 00:03:28,287
+explained.
+
+84
+00:03:29,460 --> 00:03:30,713
+Now let's have a look at a different
+
+85
+00:03:30,713 --> 00:03:31,227
+example.
+
+86
+00:03:31,773 --> 00:03:34,488
+We saw that a 7 converted to a binary number
+
+87
+00:03:34,746 --> 00:03:35,597
+is 111.
+
+88
+00:03:36,834 --> 00:03:37,670
+So if we compare
+
+89
+00:03:38,746 --> 00:03:38,939
+4,
+
+90
+00:03:39,469 --> 00:03:40,738
+which is 100,
+
+91
+00:03:41,399 --> 00:03:41,593
+to
+
+92
+00:03:42,448 --> 00:03:42,997
+a 7,
+
+93
+00:03:45,111 --> 00:03:45,966
+which is 111,
+
+94
+00:03:46,660 --> 00:03:47,887
+we would get a different result.
+
+95
+00:03:48,440 --> 00:03:51,340
+Now for this comparison, 1 compared to 1
+
+96
+00:03:51,940 --> 00:03:53,058
+would yield us 1,
+
+97
+00:03:54,143 --> 00:03:55,828
+and then the other 2 comparisons would yield
+
+98
+00:03:55,828 --> 00:03:56,784
+us 0 each.
+
+99
+00:03:57,716 --> 00:04:00,993
+So we get back 100 in binary notation,
+
+100
+00:04:01,989 --> 00:04:04,142
+and we know that this translated to decimal
+
+101
+00:04:04,383 --> 00:04:05,074
+should be a 4.
+
+102
+00:04:05,926 --> 00:04:07,163
+And indeed, if I compare
+
+103
+00:04:07,796 --> 00:04:10,831
+4 to 7 with the bitwise AND operator, I get
+
+104
+00:04:10,863 --> 00:04:12,934
+back 4 because of that behind-the-scenes
+
+105
+00:04:12,950 --> 00:04:15,359
+work. Now why am I explaining this to you
+
+106
+00:04:15,423 --> 00:04:15,551
+here?
+
+107
+00:04:16,402 --> 00:04:19,116
+Because we can leverage that combined with
+
+108
+00:04:19,116 --> 00:04:21,525
+our logic we have on the binary presentation
+
+109
+00:04:22,006 --> 00:04:24,045
+of numbers that are 2 at the power of
+
+110
+00:04:24,045 --> 00:04:27,674
+something. I did show you that 2 is equal to
+
+111
+00:04:27,963 --> 00:04:31,801
+10 in the end, 4 is equal to 100, 8 is equal
+
+112
+00:04:31,817 --> 00:04:33,952
+to 1,000, and so on.
+
+113
+00:04:34,706 --> 00:04:36,872
+So if we would add leading digits to make
+
+114
+00:04:36,872 --> 00:04:39,663
+sure they're all 4-digit here, we see we
+
+115
+00:04:39,904 --> 00:04:41,476
+always have just one
+
+116
+00:04:42,150 --> 00:04:42,278
+1
+
+117
+00:04:42,807 --> 00:04:43,578
+in those numbers
+
+118
+00:04:44,235 --> 00:04:47,508
+at different places. So if you compare those
+
+119
+00:04:47,556 --> 00:04:49,642
+numbers with each other, if we compare 2 to
+
+120
+00:04:49,706 --> 00:04:54,038
+4 or 4 to 8, the result will always be 000
+
+121
+00:04:54,038 --> 00:04:56,011
+because we never have a 1 in the same
+
+122
+00:04:56,043 --> 00:04:58,931
+position. That's just a hard rule for the
+
+123
+00:04:58,995 --> 00:05:02,268
+binary numbers behind 2, 4, 8, 16, 32, and
+
+124
+00:05:02,300 --> 00:05:04,478
+so on. So that's something that's good to
+
+125
+00:05:04,478 --> 00:05:04,737
+know
+
+126
+00:05:05,352 --> 00:05:07,147
+because this allows us to come up with a
+
+127
+00:05:07,147 --> 00:05:09,185
+formula that will always return true
+
+128
+00:05:09,816 --> 00:05:11,773
+for a number that is 2 at the power of
+
+129
+00:05:11,773 --> 00:05:13,881
+something and false otherwise. And that
+
+130
+00:05:13,994 --> 00:05:14,701
+formula is
+
+131
+00:05:15,376 --> 00:05:16,662
+the number we want to check
+
+132
+00:05:18,415 --> 00:05:21,440
+and with the bitwise AND the number minus 1.
+
+133
+00:05:22,861 --> 00:05:25,799
+And if we try that for 4, for example, so 4
+
+134
+00:05:25,993 --> 00:05:26,413
+AND 3,
+
+135
+00:05:26,978 --> 00:05:29,448
+we get 0. If we try this for 8 and
+
+136
+00:05:30,009 --> 00:05:34,007
+7, we also get 0. So we will always get 0
+
+137
+00:05:34,007 --> 00:05:36,175
+for this formula if the number we are
+
+138
+00:05:36,175 --> 00:05:38,968
+checking is 2 at the power of something. And
+
+139
+00:05:38,968 --> 00:05:41,281
+for other numbers this does not work. So 7
+
+140
+00:05:41,457 --> 00:05:43,657
+and 6 would give us a different, a nonzero
+
+141
+00:05:43,657 --> 00:05:46,081
+number. And that's a simple rule you can
+
+142
+00:05:46,194 --> 00:05:48,667
+derive. And that's a rule we can utilize
+
+143
+00:05:48,763 --> 00:05:49,100
+here now.
+
+144
+00:05:49,662 --> 00:05:52,215
+In app.js we can rewrite this isPowerOfTwo
+
+145
+00:05:52,295 --> 00:05:54,222
+function here. And hence I'll comment it
+
+146
+00:05:54,222 --> 00:05:54,415
+out.
+
+147
+00:05:55,523 --> 00:05:58,190
+To be much simpler. isPowerOfTwo
+
+148
+00:05:59,845 --> 00:06:02,303
+for a given number. And all we do in there
+
+149
+00:06:02,416 --> 00:06:04,826
+now is we still check here if we have a
+
+150
+00:06:04,842 --> 00:06:07,197
+negative number because it won't work for
+
+151
+00:06:07,197 --> 00:06:07,956
+negative numbers.
+
+152
+00:06:08,714 --> 00:06:11,021
+But with that checked, we have a one-liner.
+
+153
+00:06:11,134 --> 00:06:14,739
+We just return number and— that's a bitwise
+
+154
+00:06:14,921 --> 00:06:15,201
+AND—
+
+155
+00:06:17,135 --> 00:06:17,975
+number minus 1
+
+156
+00:06:18,898 --> 00:06:21,236
+if that's equal to 0. So we return true
+
+157
+00:06:21,766 --> 00:06:24,220
+If that is equal to 0, we return false
+
+158
+00:06:24,332 --> 00:06:24,717
+otherwise.
+
+159
+00:06:25,375 --> 00:06:27,876
+And with that, let's just put this between
+
+160
+00:06:27,876 --> 00:06:28,229
+quotes
+
+161
+00:06:28,935 --> 00:06:31,100
+so that this is evaluated all in the correct
+
+162
+00:06:31,164 --> 00:06:31,421
+order.
+
+163
+00:06:32,030 --> 00:06:34,051
+With that, if we save that and we reload, we
+
+164
+00:06:34,051 --> 00:06:36,649
+get true, false, false, true, false, but now
+
+165
+00:06:36,857 --> 00:06:39,247
+with a one-liner. And of course, here we
+
+166
+00:06:39,343 --> 00:06:43,016
+were able to reduce time complexity. Now we
+
+167
+00:06:43,032 --> 00:06:44,828
+basically have O
+
+168
+00:06:45,517 --> 00:06:48,534
+because we only have this one-liner which
+
+169
+00:06:48,711 --> 00:06:50,557
+always takes the same amount of time no
+
+170
+00:06:50,590 --> 00:06:53,223
+matter which n we feed in. So this is a
+
+171
+00:06:53,287 --> 00:06:54,235
+better alternative.
+
+172
+00:06:54,909 --> 00:06:57,366
+Now still, I'm totally aware of the fact
+
+173
+00:06:57,703 --> 00:06:59,855
+that this is not necessarily something that
+
+174
+00:06:59,887 --> 00:07:02,376
+came to your mind. And to be honest, it
+
+175
+00:07:02,456 --> 00:07:04,753
+didn't come to my mind neither. This is
+
+176
+00:07:04,801 --> 00:07:06,953
+something you find if you search on the
+
+177
+00:07:06,953 --> 00:07:08,767
+internet, if you search for alternatives.
+
+178
+00:07:09,586 --> 00:07:12,428
+And in an interview situation, you might not
+
+179
+00:07:12,493 --> 00:07:15,142
+be asked for this algorithm anyways because
+
+180
+00:07:15,142 --> 00:07:17,021
+it's not one of the most common ones to be
+
+181
+00:07:17,133 --> 00:07:18,945
+asked for. But even if you are,
+
+182
+00:07:19,714 --> 00:07:21,894
+it's totally fine if you don't come up with
+
+183
+00:07:22,038 --> 00:07:23,192
+this solution here.
+
+184
+00:07:23,720 --> 00:07:26,284
+The vast majority of interviewers will not
+
+185
+00:07:26,284 --> 00:07:27,774
+expect you to know this because
+
+186
+00:07:28,447 --> 00:07:30,979
+very few developers really know about these
+
+187
+00:07:31,091 --> 00:07:32,918
+bitwise operators and how to use them.
+
+188
+00:07:33,479 --> 00:07:35,354
+Now I just give you the knowledge here to
+
+189
+00:07:35,354 --> 00:07:37,789
+score that extra bonus point if you should
+
+190
+00:07:37,885 --> 00:07:38,446
+get it though.
+
+191
+00:07:39,087 --> 00:07:40,994
+If you don't remember that in an interview
+
+192
+00:07:41,010 --> 00:07:43,734
+though, it's not a problem at all. I just
+
+193
+00:07:43,734 --> 00:07:46,526
+want to show you this nicer approach of
+
+194
+00:07:46,542 --> 00:07:47,168
+solving this,
+
+195
+00:07:47,746 --> 00:07:50,460
+also to really show you that you can be very
+
+196
+00:07:50,492 --> 00:07:52,707
+creative when it comes to coming up with
+
+197
+00:07:53,061 --> 00:07:54,361
+alternative solutions.
+
+198
+00:07:54,891 --> 00:07:57,155
+Sometimes it's an easier loop you can write,
+
+199
+00:07:57,380 --> 00:07:59,852
+sometimes it's a mathematical trick you can
+
+200
+00:07:59,869 --> 00:08:02,341
+use, and here it's a kind of mathematical
+
+201
+00:08:02,357 --> 00:08:05,071
+trick we're using. Here we're using binary
+
+202
+00:08:05,087 --> 00:08:07,640
+notation and bitwise operations.
+
+203
+00:08:08,170 --> 00:08:10,498
+So nice to know, not something you need to
+
+204
+00:08:10,498 --> 00:08:12,457
+learn by heart, but something I did want to
+
+205
+00:08:12,489 --> 00:08:14,705
+include here so that you have this extra
+
+206
+00:08:14,738 --> 00:08:17,370
+knowledge at hand in case you should need
+
+207
+00:08:17,370 --> 00:08:17,451
+it.

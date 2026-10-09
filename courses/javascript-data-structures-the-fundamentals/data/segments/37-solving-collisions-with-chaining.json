@@ -1,0 +1,1432 @@
+[
+ {
+  "start": 2.26,
+  "end": 4.488,
+  "en": "When we're building a hash table, we'll have"
+ },
+ {
+  "start": 4.52,
+  "end": 7.293,
+  "en": "to deal with the problem of key collisions."
+ },
+ {
+  "start": 8.031,
+  "end": 10.772,
+  "en": "Let's say here in this example hash table on"
+ },
+ {
+  "start": 10.772,
+  "end": 14.411,
+  "en": "this slide, we don't just have this name Max"
+ },
+ {
+  "start": 14.443,
+  "end": 16.767,
+  "en": "key-value pair which we wanna insert, but we"
+ },
+ {
+  "start": 16.847,
+  "end": 19.188,
+  "en": "also have another key-value pair where the"
+ },
+ {
+  "start": 19.188,
+  "end": 21.544,
+  "en": "key is food and the value could be pizza."
+ },
+ {
+  "start": 22.217,
+  "end": 24.462,
+  "en": "That's really just some made-up example"
+ },
+ {
+  "start": 24.462,
+  "end": 24.638,
+  "en": "here."
+ },
+ {
+  "start": 25.279,
+  "end": 27.427,
+  "en": "Now we wanna insert this and now let's"
+ },
+ {
+  "start": 27.507,
+  "end": 30.906,
+  "en": "assume that our hashing function generates"
+ },
+ {
+  "start": 31.034,
+  "end": 34.704,
+  "en": "the same hash value the same index as it did"
+ },
+ {
+  "start": 35.12,
+  "end": 37.844,
+  "en": "for name. The problem with that is that"
+ },
+ {
+  "start": 37.844,
+  "end": 40.008,
+  "en": "we'll have a collision because we wanna"
+ },
+ {
+  "start": 40.088,
+  "end": 43.485,
+  "en": "insert 2 different values for 2 different"
+ },
+ {
+  "start": 43.613,
+  "end": 47.299,
+  "en": "keys into the same place in our hash table."
+ },
+ {
+  "start": 47.94,
+  "end": 50.568,
+  "en": "And that is a problem. And I showed this in"
+ },
+ {
+  "start": 50.6,
+  "end": 53.276,
+  "en": "the last lecture. If we have a too small"
+ },
+ {
+  "start": 53.548,
+  "end": 55.711,
+  "en": "hash table, this could happen. But even if"
+ },
+ {
+  "start": 55.727,
+  "end": 59.397,
+  "en": "we have more size allocated, we can't"
+ },
+ {
+  "start": 59.397,
+  "end": 62.234,
+  "en": "allocate an infinite amount of space. So no"
+ },
+ {
+  "start": 62.234,
+  "end": 65.232,
+  "en": "matter how much space we allocate to our"
+ },
+ {
+  "start": 65.248,
+  "end": 68.501,
+  "en": "hash table, at some point of time, we will"
+ },
+ {
+  "start": 68.614,
+  "end": 71.194,
+  "en": "run into such collision issues. And of"
+ },
+ {
+  "start": 71.194,
+  "end": 74.272,
+  "en": "course, we don't wanna create a super huge"
+ },
+ {
+  "start": 74.4,
+  "end": 77.413,
+  "en": "hash table that eats up all our memory"
+ },
+ {
+  "start": 77.766,
+  "end": 79.561,
+  "en": "because that would be inefficient as well."
+ },
+ {
+  "start": 79.994,
+  "end": 82.478,
+  "en": "And as I just mentioned, even that wouldn't"
+ },
+ {
+  "start": 82.478,
+  "end": 82.863,
+  "en": "help us."
+ },
+ {
+  "start": 83.857,
+  "end": 85.989,
+  "en": "So how can we deal with such collisions"
+ },
+ {
+  "start": 86.021,
+  "end": 89.252,
+  "en": "then? If we can't avoid them, how can we"
+ },
+ {
+  "start": 89.397,
+  "end": 92.276,
+  "en": "work around them? How can we make sure that"
+ },
+ {
+  "start": 92.325,
+  "end": 94.331,
+  "en": "we don't lose any data"
+ },
+ {
+  "start": 94.897,
+  "end": 96.97,
+  "en": "as we're currently doing it in the hash"
+ },
+ {
+  "start": 97.02,
+  "end": 98.432,
+  "en": "table we built thus far?"
+ },
+ {
+  "start": 99.93,
+  "end": 102.678,
+  "en": "There are 2 strategies for dealing with key"
+ },
+ {
+  "start": 102.774,
+  "end": 105.329,
+  "en": "collisions or with collisions in general in"
+ },
+ {
+  "start": 105.41,
+  "end": 106.117,
+  "en": "hash tables."
+ },
+ {
+  "start": 106.776,
+  "end": 109.501,
+  "en": "And the first strategy is called chaining."
+ },
+ {
+  "start": 109.861,
+  "end": 112.382,
+  "en": "The idea here simply is that we don't just"
+ },
+ {
+  "start": 112.382,
+  "end": 115.586,
+  "en": "store one value per index, but multiple"
+ },
+ {
+  "start": 115.779,
+  "end": 119.135,
+  "en": "values. So if we do generate the same hash,"
+ },
+ {
+  "start": 119.376,
+  "end": 122.539,
+  "en": "the same index for different keys, we simply"
+ },
+ {
+  "start": 122.588,
+  "end": 125.623,
+  "en": "store all those different values for that"
+ },
+ {
+  "start": 125.655,
+  "end": 129.718,
+  "en": "key in that index that was derived. So one"
+ },
+ {
+  "start": 130.055,
+  "end": 133.732,
+  "en": "hash can hold multiple values and we then"
+ },
+ {
+  "start": 133.828,
+  "end": 135.418,
+  "en": "just need a way of finding out"
+ },
+ {
+  "start": 136.093,
+  "end": 139.304,
+  "en": "which exact key was used for which value"
+ },
+ {
+  "start": 139.304,
+  "end": 141.167,
+  "en": "that's stored on the same index."
+ },
+ {
+  "start": 141.713,
+  "end": 144.33,
+  "en": "And that's the first way of dealing with"
+ },
+ {
+  "start": 144.506,
+  "end": 148.054,
+  "en": "collisions. So let's now see how that works"
+ },
+ {
+  "start": 148.054,
+  "end": 150.317,
+  "en": "and how we could implement that solution to"
+ },
+ {
+  "start": 150.317,
+  "end": 152.517,
+  "en": "that problem in our hash table."
+ },
+ {
+  "start": 153.448,
+  "end": 156.642,
+  "en": "So back in our program, I saved the basic"
+ },
+ {
+  "start": 156.642,
+  "end": 158.167,
+  "en": "hash table in a new file,"
+ },
+ {
+  "start": 158.809,
+  "end": 161.298,
+  "en": "and I will now rewrite it with a solution"
+ },
+ {
+  "start": 161.298,
+  "end": 163.385,
+  "en": "for our collision problem. For that, of"
+ },
+ {
+  "start": 163.385,
+  "end": 166.451,
+  "en": "course, I'll copy that hash table though, or"
+ },
+ {
+  "start": 166.451,
+  "end": 168.891,
+  "en": "I'll actually copy all that code from that"
+ },
+ {
+  "start": 168.923,
+  "end": 169.115,
+  "en": "file"
+ },
+ {
+  "start": 169.805,
+  "end": 172.083,
+  "en": "into a brand new file so that now in there"
+ },
+ {
+  "start": 172.131,
+  "end": 175.164,
+  "en": "we can refine this hash table and we can"
+ },
+ {
+  "start": 175.164,
+  "end": 176.768,
+  "en": "build a better hash table."
+ },
+ {
+  "start": 177.747,
+  "end": 180.218,
+  "en": "Now what does building a better hash table"
+ },
+ {
+  "start": 180.314,
+  "end": 180.603,
+  "en": "mean?"
+ },
+ {
+  "start": 181.421,
+  "end": 183.651,
+  "en": "Should we change the size or our hashing"
+ },
+ {
+  "start": 183.747,
+  "end": 184.212,
+  "en": "function?"
+ },
+ {
+  "start": 185.031,
+  "end": 187.325,
+  "en": "Well, we could do this to be a bit more"
+ },
+ {
+  "start": 187.373,
+  "end": 187.951,
+  "en": "efficient,"
+ },
+ {
+  "start": 188.496,
+  "end": 191.224,
+  "en": "but as I mentioned, the size alone won't"
+ },
+ {
+  "start": 191.224,
+  "end": 194.481,
+  "en": "help us. Even a super large hash table could"
+ },
+ {
+  "start": 194.529,
+  "end": 196.486,
+  "en": "still be running into collision problems"
+ },
+ {
+  "start": 197.144,
+  "end": 199.808,
+  "en": "and Besides that, we then would also occupy"
+ },
+ {
+  "start": 199.808,
+  "end": 202.634,
+  "en": "a lot of space and memory. So in reality, we"
+ },
+ {
+  "start": 202.842,
+  "end": 204.416,
+  "en": "would want a bigger one than"
+ },
+ {
+  "start": 204.961,
+  "end": 207.915,
+  "en": "16. We would want more than 16 buckets,"
+ },
+ {
+  "start": 208.461,
+  "end": 210.452,
+  "en": "but we certainly don't want a billion"
+ },
+ {
+  "start": 210.548,
+  "end": 213.437,
+  "en": "buckets here. So the size alone won't help"
+ },
+ {
+  "start": 213.437,
+  "end": 216.6,
+  "en": "us. The hashing function also doesn't really"
+ },
+ {
+  "start": 216.648,
+  "end": 217.515,
+  "en": "help us too much."
+ },
+ {
+  "start": 218.253,
+  "end": 220.822,
+  "en": "Yes, we could certainly refine it a little"
+ },
+ {
+  "start": 220.902,
+  "end": 222.893,
+  "en": "bit. We might be able to create better"
+ },
+ {
+  "start": 222.925,
+  "end": 225.542,
+  "en": "hashes which are less likely of colliding,"
+ },
+ {
+  "start": 225.814,
+  "end": 227.789,
+  "en": "but ultimately with the hashing function,"
+ },
+ {
+  "start": 228.046,
+  "end": 229.793,
+  "en": "will also not be able to prevent this."
+ },
+ {
+  "start": 230.707,
+  "end": 231.075,
+  "en": "Instead,"
+ },
+ {
+  "start": 231.652,
+  "end": 233.881,
+  "en": "as I mentioned, what we really need to do is"
+ },
+ {
+  "start": 234.378,
+  "end": 238.417,
+  "en": "we need to store multiple values per hash,"
+ },
+ {
+  "start": 238.626,
+  "end": 241.671,
+  "en": "so per index in our buckets. So each bucket"
+ },
+ {
+  "start": 241.671,
+  "end": 243.739,
+  "en": "simply holds more than one value."
+ },
+ {
+  "start": 244.396,
+  "end": 246.689,
+  "en": "That is what can really help us here."
+ },
+ {
+  "start": 247.763,
+  "end": 251.546,
+  "en": "And how can we now store multiple values per"
+ },
+ {
+  "start": 251.786,
+  "end": 252.171,
+  "en": "bucket?"
+ },
+ {
+  "start": 253.053,
+  "end": 255.682,
+  "en": "Well, we can simply make sure that besides"
+ },
+ {
+  "start": 255.938,
+  "end": 258.519,
+  "en": "filling our array here, our buckets with"
+ },
+ {
+  "start": 258.535,
+  "end": 261.212,
+  "en": "null values initially, we can actually then"
+ },
+ {
+  "start": 261.324,
+  "end": 263.519,
+  "en": "convert every value that we filled in"
+ },
+ {
+  "start": 264.208,
+  "end": 265.057,
+  "en": "with a new"
+ },
+ {
+  "start": 265.73,
+  "end": 266.003,
+  "en": "array"
+ },
+ {
+  "start": 266.676,
+  "end": 269.048,
+  "en": "with this code, for example. With that, I"
+ },
+ {
+  "start": 269.096,
+  "end": 270.89,
+  "en": "simply create a new array"
+ },
+ {
+  "start": 271.419,
+  "end": 274.544,
+  "en": "per element in my buckets array, and I'm"
+ },
+ {
+  "start": 274.544,
+  "end": 276.563,
+  "en": "using this approach to really create"
+ },
+ {
+  "start": 276.563,
+  "end": 279.479,
+  "en": "standalone objects in memory so that every"
+ },
+ {
+  "start": 279.592,
+  "end": 281.434,
+  "en": "bucket has its brand new array."
+ },
+ {
+  "start": 282.316,
+  "end": 284.094,
+  "en": "And with that, we have a bucket full of"
+ },
+ {
+  "start": 284.142,
+  "end": 285.937,
+  "en": "arrays. We have a nested array here."
+ },
+ {
+  "start": 286.466,
+  "end": 288.453,
+  "en": "And that will allow us to store multiple"
+ },
+ {
+  "start": 288.549,
+  "end": 292.138,
+  "en": "values per bucket, so per key, per hash in"
+ },
+ {
+  "start": 292.234,
+  "end": 292.539,
+  "en": "the end."
+ },
+ {
+  "start": 293.852,
+  "end": 295.903,
+  "en": "Now that's the first step. Now with that, of"
+ },
+ {
+  "start": 295.935,
+  "end": 298.291,
+  "en": "course, we need to adjust our set function."
+ },
+ {
+  "start": 298.884,
+  "end": 301.736,
+  "en": "It's no longer enough to just set the value"
+ },
+ {
+  "start": 301.928,
+  "end": 304.668,
+  "en": "on a given key hash. Instead, we now need to"
+ },
+ {
+  "start": 304.668,
+  "end": 307.36,
+  "en": "check if this hash already has a value,"
+ },
+ {
+  "start": 307.968,
+  "end": 310.724,
+  "en": "so if the nested array in there already has"
+ },
+ {
+  "start": 310.772,
+  "end": 313.208,
+  "en": "a value, in which case we wanna add the new"
+ },
+ {
+  "start": 313.24,
+  "end": 314.073,
+  "en": "value thereafter,"
+ },
+ {
+  "start": 314.746,
+  "end": 317.487,
+  "en": "or if it has no value yet, in which case we"
+ },
+ {
+  "start": 317.551,
+  "end": 320.5,
+  "en": "want to add the new value as the first value"
+ },
+ {
+  "start": 320.548,
+  "end": 321.334,
+  "en": "in that nested array."
+ },
+ {
+  "start": 322.472,
+  "end": 323.529,
+  "en": "So what we can do here"
+ },
+ {
+  "start": 324.283,
+  "end": 324.427,
+  "en": "is"
+ },
+ {
+  "start": 325.26,
+  "end": 327.216,
+  "en": "we can get access to our nested array"
+ },
+ {
+  "start": 327.761,
+  "end": 330.614,
+  "en": "or to our bucket arrays, so to the array"
+ },
+ {
+  "start": 330.71,
+  "end": 331.383,
+  "en": "inside of the array,"
+ },
+ {
+  "start": 331.992,
+  "end": 334.156,
+  "en": "by reaching out to this buckets for the"
+ },
+ {
+  "start": 334.156,
+  "end": 335.342,
+  "en": "given key hash."
+ },
+ {
+  "start": 336.784,
+  "end": 339.461,
+  "en": "And now with that, we need to find out if"
+ },
+ {
+  "start": 339.525,
+  "end": 342.137,
+  "en": "the value which we want to store already is"
+ },
+ {
+  "start": 342.346,
+  "end": 343.211,
+  "en": "stored in there."
+ },
+ {
+  "start": 343.965,
+  "end": 345.141,
+  "en": "So we can"
+ },
+ {
+  "start": 347.413,
+  "end": 348.412,
+  "en": "find out if"
+ },
+ {
+  "start": 348.943,
+  "end": 351.134,
+  "en": "in that nested array we already did store"
+ },
+ {
+  "start": 351.134,
+  "end": 352.021,
+  "en": "that value before."
+ },
+ {
+  "start": 352.84,
+  "end": 353.049,
+  "en": "So my"
+ },
+ {
+  "start": 355.786,
+  "end": 358.749,
+  "en": "stored element here can be identified by"
+ },
+ {
+  "start": 358.749,
+  "end": 360.729,
+  "en": "reaching out to the bucket array, which is"
+ },
+ {
+  "start": 360.761,
+  "end": 363.487,
+  "en": "an array, and by calling the find method on"
+ },
+ {
+  "start": 363.503,
+  "end": 365.445,
+  "en": "that. Find is a built-in method in"
+ },
+ {
+  "start": 365.509,
+  "end": 367.515,
+  "en": "JavaScript which allows us to find an"
+ },
+ {
+  "start": 367.612,
+  "end": 368.357,
+  "en": "element in an array."
+ },
+ {
+  "start": 368.902,
+  "end": 370.958,
+  "en": "It wants a function and that function is"
+ },
+ {
+  "start": 371.071,
+  "end": 373.304,
+  "en": "executed on every element in the array. And"
+ },
+ {
+  "start": 373.32,
+  "end": 375.73,
+  "en": "if we return true, that element for which we"
+ },
+ {
+  "start": 375.73,
+  "end": 377.786,
+  "en": "returned true will be stored in"
+ },
+ {
+  "start": 377.883,
+  "end": 378.895,
+  "en": "storedElement."
+ },
+ {
+  "start": 379.666,
+  "end": 382.044,
+  "en": "So here I wanna return true if I already did"
+ },
+ {
+  "start": 382.076,
+  "end": 384.614,
+  "en": "store that value, or to be precise, of"
+ },
+ {
+  "start": 384.647,
+  "end": 386.494,
+  "en": "course, it's not about the value, it's about"
+ },
+ {
+  "start": 386.494,
+  "end": 389.274,
+  "en": "the key. If that key already was stored,"
+ },
+ {
+  "start": 389.306,
+  "end": 391.732,
+  "en": "because then I know, okay, I'm setting a"
+ },
+ {
+  "start": 391.78,
+  "end": 394.335,
+  "en": "value for a given key, the key already was"
+ },
+ {
+  "start": 394.527,
+  "end": 396.936,
+  "en": "set before, So now I want to overwrite the"
+ },
+ {
+  "start": 396.936,
+  "end": 398.139,
+  "en": "value stored for that key."
+ },
+ {
+  "start": 398.685,
+  "end": 400.306,
+  "en": "And I'm talking about this key and not the"
+ },
+ {
+  "start": 400.306,
+  "end": 402.889,
+  "en": "key hash because as I mentioned, the key"
+ },
+ {
+  "start": 403.018,
+  "end": 405.537,
+  "en": "hash might be used twice. The same key hash"
+ },
+ {
+  "start": 405.907,
+  "end": 408.49,
+  "en": "might be used for different keys. So here I"
+ },
+ {
+  "start": 408.554,
+  "end": 409.854,
+  "en": "really care about the key."
+ },
+ {
+  "start": 410.978,
+  "end": 412.871,
+  "en": "So here in the end, what we wanna check is"
+ },
+ {
+  "start": 413.128,
+  "end": 414.187,
+  "en": "if the"
+ },
+ {
+  "start": 415.214,
+  "end": 415.792,
+  "en": "element,"
+ },
+ {
+  "start": 416.498,
+  "end": 418.199,
+  "en": "this argument is passed in automatically by"
+ },
+ {
+  "start": 418.199,
+  "end": 420.59,
+  "en": "JavaScript for which this find function"
+ },
+ {
+  "start": 420.59,
+  "end": 423.912,
+  "en": "executes, if that element, let's say key, is"
+ },
+ {
+  "start": 424.041,
+  "end": 425.196,
+  "en": "equal to the key"
+ },
+ {
+  "start": 425.742,
+  "end": 426.337,
+  "en": "we're getting here,"
+ },
+ {
+  "start": 426.931,
+  "end": 428.49,
+  "en": "and I want to return the result of that"
+ },
+ {
+  "start": 428.538,
+  "end": 430.772,
+  "en": "comparison. So I'm simply assuming that"
+ },
+ {
+  "start": 430.868,
+  "end": 432.17,
+  "en": "inside of my nested array,"
+ },
+ {
+  "start": 432.716,
+  "end": 435.078,
+  "en": "I'm storing objects which have a key"
+ },
+ {
+  "start": 435.223,
+  "end": 437.86,
+  "en": "property and a value property so that I can"
+ },
+ {
+  "start": 437.86,
+  "end": 440.852,
+  "en": "save information about both the value that"
+ },
+ {
+  "start": 440.852,
+  "end": 443.312,
+  "en": "was inserted as well as the key for which"
+ },
+ {
+  "start": 443.425,
+  "end": 444.518,
+  "en": "this value was inserted."
+ },
+ {
+  "start": 447.265,
+  "end": 449.556,
+  "en": "So this will return true if we did store"
+ },
+ {
+  "start": 450.32,
+  "end": 452.965,
+  "en": "a value for that key before and it will"
+ },
+ {
+  "start": 453.013,
+  "end": 454.664,
+  "en": "return false otherwise. And therefore"
+ },
+ {
+  "start": 454.76,
+  "end": 457.228,
+  "en": "overall here will return any previously"
+ },
+ {
+  "start": 457.26,
+  "end": 460.337,
+  "en": "stored element for that key, for that key"
+ },
+ {
+  "start": 460.369,
+  "end": 460.898,
+  "en": "hash then."
+ },
+ {
+  "start": 462.084,
+  "end": 464.135,
+  "en": "So next we can check if the stored element"
+ },
+ {
+  "start": 464.151,
+  "end": 466.235,
+  "en": "is truthy. So if we did find something"
+ },
+ {
+  "start": 466.315,
+  "end": 468.639,
+  "en": "there, which simply means that we did save a"
+ },
+ {
+  "start": 468.655,
+  "end": 471.732,
+  "en": "value for that given key in the past. And if"
+ },
+ {
+  "start": 471.764,
+  "end": 472.582,
+  "en": "that's the case,"
+ },
+ {
+  "start": 473.191,
+  "end": 475.354,
+  "en": "I of course simply want to reach out to"
+ },
+ {
+  "start": 475.354,
+  "end": 476.268,
+  "en": "stored element."
+ },
+ {
+  "start": 476.957,
+  "end": 479.136,
+  "en": "And let's assume this is an object which has"
+ },
+ {
+  "start": 479.136,
+  "end": 481.861,
+  "en": "a key property but then also a val property."
+ },
+ {
+  "start": 482.422,
+  "end": 484.588,
+  "en": "And I wanna store the value in there. So I"
+ },
+ {
+  "start": 484.732,
+  "end": 487.043,
+  "en": "override the existing value that was stored"
+ },
+ {
+  "start": 487.059,
+  "end": 488.695,
+  "en": "for this key with a new value."
+ },
+ {
+  "start": 489.465,
+  "end": 491.936,
+  "en": "Else, if the stored element does not exist,"
+ },
+ {
+  "start": 492.369,
+  "end": 494.936,
+  "en": "then I simply wanna reach out to my bucket"
+ },
+ {
+  "start": 494.936,
+  "end": 495.209,
+  "en": "array"
+ },
+ {
+  "start": 495.818,
+  "end": 498.642,
+  "en": "and call push and add a new object, which"
+ },
+ {
+  "start": 498.77,
+  "end": 501.321,
+  "en": "now should have a key property that holds"
+ },
+ {
+  "start": 501.417,
+  "end": 502.845,
+  "en": "the key value"
+ },
+ {
+  "start": 503.423,
+  "end": 505.637,
+  "en": "and a val property that holds the value"
+ },
+ {
+  "start": 506.246,
+  "end": 508.749,
+  "en": "so that accessing it like this will work."
+ },
+ {
+  "start": 508.797,
+  "end": 510.273,
+  "en": "That's the kind of data we add here."
+ },
+ {
+  "start": 511.043,
+  "end": 512.647,
+  "en": "Now you might argue that here I'm using an"
+ },
+ {
+  "start": 512.647,
+  "end": 515.839,
+  "en": "object, and in theory, if we are building"
+ },
+ {
+  "start": 515.935,
+  "end": 517.732,
+  "en": "everything from scratch, we wouldn't have an"
+ },
+ {
+  "start": 517.78,
+  "end": 518.39,
+  "en": "object here."
+ },
+ {
+  "start": 518.983,
+  "end": 520.459,
+  "en": "We could of course also simply store an"
+ },
+ {
+  "start": 520.459,
+  "end": 522.304,
+  "en": "array where the first argument is the key"
+ },
+ {
+  "start": 522.689,
+  "end": 524.694,
+  "en": "and the second argument is the value, right?"
+ },
+ {
+  "start": 524.774,
+  "end": 527.004,
+  "en": "We could do this as well and then access by"
+ },
+ {
+  "start": 527.084,
+  "end": 528.752,
+  "en": "index here in the code above."
+ },
+ {
+  "start": 529.33,
+  "end": 531.094,
+  "en": "I'm doing it as an object because that's a"
+ },
+ {
+  "start": 531.11,
+  "end": 533.212,
+  "en": "bit easier to read, but we could also simply"
+ },
+ {
+  "start": 533.212,
+  "end": 536.164,
+  "en": "store an array that always has 2 elements"
+ },
+ {
+  "start": 536.244,
+  "end": 537.977,
+  "en": "and exactly 2 elements."
+ },
+ {
+  "start": 538.731,
+  "end": 540.978,
+  "en": "But I'm going with an object, and with that,"
+ },
+ {
+  "start": 541.364,
+  "end": 543.594,
+  "en": "we're storing extra metadata for every"
+ },
+ {
+  "start": 543.626,
+  "end": 545.857,
+  "en": "key-value pair. We're storing the key-value"
+ },
+ {
+  "start": 545.857,
+  "end": 549.196,
+  "en": "pair on this key hash in this array for"
+ },
+ {
+  "start": 549.308,
+  "end": 551.972,
+  "en": "every key hash so that for every key hash,"
+ },
+ {
+  "start": 552.116,
+  "end": 554.732,
+  "en": "we can have multiple key-value pairs where"
+ },
+ {
+  "start": 554.925,
+  "end": 558.215,
+  "en": "different keys led to the same hash. That's"
+ },
+ {
+  "start": 558.295,
+  "end": 559.852,
+  "en": "all we're dealing with here. That's the"
+ },
+ {
+  "start": 559.852,
+  "end": 562.709,
+  "en": "entire idea. We wanna avoid collisions and"
+ },
+ {
+  "start": 562.725,
+  "end": 564.234,
+  "en": "we're doing it with this approach, for"
+ },
+ {
+  "start": 564.234,
+  "end": 564.747,
+  "en": "example."
+ },
+ {
+  "start": 565.918,
+  "end": 566.815,
+  "en": "Now if we wanna"
+ },
+ {
+  "start": 567.697,
+  "end": 569.46,
+  "en": "get— if we wanna retrieve a value, we"
+ },
+ {
+  "start": 569.46,
+  "end": 571.288,
+  "en": "therefore also can't do it like this"
+ },
+ {
+  "start": 571.288,
+  "end": 573.724,
+  "en": "anymore, because for a given key hash which"
+ },
+ {
+  "start": 573.789,
+  "end": 575.873,
+  "en": "we're deriving here, we might have multiple"
+ },
+ {
+  "start": 575.873,
+  "end": 576.642,
+  "en": "stored values."
+ },
+ {
+  "start": 577.46,
+  "end": 579.207,
+  "en": "Hence, we still need the key hash, of"
+ },
+ {
+  "start": 579.239,
+  "end": 581.884,
+  "en": "course, but then I need the bucket array for"
+ },
+ {
+  "start": 581.884,
+  "end": 583.936,
+  "en": "that hash by reaching out to this buckets"
+ },
+ {
+  "start": 584.273,
+  "end": 585.331,
+  "en": "for the given key hash."
+ },
+ {
+  "start": 586.693,
+  "end": 588.809,
+  "en": "And then in there, again, I wanna find my"
+ },
+ {
+  "start": 588.857,
+  "end": 591.39,
+  "en": "stored element for the provided key. So I'll"
+ },
+ {
+  "start": 591.406,
+  "end": 593.233,
+  "en": "go to that bucket array, call find,"
+ },
+ {
+  "start": 594.307,
+  "end": 596.534,
+  "en": "get the function here which receives the"
+ },
+ {
+  "start": 596.55,
+  "end": 599.242,
+  "en": "element, and just as before, I return true."
+ },
+ {
+  "start": 599.675,
+  "end": 600.749,
+  "en": "I return true in here"
+ },
+ {
+  "start": 601.342,
+  "end": 603.938,
+  "en": "if on that element we're going through in"
+ },
+ {
+  "start": 603.938,
+  "end": 606.229,
+  "en": "the bucket array, we have a key property and"
+ },
+ {
+  "start": 606.261,
+  "end": 608.377,
+  "en": "it holds that key which we're trying to"
+ },
+ {
+  "start": 608.393,
+  "end": 608.938,
+  "en": "retrieve here."
+ },
+ {
+  "start": 609.755,
+  "end": 612.415,
+  "en": "And with that, we then have the stored"
+ },
+ {
+  "start": 612.415,
+  "end": 614.819,
+  "en": "element. So amongst the many elements we"
+ },
+ {
+  "start": 614.819,
+  "end": 617.144,
+  "en": "could have per key hash, we We now got the"
+ },
+ {
+  "start": 617.208,
+  "end": 617.996,
+  "en": "right element"
+ },
+ {
+  "start": 618.59,
+  "end": 620.599,
+  "en": "and then that's what we wanna return. So"
+ },
+ {
+  "start": 620.599,
+  "end": 621.917,
+  "en": "here I simply return"
+ },
+ {
+  "start": 623.251,
+  "end": 625.002,
+  "en": "stored element like this."
+ },
+ {
+  "start": 627.765,
+  "end": 630.37,
+  "en": "And with that, we have our adjusted hash"
+ },
+ {
+  "start": 630.434,
+  "end": 633.815,
+  "en": "table, which now does not just have single"
+ },
+ {
+  "start": 634.058,
+  "end": 637.559,
+  "en": "values per key hash, but multiple values per"
+ },
+ {
+  "start": 637.64,
+  "end": 640.101,
+  "en": "key hash to deal with the problem that"
+ },
+ {
+  "start": 640.248,
+  "end": 642.921,
+  "en": "different keys can lead to the same key"
+ },
+ {
+  "start": 642.921,
+  "end": 643.003,
+  "en": "hash."
+ },
+ {
+  "start": 644.243,
+  "end": 646.382,
+  "en": "And with all of that, if we now save this"
+ },
+ {
+  "start": 647.014,
+  "end": 647.937,
+  "en": "and we reload here,"
+ },
+ {
+  "start": 648.634,
+  "end": 651.032,
+  "en": "we see that now for the different indexes we"
+ },
+ {
+  "start": 651.049,
+  "end": 651.389,
+  "en": "got,"
+ },
+ {
+  "start": 652.23,
+  "end": 653.285,
+  "en": "we actually have arrays."
+ },
+ {
+  "start": 654.194,
+  "end": 655.899,
+  "en": "And we have arrays with values, with"
+ },
+ {
+  "start": 655.916,
+  "end": 658.335,
+  "en": "key-value pairs. For example, here the blank"
+ },
+ {
+  "start": 658.351,
+  "end": 658.936,
+  "en": "is stored."
+ },
+ {
+  "start": 660.746,
+  "end": 662.9,
+  "en": "Here, for example, the A is stored."
+ },
+ {
+  "start": 663.656,
+  "end": 665.761,
+  "en": "And here on 3, for example, you see that"
+ },
+ {
+  "start": 665.826,
+  "end": 668.253,
+  "en": "different keys led to the same hash,"
+ },
+ {
+  "start": 668.864,
+  "end": 669.153,
+  "en": "3."
+ },
+ {
+  "start": 669.703,
+  "end": 671.903,
+  "en": "And hence they're stored under that same"
+ },
+ {
+  "start": 672.015,
+  "end": 676.271,
+  "en": "hash but as separate chained values. And"
+ },
+ {
+  "start": 676.351,
+  "end": 679.129,
+  "en": "that's this collision resolving strategy of"
+ },
+ {
+  "start": 679.178,
+  "end": 679.788,
+  "en": "storing"
+ },
+ {
+  "start": 680.446,
+  "end": 683.208,
+  "en": "chains of values, of storing multiple key"
+ },
+ {
+  "start": 683.273,
+  "end": 686.42,
+  "en": "values per generated hash. That's the entire"
+ },
+ {
+  "start": 686.565,
+  "end": 688.861,
+  "en": "idea. And you also see that some hashes,"
+ },
+ {
+  "start": 689.07,
+  "end": 691.88,
+  "en": "some indexes are without values and others"
+ },
+ {
+  "start": 692.009,
+  "end": 694.594,
+  "en": "do store multiple values. And that's the"
+ },
+ {
+  "start": 694.594,
+  "end": 697.452,
+  "en": "entire idea of preventing key collisions"
+ },
+ {
+  "start": 697.95,
+  "end": 700.913,
+  "en": "when generating hashes Here with the help of"
+ },
+ {
+  "start": 701.01,
+  "end": 703.012,
+  "en": "chaining. So with the help of storing"
+ },
+ {
+  "start": 703.432,
+  "end": 707.016,
+  "en": "multiple values and their different keys for"
+ },
+ {
+  "start": 707.064,
+  "end": 708.921,
+  "en": "the same generated key hash."
+ }
+]

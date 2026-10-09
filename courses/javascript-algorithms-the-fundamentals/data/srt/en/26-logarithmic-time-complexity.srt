@@ -1,0 +1,603 @@
+1
+00:00:02,199 --> 00:00:04,399
+Now what about the time complexity of this
+
+2
+00:00:04,511 --> 00:00:05,009
+algorithm?
+
+3
+00:00:05,571 --> 00:00:08,220
+Now that's a bit more tricky. For one, we
+
+4
+00:00:08,220 --> 00:00:09,633
+got different cases, of course.
+
+5
+00:00:10,451 --> 00:00:12,763
+For the case that we get a negative number
+
+6
+00:00:13,020 --> 00:00:15,123
+or a number that can't be divided by,
+
+7
+00:00:16,167 --> 00:00:18,977
+by 2 even once, so that would be our best
+
+8
+00:00:18,977 --> 00:00:21,834
+case, something like a number equal to 13,
+
+9
+00:00:22,348 --> 00:00:25,110
+we basically have constant time because for
+
+10
+00:00:25,254 --> 00:00:28,096
+such a number, for for 13, we make it into
+
+11
+00:00:28,112 --> 00:00:30,440
+this loop once, we immediately see that we
+
+12
+00:00:30,440 --> 00:00:32,832
+can't divide it by 2, and we return false.
+
+13
+00:00:33,827 --> 00:00:36,766
+But the worst case is a bit more tricky. The
+
+14
+00:00:36,798 --> 00:00:39,254
+worst case would be a large number that can
+
+15
+00:00:39,350 --> 00:00:41,903
+be divided by 2, like a million.
+
+16
+00:00:42,594 --> 00:00:45,227
+If we check a million manually here in the
+
+17
+00:00:45,227 --> 00:00:45,676
+terminal,
+
+18
+00:00:46,334 --> 00:00:49,016
+we can divide it by 2 and we get 500,000.
+
+19
+00:00:49,561 --> 00:00:52,694
+We can take 500,000 and divide this by 2 We
+
+20
+00:00:52,694 --> 00:00:54,882
+can take the result of that and divide it by
+
+21
+00:00:54,882 --> 00:00:55,222
+2
+
+22
+00:00:55,838 --> 00:00:58,091
+and so on. We can do that for quite some
+
+23
+00:00:58,124 --> 00:00:58,496
+time,
+
+24
+00:01:07,847 --> 00:01:09,327
+but then at some point here,
+
+25
+00:01:10,179 --> 00:01:13,782
+in this case for 15,625 divided by 2,
+
+26
+00:01:14,361 --> 00:01:16,424
+we get a non-integer number and this is
+
+27
+00:01:16,457 --> 00:01:18,242
+where our while loop would finish.
+
+28
+00:01:18,973 --> 00:01:21,045
+So if you have a look, we had 1 step, 2
+
+29
+00:01:21,141 --> 00:01:26,537
+steps, 3 steps, 4 steps, 5 steps, 6 steps, 7
+
+30
+00:01:26,585 --> 00:01:29,685
+steps here for a million. Now that's not too
+
+31
+00:01:29,813 --> 00:01:31,339
+horrible, right? That's pretty okay.
+
+32
+00:01:32,142 --> 00:01:34,326
+So what is our time complexity therefore?
+
+33
+00:01:35,193 --> 00:01:37,393
+Of course, for bigger numbers that are
+
+34
+00:01:37,586 --> 00:01:40,332
+divisible by 2 but that are not 2 at the
+
+35
+00:01:40,332 --> 00:01:41,087
+power of something,
+
+36
+00:01:42,002 --> 00:01:42,115
+we
+
+37
+00:01:42,885 --> 00:01:45,182
+take a couple of runs through that while
+
+38
+00:01:45,294 --> 00:01:47,523
+loop but will still be done relatively
+
+39
+00:01:47,635 --> 00:01:48,100
+quick.
+
+40
+00:01:49,415 --> 00:01:53,070
+So we don't have O here. That's not what we
+
+41
+00:01:53,070 --> 00:01:55,218
+have here in the worst case because we're
+
+42
+00:01:55,314 --> 00:01:58,504
+far away from the n, from 1 million
+
+43
+00:01:58,632 --> 00:01:59,353
+iterations.
+
+44
+00:02:00,540 --> 00:02:03,393
+So instead, what we typically would have
+
+45
+00:02:03,489 --> 00:02:03,601
+here
+
+46
+00:02:04,211 --> 00:02:08,106
+is something like log, a logarithmic time
+
+47
+00:02:08,154 --> 00:02:09,244
+complexity function.
+
+48
+00:02:10,174 --> 00:02:12,514
+If you think about this slide again, I
+
+49
+00:02:13,107 --> 00:02:15,335
+had a look at logarithmic time complexity
+
+50
+00:02:15,367 --> 00:02:17,083
+there as well. And if you look at this
+
+51
+00:02:17,195 --> 00:02:19,345
+chart, you see that of course it grows,
+
+52
+00:02:20,019 --> 00:02:22,186
+but for big numbers it doesn't grow a lot.
+
+53
+00:02:23,390 --> 00:02:25,765
+Very large numbers like 1 million or 10
+
+54
+00:02:25,797 --> 00:02:29,055
+million are almost on the same time level as
+
+55
+00:02:29,264 --> 00:02:32,361
+smaller numbers like just 100 or just 1,000.
+
+56
+00:02:32,714 --> 00:02:35,876
+So we just have a relatively steep curve at
+
+57
+00:02:35,908 --> 00:02:38,444
+the beginning for small numbers, but very
+
+58
+00:02:38,476 --> 00:02:41,975
+quickly we approach a relatively constant
+
+59
+00:02:42,168 --> 00:02:45,280
+time complexity. For algorithms that have
+
+60
+00:02:45,280 --> 00:02:47,350
+such a logarithmic time complexity.
+
+61
+00:02:47,928 --> 00:02:51,072
+And a good way of getting a feeling for that
+
+62
+00:02:51,072 --> 00:02:53,848
+and foreseeing that is that we don't count
+
+63
+00:02:53,976 --> 00:02:56,334
+operations manually, but we add a couple of
+
+64
+00:02:56,366 --> 00:02:59,783
+console logs so that we get those operations
+
+65
+00:02:59,816 --> 00:03:00,826
+counted for us.
+
+66
+00:03:01,741 --> 00:03:03,698
+For that, I'll just paste the function here
+
+67
+00:03:03,826 --> 00:03:05,960
+in the browser. Of course, we could also
+
+68
+00:03:06,056 --> 00:03:07,468
+edit it in our app.js file,
+
+69
+00:03:08,318 --> 00:03:10,871
+but I'll add it here And inside of that
+
+70
+00:03:10,969 --> 00:03:13,310
+while loop, I'll now add a new line,
+
+71
+00:03:13,911 --> 00:03:14,805
+console.log
+
+72
+00:03:16,649 --> 00:03:17,356
+executing,
+
+73
+00:03:19,477 --> 00:03:20,087
+just like this.
+
+74
+00:03:20,762 --> 00:03:22,658
+And now we can call this function for
+
+75
+00:03:22,754 --> 00:03:24,875
+various values. I'll just clear the console.
+
+76
+00:03:25,004 --> 00:03:26,675
+The function is still there, just not
+
+77
+00:03:26,707 --> 00:03:27,382
+visible anymore.
+
+78
+00:03:28,072 --> 00:03:30,916
+And now I'll call isPowerOfTwo for let's say
+
+79
+00:03:31,350 --> 00:03:31,527
+3.
+
+80
+00:03:32,635 --> 00:03:33,150
+And we see
+
+81
+00:03:33,680 --> 00:03:34,901
+executing once.
+
+82
+00:03:35,545 --> 00:03:36,994
+Now let's call it for
+
+83
+00:03:37,832 --> 00:03:40,553
+900,999.
+
+84
+00:03:41,326 --> 00:03:41,600
+Still
+
+85
+00:03:42,260 --> 00:03:44,499
+only once. Now that's our best case, of
+
+86
+00:03:44,580 --> 00:03:44,774
+course.
+
+87
+00:03:45,505 --> 00:03:47,079
+Let's now call it for
+
+88
+00:03:48,167 --> 00:03:48,216
+8.
+
+89
+00:03:49,076 --> 00:03:51,316
+Here we see 3 executions.
+
+90
+00:03:52,328 --> 00:03:55,660
+Now let's call it for 16. We see 4
+
+91
+00:03:55,692 --> 00:03:56,484
+executions.
+
+92
+00:03:57,503 --> 00:03:58,959
+Now let's call it for
+
+93
+00:04:00,883 --> 00:04:01,498
+a million.
+
+94
+00:04:03,825 --> 00:04:05,336
+And we see 7 executions, so
+
+95
+00:04:05,995 --> 00:04:07,650
+far away from a million.
+
+96
+00:04:08,711 --> 00:04:11,989
+Now even for large numbers that ultimately
+
+97
+00:04:12,247 --> 00:04:13,615
+are a power of 2
+
+98
+00:04:14,274 --> 00:04:15,690
+will not take too long.
+
+99
+00:04:17,476 --> 00:04:19,585
+If we quickly derive such a number with the
+
+100
+00:04:19,665 --> 00:04:21,407
+built-in math power function,
+
+101
+00:04:22,229 --> 00:04:22,616
+let's say
+
+102
+00:04:23,212 --> 00:04:23,535
+50,
+
+103
+00:04:24,099 --> 00:04:26,195
+which is quite a large number, even if I
+
+104
+00:04:26,195 --> 00:04:29,238
+take that number here, you see we only have
+
+105
+00:04:29,238 --> 00:04:32,656
+50 executions here. So far away from
+
+106
+00:04:32,929 --> 00:04:35,224
+whatever that number is iterations.
+
+107
+00:04:35,978 --> 00:04:38,097
+So you see I can add bigger and bigger
+
+108
+00:04:38,161 --> 00:04:40,199
+numbers, but the number of executions
+
+109
+00:04:40,312 --> 00:04:40,874
+doesn't grow
+
+110
+00:04:41,419 --> 00:04:43,939
+even close to as fast as those numbers are
+
+111
+00:04:44,003 --> 00:04:44,420
+growing.
+
+112
+00:04:44,950 --> 00:04:47,454
+And that always is a great indicator for
+
+113
+00:04:47,598 --> 00:04:50,038
+logarithmic time, even if you
+
+114
+00:04:50,648 --> 00:04:52,750
+don't calculate it mathematically, which is
+
+115
+00:04:52,750 --> 00:04:54,580
+hard here since we also have different
+
+116
+00:04:54,580 --> 00:04:55,013
+cases.
+
+117
+00:04:55,543 --> 00:04:58,304
+Just by exploring the nature of this
+
+118
+00:04:58,433 --> 00:05:01,259
+algorithm and running this calculation with
+
+119
+00:05:01,259 --> 00:05:04,358
+a couple of demo numbers and logging each
+
+120
+00:05:04,535 --> 00:05:07,072
+execution to the console, just with this
+
+121
+00:05:07,185 --> 00:05:09,336
+approach, which is a fine approach of
+
+122
+00:05:09,593 --> 00:05:12,628
+analyzing the time complexity, we are able
+
+123
+00:05:12,661 --> 00:05:15,342
+to tell that we certainly don't have O here.
+
+124
+00:05:15,776 --> 00:05:17,928
+Otherwise, that number would need to be much
+
+125
+00:05:18,040 --> 00:05:20,738
+closer to that number. And if you have
+
+126
+00:05:20,754 --> 00:05:23,034
+something like this where the number of
+
+127
+00:05:23,082 --> 00:05:26,600
+operations grows, it's not constant, but it
+
+128
+00:05:26,696 --> 00:05:28,833
+grows at a much slower pace,
+
+129
+00:05:29,604 --> 00:05:32,125
+then you typically have logarithmic time.
+
+130
+00:05:32,639 --> 00:05:35,193
+That's a typical example, and that's how you
+
+131
+00:05:35,209 --> 00:05:37,908
+can derive that with console logs and by
+
+132
+00:05:37,956 --> 00:05:40,542
+simply thinking about the nature of this
+
+133
+00:05:40,687 --> 00:05:41,088
+algorithm.
+
+134
+00:05:42,197 --> 00:05:44,349
+Now with that newly gained knowledge, coming
+
+135
+00:05:44,446 --> 00:05:45,859
+back to our code here,
+
+136
+00:05:46,550 --> 00:05:48,750
+we actually have to correct our worst case.
+
+137
+00:05:49,184 --> 00:05:51,995
+It's Not a million, it's actually a big
+
+138
+00:05:51,995 --> 00:05:55,192
+number that is a power of 2 because that is
+
+139
+00:05:55,288 --> 00:05:57,200
+where we will take the most iterations.
+
+140
+00:05:57,955 --> 00:06:00,124
+So something like the large number we
+
+141
+00:06:00,124 --> 00:06:02,758
+derived here in the console a second ago,
+
+142
+00:06:03,031 --> 00:06:04,911
+something like that number, that is the
+
+143
+00:06:05,007 --> 00:06:07,529
+actual worst case because there for this
+
+144
+00:06:07,529 --> 00:06:10,019
+exact number we saw that we would take 50
+
+145
+00:06:10,469 --> 00:06:11,336
+loop iterations.
+
+146
+00:06:12,396 --> 00:06:14,549
+Now actually this also allows us to refine
+
+147
+00:06:14,645 --> 00:06:18,004
+our time complexity judgment here. Log of n
+
+148
+00:06:18,342 --> 00:06:20,822
+is fine, you could say it has O, but of
+
+149
+00:06:20,918 --> 00:06:22,625
+course since we here always talk about a
+
+150
+00:06:22,625 --> 00:06:23,526
+power of 2,
+
+151
+00:06:24,073 --> 00:06:25,152
+we know that for a subtle

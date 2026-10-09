@@ -1,0 +1,279 @@
+1
+00:00:00,530 --> 00:00:02,987
+So in order to show you how you could use a
+所以為了向您展示如何使用
+
+2
+00:00:02,987 --> 00:00:06,232
+framework like EVE for building AI agents, I
+像 EVE 這樣的框架用於建立 AI 代理，我
+
+3
+00:00:06,440 --> 00:00:08,625
+prepared a new project which you find
+準備一個你發現的新專案
+
+4
+00:00:08,625 --> 00:00:10,697
+attached and we'll of course explore it in
+附上，我們當然會探索它
+
+5
+00:00:10,697 --> 00:00:11,805
+greater detail soon.
+很快會有更多詳細資訊。
+
+6
+00:00:12,464 --> 00:00:15,018
+Now, the idea behind EVE and many of these
+現在，EVE 背後的想法以及其中的許多想法
+
+7
+00:00:15,211 --> 00:00:18,311
+frameworks is that you have pre-built
+框架是你預先建構的
+
+8
+00:00:18,423 --> 00:00:20,238
+building blocks which you can compose
+您可以組成的積木
+
+9
+00:00:20,270 --> 00:00:22,872
+together to build an agent. In case of EVE,
+共同打造代理。在EVE的情況下，
+
+10
+00:00:22,985 --> 00:00:25,490
+that means that you simply set up a project
+這意味著您只需設定一個專案
+
+11
+00:00:25,876 --> 00:00:28,012
+and install the EVE dependency in there.
+並在那裡安裝 EVE 相依性。
+
+12
+00:00:28,542 --> 00:00:30,304
+So that is how you could create a new
+這就是你如何創建一個新的
+
+13
+00:00:30,304 --> 00:00:32,420
+project with Eve pre-installed in it.
+預裝了 Eve 的專案。
+
+14
+00:00:33,109 --> 00:00:35,801
+And once you did that, in the case of Eve,
+一旦你這麼做了，就夏娃而言，
+
+15
+00:00:35,897 --> 00:00:38,028
+and it's different for every framework, but
+每個框架都是不同的，但是
+
+16
+00:00:38,076 --> 00:00:40,896
+in the case of Eve, you would use your file
+對於 Eve，您將使用您的檔案
+
+17
+00:00:40,977 --> 00:00:44,374
+system to construct an agent. So the Eve
+系統建置代理。所以除夕
+
+18
+00:00:44,406 --> 00:00:47,370
+package will scan the file system in which
+軟體包將掃描其中的檔案系統
+
+19
+00:00:47,370 --> 00:00:49,662
+it was installed, so your project, and will
+它已安裝，因此您的專案將
+
+20
+00:00:49,854 --> 00:00:52,786
+look for a certain folder structure, certain
+尋找特定的資料夾結構，特定的
+
+21
+00:00:52,802 --> 00:00:53,668
+file names
+檔案名稱
+
+22
+00:00:54,245 --> 00:00:57,402
+to compose the agent, to build your agent.
+組成代理，建立您的代理。
+
+23
+00:00:57,771 --> 00:01:00,224
+For example, it will look for an agent.ts
+例如，它將尋找一個agent.ts
+
+24
+00:01:00,416 --> 00:01:04,247
+file in an agent subfolder in your project.
+檔案位於專案的代理子資料夾中。
+
+25
+00:01:04,343 --> 00:01:06,491
+And it will look into that file to find out
+它會調查該檔案以找出答案
+
+26
+00:01:06,604 --> 00:01:09,024
+which model you want to use for your agent,
+您想為您的代理商使用哪種型號，
+
+27
+00:01:09,072 --> 00:01:11,332
+for example. So which AI model should power
+例如。那麼哪種人工智慧模型應該提供動力
+
+28
+00:01:11,332 --> 00:01:13,657
+the agent as a brain? It would look for
+代理作為大腦？它會尋找
+
+29
+00:01:13,657 --> 00:01:17,183
+files in a tools folder in the agent folder
+代理資料夾中工具資料夾中的檔案
+
+30
+00:01:17,183 --> 00:01:19,909
+in your project. And every file in there
+在你的專案中。還有裡面的每個檔案
+
+31
+00:01:20,149 --> 00:01:23,387
+would register a new tool. And in that file,
+將註冊一個新工具。在該檔案中，
+
+32
+00:01:23,435 --> 00:01:25,551
+you then need to have a certain structure.
+然後你需要有一定的結構。
+
+33
+00:01:25,744 --> 00:01:28,068
+You need to use the define_tool function
+您需要使用define_tool函式
+
+34
+00:01:28,068 --> 00:01:31,210
+provided by that Eve package to define the
+由 Eve 套件提供來定義
+
+35
+00:01:31,210 --> 00:01:33,598
+tool that should be loaded. But you don't
+應該載入的工具。但你不
+
+36
+00:01:33,598 --> 00:01:36,500
+need to manually describe the tools to the
+需要手動向
+
+37
+00:01:36,500 --> 00:01:37,093
+agent then
+那麼代理
+
+38
+00:01:37,686 --> 00:01:40,219
+or manually set up this complex tool
+或手動設定這個複雜的工具
+
+39
+00:01:40,411 --> 00:01:42,511
+registration which you saw earlier in the
+您之前在 中看到的註冊
+
+40
+00:01:42,511 --> 00:01:45,028
+course. Instead, the Eve framework will do
+課程。相反，Eve 框架會做
+
+41
+00:01:45,381 --> 00:01:48,346
+all of that for you. That is the idea. And
+所有這一切都為您服務。這就是我們的想法。和
+
+42
+00:01:48,362 --> 00:01:50,879
+that's the general philosophy of Eve. I
+這就是夏娃的總體哲學。我
+
+43
+00:01:50,991 --> 00:01:53,139
+won't turn this course into a complete Eve
+不會把這門課變成一個完整的夏娃
+
+44
+00:01:53,235 --> 00:01:55,079
+course and you might also not be interested
+當然，你可能也沒有興趣
+
+45
+00:01:55,079 --> 00:01:57,403
+in that. You also might not even be a
+在那。你甚至可能不是一個
+
+46
+00:01:57,403 --> 00:01:59,167
+programmer and you might not be interested
+程式設計師，你可能不感興趣
+
+47
+00:01:59,167 --> 00:02:01,397
+in writing any code, and that's all fine.
+編寫任何程式碼，這都很好。
+
+48
+00:02:01,894 --> 00:02:04,028
+That's just a general idea behind this
+這只是背後的一般想法
+
+49
+00:02:04,060 --> 00:02:05,969
+framework, and you'll find similar or
+框架，你會發現類似或
+
+50
+00:02:06,081 --> 00:02:09,001
+comparable ideas in other frameworks. Now
+其他框架中的類似想法。現在
+
+51
+00:02:09,194 --> 00:02:11,311
+we'll just take a look at this codebase to
+我們只需看一下這個程式碼庫即可
+
+52
+00:02:11,536 --> 00:02:14,327
+understand how things are wired together and
+了解事物是如何連結在一起的
+
+53
+00:02:14,408 --> 00:02:16,910
+where we can find these building blocks you
+我們可以在哪裡找到您的這些建置模組
+
+54
+00:02:16,975 --> 00:02:18,787
+learned about earlier in the course, or some
+在課程早期學到的，或一些
+
+55
+00:02:18,836 --> 00:02:20,664
+of them at least, and how you could run that
+至少其中，以及你如何運行它
+
+56
+00:02:20,745 --> 00:02:22,172
+agent built with Eve here then.
+那時，Eve 就在這裡建立了代理商。

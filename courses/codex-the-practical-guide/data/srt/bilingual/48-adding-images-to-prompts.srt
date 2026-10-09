@@ -1,0 +1,609 @@
+1
+00:00:00,096 --> 00:00:03,464
+Now to let users edit and add notes, I wanna
+現在讓使用者編輯和添加註釋，我想要
+
+2
+00:00:03,464 --> 00:00:05,709
+use the TipTap editor, which is simply a
+使用 TipTap 編輯器，它只是一個
+
+3
+00:00:05,805 --> 00:00:07,938
+third-party JavaScript library that also
+第三方 JavaScript 函式庫也
+
+4
+00:00:08,034 --> 00:00:09,478
+works with React.
+與反應一起工作。
+
+5
+00:00:10,119 --> 00:00:12,525
+And I therefore wanna make sure that we
+因此我想確保我們
+
+6
+00:00:12,541 --> 00:00:15,748
+install that editor and that we tell the AI
+安裝該編輯器，然後我們告訴人工智慧
+
+7
+00:00:15,748 --> 00:00:16,662
+on how to use it.
+關於如何使用它。
+
+8
+00:00:17,576 --> 00:00:20,367
+So I'll install it manually here. I'll copy
+所以我在這裡手動安裝它。我會複製
+
+9
+00:00:20,559 --> 00:00:21,891
+these installation commands
+這些安裝命令
+
+10
+00:00:22,885 --> 00:00:24,521
+and then I'll run them, though I will
+然後我會運行它們，儘管我會
+
+11
+00:00:24,633 --> 00:00:27,503
+actually use bun add for adding those
+實際上使用bun add來添加那些
+
+12
+00:00:27,551 --> 00:00:30,500
+dependencies since I'm using Bun for this
+依賴項，因為我為此使用 Bun
+
+13
+00:00:30,500 --> 00:00:32,568
+entire project and also for my package
+整個專案以及我的包
+
+14
+00:00:32,568 --> 00:00:33,177
+management here.
+管理在這裡。
+
+15
+00:00:33,786 --> 00:00:37,841
+And then I wanna give my agent Codex this
+然後我想給我的經紀人 Codex 這個
+
+16
+00:00:38,258 --> 00:00:38,771
+page here
+頁面在這裡
+
+17
+00:00:39,300 --> 00:00:39,524
+as
+作為
+
+18
+00:00:40,117 --> 00:00:42,698
+some extra context on how to use the TipTap
+有關如何使用 TipTap 的一些額外上下文
+
+19
+00:00:42,746 --> 00:00:44,798
+editor. So therefore here I prepared a
+編輯。所以我在這裡準備了一個
+
+20
+00:00:44,830 --> 00:00:46,657
+prompt where I tell Codex to
+提示我告訴 Codex 的地方
+
+21
+00:00:47,314 --> 00:00:49,959
+implement the authenticated part of this app
+實作該應用程式的身份驗證部分
+
+22
+00:00:49,975 --> 00:00:51,931
+where users can view a list of their notes,
+使用者可以在其中查看他們的筆記列表，
+
+23
+00:00:51,979 --> 00:00:52,988
+click on notes to view
+點擊筆記即可查看
+
+24
+00:00:53,726 --> 00:00:55,941
+and edit them and also add new notes. I
+並編輯它們並添加新註釋。我
+
+25
+00:00:55,989 --> 00:00:58,927
+wanted to use TipTap and I pass in those
+想要使用 TipTap，我傳遞了那些
+
+26
+00:00:59,521 --> 00:01:01,624
+TipTap React docs I just copied.
+我剛剛複製的 TipTap React 檔案。
+
+27
+00:01:02,169 --> 00:01:03,774
+And in that prompt, I also tell it to use
+在那個提示中，我還告訴它使用
+
+28
+00:01:03,774 --> 00:01:05,893
+the context 7 MCP if it needs to explore
+上下文 7 MCP（如果需要探索）
+
+29
+00:01:06,006 --> 00:01:08,831
+more TipTap docs to give the AI a hint to
+更多 TipTap 檔案為 AI 提供提示
+
+30
+00:01:08,831 --> 00:01:10,773
+use that MCP if it needs to.
+如果需要，請使用該 MCP。
+
+31
+00:01:11,303 --> 00:01:13,983
+And I pointed at some skills that are most
+我指出了一些最重要的技能
+
+32
+00:01:14,032 --> 00:01:15,043
+likely relevant for
+可能相關
+
+33
+00:01:15,572 --> 00:01:18,269
+writing modern React code that is in line
+編寫符合要求的現代 React 程式碼
+
+34
+00:01:18,301 --> 00:01:21,094
+with my best practices and modern Next.js
+結合我的最佳實踐和現代 Next.js
+
+35
+00:01:21,094 --> 00:01:21,239
+code.
+程式碼。
+
+36
+00:01:22,217 --> 00:01:24,269
+I will also add something else here
+我還會在這裡添加其他內容
+
+37
+00:01:24,878 --> 00:01:27,635
+because I prepared a little drawing here,
+因為我在這裡準備了一點圖，
+
+38
+00:01:27,763 --> 00:01:30,056
+which you also find attached, which shows
+您還可以找到附件，其中顯示了
+
+39
+00:01:30,152 --> 00:01:33,230
+how this editor UI should in general look.
+該編輯器 UI 的整體外觀應如何。
+
+40
+00:01:33,278 --> 00:01:33,983
+Of course, this is
+當然，這是
+
+41
+00:01:34,656 --> 00:01:37,510
+pretty rough and basic, but it should give
+非常粗糙和基本，但它應該給
+
+42
+00:01:37,542 --> 00:01:39,449
+the AI an idea of what I want.
+人工智慧知道我想要什麼。
+
+43
+00:01:40,603 --> 00:01:43,313
+So I prepared a screenshot of that and I
+所以我準備了一張截圖
+
+44
+00:01:43,457 --> 00:01:45,717
+added this part where I tell the AI that
+增加了這部分，我告訴人工智慧
+
+45
+00:01:45,717 --> 00:01:47,865
+attached it finds a screenshot of how the
+附上它找到瞭如何的螢幕截圖
+
+46
+00:01:47,865 --> 00:01:49,965
+editor UI should look like and that of
+編輯器 UI 應該類似於
+
+47
+00:01:50,029 --> 00:01:52,001
+course it must adjust it for our specific
+當然它必須根據我們的具體情況進行調整
+
+48
+00:01:52,049 --> 00:01:54,984
+styles and layout. And then I'll just paste
+風格和佈局。然後我就貼上
+
+49
+00:01:55,240 --> 00:01:58,032
+with Command+V, Control+V, that image into
+使用 Command+V、Control+V，將影像變為
+
+50
+00:01:58,064 --> 00:02:01,112
+this prompt because you can attach images to
+此提示是因為您可以將圖像附加到
+
+51
+00:02:01,112 --> 00:02:03,165
+your prompts as well. You can use them as
+還有你的提示。您可以將它們用作
+
+52
+00:02:03,277 --> 00:02:06,052
+input just as you can use text as input.
+輸入就像您可以使用文字作為輸入一樣。
+
+53
+00:02:06,967 --> 00:02:08,795
+And with that, I'll switch to plan mode and
+這樣，我將切換到計劃模式並
+
+54
+00:02:08,892 --> 00:02:12,196
+let the AI Codex start working on this task.
+讓 AI Codex 開始處理這項任務。
+
+55
+00:02:12,726 --> 00:02:14,747
+And of course, providing screenshots can be
+當然，提供螢幕截圖也可以
+
+56
+00:02:14,747 --> 00:02:17,378
+super useful whenever you have UI-related
+每當你有 UI 相關的問題時都超有用
+
+57
+00:02:17,378 --> 00:02:19,704
+tasks or anything else that can't be
+任務或其他任何不能完成的事情
+
+58
+00:02:19,736 --> 00:02:22,926
+expressed properly as just text. And just to
+正確表達為文字。而只是為了
+
+59
+00:02:22,926 --> 00:02:25,459
+be clear, you can also paste images into
+清楚一點，您還可以將圖像貼到
+
+60
+00:02:25,475 --> 00:02:26,741
+your Codex terminal
+您的 Codex 終端機
+
+61
+00:02:27,335 --> 00:02:30,300
+session here. There you do that with Ctrl+V,
+會議在這裡。您可以使用 Ctrl+V 執行此操作，
+
+62
+00:02:30,316 --> 00:02:33,955
+so not Command+V on macOS, but Ctrl+V. And
+所以在 macOS 上不是 Command+V，而是 Ctrl+V。和
+
+63
+00:02:33,987 --> 00:02:36,007
+that will then add that image to your
+然後將該圖像添加到您的
+
+64
+00:02:36,071 --> 00:02:38,363
+prompt, and you can add other context and
+提示，您可以添加其他上下文和
+
+65
+00:02:38,379 --> 00:02:38,924
+information.
+資訊.
+
+66
+00:02:40,159 --> 00:02:42,627
+Now here I can see it really used all the
+現在在這裡我可以看到它確實使用了所有
+
+67
+00:02:42,643 --> 00:02:44,968
+different tools we gave it over this course.
+我們在本課程中提供了不同的工具。
+
+68
+00:02:45,064 --> 00:02:47,853
+It used the context7 MCP server to explore
+它使用context7 MCP伺服器來探索
+
+69
+00:02:47,853 --> 00:02:50,562
+more docs. It's using its skills. It loaded
+更多檔案。它正在使用它的技能。它載入了
+
+70
+00:02:50,562 --> 00:02:52,727
+the BetterAuth skill to ensure that it
+BetterAuth 技能以確保
+
+71
+00:02:52,727 --> 00:02:55,651
+writes good BetterAuth-related code. And it
+編寫良好的 BetterAuth 相關程式碼。還有它
+
+72
+00:02:55,651 --> 00:02:57,964
+now got a follow-up question here for me.
+現在我有一個後續問題。
+
+73
+00:02:58,430 --> 00:03:00,422
+And I don't want it to work on code sharing
+我不希望它用於程式碼共享
+
+74
+00:03:00,454 --> 00:03:01,016
+just yet.
+還沒有。
+
+75
+00:03:01,643 --> 00:03:03,667
+And that's actually the first option, so no
+這實際上是第一個選項，所以不
+
+76
+00:03:03,667 --> 00:03:06,430
+sharing yet. And I want hybrid saving where
+尚未分享。我想要混合儲存在哪裡
+
+77
+00:03:06,478 --> 00:03:09,514
+users can either save manually or rely on
+使用者可以手動儲存或依賴
+
+78
+00:03:09,514 --> 00:03:12,181
+the autosave functionality. And I also want
+自動儲存功能。而且我也想要
+
+79
+00:03:12,181 --> 00:03:14,317
+a title input field for the note titles.
+註釋標題的標題輸入欄位。
+
+80
+00:03:15,056 --> 00:03:15,891
+And I
+而我
+
+81
+00:03:16,421 --> 00:03:18,992
+don't need note deletion right now. We'll
+現在不需要刪除註解。出色地
+
+82
+00:03:19,072 --> 00:03:21,674
+add that later. With that, I got a plan and
+稍後添加。有了這個，我有了一個計劃
+
+83
+00:03:21,674 --> 00:03:23,151
+I'll carefully review it.
+我會仔細審查一下。
+
+84
+00:03:23,889 --> 00:03:26,828
+And that plan does look good. So yeah, I'll
+這個計劃看起來確實不錯。所以是的，我會
+
+85
+00:03:26,892 --> 00:03:28,835
+submit that and let it implement that plan.
+提交該計劃並讓它執行該計劃。
+
+86
+00:03:29,686 --> 00:03:31,612
+Now it looks like it's getting close to
+現在看來已經接近了
+
+87
+00:03:31,612 --> 00:03:32,255
+being done here
+正在這裡完成
+
+88
+00:03:32,817 --> 00:03:34,776
+and that doesn't look too bad, but of course
+這看起來還不錯，但當然
+
+89
+00:03:34,904 --> 00:03:36,686
+that's also not the final look I want. So
+這也不是我想要的最終外觀。所以
+
+90
+00:03:36,686 --> 00:03:38,356
+what I'll do is I'll take yet another
+我要做的是再拿一個
+
+91
+00:03:38,356 --> 00:03:39,191
+screenshot here
+截圖在這裡
+
+92
+00:03:39,801 --> 00:03:40,925
+and share it with the AI.
+並與人工智慧分享。
+
+93
+00:03:41,487 --> 00:03:43,093
+And I'll send that message that I don't want
+我會發送我不想要的訊息
+
+94
+00:03:43,093 --> 00:03:44,779
+the nested look as you can see on the
+嵌套的外觀，如您在
+
+95
+00:03:44,779 --> 00:03:46,609
+screenshot. And I wanted to check if we
+螢幕截圖.我想檢查一下我們是否
+
+96
+00:03:46,609 --> 00:03:48,536
+really need that authenticated layout. And
+確實需要經過驗證的佈局。和
+
+97
+00:03:48,536 --> 00:03:50,366
+here in the native app, I can hit Enter,
+在本機應用程式中，我可以按 Enter 鍵，
+
+98
+00:03:50,559 --> 00:03:53,128
+that will queue it. I could now steer by
+這會將其排隊。我現在可以駕駛
+
+99
+00:03:53,128 --> 00:03:54,541
+clicking this button and that would then
+按一下此按鈕，然後
+
+100
+00:03:54,589 --> 00:03:56,660
+immediately push it into the current task,
+立即將其推入當前任務，
+
+101
+00:03:57,126 --> 00:03:59,053
+but I'm fine with queuing. I want it to
+但我不介意排隊。我想要它
+
+102
+00:03:59,053 --> 00:04:00,562
+finish first and then
+先完成然後再完成
+
+103
+00:04:01,221 --> 00:04:02,168
+I'll continue.
+我會繼續。
+
+104
+00:04:03,179 --> 00:04:04,930
+So therefore now here, when it was done with
+所以現在在這裡，當它完成時
+
+105
+00:04:04,930 --> 00:04:06,840
+the main task, it immediately started
+主線任務，立刻開始
+
+106
+00:04:06,840 --> 00:04:09,153
+working on that second task since I queued
+自從我排隊以來正在處理第二項任務
+
+107
+00:04:09,249 --> 00:04:09,474
+that.
+那。
+
+108
+00:04:10,052 --> 00:04:11,529
+And looks like it came to the conclusion
+看起來已經下結論了
+
+109
+00:04:11,529 --> 00:04:13,167
+that this layout file is not needed.
+不需要這個佈局檔。
+
+110
+00:04:14,339 --> 00:04:16,361
+So that now looks much, much better here.
+所以現在看起來好多了。
+
+111
+00:04:17,372 --> 00:04:19,105
+And with that, it looks like the agent is
+這樣看來，代理似乎是
+
+112
+00:04:19,217 --> 00:04:19,394
+done.
+完畢。
+
+113
+00:04:20,020 --> 00:04:20,983
+I got this interface.
+我得到了這個介面。
+
+114
+00:04:21,689 --> 00:04:24,353
+I can click on new note and that looks the
+我可以點擊新筆記，看起來
+
+115
+00:04:24,353 --> 00:04:27,804
+way I drew it, but I can't type in here. I
+我畫的，但我不能在這裡打字。我
+
+116
+00:04:27,804 --> 00:04:29,521
+can't click in here, I can't type in there.
+無法點擊這裡，也無法在那裡輸入。
+
+117
+00:04:30,997 --> 00:04:33,950
+And I also don't see any save button. Also,
+而且我也沒看到任何儲存按鈕。還，
+
+118
+00:04:34,143 --> 00:04:36,775
+this should actually be to the right of the
+這實際上應該在右側
+
+119
+00:04:36,775 --> 00:04:39,375
+title, let's say. So we could send a
+標題，讓我們說一下。所以我們可以發送一個
+
+120
+00:04:39,375 --> 00:04:40,595
+follow-up prompt like this,
+像這樣的後續提示，
+
+121
+00:04:41,445 --> 00:04:41,702
+but
+但
+
+122
+00:04:42,312 --> 00:04:43,885
+I wanna do it a bit differently here.
+我想在這裡做一些不同的事情。

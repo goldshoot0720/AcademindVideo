@@ -1,0 +1,503 @@
+1
+00:00:02,194 --> 00:00:04,396
+So let's now build the linked list version.
+
+2
+00:00:04,926 --> 00:00:06,485
+For that, I'll save my
+
+3
+00:00:07,176 --> 00:00:09,377
+array version here in a standalone file
+
+4
+00:00:10,310 --> 00:00:13,274
+and now use app.js and again change my
+
+5
+00:00:13,371 --> 00:00:16,208
+import here in index.html back to type
+
+6
+00:00:16,257 --> 00:00:16,789
+module
+
+7
+00:00:17,627 --> 00:00:19,953
+and also use that HTTP server again
+
+8
+00:00:22,735 --> 00:00:25,663
+because now we're going to add an import
+
+9
+00:00:25,663 --> 00:00:27,717
+again and we need a web server to test this.
+
+10
+00:00:28,278 --> 00:00:30,446
+So this server is running and you should
+
+11
+00:00:30,494 --> 00:00:31,714
+keep it running as long as you're
+
+12
+00:00:31,714 --> 00:00:32,164
+developing.
+
+13
+00:00:32,742 --> 00:00:34,893
+And now in app.js, I'll import
+
+14
+00:00:35,568 --> 00:00:37,093
+LinkedList
+
+15
+00:00:37,639 --> 00:00:37,928
+from
+
+16
+00:00:39,100 --> 00:00:41,460
+the linkedlist.js file.
+
+17
+00:00:42,391 --> 00:00:44,109
+And then we create the queue here
+
+18
+00:00:45,201 --> 00:00:47,047
+by constructing a LinkedList in the
+
+19
+00:00:47,047 --> 00:00:49,937
+constructor. So here we have our list and
+
+20
+00:00:49,937 --> 00:00:53,052
+that's a new LinkedList. Now, just as with
+
+21
+00:00:53,052 --> 00:00:55,942
+the stack, a LinkedList is particularly easy
+
+22
+00:00:55,942 --> 00:00:56,729
+to use with a queue.
+
+23
+00:00:57,467 --> 00:00:59,506
+Because in the linked list we of course got
+
+24
+00:00:59,506 --> 00:01:01,080
+methods for adding something at the
+
+25
+00:01:01,096 --> 00:01:03,039
+beginning and the end.
+
+26
+00:01:03,585 --> 00:01:05,046
+We got append and prepend,
+
+27
+00:01:05,752 --> 00:01:08,675
+and we also have deleteHead for removing the
+
+28
+00:01:08,723 --> 00:01:11,244
+first item. We don't have deleteTail for
+
+29
+00:01:11,276 --> 00:01:13,395
+removing the last item because that would be
+
+30
+00:01:13,395 --> 00:01:15,964
+a bit harder to implement, because updating
+
+31
+00:01:16,013 --> 00:01:18,806
+the tail after we removed it with the second
+
+32
+00:01:18,839 --> 00:01:20,508
+to last item, that would be harder.
+
+33
+00:01:21,167 --> 00:01:24,025
+But we can simply now build our queue such
+
+34
+00:01:24,218 --> 00:01:27,655
+that we treat the first item as the first
+
+35
+00:01:27,655 --> 00:01:30,160
+item that was added. So the opposite of what
+
+36
+00:01:30,160 --> 00:01:32,183
+we did before with the array-based queue.
+
+37
+00:01:32,488 --> 00:01:34,737
+There, the first item we add ends up to be
+
+38
+00:01:34,737 --> 00:01:37,194
+the last item in the array because we always
+
+39
+00:01:37,387 --> 00:01:39,892
+unshift new items. Now we can simply build
+
+40
+00:01:39,892 --> 00:01:40,887
+it the opposite way,
+
+41
+00:01:41,562 --> 00:01:43,714
+and then we'll be able to utilize the linked
+
+42
+00:01:43,714 --> 00:01:45,705
+list and its optimizations
+
+43
+00:01:46,444 --> 00:01:48,869
+to build our queue in the most efficient way
+
+44
+00:01:48,869 --> 00:01:49,415
+possible.
+
+45
+00:01:50,057 --> 00:01:50,875
+How does this look like?
+
+46
+00:01:51,902 --> 00:01:54,197
+Here I will again add enqueue,
+
+47
+00:01:55,609 --> 00:01:56,684
+and this takes a value,
+
+48
+00:01:57,599 --> 00:01:59,830
+and dequeue, this takes no value,
+
+49
+00:02:00,568 --> 00:02:01,514
+and isEmpty,
+
+50
+00:02:02,333 --> 00:02:03,954
+and we also add toArray.
+
+51
+00:02:05,221 --> 00:02:07,211
+Now we can start with toArray because that's
+
+52
+00:02:07,243 --> 00:02:09,040
+simple. We reach out to the list and call
+
+53
+00:02:09,233 --> 00:02:11,752
+toArray there and return the result of that.
+
+54
+00:02:12,458 --> 00:02:14,753
+isEmpty is also simple. We can use the same
+
+55
+00:02:14,785 --> 00:02:17,915
+check as in our linked list stack where we
+
+56
+00:02:17,915 --> 00:02:20,083
+check for the existence of a head, and if it
+
+57
+00:02:20,083 --> 00:02:22,555
+does not exist, it means it's empty. So we
+
+58
+00:02:22,555 --> 00:02:24,498
+can just copy this line. This does not
+
+59
+00:02:24,498 --> 00:02:24,819
+change.
+
+60
+00:02:25,622 --> 00:02:27,902
+But for enqueue, I now want to make sure
+
+61
+00:02:28,031 --> 00:02:30,279
+that new items are now not added at the
+
+62
+00:02:30,343 --> 00:02:30,712
+beginning
+
+63
+00:02:31,242 --> 00:02:33,956
+but at the end, simply because we'll then be
+
+64
+00:02:34,036 --> 00:02:35,866
+able to use dequeue
+
+65
+00:02:36,444 --> 00:02:36,798
+with
+
+66
+00:02:37,408 --> 00:02:37,970
+delete head
+
+67
+00:02:38,612 --> 00:02:41,165
+if new items are added at the end.
+
+68
+00:02:42,963 --> 00:02:44,919
+They will eventually end up at the beginning
+
+69
+00:02:45,208 --> 00:02:47,277
+because all new items are always added at
+
+70
+00:02:47,277 --> 00:02:49,618
+the end. So the older items will move to the
+
+71
+00:02:49,618 --> 00:02:51,671
+front of the list, and then we can easily
+
+72
+00:02:51,783 --> 00:02:53,195
+dequeue them with delete head.
+
+73
+00:02:54,125 --> 00:02:54,943
+So here enqueue
+
+74
+00:02:55,616 --> 00:02:57,220
+can be implemented by reaching out to the
+
+75
+00:02:57,220 --> 00:02:58,567
+list and calling append,
+
+76
+00:02:59,385 --> 00:03:01,919
+and by then appending the value. That's all
+
+77
+00:03:01,967 --> 00:03:04,068
+we need to do here. So we add it at the end
+
+78
+00:03:04,068 --> 00:03:06,490
+of the linked list so that in dequeue
+
+79
+00:03:07,099 --> 00:03:07,869
+we can simply
+
+80
+00:03:08,968 --> 00:03:13,052
+reach out to the list and call deleteHead.
+
+81
+00:03:13,956 --> 00:03:16,281
+And deleteHead will remove the first item.
+
+82
+00:03:16,475 --> 00:03:17,201
+And as I now mentioned,
+
+83
+00:03:17,750 --> 00:03:18,801
+the first item we add
+
+84
+00:03:19,384 --> 00:03:21,989
+will eventually be the first item of the
+
+85
+00:03:21,989 --> 00:03:22,652
+linked list
+
+86
+00:03:24,723 --> 00:03:26,859
+because we add newer items after it.
+
+87
+00:03:27,814 --> 00:03:30,451
+And here I then return whatever I removed,
+
+88
+00:03:30,872 --> 00:03:32,522
+just as I did it in my
+
+89
+00:03:33,654 --> 00:03:33,849
+stack.
+
+90
+00:03:35,062 --> 00:03:37,079
+The difference of course now is that for the
+
+91
+00:03:37,079 --> 00:03:39,530
+stack, which is based on a linked list, for
+
+92
+00:03:39,789 --> 00:03:41,627
+adding items we added them at the beginning.
+
+93
+00:03:41,998 --> 00:03:44,208
+Now for the queue we add them at the end.
+
+94
+00:03:45,690 --> 00:03:47,359
+Well, and with that we got our
+
+95
+00:03:47,975 --> 00:03:49,597
+linked list queue version in place.
+
+96
+00:03:50,326 --> 00:03:53,634
+Let's test it by grabbing all that testing
+
+97
+00:03:53,666 --> 00:03:55,658
+code down there from the array-based queue
+
+98
+00:03:56,337 --> 00:03:58,551
+and let's add it here in app.js below this.
+
+99
+00:04:00,533 --> 00:04:01,767
+And with that, save this file,
+
+100
+00:04:02,440 --> 00:04:04,829
+go to your server on localhost:8080,
+
+101
+00:04:05,727 --> 00:04:06,272
+reload.
+
+102
+00:04:07,025 --> 00:04:09,478
+And now again, we see the queue where Max is
+
+103
+00:04:09,975 --> 00:04:13,117
+the first item. Now Max was the first item I
+
+104
+00:04:13,341 --> 00:04:15,040
+added here, but as I mentioned, in this
+
+105
+00:04:15,040 --> 00:04:17,205
+implementation we simply make sure that the
+
+106
+00:04:17,205 --> 00:04:18,070
+first item is
+
+107
+00:04:18,647 --> 00:04:21,356
+basically the last item, or treated as the
+
+108
+00:04:21,373 --> 00:04:23,937
+last item that was added, and therefore it
+
+109
+00:04:23,937 --> 00:04:26,503
+is the first item to be processed. When we
+
+110
+00:04:26,503 --> 00:04:29,135
+remove an item. So thereafter, only Manu and
+
+111
+00:04:29,135 --> 00:04:31,527
+Julia left, and we remove those in the right
+
+112
+00:04:31,623 --> 00:04:33,966
+order as well. So it works exactly as the
+
+113
+00:04:33,966 --> 00:04:36,261
+array-based version, just how we handle it
+
+114
+00:04:36,358 --> 00:04:38,701
+internally is a bit different. But other
+
+115
+00:04:38,701 --> 00:04:41,397
+than that, we now built a queue. And queues
+
+116
+00:04:41,429 --> 00:04:43,323
+can be really helpful whenever you're
+
+117
+00:04:43,339 --> 00:04:46,164
+dealing with data that really just should be
+
+118
+00:04:46,244 --> 00:04:47,512
+processed in this way.
+
+119
+00:04:48,331 --> 00:04:50,578
+Just like with the stack, it's primarily a
+
+120
+00:04:50,578 --> 00:04:53,435
+data structure that helps you with
+
+121
+00:04:53,531 --> 00:04:56,661
+restricting options. It doesn't really help
+
+122
+00:04:56,661 --> 00:04:58,732
+when it comes to performance, it doesn't
+
+123
+00:04:58,748 --> 00:05:00,128
+really improve anything there,
+
+124
+00:05:00,674 --> 00:05:02,841
+but it can restrict the options and
+
+125
+00:05:03,001 --> 00:05:05,827
+therefore force a certain usage which you
+
+126
+00:05:05,827 --> 00:05:07,560
+might need in your application.

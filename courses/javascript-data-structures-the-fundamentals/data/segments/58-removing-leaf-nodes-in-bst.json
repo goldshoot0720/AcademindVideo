@@ -1,0 +1,942 @@
+[
+ {
+  "start": 2.341,
+  "end": 4.923,
+  "en": "When it comes to removing values from our"
+ },
+ {
+  "start": 4.923,
+  "end": 5.307,
+  "en": "tree,"
+ },
+ {
+  "start": 5.901,
+  "end": 7.248,
+  "en": "it gets a bit more tricky."
+ },
+ {
+  "start": 7.889,
+  "end": 8.066,
+  "en": "Why?"
+ },
+ {
+  "start": 8.916,
+  "end": 11.674,
+  "en": "Well, adding is fairly straightforward. We"
+ },
+ {
+  "start": 11.674,
+  "end": 14.769,
+  "en": "simply check where we wanna add a value, we"
+ },
+ {
+  "start": 14.785,
+  "end": 17.254,
+  "en": "do that recursively to dig deeply into the"
+ },
+ {
+  "start": 17.254,
+  "end": 17.447,
+  "en": "tree,"
+ },
+ {
+  "start": 18.152,
+  "end": 20.478,
+  "en": "and we then go ahead and, well, add that"
+ },
+ {
+  "start": 20.478,
+  "end": 23.091,
+  "en": "value in the right place. It's not that much"
+ },
+ {
+  "start": 23.107,
+  "end": 24.005,
+  "en": "code as you can see."
+ },
+ {
+  "start": 24.791,
+  "end": 27.615,
+  "en": "Removing is more difficult At least if we"
+ },
+ {
+  "start": 27.775,
+  "end": 31.228,
+  "en": "don't want to remove entire branches just"
+ },
+ {
+  "start": 31.228,
+  "end": 32.641,
+  "en": "because we remove one"
+ },
+ {
+  "start": 33.219,
+  "end": 36.19,
+  "en": "element, one value which is quite high up in"
+ },
+ {
+  "start": 36.287,
+  "end": 36.72,
+  "en": "the tree."
+ },
+ {
+  "start": 37.796,
+  "end": 40.301,
+  "en": "In the first tree which we built,"
+ },
+ {
+  "start": 40.928,
+  "end": 43.529,
+  "en": "our remove functionality was quite"
+ },
+ {
+  "start": 43.529,
+  "end": 44.525,
+  "en": "straightforward."
+ },
+ {
+  "start": 45.264,
+  "end": 48.218,
+  "en": "When we found a matching node, we removed it"
+ },
+ {
+  "start": 48.475,
+  "end": 51.398,
+  "en": "and that has one important implication, we"
+ },
+ {
+  "start": 51.607,
+  "end": 55.041,
+  "en": "also removed all child nodes, that node"
+ },
+ {
+  "start": 55.394,
+  "end": 58.983,
+  "en": "which we removed. So that simply means that"
+ },
+ {
+  "start": 59.24,
+  "end": 61.884,
+  "en": "we didn't care whether that got rid of an"
+ },
+ {
+  "start": 61.9,
+  "end": 63.727,
+  "en": "entire branch or a subtree."
+ },
+ {
+  "start": 64.832,
+  "end": 66.547,
+  "en": "For that simple tree, that was enough"
+ },
+ {
+  "start": 66.755,
+  "end": 68.422,
+  "en": "because we just wanted to get started."
+ },
+ {
+  "start": 68.999,
+  "end": 71.402,
+  "en": "And for the file system, it even made sense."
+ },
+ {
+  "start": 71.963,
+  "end": 74.928,
+  "en": "If you remove a folder, all subfolders and"
+ },
+ {
+  "start": 75.088,
+  "end": 77.652,
+  "en": "all the files in the folder are gone. That"
+ },
+ {
+  "start": 77.652,
+  "end": 79.639,
+  "en": "is what we expect from a file system."
+ },
+ {
+  "start": 80.649,
+  "end": 83.261,
+  "en": "For the binary search tree, it should be"
+ },
+ {
+  "start": 83.261,
+  "end": 85.729,
+  "en": "different though. If we remove a value"
+ },
+ {
+  "start": 85.745,
+  "end": 88.149,
+  "en": "there, let's say in our example tree,"
+ },
+ {
+  "start": 88.71,
+  "end": 90.698,
+  "en": "if I remove the value 20,"
+ },
+ {
+  "start": 91.531,
+  "end": 94.544,
+  "en": "I don't wanna lose all the nested nodes in"
+ },
+ {
+  "start": 94.576,
+  "end": 97.829,
+  "en": "there. I don't wanna lose the value 25 then."
+ },
+ {
+  "start": 98.422,
+  "end": 101.355,
+  "en": "Instead, the tree needs to be reorganized"
+ },
+ {
+  "start": 101.612,
+  "end": 105.714,
+  "en": "such that 25 still is kept around and takes"
+ },
+ {
+  "start": 105.714,
+  "end": 108.327,
+  "en": "a new place in the tree and we really only"
+ },
+ {
+  "start": 108.343,
+  "end": 111.308,
+  "en": "remove the value 20. And of course, that's a"
+ },
+ {
+  "start": 111.308,
+  "end": 113.632,
+  "en": "bit more tricky because it's not enough to"
+ },
+ {
+  "start": 113.632,
+  "end": 116.165,
+  "en": "just find a value and remove the node. We"
+ },
+ {
+  "start": 116.213,
+  "end": 119.387,
+  "en": "also need to reorganize any child nodes that"
+ },
+ {
+  "start": 119.483,
+  "end": 121.311,
+  "en": "to-be-removed node might have."
+ },
+ {
+  "start": 122.529,
+  "end": 125.511,
+  "en": "Now, let's nonetheless start with the simple"
+ },
+ {
+  "start": 125.511,
+  "end": 128.124,
+  "en": "case that we wanna remove a node entirely,"
+ },
+ {
+  "start": 128.54,
+  "end": 130.929,
+  "en": "at least if it has no left or right child."
+ },
+ {
+  "start": 131.666,
+  "end": 133.494,
+  "en": "This is fairly trivial to implement."
+ },
+ {
+  "start": 134.792,
+  "end": 136.283,
+  "en": "In the Node class here,"
+ },
+ {
+  "start": 136.908,
+  "end": 137.694,
+  "en": "I'll add a"
+ },
+ {
+  "start": 138.319,
+  "end": 138.784,
+  "en": "remove"
+ },
+ {
+  "start": 139.377,
+  "end": 141.157,
+  "en": "method where we get a value that should be"
+ },
+ {
+  "start": 141.221,
+  "end": 141.67,
+  "en": "removed"
+ },
+ {
+  "start": 142.327,
+  "end": 145.534,
+  "en": "and the first step simply is that we find"
+ },
+ {
+  "start": 145.534,
+  "end": 147.554,
+  "en": "the node that should be removed. And for"
+ },
+ {
+  "start": 147.554,
+  "end": 150.024,
+  "en": "that we can use the existing find method"
+ },
+ {
+  "start": 150.024,
+  "end": 152.509,
+  "en": "which we implemented earlier. So here we got"
+ },
+ {
+  "start": 152.509,
+  "end": 152.765,
+  "en": "the"
+ },
+ {
+  "start": 153.327,
+  "end": 155.876,
+  "en": "identified node which is the node we wanna"
+ },
+ {
+  "start": 155.876,
+  "end": 156.261,
+  "en": "remove"
+ },
+ {
+  "start": 156.918,
+  "end": 159.868,
+  "en": "and we get it by calling this.find and then"
+ },
+ {
+  "start": 159.884,
+  "end": 162.209,
+  "en": "we pass the value to find and this will"
+ },
+ {
+  "start": 162.289,
+  "end": 164.197,
+  "en": "trigger this method and find us the node"
+ },
+ {
+  "start": 164.229,
+  "end": 166.395,
+  "en": "that should be removed. Of course, we might"
+ },
+ {
+  "start": 166.395,
+  "end": 168.465,
+  "en": "not find anything here, so I'm going to"
+ },
+ {
+  "start": 168.465,
+  "end": 171.096,
+  "en": "check if we don't have an identified node,"
+ },
+ {
+  "start": 171.433,
+  "end": 173.471,
+  "en": "which means there is no node to remove."
+ },
+ {
+  "start": 174.001,
+  "end": 175.557,
+  "en": "And if that's the case, we can throw a new"
+ },
+ {
+  "start": 175.846,
+  "end": 177.338,
+  "en": "error where we simply say"
+ },
+ {
+  "start": 177.868,
+  "end": 180.724,
+  "en": "could not find node with that value,"
+ },
+ {
+  "start": 181.558,
+  "end": 182.329,
+  "en": "anything like that."
+ },
+ {
+  "start": 183.227,
+  "end": 185.024,
+  "en": "But of course, if we make it past this if"
+ },
+ {
+  "start": 185.072,
+  "end": 186.42,
+  "en": "check, we know we did find a node."
+ },
+ {
+  "start": 187.014,
+  "end": 188.506,
+  "en": "And therefore, now I want to find out if"
+ },
+ {
+  "start": 188.603,
+  "end": 190.785,
+  "en": "this identified node maybe has neither a"
+ },
+ {
+  "start": 190.865,
+  "end": 193.56,
+  "en": "left nor a right child. What which means"
+ },
+ {
+  "start": 193.672,
+  "end": 195.819,
+  "en": "that the identified node would be a leaf,"
+ },
+ {
+  "start": 196.14,
+  "end": 197.87,
+  "en": "which would make removing it easier."
+ },
+ {
+  "start": 198.559,
+  "end": 200.129,
+  "en": "So if we don't have"
+ },
+ {
+  "start": 201.203,
+  "end": 202.212,
+  "en": "a left node"
+ },
+ {
+  "start": 202.869,
+  "end": 204.808,
+  "en": "on the identified node, so if we don't have"
+ },
+ {
+  "start": 204.808,
+  "end": 207.34,
+  "en": "a left child, if this is falsy, so if it is"
+ },
+ {
+  "start": 207.372,
+  "end": 208.413,
+  "en": "null for example,"
+ },
+ {
+  "start": 209.118,
+  "end": 212.194,
+  "en": "and if we don't have a right child, then we"
+ },
+ {
+  "start": 212.194,
+  "end": 214.87,
+  "en": "know this identified node is a leaf node"
+ },
+ {
+  "start": 214.966,
+  "end": 217.161,
+  "en": "without any children, and therefore removing"
+ },
+ {
+  "start": 217.209,
+  "end": 217.995,
+  "en": "it will be easy."
+ },
+ {
+  "start": 218.812,
+  "end": 221.007,
+  "en": "Now to remove it, what we basically want to"
+ },
+ {
+  "start": 221.071,
+  "end": 225.616,
+  "en": "do is we wanna go to the parent node"
+ },
+ {
+  "start": 226.355,
+  "end": 228.78,
+  "en": "and tell it that it should no longer point"
+ },
+ {
+  "start": 228.845,
+  "end": 231.399,
+  "en": "at this identified node, right? Because"
+ },
+ {
+  "start": 231.431,
+  "end": 233.969,
+  "en": "that's how our tree is built. Every node"
+ },
+ {
+  "start": 234.001,
+  "end": 236.314,
+  "en": "points at other nodes with left and right"
+ },
+ {
+  "start": 236.877,
+  "end": 239.222,
+  "en": "and removing a node therefore means that the"
+ },
+ {
+  "start": 239.222,
+  "end": 242.338,
+  "en": "parent node should no longer point at that"
+ },
+ {
+  "start": 242.595,
+  "end": 243.607,
+  "en": "to-be-removed node."
+ },
+ {
+  "start": 244.523,
+  "end": 246.499,
+  "en": "Therefore, we in general should store a new"
+ },
+ {
+  "start": 246.611,
+  "end": 248.828,
+  "en": "piece of information when we create a node"
+ },
+ {
+  "start": 249.166,
+  "end": 250.047,
+  "en": "And that's the parent."
+ },
+ {
+  "start": 250.608,
+  "end": 252.74,
+  "en": "And the parent should initially be null,"
+ },
+ {
+  "start": 253.51,
+  "end": 256.459,
+  "en": "but if we add a value to the right or to the"
+ },
+ {
+  "start": 256.459,
+  "end": 258.912,
+  "en": "left node, so here in the add method, when"
+ },
+ {
+  "start": 259.024,
+  "end": 261.044,
+  "en": "we add something on the right or the left"
+ },
+ {
+  "start": 261.124,
+  "end": 262.615,
+  "en": "property of an existing node,"
+ },
+ {
+  "start": 263.192,
+  "end": 265.725,
+  "en": "then I also want to set the parent of this"
+ },
+ {
+  "start": 265.853,
+  "end": 266.783,
+  "en": "to-be-added node."
+ },
+ {
+  "start": 267.457,
+  "end": 269.028,
+  "en": "And that's something we can achieve"
+ },
+ {
+  "start": 269.3,
+  "end": 271.4,
+  "en": "relatively easy. Whenever we're creating a"
+ },
+ {
+  "start": 271.4,
+  "end": 274.045,
+  "en": "new node, we don't just wanna assign it to"
+ },
+ {
+  "start": 274.173,
+  "end": 276.642,
+  "en": "right or left, But on that new node,"
+ },
+ {
+  "start": 277.315,
+  "end": 279.768,
+  "en": "we also want to set parent equal to this, so"
+ },
+ {
+  "start": 279.945,
+  "end": 282.99,
+  "en": "to the node that created this new node. We"
+ },
+ {
+  "start": 282.99,
+  "end": 283.519,
+  "en": "do this here"
+ },
+ {
+  "start": 284.353,
+  "end": 285.042,
+  "en": "and we do this here."
+ },
+ {
+  "start": 285.796,
+  "end": 288.361,
+  "en": "And with that, we keep track of the parents"
+ },
+ {
+  "start": 288.441,
+  "end": 289.547,
+  "en": "of our different nodes."
+ },
+ {
+  "start": 290.381,
+  "end": 292.417,
+  "en": "Now that we got the parent, when we want to"
+ },
+ {
+  "start": 292.529,
+  "end": 295.078,
+  "en": "remove a node and we know it's a leaf node,"
+ },
+ {
+  "start": 295.751,
+  "end": 299.582,
+  "en": "then we want to get the parent of the"
+ },
+ {
+  "start": 299.759,
+  "end": 302.984,
+  "en": "identified node So we could call this"
+ },
+ {
+  "start": 303.369,
+  "end": 305.328,
+  "en": "identified parent therefore"
+ },
+ {
+  "start": 305.938,
+  "end": 308.282,
+  "en": "by reaching out to identified_node.parent."
+ },
+ {
+  "start": 309.374,
+  "end": 311.092,
+  "en": "Now that's the parent of the node we want to"
+ },
+ {
+  "start": 311.156,
+  "end": 312.89,
+  "en": "remove. How does this help us?"
+ },
+ {
+  "start": 313.645,
+  "end": 316.198,
+  "en": "Well, now we can add a new utility method"
+ },
+ {
+  "start": 316.198,
+  "end": 316.31,
+  "en": "here,"
+ },
+ {
+  "start": 316.84,
+  "end": 318.109,
+  "en": "remove_child,"
+ },
+ {
+  "start": 319.024,
+  "end": 321.256,
+  "en": "where we want to get the node that we want"
+ },
+ {
+  "start": 321.256,
+  "end": 324.098,
+  "en": "to remove. And in here we simply check if"
+ },
+ {
+  "start": 324.643,
+  "end": 327.292,
+  "en": "this node on which we call remove_child has"
+ },
+ {
+  "start": 327.292,
+  "end": 328.062,
+  "en": "a left node."
+ },
+ {
+  "start": 328.655,
+  "end": 330.37,
+  "en": "And if that's the case, we check if this"
+ },
+ {
+  "start": 330.819,
+  "end": 331.3,
+  "en": "left"
+ },
+ {
+  "start": 332.005,
+  "end": 335.195,
+  "en": "is equal to the node we want to remove. So"
+ },
+ {
+  "start": 335.227,
+  "end": 337.295,
+  "en": "if our left node is the child node that"
+ },
+ {
+  "start": 337.295,
+  "end": 338.0,
+  "en": "should be removed,"
+ },
+ {
+  "start": 338.577,
+  "end": 340.918,
+  "en": "and if that's the case, we simply set this"
+ },
+ {
+  "start": 340.918,
+  "end": 344.941,
+  "en": "left equal to null. So we no longer point at"
+ },
+ {
+  "start": 345.005,
+  "end": 347.474,
+  "en": "this node here. Left instead points at"
+ },
+ {
+  "start": 347.474,
+  "end": 349.814,
+  "en": "nothing, and that means that the node we"
+ },
+ {
+  "start": 349.814,
+  "end": 352.524,
+  "en": "originally pointed at is, well, ready to be"
+ },
+ {
+  "start": 352.524,
+  "end": 353.357,
+  "en": "garbage collected."
+ },
+ {
+  "start": 354.771,
+  "end": 355.944,
+  "en": "And I thereafter return."
+ },
+ {
+  "start": 356.94,
+  "end": 358.981,
+  "en": "Or if we don't make it into this if check,"
+ },
+ {
+  "start": 359.527,
+  "end": 362.66,
+  "en": "we basically just check the other child node"
+ },
+ {
+  "start": 362.66,
+  "end": 365.392,
+  "en": "we have, the right node, and check if that's"
+ },
+ {
+  "start": 365.392,
+  "end": 367.369,
+  "en": "the node we want to delete. And if this is"
+ },
+ {
+  "start": 367.401,
+  "end": 369.731,
+  "en": "the case, we basically do the same just with"
+ },
+ {
+  "start": 369.731,
+  "end": 371.611,
+  "en": "the right node, and then we return."
+ },
+ {
+  "start": 372.543,
+  "end": 374.921,
+  "en": "And now with that, we can call removeChild"
+ },
+ {
+  "start": 375.098,
+  "end": 377.926,
+  "en": "on this identified parent here. So there we"
+ },
+ {
+  "start": 377.926,
+  "end": 380.736,
+  "en": "call removeChild and forward the identified"
+ },
+ {
+  "start": 380.736,
+  "end": 381.507,
+  "en": "node to it."
+ },
+ {
+  "start": 382.181,
+  "end": 384.252,
+  "en": "And that should be a relatively elegant way"
+ },
+ {
+  "start": 384.332,
+  "end": 386.981,
+  "en": "of getting rid of a child node that we"
+ },
+ {
+  "start": 387.061,
+  "end": 388.875,
+  "en": "identified for a given value."
+ },
+ {
+  "start": 389.822,
+  "end": 391.828,
+  "en": "Now, as I mentioned before, this only works"
+ },
+ {
+  "start": 391.893,
+  "end": 394.349,
+  "en": "for leaf nodes here. We're not really having"
+ },
+ {
+  "start": 394.397,
+  "end": 396.676,
+  "en": "a solution for nodes that have other nested"
+ },
+ {
+  "start": 396.692,
+  "end": 396.997,
+  "en": "nodes,"
+ },
+ {
+  "start": 397.575,
+  "end": 399.854,
+  "en": "but it is a start, and we can give it a try"
+ },
+ {
+  "start": 400.24,
+  "end": 400.352,
+  "en": "by"
+ },
+ {
+  "start": 401.588,
+  "end": 403.691,
+  "en": "going back to our code down there."
+ },
+ {
+  "start": 404.413,
+  "end": 407.142,
+  "en": "And here I wanna remove a leaf node now. So"
+ },
+ {
+  "start": 407.142,
+  "end": 409.47,
+  "en": "let's dig into our tree and let's pick the,"
+ },
+ {
+  "start": 410.177,
+  "end": 414.111,
+  "en": "uh, the deeply— the most deeply nested node"
+ },
+ {
+  "start": 414.111,
+  "end": 416.23,
+  "en": "I can find here, which is the one with value"
+ },
+ {
+  "start": 416.294,
+  "end": 418.735,
+  "en": "39. So therefore here I will call"
+ },
+ {
+  "start": 418.847,
+  "end": 420.678,
+  "en": "tree.remove,"
+ },
+ {
+  "start": 421.417,
+  "end": 424.242,
+  "en": "and the idea is that finding 39 should now"
+ },
+ {
+  "start": 424.323,
+  "end": 424.66,
+  "en": "fail"
+ },
+ {
+  "start": 425.19,
+  "end": 427.277,
+  "en": "and that we also shouldn't see it if we"
+ },
+ {
+  "start": 427.374,
+  "end": 428.738,
+  "en": "print the entire tree here."
+ },
+ {
+  "start": 429.541,
+  "end": 430.697,
+  "en": "So let's save everything"
+ },
+ {
+  "start": 431.388,
+  "end": 434.034,
+  "en": "and reload here. And indeed we get undefined"
+ },
+ {
+  "start": 434.034,
+  "end": 436.966,
+  "en": "here when we search 39, which is good."
+ },
+ {
+  "start": 437.239,
+  "end": 439.706,
+  "en": "That's the value we wanna get. We shouldn't"
+ },
+ {
+  "start": 439.722,
+  "end": 440.139,
+  "en": "find it."
+ },
+ {
+  "start": 440.924,
+  "end": 442.51,
+  "en": "And if I now inspect the entire tree,"
+ },
+ {
+  "start": 443.071,
+  "end": 444.802,
+  "en": "we see 5 is there, 20 is there,"
+ },
+ {
+  "start": 445.715,
+  "end": 447.862,
+  "en": "and in 20 we got 25."
+ },
+ {
+  "start": 448.615,
+  "end": 450.939,
+  "en": "But in there, if we dig deeper, we see that"
+ },
+ {
+  "start": 450.939,
+  "end": 453.471,
+  "en": "now there the right node which we had"
+ },
+ {
+  "start": 453.599,
+  "end": 456.034,
+  "en": "earlier, 39, is gone."
+ },
+ {
+  "start": 456.627,
+  "end": 459.191,
+  "en": "So this works. We were able to remove this."
+ },
+ {
+  "start": 460.076,
+  "end": 462.544,
+  "en": "Now let's also make sure we can also remove"
+ },
+ {
+  "start": 462.657,
+  "end": 464.076,
+  "en": "non-leaf nodes."
+ }
+]

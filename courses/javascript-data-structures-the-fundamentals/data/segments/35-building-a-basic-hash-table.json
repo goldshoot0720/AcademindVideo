@@ -1,0 +1,1472 @@
+[
+ {
+  "start": 2.133,
+  "end": 5.276,
+  "en": "Now we know why hash tables are useful, why"
+ },
+ {
+  "start": 5.325,
+  "end": 8.276,
+  "en": "we need such table-like data structures, and"
+ },
+ {
+  "start": 8.292,
+  "end": 10.553,
+  "en": "the hash table is really just how you can"
+ },
+ {
+  "start": 10.553,
+  "end": 12.639,
+  "en": "efficiently build such a table data"
+ },
+ {
+  "start": 12.639,
+  "end": 13.184,
+  "en": "structure."
+ },
+ {
+  "start": 13.809,
+  "end": 15.959,
+  "en": "Now JavaScript, as I already mentioned"
+ },
+ {
+  "start": 16.071,
+  "end": 18.798,
+  "en": "multiple times, comes with a built-in table"
+ },
+ {
+  "start": 18.798,
+  "end": 20.947,
+  "en": "structure, and that would be the JavaScript"
+ },
+ {
+  "start": 21.027,
+  "end": 23.802,
+  "en": "object, which already is a key-value store,"
+ },
+ {
+  "start": 24.315,
+  "end": 26.16,
+  "en": "but under the hood, the object in the end"
+ },
+ {
+  "start": 26.16,
+  "end": 28.886,
+  "en": "just is built with such a hash table. So"
+ },
+ {
+  "start": 28.886,
+  "end": 31.499,
+  "en": "let's now build our own hash table to"
+ },
+ {
+  "start": 31.547,
+  "end": 33.759,
+  "en": "understand what the JavaScript object does"
+ },
+ {
+  "start": 34.112,
+  "end": 34.801,
+  "en": "behind the scenes."
+ },
+ {
+  "start": 35.635,
+  "end": 37.559,
+  "en": "Now for the hash table, you learned that in"
+ },
+ {
+  "start": 37.559,
+  "end": 39.418,
+  "en": "the end it's just an array that works with"
+ },
+ {
+  "start": 39.482,
+  "end": 40.364,
+  "en": "indexes, you could say,"
+ },
+ {
+  "start": 40.909,
+  "end": 42.993,
+  "en": "but that we have a hashing function that"
+ },
+ {
+  "start": 42.993,
+  "end": 45.654,
+  "en": "translates keys which we as a developer want"
+ },
+ {
+  "start": 45.654,
+  "end": 46.311,
+  "en": "to work with"
+ },
+ {
+  "start": 46.92,
+  "end": 49.148,
+  "en": "into indexes which then can be stored."
+ },
+ {
+  "start": 49.806,
+  "end": 51.906,
+  "en": "So therefore, we'll now need to build the"
+ },
+ {
+  "start": 51.906,
+  "end": 54.871,
+  "en": "hashing function on our own and then build a"
+ },
+ {
+  "start": 54.871,
+  "end": 56.362,
+  "en": "couple of functions that allow us to"
+ },
+ {
+  "start": 56.378,
+  "end": 58.526,
+  "en": "interact with that hashing function and with"
+ },
+ {
+  "start": 58.558,
+  "end": 61.285,
+  "en": "the underlying hash table array. Before we"
+ },
+ {
+  "start": 61.285,
+  "end": 63.823,
+  "en": "do that, however, let me clarify one thing."
+ },
+ {
+  "start": 64.642,
+  "end": 67.163,
+  "en": "Why do we need to translate the key into"
+ },
+ {
+  "start": 67.163,
+  "end": 70.006,
+  "en": "such an index, into such a hash? Why don't"
+ },
+ {
+  "start": 70.102,
+  "end": 71.998,
+  "en": "we just use the key itself"
+ },
+ {
+  "start": 72.592,
+  "end": 73.491,
+  "en": "as an index?"
+ },
+ {
+  "start": 74.214,
+  "end": 76.912,
+  "en": "Now, there are multiple reasons for that."
+ },
+ {
+  "start": 77.587,
+  "end": 79.338,
+  "en": "Depending on the programming language you're"
+ },
+ {
+  "start": 79.434,
+  "end": 80.028,
+  "en": "working with,"
+ },
+ {
+  "start": 80.622,
+  "end": 84.461,
+  "en": "you simply might not be able to use a string"
+ },
+ {
+  "start": 84.654,
+  "end": 84.959,
+  "en": "key"
+ },
+ {
+  "start": 85.521,
+  "end": 88.57,
+  "en": "as an index. If you just have something like"
+ },
+ {
+  "start": 88.65,
+  "end": 91.745,
+  "en": "a default array where the index values are"
+ },
+ {
+  "start": 91.889,
+  "end": 95.128,
+  "en": "numbers, you can't just use a string. So"
+ },
+ {
+  "start": 95.144,
+  "end": 96.828,
+  "en": "then you would need a function that"
+ },
+ {
+  "start": 96.828,
+  "end": 99.73,
+  "en": "translates your string into such an index."
+ },
+ {
+  "start": 100.291,
+  "end": 102.328,
+  "en": "But there also is another reason."
+ },
+ {
+  "start": 103.162,
+  "end": 106.032,
+  "en": "If you just take the key which is provided"
+ },
+ {
+  "start": 106.064,
+  "end": 109.191,
+  "en": "by the user and you use that as an index,"
+ },
+ {
+  "start": 109.576,
+  "end": 111.131,
+  "en": "let's assume that would be possible."
+ },
+ {
+  "start": 111.74,
+  "end": 113.937,
+  "en": "If you would do that, there is the danger"
+ },
+ {
+  "start": 114.242,
+  "end": 117.113,
+  "en": "that you have a hash table"
+ },
+ {
+  "start": 117.771,
+  "end": 121.188,
+  "en": "where your index values, where your keys"
+ },
+ {
+  "start": 121.765,
+  "end": 124.958,
+  "en": "are not spread out evenly. Now, it really"
+ },
+ {
+  "start": 124.99,
+  "end": 128.278,
+  "en": "depends on the environment and the exact use"
+ },
+ {
+  "start": 128.278,
+  "end": 131.134,
+  "en": "case whether that matters, but it could lead"
+ },
+ {
+  "start": 131.391,
+  "end": 135.016,
+  "en": "to inefficient memory usage, storage, and"
+ },
+ {
+  "start": 135.016,
+  "end": 137.47,
+  "en": "therefore to performance disadvantages"
+ },
+ {
+  "start": 138.128,
+  "end": 140.551,
+  "en": "if your keys are not spread out evenly"
+ },
+ {
+  "start": 141.112,
+  "end": 144.096,
+  "en": "in memory, so to say. Now it's really a bit"
+ },
+ {
+  "start": 144.144,
+  "end": 146.856,
+  "en": "too advanced to really take a deep dive into"
+ },
+ {
+  "start": 147.193,
+  "end": 149.182,
+  "en": "all the details here, since that really"
+ },
+ {
+  "start": 149.278,
+  "end": 150.706,
+  "en": "leads us down the road to"
+ },
+ {
+  "start": 151.284,
+  "end": 153.915,
+  "en": "how computers work internally, how memory is"
+ },
+ {
+  "start": 153.963,
+  "end": 156.867,
+  "en": "utilized, and that again depends way too"
+ },
+ {
+  "start": 156.883,
+  "end": 159.931,
+  "en": "much also on the exact environment in which"
+ },
+ {
+  "start": 160.027,
+  "end": 161.616,
+  "en": "you're running, on your programming"
+ },
+ {
+  "start": 161.648,
+  "end": 162.642,
+  "en": "language, and so on."
+ },
+ {
+  "start": 163.412,
+  "end": 165.225,
+  "en": "The important takeaway just is that there"
+ },
+ {
+  "start": 165.322,
+  "end": 168.596,
+  "en": "might be good reasons for having well-spread"
+ },
+ {
+  "start": 168.612,
+  "end": 172.032,
+  "en": "out index values and therefore we might not"
+ },
+ {
+  "start": 172.224,
+  "end": 174.745,
+  "en": "want to take the keys provided by the user."
+ },
+ {
+  "start": 175.275,
+  "end": 177.185,
+  "en": "And in addition, there might be technical"
+ },
+ {
+  "start": 177.282,
+  "end": 179.642,
+  "en": "reasons that simply don't allow us to take"
+ },
+ {
+  "start": 179.722,
+  "end": 181.199,
+  "en": "strings as keys."
+ },
+ {
+  "start": 181.937,
+  "end": 184.506,
+  "en": "In the end, you also must not forget that if"
+ },
+ {
+  "start": 184.506,
+  "end": 185.052,
+  "en": "you really"
+ },
+ {
+  "start": 185.726,
+  "end": 188.054,
+  "en": "dig down into how a computer works,"
+ },
+ {
+  "start": 188.632,
+  "end": 190.912,
+  "en": "it works just with zeros and ones."
+ },
+ {
+  "start": 191.586,
+  "end": 193.818,
+  "en": "So ultimately, of course, it depends on the"
+ },
+ {
+  "start": 193.914,
+  "end": 195.777,
+  "en": "programming language you're working with"
+ },
+ {
+  "start": 196.082,
+  "end": 199.424,
+  "en": "which features you can use and which kind of"
+ },
+ {
+  "start": 199.617,
+  "end": 201.625,
+  "en": "data structures are built into the"
+ },
+ {
+  "start": 201.625,
+  "end": 202.509,
+  "en": "programming language."
+ },
+ {
+  "start": 203.393,
+  "end": 204.485,
+  "en": "Again, back in"
+ },
+ {
+  "start": 205.064,
+  "end": 207.843,
+  "en": "app.js, in an empty JavaScript file, let's"
+ },
+ {
+  "start": 207.972,
+  "end": 210.8,
+  "en": "build our own hash table data structure."
+ },
+ {
+  "start": 210.96,
+  "end": 213.612,
+  "en": "I'll again build it as a class and I'll name"
+ },
+ {
+  "start": 213.66,
+  "end": 214.704,
+  "en": "it Hashtable."
+ },
+ {
+  "start": 215.829,
+  "end": 218.223,
+  "en": "And in this class, we'll need a constructor"
+ },
+ {
+  "start": 218.335,
+  "end": 220.553,
+  "en": "function, a constructor method, which does"
+ },
+ {
+  "start": 220.762,
+  "end": 222.582,
+  "en": "something when we call new"
+ },
+ {
+  "start": 223.244,
+  "end": 225.731,
+  "en": "Hashtable, which we of course wanna call to"
+ },
+ {
+  "start": 225.763,
+  "end": 227.201,
+  "en": "create such a new table"
+ },
+ {
+  "start": 229.138,
+  "end": 229.429,
+  "en": "like this."
+ },
+ {
+  "start": 230.508,
+  "end": 233.609,
+  "en": "Actually, we can grab our algorithm from"
+ },
+ {
+  "start": 233.625,
+  "end": 236.581,
+  "en": "before, this first grab object JavaScript"
+ },
+ {
+  "start": 236.581,
+  "end": 237.979,
+  "en": "file into which I saved it now,"
+ },
+ {
+  "start": 238.605,
+  "end": 241.574,
+  "en": "copy that and move that into app.js."
+ },
+ {
+  "start": 242.303,
+  "end": 244.864,
+  "en": "And in here now I'll create that table here"
+ },
+ {
+  "start": 245.318,
+  "end": 245.772,
+  "en": "with new"
+ },
+ {
+  "start": 246.518,
+  "end": 249.047,
+  "en": "Hashtable instead of the built-in JavaScript"
+ },
+ {
+  "start": 249.111,
+  "end": 251.398,
+  "en": "object to really show you how that works and"
+ },
+ {
+  "start": 251.398,
+  "end": 252.074,
+  "en": "how we can use our own hash table."
+ },
+ {
+  "start": 254.677,
+  "end": 256.923,
+  "en": "Okay, so this code won't run right now, but"
+ },
+ {
+  "start": 256.939,
+  "end": 259.232,
+  "en": "we'll make it work once we implemented our"
+ },
+ {
+  "start": 259.264,
+  "end": 259.921,
+  "en": "hash table."
+ },
+ {
+  "start": 260.803,
+  "end": 261.894,
+  "en": "So what should happen here in the"
+ },
+ {
+  "start": 261.894,
+  "end": 262.423,
+  "en": "constructor?"
+ },
+ {
+  "start": 263.176,
+  "end": 265.357,
+  "en": "As I mentioned, under the hood, a hash table"
+ },
+ {
+  "start": 265.357,
+  "end": 267.249,
+  "en": "is really just an array that works with"
+ },
+ {
+  "start": 267.346,
+  "end": 267.763,
+  "en": "indexes."
+ },
+ {
+  "start": 268.58,
+  "end": 270.184,
+  "en": "So we can create our"
+ },
+ {
+  "start": 270.874,
+  "end": 273.824,
+  "en": "table, or how it's often called, we can"
+ },
+ {
+  "start": 273.84,
+  "end": 275.299,
+  "en": "create a couple of buckets here,"
+ },
+ {
+  "start": 276.727,
+  "end": 277.945,
+  "en": "which is in the end just our array,"
+ },
+ {
+  "start": 278.587,
+  "end": 280.383,
+  "en": "by calling the built-in array"
+ },
+ {
+  "start": 280.976,
+  "end": 282.293,
+  "en": "function in JavaScript."
+ },
+ {
+  "start": 283.079,
+  "end": 286.258,
+  "en": "This needs a size like 100 to create a new"
+ },
+ {
+  "start": 286.37,
+  "end": 287.943,
+  "en": "array of that size."
+ },
+ {
+  "start": 288.858,
+  "end": 290.833,
+  "en": "Now here I'll go with 100,"
+ },
+ {
+  "start": 291.411,
+  "end": 293.514,
+  "en": "and this will create an array with 100"
+ },
+ {
+  "start": 293.771,
+  "end": 296.628,
+  "en": "slots, you could say 100 buckets. And"
+ },
+ {
+  "start": 296.724,
+  "end": 298.892,
+  "en": "buckets is really just a term you'll see a"
+ },
+ {
+  "start": 299.036,
+  "end": 299.662,
+  "en": "lot when you"
+ },
+ {
+  "start": 300.561,
+  "end": 303.338,
+  "en": "research about hash tables, and hence I'll"
+ },
+ {
+  "start": 303.451,
+  "end": 305.104,
+  "en": "use that term here as well."
+ },
+ {
+  "start": 305.875,
+  "end": 308.411,
+  "en": "Now this gives us an array with 100 empty"
+ },
+ {
+  "start": 308.603,
+  "end": 309.245,
+  "en": "slots,"
+ },
+ {
+  "start": 309.791,
+  "end": 312.358,
+  "en": "and I will call fill on that to replace the"
+ },
+ {
+  "start": 312.518,
+  "end": 315.615,
+  "en": "empty values with null values so that there"
+ },
+ {
+  "start": 315.679,
+  "end": 317.829,
+  "en": "is still no useful data in there, but it's"
+ },
+ {
+  "start": 317.829,
+  "end": 320.974,
+  "en": "technically not empty, but there is at least"
+ },
+ {
+  "start": 321.134,
+  "end": 323.91,
+  "en": "nothing in each slot. Might sound a bit"
+ },
+ {
+  "start": 323.91,
+  "end": 326.236,
+  "en": "strange, but that's just how arrays work"
+ },
+ {
+  "start": 326.252,
+  "end": 328.98,
+  "en": "under the hood. This gives us a 100-item"
+ },
+ {
+  "start": 328.98,
+  "end": 331.435,
+  "en": "long array where every item is null."
+ },
+ {
+  "start": 332.75,
+  "end": 335.927,
+  "en": "Now these are the slots which I want to"
+ },
+ {
+  "start": 335.959,
+  "end": 337.5,
+  "en": "reserve for my"
+ },
+ {
+  "start": 338.448,
+  "end": 339.459,
+  "en": "key-value pairs."
+ },
+ {
+  "start": 340.134,
+  "end": 343.072,
+  "en": "Of course, the fact that I only have 100"
+ },
+ {
+  "start": 343.168,
+  "end": 346.043,
+  "en": "items here basically means that I can only"
+ },
+ {
+  "start": 346.075,
+  "end": 348.275,
+  "en": "store 100 different keys in here."
+ },
+ {
+  "start": 348.821,
+  "end": 351.053,
+  "en": "So we might want a bigger size than that,"
+ },
+ {
+  "start": 351.293,
+  "end": 353.766,
+  "en": "but I'll come back to sizing and how to work"
+ },
+ {
+  "start": 353.766,
+  "end": 356.111,
+  "en": "with more keys later. For the moment, let's"
+ },
+ {
+  "start": 356.111,
+  "end": 357.315,
+  "en": "work with 100 here."
+ },
+ {
+  "start": 358.6,
+  "end": 360.575,
+  "en": "Now these are our buckets. Now what we'll"
+ },
+ {
+  "start": 360.607,
+  "end": 364.043,
+  "en": "definitely also need is an add, or let's say"
+ },
+ {
+  "start": 364.123,
+  "end": 364.573,
+  "en": "a set"
+ },
+ {
+  "start": 365.343,
+  "end": 366.997,
+  "en": "method which allows us to add a new"
+ },
+ {
+  "start": 367.093,
+  "end": 367.864,
+  "en": "key-value pair."
+ },
+ {
+  "start": 368.393,
+  "end": 370.865,
+  "en": "And I'll name it set and not add to make it"
+ },
+ {
+  "start": 370.865,
+  "end": 373.947,
+  "en": "clear that this will always set the value to"
+ },
+ {
+  "start": 373.947,
+  "end": 376.034,
+  "en": "a specific key. And if that key should"
+ },
+ {
+  "start": 376.082,
+  "end": 377.944,
+  "en": "already exist, it will just override it,"
+ },
+ {
+  "start": 378.169,
+  "end": 380.416,
+  "en": "which by the way is what we want. If a key"
+ },
+ {
+  "start": 380.496,
+  "end": 382.984,
+  "en": "already exists, we wanna override the value"
+ },
+ {
+  "start": 382.984,
+  "end": 384.862,
+  "en": "for that key with that new value."
+ },
+ {
+  "start": 385.665,
+  "end": 386.869,
+  "en": "So that takes a key"
+ },
+ {
+  "start": 387.976,
+  "end": 389.79,
+  "en": "and a value. Set takes both."
+ },
+ {
+  "start": 390.545,
+  "end": 393.084,
+  "en": "And now we need to translate the key which"
+ },
+ {
+  "start": 393.278,
+  "end": 395.365,
+  "en": "is a string, let's say, which always should"
+ },
+ {
+  "start": 395.381,
+  "end": 396.886,
+  "en": "be a string for our hash table,"
+ },
+ {
+  "start": 397.484,
+  "end": 399.814,
+  "en": "into an index. We need a translation method."
+ },
+ {
+  "start": 400.493,
+  "end": 402.904,
+  "en": "And for this, I'll add a hash method."
+ },
+ {
+  "start": 403.568,
+  "end": 405.979,
+  "en": "And this takes a key as an input and should"
+ },
+ {
+  "start": 405.979,
+  "end": 408.811,
+  "en": "return a number which we can use as an index"
+ },
+ {
+  "start": 409.135,
+  "end": 409.938,
+  "en": "in our array."
+ },
+ {
+  "start": 411.772,
+  "end": 414.2,
+  "en": "Now you can build more or less complex"
+ },
+ {
+  "start": 414.328,
+  "end": 417.447,
+  "en": "hashing methods, hashing functions. There is"
+ },
+ {
+  "start": 417.56,
+  "end": 419.714,
+  "en": "no limit to the complexity you wanna add"
+ },
+ {
+  "start": 419.714,
+  "end": 419.843,
+  "en": "there."
+ },
+ {
+  "start": 420.568,
+  "end": 423.073,
+  "en": "I'll go with a very simple one for now"
+ },
+ {
+  "start": 423.282,
+  "end": 424.92,
+  "en": "because at the moment it's just about"
+ },
+ {
+  "start": 425.048,
+  "end": 428.244,
+  "en": "understanding hash tables. So I will work"
+ },
+ {
+  "start": 428.244,
+  "end": 429.802,
+  "en": "with a simple hashing function."
+ },
+ {
+  "start": 430.428,
+  "end": 433.479,
+  "en": "I will basically take the characters of the"
+ },
+ {
+  "start": 433.479,
+  "end": 434.331,
+  "en": "key which I'm getting,"
+ },
+ {
+  "start": 434.989,
+  "end": 436.852,
+  "en": "and again, key should be a string, so I'm"
+ },
+ {
+  "start": 436.852,
+  "end": 438.185,
+  "en": "talking about characters,"
+ },
+ {
+  "start": 438.843,
+  "end": 441.14,
+  "en": "and every character will have a key code, a"
+ },
+ {
+  "start": 441.188,
+  "end": 444.287,
+  "en": "char code. So we could say that A has a code"
+ },
+ {
+  "start": 444.4,
+  "end": 444.93,
+  "en": "of 1,"
+ },
+ {
+  "start": 445.588,
+  "end": 447.339,
+  "en": "B has a code of 2, and so on."
+ },
+ {
+  "start": 448.986,
+  "end": 452.782,
+  "en": "And my hash is then simply just the result"
+ },
+ {
+  "start": 452.88,
+  "end": 455.46,
+  "en": "of adding all those codes together, let's"
+ },
+ {
+  "start": 455.46,
+  "end": 455.508,
+  "en": "say."
+ },
+ {
+  "start": 457.908,
+  "end": 461.5,
+  "en": "So if we had something like AB as a string"
+ },
+ {
+  "start": 461.694,
+  "end": 464.644,
+  "en": "and A is 1 and B is 2, we would have"
+ },
+ {
+  "start": 465.732,
+  "end": 469.401,
+  "en": "1 plus 2, we would have a hash of 3. That's"
+ },
+ {
+  "start": 469.401,
+  "end": 470.44,
+  "en": "how this should work."
+ },
+ {
+  "start": 471.349,
+  "end": 474.921,
+  "en": "So here my hash actually starts at 0."
+ },
+ {
+  "start": 475.729,
+  "end": 477.557,
+  "en": "And then I go through all the characters"
+ },
+ {
+  "start": 478.381,
+  "end": 478.656,
+  "en": "in my"
+ },
+ {
+  "start": 479.449,
+  "end": 481.874,
+  "en": "key string. So I loop through all the"
+ },
+ {
+  "start": 481.874,
+  "end": 482.795,
+  "en": "characters in there"
+ },
+ {
+  "start": 483.711,
+  "end": 484.755,
+  "en": "and I simply add"
+ },
+ {
+  "start": 485.398,
+  "end": 488.131,
+  "en": "a new value to hash, a new number to hash,"
+ },
+ {
+  "start": 488.693,
+  "end": 490.944,
+  "en": "and that should be char.charAt."
+ },
+ {
+  "start": 497.36,
+  "end": 499.773,
+  "en": "charCodeAt is a built-in method in"
+ },
+ {
+  "start": 499.773,
+  "end": 501.71,
+  "en": "JavaScript which you can call on strings"
+ },
+ {
+  "start": 502.352,
+  "end": 504.599,
+  "en": "And charCodeAt will just convert that"
+ },
+ {
+  "start": 504.599,
+  "end": 506.829,
+  "en": "character to a number then which starts at"
+ },
+ {
+  "start": 506.829,
+  "end": 509.525,
+  "en": "index 0 for the first character, for A,"
+ },
+ {
+  "start": 510.054,
+  "end": 511.418,
+  "en": "and then gets bigger and bigger."
+ },
+ {
+  "start": 512.397,
+  "end": 514.435,
+  "en": "So that's my hash, but of course that could"
+ },
+ {
+  "start": 514.467,
+  "end": 515.959,
+  "en": "be bigger than 100."
+ },
+ {
+  "start": 516.777,
+  "end": 518.269,
+  "en": "Hence, I will return"
+ },
+ {
+  "start": 518.959,
+  "end": 519.954,
+  "en": "my hash number"
+ },
+ {
+  "start": 520.484,
+  "end": 523.211,
+  "en": "divided with the modulus operator to get an"
+ },
+ {
+  "start": 523.211,
+  "end": 527.528,
+  "en": "integer by 100, so by my MAX_SIZE. And"
+ },
+ {
+  "start": 527.544,
+  "end": 529.116,
+  "en": "therefore I'll actually store this in a new"
+ },
+ {
+  "start": 529.309,
+  "end": 530.063,
+  "en": "property here"
+ },
+ {
+  "start": 531.394,
+  "end": 532.294,
+  "en": "Let's maybe name it"
+ },
+ {
+  "start": 534.304,
+  "end": 534.818,
+  "en": "size,"
+ },
+ {
+  "start": 535.638,
+  "end": 538.419,
+  "en": "and that could be 1000 to actually have a"
+ },
+ {
+  "start": 538.467,
+  "end": 539.239,
+  "en": "bit more space."
+ },
+ {
+  "start": 540.136,
+  "end": 542.291,
+  "en": "And then I use this here, but also down"
+ },
+ {
+  "start": 542.323,
+  "end": 545.604,
+  "en": "there I'll refer to this.size so that I can"
+ },
+ {
+  "start": 545.62,
+  "end": 547.036,
+  "en": "use this size."
+ },
+ {
+  "start": 548.24,
+  "end": 548.707,
+  "en": "So now I"
+ },
+ {
+  "start": 549.4,
+  "end": 550.125,
+  "en": "divide my"
+ },
+ {
+  "start": 552.364,
+  "end": 553.46,
+  "en": "hash by that,"
+ },
+ {
+  "start": 554.314,
+  "end": 555.764,
+  "en": "and hence we should get a hash that's"
+ },
+ {
+  "start": 555.764,
+  "end": 558.392,
+  "en": "definitely smaller than our size since I"
+ },
+ {
+  "start": 558.392,
+  "end": 560.784,
+  "en": "divided by it, so it should fit into this"
+ },
+ {
+  "start": 560.784,
+  "end": 561.105,
+  "en": "array."
+ },
+ {
+  "start": 561.667,
+  "end": 563.513,
+  "en": "You might already be able to see another"
+ },
+ {
+  "start": 563.513,
+  "end": 565.086,
+  "en": "problem which we'll eventually face,"
+ },
+ {
+  "start": 565.664,
+  "end": 567.992,
+  "en": "and that is that we could derive the same"
+ },
+ {
+  "start": 568.008,
+  "end": 569.998,
+  "en": "hash for different characters with that"
+ },
+ {
+  "start": 570.014,
+  "end": 572.647,
+  "en": "logic. I will come back to this later. For"
+ },
+ {
+  "start": 572.647,
+  "end": 574.413,
+  "en": "the moment, let's just go with this logic"
+ },
+ {
+  "start": 574.413,
+  "end": 575.023,
+  "en": "nonetheless"
+ },
+ {
+  "start": 575.697,
+  "end": 578.346,
+  "en": "and just use inputs which won't clash."
+ },
+ {
+  "start": 579.004,
+  "end": 580.931,
+  "en": "But again, I'll solve this problem later."
+ },
+ {
+  "start": 581.637,
+  "end": 583.949,
+  "en": "So here for set, we can now, however,"
+ },
+ {
+  "start": 584.874,
+  "end": 588.483,
+  "en": "get our hash, our key hash, by calling this"
+ },
+ {
+  "start": 588.839,
+  "end": 590.393,
+  "en": "hash and forwarding the key."
+ },
+ {
+  "start": 591.202,
+  "end": 592.755,
+  "en": "And now key hash will be a number."
+ },
+ {
+  "start": 593.646,
+  "end": 595.482,
+  "en": "And with that, we can reach out to"
+ },
+ {
+  "start": 596.142,
+  "end": 596.432,
+  "en": "this"
+ },
+ {
+  "start": 598.317,
+  "end": 598.832,
+  "en": "buckets"
+ },
+ {
+  "start": 601.216,
+  "end": 604.209,
+  "en": "for the given key hash, so for that number"
+ },
+ {
+  "start": 604.209,
+  "end": 605.044,
+  "en": "we derived here,"
+ },
+ {
+  "start": 605.719,
+  "end": 607.616,
+  "en": "and store our value in there."
+ },
+ {
+  "start": 608.323,
+  "end": 610.926,
+  "en": "So this now accesses a certain item in our"
+ },
+ {
+  "start": 610.958,
+  "end": 611.601,
+  "en": "buckets array"
+ },
+ {
+  "start": 612.344,
+  "end": 614.808,
+  "en": "identified by the index here and stores the"
+ },
+ {
+  "start": 614.808,
+  "end": 616.089,
+  "en": "value for that index."
+ },
+ {
+  "start": 618.03,
+  "end": 619.318,
+  "en": "This is our set function."
+ },
+ {
+  "start": 620.076,
+  "end": 622.38,
+  "en": "Now we also want to be able to get a value,"
+ },
+ {
+  "start": 622.396,
+  "end": 624.909,
+  "en": "of course, by key. So we have the get"
+ },
+ {
+  "start": 624.909,
+  "end": 626.842,
+  "en": "method, which also gets a key."
+ },
+ {
+  "start": 628.368,
+  "end": 630.393,
+  "en": "And here all we have to do is we have to"
+ },
+ {
+  "start": 630.441,
+  "end": 631.276,
+  "en": "return this"
+ },
+ {
+  "start": 631.823,
+  "end": 632.273,
+  "en": "buckets"
+ },
+ {
+  "start": 632.851,
+  "end": 635.1,
+  "en": "for the key. However, not the key like this."
+ },
+ {
+  "start": 635.518,
+  "end": 637.302,
+  "en": "Instead, again, we need the hash"
+ },
+ {
+  "start": 637.845,
+  "end": 641.065,
+  "en": "So key hash is this hash key. And of course,"
+ },
+ {
+  "start": 641.146,
+  "end": 643.412,
+  "en": "our hashing function always generates the"
+ },
+ {
+  "start": 643.412,
+  "end": 644.901,
+  "en": "same hash for the same key."
+ },
+ {
+  "start": 645.548,
+  "end": 648.685,
+  "en": "So we can retrieve an item by that generated"
+ },
+ {
+  "start": 648.911,
+  "end": 649.461,
+  "en": "hash then."
+ },
+ {
+  "start": 652.923,
+  "end": 655.126,
+  "en": "Now with that, we have a very simple hash"
+ },
+ {
+  "start": 655.191,
+  "end": 657.928,
+  "en": "table. Now we add new items with set and we"
+ },
+ {
+  "start": 657.944,
+  "end": 658.981,
+  "en": "get items with get."
+ },
+ {
+  "start": 659.58,
+  "end": 660.909,
+  "en": "So down there in our algorithm,"
+ },
+ {
+  "start": 661.834,
+  "end": 663.962,
+  "en": "if I wanna add a new item,"
+ },
+ {
+  "start": 664.898,
+  "end": 665.668,
+  "en": "I have to call"
+ },
+ {
+  "start": 666.519,
+  "end": 668.285,
+  "en": "table.set"
+ },
+ {
+  "start": 669.409,
+  "end": 672.732,
+  "en": "and then pass in char as a key and 1 as a"
+ },
+ {
+  "start": 672.78,
+  "end": 673.839,
+  "en": "value, for example."
+ },
+ {
+  "start": 674.626,
+  "end": 677.13,
+  "en": "And if I wanna check if this exists, if what"
+ },
+ {
+  "start": 677.178,
+  "end": 678.976,
+  "en": "I have for a given key is truthy,"
+ },
+ {
+  "start": 679.586,
+  "end": 681.786,
+  "en": "I have to call table.get"
+ },
+ {
+  "start": 682.331,
+  "end": 684.177,
+  "en": "for char, which is our key."
+ },
+ {
+  "start": 685.622,
+  "end": 688.432,
+  "en": "With that, we have our own hash table in"
+ },
+ {
+  "start": 688.432,
+  "end": 688.737,
+  "en": "use."
+ },
+ {
+  "start": 689.555,
+  "end": 693.164,
+  "en": "And if we now test this, I still get L as a"
+ },
+ {
+  "start": 693.164,
+  "end": 694.75,
+  "en": "result for hello."
+ },
+ {
+  "start": 695.407,
+  "end": 698.132,
+  "en": "But you will also be able to test these 4"
+ },
+ {
+  "start": 698.132,
+  "end": 700.583,
+  "en": "strings where this will not work correctly"
+ },
+ {
+  "start": 700.615,
+  "end": 702.682,
+  "en": "because we'll have some repetition, we'll"
+ },
+ {
+  "start": 702.682,
+  "end": 705.23,
+  "en": "have some collisions. Because currently, as"
+ },
+ {
+  "start": 705.326,
+  "end": 706.096,
+  "en": "I mentioned before,"
+ },
+ {
+  "start": 706.705,
+  "end": 709.156,
+  "en": "our hashing function might definitely"
+ },
+ {
+  "start": 709.509,
+  "end": 713.002,
+  "en": "generate the same hash for 2 different keys"
+ },
+ {
+  "start": 713.451,
+  "end": 715.774,
+  "en": "simply because of the way it's built and"
+ },
+ {
+  "start": 715.838,
+  "end": 717.649,
+  "en": "because we have a limited size."
+ },
+ {
+  "start": 718.547,
+  "end": 721.435,
+  "en": "Now to investigate this problem a bit closer"
+ },
+ {
+  "start": 721.515,
+  "end": 723.97,
+  "en": "and to find a solution, let's first of all"
+ },
+ {
+  "start": 724.243,
+  "end": 726.537,
+  "en": "add a couple of new methods here to the hash"
+ },
+ {
+  "start": 726.65,
+  "end": 729.65,
+  "en": "table which allows us to gain more insights"
+ },
+ {
+  "start": 729.955,
+  "end": 732.265,
+  "en": "into the table, into the keys and the"
+ },
+ {
+  "start": 732.265,
+  "end": 734.64,
+  "en": "indexes which are used so that we can then"
+ },
+ {
+  "start": 734.768,
+  "end": 737.431,
+  "en": "thereafter find and fix any problems we"
+ },
+ {
+  "start": 737.431,
+  "end": 737.865,
+  "en": "might have."
+ }
+]

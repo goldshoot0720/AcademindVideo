@@ -1,0 +1,787 @@
+[
+ {
+  "start": 0.657,
+  "end": 3.626,
+  "en": "Of course, you did not take this course to"
+ },
+ {
+  "start": 3.626,
+  "end": 6.788,
+  "en": "just learn about simple, basic one-step"
+ },
+ {
+  "start": 6.852,
+  "end": 9.067,
+  "en": "workflows, though the foundation of course"
+ },
+ {
+  "start": 9.179,
+  "end": 9.805,
+  "en": "is important."
+ },
+ {
+  "start": 10.543,
+  "end": 12.806,
+  "en": "But here we now got an example for a more"
+ },
+ {
+  "start": 13.095,
+  "end": 16.305,
+  "en": "complex multi-step workflow where we'll"
+ },
+ {
+  "start": 16.385,
+  "end": 19.338,
+  "en": "actually also use different AI models in"
+ },
+ {
+  "start": 19.45,
+  "end": 20.381,
+  "en": "different steps."
+ },
+ {
+  "start": 21.36,
+  "end": 23.575,
+  "en": "And you find the updated version of this"
+ },
+ {
+  "start": 23.623,
+  "end": 25.902,
+  "en": "workflow, the updated main.py file"
+ },
+ {
+  "start": 26.496,
+  "end": 27.858,
+  "en": "also attached to this lecture."
+ },
+ {
+  "start": 29.157,
+  "end": 32.428,
+  "en": "This updated version no longer asks for a"
+ },
+ {
+  "start": 32.428,
+  "end": 35.731,
+  "en": "topic as an input, but instead for a website"
+ },
+ {
+  "start": 35.731,
+  "end": 36.163,
+  "en": "URL."
+ },
+ {
+  "start": 37.093,
+  "end": 39.691,
+  "en": "It then goes ahead and fetches the HTML"
+ },
+ {
+  "start": 39.723,
+  "end": 43.026,
+  "en": "content of that website by using the"
+ },
+ {
+  "start": 43.25,
+  "end": 45.495,
+  "en": "requests package again, sending a GET"
+ },
+ {
+  "start": 45.495,
+  "end": 46.986,
+  "en": "request to that URL."
+ },
+ {
+  "start": 47.98,
+  "end": 50.048,
+  "en": "And I'll say right away that this approach"
+ },
+ {
+  "start": 50.144,
+  "end": 52.789,
+  "en": "will not work for all websites because there"
+ },
+ {
+  "start": 52.789,
+  "end": 55.275,
+  "en": "are many websites that have mechanisms to"
+ },
+ {
+  "start": 55.74,
+  "end": 58.593,
+  "en": "defend against requests like this or"
+ },
+ {
+  "start": 58.882,
+  "end": 61.943,
+  "en": "websites that don't load all the content"
+ },
+ {
+  "start": 61.943,
+  "end": 64.829,
+  "en": "initially with the first request, which this"
+ },
+ {
+  "start": 64.829,
+  "end": 67.282,
+  "en": "request here would be, but which instead"
+ },
+ {
+  "start": 67.458,
+  "end": 69.766,
+  "en": "also load some content with client-side"
+ },
+ {
+  "start": 69.863,
+  "end": 72.524,
+  "en": "JavaScript code, for example, after the"
+ },
+ {
+  "start": 72.524,
+  "end": 73.534,
+  "en": "initial page load."
+ },
+ {
+  "start": 74.191,
+  "end": 77.012,
+  "en": "All those websites would not really work"
+ },
+ {
+  "start": 77.012,
+  "end": 77.862,
+  "en": "with this approach."
+ },
+ {
+  "start": 78.455,
+  "end": 80.427,
+  "en": "But there are many websites where this"
+ },
+ {
+  "start": 80.475,
+  "end": 81.581,
+  "en": "approach will work."
+ },
+ {
+  "start": 82.222,
+  "end": 85.637,
+  "en": "So this will give us the HTML code of that"
+ },
+ {
+  "start": 85.653,
+  "end": 86.214,
+  "en": "website."
+ },
+ {
+  "start": 87.111,
+  "end": 90.446,
+  "en": "And we then use this HTML code to actually"
+ },
+ {
+  "start": 90.542,
+  "end": 93.347,
+  "en": "extract the core content of the site."
+ },
+ {
+  "start": 94.004,
+  "end": 96.97,
+  "en": "Because if I use my personal website as an"
+ },
+ {
+  "start": 96.97,
+  "end": 97.723,
+  "en": "example here,"
+ },
+ {
+  "start": 98.637,
+  "end": 102.244,
+  "en": "the HTML code of one of my posts can be seen"
+ },
+ {
+  "start": 102.244,
+  "end": 104.071,
+  "en": "if you inspect the page source,"
+ },
+ {
+  "start": 104.905,
+  "end": 105.867,
+  "en": "looks something like this."
+ },
+ {
+  "start": 106.588,
+  "end": 109.858,
+  "en": "Not horrible, but quite a lot of code. I can"
+ },
+ {
+  "start": 110.291,
+  "end": 112.439,
+  "en": "scroll quite a bit to the right here."
+ },
+ {
+  "start": 112.984,
+  "end": 115.437,
+  "en": "And of course, Since it's HTML code, there"
+ },
+ {
+  "start": 115.549,
+  "end": 118.979,
+  "en": "are many HTML elements, CSS classes,"
+ },
+ {
+  "start": 119.637,
+  "end": 122.169,
+  "en": "and lots of stuff in there that's not"
+ },
+ {
+  "start": 122.201,
+  "end": 123.548,
+  "en": "relevant to us humans."
+ },
+ {
+  "start": 124.542,
+  "end": 127.539,
+  "en": "The core text which you see here only makes"
+ },
+ {
+  "start": 127.652,
+  "end": 129.8,
+  "en": "up a part of the actual source code."
+ },
+ {
+  "start": 130.537,
+  "end": 132.605,
+  "en": "But it's the overall source code, the"
+ },
+ {
+  "start": 132.621,
+  "end": 135.474,
+  "en": "overall HTML code that's fetched by this"
+ },
+ {
+  "start": 135.667,
+  "end": 135.923,
+  "en": "step."
+ },
+ {
+  "start": 136.869,
+  "end": 139.418,
+  "en": "Therefore, I also need a step that actually"
+ },
+ {
+  "start": 139.434,
+  "end": 143.393,
+  "en": "extracts the core content, the core text of"
+ },
+ {
+  "start": 143.457,
+  "end": 145.99,
+  "en": "this website, the core content that would"
+ },
+ {
+  "start": 146.086,
+  "end": 147.592,
+  "en": "also matter to us humans."
+ },
+ {
+  "start": 148.426,
+  "end": 150.829,
+  "en": "And that's what extract core website content"
+ },
+ {
+  "start": 150.829,
+  "end": 151.086,
+  "en": "does."
+ },
+ {
+  "start": 152.031,
+  "end": 155.204,
+  "en": "This step now actually leverages a large"
+ },
+ {
+  "start": 155.38,
+  "end": 157.608,
+  "en": "language model to perform this extraction"
+ },
+ {
+  "start": 158.041,
+  "end": 161.502,
+  "en": "because detecting the core text inside of a"
+ },
+ {
+  "start": 161.502,
+  "end": 165.236,
+  "en": "sea of HTML elements is non-trivial,"
+ },
+ {
+  "start": 165.316,
+  "end": 167.447,
+  "en": "especially if you want this to work with all"
+ },
+ {
+  "start": 167.559,
+  "end": 170.46,
+  "en": "kinds of websites, not just one clearly"
+ },
+ {
+  "start": 170.46,
+  "end": 171.549,
+  "en": "defined website."
+ },
+ {
+  "start": 172.079,
+  "end": 174.471,
+  "en": "So you don't know the HTML structure in"
+ },
+ {
+  "start": 174.471,
+  "end": 174.92,
+  "en": "advance."
+ },
+ {
+  "start": 175.498,
+  "end": 177.89,
+  "en": "And these are exactly the kind of situations"
+ },
+ {
+  "start": 177.987,
+  "end": 179.897,
+  "en": "where large language models shine."
+ },
+ {
+  "start": 181.31,
+  "end": 184.151,
+  "en": "So again, I'm using the OpenAI SDK here, and"
+ },
+ {
+  "start": 184.328,
+  "end": 184.553,
+  "en": "then"
+ },
+ {
+  "start": 185.131,
+  "end": 189.0,
+  "en": "I'm using the 4o Mini model here instead of"
+ },
+ {
+  "start": 189.0,
+  "end": 190.252,
+  "en": "the 4o model."
+ },
+ {
+  "start": 191.151,
+  "end": 193.944,
+  "en": "I'm doing that because this 4o Mini model is"
+ },
+ {
+  "start": 194.153,
+  "end": 198.247,
+  "en": "super cheap, way cheaper than the 4o model."
+ },
+ {
+  "start": 199.098,
+  "end": 202.102,
+  "en": "And for tasks like summarizing text,"
+ },
+ {
+  "start": 202.166,
+  "end": 205.796,
+  "en": "extracting data from text, this 4o Mini"
+ },
+ {
+  "start": 205.796,
+  "end": 208.88,
+  "en": "model is more than enough. It's absolutely"
+ },
+ {
+  "start": 208.912,
+  "end": 210.566,
+  "en": "capable to handle those tasks."
+ },
+ {
+  "start": 211.867,
+  "end": 214.229,
+  "en": "But these are also the tasks that typically"
+ },
+ {
+  "start": 214.229,
+  "end": 216.766,
+  "en": "involve a lot of tokens. I mean, again, if"
+ },
+ {
+  "start": 216.766,
+  "end": 218.597,
+  "en": "you take a look at this source code,"
+ },
+ {
+  "start": 219.176,
+  "end": 222.533,
+  "en": "all this text here, all this markup is fed"
+ },
+ {
+  "start": 222.661,
+  "end": 225.101,
+  "en": "to the large language model. So all these"
+ },
+ {
+  "start": 225.197,
+  "end": 228.067,
+  "en": "HTML tags also consume tokens."
+ },
+ {
+  "start": 228.676,
+  "end": 231.144,
+  "en": "So having a very cheap model is definitely"
+ },
+ {
+  "start": 231.144,
+  "end": 233.196,
+  "en": "important here, especially since, as"
+ },
+ {
+  "start": 233.244,
+  "end": 235.392,
+  "en": "mentioned, it's more than capable enough for"
+ },
+ {
+  "start": 235.408,
+  "end": 236.034,
+  "en": "this task."
+ },
+ {
+  "start": 236.931,
+  "end": 239.24,
+  "en": "I then have a basic prompt where I instruct"
+ },
+ {
+  "start": 239.24,
+  "end": 242.029,
+  "en": "the model to extract the core text,"
+ },
+ {
+  "start": 242.061,
+  "end": 243.985,
+  "en": "excluding navigation, footers, and other"
+ },
+ {
+  "start": 243.985,
+  "end": 246.517,
+  "en": "non-essential elements from the received"
+ },
+ {
+  "start": 246.597,
+  "end": 248.713,
+  "en": "HTML code, which is received as input here."
+ },
+ {
+  "start": 249.499,
+  "end": 252.769,
+  "en": "And then I return that extracted text. So"
+ },
+ {
+  "start": 253.09,
+  "end": 255.622,
+  "en": "hopefully the text that's relevant to"
+ },
+ {
+  "start": 255.622,
+  "end": 256.119,
+  "en": "humans."
+ },
+ {
+  "start": 257.82,
+  "end": 260.885,
+  "en": "Once I have this core content, I have"
+ },
+ {
+  "start": 260.885,
+  "end": 263.821,
+  "en": "another step here which actually summarizes"
+ },
+ {
+  "start": 263.853,
+  "end": 266.228,
+  "en": "this content because in the previous step, I"
+ },
+ {
+  "start": 266.26,
+  "end": 269.212,
+  "en": "extracted all the text as it appears on the"
+ },
+ {
+  "start": 269.212,
+  "end": 271.603,
+  "en": "website. Now I want to create a summary"
+ },
+ {
+  "start": 271.715,
+  "end": 272.613,
+  "en": "based on this text."
+ },
+ {
+  "start": 273.56,
+  "end": 276.416,
+  "en": "For that, I again use 4o Mini because again,"
+ },
+ {
+  "start": 276.528,
+  "end": 279.336,
+  "en": "for tasks like extraction, but also"
+ },
+ {
+  "start": 279.513,
+  "end": 282.513,
+  "en": "summaries, it's awesome and it's cheaper"
+ },
+ {
+  "start": 282.69,
+  "end": 284.439,
+  "en": "than other models. So that's why I'm using"
+ },
+ {
+  "start": 284.535,
+  "end": 284.583,
+  "en": "it."
+ },
+ {
+  "start": 285.342,
+  "end": 288.095,
+  "en": "Have a simple prompt, pass my content, the"
+ },
+ {
+  "start": 288.095,
+  "end": 290.832,
+  "en": "extracted content to it, and then hopefully"
+ },
+ {
+  "start": 290.864,
+  "end": 292.839,
+  "en": "get back a summary which I return."
+ },
+ {
+  "start": 294.712,
+  "end": 297.371,
+  "en": "And it's then this summary which I again use"
+ },
+ {
+  "start": 297.371,
+  "end": 298.837,
+  "en": "to generate an ex post."
+ },
+ {
+  "start": 299.852,
+  "end": 302.333,
+  "en": "I also log the summary and the core content"
+ },
+ {
+  "start": 302.607,
+  "end": 303.865,
+  "en": "for debugging purposes."
+ },
+ {
+  "start": 305.029,
+  "end": 306.807,
+  "en": "That's my workflow here."
+ },
+ {
+  "start": 307.437,
+  "end": 310.297,
+  "en": "Again, leveraging large language models, but"
+ },
+ {
+  "start": 310.378,
+  "end": 313.134,
+  "en": "different kinds of models. 4o Mini for"
+ },
+ {
+  "start": 313.134,
+  "end": 314.133,
+  "en": "extraction and summaries, but for"
+ },
+ {
+  "start": 314.133,
+  "end": 314.527,
+  "en": "post-generation,"
+ },
+ {
+  "start": 316.706,
+  "end": 318.005,
+  "en": "I'm still using 4.0."
+ },
+ {
+  "start": 318.711,
+  "end": 319.417,
+  "en": "And therefore"
+ },
+ {
+  "start": 320.075,
+  "end": 320.283,
+  "en": "here"
+ },
+ {
+  "start": 321.358,
+  "end": 323.62,
+  "en": "I can again run this script,"
+ },
+ {
+  "start": 324.502,
+  "end": 327.261,
+  "en": "paste in a URL like here, the URL from my"
+ },
+ {
+  "start": 327.309,
+  "end": 329.17,
+  "en": "own website from this article."
+ },
+ {
+  "start": 330.582,
+  "end": 332.731,
+  "en": "And then it'll go ahead, fetch that content,"
+ },
+ {
+  "start": 332.924,
+  "end": 334.993,
+  "en": "send it to the large language model. And"
+ },
+ {
+  "start": 334.993,
+  "end": 336.902,
+  "en": "this can take a while because it is a lot of"
+ },
+ {
+  "start": 336.934,
+  "end": 338.747,
+  "en": "content to parse and process."
+ },
+ {
+  "start": 339.437,
+  "end": 341.827,
+  "en": "So now the model is doing its work trying to"
+ },
+ {
+  "start": 341.827,
+  "end": 343.367,
+  "en": "extract the core content."
+ },
+ {
+  "start": 343.992,
+  "end": 346.621,
+  "en": "Here we go. That is the core content it"
+ },
+ {
+  "start": 346.621,
+  "end": 349.009,
+  "en": "detected, the core text it extracted from"
+ },
+ {
+  "start": 349.185,
+  "end": 351.605,
+  "en": "all that HTML code. Looks pretty good to me."
+ },
+ {
+  "start": 352.711,
+  "end": 355.051,
+  "en": "Then it's summarizing it. Here is the"
+ },
+ {
+  "start": 355.051,
+  "end": 357.856,
+  "en": "summary, a bunch of bullet points because in"
+ },
+ {
+  "start": 357.856,
+  "end": 360.244,
+  "en": "my prompt I told it to prefer bullet points."
+ },
+ {
+  "start": 361.141,
+  "end": 364.891,
+  "en": "And then I got my generated ex post based on"
+ },
+ {
+  "start": 364.988,
+  "end": 365.917,
+  "en": "that summary."
+ },
+ {
+  "start": 367.231,
+  "end": 368.802,
+  "en": "And that's of course a pretty amazing"
+ },
+ {
+  "start": 368.818,
+  "end": 371.623,
+  "en": "workflow because this now allows me to paste"
+ },
+ {
+  "start": 371.623,
+  "end": 372.985,
+  "en": "in any URL."
+ },
+ {
+  "start": 373.868,
+  "end": 376.34,
+  "en": "With a caveat, because as mentioned, this"
+ },
+ {
+  "start": 376.854,
+  "end": 379.487,
+  "en": "method of extracting HTML will not work for"
+ },
+ {
+  "start": 379.487,
+  "end": 381.976,
+  "en": "all sites, but for many sites it will. And"
+ },
+ {
+  "start": 381.992,
+  "end": 384.401,
+  "en": "therefore I can paste in any URL and just"
+ },
+ {
+  "start": 384.401,
+  "end": 385.798,
+  "en": "see whether it works or not."
+ },
+ {
+  "start": 386.488,
+  "end": 389.138,
+  "en": "And then get a post and a summary based on"
+ },
+ {
+  "start": 389.138,
+  "end": 391.032,
+  "en": "the website content, which is a pretty"
+ },
+ {
+  "start": 391.048,
+  "end": 392.75,
+  "en": "amazing workflow in my opinion."
+ },
+ {
+  "start": 393.296,
+  "end": 395.063,
+  "en": "And most importantly, it's a workflow that"
+ },
+ {
+  "start": 395.063,
+  "end": 397.246,
+  "en": "shows you that you can combine multiple"
+ },
+ {
+  "start": 397.246,
+  "end": 400.361,
+  "en": "steps where every step may or may not use a"
+ },
+ {
+  "start": 400.377,
+  "end": 401.421,
+  "en": "large language model."
+ },
+ {
+  "start": 402.053,
+  "end": 404.069,
+  "en": "And that you can also use different models"
+ },
+ {
+  "start": 404.166,
+  "end": 405.369,
+  "en": "for different tasks."
+ }
+]

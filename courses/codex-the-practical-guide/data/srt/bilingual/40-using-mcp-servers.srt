@@ -1,0 +1,1299 @@
+1
+00:00:00,048 --> 00:00:03,128
+It's now time to finally make authentication
+現在是最後進行身份驗證的時候了
+
+2
+00:00:03,561 --> 00:00:06,063
+work. And as mentioned, I'll do that with
+工作。如前所述，我將這樣做
+
+3
+00:00:06,111 --> 00:00:08,293
+help of BetterAuth. So of course we could
+BetterAuth 的幫助。所以我們當然可以
+
+4
+00:00:08,293 --> 00:00:10,330
+start a new Codex session in the CLI
+在 CLI 中啟動新的 Codex 工作階段
+
+5
+00:00:11,245 --> 00:00:12,335
+or also here
+或者也在這裡
+
+6
+00:00:13,089 --> 00:00:15,319
+in the desktop app or in the IDE integration
+在桌面應用程式或 IDE 整合中
+
+7
+00:00:15,512 --> 00:00:17,790
+and we could add our prompt here and we will
+我們可以在這裡添加我們的提示，我們將
+
+8
+00:00:17,918 --> 00:00:18,977
+do that. But
+這樣做。但
+
+9
+00:00:20,003 --> 00:00:23,099
+this library, BetterAuth, is not a library
+這個庫 BetterAuth 不是一個庫
+
+10
+00:00:23,196 --> 00:00:25,602
+that has been around for many years. In
+這已經存在很多年了。在
+
+11
+00:00:25,602 --> 00:00:27,751
+addition, even if it were, All those
+另外，即使是，所有這些
+
+12
+00:00:27,847 --> 00:00:30,364
+libraries change all the time. So the most
+圖書館一直在改變。所以最
+
+13
+00:00:30,412 --> 00:00:32,720
+recent knowledge about this library is very
+最近對這個函式庫的了解非常多
+
+14
+00:00:32,752 --> 00:00:35,894
+likely not baked into the Codex model, which
+可能沒有納入 Codex 模型，
+
+15
+00:00:35,894 --> 00:00:37,208
+is used by the Codex tool.
+由 Codex 工具使用。
+
+16
+00:00:37,865 --> 00:00:40,045
+Now we could hope that it does web search
+現在我們希望它可以進行網路搜尋
+
+17
+00:00:40,045 --> 00:00:41,776
+and finds the relevant documentation
+並找到相關文檔
+
+18
+00:00:41,792 --> 00:00:43,571
+articles, but hoping is never a great
+文章，但希望從來都不是一件偉大的事情
+
+19
+00:00:43,571 --> 00:00:44,149
+strategy.
+戰略。
+
+20
+00:00:45,014 --> 00:00:46,617
+Of course, therefore, we could go to the
+當然，因此，我們可以去
+
+21
+00:00:46,617 --> 00:00:48,765
+BetterOff docs and copy the relevant
+BetterOff 檔案並複製相關內容
+
+22
+00:00:48,845 --> 00:00:51,089
+articles like here for installing it and
+像這裡這樣的文章來安裝它和
+
+23
+00:00:51,089 --> 00:00:53,125
+then a couple of other articles for the
+然後是其他幾篇文章
+
+24
+00:00:53,189 --> 00:00:54,055
+general setup.
+一般設定。
+
+25
+00:00:54,696 --> 00:00:57,101
+But that's of course quite a bit of work.
+但這當然是一項相當大的工作。
+
+26
+00:00:57,421 --> 00:00:59,393
+Might nonetheless be worth it because at
+儘管如此，可能還是值得的，因為在
+
+27
+00:00:59,506 --> 00:01:02,215
+least then you know exactly which context is
+至少你確切地知道哪個上下文是
+
+28
+00:01:02,247 --> 00:01:04,412
+available to Codex, which is never bad. So
+可用於 Codex，這從來都不是壞事。所以
+
+29
+00:01:04,813 --> 00:01:06,031
+this is actually a good approach.
+這實際上是一個很好的做法。
+
+30
+00:01:06,881 --> 00:01:09,206
+You still might not want to do that work.
+您可能仍然不想做這項工作。
+
+31
+00:01:10,024 --> 00:01:12,653
+You could of course grab some URLs and rely
+您當然可以獲得一些 URL 並依賴
+
+32
+00:01:12,653 --> 00:01:15,283
+on web search with more hints then. That
+然後在網路搜尋上有更多提示。那
+
+33
+00:01:15,475 --> 00:01:17,976
+would also work. That might also be a decent
+也會起作用。這也可能是個體面的
+
+34
+00:01:17,976 --> 00:01:20,782
+approach. But alternatively, you could also
+方法。但或者，你也可以
+
+35
+00:01:20,846 --> 00:01:25,479
+try using an MCP server. Now, MCP stands for
+嘗試使用 MCP 伺服器。現在，MCP 代表
+
+36
+00:01:25,559 --> 00:01:28,717
+Model Context Protocol, and it's a more or
+模型上下文協議，它是一個或多或少的
+
+37
+00:01:28,782 --> 00:01:31,202
+less standardized protocol that's all about
+不太標準化的協議就是這樣
+
+38
+00:01:31,250 --> 00:01:34,200
+exposing extra tools and information to
+暴露額外的工具和訊息
+
+39
+00:01:34,616 --> 00:01:37,454
+large language models. It's not focused just
+大語言模型。它不只是專注
+
+40
+00:01:37,518 --> 00:01:40,419
+on tools like Codex, but any tool that uses
+像 Codex 這樣的工具，但任何使用的工具
+
+41
+00:01:40,548 --> 00:01:43,209
+large language models can incorporate this
+大型語言模型可以包含這個
+
+42
+00:01:43,209 --> 00:01:46,864
+protocol to connect third-party MCP servers
+連接第三方MCP伺服器的協議
+
+43
+00:01:46,976 --> 00:01:49,444
+to it. And these servers can then expose
+到它。然後這些伺服器可以暴露
+
+44
+00:01:49,444 --> 00:01:51,512
+various tools or pieces of information.
+各種工具或資訊。
+
+45
+00:01:52,009 --> 00:01:54,670
+That's the idea. So we could connect extra
+就是這個想法。這樣我們就可以連接額外的
+
+46
+00:01:54,670 --> 00:01:58,615
+MCP servers that tell Codex something about
+MCP 伺服器告訴 Codex 一些資訊
+
+47
+00:01:58,663 --> 00:02:00,668
+BetterAuth to Codex to
+BetterAuth 至 Codex
+
+48
+00:02:01,229 --> 00:02:03,459
+make it load the relevant information
+讓它載入相關資訊
+
+49
+00:02:03,475 --> 00:02:05,784
+automatically without us gathering it
+自動收集，無需我們收集
+
+50
+00:02:05,896 --> 00:02:08,190
+manually. And it turns out there is one
+手動。事實證明有一個
+
+51
+00:02:08,382 --> 00:02:09,312
+pretty useful
+非常有用
+
+52
+00:02:09,890 --> 00:02:11,686
+MCP server when it comes to
+MCP 伺服器
+
+53
+00:02:12,231 --> 00:02:15,006
+dynamically loading relevant documentation
+動態載入相關文檔
+
+54
+00:02:15,343 --> 00:02:17,604
+into a large language model. And that's the
+進入一個大的語言模型。這就是
+
+55
+00:02:17,604 --> 00:02:21,774
+Context7 MCP server. This server in the end
+Context7 MCP 伺服器。最後這個伺服器
+
+56
+00:02:22,014 --> 00:02:25,479
+maintains up-to-date documentation or pulls
+維護最新的文檔或拉取
+
+57
+00:02:25,688 --> 00:02:29,332
+in the up-to-date current documentation for
+在最新的當前檔案中
+
+58
+00:02:29,557 --> 00:02:32,799
+popular libraries like BetterAuth, for
+流行的庫，如 BetterAuth，
+
+59
+00:02:32,832 --> 00:02:35,721
+example. And therefore you can install that
+例子。因此你可以安裝它
+
+60
+00:02:35,721 --> 00:02:38,804
+server into your Codex project to allow
+伺服器到您的 Codex 專案中以允許
+
+61
+00:02:39,092 --> 00:02:41,436
+Codex to use this server to load the
+Codex 使用此伺服器載入
+
+62
+00:02:41,436 --> 00:02:44,230
+documentation it needs. Now to install this
+它需要的文檔。現在安裝這個
+
+63
+00:02:44,230 --> 00:02:45,562
+Context7 MCP, I'm
+Context7 MCP，我是
+
+64
+00:02:46,317 --> 00:02:47,183
+on their official
+在他們的官方
+
+65
+00:02:47,761 --> 00:02:50,683
+MCP clients page, which lists instructions
+MCP 使用者端頁面，其中列出了說明
+
+66
+00:02:50,747 --> 00:02:52,963
+for a broad variety of tools that can
+對於各種各樣的工具，可以
+
+67
+00:02:53,139 --> 00:02:54,809
+integrate with that Context7 MCP.
+與 Context7 MCP 整合。
+
+68
+00:02:55,950 --> 00:02:57,701
+And attached you find a link to this page.
+並附上您找到此頁面的連結。
+
+69
+00:02:58,295 --> 00:03:00,754
+And OpenAI Codex is amongst the tools here.
+OpenAI Codex 就是其中的工具之一。
+
+70
+00:03:01,268 --> 00:03:03,035
+So we can just follow the instructions we
+所以我們可以按照我們的說明進行操作
+
+71
+00:03:03,035 --> 00:03:04,995
+find here. And essentially what we do now
+在這裡找到。本質上我們現在所做的
+
+72
+00:03:05,670 --> 00:03:09,173
+is we can tweak our config.toml file
+我們可以調整我們的 config.toml 檔案
+
+73
+00:03:09,703 --> 00:03:12,257
+to establish a connection to this remote
+建立與此遠端的連接
+
+74
+00:03:12,257 --> 00:03:13,671
+server, which is what I want here.
+伺服器，這就是我想要的。
+
+75
+00:03:14,523 --> 00:03:15,937
+So I'll copy this
+所以我會複製這個
+
+76
+00:03:16,531 --> 00:03:20,468
+and then in our project in config.toml, we
+然後在我們的專案 config.toml 中，我們
+
+77
+00:03:20,468 --> 00:03:21,078
+can add this.
+可以添加這個。
+
+78
+00:03:21,816 --> 00:03:23,804
+Now this would enable this MCP server in
+現在這將啟用此 MCP 伺服器
+
+79
+00:03:23,836 --> 00:03:26,593
+this project. Typically, I wanna use this in
+這個專案。通常，我想用它
+
+80
+00:03:26,705 --> 00:03:28,966
+all my projects though. So therefore I'm in
+不過我所有的專案。所以我在
+
+81
+00:03:28,966 --> 00:03:32,188
+my root Codex folder under my user folder on
+我的使用者資料夾下的根 Codex 資料夾
+
+82
+00:03:32,188 --> 00:03:35,025
+my operating system again, and I'll open
+再次打開我的作業系統，然後我將打開
+
+83
+00:03:35,137 --> 00:03:38,456
+that config.toml file here. And it's in here
+config.toml 檔案在這裡。它就在這裡
+
+84
+00:03:39,289 --> 00:03:39,482
+where
+在哪裡
+
+85
+00:03:40,091 --> 00:03:42,800
+anywhere in that file I'll paste in these
+我將在該檔案中的任何位置貼上這些內容
+
+86
+00:03:42,832 --> 00:03:45,589
+instructions. Actually, we don't need the
+指示。事實上，我們不需要
+
+87
+00:03:45,701 --> 00:03:47,961
+API key. You can leave it here. You could be
+API 金鑰。你可以把它留在這裡。你可能是
+
+88
+00:03:47,961 --> 00:03:50,606
+paying for Kontext7 to get more usage out of
+付費購買 Kontext7 以獲得更多使用率
+
+89
+00:03:50,606 --> 00:03:53,107
+them, but you don't need to fill in an API
+他們，但你不需要填寫API
+
+90
+00:03:53,171 --> 00:03:53,235
+key.
+鑰匙。
+
+91
+00:03:53,878 --> 00:03:56,350
+Now to ensure that this invalid API key here
+現在要確保這裡的 API 金鑰無效
+
+92
+00:03:56,398 --> 00:03:58,406
+is not causing any problems, you can also
+不會造成任何問題，您也可以
+
+93
+00:03:58,454 --> 00:04:00,734
+remove this HTTP headers line here.
+刪除此處的 HTTP 標頭行。
+
+94
+00:04:01,264 --> 00:04:04,090
+This is all we need to enable and load this
+這就是我們啟用和載入它所需的全部內容
+
+95
+00:04:04,090 --> 00:04:06,819
+context7 MCP. Now we can see that in the
+上下文7 MCP。現在我們可以看到在
+
+96
+00:04:06,899 --> 00:04:09,035
+desktop app if we go to Settings,
+桌面應用程式如果我們進入“設定”，
+
+97
+00:04:10,191 --> 00:04:13,081
+MCP Servers, and if you don't see there yet,
+MCP 伺服器，如果您還沒有看到那裡，
+
+98
+00:04:13,226 --> 00:04:16,260
+just close this app and reopen it and then
+只需關閉此應用程式並重新打開它，然後
+
+99
+00:04:16,533 --> 00:04:17,946
+under Settings,
+在“設定”下，
+
+100
+00:04:19,101 --> 00:04:20,947
+MCP servers, you should see it,
+MCP 伺服器，你應該看到它，
+
+101
+00:04:21,493 --> 00:04:22,681
+it should be enabled
+應該啟用它
+
+102
+00:04:23,419 --> 00:04:25,714
+and it should load just fine. Again, you can
+它應該載入得很好。再說一次，你可以
+
+103
+00:04:25,762 --> 00:04:27,544
+authenticate but you don't have to. In the
+進行身份驗證，但您不必這樣做。在
+
+104
+00:04:27,544 --> 00:04:30,064
+CLI, you'll need to start a new session
+CLI，您需要啟動一個新工作階段
+
+105
+00:04:31,043 --> 00:04:33,450
+and that will then also boot MCP servers at
+然後也會啟動 MCP 伺服器
+
+106
+00:04:33,450 --> 00:04:33,883
+the beginning.
+開始。
+
+107
+00:04:34,590 --> 00:04:36,179
+And if you type /mcp,
+如果你輸入/mcp，
+
+108
+00:04:36,981 --> 00:04:39,581
+it will show you a list of all enabled MCP
+它將向您顯示所有啟用的 MCP 的列表
+
+109
+00:04:39,581 --> 00:04:42,310
+servers. So in my case, this context7 MCP
+伺服器.所以就我而言，這個 context7 MCP
+
+110
+00:04:42,310 --> 00:04:42,711
+server.
+伺服器.
+
+111
+00:04:43,257 --> 00:04:45,712
+And of course the IDE integration also has
+當然IDE整合也有
+
+112
+00:04:45,889 --> 00:04:48,681
+access to those MCP servers. There, if you
+存取這些 MCP 伺服器。在那裡，如果你
+
+113
+00:04:48,681 --> 00:04:50,996
+click on Settings, MCP Settings,
+點選設定、MCP 設定、
+
+114
+00:04:53,214 --> 00:04:54,800
+and click on Open MCP Settings,
+然後點擊“打開 MCP 設定”，
+
+115
+00:04:56,781 --> 00:04:57,072
+it will
+它將
+
+116
+00:04:57,669 --> 00:04:59,573
+open a page that's similar to what you saw
+打開與您所看到的類似的頁面
+
+117
+00:04:59,606 --> 00:05:01,881
+in the native desktop app. And here you see
+在本機桌面應用程式中。在這裡你看到
+
+118
+00:05:01,881 --> 00:05:02,672
+that server too.
+那個伺服器也是。
+
+119
+00:05:03,400 --> 00:05:05,438
+And therefore we can now send a prompt like
+因此我們現在可以發送一個提示，例如
+
+120
+00:05:05,438 --> 00:05:07,574
+this to Codex. Again, of course, also in the
+將此提交給法典。當然，同樣在
+
+121
+00:05:07,574 --> 00:05:09,386
+CLI or IDE integration.
+CLI 或 IDE 整合。
+
+122
+00:05:10,130 --> 00:05:13,115
+I point at some files that are relevant and
+我指出一些相關的檔案
+
+123
+00:05:13,213 --> 00:05:15,353
+that's important. I explicitly tell it to
+這很重要。我明確告訴它
+
+124
+00:05:15,353 --> 00:05:16,138
+use this MCP.
+使用此 MCP。
+
+125
+00:05:16,962 --> 00:05:19,335
+The idea behind MCPs is that it will
+MCP 背後的想法是，它將
+
+126
+00:05:19,431 --> 00:05:21,739
+automatically use them when needed, but as
+需要時自動使用它們，但作為
+
+127
+00:05:21,851 --> 00:05:24,432
+always, why hope for it if you know it
+總是如此，如果你知道的話為什麼還希望它
+
+128
+00:05:24,480 --> 00:05:26,805
+should do that? So I'll tell it to use the
+應該這樣做嗎？所以我會告訴它使用
+
+129
+00:05:26,805 --> 00:05:28,873
+context 7 MCP to explore the relevant
+背景 7 MCP 探討相關
+
+130
+00:05:28,905 --> 00:05:31,950
+BetterAuth docs, and I remind it about the
+BetterAuth 文檔，我提醒它
+
+131
+00:05:31,950 --> 00:05:33,730
+technologies we're using, about our tech
+我們正在使用的技術，關於我們的技術
+
+132
+00:05:33,730 --> 00:05:36,022
+stack, to ensure it looks up the relevant
+堆疊，以確保它查找相關的
+
+133
+00:05:36,022 --> 00:05:38,346
+docs and it doesn't do any work it shouldn't
+檔案並且它沒有做任何不應該做的工作
+
+134
+00:05:38,346 --> 00:05:38,459
+do.
+做。
+
+135
+00:05:38,988 --> 00:05:40,927
+I definitely want extra high reasoning for
+我絕對想要額外的推理
+
+136
+00:05:40,991 --> 00:05:44,101
+this task since it includes wiring up many
+這項任務因為它包括連接許多
+
+137
+00:05:44,117 --> 00:05:46,794
+things and doing a couple of things like
+做一些事情，例如
+
+138
+00:05:46,794 --> 00:05:48,317
+exploring different documentation articles.
+探索不同的檔案文章。
+
+139
+00:05:49,249 --> 00:05:52,060
+And I'll switch to plan mode to make sure we
+我會切換到計劃模式以確保我們
+
+140
+00:05:52,060 --> 00:05:55,000
+have a good plan first before it starts
+在開始之前先有一個好的計劃
+
+141
+00:05:55,032 --> 00:05:55,418
+working.
+在職的。
+
+142
+00:05:56,270 --> 00:05:58,712
+Now with that, it starts working on this,
+現在，它開始致力於此，
+
+143
+00:05:58,760 --> 00:06:00,993
+starts thinking and will explore the
+開始思考並探索
+
+144
+00:06:00,993 --> 00:06:01,909
+codebase and so on.
+程式碼庫等等。
+
+145
+00:06:02,760 --> 00:06:04,688
+And now here it's also using the
+現在這裡也使用了
+
+146
+00:06:04,688 --> 00:06:06,247
+context7-mcp tool
+context7-mcp 工具
+
+147
+00:06:07,002 --> 00:06:10,151
+also to then query the docs and that allows
+然後還可以查詢文檔，這允許
+
+148
+00:06:10,151 --> 00:06:12,400
+it to quickly retrieve the relevant
+它可以快速檢索相關的
+
+149
+00:06:12,416 --> 00:06:14,553
+information it needs, in this case for the
+它需要的資訊，在本例中為
+
+150
+00:06:14,649 --> 00:06:15,676
+better auth. Docs.
+更好的授權。檔案.
+
+151
+00:06:16,398 --> 00:06:18,834
+As we see here, it's asking about using
+正如我們在這裡看到的，它詢問如何使用
+
+152
+00:06:18,898 --> 00:06:20,790
+BetterAuth with Next.js and so on.
+BetterAuth 與 Next.js 等。
+
+153
+00:06:21,463 --> 00:06:23,082
+Now it got some questions. For example,
+現在它有一些問題。例如，
+
+154
+00:06:23,146 --> 00:06:25,455
+BetterAuth requires a username and I don't
+BetterAuth 需要使用者名，但我不需要
+
+155
+00:06:25,535 --> 00:06:27,603
+wanna have a username field in my signup, so
+我想在我的註冊中有一個使用者名欄位，所以
+
+156
+00:06:27,619 --> 00:06:29,430
+I'll just let it use the email.
+我就讓它使用電子郵件。
+
+157
+00:06:30,200 --> 00:06:32,043
+And here it's not entirely clear to me what
+我並不完全清楚這是什麼
+
+158
+00:06:32,043 --> 00:06:34,191
+it means, so I'll ask it to clarify its
+這意味著，所以我會要求它澄清它
+
+159
+00:06:34,191 --> 00:06:36,179
+question. Oh, okay, it wants to know which
+問題。哦，好吧，它想知道哪一個
+
+160
+00:06:36,211 --> 00:06:38,968
+route behavior to implement. And yeah, I
+要實現的路由行為。是的，我
+
+161
+00:06:39,161 --> 00:06:42,238
+want it to implement guards, but I'll give
+希望它實施警衛，但我會給
+
+162
+00:06:42,238 --> 00:06:44,082
+it more context here because I know that in
+這裡有更多背景，因為我知道
+
+163
+00:06:44,130 --> 00:06:46,278
+Next.js you don't wanna add route guards
+Next.js 你不想加入路由保護
+
+164
+00:06:46,374 --> 00:06:48,059
+that check for whether the user is
+檢查使用者是否是
+
+165
+00:06:48,075 --> 00:06:49,923
+authenticated or not in the layouts.
+佈局中是否已驗證。
+
+166
+00:06:50,565 --> 00:06:52,364
+That's an anti-pattern, but instead you
+這是一種反模式，但相反，你
+
+167
+00:06:52,493 --> 00:06:54,099
+should really do that in each route
+確實應該在每條路線上都這樣做
+
+168
+00:06:54,115 --> 00:06:56,123
+individually, in each React Server
+單獨地，在每個 React Server 中
+
+169
+00:06:56,187 --> 00:06:57,938
+Component. That's a little detail about the
+成分。這是關於的一個小細節
+
+170
+00:06:57,938 --> 00:07:00,733
+exact tech stack I'm using here. So again,
+我在這裡使用的正是技術堆疊。再說一次，
+
+171
+00:07:00,845 --> 00:07:02,500
+I'm a developer, I have that knowledge, I
+我是一名開發人員，我有這些知識，我
+
+172
+00:07:02,692 --> 00:07:05,246
+give it to the AI instead of hoping that it
+把它交給人工智慧而不是希望它
+
+173
+00:07:05,246 --> 00:07:07,415
+knows that, which it most likely does not.
+知道這一點，但它很可能不知道。
+
+174
+00:07:07,897 --> 00:07:10,852
+And I definitely also wanna fail fast if env
+我絕對也想快速失敗，如果環境
+
+175
+00:07:11,045 --> 00:07:13,871
+vars are missing. And yes, I want to
+變數丟失。是的，我想要
+
+176
+00:07:13,935 --> 00:07:15,941
+redirect authenticated users to notes.
+將經過身份驗證的使用者重定向到筆記。
+
+177
+00:07:16,567 --> 00:07:18,589
+These are all good questions and that's
+這些都是好問題，那就是
+
+178
+00:07:18,589 --> 00:07:20,884
+exactly why you might wanna use plan mode
+正是您可能想要使用計劃模式的原因
+
+179
+00:07:20,900 --> 00:07:22,938
+for more complex tasks because as a
+對於更複雜的任務，因為作為
+
+180
+00:07:22,938 --> 00:07:25,104
+developer, you might not think of all the
+開發者，你可能想不到所有的
+
+181
+00:07:25,554 --> 00:07:28,009
+things or aspects that matter. And with
+重要的事情或方面。並與
+
+182
+00:07:28,057 --> 00:07:30,159
+that, we got a plan. Let me analyze it.
+那，我們有一個計劃。我來分析一下。
+
+183
+00:07:30,930 --> 00:07:32,406
+Actually, there's one thing I see right
+其實有一件事我看對了
+
+184
+00:07:32,406 --> 00:07:34,765
+away. I don't like the ai-editing
+離開。我不喜歡ai編輯
+
+185
+00:07:34,877 --> 00:07:37,814
+package.json to add third-party libraries
+package.json 新增第三方函式庫
+
+186
+00:07:37,910 --> 00:07:40,462
+because when doing that, it often adds old
+因為這樣做時，它經常會添加舊的
+
+187
+00:07:40,638 --> 00:07:42,869
+outdated versions and I don't want that.
+過時的版本，我不要這樣。
+
+188
+00:07:43,704 --> 00:07:46,000
+I do want it to add that file, that's good,
+我確實希望它添加該檔案，這很好，
+
+189
+00:07:46,032 --> 00:07:48,810
+but this here, this package.json part is
+但在這裡，這個 package.json 部分是
+
+190
+00:07:48,922 --> 00:07:50,447
+definitely something that needs to change.
+絕對是需要改變的事情。
+
+191
+00:07:51,073 --> 00:07:53,450
+The rest looks good, but I'll tell it to
+其餘的看起來不錯，但我會告訴它
+
+192
+00:07:54,044 --> 00:07:56,516
+add the BetterAuth library by using bun add
+使用 Bun add 新增 BetterAuth 庫
+
+193
+00:07:56,549 --> 00:07:57,978
+betterauth and not by editing the
+betterauth 而不是透過編輯
+
+194
+00:07:57,978 --> 00:07:59,936
+package.json file. And of course I could
+package.json 檔。我當然可以
+
+195
+00:08:00,065 --> 00:08:03,067
+also just do that, it's one command, but
+也只是這樣做，這是一個命令，但是
+
+196
+00:08:03,067 --> 00:08:04,978
+I'll instead just add it to this plan and
+我會將其添加到此計劃中，然後
+
+197
+00:08:04,978 --> 00:08:07,900
+then let it work on that overall plan and I
+然後讓它按照總體計劃進行，我
+
+198
+00:08:07,948 --> 00:08:09,795
+can work on something else. But of course
+可以做其他事情。但當然
+
+199
+00:08:09,795 --> 00:08:12,219
+these are the things you can and maybe
+這些是你可以做的事情
+
+200
+00:08:12,347 --> 00:08:14,177
+probably should do on your own.
+也許應該自己做。
+
+201
+00:08:14,771 --> 00:08:16,825
+At least you should not forget that you can
+至少你不應該忘記你可以
+
+202
+00:08:16,937 --> 00:08:17,884
+do them on your own too.
+你也可以自己做。
+
+203
+00:08:18,526 --> 00:08:20,709
+And with that, I then tell it to go ahead
+然後我告訴它繼續
+
+204
+00:08:20,709 --> 00:08:22,683
+and implement the plan. Normally it should
+並實施該計劃。通常應該
+
+205
+00:08:22,699 --> 00:08:24,770
+just ask me if it should start. Didn't do
+只是問我是否應該開始。沒有做
+
+206
+00:08:24,786 --> 00:08:26,872
+that here, but I'll just tell it, no
+就在這裡，但我只是告訴它，不
+
+207
+00:08:26,872 --> 00:08:29,296
+problem. I of course wanna allow adding the
+問題。我當然想允許添加
+
+208
+00:08:29,360 --> 00:08:31,077
+BetterAuth package with this command.
+BetterAuth 使用此指令進行打包。
+
+209
+00:08:31,687 --> 00:08:34,560
+And with that, it's done here. I'll analyze
+這樣，就在這裡完成了。我來分析一下
+
+210
+00:08:34,897 --> 00:08:35,443
+what it did
+它做了什麼
+
+211
+00:08:36,117 --> 00:08:37,449
+and that's all looking good.
+這一切看起來都不錯。
+
+212
+00:08:38,026 --> 00:08:39,807
+Now I'll just make sure that there's a
+現在我要確保有一個
+
+213
+00:08:39,872 --> 00:08:42,054
+properly configured.env file in this
+正確設定的.env 檔案在此
+
+214
+00:08:42,054 --> 00:08:44,187
+project to set up some environment variables
+專案設定一些環境變數
+
+215
+00:08:44,300 --> 00:08:47,220
+it will need. And that starts with db.ts
+它將需要。這從 db.ts 開始
+
+216
+00:08:47,653 --> 00:08:49,979
+where a DB_PATH can be set, though the
+可以在其中設定 DB_PATH，儘管
+
+217
+00:08:50,076 --> 00:08:52,177
+default path here actually works for me
+這裡的預設路徑實際上對我有用
+
+218
+00:08:52,177 --> 00:08:53,605
+since it's the same one as in the
+因為它與
+
+219
+00:08:53,605 --> 00:08:56,349
+migrations. In auth.ts, however, it expects
+遷徙。然而，在 auth.ts 中，它期望
+
+220
+00:08:56,349 --> 00:08:58,804
+a BetterAuth secret to be set and a
+要設定的 BetterAuth 金鑰和
+
+221
+00:08:58,884 --> 00:09:01,804
+BetterAuth URL to be set. And especially the
+要設定的 BetterAuth URL。尤其是
+
+222
+00:09:01,804 --> 00:09:04,756
+secret is needed. The URL, it falls back to
+需要秘密。 URL，它回退到
+
+223
+00:09:04,756 --> 00:09:06,973
+the default, but the secret is needed. So
+預設值，但需要秘密。所以
+
+224
+00:09:06,973 --> 00:09:09,244
+I'll add that and that needs to be a string
+我將添加它，並且它需要是一個字串
+
+225
+00:09:09,277 --> 00:09:11,873
+that is 32 characters long. And we can
+長度為 32 個字元。我們可以
+
+226
+00:09:11,873 --> 00:09:13,382
+generate such a secret by running
+透過運行生成這樣的秘密
+
+227
+00:09:13,495 --> 00:09:14,096
+bunx@betterauth/cli
+Bunx@betterauth/cli
+
+228
+00:09:15,730 --> 00:09:19,184
+secret and just take this random string
+秘密並只取這個隨機字串
+
+229
+00:09:19,200 --> 00:09:19,328
+here.
+這裡。
+
+230
+00:09:21,208 --> 00:09:23,296
+And with that, if I start the dev server,
+這樣，如果我啟動開發伺服器，
+
+231
+00:09:23,393 --> 00:09:25,868
+that seems to work. Back in the app, if I go
+這似乎有效。回到應用程式，如果我去
+
+232
+00:09:25,868 --> 00:09:29,270
+to register, I'll enter some dummy user
+要註冊，我將輸入一些虛擬使用者
+
+233
+00:09:29,270 --> 00:09:31,689
+data, click register, and that also seems to
+資料，點擊註冊，這似乎也
+
+234
+00:09:31,689 --> 00:09:33,942
+work. This is totally broken and ugly. Fix
+工作。這是完全破碎和醜陋的。使固定
+
+235
+00:09:33,942 --> 00:09:35,771
+that of course, but that seems to work.
+那當然，但這似乎有效。
+
+236
+00:09:36,830 --> 00:09:38,836
+Clicking to log in also redirects me.
+點擊登入也會重定向我。
+
+237
+00:09:39,397 --> 00:09:41,403
+Now I just also would like to have a logout
+現在我也想註銷
+
+238
+00:09:41,403 --> 00:09:43,585
+button of course. So as a follow-up message
+當然是按鈕。所以作為後續消息
+
+239
+00:09:43,633 --> 00:09:45,414
+here, and I could have done that before with
+在這裡，我以前可以這樣做
+
+240
+00:09:45,430 --> 00:09:47,820
+a queued message or even by steering it, but
+排隊的訊息，甚至透過引導它，但是
+
+241
+00:09:47,820 --> 00:09:50,788
+I forgot about it. I'll tell it to add a
+我忘記了。我會告訴它添加一個
+
+242
+00:09:50,788 --> 00:09:52,409
+logout button to the header and not show
+註銷按鈕到標題並且不顯示
+
+243
+00:09:52,409 --> 00:09:54,767
+login and register if the user is logged in.
+如果使用者已登錄，則登入並註冊。
+
+244
+00:09:56,083 --> 00:09:57,896
+No plan mode should be needed for that. So
+不需要計劃模式。所以
+
+245
+00:09:57,896 --> 00:09:58,955
+I'll just send it like this.
+我就這樣發送吧。
+
+246
+00:09:59,768 --> 00:10:01,530
+And I can see here it's even using
+我可以看到這裡甚至使用
+
+247
+00:10:01,643 --> 00:10:04,601
+context7-mcp without me telling it, which is
+context7-mcp 沒有我告訴它，這是
+
+248
+00:10:04,633 --> 00:10:06,136
+the idea of course, but not always
+當然有這個想法，但並非總是如此
+
+249
+00:10:06,249 --> 00:10:08,059
+guaranteed. But looks like it is looking up
+保證。但看起來它正在抬頭
+
+250
+00:10:08,108 --> 00:10:08,998
+how to log out.
+如何退出。
+
+251
+00:10:09,549 --> 00:10:13,602
+And with that, it did add notes and logout.
+這樣，它確實添加了註釋和註銷。
+
+252
+00:10:14,105 --> 00:10:16,017
+Logout does what the name implies.
+註銷的作用正如其名稱所暗示的那樣。
+
+253
+00:10:17,792 --> 00:10:20,346
+Now I can check if the login flow also
+現在我可以檢查登入流程是否也如此
+
+254
+00:10:20,412 --> 00:10:20,723
+works.
+作品。
+
+255
+00:10:22,440 --> 00:10:22,820
+Looks good.
+看起來不錯。
+
+256
+00:10:23,382 --> 00:10:25,317
+And therefore we got authentication added
+因此我們新增了身份驗證
+
+257
+00:10:25,366 --> 00:10:28,152
+successfully. I also reviewed all that code
+成功地。我還審查了所有程式碼
+
+258
+00:10:28,490 --> 00:10:30,342
+and I'm also happy with that.
+我也對此感到高興。
+
+259
+00:10:30,938 --> 00:10:32,178
+So I'll stage that
+所以我會上演
+
+260
+00:10:34,367 --> 00:10:36,097
+and have it create a commit.
+並讓它創建一個提交。

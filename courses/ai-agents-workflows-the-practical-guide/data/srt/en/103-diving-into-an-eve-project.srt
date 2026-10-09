@@ -1,0 +1,267 @@
+1
+00:00:00,529 --> 00:00:03,484
+So I'm in that project which I provided to
+
+2
+00:00:03,484 --> 00:00:03,580
+you,
+
+3
+00:00:04,126 --> 00:00:06,133
+and you'll see some things in there that may
+
+4
+00:00:06,133 --> 00:00:08,317
+look familiar, like AgentsMD and ClaudeMD.
+
+5
+00:00:08,381 --> 00:00:11,865
+But be careful, these are actually not here
+
+6
+00:00:12,379 --> 00:00:12,588
+for
+
+7
+00:00:13,118 --> 00:00:15,414
+the agent we're going to build. Instead,
+
+8
+00:00:15,607 --> 00:00:18,465
+these are here because I used an agent.
+
+9
+00:00:29,749 --> 00:00:32,274
+Ignore these other files regarding that.
+
+10
+00:00:33,359 --> 00:00:35,528
+Also worth noting is that with such
+
+11
+00:00:35,722 --> 00:00:38,377
+frameworks like EVE, but also CrewAI and the
+
+12
+00:00:38,377 --> 00:00:41,054
+others, you'll often build task-specific
+
+13
+00:00:41,054 --> 00:00:43,436
+agents. Now don't get me wrong, you could
+
+14
+00:00:43,469 --> 00:00:46,109
+build general agents with them too, but most
+
+15
+00:00:46,109 --> 00:00:48,605
+people don't build that many general agents.
+
+16
+00:00:48,685 --> 00:00:51,117
+You might just be using a pre-built solution
+
+17
+00:00:51,133 --> 00:00:53,734
+like Claude Code or Claude Cowork. Or any
+
+18
+00:00:53,847 --> 00:00:57,041
+other common general agent. Most companies
+
+19
+00:00:57,073 --> 00:01:00,026
+instead build their own task-specific agents
+
+20
+00:01:00,283 --> 00:01:03,124
+to help with customer support, finance, or
+
+21
+00:01:03,333 --> 00:01:05,756
+other things like that. And that is where
+
+22
+00:01:05,804 --> 00:01:08,453
+frameworks like Eve shine. So the example
+
+23
+00:01:08,453 --> 00:01:10,876
+you'll find in this project here is also a
+
+24
+00:01:10,876 --> 00:01:13,894
+task-specific agent, a customer support
+
+25
+00:01:13,990 --> 00:01:16,237
+agent specifically. Now, I will also show
+
+26
+00:01:16,317 --> 00:01:18,789
+you how to run it soon, but before we do
+
+27
+00:01:18,805 --> 00:01:21,421
+that, let's see how this is structured, how
+
+28
+00:01:21,694 --> 00:01:23,394
+Eve thinks and works.
+
+29
+00:01:24,180 --> 00:01:27,259
+I already mentioned the agent.ts file where
+
+30
+00:01:27,467 --> 00:01:29,937
+you most importantly register which model
+
+31
+00:01:29,969 --> 00:01:32,679
+will act as the brain of this agent. You
+
+32
+00:01:32,695 --> 00:01:35,629
+could register more things there. You could
+
+33
+00:01:35,661 --> 00:01:37,730
+control how compaction should work.
+
+34
+00:01:38,147 --> 00:01:40,119
+Compaction is that process that gets
+
+35
+00:01:40,312 --> 00:01:42,444
+triggered automatically when the agent runs
+
+36
+00:01:42,541 --> 00:01:45,154
+out of available context window space. And
+
+37
+00:01:45,187 --> 00:01:46,918
+there are more settings you can control
+
+38
+00:01:47,047 --> 00:01:49,019
+here. But the most important thing is
+
+39
+00:01:49,260 --> 00:01:51,553
+setting up which brain should be used.
+
+40
+00:01:52,243 --> 00:01:55,002
+And I'll get back to how exactly we inject
+
+41
+00:01:55,002 --> 00:01:56,991
+the value here later. We'll do this through
+
+42
+00:01:56,991 --> 00:01:58,787
+a concept called an environment variable,
+
+43
+00:01:59,156 --> 00:02:00,873
+which you already saw earlier when I ran
+
+44
+00:02:01,482 --> 00:02:04,690
+export OPENAI_API_KEY. When using Eve, we
+
+45
+00:02:04,690 --> 00:02:04,883
+can
+
+46
+00:02:05,492 --> 00:02:07,914
+write that environment variable into a.env
+
+47
+00:02:08,075 --> 00:02:10,112
+file and it will be loaded automatically
+
+48
+00:02:10,128 --> 00:02:11,924
+then. That's quite convenient. But again,
+
+49
+00:02:11,940 --> 00:02:14,282
+I'll get back to that. What you'll also find
+
+50
+00:02:14,378 --> 00:02:16,929
+next to agent.ts is an instructions.md file.
+
+51
+00:02:17,506 --> 00:02:19,943
+And this now must be named instructions.md
+
+52
+00:02:19,991 --> 00:02:22,620
+because the Eve framework will look for such
+
+53
+00:02:22,668 --> 00:02:24,671
+a file and it will then load the
+
+54
+00:02:24,671 --> 00:02:27,381
+instructions in here as system instructions
+
+55
+00:02:27,605 --> 00:02:29,032
+for the agent it's creating.
+
+56
+00:02:29,721 --> 00:02:31,917
+So that would be similar to these
+
+57
+00:02:31,965 --> 00:02:34,338
+instructions we had in our custom agent
+
+58
+00:02:34,338 --> 00:02:34,626
+before,
+
+59
+00:02:35,476 --> 00:02:37,528
+with the difference that we had to wire them
+
+60
+00:02:37,624 --> 00:02:40,253
+up manually, right? We had to point at those
+
+61
+00:02:40,301 --> 00:02:40,894
+instructions.
+
+62
+00:02:41,471 --> 00:02:43,619
+With that file-based approach of the Eve
+
+63
+00:02:43,795 --> 00:02:45,927
+framework and the decisions it's making for
+
+64
+00:02:46,040 --> 00:02:48,300
+us, we just have to follow the file name
+
+65
+00:02:48,300 --> 00:02:49,806
+convention it expects. And it will
+
+66
+00:02:49,987 --> 00:02:51,809
+automatically load these system
+
+67
+00:02:51,809 --> 00:02:52,515
+instructions.

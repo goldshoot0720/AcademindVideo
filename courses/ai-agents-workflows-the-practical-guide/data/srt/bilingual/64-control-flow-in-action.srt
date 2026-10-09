@@ -1,0 +1,419 @@
+1
+00:00:00,288 --> 00:00:03,577
+So managing the control flow of your
+所以管理你的控制流
+
+2
+00:00:03,721 --> 00:00:06,368
+workflows and agents is important.
+工作流程和代理商很重要。
+
+3
+00:00:07,089 --> 00:00:10,763
+That's why I prepared an adjusted example of
+這就是為什麼我準備了一個調整後的例子
+
+4
+00:00:10,763 --> 00:00:13,794
+that blog post generator. And as always, you
+那個部落格文章產生器。像往常一樣，你
+
+5
+00:00:13,891 --> 00:00:15,655
+find that attached, of course.
+當然可以找到附件。
+
+6
+00:00:16,954 --> 00:00:20,451
+Now, in this example, I'm still generating
+現在，在這個例子中，我仍在生成
+
+7
+00:00:20,483 --> 00:00:23,114
+an article draft, but I'm then doing a bit
+文章草稿，但我隨後做了一些
+
+8
+00:00:23,114 --> 00:00:25,825
+more than just generating that draft and
+不僅僅是生成草稿和
+
+9
+00:00:25,921 --> 00:00:27,381
+generating a thumbnail image.
+產生縮圖。
+
+10
+00:00:28,423 --> 00:00:31,100
+Instead, as you can already see here, I'm in
+相反，正如你已經在這裡看到的，我在
+
+11
+00:00:31,372 --> 00:00:34,514
+a loop, an infinite loop by default, though
+一個迴圈，預設是無限迴圈
+
+12
+00:00:34,594 --> 00:00:36,406
+I have an exit condition, no worries.
+我有退出條件，不用擔心。
+
+13
+00:00:37,063 --> 00:00:40,237
+In that loop, I keep on generating article
+在這個迴圈中，我繼續生成文章
+
+14
+00:00:40,285 --> 00:00:41,263
+drafts, but
+草稿，但是
+
+15
+00:00:41,792 --> 00:00:45,174
+I no longer use just the outline as input.
+我不再僅使用大綱作為輸入。
+
+16
+00:00:45,880 --> 00:00:49,054
+Instead, I also feed an existing draft, if
+相反，如果
+
+17
+00:00:49,118 --> 00:00:51,875
+it exists, as an argument to generate
+它存在，作為生成的參數
+
+18
+00:00:51,987 --> 00:00:54,661
+article draft and some feedback. If it
+文章草稿和一些回饋。如果它
+
+19
+00:00:54,661 --> 00:00:54,831
+exists.
+存在。
+
+20
+00:00:56,300 --> 00:00:59,349
+Though initially, both does not exist. I
+儘管最初兩者都不存在。我
+
+21
+00:00:59,543 --> 00:01:02,221
+don't have an initial blog post draft and I
+沒有最初的部落格文章草稿，我
+
+22
+00:01:02,302 --> 00:01:05,545
+don't have any evaluation result when that
+沒有任何評估結果
+
+23
+00:01:05,610 --> 00:01:07,523
+loop here runs for the first time.
+這裡的迴圈是第一次運行。
+
+24
+00:01:08,423 --> 00:01:10,833
+Still, this is already an example for some
+儘管如此，這對某些人來說已經是一個例子
+
+25
+00:01:10,898 --> 00:01:14,272
+repeated task. Generating an article draft
+重複的任務。生成文章草稿
+
+26
+00:01:14,353 --> 00:01:16,384
+is repeated because it's inside of a loop.
+被重複，因為它在迴圈內部。
+
+27
+00:01:17,998 --> 00:01:19,726
+But of course, to make that more useful, I
+但當然，為了讓它更有用，我
+
+28
+00:01:19,774 --> 00:01:22,664
+therefore need to gather some feedback and
+因此需要收集一些回饋並
+
+29
+00:01:22,680 --> 00:01:25,604
+that's what evaluate article draft does,
+這就是評估文章草稿的作用，
+
+30
+00:01:26,439 --> 00:01:29,699
+which runs after generate article draft. So
+它在生成文章草稿後運行。所以
+
+31
+00:01:29,811 --> 00:01:32,236
+in sequence, it's sequential, and it's
+按順序，按順序，按順序
+
+32
+00:01:32,396 --> 00:01:35,126
+sequential because evaluate article draft,
+順序是因為評估文章草稿，
+
+33
+00:01:35,367 --> 00:01:37,791
+of course, depends on the result of generate
+當然，取決於產生的結果
+
+34
+00:01:38,064 --> 00:01:40,874
+article draft. It depends on that blog post
+文章草稿。這取決於那篇部落格文章
+
+35
+00:01:40,954 --> 00:01:41,356
+draft.
+草稿。
+
+36
+00:01:42,400 --> 00:01:45,691
+I feed that to evaluate article draft, and
+我用它來評估文章草稿，並且
+
+37
+00:01:45,932 --> 00:01:47,040
+in that function,
+在該函式中，
+
+38
+00:01:47,698 --> 00:01:49,111
+I then actually use
+然後我實際使用
+
+39
+00:01:49,866 --> 00:01:50,716
+OpenAI again
+再次開啟AI
+
+40
+00:01:51,326 --> 00:01:53,974
+with some system instruction, some developer
+透過一些系統指令，一些開發人員
+
+41
+00:01:53,974 --> 00:01:57,248
+instruction here, and then my actual prompt
+這裡的說明，然後是我的實際提示
+
+42
+00:01:57,264 --> 00:01:59,559
+where I tell it to evaluate the following
+我告訴它評估以下內容
+
+43
+00:01:59,655 --> 00:02:02,881
+blog post draft, feeding that draft into the
+部落格文章草稿，將該草稿輸入到
+
+44
+00:02:02,881 --> 00:02:05,978
+prompt, and where I request the feedback as
+提示，以及我請求回饋的地方
+
+45
+00:02:06,154 --> 00:02:09,540
+JSON. And I also request structured output
+JSON。我還要求結構化輸出
+
+46
+00:02:09,540 --> 00:02:12,589
+by setting that text format parameter and by
+透過設定文字格式參數並透過
+
+47
+00:02:12,654 --> 00:02:16,168
+using this parse method on these responses.
+對這些回應使用此解析方法。
+
+48
+00:02:17,901 --> 00:02:20,131
+So I'm picking up what you learned about
+所以我正在學習你所學到的東西
+
+49
+00:02:20,131 --> 00:02:22,987
+requesting structured outputs here because I
+在這裡請求結構化輸出，因為我
+
+50
+00:02:23,179 --> 00:02:25,474
+want to get some structured output which has
+想要獲得一些結構化輸出
+
+51
+00:02:26,051 --> 00:02:27,030
+this shape.
+這個形狀。
+
+52
+00:02:27,816 --> 00:02:30,174
+I want to get a JSON object which has a
+我想得到一個 JSON 物件，它有一個
+
+53
+00:02:30,174 --> 00:02:32,613
+needs improvement field, which is a Boolean,
+需要改進欄位，這是一個布林值，
+
+54
+00:02:32,741 --> 00:02:34,057
+so true or false.
+如此真實或錯誤。
+
+55
+00:02:34,956 --> 00:02:37,956
+And I want to get some feedback, which is a
+我想得到一些回饋
+
+56
+00:02:37,956 --> 00:02:39,769
+string, which should be the feedback
+字串，這應該是反饋
+
+57
+00:02:40,025 --> 00:02:43,154
+generated by this evaluation step here, by
+由這裡的評估步驟生成，由
+
+58
+00:02:43,154 --> 00:02:45,785
+this evaluation model in written form.
+此評估模型以書面形式呈現。
+
+59
+00:02:46,908 --> 00:02:49,459
+That's what evaluateArticleDraft returns,
+這就是評估文章草案回傳的內容，
+
+60
+00:02:49,748 --> 00:02:51,817
+such an evaluation object.
+這樣的評價物件。
+
+61
+00:02:52,459 --> 00:02:54,544
+And that is then picked up in my main
+然後在我的 main 中找到它
+
+62
+00:02:54,609 --> 00:02:55,684
+function here.
+在這裡發揮作用。
+
+63
+00:02:56,454 --> 00:03:00,127
+And I then have a condition to execute some
+然後我有一個條件來執行一些
+
+64
+00:03:00,159 --> 00:03:02,887
+steps conditionally, implicitly at least,
+有條件地、至少隱式地採取步驟，
+
+65
+00:03:03,448 --> 00:03:07,042
+because this condition is one of my 2 exit
+因為這個條件是我的兩個退出之一
+
+66
+00:03:07,042 --> 00:03:08,438
+conditions for this loop.
+此迴圈的條件。
+
+67
+00:03:09,143 --> 00:03:10,459
+I keep on going
+我繼續前進
+
+68
+00:03:11,052 --> 00:03:13,860
+if we need improvement or put in other
+如果我們需要改進或投入其他
+
+69
+00:03:13,876 --> 00:03:16,283
+words, if we don't need improvement, if the
+換句話說，如果我們不需要改進，如果
+
+70
+00:03:16,283 --> 00:03:18,979
+evaluation step decided that the draft is
+評估步驟決定該草案是
+
+71
+00:03:19,172 --> 00:03:19,461
+good,
+好的，
+
+72
+00:03:20,039 --> 00:03:22,832
+I break out of the loop, I stop the loop, I
+我跳出迴圈，我停止迴圈，我
+
+73
+00:03:22,880 --> 00:03:24,854
+stop repeating these steps.
+停止重複這些步驟。
+
+74
+00:03:25,577 --> 00:03:26,251
+But if I do
+但如果我這樣做
+
+75
+00:03:26,877 --> 00:03:29,381
+need improvement, if the evaluation step did
+如果評估步驟確實需要改進
+
+76
+00:03:29,445 --> 00:03:32,142
+decide that improvement is needed, I keep on
+決定需要改進，我繼續
+
+77
+00:03:32,238 --> 00:03:32,527
+going.
+去。
+
+78
+00:03:33,362 --> 00:03:35,689
+And therefore, these steps are not just
+因此，這些步驟不僅僅是
+
+79
+00:03:35,689 --> 00:03:38,723
+repeated, they're also conditional because
+重複，它們也是有條件的，因為
+
+80
+00:03:38,819 --> 00:03:41,179
+they depend on this condition and they will
+他們依賴這個條件並且他們會
+
+81
+00:03:41,243 --> 00:03:43,378
+be repeated until this condition here is
+重複直到這裡的條件是
+
+82
+00:03:43,506 --> 00:03:43,715
+met.
+遇見了。
+
+83
+00:03:45,029 --> 00:03:46,685
+My other condition is that I
+我的另一個條件是我
+
+84
+00:03:47,286 --> 00:03:50,988
+only retry this for at most
+最多只重試一次

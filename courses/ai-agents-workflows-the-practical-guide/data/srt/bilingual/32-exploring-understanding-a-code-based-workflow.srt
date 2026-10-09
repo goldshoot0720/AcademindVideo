@@ -1,0 +1,774 @@
+1
+00:00:00,513 --> 00:00:03,145
+Now in this program, as mentioned, we have a
+現在，在這個程式中，正如前面提到的，我們有一個
+
+2
+00:00:03,145 --> 00:00:05,889
+workflow set up in code. So let's inspect
+在程式碼中設定的工作流程。那我們來檢查一下
+
+3
+00:00:05,889 --> 00:00:08,745
+that main.py file, which is the only code
+main.py 檔案，這是唯一的程式碼
+
+4
+00:00:08,761 --> 00:00:10,286
+file here in this demo project.
+檔案在此演示專案中。
+
+5
+00:00:11,329 --> 00:00:13,752
+In here, you'll see a bunch of imports at
+在這裡，您會看到一堆進口
+
+6
+00:00:13,752 --> 00:00:15,982
+the top because we're using some other
+頂部因為我們正在使用其他一些
+
+7
+00:00:16,159 --> 00:00:18,084
+Python packages so that we don't have to
+Python 包，這樣我們就不必
+
+8
+00:00:18,084 --> 00:00:20,507
+write all the code ourselves. Most
+我們自己編寫所有程式碼。最多
+
+9
+00:00:20,507 --> 00:00:23,187
+importantly, we're using the OpenAI package
+重要的是，我們正在使用 OpenAI 套件
+
+10
+00:00:23,284 --> 00:00:25,867
+here, which is a little SDK, a software
+這裡，這是一個小SDK，一個軟體
+
+11
+00:00:25,867 --> 00:00:28,402
+development kit, which just makes using
+開發套件，這使得使用
+
+12
+00:00:28,435 --> 00:00:30,906
+their API and sending those requests to
+他們的 API 並將這些請求發送到
+
+13
+00:00:30,906 --> 00:00:33,087
+their models a bit more convenient and easy.
+他們的模型更方便簡單。
+
+14
+00:00:34,050 --> 00:00:36,392
+Then I got some configuration variables here
+然後我在這裡得到了一些設定變數
+
+15
+00:00:36,520 --> 00:00:38,862
+which will be used later down in the code to
+稍後將在程式碼中使用
+
+16
+00:00:38,862 --> 00:00:40,835
+define the model. Here I'm using a very
+定義模型。這裡我使用的是一個非常
+
+17
+00:00:40,851 --> 00:00:42,102
+cheap one, for example,
+便宜的，例如
+
+18
+00:00:42,647 --> 00:00:42,760
+to
+到
+
+19
+00:00:43,337 --> 00:00:45,888
+define where the output should be stored,
+定義輸出應該儲存的位置，
+
+20
+00:00:46,240 --> 00:00:48,855
+which file types we want to support, and
+我們想要支援哪些檔案型別，以及
+
+21
+00:00:48,887 --> 00:00:50,764
+what our instructions for the AI are
+我們對人工智慧的指令是什麼
+
+22
+00:00:51,277 --> 00:00:53,266
+regarding that text summarization.
+關於該文本摘要。
+
+23
+00:00:53,940 --> 00:00:54,213
+Again,
+再次，
+
+24
+00:00:55,047 --> 00:00:57,116
+these instructions have nothing to do with
+這些說明與
+
+25
+00:00:57,212 --> 00:01:00,260
+AI agent instructions because there is no AI
+AI代理指令，因為沒有AI
+
+26
+00:01:00,340 --> 00:01:02,297
+agent here in this code, as you will see.
+正如您將看到的，此程式碼中的代理程式。
+
+27
+00:01:03,403 --> 00:01:05,454
+So if we now take a look at that code, there
+因此，如果我們現在看一下該程式碼，就會發現
+
+28
+00:01:05,486 --> 00:01:07,873
+is some helper logic like build_parser,
+是一些輔助邏輯，例如 build_parser，
+
+29
+00:01:08,129 --> 00:01:09,844
+which is simply responsible for
+這只是負責
+
+30
+00:01:10,372 --> 00:01:14,138
+parsing that command you sent to the tool so
+解析您傳送到工具的命令
+
+31
+00:01:14,138 --> 00:01:14,923
+that, for example,
+例如，
+
+32
+00:01:15,660 --> 00:01:19,297
+--file as a flag here is supported. So it
+--file 作為這裡的標誌是受支援的。所以它
+
+33
+00:01:19,505 --> 00:01:22,117
+just analyzes whichever command you executed
+僅分析您執行的任何命令
+
+34
+00:01:22,149 --> 00:01:23,623
+for correctness, you could say.
+為了正確性，你可以說。
+
+35
+00:01:24,376 --> 00:01:25,706
+That's one thing that is done here.
+這是這裡所做的一件事。
+
+36
+00:01:26,715 --> 00:01:29,455
+Then we have load_source, another helper
+然後我們有另一個助手 load_source
+
+37
+00:01:29,599 --> 00:01:32,165
+function which just It extracts the text
+它只是提取文字的函式
+
+38
+00:01:32,165 --> 00:01:33,016
+content in the end
+內容在最後
+
+39
+00:01:33,594 --> 00:01:35,954
+and handles some errors if something invalid
+如果某些內容無效，則處理一些錯誤
+
+40
+00:01:36,002 --> 00:01:38,523
+was found. It's also responsible for reading
+被發現了。它也負責閱讀
+
+41
+00:01:38,588 --> 00:01:41,124
+the content from a file if a file path was
+如果檔案路徑是檔案的內容
+
+42
+00:01:41,333 --> 00:01:41,975
+specified.
+指定的。
+
+43
+00:01:42,907 --> 00:01:45,235
+And then we get the summarize function and
+然後我們得到匯總函式
+
+44
+00:01:45,476 --> 00:01:47,932
+all these things that start with def are
+所有這些以 def 開頭的東西都是
+
+45
+00:01:48,061 --> 00:01:50,694
+function definitions and functions are just
+函式定義和函式只是
+
+46
+00:01:50,935 --> 00:01:53,568
+code snippets that can be executed on demand
+可以按需執行的程式碼片段
+
+47
+00:01:53,825 --> 00:01:56,442
+that don't run automatically when that file
+當該檔案時不會自動運行
+
+48
+00:01:56,490 --> 00:01:58,883
+is executed but that instead have to be
+已執行，但必須改為
+
+49
+00:01:58,883 --> 00:02:01,304
+called from somewhere else inside of the
+從內部的其他地方調用
+
+50
+00:02:01,304 --> 00:02:02,987
+file to execute.
+要執行的檔案。
+
+51
+00:02:03,548 --> 00:02:05,342
+And each function has some input
+每個函式都有一些輸入
+
+52
+00:02:05,935 --> 00:02:08,099
+and then may produce some output.
+然後可能會產生一些輸出。
+
+53
+00:02:08,659 --> 00:02:11,368
+For example, the summarize function takes an
+例如，summary 函式採用
+
+54
+00:02:11,464 --> 00:02:14,797
+OpenAI client as input, so simply the thing
+OpenAI 使用者端作為輸入，就這麼簡單
+
+55
+00:02:15,069 --> 00:02:17,153
+that will allow us to make requests. And
+這將使我們能夠提出請求。和
+
+56
+00:02:17,249 --> 00:02:19,172
+then it takes the text that should be
+然後它需要文本
+
+57
+00:02:19,172 --> 00:02:21,832
+summarized and some information about the AI
+關於AI的總結和一些資訊
+
+58
+00:02:21,832 --> 00:02:24,043
+model that should be used for creating that
+應該用於創建該模型
+
+59
+00:02:24,043 --> 00:02:25,165
+summary as input.
+摘要作為輸入。
+
+60
+00:02:26,143 --> 00:02:28,387
+And inside of that summarize function, we
+在該匯總函式內部，我們
+
+61
+00:02:28,387 --> 00:02:32,090
+then call this OpenAI client to request a
+然後呼叫這個 OpenAI 使用者端來請求
+
+62
+00:02:32,154 --> 00:02:33,148
+response, you could say.
+回應，你可以說。
+
+63
+00:02:33,821 --> 00:02:36,643
+So here we're using that OpenAI SDK, which I
+所以我們在這裡使用 OpenAI SDK，我用它
+
+64
+00:02:36,659 --> 00:02:39,816
+mentioned earlier, and we tell OpenAI which
+前面有提到過，我們告訴 OpenAI 哪個
+
+65
+00:02:39,913 --> 00:02:42,173
+model we want to use, which of course
+我們想要使用的模型，當然
+
+66
+00:02:42,173 --> 00:02:44,513
+affects how much we pay and how capable the
+影響我們支付的金額以及我們的能力
+
+67
+00:02:44,513 --> 00:02:45,026
+model is.
+模型群島
+
+68
+00:02:45,684 --> 00:02:47,399
+We then have our instructions.
+然後我們就得到了指示。
+
+69
+00:02:48,681 --> 00:02:51,102
+So that would be these instructions. The
+這就是這些說明。這
+
+70
+00:02:51,310 --> 00:02:54,163
+OpenAI SDK allows us to define them separate
+OpenAI SDK 允許我們單獨定義它們
+
+71
+00:02:54,196 --> 00:02:56,857
+from the main input because the main input
+來自主輸入，因為主輸入
+
+72
+00:02:56,921 --> 00:02:57,482
+then here here
+然後這裡這裡
+
+73
+00:02:58,107 --> 00:03:00,223
+is specified as the text that should be
+被指定為應該是的文本
+
+74
+00:03:00,223 --> 00:03:02,756
+summarized, which is either the plain text
+摘要，可以是純文字
+
+75
+00:03:02,756 --> 00:03:05,256
+we added to our command or the text from the
+我們添加到我們的命令或文字中
+
+76
+00:03:05,256 --> 00:03:06,282
+file we pointed at.
+我們指向的檔案。
+
+77
+00:03:07,100 --> 00:03:08,911
+We can then also configure some other things
+然後我們還可以設定一些其他的東西
+
+78
+00:03:09,007 --> 00:03:11,348
+like the reasoning effort, so how much the
+就像推理的努力一樣，那麼有多少
+
+79
+00:03:11,348 --> 00:03:12,374
+model should think,
+模型應該思考，
+
+80
+00:03:13,015 --> 00:03:15,259
+and maybe we can restrict how long the
+也許我們可以限制
+
+81
+00:03:15,339 --> 00:03:17,936
+output may be to also make it a bit cheaper.
+輸出可能也是為了讓它便宜一點。
+
+82
+00:03:18,465 --> 00:03:21,399
+And store false is an OpenAI-specific
+而 store false 是 OpenAI 特有的
+
+83
+00:03:21,447 --> 00:03:21,944
+setting too,
+設定也，
+
+84
+00:03:22,489 --> 00:03:24,653
+which allows us to control whether the
+這使我們能夠控制是否
+
+85
+00:03:24,653 --> 00:03:27,137
+conversation should be stored on the OpenAI
+對話應儲存在 OpenAI 上
+
+86
+00:03:27,137 --> 00:03:29,494
+servers in the end, which I don't want here
+最後是伺服器，我不要這裡
+
+87
+00:03:29,543 --> 00:03:31,937
+because it's also not a conversation, it's a
+因為這也不是對話，而是
+
+88
+00:03:32,097 --> 00:03:34,234
+one-off task and I don't want to store
+一次性任務，我不想存儲
+
+89
+00:03:34,363 --> 00:03:36,339
+anything. So then we take a look at the
+任何事物。那接下來我們就來看看
+
+90
+00:03:36,355 --> 00:03:38,540
+response we got back. We see if it maybe
+我們得到了回應。我們看看是否可能
+
+91
+00:03:38,540 --> 00:03:40,709
+failed. In that case, we handle the error.
+失敗的。在這種情況下，我們會處理錯誤。
+
+92
+00:03:41,111 --> 00:03:43,794
+But if it did not fail, we get the output
+但如果它沒有失敗，我們會得到輸出
+
+93
+00:03:43,826 --> 00:03:46,991
+text sent back by OpenAI, sent back by the
+由 OpenAI 發回的文本，由
+
+94
+00:03:46,991 --> 00:03:47,329
+model.
+模型。
+
+95
+00:03:47,939 --> 00:03:50,301
+We check if the text is somehow invalid and
+我們檢查文字是否無效且
+
+96
+00:03:50,349 --> 00:03:52,518
+show another error. But if it is valid, we
+顯示另一個錯誤。但如果它是有效的，我們
+
+97
+00:03:52,518 --> 00:03:54,221
+return that because as I mentioned,
+回傳，因為正如我所提到的，
+
+98
+00:03:54,270 --> 00:03:56,261
+functions can take an input, but can also
+函式可以接受輸入，但也可以
+
+99
+00:03:56,277 --> 00:03:58,312
+return something. And here I'm returning the
+回傳一些東西。在這裡我要回傳
+
+100
+00:03:58,312 --> 00:04:00,589
+summary if we got one successfully.
+如果我們成功獲得了一個總結。
+
+101
+00:04:01,887 --> 00:04:04,676
+write_summary is another utility function
+write_summary 是另一個實用函式
+
+102
+00:04:04,949 --> 00:04:07,786
+which then just writes the summary to a
+然後將摘要寫入
+
+103
+00:04:07,834 --> 00:04:08,187
+file.
+檔案。
+
+104
+00:04:08,780 --> 00:04:10,944
+Then we got some error handling here and
+然後我們在這裡進行了一些錯誤處理
+
+105
+00:04:10,960 --> 00:04:13,285
+then we got this main function. And this
+然後我們就得到了這個main函式。還有這個
+
+106
+00:04:13,285 --> 00:04:15,320
+main function is important because that will
+main 函式很重要，因為它將
+
+107
+00:04:15,513 --> 00:04:18,270
+actually be executed by default
+實際上是預設執行的
+
+108
+00:04:18,799 --> 00:04:21,091
+if we run this main.py file.
+如果我們運行這個 main.py 檔案。
+
+109
+00:04:21,700 --> 00:04:24,057
+And we do run this main.py file when we run
+當我們運行時，我們確實運行了這個 main.py 檔案
+
+110
+00:04:24,089 --> 00:04:25,708
+our program. That was the command we
+我們的計劃。這就是我們的命令
+
+111
+00:04:25,708 --> 00:04:26,670
+executed earlier.
+較早執行。
+
+112
+00:04:27,728 --> 00:04:28,708
+Main.py here.
+Main.py 在這裡。
+
+113
+00:04:29,398 --> 00:04:31,534
+And whenever we run that file, this function
+每當我們運行該檔案時，這個函式
+
+114
+00:04:31,711 --> 00:04:34,120
+will be executed and that function in the
+將被執行並且該函式在
+
+115
+00:04:34,201 --> 00:04:37,188
+end contains our workflow in code. It may
+end 包含我們的程式碼工作流程。它可能
+
+116
+00:04:37,188 --> 00:04:39,517
+not look like it, but it's also just a bunch
+看起來不像，但只是一堆
+
+117
+00:04:39,517 --> 00:04:40,047
+of steps.
+步驟。
+
+118
+00:04:40,641 --> 00:04:43,275
+The trigger was of course that we ran that
+觸發因素當然是我們運行了這個
+
+119
+00:04:43,275 --> 00:04:46,359
+file, but then the first step is that we
+檔案，但第一步是我們
+
+120
+00:04:46,359 --> 00:04:48,704
+extract the input so that we use this
+提取輸入以便我們使用它
+
+121
+00:04:48,736 --> 00:04:51,049
+build_parser thing I mentioned earlier for
+我之前提到的 build_parser 的東西
+
+122
+00:04:51,065 --> 00:04:52,478
+extracting the user input.
+提取使用者輸入。
+
+123
+00:04:53,313 --> 00:04:55,267
+Then, We load the
+然後，我們載入
+
+124
+00:04:55,898 --> 00:04:58,358
+source, the text that should be summarized,
+來源，應該總結的文本，
+
+125
+00:04:58,406 --> 00:05:00,656
+which is either the input text by the user
+這是使用者輸入的文字
+
+126
+00:05:00,753 --> 00:05:02,792
+or based on that file path the user
+或基於使用者的檔案路徑
+
+127
+00:05:02,792 --> 00:05:05,115
+provided. So that's the next step that we
+假如。這就是我們的下一步
+
+128
+00:05:05,195 --> 00:05:07,825
+get the text that should be summarized, kind
+得到應該總結的文字，親切
+
+129
+00:05:07,857 --> 00:05:10,357
+of similar to the extract document text we
+類似於我們提取文檔文本
+
+130
+00:05:10,357 --> 00:05:12,164
+had in that visual workflow before.
+之前有過那個視覺工作流程。
+
+131
+00:05:14,173 --> 00:05:16,452
+Then we check that we have an API key and
+然後我們檢查我們是否有 API 金鑰並且
+
+132
+00:05:16,501 --> 00:05:19,442
+throw an error if we don't. And then we
+如果我們不這樣做，就會拋出錯誤。然後我們
+
+133
+00:05:19,814 --> 00:05:23,305
+create that OpenAI client in the end, which
+最後創建 OpenAI 使用者端，
+
+134
+00:05:23,305 --> 00:05:23,936
+allows us to talk to the OpenAI
+允許我們與 OpenAI 對話
+
+135
+00:05:25,706 --> 00:05:26,075
+API,
+應用程式介面，
+
+136
+00:05:26,844 --> 00:05:28,832
+and we create that summary. So that's the
+我們建立該摘要。這就是
+
+137
+00:05:28,832 --> 00:05:32,006
+next step. So thus far, we have this step
+下一步。到目前為止，我們已經完成了這一步驟
+
+138
+00:05:32,118 --> 00:05:35,148
+here for parsing the input. Then we have
+這裡用於解析輸入。然後我們有
+
+139
+00:05:35,260 --> 00:05:37,040
+this step here for getting the text.
+這一步是為了獲取文字。
+
+140
+00:05:37,745 --> 00:05:39,877
+And then we got the summarize step to
+然後我們得到了總結步驟
+
+141
+00:05:40,165 --> 00:05:42,249
+summarize the text to create the summary.
+總結文字以建立摘要。
+
+142
+00:05:42,554 --> 00:05:44,702
+And then we got this step here to write that
+然後我們就到這裡來寫這個
+
+143
+00:05:44,702 --> 00:05:46,513
+summary to a file.
+摘要到檔案。
+
+144
+00:05:47,123 --> 00:05:49,383
+And these are our 4 steps in that workflow.
+這些是我們在該工作流程中的 4 個步驟。
+
+145
+00:05:49,447 --> 00:05:52,364
+Again, not super easy, instantly visible to
+再說一次，這不是那麼容易，立即可見
+
+146
+00:05:52,477 --> 00:05:54,609
+everybody, but if you've read code before,
+大家，但是如果你以前讀過程式碼，
+
+147
+00:05:54,817 --> 00:05:57,366
+it's fairly trivial to identify. The core
+辨識起來相當簡單。核心
+
+148
+00:05:57,382 --> 00:06:00,125
+takeaway is just that it's still a workflow.
+重點是它仍然是一個工作流程。
+
+149
+00:06:00,189 --> 00:06:02,884
+It's step by step. There is no loop, no
+這是一步一步來的。沒有迴圈，沒有
+
+150
+00:06:02,980 --> 00:06:06,140
+agent loop in here. There is no AI agent or
+代理迴圈在這裡。沒有人工智慧代理或
+
+151
+00:06:06,140 --> 00:06:07,680
+model deciding anything.
+模型決定一切。
+
+152
+00:06:08,274 --> 00:06:11,546
+All these steps are hardcoded, always
+所有這些步驟都是硬編碼的，始終
+
+153
+00:06:11,658 --> 00:06:13,631
+running in the same sequence. And that is
+以相同的順序運行。那就是
+
+154
+00:06:13,744 --> 00:06:16,374
+the idea behind a workflow, any workflow,
+工作流程背後的想法，任何工作流程，
+
+155
+00:06:16,695 --> 00:06:18,668
+not just workflows that involve AI.
+不僅僅是涉及人工智慧的工作流程。

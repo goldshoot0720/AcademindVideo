@@ -1,0 +1,403 @@
+1
+00:00:00,577 --> 00:00:03,542
+Now that we saw in action how an agent could
+
+2
+00:00:03,542 --> 00:00:05,113
+look like behind the scenes, how you could
+
+3
+00:00:05,161 --> 00:00:06,059
+build it visually,
+
+4
+00:00:06,668 --> 00:00:08,944
+let's take a look step by step how you could
+
+5
+00:00:09,073 --> 00:00:11,990
+build an agent in code. First, a basic
+
+6
+00:00:12,134 --> 00:00:14,523
+primitive agent, then later also a more
+
+7
+00:00:14,523 --> 00:00:15,709
+general agent.
+
+8
+00:00:16,543 --> 00:00:18,274
+For that, attached you find a new starting
+
+9
+00:00:18,306 --> 00:00:21,576
+project. This one uses a Python project. And
+
+10
+00:00:21,656 --> 00:00:23,756
+again, the README.md file contains all the
+
+11
+00:00:23,756 --> 00:00:26,048
+details regarding what you need to do if you
+
+12
+00:00:26,081 --> 00:00:28,004
+want to follow along locally. You will need
+
+13
+00:00:28,004 --> 00:00:30,777
+to install this uvtool if you want to follow
+
+14
+00:00:30,793 --> 00:00:33,232
+along locally and you will need an OpenAI
+
+15
+00:00:33,457 --> 00:00:34,019
+API key.
+
+16
+00:00:34,565 --> 00:00:36,090
+And then these are the commands you need to
+
+17
+00:00:36,171 --> 00:00:39,768
+execute on your system if you do want to run
+
+18
+00:00:39,800 --> 00:00:42,128
+this locally. But of course, as always, you
+
+19
+00:00:42,128 --> 00:00:44,440
+can also just follow along by following the
+
+20
+00:00:44,456 --> 00:00:44,826
+videos.
+
+21
+00:00:45,596 --> 00:00:46,961
+So I already went through
+
+22
+00:00:47,491 --> 00:00:49,322
+all these instructions here and now I'm
+
+23
+00:00:49,515 --> 00:00:50,109
+opening my
+
+24
+00:00:50,719 --> 00:00:52,854
+terminal, the one built into Visual Studio
+
+25
+00:00:52,871 --> 00:00:54,621
+Code, which is the tool I used for opening
+
+26
+00:00:54,637 --> 00:00:57,029
+this project here. So I've already navigated
+
+27
+00:00:57,062 --> 00:00:59,053
+into this project folder. If you're using an
+
+28
+00:00:59,133 --> 00:01:01,333
+external terminal or PowerShell, you need to
+
+29
+00:01:01,333 --> 00:01:02,457
+manually navigate there.
+
+30
+00:01:03,005 --> 00:01:04,751
+And we will need to make sure that our
+
+31
+00:01:04,768 --> 00:01:06,869
+OpenAI API key is set because again, I'm
+
+32
+00:01:06,950 --> 00:01:09,780
+using the OpenAI API as an example here and
+
+33
+00:01:09,796 --> 00:01:12,221
+we need to set this in order for the agent
+
+34
+00:01:12,221 --> 00:01:14,272
+to talk to it and use the models there as a
+
+35
+00:01:14,320 --> 00:01:14,595
+brain.
+
+36
+00:01:15,289 --> 00:01:17,857
+So I'll set that and then we can run the
+
+37
+00:01:17,873 --> 00:01:19,197
+agent by using uv run
+
+38
+00:01:20,457 --> 00:01:22,909
+and then agent.py is the file here.
+
+39
+00:01:24,894 --> 00:01:26,330
+Now if I do that, you'll see
+
+40
+00:01:26,895 --> 00:01:29,121
+I'm asked for some input here because it's
+
+41
+00:01:29,170 --> 00:01:31,373
+no longer a workflow as we had it earlier in
+
+42
+00:01:31,373 --> 00:01:32,793
+the course. It's now an agent. So
+
+43
+00:01:33,776 --> 00:01:35,428
+It needs some dynamic input because again,
+
+44
+00:01:35,942 --> 00:01:38,637
+agents make sense if the input is unknown.
+
+45
+00:01:38,749 --> 00:01:40,578
+If everything is known, you're probably
+
+46
+00:01:40,674 --> 00:01:42,823
+looking for a workflow. But if you want to
+
+47
+00:01:42,920 --> 00:01:45,711
+analyze an email or hear a chat message, you
+
+48
+00:01:45,727 --> 00:01:48,021
+need some dynamic input. And a chat is
+
+49
+00:01:48,021 --> 00:01:49,641
+simply simpler to build than
+
+50
+00:01:50,379 --> 00:01:52,464
+an automatic email trigger. But of course,
+
+51
+00:01:52,544 --> 00:01:54,566
+you can trigger an agent for all kinds of
+
+52
+00:01:54,566 --> 00:01:56,924
+triggers, including Slack messages if you
+
+53
+00:01:57,036 --> 00:01:59,137
+wire it up behind the scenes. But here for
+
+54
+00:01:59,153 --> 00:02:02,120
+this demo, it's a simple chat. So to say, or
+
+55
+00:02:02,264 --> 00:02:04,733
+simply a little agent that waits for some
+
+56
+00:02:04,733 --> 00:02:05,246
+user input.
+
+57
+00:02:06,031 --> 00:02:07,971
+So I can ask the agent anything I want here,
+
+58
+00:02:08,099 --> 00:02:10,119
+like, what can you do for me?
+
+59
+00:02:10,840 --> 00:02:13,597
+And that will kick off an agent loop where
+
+60
+00:02:13,725 --> 00:02:16,034
+the agent can use tools, and we'll see that
+
+61
+00:02:16,114 --> 00:02:18,406
+in just a second. But here it didn't call
+
+62
+00:02:18,518 --> 00:02:21,163
+any tools. It decided that no tool calls are
+
+63
+00:02:21,163 --> 00:02:23,487
+needed. Instead, it was able to produce a
+
+64
+00:02:23,487 --> 00:02:26,132
+final response right away. And it tells me
+
+65
+00:02:26,132 --> 00:02:28,538
+that it can summarize text and create PDFs.
+
+66
+00:02:30,081 --> 00:02:32,957
+So I'll again start this. The agent loop
+
+67
+00:02:32,973 --> 00:02:35,383
+finishes instantly here. We'll see a loop
+
+68
+00:02:35,383 --> 00:02:37,617
+that keeps on going or where we wait for
+
+69
+00:02:37,617 --> 00:02:39,967
+more input later, but here it finishes after
+
+70
+00:02:39,967 --> 00:02:41,491
+one task. So I'll restart it.
+
+71
+00:02:42,253 --> 00:02:44,620
+And now I could ask it to summarize some
+
+72
+00:02:44,685 --> 00:02:45,090
+text.
+
+73
+00:02:45,820 --> 00:02:48,985
+So I could say, please summarize this short
+
+74
+00:02:48,985 --> 00:02:49,421
+text.
+
+75
+00:02:50,051 --> 00:02:51,585
+A dog walks through
+
+76
+00:02:52,942 --> 00:02:54,218
+the woods and enjoys
+
+77
+00:02:55,287 --> 00:02:57,197
+Now, I keep this short because entering
+
+78
+00:02:57,229 --> 00:02:59,555
+multiline text here is not trivial for this
+
+79
+00:02:59,555 --> 00:03:02,299
+basic agent, but you'll see what happens
+
+80
+00:03:02,428 --> 00:03:02,909
+nonetheless.
+
+81
+00:03:03,471 --> 00:03:05,461
+You see, for example, that a tool call is
+
+82
+00:03:05,493 --> 00:03:07,804
+being made. So clearly the agent decided
+
+83
+00:03:07,804 --> 00:03:09,697
+this time that it needs to use some tool,
+
+84
+00:03:10,082 --> 00:03:12,521
+some summarize text tool, as it seems. We'll
+
+85
+00:03:12,794 --> 00:03:13,532
+see it in a second.
+
+86
+00:03:14,062 --> 00:03:15,859
+And then it output that
+
+87
+00:03:16,710 --> 00:03:18,972
+final summary, which of course doesn't make
+
+88
+00:03:18,972 --> 00:03:20,657
+too much sense because the input was so
+
+89
+00:03:20,657 --> 00:03:21,989
+short, but you get the point.
+
+90
+00:03:23,452 --> 00:03:24,630
+If I run it again
+
+91
+00:03:26,439 --> 00:03:31,914
+and I ask it to please summarize, also save
+
+92
+00:03:32,027 --> 00:03:35,082
+to PDF, we should see that multiple tool
+
+93
+00:03:35,082 --> 00:03:37,895
+calls will be made. Summarize text is being
+
+94
+00:03:37,928 --> 00:03:38,364
+made here
+
+95
+00:03:38,978 --> 00:03:39,270
+and then
+
+96
+00:03:39,868 --> 00:03:41,515
+create PDF was made as well.
+
+97
+00:03:42,047 --> 00:03:43,786
+And then it was done and that was stored
+
+98
+00:03:43,818 --> 00:03:45,702
+under generated PDFs. So here
+
+99
+00:03:46,234 --> 00:03:47,232
+we have a PDF file.
+
+100
+00:03:48,298 --> 00:03:50,578
+So that's what happens when we use it. But
+
+101
+00:03:50,610 --> 00:03:52,016
+how does the code look like?

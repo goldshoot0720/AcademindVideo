@@ -1,0 +1,991 @@
+1
+00:00:00,449 --> 00:00:02,568
+So what's this web search agent doing?
+
+2
+00:00:03,547 --> 00:00:05,699
+This agent here has
+
+3
+00:00:06,517 --> 00:00:07,657
+also a system prompt
+
+4
+00:00:08,299 --> 00:00:10,450
+where I instructed that it will perform web
+
+5
+00:00:10,450 --> 00:00:13,324
+search and that its main job is to derive
+
+6
+00:00:13,420 --> 00:00:15,379
+meaningful web search queries
+
+7
+00:00:15,909 --> 00:00:18,702
+and to also derive some web search result
+
+8
+00:00:18,879 --> 00:00:19,826
+age restrictions
+
+9
+00:00:20,420 --> 00:00:22,410
+depending on the research plan. That's the
+
+10
+00:00:22,491 --> 00:00:22,812
+idea.
+
+11
+00:00:24,273 --> 00:00:26,584
+However, the run method of this agent looks
+
+12
+00:00:26,584 --> 00:00:28,655
+totally different from what we saw in the
+
+13
+00:00:28,687 --> 00:00:31,046
+research planner agent. Because again, I
+
+14
+00:00:31,174 --> 00:00:33,949
+like to be flexible here. I want to be able
+
+15
+00:00:33,981 --> 00:00:38,551
+to really tailor each agent for exactly the
+
+16
+00:00:38,551 --> 00:00:40,235
+task it's meant to perform.
+
+17
+00:00:41,117 --> 00:00:43,363
+This run method, for example, takes an
+
+18
+00:00:43,363 --> 00:00:45,335
+input. As mentioned before, it takes the
+
+19
+00:00:45,367 --> 00:00:46,778
+research plan as an input.
+
+20
+00:00:47,773 --> 00:00:49,906
+And it also doesn't spin up a chat because
+
+21
+00:00:50,018 --> 00:00:52,263
+the job of this agent is not to have a
+
+22
+00:00:52,263 --> 00:00:54,829
+conversation with the user. Instead, the job
+
+23
+00:00:54,829 --> 00:00:58,038
+of this agent is to perform a certain task,
+
+24
+00:00:58,118 --> 00:01:01,521
+which is deriving search terms and also
+
+25
+00:01:01,569 --> 00:01:02,468
+performing that search.
+
+26
+00:01:03,736 --> 00:01:06,786
+Therefore, this agent actually has no access
+
+27
+00:01:06,786 --> 00:01:09,241
+to any tools. And therefore, you could, of
+
+28
+00:01:09,273 --> 00:01:11,601
+course, question the fact whether it should
+
+29
+00:01:11,665 --> 00:01:13,061
+be called an agent.
+
+30
+00:01:13,591 --> 00:01:16,576
+At least if you recall my earlier definition
+
+31
+00:01:16,657 --> 00:01:17,604
+of an AI agent.
+
+32
+00:01:18,165 --> 00:01:19,754
+But as I also mentioned back then,
+
+33
+00:01:20,348 --> 00:01:22,884
+there are simply different definitions and
+
+34
+00:01:22,900 --> 00:01:24,152
+many people would call
+
+35
+00:01:24,746 --> 00:01:25,131
+a thing,
+
+36
+00:01:25,724 --> 00:01:28,208
+an entity that's able to perform a certain
+
+37
+00:01:28,208 --> 00:01:31,430
+task with help of AI, an AI agent too.
+
+38
+00:01:32,312 --> 00:01:34,701
+So following that rationale, this is an
+
+39
+00:01:34,701 --> 00:01:35,262
+agent here.
+
+40
+00:01:35,887 --> 00:01:37,971
+If you want, you can of course also call it
+
+41
+00:01:37,971 --> 00:01:40,471
+web search step or something like this if
+
+42
+00:01:40,471 --> 00:01:41,962
+you want to have a clear differentiation,
+
+43
+00:01:41,994 --> 00:01:44,415
+but I don't think that is too important.
+
+44
+00:01:45,345 --> 00:01:47,332
+Ultimately, the idea is that we build an
+
+45
+00:01:47,669 --> 00:01:51,404
+AI-powered application, a workflow that may
+
+46
+00:01:51,596 --> 00:01:54,418
+use true autonomous agents and then maybe
+
+47
+00:01:54,418 --> 00:01:56,886
+specialized agents that are not autonomous,
+
+48
+00:01:57,864 --> 00:02:00,253
+and how you define things is up to you.
+
+49
+00:02:00,589 --> 00:02:02,449
+There is no fixed definition here.
+
+50
+00:02:03,314 --> 00:02:06,168
+But that's important. This web search agent
+
+51
+00:02:06,424 --> 00:02:10,464
+is not autonomous. It does not have any free
+
+52
+00:02:10,528 --> 00:02:11,554
+will, so to say.
+
+53
+00:02:12,211 --> 00:02:14,423
+The research planner to some degree was,
+
+54
+00:02:14,856 --> 00:02:17,501
+because it can call the tools it wants
+
+55
+00:02:17,501 --> 00:02:20,194
+depending on the prompts. It's a chat, an
+
+56
+00:02:20,290 --> 00:02:22,246
+ongoing discussion, and therefore it's not
+
+57
+00:02:22,246 --> 00:02:23,144
+exactly clear
+
+58
+00:02:23,737 --> 00:02:25,805
+when the interaction with this agent will
+
+59
+00:02:25,981 --> 00:02:29,460
+end and what exactly the output will be, if
+
+60
+00:02:29,749 --> 00:02:32,075
+any tools will be called, that's all not
+
+61
+00:02:32,075 --> 00:02:32,492
+clear.
+
+62
+00:02:33,053 --> 00:02:34,946
+In case of the web search agent, it's very
+
+63
+00:02:34,978 --> 00:02:36,903
+clear what's going to happen because it's a
+
+64
+00:02:36,919 --> 00:02:39,950
+step-by-step process as you saw it in the
+
+65
+00:02:39,950 --> 00:02:42,324
+previous course section about workflows as
+
+66
+00:02:42,420 --> 00:02:42,549
+well.
+
+67
+00:02:43,238 --> 00:02:45,436
+Because this is just a little mini AI
+
+68
+00:02:45,484 --> 00:02:47,890
+workflow within an agent in the end. And
+
+69
+00:02:47,890 --> 00:02:49,317
+that is of course something you can
+
+70
+00:02:49,478 --> 00:02:51,707
+absolutely do and you will typically do
+
+71
+00:02:51,804 --> 00:02:52,301
+quite a bit.
+
+72
+00:02:53,520 --> 00:02:56,920
+So what I'm doing here is I'm first getting
+
+73
+00:02:57,754 --> 00:03:00,447
+this agent to derive a bunch of search terms
+
+74
+00:03:00,559 --> 00:03:02,291
+based on that research plan
+
+75
+00:03:02,868 --> 00:03:04,615
+and based on that system prompt, of course.
+
+76
+00:03:05,770 --> 00:03:07,982
+And I do that using structured outputs using
+
+77
+00:03:08,014 --> 00:03:11,140
+the OpenAI API here because I'm using OpenAI
+
+78
+00:03:11,284 --> 00:03:12,423
+everywhere in this program.
+
+79
+00:03:13,304 --> 00:03:16,270
+I have my search config Pydantic class for
+
+80
+00:03:16,334 --> 00:03:19,573
+that that controls the format of the
+
+81
+00:03:19,573 --> 00:03:20,839
+structured output I want,
+
+82
+00:03:21,641 --> 00:03:23,452
+that I need a list of search terms, which is
+
+83
+00:03:23,548 --> 00:03:25,841
+just a list of strings and some information
+
+84
+00:03:26,033 --> 00:03:26,931
+about the freshness.
+
+85
+00:03:27,973 --> 00:03:29,847
+And this freshness is either a string,
+
+86
+00:03:30,536 --> 00:03:31,017
+which is a
+
+87
+00:03:31,577 --> 00:03:32,667
+timeframe or 2
+
+88
+00:03:33,340 --> 00:03:36,096
+timestamps actually describing a period, or
+
+89
+00:03:36,208 --> 00:03:38,499
+it's one of these strings here.
+
+90
+00:03:39,028 --> 00:03:42,152
+And I'm using these specific strings because
+
+91
+00:03:42,152 --> 00:03:44,683
+in this example, I'll be using the Brave
+
+92
+00:03:44,891 --> 00:03:45,917
+Search API,
+
+93
+00:03:46,542 --> 00:03:48,881
+which is a third-party web search provider
+
+94
+00:03:48,881 --> 00:03:51,076
+which you can access through their API.
+
+95
+00:03:51,989 --> 00:03:54,456
+And the nice thing about Brave Search is
+
+96
+00:03:54,569 --> 00:03:56,651
+that you can get started with it for free.
+
+97
+00:03:57,776 --> 00:03:59,559
+So you don't have to pay for them. You just
+
+98
+00:03:59,559 --> 00:04:01,310
+have to create an account and then you can
+
+99
+00:04:01,310 --> 00:04:02,242
+get started using them.
+
+100
+00:04:03,061 --> 00:04:06,660
+And when using the Brave Search API, you can
+
+101
+00:04:06,869 --> 00:04:09,391
+define a freshness, which is
+
+102
+00:04:10,226 --> 00:04:11,078
+one of these values.
+
+103
+00:04:11,994 --> 00:04:14,548
+And that's exactly what I'm reflecting in my
+
+104
+00:04:14,548 --> 00:04:14,821
+code.
+
+105
+00:04:15,705 --> 00:04:16,781
+So that's exactly
+
+106
+00:04:17,536 --> 00:04:18,243
+what I have here.
+
+107
+00:04:19,368 --> 00:04:21,392
+So that is what I want the AI model to
+
+108
+00:04:21,456 --> 00:04:23,449
+produce based on the research plan.
+
+109
+00:04:24,616 --> 00:04:27,292
+I then take a look at the search terms the
+
+110
+00:04:27,292 --> 00:04:29,694
+model came up with and I go through all the
+
+111
+00:04:29,694 --> 00:04:31,273
+search terms it derived
+
+112
+00:04:31,934 --> 00:04:34,495
+and I send a request to this Brave Search
+
+113
+00:04:34,607 --> 00:04:37,710
+API using my Brave API key, which you need.
+
+114
+00:04:37,983 --> 00:04:39,479
+And you can get that if you sign up with
+
+115
+00:04:39,511 --> 00:04:41,440
+them. As mentioned, you don't need to pay.
+
+116
+00:04:42,950 --> 00:04:45,617
+So I'm sending a request to this third-party
+
+117
+00:04:45,650 --> 00:04:48,188
+API using the freshness determined by the
+
+118
+00:04:48,188 --> 00:04:50,338
+model and the search term determined by the
+
+119
+00:04:50,338 --> 00:04:50,549
+model.
+
+120
+00:04:51,303 --> 00:04:53,486
+I sent that request, I get back my response,
+
+121
+00:04:53,550 --> 00:04:56,937
+and then I parse the results from that
+
+122
+00:04:57,001 --> 00:04:57,980
+response I got back.
+
+123
+00:04:58,509 --> 00:05:00,419
+And the Brave search
+
+124
+00:05:01,078 --> 00:05:04,191
+actually returns a response object which can
+
+125
+00:05:04,223 --> 00:05:06,856
+contain a lot of data. I'm only interested
+
+126
+00:05:06,856 --> 00:05:09,584
+in the web and the news results here for
+
+127
+00:05:09,664 --> 00:05:10,226
+this demo.
+
+128
+00:05:11,286 --> 00:05:13,292
+And that's therefore what I access in my
+
+129
+00:05:13,292 --> 00:05:13,629
+code.
+
+130
+00:05:14,239 --> 00:05:16,422
+I take a look if we got some web results,
+
+131
+00:05:16,438 --> 00:05:18,476
+some news results, and if we do, I dive into
+
+132
+00:05:18,508 --> 00:05:21,157
+them and I simplify them. I just extract the
+
+133
+00:05:21,157 --> 00:05:23,873
+search term that was used, the URL of that
+
+134
+00:05:23,954 --> 00:05:26,547
+result and that short description that's
+
+135
+00:05:26,547 --> 00:05:28,963
+included in the response returned by the
+
+136
+00:05:28,963 --> 00:05:29,704
+Brave API.
+
+137
+00:05:31,282 --> 00:05:35,065
+And then I return those simplified results.
+
+138
+00:05:36,245 --> 00:05:37,733
+So this web search agent
+
+139
+00:05:38,316 --> 00:05:39,415
+performs the web search
+
+140
+00:05:39,949 --> 00:05:42,128
+and then returns those results. That's the
+
+141
+00:05:42,128 --> 00:05:44,451
+job of this agent. And again, if you call it
+
+142
+00:05:44,451 --> 00:05:46,153
+an agent or not, it's totally up to you.
+
+143
+00:05:47,718 --> 00:05:50,628
+So then I got my results and I then hand
+
+144
+00:05:50,628 --> 00:05:52,482
+those results to the summary report agent.
+
+145
+00:05:53,846 --> 00:05:56,156
+Now, please note, I'm not visiting those
+
+146
+00:05:56,172 --> 00:05:59,252
+results. You could add another agent that
+
+147
+00:05:59,621 --> 00:06:01,931
+visits all these websites. Now, for some
+
+148
+00:06:02,027 --> 00:06:04,706
+websites, that could be tricky. They might
+
+149
+00:06:04,706 --> 00:06:07,016
+not load all the content initially. They
+
+150
+00:06:07,016 --> 00:06:09,968
+might have bot detection. So you might need
+
+151
+00:06:09,968 --> 00:06:12,679
+a more elaborate approach for visiting such
+
+152
+00:06:12,727 --> 00:06:14,411
+a site and extracting content.
+
+153
+00:06:15,021 --> 00:06:17,122
+And in the next lecture, a text lecture,
+
+154
+00:06:17,138 --> 00:06:19,512
+I'll share some details on how you could try
+
+155
+00:06:19,512 --> 00:06:21,960
+to tackle this problem. But here I'll just
+
+156
+00:06:22,089 --> 00:06:24,741
+generate a report based on these raw search
+
+157
+00:06:24,854 --> 00:06:26,956
+results, which of course don't contain a lot
+
+158
+00:06:26,956 --> 00:06:28,702
+of information, but at least short
+
+159
+00:06:28,734 --> 00:06:31,133
+descriptions for each search result.
+
+160
+00:06:33,540 --> 00:06:35,922
+So I got the summary report agent for that.
+
+161
+00:06:35,987 --> 00:06:38,128
+Yet another agent which isn't really an
+
+162
+00:06:38,144 --> 00:06:40,736
+agent because it doesn't have tools. It's
+
+163
+00:06:40,736 --> 00:06:43,148
+not really autonomous. But again, you can
+
+164
+00:06:43,148 --> 00:06:45,715
+call it whatever you want. It has a system
+
+165
+00:06:45,747 --> 00:06:45,975
+prompt.
+
+166
+00:06:46,726 --> 00:06:49,275
+And again, a customized run method, which
+
+167
+00:06:49,387 --> 00:06:51,968
+takes these search results as an input
+
+168
+00:06:52,834 --> 00:06:54,886
+and which then simply constructs another
+
+169
+00:06:54,902 --> 00:06:58,573
+prompt asking the model to create a summary
+
+170
+00:06:58,909 --> 00:07:00,528
+based on these search results,
+
+171
+00:07:01,330 --> 00:07:03,863
+passing the search results as a JSON string
+
+172
+00:07:04,039 --> 00:07:04,792
+into the prompt.
+
+173
+00:07:05,898 --> 00:07:06,459
+And then I
+
+174
+00:07:07,806 --> 00:07:09,313
+just extract that summary.
+
+175
+00:07:09,970 --> 00:07:13,208
+I requested it in Markdown format, but it's
+
+176
+00:07:13,272 --> 00:07:16,606
+possible that the model included these code
+
+177
+00:07:16,719 --> 00:07:18,097
+tags at the beginning and end.
+
+178
+00:07:18,739 --> 00:07:21,064
+So I'm checking for that, removing them if
+
+179
+00:07:21,064 --> 00:07:24,031
+necessary, and then I return the report. And
+
+180
+00:07:24,159 --> 00:07:26,693
+that report is then simply saved in a file.
+
+181
+00:07:27,960 --> 00:07:30,493
+So still not a super complex application,
+
+182
+00:07:30,509 --> 00:07:33,588
+but a great example for multiple agents or
+
+183
+00:07:33,893 --> 00:07:37,164
+semi-agents working together. And it also
+
+184
+00:07:37,164 --> 00:07:39,217
+shows you how you can connect agents.
+
+185
+00:07:39,955 --> 00:07:41,959
+Again, you can of course also connect them
+
+186
+00:07:41,959 --> 00:07:43,355
+in other ways, but this would be one
+
+187
+00:07:43,499 --> 00:07:44,349
+possible approach.
+
+188
+00:07:45,328 --> 00:07:47,062
+And therefore now if I run this file,
+
+189
+00:07:47,592 --> 00:07:50,032
+it all starts with the agent asking me
+
+190
+00:07:50,867 --> 00:07:53,163
+for my research task. So I could say,
+
+191
+00:07:53,854 --> 00:07:55,668
+I want a summary of
+
+192
+00:07:56,343 --> 00:07:57,435
+core things
+
+193
+00:07:58,350 --> 00:07:59,361
+that happened
+
+194
+00:08:00,020 --> 00:08:03,102
+in the world of generative AI.
+
+195
+00:08:03,970 --> 00:08:05,896
+And I send this to the model. And keep in
+
+196
+00:08:05,896 --> 00:08:08,064
+mind with this first agent here, we're
+
+197
+00:08:08,064 --> 00:08:09,862
+having a conversation. It's a chat.
+
+198
+00:08:10,651 --> 00:08:11,913
+So let's see what we get back.
+
+199
+00:08:12,980 --> 00:08:15,082
+So this is the research plan suggested by
+
+200
+00:08:15,082 --> 00:08:15,583
+the model.
+
+201
+00:08:17,532 --> 00:08:18,846
+And I actually,
+
+202
+00:08:19,722 --> 00:08:22,009
+I want to focus on just
+
+203
+00:08:22,560 --> 00:08:25,426
+Google, Anthropic, OpenAI,
+
+204
+00:08:26,454 --> 00:08:28,447
+Microsoft, and xAI.
+
+205
+00:08:29,909 --> 00:08:31,034
+That's something I want to do.
+
+206
+00:08:31,966 --> 00:08:33,717
+And let's focus on
+
+207
+00:08:34,475 --> 00:08:37,197
+this year only, 2025.
+
+208
+00:08:38,849 --> 00:08:40,684
+I shouldn't have to enter this year because
+
+209
+00:08:40,716 --> 00:08:42,858
+in some of my system prompt, I actually
+
+210
+00:08:42,890 --> 00:08:44,855
+inject the current date here
+
+211
+00:08:45,386 --> 00:08:47,077
+to make sure that the model knows what the
+
+212
+00:08:47,077 --> 00:08:49,104
+current date is, but still it doesn't hurt.
+
+213
+00:08:51,410 --> 00:08:53,354
+So let's see. Okay, now we got that revised
+
+214
+00:08:53,467 --> 00:08:55,639
+plan and let's say I wanna save that for
+
+215
+00:08:55,639 --> 00:08:56,352
+future use
+
+216
+00:08:56,951 --> 00:08:58,976
+because maybe I wanna do that same research
+
+217
+00:08:58,976 --> 00:09:02,089
+again in 2026, or I wanna build up on that
+
+218
+00:09:02,202 --> 00:09:03,727
+plan in the future and refine it.
+
+219
+00:09:04,718 --> 00:09:06,871
+So I can say, please save that plan, because
+
+220
+00:09:06,903 --> 00:09:09,442
+keep in mind, this model has access to tools
+
+221
+00:09:09,876 --> 00:09:11,980
+that allow it to save a plan, for example.
+
+222
+00:09:13,700 --> 00:09:16,265
+So now it has been saved, and therefore now
+
+223
+00:09:17,588 --> 00:09:20,299
+I will enter accept here to accept the plan
+
+224
+00:09:20,348 --> 00:09:22,704
+as it is. And now it will produce that final
+
+225
+00:09:22,833 --> 00:09:25,119
+version of the plan and will move on to the
+
+226
+00:09:25,119 --> 00:09:27,484
+next step, which is to derive search terms.
+
+227
+00:09:27,854 --> 00:09:29,962
+So the next agent will become active now.
+
+228
+00:09:31,008 --> 00:09:33,319
+It did its job. Now the results are getting
+
+229
+00:09:33,351 --> 00:09:36,592
+summarized. And with that, any moment this
+
+230
+00:09:36,640 --> 00:09:37,908
+should all be done and we should have a
+
+231
+00:09:37,908 --> 00:09:38,486
+report.
+
+232
+00:09:39,834 --> 00:09:40,572
+Here we go.
+
+233
+00:09:41,198 --> 00:09:43,846
+Here's our summary report. And if we take a
+
+234
+00:09:43,846 --> 00:09:45,643
+look at it, we can see that of course
+
+235
+00:09:46,333 --> 00:09:49,543
+it's not a lot of text because again, we're
+
+236
+00:09:49,543 --> 00:09:51,934
+just using those search results which only
+
+237
+00:09:51,966 --> 00:09:54,325
+come with a little bit of text. But still,
+
+238
+00:09:54,389 --> 00:09:56,267
+it's a nice summary and we got all these
+
+239
+00:09:56,363 --> 00:09:59,237
+links here which we could now use to dive in
+
+240
+00:09:59,494 --> 00:10:02,513
+deeper, or of course, which we could try to
+
+241
+00:10:03,267 --> 00:10:05,821
+automate by adding another agent that
+
+242
+00:10:05,997 --> 00:10:08,502
+actually visits those websites. Again, I'll
+
+243
+00:10:08,502 --> 00:10:10,606
+share more details on how you could try
+
+244
+00:10:10,670 --> 00:10:12,838
+doing that in the next lecture if you're
+
+245
+00:10:12,838 --> 00:10:13,673
+interested in that.
+
+246
+00:10:15,166 --> 00:10:18,073
+But this is an example for a multi-agent
+
+247
+00:10:18,073 --> 00:10:21,300
+system with specialized agents that are
+
+248
+00:10:21,429 --> 00:10:22,312
+working together.

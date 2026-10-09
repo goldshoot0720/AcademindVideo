@@ -1,0 +1,279 @@
+1
+00:00:00,449 --> 00:00:02,887
+In order to build AI agents,
+為了建構人工智慧代理，
+
+2
+00:00:03,544 --> 00:00:07,041
+and with that I mean agents as defined by me
+我的意思是我定義的代理
+
+3
+00:00:07,169 --> 00:00:09,254
+earlier in the course, that act
+在課程的早期，該行為
+
+4
+00:00:09,270 --> 00:00:12,334
+autonomously, that create a plan on their
+自主地制定計劃
+
+5
+00:00:12,446 --> 00:00:15,461
+own, and that then execute that plan by
+擁有，然後執行該計劃
+
+6
+00:00:15,493 --> 00:00:16,119
+using tools.
+使用工具。
+
+7
+00:00:16,937 --> 00:00:20,209
+If you want to build such AI agents, you of
+如果你想建立這樣的人工智慧代理，你的
+
+8
+00:00:20,305 --> 00:00:23,016
+course need to understand how you can expose
+當然需要了解如何暴露
+
+9
+00:00:23,272 --> 00:00:26,223
+tools to a large language model because it
+大型語言模型的工具，因為它
+
+10
+00:00:26,256 --> 00:00:28,469
+will be a large language model that powers
+將會是一個強大的語言模型
+
+11
+00:00:28,710 --> 00:00:29,591
+such an agent.
+這樣的代理人。
+
+12
+00:00:30,425 --> 00:00:32,332
+And what's extremely important to understand
+理解什麼是極為重要的
+
+13
+00:00:32,332 --> 00:00:32,621
+here
+這裡
+
+14
+00:00:33,214 --> 00:00:36,324
+is that the large language model itself will
+是大語言模型本身會
+
+15
+00:00:36,436 --> 00:00:39,530
+not use any tool. It will not execute any
+不使用任何工具。它不會執行任何
+
+16
+00:00:39,786 --> 00:00:40,091
+code.
+程式碼。
+
+17
+00:00:40,684 --> 00:00:43,746
+And I know that it can seem like it would
+我知道這看起來像是
+
+18
+00:00:43,970 --> 00:00:46,711
+directly execute some code. It looks like a
+直接執行一些程式碼。它看起來像一個
+
+19
+00:00:46,711 --> 00:00:50,014
+smart system that's able to execute code on
+能夠執行程式碼的智慧型系統
+
+20
+00:00:50,062 --> 00:00:50,719
+its own, right?
+它自己的，對吧？
+
+21
+00:00:51,264 --> 00:00:53,155
+But that's not what's happening. Large
+但事實並非如此。大的
+
+22
+00:00:53,188 --> 00:00:55,544
+language models are just spitting out
+語言模型只是隨口而出
+
+23
+00:00:55,736 --> 00:00:57,403
+tokens. That never changes.
+代幣。這永遠不會改變。
+
+24
+00:00:57,981 --> 00:00:59,888
+But you can use this token generation
+但你可以使用這個代幣生成
+
+25
+00:00:59,984 --> 00:01:03,594
+mechanism to have it request a tool use, and
+讓它請求使用工具的機制，以及
+
+26
+00:01:03,771 --> 00:01:05,424
+that's what's actually going to happen.
+這就是實際會發生的事情。
+
+27
+00:01:06,595 --> 00:01:08,809
+So you have a large language model that's
+所以你有一個很大的語言模型
+
+28
+00:01:08,809 --> 00:01:11,377
+running inside of an AI application. It's
+在人工智慧應用程式內部運行。它是
+
+29
+00:01:11,457 --> 00:01:12,244
+always like this.
+總是這樣。
+
+30
+00:01:12,837 --> 00:01:15,710
+For example, ChatGPT is such an AI
+比如ChatGPT就是這樣一個AI
+
+31
+00:01:15,790 --> 00:01:18,085
+application that uses a large language model
+使用大型語言模型的應用程式
+
+32
+00:01:18,133 --> 00:01:18,582
+inside.
+裡面。
+
+33
+00:01:19,256 --> 00:01:21,567
+The workflows we took a look at in the last
+我們上次查看的工作流程
+
+34
+00:01:21,567 --> 00:01:24,856
+course section are AI applications that use
+課程部分是人工智慧應用程式，使用
+
+35
+00:01:24,856 --> 00:01:27,183
+large language models in parts of this
+部分大型語言模型
+
+36
+00:01:27,183 --> 00:01:27,841
+application.
+應用。
+
+37
+00:01:28,386 --> 00:01:31,158
+And AI agents would be another example for
+人工智慧代理將是另一個例子
+
+38
+00:01:31,430 --> 00:01:32,776
+AI applications.
+人工智慧應用。
+
+39
+00:01:33,610 --> 00:01:35,628
+And the idea is always that the application
+我們的想法始終是應用程式
+
+40
+00:01:36,093 --> 00:01:38,384
+uses a large language model, but then does a
+使用大型語言模型，然後執行
+
+41
+00:01:38,561 --> 00:01:42,070
+lot of things in addition to create that
+除了創造它之外還有很多東西
+
+42
+00:01:42,246 --> 00:01:45,130
+overall AI experience. For example, an
+整體人工智慧體驗。例如，一個
+
+43
+00:01:45,130 --> 00:01:48,431
+application like ChatGPT also manages a chat
+像 ChatGPT 這樣的應用程式也可以管理聊天
+
+44
+00:01:48,431 --> 00:01:50,930
+history, and that history is then sent to
+歷史記錄，然後該歷史記錄被傳送到
+
+45
+00:01:50,930 --> 00:01:53,798
+the model with every new message to give it
+模型與每個新訊息的傳遞
+
+46
+00:01:53,798 --> 00:01:55,753
+the entire history to work on.
+整個歷史都需要研究。
+
+47
+00:01:56,604 --> 00:01:59,304
+It's also that AI application that would
+這也是人工智慧應用程式
+
+48
+00:01:59,352 --> 00:02:02,806
+define tools that should be available to the
+定義應該可供使用的工具
+
+49
+00:02:02,855 --> 00:02:04,510
+large language model, so to say.
+可以這麼說，大型語言模型。
+
+50
+00:02:05,281 --> 00:02:08,896
+And these tools are simply functions in the
+這些工具只是
+
+51
+00:02:08,960 --> 00:02:11,595
+code written by the developers that wrote
+由編寫的開發人員編寫的程式碼
+
+52
+00:02:11,708 --> 00:02:12,961
+the AI application.
+人工智慧應用程式。
+
+53
+00:02:13,636 --> 00:02:16,978
+And we will write such functions, such tools
+我們將寫這樣的功能，這樣的工具
+
+54
+00:02:17,155 --> 00:02:19,742
+ourselves in the next lectures to see how
+我們自己在接下來的講座中看看如何
+
+55
+00:02:19,742 --> 00:02:20,866
+that actually works.
+這確實有效。
+
+56
+00:02:21,654 --> 00:02:22,280
+It's then
+就在那時

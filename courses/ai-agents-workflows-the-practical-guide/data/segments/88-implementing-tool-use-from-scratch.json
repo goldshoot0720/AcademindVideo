@@ -1,0 +1,1447 @@
+[
+ {
+  "start": 0.369,
+  "end": 3.453,
+  "en": "So in order to fully understand how large"
+ },
+ {
+  "start": 3.549,
+  "end": 6.071,
+  "en": "language models use tools, let's build a"
+ },
+ {
+  "start": 6.119,
+  "end": 8.191,
+  "en": "simple agent that's able to use one tool."
+ },
+ {
+  "start": 9.026,
+  "end": 11.114,
+  "en": "And for that, I'm in a brand new project. I"
+ },
+ {
+  "start": 11.5,
+  "end": 14.937,
+  "en": "again created it with uv init. I got my.env"
+ },
+ {
+  "start": 14.969,
+  "end": 16.608,
+  "en": "file, which contains an OpenAI"
+ },
+ {
+  "start": 17.218,
+  "end": 20.575,
+  "en": "API key. I got a pretty empty main.py file,"
+ },
+ {
+  "start": 20.752,
+  "end": 22.583,
+  "en": "and you can of course create any Python"
+ },
+ {
+  "start": 22.583,
+  "end": 24.671,
+  "en": "project you want with any tool you want if"
+ },
+ {
+  "start": 24.671,
+  "end": 25.699,
+  "en": "you wanna follow along."
+ },
+ {
+  "start": 26.436,
+  "end": 27.462,
+  "en": "I did add"
+ },
+ {
+  "start": 28.696,
+  "end": 32.83,
+  "en": "python.env and OpenAI, these 2 packages,"
+ },
+ {
+  "start": 33.407,
+  "end": 36.596,
+  "en": "python.env to load the environment variables"
+ },
+ {
+  "start": 36.725,
+  "end": 39.112,
+  "en": "specified in the.env file into the actual"
+ },
+ {
+  "start": 39.112,
+  "end": 41.099,
+  "en": "environment to make them available here and"
+ },
+ {
+  "start": 41.099,
+  "end": 43.487,
+  "en": "OpenAI of course to be able to use, well,"
+ },
+ {
+  "start": 43.984,
+  "end": 44.561,
+  "en": "OpenAI"
+ },
+ {
+  "start": 45.602,
+  "end": 48.279,
+  "en": "because I want to import OpenAI"
+ },
+ {
+  "start": 48.807,
+  "end": 51.468,
+  "en": "and just like before create a new client by"
+ },
+ {
+  "start": 51.772,
+  "end": 53.585,
+  "en": "instantiating OpenAI like this."
+ },
+ {
+  "start": 54.884,
+  "end": 57.804,
+  "en": "You could then set your API key, but if your"
+ },
+ {
+  "start": 58.012,
+  "end": 59.953,
+  "en": "API key actually is named"
+ },
+ {
+  "start": 60.579,
+  "end": 63.322,
+  "en": "OpenAI API key, you don't need to do that"
+ },
+ {
+  "start": 63.322,
+  "end": 65.247,
+  "en": "because it will automatically look for that."
+ },
+ {
+  "start": 66.53,
+  "end": 68.616,
+  "en": "And therefore we're now ready to build our"
+ },
+ {
+  "start": 68.616,
+  "end": 71.808,
+  "en": "first tool-aware agent if you wanna call it"
+ },
+ {
+  "start": 71.808,
+  "end": 72.113,
+  "en": "like this."
+ },
+ {
+  "start": 73.412,
+  "end": 75.193,
+  "en": "For this, I'll first start by creating a"
+ },
+ {
+  "start": 75.193,
+  "end": 77.535,
+  "en": "tool and I'll name that tool get"
+ },
+ {
+  "start": 77.599,
+  "end": 78.433,
+  "en": "temperature."
+ },
+ {
+  "start": 79.523,
+  "end": 80.998,
+  "en": "And it's just a dummy tool for now."
+ },
+ {
+  "start": 81.847,
+  "end": 83.466,
+  "en": "It's called get temperature"
+ },
+ {
+  "start": 83.995,
+  "end": 86.416,
+  "en": "and I expect to get the city for which I"
+ },
+ {
+  "start": 86.48,
+  "end": 88.724,
+  "en": "want to get the temperature as an input."
+ },
+ {
+  "start": 89.943,
+  "end": 92.107,
+  "en": "And then this should return a floating point"
+ },
+ {
+  "start": 92.107,
+  "end": 92.427,
+  "en": "number."
+ },
+ {
+  "start": 93.694,
+  "end": 95.681,
+  "en": "And for now I'll just return a dummy value."
+ },
+ {
+  "start": 96.05,
+  "end": 99.336,
+  "en": "So these suggestions by Copilot make sense"
+ },
+ {
+  "start": 100.523,
+  "end": 102.126,
+  "en": "and that's therefore all this will do for"
+ },
+ {
+  "start": 102.126,
+  "end": 104.53,
+  "en": "now. It's not a real helpful function, it's"
+ },
+ {
+  "start": 104.53,
+  "end": 106.566,
+  "en": "just a dummy function. But of course you"
+ },
+ {
+  "start": 106.614,
+  "end": 109.243,
+  "en": "could imagine that in this function we might"
+ },
+ {
+  "start": 109.243,
+  "end": 110.814,
+  "en": "be reaching out to some web service weather"
+ },
+ {
+  "start": 110.927,
+  "end": 113.432,
+  "en": "API and we might be looking for the actual"
+ },
+ {
+  "start": 113.432,
+  "end": 115.005,
+  "en": "temperature for a certain city."
+ },
+ {
+  "start": 115.76,
+  "end": 117.911,
+  "en": "For this demo, I'll just hardcode a fixed"
+ },
+ {
+  "start": 117.911,
+  "end": 118.345,
+  "en": "temperature."
+ },
+ {
+  "start": 119.453,
+  "end": 123.387,
+  "en": "The idea now is to now talk to a large"
+ },
+ {
+  "start": 123.387,
+  "end": 125.121,
+  "en": "language model and get it to"
+ },
+ {
+  "start": 125.779,
+  "end": 129.279,
+  "en": "request the execution of this function if a"
+ },
+ {
+  "start": 129.392,
+  "end": 130.885,
+  "en": "user asks for"
+ },
+ {
+  "start": 131.559,
+  "end": 133.679,
+  "en": "the temperature in a certain city, but not"
+ },
+ {
+  "start": 133.759,
+  "end": 135.718,
+  "en": "if the user asks for something else."
+ },
+ {
+  "start": 136.97,
+  "end": 138.511,
+  "en": "So therefore in the main function,"
+ },
+ {
+  "start": 139.185,
+  "end": 141.239,
+  "en": "I will get some user input"
+ },
+ {
+  "start": 142.01,
+  "end": 143.824,
+  "en": "and I don't want to get just a city name,"
+ },
+ {
+  "start": 143.856,
+  "end": 146.568,
+  "en": "but instead any question because here I"
+ },
+ {
+  "start": 146.568,
+  "end": 149.553,
+  "en": "wanna build a versatile AI application, a"
+ },
+ {
+  "start": 149.553,
+  "end": 151.576,
+  "en": "versatile agent if you wanna call it like"
+ },
+ {
+  "start": 151.576,
+  "end": 154.256,
+  "en": "this, who's able to help with all kinds of"
+ },
+ {
+  "start": 154.609,
+  "end": 154.898,
+  "en": "things."
+ },
+ {
+  "start": 155.476,
+  "end": 157.386,
+  "en": "And I wanna give it the temperature tool so"
+ },
+ {
+  "start": 157.402,
+  "end": 159.761,
+  "en": "that it can but doesn't have to use that"
+ },
+ {
+  "start": 159.761,
+  "end": 162.939,
+  "en": "tool if the user asks a question that is"
+ },
+ {
+  "start": 162.939,
+  "end": 165.587,
+  "en": "about the temperature in a certain city. But"
+ },
+ {
+  "start": 165.587,
+  "end": 167.914,
+  "en": "the user should be allowed to ask any kind"
+ },
+ {
+  "start": 167.914,
+  "end": 168.476,
+  "en": "of question."
+ },
+ {
+  "start": 169.358,
+  "end": 171.124,
+  "en": "And that's already an important difference"
+ },
+ {
+  "start": 171.124,
+  "end": 172.873,
+  "en": "to all the workflows we took a look at in"
+ },
+ {
+  "start": 172.905,
+  "end": 175.28,
+  "en": "the previous section because there we had"
+ },
+ {
+  "start": 175.312,
+  "end": 177.542,
+  "en": "workflows that focused on a specific"
+ },
+ {
+  "start": 177.559,
+  "end": 180.543,
+  "en": "problem. And therefore we had step-by-step"
+ },
+ {
+  "start": 180.993,
+  "end": 183.721,
+  "en": "tasks that needed to be executed and we were"
+ },
+ {
+  "start": 183.721,
+  "end": 186.32,
+  "en": "looking for a specific input because we also"
+ },
+ {
+  "start": 186.369,
+  "end": 188.198,
+  "en": "knew that we would be executing those"
+ },
+ {
+  "start": 188.294,
+  "end": 190.605,
+  "en": "workflows and we knew how to execute them"
+ },
+ {
+  "start": 190.637,
+  "end": 192.017,
+  "en": "and which input is required."
+ },
+ {
+  "start": 192.739,
+  "end": 194.48,
+  "en": "Here instead, we could be building a more"
+ },
+ {
+  "start": 194.673,
+  "end": 195.205,
+  "en": "versatile"
+ },
+ {
+  "start": 195.737,
+  "end": 197.687,
+  "en": "application that we also wanna expose to"
+ },
+ {
+  "start": 197.816,
+  "end": 200.121,
+  "en": "other users, a customer service agent or"
+ },
+ {
+  "start": 200.186,
+  "end": 202.136,
+  "en": "something like this. So that's one important"
+ },
+ {
+  "start": 202.136,
+  "end": 202.469,
+  "en": "difference."
+ },
+ {
+  "start": 204.242,
+  "end": 205.419,
+  "en": "Now the goal is to"
+ },
+ {
+  "start": 206.112,
+  "end": 209.384,
+  "en": "send this as a prompt to the AI model."
+ },
+ {
+  "start": 210.126,
+  "end": 210.593,
+  "en": "And for that,"
+ },
+ {
+  "start": 211.718,
+  "end": 215.901,
+  "en": "I'll use client responses create just as we"
+ },
+ {
+  "start": 215.901,
+  "end": 216.627,
+  "en": "did it before."
+ },
+ {
+  "start": 217.582,
+  "end": 220.4,
+  "en": "And for the model, we can use various models"
+ },
+ {
+  "start": 220.416,
+  "end": 220.872,
+  "en": "of course."
+ },
+ {
+  "start": 221.474,
+  "end": 221.996,
+  "en": "I will use this one."
+ },
+ {
+  "start": 223.11,
+  "end": 225.712,
+  "en": "GPT-4o again, also because it's relatively"
+ },
+ {
+  "start": 225.712,
+  "end": 225.969,
+  "en": "cheap."
+ },
+ {
+  "start": 226.66,
+  "end": 227.046,
+  "en": "And"
+ },
+ {
+  "start": 227.785,
+  "end": 228.427,
+  "en": "for the input,"
+ },
+ {
+  "start": 229.231,
+  "end": 231.625,
+  "en": "I wanna send the user input. I wanna forward"
+ },
+ {
+  "start": 231.737,
+  "end": 234.616,
+  "en": "the prompt sent by the user to keep things"
+ },
+ {
+  "start": 234.811,
+  "end": 235.606,
+  "en": "simple right now."
+ },
+ {
+  "start": 236.256,
+  "end": 238.075,
+  "en": "And of course we'll get back a response here"
+ },
+ {
+  "start": 238.783,
+  "end": 241.562,
+  "en": "and that response will contain some output"
+ },
+ {
+  "start": 241.61,
+  "end": 244.502,
+  "en": "text, which is the reply by the model. And"
+ },
+ {
+  "start": 244.502,
+  "end": 246.215,
+  "en": "then I'll output that reply."
+ },
+ {
+  "start": 248.19,
+  "end": 249.884,
+  "en": "Now at the moment there is no tool use in"
+ },
+ {
+  "start": 249.916,
+  "end": 251.995,
+  "en": "there. This model doesn't know anything"
+ },
+ {
+  "start": 252.011,
+  "end": 252.943,
+  "en": "about this function."
+ },
+ {
+  "start": 253.697,
+  "end": 254.837,
+  "en": "And of course, therefore,"
+ },
+ {
+  "start": 255.624,
+  "end": 259.044,
+  "en": "if I execute this code, if I run this file,"
+ },
+ {
+  "start": 259.959,
+  "end": 262.785,
+  "en": "I can ask my question and ask, what's the"
+ },
+ {
+  "start": 263.427,
+  "end": 265.708,
+  "en": "temperature in Munich today?"
+ },
+ {
+  "start": 266.88,
+  "end": 268.244,
+  "en": "But as a result, I'll,"
+ },
+ {
+  "start": 268.951,
+  "end": 269.738,
+  "en": "I don't know what I'll get."
+ },
+ {
+  "start": 270.476,
+  "end": 272.066,
+  "en": "Yeah, I'll get the information that it"
+ },
+ {
+  "start": 272.098,
+  "end": 272.901,
+  "en": "doesn't know that,"
+ },
+ {
+  "start": 273.543,
+  "end": 275.325,
+  "en": "which is better than hallucinating"
+ },
+ {
+  "start": 275.325,
+  "end": 275.727,
+  "en": "something."
+ },
+ {
+  "start": 276.417,
+  "end": 278.037,
+  "en": "But it would be even better if it had access"
+ },
+ {
+  "start": 278.037,
+  "end": 279.385,
+  "en": "to this function, right? And that's what"
+ },
+ {
+  "start": 279.385,
+  "end": 279.946,
+  "en": "we'll do next."
+ },
+ {
+  "start": 280.684,
+  "end": 282.449,
+  "en": "And for this, as I showed you on the slide,"
+ },
+ {
+  "start": 282.513,
+  "end": 284.983,
+  "en": "we can try engineering a special prompt."
+ },
+ {
+  "start": 285.673,
+  "end": 287.39,
+  "en": "So we can add a prompt"
+ },
+ {
+  "start": 287.983,
+  "end": 289.748,
+  "en": "which builds up on that user prompt."
+ },
+ {
+  "start": 290.855,
+  "end": 292.7,
+  "en": "And in there we could say something like,"
+ },
+ {
+  "start": 292.78,
+  "end": 294.737,
+  "en": "you are a helpful assistant, answer the"
+ },
+ {
+  "start": 294.737,
+  "end": 296.406,
+  "en": "user's question based on the"
+ },
+ {
+  "start": 297.192,
+  "end": 299.454,
+  "en": "following context. No, answer the user's"
+ },
+ {
+  "start": 299.454,
+  "end": 299.983,
+  "en": "question"
+ },
+ {
+  "start": 300.897,
+  "end": 302.084,
+  "en": "in a friendly tone."
+ },
+ {
+  "start": 303.545,
+  "end": 303.674,
+  "en": "Way."
+ },
+ {
+  "start": 304.99,
+  "end": 309.277,
+  "en": "You can also use tools if you feel like they"
+ },
+ {
+  "start": 310.272,
+  "end": 313.114,
+  "en": "help you provide a better answer."
+ },
+ {
+  "start": 313.74,
+  "end": 315.698,
+  "en": "And then I wanna list my tools. And here"
+ },
+ {
+  "start": 316.164,
+  "end": 318.476,
+  "en": "I'll describe this function, get"
+ },
+ {
+  "start": 318.476,
+  "end": 320.065,
+  "en": "temperature, get the current temperature for"
+ },
+ {
+  "start": 320.065,
+  "end": 321.879,
+  "en": "a given city. And I'll say,"
+ },
+ {
+  "start": 322.634,
+  "end": 326.005,
+  "en": "if you want to use one of these tools, and"
+ },
+ {
+  "start": 326.022,
+  "end": 327.338,
+  "en": "at the moment it's of course just one,"
+ },
+ {
+  "start": 328.189,
+  "end": 329.65,
+  "en": "you should output"
+ },
+ {
+  "start": 330.437,
+  "end": 330.694,
+  "en": "the"
+ },
+ {
+  "start": 332.107,
+  "end": 333.825,
+  "en": "tool name and"
+ },
+ {
+  "start": 334.467,
+  "end": 336.217,
+  "en": "its arguments in the following form."
+ },
+ {
+  "start": 337.18,
+  "end": 340.825,
+  "en": "And then I have an example, for example,"
+ },
+ {
+  "start": 341.66,
+  "end": 343.298,
+  "en": "get temperature New York. And actually I"
+ },
+ {
+  "start": 343.298,
+  "end": 345.209,
+  "en": "don't want that format which was suggested"
+ },
+ {
+  "start": 345.209,
+  "end": 348.308,
+  "en": "to me here. I instead want tool name colon"
+ },
+ {
+  "start": 349.127,
+  "end": 351.567,
+  "en": "arg1, arg2, and so on. And the updated"
+ },
+ {
+  "start": 351.567,
+  "end": 352.145,
+  "en": "example"
+ },
+ {
+  "start": 352.916,
+  "end": 353.687,
+  "en": "then looks like this."
+ },
+ {
+  "start": 355.565,
+  "end": 357.378,
+  "en": "With that in mind,"
+ },
+ {
+  "start": 358.276,
+  "end": 359.544,
+  "en": "answer the user's question."
+ },
+ {
+  "start": 360.86,
+  "end": 362.432,
+  "en": "And then, you know, I like those"
+ },
+ {
+  "start": 363.106,
+  "end": 363.636,
+  "en": "delimiters,"
+ },
+ {
+  "start": 364.374,
+  "end": 365.561,
+  "en": "user question."
+ },
+ {
+  "start": 366.54,
+  "end": 366.829,
+  "en": "If you"
+ },
+ {
+  "start": 367.519,
+  "end": 371.386,
+  "en": "request a tool, please output only"
+ },
+ {
+  "start": 371.932,
+  "end": 372.798,
+  "en": "the tool call"
+ },
+ {
+  "start": 373.36,
+  "end": 375.029,
+  "en": "as described above"
+ },
+ {
+  "start": 376.425,
+  "end": 377.082,
+  "en": "and nothing"
+ },
+ {
+  "start": 377.772,
+  "end": 378.013,
+  "en": "else."
+ },
+ {
+  "start": 379.313,
+  "end": 381.351,
+  "en": "And this may or may not work. It's not the"
+ },
+ {
+  "start": 381.479,
+  "end": 384.754,
+  "en": "best way of requesting tool use with OpenAI,"
+ },
+ {
+  "start": 384.77,
+  "end": 387.58,
+  "en": "but it is a way that in theory should work"
+ },
+ {
+  "start": 387.58,
+  "end": 390.358,
+  "en": "with all large language models because it is"
+ },
+ {
+  "start": 390.454,
+  "end": 392.686,
+  "en": "just about increasing the likelihood of the"
+ },
+ {
+  "start": 392.782,
+  "end": 394.292,
+  "en": "right tokens being generated."
+ },
+ {
+  "start": 395.367,
+  "end": 396.925,
+  "en": "So therefore, let's give this a try."
+ },
+ {
+  "start": 397.615,
+  "end": 399.639,
+  "en": "Let's send this prompt to"
+ },
+ {
+  "start": 400.329,
+  "end": 403.203,
+  "en": "OpenAI, to the GPT-4o model in my case here."
+ },
+ {
+  "start": 403.894,
+  "end": 405.114,
+  "en": "So if I ask, what's the"
+ },
+ {
+  "start": 405.804,
+  "end": 407.41,
+  "en": "temperature in Munich?"
+ },
+ {
+  "start": 409.323,
+  "end": 411.07,
+  "en": "Then I indeed get back the response I"
+ },
+ {
+  "start": 411.152,
+  "end": 411.559,
+  "en": "wanted,"
+ },
+ {
+  "start": 412.113,
+  "end": 413.661,
+  "en": "get temperature Munich."
+ },
+ {
+  "start": 415.54,
+  "end": 417.339,
+  "en": "And now of course, since I'm building this"
+ },
+ {
+  "start": 417.339,
+  "end": 419.625,
+  "en": "application, I could check if reply"
+ },
+ {
+  "start": 420.679,
+  "end": 421.668,
+  "en": "is equal to,"
+ },
+ {
+  "start": 422.852,
+  "end": 425.664,
+  "en": "or I should say starts with get temperature,"
+ },
+ {
+  "start": 426.162,
+  "end": 427.866,
+  "en": "then I want to get my"
+ },
+ {
+  "start": 428.653,
+  "end": 432.285,
+  "en": "argument or my arg by splitting the reply at"
+ },
+ {
+  "start": 432.285,
+  "end": 434.721,
+  "en": "the colon. And I know that the part after"
+ },
+ {
+  "start": 434.721,
+  "end": 436.417,
+  "en": "the colon will be the argument."
+ },
+ {
+  "start": 437.497,
+  "end": 439.884,
+  "en": "And I call strip to remove that whitespace"
+ },
+ {
+  "start": 440.158,
+  "end": 442.707,
+  "en": "so that I get just the name of the city."
+ },
+ {
+  "start": 444.422,
+  "end": 444.696,
+  "en": "And then"
+ },
+ {
+  "start": 445.374,
+  "end": 447.924,
+  "en": "I get the temperature by executing this"
+ },
+ {
+  "start": 448.053,
+  "end": 450.36,
+  "en": "get_temperature function and by passing this"
+ },
+ {
+  "start": 450.877,
+  "end": 452.378,
+  "en": "argument as a parameter to it."
+ },
+ {
+  "start": 453.524,
+  "end": 455.296,
+  "en": "And get_temperature is of course my"
+ },
+ {
+  "start": 455.296,
+  "end": 455.683,
+  "en": "function."
+ },
+ {
+  "start": 456.682,
+  "end": 458.985,
+  "en": "So as you can see, it's me, it's my code"
+ },
+ {
+  "start": 459.179,
+  "end": 461.353,
+  "en": "that executes this function. It's not the"
+ },
+ {
+  "start": 461.418,
+  "end": 463.658,
+  "en": "large language model. As explained before,"
+ },
+ {
+  "start": 463.786,
+  "end": 466.581,
+  "en": "it's our code. The large language model just"
+ },
+ {
+  "start": 466.581,
+  "end": 469.039,
+  "en": "requests the use of this tool. Now, of"
+ },
+ {
+  "start": 469.087,
+  "end": 471.368,
+  "en": "course, I could then output this"
+ },
+ {
+  "start": 471.737,
+  "end": 474.178,
+  "en": "temperature, but I still wanna get a reply"
+ },
+ {
+  "start": 474.548,
+  "end": 476.074,
+  "en": "that's generated by the model."
+ },
+ {
+  "start": 476.652,
+  "end": 478.049,
+  "en": "So what I'll do instead is"
+ },
+ {
+  "start": 478.708,
+  "end": 478.836,
+  "en": "if"
+ },
+ {
+  "start": 479.367,
+  "end": 482.724,
+  "en": "a tool use was requested, I'll request"
+ },
+ {
+  "start": 482.74,
+  "end": 485.374,
+  "en": "another reply by the model. And we could do"
+ },
+ {
+  "start": 485.374,
+  "end": 487.253,
+  "en": "this in a more elegant way. Here, I'll keep"
+ },
+ {
+  "start": 487.253,
+  "end": 489.903,
+  "en": "it very simple. Deliberately to show you"
+ },
+ {
+  "start": 489.903,
+  "end": 492.247,
+  "en": "step by step what's working. So I'm sending"
+ },
+ {
+  "start": 492.295,
+  "end": 495.25,
+  "en": "another request to OpenAI, but now I need an"
+ },
+ {
+  "start": 495.25,
+  "end": 498.3,
+  "en": "updated prompt. I need an updated prompt"
+ },
+ {
+  "start": 498.3,
+  "end": 500.484,
+  "en": "that takes this temperature information into"
+ },
+ {
+  "start": 500.484,
+  "end": 500.821,
+  "en": "account."
+ },
+ {
+  "start": 501.624,
+  "end": 502.989,
+  "en": "So I can build"
+ },
+ {
+  "start": 503.535,
+  "end": 504.691,
+  "en": "my updated prompt here"
+ },
+ {
+  "start": 505.462,
+  "end": 507.71,
+  "en": "and say, you are a helpful assistant, answer"
+ },
+ {
+  "start": 507.71,
+  "end": 509.797,
+  "en": "the user's question in a friendly way. And"
+ },
+ {
+  "start": 509.797,
+  "end": 510.696,
+  "en": "now I could"
+ },
+ {
+  "start": 511.403,
+  "end": 513.008,
+  "en": "pick up that user question."
+ },
+ {
+  "start": 514.758,
+  "end": 517.151,
+  "en": "Here's the user's question"
+ },
+ {
+  "start": 518.387,
+  "end": 518.773,
+  "en": "like this."
+ },
+ {
+  "start": 520.057,
+  "end": 521.326,
+  "en": "You requested"
+ },
+ {
+  "start": 521.92,
+  "end": 522.032,
+  "en": "to"
+ },
+ {
+  "start": 522.722,
+  "end": 523.798,
+  "en": "use the get"
+ },
+ {
+  "start": 524.553,
+  "end": 525.468,
+  "en": "temperature"
+ },
+ {
+  "start": 525.998,
+  "end": 526.207,
+  "en": "tool"
+ },
+ {
+  "start": 527.042,
+  "end": 527.989,
+  "en": "for the city"
+ },
+ {
+  "start": 528.808,
+  "end": 529.081,
+  "en": "arg."
+ },
+ {
+  "start": 530.253,
+  "end": 530.638,
+  "en": "Here's"
+ },
+ {
+  "start": 531.313,
+  "end": 533.737,
+  "en": "the result of executing that"
+ },
+ {
+  "start": 534.46,
+  "end": 534.669,
+  "en": "tool"
+ },
+ {
+  "start": 535.407,
+  "end": 535.776,
+  "en": "or of"
+ },
+ {
+  "start": 536.595,
+  "end": 537.848,
+  "en": "using that tool."
+ },
+ {
+  "start": 539.647,
+  "end": 541.803,
+  "en": "The current temperature in Arc is"
+ },
+ {
+  "start": 542.076,
+  "end": 542.913,
+  "en": "temperature. So I"
+ },
+ {
+  "start": 543.766,
+  "end": 546.711,
+  "en": "put the result of calling that function into"
+ },
+ {
+  "start": 546.743,
+  "end": 547.708,
+  "en": "this updated prompt."
+ },
+ {
+  "start": 549.283,
+  "end": 551.623,
+  "en": "And now it's this updated prompt that's sent"
+ },
+ {
+  "start": 551.623,
+  "end": 552.171,
+  "en": "to the model."
+ },
+ {
+  "start": 552.752,
+  "end": 554.463,
+  "en": "Now there would be other ways of doing that."
+ },
+ {
+  "start": 554.527,
+  "end": 557.157,
+  "en": "We could also manage a chat history and add"
+ },
+ {
+  "start": 557.19,
+  "end": 559.014,
+  "en": "this as a new message in the chat history."
+ },
+ {
+  "start": 559.613,
+  "end": 561.734,
+  "en": "But to keep things simple, I'll do it like"
+ },
+ {
+  "start": 561.782,
+  "end": 561.912,
+  "en": "this."
+ },
+ {
+  "start": 563.175,
+  "end": 565.231,
+  "en": "And now we'll get an updated reply and then"
+ },
+ {
+  "start": 565.441,
+  "end": 567.125,
+  "en": "I output that reply."
+ },
+ {
+  "start": 568.22,
+  "end": 570.16,
+  "en": "By the way, I also wanna output a reply if"
+ },
+ {
+  "start": 570.16,
+  "end": 572.278,
+  "en": "we don't make it into this if block. So if"
+ },
+ {
+  "start": 572.343,
+  "end": 575.125,
+  "en": "the tool did not request a tool use, so I"
+ },
+ {
+  "start": 575.157,
+  "end": 577.225,
+  "en": "will add an else block and in that case"
+ },
+ {
+  "start": 577.273,
+  "end": 580.856,
+  "en": "print the old reply. So this reply so that"
+ },
+ {
+  "start": 580.872,
+  "end": 583.844,
+  "en": "we output a reply either way, no matter if a"
+ },
+ {
+  "start": 583.844,
+  "end": 585.579,
+  "en": "tool use was requested or not."
+ },
+ {
+  "start": 586.27,
+  "end": 588.085,
+  "en": "And with this updated code here,"
+ },
+ {
+  "start": 589.529,
+  "end": 591.865,
+  "en": "if I again run this and I ask what's the"
+ },
+ {
+  "start": 592.206,
+  "end": 595.808,
+  "en": "temperature in Munich, it should now call"
+ },
+ {
+  "start": 595.856,
+  "end": 597.187,
+  "en": "that function behind the scenes and then"
+ },
+ {
+  "start": 597.283,
+  "end": 599.689,
+  "en": "output that it's 20 degrees because that's"
+ },
+ {
+  "start": 599.689,
+  "end": 601.517,
+  "en": "what my get temperature function always"
+ },
+ {
+  "start": 601.613,
+  "end": 601.998,
+  "en": "returns."
+ },
+ {
+  "start": 603.474,
+  "end": 605.927,
+  "en": "And that proves that it works. Now to really"
+ },
+ {
+  "start": 605.959,
+  "end": 608.445,
+  "en": "prove that, I'll also add a print statement"
+ },
+ {
+  "start": 608.445,
+  "end": 608.622,
+  "en": "here"
+ },
+ {
+  "start": 610.049,
+  "end": 610.386,
+  "en": "and say"
+ },
+ {
+  "start": 611.797,
+  "end": 614.395,
+  "en": "fetching temperature for city so that we can"
+ },
+ {
+  "start": 614.395,
+  "end": 615.999,
+  "en": "see when that tool gets called."
+ },
+ {
+  "start": 616.624,
+  "end": 617.298,
+  "en": "And with that done,"
+ },
+ {
+  "start": 618.469,
+  "end": 619.238,
+  "en": "if I run this again,"
+ },
+ {
+  "start": 619.835,
+  "end": 623.334,
+  "en": "and I ask what's the temperature in Berlin,"
+ },
+ {
+  "start": 625.594,
+  "end": 627.752,
+  "en": "we should soon see that the tool is being"
+ },
+ {
+  "start": 627.785,
+  "end": 628.823,
+  "en": "executed. Here we go."
+ },
+ {
+  "start": 629.813,
+  "end": 631.095,
+  "en": "And then we get the updated response."
+ },
+ {
+  "start": 632.6,
+  "end": 634.476,
+  "en": "Now if I ask for something else like"
+ },
+ {
+  "start": 635.382,
+  "end": 636.999,
+  "en": "what can you do for me,"
+ },
+ {
+  "start": 637.646,
+  "end": 639.814,
+  "en": "we should see that the function does not get"
+ },
+ {
+  "start": 639.814,
+  "end": 640.364,
+  "en": "executed."
+ },
+ {
+  "start": 641.124,
+  "end": 643.701,
+  "en": "Here we get a normal response though it does"
+ },
+ {
+  "start": 643.701,
+  "end": 645.872,
+  "en": "inform us that it can get the temperature"
+ },
+ {
+  "start": 645.872,
+  "end": 647.995,
+  "en": "for a city because of course the information"
+ },
+ {
+  "start": 648.043,
+  "end": 650.644,
+  "en": "that it can request this tool use is in its"
+ },
+ {
+  "start": 650.644,
+  "end": 651.43,
+  "en": "initial prompt."
+ },
+ {
+  "start": 652.41,
+  "end": 654.272,
+  "en": "So it's pretty smart that it tells us that"
+ },
+ {
+  "start": 654.272,
+  "end": 655.348,
+  "en": "it could do that for us."
+ },
+ {
+  "start": 656.023,
+  "end": 657.805,
+  "en": "But the function was not invoked here"
+ },
+ {
+  "start": 657.869,
+  "end": 660.567,
+  "en": "because our prompt did have nothing in it"
+ },
+ {
+  "start": 660.84,
+  "end": 663.553,
+  "en": "that would have increased the likelihood of"
+ },
+ {
+  "start": 663.73,
+  "end": 666.267,
+  "en": "the model to request this tool use."
+ },
+ {
+  "start": 667.021,
+  "end": 669.125,
+  "en": "And that's therefore how large language"
+ },
+ {
+  "start": 669.269,
+  "end": 672.24,
+  "en": "models use tools. Now that's a very verbose"
+ },
+ {
+  "start": 672.24,
+  "end": 674.504,
+  "en": "way, but that's important to understand how"
+ },
+ {
+  "start": 674.504,
+  "end": 674.953,
+  "en": "it works."
+ },
+ {
+  "start": 675.757,
+  "end": 678.487,
+  "en": "Now I'll show you a more elegant way you can"
+ },
+ {
+  "start": 678.584,
+  "end": 681.071,
+  "en": "use when working with OpenAI and also with"
+ },
+ {
+  "start": 681.087,
+  "end": 682.282,
+  "en": "many other providers."
+ }
+]

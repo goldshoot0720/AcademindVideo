@@ -1,0 +1,435 @@
+1
+00:00:00,032 --> 00:00:02,805
+To continue working on this app, we now need
+
+2
+00:00:02,917 --> 00:00:06,043
+a database, otherwise users can't be stored
+
+3
+00:00:06,043 --> 00:00:08,127
+and won't be able to log in. And of course,
+
+4
+00:00:08,143 --> 00:00:09,762
+we'll also need to store our notes there in
+
+5
+00:00:09,794 --> 00:00:10,211
+the future.
+
+6
+00:00:10,772 --> 00:00:12,647
+Now in our spec.md file,
+
+7
+00:00:13,256 --> 00:00:16,350
+we specified that we will have our own
+
+8
+00:00:16,462 --> 00:00:19,236
+migrations script, which will be responsible
+
+9
+00:00:19,268 --> 00:00:21,464
+for setting up the base schema, the base
+
+10
+00:00:21,592 --> 00:00:24,558
+tables of that SQLite database. So
+
+11
+00:00:24,558 --> 00:00:26,594
+therefore, the prompt I wanna send to Codex
+
+12
+00:00:26,722 --> 00:00:29,832
+here again using the CLI is that I wanted to
+
+13
+00:00:29,848 --> 00:00:31,980
+add a migration script in line with what we
+
+14
+00:00:32,012 --> 00:00:34,887
+in spec.md and I reminded that we wanna use
+
+15
+00:00:34,903 --> 00:00:38,003
+Bun's built-in SQLite client because Bun,
+
+16
+00:00:38,276 --> 00:00:40,252
+the JavaScript runtime I'm using here, does
+
+17
+00:00:40,348 --> 00:00:42,934
+have built-in support for SQLite and we
+
+18
+00:00:42,934 --> 00:00:45,279
+don't need to install any extra packages
+
+19
+00:00:45,344 --> 00:00:47,255
+therefore. Now, what I like to do in
+
+20
+00:00:47,255 --> 00:00:49,600
+situations like this because providing the
+
+21
+00:00:49,600 --> 00:00:50,933
+proper context matters
+
+22
+00:00:51,592 --> 00:00:54,467
+is I will copy the content of this page.
+
+23
+00:00:54,724 --> 00:00:56,828
+Many documentation pages offer a feature
+
+24
+00:00:56,828 --> 00:00:58,740
+like this these days. So I'll copy the
+
+25
+00:00:58,740 --> 00:00:59,993
+content as Markdown
+
+26
+00:01:00,522 --> 00:01:02,349
+And then in my prompt I'll say something
+
+27
+00:01:02,349 --> 00:01:04,608
+like this. Here's the relevant BUN SQLite
+
+28
+00:01:04,608 --> 00:01:07,332
+documentation using my XML tags again, not
+
+29
+00:01:07,332 --> 00:01:09,014
+required but something I like to do.
+
+30
+00:01:09,575 --> 00:01:11,482
+And I'll paste that in there because I know
+
+31
+00:01:11,898 --> 00:01:14,030
+this will matter, this will be relevant.
+
+32
+00:01:14,526 --> 00:01:17,202
+Alternatively, you could also grab a link to
+
+33
+00:01:17,202 --> 00:01:19,974
+this documentation and say something like
+
+34
+00:01:19,974 --> 00:01:20,118
+this.
+
+35
+00:01:20,872 --> 00:01:22,682
+Obviously you don't wanna do both. This is
+
+36
+00:01:22,714 --> 00:01:23,483
+just an example
+
+37
+00:01:24,220 --> 00:01:27,585
+because Codex can search the web.
+
+38
+00:01:28,226 --> 00:01:30,887
+It can search the web and a URL like this,
+
+39
+00:01:30,952 --> 00:01:33,436
+of course, can also be searched. It can
+
+40
+00:01:33,436 --> 00:01:35,568
+search for that. And that web search will
+
+41
+00:01:35,600 --> 00:01:38,117
+happen through OpenAI, which enables web
+
+42
+00:01:38,117 --> 00:01:41,499
+search and which by default serves results
+
+43
+00:01:41,692 --> 00:01:43,247
+from a web search cache.
+
+44
+00:01:43,936 --> 00:01:46,805
+That makes it fast and also secure because
+
+45
+00:01:47,062 --> 00:01:50,124
+OpenAI controls which content can be
+
+46
+00:01:50,124 --> 00:01:53,394
+retrieved by Codex, which reduces the danger
+
+47
+00:01:53,394 --> 00:01:55,478
+of prompt injection attacks so that
+
+48
+00:01:55,478 --> 00:01:57,802
+malicious website content can't be reached
+
+49
+00:01:57,802 --> 00:01:58,427
+by default.
+
+50
+00:01:59,004 --> 00:02:00,226
+You can change You could change this though
+
+51
+00:02:00,307 --> 00:02:02,549
+by setting the web search setting in the
+
+52
+00:02:02,549 --> 00:02:05,727
+config.toml file to live. The default is
+
+53
+00:02:05,792 --> 00:02:07,954
+cached, but you could set it to live to have
+
+54
+00:02:07,954 --> 00:02:09,955
+a live web search, which is able to retrieve
+
+55
+00:02:10,133 --> 00:02:12,412
+all websites if you needed that. This then
+
+56
+00:02:12,412 --> 00:02:14,643
+of course slightly increases the danger of
+
+57
+00:02:14,676 --> 00:02:17,020
+prompt injection attacks. So that could be
+
+58
+00:02:17,020 --> 00:02:18,685
+done too. But since I know which
+
+59
+00:02:18,782 --> 00:02:20,948
+documentation is relevant, I'll just include
+
+60
+00:02:20,948 --> 00:02:21,480
+it like this.
+
+61
+00:02:22,970 --> 00:02:25,266
+And then I'll switch to plan mode.
+
+62
+00:02:27,017 --> 00:02:29,682
+Now let's say right after sending a prompt
+
+63
+00:02:29,682 --> 00:02:32,411
+or after a while, you see that you wanted to
+
+64
+00:02:32,411 --> 00:02:32,829
+send more.
+
+65
+00:02:33,663 --> 00:02:35,750
+For example, that it should include up and
+
+66
+00:02:35,847 --> 00:02:37,854
+down migrations so that we can also reverse
+
+67
+00:02:37,854 --> 00:02:38,094
+them.
+
+68
+00:02:38,961 --> 00:02:40,952
+If you send a follow-up message and you hit
+
+69
+00:02:41,129 --> 00:02:43,922
+enter, by default, that will be injected
+
+70
+00:02:44,019 --> 00:02:47,246
+right away and will steer the AI. So this is
+
+71
+00:02:47,310 --> 00:02:50,183
+called using a message for steering. It will
+
+72
+00:02:50,216 --> 00:02:52,607
+be picked up immediately. And now it's
+
+73
+00:02:52,623 --> 00:02:54,866
+already done planning here and asks me some
+
+74
+00:02:54,866 --> 00:02:55,476
+questions.
+
+75
+00:02:56,149 --> 00:02:58,441
+Before we answer that though, let me show
+
+76
+00:02:58,457 --> 00:03:01,005
+you the alternative. In a new session,
+
+77
+00:03:01,903 --> 00:03:04,194
+I pasted in the original prompt from before
+
+78
+00:03:04,563 --> 00:03:06,935
+where I ask it to create the migrations.
+
+79
+00:03:07,913 --> 00:03:10,365
+And if I now start this in plan mode again,
+
+80
+00:03:10,493 --> 00:03:12,737
+let's say, and then I recall that I wanted
+
+81
+00:03:12,737 --> 00:03:14,420
+to do something else after it's done with
+
+82
+00:03:14,420 --> 00:03:17,754
+that, like create the initial set of
+
+83
+00:03:17,770 --> 00:03:20,943
+migrations for auth, I could hit Tab here
+
+84
+00:03:21,296 --> 00:03:23,606
+instead of Enter, and that will queue it.
+
+85
+00:03:24,344 --> 00:03:26,494
+Then you could use this shortcut here to
+
+86
+00:03:26,590 --> 00:03:27,280
+edit this again.
+
+87
+00:03:28,115 --> 00:03:29,944
+So that's the difference. Hitting Enter in
+
+88
+00:03:29,976 --> 00:03:32,687
+the CLI will steer and inject it right away.
+
+89
+00:03:32,864 --> 00:03:35,222
+Hitting Tab will queue it, and it would then
+
+90
+00:03:35,271 --> 00:03:37,870
+be processed after it's done with your main
+
+91
+00:03:37,918 --> 00:03:38,239
+message.
+
+92
+00:03:38,784 --> 00:03:41,592
+Now here I'll cancel this anyways because I
+
+93
+00:03:41,672 --> 00:03:43,662
+only wanna do this once in my main session,
+
+94
+00:03:43,694 --> 00:03:45,619
+which I started before. But the difference
+
+95
+00:03:45,619 --> 00:03:48,395
+between hitting Enter in the CLI for
+
+96
+00:03:48,443 --> 00:03:51,556
+steering and Tab for queuing is important.
+
+97
+00:03:51,941 --> 00:03:54,253
+Unfortunately, it's exactly the opposite in
+
+98
+00:03:54,445 --> 00:03:57,591
+the desktop app. There, if you send off a
+
+99
+00:03:57,591 --> 00:03:59,565
+message and then you send a follow-up
+
+100
+00:03:59,565 --> 00:04:01,651
+message, if you hit Enter, by default it's
+
+101
+00:04:01,651 --> 00:04:03,914
+queued and there's a steer button you could
+
+102
+00:04:03,994 --> 00:04:06,578
+press to steer. So Tab doesn't matter here
+
+103
+00:04:06,723 --> 00:04:07,060
+at all.
+
+104
+00:04:07,991 --> 00:04:09,884
+But the difference is important. You can
+
+105
+00:04:09,997 --> 00:04:12,420
+inject commands either immediately if they
+
+106
+00:04:12,500 --> 00:04:15,774
+should steer the AI right now and change its
+
+107
+00:04:15,774 --> 00:04:16,625
+result right now,
+
+108
+00:04:17,155 --> 00:04:19,337
+or queue them if you just wanna queue a
+
+109
+00:04:19,337 --> 00:04:20,429
+follow-up task.

@@ -1,0 +1,1364 @@
+1
+00:00:00,353 --> 00:00:03,610
+So we got started building agents, which in
+所以我們開始建立代理，其中
+
+2
+00:00:03,642 --> 00:00:04,653
+the end just means
+結束只是意味著
+
+3
+00:00:05,247 --> 00:00:08,424
+giving large language models indirect access
+給予大型語言模型間接訪問
+
+4
+00:00:08,616 --> 00:00:12,195
+to tools. At least if your definition of an
+到工具。至少如果你的定義是
+
+5
+00:00:12,371 --> 00:00:17,057
+AI agent also is an autonomous program that
+AI 代理也是自主程式
+
+6
+00:00:17,105 --> 00:00:21,132
+is able to perform work on its own with help
+能夠在幫助下獨立完成工作
+
+7
+00:00:21,277 --> 00:00:22,223
+of those tools.
+這些工具。
+
+8
+00:00:22,833 --> 00:00:24,582
+If you have a different definition, you
+如果你有不同的定義，你
+
+9
+00:00:24,582 --> 00:00:26,652
+maybe already saw agents in a previous
+也許已經在之前看過代理商
+
+10
+00:00:26,652 --> 00:00:28,883
+section because we there already built
+部分因為我們已經建好了
+
+11
+00:00:28,899 --> 00:00:30,728
+workflows that consisted of multiple
+工作流程由多個組成
+
+12
+00:00:31,466 --> 00:00:33,999
+agents that worked together. But for
+一起工作的代理商。但對於
+
+13
+00:00:34,143 --> 00:00:36,901
+autonomous agents, we saw a first example in
+自主代理，我們看到了第一個例子
+
+14
+00:00:36,933 --> 00:00:39,818
+the previous lectures where we built agents,
+之前我們建立代理的講座，
+
+15
+00:00:39,963 --> 00:00:42,672
+AI agents, by equipping large language
+AI代理，透過配備大語言
+
+16
+00:00:42,784 --> 00:00:44,948
+models with tools, which in the end is the
+有工具的模型，最終就是
+
+17
+00:00:44,948 --> 00:00:47,113
+idea behind an agent according to this
+根據這個代理背後的想法
+
+18
+00:00:47,113 --> 00:00:49,790
+definition here. Now here's another more
+定義在這裡。現在還有另一個
+
+19
+00:00:50,078 --> 00:00:53,573
+realistic example of such an AI agent. You
+這種人工智慧代理的現實例子。你
+
+20
+00:00:53,830 --> 00:00:57,501
+find this updated main.py file attached and
+找到附加的更新後的 main.py 檔案並
+
+21
+00:00:57,597 --> 00:01:00,018
+also this database.py file here.
+還有這個database.py 檔案在這裡。
+
+22
+00:01:00,643 --> 00:01:03,194
+And this file or these files
+還有這個檔案或這些檔案
+
+23
+00:01:03,772 --> 00:01:07,239
+actually set up a customer service agent.
+實際上設立了一個客戶服務代理。
+
+24
+00:01:07,335 --> 00:01:11,139
+It's still a dummy agent, which of course is
+它仍然是一個虛擬代理，這當然是
+
+25
+00:01:11,717 --> 00:01:14,430
+missing many functionalities, missing
+缺少很多功能，缺少
+
+26
+00:01:14,622 --> 00:01:18,266
+extensive testing or potential checks or
+廣泛的測試或潛在的檢查或
+
+27
+00:01:18,298 --> 00:01:20,770
+guardrails you might want to add, but still
+您可能想添加護欄，但仍然
+
+28
+00:01:21,043 --> 00:01:24,092
+a great example for a pretty versatile agent
+一個非常多才多藝的代理商的一個很好的例子
+
+29
+00:01:24,413 --> 00:01:27,431
+that is able to use multiple tools, not just
+能夠使用多種工具，而不僅僅是
+
+30
+00:01:27,463 --> 00:01:31,315
+one, and also multiple tools per question by
+一個，每個問題也有多個工具
+
+31
+00:01:31,315 --> 00:01:33,931
+the user, as you'll see in a second. Here I
+使用者，稍後您就會看到。在這裡我
+
+32
+00:01:33,963 --> 00:01:36,737
+also got a dummy database, a dummy SQLite
+還有一個虛擬資料庫，一個虛擬 SQLite
+
+33
+00:01:36,769 --> 00:01:38,758
+database that's running in this project.
+在此專案中運行的資料庫。
+
+34
+00:01:38,870 --> 00:01:41,644
+Still the same project created with the uv
+仍然是用 uv 創建的相同專案
+
+35
+00:01:41,644 --> 00:01:42,815
+tool I showed you before.
+我之前向您展示過的工具。
+
+36
+00:01:43,344 --> 00:01:45,156
+And in there I'm creating some dummy tables,
+在那裡我創建了一些虛擬表，
+
+37
+00:01:45,428 --> 00:01:47,401
+one for customers, one for orders.
+一種用於客戶，一種用於訂單。
+
+38
+00:01:47,978 --> 00:01:49,982
+Every customer has a first name, a last
+每個顧客都有名字和姓氏
+
+39
+00:01:49,982 --> 00:01:50,672
+name, and a PIN.
+姓名和 PIN 碼。
+
+40
+00:01:51,281 --> 00:01:53,815
+And the PIN here will be stored as plain
+這裡的 PIN 碼將被存儲為純文本
+
+41
+00:01:53,927 --> 00:01:56,733
+text in that database. You would not want to
+該資料庫中的文字。你不會想要
+
+42
+00:01:56,733 --> 00:01:58,705
+do that in production. You would want to
+在生產中這樣做。你會想要
+
+43
+00:01:58,721 --> 00:02:02,234
+hash it there, but to keep I'll store it as
+在那裡散列它，但為了保留我將其存儲為
+
+44
+00:02:02,330 --> 00:02:03,950
+plaintext here, as you'll see.
+正如您將看到的，這裡是明文。
+
+45
+00:02:04,833 --> 00:02:07,624
+I got a simple orders table which has order
+我有一個簡單的訂單表，其中有訂單
+
+46
+00:02:07,624 --> 00:02:10,592
+IDs, customer IDs, a date for each order,
+ID、客戶 ID、每個訂單的日期、
+
+47
+00:02:10,752 --> 00:02:12,325
+and also a product name
+還有產品名稱
+
+48
+00:02:12,918 --> 00:02:14,940
+and an amount for every order.
+以及每個訂單的金額。
+
+49
+00:02:15,902 --> 00:02:16,416
+And then I
+然後我
+
+50
+00:02:16,945 --> 00:02:19,095
+clear these tables whenever I start this
+每當我開始這個時清除這些表
+
+51
+00:02:19,095 --> 00:02:21,630
+program to then repopulate them with some
+然後用一些程式重新填充它們
+
+52
+00:02:21,678 --> 00:02:22,640
+dummy data.
+虛擬資料。
+
+53
+00:02:23,426 --> 00:02:25,929
+And as mentioned, these are the plaintext
+如前所述，這些是明文
+
+54
+00:02:25,929 --> 00:02:28,063
+PINs, which again, you wouldn't store as
+PIN，同樣，您不會將其儲存為
+
+55
+00:02:28,159 --> 00:02:30,180
+plaintext in a production database. That's
+生產資料庫中的明文。那是
+
+56
+00:02:30,180 --> 00:02:31,944
+important. But for this demo, it's fine.
+重要的。但對於這個演示來說，這很好。
+
+57
+00:02:33,050 --> 00:02:35,679
+And then in the main.py file, I got a bunch
+然後在 main.py 檔案中，我得到了一堆
+
+58
+00:02:36,016 --> 00:02:38,853
+of functions, a bunch of tools. Well, first
+功能，一堆工具。嗯，首先
+
+59
+00:02:38,853 --> 00:02:40,969
+I created that database, of course, but then
+當然，我創建了該資料庫，但是後來
+
+60
+00:02:41,065 --> 00:02:44,015
+I got a bunch of functions, a bunch of tools
+我有很多功能，很多工具
+
+61
+00:02:44,672 --> 00:02:46,740
+like the verify_customer function, which
+就像 verify_customer 函式一樣，
+
+62
+00:02:46,852 --> 00:02:49,625
+takes the full customer name as an input and
+將完整的客戶名稱作為輸入並
+
+63
+00:02:49,641 --> 00:02:51,837
+the PIN of the customer. And then we try to
+客戶的 PIN。然後我們嘗試
+
+64
+00:02:51,901 --> 00:02:54,370
+find that customer and we use that
+找到那個客戶，我們就用它
+
+65
+00:02:54,370 --> 00:02:56,550
+information whether we found the customer or
+我們是否找到客戶或
+
+66
+00:02:56,550 --> 00:02:57,368
+not to
+不
+
+67
+00:02:58,058 --> 00:03:00,627
+either confirm their existence and return
+要么確認它們的存在並回傳
+
+68
+00:03:00,627 --> 00:03:04,304
+the customer ID or to return -1 if we did
+客戶 ID 或回傳 -1（如果我們這樣做）
+
+69
+00:03:04,320 --> 00:03:06,713
+not find a customer for this combination.
+找不到該組合的客戶。
+
+70
+00:03:07,949 --> 00:03:09,876
+We got a get orders function which takes a
+我們有一個獲取訂單函式，它需要一個
+
+71
+00:03:09,876 --> 00:03:12,301
+customer ID to retrieve all orders that
+用於檢索所有訂單的客戶 ID
+
+72
+00:03:12,365 --> 00:03:13,409
+belong to a customer.
+屬於客戶。
+
+73
+00:03:14,131 --> 00:03:16,877
+Check refund eligibility, which takes a
+檢查退款資格，這需要
+
+74
+00:03:16,941 --> 00:03:20,040
+customer ID and an order ID and then queries
+客戶ID和訂單ID然後查詢
+
+75
+00:03:20,072 --> 00:03:22,191
+the database and checks the date
+資料庫並檢查日期
+
+76
+00:03:22,866 --> 00:03:24,782
+of an order and checks whether it's within
+訂單並檢查它是否在
+
+77
+00:03:24,814 --> 00:03:26,441
+the last 30 days to
+過去 30 天至
+
+78
+00:03:27,133 --> 00:03:29,355
+either return true or false, determining
+傳回 true 或 false，確定
+
+79
+00:03:29,484 --> 00:03:32,270
+whether the customer may get a refund for a
+客戶是否可獲得退款
+
+80
+00:03:32,270 --> 00:03:33,519
+certain order or not.
+是否有一定的順序。
+
+81
+00:03:35,143 --> 00:03:37,452
+We have this issueRefund function, which
+我們有這個問題退款功能，
+
+82
+00:03:37,791 --> 00:03:39,874
+just prints something in the console. Of
+只是在控制台中列印一些東西。的
+
+83
+00:03:39,907 --> 00:03:42,587
+course, in reality, this function would
+當然，實際上，這個函式會
+
+84
+00:03:42,636 --> 00:03:44,235
+trigger some refund process.
+觸發一些退款流程。
+
+85
+00:03:45,381 --> 00:03:47,222
+We got a shareFeedback function, which does
+我們有一個 shareFeedback 函式，它可以
+
+86
+00:03:47,319 --> 00:03:49,369
+kind of the same. It just prints something,
+有點一樣。它只是印製一些東西，
+
+87
+00:03:49,434 --> 00:03:51,730
+but in reality, that would be stored in some
+但實際上，它會儲存在某些
+
+88
+00:03:51,747 --> 00:03:52,135
+database.
+資料庫.
+
+89
+00:03:53,436 --> 00:03:55,563
+And then just as before, here I went for
+然後就像以前一樣，我去了這裡
+
+90
+00:03:55,563 --> 00:03:58,898
+this approach where I register all functions
+我註冊所有函式的方法
+
+91
+00:03:59,011 --> 00:04:01,299
+that may be called by the large language
+可能被大語言調用
+
+92
+00:04:01,412 --> 00:04:01,750
+model.
+模型。
+
+93
+00:04:02,432 --> 00:04:04,718
+And then here I have my tool definitions for
+然後這裡我有我的工具定義
+
+94
+00:04:04,766 --> 00:04:06,054
+the large language model.
+大語言模型。
+
+95
+00:04:06,843 --> 00:04:07,213
+And again,
+再說一次，
+
+96
+00:04:07,825 --> 00:04:09,886
+these have the same shape as before. They in
+它們的形狀與以前相同。他們在
+
+97
+00:04:09,918 --> 00:04:12,511
+the end describe all these functions you saw
+最後描述了你看到的所有這些功能
+
+98
+00:04:12,575 --> 00:04:13,010
+up there.
+在那兒。
+
+99
+00:04:14,911 --> 00:04:17,199
+I still also get the same execute tool call
+我仍然得到相同的執行工具調用
+
+100
+00:04:17,312 --> 00:04:19,874
+function as before to have a flexible way of
+像以前一樣發揮作用，以靈活的方式
+
+101
+00:04:19,938 --> 00:04:20,518
+calling various tools.
+調用各種工具。
+
+102
+00:04:22,379 --> 00:04:25,367
+And then in the main function, I'm building
+然後在主函式中，我正在建構
+
+103
+00:04:25,479 --> 00:04:26,861
+the actual agent.
+實際代理人。
+
+104
+00:04:27,584 --> 00:04:30,234
+I do that by setting a rather long system, a
+我透過設定一個相當長的系統來做到這一點，
+
+105
+00:04:30,234 --> 00:04:32,563
+developer message where I give the agent
+我給代理商的開發者訊息
+
+106
+00:04:32,563 --> 00:04:35,069
+clear instructions on what they must not do,
+明確指示他們不能做什麼，
+
+107
+00:04:35,133 --> 00:04:37,607
+what they should do, how they should behave
+他們應該做什麼，他們應該如何表現
+
+108
+00:04:37,623 --> 00:04:40,193
+if they can't answer a certain question and
+如果他們無法回答某個問題並且
+
+109
+00:04:40,193 --> 00:04:40,562
+so on.
+很快。
+
+110
+00:04:41,960 --> 00:04:44,707
+And then I have an infinite loop still with
+然後我仍然有一個無限迴圈
+
+111
+00:04:44,707 --> 00:04:47,020
+an exit condition if the user types exit
+如果使用者鍵入 exit 則退出條件
+
+112
+00:04:47,261 --> 00:04:49,140
+that allows the user to interact with this
+允許使用者與之交互
+
+113
+00:04:49,268 --> 00:04:49,815
+chatbot.
+聊天機器人。
+
+114
+00:04:50,538 --> 00:04:53,205
+I save each user message in that chat
+我儲存該聊天中的每個使用者訊息
+
+115
+00:04:53,205 --> 00:04:55,664
+history so that the large language model
+歷史讓大語言模型
+
+116
+00:04:55,841 --> 00:04:58,074
+always gets the entire history and knows
+總是了解整個歷史並知道
+
+117
+00:04:58,331 --> 00:05:00,465
+everything about the ongoing interaction.
+關於正在進行的互動的一切。
+
+118
+00:05:02,292 --> 00:05:04,755
+And then here I got a new nested loop, which
+然後這裡我得到了一個新的嵌套迴圈，
+
+119
+00:05:04,852 --> 00:05:07,138
+I have to limit the amount of tool calls per
+我必須限制每個工具呼叫的數量
+
+120
+00:05:07,138 --> 00:05:09,795
+cycle to prevent infinite loops in case the
+迴圈以防止無限迴圈，以防
+
+121
+00:05:10,165 --> 00:05:12,942
+model should get into a cycle where it keeps
+模型應該進入一個迴圈
+
+122
+00:05:13,007 --> 00:05:15,679
+on asking for more and more tool calls. I
+要求越來越多的工具呼叫。我
+
+123
+00:05:15,679 --> 00:05:17,671
+don't want it here, which is why I limit it
+在這裡不想要它，這就是我限制它的原因
+
+124
+00:05:17,784 --> 00:05:21,794
+at 5 so that in one single go in one single
+5 以便在一首單曲中進入一首單曲
+
+125
+00:05:21,794 --> 00:05:24,040
+cycle for one single question by the user,
+使用者提出一個問題的周期，
+
+126
+00:05:24,200 --> 00:05:27,039
+it can't call more than 5 tools. That's my
+它不能呼叫超過 5 個工具。那是我的
+
+127
+00:05:27,087 --> 00:05:27,649
+idea here.
+想法在這裡。
+
+128
+00:05:28,852 --> 00:05:30,841
+And then here I send the current chat
+然後我在這裡發送當前的聊天記錄
+
+129
+00:05:30,841 --> 00:05:33,311
+history to the model, in this case using
+模型的歷史記錄，在本例中使用
+
+130
+00:05:33,407 --> 00:05:36,327
+GPT-4o. We could also try using a smarter
+GPT-4o。我們也可以嘗試使用更聰明的
+
+131
+00:05:36,327 --> 00:05:37,450
+model like
+模型一樣
+
+132
+00:05:37,979 --> 00:05:38,236
+O3
+氧氣
+
+133
+00:05:38,781 --> 00:05:41,829
+or something like this, but I will use 4o
+或類似的東西，但我會使用 4o
+
+134
+00:05:42,085 --> 00:05:44,989
+here also because it is rather cheap. But
+這裡也是因為它相當便宜。但
+
+135
+00:05:45,294 --> 00:05:47,058
+this is definitely a use case where you
+這絕對是一個用例，您可以在其中
+
+136
+00:05:47,122 --> 00:05:49,528
+could consider using a more powerful model
+可以考慮使用更強大的模型
+
+137
+00:05:49,785 --> 00:05:52,111
+because we have quite a complex task here
+因為我們這裡有一個相當複雜的任務
+
+138
+00:05:52,320 --> 00:05:54,404
+with many tools that may be called. So you
+有很多可以調用的工具。所以你
+
+139
+00:05:54,436 --> 00:05:56,505
+definitely wanna test different model
+肯定想測試不同的模型
+
+140
+00:05:56,505 --> 00:05:58,863
+versions if you were to build a bot like
+如果你要建造一個像這樣的機器人
+
+141
+00:05:58,927 --> 00:06:00,066
+this for production.
+這用於生產。
+
+142
+00:06:01,557 --> 00:06:04,524
+I also expose the tools to the API, to the
+我還將這些工具公開給 API、
+
+143
+00:06:04,524 --> 00:06:05,230
+model, of course.
+當然是模型。
+
+144
+00:06:06,064 --> 00:06:08,373
+And then I take a look at the output. And I
+然後我看一下輸出。而我
+
+145
+00:06:08,373 --> 00:06:11,148
+mentioned before that OpenAI can return
+之前提到OpenAI可以回歸
+
+146
+00:06:11,276 --> 00:06:13,152
+multiple outputs per
+每個多個輸出
+
+147
+00:06:14,163 --> 00:06:14,804
+request.
+要求。
+
+148
+00:06:15,349 --> 00:06:17,996
+For example, it could return a message, a
+例如，它可以傳回一條訊息，
+
+149
+00:06:17,996 --> 00:06:20,449
+reply to the user, and at the same time
+回覆使用者，同時
+
+150
+00:06:20,818 --> 00:06:23,383
+request a tool call. And we'll see that in
+請求工具呼叫。我們會看到
+
+151
+00:06:23,528 --> 00:06:25,563
+action here once I run this actually.
+一旦我實際運行這個，就在這裡行動。
+
+152
+00:06:26,348 --> 00:06:29,056
+That's why I loop through all the replies I
+這就是為什麼我會迴圈瀏覽所有回复
+
+153
+00:06:29,056 --> 00:06:30,963
+got for this one single request
+得到了這項單一請求
+
+154
+00:06:31,620 --> 00:06:33,815
+and I take a look at whether it's not a
+我看看這是否是
+
+155
+00:06:33,815 --> 00:06:35,979
+function call, in which case I output the
+函式調用，在這種情況下我輸出
+
+156
+00:06:36,107 --> 00:06:38,334
+text that I got back from the model.
+我從模型回傳的文字。
+
+157
+00:06:39,152 --> 00:06:41,107
+If it is a function call, on the other hand,
+另一方面，如果它是函式調用，
+
+158
+00:06:41,315 --> 00:06:44,168
+I go ahead and try executing that function
+我繼續嘗試執行該函式
+
+159
+00:06:44,536 --> 00:06:46,715
+and I append the result of that function
+我附加該函式的結果
+
+160
+00:06:46,715 --> 00:06:47,709
+call to my messages.
+打電話給我留言。
+
+161
+00:06:48,703 --> 00:06:50,370
+And then here I have a little exit condition
+然後這裡我有一個退出條件
+
+162
+00:06:50,851 --> 00:06:53,079
+outside of this loop, but inside of that
+在此迴圈之外，但在該迴圈內部
+
+163
+00:06:53,736 --> 00:06:54,586
+tool loop here
+工具迴圈在這裡
+
+164
+00:06:55,195 --> 00:06:57,728
+where I check if the last message we saved
+我在哪裡檢查我們是否儲存了最後一條訊息
+
+165
+00:06:58,000 --> 00:07:00,533
+is not a dictionary because all these
+不是字典，因為所有這些
+
+166
+00:07:01,030 --> 00:07:03,434
+messages, all these replies which I append
+訊息，我附加的所有這些回复
+
+167
+00:07:03,434 --> 00:07:06,288
+here, which I get back from OpenAI are
+在這裡，我從 OpenAI 得到的資訊是
+
+168
+00:07:06,480 --> 00:07:09,366
+actually not dictionaries. They are objects
+其實不是字典。它們是物體
+
+169
+00:07:09,366 --> 00:07:10,311
+based on classes.
+基於班級。
+
+170
+00:07:11,049 --> 00:07:13,918
+So if I got such an object and the message
+所以如果我得到這樣一個物件和訊息
+
+171
+00:07:13,950 --> 00:07:16,884
+type is message, so if I got back a regular
+型別是訊息，所以如果我收到常規訊息
+
+172
+00:07:16,884 --> 00:07:20,010
+message as the last reply by the model, then
+訊息作為模型的最後回复，然後
+
+173
+00:07:19,930 --> 00:07:22,732
+I know it's done doing tool calls for this
+我知道工具呼叫已經完成
+
+174
+00:07:22,780 --> 00:07:24,857
+cycle, which is why I then break
+迴圈，這就是為什麼我然後打破
+
+175
+00:07:25,582 --> 00:07:26,049
+out of this
+出於這個
+
+176
+00:07:26,661 --> 00:07:29,966
+tool call loop back into the main loop where
+工具呼叫迴圈回到主迴圈，其中
+
+177
+00:07:30,015 --> 00:07:31,131
+I allow the user to
+我允許使用者
+
+178
+00:07:31,714 --> 00:07:32,604
+enter more information.
+輸入更多資訊。
+
+179
+00:07:34,166 --> 00:07:36,448
+And it's best if we just take a look at that
+最好我們來看看
+
+180
+00:07:36,897 --> 00:07:37,363
+in action.
+在行動中。
+
+181
+00:07:38,376 --> 00:07:41,846
+So I will run this main.puf file, get the
+所以我將運行這個 main.puf 檔案，獲取
+
+182
+00:07:42,135 --> 00:07:44,892
+starting message here, and I'll say I want a
+在這裡開始留言，我會說我想要一個
+
+183
+00:07:45,533 --> 00:07:45,927
+refund.
+退款。
+
+184
+00:07:47,361 --> 00:07:47,992
+And now you
+而現在你
+
+185
+00:07:48,575 --> 00:07:51,197
+will see that the model tells me that it can
+會看到模型告訴我它可以
+
+186
+00:07:51,245 --> 00:07:53,106
+help me with that, but it needs my full name
+幫我解決這個問題，但需要我的全名
+
+187
+00:07:53,106 --> 00:07:53,737
+and my PIN.
+和我的 PIN 碼。
+
+188
+00:07:54,676 --> 00:07:57,096
+Now if I say something like, I don't know,
+現在如果我說類似的話 我不知道
+
+189
+00:07:57,404 --> 00:07:59,301
+it should not continue because it should
+它不應該繼續下去，因為它應該
+
+190
+00:07:59,350 --> 00:08:01,863
+only be able to help me if I do verify, and
+只有我驗證後才能幫助我，而且
+
+191
+00:08:01,944 --> 00:08:02,592
+it does that.
+它就是這樣做的。
+
+192
+00:08:04,098 --> 00:08:05,307
+So I'll say, sorry, my
+所以我會說，對不起，我的
+
+193
+00:08:05,920 --> 00:08:08,806
+name is, and I'll take a look at my database
+名字是，我會看看我的資料庫
+
+194
+00:08:08,918 --> 00:08:09,160
+here,
+這裡，
+
+195
+00:08:10,353 --> 00:08:11,885
+and you see the customers I added.
+您會看到我新增的客戶。
+
+196
+00:08:12,647 --> 00:08:14,109
+Which you also, by the way, see in the
+順便說一句，您也可以在
+
+197
+00:08:14,109 --> 00:08:15,281
+database.py file,
+資料庫.py 檔案，
+
+198
+00:08:16,100 --> 00:08:18,333
+these dummy customers, they're called Jane
+這些虛擬顧客，他們叫簡
+
+199
+00:08:18,430 --> 00:08:22,092
+Smith, 5678 is her PIN, and John Doe with
+Smith，5678 是她的密碼，John Doe 是
+
+200
+00:08:22,205 --> 00:08:27,345
+1234. So my name is Jane Smith, 5677. I
+1234.所以我的名字是簡史密斯，5677。我
+
+201
+00:08:27,361 --> 00:08:29,674
+enter a wrong PIN here. It's all lowercase,
+在此輸入錯誤的 PIN 碼。都是小寫的
+
+202
+00:08:29,770 --> 00:08:32,630
+but the function where I verify the identity
+但我驗證身分的功能
+
+203
+00:08:32,742 --> 00:08:34,477
+is written such that casing shouldn't
+是這樣寫的，大小寫不應該
+
+204
+00:08:34,493 --> 00:08:34,702
+matter.
+事情。
+
+205
+00:08:36,132 --> 00:08:38,686
+So I have a wrong PIN. So now you can see
+所以我的 PIN 碼錯誤。所以現在你可以看到
+
+206
+00:08:38,686 --> 00:08:40,794
+that 2 was called. But
+那個 2 被調用了。但
+
+207
+00:08:41,346 --> 00:08:43,372
+correctly, it identifies that this returned
+正確地，它識別出這回傳了
+
+208
+00:08:43,372 --> 00:08:44,458
+false. I
+錯誤的。我
+
+209
+00:08:45,154 --> 00:08:46,046
+was not verified.
+沒有得到驗證。
+
+210
+00:08:46,954 --> 00:08:48,765
+So I'll say, sorry, the PIN is
+所以我會說，抱歉，PIN 碼是
+
+211
+00:08:50,315 --> 00:08:53,752
+5678. And I don't reenter my name, but since
+5678.我沒有重新輸入我的名字，但是自從
+
+212
+00:08:53,865 --> 00:08:56,222
+all these messages are saved in the chat
+所有這些訊息都儲存在聊天中
+
+213
+00:08:56,222 --> 00:08:58,850
+history, it recalls that my name was Chain
+歷史，它讓我想起我的名字是Chain
+
+214
+00:08:58,898 --> 00:09:00,880
+Smith and it is able to verify me.
+史密斯，它能夠驗證我的身分。
+
+215
+00:09:02,008 --> 00:09:04,780
+And it also then called another tool here,
+然後它還在這裡呼叫了另一個工具，
+
+216
+00:09:05,006 --> 00:09:07,835
+get orders. So that is multiple tool calls
+得到訂單。這就是多個工具調用
+
+217
+00:09:08,091 --> 00:09:10,579
+for one input from my side where it
+對於我這邊的一個輸入
+
+218
+00:09:10,579 --> 00:09:13,018
+retrieved all orders for my customer ID.
+檢索了我的客戶 ID 的所有訂單。
+
+219
+00:09:14,350 --> 00:09:16,660
+And in my case, it found one order, which
+就我而言，它找到了一個訂單，該訂單
+
+220
+00:09:16,837 --> 00:09:17,944
+makes sense because
+有道理，因為
+
+221
+00:09:18,538 --> 00:09:20,319
+for the orders that are being inserted here,
+對於此處插入的訂單，
+
+222
+00:09:21,009 --> 00:09:24,363
+this second customer, Jane Smith, only has
+第二位顧客，Jane Smith，只有
+
+223
+00:09:24,475 --> 00:09:25,919
+one order, which is a keyboard
+一個命令，就是一個鍵盤
+
+224
+00:09:26,449 --> 00:09:27,331
+for $75,
+75 美元，
+
+225
+00:09:27,989 --> 00:09:29,674
+which is exactly the information it's
+這正是它的訊息
+
+226
+00:09:29,674 --> 00:09:30,252
+showing me here.
+給我看這裡。
+
+227
+00:09:31,455 --> 00:09:33,349
+By the way, you will get different replies
+順便說一句，你會得到不同的回复
+
+228
+00:09:33,846 --> 00:09:36,076
+when you're running this most likely because
+當你運行這個時很可能是因為
+
+229
+00:09:36,172 --> 00:09:38,354
+it is not deterministic. It's an AI model,
+它不是確定性的。這是一個人工智慧模型，
+
+230
+00:09:38,370 --> 00:09:39,525
+it's generating tokens.
+它正在生成代幣。
+
+231
+00:09:40,118 --> 00:09:41,851
+But here this all makes sense.
+但在這裡這一切都是有道理的。
+
+232
+00:09:42,621 --> 00:09:45,139
+So now it's asking me whether it should
+所以現在它問我是否應該
+
+233
+00:09:45,172 --> 00:09:47,578
+check if that's eligible for a refund and
+檢查是否有資格獲得退款並
+
+234
+00:09:47,578 --> 00:09:48,171
+I'll say
+我會說
+
+235
+00:09:48,701 --> 00:09:51,620
+yes please, I want this to be checked if I
+是的，請，我希望檢查一下，如果我
+
+236
+00:09:51,669 --> 00:09:52,519
+can refund it.
+可以退款。
+
+237
+00:09:53,529 --> 00:09:56,000
+So it goes ahead and calls check refund
+所以它繼續並調用支票退款
+
+238
+00:09:56,000 --> 00:09:56,690
+eligibility
+合格
+
+239
+00:09:57,508 --> 00:09:59,577
+and it tells me that it is eligible, which
+它告訴我它是合格的，這
+
+240
+00:09:59,625 --> 00:10:00,171
+is correct.
+是正確的。
+
+241
+00:10:01,281 --> 00:10:04,215
+So I'll say, so please go ahead and refund.
+所以我會說，所以請繼續退款。
+
+242
+00:10:05,521 --> 00:10:06,875
+And now it calls
+現在它調用
+
+243
+00:10:08,583 --> 00:10:09,454
+issue refunds,
+發出退款，
+
+244
+00:10:10,034 --> 00:10:11,565
+gives me the confirmation message, and
+給我確認訊息，並且
+
+245
+00:10:11,581 --> 00:10:12,355
+everything's fine.
+一切都很好。
+
+246
+00:10:13,692 --> 00:10:14,675
+So now I'll exit here.
+所以現在我要離開這裡。
+
+247
+00:10:15,755 --> 00:10:17,802
+That all worked just as it should. Now if I
+一切都按其應有的方式進行。現在如果我
+
+248
+00:10:17,947 --> 00:10:20,281
+restart this and I ask like, what is the
+重新啟動這個，我問，什麼是
+
+249
+00:10:20,683 --> 00:10:21,102
+weather,
+天氣，
+
+250
+00:10:22,196 --> 00:10:24,143
+it should tell me that this is not really
+它應該告訴我這不是真的
+
+251
+00:10:24,143 --> 00:10:25,575
+something it can help me with.
+它可以幫助我。
+
+252
+00:10:26,568 --> 00:10:27,306
+If I ask
+如果我問
+
+253
+00:10:28,093 --> 00:10:29,185
+what are John
+約翰是什麼
+
+254
+00:10:29,860 --> 00:10:30,614
+Doe's
+做
+
+255
+00:10:31,466 --> 00:10:31,931
+orders,
+訂單，
+
+256
+00:10:32,943 --> 00:10:35,159
+it also shouldn't proceed with that unless I
+它也不應該繼續下去，除非我
+
+257
+00:10:35,159 --> 00:10:37,857
+verify. So I'll verify with Jane and I'll
+核實。所以我會跟簡確認一下
+
+258
+00:10:37,905 --> 00:10:38,435
+say, sure,
+說，當然，
+
+259
+00:10:39,334 --> 00:10:39,623
+I'm
+我是
+
+260
+00:10:40,394 --> 00:10:41,245
+Jane Smith,
+簡史密斯，
+
+261
+00:10:42,321 --> 00:10:44,554
+my PIN is 5678.
+我的 PIN 碼是 5678。
+
+262
+00:10:45,854 --> 00:10:48,311
+This should not get it to reveal anything
+這不應該讓它透露任何東西
+
+263
+00:10:48,408 --> 00:10:49,355
+about John.
+關於約翰.
+
+264
+00:10:50,849 --> 00:10:52,952
+So it gives me my order history, which makes
+所以它給了我我的訂單歷史記錄，這使得
+
+265
+00:10:53,000 --> 00:10:54,976
+sense. That's good. It does not reveal
+感覺。那挺好的。它沒有透露
+
+266
+00:10:55,088 --> 00:10:57,624
+anything about John. Now, you may be able to
+關於約翰的任何事。現在，您也許能夠
+
+267
+00:10:57,656 --> 00:10:59,630
+break this because again, it is a dummy
+打破這個，因為它又是一個假人
+
+268
+00:10:59,678 --> 00:11:02,454
+example still, but it is an example of a
+仍然是示例，但它是一個示例
+
+269
+00:11:02,454 --> 00:11:03,642
+more capable
+更有能力
+
+270
+00:11:04,235 --> 00:11:07,830
+AI agent, a pretty versatile AI agent that
+AI 代理，一個非常通用的 AI 代理
+
+271
+00:11:07,830 --> 00:11:10,221
+got plenty of tools to choose from. And
+有很多工具可供選擇。和
+
+272
+00:11:10,798 --> 00:11:12,660
+ultimately, that is of course the idea
+最終，這當然是想法
+
+273
+00:11:12,660 --> 00:11:14,553
+behind building AI agents.
+建構人工智慧代理的背後。

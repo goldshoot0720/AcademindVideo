@@ -1,0 +1,1459 @@
+1
+00:00:02,196 --> 00:00:04,488
+So now that we had a look at permutations
+
+2
+00:00:04,664 --> 00:00:07,085
+without repetition, let's now have a look at
+
+3
+00:00:07,085 --> 00:00:10,788
+permutations with repetition. How does this
+
+4
+00:00:10,996 --> 00:00:11,493
+look like?
+
+5
+00:00:12,519 --> 00:00:15,004
+Now for that, I'll come back to that safe,
+
+6
+00:00:15,020 --> 00:00:17,441
+to that password example where we
+
+7
+00:00:17,970 --> 00:00:19,300
+have, let's say, our
+
+8
+00:00:19,974 --> 00:00:20,551
+digits.
+
+9
+00:00:21,272 --> 00:00:23,661
+Let's say 1, 2, and 3 are the digits that
+
+10
+00:00:23,757 --> 00:00:24,719
+are available to us,
+
+11
+00:00:25,344 --> 00:00:27,652
+and we have a certain result length that is
+
+12
+00:00:27,748 --> 00:00:30,634
+required. Let's say we want a code that
+
+13
+00:00:30,634 --> 00:00:32,174
+consists of 3 digits.
+
+14
+00:00:32,961 --> 00:00:34,952
+And we then want a function
+
+15
+00:00:35,530 --> 00:00:38,484
+that generates us all possible combinations
+
+16
+00:00:38,902 --> 00:00:40,893
+where— and that's the difference— every
+
+17
+00:00:41,471 --> 00:00:44,281
+element of digits can be used more than
+
+18
+00:00:44,442 --> 00:00:47,011
+once. That's also why we have to define a
+
+19
+00:00:47,011 --> 00:00:47,878
+result length,
+
+20
+00:00:48,456 --> 00:00:50,929
+because otherwise it would not be clear, um,
+
+21
+00:00:51,427 --> 00:00:53,418
+which length the result array should have.
+
+22
+00:00:53,530 --> 00:00:55,907
+Because previously, of course, if every item
+
+23
+00:00:56,003 --> 00:00:57,994
+could only be used once, there is a finite
+
+24
+00:00:58,026 --> 00:01:00,947
+amount of combinations. If you can reuse
+
+25
+00:01:01,140 --> 00:01:03,530
+items, there is no finite amount of
+
+26
+00:01:03,948 --> 00:01:06,129
+combinations. You need to instead set a
+
+27
+00:01:06,210 --> 00:01:07,910
+length that shouldn't be exceeded.
+
+28
+00:01:08,295 --> 00:01:10,894
+Otherwise, you can, well, generate a
+
+29
+00:01:10,942 --> 00:01:13,798
+combination of this length of just ones,
+
+30
+00:01:14,296 --> 00:01:14,472
+right?
+
+31
+00:01:15,194 --> 00:01:16,895
+So that's why we now need this extra input.
+
+32
+00:01:17,199 --> 00:01:19,397
+And then we can get our functions get
+
+33
+00:01:20,232 --> 00:01:23,344
+permutations, which now takes 2 inputs, our
+
+34
+00:01:23,521 --> 00:01:25,109
+options but also our length.
+
+35
+00:01:25,784 --> 00:01:28,152
+And that's important. We get the length from
+
+36
+00:01:28,345 --> 00:01:30,970
+external now, so as an input, because as I
+
+37
+00:01:31,099 --> 00:01:33,821
+just explained, we can't derive it from the
+
+38
+00:01:33,821 --> 00:01:34,963
+length of the input array.
+
+39
+00:01:36,490 --> 00:01:38,418
+So the goal is again that I can call get
+
+40
+00:01:38,418 --> 00:01:41,422
+permutations and pass both my digits as well
+
+41
+00:01:41,551 --> 00:01:44,479
+as my result length to this call. And now in
+
+42
+00:01:44,593 --> 00:01:47,337
+here, we should in the end generate all
+
+43
+00:01:47,597 --> 00:01:49,286
+those possible combinations.
+
+44
+00:01:50,203 --> 00:01:52,531
+Now the general approach is the same as
+
+45
+00:01:52,563 --> 00:01:56,714
+before. We will split this up into small
+
+46
+00:01:54,840 --> 00:01:58,447
+smaller problems to basically just derive
+
+47
+00:01:58,783 --> 00:02:01,492
+combinations of length 1, and then combine
+
+48
+00:02:01,525 --> 00:02:04,811
+those 1-element combinations with 1 extra
+
+49
+00:02:04,811 --> 00:02:07,504
+digit to derive all possible 2-element
+
+50
+00:02:07,536 --> 00:02:09,829
+combinations. And then we'll again combine
+
+51
+00:02:09,925 --> 00:02:12,153
+all those possible 2-element combinations
+
+52
+00:02:12,249 --> 00:02:14,382
+with the last element, so that we again
+
+53
+00:02:14,510 --> 00:02:16,225
+don't have to combine everything with
+
+54
+00:02:16,337 --> 00:02:18,293
+everything right from the start, but we
+
+55
+00:02:18,293 --> 00:02:21,051
+start instead with simple arrays,
+
+56
+00:02:21,628 --> 00:02:24,353
+and we then gradually add more and more
+
+57
+00:02:24,353 --> 00:02:26,758
+combinations to those already combined
+
+58
+00:02:26,758 --> 00:02:27,062
+arrays.
+
+59
+00:02:27,896 --> 00:02:30,573
+So therefore, here in that function, at some
+
+60
+00:02:30,701 --> 00:02:33,555
+point we will again call ourselves
+
+61
+00:02:34,132 --> 00:02:37,001
+and store that in our partial permutation.
+
+62
+00:02:37,098 --> 00:02:38,572
+So same logic as before,
+
+63
+00:02:39,198 --> 00:02:42,051
+but now we don't call ourselves by slicing
+
+64
+00:02:42,308 --> 00:02:42,853
+options.
+
+65
+00:02:43,446 --> 00:02:45,658
+Instead, options will now always be the same
+
+66
+00:02:45,706 --> 00:02:48,882
+array, but we'll reduce length by 1 here. So
+
+67
+00:02:48,931 --> 00:02:51,157
+our input length, which initially in this
+
+68
+00:02:51,271 --> 00:02:54,001
+case here is 3, will only be 2
+
+69
+00:02:54,534 --> 00:02:57,376
+for the first time we call getPermutations
+
+70
+00:02:57,376 --> 00:02:58,555
+in that main function call.
+
+71
+00:03:00,098 --> 00:03:02,511
+And then we also need some exit condition to
+
+72
+00:03:02,609 --> 00:03:05,395
+avoid an infinite loop where I check if
+
+73
+00:03:05,687 --> 00:03:08,019
+length is maybe equal to 1.
+
+74
+00:03:08,603 --> 00:03:10,322
+And at some point it will be 1 because we
+
+75
+00:03:10,322 --> 00:03:12,141
+continuously decrease length here.
+
+76
+00:03:13,411 --> 00:03:16,303
+So we will reach length 1 at some point of
+
+77
+00:03:16,303 --> 00:03:16,576
+time.
+
+78
+00:03:17,492 --> 00:03:19,372
+And if we have a length of 1,
+
+79
+00:03:19,982 --> 00:03:22,296
+I again want to return an array with all the
+
+80
+00:03:22,296 --> 00:03:25,204
+combinations of length 1 we can come up
+
+81
+00:03:25,204 --> 00:03:25,364
+with.
+
+82
+00:03:26,007 --> 00:03:28,593
+Because just as before, the overall goal of
+
+83
+00:03:28,658 --> 00:03:31,646
+get permutations will be to derive an array
+
+84
+00:03:32,176 --> 00:03:34,650
+full of all those permutation arrays we can
+
+85
+00:03:34,666 --> 00:03:37,574
+get. So an array full of arrays, that's what
+
+86
+00:03:37,574 --> 00:03:40,528
+we will in the end still return here inside
+
+87
+00:03:40,528 --> 00:03:42,068
+of this function. So
+
+88
+00:03:42,613 --> 00:03:44,810
+at the end here, we'll return permutations.
+
+89
+00:03:45,500 --> 00:03:47,729
+And since we return an array full of arrays
+
+90
+00:03:47,825 --> 00:03:50,343
+here, we also need to return an array full
+
+91
+00:03:50,343 --> 00:03:52,396
+of arrays here in this exit condition so
+
+92
+00:03:52,396 --> 00:03:54,256
+that we return the same kind of data,
+
+93
+00:03:54,737 --> 00:03:57,207
+because getPermutations is a function that
+
+94
+00:03:57,287 --> 00:03:59,163
+always should return an array full of
+
+95
+00:03:59,163 --> 00:03:59,436
+arrays.
+
+96
+00:04:00,013 --> 00:04:02,274
+Now we could return options, but that's not
+
+97
+00:04:02,274 --> 00:04:04,199
+an array full of arrays, that's an array
+
+98
+00:04:04,343 --> 00:04:06,478
+full of numbers. And it's always the same
+
+99
+00:04:06,526 --> 00:04:08,711
+array of numbers because we never slice it
+
+100
+00:04:08,711 --> 00:04:10,606
+or anything like that. So that's a major
+
+101
+00:04:10,606 --> 00:04:12,485
+difference to the other permutations
+
+102
+00:04:12,614 --> 00:04:13,481
+algorithm we had.
+
+103
+00:04:14,236 --> 00:04:16,308
+But what we want to return here is in the
+
+104
+00:04:16,389 --> 00:04:19,665
+end all possible combinations where every
+
+105
+00:04:20,083 --> 00:04:22,236
+permutation only has a length of 1.
+
+106
+00:04:22,990 --> 00:04:24,806
+Now of course that in the end means the
+
+107
+00:04:24,822 --> 00:04:26,155
+array I wanna return here
+
+108
+00:04:27,070 --> 00:04:28,355
+for this input example
+
+109
+00:04:28,918 --> 00:04:29,833
+should be an array
+
+110
+00:04:30,363 --> 00:04:32,002
+full of arrays where we have an array with
+
+111
+00:04:32,050 --> 00:04:34,811
+1, an array with 2, an array with 3
+
+112
+00:04:35,340 --> 00:04:38,260
+as a child, so as a nested array. So that's
+
+113
+00:04:38,260 --> 00:04:40,216
+our main array, and the individual arrays
+
+114
+00:04:40,329 --> 00:04:42,703
+are just, well, arrays that contain those
+
+115
+00:04:42,975 --> 00:04:45,189
+individual elements wrapped into arrays
+
+116
+00:04:45,301 --> 00:04:48,028
+though. That's the goal here for a length of
+
+117
+00:04:48,092 --> 00:04:50,787
+1, because for those options, these are the
+
+118
+00:04:50,835 --> 00:04:53,209
+3 different combinations we can come up with
+
+119
+00:04:53,626 --> 00:04:56,738
+if we have a length of 1 per combination.
+
+120
+00:04:57,572 --> 00:04:59,032
+Now of course I don't want to hardcode it
+
+121
+00:04:59,032 --> 00:05:00,909
+like this though, because I don't know which
+
+122
+00:05:01,342 --> 00:05:03,592
+digits or which options I'll get. So
+
+123
+00:05:03,592 --> 00:05:06,083
+instead, we can use options and use the map
+
+124
+00:05:06,163 --> 00:05:10,228
+method on that to map every option into an
+
+125
+00:05:10,470 --> 00:05:13,207
+array. So to simply wrap every option into
+
+126
+00:05:13,239 --> 00:05:16,154
+an array and map overall then returns an
+
+127
+00:05:16,154 --> 00:05:18,392
+array and therefore that's an array full of
+
+128
+00:05:18,392 --> 00:05:21,136
+arrays which overall is returned in the case
+
+129
+00:05:21,136 --> 00:05:23,677
+of length 1. That's the logic here.
+
+130
+00:05:25,490 --> 00:05:27,939
+So partial permutations will always be an
+
+131
+00:05:27,972 --> 00:05:28,168
+array
+
+132
+00:05:28,691 --> 00:05:31,291
+full of arrays And those arrays in the array
+
+133
+00:05:31,452 --> 00:05:34,045
+will be the possible combinations for those
+
+134
+00:05:34,109 --> 00:05:35,607
+given options and the given length.
+
+135
+00:05:37,910 --> 00:05:39,584
+Now, of course, we don't just want to have
+
+136
+00:05:39,633 --> 00:05:41,839
+an array with single elements wrapped into
+
+137
+00:05:41,871 --> 00:05:43,756
+an array. Instead, that will be our,
+
+138
+00:05:44,287 --> 00:05:47,122
+well, most deeply nested recursive function
+
+139
+00:05:47,122 --> 00:05:50,312
+call. So in the most deeply nested recursive
+
+140
+00:05:50,328 --> 00:05:52,149
+function call, we will get back an array
+
+141
+00:05:52,842 --> 00:05:53,294
+that
+
+142
+00:05:54,293 --> 00:05:55,404
+looks like this.
+
+143
+00:05:56,057 --> 00:05:56,748
+This here,
+
+144
+00:05:57,743 --> 00:05:59,943
+what I just basically outlined.
+
+145
+00:06:00,665 --> 00:06:02,720
+So an array with 3 elements where every
+
+146
+00:06:02,720 --> 00:06:04,920
+element is an array with just 1 element per
+
+147
+00:06:05,081 --> 00:06:05,707
+nested array.
+
+148
+00:06:06,429 --> 00:06:08,806
+And now we need to combine those single
+
+149
+00:06:09,159 --> 00:06:12,579
+digit, those length of 1 arrays,
+
+150
+00:06:13,414 --> 00:06:13,783
+with
+
+151
+00:06:15,003 --> 00:06:16,512
+all our options again.
+
+152
+00:06:17,444 --> 00:06:19,852
+So therefore, now here we can again add a
+
+153
+00:06:19,900 --> 00:06:22,694
+for loop. And now since repetition is
+
+154
+00:06:22,790 --> 00:06:25,474
+allowed and wanted we can simply use a
+
+155
+00:06:25,522 --> 00:06:27,420
+regular for loop where we go through all
+
+156
+00:06:27,613 --> 00:06:30,573
+options. So for option of options,
+
+157
+00:06:31,329 --> 00:06:33,291
+we go through all the options we have here,
+
+158
+00:06:36,159 --> 00:06:38,075
+and we go through all the existing
+
+159
+00:06:38,107 --> 00:06:39,959
+permutations which we derived from the
+
+160
+00:06:39,959 --> 00:06:40,410
+nested,
+
+161
+00:06:41,070 --> 00:06:43,663
+uh, function call. So another nested loop
+
+162
+00:06:43,663 --> 00:06:44,387
+which is needed here,
+
+163
+00:06:45,015 --> 00:06:50,241
+and that's our existing permutation of
+
+164
+00:06:50,686 --> 00:06:52,135
+partial permutations.
+
+165
+00:06:55,070 --> 00:06:57,319
+And we'll now simply take our main
+
+166
+00:06:57,496 --> 00:06:59,746
+permutations, so the overall array which
+
+167
+00:06:59,746 --> 00:07:00,372
+we're working on,
+
+168
+00:07:01,272 --> 00:07:03,522
+and we push a new item onto it. And that
+
+169
+00:07:03,522 --> 00:07:04,711
+should be an array, as you learned.
+
+170
+00:07:05,370 --> 00:07:06,785
+And that new item
+
+171
+00:07:07,460 --> 00:07:09,533
+which we want to push here in the end
+
+172
+00:07:10,192 --> 00:07:12,025
+should be our existing
+
+173
+00:07:12,604 --> 00:07:13,217
+option here,
+
+174
+00:07:14,483 --> 00:07:16,708
+which is not an array though but a single
+
+175
+00:07:16,903 --> 00:07:17,780
+item because
+
+176
+00:07:19,067 --> 00:07:21,710
+options is the options we receive here. That
+
+177
+00:07:21,710 --> 00:07:23,793
+will always be an array of individual
+
+178
+00:07:23,793 --> 00:07:25,716
+elements. So option is just such an
+
+179
+00:07:25,732 --> 00:07:26,710
+individual element,
+
+180
+00:07:27,479 --> 00:07:29,994
+and I rather want to push an array instead
+
+181
+00:07:29,994 --> 00:07:32,093
+of a single element. So I'll wrap option
+
+182
+00:07:32,222 --> 00:07:34,128
+into square brackets so that we have an
+
+183
+00:07:34,128 --> 00:07:34,321
+array,
+
+184
+00:07:35,090 --> 00:07:36,259
+and we concat
+
+185
+00:07:37,012 --> 00:07:39,240
+our existing permutation
+
+186
+00:07:40,057 --> 00:07:41,307
+to that option.
+
+187
+00:07:41,980 --> 00:07:43,566
+And this in the end will combine every
+
+188
+00:07:43,662 --> 00:07:45,793
+option with every existing permutation
+
+189
+00:07:46,338 --> 00:07:48,069
+And we do this here for all possible
+
+190
+00:07:48,149 --> 00:07:50,328
+combinations, and then we return this in the
+
+191
+00:07:50,328 --> 00:07:50,504
+end.
+
+192
+00:07:51,193 --> 00:07:53,052
+And this will therefore gradually build up
+
+193
+00:07:53,196 --> 00:07:54,302
+all permutations.
+
+194
+00:07:55,135 --> 00:07:58,709
+So if we save this and reload, we see 27
+
+195
+00:07:58,805 --> 00:08:01,465
+results here in this case. And if I expand
+
+196
+00:08:01,465 --> 00:08:04,365
+this, we see 1, 1, 1, 1, 1, 2, 1, 1, 3,
+
+197
+00:08:04,990 --> 00:08:08,916
+1, 2, 1, and so on. And this looks pretty
+
+198
+00:08:08,996 --> 00:08:11,400
+good to me. We got a bunch of nice
+
+199
+00:08:11,400 --> 00:08:12,233
+combinations here.
+
+200
+00:08:12,842 --> 00:08:14,893
+And you see there are a lot of combinations
+
+201
+00:08:14,909 --> 00:08:16,255
+for just 3 digits.
+
+202
+00:08:16,912 --> 00:08:19,557
+That's by the way why longer passwords are
+
+203
+00:08:19,557 --> 00:08:20,182
+more secure.
+
+204
+00:08:20,775 --> 00:08:22,425
+Because if you have short passwords,
+
+205
+00:08:22,617 --> 00:08:23,307
+computers,
+
+206
+00:08:23,900 --> 00:08:26,832
+like our script here, can relatively easy
+
+207
+00:08:26,864 --> 00:08:29,877
+combine all possible combinations and simply
+
+208
+00:08:29,893 --> 00:08:32,361
+try all those combinations in the password
+
+209
+00:08:32,393 --> 00:08:33,867
+field of some website, let's say.
+
+210
+00:08:34,492 --> 00:08:35,967
+Now the longer a password is,
+
+211
+00:08:36,720 --> 00:08:39,188
+the longer it takes to generate all possible
+
+212
+00:08:39,268 --> 00:08:41,207
+combinations, and you'll quickly reach a
+
+213
+00:08:41,207 --> 00:08:43,579
+point where no modern computer is
+
+214
+00:08:44,236 --> 00:08:46,950
+realistically able to do that. So therefore,
+
+215
+00:08:47,047 --> 00:08:49,552
+longer passwords are safer because, as you
+
+216
+00:08:49,552 --> 00:08:49,873
+see,
+
+217
+00:08:50,596 --> 00:08:53,037
+combinations grow quickly. We already have a
+
+218
+00:08:53,037 --> 00:08:55,189
+lot of combinations for just 3 digits.
+
+219
+00:08:55,799 --> 00:08:58,127
+And indeed, if I add a 4th digit here, so
+
+220
+00:08:58,127 --> 00:09:00,536
+just one extra number, you see instead of
+
+221
+00:09:00,552 --> 00:09:03,603
+27, we now have 64 combinations. So this
+
+222
+00:09:03,668 --> 00:09:05,836
+really grows extremely fast.
+
+223
+00:09:06,735 --> 00:09:08,903
+Now, as before, you can dump in some
+
+224
+00:09:08,983 --> 00:09:11,504
+console.log statements to understand how
+
+225
+00:09:11,696 --> 00:09:14,581
+this works. Since the logic is very close to
+
+226
+00:09:14,581 --> 00:09:17,225
+the logic we had before with the adjustments
+
+227
+00:09:17,225 --> 00:09:19,661
+made which I explained, I'll not do it here,
+
+228
+00:09:19,869 --> 00:09:21,632
+but definitely feel free to do that if
+
+229
+00:09:21,632 --> 00:09:24,276
+you're not sure how this algorithm works
+
+230
+00:09:24,276 --> 00:09:24,901
+exactly.
+
+231
+00:09:26,119 --> 00:09:28,138
+Instead of doing that, I right away want to
+
+232
+00:09:28,218 --> 00:09:30,750
+focus on the time complexity instead.
+
+233
+00:09:31,327 --> 00:09:33,843
+What is the time complexity of this
+
+234
+00:09:34,051 --> 00:09:36,679
+algorithm where we do have repetition?
+
+235
+00:09:37,280 --> 00:09:38,230
+Do you have an idea?
+
+236
+00:09:40,100 --> 00:09:41,988
+Well, before we had factorial time
+
+237
+00:09:41,988 --> 00:09:44,894
+complexity and that was without repetition.
+
+238
+00:09:45,314 --> 00:09:48,430
+Now with repetition, we got more possible
+
+239
+00:09:48,446 --> 00:09:49,607
+combinations than before,
+
+240
+00:09:50,235 --> 00:09:53,246
+so we probably are not doing better than
+
+241
+00:09:53,342 --> 00:09:55,049
+factorial time complexity.
+
+242
+00:09:55,838 --> 00:09:57,061
+And indeed we don't.
+
+243
+00:09:57,786 --> 00:09:57,979
+If I
+
+244
+00:09:58,655 --> 00:09:59,739
+add my time complexity here,
+
+245
+00:10:00,516 --> 00:10:03,898
+it actually depends on 2 input factors.
+
+246
+00:10:04,803 --> 00:10:07,033
+Because we're feeding in an array of
+
+247
+00:10:07,033 --> 00:10:10,802
+elements and also a certain length that we
+
+248
+00:10:10,802 --> 00:10:13,465
+want to have for the combinations that are
+
+249
+00:10:13,465 --> 00:10:16,288
+generated. And both impacts how often our
+
+250
+00:10:16,352 --> 00:10:19,336
+code executes. If we pass in a longer array,
+
+251
+00:10:19,801 --> 00:10:21,887
+we have more digits we have to go through.
+
+252
+00:10:22,512 --> 00:10:24,822
+If we want a longer combination, we have
+
+253
+00:10:24,838 --> 00:10:26,859
+more combinations that we need to generate.
+
+254
+00:10:27,260 --> 00:10:30,068
+So both these factors have a very important
+
+255
+00:10:30,068 --> 00:10:32,152
+and a very strong impact on on the time
+
+256
+00:10:32,152 --> 00:10:34,636
+complexity and on the number of execution
+
+257
+00:10:34,636 --> 00:10:35,565
+steps we have here?
+
+258
+00:10:36,479 --> 00:10:38,369
+Well, in the end we can just count again.
+
+259
+00:10:38,962 --> 00:10:41,686
+We can count our combinations because just
+
+260
+00:10:41,686 --> 00:10:43,609
+as before, every combination needs to be
+
+261
+00:10:43,609 --> 00:10:45,580
+produced and therefore the number of
+
+262
+00:10:45,596 --> 00:10:47,006
+combinations tells us
+
+263
+00:10:47,839 --> 00:10:49,105
+which time complexity we have.
+
+264
+00:10:50,018 --> 00:10:52,902
+And we saw that from 3 to 4 digits we had a
+
+265
+00:10:52,902 --> 00:10:55,306
+pretty steep increase. The same would be
+
+266
+00:10:55,306 --> 00:10:57,693
+true if I increase the length we want to
+
+267
+00:10:57,693 --> 00:11:01,220
+generate by just 1. From 3 to 4. If I do
+
+268
+00:11:01,300 --> 00:11:04,363
+that, you see we have 256
+
+269
+00:11:05,069 --> 00:11:05,614
+elements here.
+
+270
+00:11:06,144 --> 00:11:07,763
+So that is what I meant with the password.
+
+271
+00:11:07,827 --> 00:11:09,944
+If you just want the password that is one
+
+272
+00:11:10,057 --> 00:11:11,997
+element longer, you got way more
+
+273
+00:11:12,061 --> 00:11:13,713
+combinations that can be generated.
+
+274
+00:11:14,563 --> 00:11:15,638
+So both
+
+275
+00:11:16,375 --> 00:11:17,995
+inputs have a strong impact,
+
+276
+00:11:18,701 --> 00:11:20,994
+and indeed the time complexity here
+
+277
+00:11:21,122 --> 00:11:21,812
+therefore is
+
+278
+00:11:22,951 --> 00:11:24,923
+n at the power of r
+
+279
+00:11:25,453 --> 00:11:25,645
+where
+
+280
+00:11:26,961 --> 00:11:27,009
+n
+
+281
+00:11:27,843 --> 00:11:29,480
+is the number of
+
+282
+00:11:30,170 --> 00:11:31,646
+options and r
+
+283
+00:11:32,416 --> 00:11:32,881
+is
+
+284
+00:11:33,635 --> 00:11:34,967
+the number of
+
+285
+00:11:35,961 --> 00:11:39,331
+slots, so is the length, so to say.
+
+286
+00:11:39,988 --> 00:11:43,165
+So here we had 4 at the power of 4 if we
+
+287
+00:11:43,245 --> 00:11:46,213
+would want to fill out those blanks. So n at
+
+288
+00:11:46,213 --> 00:11:49,037
+the power of r, number of options at the
+
+289
+00:11:49,037 --> 00:11:51,581
+power of the wanted length, That's our time
+
+290
+00:11:51,613 --> 00:11:54,528
+complexity and this grows super fast as you
+
+291
+00:11:54,528 --> 00:11:57,685
+can tell. If I just bump this up to 6, you
+
+292
+00:11:57,685 --> 00:12:00,716
+see we already jump from 256 to
+
+293
+00:12:01,471 --> 00:12:05,777
+4,096 and that's a huge increase and you can
+
+294
+00:12:05,793 --> 00:12:08,653
+quickly reach areas where your script will
+
+295
+00:12:08,750 --> 00:12:09,494
+just freeze.
+
+296
+00:12:11,290 --> 00:12:13,407
+Now, of course, it's nice that I tell you
+
+297
+00:12:13,521 --> 00:12:16,406
+that this is the time complexity here But
+
+298
+00:12:16,406 --> 00:12:18,880
+how can you derive this on your own? Because
+
+299
+00:12:18,912 --> 00:12:20,855
+that's something I didn't do here with you.
+
+300
+00:12:21,803 --> 00:12:22,686
+Well, let's have a look.
+
+301
+00:12:23,313 --> 00:12:26,525
+N at the power of R. We know, for example,
+
+302
+00:12:26,541 --> 00:12:29,240
+that we typically have quadratic time, so N
+
+303
+00:12:29,336 --> 00:12:32,356
+at the power of 2, if we have a nested for
+
+304
+00:12:32,468 --> 00:12:35,102
+loop and we go through all the elements of
+
+305
+00:12:35,279 --> 00:12:35,729
+one array
+
+306
+00:12:36,564 --> 00:12:38,170
+in those nested loops.
+
+307
+00:12:38,989 --> 00:12:41,704
+Well, we do have nested for loops here, but
+
+308
+00:12:41,704 --> 00:12:44,563
+of course, we also have some recursion here.
+
+309
+00:12:45,398 --> 00:12:47,292
+And, and that's really important, we get 2
+
+310
+00:12:47,340 --> 00:12:50,471
+input elements. So we certainly can't have a
+
+311
+00:12:50,471 --> 00:12:53,683
+time complexity that just depends on just
+
+312
+00:12:53,683 --> 00:12:56,894
+one element because clearly both inputs have
+
+313
+00:12:56,894 --> 00:13:00,105
+a strong impact on the time this algorithm
+
+314
+00:13:00,105 --> 00:13:00,491
+takes.
+
+315
+00:13:01,133 --> 00:13:03,317
+Even if you don't know this in advance, you
+
+316
+00:13:03,317 --> 00:13:05,468
+can easily tell that both inputs have a
+
+317
+00:13:05,468 --> 00:13:07,716
+strong impact if you have a look at the
+
+318
+00:13:07,716 --> 00:13:10,863
+number of combinations you got and how fast
+
+319
+00:13:10,863 --> 00:13:13,543
+this number grows no matter which of the 2
+
+320
+00:13:13,736 --> 00:13:14,714
+you manipulate.
+
+321
+00:13:15,437 --> 00:13:17,523
+So that's a clear indicator that our time
+
+322
+00:13:17,523 --> 00:13:19,641
+complexity needs to depend on 2
+
+323
+00:13:20,251 --> 00:13:21,727
+variables and not just one.
+
+324
+00:13:22,578 --> 00:13:25,563
+Now why n at the power of r though?
+
+325
+00:13:26,429 --> 00:13:28,804
+Now to find out how these 2 are related, you
+
+326
+00:13:28,820 --> 00:13:31,163
+can simply simplify your inputs. And for
+
+327
+00:13:31,163 --> 00:13:33,394
+example, say you have a length of 2 and you
+
+328
+00:13:33,394 --> 00:13:35,625
+have 2 digits. And if you do that and you
+
+329
+00:13:35,721 --> 00:13:37,599
+reload, you see 4.
+
+330
+00:13:38,803 --> 00:13:40,039
+So 4 combinations.
+
+331
+00:13:40,617 --> 00:13:42,769
+Now let's increase the amount of digits but
+
+332
+00:13:42,801 --> 00:13:43,732
+keep the length
+
+333
+00:13:44,969 --> 00:13:47,682
+unchanged. So we have 3 digits but still a
+
+334
+00:13:47,682 --> 00:13:48,565
+length of 2.
+
+335
+00:13:49,400 --> 00:13:51,424
+If we do that, you see we grow from 4
+
+336
+00:13:52,018 --> 00:13:53,688
+to 9 combinations.
+
+337
+00:13:54,667 --> 00:13:54,844
+Okay,
+
+338
+00:13:55,502 --> 00:13:58,858
+so let's now change this to 4 digits and
+
+339
+00:13:58,858 --> 00:14:01,876
+still keep the length. So 4 digits, length
+
+340
+00:14:01,973 --> 00:14:02,085
+2.
+
+341
+00:14:03,433 --> 00:14:04,524
+And we got 16.
+
+342
+00:14:05,359 --> 00:14:08,520
+So this looks very quadratic to me because 3
+
+343
+00:14:08,568 --> 00:14:11,440
+at the power of 2 is 9, 4 at the power of 2
+
+344
+00:14:11,536 --> 00:14:14,473
+is 16, and 2 at the power of 2 is 4, which
+
+345
+00:14:14,505 --> 00:14:15,371
+we saw earlier.
+
+346
+00:14:16,205 --> 00:14:18,420
+So it looks like this— the number of
+
+347
+00:14:18,420 --> 00:14:21,837
+elements here at the power of length is our
+
+348
+00:14:21,886 --> 00:14:24,437
+time complexity. And just to verify this,
+
+349
+00:14:24,693 --> 00:14:28,143
+let's increase the length here to 3, from 2
+
+350
+00:14:28,143 --> 00:14:30,919
+to 3, and go back to just 2 digits.
+
+351
+00:14:31,737 --> 00:14:33,357
+If I do this, we now got 8.
+
+352
+00:14:33,918 --> 00:14:36,147
+So our theory still seems to be true,
+
+353
+00:14:36,163 --> 00:14:39,820
+because 2 times 2 times 2 is 8, and that is
+
+354
+00:14:39,932 --> 00:14:41,135
+2 at the power of 3.
+
+355
+00:14:41,792 --> 00:14:43,989
+So it looks like we have n at the power of
+
+356
+00:14:44,086 --> 00:14:46,668
+r. Let's verify this by adding one extra
+
+357
+00:14:46,668 --> 00:14:48,929
+digit, so that we have 3 digits here.
+
+358
+00:14:49,554 --> 00:14:51,607
+And if our theory holds, we should now have
+
+359
+00:14:51,864 --> 00:14:54,494
+3 at the power of 3 combinations, which
+
+360
+00:14:54,590 --> 00:14:59,018
+would be 27. So if I reload, Yep, we got 27
+
+361
+00:14:59,018 --> 00:15:01,795
+here. So that looks good to me. And that is
+
+362
+00:15:01,891 --> 00:15:05,279
+how you can derive this on your own. You can
+
+363
+00:15:05,279 --> 00:15:08,249
+simply count combinations and then quickly
+
+364
+00:15:08,313 --> 00:15:10,705
+find out what impacts the number of
+
+365
+00:15:10,721 --> 00:15:12,695
+combinations in which way.

@@ -1,0 +1,319 @@
+1
+00:00:00,529 --> 00:00:03,640
+So to get started here, I'm in my main.py
+因此，要從這裡開始，我在 main.py 中
+
+2
+00:00:03,640 --> 00:00:03,832
+file.
+檔案。
+
+3
+00:00:04,586 --> 00:00:07,184
+And in there, I wanna build a very simple
+在那裡，我想建立一個非常簡單的
+
+4
+00:00:07,472 --> 00:00:10,519
+workflow that will in the end take some user
+最終需要一些使用者的工作流程
+
+5
+00:00:10,535 --> 00:00:10,936
+input,
+輸入，
+
+6
+00:00:11,481 --> 00:00:11,706
+then
+然後
+
+7
+00:00:12,299 --> 00:00:15,314
+use an AI, a large language model to
+使用人工智慧，一個大型語言模型
+
+8
+00:00:15,426 --> 00:00:19,371
+generate a post for X. So for the X
+為 X 產生一個帖子。所以對於 X
+
+9
+00:00:19,419 --> 00:00:19,996
+platform,
+平台，
+
+10
+00:00:21,039 --> 00:00:23,637
+and then I wanna output that post so that I
+然後我想輸出那個帖子，這樣我
+
+11
+00:00:23,685 --> 00:00:25,801
+could then copy and paste it and share it on
+然後可以複製並貼上它並分享它
+
+12
+00:00:25,834 --> 00:00:28,014
+X. Now, That's of course not the most
+X. 現在，這當然不是最重要的
+
+13
+00:00:28,014 --> 00:00:30,210
+amazing workflow ever. We'll see more
+有史以來令人驚嘆的工作流程。我們會看到更多
+
+14
+00:00:30,322 --> 00:00:32,406
+complex and useful workflows later in the
+稍後的複雜而有用的工作流程
+
+15
+00:00:32,406 --> 00:00:34,795
+course, but it's a great first workflow to
+當然，但這是一個很棒的第一個工作流程
+
+16
+00:00:34,827 --> 00:00:36,895
+get started and to learn how to interact
+開始並學習如何互動
+
+17
+00:00:36,895 --> 00:00:38,273
+with the OpenAI API.
+使用 OpenAI API。
+
+18
+00:00:38,995 --> 00:00:42,056
+So as a first step, I will get the user
+因此，作為第一步，我將獲取使用者
+
+19
+00:00:43,146 --> 00:00:43,563
+input
+輸入
+
+20
+00:00:44,365 --> 00:00:46,689
+by using the input function in Python. What
+透過使用Python中的輸入函式。什麼
+
+21
+00:00:46,689 --> 00:00:48,116
+should the post be about?
+這篇文章應該是關於什麼的？
+
+22
+00:00:49,414 --> 00:00:51,739
+And I have this very specific message, what
+我有一個非常具體的訊息，什麼
+
+23
+00:00:51,739 --> 00:00:53,454
+should the post be about? Because I'm not
+這篇文章應該是關於什麼的？因為我不是
+
+24
+00:00:53,566 --> 00:00:56,532
+building some random chat app here that
+在這裡建立一些隨機聊天應用程式
+
+25
+00:00:56,852 --> 00:00:58,808
+should be able to handle all kinds of
+應該能夠處理各種
+
+26
+00:00:58,936 --> 00:01:01,375
+questions and inputs. Instead, I'll build a
+問題和意見。相反，我將建構一個
+
+27
+00:01:01,439 --> 00:01:04,953
+specialized workflow that's only about
+專門的工作流程僅涉及
+
+28
+00:01:04,953 --> 00:01:08,852
+producing X-Posts. It's not about chatting
+製作 X-Posts。這不是為了聊天
+
+29
+00:01:08,981 --> 00:01:11,676
+with the AI in general. That's why I have
+與一般的人工智慧一樣。這就是為什麼我有
+
+30
+00:01:11,724 --> 00:01:14,644
+this very specific question and everything
+這個非常具體的問題和一切
+
+31
+00:01:14,901 --> 00:01:17,500
+in that workflow will be optimized for
+此工作流程將會被最佳化
+
+32
+00:01:17,709 --> 00:01:19,153
+generating X-Posts.
+生成 X-Post。
+
+33
+00:01:19,715 --> 00:01:21,704
+That's important. That's a crucial
+這很重要。這是一個關鍵的
+
+34
+00:01:21,817 --> 00:01:25,170
+difference between building a versatile chat
+建立多功能聊天之間的區別
+
+35
+00:01:25,170 --> 00:01:27,833
+application like ChatGPT which you could
+像 ChatGPT 這樣的應用程式，您可以
+
+36
+00:01:27,897 --> 00:01:28,330
+also do,
+也做，
+
+37
+00:01:29,019 --> 00:01:32,241
+and a specialized workflow which aims to
+以及專門的工作流程，旨在
+
+38
+00:01:32,241 --> 00:01:35,784
+perform one single task with or without AI.
+無論有或沒有人工智慧，都可以執行一項任務。
+
+39
+00:01:35,928 --> 00:01:37,371
+In this case here, with AI.
+在這種情況下，人工智慧。
+
+40
+00:01:38,333 --> 00:01:40,448
+So we got the user input. The next step now
+這樣我們就得到使用者輸入了。現在下一步
+
+41
+00:01:40,657 --> 00:01:44,360
+is to generate an X-Post with help of AI. So
+是在AI的幫助下產生X-Post。所以
+
+42
+00:01:44,360 --> 00:01:46,556
+I'll add a new function here, generate
+我將在這裡添加一個新函式，生成
+
+43
+00:01:46,668 --> 00:01:47,245
+X-Post.
+X 郵報。
+
+44
+00:01:48,415 --> 00:01:51,622
+And here I got my user input, which will be
+在這裡我得到了我的使用者輸入，這將是
+
+45
+00:01:51,638 --> 00:01:54,731
+a string. And adding types like this is
+一個字串。像這樣添加型別是
+
+46
+00:01:54,988 --> 00:01:57,184
+optional, by the way. It is a feature of
+順便說一下，可選的。它的一個特點是
+
+47
+00:01:57,232 --> 00:01:58,947
+modern Python, but you don't need that.
+現代Python，但你不需要它。
+
+48
+00:02:00,359 --> 00:02:02,782
+And I plan on getting back a string here.
+我打算在這裡取回一條繩子。
+
+49
+00:02:03,985 --> 00:02:04,739
+And then in here
+然後在這裡
+
+50
+00:02:05,910 --> 00:02:06,359
+we need
+我們需要
+
+51
+00:02:07,097 --> 00:02:09,440
+to call our large language model, send this
+要呼叫我們的大型語言模型，請發送此
+
+52
+00:02:09,440 --> 00:02:10,739
+to the large language model,
+到大語言模型，
+
+53
+00:02:11,349 --> 00:02:13,274
+and we'll do that soon. For the moment I'll
+我們很快就會這麼做。暫時我會
+
+54
+00:02:13,274 --> 00:02:13,900
+just pass.
+就過去吧。
+
+55
+00:02:15,055 --> 00:02:16,804
+And then down here in main I'll get my
+然後在主樓這裡我會得到我的
+
+56
+00:02:16,884 --> 00:02:18,793
+X-Post by calling generate
+透過呼叫generate X-Post
+
+57
+00:02:19,852 --> 00:02:22,499
+X-Post and passing my user input to it.
+X-Post 並將我的使用者輸入傳遞給它。
+
+58
+00:02:23,237 --> 00:02:25,620
+And thereafter I'll print it. Output this.
+此後我將列印它。輸出這個。
+
+59
+00:02:25,830 --> 00:02:29,205
+And actually, I'll split it
+事實上，我會​​把它分開
+
+60
+00:02:30,032 --> 00:02:31,362
+across multiple lines here
+在這裡跨越多行
+
+61
+00:02:33,257 --> 00:02:33,564
+like this.
+像這樣。
+
+62
+00:02:35,069 --> 00:02:37,770
+So that's the plan. Therefore, this here is
+這就是計劃。因此，這裡是
+
+63
+00:02:37,802 --> 00:02:40,326
+now the important part because now we want
+現在是重要的部分，因為現在我們想要
+
+64
+00:02:40,374 --> 00:02:42,542
+to reach out to a large language model.
+接觸大型語言模式。

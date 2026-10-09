@@ -1,0 +1,1399 @@
+1
+00:00:02,601 --> 00:00:04,400
+Now let's continue working on our
+
+2
+00:00:04,995 --> 00:00:07,548
+tree here, which in this case we're using to
+
+3
+00:00:07,580 --> 00:00:08,833
+build a file system.
+
+4
+00:00:09,652 --> 00:00:12,881
+It works with those basic functionalities we
+
+5
+00:00:12,881 --> 00:00:13,234
+got here,
+
+6
+00:00:14,005 --> 00:00:16,848
+but of course we can definitely also refine
+
+7
+00:00:16,912 --> 00:00:18,695
+it, and that's what I wanna do now.
+
+8
+00:00:20,012 --> 00:00:22,437
+I want to be able to use this differently.
+
+9
+00:00:22,839 --> 00:00:24,236
+It would be nice if we could call
+
+10
+00:00:24,830 --> 00:00:25,746
+the file system here
+
+11
+00:00:26,517 --> 00:00:28,621
+and we had like an add method, let's say,
+
+12
+00:00:29,088 --> 00:00:29,701
+And there
+
+13
+00:00:30,315 --> 00:00:31,525
+we can add a
+
+14
+00:00:32,090 --> 00:00:33,188
+value, which
+
+15
+00:00:34,028 --> 00:00:36,045
+in our case here for the file system is a
+
+16
+00:00:36,045 --> 00:00:39,191
+path to the file we want to add. So for
+
+17
+00:00:39,191 --> 00:00:40,741
+example, we want to be able to add
+
+18
+00:00:40,921 --> 00:00:42,748
+Documents, Personal,
+
+19
+00:00:44,070 --> 00:00:46,958
+text.docx,
+
+20
+00:00:47,921 --> 00:00:49,618
+and we want to be able to call Games,
+
+21
+00:00:53,370 --> 00:00:55,749
+cod.executable, like this.
+
+22
+00:00:56,348 --> 00:00:58,000
+It would be nice if we could call it like
+
+23
+00:00:58,000 --> 00:01:00,598
+this and maybe we also add a second file
+
+24
+00:01:01,368 --> 00:01:03,452
+and thereafter we also want to be able to
+
+25
+00:01:03,452 --> 00:01:04,238
+call remove
+
+26
+00:01:04,896 --> 00:01:07,398
+and remove something like this just by
+
+27
+00:01:07,398 --> 00:01:08,809
+passing in the path.
+
+28
+00:01:09,386 --> 00:01:11,134
+As a side note, if you're wondering how you
+
+29
+00:01:11,166 --> 00:01:13,380
+would store the actual values which are in
+
+30
+00:01:13,412 --> 00:01:14,021
+the files,
+
+31
+00:01:14,695 --> 00:01:16,395
+well, here we're just building a data
+
+32
+00:01:16,395 --> 00:01:18,912
+structure that represents the file system in
+
+33
+00:01:19,009 --> 00:01:19,474
+general
+
+34
+00:01:20,067 --> 00:01:22,537
+without the data in the files. So that you,
+
+35
+00:01:22,553 --> 00:01:25,182
+for example, could use it to just render it
+
+36
+00:01:25,182 --> 00:01:25,808
+on the screen.
+
+37
+00:01:26,401 --> 00:01:29,127
+If you would need the file data, the data
+
+38
+00:01:29,127 --> 00:01:31,419
+that's in a file, you would probably fetch
+
+39
+00:01:31,468 --> 00:01:33,472
+it from a file system and this could
+
+40
+00:01:33,536 --> 00:01:36,679
+describe where it exists on a real physical
+
+41
+00:01:36,679 --> 00:01:39,244
+file system. So this is really just there to
+
+42
+00:01:39,244 --> 00:01:41,457
+describe the structure of the file system.
+
+43
+00:01:41,874 --> 00:01:43,910
+That's where this example is coming from,
+
+44
+00:01:44,022 --> 00:01:45,481
+that's what we wanna have here.
+
+45
+00:01:46,187 --> 00:01:48,031
+And this is how I now want to be able to
+
+46
+00:01:48,047 --> 00:01:50,838
+interact with the file system. Of course,
+
+47
+00:01:50,854 --> 00:01:53,231
+that's not something that would currently be
+
+48
+00:01:53,328 --> 00:01:53,713
+working.
+
+49
+00:01:54,725 --> 00:01:57,939
+So therefore, we need to fine-tune our tree
+
+50
+00:01:58,083 --> 00:02:00,348
+and also our nodes a little bit.
+
+51
+00:02:01,136 --> 00:02:03,497
+Let's start with the tree. Obviously, there
+
+52
+00:02:04,027 --> 00:02:05,281
+we need an add method
+
+53
+00:02:05,859 --> 00:02:07,160
+and we need a remove method.
+
+54
+00:02:07,787 --> 00:02:11,080
+The remove method takes a path to the
+
+55
+00:02:11,161 --> 00:02:13,506
+element that should be removed and the add
+
+56
+00:02:13,506 --> 00:02:16,302
+method also takes a path to the element that
+
+57
+00:02:16,302 --> 00:02:17,025
+should be added.
+
+58
+00:02:17,764 --> 00:02:19,987
+So the goal in the end is that in the add
+
+59
+00:02:20,003 --> 00:02:23,771
+method, we drill into our root node and all
+
+60
+00:02:23,964 --> 00:02:24,979
+its child nodes
+
+61
+00:02:25,655 --> 00:02:28,454
+and look for these path segments.
+
+62
+00:02:29,193 --> 00:02:32,183
+And if they exist, we go deeper, and if they
+
+63
+00:02:32,247 --> 00:02:35,382
+don't exist, we create them. So if we have a
+
+64
+00:02:35,462 --> 00:02:36,266
+documents
+
+65
+00:02:37,712 --> 00:02:38,098
+node
+
+66
+00:02:39,078 --> 00:02:42,293
+below our root node already, we go into that
+
+67
+00:02:42,293 --> 00:02:44,606
+and look for a personal node in there. And
+
+68
+00:02:44,638 --> 00:02:46,595
+if that exists, we go into that existing
+
+69
+00:02:46,627 --> 00:02:49,804
+node and add a tags node, a tags/docx node.
+
+70
+00:02:50,397 --> 00:02:52,082
+And if it doesn't exist, we create it
+
+71
+00:02:52,082 --> 00:02:54,264
+instead. That could be the idea here.
+
+72
+00:02:54,873 --> 00:02:56,862
+And for removing, it's similar. We simply
+
+73
+00:02:56,975 --> 00:02:59,301
+look for the different path segments and if
+
+74
+00:02:59,301 --> 00:03:02,878
+we find a full match, we delete that last
+
+75
+00:03:02,910 --> 00:03:03,648
+node in there.
+
+76
+00:03:04,499 --> 00:03:06,745
+That's the goal. And of course, that'll be a
+
+77
+00:03:06,825 --> 00:03:07,932
+bit more tricky.
+
+78
+00:03:09,007 --> 00:03:11,461
+But we can build it in a kind of recursive
+
+79
+00:03:11,493 --> 00:03:14,108
+way. We don't wanna do all the heavy lifting
+
+80
+00:03:14,140 --> 00:03:14,397
+here.
+
+81
+00:03:15,022 --> 00:03:16,962
+Instead, in the tree, we can start simple
+
+82
+00:03:17,010 --> 00:03:19,190
+and reach out to the root node because that
+
+83
+00:03:19,190 --> 00:03:21,130
+is the only node we have access to here
+
+84
+00:03:21,659 --> 00:03:23,358
+and call addNode on that.
+
+85
+00:03:24,544 --> 00:03:27,879
+And now addNode, of course, wants the value
+
+86
+00:03:28,809 --> 00:03:29,674
+which it should add,
+
+87
+00:03:30,412 --> 00:03:32,912
+and that's not going to work here because we
+
+88
+00:03:32,912 --> 00:03:35,365
+don't have just the value, but we have the
+
+89
+00:03:35,461 --> 00:03:38,748
+full path to the value including the final
+
+90
+00:03:38,748 --> 00:03:40,607
+value, but not just the value.
+
+91
+00:03:41,296 --> 00:03:43,812
+But that won't be a problem. We just have to
+
+92
+00:03:43,876 --> 00:03:46,665
+adjust add node a little bit so that we're
+
+93
+00:03:46,825 --> 00:03:49,213
+adding some logic in there that is able to
+
+94
+00:03:49,309 --> 00:03:51,841
+find out if it's getting the real final
+
+95
+00:03:51,889 --> 00:03:54,773
+value here or still a path leading up to
+
+96
+00:03:54,773 --> 00:03:55,270
+that value.
+
+97
+00:03:55,879 --> 00:03:57,866
+And in the file system example, for which
+
+98
+00:03:57,962 --> 00:03:59,757
+we're now tailoring this tree, of course,
+
+99
+00:04:00,366 --> 00:04:02,209
+there we can easily determine what's the
+
+100
+00:04:02,209 --> 00:04:04,276
+case by splitting the string we're getting
+
+101
+00:04:04,533 --> 00:04:06,055
+on the forward slash
+
+102
+00:04:06,776 --> 00:04:09,101
+And then we know the last element in the
+
+103
+00:04:09,101 --> 00:04:09,774
+array that
+
+104
+00:04:10,383 --> 00:04:12,884
+is created because of that splitting, that's
+
+105
+00:04:12,884 --> 00:04:14,984
+the value we want to add, and all other
+
+106
+00:04:15,128 --> 00:04:17,260
+elements are path segments.
+
+107
+00:04:18,510 --> 00:04:22,181
+So therefore, we can add the path as a value
+
+108
+00:04:22,181 --> 00:04:24,185
+to the new node we want to add on the root
+
+109
+00:04:24,249 --> 00:04:24,522
+node.
+
+110
+00:04:25,227 --> 00:04:27,808
+And now we need to go to add_node and adjust
+
+111
+00:04:27,808 --> 00:04:28,914
+our code in there.
+
+112
+00:04:29,796 --> 00:04:34,348
+Here we wanna split our string on the slash,
+
+113
+00:04:34,845 --> 00:04:36,817
+and I'm going to repeat it. With that, of
+
+114
+00:04:36,913 --> 00:04:39,110
+course, our node is not really generic
+
+115
+00:04:39,110 --> 00:04:42,143
+anymore. Now we're really fine-tuning it for
+
+116
+00:04:42,143 --> 00:04:45,047
+this specific purpose and for this specific
+
+117
+00:04:45,176 --> 00:04:47,198
+kind of data we're feeding into that file
+
+118
+00:04:47,198 --> 00:04:47,647
+system.
+
+119
+00:04:48,385 --> 00:04:50,295
+But that of course is the end— the idea of
+
+120
+00:04:50,471 --> 00:04:52,750
+building a tree. It's there to solve a
+
+121
+00:04:52,750 --> 00:04:56,008
+certain problem. In this case, there to be
+
+122
+00:04:56,088 --> 00:04:58,591
+able to work with paths in a file system.
+
+123
+00:04:59,538 --> 00:05:01,127
+Hence here in add_node,
+
+124
+00:05:02,266 --> 00:05:05,058
+we can get our segments by calling
+
+125
+00:05:05,315 --> 00:05:08,139
+split_on_value and splitting on the forward
+
+126
+00:05:08,139 --> 00:05:08,621
+slash.
+
+127
+00:05:09,246 --> 00:05:11,474
+Split is a default JavaScript method which
+
+128
+00:05:11,571 --> 00:05:12,917
+we can call on any string
+
+129
+00:05:13,574 --> 00:05:16,332
+and it will now create a new segment here
+
+130
+00:05:16,957 --> 00:05:19,361
+for, well, every element we find in that
+
+131
+00:05:19,361 --> 00:05:21,509
+string for and after a slash.
+
+132
+00:05:22,151 --> 00:05:24,251
+To get a feeling for how it works, let's
+
+133
+00:05:24,251 --> 00:05:25,886
+actually grab that string here,
+
+134
+00:05:26,415 --> 00:05:27,825
+go back into the browser
+
+135
+00:05:29,060 --> 00:05:31,192
+and let's simply call split on that string
+
+136
+00:05:31,865 --> 00:05:33,388
+and split on the forward slash.
+
+137
+00:05:34,013 --> 00:05:35,904
+And you see what we get is an array with 4
+
+138
+00:05:36,097 --> 00:05:38,036
+elements where the first element is empty
+
+139
+00:05:38,197 --> 00:05:39,976
+because it's the element in front of the
+
+140
+00:05:40,024 --> 00:05:42,175
+first slash which is nothing but it's still
+
+141
+00:05:42,207 --> 00:05:42,849
+part of the array.
+
+142
+00:05:43,636 --> 00:05:45,402
+Then we have documents which is the first
+
+143
+00:05:45,482 --> 00:05:47,489
+element after the first slash,
+
+144
+00:05:48,148 --> 00:05:50,444
+then personal which is the next element and
+
+145
+00:05:50,540 --> 00:05:54,153
+then text.docx which is our last segment and
+
+146
+00:05:54,233 --> 00:05:56,224
+therefore as we know the value which we
+
+147
+00:05:56,240 --> 00:05:58,183
+really wanna add somewhere in the tree.
+
+148
+00:05:59,243 --> 00:06:01,378
+So that's what we get here when we split
+
+149
+00:06:01,378 --> 00:06:01,523
+this.
+
+150
+00:06:02,743 --> 00:06:05,376
+Now therefore with all those segments at
+
+151
+00:06:05,473 --> 00:06:05,858
+hand,
+
+152
+00:06:07,320 --> 00:06:10,436
+We now want to find out if segments length
+
+153
+00:06:10,773 --> 00:06:12,106
+is exactly 1.
+
+154
+00:06:13,504 --> 00:06:15,302
+Actually, we can first of all check if
+
+155
+00:06:15,351 --> 00:06:18,547
+segments length is 0, which means there is
+
+156
+00:06:18,676 --> 00:06:20,924
+nothing to add, in which case we can just
+
+157
+00:06:20,972 --> 00:06:22,322
+return without doing anything.
+
+158
+00:06:23,077 --> 00:06:25,245
+But if we have exactly 1, we know what we
+
+159
+00:06:25,325 --> 00:06:28,072
+get is just the one value we really want to
+
+160
+00:06:28,216 --> 00:06:28,586
+insert.
+
+161
+00:06:29,405 --> 00:06:31,959
+In this case, we want to build our new node
+
+162
+00:06:33,570 --> 00:06:35,836
+and pass in segments,
+
+163
+00:06:36,484 --> 00:06:39,284
+the first and only element, as a value.
+
+164
+00:06:39,640 --> 00:06:41,647
+Because now we're really already in the
+
+165
+00:06:41,647 --> 00:06:44,225
+place in the tree where we want to add the
+
+166
+00:06:44,241 --> 00:06:47,956
+real final value, the final segment of that
+
+167
+00:06:47,972 --> 00:06:49,562
+long path we fed in.
+
+168
+00:06:52,300 --> 00:06:53,989
+So therefore, that's where we then also push
+
+169
+00:06:54,118 --> 00:06:55,044
+this to our children
+
+170
+00:06:55,645 --> 00:06:58,098
+and where we return information about the
+
+171
+00:06:58,098 --> 00:06:58,958
+created node here.
+
+172
+00:07:00,821 --> 00:07:03,758
+Now, if the segment's length is longer than
+
+173
+00:07:03,887 --> 00:07:06,471
+1, then we know we don't just have the value
+
+174
+00:07:06,471 --> 00:07:08,895
+left. Instead, we need to drill deeper
+
+175
+00:07:09,489 --> 00:07:12,924
+and now either create all the missing
+
+176
+00:07:12,956 --> 00:07:13,774
+segments or
+
+177
+00:07:14,320 --> 00:07:17,498
+look for children in that node that match
+
+178
+00:07:17,611 --> 00:07:20,837
+the segments prior to the last segment so
+
+179
+00:07:20,837 --> 00:07:22,779
+that match those segments here
+
+180
+00:07:23,550 --> 00:07:25,941
+to see whether we wanna drill into those and
+
+181
+00:07:25,957 --> 00:07:27,097
+then continue from there.
+
+182
+00:07:30,068 --> 00:07:31,047
+So here
+
+183
+00:07:31,962 --> 00:07:35,270
+we wanna find any children that match the
+
+184
+00:07:35,672 --> 00:07:37,920
+first segment in our segments array.
+
+185
+00:07:39,205 --> 00:07:41,533
+And only the first segment is of interest
+
+186
+00:07:41,533 --> 00:07:43,508
+here because the other segments are then
+
+187
+00:07:43,781 --> 00:07:46,431
+nested in that other children if it exists.
+
+188
+00:07:47,411 --> 00:07:50,140
+So we wanna search for an existing child
+
+189
+00:07:50,365 --> 00:07:50,783
+node
+
+190
+00:07:51,794 --> 00:07:55,007
+where we would look at all our children And
+
+191
+00:07:55,024 --> 00:07:57,675
+with the find method, we're looking for a
+
+192
+00:07:57,675 --> 00:08:00,392
+child where the child value
+
+193
+00:08:01,330 --> 00:08:02,332
+is equal to
+
+194
+00:08:02,947 --> 00:08:04,924
+the first element in our segments array.
+
+195
+00:08:07,610 --> 00:08:09,836
+Now if we do find something there, if
+
+196
+00:08:09,836 --> 00:08:13,354
+existing child node is truthy, if we do find
+
+197
+00:08:13,354 --> 00:08:13,935
+something there,
+
+198
+00:08:14,483 --> 00:08:16,274
+then we know we need to reach out to that
+
+199
+00:08:16,274 --> 00:08:17,374
+existing child node
+
+200
+00:08:17,895 --> 00:08:19,540
+and call add node on that
+
+201
+00:08:20,094 --> 00:08:21,445
+and simply pass in
+
+202
+00:08:21,968 --> 00:08:24,908
+our segments but now without that first
+
+203
+00:08:24,973 --> 00:08:27,380
+segment because that first segment was the
+
+204
+00:08:27,380 --> 00:08:28,817
+value of the child node already.
+
+205
+00:08:30,910 --> 00:08:32,854
+So we only need to feed in the remaining
+
+206
+00:08:32,903 --> 00:08:35,916
+segments and we do that by calling slice
+
+207
+00:08:35,965 --> 00:08:36,143
+here
+
+208
+00:08:36,840 --> 00:08:39,060
+and now there we can define a start index
+
+209
+00:08:39,060 --> 00:08:41,303
+and we wanna start at index 1 and go to the
+
+210
+00:08:41,385 --> 00:08:43,362
+end which means we simply skip the first
+
+211
+00:08:43,362 --> 00:08:43,656
+element.
+
+212
+00:08:47,512 --> 00:08:50,701
+Now else, if we don't find an existing child
+
+213
+00:08:50,701 --> 00:08:52,960
+node, it basically means we need to create
+
+214
+00:08:52,960 --> 00:08:53,537
+that node.
+
+215
+00:08:54,659 --> 00:08:56,293
+So here we wanna create a new
+
+216
+00:08:57,046 --> 00:09:00,700
+node for the first segment we have, which is
+
+217
+00:09:00,876 --> 00:09:03,424
+not the final segment. We got more at this
+
+218
+00:09:03,536 --> 00:09:05,843
+point, otherwise we would've made into this
+
+219
+00:09:05,859 --> 00:09:08,263
+if block. But we know that this segment also
+
+220
+00:09:08,263 --> 00:09:10,074
+needs to be created because it's missing
+
+221
+00:09:10,250 --> 00:09:10,827
+thus far.
+
+222
+00:09:11,884 --> 00:09:13,807
+So here we create a new node.
+
+223
+00:09:14,339 --> 00:09:16,502
+But then on that new node, we immediately
+
+224
+00:09:16,599 --> 00:09:16,809
+call
+
+225
+00:09:17,567 --> 00:09:20,538
+addNode to add more nodes inside of it,
+
+226
+00:09:21,135 --> 00:09:21,991
+and we pass in
+
+227
+00:09:22,733 --> 00:09:24,977
+all other segments we extracted.
+
+228
+00:09:27,612 --> 00:09:29,114
+And now what's really important, by the way,
+
+229
+00:09:29,130 --> 00:09:31,373
+is I don't just wanna pass in an array of
+
+230
+00:09:31,406 --> 00:09:34,198
+segments here, but keep in mind that addNode
+
+231
+00:09:34,456 --> 00:09:36,555
+always wants a value which is a string that
+
+232
+00:09:36,555 --> 00:09:37,027
+we split.
+
+233
+00:09:37,613 --> 00:09:38,249
+So actually,
+
+234
+00:09:38,998 --> 00:09:42,278
+we should join our array again with a slash
+
+235
+00:09:42,679 --> 00:09:44,958
+so that we pass in such a string that can be
+
+236
+00:09:44,958 --> 00:09:45,632
+split again.
+
+237
+00:09:46,322 --> 00:09:48,295
+Of course, alternatively, we could write the
+
+238
+00:09:48,456 --> 00:09:50,670
+addNode method such that it also works with
+
+239
+00:09:50,702 --> 00:09:52,980
+an array and we check whether we get an
+
+240
+00:09:52,980 --> 00:09:54,456
+array before we try splitting,
+
+241
+00:09:55,050 --> 00:09:57,024
+but I wanna keep it simple so we always
+
+242
+00:09:57,152 --> 00:09:58,853
+split, which means that when we call
+
+243
+00:09:59,045 --> 00:10:00,858
+addNode, we pass in a string again.
+
+244
+00:10:01,805 --> 00:10:03,570
+So now here we're looking for a child node.
+
+245
+00:10:03,875 --> 00:10:06,442
+If it exists, we add a node on that. If not,
+
+246
+00:10:06,506 --> 00:10:08,929
+we create it and add a node on that new
+
+247
+00:10:08,929 --> 00:10:09,747
+created node.
+
+248
+00:10:11,096 --> 00:10:13,649
+And we then still return information about
+
+249
+00:10:13,649 --> 00:10:16,282
+that created node in that case. So we still
+
+250
+00:10:16,314 --> 00:10:18,707
+return information about that node that we
+
+251
+00:10:18,707 --> 00:10:21,597
+created and the index of that node. That
+
+252
+00:10:21,597 --> 00:10:23,829
+does not change just because it's an
+
+253
+00:10:23,861 --> 00:10:24,712
+intermediate node.
+
+254
+00:10:25,772 --> 00:10:28,068
+Of course, we also should add it to our
+
+255
+00:10:28,100 --> 00:10:29,352
+children here by
+
+256
+00:10:29,882 --> 00:10:30,332
+pushing
+
+257
+00:10:30,910 --> 00:10:33,222
+this node to our children of that node.
+
+258
+00:10:35,742 --> 00:10:38,147
+So with that, we recursively go deeper and
+
+259
+00:10:38,227 --> 00:10:39,670
+deeper into our nodes,
+
+260
+00:10:40,215 --> 00:10:42,732
+and we try to add any nodes that might be
+
+261
+00:10:42,732 --> 00:10:45,986
+missing so that we are able to call add like
+
+262
+00:10:45,986 --> 00:10:46,178
+that.
+
+263
+00:10:46,948 --> 00:10:48,535
+Now let's see whether that works. For that,
+
+264
+00:10:48,567 --> 00:10:50,459
+I'm going to comment out remove because
+
+265
+00:10:50,491 --> 00:10:51,773
+that's not working yet,
+
+266
+00:10:52,655 --> 00:10:54,466
+and I'm saving all that code, and I'll
+
+267
+00:10:54,498 --> 00:10:55,076
+reload this
+
+268
+00:10:55,941 --> 00:10:57,031
+file here, this page.
+
+269
+00:10:58,169 --> 00:10:59,821
+And what we see is we got a root node now
+
+270
+00:11:00,574 --> 00:11:01,925
+which has a child
+
+271
+00:11:02,667 --> 00:11:05,296
+and that child node here
+
+272
+00:11:05,990 --> 00:11:06,200
+then
+
+273
+00:11:06,942 --> 00:11:09,120
+has a value of nothing and it has more
+
+274
+00:11:09,136 --> 00:11:09,668
+children.
+
+275
+00:11:11,392 --> 00:11:12,315
+It has 2 children
+
+276
+00:11:13,335 --> 00:11:16,071
+and here the first child is the documents
+
+277
+00:11:16,087 --> 00:11:18,500
+child, the second child is the games child.
+
+278
+00:11:19,380 --> 00:11:22,162
+The documents child has another child node
+
+279
+00:11:23,416 --> 00:11:25,025
+which is the personal node
+
+280
+00:11:25,684 --> 00:11:28,122
+and that has another child which is the tags
+
+281
+00:11:28,235 --> 00:11:28,765
+document.
+
+282
+00:11:29,680 --> 00:11:31,799
+And for the games branch of our tree,
+
+283
+00:11:32,490 --> 00:11:32,843
+there
+
+284
+00:11:33,373 --> 00:11:34,786
+we also got 2 children.
+
+285
+00:11:35,540 --> 00:11:36,921
+We got Call of Duty exe
+
+286
+00:11:37,532 --> 00:11:39,490
+and Call of Duty 2 executable.
+
+287
+00:11:40,117 --> 00:11:41,530
+And that's exactly what we wanna have,
+
+288
+00:11:41,626 --> 00:11:44,340
+right? Documents with personal tags and then
+
+289
+00:11:44,436 --> 00:11:47,085
+2 executables in the games branch.
+
+290
+00:11:47,760 --> 00:11:50,361
+So it looks like adding this works. The only
+
+291
+00:11:50,377 --> 00:11:51,982
+thing that's a bit strange is that in the
+
+292
+00:11:52,079 --> 00:11:54,615
+root node, we got another empty node
+
+293
+00:11:55,193 --> 00:11:55,739
+first of all.
+
+294
+00:11:56,959 --> 00:11:58,774
+Here it is, which then holds the other
+
+295
+00:11:58,806 --> 00:11:59,111
+nodes.
+
+296
+00:11:59,689 --> 00:12:01,085
+The reason for that is that before the
+
+297
+00:12:01,085 --> 00:12:03,429
+starting slash, we have this empty segment
+
+298
+00:12:03,478 --> 00:12:04,393
+which I showed you before.
+
+299
+00:12:05,003 --> 00:12:06,849
+And therefore, we can get rid by simply
+
+300
+00:12:06,849 --> 00:12:09,482
+removing that starting slash here because we
+
+301
+00:12:09,498 --> 00:12:11,393
+already have a root node which has nothing
+
+302
+00:12:11,489 --> 00:12:14,427
+else. So with that, now the root node itself
+
+303
+00:12:14,539 --> 00:12:15,535
+has the documents
+
+304
+00:12:16,145 --> 00:12:18,232
+and the games nodes, and then in there we
+
+305
+00:12:18,232 --> 00:12:19,099
+have the other nodes.
+
+306
+00:12:19,852 --> 00:12:22,145
+And that's exactly what we want. Now we can
+
+307
+00:12:22,257 --> 00:12:24,341
+use this tree, which is now really
+
+308
+00:12:24,405 --> 00:12:27,275
+fine-tuned for this exact purpose with those
+
+309
+00:12:27,451 --> 00:12:28,397
+add helper methods.
+
+310
+00:12:29,214 --> 00:12:31,811
+And I'm showing you this not just because
+
+311
+00:12:31,940 --> 00:12:34,921
+this might be a nice example, a file system
+
+312
+00:12:35,066 --> 00:12:36,781
+is something we can relate to,
+
+313
+00:12:37,406 --> 00:12:39,250
+but because this is how you think about
+
+314
+00:12:39,250 --> 00:12:41,542
+trees or how you can think about trees
+
+315
+00:12:42,039 --> 00:12:42,792
+recursively.
+
+316
+00:12:43,482 --> 00:12:45,277
+We work with recursion here in the end.
+
+317
+00:12:45,646 --> 00:12:47,238
+Because from inside add node,
+
+318
+00:12:47,832 --> 00:12:49,488
+we call add node again.
+
+319
+00:12:50,147 --> 00:12:52,848
+And we do that as often as needed to drill
+
+320
+00:12:53,121 --> 00:12:56,002
+into our notes and create all the missing
+
+321
+00:12:56,098 --> 00:12:59,946
+segments and final values which we wanna add
+
+322
+00:13:00,526 --> 00:13:01,299
+as we're doing it here.
+
+323
+00:13:03,462 --> 00:13:05,163
+And just to show you that this really works,
+
+324
+00:13:05,585 --> 00:13:07,869
+if I would just add documents first of all,
+
+325
+00:13:08,809 --> 00:13:10,819
+and then I add something in a personal
+
+326
+00:13:10,916 --> 00:13:13,889
+folder, in documents, we'll still just have
+
+327
+00:13:13,921 --> 00:13:15,515
+one documents node overall.
+
+328
+00:13:16,214 --> 00:13:16,994
+So if I reload here,
+
+329
+00:13:17,710 --> 00:13:18,176
+you see now
+
+330
+00:13:18,949 --> 00:13:21,798
+we still only have 2 children, documents
+
+331
+00:13:22,329 --> 00:13:22,860
+and games.
+
+332
+00:13:23,600 --> 00:13:24,437
+And in documents,
+
+333
+00:13:25,223 --> 00:13:28,180
+we have the personal node, which then holds
+
+334
+00:13:29,650 --> 00:13:30,733
+our text document.
+
+335
+00:13:31,683 --> 00:13:34,198
+So that works. It's really checking whether
+
+336
+00:13:34,198 --> 00:13:36,859
+that exists already, the documents node in
+
+337
+00:13:36,859 --> 00:13:37,248
+this case.
+
+338
+00:13:38,208 --> 00:13:40,280
+And if it does exist, it adds a node on
+
+339
+00:13:40,312 --> 00:13:40,601
+that.
+
+340
+00:13:41,276 --> 00:13:43,991
+And if it does not exist, it creates it and
+
+341
+00:13:44,071 --> 00:13:46,095
+then adds a new node on that newly created
+
+342
+00:13:46,095 --> 00:13:49,067
+node. This is how we work here. And you
+
+343
+00:13:49,067 --> 00:13:51,364
+could certainly also write this differently,
+
+344
+00:13:51,556 --> 00:13:53,693
+but I hope that this code is also quite
+
+345
+00:13:53,789 --> 00:13:56,680
+understandable and makes sense to you.
+
+346
+00:13:57,580 --> 00:13:59,764
+Now, how could we make that remove
+
+347
+00:13:59,973 --> 00:14:02,688
+functionality work? Feel free to try it on
+
+348
+00:14:02,720 --> 00:14:04,888
+your own, though of course that will also be
+
+349
+00:14:04,888 --> 00:14:07,246
+challenging. We'll do it together in the
+
+350
+00:14:07,246 --> 00:14:07,900
+next lecture.

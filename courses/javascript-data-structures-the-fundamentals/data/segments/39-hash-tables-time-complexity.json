@@ -1,0 +1,842 @@
+[
+ {
+  "start": 2.132,
+  "end": 4.488,
+  "en": "So now that we had a look at hash tables,"
+ },
+ {
+  "start": 4.584,
+  "end": 6.765,
+  "en": "how they work, and why they're useful,"
+ },
+ {
+  "start": 7.47,
+  "end": 9.714,
+  "en": "let's analyze the time complexities. And"
+ },
+ {
+  "start": 9.875,
+  "end": 12.376,
+  "en": "most importantly, let's compare that to the"
+ },
+ {
+  "start": 12.456,
+  "end": 15.181,
+  "en": "built-in construct JavaScript ships with,"
+ },
+ {
+  "start": 15.582,
+  "end": 16.672,
+  "en": "arrays and objects."
+ },
+ {
+  "start": 17.506,
+  "end": 19.798,
+  "en": "And let's start with comparing hash tables"
+ },
+ {
+  "start": 19.83,
+  "end": 20.439,
+  "en": "to object."
+ },
+ {
+  "start": 21.097,
+  "end": 23.02,
+  "en": "As I mentioned, and that's really important"
+ },
+ {
+  "start": 23.02,
+  "end": 23.261,
+  "en": "to me,"
+ },
+ {
+  "start": 23.902,
+  "end": 27.285,
+  "en": "objects in JavaScript are hash tables under"
+ },
+ {
+  "start": 27.285,
+  "end": 29.513,
+  "en": "the hood. So in this comparison, you'll see"
+ },
+ {
+  "start": 29.513,
+  "end": 32.016,
+  "en": "a lot of equality. Of course, the built-in"
+ },
+ {
+  "start": 32.016,
+  "end": 34.489,
+  "en": "JavaScript objects are very efficient hash"
+ },
+ {
+  "start": 34.505,
+  "end": 37.202,
+  "en": "tables with good collision resolving"
+ },
+ {
+  "start": 37.234,
+  "end": 40.285,
+  "en": "strategies so that in reality, you won't run"
+ },
+ {
+  "start": 40.285,
+  "end": 42.485,
+  "en": "into any problems when working with them."
+ },
+ {
+  "start": 43.095,
+  "end": 44.957,
+  "en": "It's really just important to understand"
+ },
+ {
+  "start": 44.957,
+  "end": 47.366,
+  "en": "that under the hood, they do use hash tables"
+ },
+ {
+  "start": 47.816,
+  "end": 50.465,
+  "en": "and now that tells you something. But that's"
+ },
+ {
+  "start": 50.465,
+  "end": 52.616,
+  "en": "why you can work with key-value pairs in"
+ },
+ {
+  "start": 52.713,
+  "end": 55.169,
+  "en": "JavaScript because you got those built-in"
+ },
+ {
+  "start": 55.362,
+  "end": 57.61,
+  "en": "hash tables. JavaScript objects."
+ },
+ {
+  "start": 58.91,
+  "end": 62.025,
+  "en": "So how does this now look like when we have"
+ },
+ {
+  "start": 62.025,
+  "end": 64.465,
+  "en": "a look at time complexity? And let's start"
+ },
+ {
+  "start": 64.754,
+  "end": 66.424,
+  "en": "with accessing elements."
+ },
+ {
+  "start": 67.018,
+  "end": 68.222,
+  "en": "So we have a key"
+ },
+ {
+  "start": 68.768,
+  "end": 71.417,
+  "en": "name, for example, and for that key we want"
+ },
+ {
+  "start": 71.417,
+  "end": 72.878,
+  "en": "to find the stored value."
+ },
+ {
+  "start": 74.082,
+  "end": 74.933,
+  "en": "In theory,"
+ },
+ {
+  "start": 75.527,
+  "end": 77.341,
+  "en": "that is constant time."
+ },
+ {
+  "start": 78.16,
+  "end": 80.712,
+  "en": "The reason for that is that if we want to"
+ },
+ {
+  "start": 80.825,
+  "end": 82.527,
+  "en": "get a value by key"
+ },
+ {
+  "start": 83.138,
+  "end": 86.35,
+  "en": "In the basic hash version, which didn't have"
+ },
+ {
+  "start": 86.382,
+  "end": 88.529,
+  "en": "any strategies for solving collisions,"
+ },
+ {
+  "start": 89.616,
+  "end": 93.201,
+  "en": "there get was as simple as generating the"
+ },
+ {
+  "start": 93.201,
+  "end": 93.561,
+  "en": "hash"
+ },
+ {
+  "start": 96.643,
+  "end": 99.377,
+  "en": "and then retrieving the value at that index."
+ },
+ {
+  "start": 100.024,
+  "end": 102.24,
+  "en": "Sure, for generating the hash, we actually"
+ },
+ {
+  "start": 102.289,
+  "end": 105.094,
+  "en": "have a loop where we loop through the entire"
+ },
+ {
+  "start": 105.308,
+  "end": 108.872,
+  "en": "key, but that's just a very short key And we"
+ },
+ {
+  "start": 108.872,
+  "end": 111.981,
+  "en": "can neglect this. We don't need to go"
+ },
+ {
+  "start": 111.981,
+  "end": 114.721,
+  "en": "through all elements in the hash table. We"
+ },
+ {
+  "start": 114.801,
+  "end": 117.445,
+  "en": "don't need to run a super long or complex"
+ },
+ {
+  "start": 117.445,
+  "end": 120.073,
+  "en": "loop. We just go through the entire key. And"
+ },
+ {
+  "start": 120.089,
+  "end": 122.316,
+  "en": "if the key is just 1 character long, that's"
+ },
+ {
+  "start": 122.316,
+  "end": 124.623,
+  "en": "just 1 iteration. If it's 10 characters"
+ },
+ {
+  "start": 124.72,
+  "end": 127.444,
+  "en": "long, it's 10 iterations. But that does not"
+ },
+ {
+  "start": 127.444,
+  "end": 131.145,
+  "en": "make it O because our n here is not really"
+ },
+ {
+  "start": 131.145,
+  "end": 131.482,
+  "en": "the key."
+ },
+ {
+  "start": 132.091,
+  "end": 134.847,
+  "en": "It is our entire hash table array, I would"
+ },
+ {
+  "start": 134.847,
+  "end": 137.187,
+  "en": "say. And we don't have to go through that."
+ },
+ {
+  "start": 137.94,
+  "end": 140.233,
+  "en": "Therefore, in theory, if we ignore the"
+ },
+ {
+  "start": 140.281,
+  "end": 143.054,
+  "en": "problem of hash collisions, then"
+ },
+ {
+  "start": 144.048,
+  "end": 146.26,
+  "en": "we have O, constant time."
+ },
+ {
+  "start": 147.174,
+  "end": 150.108,
+  "en": "Now, with hash collisions, that looks a bit"
+ },
+ {
+  "start": 150.14,
+  "end": 150.637,
+  "en": "different."
+ },
+ {
+  "start": 151.727,
+  "end": 154.596,
+  "en": "No matter if we use the chaining strategy"
+ },
+ {
+  "start": 155.173,
+  "end": 158.364,
+  "en": "or the open addressing strategy, in both"
+ },
+ {
+  "start": 158.46,
+  "end": 161.281,
+  "en": "cases, when we get a value for the key,"
+ },
+ {
+  "start": 161.842,
+  "end": 164.647,
+  "en": "we can't just generate the hash and get the"
+ },
+ {
+  "start": 164.647,
+  "end": 167.821,
+  "en": "value by that hash. Instead, we still have"
+ },
+ {
+  "start": 167.853,
+  "end": 170.547,
+  "en": "to loop through our buckets and find the"
+ },
+ {
+  "start": 170.659,
+  "end": 173.544,
+  "en": "right value stored for this hash and the"
+ },
+ {
+  "start": 173.544,
+  "end": 174.41,
+  "en": "original key."
+ },
+ {
+  "start": 174.987,
+  "end": 177.199,
+  "en": "And we do this no matter if we're using open"
+ },
+ {
+  "start": 177.375,
+  "end": 179.892,
+  "en": "addressing or if we're using the chaining"
+ },
+ {
+  "start": 179.956,
+  "end": 182.104,
+  "en": "approach. With the chaining approach, we"
+ },
+ {
+  "start": 182.265,
+  "end": 184.22,
+  "en": "also need to go through all the values"
+ },
+ {
+  "start": 184.445,
+  "end": 186.368,
+  "en": "stored for a given hash."
+ },
+ {
+  "start": 187.186,
+  "end": 189.302,
+  "en": "Now, of course, that can still be very"
+ },
+ {
+  "start": 189.334,
+  "end": 191.658,
+  "en": "efficient. It does not mean that we need to"
+ },
+ {
+  "start": 191.658,
+  "end": 193.309,
+  "en": "go through the entire hash table."
+ },
+ {
+  "start": 194.063,
+  "end": 196.515,
+  "en": "But still, it's certainly also not always"
+ },
+ {
+  "start": 196.691,
+  "end": 200.378,
+  "en": "constant time. It can be O if we have a lot"
+ },
+ {
+  "start": 200.378,
+  "end": 203.424,
+  "en": "of collisions and therefore a lot of nested"
+ },
+ {
+  "start": 203.44,
+  "end": 204.882,
+  "en": "array values, for example."
+ },
+ {
+  "start": 205.844,
+  "end": 207.575,
+  "en": "Now, for built-in objects, it's the same"
+ },
+ {
+  "start": 207.607,
+  "end": 208.761,
+  "en": "problem, but of course"
+ },
+ {
+  "start": 209.434,
+  "end": 211.294,
+  "en": "those are built in a very efficient way."
+ },
+ {
+  "start": 211.951,
+  "end": 213.987,
+  "en": "So here I would say we have O,"
+ },
+ {
+  "start": 214.564,
+  "end": 216.727,
+  "en": "though I will say that of course the"
+ },
+ {
+  "start": 216.743,
+  "end": 219.292,
+  "en": "built-in objects are hash tables, and"
+ },
+ {
+  "start": 219.292,
+  "end": 221.697,
+  "en": "therefore they also have to deal with hash"
+ },
+ {
+  "start": 221.697,
+  "end": 222.323,
+  "en": "collisions."
+ },
+ {
+  "start": 222.917,
+  "end": 225.501,
+  "en": "They're just smart enough to allocate"
+ },
+ {
+  "start": 226.223,
+  "end": 228.887,
+  "en": "enough space, to derive the hash in an"
+ },
+ {
+  "start": 228.935,
+  "end": 231.727,
+  "en": "efficient way, and do a lot of tweaks that"
+ },
+ {
+  "start": 232.209,
+  "end": 234.279,
+  "en": "will certainly make them more efficient than"
+ },
+ {
+  "start": 234.456,
+  "end": 236.719,
+  "en": "our dummy hash table we generated here."
+ },
+ {
+  "start": 237.184,
+  "end": 240.057,
+  "en": "Still, you'll not always have O when working"
+ },
+ {
+  "start": 240.089,
+  "end": 242.223,
+  "en": "with objects when it comes to retrieving"
+ },
+ {
+  "start": 242.255,
+  "end": 244.855,
+  "en": "values, because of course you also still"
+ },
+ {
+  "start": 244.968,
+  "end": 247.102,
+  "en": "have hash collision problems there."
+ },
+ {
+  "start": 247.632,
+  "end": 249.7,
+  "en": "But since they deal with it so efficiently,"
+ },
+ {
+  "start": 249.959,
+  "end": 252.641,
+  "en": "you generally can roughly assume that you"
+ },
+ {
+  "start": 252.641,
+  "end": 255.743,
+  "en": "got constant time when accessing elements in"
+ },
+ {
+  "start": 255.76,
+  "end": 257.021,
+  "en": "the built-in objects."
+ },
+ {
+  "start": 258.68,
+  "end": 261.588,
+  "en": "Now what with insertion, insertion at end?"
+ },
+ {
+  "start": 262.332,
+  "end": 264.982,
+  "en": "Well, there isn't really a start or an end,"
+ },
+ {
+  "start": 265.176,
+  "end": 267.083,
+  "en": "so we can have a look at insertion in"
+ },
+ {
+  "start": 267.196,
+  "end": 267.649,
+  "en": "general."
+ },
+ {
+  "start": 268.172,
+  "end": 272.298,
+  "en": "And that's O in theory, or again with hash"
+ },
+ {
+  "start": 272.298,
+  "end": 273.479,
+  "en": "collision, O."
+ },
+ {
+  "start": 274.177,
+  "end": 276.359,
+  "en": "And the reason for that is simple. No matter"
+ },
+ {
+  "start": 276.424,
+  "end": 279.04,
+  "en": "which resolving strategy we use, when we set"
+ },
+ {
+  "start": 279.168,
+  "end": 279.874,
+  "en": "a new value"
+ },
+ {
+  "start": 280.532,
+  "end": 283.02,
+  "en": "in the basic version where we ignore the"
+ },
+ {
+  "start": 283.02,
+  "end": 284.352,
+  "en": "problem of collisions,"
+ },
+ {
+  "start": 284.946,
+  "end": 288.043,
+  "en": "there indeed we can simply just get the"
+ },
+ {
+  "start": 288.059,
+  "end": 290.659,
+  "en": "hash, which as I mentioned is super quick"
+ },
+ {
+  "start": 290.659,
+  "end": 292.954,
+  "en": "and efficient, and then insert a value for"
+ },
+ {
+  "start": 292.954,
+  "end": 294.976,
+  "en": "it. That would be constant time."
+ },
+ {
+  "start": 295.843,
+  "end": 298.154,
+  "en": "But since we do have collisions, that is not"
+ },
+ {
+  "start": 298.17,
+  "end": 300.336,
+  "en": "how it will look like in reality. And"
+ },
+ {
+  "start": 300.352,
+  "end": 302.693,
+  "en": "therefore, for example, with chaining, we"
+ },
+ {
+  "start": 302.693,
+  "end": 305.049,
+  "en": "still then have to go through all the nested"
+ },
+ {
+  "start": 305.161,
+  "end": 307.165,
+  "en": "elements for a specific hash"
+ },
+ {
+  "start": 307.71,
+  "end": 310.339,
+  "en": "and find out if a value for that key was"
+ },
+ {
+  "start": 310.435,
+  "end": 312.936,
+  "en": "already stored and we wanna update it or if"
+ },
+ {
+  "start": 312.936,
+  "end": 315.341,
+  "en": "a new element should be stored. So again, we"
+ },
+ {
+  "start": 315.341,
+  "end": 318.306,
+  "en": "have a tendency towards O because of that"
+ },
+ {
+  "start": 318.306,
+  "end": 319.412,
+  "en": "collision problem."
+ },
+ {
+  "start": 320.791,
+  "end": 322.875,
+  "en": "And for the same reasons as with element"
+ },
+ {
+  "start": 322.875,
+  "end": 326.193,
+  "en": "access, built-in objects tend to have O"
+ },
+ {
+  "start": 326.385,
+  "end": 326.497,
+  "en": "here,"
+ },
+ {
+  "start": 327.026,
+  "end": 329.142,
+  "en": "though again, of course, under the hood,"
+ },
+ {
+  "start": 329.287,
+  "end": 331.258,
+  "en": "they also have to deal with collisions."
+ },
+ {
+  "start": 331.836,
+  "end": 334.658,
+  "en": "It's certainly not always perfect and not"
+ },
+ {
+  "start": 334.722,
+  "end": 336.727,
+  "en": "always constant time, but they are very"
+ },
+ {
+  "start": 336.727,
+  "end": 339.758,
+  "en": "efficient. Still, they do the same we do"
+ },
+ {
+  "start": 339.774,
+  "end": 341.939,
+  "en": "under the hood, just in a more elegant way,"
+ },
+ {
+  "start": 341.955,
+  "end": 342.372,
+  "en": "probably."
+ },
+ {
+  "start": 343.157,
+  "end": 345.002,
+  "en": "Now, as I mentioned, we don't have different"
+ },
+ {
+  "start": 345.002,
+  "end": 347.968,
+  "en": "places of inserting something, and therefore"
+ },
+ {
+  "start": 347.968,
+  "end": 349.54,
+  "en": "for insertion at the beginning it's the"
+ },
+ {
+  "start": 349.54,
+  "end": 351.448,
+  "en": "same, and for insertion in the middle it's"
+ },
+ {
+  "start": 351.561,
+  "end": 352.202,
+  "en": "also the same."
+ },
+ {
+  "start": 353.084,
+  "end": 355.121,
+  "en": "Now, if you wanna find a specific element,"
+ },
+ {
+  "start": 355.49,
+  "end": 360.043,
+  "en": "we also have O in theory, or O in reality"
+ },
+ {
+  "start": 360.075,
+  "end": 360.973,
+  "en": "because in the end,"
+ },
+ {
+  "start": 361.662,
+  "end": 364.579,
+  "en": "well, finding always happens by key so this"
+ },
+ {
+  "start": 364.579,
+  "end": 366.646,
+  "en": "is the same as element access in the"
+ },
+ {
+  "start": 366.646,
+  "end": 367.095,
+  "en": "beginning."
+ },
+ {
+  "start": 368.169,
+  "end": 369.9,
+  "en": "So it's very trivial here in the end as you"
+ },
+ {
+  "start": 369.916,
+  "end": 372.144,
+  "en": "can see, always the same time complexity"
+ },
+ {
+  "start": 372.32,
+  "end": 373.715,
+  "en": "which of course can be great"
+ },
+ {
+  "start": 374.244,
+  "end": 375.558,
+  "en": "and which of course means that if we now"
+ },
+ {
+  "start": 375.702,
+  "end": 377.513,
+  "en": "compare this all to arrays,"
+ },
+ {
+  "start": 378.347,
+  "end": 380.639,
+  "en": "we have the time complexities we already"
+ },
+ {
+  "start": 380.687,
+  "end": 381.072,
+  "en": "know"
+ },
+ {
+  "start": 381.777,
+  "end": 384.902,
+  "en": "and we now are better in certain aspects."
+ },
+ {
+  "start": 385.143,
+  "end": 388.512,
+  "en": "For example, insertion, is always O in hash"
+ },
+ {
+  "start": 388.528,
+  "end": 390.824,
+  "en": "tables if we leave aside the collisions,"
+ },
+ {
+  "start": 391.194,
+  "end": 392.816,
+  "en": "searching is also O."
+ },
+ {
+  "start": 393.506,
+  "end": 395.803,
+  "en": "But again, with collisions, it's not always"
+ },
+ {
+  "start": 395.835,
+  "end": 398.533,
+  "en": "like this and therefore performance and time"
+ },
+ {
+  "start": 398.63,
+  "end": 401.215,
+  "en": "complexity shouldn't be your only criteria."
+ },
+ {
+  "start": 401.52,
+  "end": 403.833,
+  "en": "You shouldn't start storing everything in"
+ },
+ {
+  "start": 403.929,
+  "end": 406.643,
+  "en": "objects just because it's theoretically"
+ },
+ {
+  "start": 406.82,
+  "end": 407.719,
+  "en": "always O."
+ },
+ {
+  "start": 408.266,
+  "end": 410.61,
+  "en": "It will have that collision problem and"
+ },
+ {
+  "start": 410.61,
+  "end": 412.891,
+  "en": "therefore arrays can of course be more"
+ },
+ {
+  "start": 412.923,
+  "end": 415.484,
+  "en": "efficient if you simply need a list of"
+ },
+ {
+  "start": 415.516,
+  "end": 417.741,
+  "en": "values and if there is no other reason for"
+ },
+ {
+  "start": 417.838,
+  "end": 418.628,
+  "en": "using keys."
+ },
+ {
+  "start": 419.306,
+  "end": 421.402,
+  "en": "But I will come back to that in the next"
+ },
+ {
+  "start": 421.402,
+  "end": 421.773,
+  "en": "lectures."
+ }
+]

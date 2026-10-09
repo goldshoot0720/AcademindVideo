@@ -1,0 +1,851 @@
+1
+00:00:00,658 --> 00:00:03,597
+As mentioned, I'll use the OpenAI API here
+
+2
+00:00:03,886 --> 00:00:05,990
+and therefore a good start is to take a look
+
+3
+00:00:05,990 --> 00:00:07,918
+at their documentation because as mentioned,
+
+4
+00:00:07,982 --> 00:00:10,086
+that's always what you should do as a first
+
+5
+00:00:10,086 --> 00:00:10,391
+step.
+
+6
+00:00:11,612 --> 00:00:14,278
+Now here in the overview page, I get a first
+
+7
+00:00:14,326 --> 00:00:16,382
+impression on how I could send a request
+
+8
+00:00:16,719 --> 00:00:19,016
+here using the curl tool, which is a tool
+
+9
+00:00:19,128 --> 00:00:21,296
+that comes pre-installed on Linux, for
+
+10
+00:00:21,296 --> 00:00:24,492
+example. But the shape of this request shows
+
+11
+00:00:24,525 --> 00:00:26,692
+us how we can in general send it with help
+
+12
+00:00:26,836 --> 00:00:29,721
+of any language and any library we might be
+
+13
+00:00:29,721 --> 00:00:30,843
+using in any language.
+
+14
+00:00:31,741 --> 00:00:33,392
+So here for example, the goal would be to
+
+15
+00:00:33,424 --> 00:00:35,812
+send a request to this address, which is the
+
+16
+00:00:35,892 --> 00:00:37,623
+address of the OpenAI API.
+
+17
+00:00:38,953 --> 00:00:40,765
+Then we would specify that we're sending
+
+18
+00:00:40,797 --> 00:00:42,688
+some data formatted as JSON.
+
+19
+00:00:43,826 --> 00:00:46,839
+We would include this authorization header,
+
+20
+00:00:46,967 --> 00:00:49,147
+which includes our API key, which is
+
+21
+00:00:49,147 --> 00:00:52,048
+important. If we forget this, we will not
+
+22
+00:00:52,160 --> 00:00:54,436
+get a response, not a success response
+
+23
+00:00:54,500 --> 00:00:57,438
+anyways. Because we need to authenticate and
+
+24
+00:00:57,614 --> 00:00:59,991
+tell OpenAI who's sending the request.
+
+25
+00:01:01,002 --> 00:01:03,250
+And then we would attach some data where we
+
+26
+00:01:03,250 --> 00:01:05,450
+specify which model we wanna talk to.
+
+27
+00:01:06,140 --> 00:01:08,067
+And again, that is important also from a
+
+28
+00:01:08,067 --> 00:01:09,255
+pricing perspective.
+
+29
+00:01:10,539 --> 00:01:12,787
+And we would send our input, our prompt.
+
+30
+00:01:13,927 --> 00:01:16,801
+Now you can also send more complex prompts.
+
+31
+00:01:17,363 --> 00:01:19,611
+You can see that if you dive a bit deeper
+
+32
+00:01:19,611 --> 00:01:20,639
+into the documentation.
+
+33
+00:01:21,297 --> 00:01:24,892
+You can, for example, send an entire history
+
+34
+00:01:25,085 --> 00:01:25,695
+of messages
+
+35
+00:01:26,353 --> 00:01:28,809
+where you can also include developer or
+
+36
+00:01:29,114 --> 00:01:31,682
+system messages, as they used to be called
+
+37
+00:01:31,682 --> 00:01:34,539
+in the past, that provide some general
+
+38
+00:01:34,571 --> 00:01:36,979
+instructions to the model. You could also
+
+39
+00:01:36,979 --> 00:01:39,402
+send an existing chat history that may
+
+40
+00:01:39,595 --> 00:01:43,527
+include past responses by the AI so that the
+
+41
+00:01:43,608 --> 00:01:46,449
+overall context is available to the AI for
+
+42
+00:01:46,449 --> 00:01:49,129
+the new response it will generate because
+
+43
+00:01:49,562 --> 00:01:50,780
+And that's the important part here.
+
+44
+00:01:51,325 --> 00:01:53,265
+For every request you're sending to the
+
+45
+00:01:53,265 --> 00:01:53,650
+model,
+
+46
+00:01:54,275 --> 00:01:57,898
+you start a brand new session with it, so to
+
+47
+00:01:57,898 --> 00:02:00,767
+say. So it doesn't know anything about past
+
+48
+00:02:00,783 --> 00:02:02,274
+questions you might have sent.
+
+49
+00:02:03,043 --> 00:02:04,919
+If you send this input, it won't know
+
+50
+00:02:05,175 --> 00:02:08,125
+anything about prior conversations you had
+
+51
+00:02:08,237 --> 00:02:08,573
+with it,
+
+52
+00:02:09,118 --> 00:02:12,212
+unlike ChatGPT. But that's the case because
+
+53
+00:02:12,324 --> 00:02:15,274
+ChatGPT is an AI application built by
+
+54
+00:02:15,354 --> 00:02:17,890
+OpenAI. As explained before.
+
+55
+00:02:18,420 --> 00:02:21,358
+And therefore, it's this ChatGPT application
+
+56
+00:02:21,390 --> 00:02:24,248
+that, for example, manages the chat history.
+
+57
+00:02:24,344 --> 00:02:27,379
+And it's this application that always sends
+
+58
+00:02:27,492 --> 00:02:30,334
+this entire history to the large language
+
+59
+00:02:30,462 --> 00:02:33,481
+model, which, as mentioned, is something you
+
+60
+00:02:33,513 --> 00:02:36,130
+can also do. But you are in the driver's
+
+61
+00:02:36,178 --> 00:02:38,860
+seat. You control what's sent to which
+
+62
+00:02:38,972 --> 00:02:41,075
+model. That's the key takeaway here.
+
+63
+00:02:42,007 --> 00:02:44,993
+But first things first, I wanna send a
+
+64
+00:02:44,993 --> 00:02:46,037
+request like this.
+
+65
+00:02:46,776 --> 00:02:49,923
+So as a first step, I will actually install
+
+66
+00:02:50,212 --> 00:02:53,054
+a library which I can do with uv add here
+
+67
+00:02:53,118 --> 00:02:54,772
+since I'm using the uv tool.
+
+68
+00:02:55,591 --> 00:02:57,501
+And the library I wanna install is the
+
+69
+00:02:57,501 --> 00:02:58,722
+requests library.
+
+70
+00:02:59,942 --> 00:03:01,660
+Of course, if you're not using uv, you can
+
+71
+00:03:01,692 --> 00:03:04,470
+also pip install requests like you probably
+
+72
+00:03:04,582 --> 00:03:06,686
+did in many other Python projects before.
+
+73
+00:03:07,328 --> 00:03:10,298
+So here I'll use Uwe though and install this
+
+74
+00:03:10,347 --> 00:03:12,867
+requests library. And with that installed,
+
+75
+00:03:12,884 --> 00:03:14,329
+I'll import requests here
+
+76
+00:03:15,019 --> 00:03:16,512
+and then send my request here.
+
+77
+00:03:17,363 --> 00:03:19,675
+So I'll get back a response by sending a
+
+78
+00:03:20,221 --> 00:03:22,903
+POST request because you actually need to
+
+79
+00:03:22,903 --> 00:03:25,938
+send a POST request to the OpenAI API.
+
+80
+00:03:27,062 --> 00:03:29,213
+And the URL to which I wanna send the
+
+81
+00:03:29,213 --> 00:03:30,401
+request is
+
+82
+00:03:30,995 --> 00:03:32,296
+this URL here.
+
+83
+00:03:33,002 --> 00:03:34,540
+Now, just as a side note,
+
+84
+00:03:35,229 --> 00:03:38,978
+the OpenAI API actually changed over time.
+
+85
+00:03:39,475 --> 00:03:42,359
+In the past, there also was another API
+
+86
+00:03:42,359 --> 00:03:42,808
+available,
+
+87
+00:03:43,577 --> 00:03:45,644
+and you can still see that, at least at the
+
+88
+00:03:45,644 --> 00:03:47,502
+point of time where I'm recording this, if
+
+89
+00:03:47,502 --> 00:03:49,873
+you dive into the documentation, and then
+
+90
+00:03:50,210 --> 00:03:52,165
+you might have a dropdown here
+
+91
+00:03:53,430 --> 00:03:54,856
+which allows you to switch between the
+
+92
+00:03:54,856 --> 00:03:57,452
+responses and the chat completions API,
+
+93
+00:03:57,917 --> 00:04:00,624
+which is the previous standard API, so the
+
+94
+00:04:00,785 --> 00:04:01,105
+old API.
+
+95
+00:04:03,112 --> 00:04:05,343
+There, the URL was different. It was
+
+96
+00:04:05,456 --> 00:04:08,314
+api.openai.com and then at the end
+
+97
+00:04:08,410 --> 00:04:10,000
+/chat/completions.
+
+98
+00:04:11,300 --> 00:04:13,741
+And the way you would send data to it also
+
+99
+00:04:13,805 --> 00:04:14,255
+differed.
+
+100
+00:04:14,833 --> 00:04:18,221
+Now with the more modern, newer Responses
+
+101
+00:04:18,285 --> 00:04:18,702
+API,
+
+102
+00:04:19,409 --> 00:04:22,123
+this is the address you send the request to,
+
+103
+00:04:22,941 --> 00:04:26,024
+/responses, and the format of your data also
+
+104
+00:04:26,089 --> 00:04:26,426
+changed.
+
+105
+00:04:27,457 --> 00:04:30,693
+Now in many guides, you will see the old API
+
+106
+00:04:30,693 --> 00:04:31,065
+format
+
+107
+00:04:31,648 --> 00:04:32,085
+and
+
+108
+00:04:32,619 --> 00:04:32,829
+AI
+
+109
+00:04:34,091 --> 00:04:37,429
+tools like GitHub Copilot also may suggest
+
+110
+00:04:37,575 --> 00:04:38,793
+the old API.
+
+111
+00:04:39,523 --> 00:04:41,650
+You can use it, but the recommendation is to
+
+112
+00:04:41,698 --> 00:04:43,514
+use the modern one. So
+
+113
+00:04:44,161 --> 00:04:45,779
+this address, which you find in the
+
+114
+00:04:45,779 --> 00:04:47,736
+documentation, the responses API.
+
+115
+00:04:48,529 --> 00:04:49,580
+So that's what I'll do here.
+
+116
+00:04:51,078 --> 00:04:54,690
+Now we also need to attach some data to this
+
+117
+00:04:54,739 --> 00:04:56,480
+request, which with the requests package can
+
+118
+00:04:56,480 --> 00:04:58,791
+be done by specifying the JSON
+
+119
+00:05:01,056 --> 00:05:03,144
+So that will be the payload of my request,
+
+120
+00:05:03,192 --> 00:05:04,477
+which should be a dictionary.
+
+121
+00:05:05,601 --> 00:05:07,657
+In there we need to specify a model
+
+122
+00:05:08,492 --> 00:05:09,922
+and I'll fill that out in a second
+
+123
+00:05:10,741 --> 00:05:12,266
+and my input.
+
+124
+00:05:13,246 --> 00:05:15,479
+Again, I could send a more complex chat
+
+125
+00:05:15,479 --> 00:05:17,872
+history if I wanted to, but to get started
+
+126
+00:05:18,064 --> 00:05:20,811
+we can also just send an input string, just
+
+127
+00:05:20,891 --> 00:05:21,678
+a simple prompt.
+
+128
+00:05:23,027 --> 00:05:24,971
+Now I'll also fill that out later.
+
+129
+00:05:25,699 --> 00:05:26,490
+It's then this
+
+130
+00:05:27,314 --> 00:05:29,463
+payload that should be added here
+
+131
+00:05:30,060 --> 00:05:31,869
+as data to this request.
+
+132
+00:05:33,540 --> 00:05:35,033
+And I'll split this across multiple lines to
+
+133
+00:05:35,033 --> 00:05:36,689
+make it a bit easier to read like this.
+
+134
+00:05:38,152 --> 00:05:40,379
+Now we also need to add some headers,
+
+135
+00:05:41,057 --> 00:05:42,961
+which again will be a dictionary of headers
+
+136
+00:05:43,058 --> 00:05:45,494
+we wanna add. So metadata we attach to the
+
+137
+00:05:45,494 --> 00:05:46,027
+request
+
+138
+00:05:46,705 --> 00:05:48,302
+and that will be the content-type header
+
+139
+00:05:49,027 --> 00:05:51,188
+and then this authorization header, which
+
+140
+00:05:51,285 --> 00:05:52,510
+includes the API key.
+
+141
+00:05:53,424 --> 00:05:55,626
+So the Content-Type header is of course
+
+142
+00:05:55,658 --> 00:05:56,414
+straightforward.
+
+143
+00:05:57,265 --> 00:05:58,921
+The Authorization header
+
+144
+00:06:00,078 --> 00:06:01,155
+is a bit more complex.
+
+145
+00:06:01,765 --> 00:06:02,914
+It is Bearer
+
+146
+00:06:03,643 --> 00:06:06,250
+as a hardcoded text and then our API key.
+
+147
+00:06:07,027 --> 00:06:09,196
+And that's the API key you find in your
+
+148
+00:06:09,293 --> 00:06:10,723
+dashboard once you're logged in.
+
+149
+00:06:11,935 --> 00:06:13,114
+So here I'll create a new one.
+
+150
+00:06:15,306 --> 00:06:17,251
+And again, it will be invalid once you're
+
+151
+00:06:17,284 --> 00:06:17,766
+viewing this.
+
+152
+00:06:18,729 --> 00:06:19,676
+So I'll copy it here
+
+153
+00:06:20,558 --> 00:06:21,955
+and then of course I could paste it in here.
+
+154
+00:06:22,886 --> 00:06:23,849
+That's how that looks like.
+
+155
+00:06:24,731 --> 00:06:26,545
+It's not a good idea to
+
+156
+00:06:27,123 --> 00:06:29,755
+put your API keys directly into your code
+
+157
+00:06:29,787 --> 00:06:31,680
+though because again, you shouldn't share it
+
+158
+00:06:31,713 --> 00:06:34,345
+with anyone and of course you will often
+
+159
+00:06:34,345 --> 00:06:37,121
+share your code. So having the key in there
+
+160
+00:06:37,233 --> 00:06:38,212
+is not a great idea.
+
+161
+00:06:39,240 --> 00:06:41,246
+Instead, what's typically done is that you
+
+162
+00:06:41,326 --> 00:06:43,974
+add a.env file, an environment variable
+
+163
+00:06:43,990 --> 00:06:44,311
+file,
+
+164
+00:06:45,194 --> 00:06:46,911
+And in your.gitignore file, you make sure
+
+165
+00:06:46,959 --> 00:06:49,414
+that this is not included if you're using
+
+166
+00:06:49,527 --> 00:06:50,827
+Git for version control
+
+167
+00:06:51,934 --> 00:06:54,309
+so that this.env file is not pushed to
+
+168
+00:06:54,325 --> 00:06:55,159
+GitHub, for example.
+
+169
+00:06:56,507 --> 00:06:58,545
+And then in there, in this.env file,
+
+170
+00:06:59,139 --> 00:07:01,306
+you can set up a variable that might be
+
+171
+00:07:01,306 --> 00:07:03,151
+called OPENAI_API_KEY
+
+172
+00:07:04,114 --> 00:07:06,377
+and then store your key here. But this will
+
+173
+00:07:06,377 --> 00:07:08,736
+now only ever live on your system. It's not
+
+174
+00:07:08,928 --> 00:07:10,806
+pushed to GitHub. So that's why it will be
+
+175
+00:07:10,806 --> 00:07:11,079
+safe.
+
+176
+00:07:12,315 --> 00:07:14,354
+And then you can use that key in your
+
+177
+00:07:14,787 --> 00:07:16,729
+main.py file through that environment
+
+178
+00:07:16,729 --> 00:07:17,115
+variable.
+
+179
+00:07:18,014 --> 00:07:19,940
+Now to make sure that this environment
+
+180
+00:07:19,940 --> 00:07:22,910
+variable gets loaded, you wanna install an
+
+181
+00:07:22,910 --> 00:07:23,680
+extra package
+
+182
+00:07:24,355 --> 00:07:26,249
+which is called python.env.
+
+183
+00:07:26,987 --> 00:07:30,070
+That's a package that loads.env files and
+
+184
+00:07:30,760 --> 00:07:32,381
+puts the environment variables that are
+
+185
+00:07:32,381 --> 00:07:34,982
+defined in those files into your actual
+
+186
+00:07:35,190 --> 00:07:37,101
+environment so that they're available in
+
+187
+00:07:37,101 --> 00:07:38,289
+your code when it runs.
+
+188
+00:07:39,182 --> 00:07:41,108
+With that installed, what you would do is
+
+189
+00:07:41,286 --> 00:07:41,529
+you would
+
+190
+00:07:42,095 --> 00:07:42,872
+import from
+
+191
+00:07:43,811 --> 00:07:44,313
+dotenv
+
+192
+00:07:45,009 --> 00:07:46,692
+the load_dotenv function,
+
+193
+00:07:47,291 --> 00:07:49,640
+execute that at the beginning of your script
+
+194
+00:07:49,981 --> 00:07:52,364
+so that it runs as the first thing because
+
+195
+00:07:52,478 --> 00:07:54,261
+that is what will load those environment
+
+196
+00:07:54,261 --> 00:07:54,796
+variables.
+
+197
+00:07:56,427 --> 00:07:57,607
+And then with that done,
+
+198
+00:07:58,205 --> 00:08:00,049
+you can access your environment variables.
+
+199
+00:08:01,391 --> 00:08:03,752
+So here I would now get my OpenAI
+
+200
+00:08:04,987 --> 00:08:05,581
+API key
+
+201
+00:08:06,447 --> 00:08:09,944
+by using Python's built-in os package.
+
+202
+00:08:10,842 --> 00:08:13,232
+And then there is a getenv function which
+
+203
+00:08:13,248 --> 00:08:15,189
+can load the value of an environment
+
+204
+00:08:15,189 --> 00:08:16,842
+variable into this program.
+
+205
+00:08:18,317 --> 00:08:20,579
+The name here, OpenAI API key,
+
+206
+00:08:21,381 --> 00:08:23,820
+of course must be the same as you specified
+
+207
+00:08:24,076 --> 00:08:24,557
+here though.
+
+208
+00:08:25,456 --> 00:08:27,092
+With that, that will be available and now
+
+209
+00:08:27,365 --> 00:08:28,680
+OpenAI API key
+
+210
+00:08:29,851 --> 00:08:31,279
+can be used here like this.
+
+211
+00:08:33,485 --> 00:08:36,015
+And that's now the base setup we need. Now
+
+212
+00:08:36,143 --> 00:08:38,141
+we can work on the model and the actual
+
+213
+00:08:38,158 --> 00:08:38,432
+prompt.

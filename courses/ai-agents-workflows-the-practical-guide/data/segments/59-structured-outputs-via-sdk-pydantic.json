@@ -1,0 +1,442 @@
+[
+ {
+  "start": 0.576,
+  "end": 3.06,
+  "en": "When you need structured outputs and you're"
+ },
+ {
+  "start": 3.397,
+  "end": 6.794,
+  "en": "working with OpenAI and you're using Python"
+ },
+ {
+  "start": 7.002,
+  "end": 8.124,
+  "en": "or JavaScript,"
+ },
+ {
+  "start": 8.765,
+  "end": 11.698,
+  "en": "you can actually avoid the hassle of"
+ },
+ {
+  "start": 11.89,
+  "end": 14.983,
+  "en": "defining this schema as I showed it to you"
+ },
+ {
+  "start": 15.095,
+  "end": 15.928,
+  "en": "in the last lecture."
+ },
+ {
+  "start": 16.457,
+  "end": 18.781,
+  "en": "You can still do that as you saw, but you"
+ },
+ {
+  "start": 18.781,
+  "end": 19.582,
+  "en": "don't have to."
+ },
+ {
+  "start": 20.223,
+  "end": 22.354,
+  "en": "Instead, when using Python,"
+ },
+ {
+  "start": 22.931,
+  "end": 26.571,
+  "en": "you can use an extra library called Pydantic"
+ },
+ {
+  "start": 27.037,
+  "end": 32.244,
+  "en": "to define a class that describes the schema"
+ },
+ {
+  "start": 32.324,
+  "end": 34.994,
+  "en": "of the data you want the AI model to"
+ },
+ {
+  "start": 34.994,
+  "end": 35.641,
+  "en": "generate."
+ },
+ {
+  "start": 36.515,
+  "end": 38.894,
+  "en": "So here I created an invoice class which"
+ },
+ {
+  "start": 38.958,
+  "end": 41.272,
+  "en": "extends the BaseModel class, which is"
+ },
+ {
+  "start": 41.386,
+  "end": 43.02,
+  "en": "provided by Pydantic."
+ },
+ {
+  "start": 44.613,
+  "end": 46.507,
+  "en": "And I define a bunch of fields in there,"
+ },
+ {
+  "start": 46.701,
+  "end": 49.68,
+  "en": "which in the end just means I describe those"
+ },
+ {
+  "start": 49.939,
+  "end": 52.335,
+  "en": "fields. The rest will be done behind the"
+ },
+ {
+  "start": 52.383,
+  "end": 55.486,
+  "en": "scenes by the OpenAI SDK and Pydantic."
+ },
+ {
+  "start": 56.845,
+  "end": 58.866,
+  "en": "Now, the vendor and customer fields are"
+ },
+ {
+  "start": 58.995,
+  "end": 61.386,
+  "en": "actually classes themselves since I'm"
+ },
+ {
+  "start": 61.723,
+  "end": 64.772,
+  "en": "working with nested objects here, nested"
+ },
+ {
+  "start": 65.093,
+  "end": 66.216,
+  "en": "dictionaries later."
+ },
+ {
+  "start": 67.098,
+  "end": 70.789,
+  "en": "And I brought back the OpenAI client here,"
+ },
+ {
+  "start": 70.805,
+  "end": 74.239,
+  "en": "the OpenAI SDK. I no longer send requests"
+ },
+ {
+  "start": 74.239,
+  "end": 75.17,
+  "en": "myself anymore."
+ },
+ {
+  "start": 75.763,
+  "end": 78.62,
+  "en": "Instead, in extract invoice details, I now"
+ },
+ {
+  "start": 78.748,
+  "end": 80.16,
+  "en": "still have that prompt,"
+ },
+ {
+  "start": 80.738,
+  "end": 83.53,
+  "en": "but the rest of the logic is way simpler. As"
+ },
+ {
+  "start": 83.546,
+  "end": 85.855,
+  "en": "you can tell, it's way less code because"
+ },
+ {
+  "start": 85.887,
+  "end": 88.629,
+  "en": "this entire schema definition disappeared."
+ },
+ {
+  "start": 89.495,
+  "end": 93.119,
+  "en": "Instead, I just set this special text format"
+ },
+ {
+  "start": 93.343,
+  "end": 94.145,
+  "en": "parameter here"
+ },
+ {
+  "start": 95.187,
+  "end": 98.138,
+  "en": "in the parse method, which I call on client"
+ },
+ {
+  "start": 98.138,
+  "end": 98.843,
+  "en": "responses."
+ },
+ {
+  "start": 99.982,
+  "end": 103.14,
+  "en": "Previously, we used client responses create."
+ },
+ {
+  "start": 103.509,
+  "end": 106.235,
+  "en": "Now, if we wanna deal with structured data,"
+ },
+ {
+  "start": 106.251,
+  "end": 109.137,
+  "en": "if we wanna get structured data, we use"
+ },
+ {
+  "start": 109.137,
+  "end": 110.869,
+  "en": "client responses parse."
+ },
+ {
+  "start": 111.822,
+  "end": 115.389,
+  "en": "And that parse method supports a text format"
+ },
+ {
+  "start": 115.389,
+  "end": 119.149,
+  "en": "parameter, which takes a Pydantic class as"
+ },
+ {
+  "start": 119.23,
+  "end": 119.602,
+  "en": "an input."
+ },
+ {
+  "start": 120.572,
+  "end": 121.074,
+  "en": "So my"
+ },
+ {
+  "start": 121.834,
+  "end": 122.934,
+  "en": "invoice class here,"
+ },
+ {
+  "start": 124.988,
+  "end": 128.498,
+  "en": "that's sent to the OpenAI SDK, so to say."
+ },
+ {
+  "start": 129.127,
+  "end": 131.837,
+  "en": "And behind the scenes, that SDK will derive"
+ },
+ {
+  "start": 131.95,
+  "end": 134.37,
+  "en": "that schema as we defined it in the last"
+ },
+ {
+  "start": 134.37,
+  "end": 137.58,
+  "en": "lecture from that class here. And therefore"
+ },
+ {
+  "start": 137.677,
+  "end": 139.22,
+  "en": "we don't have to do that on our own."
+ },
+ {
+  "start": 140.224,
+  "end": 142.602,
+  "en": "Instead, this will now generate a response."
+ },
+ {
+  "start": 142.939,
+  "end": 146.216,
+  "en": "We can then get the parsed response data in"
+ },
+ {
+  "start": 146.248,
+  "end": 149.203,
+  "en": "this outputParsed property on the response"
+ },
+ {
+  "start": 149.203,
+  "end": 149.701,
+  "en": "object,"
+ },
+ {
+  "start": 150.505,
+  "end": 153.91,
+  "en": "and that will be an object of our class"
+ },
+ {
+  "start": 154.344,
+  "end": 156.817,
+  "en": "which we defined here. So we'll get back an"
+ },
+ {
+  "start": 157.235,
+  "end": 158.423,
+  "en": "invoice object here"
+ },
+ {
+  "start": 159.082,
+  "end": 160.463,
+  "en": "in outputParsed,"
+ },
+ {
+  "start": 161.748,
+  "end": 163.933,
+  "en": "and it's then this invoice object which I'm"
+ },
+ {
+  "start": 163.981,
+  "end": 165.154,
+  "en": "using down here"
+ },
+ {
+  "start": 165.714,
+  "end": 165.907,
+  "en": "to"
+ },
+ {
+  "start": 166.743,
+  "end": 168.706,
+  "en": "insert it into the database. For that, I'm"
+ },
+ {
+  "start": 168.754,
+  "end": 170.99,
+  "en": "using the model_dump method, which is"
+ },
+ {
+  "start": 171.102,
+  "end": 174.351,
+  "en": "provided by Pydantic to turn this invoice"
+ },
+ {
+  "start": 174.4,
+  "end": 176.544,
+  "en": "class into an ordinary dictionary."
+ },
+ {
+  "start": 177.626,
+  "end": 180.417,
+  "en": "And that's then inserted into my database."
+ },
+ {
+  "start": 181.724,
+  "end": 184.047,
+  "en": "And I still also print it to the console."
+ },
+ {
+  "start": 185.603,
+  "end": 186.238,
+  "en": "And with that,"
+ },
+ {
+  "start": 187.067,
+  "end": 190.043,
+  "en": "if I now run this script again and I try to"
+ },
+ {
+  "start": 190.222,
+  "end": 191.539,
+  "en": "read in all PDFs,"
+ },
+ {
+  "start": 192.293,
+  "end": 194.554,
+  "en": "I still process them like before and they're"
+ },
+ {
+  "start": 194.554,
+  "end": 196.013,
+  "en": "still sent to OpenAI"
+ },
+ {
+  "start": 196.847,
+  "end": 199.237,
+  "en": "and I still get back the same result as"
+ },
+ {
+  "start": 199.333,
+  "end": 202.364,
+  "en": "before. So the data is extracted correctly,"
+ },
+ {
+  "start": 202.781,
+  "end": 202.99,
+  "en": "but now"
+ },
+ {
+  "start": 203.663,
+  "end": 206.149,
+  "en": "I have a bit of an easier time writing that"
+ },
+ {
+  "start": 206.149,
+  "end": 208.635,
+  "en": "code because a lot of work is done for me"
+ },
+ {
+  "start": 208.635,
+  "end": 211.152,
+  "en": "behind the scenes. But again, that's not"
+ },
+ {
+  "start": 211.152,
+  "end": 213.189,
+  "en": "necessarily available in all programming"
+ },
+ {
+  "start": 213.285,
+  "end": 215.755,
+  "en": "languages and also not with all providers."
+ },
+ {
+  "start": 216.172,
+  "end": 218.658,
+  "en": "So knowing what happens behind the scenes is"
+ },
+ {
+  "start": 218.658,
+  "end": 220.839,
+  "en": "always important, which is why I showed it"
+ },
+ {
+  "start": 220.839,
+  "end": 221.897,
+  "en": "to you in the last lecture."
+ },
+ {
+  "start": 222.767,
+  "end": 224.687,
+  "en": "Now, just to confirm that it was inserted"
+ },
+ {
+  "start": 224.703,
+  "end": 226.704,
+  "en": "into the database, let's have a look. And"
+ },
+ {
+  "start": 226.962,
+  "end": 228.059,
+  "en": "that's looking good."
+ },
+ {
+  "start": 228.898,
+  "end": 230.85,
+  "en": "And that's how you can deal with structured"
+ },
+ {
+  "start": 230.979,
+  "end": 234.109,
+  "en": "outputs in your AI workflows and agents."
+ }
+]

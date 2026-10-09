@@ -1,0 +1,671 @@
+1
+00:00:02,132 --> 00:00:04,488
+So now that we had a look at hash tables,
+
+2
+00:00:04,584 --> 00:00:06,765
+how they work, and why they're useful,
+
+3
+00:00:07,470 --> 00:00:09,714
+let's analyze the time complexities. And
+
+4
+00:00:09,875 --> 00:00:12,376
+most importantly, let's compare that to the
+
+5
+00:00:12,456 --> 00:00:15,181
+built-in construct JavaScript ships with,
+
+6
+00:00:15,582 --> 00:00:16,672
+arrays and objects.
+
+7
+00:00:17,506 --> 00:00:19,798
+And let's start with comparing hash tables
+
+8
+00:00:19,830 --> 00:00:20,439
+to object.
+
+9
+00:00:21,097 --> 00:00:23,020
+As I mentioned, and that's really important
+
+10
+00:00:23,020 --> 00:00:23,261
+to me,
+
+11
+00:00:23,902 --> 00:00:27,285
+objects in JavaScript are hash tables under
+
+12
+00:00:27,285 --> 00:00:29,513
+the hood. So in this comparison, you'll see
+
+13
+00:00:29,513 --> 00:00:32,016
+a lot of equality. Of course, the built-in
+
+14
+00:00:32,016 --> 00:00:34,489
+JavaScript objects are very efficient hash
+
+15
+00:00:34,505 --> 00:00:37,202
+tables with good collision resolving
+
+16
+00:00:37,234 --> 00:00:40,285
+strategies so that in reality, you won't run
+
+17
+00:00:40,285 --> 00:00:42,485
+into any problems when working with them.
+
+18
+00:00:43,095 --> 00:00:44,957
+It's really just important to understand
+
+19
+00:00:44,957 --> 00:00:47,366
+that under the hood, they do use hash tables
+
+20
+00:00:47,816 --> 00:00:50,465
+and now that tells you something. But that's
+
+21
+00:00:50,465 --> 00:00:52,616
+why you can work with key-value pairs in
+
+22
+00:00:52,713 --> 00:00:55,169
+JavaScript because you got those built-in
+
+23
+00:00:55,362 --> 00:00:57,610
+hash tables. JavaScript objects.
+
+24
+00:00:58,910 --> 00:01:02,025
+So how does this now look like when we have
+
+25
+00:01:02,025 --> 00:01:04,465
+a look at time complexity? And let's start
+
+26
+00:01:04,754 --> 00:01:06,424
+with accessing elements.
+
+27
+00:01:07,018 --> 00:01:08,222
+So we have a key
+
+28
+00:01:08,768 --> 00:01:11,417
+name, for example, and for that key we want
+
+29
+00:01:11,417 --> 00:01:12,878
+to find the stored value.
+
+30
+00:01:14,082 --> 00:01:14,933
+In theory,
+
+31
+00:01:15,527 --> 00:01:17,341
+that is constant time.
+
+32
+00:01:18,160 --> 00:01:20,712
+The reason for that is that if we want to
+
+33
+00:01:20,825 --> 00:01:22,527
+get a value by key
+
+34
+00:01:23,138 --> 00:01:26,350
+In the basic hash version, which didn't have
+
+35
+00:01:26,382 --> 00:01:28,529
+any strategies for solving collisions,
+
+36
+00:01:29,616 --> 00:01:33,201
+there get was as simple as generating the
+
+37
+00:01:33,201 --> 00:01:33,561
+hash
+
+38
+00:01:36,643 --> 00:01:39,377
+and then retrieving the value at that index.
+
+39
+00:01:40,024 --> 00:01:42,240
+Sure, for generating the hash, we actually
+
+40
+00:01:42,289 --> 00:01:45,094
+have a loop where we loop through the entire
+
+41
+00:01:45,308 --> 00:01:48,872
+key, but that's just a very short key And we
+
+42
+00:01:48,872 --> 00:01:51,981
+can neglect this. We don't need to go
+
+43
+00:01:51,981 --> 00:01:54,721
+through all elements in the hash table. We
+
+44
+00:01:54,801 --> 00:01:57,445
+don't need to run a super long or complex
+
+45
+00:01:57,445 --> 00:02:00,073
+loop. We just go through the entire key. And
+
+46
+00:02:00,089 --> 00:02:02,316
+if the key is just 1 character long, that's
+
+47
+00:02:02,316 --> 00:02:04,623
+just 1 iteration. If it's 10 characters
+
+48
+00:02:04,720 --> 00:02:07,444
+long, it's 10 iterations. But that does not
+
+49
+00:02:07,444 --> 00:02:11,145
+make it O because our n here is not really
+
+50
+00:02:11,145 --> 00:02:11,482
+the key.
+
+51
+00:02:12,091 --> 00:02:14,847
+It is our entire hash table array, I would
+
+52
+00:02:14,847 --> 00:02:17,187
+say. And we don't have to go through that.
+
+53
+00:02:17,940 --> 00:02:20,233
+Therefore, in theory, if we ignore the
+
+54
+00:02:20,281 --> 00:02:23,054
+problem of hash collisions, then
+
+55
+00:02:24,048 --> 00:02:26,260
+we have O, constant time.
+
+56
+00:02:27,174 --> 00:02:30,108
+Now, with hash collisions, that looks a bit
+
+57
+00:02:30,140 --> 00:02:30,637
+different.
+
+58
+00:02:31,727 --> 00:02:34,596
+No matter if we use the chaining strategy
+
+59
+00:02:35,173 --> 00:02:38,364
+or the open addressing strategy, in both
+
+60
+00:02:38,460 --> 00:02:41,281
+cases, when we get a value for the key,
+
+61
+00:02:41,842 --> 00:02:44,647
+we can't just generate the hash and get the
+
+62
+00:02:44,647 --> 00:02:47,821
+value by that hash. Instead, we still have
+
+63
+00:02:47,853 --> 00:02:50,547
+to loop through our buckets and find the
+
+64
+00:02:50,659 --> 00:02:53,544
+right value stored for this hash and the
+
+65
+00:02:53,544 --> 00:02:54,410
+original key.
+
+66
+00:02:54,987 --> 00:02:57,199
+And we do this no matter if we're using open
+
+67
+00:02:57,375 --> 00:02:59,892
+addressing or if we're using the chaining
+
+68
+00:02:59,956 --> 00:03:02,104
+approach. With the chaining approach, we
+
+69
+00:03:02,265 --> 00:03:04,220
+also need to go through all the values
+
+70
+00:03:04,445 --> 00:03:06,368
+stored for a given hash.
+
+71
+00:03:07,186 --> 00:03:09,302
+Now, of course, that can still be very
+
+72
+00:03:09,334 --> 00:03:11,658
+efficient. It does not mean that we need to
+
+73
+00:03:11,658 --> 00:03:13,309
+go through the entire hash table.
+
+74
+00:03:14,063 --> 00:03:16,515
+But still, it's certainly also not always
+
+75
+00:03:16,691 --> 00:03:20,378
+constant time. It can be O if we have a lot
+
+76
+00:03:20,378 --> 00:03:23,424
+of collisions and therefore a lot of nested
+
+77
+00:03:23,440 --> 00:03:24,882
+array values, for example.
+
+78
+00:03:25,844 --> 00:03:27,575
+Now, for built-in objects, it's the same
+
+79
+00:03:27,607 --> 00:03:28,761
+problem, but of course
+
+80
+00:03:29,434 --> 00:03:31,294
+those are built in a very efficient way.
+
+81
+00:03:31,951 --> 00:03:33,987
+So here I would say we have O,
+
+82
+00:03:34,564 --> 00:03:36,727
+though I will say that of course the
+
+83
+00:03:36,743 --> 00:03:39,292
+built-in objects are hash tables, and
+
+84
+00:03:39,292 --> 00:03:41,697
+therefore they also have to deal with hash
+
+85
+00:03:41,697 --> 00:03:42,323
+collisions.
+
+86
+00:03:42,917 --> 00:03:45,501
+They're just smart enough to allocate
+
+87
+00:03:46,223 --> 00:03:48,887
+enough space, to derive the hash in an
+
+88
+00:03:48,935 --> 00:03:51,727
+efficient way, and do a lot of tweaks that
+
+89
+00:03:52,209 --> 00:03:54,279
+will certainly make them more efficient than
+
+90
+00:03:54,456 --> 00:03:56,719
+our dummy hash table we generated here.
+
+91
+00:03:57,184 --> 00:04:00,057
+Still, you'll not always have O when working
+
+92
+00:04:00,089 --> 00:04:02,223
+with objects when it comes to retrieving
+
+93
+00:04:02,255 --> 00:04:04,855
+values, because of course you also still
+
+94
+00:04:04,968 --> 00:04:07,102
+have hash collision problems there.
+
+95
+00:04:07,632 --> 00:04:09,700
+But since they deal with it so efficiently,
+
+96
+00:04:09,959 --> 00:04:12,641
+you generally can roughly assume that you
+
+97
+00:04:12,641 --> 00:04:15,743
+got constant time when accessing elements in
+
+98
+00:04:15,760 --> 00:04:17,021
+the built-in objects.
+
+99
+00:04:18,680 --> 00:04:21,588
+Now what with insertion, insertion at end?
+
+100
+00:04:22,332 --> 00:04:24,982
+Well, there isn't really a start or an end,
+
+101
+00:04:25,176 --> 00:04:27,083
+so we can have a look at insertion in
+
+102
+00:04:27,196 --> 00:04:27,649
+general.
+
+103
+00:04:28,172 --> 00:04:32,298
+And that's O in theory, or again with hash
+
+104
+00:04:32,298 --> 00:04:33,479
+collision, O.
+
+105
+00:04:34,177 --> 00:04:36,359
+And the reason for that is simple. No matter
+
+106
+00:04:36,424 --> 00:04:39,040
+which resolving strategy we use, when we set
+
+107
+00:04:39,168 --> 00:04:39,874
+a new value
+
+108
+00:04:40,532 --> 00:04:43,020
+in the basic version where we ignore the
+
+109
+00:04:43,020 --> 00:04:44,352
+problem of collisions,
+
+110
+00:04:44,946 --> 00:04:48,043
+there indeed we can simply just get the
+
+111
+00:04:48,059 --> 00:04:50,659
+hash, which as I mentioned is super quick
+
+112
+00:04:50,659 --> 00:04:52,954
+and efficient, and then insert a value for
+
+113
+00:04:52,954 --> 00:04:54,976
+it. That would be constant time.
+
+114
+00:04:55,843 --> 00:04:58,154
+But since we do have collisions, that is not
+
+115
+00:04:58,170 --> 00:05:00,336
+how it will look like in reality. And
+
+116
+00:05:00,352 --> 00:05:02,693
+therefore, for example, with chaining, we
+
+117
+00:05:02,693 --> 00:05:05,049
+still then have to go through all the nested
+
+118
+00:05:05,161 --> 00:05:07,165
+elements for a specific hash
+
+119
+00:05:07,710 --> 00:05:10,339
+and find out if a value for that key was
+
+120
+00:05:10,435 --> 00:05:12,936
+already stored and we wanna update it or if
+
+121
+00:05:12,936 --> 00:05:15,341
+a new element should be stored. So again, we
+
+122
+00:05:15,341 --> 00:05:18,306
+have a tendency towards O because of that
+
+123
+00:05:18,306 --> 00:05:19,412
+collision problem.
+
+124
+00:05:20,791 --> 00:05:22,875
+And for the same reasons as with element
+
+125
+00:05:22,875 --> 00:05:26,193
+access, built-in objects tend to have O
+
+126
+00:05:26,385 --> 00:05:26,497
+here,
+
+127
+00:05:27,026 --> 00:05:29,142
+though again, of course, under the hood,
+
+128
+00:05:29,287 --> 00:05:31,258
+they also have to deal with collisions.
+
+129
+00:05:31,836 --> 00:05:34,658
+It's certainly not always perfect and not
+
+130
+00:05:34,722 --> 00:05:36,727
+always constant time, but they are very
+
+131
+00:05:36,727 --> 00:05:39,758
+efficient. Still, they do the same we do
+
+132
+00:05:39,774 --> 00:05:41,939
+under the hood, just in a more elegant way,
+
+133
+00:05:41,955 --> 00:05:42,372
+probably.
+
+134
+00:05:43,157 --> 00:05:45,002
+Now, as I mentioned, we don't have different
+
+135
+00:05:45,002 --> 00:05:47,968
+places of inserting something, and therefore
+
+136
+00:05:47,968 --> 00:05:49,540
+for insertion at the beginning it's the
+
+137
+00:05:49,540 --> 00:05:51,448
+same, and for insertion in the middle it's
+
+138
+00:05:51,561 --> 00:05:52,202
+also the same.
+
+139
+00:05:53,084 --> 00:05:55,121
+Now, if you wanna find a specific element,
+
+140
+00:05:55,490 --> 00:06:00,043
+we also have O in theory, or O in reality
+
+141
+00:06:00,075 --> 00:06:00,973
+because in the end,
+
+142
+00:06:01,662 --> 00:06:04,579
+well, finding always happens by key so this
+
+143
+00:06:04,579 --> 00:06:06,646
+is the same as element access in the
+
+144
+00:06:06,646 --> 00:06:07,095
+beginning.
+
+145
+00:06:08,169 --> 00:06:09,900
+So it's very trivial here in the end as you
+
+146
+00:06:09,916 --> 00:06:12,144
+can see, always the same time complexity
+
+147
+00:06:12,320 --> 00:06:13,715
+which of course can be great
+
+148
+00:06:14,244 --> 00:06:15,558
+and which of course means that if we now
+
+149
+00:06:15,702 --> 00:06:17,513
+compare this all to arrays,
+
+150
+00:06:18,347 --> 00:06:20,639
+we have the time complexities we already
+
+151
+00:06:20,687 --> 00:06:21,072
+know
+
+152
+00:06:21,777 --> 00:06:24,902
+and we now are better in certain aspects.
+
+153
+00:06:25,143 --> 00:06:28,512
+For example, insertion, is always O in hash
+
+154
+00:06:28,528 --> 00:06:30,824
+tables if we leave aside the collisions,
+
+155
+00:06:31,194 --> 00:06:32,816
+searching is also O.
+
+156
+00:06:33,506 --> 00:06:35,803
+But again, with collisions, it's not always
+
+157
+00:06:35,835 --> 00:06:38,533
+like this and therefore performance and time
+
+158
+00:06:38,630 --> 00:06:41,215
+complexity shouldn't be your only criteria.
+
+159
+00:06:41,520 --> 00:06:43,833
+You shouldn't start storing everything in
+
+160
+00:06:43,929 --> 00:06:46,643
+objects just because it's theoretically
+
+161
+00:06:46,820 --> 00:06:47,719
+always O.
+
+162
+00:06:48,266 --> 00:06:50,610
+It will have that collision problem and
+
+163
+00:06:50,610 --> 00:06:52,891
+therefore arrays can of course be more
+
+164
+00:06:52,923 --> 00:06:55,484
+efficient if you simply need a list of
+
+165
+00:06:55,516 --> 00:06:57,741
+values and if there is no other reason for
+
+166
+00:06:57,838 --> 00:06:58,628
+using keys.
+
+167
+00:06:59,306 --> 00:07:01,402
+But I will come back to that in the next
+
+168
+00:07:01,402 --> 00:07:01,773
+lectures.

@@ -1,0 +1,1155 @@
+1
+00:00:00,369 --> 00:00:03,453
+So in order to fully understand how large
+
+2
+00:00:03,549 --> 00:00:06,071
+language models use tools, let's build a
+
+3
+00:00:06,119 --> 00:00:08,191
+simple agent that's able to use one tool.
+
+4
+00:00:09,026 --> 00:00:11,114
+And for that, I'm in a brand new project. I
+
+5
+00:00:11,500 --> 00:00:14,937
+again created it with uv init. I got my.env
+
+6
+00:00:14,969 --> 00:00:16,608
+file, which contains an OpenAI
+
+7
+00:00:17,218 --> 00:00:20,575
+API key. I got a pretty empty main.py file,
+
+8
+00:00:20,752 --> 00:00:22,583
+and you can of course create any Python
+
+9
+00:00:22,583 --> 00:00:24,671
+project you want with any tool you want if
+
+10
+00:00:24,671 --> 00:00:25,699
+you wanna follow along.
+
+11
+00:00:26,436 --> 00:00:27,462
+I did add
+
+12
+00:00:28,696 --> 00:00:32,830
+python.env and OpenAI, these 2 packages,
+
+13
+00:00:33,407 --> 00:00:36,596
+python.env to load the environment variables
+
+14
+00:00:36,725 --> 00:00:39,112
+specified in the.env file into the actual
+
+15
+00:00:39,112 --> 00:00:41,099
+environment to make them available here and
+
+16
+00:00:41,099 --> 00:00:43,487
+OpenAI of course to be able to use, well,
+
+17
+00:00:43,984 --> 00:00:44,561
+OpenAI
+
+18
+00:00:45,602 --> 00:00:48,279
+because I want to import OpenAI
+
+19
+00:00:48,807 --> 00:00:51,468
+and just like before create a new client by
+
+20
+00:00:51,772 --> 00:00:53,585
+instantiating OpenAI like this.
+
+21
+00:00:54,884 --> 00:00:57,804
+You could then set your API key, but if your
+
+22
+00:00:58,012 --> 00:00:59,953
+API key actually is named
+
+23
+00:01:00,579 --> 00:01:03,322
+OpenAI API key, you don't need to do that
+
+24
+00:01:03,322 --> 00:01:05,247
+because it will automatically look for that.
+
+25
+00:01:06,530 --> 00:01:08,616
+And therefore we're now ready to build our
+
+26
+00:01:08,616 --> 00:01:11,808
+first tool-aware agent if you wanna call it
+
+27
+00:01:11,808 --> 00:01:12,113
+like this.
+
+28
+00:01:13,412 --> 00:01:15,193
+For this, I'll first start by creating a
+
+29
+00:01:15,193 --> 00:01:17,535
+tool and I'll name that tool get
+
+30
+00:01:17,599 --> 00:01:18,433
+temperature.
+
+31
+00:01:19,523 --> 00:01:20,998
+And it's just a dummy tool for now.
+
+32
+00:01:21,847 --> 00:01:23,466
+It's called get temperature
+
+33
+00:01:23,995 --> 00:01:26,416
+and I expect to get the city for which I
+
+34
+00:01:26,480 --> 00:01:28,724
+want to get the temperature as an input.
+
+35
+00:01:29,943 --> 00:01:32,107
+And then this should return a floating point
+
+36
+00:01:32,107 --> 00:01:32,427
+number.
+
+37
+00:01:33,694 --> 00:01:35,681
+And for now I'll just return a dummy value.
+
+38
+00:01:36,050 --> 00:01:39,336
+So these suggestions by Copilot make sense
+
+39
+00:01:40,523 --> 00:01:42,126
+and that's therefore all this will do for
+
+40
+00:01:42,126 --> 00:01:44,530
+now. It's not a real helpful function, it's
+
+41
+00:01:44,530 --> 00:01:46,566
+just a dummy function. But of course you
+
+42
+00:01:46,614 --> 00:01:49,243
+could imagine that in this function we might
+
+43
+00:01:49,243 --> 00:01:50,814
+be reaching out to some web service weather
+
+44
+00:01:50,927 --> 00:01:53,432
+API and we might be looking for the actual
+
+45
+00:01:53,432 --> 00:01:55,005
+temperature for a certain city.
+
+46
+00:01:55,760 --> 00:01:57,911
+For this demo, I'll just hardcode a fixed
+
+47
+00:01:57,911 --> 00:01:58,345
+temperature.
+
+48
+00:01:59,453 --> 00:02:03,387
+The idea now is to now talk to a large
+
+49
+00:02:03,387 --> 00:02:05,121
+language model and get it to
+
+50
+00:02:05,779 --> 00:02:09,279
+request the execution of this function if a
+
+51
+00:02:09,392 --> 00:02:10,885
+user asks for
+
+52
+00:02:11,559 --> 00:02:13,679
+the temperature in a certain city, but not
+
+53
+00:02:13,759 --> 00:02:15,718
+if the user asks for something else.
+
+54
+00:02:16,970 --> 00:02:18,511
+So therefore in the main function,
+
+55
+00:02:19,185 --> 00:02:21,239
+I will get some user input
+
+56
+00:02:22,010 --> 00:02:23,824
+and I don't want to get just a city name,
+
+57
+00:02:23,856 --> 00:02:26,568
+but instead any question because here I
+
+58
+00:02:26,568 --> 00:02:29,553
+wanna build a versatile AI application, a
+
+59
+00:02:29,553 --> 00:02:31,576
+versatile agent if you wanna call it like
+
+60
+00:02:31,576 --> 00:02:34,256
+this, who's able to help with all kinds of
+
+61
+00:02:34,609 --> 00:02:34,898
+things.
+
+62
+00:02:35,476 --> 00:02:37,386
+And I wanna give it the temperature tool so
+
+63
+00:02:37,402 --> 00:02:39,761
+that it can but doesn't have to use that
+
+64
+00:02:39,761 --> 00:02:42,939
+tool if the user asks a question that is
+
+65
+00:02:42,939 --> 00:02:45,587
+about the temperature in a certain city. But
+
+66
+00:02:45,587 --> 00:02:47,914
+the user should be allowed to ask any kind
+
+67
+00:02:47,914 --> 00:02:48,476
+of question.
+
+68
+00:02:49,358 --> 00:02:51,124
+And that's already an important difference
+
+69
+00:02:51,124 --> 00:02:52,873
+to all the workflows we took a look at in
+
+70
+00:02:52,905 --> 00:02:55,280
+the previous section because there we had
+
+71
+00:02:55,312 --> 00:02:57,542
+workflows that focused on a specific
+
+72
+00:02:57,559 --> 00:03:00,543
+problem. And therefore we had step-by-step
+
+73
+00:03:00,993 --> 00:03:03,721
+tasks that needed to be executed and we were
+
+74
+00:03:03,721 --> 00:03:06,320
+looking for a specific input because we also
+
+75
+00:03:06,369 --> 00:03:08,198
+knew that we would be executing those
+
+76
+00:03:08,294 --> 00:03:10,605
+workflows and we knew how to execute them
+
+77
+00:03:10,637 --> 00:03:12,017
+and which input is required.
+
+78
+00:03:12,739 --> 00:03:14,480
+Here instead, we could be building a more
+
+79
+00:03:14,673 --> 00:03:15,205
+versatile
+
+80
+00:03:15,737 --> 00:03:17,687
+application that we also wanna expose to
+
+81
+00:03:17,816 --> 00:03:20,121
+other users, a customer service agent or
+
+82
+00:03:20,186 --> 00:03:22,136
+something like this. So that's one important
+
+83
+00:03:22,136 --> 00:03:22,469
+difference.
+
+84
+00:03:24,242 --> 00:03:25,419
+Now the goal is to
+
+85
+00:03:26,112 --> 00:03:29,384
+send this as a prompt to the AI model.
+
+86
+00:03:30,126 --> 00:03:30,593
+And for that,
+
+87
+00:03:31,718 --> 00:03:35,901
+I'll use client responses create just as we
+
+88
+00:03:35,901 --> 00:03:36,627
+did it before.
+
+89
+00:03:37,582 --> 00:03:40,400
+And for the model, we can use various models
+
+90
+00:03:40,416 --> 00:03:40,872
+of course.
+
+91
+00:03:41,474 --> 00:03:41,996
+I will use this one.
+
+92
+00:03:43,110 --> 00:03:45,712
+GPT-4o again, also because it's relatively
+
+93
+00:03:45,712 --> 00:03:45,969
+cheap.
+
+94
+00:03:46,660 --> 00:03:47,046
+And
+
+95
+00:03:47,785 --> 00:03:48,427
+for the input,
+
+96
+00:03:49,231 --> 00:03:51,625
+I wanna send the user input. I wanna forward
+
+97
+00:03:51,737 --> 00:03:54,616
+the prompt sent by the user to keep things
+
+98
+00:03:54,811 --> 00:03:55,606
+simple right now.
+
+99
+00:03:56,256 --> 00:03:58,075
+And of course we'll get back a response here
+
+100
+00:03:58,783 --> 00:04:01,562
+and that response will contain some output
+
+101
+00:04:01,610 --> 00:04:04,502
+text, which is the reply by the model. And
+
+102
+00:04:04,502 --> 00:04:06,215
+then I'll output that reply.
+
+103
+00:04:08,190 --> 00:04:09,884
+Now at the moment there is no tool use in
+
+104
+00:04:09,916 --> 00:04:11,995
+there. This model doesn't know anything
+
+105
+00:04:12,011 --> 00:04:12,943
+about this function.
+
+106
+00:04:13,697 --> 00:04:14,837
+And of course, therefore,
+
+107
+00:04:15,624 --> 00:04:19,044
+if I execute this code, if I run this file,
+
+108
+00:04:19,959 --> 00:04:22,785
+I can ask my question and ask, what's the
+
+109
+00:04:23,427 --> 00:04:25,708
+temperature in Munich today?
+
+110
+00:04:26,880 --> 00:04:28,244
+But as a result, I'll,
+
+111
+00:04:28,951 --> 00:04:29,738
+I don't know what I'll get.
+
+112
+00:04:30,476 --> 00:04:32,066
+Yeah, I'll get the information that it
+
+113
+00:04:32,098 --> 00:04:32,901
+doesn't know that,
+
+114
+00:04:33,543 --> 00:04:35,325
+which is better than hallucinating
+
+115
+00:04:35,325 --> 00:04:35,727
+something.
+
+116
+00:04:36,417 --> 00:04:38,037
+But it would be even better if it had access
+
+117
+00:04:38,037 --> 00:04:39,385
+to this function, right? And that's what
+
+118
+00:04:39,385 --> 00:04:39,946
+we'll do next.
+
+119
+00:04:40,684 --> 00:04:42,449
+And for this, as I showed you on the slide,
+
+120
+00:04:42,513 --> 00:04:44,983
+we can try engineering a special prompt.
+
+121
+00:04:45,673 --> 00:04:47,390
+So we can add a prompt
+
+122
+00:04:47,983 --> 00:04:49,748
+which builds up on that user prompt.
+
+123
+00:04:50,855 --> 00:04:52,700
+And in there we could say something like,
+
+124
+00:04:52,780 --> 00:04:54,737
+you are a helpful assistant, answer the
+
+125
+00:04:54,737 --> 00:04:56,406
+user's question based on the
+
+126
+00:04:57,192 --> 00:04:59,454
+following context. No, answer the user's
+
+127
+00:04:59,454 --> 00:04:59,983
+question
+
+128
+00:05:00,897 --> 00:05:02,084
+in a friendly tone.
+
+129
+00:05:03,545 --> 00:05:03,674
+Way.
+
+130
+00:05:04,990 --> 00:05:09,277
+You can also use tools if you feel like they
+
+131
+00:05:10,272 --> 00:05:13,114
+help you provide a better answer.
+
+132
+00:05:13,740 --> 00:05:15,698
+And then I wanna list my tools. And here
+
+133
+00:05:16,164 --> 00:05:18,476
+I'll describe this function, get
+
+134
+00:05:18,476 --> 00:05:20,065
+temperature, get the current temperature for
+
+135
+00:05:20,065 --> 00:05:21,879
+a given city. And I'll say,
+
+136
+00:05:22,634 --> 00:05:26,005
+if you want to use one of these tools, and
+
+137
+00:05:26,022 --> 00:05:27,338
+at the moment it's of course just one,
+
+138
+00:05:28,189 --> 00:05:29,650
+you should output
+
+139
+00:05:30,437 --> 00:05:30,694
+the
+
+140
+00:05:32,107 --> 00:05:33,825
+tool name and
+
+141
+00:05:34,467 --> 00:05:36,217
+its arguments in the following form.
+
+142
+00:05:37,180 --> 00:05:40,825
+And then I have an example, for example,
+
+143
+00:05:41,660 --> 00:05:43,298
+get temperature New York. And actually I
+
+144
+00:05:43,298 --> 00:05:45,209
+don't want that format which was suggested
+
+145
+00:05:45,209 --> 00:05:48,308
+to me here. I instead want tool name colon
+
+146
+00:05:49,127 --> 00:05:51,567
+arg1, arg2, and so on. And the updated
+
+147
+00:05:51,567 --> 00:05:52,145
+example
+
+148
+00:05:52,916 --> 00:05:53,687
+then looks like this.
+
+149
+00:05:55,565 --> 00:05:57,378
+With that in mind,
+
+150
+00:05:58,276 --> 00:05:59,544
+answer the user's question.
+
+151
+00:06:00,860 --> 00:06:02,432
+And then, you know, I like those
+
+152
+00:06:03,106 --> 00:06:03,636
+delimiters,
+
+153
+00:06:04,374 --> 00:06:05,561
+user question.
+
+154
+00:06:06,540 --> 00:06:06,829
+If you
+
+155
+00:06:07,519 --> 00:06:11,386
+request a tool, please output only
+
+156
+00:06:11,932 --> 00:06:12,798
+the tool call
+
+157
+00:06:13,360 --> 00:06:15,029
+as described above
+
+158
+00:06:16,425 --> 00:06:17,082
+and nothing
+
+159
+00:06:17,772 --> 00:06:18,013
+else.
+
+160
+00:06:19,313 --> 00:06:21,351
+And this may or may not work. It's not the
+
+161
+00:06:21,479 --> 00:06:24,754
+best way of requesting tool use with OpenAI,
+
+162
+00:06:24,770 --> 00:06:27,580
+but it is a way that in theory should work
+
+163
+00:06:27,580 --> 00:06:30,358
+with all large language models because it is
+
+164
+00:06:30,454 --> 00:06:32,686
+just about increasing the likelihood of the
+
+165
+00:06:32,782 --> 00:06:34,292
+right tokens being generated.
+
+166
+00:06:35,367 --> 00:06:36,925
+So therefore, let's give this a try.
+
+167
+00:06:37,615 --> 00:06:39,639
+Let's send this prompt to
+
+168
+00:06:40,329 --> 00:06:43,203
+OpenAI, to the GPT-4o model in my case here.
+
+169
+00:06:43,894 --> 00:06:45,114
+So if I ask, what's the
+
+170
+00:06:45,804 --> 00:06:47,410
+temperature in Munich?
+
+171
+00:06:49,323 --> 00:06:51,070
+Then I indeed get back the response I
+
+172
+00:06:51,152 --> 00:06:51,559
+wanted,
+
+173
+00:06:52,113 --> 00:06:53,661
+get temperature Munich.
+
+174
+00:06:55,540 --> 00:06:57,339
+And now of course, since I'm building this
+
+175
+00:06:57,339 --> 00:06:59,625
+application, I could check if reply
+
+176
+00:07:00,679 --> 00:07:01,668
+is equal to,
+
+177
+00:07:02,852 --> 00:07:05,664
+or I should say starts with get temperature,
+
+178
+00:07:06,162 --> 00:07:07,866
+then I want to get my
+
+179
+00:07:08,653 --> 00:07:12,285
+argument or my arg by splitting the reply at
+
+180
+00:07:12,285 --> 00:07:14,721
+the colon. And I know that the part after
+
+181
+00:07:14,721 --> 00:07:16,417
+the colon will be the argument.
+
+182
+00:07:17,497 --> 00:07:19,884
+And I call strip to remove that whitespace
+
+183
+00:07:20,158 --> 00:07:22,707
+so that I get just the name of the city.
+
+184
+00:07:24,422 --> 00:07:24,696
+And then
+
+185
+00:07:25,374 --> 00:07:27,924
+I get the temperature by executing this
+
+186
+00:07:28,053 --> 00:07:30,360
+get_temperature function and by passing this
+
+187
+00:07:30,877 --> 00:07:32,378
+argument as a parameter to it.
+
+188
+00:07:33,524 --> 00:07:35,296
+And get_temperature is of course my
+
+189
+00:07:35,296 --> 00:07:35,683
+function.
+
+190
+00:07:36,682 --> 00:07:38,985
+So as you can see, it's me, it's my code
+
+191
+00:07:39,179 --> 00:07:41,353
+that executes this function. It's not the
+
+192
+00:07:41,418 --> 00:07:43,658
+large language model. As explained before,
+
+193
+00:07:43,786 --> 00:07:46,581
+it's our code. The large language model just
+
+194
+00:07:46,581 --> 00:07:49,039
+requests the use of this tool. Now, of
+
+195
+00:07:49,087 --> 00:07:51,368
+course, I could then output this
+
+196
+00:07:51,737 --> 00:07:54,178
+temperature, but I still wanna get a reply
+
+197
+00:07:54,548 --> 00:07:56,074
+that's generated by the model.
+
+198
+00:07:56,652 --> 00:07:58,049
+So what I'll do instead is
+
+199
+00:07:58,708 --> 00:07:58,836
+if
+
+200
+00:07:59,367 --> 00:08:02,724
+a tool use was requested, I'll request
+
+201
+00:08:02,740 --> 00:08:05,374
+another reply by the model. And we could do
+
+202
+00:08:05,374 --> 00:08:07,253
+this in a more elegant way. Here, I'll keep
+
+203
+00:08:07,253 --> 00:08:09,903
+it very simple. Deliberately to show you
+
+204
+00:08:09,903 --> 00:08:12,247
+step by step what's working. So I'm sending
+
+205
+00:08:12,295 --> 00:08:15,250
+another request to OpenAI, but now I need an
+
+206
+00:08:15,250 --> 00:08:18,300
+updated prompt. I need an updated prompt
+
+207
+00:08:18,300 --> 00:08:20,484
+that takes this temperature information into
+
+208
+00:08:20,484 --> 00:08:20,821
+account.
+
+209
+00:08:21,624 --> 00:08:22,989
+So I can build
+
+210
+00:08:23,535 --> 00:08:24,691
+my updated prompt here
+
+211
+00:08:25,462 --> 00:08:27,710
+and say, you are a helpful assistant, answer
+
+212
+00:08:27,710 --> 00:08:29,797
+the user's question in a friendly way. And
+
+213
+00:08:29,797 --> 00:08:30,696
+now I could
+
+214
+00:08:31,403 --> 00:08:33,008
+pick up that user question.
+
+215
+00:08:34,758 --> 00:08:37,151
+Here's the user's question
+
+216
+00:08:38,387 --> 00:08:38,773
+like this.
+
+217
+00:08:40,057 --> 00:08:41,326
+You requested
+
+218
+00:08:41,920 --> 00:08:42,032
+to
+
+219
+00:08:42,722 --> 00:08:43,798
+use the get
+
+220
+00:08:44,553 --> 00:08:45,468
+temperature
+
+221
+00:08:45,998 --> 00:08:46,207
+tool
+
+222
+00:08:47,042 --> 00:08:47,989
+for the city
+
+223
+00:08:48,808 --> 00:08:49,081
+arg.
+
+224
+00:08:50,253 --> 00:08:50,638
+Here's
+
+225
+00:08:51,313 --> 00:08:53,737
+the result of executing that
+
+226
+00:08:54,460 --> 00:08:54,669
+tool
+
+227
+00:08:55,407 --> 00:08:55,776
+or of
+
+228
+00:08:56,595 --> 00:08:57,848
+using that tool.
+
+229
+00:08:59,647 --> 00:09:01,803
+The current temperature in Arc is
+
+230
+00:09:02,076 --> 00:09:02,913
+temperature. So I
+
+231
+00:09:03,766 --> 00:09:06,711
+put the result of calling that function into
+
+232
+00:09:06,743 --> 00:09:07,708
+this updated prompt.
+
+233
+00:09:09,283 --> 00:09:11,623
+And now it's this updated prompt that's sent
+
+234
+00:09:11,623 --> 00:09:12,171
+to the model.
+
+235
+00:09:12,752 --> 00:09:14,463
+Now there would be other ways of doing that.
+
+236
+00:09:14,527 --> 00:09:17,157
+We could also manage a chat history and add
+
+237
+00:09:17,190 --> 00:09:19,014
+this as a new message in the chat history.
+
+238
+00:09:19,613 --> 00:09:21,734
+But to keep things simple, I'll do it like
+
+239
+00:09:21,782 --> 00:09:21,912
+this.
+
+240
+00:09:23,175 --> 00:09:25,231
+And now we'll get an updated reply and then
+
+241
+00:09:25,441 --> 00:09:27,125
+I output that reply.
+
+242
+00:09:28,220 --> 00:09:30,160
+By the way, I also wanna output a reply if
+
+243
+00:09:30,160 --> 00:09:32,278
+we don't make it into this if block. So if
+
+244
+00:09:32,343 --> 00:09:35,125
+the tool did not request a tool use, so I
+
+245
+00:09:35,157 --> 00:09:37,225
+will add an else block and in that case
+
+246
+00:09:37,273 --> 00:09:40,856
+print the old reply. So this reply so that
+
+247
+00:09:40,872 --> 00:09:43,844
+we output a reply either way, no matter if a
+
+248
+00:09:43,844 --> 00:09:45,579
+tool use was requested or not.
+
+249
+00:09:46,270 --> 00:09:48,085
+And with this updated code here,
+
+250
+00:09:49,529 --> 00:09:51,865
+if I again run this and I ask what's the
+
+251
+00:09:52,206 --> 00:09:55,808
+temperature in Munich, it should now call
+
+252
+00:09:55,856 --> 00:09:57,187
+that function behind the scenes and then
+
+253
+00:09:57,283 --> 00:09:59,689
+output that it's 20 degrees because that's
+
+254
+00:09:59,689 --> 00:10:01,517
+what my get temperature function always
+
+255
+00:10:01,613 --> 00:10:01,998
+returns.
+
+256
+00:10:03,474 --> 00:10:05,927
+And that proves that it works. Now to really
+
+257
+00:10:05,959 --> 00:10:08,445
+prove that, I'll also add a print statement
+
+258
+00:10:08,445 --> 00:10:08,622
+here
+
+259
+00:10:10,049 --> 00:10:10,386
+and say
+
+260
+00:10:11,797 --> 00:10:14,395
+fetching temperature for city so that we can
+
+261
+00:10:14,395 --> 00:10:15,999
+see when that tool gets called.
+
+262
+00:10:16,624 --> 00:10:17,298
+And with that done,
+
+263
+00:10:18,469 --> 00:10:19,238
+if I run this again,
+
+264
+00:10:19,835 --> 00:10:23,334
+and I ask what's the temperature in Berlin,
+
+265
+00:10:25,594 --> 00:10:27,752
+we should soon see that the tool is being
+
+266
+00:10:27,785 --> 00:10:28,823
+executed. Here we go.
+
+267
+00:10:29,813 --> 00:10:31,095
+And then we get the updated response.
+
+268
+00:10:32,600 --> 00:10:34,476
+Now if I ask for something else like
+
+269
+00:10:35,382 --> 00:10:36,999
+what can you do for me,
+
+270
+00:10:37,646 --> 00:10:39,814
+we should see that the function does not get
+
+271
+00:10:39,814 --> 00:10:40,364
+executed.
+
+272
+00:10:41,124 --> 00:10:43,701
+Here we get a normal response though it does
+
+273
+00:10:43,701 --> 00:10:45,872
+inform us that it can get the temperature
+
+274
+00:10:45,872 --> 00:10:47,995
+for a city because of course the information
+
+275
+00:10:48,043 --> 00:10:50,644
+that it can request this tool use is in its
+
+276
+00:10:50,644 --> 00:10:51,430
+initial prompt.
+
+277
+00:10:52,410 --> 00:10:54,272
+So it's pretty smart that it tells us that
+
+278
+00:10:54,272 --> 00:10:55,348
+it could do that for us.
+
+279
+00:10:56,023 --> 00:10:57,805
+But the function was not invoked here
+
+280
+00:10:57,869 --> 00:11:00,567
+because our prompt did have nothing in it
+
+281
+00:11:00,840 --> 00:11:03,553
+that would have increased the likelihood of
+
+282
+00:11:03,730 --> 00:11:06,267
+the model to request this tool use.
+
+283
+00:11:07,021 --> 00:11:09,125
+And that's therefore how large language
+
+284
+00:11:09,269 --> 00:11:12,240
+models use tools. Now that's a very verbose
+
+285
+00:11:12,240 --> 00:11:14,504
+way, but that's important to understand how
+
+286
+00:11:14,504 --> 00:11:14,953
+it works.
+
+287
+00:11:15,757 --> 00:11:18,487
+Now I'll show you a more elegant way you can
+
+288
+00:11:18,584 --> 00:11:21,071
+use when working with OpenAI and also with
+
+289
+00:11:21,087 --> 00:11:22,282
+many other providers.

@@ -1,0 +1,551 @@
+1
+00:00:02,199 --> 00:00:05,266
+So why would you want to use a linked list?
+
+2
+00:00:05,892 --> 00:00:08,237
+Now, the linked list is a pretty old data
+
+3
+00:00:08,237 --> 00:00:08,766
+structure.
+
+4
+00:00:09,344 --> 00:00:11,432
+It's not a new invention. It's been around
+
+5
+00:00:11,432 --> 00:00:12,604
+forever in programming.
+
+6
+00:00:13,198 --> 00:00:15,494
+Historically, and in other programming
+
+7
+00:00:15,526 --> 00:00:15,976
+languages,
+
+8
+00:00:16,730 --> 00:00:18,545
+the linked list could help with memory
+
+9
+00:00:18,641 --> 00:00:20,793
+management because in other programming
+
+10
+00:00:20,825 --> 00:00:23,169
+languages, you often need to specify the
+
+11
+00:00:23,169 --> 00:00:25,000
+size of an array in advance.
+
+12
+00:00:25,562 --> 00:00:28,110
+And that could be a problem, especially if
+
+13
+00:00:28,142 --> 00:00:31,268
+memory is a scarce resource. Now, of course,
+
+14
+00:00:31,493 --> 00:00:34,474
+still you shouldn't create apps that occupy
+
+15
+00:00:34,474 --> 00:00:36,879
+tons of memory, but memory of course was a
+
+16
+00:00:36,879 --> 00:00:39,620
+much bigger issue a couple of years or
+
+17
+00:00:39,748 --> 00:00:40,453
+decades ago.
+
+18
+00:00:41,351 --> 00:00:43,643
+Then linked lists could be helpful because
+
+19
+00:00:43,675 --> 00:00:46,000
+for linked lists you don't need to specify
+
+20
+00:00:46,000 --> 00:00:48,869
+the length in advance, and that was one of
+
+21
+00:00:48,885 --> 00:00:51,193
+the primary reasons why linked lists were
+
+22
+00:00:51,209 --> 00:00:52,267
+invented and used.
+
+23
+00:00:52,892 --> 00:00:55,216
+In JavaScript, we honestly don't have that
+
+24
+00:00:55,216 --> 00:00:57,187
+problem because the built-in array is
+
+25
+00:00:57,299 --> 00:00:59,639
+dynamic and grows and shrinks with the
+
+26
+00:00:59,639 --> 00:01:02,507
+number of elements. So we don't use linked
+
+27
+00:01:02,507 --> 00:01:04,718
+lists in JavaScript because of memory
+
+28
+00:01:04,831 --> 00:01:05,552
+reasons typically.
+
+29
+00:01:06,193 --> 00:01:06,802
+Instead,
+
+30
+00:01:07,379 --> 00:01:10,215
+linked lists can be useful if you do a lot
+
+31
+00:01:10,215 --> 00:01:13,083
+of insertions at the beginning of lists
+
+32
+00:01:13,083 --> 00:01:13,804
+specifically.
+
+33
+00:01:14,622 --> 00:01:17,714
+For arrays, we have the problem that if we
+
+34
+00:01:17,875 --> 00:01:20,599
+add element at the beginning of an array, we
+
+35
+00:01:20,599 --> 00:01:23,628
+have to shift all our elements by one
+
+36
+00:01:23,804 --> 00:01:26,095
+element. We have to move them by one
+
+37
+00:01:26,288 --> 00:01:26,704
+element.
+
+38
+00:01:27,409 --> 00:01:30,919
+And linked lists are faster than arrays at
+
+39
+00:01:30,935 --> 00:01:33,867
+this because there we don't keep track of
+
+40
+00:01:33,916 --> 00:01:35,181
+the position of elements.
+
+41
+00:01:35,742 --> 00:01:37,874
+We don't have a long list of elements where
+
+42
+00:01:38,002 --> 00:01:39,845
+every element has an index that we need to
+
+43
+00:01:39,845 --> 00:01:40,181
+update.
+
+44
+00:01:40,710 --> 00:01:43,178
+Instead, inserting an element simply means
+
+45
+00:01:43,530 --> 00:01:46,549
+that we add it and store the next element in
+
+46
+00:01:46,661 --> 00:01:49,312
+the next property and that's it. The other
+
+47
+00:01:49,312 --> 00:01:49,681
+nodes
+
+48
+00:01:50,517 --> 00:01:52,766
+don't even recognize that something changed
+
+49
+00:01:52,766 --> 00:01:53,810
+at the beginning of the list.
+
+50
+00:01:54,934 --> 00:01:57,247
+And that's a scenario where linked lists
+
+51
+00:01:57,569 --> 00:01:57,954
+shine.
+
+52
+00:01:58,484 --> 00:02:00,621
+Now of course that means that if you never
+
+53
+00:02:00,862 --> 00:02:02,516
+add elements of the beginning of an array,
+
+54
+00:02:03,046 --> 00:02:05,697
+you very likely don't have a use case where
+
+55
+00:02:05,697 --> 00:02:08,139
+you want a linked list. And even if you do,
+
+56
+00:02:08,974 --> 00:02:11,512
+you would have to use a very big array
+
+57
+00:02:12,042 --> 00:02:14,671
+where you add elements at the beginning with
+
+58
+00:02:14,671 --> 00:02:17,973
+a high frequency to really consider a linked
+
+59
+00:02:17,973 --> 00:02:19,816
+list. But that's the thing about data
+
+60
+00:02:19,816 --> 00:02:21,788
+structures. We use them for niche
+
+61
+00:02:22,045 --> 00:02:24,706
+optimizations and the insertion at the
+
+62
+00:02:24,706 --> 00:02:27,271
+beginning would be the main advantage of the
+
+63
+00:02:27,271 --> 00:02:27,655
+linked list.
+
+64
+00:02:28,457 --> 00:02:30,925
+Now, of course, I can just tell you that and
+
+65
+00:02:30,957 --> 00:02:33,298
+my explanations hopefully also make sense,
+
+66
+00:02:34,003 --> 00:02:35,334
+but how would you typically
+
+67
+00:02:36,087 --> 00:02:39,485
+compare or measure something like this? How
+
+68
+00:02:39,598 --> 00:02:41,906
+did we do it in the algorithms course in
+
+69
+00:02:41,938 --> 00:02:42,868
+case you watched that?
+
+70
+00:02:43,750 --> 00:02:45,435
+General compare algorithms?
+
+71
+00:02:46,254 --> 00:02:46,382
+Well,
+
+72
+00:02:47,057 --> 00:02:49,689
+with time complexity and the Big O notation.
+
+73
+00:02:50,364 --> 00:02:53,173
+And here's a brief refresher, even though I
+
+74
+00:02:53,237 --> 00:02:55,629
+will say you should know that before diving
+
+75
+00:02:55,661 --> 00:02:56,689
+deeper into the course.
+
+76
+00:02:57,347 --> 00:02:59,867
+So if time complexity and Big O doesn't tell
+
+77
+00:02:59,915 --> 00:03:00,670
+you anything,
+
+78
+00:03:01,200 --> 00:03:03,271
+definitely make sure you go through my
+
+79
+00:03:03,431 --> 00:03:04,828
+algorithms course first.
+
+80
+00:03:05,695 --> 00:03:08,568
+Time complexity is simply how we measure and
+
+81
+00:03:08,649 --> 00:03:11,346
+compare algorithms typically, and we use
+
+82
+00:03:11,394 --> 00:03:13,449
+something which is called the Big O notation
+
+83
+00:03:13,722 --> 00:03:16,494
+to express this time complexity in an easy
+
+84
+00:03:16,606 --> 00:03:16,798
+way.
+
+85
+00:03:17,663 --> 00:03:20,195
+If we consider this simple algorithm here, a
+
+86
+00:03:20,195 --> 00:03:22,823
+function that sums up all the numbers up to
+
+87
+00:03:22,839 --> 00:03:23,239
+a number,
+
+88
+00:03:23,960 --> 00:03:26,620
+we will see that the higher the number is we
+
+89
+00:03:26,620 --> 00:03:29,488
+pass in, the longer this will take to
+
+90
+00:03:29,569 --> 00:03:30,161
+complete.
+
+91
+00:03:31,011 --> 00:03:34,055
+And that would, for example, describe a
+
+92
+00:03:34,055 --> 00:03:36,715
+linear time complexity here. This function
+
+93
+00:03:36,715 --> 00:03:39,599
+has a linear time complexity. For a bigger
+
+94
+00:03:39,599 --> 00:03:42,245
+number, we take longer and the extra time we
+
+95
+00:03:42,245 --> 00:03:44,252
+take grows in a linear way.
+
+96
+00:03:45,295 --> 00:03:46,724
+Now, we don't just have linear time
+
+97
+00:03:46,724 --> 00:03:49,453
+complexity in programming. Besides that, we
+
+98
+00:03:49,614 --> 00:03:52,407
+also find constant time, so where the time
+
+99
+00:03:52,455 --> 00:03:55,521
+it takes never changes, quadratic time where
+
+100
+00:03:55,634 --> 00:03:57,416
+it changes at a faster rate,
+
+101
+00:03:57,962 --> 00:04:00,755
+and also cubic time and other time
+
+102
+00:04:00,851 --> 00:04:01,477
+complexities.
+
+103
+00:04:02,312 --> 00:04:04,511
+What we typically care about is not the time
+
+104
+00:04:04,560 --> 00:04:07,546
+in milliseconds because that depends way too
+
+105
+00:04:07,546 --> 00:04:11,265
+much on the underlying device, on other
+
+106
+00:04:11,297 --> 00:04:12,981
+processes that might be running in the
+
+107
+00:04:12,981 --> 00:04:15,545
+background and so on. Instead, we care about
+
+108
+00:04:15,545 --> 00:04:17,485
+the trend, about the growth rate, you could
+
+109
+00:04:17,485 --> 00:04:19,617
+say, and that is what we express with the
+
+110
+00:04:19,697 --> 00:04:20,723
+Big O notation.
+
+111
+00:04:21,396 --> 00:04:23,929
+Linear time would be expressed as O,
+
+112
+00:04:24,362 --> 00:04:29,011
+constant time O, quadratic time O, cubic
+
+113
+00:04:29,011 --> 00:04:32,105
+time O, and so on.
+
+114
+00:04:33,082 --> 00:04:35,663
+Now, we cannot just use time complexity and
+
+115
+00:04:35,743 --> 00:04:38,404
+Big O notation to describe algorithms though
+
+116
+00:04:38,613 --> 00:04:39,398
+and to compare them,
+
+117
+00:04:40,040 --> 00:04:42,557
+we can also use that to compare data
+
+118
+00:04:42,557 --> 00:04:43,134
+structures.
+
+119
+00:04:43,920 --> 00:04:46,277
+We can compare linked lists to arrays, for
+
+120
+00:04:46,310 --> 00:04:46,855
+example.
+
+121
+00:04:47,592 --> 00:04:49,356
+Now, of course, not the data structure as a
+
+122
+00:04:49,356 --> 00:04:51,377
+whole because that's just something that's
+
+123
+00:04:51,377 --> 00:04:52,387
+being stored in memory.
+
+124
+00:04:52,980 --> 00:04:55,193
+There we could compare the space complexity,
+
+125
+00:04:55,626 --> 00:04:57,583
+but instead we would look at the different
+
+126
+00:04:57,695 --> 00:05:00,325
+operations we wanna perform because those
+
+127
+00:05:00,421 --> 00:05:02,891
+operations, of course, again are functions
+
+128
+00:05:03,388 --> 00:05:05,809
+and therefore we can then find out what the
+
+129
+00:05:05,873 --> 00:05:07,605
+time complexities of the different
+
+130
+00:05:07,717 --> 00:05:10,251
+operations are. So for example, the time
+
+131
+00:05:10,299 --> 00:05:13,079
+complexity of finding and accessing an
+
+132
+00:05:13,176 --> 00:05:13,562
+element.
+
+133
+00:05:14,720 --> 00:05:15,686
+And by doing so,
+
+134
+00:05:16,233 --> 00:05:19,129
+we can find out which operation we are most
+
+135
+00:05:19,129 --> 00:05:20,352
+likely to perform,
+
+136
+00:05:20,915 --> 00:05:23,055
+and that then allows us to find out whether
+
+137
+00:05:23,152 --> 00:05:25,678
+we wanna use an array or, in this example, a
+
+138
+00:05:25,742 --> 00:05:26,306
+linked list.

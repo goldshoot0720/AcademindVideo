@@ -1,0 +1,419 @@
+1
+00:00:02,263 --> 00:00:04,719
+Now we have the adjacency matrix, but that's
+
+2
+00:00:04,832 --> 00:00:07,095
+just one way of representing a graph
+
+3
+00:00:07,641 --> 00:00:10,290
+and importantly the connections in a graph.
+
+4
+00:00:11,092 --> 00:00:13,693
+We could also have an adjacency list.
+
+5
+00:00:14,544 --> 00:00:16,390
+Now here's how an adjacency list works.
+
+6
+00:00:17,112 --> 00:00:19,617
+We have the same graph as before so that
+
+7
+00:00:19,617 --> 00:00:21,511
+it's easier to compare the 2 approaches.
+
+8
+00:00:22,410 --> 00:00:25,267
+And with an adjacency list, as the name
+
+9
+00:00:25,315 --> 00:00:27,964
+suggests, we're not going to build a matrix.
+
+10
+00:00:28,205 --> 00:00:30,660
+Instead, we'll just have a list. Or actually
+
+11
+00:00:30,853 --> 00:00:31,638
+a bunch of lists.
+
+12
+00:00:32,439 --> 00:00:34,666
+We'll have our node values,
+
+13
+00:00:35,243 --> 00:00:38,512
+let's say in an object or in a map as
+
+14
+00:00:38,608 --> 00:00:39,314
+identifiers.
+
+15
+00:00:39,971 --> 00:00:42,935
+And then for every node, we check which
+
+16
+00:00:42,951 --> 00:00:44,922
+connections it has. For example, this
+
+17
+00:00:45,034 --> 00:00:46,268
+connection from 1 to 2.
+
+18
+00:00:46,941 --> 00:00:50,098
+And if this exists, we store the identifier
+
+19
+00:00:50,306 --> 00:00:54,297
+of the node this node 1 points at in a list
+
+20
+00:00:54,473 --> 00:00:55,979
+mapped to that node.
+
+21
+00:00:57,034 --> 00:00:58,884
+Now we also have a connection to 3, so we
+
+22
+00:00:58,884 --> 00:01:00,216
+would also store 3 here.
+
+23
+00:01:00,890 --> 00:01:02,623
+So it's not just 0 and 1
+
+24
+00:01:03,297 --> 00:01:05,592
+or false and true as before.
+
+25
+00:01:06,122 --> 00:01:08,786
+Instead, now we store the identifiers of the
+
+26
+00:01:08,786 --> 00:01:11,594
+nodes we're pointing at for every node.
+
+27
+00:01:13,006 --> 00:01:15,028
+And this of course allows us to represent
+
+28
+00:01:15,028 --> 00:01:16,826
+bidirectional graphs as well.
+
+29
+00:01:17,917 --> 00:01:20,132
+Now we would find one other connection here
+
+30
+00:01:20,164 --> 00:01:22,058
+in this example, and therefore we would
+
+31
+00:01:22,074 --> 00:01:24,185
+store this entry for node 3.
+
+32
+00:01:24,895 --> 00:01:28,026
+2 would have no entries at all because 2 has
+
+33
+00:01:28,058 --> 00:01:30,414
+no connections. It doesn't point at any
+
+34
+00:01:30,479 --> 00:01:33,488
+other node. Other nodes only point at 2.
+
+35
+00:01:35,012 --> 00:01:37,170
+So that's how we could build an adjacency
+
+36
+00:01:37,267 --> 00:01:37,624
+list.
+
+37
+00:01:38,220 --> 00:01:40,355
+So how would that look like in code now?
+
+38
+00:01:41,875 --> 00:01:44,981
+Again, I'll stick to the same example, and
+
+39
+00:01:45,191 --> 00:01:48,267
+our adjacency list here could just be an
+
+40
+00:01:48,429 --> 00:01:50,115
+object full of arrays.
+
+41
+00:01:50,957 --> 00:01:52,691
+In that object, we have our node
+
+42
+00:01:52,740 --> 00:01:54,634
+identifiers, for example, 1,
+
+43
+00:01:55,389 --> 00:01:56,962
+which of course can also just be a number
+
+44
+00:01:57,540 --> 00:02:00,029
+or also a random ID. That's totally up to
+
+45
+00:02:00,029 --> 00:02:01,346
+you, but I'll stick to the numbers.
+
+46
+00:02:02,117 --> 00:02:04,204
+And for every identifier, we would store a
+
+47
+00:02:04,204 --> 00:02:07,094
+value which is a list of other node
+
+48
+00:02:07,094 --> 00:02:07,801
+identifiers
+
+49
+00:02:08,395 --> 00:02:09,824
+this node points at.
+
+50
+00:02:10,867 --> 00:02:11,333
+So we have 1,
+
+51
+00:02:12,489 --> 00:02:13,003
+we have 2,
+
+52
+00:02:14,159 --> 00:02:16,845
+and we have a list for 3. Because we have 3
+
+53
+00:02:17,136 --> 00:02:18,137
+nodes in this example.
+
+54
+00:02:19,073 --> 00:02:21,317
+Now, as I showed you on the slide,
+
+55
+00:02:22,710 --> 00:02:25,022
+node 1 points at the nodes 2
+
+56
+00:02:25,555 --> 00:02:26,056
+and 3.
+
+57
+00:02:28,174 --> 00:02:30,923
+So therefore, in our adjacency list,
+
+58
+00:02:31,796 --> 00:02:35,016
+we would store 2 and 3 as values here. So
+
+59
+00:02:35,016 --> 00:02:38,492
+the identifiers of the nodes node 1 points
+
+60
+00:02:38,556 --> 00:02:38,685
+at.
+
+61
+00:02:40,810 --> 00:02:43,394
+Node 2 doesn't point at any other nodes, so
+
+62
+00:02:43,507 --> 00:02:44,831
+this stays an empty array.
+
+63
+00:02:45,706 --> 00:02:48,687
+And node 3 in this example points at 2, so
+
+64
+00:02:48,687 --> 00:02:51,507
+we would insert this identifier in this list
+
+65
+00:02:51,635 --> 00:02:52,661
+of node 3.
+
+66
+00:02:53,494 --> 00:02:55,946
+And that's our adjacency list. Very, very
+
+67
+00:02:55,994 --> 00:02:56,459
+simple.
+
+68
+00:02:57,100 --> 00:02:58,911
+And if we now want to find out whether node
+
+69
+00:02:58,943 --> 00:03:00,898
+1 has a connection to node 2,
+
+70
+00:03:01,747 --> 00:03:03,045
+we could just access the
+
+71
+00:03:04,135 --> 00:03:07,260
+element 1 in our adjacency list. So we use
+
+72
+00:03:07,260 --> 00:03:09,904
+this identifier, which again could of course
+
+73
+00:03:10,064 --> 00:03:10,721
+also be
+
+74
+00:03:12,901 --> 00:03:15,049
+a string or anything else, but here it's a
+
+75
+00:03:15,049 --> 00:03:15,354
+number.
+
+76
+00:03:16,235 --> 00:03:16,780
+And then
+
+77
+00:03:17,598 --> 00:03:20,050
+we would get back that list, and now there
+
+78
+00:03:20,098 --> 00:03:22,166
+we could search for the value for which we
+
+79
+00:03:22,166 --> 00:03:24,394
+want to check whether a connection exists.
+
+80
+00:03:24,827 --> 00:03:26,222
+So we could use find here,
+
+81
+00:03:26,975 --> 00:03:28,722
+and for every connected
+
+82
+00:03:29,299 --> 00:03:32,569
+node, we could check if that connected node
+
+83
+00:03:32,617 --> 00:03:34,958
+is equal to 2 if we're looking for 2.
+
+84
+00:03:35,711 --> 00:03:38,164
+And we either find something here or it If
+
+85
+00:03:38,213 --> 00:03:39,992
+we're looking for a connection that does not
+
+86
+00:03:39,992 --> 00:03:42,046
+exist, we get back undefined.
+
+87
+00:03:42,596 --> 00:03:45,475
+So that's how we could look for values here
+
+88
+00:03:45,734 --> 00:03:47,689
+and how we could find out if a certain
+
+89
+00:03:47,689 --> 00:03:48,760
+connection exists.
+
+90
+00:03:50,500 --> 00:03:53,602
+We could get all connections simply by just
+
+91
+00:03:53,602 --> 00:03:55,941
+retrieving the full list of connected nodes
+
+92
+00:03:56,364 --> 00:03:57,745
+for a given identifier.
+
+93
+00:03:59,057 --> 00:04:01,524
+That's how we work with an adjacency list
+
+94
+00:04:01,769 --> 00:04:03,271
+and that's how we can represent a graph
+
+95
+00:04:03,467 --> 00:04:03,680
+there.
+
+96
+00:04:04,407 --> 00:04:06,766
+Again, the values of the nodes could be
+
+97
+00:04:06,766 --> 00:04:08,628
+stored in a separate array
+
+98
+00:04:09,318 --> 00:04:12,031
+where we just again need to make sure that
+
+99
+00:04:12,031 --> 00:04:14,775
+we got an identifier for every node that
+
+100
+00:04:14,775 --> 00:04:16,669
+matches the identifiers we have in our
+
+101
+00:04:16,685 --> 00:04:19,189
+adjacency list. And then besides that
+
+102
+00:04:19,189 --> 00:04:21,741
+identifier, we could store any value we
+
+103
+00:04:21,821 --> 00:04:22,014
+want.
+
+104
+00:04:22,560 --> 00:04:24,566
+That's how we could work with adjacency
+
+105
+00:04:24,566 --> 00:04:24,775
+lists.

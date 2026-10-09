@@ -1,0 +1,789 @@
+1
+00:00:00,718 --> 00:00:00,910
+How
+如何
+
+2
+00:00:01,521 --> 00:00:04,960
+do we make sure that our agent knows
+我們是否確保我們的代理人知道
+
+3
+00:00:05,555 --> 00:00:07,563
+about its general instructions, but most
+關於其一般說明，但大多數
+
+4
+00:00:07,563 --> 00:00:09,945
+importantly also about the tools
+重要的是關於工具
+
+5
+00:00:10,559 --> 00:00:11,077
+it may call?
+它可能會打電話嗎？
+
+6
+00:00:12,872 --> 00:00:15,362
+So how do we make our agent, our brain, our
+那我們如何讓我們的代理人、我們的大腦、我們的
+
+7
+00:00:15,476 --> 00:00:17,416
+AI brain, which makes the decisions in the
+人工智慧大腦，在其中做出決定
+
+8
+00:00:17,416 --> 00:00:19,436
+end, aware of the tools it may use?
+最後，知道它可能使用的工具嗎？
+
+9
+00:00:20,065 --> 00:00:22,273
+In a primitive agent, as we're building it
+在我們正在建構的原始代理中
+
+10
+00:00:22,273 --> 00:00:24,159
+here, we can do that via the instructions.
+在這裡，我們可以透過說明來做到這一點。
+
+11
+00:00:25,135 --> 00:00:27,687
+The instructions do contain general
+這些說明確實包含一般性訊息
+
+12
+00:00:27,736 --> 00:00:28,354
+instructions
+指示
+
+13
+00:00:28,874 --> 00:00:29,947
+that describe the task,
+描述任務，
+
+14
+00:00:30,780 --> 00:00:33,185
+the agent should perform, that is important,
+代理應該執行，這一點很重要，
+
+15
+00:00:33,699 --> 00:00:36,425
+but they also need to contain information
+但它們還需要包含訊息
+
+16
+00:00:36,425 --> 00:00:39,216
+about the tools that are available. You
+關於可用的工具。你
+
+17
+00:00:39,216 --> 00:00:41,959
+learned that earlier in the course. An agent
+在課程的早期就已經了解這一點。代理商
+
+18
+00:00:41,959 --> 00:00:45,535
+receives a lot of invisible inputs besides
+除此之外還收到很多看不見的輸入
+
+19
+00:00:45,568 --> 00:00:48,182
+the user input. The user input is part of
+使用者輸入。使用者輸入是
+
+20
+00:00:48,214 --> 00:00:50,026
+what we send to the agent, but not
+我們發送給代理商的內容，但不是
+
+21
+00:00:50,283 --> 00:00:50,668
+everything.
+一切。
+
+22
+00:00:51,326 --> 00:00:53,748
+An agent, or the AI model that powers the
+代理或人工智慧模型為
+
+23
+00:00:53,748 --> 00:00:56,169
+agent, I should say, does not just receive
+我應該說，代理人不只是接收
+
+24
+00:00:56,169 --> 00:00:58,639
+the user input, but also some general
+使用者輸入，但也有一些通用的
+
+25
+00:00:58,639 --> 00:01:00,452
+instructions, And very important,
+說明，而且非常重要，
+
+26
+00:01:00,805 --> 00:01:03,035
+descriptions about the available tools. And
+有關可用工具的描述。和
+
+27
+00:01:03,115 --> 00:01:04,896
+that is what's part of our instructions here
+這就是我們此處說明的一部分
+
+28
+00:01:04,896 --> 00:01:05,073
+too.
+也。
+
+29
+00:01:05,923 --> 00:01:08,025
+I know that the agent we're building here,
+我知道我們在這裡建立的代理
+
+30
+00:01:08,265 --> 00:01:10,480
+because I'm the developer of the agent, has
+因為我是代理的開發者，有
+
+31
+00:01:10,816 --> 00:01:14,330
+2 main tools, summarize text and create PDF.
+2個主要工具，總結文字和創建PDF。
+
+32
+00:01:14,827 --> 00:01:16,817
+And if you are building your own agent, you
+如果您正在建立自己的代理，那麼您
+
+33
+00:01:16,849 --> 00:01:17,844
+put your tools here.
+把你的工具放在這裡。
+
+34
+00:01:18,389 --> 00:01:20,218
+So this is crucial. This is extremely
+所以這一點至關重要。這是極其
+
+35
+00:01:20,218 --> 00:01:22,833
+important. It describes to the agent, to the
+重要的。它向代理人、向
+
+36
+00:01:22,930 --> 00:01:25,850
+AI model, which tool calls it may request.
+AI模型，可能會要求呼叫哪個工具。
+
+37
+00:01:26,395 --> 00:01:28,320
+This is how we pass that information to the
+這就是我們將該訊息傳遞給
+
+38
+00:01:28,320 --> 00:01:29,795
+model. In a primitive way.
+模型。以一種原始的方式。
+
+39
+00:01:30,485 --> 00:01:32,793
+Well, then I also have this important part
+嗯，那我也有這個重要的部分
+
+40
+00:01:32,793 --> 00:01:35,117
+here. This describes to the model which kind
+這裡。這向模型描述了哪一種
+
+41
+00:01:35,117 --> 00:01:36,608
+of reply I wanna get back,
+我想回复的回复，
+
+42
+00:01:37,442 --> 00:01:40,423
+that I want a JSON-formatted reply.
+我想要一個 JSON 格式的回覆。
+
+43
+00:01:41,289 --> 00:01:43,726
+JSON is just text, as you can tell, but it's
+正如您所知，JSON 只是文本，但它是
+
+44
+00:01:43,870 --> 00:01:45,248
+in a certain format that's more
+以某種格式，這更多
+
+45
+00:01:45,313 --> 00:01:46,098
+machine-readable.
+機器可讀。
+
+46
+00:01:46,835 --> 00:01:49,048
+And I want either this response, which
+我想要這個回應
+
+47
+00:01:49,096 --> 00:01:50,170
+describes a tool call.
+描述了一個工具呼叫。
+
+48
+00:01:50,763 --> 00:01:52,622
+So I make it very clear that if the
+所以我非常明確地表示，如果
+
+49
+00:01:53,151 --> 00:01:55,893
+model wants to use a tool, a function, it
+模型想要使用一個工具，一個函式，它
+
+50
+00:01:55,893 --> 00:01:58,409
+should reply like this, giving me the name
+應該這樣回复，給我名字
+
+51
+00:01:58,457 --> 00:02:00,557
+of the tool it wants to call and the input.
+它想要調用的工具和輸入。
+
+52
+00:02:00,702 --> 00:02:02,949
+It wants to pass to that tool. So the text
+它想要傳遞給該工具。所以文字
+
+53
+00:02:02,949 --> 00:02:04,490
+that should be summarized, for example.
+例如，應該對此進行總結。
+
+54
+00:02:05,421 --> 00:02:07,411
+And if it decides that it does not want to
+如果它決定不想
+
+55
+00:02:07,427 --> 00:02:09,691
+call a tool, it should reply with this
+呼叫一個工具，它應該回覆這個
+
+56
+00:02:09,691 --> 00:02:10,044
+format.
+格式。
+
+57
+00:02:10,959 --> 00:02:13,238
+Now, why such a strange looking machine
+現在，為什麼一台看起來如此奇怪的機器
+
+58
+00:02:13,302 --> 00:02:15,678
+readable format? Because I need to analyze
+可讀格式？因為我需要分析
+
+59
+00:02:15,710 --> 00:02:18,262
+the response that I get back from the model
+我從模型得到的回應
+
+60
+00:02:18,600 --> 00:02:21,393
+with code. Because in my agent loop, we get
+與程式碼。因為在我的代理迴圈中，我們得到
+
+61
+00:02:21,393 --> 00:02:23,656
+back a response from our brain. And then in
+從我們的大腦回到一個反應。然後在
+
+62
+00:02:23,656 --> 00:02:24,234
+the next step,
+下一步，
+
+63
+00:02:24,844 --> 00:02:27,685
+I use some Python logic for parsing that
+我使用一些 Python 邏輯來解析它
+
+64
+00:02:27,813 --> 00:02:30,205
+JSON data, which I get back. So this clearly
+我傳回的 JSON 資料。所以這清楚
+
+65
+00:02:30,221 --> 00:02:31,425
+formatted response.
+格式化的回應。
+
+66
+00:02:31,987 --> 00:02:34,858
+And I check if we got a final answer in
+我檢查我們是否得到了最終答案
+
+67
+00:02:34,890 --> 00:02:35,067
+there.
+那裡。
+
+68
+00:02:35,692 --> 00:02:37,746
+Remember in my instructions, I told it to
+請記住，在我的指示中，我告訴它
+
+69
+00:02:37,762 --> 00:02:40,040
+put final answer in there if it has that
+如果有的話，把最終答案放在那裡
+
+70
+00:02:40,040 --> 00:02:40,730
+final answer.
+最終答案。
+
+71
+00:02:41,452 --> 00:02:43,184
+And I check therefore if I have that. And if
+因此我會檢查我是否有這個。如果
+
+72
+00:02:43,233 --> 00:02:43,586
+I do,
+我願意，
+
+73
+00:02:44,259 --> 00:02:47,773
+I return that final answer here, which will
+我在這裡回傳最終答案，這將
+
+74
+00:02:47,885 --> 00:02:50,452
+break out of that loop. Returning in a
+打破這個迴圈。回傳在
+
+75
+00:02:50,452 --> 00:02:52,906
+function in all programming languages
+所有程式語言中的函式
+
+76
+00:02:52,955 --> 00:02:56,388
+essentially breaks out of any loop that code
+本質上打破了程式碼的任何迴圈
+
+77
+00:02:56,388 --> 00:02:58,345
+may have been running in. So that puts us
+可能一直在運行。所以這讓我們
+
+78
+00:02:58,537 --> 00:03:00,527
+out of that agent loop because we're done
+退出代理迴圈，因為我們已經完成了
+
+79
+00:03:00,719 --> 00:03:01,377
+with the task.
+與任務。
+
+80
+00:03:02,244 --> 00:03:04,154
+But if we make it past this if check, we
+但是如果我們通過了這個 if 檢查，我們
+
+81
+00:03:04,234 --> 00:03:06,706
+don't have a final answer yet. In that case,
+還沒有最終答案。在那種情況下，
+
+82
+00:03:06,738 --> 00:03:09,129
+I analyze which tool call it requests
+我分析哪個工具稱為請求
+
+83
+00:03:09,306 --> 00:03:10,991
+because that's the only other option, right?
+因為這是唯一的選擇，對嗎？
+
+84
+00:03:11,377 --> 00:03:13,592
+We either got a final answer or a tool call
+我們要么得到最終答案，要么得到工具調用
+
+85
+00:03:13,640 --> 00:03:16,192
+request. There are no other options in this
+要求。此選項中沒有其他選項
+
+86
+00:03:16,192 --> 00:03:18,760
+agentic loop and pretty much in all agentic
+代理迴圈和幾乎所有代理
+
+87
+00:03:18,760 --> 00:03:18,985
+loops.
+迴圈。
+
+88
+00:03:19,803 --> 00:03:21,858
+You either want to do something that may
+你要么想做一些可能
+
+89
+00:03:22,050 --> 00:03:24,426
+include activating some skill in more
+包括激活更多的一些技能
+
+90
+00:03:24,538 --> 00:03:26,400
+complex agents, but you want to do something
+複雜的代理，但你想做點什麼
+
+91
+00:03:26,721 --> 00:03:28,679
+or you get a final answer. So in this case
+或者你會得到最終的答案。所以在這種情況下
+
+92
+00:03:28,792 --> 00:03:30,316
+here, if we don't have a final answer, we
+在這裡，如果我們沒有最終答案，我們
+
+93
+00:03:30,332 --> 00:03:32,547
+want to call a tool. I find out which tool
+想調用一個工具。我找出哪個工具
+
+94
+00:03:32,580 --> 00:03:32,949
+that is.
+那是。
+
+95
+00:03:33,703 --> 00:03:35,580
+I then check my max rounds. That is what I
+然後我檢查我的最大回合數。這就是我
+
+96
+00:03:35,869 --> 00:03:38,003
+mentioned earlier. I keep track of how many
+前面提到過。我記錄著有多少
+
+97
+00:03:38,019 --> 00:03:40,281
+rounds we already had. I increment this
+我們已經有幾輪了。我增加這個
+
+98
+00:03:40,281 --> 00:03:42,993
+counter here at the end of each round. And I
+每輪結束時在此計數器。而我
+
+99
+00:03:42,993 --> 00:03:45,062
+make sure that if we called too many tools,
+確保如果我們呼叫太多工具，
+
+100
+00:03:45,720 --> 00:03:45,913
+we
+我們
+
+101
+00:03:46,523 --> 00:03:49,330
+throw an error in the end because the agent
+最後拋出一個錯誤，因為代理
+
+102
+00:03:49,330 --> 00:03:51,352
+seemingly got stuck. And as mentioned
+似乎被卡住了。正如所提到的
+
+103
+00:03:51,416 --> 00:03:53,261
+earlier, you want to increase the max tool
+早些時候，你想增加最大工具
+
+104
+00:03:53,341 --> 00:03:55,684
+rounds if that breaks your agent. It's just
+如果這讓你的經紀人崩潰了。這只是
+
+105
+00:03:55,684 --> 00:03:58,347
+a security mechanism to avoid loops that
+避免迴圈的安全機制
+
+106
+00:03:58,476 --> 00:04:00,096
+take too long because of course you're
+花了太長時間，因為你當然
+
+107
+00:04:00,096 --> 00:04:01,797
+paying for all these requests.
+支付所有這些請求。
+
+108
+00:04:02,584 --> 00:04:04,672
+Now, if you make it past this check, we take
+現在，如果你通過了這個檢查，我們就採取
+
+109
+00:04:04,672 --> 00:04:06,840
+a look at the arguments the model wants to
+看看模型想要的論點
+
+110
+00:04:06,840 --> 00:04:08,928
+pass to the tool. So the input it wants to
+傳遞給工具。所以它想要的輸入
+
+111
+00:04:08,928 --> 00:04:09,618
+pass to the tool.
+傳遞給工具。
+
+112
+00:04:10,518 --> 00:04:12,461
+I also then check if the tool name it
+然後我還檢查該工具是否命名它
+
+113
+00:04:12,461 --> 00:04:14,822
+requested is in my registered tool
+請求在我的註冊工具中
+
+114
+00:04:14,870 --> 00:04:15,480
+functions.
+功能。
+
+115
+00:04:16,219 --> 00:04:17,552
+That is this part here.
+這就是這一部分。
+
+116
+00:04:18,082 --> 00:04:20,025
+I check simply if it's one of the tools I
+我簡單地檢查它是否是我使用的工具之一
+
+117
+00:04:20,025 --> 00:04:23,061
+support. And of course, the tools I describe
+支援。當然，還有我描述的工具
+
+118
+00:04:23,061 --> 00:04:25,823
+here must match the things I look for
+這裡必須符合我所尋找的東西
+
+119
+00:04:26,273 --> 00:04:28,617
+because that is what the model will request.
+因為這就是模型所要求的。
+
+120
+00:04:28,682 --> 00:04:30,577
+So I must check if that is what I wanna use
+所以我必須檢查這是否是我想要使用的
+
+121
+00:04:30,609 --> 00:04:31,171
+in my code.
+在我的程式碼中。
+
+122
+00:04:31,813 --> 00:04:34,590
+And I throw an error if an invalid tool was
+如果使用了無效的工具，我會拋出錯誤
+
+123
+00:04:34,622 --> 00:04:37,334
+requested, the same if the arguments don't
+要求，如果參數沒有要求，則相同
+
+124
+00:04:37,350 --> 00:04:37,831
+match up.
+匹配。
+
+125
+00:04:38,618 --> 00:04:40,431
+But if you make it past all these checks, I
+但如果你通過了所有這些檢查，我
+
+126
+00:04:40,560 --> 00:04:43,208
+have this code here which actually executes
+這裡有實際執行的程式碼
+
+127
+00:04:43,208 --> 00:04:44,973
+the tool, which executes the function.
+執行該功能的工具。
+
+128
+00:04:46,177 --> 00:04:48,087
+And that's also what you learned earlier in
+這也是您之前學到的
+
+129
+00:04:48,087 --> 00:04:51,377
+the course. Tools run in the agent harness
+課程。工具在代理線束中運行
+
+130
+00:04:51,457 --> 00:04:54,041
+on the system that runs the agent loop. And
+在運行代理迴圈的系統上。和
+
+131
+00:04:54,041 --> 00:04:54,876
+that's the same here.
+這裡也是一樣。
+
+132
+00:04:55,405 --> 00:04:58,984
+The tool call, the function, is executed on
+工具調用，函式，執行於
+
+133
+00:04:59,016 --> 00:05:01,534
+my system, on your system if you're running
+我的系統，如果您正在運行，則在您的系統上
+
+134
+00:05:01,582 --> 00:05:04,983
+this code, not in the cloud, not on the AI
+這段程式碼不在雲端，不在人工智慧上
+
+135
+00:05:05,032 --> 00:05:08,080
+server, instead in the harness. And this
+伺服器，而不是在線束中。還有這個
+
+136
+00:05:08,080 --> 00:05:10,534
+entire thing here is the harness that runs
+這裡的全部就是運行的線束
+
+137
+00:05:10,566 --> 00:05:11,208
+the agent loop.
+代理迴圈。
+
+138
+00:05:12,395 --> 00:05:14,416
+Then we got back a result from the tool
+然後我們從工具中得到了結果
+
+139
+00:05:14,416 --> 00:05:14,625
+call,
+稱呼，
+
+140
+00:05:15,283 --> 00:05:17,593
+and I then put that into my conversation, in
+然後我把它融入我的談話中
+
+141
+00:05:17,625 --> 00:05:19,694
+my history, my chat history, so to say.
+我的歷史，我的聊天記錄，可以這麼說。
+
+142
+00:05:20,336 --> 00:05:23,721
+I store the tool result for the tool name so
+我將工具結果儲存為工具名稱，所以
+
+143
+00:05:23,801 --> 00:05:26,127
+that the next time we send that history to
+下次我們將該歷史記錄傳送到
+
+144
+00:05:26,127 --> 00:05:28,888
+the model, it is aware of that the tool call
+模型，它知道工具調用
+
+145
+00:05:29,017 --> 00:05:30,992
+was made and what the result was.
+被製作出來以及結果是什麼。
+
+146
+00:05:31,828 --> 00:05:33,354
+And then we're still in the loop, so we
+然後我們仍然在迴圈中，所以我們
+
+147
+00:05:33,354 --> 00:05:36,727
+continue until we got a final answer or we
+繼續直到我們得到最終答案或我們
+
+148
+00:05:36,727 --> 00:05:38,076
+run out of rounds in the end.
+最後用完了回合。
+
+149
+00:05:38,638 --> 00:05:40,662
+That is how the entire agentic loop here
+這就是整個代理迴圈的方式
+
+150
+00:05:40,742 --> 00:05:44,100
+works. And that's how any AI agent works in
+作品。這就是任何人工智慧代理的工作方式
+
+151
+00:05:44,100 --> 00:05:46,509
+a nutshell. It may have more complex
+簡而言之。它可能有更複雜的
+
+152
+00:05:46,509 --> 00:05:48,661
+handling logic, it may have more complex
+處理邏輯，可能更複雜
+
+153
+00:05:48,758 --> 00:05:51,280
+tools, but it's always that logic, sending
+工具，但總是這樣的邏輯，發送
+
+154
+00:05:51,328 --> 00:05:53,721
+requests, handling the response, calling
+請求、處理回應、調用
+
+155
+00:05:53,753 --> 00:05:55,392
+tools if necessary, and then
+必要時使用工具，然後
+
+156
+00:05:56,067 --> 00:05:58,075
+also handling the fact that at some point it
+還要處理這樣一個事實：在某些時候它
+
+157
+00:05:58,075 --> 00:05:58,541
+should be done.
+應該做的。
+
+158
+00:05:59,537 --> 00:06:01,336
+And that is really all that's going on here.
+這就是這裡發生的一切。

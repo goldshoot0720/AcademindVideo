@@ -1,0 +1,362 @@
+[
+ {
+  "start": 2.119,
+  "end": 4.561,
+  "en": "So we're not fully convinced by the time"
+ },
+ {
+  "start": 4.609,
+  "end": 7.709,
+  "en": "complexity we have with our current priority"
+ },
+ {
+  "start": 7.725,
+  "end": 10.519,
+  "en": "queue. We might be able to do better than"
+ },
+ {
+  "start": 10.551,
+  "end": 13.603,
+  "en": "linear time in the worst case insert"
+ },
+ {
+  "start": 13.603,
+  "end": 14.213,
+  "en": "operation."
+ },
+ {
+  "start": 15.032,
+  "end": 18.1,
+  "en": "And therefore, let me introduce the other"
+ },
+ {
+  "start": 18.26,
+  "end": 21.729,
+  "en": "big topic of this course section, heaps."
+ },
+ {
+  "start": 22.516,
+  "end": 25.407,
+  "en": "We can actually use a heap to build our"
+ },
+ {
+  "start": 25.407,
+  "end": 28.957,
+  "en": "priority queue to get a better insert time."
+ },
+ {
+  "start": 29.503,
+  "end": 30.789,
+  "en": "Now what is a heap though?"
+ },
+ {
+  "start": 31.672,
+  "end": 35.191,
+  "en": "There are 2 main kinds of heaps and that"
+ },
+ {
+  "start": 35.191,
+  "end": 37.199,
+  "en": "would be min-heaps and max-heaps."
+ },
+ {
+  "start": 38.002,
+  "end": 40.717,
+  "en": "Min-heaps are trees where the parent node"
+ },
+ {
+  "start": 40.749,
+  "end": 41.28,
+  "en": "values"
+ },
+ {
+  "start": 42.019,
+  "end": 45.537,
+  "en": "are smaller or equal than the child node"
+ },
+ {
+  "start": 45.569,
+  "end": 46.019,
+  "en": "values."
+ },
+ {
+  "start": 46.758,
+  "end": 48.911,
+  "en": "And for a max-heap, it's the other way"
+ },
+ {
+  "start": 48.927,
+  "end": 49.393,
+  "en": "around."
+ },
+ {
+  "start": 49.987,
+  "end": 52.397,
+  "en": "Here is how a min-heap could look like. This"
+ },
+ {
+  "start": 52.397,
+  "end": 53.345,
+  "en": "is a min-heap tree."
+ },
+ {
+  "start": 54.63,
+  "end": 57.407,
+  "en": "It has a root node of 3, let's say,"
+ },
+ {
+  "start": 58.017,
+  "end": 60.603,
+  "en": "and because it's a min heap, the parent node"
+ },
+ {
+  "start": 60.667,
+  "end": 63.525,
+  "en": "value has to be smaller than the child node"
+ },
+ {
+  "start": 63.718,
+  "end": 66.752,
+  "en": "values. So the child node level would look"
+ },
+ {
+  "start": 66.752,
+  "end": 69.819,
+  "en": "like this. These are values bigger than 3."
+ },
+ {
+  "start": 70.461,
+  "end": 72.629,
+  "en": "Well, and then it continues like that. The"
+ },
+ {
+  "start": 72.629,
+  "end": 75.808,
+  "en": "next level has bigger values than the level"
+ },
+ {
+  "start": 76.145,
+  "end": 76.515,
+  "en": "before."
+ },
+ {
+  "start": 77.189,
+  "end": 80.221,
+  "en": "This is a min heap. And a max heap is"
+ },
+ {
+  "start": 80.253,
+  "end": 82.865,
+  "en": "basically just the opposite. There you would"
+ },
+ {
+  "start": 82.881,
+  "end": 85.027,
+  "en": "have the biggest value at the top and the"
+ },
+ {
+  "start": 85.027,
+  "end": 86.742,
+  "en": "smallest value at the bottom."
+ },
+ {
+  "start": 87.286,
+  "end": 89.754,
+  "en": "Now this heap specifically, which you see on"
+ },
+ {
+  "start": 89.802,
+  "end": 93.038,
+  "en": "this slide, is a binary heap, a very common"
+ },
+ {
+  "start": 93.23,
+  "end": 97.075,
+  "en": "heap form. There we have only 2 child nodes"
+ },
+ {
+  "start": 97.316,
+  "end": 100.103,
+  "en": "per level, as you can see. So it's a bit"
+ },
+ {
+  "start": 100.103,
+  "end": 103.564,
+  "en": "like a binary search tree in regards to the"
+ },
+ {
+  "start": 103.564,
+  "end": 106.704,
+  "en": "amount of children per node, but it doesn't"
+ },
+ {
+  "start": 106.704,
+  "end": 108.803,
+  "en": "have anything else in common with that in"
+ },
+ {
+  "start": 108.851,
+  "end": 111.337,
+  "en": "the end. For example, here, as you can see,"
+ },
+ {
+  "start": 111.578,
+  "end": 113.985,
+  "en": "the left child is not smaller than the"
+ },
+ {
+  "start": 113.985,
+  "end": 116.457,
+  "en": "parent. Indeed, that would be horrible"
+ },
+ {
+  "start": 116.713,
+  "end": 119.409,
+  "en": "because the entire idea behind a heap is"
+ },
+ {
+  "start": 119.602,
+  "end": 122.378,
+  "en": "that the parent is smaller or bigger than"
+ },
+ {
+  "start": 122.635,
+  "end": 125.925,
+  "en": "all its children. So we don't have that left"
+ },
+ {
+  "start": 125.957,
+  "end": 129.455,
+  "en": "is smaller, right is bigger differentiation."
+ },
+ {
+  "start": 129.937,
+  "end": 133.676,
+  "en": "All children are smaller or all children are"
+ },
+ {
+  "start": 133.884,
+  "end": 136.051,
+  "en": "bigger. That's the idea behind a heap."
+ },
+ {
+  "start": 137.478,
+  "end": 140.33,
+  "en": "And now that we see this heap tree here,"
+ },
+ {
+  "start": 140.859,
+  "end": 143.071,
+  "en": "you might see how this could help us with"
+ },
+ {
+  "start": 143.263,
+  "end": 144.369,
+  "en": "priority queues."
+ },
+ {
+  "start": 144.962,
+  "end": 147.863,
+  "en": "Since we always have bigger values or"
+ },
+ {
+  "start": 148.007,
+  "end": 150.843,
+  "en": "smaller values depending on which kind of"
+ },
+ {
+  "start": 150.859,
+  "end": 151.485,
+  "en": "heap we build"
+ },
+ {
+  "start": 152.142,
+  "end": 155.299,
+  "en": "at the top, we can easily add new items with"
+ },
+ {
+  "start": 155.347,
+  "end": 157.895,
+  "en": "a high priority and we know that they will"
+ },
+ {
+  "start": 157.927,
+  "end": 159.161,
+  "en": "be at the top. Or"
+ },
+ {
+  "start": 160.075,
+  "end": 162.398,
+  "en": "if we use a min heap, a low priority would"
+ },
+ {
+  "start": 162.414,
+  "end": 165.283,
+  "en": "be at the top. Whatever our ordering logic"
+ },
+ {
+  "start": 165.363,
+  "end": 168.633,
+  "en": "is with a heap, we have easy access to those"
+ },
+ {
+  "start": 168.889,
+  "end": 172.207,
+  "en": "extreme values. So either to the big or to"
+ },
+ {
+  "start": 172.207,
+  "end": 174.596,
+  "en": "the small ones. And that's exactly what we"
+ },
+ {
+  "start": 174.596,
+  "end": 176.054,
+  "en": "need with a priority queue."
+ },
+ {
+  "start": 176.599,
+  "end": 179.468,
+  "en": "We wanna put the unimportant items to the"
+ },
+ {
+  "start": 179.565,
+  "end": 182.29,
+  "en": "bottom of that tree, so to say, and put the"
+ },
+ {
+  "start": 182.29,
+  "end": 184.117,
+  "en": "important items to the top."
+ },
+ {
+  "start": 185.014,
+  "end": 188.028,
+  "en": "Now what's interesting is how we can build"
+ },
+ {
+  "start": 188.156,
+  "end": 191.153,
+  "en": "such a heap tree because it's actually built"
+ },
+ {
+  "start": 191.169,
+  "end": 193.83,
+  "en": "differently than our other trees, as you"
+ },
+ {
+  "start": 193.83,
+  "end": 194.311,
+  "en": "will see."
+ },
+ {
+  "start": 195.86,
+  "end": 198.283,
+  "en": "So let's switch back to code and let's"
+ },
+ {
+  "start": 198.332,
+  "end": 199.818,
+  "en": "slowly build up a heap."
+ }
+]

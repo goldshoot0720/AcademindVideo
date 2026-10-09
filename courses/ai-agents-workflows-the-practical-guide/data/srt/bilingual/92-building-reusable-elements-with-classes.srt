@@ -1,0 +1,249 @@
+1
+00:00:01,219 --> 00:00:01,364
+When
+什麼時候
+
+2
+00:00:01,957 --> 00:00:05,440
+building AI agents or AI workflows, or
+建構人工智慧代理或人工智慧工作流程，或者
+
+3
+00:00:05,633 --> 00:00:07,751
+actually when writing any kind of program,
+實際上在編寫任何型別的程式時，
+
+4
+00:00:07,879 --> 00:00:09,564
+you can of course write the code you want.
+你當然可以寫你想要的程式碼。
+
+5
+00:00:09,661 --> 00:00:12,100
+You can follow patterns you want. You can
+您可以遵循您想要的模式。你可以
+
+6
+00:00:12,389 --> 00:00:15,198
+use design approaches you prefer.
+使用您喜歡的設計方法。
+
+7
+00:00:15,920 --> 00:00:19,146
+What you'll often see when working with AI
+使用人工智慧時你會經常看到什麼
+
+8
+00:00:19,354 --> 00:00:20,413
+agents though
+代理雖然
+
+9
+00:00:20,959 --> 00:00:24,233
+is that classes are being used, that
+正在使用類，即
+
+10
+00:00:24,650 --> 00:00:28,130
+object-oriented principles are being used,
+正在使用物件導向的原則，
+
+11
+00:00:28,178 --> 00:00:30,629
+at least to some extent, which is why I
+至少在某種程度上，這就是為什麼我
+
+12
+00:00:30,661 --> 00:00:33,369
+migrated this example from before, which was
+從之前遷移了這個例子，這是
+
+13
+00:00:33,481 --> 00:00:37,006
+only using functions, which again is fine,
+只使用函式，這也很好，
+
+14
+00:00:37,487 --> 00:00:41,268
+but I still migrated it to a class-based
+但我仍然將其遷移到基於類別的
+
+15
+00:00:41,268 --> 00:00:43,703
+approach to also show you how that could
+方法還向您展示如何做到這一點
+
+16
+00:00:43,735 --> 00:00:45,642
+look like in case you're interested in that.
+看起來像，如果你對此感興趣的話。
+
+17
+00:00:46,203 --> 00:00:48,670
+And for that, of course, attached you find
+為此，當然，您會發現
+
+18
+00:00:48,702 --> 00:00:50,256
+an updated main.py file.
+更新的 main.py 檔案。
+
+19
+00:00:51,010 --> 00:00:53,861
+The database.py file did not change, but in
+database.py 檔案沒有改變，但是在
+
+20
+00:00:53,910 --> 00:00:58,225
+the main.py file, I defined a tool class and
+main.py 檔案中，我定義了一個工具類別並且
+
+21
+00:00:58,225 --> 00:01:00,440
+we'll take a look at it in a second and then
+我們稍後會看一下，然後
+
+22
+00:01:00,504 --> 00:01:03,667
+some specialized tool classes that extend
+一些擴充功能的專用工具類
+
+23
+00:01:03,699 --> 00:01:06,219
+this base tool class and we'll dive into
+這個基本工具類，我們將深入研究
+
+24
+00:01:06,267 --> 00:01:07,198
+those in a second too.
+那些也在一秒鐘內。
+
+25
+00:01:08,017 --> 00:01:10,569
+And you already might guess it, I defined an
+你可能已經猜到了，我定義了一個
+
+26
+00:01:10,665 --> 00:01:14,566
+agent class, a base class and then also a
+代理類，基類，然後也是
+
+27
+00:01:14,598 --> 00:01:17,199
+specialized agent class for this customer
+該客戶的專業代理類別
+
+28
+00:01:17,199 --> 00:01:18,081
+service agent.
+服務代理。
+
+29
+00:01:18,772 --> 00:01:21,035
+And the idea behind this class-based
+以及這個基於類別的背後的想法
+
+30
+00:01:21,035 --> 00:01:22,367
+approach here of course is
+這裡的方法當然是
+
+31
+00:01:23,042 --> 00:01:26,029
+that you could easily add multiple tools or
+您可以輕鬆新增多個工具或
+
+32
+00:01:26,045 --> 00:01:29,112
+multiple agents and build up on those base
+多個代理並在此基礎上建立
+
+33
+00:01:29,208 --> 00:01:30,975
+classes so that you don't have to
+課程，這樣你就不必
+
+34
+00:01:31,617 --> 00:01:34,412
+reimplement all the logic over and over
+一遍又一遍地重新實現所有邏輯
+
+35
+00:01:34,460 --> 00:01:34,861
+again.
+再次。
+
+36
+00:01:35,809 --> 00:01:37,816
+And it's of course up to you how much logic
+當然，這取決於你的邏輯程度
+
+37
+00:01:37,816 --> 00:01:39,824
+you wanna shift into the base class and how
+你想轉入基礎班以及如何轉入
+
+38
+00:01:39,824 --> 00:01:42,634
+much logic you wanna keep specific to a
+你要保留特定的很多邏輯
+
+39
+00:01:42,634 --> 00:01:44,481
+certain tool or agent.
+某種工具或代理。
+
+40
+00:01:45,525 --> 00:01:48,126
+Now let's start with the tool base class.
+現在讓我們從工具基類別開始。
+
+41
+00:01:48,174 --> 00:01:50,953
+Let's start with exploring that and how such
+讓我們從探索這一點以及如何做到這一點開始
+
+42
+00:01:51,065 --> 00:01:52,575
+a class could look like.
+一個類別可能看起來像。
+
+43
+00:01:53,556 --> 00:01:56,423
+And here I decided that a tool in the end is
+在這裡我決定最終的一個工具是
+
+44
+00:01:56,536 --> 00:01:58,582
+just a function. So it should have a name,
+只是一個函式。所以它應該有一個名字，
+
+45
+00:01:58,791 --> 00:02:00,079
+it should have a description, which is
+它應該有一個描述，即
+
+46
+00:02:00,079 --> 00:02:01,320
+important for the AI
+對人工智慧很重要
+
+47
+00:02:01,996 --> 00:02:03,881
+model, for the large language model to
+模型，對於大語言模型
+
+48
+00:02:04,525 --> 00:02:06,667
+evaluate whether a certain tool should be
+評估某個工具是否應該
+
+49
+00:02:06,667 --> 00:02:07,231
+used or not.
+使用與否。
+
+50
+00:02:08,197 --> 00:02:09,711
+And it will have parameters.
+並且它會有參數。

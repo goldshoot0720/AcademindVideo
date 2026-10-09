@@ -1,0 +1,532 @@
+[
+ {
+  "start": 2.054,
+  "end": 4.415,
+  "en": "So now after exploring various list"
+ },
+ {
+  "start": 4.463,
+  "end": 7.256,
+  "en": "structures, let's dive into tables, or"
+ },
+ {
+  "start": 7.256,
+  "end": 10.114,
+  "en": "specifically into the hash table, which is"
+ },
+ {
+  "start": 10.226,
+  "end": 13.02,
+  "en": "the main and actually the only table"
+ },
+ {
+  "start": 13.036,
+  "end": 15.974,
+  "en": "structure we'll be using and which matters."
+ },
+ {
+  "start": 16.953,
+  "end": 18.045,
+  "en": "What is a hash table?"
+ },
+ {
+  "start": 18.639,
+  "end": 20.71,
+  "en": "Before we learn what it is and how we can"
+ },
+ {
+  "start": 20.742,
+  "end": 23.198,
+  "en": "build our own one, here's one important"
+ },
+ {
+  "start": 23.214,
+  "end": 24.354,
+  "en": "thing you have to know."
+ },
+ {
+  "start": 24.916,
+  "end": 28.125,
+  "en": "In JavaScript, Under the hood, the"
+ },
+ {
+  "start": 28.125,
+  "end": 31.122,
+  "en": "JavaScript object you're working with all"
+ },
+ {
+  "start": 31.25,
+  "end": 31.699,
+  "en": "the time"
+ },
+ {
+  "start": 32.276,
+  "end": 36.076,
+  "en": "is basically implemented as a hash table by"
+ },
+ {
+  "start": 36.124,
+  "end": 38.079,
+  "en": "the JavaScript engine that's running your"
+ },
+ {
+  "start": 38.143,
+  "end": 38.432,
+  "en": "code."
+ },
+ {
+  "start": 39.185,
+  "end": 41.462,
+  "en": "That means what you're now going to learn"
+ },
+ {
+  "start": 41.51,
+  "end": 42.68,
+  "en": "about the hash table"
+ },
+ {
+  "start": 43.417,
+  "end": 45.934,
+  "en": "really is important because it tells you, it"
+ },
+ {
+  "start": 45.982,
+  "end": 48.659,
+  "en": "teaches you how the built-in JavaScript"
+ },
+ {
+  "start": 48.787,
+  "end": 51.128,
+  "en": "object works under the hood. But of course,"
+ },
+ {
+  "start": 51.208,
+  "end": 52.538,
+  "en": "another important implication"
+ },
+ {
+  "start": 53.116,
+  "end": 56.225,
+  "en": "is that in reality, you won't really need to"
+ },
+ {
+  "start": 56.257,
+  "end": 57.957,
+  "en": "build your own hash tables"
+ },
+ {
+  "start": 58.502,
+  "end": 60.719,
+  "en": "because the JavaScript object already is"
+ },
+ {
+  "start": 60.832,
+  "end": 63.193,
+  "en": "one, a very optimized one, and therefore"
+ },
+ {
+  "start": 63.643,
+  "end": 65.363,
+  "en": "there don't really is a need to build your"
+ },
+ {
+  "start": 65.411,
+  "end": 68.094,
+  "en": "own ones. Nonetheless, you'll learn it here"
+ },
+ {
+  "start": 68.463,
+  "end": 70.938,
+  "en": "because knowing how something works which"
+ },
+ {
+  "start": 70.938,
+  "end": 73.508,
+  "en": "you use every day is always important and"
+ },
+ {
+  "start": 73.589,
+  "end": 76.272,
+  "en": "ultimately is what makes up a good"
+ },
+ {
+  "start": 76.497,
+  "end": 78.634,
+  "en": "programmer. You need to know your tools."
+ },
+ {
+  "start": 79.485,
+  "end": 81.654,
+  "en": "So what is a hash table then? What is the"
+ },
+ {
+  "start": 81.703,
+  "end": 83.454,
+  "en": "JavaScript object under the hood?"
+ },
+ {
+  "start": 84.45,
+  "end": 86.198,
+  "en": "Well, it we wanna store something in a"
+ },
+ {
+  "start": 86.198,
+  "end": 89.196,
+  "en": "JavaScript object, it's a key-value pair,"
+ },
+ {
+  "start": 89.404,
+  "end": 93.396,
+  "en": "right? So our input is a key of our choice,"
+ },
+ {
+  "start": 93.813,
+  "end": 94.599,
+  "en": "could be name,"
+ },
+ {
+  "start": 95.256,
+  "end": 97.244,
+  "en": "could be an address, could be whatever you"
+ },
+ {
+  "start": 97.276,
+  "end": 99.328,
+  "en": "want, and then you have a value for that"
+ },
+ {
+  "start": 99.36,
+  "end": 102.486,
+  "en": "key. So for the key name, that would be Max,"
+ },
+ {
+  "start": 102.55,
+  "end": 103.223,
+  "en": "for example."
+ },
+ {
+  "start": 103.768,
+  "end": 106.237,
+  "en": "But again, you're really free here to store"
+ },
+ {
+  "start": 106.237,
+  "end": 108.562,
+  "en": "whatever you want as key-value pairs in the"
+ },
+ {
+  "start": 108.562,
+  "end": 108.706,
+  "en": "end."
+ },
+ {
+  "start": 109.86,
+  "end": 109.973,
+  "en": "Now,"
+ },
+ {
+  "start": 110.807,
+  "end": 113.249,
+  "en": "A hash table is then the data structure"
+ },
+ {
+  "start": 113.393,
+  "end": 115.016,
+  "en": "where this data is getting stored."
+ },
+ {
+  "start": 115.546,
+  "end": 116.831,
+  "en": "And a hash table"
+ },
+ {
+  "start": 117.393,
+  "end": 117.907,
+  "en": "actually"
+ },
+ {
+  "start": 118.598,
+  "end": 121.875,
+  "en": "can simply be thought of as an array, so as"
+ },
+ {
+  "start": 121.907,
+  "end": 122.758,
+  "en": "a list again,"
+ },
+ {
+  "start": 123.337,
+  "end": 125.409,
+  "en": "which has an index and which then stores"
+ },
+ {
+  "start": 125.586,
+  "end": 127.417,
+  "en": "values for the different indexes."
+ },
+ {
+  "start": 128.268,
+  "end": 132.108,
+  "en": "So in that hash table, for index 0, we might"
+ },
+ {
+  "start": 132.108,
+  "end": 133.682,
+  "en": "be storing value 31."
+ },
+ {
+  "start": 134.341,
+  "end": 136.284,
+  "en": "We got a couple of other indexes as well for"
+ },
+ {
+  "start": 136.284,
+  "end": 137.971,
+  "en": "which we store other kinds of data."
+ },
+ {
+  "start": 138.693,
+  "end": 140.985,
+  "en": "And now we got this new key-value pair which"
+ },
+ {
+  "start": 141.001,
+  "end": 143.79,
+  "en": "you want to store. And of course, we're used"
+ },
+ {
+  "start": 143.983,
+  "end": 146.002,
+  "en": "to the key being our"
+ },
+ {
+  "start": 146.692,
+  "end": 149.032,
+  "en": "entry to the value once it's stored in an"
+ },
+ {
+  "start": 149.096,
+  "end": 149.529,
+  "en": "object."
+ },
+ {
+  "start": 150.058,
+  "end": 152.158,
+  "en": "And that is how objects work in JavaScript,"
+ },
+ {
+  "start": 152.222,
+  "end": 154.466,
+  "en": "but under the hood, they use such a hash"
+ },
+ {
+  "start": 154.482,
+  "end": 154.787,
+  "en": "table."
+ },
+ {
+  "start": 155.364,
+  "end": 157.336,
+  "en": "Therefore, as you can see, we're working"
+ },
+ {
+  "start": 157.368,
+  "end": 159.388,
+  "en": "with an index and not with a key."
+ },
+ {
+  "start": 160.269,
+  "end": 161.552,
+  "en": "So how does this work?"
+ },
+ {
+  "start": 162.161,
+  "end": 164.549,
+  "en": "Well, we in the end need a process of"
+ },
+ {
+  "start": 164.645,
+  "end": 168.332,
+  "en": "transforming this key to an index, and"
+ },
+ {
+  "start": 168.348,
+  "end": 169.919,
+  "en": "that's called hashing."
+ },
+ {
+  "start": 170.512,
+  "end": 173.478,
+  "en": "We need a hashing function which converts a"
+ },
+ {
+  "start": 173.478,
+  "end": 174.841,
+  "en": "key to an index."
+ },
+ {
+  "start": 175.498,
+  "end": 177.774,
+  "en": "So there are different ways of building such"
+ },
+ {
+  "start": 177.822,
+  "end": 180.275,
+  "en": "a function and I'll show you one possible"
+ },
+ {
+  "start": 180.355,
+  "end": 182.182,
+  "en": "implementation over the next lectures."
+ },
+ {
+  "start": 182.776,
+  "end": 184.779,
+  "en": "But we could have a function which takes the"
+ },
+ {
+  "start": 184.779,
+  "end": 185.741,
+  "en": "key name"
+ },
+ {
+  "start": 186.302,
+  "end": 189.091,
+  "en": "and spits out the index 1 for that. And this"
+ },
+ {
+  "start": 189.091,
+  "end": 191.688,
+  "en": "is really just an example. But then we would"
+ },
+ {
+  "start": 191.752,
+  "end": 194.301,
+  "en": "know that for index 1 we store Max."
+ },
+ {
+  "start": 195.359,
+  "end": 197.379,
+  "en": "And of course the hashing function is built"
+ },
+ {
+  "start": 197.379,
+  "end": 200.056,
+  "en": "such that for the same input it always"
+ },
+ {
+  "start": 200.152,
+  "end": 203.52,
+  "en": "generates the same hash. The same index so"
+ },
+ {
+  "start": 203.52,
+  "end": 205.879,
+  "en": "that we always would store the value for key"
+ },
+ {
+  "start": 205.879,
+  "end": 207.34,
+  "en": "name in index 1."
+ },
+ {
+  "start": 208.255,
+  "end": 210.437,
+  "en": "And if we later want to retrieve a value by"
+ },
+ {
+  "start": 210.437,
+  "end": 212.556,
+  "en": "key, the same hashing function would"
+ },
+ {
+  "start": 212.604,
+  "end": 215.813,
+  "en": "basically rehash that key. And since I just"
+ },
+ {
+  "start": 215.813,
+  "end": 218.044,
+  "en": "said that the same key always yields the"
+ },
+ {
+  "start": 218.044,
+  "end": 221.077,
+  "en": "same hash, the same index, we could retrieve"
+ },
+ {
+  "start": 221.109,
+  "end": 221.831,
+  "en": "that data."
+ },
+ {
+  "start": 222.457,
+  "end": 224.527,
+  "en": "So under the hood, we're basically working"
+ },
+ {
+  "start": 224.72,
+  "end": 225.876,
+  "en": "with an array here,"
+ },
+ {
+  "start": 226.55,
+  "end": 229.309,
+  "en": "but we have that different kind of access"
+ },
+ {
+  "start": 229.677,
+  "end": 231.985,
+  "en": "through the key. And since this is a really"
+ },
+ {
+  "start": 232.002,
+  "end": 235.159,
+  "en": "useful pattern, JavaScript has this object"
+ },
+ {
+  "start": 235.287,
+  "end": 235.415,
+  "en": "thing"
+ },
+ {
+  "start": 235.944,
+  "end": 238.204,
+  "en": "which in the end gives us the direct access"
+ },
+ {
+  "start": 238.333,
+  "end": 240.785,
+  "en": "through the key and takes care of the"
+ },
+ {
+  "start": 240.817,
+  "end": 242.644,
+  "en": "hashing and so under the hood."
+ },
+ {
+  "start": 243.622,
+  "end": 247.452,
+  "en": "Now let's see why we need such tables, such"
+ },
+ {
+  "start": 247.629,
+  "end": 249.857,
+  "en": "objects, such hash tables therefore in the"
+ },
+ {
+  "start": 249.873,
+  "end": 252.742,
+  "en": "end, before we then also build our own one"
+ },
+ {
+  "start": 252.918,
+  "end": 255.739,
+  "en": "to see what JavaScript in the end does under"
+ },
+ {
+  "start": 255.739,
+  "end": 256.027,
+  "en": "the hood."
+ }
+]

@@ -1,0 +1,414 @@
+1
+00:00:00,433 --> 00:00:03,129
+Tasks are what the name kind of implies.
+任務正如其名稱所暗示的那樣。
+
+2
+00:00:03,803 --> 00:00:06,997
+They're the tasks these agents should work
+這些是這些代理應該完成的任務
+
+3
+00:00:07,093 --> 00:00:07,222
+on.
+在。
+
+4
+00:00:08,137 --> 00:00:10,400
+So we have a research task, which will
+所以我們有一個研究任務
+
+5
+00:00:10,608 --> 00:00:13,401
+probably be fulfilled by the research agent
+可能由研究代理人完成
+
+6
+00:00:13,818 --> 00:00:16,001
+and a reporting task, which will be handled
+和一個報告任務，將被處理
+
+7
+00:00:16,001 --> 00:00:17,221
+by the reporting agent.
+由報告代理人。
+
+8
+00:00:18,168 --> 00:00:20,222
+And the idea is that you could define
+這個想法是你可以定義
+
+9
+00:00:20,398 --> 00:00:22,629
+multiple tasks and also define multiple
+多個任務並定義多個
+
+10
+00:00:22,645 --> 00:00:25,197
+tasks to a single agent. Here we have 2
+任務分配給單一代理。這裡我們有 2
+
+11
+00:00:25,229 --> 00:00:28,859
+tasks for for 2 agents, so 1 task per agent
+2 個代理的任務，因此每個代理 1 個任務
+
+12
+00:00:28,908 --> 00:00:29,100
+though.
+儘管。
+
+13
+00:00:30,209 --> 00:00:34,032
+Now, just like agents, tasks are configured
+現在，就像代理一樣，任務也已設定
+
+14
+00:00:34,209 --> 00:00:36,763
+with help of external configuration files.
+在外部設定檔的幫助下。
+
+15
+00:00:37,598 --> 00:00:40,056
+And that's what this tasks.yaml file is
+這就是這個tasks.yaml 檔案的內容
+
+16
+00:00:40,249 --> 00:00:40,683
+there for.
+在那裡。
+
+17
+00:00:41,872 --> 00:00:44,233
+In that file, we find 2 task definitions
+在該檔案中，我們找到 2 個任務定義
+
+18
+00:00:44,265 --> 00:00:46,723
+because we have 2 tasks. And every task has
+因為我們有兩個任務。並且每個任務都有
+
+19
+00:00:46,771 --> 00:00:49,406
+a description that describes what the task
+描述任務內容的描述
+
+20
+00:00:49,406 --> 00:00:49,856
+is about.
+是關於。
+
+21
+00:00:50,836 --> 00:00:53,181
+And we also can have placeholders here,
+我們也可以在這裡使用佔位符，
+
+22
+00:00:53,310 --> 00:00:55,172
+which makes sense because we might wanna
+這是有道理的，因為我們可能想要
+
+23
+00:00:55,172 --> 00:00:57,532
+perform the same kind of task on different
+在不同的裝置上執行相同型別的任務
+
+24
+00:00:57,661 --> 00:00:59,218
+inputs, on different topics.
+關於不同主題的輸入。
+
+25
+00:01:00,487 --> 00:01:02,558
+We have an expected output that should be
+我們的預期輸出應該是
+
+26
+00:01:02,558 --> 00:01:05,882
+produced by the agent for this task. And we
+由代理為此任務產生。而我們
+
+27
+00:01:06,010 --> 00:01:08,595
+also assign which agent will perform this
+也指定哪個代理程式將執行此操作
+
+28
+00:01:08,595 --> 00:01:10,843
+task, which of course is important to know.
+任務，這當然很重要。
+
+29
+00:01:11,662 --> 00:01:13,766
+So you can think of these descriptions here
+所以你可以在這裡想到這些描述
+
+30
+00:01:14,199 --> 00:01:17,025
+basically as the user prompts that are sent
+基本上按照發送的使用者提示
+
+31
+00:01:17,025 --> 00:01:18,454
+to the large language model.
+到大語言模型。
+
+32
+00:01:19,273 --> 00:01:21,359
+The agent definitions here could be the
+這裡的代理定義可以是
+
+33
+00:01:21,359 --> 00:01:24,039
+system prompts, which in general control how
+系統提示，一般控制如何
+
+34
+00:01:24,167 --> 00:01:25,387
+the agent should behave.
+代理人應該表現得好。
+
+35
+00:01:26,012 --> 00:01:27,665
+And then for the different tasks, we have
+然後對於不同的任務，我們有
+
+36
+00:01:27,697 --> 00:01:30,474
+the specific task descriptions that are sent
+發送的具體任務描述
+
+37
+00:01:30,570 --> 00:01:33,282
+as user prompts to the large language model,
+當使用者提示大語言模型時，
+
+38
+00:01:33,619 --> 00:01:34,036
+kind of.
+有點兒。
+
+39
+00:01:35,239 --> 00:01:37,775
+So that's the task definitions file.
+這就是任務定義檔。
+
+40
+00:01:39,091 --> 00:01:41,337
+Back in the crew.py file, we can also see
+回到crew.py檔中，我們還可以看到
+
+41
+00:01:41,337 --> 00:01:43,568
+that the second task has an output file
+第二個任務有一個輸出檔案
+
+42
+00:01:43,568 --> 00:01:46,039
+configuration, which means that its output
+設定，這意味著它的輸出
+
+43
+00:01:46,200 --> 00:01:49,057
+will not be funneled into another agent, but
+不會被輸送到另一個代理，但是
+
+44
+00:01:49,057 --> 00:01:50,373
+instead into a file
+而是放入一個檔案中
+
+45
+00:01:51,047 --> 00:01:53,037
+because we know that here for this program,
+因為我們知道對於這個程式來說，
+
+46
+00:01:53,053 --> 00:01:55,204
+for this crew, will be done once the
+對於這個船員來說，一旦完成
+
+47
+00:01:55,204 --> 00:01:56,793
+reporting task is completed
+報告任務完成
+
+48
+00:01:57,531 --> 00:01:59,217
+and the results should be stored in a
+結果應儲存在
+
+49
+00:01:59,217 --> 00:02:00,485
+reports.md file.
+reports.md 檔案。
+
+50
+00:02:01,560 --> 00:02:03,101
+And of course, I know all that from the
+當然，我從
+
+51
+00:02:03,101 --> 00:02:03,807
+official docs.
+官方文檔。
+
+52
+00:02:04,353 --> 00:02:06,070
+That's of course the place to dive into if
+這當然是深入研究的地方如果
+
+53
+00:02:06,070 --> 00:02:07,435
+you wanna learn more about CrewAI.
+您想了解更多有關 CrewAI 的資訊。
+
+54
+00:02:08,879 --> 00:02:11,961
+Speaking of funneling results from one agent
+談到從一個代理收集結果
+
+55
+00:02:11,993 --> 00:02:13,903
+to another, that is what's happening behind
+對另一個人來說，這就是背後發生的事情
+
+56
+00:02:13,903 --> 00:02:16,292
+the scenes here. So what we did manually in
+這裡的場景。所以我們手動做了什麼
+
+57
+00:02:16,469 --> 00:02:18,969
+our code is done for us here by the CrewAI
+我們的程式碼是由 CrewAI 為我們完成的
+
+58
+00:02:18,969 --> 00:02:19,354
+package.
+包裹。
+
+59
+00:02:20,155 --> 00:02:22,784
+And it is done for us because of this last
+這是為我們完成的，因為這最後一個
+
+60
+00:02:22,960 --> 00:02:25,541
+thing here in the ResearchCrew class in the
+ResearchCrew 類別中的東西
+
+61
+00:02:25,541 --> 00:02:26,823
+crew.py file.
+船員.py 檔案。
+
+62
+00:02:27,705 --> 00:02:30,189
+Here, the overall crew is defined and
+在此，定義了全體人員並
+
+63
+00:02:30,189 --> 00:02:30,638
+registered.
+掛號的。
+
+64
+00:02:31,455 --> 00:02:34,260
+And that happens by returning a crew object
+這是透過傳回一個船員物件來實現的
+
+65
+00:02:34,276 --> 00:02:35,542
+based on the Crew class.
+基於 Crew 類。
+
+66
+00:02:36,264 --> 00:02:38,412
+It's here where all these agents are then
+所有這些特工都在這裡
+
+67
+00:02:38,524 --> 00:02:39,982
+assigned to this crew
+分配給該船員
+
+68
+00:02:40,591 --> 00:02:42,306
+and where the tasks are assigned.
+以及任務分配在哪裡。
+
+69
+00:02:43,012 --> 00:02:46,299
+This process thing here controls that they
+這裡的這個過程控制著它們
+
+70
+00:02:46,524 --> 00:02:48,047
+are executed in order.
+是按順序執行的。
+
+71
+00:02:48,625 --> 00:02:51,078
+And with that, the overall crew is
+就這樣，全體船員
+
+72
+00:02:51,511 --> 00:02:54,623
+registered and ready to go. That's the idea
+已註冊並準備出發。這就是這個想法
+
+73
+00:02:54,623 --> 00:02:56,756
+here. And behind the scenes, because all
+這裡。而在幕後，因為所有
+
+74
+00:02:56,884 --> 00:02:59,241
+these agents and tasks belong to the same
+這些代理人和任務屬於同一個
+
+75
+00:02:59,354 --> 00:02:59,610
+crew,
+全體人員，
+
+76
+00:03:00,171 --> 00:03:02,545
+the output from one task, which was handled
+已處理的一項任務的輸出
+
+77
+00:03:02,577 --> 00:03:06,041
+by one agent, is provided to the next task
+由一個代理人提供給下一個任務
+
+78
+00:03:06,105 --> 00:03:08,382
+in the next agent. That happens behind the
+在下一個代理。這發生在後面
+
+79
+00:03:08,430 --> 00:03:10,566
+scenes automatically on our behalf.
+場景自動代表我們。
+
+80
+00:03:12,044 --> 00:03:15,706
+And that's all. But this is not too useful
+僅此而已。但這不太有用
+
+81
+00:03:15,819 --> 00:03:18,839
+because none of these agents has any tools,
+因為這些代理商都沒有任何工具，
+
+82
+00:03:19,047 --> 00:03:21,489
+so they won't really be able to do any
+所以他們真的無能為力
+
+83
+00:03:21,585 --> 00:03:22,854
+valuable research.
+有價值的研究。

@@ -1,0 +1,1255 @@
+1
+00:00:02,199 --> 00:00:05,299
+Now we implemented binary search, and we did
+
+2
+00:00:05,315 --> 00:00:07,659
+so with this loop-based solution.
+
+3
+00:00:08,205 --> 00:00:11,417
+Now this is a perfectly fine solution, and
+
+4
+00:00:11,433 --> 00:00:12,685
+you can leave it the way it is.
+
+5
+00:00:13,424 --> 00:00:15,929
+Nonetheless, I also want to show you a
+
+6
+00:00:15,929 --> 00:00:18,948
+recursive solution which we can use instead,
+
+7
+00:00:19,205 --> 00:00:21,517
+and I will then show you how you can derive
+
+8
+00:00:21,549 --> 00:00:23,524
+the time complexity of that solution.
+
+9
+00:00:24,761 --> 00:00:28,293
+So let's again add our find_element function
+
+10
+00:00:28,293 --> 00:00:31,804
+here where we get our sorted array and the
+
+11
+00:00:31,884 --> 00:00:33,664
+element we're looking for.
+
+12
+00:00:34,626 --> 00:00:37,031
+And in there, I basically again wanna write
+
+13
+00:00:37,031 --> 00:00:40,013
+the same binary search algorithm but now
+
+14
+00:00:40,302 --> 00:00:43,444
+utilizing recursion instead of a loop.
+
+15
+00:00:44,566 --> 00:00:46,763
+The goal, of course, is the same as before.
+
+16
+00:00:46,811 --> 00:00:47,292
+Therefore,
+
+17
+00:00:47,837 --> 00:00:50,948
+if I have this array and I wanna retrieve
+
+18
+00:00:51,124 --> 00:00:53,866
+the item 9 or the index of that item,
+
+19
+00:00:54,427 --> 00:00:56,159
+then I want to get the same result as
+
+20
+00:00:56,191 --> 00:00:58,575
+before. Actually, let's start with 99.
+
+21
+00:00:59,817 --> 00:01:01,721
+So here's find_element. How do we write this
+
+22
+00:01:01,979 --> 00:01:03,012
+in a recursive
+
+23
+00:01:03,754 --> 00:01:03,850
+way?
+
+24
+00:01:05,320 --> 00:01:05,400
+Well,
+
+25
+00:01:05,997 --> 00:01:07,095
+we can actually
+
+26
+00:01:08,644 --> 00:01:10,790
+copy that logic from before
+
+27
+00:01:12,598 --> 00:01:13,227
+over into
+
+28
+00:01:14,131 --> 00:01:15,035
+this function here,
+
+29
+00:01:15,682 --> 00:01:17,622
+but now of course we'll tweak that loop
+
+30
+00:01:17,622 --> 00:01:19,870
+part. We'll actually get rid of that loop
+
+31
+00:01:19,870 --> 00:01:22,199
+here and replace it with something else.
+
+32
+00:01:23,100 --> 00:01:24,866
+So I still have my start index, the end
+
+33
+00:01:24,914 --> 00:01:27,307
+index, the middle index, which is derived as
+
+34
+00:01:27,339 --> 00:01:27,740
+before.
+
+35
+00:01:28,367 --> 00:01:31,353
+The comparison here, which since we'll add
+
+36
+00:01:31,353 --> 00:01:33,890
+recursion soon, will be my base case. So
+
+37
+00:01:33,922 --> 00:01:36,298
+this if check here is the base case which
+
+38
+00:01:36,331 --> 00:01:38,145
+will get us out of the recursion because
+
+39
+00:01:38,257 --> 00:01:40,971
+here we're not calling find_element, we are
+
+40
+00:01:40,971 --> 00:01:42,063
+returning a value here.
+
+41
+00:01:42,914 --> 00:01:46,318
+And now down there we have to, well, work on
+
+42
+00:01:46,687 --> 00:01:47,361
+the recursion.
+
+43
+00:01:48,373 --> 00:01:49,319
+So how do we do that?
+
+44
+00:01:49,880 --> 00:01:51,147
+If the element
+
+45
+00:01:51,821 --> 00:01:54,691
+we're looking for is greater than the
+
+46
+00:01:54,691 --> 00:01:57,129
+element we currently are looking at in our
+
+47
+00:01:57,129 --> 00:01:57,899
+sorted array,
+
+48
+00:01:58,813 --> 00:01:59,807
+I now want to return
+
+49
+00:02:00,465 --> 00:02:03,592
+a call to find_element itself. So that's a
+
+50
+00:02:03,592 --> 00:02:06,463
+recursive step. I call find_element itself,
+
+51
+00:02:07,617 --> 00:02:08,628
+and what I pass in
+
+52
+00:02:09,205 --> 00:02:11,258
+is my sorted array,
+
+53
+00:02:11,867 --> 00:02:14,513
+but of course now just a part of that array.
+
+54
+00:02:15,234 --> 00:02:17,959
+To be precise, the part, the half of the
+
+55
+00:02:17,959 --> 00:02:20,524
+array in which this element must be.
+
+56
+00:02:21,341 --> 00:02:22,639
+So I take my sorted array
+
+57
+00:02:23,313 --> 00:02:26,214
+and we can use the slice method on the array
+
+58
+00:02:26,374 --> 00:02:28,794
+to create a new array which is a slice of
+
+59
+00:02:28,794 --> 00:02:31,583
+the old array, so which is a, a part of the
+
+60
+00:02:31,583 --> 00:02:33,090
+old array, not the entire array.
+
+61
+00:02:34,228 --> 00:02:36,953
+Slice takes 2 arguments for that, the start
+
+62
+00:02:36,953 --> 00:02:39,918
+and the end index, and here we simply would
+
+63
+00:02:39,918 --> 00:02:43,420
+take our new start index and our existing
+
+64
+00:02:43,919 --> 00:02:44,628
+end index.
+
+65
+00:02:46,672 --> 00:02:48,653
+This, by the way, means that now I'm
+
+66
+00:02:48,749 --> 00:02:49,603
+shrinking the array.
+
+67
+00:02:50,134 --> 00:02:52,150
+Hence, when we derive the middle index here,
+
+68
+00:02:52,231 --> 00:02:54,688
+we no longer have to add startIndex to the
+
+69
+00:02:54,688 --> 00:02:57,356
+number here. We can just get our middle
+
+70
+00:02:57,404 --> 00:02:59,409
+index like this because now— that's the
+
+71
+00:02:59,425 --> 00:03:01,637
+difference to the loop solution from before—
+
+72
+00:03:02,071 --> 00:03:04,532
+now we get a new array every time
+
+73
+00:03:04,645 --> 00:03:07,203
+findElement runs, and that new array is
+
+74
+00:03:07,540 --> 00:03:10,507
+already smaller every time we call it. So
+
+75
+00:03:10,507 --> 00:03:12,321
+therefore, we always can get the middle of
+
+76
+00:03:12,337 --> 00:03:14,568
+that array because the array we get already
+
+77
+00:03:14,745 --> 00:03:16,607
+is the entire array in which we wanna look.
+
+78
+00:03:17,233 --> 00:03:18,967
+So previously, we basically worked with the
+
+79
+00:03:19,095 --> 00:03:22,274
+indexes to narrow down the array. Now we're
+
+80
+00:03:22,322 --> 00:03:25,436
+narrowing down the array itself. So I pass
+
+81
+00:03:25,436 --> 00:03:26,736
+the slice of my
+
+82
+00:03:27,507 --> 00:03:29,658
+array to that function call,
+
+83
+00:03:30,798 --> 00:03:32,724
+and the second argument is the element I'm
+
+84
+00:03:32,804 --> 00:03:35,694
+looking for. That's of course still the same
+
+85
+00:03:35,774 --> 00:03:37,872
+element. So I still pass in
+
+86
+00:03:38,541 --> 00:03:39,080
+element here.
+
+87
+00:03:42,380 --> 00:03:42,846
+Now for
+
+88
+00:03:43,442 --> 00:03:45,906
+this case down there, I also return a call
+
+89
+00:03:46,034 --> 00:03:47,049
+to find_element,
+
+90
+00:03:47,644 --> 00:03:50,993
+but here that is now my sorted array, again
+
+91
+00:03:51,009 --> 00:03:53,641
+a slice of it, but now I'm looking at the
+
+92
+00:03:53,916 --> 00:03:56,599
+upper half. Here I know that the element I'm
+
+93
+00:03:56,599 --> 00:03:58,685
+looking for is smaller than the middle
+
+94
+00:03:58,685 --> 00:04:00,884
+element, so I'm looking for the first half
+
+95
+00:04:00,964 --> 00:04:01,546
+of that array now.
+
+96
+00:04:02,324 --> 00:04:05,303
+And therefore my startIndex here always is 0
+
+97
+00:04:05,464 --> 00:04:08,780
+and we go up to that new index, endIndex. We
+
+98
+00:04:08,780 --> 00:04:10,969
+can of course also keep startIndex here,
+
+99
+00:04:11,420 --> 00:04:13,894
+that won't have changed so it still is 0
+
+100
+00:04:14,142 --> 00:04:14,571
+anyways.
+
+101
+00:04:16,090 --> 00:04:19,236
+Now of course, again, we pass an element as
+
+102
+00:04:19,591 --> 00:04:21,044
+the second argument here.
+
+103
+00:04:22,416 --> 00:04:24,626
+And that is already all. This is the
+
+104
+00:04:24,675 --> 00:04:27,491
+recursive version of this algorithm. You
+
+105
+00:04:27,671 --> 00:04:30,006
+could rewrite it in various ways but this in
+
+106
+00:04:30,039 --> 00:04:31,264
+the end does what it needs to do.
+
+107
+00:04:31,887 --> 00:04:34,761
+It gets the array, it has its indexes,
+
+108
+00:04:35,419 --> 00:04:37,041
+we check the middle index, the middle
+
+109
+00:04:37,186 --> 00:04:39,193
+element, and we return if that's the right
+
+110
+00:04:39,193 --> 00:04:41,489
+one. Otherwise, we call the function again
+
+111
+00:04:42,083 --> 00:04:43,624
+and we call it with a
+
+112
+00:04:44,202 --> 00:04:47,077
+subset of the array we initially got. We
+
+113
+00:04:47,077 --> 00:04:49,726
+pass a brand new array to every nested
+
+114
+00:04:49,726 --> 00:04:50,416
+function call,
+
+115
+00:04:50,994 --> 00:04:53,579
+and that brand new array is either the
+
+116
+00:04:53,579 --> 00:04:56,084
+second half or the first half.
+
+117
+00:04:57,000 --> 00:04:58,749
+Now you see, of course, the way I call
+
+118
+00:04:58,878 --> 00:05:00,612
+find_element is always the same.
+
+119
+00:05:01,222 --> 00:05:03,228
+So what we of course could do is we could
+
+120
+00:05:03,276 --> 00:05:05,412
+get rid of it here and move the second call
+
+121
+00:05:05,524 --> 00:05:08,012
+here out of the if-else statement so that
+
+122
+00:05:08,012 --> 00:05:10,886
+the only thing the if-else statement does is
+
+123
+00:05:11,078 --> 00:05:13,390
+it changes those indexes and then I call
+
+124
+00:05:13,390 --> 00:05:15,782
+find_element with those correct indexes.
+
+125
+00:05:16,376 --> 00:05:18,351
+Now with that, we have an algorithm that
+
+126
+00:05:18,527 --> 00:05:21,208
+almost works but you will see that we'll
+
+127
+00:05:21,208 --> 00:05:24,675
+still get an incorrect result. We're looking
+
+128
+00:05:24,723 --> 00:05:27,159
+for 99, so we would expect 4
+
+129
+00:05:27,913 --> 00:05:31,872
+as a result because it is at index 0, 1, 2,
+
+130
+00:05:32,096 --> 00:05:34,292
+3, 4. It is at index 4.
+
+131
+00:05:35,366 --> 00:05:36,921
+Yet if I run this,
+
+132
+00:05:38,091 --> 00:05:40,880
+I get a maximum call stack size exceeded
+
+133
+00:05:41,056 --> 00:05:41,232
+error.
+
+134
+00:05:41,889 --> 00:05:43,492
+So we have an infinite loop, basically.
+
+135
+00:05:43,556 --> 00:05:45,736
+That's what this error is telling us. And
+
+136
+00:05:46,041 --> 00:05:48,445
+why do we have that infinite loop?
+
+137
+00:05:49,407 --> 00:05:52,885
+We can see it if we console.log sorted array
+
+138
+00:05:53,157 --> 00:05:53,670
+and element.
+
+139
+00:05:54,295 --> 00:05:56,491
+And then in the console.log output, I scroll
+
+140
+00:05:56,523 --> 00:05:59,295
+to the very beginning of that long log here.
+
+141
+00:05:59,584 --> 00:06:01,187
+At the very beginning, we see that first
+
+142
+00:06:01,187 --> 00:06:02,260
+time we call the function,
+
+143
+00:06:02,789 --> 00:06:04,841
+we get the full array. We're looking for 99.
+
+144
+00:06:05,113 --> 00:06:06,619
+The function gets called again. That makes
+
+145
+00:06:06,619 --> 00:06:09,312
+sense because 99 is not the middle element
+
+146
+00:06:09,360 --> 00:06:10,738
+initially. It's not 9.
+
+147
+00:06:11,668 --> 00:06:13,767
+That's the next set we're calling the
+
+148
+00:06:13,767 --> 00:06:14,488
+function for.
+
+149
+00:06:15,194 --> 00:06:18,094
+And we see a problem here. The sorted array
+
+150
+00:06:18,174 --> 00:06:20,082
+we're getting here in the second function
+
+151
+00:06:20,082 --> 00:06:23,031
+call should actually be this part including
+
+152
+00:06:23,063 --> 00:06:23,705
+the 100,
+
+153
+00:06:24,411 --> 00:06:26,641
+but it's not including the 100.
+
+154
+00:06:27,459 --> 00:06:30,283
+And because of that, this does not work,
+
+155
+00:06:30,668 --> 00:06:32,689
+because for this too short array, we're
+
+156
+00:06:32,689 --> 00:06:35,545
+taking 13 as the middle, so to say, because
+
+157
+00:06:35,561 --> 00:06:36,411
+we round down,
+
+158
+00:06:37,005 --> 00:06:38,609
+and 13 is not the value.
+
+159
+00:06:39,171 --> 00:06:41,289
+And then we again leave out that other
+
+160
+00:06:41,433 --> 00:06:42,524
+number, as it seems,
+
+161
+00:06:43,101 --> 00:06:44,529
+since we get an empty array down there in
+
+162
+00:06:44,561 --> 00:06:46,583
+the next line when we call the function
+
+163
+00:06:46,583 --> 00:06:49,391
+again. So somehow When we call the function,
+
+164
+00:06:49,535 --> 00:06:51,943
+we're omitting the last element and that's
+
+165
+00:06:51,943 --> 00:06:52,601
+the problem here.
+
+166
+00:06:53,548 --> 00:06:54,849
+The reason for that is simple.
+
+167
+00:06:55,491 --> 00:06:59,231
+Slice actually omits the last element. So
+
+168
+00:06:59,231 --> 00:07:00,017
+you would have to add
+
+169
+00:07:00,595 --> 00:07:04,448
++1 here, however, only for this first case
+
+170
+00:07:04,448 --> 00:07:06,968
+here where you change the start index. If
+
+171
+00:07:07,016 --> 00:07:09,841
+you change the end index, you don't wanna
+
+172
+00:07:09,921 --> 00:07:12,794
+add this unless you don't reduce it here.
+
+173
+00:07:13,372 --> 00:07:15,491
+If you don't deduct 1 here, you can use the
+
+174
+00:07:15,844 --> 00:07:18,910
++1 here as well. Otherwise, the old middle
+
+175
+00:07:18,910 --> 00:07:20,980
+index, which we already can rule out, would
+
+176
+00:07:20,980 --> 00:07:22,681
+again be included in the next array.
+
+177
+00:07:23,644 --> 00:07:25,378
+With this change, if we make that
+
+178
+00:07:25,956 --> 00:07:26,710
+and we reload,
+
+179
+00:07:27,560 --> 00:07:31,107
+now I get 1 as a result. So no error, but
+
+180
+00:07:31,107 --> 00:07:33,836
+still not the desired result. Now why are we
+
+181
+00:07:33,836 --> 00:07:34,349
+getting 1?
+
+182
+00:07:35,601 --> 00:07:38,217
+Well, this makes sense. Let me reintroduce
+
+183
+00:07:38,249 --> 00:07:40,416
+that console.log because that allows us to
+
+184
+00:07:40,416 --> 00:07:41,909
+understand why we're getting this.
+
+185
+00:07:42,439 --> 00:07:44,045
+Sorted array and element.
+
+186
+00:07:45,137 --> 00:07:47,161
+If I now save this and reload, we see this
+
+187
+00:07:47,161 --> 00:07:48,928
+is how the algorithm works. Now
+
+188
+00:07:49,491 --> 00:07:50,744
+this is the first time the function is
+
+189
+00:07:50,776 --> 00:07:51,113
+called.
+
+190
+00:07:51,724 --> 00:07:54,888
+Our middle will be 9, which is not 99, so
+
+191
+00:07:55,017 --> 00:07:57,025
+this is the next array we're looking at. We
+
+192
+00:07:57,025 --> 00:07:57,635
+can see this here.
+
+193
+00:07:58,326 --> 00:08:00,543
+Now the middle is 99, and that's why we're
+
+194
+00:08:00,559 --> 00:08:00,864
+done.
+
+195
+00:08:01,442 --> 00:08:03,515
+The problem is this has an index of 1, of
+
+196
+00:08:03,611 --> 00:08:05,362
+course, in that new array, but we're of
+
+197
+00:08:05,378 --> 00:08:07,498
+course not interested in the index in the
+
+198
+00:08:07,498 --> 00:08:10,470
+subarray but in the overall array. And as a
+
+199
+00:08:10,470 --> 00:08:13,135
+result, we need to carry forward our
+
+200
+00:08:13,890 --> 00:08:17,165
+index to our recursive function calls.
+
+201
+00:08:18,321 --> 00:08:20,345
+Now that's fairly easy to do. In
+
+202
+00:08:20,393 --> 00:08:22,625
+find_element, we just need to accept the 3rd
+
+203
+00:08:22,721 --> 00:08:24,535
+argument. We can name it offset,
+
+204
+00:08:25,547 --> 00:08:27,618
+and that's simply the offset which we wanna
+
+205
+00:08:27,698 --> 00:08:29,866
+add to the middle index we derive here. And
+
+206
+00:08:29,946 --> 00:08:32,531
+we simply return middle index plus offset
+
+207
+00:08:32,531 --> 00:08:32,724
+here
+
+208
+00:08:33,398 --> 00:08:36,208
+so that we basically remember the index we
+
+209
+00:08:36,208 --> 00:08:38,890
+had in the array we ruled out And in the
+
+210
+00:08:38,890 --> 00:08:40,784
+nested function call, when we have a look at
+
+211
+00:08:40,784 --> 00:08:43,755
+a subset of that array, we also add that
+
+212
+00:08:43,755 --> 00:08:44,782
+remembered index.
+
+213
+00:08:46,179 --> 00:08:47,737
+And now down there, when we call
+
+214
+00:08:47,865 --> 00:08:50,563
+find_element, we have to forward
+
+215
+00:08:51,542 --> 00:08:55,027
+offset, but we also need to change offset if
+
+216
+00:08:55,235 --> 00:08:58,109
+we're looking in the second half and only
+
+217
+00:08:58,142 --> 00:08:59,827
+then. If we're looking in the first half, we
+
+218
+00:08:59,827 --> 00:09:01,417
+don't need to change it. But if we're
+
+219
+00:09:01,417 --> 00:09:03,151
+looking in the second half, which is this
+
+220
+00:09:03,183 --> 00:09:04,564
+first if if branch here,
+
+221
+00:09:05,190 --> 00:09:07,774
+we need to change offset and simply set it
+
+222
+00:09:07,838 --> 00:09:10,807
+equal to old offset plus our old middle
+
+223
+00:09:10,887 --> 00:09:12,059
+index plus 1.
+
+224
+00:09:12,588 --> 00:09:14,996
+Plus 1 is important here because if we have
+
+225
+00:09:14,996 --> 00:09:17,451
+a look at this concrete example for 99,
+
+226
+00:09:18,045 --> 00:09:19,730
+we have a look at this entire array.
+
+227
+00:09:20,517 --> 00:09:23,068
+Our initial middle is 9, which is of course
+
+228
+00:09:23,181 --> 00:09:25,877
+not the same as 99, so we don't make it in
+
+229
+00:09:25,909 --> 00:09:26,086
+there.
+
+230
+00:09:26,872 --> 00:09:29,071
+Then we go into this if check here. We check
+
+231
+00:09:29,183 --> 00:09:32,052
+if the element we're looking at, 9, is
+
+232
+00:09:32,245 --> 00:09:34,119
+smaller than the element we're looking for,
+
+233
+00:09:34,584 --> 00:09:37,020
+99, which of course is the case. 99 is
+
+234
+00:09:37,116 --> 00:09:39,311
+greater than 9, so we make it in there.
+
+235
+00:09:40,016 --> 00:09:41,842
+And then we would change the start index
+
+236
+00:09:41,842 --> 00:09:42,692
+here to
+
+237
+00:09:43,284 --> 00:09:46,441
+middle index, which was the index of 9, so
+
+238
+00:09:46,729 --> 00:09:46,889
+2+
+
+239
+00:09:47,546 --> 00:09:50,495
+1, so that's 3 then for this call.
+
+240
+00:09:51,152 --> 00:09:51,600
+And then here,
+
+241
+00:09:52,177 --> 00:09:54,644
+offset is equal to our initial offset, which
+
+242
+00:09:54,901 --> 00:09:57,320
+should be 0. We should feed in 0 as the
+
+243
+00:09:57,320 --> 00:09:59,997
+initial offset. So 0 plus middle index,
+
+244
+00:10:00,046 --> 00:10:01,550
+which was 2, so plus 2.
+
+245
+00:10:02,391 --> 00:10:04,316
+So that would make 2. And if we then add 1,
+
+246
+00:10:04,510 --> 00:10:07,033
+we have 3. And why do we need that? Well,
+
+247
+00:10:07,098 --> 00:10:09,077
+keep in mind it's now 3 with the plus 1.
+
+248
+00:10:09,430 --> 00:10:11,278
+This here was also 3.
+
+249
+00:10:12,821 --> 00:10:14,910
+So now we call find_element again with a
+
+250
+00:10:14,910 --> 00:10:17,659
+slice of our original array. That slice
+
+251
+00:10:17,852 --> 00:10:19,830
+starts at index
+
+252
+00:10:20,666 --> 00:10:22,017
+3, as I just said,
+
+253
+00:10:22,596 --> 00:10:24,349
+so it starts at 13.
+
+254
+00:10:24,956 --> 00:10:28,226
+And goes to end index plus 1, plus 1 because
+
+255
+00:10:28,258 --> 00:10:30,566
+the end index is excluded, so it goes to the
+
+256
+00:10:30,647 --> 00:10:31,801
+end of the array in the end here.
+
+257
+00:10:32,586 --> 00:10:34,542
+So this is the new array we're calling
+
+258
+00:10:34,670 --> 00:10:37,588
+find_element on. The offset we're forwarding
+
+259
+00:10:37,716 --> 00:10:40,585
+is 3, as I just explained. This line gives
+
+260
+00:10:40,585 --> 00:10:42,765
+us 3 for the first function call, and we're
+
+261
+00:10:42,781 --> 00:10:43,984
+still looking for 99.
+
+262
+00:10:45,234 --> 00:10:47,174
+Now we're looking at this array here. Right
+
+263
+00:10:47,174 --> 00:10:49,626
+in the middle, we have 99, so this here is
+
+264
+00:10:49,658 --> 00:10:51,742
+true, and hence we return the middle index
+
+265
+00:10:51,742 --> 00:10:52,672
+plus offset.
+
+266
+00:10:53,249 --> 00:10:55,958
+And middle index now is 1 because in the new
+
+267
+00:10:56,151 --> 00:10:58,590
+array, 99 is at position 1,
+
+268
+00:10:59,425 --> 00:10:59,730
+and
+
+269
+00:11:00,308 --> 00:11:05,093
+1 plus offset is 4 because offset was 3 when
+
+270
+00:11:05,125 --> 00:11:06,956
+we passed it to this nested function call.
+
+271
+00:11:07,614 --> 00:11:09,878
+So we get 4 as an index we return here, and
+
+272
+00:11:09,878 --> 00:11:12,094
+that of course is correct. 99 is at position
+
+273
+00:11:12,206 --> 00:11:17,296
+0, 1, 2, 3, 4. 4 is correct. If we wouldn't
+
+274
+00:11:17,328 --> 00:11:19,271
+add +1 here to the offset, we would have
+
+275
+00:11:19,271 --> 00:11:21,069
+returned 3 instead, which would be
+
+276
+00:11:21,118 --> 00:11:21,680
+incorrect.
+
+277
+00:11:22,860 --> 00:11:24,945
+With all of that, if we save that and
+
+278
+00:11:24,977 --> 00:11:27,788
+reload, we get 4 here for 99. But now let's
+
+279
+00:11:27,869 --> 00:11:30,050
+also validate some other numbers. Let's
+
+280
+00:11:30,050 --> 00:11:32,396
+check for 1, which should give us 0,
+
+281
+00:11:33,857 --> 00:11:34,247
+and it does.
+
+282
+00:11:34,929 --> 00:11:37,396
+Let's check for 5, which should give us 1.
+
+283
+00:11:39,052 --> 00:11:41,860
+It does do that. Let's check 9, which should
+
+284
+00:11:41,941 --> 00:11:42,458
+give us 2.
+
+285
+00:11:44,606 --> 00:11:45,301
+Looking good to me.
+
+286
+00:11:45,915 --> 00:11:48,580
+Let's check 13, which should give us 3.
+
+287
+00:11:50,286 --> 00:11:53,416
+That works. We checked 99 already, so let's
+
+288
+00:11:53,416 --> 00:11:55,710
+check 100, which should give us 5, and
+
+289
+00:11:55,743 --> 00:11:56,368
+that's the case.
+
+290
+00:11:57,187 --> 00:11:59,289
+So that's binary search with recursion.
+
+291
+00:12:00,060 --> 00:12:02,611
+As always with the recursion, can be tricky
+
+292
+00:12:02,643 --> 00:12:05,131
+to wrap your head around, but in general the
+
+293
+00:12:05,131 --> 00:12:06,832
+steps here should be clear. The main
+
+294
+00:12:06,960 --> 00:12:09,351
+difference to the loop-based solution is
+
+295
+00:12:09,528 --> 00:12:11,919
+that in the loop we just change the indexes
+
+296
+00:12:12,497 --> 00:12:14,551
+and we then calculate different middle
+
+297
+00:12:14,583 --> 00:12:17,629
+indexes Here in the recursive solution, we
+
+298
+00:12:17,790 --> 00:12:20,515
+always calculate the same middle index and
+
+299
+00:12:20,611 --> 00:12:23,768
+we only briefly change the indexes to call
+
+300
+00:12:24,041 --> 00:12:26,926
+our new function again with a subset of the
+
+301
+00:12:26,926 --> 00:12:29,506
+original array. So we really cut the array
+
+302
+00:12:29,651 --> 00:12:31,798
+into slices for the different function
+
+303
+00:12:31,830 --> 00:12:34,122
+calls. And because we're operating on
+
+304
+00:12:34,154 --> 00:12:36,927
+different array slices, we also need to
+
+305
+00:12:37,023 --> 00:12:38,995
+carry forward that offset.
+
+306
+00:12:39,620 --> 00:12:41,976
+Now that's just one possible implementation
+
+307
+00:12:42,072 --> 00:12:44,382
+of that recursive approach here. You could
+
+308
+00:12:44,478 --> 00:12:47,758
+also write binary search with recursion with
+
+309
+00:12:47,870 --> 00:12:50,249
+different approaches where you just forward
+
+310
+00:12:50,346 --> 00:12:52,564
+indexes to find_element and you slice your
+
+311
+00:12:52,677 --> 00:12:55,056
+array up inside of each recursive call,
+
+312
+00:12:55,908 --> 00:12:58,014
+but this approach works fine.
+
+313
+00:12:58,576 --> 00:13:00,939
+Of course, we now have one big question.
+
+314
+00:13:01,454 --> 00:13:02,900
+What's the time complexity of that?

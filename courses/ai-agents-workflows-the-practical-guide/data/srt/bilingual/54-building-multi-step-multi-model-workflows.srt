@@ -1,0 +1,784 @@
+1
+00:00:00,657 --> 00:00:03,626
+Of course, you did not take this course to
+當然，你學習這門課程不是為了
+
+2
+00:00:03,626 --> 00:00:06,788
+just learn about simple, basic one-step
+只要學習簡單、基本的一步
+
+3
+00:00:06,852 --> 00:00:09,067
+workflows, though the foundation of course
+工作流程，當然是基礎
+
+4
+00:00:09,179 --> 00:00:09,805
+is important.
+很重要。
+
+5
+00:00:10,543 --> 00:00:12,806
+But here we now got an example for a more
+但在這裡我們現在有一個更多的例子
+
+6
+00:00:13,095 --> 00:00:16,305
+complex multi-step workflow where we'll
+複雜的多步驟工作流程，我們將
+
+7
+00:00:16,385 --> 00:00:19,338
+actually also use different AI models in
+其實也使用不同的AI模型
+
+8
+00:00:19,450 --> 00:00:20,381
+different steps.
+不同的步驟。
+
+9
+00:00:21,360 --> 00:00:23,575
+And you find the updated version of this
+你會發現這個的更新版本
+
+10
+00:00:23,623 --> 00:00:25,902
+workflow, the updated main.py file
+工作流程，更新後的 main.py 檔案
+
+11
+00:00:26,496 --> 00:00:27,858
+also attached to this lecture.
+也附在本次講座中。
+
+12
+00:00:29,157 --> 00:00:32,428
+This updated version no longer asks for a
+此更新版本不再要求
+
+13
+00:00:32,428 --> 00:00:35,731
+topic as an input, but instead for a website
+主題作為輸入，而不是網站
+
+14
+00:00:35,731 --> 00:00:36,163
+URL.
+網址。
+
+15
+00:00:37,093 --> 00:00:39,691
+It then goes ahead and fetches the HTML
+然後它繼續獲取 HTML
+
+16
+00:00:39,723 --> 00:00:43,026
+content of that website by using the
+該網站的內容透過使用
+
+17
+00:00:43,250 --> 00:00:45,495
+requests package again, sending a GET
+再次請求包，發送 GET
+
+18
+00:00:45,495 --> 00:00:46,986
+request to that URL.
+請求該 URL。
+
+19
+00:00:47,980 --> 00:00:50,048
+And I'll say right away that this approach
+我會立即說這種方法
+
+20
+00:00:50,144 --> 00:00:52,789
+will not work for all websites because there
+不適用於所有網站，因為
+
+21
+00:00:52,789 --> 00:00:55,275
+are many websites that have mechanisms to
+有很多網站都有機制
+
+22
+00:00:55,740 --> 00:00:58,593
+defend against requests like this or
+抵禦這樣的請求或
+
+23
+00:00:58,882 --> 00:01:01,943
+websites that don't load all the content
+不載入所有內容的網站
+
+24
+00:01:01,943 --> 00:01:04,829
+initially with the first request, which this
+最初是第一個請求，這
+
+25
+00:01:04,829 --> 00:01:07,282
+request here would be, but which instead
+這裡的請求是，但是相反
+
+26
+00:01:07,458 --> 00:01:09,766
+also load some content with client-side
+也可以使用使用者端載入一些內容
+
+27
+00:01:09,863 --> 00:01:12,524
+JavaScript code, for example, after the
+JavaScript 程式碼，例如，在
+
+28
+00:01:12,524 --> 00:01:13,534
+initial page load.
+初始頁面載入。
+
+29
+00:01:14,191 --> 00:01:17,012
+All those websites would not really work
+所有這些網站都無法真正運行
+
+30
+00:01:17,012 --> 00:01:17,862
+with this approach.
+用這種方法。
+
+31
+00:01:18,455 --> 00:01:20,427
+But there are many websites where this
+但有很多網站都提供此功能
+
+32
+00:01:20,475 --> 00:01:21,581
+approach will work.
+方法會起作用。
+
+33
+00:01:22,222 --> 00:01:25,637
+So this will give us the HTML code of that
+這將為我們提供 HTML 程式碼
+
+34
+00:01:25,653 --> 00:01:26,214
+website.
+網站。
+
+35
+00:01:27,111 --> 00:01:30,446
+And we then use this HTML code to actually
+然後我們使用這個 HTML 程式碼來實際
+
+36
+00:01:30,542 --> 00:01:33,347
+extract the core content of the site.
+提取網站的核心內容。
+
+37
+00:01:34,004 --> 00:01:36,970
+Because if I use my personal website as an
+因為如果我使用我的個人網站作為
+
+38
+00:01:36,970 --> 00:01:37,723
+example here,
+這裡的例子，
+
+39
+00:01:38,637 --> 00:01:42,244
+the HTML code of one of my posts can be seen
+可以看到我的一篇貼文的 HTML 程式碼
+
+40
+00:01:42,244 --> 00:01:44,071
+if you inspect the page source,
+如果您檢查頁面原始碼，
+
+41
+00:01:44,905 --> 00:01:45,867
+looks something like this.
+看起來像這樣。
+
+42
+00:01:46,588 --> 00:01:49,858
+Not horrible, but quite a lot of code. I can
+並不可怕，但程式碼相當多。我可以
+
+43
+00:01:50,291 --> 00:01:52,439
+scroll quite a bit to the right here.
+在這裡向右滾動一段距離。
+
+44
+00:01:52,984 --> 00:01:55,437
+And of course, Since it's HTML code, there
+當然，由於它是 HTML 程式碼，因此
+
+45
+00:01:55,549 --> 00:01:58,979
+are many HTML elements, CSS classes,
+有許多 HTML 元素、CSS 類別、
+
+46
+00:01:59,637 --> 00:02:02,169
+and lots of stuff in there that's not
+還有很多不存在的東西
+
+47
+00:02:02,201 --> 00:02:03,548
+relevant to us humans.
+與我們人類相關。
+
+48
+00:02:04,542 --> 00:02:07,539
+The core text which you see here only makes
+您在這裡看到的核心文字僅使
+
+49
+00:02:07,652 --> 00:02:09,800
+up a part of the actual source code.
+實際原始碼的一部分。
+
+50
+00:02:10,537 --> 00:02:12,605
+But it's the overall source code, the
+但這是整體原始碼，
+
+51
+00:02:12,621 --> 00:02:15,474
+overall HTML code that's fetched by this
+由此獲取的總體 HTML 程式碼
+
+52
+00:02:15,667 --> 00:02:15,923
+step.
+步。
+
+53
+00:02:16,869 --> 00:02:19,418
+Therefore, I also need a step that actually
+因此，我還需要一個實際的步驟
+
+54
+00:02:19,434 --> 00:02:23,393
+extracts the core content, the core text of
+擷取核心內容，核心文本
+
+55
+00:02:23,457 --> 00:02:25,990
+this website, the core content that would
+這個網站的核心內容是
+
+56
+00:02:26,086 --> 00:02:27,592
+also matter to us humans.
+對我們人類也很重要。
+
+57
+00:02:28,426 --> 00:02:30,829
+And that's what extract core website content
+這就是提取核心網站內容的方法
+
+58
+00:02:30,829 --> 00:02:31,086
+does.
+做。
+
+59
+00:02:32,031 --> 00:02:35,204
+This step now actually leverages a large
+這一步現在實際上利用了很大的
+
+60
+00:02:35,380 --> 00:02:37,608
+language model to perform this extraction
+執行此提取的語言模型
+
+61
+00:02:38,041 --> 00:02:41,502
+because detecting the core text inside of a
+因為檢測 a 中的核心文本
+
+62
+00:02:41,502 --> 00:02:45,236
+sea of HTML elements is non-trivial,
+HTML 元素的海洋並不簡單，
+
+63
+00:02:45,316 --> 00:02:47,447
+especially if you want this to work with all
+特別是如果你希望它適用於所有人
+
+64
+00:02:47,559 --> 00:02:50,460
+kinds of websites, not just one clearly
+各種各樣的網站，而不僅僅是一個明確的網站
+
+65
+00:02:50,460 --> 00:02:51,549
+defined website.
+定義的網站。
+
+66
+00:02:52,079 --> 00:02:54,471
+So you don't know the HTML structure in
+所以你不知道 HTML 結構
+
+67
+00:02:54,471 --> 00:02:54,920
+advance.
+進步。
+
+68
+00:02:55,498 --> 00:02:57,890
+And these are exactly the kind of situations
+而這些正是這種情況
+
+69
+00:02:57,987 --> 00:02:59,897
+where large language models shine.
+大型語言模型大放異彩的地方。
+
+70
+00:03:01,310 --> 00:03:04,151
+So again, I'm using the OpenAI SDK here, and
+再次強調，我在這裡使用 OpenAI SDK，並且
+
+71
+00:03:04,328 --> 00:03:04,553
+then
+然後
+
+72
+00:03:05,131 --> 00:03:09,000
+I'm using the 4o Mini model here instead of
+我在這裡使用 4o Mini 模型而不是
+
+73
+00:03:09,000 --> 00:03:10,252
+the 4o model.
+4o 模型。
+
+74
+00:03:11,151 --> 00:03:13,944
+I'm doing that because this 4o Mini model is
+我這樣做是因為這個 4o Mini 型號是
+
+75
+00:03:14,153 --> 00:03:18,247
+super cheap, way cheaper than the 4o model.
+超便宜，比4o型號便宜很多。
+
+76
+00:03:19,098 --> 00:03:22,102
+And for tasks like summarizing text,
+對於像總結文本這樣的任務，
+
+77
+00:03:22,166 --> 00:03:25,796
+extracting data from text, this 4o Mini
+從文本中提取資料，這個 4o Mini
+
+78
+00:03:25,796 --> 00:03:28,880
+model is more than enough. It's absolutely
+模型綽綽有餘。絕對是
+
+79
+00:03:28,912 --> 00:03:30,566
+capable to handle those tasks.
+有能力處理這些任務。
+
+80
+00:03:31,867 --> 00:03:34,229
+But these are also the tasks that typically
+但這些也是通常的任務
+
+81
+00:03:34,229 --> 00:03:36,766
+involve a lot of tokens. I mean, again, if
+涉及大量代幣。我的意思是，再說一遍，如果
+
+82
+00:03:36,766 --> 00:03:38,597
+you take a look at this source code,
+你看一下這個原始碼，
+
+83
+00:03:39,176 --> 00:03:42,533
+all this text here, all this markup is fed
+所有這些文本都在這裡，所有這些標記都被饋送
+
+84
+00:03:42,661 --> 00:03:45,101
+to the large language model. So all these
+到大語言模型。所以所有這些
+
+85
+00:03:45,197 --> 00:03:48,067
+HTML tags also consume tokens.
+HTML 標籤也消耗令牌。
+
+86
+00:03:48,676 --> 00:03:51,144
+So having a very cheap model is definitely
+所以擁有一個非常便宜的型號絕對是
+
+87
+00:03:51,144 --> 00:03:53,196
+important here, especially since, as
+在這裡很重要，特別是因為，
+
+88
+00:03:53,244 --> 00:03:55,392
+mentioned, it's more than capable enough for
+所提到的，它的能力足以
+
+89
+00:03:55,408 --> 00:03:56,034
+this task.
+這個任務。
+
+90
+00:03:56,931 --> 00:03:59,240
+I then have a basic prompt where I instruct
+然後我會得到一個基本提示，我可以在其中進行指導
+
+91
+00:03:59,240 --> 00:04:02,029
+the model to extract the core text,
+擷取核心文字的模型，
+
+92
+00:04:02,061 --> 00:04:03,985
+excluding navigation, footers, and other
+不包括導航、頁尾和其他
+
+93
+00:04:03,985 --> 00:04:06,517
+non-essential elements from the received
+收到的非必要元素
+
+94
+00:04:06,597 --> 00:04:08,713
+HTML code, which is received as input here.
+HTML 程式碼，在此作為輸入接收。
+
+95
+00:04:09,499 --> 00:04:12,769
+And then I return that extracted text. So
+然後我回傳提取的文本。所以
+
+96
+00:04:13,090 --> 00:04:15,622
+hopefully the text that's relevant to
+希望相關的文字
+
+97
+00:04:15,622 --> 00:04:16,119
+humans.
+人類。
+
+98
+00:04:17,820 --> 00:04:20,885
+Once I have this core content, I have
+一旦我有了這個核心內容，我就擁有了
+
+99
+00:04:20,885 --> 00:04:23,821
+another step here which actually summarizes
+這裡的另一個步驟實際上總結了
+
+100
+00:04:23,853 --> 00:04:26,228
+this content because in the previous step, I
+這個內容是因為在上一步中，我
+
+101
+00:04:26,260 --> 00:04:29,212
+extracted all the text as it appears on the
+提取出現在的所有文本
+
+102
+00:04:29,212 --> 00:04:31,603
+website. Now I want to create a summary
+網站。現在我想建立一個摘要
+
+103
+00:04:31,715 --> 00:04:32,613
+based on this text.
+基於此文本。
+
+104
+00:04:33,560 --> 00:04:36,416
+For that, I again use 4o Mini because again,
+為此，我再次使用 4o Mini，因為，
+
+105
+00:04:36,528 --> 00:04:39,336
+for tasks like extraction, but also
+對於諸如提取之類的任務，而且
+
+106
+00:04:39,513 --> 00:04:42,513
+summaries, it's awesome and it's cheaper
+總結一下，很棒，而且還便宜
+
+107
+00:04:42,690 --> 00:04:44,439
+than other models. So that's why I'm using
+比其他型號。這就是我使用的原因
+
+108
+00:04:44,535 --> 00:04:44,583
+it.
+它。
+
+109
+00:04:45,342 --> 00:04:48,095
+Have a simple prompt, pass my content, the
+有一個簡單的提示，傳遞我的內容，
+
+110
+00:04:48,095 --> 00:04:50,832
+extracted content to it, and then hopefully
+提取內容，然後希望
+
+111
+00:04:50,864 --> 00:04:52,839
+get back a summary which I return.
+取回我回傳的摘要。
+
+112
+00:04:54,712 --> 00:04:57,371
+And it's then this summary which I again use
+然後我再次使用這個摘要
+
+113
+00:04:57,371 --> 00:04:58,837
+to generate an ex post.
+產生事後報告。
+
+114
+00:04:59,852 --> 00:05:02,333
+I also log the summary and the core content
+我還記錄了摘要和核心內容
+
+115
+00:05:02,607 --> 00:05:03,865
+for debugging purposes.
+用於除錯目的。
+
+116
+00:05:05,029 --> 00:05:06,807
+That's my workflow here.
+這就是我這裡的工作流程。
+
+117
+00:05:07,437 --> 00:05:10,297
+Again, leveraging large language models, but
+再次利用大型語言模型，但是
+
+118
+00:05:10,378 --> 00:05:13,134
+different kinds of models. 4o Mini for
+不同種類的模型。 4o 迷你用於
+
+119
+00:05:13,134 --> 00:05:14,133
+extraction and summaries, but for
+提取和摘要，但對於
+
+120
+00:05:14,133 --> 00:05:14,527
+post-generation,
+後一代，
+
+121
+00:05:16,706 --> 00:05:18,005
+I'm still using 4.0.
+我還在用4.0
+
+122
+00:05:18,711 --> 00:05:19,417
+And therefore
+因此
+
+123
+00:05:20,075 --> 00:05:20,283
+here
+這裡
+
+124
+00:05:21,358 --> 00:05:23,620
+I can again run this script,
+我可以再次運行這個腳本，
+
+125
+00:05:24,502 --> 00:05:27,261
+paste in a URL like here, the URL from my
+貼上像這樣的 URL，來自我的 URL
+
+126
+00:05:27,309 --> 00:05:29,170
+own website from this article.
+這篇文章中的自己的網站。
+
+127
+00:05:30,582 --> 00:05:32,731
+And then it'll go ahead, fetch that content,
+然後它會繼續獲取該內容，
+
+128
+00:05:32,924 --> 00:05:34,993
+send it to the large language model. And
+將其發送到大語言模型。和
+
+129
+00:05:34,993 --> 00:05:36,902
+this can take a while because it is a lot of
+這可能需要一段時間，因為有很多
+
+130
+00:05:36,934 --> 00:05:38,747
+content to parse and process.
+要解析和處理的內容。
+
+131
+00:05:39,437 --> 00:05:41,827
+So now the model is doing its work trying to
+所以現在模型正在努力嘗試
+
+132
+00:05:41,827 --> 00:05:43,367
+extract the core content.
+提取核心內容。
+
+133
+00:05:43,992 --> 00:05:46,621
+Here we go. That is the core content it
+開始了。這就是它的核心內容
+
+134
+00:05:46,621 --> 00:05:49,009
+detected, the core text it extracted from
+檢測到，它從中提取的核心文本
+
+135
+00:05:49,185 --> 00:05:51,605
+all that HTML code. Looks pretty good to me.
+所有 HTML 程式碼。對我來說看起來不錯。
+
+136
+00:05:52,711 --> 00:05:55,051
+Then it's summarizing it. Here is the
+然後就是總結一下。這是
+
+137
+00:05:55,051 --> 00:05:57,856
+summary, a bunch of bullet points because in
+總結，一堆重點，因為
+
+138
+00:05:57,856 --> 00:06:00,244
+my prompt I told it to prefer bullet points.
+我的提示告訴它更喜歡要點。
+
+139
+00:06:01,141 --> 00:06:04,891
+And then I got my generated ex post based on
+然後我得到了我生成的事後基於
+
+140
+00:06:04,988 --> 00:06:05,917
+that summary.
+那個總結。
+
+141
+00:06:07,231 --> 00:06:08,802
+And that's of course a pretty amazing
+這當然是一個非常驚人的
+
+142
+00:06:08,818 --> 00:06:11,623
+workflow because this now allows me to paste
+工作流程，因為這現在允許我貼上
+
+143
+00:06:11,623 --> 00:06:12,985
+in any URL.
+在任何網址中。
+
+144
+00:06:13,868 --> 00:06:16,340
+With a caveat, because as mentioned, this
+需要注意的是，因為如上所述，這
+
+145
+00:06:16,854 --> 00:06:19,487
+method of extracting HTML will not work for
+擷取 HTML 的方法不適用於
+
+146
+00:06:19,487 --> 00:06:21,976
+all sites, but for many sites it will. And
+所有網站，但對於許多網站來說都是如此。和
+
+147
+00:06:21,992 --> 00:06:24,401
+therefore I can paste in any URL and just
+因此我可以貼上任何 URL，然後
+
+148
+00:06:24,401 --> 00:06:25,798
+see whether it works or not.
+看看它是否有效。
+
+149
+00:06:26,488 --> 00:06:29,138
+And then get a post and a summary based on
+然後根據以下內容獲取帖子和摘要
+
+150
+00:06:29,138 --> 00:06:31,032
+the website content, which is a pretty
+網站內容，很漂亮
+
+151
+00:06:31,048 --> 00:06:32,750
+amazing workflow in my opinion.
+我認為驚人的工作流程。
+
+152
+00:06:33,296 --> 00:06:35,063
+And most importantly, it's a workflow that
+最重要的是，這是一個工作流程
+
+153
+00:06:35,063 --> 00:06:37,246
+shows you that you can combine multiple
+向您展示您可以組合多個
+
+154
+00:06:37,246 --> 00:06:40,361
+steps where every step may or may not use a
+步驟，其中每個步驟可能或可能不使用
+
+155
+00:06:40,377 --> 00:06:41,421
+large language model.
+大語言模型。
+
+156
+00:06:42,053 --> 00:06:44,069
+And that you can also use different models
+並且您也可以使用不同的模型
+
+157
+00:06:44,166 --> 00:06:45,369
+for different tasks.
+用於不同的任務。

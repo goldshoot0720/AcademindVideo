@@ -1,0 +1,931 @@
+1
+00:00:02,197 --> 00:00:04,748
+Now, in order to find out what the best
+
+2
+00:00:04,764 --> 00:00:07,860
+possible algorithm is for a given problem,
+
+3
+00:00:08,614 --> 00:00:10,427
+we need to be able to measure performance.
+
+4
+00:00:11,181 --> 00:00:12,850
+Now let's see how we could measure it.
+
+5
+00:00:13,668 --> 00:00:15,497
+And for that, let's take an example problem.
+
+6
+00:00:16,138 --> 00:00:20,085
+Your goal is to write a function that takes
+
+7
+00:00:20,165 --> 00:00:23,197
+one number as an input and then builds the
+
+8
+00:00:23,197 --> 00:00:25,796
+sum of all the numbers leading up to that
+
+9
+00:00:25,796 --> 00:00:26,101
+number.
+
+10
+00:00:27,102 --> 00:00:28,992
+This function could look like that. It's a
+
+11
+00:00:29,122 --> 00:00:30,604
+fairly trivial function.
+
+12
+00:00:31,256 --> 00:00:32,641
+We get a number as an input,
+
+13
+00:00:33,278 --> 00:00:33,310
+n,
+
+14
+00:00:33,969 --> 00:00:37,329
+and then we have a result, 0 initially.
+
+15
+00:00:37,924 --> 00:00:40,319
+We have a for loop where we simply go
+
+16
+00:00:40,399 --> 00:00:42,560
+through all the numbers up to n, including
+
+17
+00:00:42,836 --> 00:00:42,885
+n.
+
+18
+00:00:43,712 --> 00:00:46,306
+We add that to the result and we return the
+
+19
+00:00:46,306 --> 00:00:47,231
+result in the end.
+
+20
+00:00:49,170 --> 00:00:50,675
+We can simply write this together here.
+
+21
+00:00:51,209 --> 00:00:52,795
+I'm simply doing this in the Chrome
+
+22
+00:00:52,828 --> 00:00:55,369
+Developer Tools in the JavaScript console
+
+23
+00:00:55,433 --> 00:00:57,968
+there Because for the moment that's all we
+
+24
+00:00:57,968 --> 00:01:00,473
+need. It's just a very basic first example.
+
+25
+00:01:00,843 --> 00:01:02,866
+For the rest of the course, we will use code
+
+26
+00:01:02,866 --> 00:01:03,717
+files, no worries.
+
+27
+00:01:04,552 --> 00:01:06,960
+But here we could add a function sumUp
+
+28
+00:01:07,763 --> 00:01:10,268
+which takes n as an input, curly braces
+
+29
+00:01:10,396 --> 00:01:11,167
+opening and closing,
+
+30
+00:01:11,697 --> 00:01:13,768
+and between those hit Shift+Enter
+
+31
+00:01:14,426 --> 00:01:15,839
+to not submit it but to
+
+32
+00:01:16,578 --> 00:01:18,007
+add more code in new lines.
+
+33
+00:01:18,922 --> 00:01:20,335
+And then here we have the result which
+
+34
+00:01:20,367 --> 00:01:21,250
+initially is 0.
+
+35
+00:01:22,613 --> 00:01:25,154
+Shift+Enter, add a for loop where we have i
+
+36
+00:01:25,267 --> 00:01:27,857
+which is equal to 1 initially because we
+
+37
+00:01:28,051 --> 00:01:30,608
+start at 1. We could include 0 but it makes
+
+38
+00:01:30,608 --> 00:01:31,126
+no difference.
+
+39
+00:01:32,012 --> 00:01:33,109
+We want to go up all the way
+
+40
+00:01:34,093 --> 00:01:37,158
+as long as i is smaller or equal to n, and
+
+41
+00:01:38,287 --> 00:01:39,190
+then we increment i,
+
+42
+00:01:40,460 --> 00:01:42,158
+curly braces and Shift+Enter.
+
+43
+00:01:44,098 --> 00:01:46,236
+And then in the loop body
+
+44
+00:01:46,992 --> 00:01:47,535
+we add
+
+45
+00:01:48,146 --> 00:01:49,157
+i to result.
+
+46
+00:01:49,847 --> 00:01:51,322
+And then we in the end here
+
+47
+00:01:52,076 --> 00:01:53,199
+return result.
+
+48
+00:01:54,016 --> 00:01:56,021
+This is the function that will solve this
+
+49
+00:01:56,021 --> 00:01:56,502
+problem.
+
+50
+00:01:57,160 --> 00:01:58,940
+If we hit Enter, we now submit this
+
+51
+00:01:59,052 --> 00:02:00,977
+function, and now it's stored here and we
+
+52
+00:02:00,977 --> 00:02:01,490
+can use it.
+
+53
+00:02:02,196 --> 00:02:04,634
+So for example, now we can call sumUp for
+
+54
+00:02:05,388 --> 00:02:05,740
+3,
+
+55
+00:02:06,446 --> 00:02:07,938
+and I get 6 as a result,
+
+56
+00:02:08,531 --> 00:02:11,290
+which makes sense because 3 is essentially 3
+
+57
+00:02:11,338 --> 00:02:14,128
+plus 2 plus 1. These are the numbers leading
+
+58
+00:02:14,208 --> 00:02:17,580
+up to 3, and summed up they give us 6. And
+
+59
+00:02:17,596 --> 00:02:20,394
+therefore sum up for 4 gives us 10 because
+
+60
+00:02:20,410 --> 00:02:23,386
+that's 4 plus 3 plus 2 plus 1.
+
+61
+00:02:24,292 --> 00:02:26,507
+So this is the problem solved. This is our
+
+62
+00:02:26,540 --> 00:02:29,508
+first algorithm. But how can we now measure
+
+63
+00:02:29,799 --> 00:02:31,009
+the time it takes?
+
+64
+00:02:32,780 --> 00:02:32,860
+Well,
+
+65
+00:02:33,443 --> 00:02:34,107
+for that,
+
+66
+00:02:34,690 --> 00:02:36,504
+I'll clear that. It's still stored in
+
+67
+00:02:36,536 --> 00:02:38,641
+memory. I just cleared the console so that
+
+68
+00:02:38,641 --> 00:02:39,354
+we have more space.
+
+69
+00:02:39,952 --> 00:02:40,500
+For that,
+
+70
+00:02:41,145 --> 00:02:43,484
+we can measure the time when we start and
+
+71
+00:02:43,500 --> 00:02:44,710
+the time when we end.
+
+72
+00:02:45,363 --> 00:02:46,779
+And simply take the difference.
+
+73
+00:02:47,777 --> 00:02:49,596
+For that, I'll add a start variable which is
+
+74
+00:02:49,741 --> 00:02:49,950
+0
+
+75
+00:02:50,980 --> 00:02:53,185
+and end variable which is 0 initially.
+
+76
+00:02:54,142 --> 00:02:56,447
+And then here we can write start, and in
+
+77
+00:02:56,463 --> 00:02:58,429
+JavaScript in the browser, there is a
+
+78
+00:02:58,494 --> 00:03:01,169
+performance object on which we can call the
+
+79
+00:03:01,169 --> 00:03:03,249
+now method, and this gives us the current
+
+80
+00:03:03,249 --> 00:03:03,555
+timestamp.
+
+81
+00:03:05,162 --> 00:03:07,633
+Now I can set start equal to that,
+
+82
+00:03:08,231 --> 00:03:11,509
+then call sumUp for, let's say, a value of 5
+
+83
+00:03:12,133 --> 00:03:14,944
+And then end is performance.now.
+
+84
+00:03:15,827 --> 00:03:19,233
+And with that, we can just output end minus
+
+85
+00:03:19,377 --> 00:03:19,859
+start
+
+86
+00:03:20,389 --> 00:03:22,317
+here in the console. You can just type it
+
+87
+00:03:22,317 --> 00:03:24,646
+like this and it will print the result. And
+
+88
+00:03:24,662 --> 00:03:27,023
+this will give us the amount of time this
+
+89
+00:03:27,135 --> 00:03:28,211
+took to execute.
+
+90
+00:03:29,014 --> 00:03:29,994
+So if I hit Enter here,
+
+91
+00:03:30,829 --> 00:03:32,098
+this is the result I get.
+
+92
+00:03:32,757 --> 00:03:32,934
+Okay,
+
+93
+00:03:33,817 --> 00:03:35,664
+let's now repeat this. For this, you can
+
+94
+00:03:35,664 --> 00:03:37,447
+press the up arrow key
+
+95
+00:03:38,217 --> 00:03:40,928
+And let's say we use 10 now instead of 5.
+
+96
+00:03:41,939 --> 00:03:44,089
+If I hit Enter, you see I get pretty much
+
+97
+00:03:44,089 --> 00:03:46,495
+the same time, actually exactly the same
+
+98
+00:03:46,495 --> 00:03:49,094
+time. So it looks like it takes exactly the
+
+99
+00:03:49,126 --> 00:03:50,906
+same time no matter what we enter here.
+
+100
+00:03:51,773 --> 00:03:54,099
+Well, let's confirm this by using, let's
+
+101
+00:03:54,099 --> 00:03:54,307
+say,
+
+102
+00:03:55,222 --> 00:03:56,778
+1,000 as a value here.
+
+103
+00:03:57,628 --> 00:03:58,494
+If I now hit Enter,
+
+104
+00:03:59,072 --> 00:03:59,425
+oh, okay,
+
+105
+00:03:59,970 --> 00:04:00,804
+I get a different time,
+
+106
+00:04:01,719 --> 00:04:04,093
+roughly 3 times as long as it took before.
+
+107
+00:04:04,462 --> 00:04:08,149
+Right, it was 0.005 before, now it's 0.015.
+
+108
+00:04:09,271 --> 00:04:11,547
+So it's definitely not always the same time,
+
+109
+00:04:11,996 --> 00:04:13,583
+but it seems like there is no difference
+
+110
+00:04:13,583 --> 00:04:14,593
+between 5 and 10.
+
+111
+00:04:15,603 --> 00:04:18,264
+Well, that's the problem with measuring time
+
+112
+00:04:18,473 --> 00:04:20,380
+like this in hard numbers.
+
+113
+00:04:20,974 --> 00:04:23,186
+If we do this, we have a lot of influencing
+
+114
+00:04:23,298 --> 00:04:25,751
+factors that have nothing to do with our
+
+115
+00:04:25,927 --> 00:04:26,456
+algorithm.
+
+116
+00:04:27,450 --> 00:04:30,352
+For example, and easy to imagine, The
+
+117
+00:04:30,352 --> 00:04:32,805
+computer you're running this on matters.
+
+118
+00:04:33,542 --> 00:04:35,209
+I'm running this on a relatively new
+
+119
+00:04:35,257 --> 00:04:37,486
+MacBook, and of course, that's a fast
+
+120
+00:04:37,486 --> 00:04:40,676
+device. On older devices, you will see
+
+121
+00:04:40,692 --> 00:04:43,321
+different numbers. But even on this MacBook,
+
+122
+00:04:43,401 --> 00:04:46,351
+I don't always get the same result because
+
+123
+00:04:46,383 --> 00:04:49,076
+it depends on how many processes are running
+
+124
+00:04:49,108 --> 00:04:52,122
+in the background, on the browser I use, on
+
+125
+00:04:52,154 --> 00:04:55,184
+the open tabs in the browser, and on a lot
+
+126
+00:04:55,184 --> 00:04:56,853
+of other things. Other things.
+
+127
+00:04:57,608 --> 00:05:00,499
+In addition, the browser does certain
+
+128
+00:05:00,563 --> 00:05:02,667
+optimizations behind the scenes where it
+
+129
+00:05:02,667 --> 00:05:06,505
+caches my function and caches values so that
+
+130
+00:05:06,987 --> 00:05:09,974
+even for one and the same value, I will not
+
+131
+00:05:09,974 --> 00:05:13,090
+consistently always get the same output.
+
+132
+00:05:13,909 --> 00:05:16,719
+So measuring time like this is not a great
+
+133
+00:05:16,719 --> 00:05:19,578
+idea. And especially for very small values
+
+134
+00:05:19,674 --> 00:05:22,645
+like 5 and 10, it's very unreliable.
+
+135
+00:05:24,426 --> 00:05:26,511
+Now still, let's see it for some bigger
+
+136
+00:05:26,511 --> 00:05:29,078
+numbers. So instead of 1,000, let's run it
+
+137
+00:05:29,078 --> 00:05:30,089
+for 10,000.
+
+138
+00:05:30,746 --> 00:05:34,709
+And now let's run it for 100,000. And let's
+
+139
+00:05:34,757 --> 00:05:38,030
+run it for a million. And be careful, don't
+
+140
+00:05:38,126 --> 00:05:40,564
+enter a too large number here because
+
+141
+00:05:40,564 --> 00:05:43,275
+eventually it will freeze your computer. But
+
+142
+00:05:43,275 --> 00:05:44,382
+1 million should work.
+
+143
+00:05:45,104 --> 00:05:46,676
+And you see we're getting results here.
+
+144
+00:05:47,687 --> 00:05:49,066
+Now let's run it for
+
+145
+00:05:49,759 --> 00:05:52,063
+10 million, that should still work.
+
+146
+00:05:53,086 --> 00:05:55,828
+And that will be the last number, 100
+
+147
+00:05:55,861 --> 00:05:56,153
+million.
+
+148
+00:05:57,577 --> 00:05:57,706
+Now
+
+149
+00:05:58,401 --> 00:05:59,822
+we see a trend, at least
+
+150
+00:06:00,823 --> 00:06:03,212
+it tends to take longer for bigger numbers.
+
+151
+00:06:03,568 --> 00:06:07,332
+We have this strange result for 100,000
+
+152
+00:06:07,429 --> 00:06:09,596
+which took longer than 1 million,
+
+153
+00:06:10,260 --> 00:06:12,670
+but let's ignore that. Generally what we can
+
+154
+00:06:12,686 --> 00:06:15,678
+roughly say is that the bigger the number
+
+155
+00:06:15,926 --> 00:06:17,131
+the longer it takes.
+
+156
+00:06:17,693 --> 00:06:21,017
+And also roughly, especially for the bigger
+
+157
+00:06:21,017 --> 00:06:21,371
+numbers,
+
+158
+00:06:22,029 --> 00:06:22,559
+we can say
+
+159
+00:06:23,169 --> 00:06:24,342
+that for 10
+
+160
+00:06:25,482 --> 00:06:26,783
+million, which we have here,
+
+161
+00:06:27,843 --> 00:06:30,766
+it takes around 5 times as long as for 1
+
+162
+00:06:30,878 --> 00:06:31,168
+million.
+
+163
+00:06:32,227 --> 00:06:35,022
+For 100 million, it takes 10 times as long
+
+164
+00:06:35,520 --> 00:06:37,030
+as for 10 million.
+
+165
+00:06:38,106 --> 00:06:41,205
+Now if I try this for a billion by adding
+
+166
+00:06:41,302 --> 00:06:42,024
+one more zero,
+
+167
+00:06:42,859 --> 00:06:44,927
+It gets stuck for quite some time, but then
+
+168
+00:06:44,927 --> 00:06:47,620
+again, it's roughly 10 times the time it
+
+169
+00:06:47,652 --> 00:06:49,463
+took for 100 million.
+
+170
+00:06:50,281 --> 00:06:51,595
+So it looks like
+
+171
+00:06:52,221 --> 00:06:53,231
+for big numbers,
+
+172
+00:06:53,824 --> 00:06:54,994
+we roughly have
+
+173
+00:06:55,587 --> 00:06:56,421
+factor 10
+
+174
+00:06:57,174 --> 00:06:58,649
+when it comes to the performance
+
+175
+00:06:59,338 --> 00:07:02,448
+when we have factor 10 here on the number.
+
+176
+00:07:03,186 --> 00:07:06,152
+I use 1 billion instead of 100 million, so
+
+177
+00:07:06,152 --> 00:07:09,392
+that's 10 times 100 million. I get 10 times
+
+178
+00:07:09,617 --> 00:07:10,324
+the performance.
+
+179
+00:07:11,449 --> 00:07:13,168
+So this looks like the relation.
+
+180
+00:07:13,715 --> 00:07:16,527
+It looks like if we double the number for
+
+181
+00:07:16,527 --> 00:07:19,290
+big numbers, or we take it times 10, the
+
+182
+00:07:19,339 --> 00:07:21,685
+performance is also doubled or taken times
+
+183
+00:07:21,733 --> 00:07:21,861
+10.
+
+184
+00:07:22,938 --> 00:07:24,866
+And indeed, this is how we should look at
+
+185
+00:07:24,866 --> 00:07:26,634
+it. We shouldn't care too much about the
+
+186
+00:07:26,634 --> 00:07:29,542
+concrete numbers because those depend a lot
+
+187
+00:07:29,542 --> 00:07:31,791
+on the environment, especially if we're
+
+188
+00:07:31,791 --> 00:07:33,928
+working on small input numbers.
+
+189
+00:07:34,523 --> 00:07:36,818
+But we should care about the general trend,
+
+190
+00:07:37,171 --> 00:07:39,145
+especially for very large numbers.
+
+191
+00:07:39,979 --> 00:07:40,942
+So for this function,
+
+192
+00:07:41,744 --> 00:07:43,879
+if we would want to draw a graph for this,
+
+193
+00:07:44,713 --> 00:07:46,479
+for this function, it would roughly look
+
+194
+00:07:46,479 --> 00:07:46,848
+like this.
+
+195
+00:07:47,666 --> 00:07:50,058
+Now, we saw for small numbers it was very
+
+196
+00:07:50,170 --> 00:07:53,011
+unreliable, but for bigger numbers we saw a
+
+197
+00:07:53,043 --> 00:07:55,354
+linear trend. And theoretically, that should
+
+198
+00:07:55,386 --> 00:07:57,424
+be there for smaller numbers as well.
+
+199
+00:07:57,954 --> 00:07:59,799
+There we just had too many influence
+
+200
+00:07:59,799 --> 00:08:02,495
+factors. But generally, we can say that for
+
+201
+00:08:02,608 --> 00:08:03,490
+this algorithm,
+
+202
+00:08:04,052 --> 00:08:06,748
+a bigger number, a bigger input number leads
+
+203
+00:08:06,780 --> 00:08:10,327
+to more loop iterations, and hence the time
+
+204
+00:08:10,327 --> 00:08:13,007
+it takes to execute this function increases.
+
+205
+00:08:13,745 --> 00:08:15,992
+And for this specific function, and
+
+206
+00:08:16,233 --> 00:08:19,073
+therefore for this specific algorithm, we
+
+207
+00:08:19,073 --> 00:08:21,657
+saw that it seems to increase in a linear
+
+208
+00:08:21,930 --> 00:08:24,257
+way. Especially for the bigger numbers, we
+
+209
+00:08:24,257 --> 00:08:26,616
+could see that if we take the number times
+
+210
+00:08:26,680 --> 00:08:30,084
+10, the time the function takes also is
+
+211
+00:08:30,148 --> 00:08:32,123
+essentially 10 times the time it took
+
+212
+00:08:32,123 --> 00:08:32,396
+before.
+
+213
+00:08:33,022 --> 00:08:35,864
+So we have a linear growth function there in
+
+214
+00:08:35,912 --> 00:08:38,786
+the end. The factor by which we increase the
+
+215
+00:08:38,802 --> 00:08:40,601
+input, so in this case n,
+
+216
+00:08:41,436 --> 00:08:43,748
+is the factor by which the time the function
+
+217
+00:08:43,780 --> 00:08:44,791
+takes increases.
+
+218
+00:08:45,450 --> 00:08:48,035
+It increases in a linear way.
+
+219
+00:08:48,822 --> 00:08:51,166
+And that's how we judge performance when we
+
+220
+00:08:51,166 --> 00:08:53,816
+talk about algorithms. We don't care about
+
+221
+00:08:53,816 --> 00:08:55,069
+the concrete numbers,
+
+222
+00:08:55,663 --> 00:08:58,458
+but we care about the trend, you could say,
+
+223
+00:08:58,474 --> 00:09:00,754
+about the function of time
+
+224
+00:09:01,365 --> 00:09:03,903
+so that we can basically make a statement
+
+225
+00:09:04,240 --> 00:09:07,051
+about the performance of an algorithm based
+
+226
+00:09:07,067 --> 00:09:08,994
+on the time it takes in relation to the
+
+227
+00:09:08,994 --> 00:09:11,853
+inputs. Not speaking about absolute numbers,
+
+228
+00:09:12,191 --> 00:09:14,584
+but about this function, about this trend,
+
+229
+00:09:14,937 --> 00:09:16,527
+this line in this chart here.
+
+230
+00:09:17,170 --> 00:09:20,365
+And we also call this time complexity. So in
+
+231
+00:09:20,397 --> 00:09:21,392
+this case, we would say
+
+232
+00:09:21,922 --> 00:09:24,859
+this sum up function and the algorithm in
+
+233
+00:09:24,956 --> 00:09:27,909
+there has a linear time complexity.

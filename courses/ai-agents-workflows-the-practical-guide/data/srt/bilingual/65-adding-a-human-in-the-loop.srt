@@ -1,0 +1,779 @@
+1
+00:00:00,657 --> 00:00:04,166
+Managing the control flow of workflows is
+管理工作流程的控制流程是
+
+2
+00:00:04,198 --> 00:00:04,807
+important.
+重要的。
+
+3
+00:00:05,544 --> 00:00:09,198
+What's also important is to sometimes add a
+同樣重要的是有時添加一個
+
+4
+00:00:09,246 --> 00:00:12,964
+human in the loop because not all AI
+人類參與迴圈，因為並非所有人工智慧
+
+5
+00:00:13,076 --> 00:00:16,185
+workflows or agents should run fully
+工作流程或代理商應完全運行
+
+6
+00:00:16,522 --> 00:00:19,679
+automatically. Or put in other words, just
+自動地。或者換句話說，只是
+
+7
+00:00:19,743 --> 00:00:22,499
+because you're building an AI workflow or
+因為您正在建立人工智慧工作流程或
+
+8
+00:00:22,531 --> 00:00:26,281
+agent does not mean that you need to blindly
+代理並不意味著你需要盲目
+
+9
+00:00:26,313 --> 00:00:29,551
+trust all its decisions and let it do its
+相信它的所有決定並讓它做它自己的事
+
+10
+00:00:29,679 --> 00:00:32,932
+thing totally on its own. Of course, you can
+事情完全靠自己。當然，你可以
+
+11
+00:00:33,189 --> 00:00:36,988
+build workflows or agents that are 100%
+建構 100% 的工作流程或代理
+
+12
+00:00:37,196 --> 00:00:39,376
+automated, which means that once the
+自動化，這意味著一旦
+
+13
+00:00:39,441 --> 00:00:42,182
+workflow started, it runs and finishes on
+工作流程開始，運作並完成於
+
+14
+00:00:42,182 --> 00:00:44,715
+its own. Maybe some initial input is
+它自己的。也許一些初始輸入是
+
+15
+00:00:44,827 --> 00:00:47,327
+required. We saw some examples for that
+必需的。我們看到了一些例子
+
+16
+00:00:47,472 --> 00:00:49,764
+throughout this section, but thereafter you
+在本節中，但此後您
+
+17
+00:00:49,780 --> 00:00:49,908
+can
+能
+
+18
+00:00:50,501 --> 00:00:53,788
+lean back, relax, and you'll get a result at
+向後靠，放鬆，你就會得到結果
+
+19
+00:00:53,788 --> 00:00:54,910
+some point. And
+某個點。和
+
+20
+00:00:55,471 --> 00:00:58,613
+for many workflows, this is ideal. For
+對於許多工作流程來說，這是理想的。為了
+
+21
+00:00:58,613 --> 00:01:01,386
+example, that blog post generation workflow
+例如，部落格文章產生工作流程
+
+22
+00:01:01,418 --> 00:01:04,545
+I just showed you, there we We just start
+我剛剛向你展示了，我們剛開始
+
+23
+00:01:04,545 --> 00:01:07,465
+the workflow with some input and thereafter
+有一些輸入的工作流程以及此後的工作流程
+
+24
+00:01:07,497 --> 00:01:11,042
+no further input by us is required. And we
+我們不需要進一步的輸入。而我們
+
+25
+00:01:11,042 --> 00:01:14,139
+can be perfectly happy with such a workflow
+對這樣的工作流程非常滿意
+
+26
+00:01:14,155 --> 00:01:16,160
+and that might be exactly what we want.
+這可能正是我們想要的。
+
+27
+00:01:16,802 --> 00:01:20,476
+But we can also add a human in the loop and
+但我們也可以在迴圈中加入一個人
+
+28
+00:01:21,069 --> 00:01:23,476
+that may actually make a lot of sense
+這實際上可能很有意義
+
+29
+00:01:23,476 --> 00:01:26,652
+depending on what your workflow or agent is
+取決於您的工作流程或代理商是什麼
+
+30
+00:01:26,925 --> 00:01:27,214
+doing.
+正在做。
+
+31
+00:01:27,871 --> 00:01:30,680
+And human in the loop simply means that
+人在迴圈中意味著
+
+32
+00:01:31,097 --> 00:01:34,420
+during execution, a workflow may require
+在執行過程中，工作流程可能需要
+
+33
+00:01:34,549 --> 00:01:37,182
+additional input or confirmation by the
+額外的輸入或確認
+
+34
+00:01:37,182 --> 00:01:40,424
+user. So not just initially, but also maybe
+使用者。所以不只是最初，也許
+
+35
+00:01:40,585 --> 00:01:44,165
+sometime during the execution, possibly also
+在執行過程中的某個時候，也可能
+
+36
+00:01:44,165 --> 00:01:46,846
+multiple times. Again, it's your code, your
+多次。再說一次，這是你的程式碼，你的
+
+37
+00:01:46,910 --> 00:01:49,735
+workflow. You decide how it works and when
+工作流程。您決定它如何運作以及何時運作
+
+38
+00:01:49,880 --> 00:01:51,871
+input is required and when it isn't.
+需要輸入以及不需要輸入時。
+
+39
+00:01:52,994 --> 00:01:54,841
+For example, if you're building a workflow
+例如，如果您正在建立工作流程
+
+40
+00:01:55,242 --> 00:01:58,115
+that automatically posts a suggested
+自動發佈建議
+
+41
+00:01:58,228 --> 00:02:01,612
+LinkedIn post to LinkedIn, you might want to
+LinkedIn 發佈到 LinkedIn，您可能會想要
+
+42
+00:02:01,676 --> 00:02:05,171
+add a step where you can check the suggested
+添加一個步驟，您可以在其中檢查建議
+
+43
+00:02:05,363 --> 00:02:08,537
+post and deny posting it if you're not happy
+如果您不滿意，請發布並拒絕發布
+
+44
+00:02:08,553 --> 00:02:08,857
+with it.
+與它。
+
+45
+00:02:09,675 --> 00:02:12,961
+Or going back to this blog post generation
+或回到這篇部落格文章的生成
+
+46
+00:02:12,961 --> 00:02:16,632
+example here, this is the same workflow as
+例如這裡，這是相同的工作流程
+
+47
+00:02:16,744 --> 00:02:19,566
+before, but I did now add a human in the
+之前，但我現在在
+
+48
+00:02:19,630 --> 00:02:21,153
+loop step to it.
+迴圈步驟到它。
+
+49
+00:02:22,275 --> 00:02:24,631
+And I added it because it's my workflow.
+我添加它是因為這是我的工作流程。
+
+50
+00:02:24,679 --> 00:02:28,446
+It's my decision where I want user input and
+我決定在哪裡需要使用者輸入
+
+51
+00:02:28,446 --> 00:02:30,434
+where I don't want user input. If you're
+我不需要使用者輸入。如果你是
+
+52
+00:02:30,450 --> 00:02:32,662
+building your workflow, you decide at which
+建立您的工作流程，由您決定
+
+53
+00:02:32,839 --> 00:02:36,510
+point, if at all, you want extra user input.
+一點，如果有的話，您需要額外的使用者輸入。
+
+54
+00:02:37,263 --> 00:02:39,667
+Of course, this workflow worked fine without
+當然，這個工作流程在沒有
+
+55
+00:02:39,667 --> 00:02:42,232
+the input, but here I want to provide the
+輸入，但在這裡我想提供
+
+56
+00:02:42,232 --> 00:02:44,268
+user with an opportunity to
+使用者有機會
+
+57
+00:02:44,861 --> 00:02:46,432
+share their own feedback
+分享他們自己的回饋
+
+58
+00:02:47,025 --> 00:02:49,975
+on that article, to override the decision
+在那篇文章中，推翻該決定
+
+59
+00:02:50,392 --> 00:02:53,213
+made by this evaluation step, essentially.
+本質上是透過這個評估步驟做出的。
+
+60
+00:02:54,415 --> 00:02:56,852
+And here I decided to give the user 3
+在這裡我決定給使用者 3
+
+61
+00:02:57,124 --> 00:02:59,385
+options. Again, because it's my workflow,
+選項。再說一次，因為這是我的工作流程，
+
+62
+00:02:59,625 --> 00:03:02,030
+that's my decision. I decided to give the
+這是我的決定。我決定給予
+
+63
+00:03:02,030 --> 00:03:02,799
+user 3 options.
+使用者3個選項。
+
+64
+00:03:03,955 --> 00:03:06,442
+They can just hit enter, which means they
+他們只需按 Enter 鍵即可，這意味著他們
+
+65
+00:03:06,506 --> 00:03:08,320
+will not provide their own feedback.
+不會提供自己的回饋。
+
+66
+00:03:08,432 --> 00:03:11,754
+Instead, they'll just accept the feedback
+相反，他們只會接受回饋
+
+67
+00:03:11,754 --> 00:03:14,756
+generated by this evaluation step as it is.
+由該評估步驟按原樣產生。
+
+68
+00:03:15,670 --> 00:03:18,463
+If this step decided that no further
+如果這一步決定不再進行
+
+69
+00:03:18,479 --> 00:03:19,522
+improvement is needed,
+需要改進，
+
+70
+00:03:20,228 --> 00:03:22,620
+the workflow will continue like before. It
+工作流程將像以前一樣繼續。它
+
+71
+00:03:22,652 --> 00:03:24,979
+will exit out of the loop and the next steps
+將退出迴圈並進行後續步驟
+
+72
+00:03:25,059 --> 00:03:25,621
+will start.
+將開始。
+
+73
+00:03:26,407 --> 00:03:28,751
+If the evaluation step did decide that
+如果評估步驟確實決定了
+
+74
+00:03:28,751 --> 00:03:30,901
+improvement is needed, it'll go ahead and
+需要改進，它會繼續進行
+
+75
+00:03:30,901 --> 00:03:33,549
+regenerate that article. So if the user hits
+重新生成那篇文章。所以如果使用者點擊
+
+76
+00:03:33,629 --> 00:03:36,005
+Enter, everything will work just as before
+輸入，一切都會像以前一樣進行
+
+77
+00:03:36,277 --> 00:03:38,251
+without that human feedback step here.
+沒有人工回饋步驟。
+
+78
+00:03:39,166 --> 00:03:41,397
+But that changes if the user enters the word
+但如果使用者輸入這個詞，情況就會改變
+
+79
+00:03:41,493 --> 00:03:41,991
+accept.
+接受。
+
+80
+00:03:42,793 --> 00:03:45,345
+Because if the user does this, then we
+因為如果使用者這樣做，那我們
+
+81
+00:03:45,361 --> 00:03:47,415
+accept the article as is
+照原樣接受文章
+
+82
+00:03:48,073 --> 00:03:50,705
+and we overwrite any suggested changes.
+我們會覆蓋任何建議的更改。
+
+83
+00:03:51,524 --> 00:03:54,958
+So even if this evaluation step decided that
+所以即使這個評估步驟決定了
+
+84
+00:03:55,135 --> 00:03:57,622
+further improvement is needed, if the user
+需要進一步改進，如果使用者
+
+85
+00:03:57,638 --> 00:04:01,457
+enters accept, we discard this and we exit
+進入接受，我們丟棄它並退出
+
+86
+00:04:01,554 --> 00:04:04,105
+out of the loop and accept the article draft
+跳出迴圈並接受文章草稿
+
+87
+00:04:04,281 --> 00:04:04,987
+as it is.
+就這樣。
+
+88
+00:04:06,303 --> 00:04:08,485
+And the last option is that the user enters
+最後一個選項是使用者輸入
+
+89
+00:04:08,550 --> 00:04:11,598
+their own feedback, which also overrides the
+他們自己的回饋，這也凌駕於
+
+90
+00:04:12,064 --> 00:04:15,417
+evaluation step result because now we always
+評估步驟結果因為現在我們總是
+
+91
+00:04:15,770 --> 00:04:18,626
+request another iteration. We request a new
+請求另一次迭代。我們請求一個新的
+
+92
+00:04:18,819 --> 00:04:21,001
+draft and we overwrite whatever this
+草稿，我們覆蓋這一切
+
+93
+00:04:21,001 --> 00:04:22,558
+evaluation step gave us.
+評估步驟給了我們。
+
+94
+00:04:23,392 --> 00:04:25,735
+And here's the actual logic for implementing
+這是實作的實際邏輯
+
+95
+00:04:25,783 --> 00:04:25,943
+this.
+這。
+
+96
+00:04:26,585 --> 00:04:28,527
+I'm checking whether the user entered
+我正在檢查使用者是否輸入
+
+97
+00:04:28,527 --> 00:04:31,701
+accept, in which case we always set needs
+接受，在這種情況下我們總是設定需求
+
+98
+00:04:31,734 --> 00:04:34,297
+improvement to false even if it was true
+改進為假，即使它是真的
+
+99
+00:04:34,297 --> 00:04:34,569
+before,
+前，
+
+100
+00:04:35,419 --> 00:04:37,389
+which means we'll always make it out of this
+這意味著我們總是能擺脫困境
+
+101
+00:04:37,501 --> 00:04:39,520
+loop. We'll always continue with the next
+環形。我們將永遠繼續下一個
+
+102
+00:04:39,520 --> 00:04:40,449
+steps thereafter.
+之後的步驟。
+
+103
+00:04:41,651 --> 00:04:43,622
+If that's not met, we check if the user
+如果不滿足，我們會檢查使用者是否
+
+104
+00:04:43,814 --> 00:04:46,169
+entered any feedback. So if they submitted a
+輸入任何反饋。因此，如果他們提交了
+
+105
+00:04:46,169 --> 00:04:49,246
+non-empty message, in that case, we also
+非空消息，在這種情況下，我們也
+
+106
+00:04:49,278 --> 00:04:51,697
+override the evaluation result and we always
+覆蓋評估結果，我們總是
+
+107
+00:04:51,697 --> 00:04:53,924
+set it to true and we take that user
+將其設為 true，我們將獲取該使用者
+
+108
+00:04:53,924 --> 00:04:56,423
+feedback as a feedback for the next
+反饋作為下一步的回饋
+
+109
+00:04:56,423 --> 00:04:59,147
+iteration cycle, for the next draft version.
+迭代周期，用於下一個草案版本。
+
+110
+00:04:59,773 --> 00:05:02,617
+And if the user enters nothing, then neither
+如果使用者什麼也沒輸入，那麼也不
+
+111
+00:05:02,649 --> 00:05:04,978
+of these conditions is met and the workflow
+滿足這些條件並且工作流程
+
+112
+00:05:04,978 --> 00:05:06,392
+continued as it was before.
+繼續像以前一樣。
+
+113
+00:05:06,922 --> 00:05:09,589
+Now here for me, it will still stop after 3
+現在對我來說，它仍然會在 3 點後停止
+
+114
+00:05:09,589 --> 00:05:11,903
+cycles, even if the user did enter extra
+週期，即使使用者確實輸入了額外的
+
+115
+00:05:11,903 --> 00:05:14,088
+feedback. Of course, you could adjust the
+回饋.當然，你可以調整
+
+116
+00:05:14,152 --> 00:05:16,305
+loop to make sure that if the user entered
+迴圈以確保使用者是否輸入
+
+117
+00:05:16,305 --> 00:05:18,281
+their own feedback, this condition here
+他們自己的回饋，這裡的情況
+
+118
+00:05:18,394 --> 00:05:19,004
+doesn't count.
+不算。
+
+119
+00:05:20,081 --> 00:05:22,250
+For example, if you adjusted it like this,
+例如，如果你這樣調整，
+
+120
+00:05:22,410 --> 00:05:25,367
+you would make sure that the loop is only
+你要確保迴圈只是
+
+121
+00:05:25,415 --> 00:05:29,297
+stopped If we have more than 3 cycles and
+如果我們有超過 3 個週期並且
+
+122
+00:05:30,035 --> 00:05:32,585
+we don't have any user feedback. If we do
+我們沒有任何使用者回饋。如果我們這樣做
+
+123
+00:05:32,698 --> 00:05:35,007
+have user feedback, we'll continue even if
+有使用者回饋，即使
+
+124
+00:05:35,007 --> 00:05:36,996
+we're above those 3 cycles.
+我們已經超過了這 3 個週期。
+
+125
+00:05:37,910 --> 00:05:39,338
+But that's something that's totally up to
+但這完全取決於
+
+126
+00:05:39,338 --> 00:05:39,450
+you.
+你。
+
+127
+00:05:40,156 --> 00:05:40,813
+And with that,
+就這樣，
+
+128
+00:05:41,519 --> 00:05:44,406
+I can of course again run this project here,
+我當然可以在這裡再次運行這個專案，
+
+129
+00:05:45,208 --> 00:05:46,154
+this workflow
+這個工作流程
+
+130
+00:05:46,892 --> 00:05:49,282
+based on my AI workflows versus agents
+基於我的人工智慧工作流程與代理
+
+131
+00:05:49,362 --> 00:05:51,832
+outline. And it will now go ahead and again
+大綱。現在它將一次又一次地繼續
+
+132
+00:05:52,089 --> 00:05:54,479
+generate a new article draft, of course.
+當然，產生一個新的文章草稿。
+
+133
+00:05:55,313 --> 00:05:57,429
+And then once that's done, it will again
+然後一旦完成，它會再次
+
+134
+00:05:57,943 --> 00:06:00,524
+create this automated evaluation. That
+建立此自動評估。那
+
+135
+00:06:00,524 --> 00:06:03,106
+doesn't change, but thereafter I'll get an
+不會改變，但此後我會得到一個
+
+136
+00:06:03,154 --> 00:06:05,367
+opportunity to provide my own feedback.
+有機會提供我自己的回饋。
+
+137
+00:06:06,314 --> 00:06:09,537
+So here the automated evaluation step
+所以這裡是自動評估步驟
+
+138
+00:06:09,729 --> 00:06:12,215
+actually did decide that further improvement
+實際上確實決定進一步改進
+
+139
+00:06:12,231 --> 00:06:14,717
+is needed, and this is the AI-generated
+是需要的，這就是AI生成的
+
+140
+00:06:14,717 --> 00:06:15,069
+feedback.
+回饋.
+
+141
+00:06:15,984 --> 00:06:18,549
+But now I have a chance of hitting Enter to
+但現在我有機會按 Enter 鍵
+
+142
+00:06:18,549 --> 00:06:20,810
+accept this decision by the evaluation
+接受評估決定
+
+143
+00:06:20,810 --> 00:06:21,067
+model.
+模型。
+
+144
+00:06:21,997 --> 00:06:24,435
+Enter accept to instead accept the article
+輸入accept代替接受文章
+
+145
+00:06:24,643 --> 00:06:26,968
+or enter my own feedback like should be
+或輸入我自己的回饋，就像應該的那樣
+
+146
+00:06:26,968 --> 00:06:27,369
+shorter.
+更短。
+
+147
+00:06:28,010 --> 00:06:29,422
+Or of course I could also enter more.
+或者當然我也可以輸入更多。
+
+148
+00:06:30,672 --> 00:06:32,917
+Here I actually wanna accept the article as
+在這裡我實際上想接受這篇文章
+
+149
+00:06:32,917 --> 00:06:35,194
+it is, so I'll enter the word accept and I
+是的，所以我將輸入接受一詞，然後我
+
+150
+00:06:35,387 --> 00:06:37,616
+override the decision by this evaluation
+透過此評估推翻決定
+
+151
+00:06:37,664 --> 00:06:39,684
+step and therefore we now continue with
+步驟，因此我們現在繼續
+
+152
+00:06:39,877 --> 00:06:42,523
+thumbnail generation and LinkedIn post
+縮圖生成和 LinkedIn 帖子
+
+153
+00:06:42,523 --> 00:06:43,148
+generation.
+一代。
+
+154
+00:06:44,543 --> 00:06:46,483
+And that's therefore an example for a
+因此，這是一個例子
+
+155
+00:06:46,531 --> 00:06:49,257
+human-in-the-loop step in this example
+本例中的人機互動步驟
+
+156
+00:06:49,354 --> 00:06:49,819
+workflow.
+工作流程。

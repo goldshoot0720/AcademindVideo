@@ -1,0 +1,1759 @@
+1
+00:00:02,135 --> 00:00:04,962
+So back here in app.js, I will remove all
+
+2
+00:00:05,170 --> 00:00:07,531
+that code except for my items down there,
+
+3
+00:00:07,659 --> 00:00:08,398
+which I still need.
+
+4
+00:00:09,185 --> 00:00:11,497
+And I'll write a new function, knapsack.
+
+5
+00:00:12,702 --> 00:00:15,688
+And knapsack definitely takes some items. So
+
+6
+00:00:15,994 --> 00:00:18,033
+I will now call knapsack down there.
+
+7
+00:00:18,402 --> 00:00:21,164
+However, knapsack does not just take items.
+
+8
+00:00:21,710 --> 00:00:24,440
+Instead, the capacity of our knapsack also
+
+9
+00:00:24,440 --> 00:00:26,608
+matters and should of course be configured
+
+10
+00:00:26,608 --> 00:00:27,379
+from outside.
+
+11
+00:00:27,989 --> 00:00:30,799
+So therefore, I'll have my MAX_CAP
+
+12
+00:00:31,345 --> 00:00:33,497
+constant here, which is 8 to stick to the
+
+13
+00:00:33,497 --> 00:00:34,604
+example from the slides.
+
+14
+00:00:35,696 --> 00:00:38,008
+So we have the items, we have the MAX_CAP,
+
+15
+00:00:38,153 --> 00:00:40,321
+and the knapsack function should take both.
+
+16
+00:00:41,461 --> 00:00:43,628
+It should take the items, but it should also
+
+17
+00:00:43,692 --> 00:00:45,154
+take our capacity.
+
+18
+00:00:46,053 --> 00:00:48,590
+So here I can then pass MAX_CAP as a second
+
+19
+00:00:48,606 --> 00:00:49,682
+argument to knapsack.
+
+20
+00:00:51,175 --> 00:00:52,508
+That's how we should be able to call it.
+
+21
+00:00:53,968 --> 00:00:55,445
+And now inside of knapsack,
+
+22
+00:00:56,135 --> 00:00:58,061
+inside of that function, we can come up with
+
+23
+00:00:58,222 --> 00:01:00,613
+our algorithm. Now I mentioned that I want
+
+24
+00:01:00,629 --> 00:01:01,063
+to go
+
+25
+00:01:01,592 --> 00:01:03,727
+through all my items and through all
+
+26
+00:01:04,000 --> 00:01:05,268
+possible scenarios.
+
+27
+00:01:05,878 --> 00:01:08,654
+And you can start at the last item and go
+
+28
+00:01:09,056 --> 00:01:10,902
+from last to first, or you start at the
+
+29
+00:01:10,902 --> 00:01:13,566
+first item and go from first to last. Both
+
+30
+00:01:13,566 --> 00:01:14,288
+is possible.
+
+31
+00:01:15,347 --> 00:01:18,718
+So since we want to go through items, that
+
+32
+00:01:18,718 --> 00:01:21,077
+sounds like we need a loop, right? We could
+
+33
+00:01:21,110 --> 00:01:24,851
+go through all items here with for item of
+
+34
+00:01:25,028 --> 00:01:27,886
+items. This would go through all items here
+
+35
+00:01:28,400 --> 00:01:28,994
+in our
+
+36
+00:01:29,701 --> 00:01:31,724
+input array, in this items array which we
+
+37
+00:01:31,869 --> 00:01:34,053
+fed as an argument to knapsack.
+
+38
+00:01:34,631 --> 00:01:36,863
+Now indeed, you can write this knapsack
+
+39
+00:01:36,927 --> 00:01:38,774
+function with for loops,
+
+40
+00:01:39,320 --> 00:01:39,705
+and
+
+41
+00:01:40,621 --> 00:01:42,307
+below the video you'll find a link to a
+
+42
+00:01:43,206 --> 00:01:44,941
+solution that uses loops.
+
+43
+00:01:45,744 --> 00:01:48,409
+I prefer the recursive solution though
+
+44
+00:01:48,409 --> 00:01:50,497
+because Whenever we have a case like this
+
+45
+00:01:50,561 --> 00:01:51,717
+where we want to go through different
+
+46
+00:01:51,717 --> 00:01:53,917
+scenarios where we essentially have,
+
+47
+00:01:54,575 --> 00:01:58,027
+um, an array of items and for every item we
+
+48
+00:01:58,027 --> 00:02:00,115
+want to have combinations with all other
+
+49
+00:02:00,131 --> 00:02:00,420
+items,
+
+50
+00:02:01,158 --> 00:02:04,514
+I find recursion to be easier to write and
+
+51
+00:02:04,691 --> 00:02:08,175
+easier to understand in the end. Hence,
+
+52
+00:02:08,480 --> 00:02:09,973
+let's have a look at this from a different
+
+53
+00:02:10,150 --> 00:02:12,960
+angle without the for loop. We got items and
+
+54
+00:02:12,976 --> 00:02:16,027
+we got a max capacity. Now let's simplify
+
+55
+00:02:16,107 --> 00:02:18,259
+this, at least here when we think about it.
+
+56
+00:02:18,837 --> 00:02:21,808
+Now we of course work on an items array here
+
+57
+00:02:21,808 --> 00:02:24,844
+which has 3 items. Now knapsack, this
+
+58
+00:02:24,844 --> 00:02:26,642
+function takes all those items,
+
+59
+00:02:27,188 --> 00:02:28,296
+but let's take a step back.
+
+60
+00:02:28,858 --> 00:02:31,974
+Let's say we wanna act on 1 item. How does
+
+61
+00:02:31,990 --> 00:02:35,218
+our decision look like for 1 single item?
+
+62
+00:02:35,924 --> 00:02:37,675
+Well, we would have a look at the weight of
+
+63
+00:02:37,707 --> 00:02:38,285
+the item
+
+64
+00:02:38,895 --> 00:02:42,413
+and decide whether that's below our capacity
+
+65
+00:02:42,686 --> 00:02:43,505
+which we can carry.
+
+66
+00:02:44,357 --> 00:02:47,603
+And if it is below that, we simply add it to
+
+67
+00:02:47,603 --> 00:02:50,029
+the knapsack. Now of course, we'll not
+
+68
+00:02:50,222 --> 00:02:52,873
+always add it to the knapsack. We will need
+
+69
+00:02:52,873 --> 00:02:55,379
+to add some logic that takes the other items
+
+70
+00:02:55,444 --> 00:02:57,452
+into account as well. But again, let's
+
+71
+00:02:57,452 --> 00:02:59,493
+simplify it. Let's just look at one item.
+
+72
+00:02:59,557 --> 00:03:03,060
+Let's consider that we only have one item in
+
+73
+00:03:03,156 --> 00:03:03,847
+the array for now.
+
+74
+00:03:04,779 --> 00:03:07,189
+Now first of all, to know at which item we
+
+75
+00:03:07,253 --> 00:03:09,453
+want to look we should get some extra
+
+76
+00:03:09,453 --> 00:03:11,573
+information here in the knapsack function,
+
+77
+00:03:11,926 --> 00:03:14,720
+and that's the item index. So that is the
+
+78
+00:03:14,800 --> 00:03:17,514
+item we want to have a look at right now for
+
+79
+00:03:17,706 --> 00:03:18,863
+this function call.
+
+80
+00:03:19,457 --> 00:03:21,929
+I will soon use recursion so that we can
+
+81
+00:03:22,427 --> 00:03:25,221
+control which item is getting evaluated with
+
+82
+00:03:25,494 --> 00:03:27,549
+this parameter. Right now, for the very
+
+83
+00:03:27,565 --> 00:03:30,712
+first function call here, we can simply take
+
+84
+00:03:30,777 --> 00:03:32,125
+the length of items
+
+85
+00:03:33,682 --> 00:03:36,535
+and deduct 1 from that because the length
+
+86
+00:03:36,728 --> 00:03:40,222
+is, well, 1 for this array if I comment out
+
+87
+00:03:40,238 --> 00:03:42,739
+these 2 items. But this has an index of 0,
+
+88
+00:03:43,123 --> 00:03:44,935
+as you know, so we need to reduce this by 1
+
+89
+00:03:45,303 --> 00:03:47,275
+so that we can use this as an index.
+
+90
+00:03:48,028 --> 00:03:50,000
+So now we call knapsack and we're telling
+
+91
+00:03:50,016 --> 00:03:51,956
+the function, hey, you got these items, you
+
+92
+00:03:51,956 --> 00:03:54,328
+got this capacity, and now have a look at
+
+93
+00:03:54,504 --> 00:03:55,274
+item index
+
+94
+00:03:55,979 --> 00:03:57,357
+0 in this case here
+
+95
+00:03:58,031 --> 00:04:00,082
+and tell me whether it should go into the
+
+96
+00:04:00,115 --> 00:04:01,077
+sack or not.
+
+97
+00:04:02,137 --> 00:04:04,208
+Well, we could add an if check therefore and
+
+98
+00:04:04,288 --> 00:04:05,653
+simply check if
+
+99
+00:04:06,616 --> 00:04:07,788
+our capacity here
+
+100
+00:04:08,543 --> 00:04:09,635
+is smaller
+
+101
+00:04:10,229 --> 00:04:10,454
+than
+
+102
+00:04:11,353 --> 00:04:14,259
+the weight of the item for this index.
+
+103
+00:04:14,821 --> 00:04:16,603
+Now the capacity is what we get from
+
+104
+00:04:16,732 --> 00:04:19,638
+outside, so initially it's our max capacity,
+
+105
+00:04:20,200 --> 00:04:22,624
+and if that capacity is smaller
+
+106
+00:04:23,154 --> 00:04:25,225
+than the item weight, we know the item is
+
+107
+00:04:25,338 --> 00:04:26,189
+too heavy.
+
+108
+00:04:26,799 --> 00:04:30,043
+So in that case, we want to return something
+
+109
+00:04:30,140 --> 00:04:31,971
+here, and that something
+
+110
+00:04:32,646 --> 00:04:35,938
+should in the end be our knapsack without
+
+111
+00:04:35,938 --> 00:04:38,926
+this item. And that's important. I want this
+
+112
+00:04:38,990 --> 00:04:41,608
+knapsack function as a whole to return an
+
+113
+00:04:41,785 --> 00:04:44,114
+object that represents the sack.
+
+114
+00:04:44,676 --> 00:04:46,604
+So ultimately here at the end, we'll also
+
+115
+00:04:46,604 --> 00:04:49,334
+return something— we'll return some object
+
+116
+00:04:49,334 --> 00:04:49,543
+here
+
+117
+00:04:50,153 --> 00:04:52,161
+at the end. This is not the final code.
+
+118
+00:04:52,709 --> 00:04:54,419
+And therefore I will also rename this here
+
+119
+00:04:54,419 --> 00:04:56,613
+to sack because in the end we'll have the,
+
+120
+00:04:56,919 --> 00:04:57,839
+well, the sack here.
+
+121
+00:05:00,054 --> 00:05:00,729
+So
+
+122
+00:05:01,709 --> 00:05:04,906
+what do we return if we don't put this item
+
+123
+00:05:04,906 --> 00:05:05,902
+into this knapsack?
+
+124
+00:05:06,593 --> 00:05:09,035
+Well, if we only receive one item, we could
+
+125
+00:05:09,083 --> 00:05:11,729
+return an object that represents our empty
+
+126
+00:05:11,842 --> 00:05:12,504
+knapsack
+
+127
+00:05:13,037 --> 00:05:14,732
+where we, let's say, have an items array
+
+128
+00:05:14,748 --> 00:05:16,460
+which is empty, where we have a value which
+
+129
+00:05:16,525 --> 00:05:18,107
+is 0 and the weight which is
+
+130
+00:05:18,884 --> 00:05:21,856
+0. That could be our empty knapsack here.
+
+131
+00:05:22,386 --> 00:05:24,459
+Now this object represents the knapsack and
+
+132
+00:05:24,475 --> 00:05:26,162
+there are no items in the knapsack,
+
+133
+00:05:26,243 --> 00:05:27,914
+therefore the value and the weight of the
+
+134
+00:05:27,914 --> 00:05:29,585
+knapsack is 0, of course.
+
+135
+00:05:31,144 --> 00:05:33,781
+Now that is fine, but only if we know there
+
+136
+00:05:33,781 --> 00:05:36,369
+is just one item. If we know that we have at
+
+137
+00:05:36,369 --> 00:05:38,187
+least, let's say, 2 items,
+
+138
+00:05:38,862 --> 00:05:41,485
+then just looking at one item is certainly
+
+139
+00:05:41,581 --> 00:05:45,990
+wrong because just because we didn't put
+
+140
+00:05:44,432 --> 00:05:46,902
+that first item we looked at into the
+
+141
+00:05:46,902 --> 00:05:49,291
+knapsack does not mean that we're not going
+
+142
+00:05:49,387 --> 00:05:51,889
+to put any item into the knapsack.
+
+143
+00:05:52,755 --> 00:05:55,625
+So therefore here we could call ourselves
+
+144
+00:05:55,737 --> 00:05:58,720
+again rather than returning just an object
+
+145
+00:05:59,169 --> 00:06:01,671
+because we evaluated the first item and we
+
+146
+00:06:01,671 --> 00:06:03,771
+found out that the item doesn't go into the
+
+147
+00:06:03,819 --> 00:06:04,381
+knapsack.
+
+148
+00:06:05,022 --> 00:06:07,540
+But of course we should call ourselves to
+
+149
+00:06:07,604 --> 00:06:10,362
+calculate a new knapsack for the next item
+
+150
+00:06:10,410 --> 00:06:10,859
+in line.
+
+151
+00:06:11,516 --> 00:06:14,562
+So we pass our items, we pass our unchanged
+
+152
+00:06:14,562 --> 00:06:16,694
+capacity because we still have the full
+
+153
+00:06:16,742 --> 00:06:18,874
+capacity available since we didn't add an
+
+154
+00:06:18,890 --> 00:06:19,114
+item.
+
+155
+00:06:19,851 --> 00:06:22,672
+And that's the thing that changes. We pass
+
+156
+00:06:22,737 --> 00:06:26,696
+item index minus 1 to, for example, go from
+
+157
+00:06:26,760 --> 00:06:29,453
+the last item to the first item in the list
+
+158
+00:06:29,501 --> 00:06:30,511
+step by step.
+
+159
+00:06:31,168 --> 00:06:33,300
+So we have a recursive call here and we call
+
+160
+00:06:33,636 --> 00:06:36,730
+ourselves because we found out that this
+
+161
+00:06:36,762 --> 00:06:38,397
+item doesn't go into the knapsack.
+
+162
+00:06:38,942 --> 00:06:41,009
+But let's derive the knapsack for the next
+
+163
+00:06:41,009 --> 00:06:43,541
+item in line. Maybe this item will go into
+
+164
+00:06:43,573 --> 00:06:45,833
+the knapsack. So that's the logic here.
+
+165
+00:06:47,099 --> 00:06:49,438
+This is for the scenario that we don't put
+
+166
+00:06:49,438 --> 00:06:51,441
+the item into the knapsack. But of course,
+
+167
+00:06:51,986 --> 00:06:54,582
+this isn't necessarily the case. Maybe
+
+168
+00:06:55,111 --> 00:06:57,755
+the item has a weight that is below our
+
+169
+00:06:57,755 --> 00:07:00,480
+capacity, and therefore it should go into
+
+170
+00:07:00,480 --> 00:07:01,281
+the knapsack.
+
+171
+00:07:02,082 --> 00:07:04,117
+How does our algorithm then look like?
+
+172
+00:07:05,049 --> 00:07:08,599
+Well, in that scenario, we in the end have a
+
+173
+00:07:08,599 --> 00:07:10,254
+sack with the item,
+
+174
+00:07:11,073 --> 00:07:11,298
+which
+
+175
+00:07:12,037 --> 00:07:14,832
+is also a recursive call to knapsack to
+
+176
+00:07:14,865 --> 00:07:17,901
+calculate the knapsack for the next item in
+
+177
+00:07:17,917 --> 00:07:20,536
+line under the assumption that we're going
+
+178
+00:07:20,552 --> 00:07:23,315
+to add this item we're evaluating for this
+
+179
+00:07:23,524 --> 00:07:24,311
+item index.
+
+180
+00:07:25,082 --> 00:07:28,038
+So here we would also call knapsack because
+
+181
+00:07:28,038 --> 00:07:30,191
+it's always the knapsack function that gives
+
+182
+00:07:30,191 --> 00:07:31,267
+us an object in the end.
+
+183
+00:07:31,813 --> 00:07:34,189
+But here we would forward items
+
+184
+00:07:34,767 --> 00:07:37,754
+unchanged because this is always our entire
+
+185
+00:07:37,834 --> 00:07:38,685
+list of items,
+
+186
+00:07:39,295 --> 00:07:41,174
+not the items in the knapsack, but always
+
+187
+00:07:41,206 --> 00:07:42,748
+the entire list of available items.
+
+188
+00:07:44,161 --> 00:07:47,147
+But then as a second argument, I don't pass
+
+189
+00:07:47,147 --> 00:07:49,636
+in my unchanged capacity. Instead, I wanna
+
+190
+00:07:49,636 --> 00:07:51,579
+derive this knapsack here
+
+191
+00:07:52,109 --> 00:07:54,678
+under the assumption that this item with
+
+192
+00:07:54,774 --> 00:07:56,749
+item index was added.
+
+193
+00:07:57,278 --> 00:07:59,074
+So here the new capacity
+
+194
+00:07:59,651 --> 00:07:59,875
+is
+
+195
+00:08:01,270 --> 00:08:02,520
+cap minus
+
+196
+00:08:03,498 --> 00:08:06,928
+items for item index dot weight. So minus
+
+197
+00:08:06,960 --> 00:08:09,814
+the weight of the item I'm going to add.
+
+198
+00:08:11,192 --> 00:08:13,324
+That's super important. We're deriving the
+
+199
+00:08:13,372 --> 00:08:15,424
+knapsack for the next item in line.
+
+200
+00:08:15,953 --> 00:08:18,101
+So we're moving through that decision tree
+
+201
+00:08:18,165 --> 00:08:19,320
+from right to left.
+
+202
+00:08:20,025 --> 00:08:20,362
+But
+
+203
+00:08:20,891 --> 00:08:23,920
+we have to consider the fact that we just
+
+204
+00:08:24,177 --> 00:08:26,084
+added one item or that we're going to add
+
+205
+00:08:26,277 --> 00:08:28,633
+this item. So we have to reduce the maximum
+
+206
+00:08:28,633 --> 00:08:31,054
+capacity capacity which the next item has
+
+207
+00:08:31,102 --> 00:08:32,401
+available for consideration.
+
+208
+00:08:33,010 --> 00:08:36,297
+Now we also, of course, have to reduce item
+
+209
+00:08:36,442 --> 00:08:39,136
+index by 1 here, just as we did it up there,
+
+210
+00:08:39,649 --> 00:08:41,701
+because we wanna move on to the next item in
+
+211
+00:08:41,749 --> 00:08:44,395
+line. So it's the same logic, but with the
+
+212
+00:08:44,475 --> 00:08:46,640
+addition that we change the capacity.
+
+213
+00:08:47,762 --> 00:08:49,766
+Of course, we also wanna consider the
+
+214
+00:08:49,766 --> 00:08:53,101
+scenario that we don't add the item. This is
+
+215
+00:08:53,117 --> 00:08:55,587
+the sack with the item, but that's just one
+
+216
+00:08:55,635 --> 00:08:58,890
+of the 2 scenarios. We had yes and no. So
+
+217
+00:08:58,986 --> 00:09:01,712
+that is the yes case, we added the item.
+
+218
+00:09:02,674 --> 00:09:05,288
+That here, of course, is the no case because
+
+219
+00:09:05,320 --> 00:09:06,571
+we couldn't add the item.
+
+220
+00:09:07,245 --> 00:09:09,650
+But we also need the no case if we
+
+221
+00:09:09,730 --> 00:09:11,719
+theoretically could add the item. For
+
+222
+00:09:11,719 --> 00:09:14,365
+example, here, this branch, we have the
+
+223
+00:09:14,365 --> 00:09:17,043
+option that we don't add item C even though
+
+224
+00:09:17,107 --> 00:09:18,935
+we technically could. But we need to
+
+225
+00:09:18,935 --> 00:09:21,485
+evaluate this branch too because maybe B and
+
+226
+00:09:21,661 --> 00:09:24,153
+A is better than just adding C. And if we
+
+227
+00:09:24,234 --> 00:09:27,012
+added C, we can't add B and A. So in order
+
+228
+00:09:27,012 --> 00:09:29,432
+to have a look at all options, we need to go
+
+229
+00:09:29,449 --> 00:09:30,228
+through all branches.
+
+230
+00:09:30,858 --> 00:09:33,834
+So it's not enough to just say we don't add
+
+231
+00:09:33,834 --> 00:09:36,713
+an item because it's too heavy. We also have
+
+232
+00:09:36,746 --> 00:09:38,283
+to have a look at the option that we
+
+233
+00:09:38,283 --> 00:09:40,875
+deliberately don't add an item because maybe
+
+234
+00:09:40,875 --> 00:09:43,316
+the other items are better choices.
+
+235
+00:09:45,022 --> 00:09:47,132
+Hence here, besides this if check, which is
+
+236
+00:09:47,132 --> 00:09:49,708
+the case that we can't add an item, we also
+
+237
+00:09:49,757 --> 00:09:52,754
+have to derive a sack without item,
+
+238
+00:09:54,482 --> 00:09:55,032
+which we get
+
+239
+00:09:55,694 --> 00:09:58,150
+by again executing this code from up there.
+
+240
+00:09:58,295 --> 00:10:00,590
+So by calling knapsack again with the
+
+241
+00:10:00,590 --> 00:10:02,855
+reduced item index, but with the unchanged
+
+242
+00:10:02,855 --> 00:10:05,008
+capacity. Because we're not going to add
+
+243
+00:10:05,426 --> 00:10:07,048
+this item with this index, therefore the
+
+244
+00:10:07,048 --> 00:10:09,378
+capacity does not change, and we move on to
+
+245
+00:10:09,378 --> 00:10:11,838
+the next item in line. And this happens
+
+246
+00:10:11,870 --> 00:10:14,428
+recursively, so gradually we'll build up
+
+247
+00:10:14,428 --> 00:10:17,260
+this graph of decisions. That's the idea
+
+248
+00:10:17,260 --> 00:10:17,421
+here.
+
+249
+00:10:18,636 --> 00:10:20,434
+Now we get these recursive calls here
+
+250
+00:10:21,029 --> 00:10:22,458
+in the case that we have
+
+251
+00:10:23,518 --> 00:10:25,510
+the item included or not included,
+
+252
+00:10:26,088 --> 00:10:28,642
+and this will give us different knapsacks.
+
+253
+00:10:29,156 --> 00:10:31,292
+Now to find out what the best possible
+
+254
+00:10:31,404 --> 00:10:33,380
+branch of recursive calls is,
+
+255
+00:10:34,038 --> 00:10:37,154
+we need to evaluate the values of those
+
+256
+00:10:37,186 --> 00:10:38,375
+different knapsacks.
+
+257
+00:10:39,194 --> 00:10:40,848
+So therefore, we need to derive
+
+258
+00:10:42,069 --> 00:10:43,643
+value with item.
+
+259
+00:10:45,645 --> 00:10:46,160
+So here,
+
+260
+00:10:48,444 --> 00:10:51,565
+and a value without item. We need to derive
+
+261
+00:10:51,677 --> 00:10:53,656
+these 2 values in order to be able to
+
+262
+00:10:53,672 --> 00:10:55,633
+compare them and find out which
+
+263
+00:10:56,340 --> 00:10:57,497
+knapsack is the better one.
+
+264
+00:10:58,348 --> 00:10:59,746
+Now, the knapsack here
+
+265
+00:11:00,517 --> 00:11:01,128
+with item
+
+266
+00:11:01,786 --> 00:11:03,698
+is the knapsack under the assumption that
+
+267
+00:11:03,730 --> 00:11:06,310
+we're going to add this item. But we haven't
+
+268
+00:11:06,326 --> 00:11:08,729
+added it yet, we just reduced the capacity.
+
+269
+00:11:09,390 --> 00:11:12,593
+So this gives us back an object. A knapsack
+
+270
+00:11:12,883 --> 00:11:15,573
+where all other items have been added or not
+
+271
+00:11:15,783 --> 00:11:18,215
+based on the assumption that this item for
+
+272
+00:11:18,215 --> 00:11:19,472
+this index was added.
+
+273
+00:11:20,148 --> 00:11:22,464
+So therefore, the valueWithItem is the
+
+274
+00:11:22,464 --> 00:11:24,147
+sackWithItem.value.
+
+275
+00:11:25,672 --> 00:11:28,476
+Keep in mind that knapsack should be an
+
+276
+00:11:28,736 --> 00:11:31,313
+object that has a value property eventually.
+
+277
+00:11:31,929 --> 00:11:33,307
+So we'll have the sackWithItem.value,
+
+278
+00:11:34,512 --> 00:11:37,432
+but we have to add the value of the item
+
+279
+00:11:37,432 --> 00:11:38,476
+we're about to add.
+
+280
+00:11:39,299 --> 00:11:39,701
+So here
+
+281
+00:11:40,247 --> 00:11:43,153
+I also add items for the item index dot
+
+282
+00:11:43,602 --> 00:11:43,987
+value.
+
+283
+00:11:44,581 --> 00:11:45,866
+We already took the
+
+284
+00:11:46,412 --> 00:11:49,302
+weight into account here when we reduced the
+
+285
+00:11:49,302 --> 00:11:52,111
+capacity. Now we also have to take the value
+
+286
+00:11:52,192 --> 00:11:53,428
+of this item into account.
+
+287
+00:11:54,391 --> 00:11:56,302
+Now the value without item, of course, is a
+
+288
+00:11:56,302 --> 00:11:58,854
+bit simpler. That's just the sack without
+
+289
+00:11:58,935 --> 00:12:01,487
+item dot value, and we don't add anything to
+
+290
+00:12:01,503 --> 00:12:01,648
+it
+
+291
+00:12:02,226 --> 00:12:04,827
+because we just take that unchanged value.
+
+292
+00:12:06,093 --> 00:12:08,369
+Now with these 2 values, we can add an if
+
+293
+00:12:08,481 --> 00:12:11,461
+check and check if the value with item
+
+294
+00:12:12,086 --> 00:12:14,906
+is greater than the value without item. So
+
+295
+00:12:14,906 --> 00:12:17,438
+if the knapsack we derived without adding
+
+296
+00:12:17,791 --> 00:12:20,947
+this specific item here is better or worse
+
+297
+00:12:21,059 --> 00:12:22,726
+than if we did add the item.
+
+298
+00:12:23,559 --> 00:12:25,562
+And value with item and value without item
+
+299
+00:12:25,562 --> 00:12:27,325
+will just be a number, so we can compare
+
+300
+00:12:27,325 --> 00:12:27,854
+them like this.
+
+301
+00:12:29,071 --> 00:12:31,523
+Now if the value with item
+
+302
+00:12:32,117 --> 00:12:34,045
+is greater than the value without item,
+
+303
+00:12:34,623 --> 00:12:37,226
+we know that we wanna return
+
+304
+00:12:37,901 --> 00:12:40,922
+our updated knapsack. So basically our
+
+305
+00:12:40,986 --> 00:12:43,717
+knapsack that was returned here, so the sack
+
+306
+00:12:43,926 --> 00:12:44,537
+with item,
+
+307
+00:12:45,147 --> 00:12:46,063
+but where we also
+
+308
+00:12:46,818 --> 00:12:49,067
+increment the weight and the value by this
+
+309
+00:12:49,148 --> 00:12:51,429
+item's value and weight, and where we also
+
+310
+00:12:51,638 --> 00:12:53,261
+add this item to the items array.
+
+311
+00:12:53,984 --> 00:12:55,398
+So we can get an updated
+
+312
+00:12:56,169 --> 00:12:58,049
+sack here, which is an object.
+
+313
+00:12:59,044 --> 00:13:00,986
+And in there we'll have items, and that's
+
+314
+00:13:00,986 --> 00:13:01,868
+our sackWithItem.items.
+
+315
+00:13:04,322 --> 00:13:05,338
+Again, keep in mind,
+
+316
+00:13:05,935 --> 00:13:08,807
+this sackWithItem will be an object that has
+
+317
+00:13:08,904 --> 00:13:11,098
+an items property, that has a value
+
+318
+00:13:11,098 --> 00:13:13,211
+property, and that has a weight property.
+
+319
+00:13:13,663 --> 00:13:15,554
+That's how our knapsack should look like in
+
+320
+00:13:15,619 --> 00:13:16,346
+this algorithm.
+
+321
+00:13:17,090 --> 00:13:18,868
+So here I can access.items,
+
+322
+00:13:19,401 --> 00:13:21,067
+but I wanna concat something there.
+
+323
+00:13:21,762 --> 00:13:23,852
+And concat is a default method we can call
+
+324
+00:13:23,852 --> 00:13:26,937
+on any array to create a new array by adding
+
+325
+00:13:27,306 --> 00:13:28,142
+an item to the array.
+
+326
+00:13:28,994 --> 00:13:31,726
+So here I then want to add items for the
+
+327
+00:13:31,726 --> 00:13:35,277
+given item index. So I add this item to my
+
+328
+00:13:35,310 --> 00:13:35,585
+array.
+
+329
+00:13:37,106 --> 00:13:39,727
+And next, I also want to update the value.
+
+330
+00:13:39,808 --> 00:13:42,833
+So I take the sack with item.value and add
+
+331
+00:13:42,930 --> 00:13:43,286
+items.
+
+332
+00:13:44,095 --> 00:13:45,115
+for the item index.value.
+
+333
+00:13:46,346 --> 00:13:47,983
+And the same for the weight of the knapsack.
+
+334
+00:13:48,064 --> 00:13:50,950
+I take my sack with item, the weight of it,
+
+335
+00:13:51,307 --> 00:13:54,889
+and add items for this index.weight.
+
+336
+00:13:55,644 --> 00:13:56,768
+That's the idea here.
+
+337
+00:13:57,652 --> 00:13:59,499
+And then here in this case, we can return
+
+338
+00:13:59,563 --> 00:14:01,812
+the updated sack just like this.
+
+339
+00:14:02,615 --> 00:14:04,286
+In the else case,
+
+340
+00:14:05,683 --> 00:14:06,454
+we return
+
+341
+00:14:07,032 --> 00:14:10,422
+just our sack without item. So the, oops,
+
+342
+00:14:10,502 --> 00:14:12,590
+without item. So the unchanged sack.
+
+343
+00:14:14,020 --> 00:14:16,172
+These are different sacks we can derive.
+
+344
+00:14:16,927 --> 00:14:19,192
+Now this is almost it, but we're not
+
+345
+00:14:19,192 --> 00:14:20,429
+entirely there yet.
+
+346
+00:14:21,328 --> 00:14:23,625
+We of course do have one if check here,
+
+347
+00:14:24,235 --> 00:14:27,319
+but we always in all branches here call
+
+348
+00:14:27,528 --> 00:14:30,307
+ourselves in the if check and outside of it.
+
+349
+00:14:30,580 --> 00:14:32,347
+And therefore we would have an infinite
+
+350
+00:14:32,347 --> 00:14:34,804
+loop. We always continue calling ourselves.
+
+351
+00:14:35,141 --> 00:14:36,828
+So we need some exit condition. We need some
+
+352
+00:14:36,844 --> 00:14:37,454
+base case.
+
+353
+00:14:38,209 --> 00:14:40,072
+And how could the base case look like here?
+
+354
+00:14:40,682 --> 00:14:42,546
+Well, I would say before we check whether
+
+355
+00:14:42,546 --> 00:14:44,891
+the item should go into the knapsack, so if
+
+356
+00:14:44,955 --> 00:14:46,449
+the item weight is too heavy,
+
+357
+00:14:47,106 --> 00:14:49,351
+we check if we have an item because, for
+
+358
+00:14:49,351 --> 00:14:51,707
+example, if the item index is smaller than
+
+359
+00:14:51,755 --> 00:14:54,625
+0, we won't find the item for that index.
+
+360
+00:14:55,202 --> 00:14:57,751
+And it can get smaller than 0 because we
+
+361
+00:14:57,927 --> 00:15:00,348
+always reduce the item index by 1 here.
+
+362
+00:15:01,614 --> 00:15:03,891
+So if the item index is smaller than 0,
+
+363
+00:15:04,596 --> 00:15:06,327
+then I want to return
+
+364
+00:15:07,161 --> 00:15:10,223
+a dummy knapsack, basically my base knapsack
+
+365
+00:15:10,848 --> 00:15:13,387
+where I have no items and because for item
+
+366
+00:15:13,484 --> 00:15:16,326
+index smaller than 0, there is nothing to
+
+367
+00:15:16,326 --> 00:15:18,781
+evaluate, and where I have no value and I
+
+368
+00:15:18,894 --> 00:15:21,220
+have no weight. So this here really is my
+
+369
+00:15:21,220 --> 00:15:24,005
+base knapsack, which is returned under those
+
+370
+00:15:24,136 --> 00:15:25,086
+circumstances.
+
+371
+00:15:27,442 --> 00:15:30,006
+And we have another scenario as well where I
+
+372
+00:15:30,038 --> 00:15:32,001
+want to return that, and that would be if
+
+373
+00:15:32,001 --> 00:15:33,428
+the capacity is exhausted.
+
+374
+00:15:34,258 --> 00:15:37,514
+Then, if the capacity is 0, I also want to
+
+375
+00:15:37,562 --> 00:15:39,400
+return this base knapsack because
+
+376
+00:15:39,946 --> 00:15:42,735
+There is no need for any more nested calls.
+
+377
+00:15:42,847 --> 00:15:45,573
+We don't need to derive any other knapsack
+
+378
+00:15:46,037 --> 00:15:47,705
+under the assumption that we're going to add
+
+379
+00:15:47,817 --> 00:15:49,580
+any other item because if we have no
+
+380
+00:15:49,580 --> 00:15:50,542
+capacity left,
+
+381
+00:15:51,103 --> 00:15:54,069
+this knapsack will be empty. Now this can be
+
+382
+00:15:54,069 --> 00:15:56,281
+the result of some deeply nested recursive
+
+383
+00:15:56,297 --> 00:15:58,638
+call and therefore it's this base knapsack
+
+384
+00:15:58,878 --> 00:16:01,187
+which will ultimately be returned by one of
+
+385
+00:16:01,187 --> 00:16:04,136
+those other knapsack calls where then an
+
+386
+00:16:04,249 --> 00:16:05,579
+item is added and so on.
+
+387
+00:16:07,870 --> 00:16:11,082
+And with that, we have a function that might
+
+388
+00:16:11,179 --> 00:16:13,599
+work and that might do the trick.
+
+389
+00:16:17,235 --> 00:16:19,099
+So let's comment this back in here
+
+390
+00:16:19,726 --> 00:16:20,514
+and let's save this
+
+391
+00:16:21,173 --> 00:16:21,864
+and reload.
+
+392
+00:16:22,604 --> 00:16:24,468
+And I get my items here,
+
+393
+00:16:25,897 --> 00:16:28,430
+A and C, which were selected. I get a value
+
+394
+00:16:28,430 --> 00:16:30,460
+of 13 and a weight of 6. And this is the
+
+395
+00:16:30,460 --> 00:16:32,457
+best possible solution, as we found out on
+
+396
+00:16:32,474 --> 00:16:33,188
+the slide earlier.
+
+397
+00:16:33,708 --> 00:16:36,241
+So this seems to work, and we can play
+
+398
+00:16:36,241 --> 00:16:37,925
+around with this. If I reduce the max
+
+399
+00:16:37,925 --> 00:16:41,020
+capacity to 5, only C should be taken now.
+
+400
+00:16:41,164 --> 00:16:41,581
+So if I
+
+401
+00:16:42,110 --> 00:16:42,639
+reload,
+
+402
+00:16:43,377 --> 00:16:44,740
+yeah, we have just C in there.
+
+403
+00:16:45,461 --> 00:16:48,412
+If I increase it to 20, on the other hand,
+
+404
+00:16:48,588 --> 00:16:50,208
+all items should be in the sack,
+
+405
+00:16:51,234 --> 00:16:53,655
+and they are. All items are included, and
+
+406
+00:16:53,655 --> 00:16:55,691
+the total value is the total value of all
+
+407
+00:16:55,884 --> 00:16:57,872
+items, and the weight is the, well, weight
+
+408
+00:16:57,984 --> 00:17:00,726
+of all items. So this seems to work, and
+
+409
+00:17:00,726 --> 00:17:03,197
+this is one way of solving this knapsack
+
+410
+00:17:03,197 --> 00:17:03,598
+problem.
+
+411
+00:17:04,786 --> 00:17:07,771
+So this seems to work, and that is the
+
+412
+00:17:07,931 --> 00:17:10,402
+knapsack algorithm, which by the way is a
+
+413
+00:17:10,402 --> 00:17:11,879
+common interview question.
+
+414
+00:17:12,488 --> 00:17:13,901
+And this hopefully showed you
+
+415
+00:17:14,494 --> 00:17:17,399
+how we can approach this problem and come up
+
+416
+00:17:17,543 --> 00:17:20,640
+with it. Now again, there certainly are
+
+417
+00:17:20,849 --> 00:17:22,678
+elements in this solution that can be
+
+418
+00:17:22,678 --> 00:17:25,310
+intimidating. Coming up with recursion and
+
+419
+00:17:25,647 --> 00:17:28,230
+using that as a first step instead of a for
+
+420
+00:17:28,311 --> 00:17:30,895
+loop often is unintuitive because we
+
+421
+00:17:31,424 --> 00:17:33,832
+consider for loops to be more intuitive, at
+
+422
+00:17:33,848 --> 00:17:35,100
+least a lot of developers do.
+
+423
+00:17:35,774 --> 00:17:38,005
+But once you get the hang of recursion and
+
+424
+00:17:38,005 --> 00:17:40,204
+you understand that this allows you to, for
+
+425
+00:17:40,204 --> 00:17:42,595
+example, build up such a decision tree and
+
+426
+00:17:42,595 --> 00:17:45,452
+that this allows you to combine values in an
+
+427
+00:17:45,548 --> 00:17:47,651
+elegant way and simplify the problem by
+
+428
+00:17:47,651 --> 00:17:49,802
+splitting it into subproblems, once you get
+
+429
+00:17:49,802 --> 00:17:52,193
+the hang of that, you will be much more
+
+430
+00:17:52,305 --> 00:17:55,258
+comfortable using recursion. And that is the
+
+431
+00:17:55,258 --> 00:17:57,199
+practice and experience part I mentioned.
+
+432
+00:17:57,520 --> 00:17:59,461
+You need to practice a lot to feel
+
+433
+00:17:59,589 --> 00:18:02,317
+comfortable looking into such solutions so
+
+434
+00:18:02,317 --> 00:18:04,402
+that this is not intimidating, but something
+
+435
+00:18:04,482 --> 00:18:06,825
+you always consider as one possible
+
+436
+00:18:06,825 --> 00:18:07,242
+solution.
+
+437
+00:18:07,787 --> 00:18:11,076
+Now, speaking of one possible solution, this
+
+438
+00:18:11,076 --> 00:18:13,290
+isn't necessarily the best way of solving
+
+439
+00:18:13,322 --> 00:18:15,856
+this. So let's derive the time complexity
+
+440
+00:18:16,434 --> 00:18:19,065
+and let's then see if we can improve that.

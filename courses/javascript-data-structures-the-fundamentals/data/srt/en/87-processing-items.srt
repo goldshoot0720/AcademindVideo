@@ -1,0 +1,1043 @@
+1
+00:00:02,377 --> 00:00:04,964
+So we have our heap, in this case here,
+
+2
+00:00:05,494 --> 00:00:08,402
+a max-heap to be precise. As I mentioned,
+
+3
+00:00:08,772 --> 00:00:10,957
+for a min-heap, we would have to change this
+
+4
+00:00:10,957 --> 00:00:11,937
+comparison logic.
+
+5
+00:00:12,724 --> 00:00:15,343
+We have our max-heap and as I mentioned,
+
+6
+00:00:15,439 --> 00:00:17,785
+whilst we don't have a guarantee that we
+
+7
+00:00:17,785 --> 00:00:20,950
+have the biggest values at the top, we do
+
+8
+00:00:21,078 --> 00:00:23,601
+have a guarantee that the very biggest value
+
+9
+00:00:23,890 --> 00:00:27,040
+of the entire heap is the root node. That's
+
+10
+00:00:27,088 --> 00:00:28,520
+a guarantee we have.
+
+11
+00:00:29,904 --> 00:00:31,932
+And therefore, of course, this could be a
+
+12
+00:00:31,932 --> 00:00:34,829
+great candidate for a priority queue.
+
+13
+00:00:36,430 --> 00:00:38,311
+Before we turn it into that though,
+
+14
+00:00:38,894 --> 00:00:41,456
+let's actually add a method which we can
+
+15
+00:00:41,489 --> 00:00:42,624
+call process,
+
+16
+00:00:43,256 --> 00:00:46,078
+which should give us the biggest value and
+
+17
+00:00:46,176 --> 00:00:49,242
+also adjust the heap thereafter to remove
+
+18
+00:00:49,274 --> 00:00:52,048
+that value and move the next biggest value
+
+19
+00:00:52,194 --> 00:00:52,665
+to the top.
+
+20
+00:00:54,336 --> 00:00:56,246
+First of all, we of course wanna check if
+
+21
+00:00:56,246 --> 00:00:58,846
+our heap is empty. So we can check the heap
+
+22
+00:00:59,054 --> 00:01:00,402
+elements length,
+
+23
+00:01:01,141 --> 00:01:04,110
+and if that is 0, we know that the heap is
+
+24
+00:01:04,110 --> 00:01:07,175
+empty and we could throw an error in this
+
+25
+00:01:07,175 --> 00:01:10,834
+case or return null or whatever you want.
+
+26
+00:01:11,685 --> 00:01:14,076
+Now if we do have a length greater than 0,
+
+27
+00:01:14,718 --> 00:01:19,115
+we might have a length of exactly 1 element.
+
+28
+00:01:20,558 --> 00:01:22,754
+In that case, of course, it's also very
+
+29
+00:01:22,754 --> 00:01:26,024
+simple. Then we just return this heap
+
+30
+00:01:26,088 --> 00:01:27,226
+elements pop.
+
+31
+00:01:28,188 --> 00:01:30,400
+Since we have exactly one element, we can
+
+32
+00:01:30,513 --> 00:01:33,045
+pop that element off, which will remove it
+
+33
+00:01:33,061 --> 00:01:35,322
+from the array so that the array is empty
+
+34
+00:01:35,322 --> 00:01:35,819
+thereafter.
+
+35
+00:01:36,348 --> 00:01:39,057
+And pop also returns the element we removed,
+
+36
+00:01:39,345 --> 00:01:41,862
+so we overall are able to return that
+
+37
+00:01:41,894 --> 00:01:42,247
+element.
+
+38
+00:01:43,160 --> 00:01:45,677
+But of course, in most cases, we'll probably
+
+39
+00:01:45,677 --> 00:01:49,316
+not just have no or one element. Instead,
+
+40
+00:01:49,428 --> 00:01:51,641
+most likely we have more elements.
+
+41
+00:01:53,022 --> 00:01:53,808
+In this case,
+
+42
+00:01:54,467 --> 00:01:57,854
+we wanna get our top element, so the topmost
+
+43
+00:01:57,918 --> 00:02:00,632
+element, which in a max heap is the biggest
+
+44
+00:02:00,728 --> 00:02:03,586
+one and in a min heap is the smallest one.
+
+45
+00:02:04,597 --> 00:02:06,411
+And we can get this by reaching out to our
+
+46
+00:02:06,427 --> 00:02:09,414
+heap elements and get the element at index
+
+47
+00:02:09,430 --> 00:02:12,303
+0, which of course is our top element.
+
+48
+00:02:13,251 --> 00:02:15,675
+Now we wanna return that top element, but
+
+49
+00:02:15,675 --> 00:02:17,377
+that's not all we need to do.
+
+50
+00:02:20,006 --> 00:02:22,378
+Before we return this, we also have to
+
+51
+00:02:22,554 --> 00:02:26,337
+reorder our heap and ensure that the next
+
+52
+00:02:26,337 --> 00:02:29,959
+biggest value reaches the top, or in case of
+
+53
+00:02:29,959 --> 00:02:33,037
+a min heap, that the next smallest value
+
+54
+00:02:33,454 --> 00:02:34,191
+reaches the top.
+
+55
+00:02:35,233 --> 00:02:37,028
+And how can we achieve this now?
+
+56
+00:02:38,262 --> 00:02:40,955
+Well, now we can walk through the heap the
+
+57
+00:02:41,083 --> 00:02:41,901
+other way around.
+
+58
+00:02:42,526 --> 00:02:45,379
+For inserting, we inserted the element at
+
+59
+00:02:45,411 --> 00:02:47,813
+the and then moved it up
+
+60
+00:02:48,378 --> 00:02:49,040
+through the heap.
+
+61
+00:02:49,911 --> 00:02:52,896
+Now we can start at the top of the heap and
+
+62
+00:02:52,928 --> 00:02:54,800
+search for the next biggest one.
+
+63
+00:02:55,596 --> 00:02:57,315
+And for that, we can use a simple trick
+
+64
+00:02:57,524 --> 00:02:57,877
+actually.
+
+65
+00:02:58,423 --> 00:03:01,797
+We can set our top heap element,
+
+66
+00:03:03,243 --> 00:03:05,622
+we saved the old one, so now we can set a
+
+67
+00:03:05,622 --> 00:03:06,009
+new one.
+
+68
+00:03:06,541 --> 00:03:09,153
+We can set it equal to this heap element's
+
+69
+00:03:10,008 --> 00:03:12,587
+pop. So we'll simply take the last element
+
+70
+00:03:12,587 --> 00:03:15,450
+in the heap, pop that off but not remove it
+
+71
+00:03:15,450 --> 00:03:17,887
+and also not return it because that's not
+
+72
+00:03:17,887 --> 00:03:20,017
+the element we're looking for. But instead,
+
+73
+00:03:20,050 --> 00:03:23,558
+we set this last element as a new top
+
+74
+00:03:23,607 --> 00:03:23,888
+element.
+
+75
+00:03:25,736 --> 00:03:28,650
+Now of course, this last element is not
+
+76
+00:03:28,650 --> 00:03:31,596
+necessarily the correct next element in
+
+77
+00:03:31,612 --> 00:03:34,365
+line. It might be too small or too big. We
+
+78
+00:03:34,365 --> 00:03:37,581
+don't know yet. We just need any new element
+
+79
+00:03:37,924 --> 00:03:39,685
+which is not the element we want to return
+
+80
+00:03:39,910 --> 00:03:41,612
+because that element should be removed
+
+81
+00:03:42,173 --> 00:03:44,502
+at the top. And now we can let this element
+
+82
+00:03:44,502 --> 00:03:47,938
+sink down through our heap and swap it with
+
+83
+00:03:48,034 --> 00:03:50,427
+other elements that should be above it in
+
+84
+00:03:50,459 --> 00:03:51,021
+the heap
+
+85
+00:03:51,567 --> 00:03:54,200
+and then check those elements to basically
+
+86
+00:03:54,232 --> 00:03:56,978
+establish a new correct heap where the
+
+87
+00:03:57,106 --> 00:04:00,992
+topmost element is the biggest or smallest
+
+88
+00:04:01,040 --> 00:04:03,063
+element depending on which kind of heap
+
+89
+00:04:03,127 --> 00:04:03,673
+you're building.
+
+90
+00:04:05,632 --> 00:04:09,615
+For that, our current element index here is
+
+91
+00:04:09,984 --> 00:04:13,726
+0 initially, so the topmost element index.
+
+92
+00:04:14,449 --> 00:04:16,216
+And that should actually be a variable
+
+93
+00:04:16,392 --> 00:04:17,484
+because we're going to change it.
+
+94
+00:04:18,400 --> 00:04:20,552
+And now we know that we have a binary heap,
+
+95
+00:04:20,568 --> 00:04:23,603
+so we'll have 2 child elements here, a left
+
+96
+00:04:23,603 --> 00:04:24,294
+and a right one.
+
+97
+00:04:24,984 --> 00:04:28,148
+And therefore we'll have a left child index
+
+98
+00:04:28,582 --> 00:04:31,200
+which is equal to the current element index
+
+99
+00:04:31,328 --> 00:04:31,938
+plus 1.
+
+100
+00:04:34,354 --> 00:04:37,569
+And we have a right child index, which is
+
+101
+00:04:37,617 --> 00:04:39,750
+the current element index plus 2.
+
+102
+00:04:41,398 --> 00:04:43,579
+And actually, it's not just this formula,
+
+103
+00:04:43,902 --> 00:04:46,454
+but if we're looking at any other element
+
+104
+00:04:46,470 --> 00:04:49,166
+further down in our heap, which is not the
+
+105
+00:04:49,538 --> 00:04:50,329
+root element,
+
+106
+00:04:50,910 --> 00:04:54,349
+it'll be 2 times current element index plus
+
+107
+00:04:54,542 --> 00:04:58,094
+1 and 2 times current element index plus 2.
+
+108
+00:04:58,522 --> 00:04:59,647
+And you can easily check this.
+
+109
+00:05:00,434 --> 00:05:04,612
+The child elements here for 250 are 40 and
+
+110
+00:05:04,773 --> 00:05:07,649
+197. That's the left child,
+
+111
+00:05:08,308 --> 00:05:09,400
+and it has an index of 1,
+
+112
+00:05:10,589 --> 00:05:12,775
+so 2 times 0 plus 1.
+
+113
+00:05:13,867 --> 00:05:16,679
+That's the right child, which has 2 times 0
+
+114
+00:05:16,744 --> 00:05:17,418
+plus 2.
+
+115
+00:05:18,190 --> 00:05:21,435
+The left child of 40 is 12,
+
+116
+00:05:21,966 --> 00:05:25,691
+which has 2 times 1 plus 1 as an index, so
+
+117
+00:05:26,060 --> 00:05:26,253
+3,
+
+118
+00:05:27,103 --> 00:05:30,601
+and the right child, 15, has an index of 4,
+
+119
+00:05:31,131 --> 00:05:33,200
+which is 2 times 1 plus 2.
+
+120
+00:05:34,404 --> 00:05:39,217
+85 is the left child of 197, which is 2
+
+121
+00:05:39,217 --> 00:05:40,565
+times 2 plus 1,
+
+122
+00:05:41,464 --> 00:05:44,624
+and 101 is the right child, which is 2 times
+
+123
+00:05:44,689 --> 00:05:46,630
+2 plus 2, 6.
+
+124
+00:05:47,256 --> 00:05:49,711
+So therefore, these formulas will always
+
+125
+00:05:49,807 --> 00:05:52,679
+find us the correct left and right child
+
+126
+00:05:52,936 --> 00:05:53,321
+indexes.
+
+127
+00:05:54,060 --> 00:05:56,067
+And we need those because we'll need to
+
+128
+00:05:56,067 --> 00:05:59,294
+check all those childs to find elements that
+
+129
+00:05:59,294 --> 00:06:01,092
+should move towards the top.
+
+130
+00:06:02,103 --> 00:06:03,934
+For that, we'll then therefore also need the
+
+131
+00:06:03,934 --> 00:06:07,883
+child element index just as we had the
+
+132
+00:06:08,044 --> 00:06:10,822
+parent element index for inserting.
+
+133
+00:06:11,817 --> 00:06:14,530
+And now the child element index should be
+
+134
+00:06:14,627 --> 00:06:17,436
+equal to either the left or the right child
+
+135
+00:06:17,436 --> 00:06:17,838
+index.
+
+136
+00:06:18,400 --> 00:06:20,712
+But of course, that depends on which of the
+
+137
+00:06:20,712 --> 00:06:23,586
+2 is bigger or smaller depending on which
+
+138
+00:06:23,682 --> 00:06:25,721
+kind of heap you're building. So we need to
+
+139
+00:06:25,850 --> 00:06:26,861
+make a comparison here.
+
+140
+00:06:27,857 --> 00:06:29,928
+For that, let's check if we have an element
+
+141
+00:06:30,024 --> 00:06:33,027
+for the right child index. So for heap
+
+142
+00:06:33,172 --> 00:06:35,436
+elements, if we do find the element for
+
+143
+00:06:35,580 --> 00:06:36,945
+right child index,
+
+144
+00:06:38,294 --> 00:06:40,766
+and if that returns something truthy, we'll
+
+145
+00:06:40,798 --> 00:06:41,232
+continue.
+
+146
+00:06:42,067 --> 00:06:44,283
+And we'll then check if that element we
+
+147
+00:06:44,395 --> 00:06:47,993
+identified for the right child index if that
+
+148
+00:06:48,090 --> 00:06:50,473
+is actually greater or equal
+
+149
+00:06:51,406 --> 00:06:52,453
+than the left
+
+150
+00:06:55,506 --> 00:06:56,688
+child index.
+
+151
+00:06:58,260 --> 00:06:59,329
+And if that's the case,
+
+152
+00:06:59,961 --> 00:07:00,090
+then
+
+153
+00:07:01,014 --> 00:07:03,346
+we want to use the right child index because
+
+154
+00:07:03,444 --> 00:07:05,383
+that's the bigger one. Otherwise, we'll use
+
+155
+00:07:05,383 --> 00:07:06,677
+the left child index.
+
+156
+00:07:07,421 --> 00:07:10,429
+So we either use the right or the left child
+
+157
+00:07:10,494 --> 00:07:12,952
+index as the child element index we now
+
+158
+00:07:13,050 --> 00:07:16,736
+wanna compare our random new top value with.
+
+159
+00:07:17,285 --> 00:07:19,092
+And of course, we wanna compare that to the
+
+160
+00:07:19,221 --> 00:07:21,448
+bigger of the 2 values since we're building
+
+161
+00:07:21,642 --> 00:07:24,256
+a max heap and we need to find out if the
+
+162
+00:07:24,369 --> 00:07:27,432
+child element has a bigger value than this
+
+163
+00:07:27,513 --> 00:07:30,024
+random new value we added at the top.
+
+164
+00:07:31,537 --> 00:07:33,115
+That's the entire logic we have here.
+
+165
+00:07:33,871 --> 00:07:35,948
+We again need a while loop for that because
+
+166
+00:07:35,980 --> 00:07:37,620
+we need to do this over and over again.
+
+167
+00:07:38,954 --> 00:07:40,609
+And here we wanna keep on looping
+
+168
+00:07:41,349 --> 00:07:44,659
+as long as in our heap elements we do find a
+
+169
+00:07:44,659 --> 00:07:47,532
+value for the child element index,
+
+170
+00:07:48,447 --> 00:07:50,389
+so this index we just derived here,
+
+171
+00:07:51,236 --> 00:07:51,784
+and
+
+172
+00:07:52,526 --> 00:07:52,993
+as long
+
+173
+00:07:54,540 --> 00:07:54,766
+as
+
+174
+00:07:55,588 --> 00:07:56,893
+in our heap elements,
+
+175
+00:07:57,683 --> 00:07:57,780
+the
+
+176
+00:07:58,650 --> 00:08:00,988
+element with the current element index, so
+
+177
+00:08:00,988 --> 00:08:03,286
+initially the top one, but we're going to
+
+178
+00:08:03,286 --> 00:08:06,163
+change this, as long as that element
+
+179
+00:08:07,786 --> 00:08:09,762
+is smaller or equal
+
+180
+00:08:11,744 --> 00:08:13,767
+than the child element.
+
+181
+00:08:18,488 --> 00:08:21,812
+Because as long as this is smaller or equal,
+
+182
+00:08:22,325 --> 00:08:25,135
+we're still finding new child elements that
+
+183
+00:08:25,135 --> 00:08:26,195
+should move to the top.
+
+184
+00:08:26,741 --> 00:08:29,631
+And only if we don't find any child elements
+
+185
+00:08:29,647 --> 00:08:32,602
+anymore that are bigger, only then we know
+
+186
+00:08:32,843 --> 00:08:35,171
+that the biggest one is at the top. That's
+
+187
+00:08:35,171 --> 00:08:36,391
+the idea behind this loop.
+
+188
+00:08:38,259 --> 00:08:39,945
+So therefore, inside of the loop,
+
+189
+00:08:41,663 --> 00:08:43,932
+I'm going to create a new constant current
+
+190
+00:08:43,997 --> 00:08:46,438
+node, which is this heap elements
+
+191
+00:08:47,858 --> 00:08:48,971
+for the current
+
+192
+00:08:49,874 --> 00:08:50,778
+element index,
+
+193
+00:08:51,423 --> 00:08:53,246
+because we're again going to swap them.
+
+194
+00:08:56,785 --> 00:08:59,158
+And we got our current child node, which we
+
+195
+00:08:59,158 --> 00:09:01,628
+get through this heap elements
+
+196
+00:09:02,627 --> 00:09:02,996
+for
+
+197
+00:09:04,327 --> 00:09:07,373
+the child element index. And of course, this
+
+198
+00:09:07,373 --> 00:09:09,314
+here should also use square brackets
+
+199
+00:09:09,939 --> 00:09:11,543
+because we're not calling a method here,
+
+200
+00:09:11,623 --> 00:09:13,595
+we're just accessing a value by index.
+
+201
+00:09:14,269 --> 00:09:16,594
+And now that we saved those nodes here,
+
+202
+00:09:17,139 --> 00:09:18,069
+we can swap them
+
+203
+00:09:18,598 --> 00:09:20,699
+and we can set this heap elements
+
+204
+00:09:21,469 --> 00:09:23,441
+for the child index
+
+205
+00:09:24,115 --> 00:09:26,071
+equal to the current node
+
+206
+00:09:27,161 --> 00:09:28,909
+and set heap elements
+
+207
+00:09:29,487 --> 00:09:31,045
+for the current
+
+208
+00:09:32,137 --> 00:09:35,316
+element index equal to the child, the
+
+209
+00:09:35,364 --> 00:09:36,616
+current child node.
+
+210
+00:09:37,917 --> 00:09:39,924
+So we're again swapping that. And since
+
+211
+00:09:39,924 --> 00:09:41,433
+we're doing this in a loop, we'll then
+
+212
+00:09:41,449 --> 00:09:44,821
+compare the swapped new top value with its
+
+213
+00:09:44,821 --> 00:09:45,656
+child values.
+
+214
+00:09:46,604 --> 00:09:49,060
+And after this loop completed, we'll again
+
+215
+00:09:49,092 --> 00:09:51,677
+have a heap where the biggest value is at
+
+216
+00:09:51,677 --> 00:09:52,143
+the top.
+
+217
+00:09:53,010 --> 00:09:55,339
+Let's see whether that works. At the moment,
+
+218
+00:09:55,419 --> 00:09:58,601
+250 is at the top. So if we call
+
+219
+00:09:59,517 --> 00:10:01,413
+heap_process here,
+
+220
+00:10:02,409 --> 00:10:06,418
+we should see that this is removed and 197
+
+221
+00:10:06,676 --> 00:10:08,175
+should thereafter be at the top.
+
+222
+00:10:09,892 --> 00:10:12,545
+If I reload, I get an error that heap is not
+
+223
+00:10:12,545 --> 00:10:13,257
+defined.
+
+224
+00:10:13,921 --> 00:10:17,141
+Yeah, because I named it maxHeap. So let's
+
+225
+00:10:17,238 --> 00:10:18,662
+use that down there as well
+
+226
+00:10:19,210 --> 00:10:20,271
+and try again.
+
+227
+00:10:22,024 --> 00:10:22,847
+And this is looking good.
+
+228
+00:10:24,000 --> 00:10:25,610
+197 is at the top now.
+
+229
+00:10:26,945 --> 00:10:29,841
+And if we process this 2 times more,
+
+230
+00:10:31,760 --> 00:10:34,659
+we see that now we got a heap where 85 is at
+
+231
+00:10:34,659 --> 00:10:37,396
+the top. So the biggest value is always at
+
+232
+00:10:37,396 --> 00:10:37,819
+the top.
+
+233
+00:10:38,533 --> 00:10:40,765
+And I know that this logic with that
+
+234
+00:10:40,895 --> 00:10:44,162
+swapping and that while loop can be tricky
+
+235
+00:10:44,195 --> 00:10:46,783
+to wrap your head around, but I hope that I
+
+236
+00:10:46,783 --> 00:10:48,644
+could still explain this in an
+
+237
+00:10:48,828 --> 00:10:50,396
+understandable way what we're doing.
+
+238
+00:10:51,438 --> 00:10:52,465
+For inserting,
+
+239
+00:10:53,059 --> 00:10:55,676
+we're inserting data at the end and then
+
+240
+00:10:55,709 --> 00:10:58,342
+we're comparing it to its various parent
+
+241
+00:10:58,342 --> 00:11:00,863
+nodes to move it up in the tree.
+
+242
+00:11:01,714 --> 00:11:04,026
+And for removing, for processing,
+
+243
+00:11:04,684 --> 00:11:06,370
+we're in the end doing the opposite.
+
+244
+00:11:07,012 --> 00:11:09,292
+We're removing the topmost element because
+
+245
+00:11:09,357 --> 00:11:11,685
+that always is the element we wanna process.
+
+246
+00:11:12,472 --> 00:11:14,366
+And then we wanna ensure that the new
+
+247
+00:11:14,575 --> 00:11:17,417
+biggest element moves to the top. Therefore,
+
+248
+00:11:17,546 --> 00:11:20,484
+we take a random element and start comparing
+
+249
+00:11:20,580 --> 00:11:22,090
+it to its child nodes.
+
+250
+00:11:22,684 --> 00:11:24,610
+And if we find a bigger one there, we use
+
+251
+00:11:24,610 --> 00:11:25,831
+the bigger one as the new
+
+252
+00:11:26,457 --> 00:11:28,817
+top node and we start comparing that.
+
+253
+00:11:29,492 --> 00:11:32,799
+And we keep on doing that until we find no
+
+254
+00:11:32,960 --> 00:11:34,293
+more bigger values,
+
+255
+00:11:34,951 --> 00:11:35,641
+or of course
+
+256
+00:11:36,235 --> 00:11:37,504
+until we exhausted this.
+
+257
+00:11:38,178 --> 00:11:40,796
+Then at some point, of course, our array is
+
+258
+00:11:40,892 --> 00:11:41,486
+just empty.
+
+259
+00:11:42,339 --> 00:11:44,808
+That is our max heap here.
+
+260
+00:11:45,421 --> 00:11:47,922
+And now let's see how we can use this for a
+
+261
+00:11:48,068 --> 00:11:48,907
+priority queue.

@@ -1,0 +1,295 @@
+1
+00:00:02,215 --> 00:00:05,378
+So we had a look at this recursive Fibonacci
+
+2
+00:00:05,411 --> 00:00:08,092
+function and we found out that it provides
+
+3
+00:00:08,124 --> 00:00:10,228
+us with a solution that isn't really that
+
+4
+00:00:10,228 --> 00:00:10,533
+great.
+
+5
+00:00:11,191 --> 00:00:14,402
+By calling itself twice per iteration, we
+
+6
+00:00:14,547 --> 00:00:17,581
+ended up with an exponential time complexity
+
+7
+00:00:18,160 --> 00:00:21,146
+and that is way worse than the loop-based
+
+8
+00:00:21,146 --> 00:00:23,667
+solution we had a look earlier which gave us
+
+9
+00:00:23,860 --> 00:00:25,176
+linear time complexity.
+
+10
+00:00:25,882 --> 00:00:28,528
+So does this mean that we're at the end with
+
+11
+00:00:28,688 --> 00:00:30,740
+recursive solutions for this problem?
+
+12
+00:00:31,494 --> 00:00:32,456
+This wouldn't be
+
+13
+00:00:33,001 --> 00:00:35,583
+too horrible or too bad. I mean, we do have
+
+14
+00:00:35,583 --> 00:00:38,212
+a loop-based solution and recursion might be
+
+15
+00:00:38,228 --> 00:00:39,559
+better for other problems.
+
+16
+00:00:40,312 --> 00:00:43,519
+But in order to understand more complex
+
+17
+00:00:43,519 --> 00:00:45,074
+problems we're going to dive in
+
+18
+00:00:45,748 --> 00:00:48,971
+later, we now have to understand how we
+
+19
+00:00:48,971 --> 00:00:52,771
+still could make recursion work with this
+
+20
+00:00:52,883 --> 00:00:53,813
+problem as well.
+
+21
+00:00:54,342 --> 00:00:56,714
+We can use a technique for that which is
+
+22
+00:00:56,827 --> 00:00:59,023
+called dynamic programming.
+
+23
+00:01:00,129 --> 00:01:02,726
+So what is dynamic programming? How does
+
+24
+00:01:02,822 --> 00:01:05,835
+this help us with this problem or with this
+
+25
+00:01:05,948 --> 00:01:07,647
+exponential time complexity?
+
+26
+00:01:08,689 --> 00:01:11,061
+Well, we had a look at recursion. Now we're
+
+27
+00:01:11,093 --> 00:01:13,402
+going to combine this with a technique
+
+28
+00:01:13,482 --> 00:01:16,512
+called memoization, which essentially means
+
+29
+00:01:16,544 --> 00:01:18,371
+that we're going to store some data.
+
+30
+00:01:19,044 --> 00:01:22,026
+It's not memorization but memoization.
+
+31
+00:01:22,539 --> 00:01:24,559
+That's a technical term for basically
+
+32
+00:01:24,639 --> 00:01:26,130
+keeping some data around
+
+33
+00:01:26,707 --> 00:01:29,047
+for the execution of a function for a
+
+34
+00:01:29,047 --> 00:01:31,708
+certain process, in this case, for this
+
+35
+00:01:31,836 --> 00:01:32,413
+recursion.
+
+36
+00:01:33,536 --> 00:01:35,459
+So we're going to combine recursion with
+
+37
+00:01:35,459 --> 00:01:37,078
+some data that's going to be stored.
+
+38
+00:01:37,687 --> 00:01:40,332
+Recursion, of course, is great for repeated
+
+39
+00:01:40,429 --> 00:01:44,003
+computations, but as we saw, it can lead to
+
+40
+00:01:44,099 --> 00:01:47,530
+duplicate work depending on your problem
+
+41
+00:01:47,562 --> 00:01:49,886
+you're solving, depending on your function.
+
+42
+00:01:50,752 --> 00:01:53,076
+Remember that with recursion, in this case,
+
+43
+00:01:53,173 --> 00:01:55,866
+with the Fibonacci function, we had those
+
+44
+00:01:55,978 --> 00:01:58,367
+branches here, which in the end are the same
+
+45
+00:01:58,447 --> 00:02:01,689
+computations executed multiple times. So
+
+46
+00:02:01,754 --> 00:02:04,145
+we're repeating certain steps here. We're
+
+47
+00:02:04,145 --> 00:02:06,473
+repeating the same calculation multiple
+
+48
+00:02:06,489 --> 00:02:09,297
+times and that's exactly what's causing this
+
+49
+00:02:09,378 --> 00:02:11,464
+exponential growth rate. That's what's
+
+50
+00:02:11,464 --> 00:02:12,572
+causing the problem.
+
+51
+00:02:13,150 --> 00:02:16,713
+So how does data storage or storing some
+
+52
+00:02:16,761 --> 00:02:18,013
+data help us?
+
+53
+00:02:18,767 --> 00:02:21,946
+Well, we can avoid unnecessary recursive
+
+54
+00:02:21,962 --> 00:02:25,557
+steps if we store certain data for this
+
+55
+00:02:25,750 --> 00:02:28,748
+process, for this recursion. To be precise,
+
+56
+00:02:29,117 --> 00:02:32,499
+we could store intermediate results and make
+
+57
+00:02:32,499 --> 00:02:35,064
+sure that they're available to every new
+
+58
+00:02:35,192 --> 00:02:36,411
+function execution.
+
+59
+00:02:36,956 --> 00:02:39,136
+Then we could check if we already made a
+
+60
+00:02:39,136 --> 00:02:41,621
+certain calculation. Going back to this
+
+61
+00:02:41,621 --> 00:02:44,169
+picture, we could check if we already have a
+
+62
+00:02:44,169 --> 00:02:47,824
+result for fib, and then we don't need to do
+
+63
+00:02:47,872 --> 00:02:51,351
+this fib calculation a second time. We can
+
+64
+00:02:51,399 --> 00:02:54,557
+save that extra function call, which in turn
+
+65
+00:02:54,701 --> 00:02:57,619
+saves us the extra function calls for fib
+
+66
+00:02:57,892 --> 00:03:00,892
+and fib. That's the idea. If we can
+
+67
+00:03:01,084 --> 00:03:04,517
+eliminate extra function calls, we eliminate
+
+68
+00:03:04,710 --> 00:03:07,534
+whole branches of this recursive tree.
+
+69
+00:03:08,159 --> 00:03:10,646
+And that's what dynamic programming is all
+
+70
+00:03:10,646 --> 00:03:13,470
+about. It's about recursion, solving a
+
+71
+00:03:13,518 --> 00:03:16,951
+certain problem with memoization, so with
+
+72
+00:03:16,983 --> 00:03:19,614
+storing some intermediate results, with
+
+73
+00:03:19,614 --> 00:03:22,887
+storing some data to optimize this recursion
+
+74
+00:03:23,080 --> 00:03:23,593
+process.

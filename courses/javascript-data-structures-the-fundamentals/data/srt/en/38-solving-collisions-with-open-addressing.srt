@@ -1,0 +1,1015 @@
+1
+00:00:02,135 --> 00:00:04,736
+So we had a look at resolving collisions
+
+2
+00:00:04,768 --> 00:00:05,699
+with chaining.
+
+3
+00:00:06,293 --> 00:00:08,862
+We also can resolve collisions with a
+
+4
+00:00:08,862 --> 00:00:11,222
+different strategy. Instead of chaining,
+
+5
+00:00:11,816 --> 00:00:15,317
+we could also use open addressing. Now what
+
+6
+00:00:15,365 --> 00:00:15,975
+does this mean?
+
+7
+00:00:16,890 --> 00:00:18,142
+This simply means
+
+8
+00:00:18,736 --> 00:00:21,562
+that for our hash table, if we generate the
+
+9
+00:00:21,562 --> 00:00:23,168
+same hash for a different key,
+
+10
+00:00:23,874 --> 00:00:26,506
+we don't add it as an extra value for that
+
+11
+00:00:26,506 --> 00:00:28,510
+given key, for that given hash.
+
+12
+00:00:29,087 --> 00:00:31,620
+Instead, we simply look for the next empty
+
+13
+00:00:32,037 --> 00:00:35,002
+index in our hash table and then store the
+
+14
+00:00:35,018 --> 00:00:37,952
+value there. So we search the next empty
+
+15
+00:00:38,064 --> 00:00:40,180
+bucket to then store the value there.
+
+16
+00:00:41,190 --> 00:00:44,092
+Now, this is called open addressing and
+
+17
+00:00:44,092 --> 00:00:47,249
+there are different ways of finding the next
+
+18
+00:00:47,362 --> 00:00:50,247
+empty slot. We can simply go through all the
+
+19
+00:00:50,247 --> 00:00:52,780
+indexes and take the first one that's empty
+
+20
+00:00:53,357 --> 00:00:57,348
+or we make bigger jumps to also look into
+
+21
+00:00:57,381 --> 00:01:00,809
+the later parts of our hash table and find
+
+22
+00:01:00,826 --> 00:01:01,883
+empty spots there.
+
+23
+00:01:02,812 --> 00:01:05,344
+That can help with efficiently storing the
+
+24
+00:01:05,376 --> 00:01:07,539
+hash table in memory then, for example.
+
+25
+00:01:08,340 --> 00:01:10,743
+Either way, no matter how we find the next
+
+26
+00:01:10,759 --> 00:01:13,707
+empty bucket, it is about finding that next
+
+27
+00:01:13,723 --> 00:01:14,012
+bucket.
+
+28
+00:01:14,604 --> 00:01:16,495
+And therefore, of course, it's obvious that
+
+29
+00:01:16,527 --> 00:01:19,299
+this approach could fail if we have a very
+
+30
+00:01:19,331 --> 00:01:22,824
+small hash table and there simply are no
+
+31
+00:01:22,936 --> 00:01:26,156
+empty spaces left. So this needs a bigger
+
+32
+00:01:26,204 --> 00:01:29,506
+hash table And of course also a certain way
+
+33
+00:01:29,506 --> 00:01:31,253
+of building it such that
+
+34
+00:01:31,814 --> 00:01:35,501
+unused spaces, for example, are freed up so
+
+35
+00:01:35,501 --> 00:01:37,665
+that we're not keeping values which are not
+
+36
+00:01:37,681 --> 00:01:40,422
+getting used anymore. Because if we free up
+
+37
+00:01:40,630 --> 00:01:42,986
+values, if we free up keys and their
+
+38
+00:01:43,195 --> 00:01:45,743
+indexes, then of course we ensure that those
+
+39
+00:01:46,016 --> 00:01:48,613
+buckets, those slots can be taken again.
+
+40
+00:01:49,158 --> 00:01:50,825
+So here we'll have to make sure that we
+
+41
+00:01:50,905 --> 00:01:53,309
+don't run out of space, which is a problem
+
+42
+00:01:53,309 --> 00:01:55,715
+we didn't have to deal with if we used the
+
+43
+00:01:55,780 --> 00:01:56,582
+chaining approach.
+
+44
+00:01:57,385 --> 00:01:59,489
+Nonetheless, let's see how we can implement
+
+45
+00:01:59,489 --> 00:02:02,106
+a simplified version of open addressing
+
+46
+00:02:02,620 --> 00:02:04,739
+before we then also dive into
+
+47
+00:02:05,494 --> 00:02:07,629
+the different approaches we can use, into
+
+48
+00:02:07,678 --> 00:02:09,010
+the time complexities,
+
+49
+00:02:09,669 --> 00:02:12,703
+and we derive what we should do in reality
+
+50
+00:02:12,880 --> 00:02:13,587
+when writing code.
+
+51
+00:02:14,598 --> 00:02:17,408
+So back in code, I stored the chaining
+
+52
+00:02:17,408 --> 00:02:18,564
+approach in a new file,
+
+53
+00:02:19,239 --> 00:02:21,246
+and now in app.js, I'll again start with the
+
+54
+00:02:21,246 --> 00:02:24,375
+basic hash table code and this testing code
+
+55
+00:02:24,375 --> 00:02:26,909
+from down there and put this into an empty
+
+56
+00:02:27,005 --> 00:02:29,074
+app.js file again so that we can again
+
+57
+00:02:29,491 --> 00:02:32,298
+implement this from scratch and now work
+
+58
+00:02:32,298 --> 00:02:34,447
+with the open addressing solution.
+
+59
+00:02:35,538 --> 00:02:37,815
+So how could we implement open addressing?
+
+60
+00:02:38,794 --> 00:02:41,713
+In the end, when we set a value, instead of
+
+61
+00:02:41,761 --> 00:02:43,830
+just inserting the value
+
+62
+00:02:44,487 --> 00:02:47,374
+in the place for the generated key hash, we
+
+63
+00:02:47,374 --> 00:02:50,598
+wanna check if that spot is available, if we
+
+64
+00:02:50,598 --> 00:02:53,020
+can take that place or if it's already
+
+65
+00:02:53,229 --> 00:02:53,694
+occupied.
+
+66
+00:02:54,689 --> 00:02:57,530
+For that, here in set, once we got the key
+
+67
+00:02:57,562 --> 00:02:57,835
+hash
+
+68
+00:02:58,942 --> 00:03:00,354
+where the item should be stored,
+
+69
+00:03:01,189 --> 00:03:04,816
+I check if in my buckets this place is still
+
+70
+00:03:04,944 --> 00:03:07,801
+available by checking if the value that's
+
+71
+00:03:07,913 --> 00:03:10,433
+currently stored in there is null.
+
+72
+00:03:11,058 --> 00:03:13,193
+Initially, we set all values to null, so if
+
+73
+00:03:13,225 --> 00:03:13,851
+this is null,
+
+74
+00:03:14,429 --> 00:03:16,178
+the place is still available.
+
+75
+00:03:16,740 --> 00:03:19,291
+Now, if that's the case, we simply reach out
+
+76
+00:03:20,046 --> 00:03:22,117
+to that place for that key hash and insert
+
+77
+00:03:22,198 --> 00:03:24,365
+our value there. So the same as we did
+
+78
+00:03:24,462 --> 00:03:26,629
+before, now just in this if check.
+
+79
+00:03:27,336 --> 00:03:30,371
+Because in the else case that this place is
+
+80
+00:03:30,660 --> 00:03:33,373
+not available and we did store a different
+
+81
+00:03:33,373 --> 00:03:34,385
+value in there already,
+
+82
+00:03:35,043 --> 00:03:37,628
+in that case, I of course want to look for
+
+83
+00:03:37,628 --> 00:03:39,121
+the next empty place.
+
+84
+00:03:40,181 --> 00:03:42,654
+And we can do this with a simple
+
+85
+00:03:43,489 --> 00:03:44,147
+while loop.
+
+86
+00:03:45,034 --> 00:03:45,982
+We simply check
+
+87
+00:03:46,866 --> 00:03:47,074
+if
+
+88
+00:03:47,926 --> 00:03:48,842
+this condition here
+
+89
+00:03:51,123 --> 00:03:52,441
+is not met.
+
+90
+00:03:53,164 --> 00:03:55,564
+So we keep on looping as long as we don't
+
+91
+00:03:55,629 --> 00:03:57,226
+find a place where this is null.
+
+92
+00:03:58,049 --> 00:04:00,969
+And we simply change the key hash now. So we
+
+93
+00:04:00,969 --> 00:04:04,035
+turn this from const to let so that inside
+
+94
+00:04:04,035 --> 00:04:06,773
+of the while loop, I can simply increment
+
+95
+00:04:06,773 --> 00:04:06,822
+it.
+
+96
+00:04:07,418 --> 00:04:09,448
+Keep in mind that this is just a number. So
+
+97
+00:04:09,448 --> 00:04:11,462
+now we can add 1 to it and look into the
+
+98
+00:04:11,462 --> 00:04:13,721
+next bucket. And then in the next one and
+
+99
+00:04:13,802 --> 00:04:16,404
+the next one and so on. And we keep on
+
+100
+00:04:16,469 --> 00:04:19,248
+looping until we find a place where we do
+
+101
+00:04:19,361 --> 00:04:21,996
+have null as a value. The loop keeps on
+
+102
+00:04:21,996 --> 00:04:24,149
+running as long as it's not null. As soon as
+
+103
+00:04:24,181 --> 00:04:27,073
+we do find a place where it is null, we have
+
+104
+00:04:27,073 --> 00:04:29,419
+an empty spot, and that's when the loop will
+
+105
+00:04:29,467 --> 00:04:29,868
+finish.
+
+106
+00:04:30,527 --> 00:04:32,519
+And therefore, after the loop, we know that
+
+107
+00:04:32,519 --> 00:04:35,315
+we found an empty index, an empty place,
+
+108
+00:04:35,845 --> 00:04:37,870
+and therefore now we can reach out to this
+
+109
+00:04:38,079 --> 00:04:40,992
+buckets for the new key hash, which is the
+
+110
+00:04:40,992 --> 00:04:43,524
+incremented one, and store our value in
+
+111
+00:04:43,588 --> 00:04:43,783
+there.
+
+112
+00:04:46,889 --> 00:04:49,674
+However, we shouldn't just store the value
+
+113
+00:04:49,674 --> 00:04:51,445
+now. We should also store the information
+
+114
+00:04:51,574 --> 00:04:54,343
+for which key we occupied this place,
+
+115
+00:04:54,569 --> 00:04:56,968
+because now the same key always yields the
+
+116
+00:04:56,968 --> 00:04:59,732
+same hash, but we don't necessarily store a
+
+117
+00:04:59,732 --> 00:05:03,349
+value at that hash, at that index. Then we
+
+118
+00:05:03,349 --> 00:05:05,085
+might store it at a different index.
+
+119
+00:05:05,897 --> 00:05:08,661
+Hence here, when I store something, I also
+
+120
+00:05:08,661 --> 00:05:10,910
+store information about the key and about
+
+121
+00:05:10,910 --> 00:05:12,999
+the value. So the same as we did it with
+
+122
+00:05:13,128 --> 00:05:15,922
+chaining, now just a different approach for
+
+123
+00:05:16,134 --> 00:05:17,161
+where we store this.
+
+124
+00:05:17,748 --> 00:05:19,851
+So we should do this whenever we write to
+
+125
+00:05:19,949 --> 00:05:20,601
+our buckets.
+
+126
+00:05:22,640 --> 00:05:25,087
+So now for extracting a value, I want to go
+
+127
+00:05:25,103 --> 00:05:25,395
+through
+
+128
+00:05:25,979 --> 00:05:26,417
+all my
+
+129
+00:05:27,033 --> 00:05:27,665
+places
+
+130
+00:05:28,329 --> 00:05:31,085
+in my buckets array, so through all elements
+
+131
+00:05:31,085 --> 00:05:31,912
+in my buckets array
+
+132
+00:05:32,573 --> 00:05:35,479
+And for that, I'll set i equal to key hash
+
+133
+00:05:35,544 --> 00:05:38,321
+here and keep on looping as long as i is
+
+134
+00:05:38,530 --> 00:05:41,790
+smaller than this bucket's length and
+
+135
+00:05:41,886 --> 00:05:43,909
+increment i after every iteration.
+
+136
+00:05:44,455 --> 00:05:46,478
+And I want to now search for that key.
+
+137
+00:05:47,120 --> 00:05:50,059
+So for all the buckets which I'm looking at,
+
+138
+00:05:50,460 --> 00:05:53,382
+I want to check if in there I have a value
+
+139
+00:05:53,382 --> 00:05:56,353
+stored for this specific key. So I'll check
+
+140
+00:05:56,481 --> 00:05:58,721
+if this bucket's for the given
+
+141
+00:05:59,303 --> 00:05:59,319
+i,
+
+142
+00:05:59,966 --> 00:06:01,712
+so the given key hash which is being
+
+143
+00:06:01,728 --> 00:06:03,038
+incremented after every loop,
+
+144
+00:06:03,749 --> 00:06:06,627
+if the key stored in there is equal
+
+145
+00:06:07,161 --> 00:06:07,745
+to the key
+
+146
+00:06:08,378 --> 00:06:08,799
+I got here.
+
+147
+00:06:09,919 --> 00:06:12,157
+Now of course, if that's the case,
+
+148
+00:06:12,741 --> 00:06:14,880
+I want to return this
+
+149
+00:06:15,508 --> 00:06:16,120
+buckets.val
+
+150
+00:06:18,084 --> 00:06:20,096
+because then I got the value I'm interested
+
+151
+00:06:20,096 --> 00:06:20,225
+in.
+
+152
+00:06:20,918 --> 00:06:23,091
+Of course, however, I might also encounter
+
+153
+00:06:23,091 --> 00:06:25,960
+some buckets where no value was stored So
+
+154
+00:06:26,056 --> 00:06:28,977
+accessing.key on null would then fail.
+
+155
+00:06:29,923 --> 00:06:32,170
+We can therefore simply add another check
+
+156
+00:06:32,170 --> 00:06:34,271
+here and check if this bucket's i
+
+157
+00:06:34,961 --> 00:06:35,266
+is
+
+158
+00:06:36,165 --> 00:06:38,443
+falsy with an exclamation mark in the front.
+
+159
+00:06:39,213 --> 00:06:41,973
+And if it is falsy, if we haven't stored a
+
+160
+00:06:42,037 --> 00:06:44,572
+value yet, we can simply continue,
+
+161
+00:06:45,551 --> 00:06:47,637
+which means that this code is skipped and we
+
+162
+00:06:47,637 --> 00:06:49,739
+continue with the next loop iteration.
+
+163
+00:06:50,461 --> 00:06:52,611
+With that, we can also alter this code and
+
+164
+00:06:52,627 --> 00:06:55,387
+return undefined here because this code now
+
+165
+00:06:55,740 --> 00:06:58,020
+only runs if we don't find any value for
+
+166
+00:06:58,068 --> 00:06:58,903
+that key anywhere.
+
+167
+00:06:59,834 --> 00:07:02,515
+And now we should have an adjusted hash
+
+168
+00:07:02,580 --> 00:07:03,029
+table here
+
+169
+00:07:03,703 --> 00:07:07,332
+which actually uses open addressing to put
+
+170
+00:07:07,396 --> 00:07:09,355
+values into the next open spot
+
+171
+00:07:09,949 --> 00:07:12,855
+and also retrieve values like this for a
+
+172
+00:07:12,935 --> 00:07:15,391
+given key, taking this open addressing
+
+173
+00:07:15,504 --> 00:07:17,639
+storage mechanism into account.
+
+174
+00:07:18,859 --> 00:07:21,267
+Now, if we would now try to save this, we
+
+175
+00:07:21,283 --> 00:07:23,579
+would however fail because our
+
+176
+00:07:24,237 --> 00:07:26,836
+hash table is so small that for the values
+
+177
+00:07:26,836 --> 00:07:29,083
+I'm trying to store, there will not be
+
+178
+00:07:29,388 --> 00:07:31,362
+enough slots. And therefore, we'll actually
+
+179
+00:07:31,378 --> 00:07:33,704
+have an infinite loop here when we try to
+
+180
+00:07:33,704 --> 00:07:34,491
+store something
+
+181
+00:07:35,229 --> 00:07:36,850
+and will never stop.
+
+182
+00:07:37,636 --> 00:07:40,412
+Hence, I'll ramp this up to 100 to ensure
+
+183
+00:07:40,460 --> 00:07:42,129
+that we have enough space available,
+
+184
+00:07:42,706 --> 00:07:43,766
+and then save that,
+
+185
+00:07:45,017 --> 00:07:45,868
+and then reload this.
+
+186
+00:07:46,943 --> 00:07:49,109
+And now this should finish successfully. And
+
+187
+00:07:49,125 --> 00:07:51,003
+what you'll see is that in there
+
+188
+00:07:52,020 --> 00:07:52,862
+we got various
+
+189
+00:07:53,396 --> 00:07:54,660
+places occupied
+
+190
+00:07:56,376 --> 00:07:59,000
+for the different keys which we're trying to
+
+191
+00:08:00,980 --> 00:08:02,883
+store. You'll also see that some keys are
+
+192
+00:08:02,932 --> 00:08:05,250
+stored under different hashes though.
+
+193
+00:08:07,112 --> 00:08:10,004
+That happens because for the key D,
+
+194
+00:08:10,567 --> 00:08:13,202
+the same hash was generated of course, and
+
+195
+00:08:13,283 --> 00:08:15,388
+for the same key of course it's expected
+
+196
+00:08:15,388 --> 00:08:17,853
+that we get the same hash. The problem is if
+
+197
+00:08:17,885 --> 00:08:20,046
+different keys give us the same hash, but
+
+198
+00:08:20,046 --> 00:08:21,062
+for the same key we of course also get the
+
+199
+00:08:21,062 --> 00:08:21,239
+same hash.
+
+200
+00:08:23,336 --> 00:08:25,681
+Our algorithm then stores the values, which
+
+201
+00:08:25,681 --> 00:08:27,898
+of course also are equal in that case, in
+
+202
+00:08:28,010 --> 00:08:30,162
+different hashes because of this open
+
+203
+00:08:30,243 --> 00:08:32,170
+addressing. Now that's actually not
+
+204
+00:08:32,170 --> 00:08:34,403
+something I want. If it's the same key as
+
+205
+00:08:34,515 --> 00:08:36,587
+before, I don't want to take a new bucket.
+
+206
+00:08:38,049 --> 00:08:40,265
+Therefore, here we should actually refine
+
+207
+00:08:40,297 --> 00:08:43,157
+this check a little bit and say, yes, if a
+
+208
+00:08:43,269 --> 00:08:45,598
+bucket isn't occupied yet, I want to store
+
+209
+00:08:45,598 --> 00:08:46,273
+the value there,
+
+210
+00:08:47,108 --> 00:08:49,406
+but I also want to do this. So Or
+
+211
+00:08:50,326 --> 00:08:51,246
+if for
+
+212
+00:08:51,778 --> 00:08:54,440
+a given key hash I do find a truthy value,
+
+213
+00:08:54,699 --> 00:08:56,344
+so if this is not null,
+
+214
+00:08:57,200 --> 00:08:57,538
+but
+
+215
+00:08:58,232 --> 00:09:00,669
+if the key stored in there is equal to the
+
+216
+00:09:00,669 --> 00:09:03,461
+key to which I now wanna set a new value
+
+217
+00:09:04,042 --> 00:09:06,220
+so that we overwrite the existing value
+
+218
+00:09:06,317 --> 00:09:08,359
+instead of just adding that key in a new
+
+219
+00:09:08,821 --> 00:09:09,151
+bucket.
+
+220
+00:09:10,952 --> 00:09:12,905
+This is a tiny adjustment we should make
+
+221
+00:09:12,905 --> 00:09:15,475
+here to make sure that for the exact same
+
+222
+00:09:15,492 --> 00:09:18,344
+key, we do overwrite the same value and we
+
+223
+00:09:18,505 --> 00:09:20,961
+only allocate different buckets for
+
+224
+00:09:21,186 --> 00:09:23,900
+different keys which lead to the same hash,
+
+225
+00:09:23,980 --> 00:09:26,003
+which is the actual problem that should be
+
+226
+00:09:26,003 --> 00:09:26,597
+solved here.
+
+227
+00:09:27,577 --> 00:09:29,744
+With this adjustment made, if we now reload,
+
+228
+00:09:30,788 --> 00:09:33,164
+we see every key only occurs once,
+
+229
+00:09:33,855 --> 00:09:37,965
+but we see that now no key is lost. We got
+
+230
+00:09:38,094 --> 00:09:40,422
+all the keys of the different words I wanted
+
+231
+00:09:40,422 --> 00:09:42,686
+to store here, Because now we got no
+
+232
+00:09:42,831 --> 00:09:45,224
+collision or in places where we do have
+
+233
+00:09:45,320 --> 00:09:48,146
+collision, we are using a strategy for
+
+234
+00:09:48,146 --> 00:09:50,588
+resolving that collision. That's the correct
+
+235
+00:09:50,636 --> 00:09:52,724
+way of putting it. We're using open
+
+236
+00:09:52,948 --> 00:09:55,293
+addressing here to make sure that every key
+
+237
+00:09:55,293 --> 00:09:56,658
+gets stored somewhere.
+
+238
+00:09:57,445 --> 00:09:59,629
+Now, this still is not the perfect solution
+
+239
+00:09:59,629 --> 00:10:01,878
+here because with that approach, we could
+
+240
+00:10:01,878 --> 00:10:04,447
+still run out of space. I mean, that's not a
+
+241
+00:10:04,447 --> 00:10:05,844
+super huge array here
+
+242
+00:10:06,519 --> 00:10:09,265
+and we don't have any logic to clear up
+
+243
+00:10:09,329 --> 00:10:12,444
+unused memory, so to remove any unused
+
+244
+00:10:12,476 --> 00:10:13,488
+key-value pairs.
+
+245
+00:10:14,146 --> 00:10:15,719
+So that's something we're not doing here,
+
+246
+00:10:15,992 --> 00:10:18,240
+but as I mentioned, the built-in JavaScript
+
+247
+00:10:18,320 --> 00:10:21,275
+object will do that for you. It is a very
+
+248
+00:10:21,307 --> 00:10:23,956
+efficient hash table being implemented under
+
+249
+00:10:23,956 --> 00:10:26,734
+the hood. But with that, you now understand
+
+250
+00:10:26,750 --> 00:10:29,784
+how it generally works and that it all comes
+
+251
+00:10:29,897 --> 00:10:32,819
+down to storing lists of values, but now
+
+252
+00:10:33,429 --> 00:10:35,741
+with the addition of keys by which we can
+
+253
+00:10:35,741 --> 00:10:37,986
+retrieve those values. Under the hood
+
+254
+00:10:38,409 --> 00:10:40,231
+implemented as a hash table.

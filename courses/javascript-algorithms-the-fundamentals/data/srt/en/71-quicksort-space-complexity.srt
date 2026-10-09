@@ -1,0 +1,567 @@
+1
+00:00:02,136 --> 00:00:03,613
+So let's have a look at our quicksort
+
+2
+00:00:03,790 --> 00:00:06,376
+algorithm. What's its space complexity?
+
+3
+00:00:07,035 --> 00:00:08,545
+Again, we get the array, we create the
+
+4
+00:00:08,545 --> 00:00:10,793
+copied array, so that's 2 values stored in
+
+5
+00:00:10,793 --> 00:00:12,913
+memory, and the number of values here
+
+6
+00:00:13,122 --> 00:00:15,756
+doesn't grow with a bigger n, with a longer
+
+7
+00:00:15,837 --> 00:00:16,046
+array.
+
+8
+00:00:17,122 --> 00:00:19,467
+We have this if check which has no impact on
+
+9
+00:00:19,467 --> 00:00:20,479
+space complexity,
+
+10
+00:00:21,378 --> 00:00:22,968
+and then we have something interesting
+
+11
+00:00:23,000 --> 00:00:25,169
+though which is different from the other
+
+12
+00:00:25,233 --> 00:00:27,562
+algorithms. Or most other algorithms we had
+
+13
+00:00:27,562 --> 00:00:28,253
+a look at before.
+
+14
+00:00:28,847 --> 00:00:31,882
+Here we create brand new arrays. Now that's
+
+15
+00:00:32,075 --> 00:00:34,404
+still only 2 values in memory which we
+
+16
+00:00:34,404 --> 00:00:36,877
+create here. So at this point, we are still
+
+17
+00:00:36,893 --> 00:00:39,495
+talking about constant space complexity. The
+
+18
+00:00:39,543 --> 00:00:41,775
+same if we count in these elements here.
+
+19
+00:00:42,418 --> 00:00:44,088
+But now something interesting happens.
+
+20
+00:00:44,666 --> 00:00:45,517
+Inside of the while loop,
+
+21
+00:00:46,112 --> 00:00:47,750
+we now get a new current element.
+
+22
+00:00:48,280 --> 00:00:50,271
+This is getting replaced with every
+
+23
+00:00:50,320 --> 00:00:50,882
+iteration.
+
+24
+00:00:51,588 --> 00:00:54,429
+But then, we push this element
+
+25
+00:00:55,043 --> 00:00:57,356
+either into the center, the smaller, or the
+
+26
+00:00:57,485 --> 00:00:59,895
+bigger elements array. So into one of these
+
+27
+00:00:59,895 --> 00:01:00,655
+arrays up there.
+
+28
+00:01:01,448 --> 00:01:03,356
+And now that means that we have a new
+
+29
+00:01:03,550 --> 00:01:05,360
+element that is being derived here,
+
+30
+00:01:06,379 --> 00:01:06,961
+which we
+
+31
+00:01:07,575 --> 00:01:10,063
+push into our existing arrays.
+
+32
+00:01:11,641 --> 00:01:14,411
+So now we're having a new element which
+
+33
+00:01:14,507 --> 00:01:16,504
+survives a loop iteration.
+
+34
+00:01:17,244 --> 00:01:19,455
+After every loop iteration, that element is
+
+35
+00:01:19,537 --> 00:01:21,654
+not getting dropped or anything like that.
+
+36
+00:01:21,735 --> 00:01:22,338
+Instead, it increases
+
+37
+00:01:24,406 --> 00:01:27,005
+our smaller, bigger, or center elements
+
+38
+00:01:27,005 --> 00:01:30,774
+array. So those arrays grow with every
+
+39
+00:01:30,774 --> 00:01:31,368
+iteration,
+
+40
+00:01:32,186 --> 00:01:34,496
+and we have new current elements created
+
+41
+00:01:34,512 --> 00:01:37,142
+with every iteration which are kept around
+
+42
+00:01:37,559 --> 00:01:39,067
+in those growing arrays.
+
+43
+00:01:40,046 --> 00:01:43,350
+However, of course you can argue that since
+
+44
+00:01:43,350 --> 00:01:46,029
+we shift the element we're going to store
+
+45
+00:01:46,301 --> 00:01:47,633
+from the existing array,
+
+46
+00:01:48,322 --> 00:01:48,756
+overall
+
+47
+00:01:49,590 --> 00:01:51,691
+our space consumption doesn't really grow.
+
+48
+00:01:52,156 --> 00:01:54,081
+Yes, we have a brand new element which we
+
+49
+00:01:54,161 --> 00:01:56,359
+also keep around after every iteration,
+
+50
+00:01:56,905 --> 00:01:58,894
+but on the other hand, we shrink another
+
+51
+00:01:58,894 --> 00:02:01,781
+existing array by that value. So we
+
+52
+00:02:01,781 --> 00:02:04,107
+essentially really just move that value from
+
+53
+00:02:04,107 --> 00:02:06,193
+the copied array into one of our other
+
+54
+00:02:06,209 --> 00:02:08,262
+arrays. So here we have an interesting
+
+55
+00:02:08,310 --> 00:02:11,968
+effect, but overall memory consumption and
+
+56
+00:02:12,048 --> 00:02:14,198
+the number of values in memory doesn't
+
+57
+00:02:14,230 --> 00:02:15,144
+really change here.
+
+58
+00:02:15,994 --> 00:02:16,508
+So it's kind of
+
+59
+00:02:17,037 --> 00:02:20,148
+a false alert here. In this array. If we
+
+60
+00:02:20,228 --> 00:02:23,209
+wouldn't shift it, if we just would extract
+
+61
+00:02:23,273 --> 00:02:25,228
+it, and then of course this algorithm
+
+62
+00:02:25,372 --> 00:02:27,038
+wouldn't work, but if it were a different
+
+63
+00:02:27,038 --> 00:02:29,346
+algorithm, if we wouldn't remove the element
+
+64
+00:02:29,458 --> 00:02:31,253
+we're storing in a new array but we just
+
+65
+00:02:31,365 --> 00:02:34,009
+copied it into a new array, then we would
+
+66
+00:02:34,009 --> 00:02:36,221
+have an impact on space complexity. But here
+
+67
+00:02:36,413 --> 00:02:38,512
+we don't have it, and we actually still have
+
+68
+00:02:38,817 --> 00:02:41,012
+constant space complexity. But we're not
+
+69
+00:02:41,076 --> 00:02:43,929
+done at this point. We then call ourselves
+
+70
+00:02:44,025 --> 00:02:45,292
+here recursively.
+
+71
+00:02:45,886 --> 00:02:47,731
+We call ourselves twice,
+
+72
+00:02:48,678 --> 00:02:49,673
+and by doing so,
+
+73
+00:02:50,283 --> 00:02:52,835
+we of course have our nested function calls
+
+74
+00:02:53,188 --> 00:02:55,803
+where we create new values in memory.
+
+75
+00:02:56,397 --> 00:02:57,986
+And therefore, here we have the same
+
+76
+00:02:58,082 --> 00:03:00,377
+scenario as with the factorial function—
+
+77
+00:03:00,811 --> 00:03:02,800
+with the factorial recursive version, I
+
+78
+00:03:02,800 --> 00:03:02,993
+mean.
+
+79
+00:03:03,523 --> 00:03:06,877
+We have a space complexity of O
+
+80
+00:03:07,775 --> 00:03:09,204
+simply because
+
+81
+00:03:09,781 --> 00:03:13,565
+we create new values in memory, and the
+
+82
+00:03:13,565 --> 00:03:17,139
+number of items we create in memory grows in
+
+83
+00:03:17,251 --> 00:03:20,087
+a linear way. The bigger our n, the more
+
+84
+00:03:20,280 --> 00:03:22,683
+items we're going to create in memory, and
+
+85
+00:03:22,715 --> 00:03:26,080
+it grows at the same rate. Now you actually
+
+86
+00:03:26,305 --> 00:03:28,660
+might wonder why it's linear space
+
+87
+00:03:28,773 --> 00:03:30,936
+complexity though. After all, we call
+
+88
+00:03:30,936 --> 00:03:34,541
+ourselves twice, right? In lines 130 and
+
+89
+00:03:34,702 --> 00:03:35,872
+131,
+
+90
+00:03:36,400 --> 00:03:40,059
+we call So you could argue that every time
+
+91
+00:03:40,412 --> 00:03:42,145
+we call ourselves twice,
+
+92
+00:03:42,900 --> 00:03:46,190
+so we should actually have quadratic space
+
+93
+00:03:46,190 --> 00:03:48,582
+complexity here, not linear space
+
+94
+00:03:48,582 --> 00:03:49,288
+complexity.
+
+95
+00:03:50,043 --> 00:03:52,258
+But for that, it is important to understand
+
+96
+00:03:52,370 --> 00:03:55,083
+that with recursive code execution in
+
+97
+00:03:55,083 --> 00:03:56,415
+JavaScript in general,
+
+98
+00:03:57,266 --> 00:04:01,198
+line 130 will execute first and it will dig
+
+99
+00:04:01,343 --> 00:04:04,457
+into that, you could call it branch of
+
+100
+00:04:04,473 --> 00:04:08,308
+recursive subfunction calls first. So only
+
+101
+00:04:08,324 --> 00:04:12,543
+when that function call in 130 and all
+
+102
+00:04:13,137 --> 00:04:15,495
+other function calls that are triggered from
+
+103
+00:04:15,543 --> 00:04:18,816
+inside that function call finished, only
+
+104
+00:04:18,929 --> 00:04:21,608
+then it will move on to line 131.
+
+105
+00:04:22,314 --> 00:04:24,833
+So you can always imagine such a recursive
+
+106
+00:04:25,025 --> 00:04:27,833
+function call as a tree of nested function
+
+107
+00:04:27,833 --> 00:04:28,202
+calls,
+
+108
+00:04:28,860 --> 00:04:31,731
+and we saw such a tree of function calls
+
+109
+00:04:31,859 --> 00:04:33,589
+earlier already when I talked about
+
+110
+00:04:33,670 --> 00:04:35,256
+exponential time complexity.
+
+111
+00:04:36,073 --> 00:04:38,412
+And if you imagine that, it is important to
+
+112
+00:04:38,412 --> 00:04:40,960
+understand that only one branch of that tree
+
+113
+00:04:41,040 --> 00:04:44,005
+executes. So therefore, we'll first go
+
+114
+00:04:44,005 --> 00:04:46,665
+through all function calls that resolve from
+
+115
+00:04:46,745 --> 00:04:50,510
+line 130, and only once that is done, we'll
+
+116
+00:04:50,510 --> 00:04:51,424
+go through all
+
+117
+00:04:51,952 --> 00:04:55,494
+function calls that resolve from line 131.
+
+118
+00:04:56,118 --> 00:04:58,330
+And therefore, we'll never have more than n
+
+119
+00:04:59,229 --> 00:05:02,536
+extra values be created in space. So that's
+
+120
+00:05:02,536 --> 00:05:04,655
+why we have a linear space complexity here
+
+121
+00:05:05,024 --> 00:05:08,026
+and not quadratic space complexity for the
+
+122
+00:05:08,139 --> 00:05:10,354
+Quicksort algorithm. Though I will say,
+
+123
+00:05:10,948 --> 00:05:14,095
+theoretically, you could achieve O.
+
+124
+00:05:15,363 --> 00:05:17,594
+This is possible with a slightly different
+
+125
+00:05:17,707 --> 00:05:19,649
+version of the algorithm, which you also
+
+126
+00:05:19,713 --> 00:05:22,394
+find below this video as an example.
+
+127
+00:05:23,406 --> 00:05:25,541
+So because of these nested function calls
+
+128
+00:05:25,798 --> 00:05:28,334
+with new values that are being created, we
+
+129
+00:05:28,447 --> 00:05:31,913
+have O, or with a little optimization in a
+
+130
+00:05:31,913 --> 00:05:32,684
+different approach,
+
+131
+00:05:33,262 --> 00:05:35,733
+O). So here we have a different space
+
+132
+00:05:35,830 --> 00:05:36,536
+complexity,
+
+133
+00:05:37,290 --> 00:05:39,104
+and you can already see the pattern that
+
+134
+00:05:39,441 --> 00:05:40,869
+recursion typically
+
+135
+00:05:41,447 --> 00:05:41,896
+gives you
+
+136
+00:05:42,490 --> 00:05:45,861
+not constant space complexity but instead
+
+137
+00:05:46,262 --> 00:05:47,803
+linear space complexity often.
+
+138
+00:05:48,766 --> 00:05:51,222
+Now let's have a look at one last example,
+
+139
+00:05:51,494 --> 00:05:52,714
+and that's merge sort.
+
+140
+00:05:53,244 --> 00:05:55,461
+Again, Have a look at it on your own first.
+
+141
+00:05:55,672 --> 00:05:57,798
+We'll derive it together in the next
+
+142
+00:05:57,798 --> 00:05:58,122
+lecture.

@@ -1,0 +1,515 @@
+1
+00:00:02,198 --> 00:00:05,216
+So we got that knapsack problem, and as you
+
+2
+00:00:05,312 --> 00:00:06,837
+learned, the first step is that we should
+
+3
+00:00:06,837 --> 00:00:08,506
+verify the problem and the inputs.
+
+4
+00:00:09,180 --> 00:00:11,491
+And one important question that I would ask
+
+5
+00:00:11,491 --> 00:00:13,176
+here, for example, in an interview
+
+6
+00:00:13,176 --> 00:00:15,889
+situation, is whether the items can be used
+
+7
+00:00:15,921 --> 00:00:19,773
+multiple times. So whether I can put 2 A's
+
+8
+00:00:19,773 --> 00:00:23,271
+or 2 B's into my knapsack, or if I'm limited
+
+9
+00:00:23,384 --> 00:00:25,663
+to using an item only one time.
+
+10
+00:00:26,336 --> 00:00:29,605
+And here, let's say we can use each item
+
+11
+00:00:29,861 --> 00:00:32,762
+only once. So we're not allowed to have 2 Bs
+
+12
+00:00:32,842 --> 00:00:35,486
+or 2 As in our knapsack. That's an important
+
+13
+00:00:35,486 --> 00:00:37,633
+piece of information because if we would be
+
+14
+00:00:37,633 --> 00:00:40,373
+allowed to reuse items, the best solution
+
+15
+00:00:40,373 --> 00:00:42,728
+would not be to have, say, C and A in our
+
+16
+00:00:43,081 --> 00:00:45,148
+knapsack. Instead, it would be best to have
+
+17
+00:00:45,244 --> 00:00:48,561
+2 Cs in our knapsack because then we would
+
+18
+00:00:48,609 --> 00:00:51,718
+have a weight of 6, 2 times 3, and a value
+
+19
+00:00:51,734 --> 00:00:54,427
+of 10. So this That's why this verification
+
+20
+00:00:54,780 --> 00:00:55,566
+really matters.
+
+21
+00:00:56,480 --> 00:00:58,661
+Well, now that I verified this, let's come
+
+22
+00:00:58,709 --> 00:01:00,858
+up with our first verbal solution.
+
+23
+00:01:01,756 --> 00:01:04,225
+And I would say the first thing that comes
+
+24
+00:01:04,257 --> 00:01:07,256
+to my mind, one possible approach we can
+
+25
+00:01:07,368 --> 00:01:07,817
+look into,
+
+26
+00:01:08,411 --> 00:01:10,399
+is that we could derive all possible
+
+27
+00:01:10,431 --> 00:01:11,682
+combinations of items.
+
+28
+00:01:12,580 --> 00:01:14,633
+And we try to combine all items in all
+
+29
+00:01:14,681 --> 00:01:15,370
+possible ways,
+
+30
+00:01:15,948 --> 00:01:18,754
+and we find the combination with the highest
+
+31
+00:01:18,754 --> 00:01:19,059
+value.
+
+32
+00:01:19,876 --> 00:01:20,918
+And a fitting weight.
+
+33
+00:01:21,671 --> 00:01:23,963
+So a weight that is below 8 and the highest
+
+34
+00:01:23,963 --> 00:01:24,844
+possible value.
+
+35
+00:01:25,486 --> 00:01:27,809
+So my simple first solution is that I want
+
+36
+00:01:27,809 --> 00:01:30,438
+to combine A, B, C in all possible ways
+
+37
+00:01:31,015 --> 00:01:33,098
+and see which combination gives us the
+
+38
+00:01:33,098 --> 00:01:33,803
+highest value.
+
+39
+00:01:34,460 --> 00:01:36,383
+Well, let's write down a first version here.
+
+40
+00:01:37,024 --> 00:01:39,541
+And the first thing that came to my mind
+
+41
+00:01:39,605 --> 00:01:42,009
+when I thought about combinations is that
+
+42
+00:01:42,009 --> 00:01:44,717
+permutations example I showed you in the
+
+43
+00:01:44,733 --> 00:01:47,105
+last module, because there we derived all
+
+44
+00:01:47,217 --> 00:01:49,669
+possible ways of combining various items
+
+45
+00:01:50,279 --> 00:01:53,537
+So maybe we can use that to find a solution
+
+46
+00:01:53,537 --> 00:01:54,725
+for the knapsack problem.
+
+47
+00:01:55,383 --> 00:01:57,309
+Therefore, here I have the permutation
+
+48
+00:01:57,309 --> 00:02:00,262
+algorithm for the case without repetitions
+
+49
+00:02:00,535 --> 00:02:03,199
+because we're only allowed to use every item
+
+50
+00:02:03,247 --> 00:02:03,488
+once.
+
+51
+00:02:04,291 --> 00:02:06,104
+And I will now simply set up my
+
+52
+00:02:07,099 --> 00:02:09,346
+items here, my items that could go into my
+
+53
+00:02:09,443 --> 00:02:10,004
+knapsack,
+
+54
+00:02:10,566 --> 00:02:13,070
+and I will put them through that algorithm
+
+55
+00:02:13,118 --> 00:02:15,349
+here and, well, see how that works out.
+
+56
+00:02:16,120 --> 00:02:19,427
+So here I'll add my items. Name A
+
+57
+00:02:20,181 --> 00:02:23,649
+with a value of, let's say, um, 3 was the
+
+58
+00:02:23,649 --> 00:02:25,575
+first item, a weight of 3.
+
+59
+00:02:26,522 --> 00:02:28,433
+And then I'll repeat this twice to also have
+
+60
+00:02:28,545 --> 00:02:32,318
+B and C. The second item B has a value of 6
+
+61
+00:02:33,024 --> 00:02:35,898
+and a weight of 8. And the third item C has
+
+62
+00:02:35,946 --> 00:02:38,145
+a value of 10 and also a weight of 3.
+
+63
+00:02:38,964 --> 00:02:41,436
+So now I have these items, and now I'll call
+
+64
+00:02:41,452 --> 00:02:43,764
+get permutations and feed my items into
+
+65
+00:02:43,796 --> 00:02:44,053
+that.
+
+66
+00:02:44,839 --> 00:02:45,674
+And then I got my
+
+67
+00:02:46,669 --> 00:02:48,900
+constant allPermutations,
+
+68
+00:02:49,655 --> 00:02:51,918
+which I'll console.log to see which
+
+69
+00:02:52,223 --> 00:02:53,524
+combinations we have here.
+
+70
+00:02:54,069 --> 00:02:55,434
+And then I'll first of all have a look at
+
+71
+00:02:55,434 --> 00:02:57,216
+the output and see what's in there. And that
+
+72
+00:02:57,264 --> 00:02:59,928
+was one of the steps I also recommended to
+
+73
+00:02:59,928 --> 00:03:02,722
+simplify problems. Console.log your
+
+74
+00:03:02,722 --> 00:03:05,145
+intermediate results. I could now try to
+
+75
+00:03:05,145 --> 00:03:07,120
+write the code that then goes through all
+
+76
+00:03:07,232 --> 00:03:09,207
+the combinations and checks which one has
+
+77
+00:03:09,255 --> 00:03:11,390
+the highest value, but I'd rather just have
+
+78
+00:03:11,390 --> 00:03:13,652
+a look at all my combinations to see if that
+
+79
+00:03:13,652 --> 00:03:16,602
+makes sense before I write the rest of this
+
+80
+00:03:16,682 --> 00:03:19,584
+algorithm. So here we go. Let's save this
+
+81
+00:03:19,584 --> 00:03:21,556
+and reload. And here's my array of
+
+82
+00:03:21,572 --> 00:03:22,197
+combinations.
+
+83
+00:03:23,191 --> 00:03:24,890
+Now let's explore those combinations. I got
+
+84
+00:03:25,018 --> 00:03:25,612
+ABC,
+
+85
+00:03:26,477 --> 00:03:27,167
+I got BAC,
+
+86
+00:03:28,241 --> 00:03:30,212
+I got BCA, and so on.
+
+87
+00:03:31,030 --> 00:03:34,124
+And now that I look at this, I see that this
+
+88
+00:03:34,348 --> 00:03:35,310
+solution makes
+
+89
+00:03:35,839 --> 00:03:36,801
+pretty much no sense.
+
+90
+00:03:37,763 --> 00:03:40,668
+The problem here is permutations seem to be
+
+91
+00:03:40,668 --> 00:03:42,886
+totally wrong for this problem
+
+92
+00:03:43,480 --> 00:03:44,974
+because permutations,
+
+93
+00:03:45,810 --> 00:03:48,108
+no matter if we use them without or with
+
+94
+00:03:48,124 --> 00:03:50,421
+repetition, are about the order
+
+95
+00:03:51,016 --> 00:03:54,695
+of values in a combination. So we never have
+
+96
+00:03:55,049 --> 00:03:58,471
+just 2 or just 3 or just 1 item combined.
+
+97
+00:03:58,519 --> 00:04:00,753
+Instead, we always combine all items and we
+
+98
+00:04:00,753 --> 00:04:02,986
+just have different ways of ordering the
+
+99
+00:04:02,986 --> 00:04:05,139
+items. That's what permutations are about.
+
+100
+00:04:05,653 --> 00:04:07,628
+And that's why permutations are, of course,
+
+101
+00:04:07,724 --> 00:04:09,956
+totally inappropriate for this problem
+
+102
+00:04:10,470 --> 00:04:12,830
+because I don't want to put all items into
+
+103
+00:04:12,879 --> 00:04:15,528
+the knapsack and put them into the sack in a
+
+104
+00:04:15,592 --> 00:04:16,266
+different order.
+
+105
+00:04:16,957 --> 00:04:19,189
+Instead, I just want to put all the items
+
+106
+00:04:19,221 --> 00:04:21,790
+into the knapsack that give me the highest
+
+107
+00:04:21,854 --> 00:04:23,925
+value whilst being below the weight
+
+108
+00:04:24,182 --> 00:04:26,655
+threshold. And that's not the case here. I
+
+109
+00:04:26,671 --> 00:04:28,678
+always have all 3 items in the knapsack
+
+110
+00:04:28,678 --> 00:04:31,022
+here, and therefore I always exceed the the
+
+111
+00:04:31,182 --> 00:04:33,314
+threshold, and in addition, I would always
+
+112
+00:04:33,330 --> 00:04:34,196
+have the same value.
+
+113
+00:04:34,805 --> 00:04:36,649
+So that's why it matters to
+
+114
+00:04:37,274 --> 00:04:38,316
+come up with an idea,
+
+115
+00:04:39,118 --> 00:04:41,891
+phrase it, check it, and then also check it
+
+116
+00:04:42,019 --> 00:04:43,911
+early so that you don't continue with an
+
+117
+00:04:43,991 --> 00:04:45,738
+idea that doesn't make much sense.
+
+118
+00:04:46,876 --> 00:04:49,441
+Now, the general idea of having a look at
+
+119
+00:04:49,521 --> 00:04:52,407
+all possible combinations wasn't horrible,
+
+120
+00:04:52,808 --> 00:04:55,196
+but it's important to realize here that
+
+121
+00:04:55,212 --> 00:04:57,857
+we're not interested in the combinations
+
+122
+00:04:57,857 --> 00:05:00,182
+where we always include all items and we
+
+123
+00:05:00,182 --> 00:05:02,330
+have different orders, different ways of
+
+124
+00:05:02,346 --> 00:05:04,927
+sorting them, but that instead we care about
+
+125
+00:05:05,072 --> 00:05:08,487
+all combinations in a sense of do we take A
+
+126
+00:05:09,000 --> 00:05:12,174
+or do we take A and B or maybe A and C or do
+
+127
+00:05:12,222 --> 00:05:15,508
+we take all 3? So we care about the number
+
+128
+00:05:15,508 --> 00:05:17,881
+of items and not just about the order of
+
+129
+00:05:17,913 --> 00:05:18,458
+items here.

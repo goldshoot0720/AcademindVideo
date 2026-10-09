@@ -1,0 +1,529 @@
+1
+00:00:00,577 --> 00:00:04,408
+Now the prompt could be our user input which
+現在提示可能是我們的使用者輸入
+
+2
+00:00:04,504 --> 00:00:05,257
+we received, right?
+我們收到了，對嗎？
+
+3
+00:00:06,043 --> 00:00:07,902
+But that actually would be wrong because
+但這實際上是錯誤的，因為
+
+4
+00:00:07,950 --> 00:00:09,970
+we're not building a generic chat
+我們不是在建立通用聊天
+
+5
+00:00:09,970 --> 00:00:11,894
+application. Instead, we're building a
+應用。相反，我們正在建立一個
+
+6
+00:00:11,894 --> 00:00:14,491
+specialized workflow as I mentioned before,
+正如我之前提到的，專門的工作流程，
+
+7
+00:00:15,164 --> 00:00:17,953
+which means it aims to do one thing and one
+這意味著它的目標是做一件事、一件事情
+
+8
+00:00:18,065 --> 00:00:20,662
+thing only, but do that one thing well.
+只做一件事，但要把那一件事做好。
+
+9
+00:00:21,688 --> 00:00:23,772
+So what we're getting here is actually the
+所以我們在這裡得到的實際上是
+
+10
+00:00:23,900 --> 00:00:26,417
+topic a post should be written about.
+一篇文章應該寫的主題。
+
+11
+00:00:27,701 --> 00:00:30,269
+So what the user will enter in response to
+那麼使用者將輸入什麼來回應
+
+12
+00:00:30,269 --> 00:00:32,163
+this question is something like,
+這個問題是這樣的，
+
+13
+00:00:32,724 --> 00:00:35,260
+open large language models like Gemma are
+像 Gemma 這樣的開放大型語言模式是
+
+14
+00:00:35,308 --> 00:00:37,924
+amazing because they allow you to run large
+太棒了，因為它們可以讓你跑得更大
+
+15
+00:00:38,021 --> 00:00:40,236
+language models locally on your laptop,
+筆記型電腦本地的語言模型，
+
+16
+00:00:41,150 --> 00:00:43,429
+which is not really a great prompt. It's a
+這並不是一個很好的提示。這是一個
+
+17
+00:00:43,429 --> 00:00:45,901
+statement, not a question, but that is what
+陳述，不是問題，但這就是
+
+18
+00:00:45,901 --> 00:00:48,421
+the user would probably enter when
+使用者可能會在以下情況下輸入
+
+19
+00:00:49,111 --> 00:00:52,000
+getting asked for a topic the post should be
+被要求提供一個貼文應該是的主題
+
+20
+00:00:52,000 --> 00:00:52,289
+about.
+關於。
+
+21
+00:00:53,380 --> 00:00:55,176
+So the prompt we wanna send to the model
+所以我們想要發送給模型的提示
+
+22
+00:00:55,353 --> 00:00:56,059
+should actually
+實際上應該
+
+23
+00:00:56,716 --> 00:00:59,876
+augment this initial user input.
+增強這個初始使用者輸入。
+
+24
+00:01:00,839 --> 00:01:02,780
+So I'll add a new prompt variable here
+所以我將在這裡添加一個新的提示變數
+
+25
+00:01:03,871 --> 00:01:05,956
+and use an f-string, which allows me to
+並使用 f 字串，這使我能夠
+
+26
+00:01:05,956 --> 00:01:08,410
+dynamically inject content into this string
+動態地將內容注入到該字串中
+
+27
+00:01:08,603 --> 00:01:11,009
+just as I did it here with the OpenAI API
+就像我在這裡使用 OpenAI API 所做的那樣
+
+28
+00:01:11,009 --> 00:01:11,346
+key
+鑰匙
+
+29
+00:01:12,437 --> 00:01:14,329
+and use triple quotes so that I can
+並使用三引號，這樣我就可以
+
+30
+00:01:14,442 --> 00:01:17,201
+conveniently write a multiline string here
+這裡方便地寫一個多行字串
+
+31
+00:01:17,249 --> 00:01:19,511
+with line breaks without messing anything
+有換行符，不會弄亂任何東西
+
+32
+00:01:19,575 --> 00:01:21,965
+up. Primarily for formatting reasons.
+向上。主要是出於格式原因。
+
+33
+00:01:22,879 --> 00:01:26,248
+And now we want to craft a prompt that's
+現在我們想要製作一個提示
+
+34
+00:01:26,392 --> 00:01:28,317
+optimized for this workflow. We want to do
+針對此工作流程進行了最佳化。我們想做
+
+35
+00:01:28,414 --> 00:01:31,157
+some prompt engineering here. It is an
+這裡有一些快速的工程。它是一個
+
+36
+00:01:31,157 --> 00:01:33,723
+important skill. It's also a skill I talk
+重要的技能。這也是我講的技能
+
+37
+00:01:33,723 --> 00:01:36,466
+about in my ChatGPT and Generative AI
+關於我的 ChatGPT 和生成式 AI
+
+38
+00:01:36,579 --> 00:01:38,985
+Complete Guide course, but it's in general
+教程完整，不過一般
+
+39
+00:01:38,985 --> 00:01:41,295
+important also when building automated
+在建立自動化時也很重要
+
+40
+00:01:41,327 --> 00:01:42,883
+workflows as we're doing it here.
+我們在這裡所做的工作流程。
+
+41
+00:01:44,038 --> 00:01:47,053
+For example, we can assign a role. You are
+例如，我們可以指派一個角色。你是
+
+42
+00:01:47,166 --> 00:01:50,358
+an expert social media manager. It's not too
+專業的社群媒體經理。也不是太
+
+43
+00:01:50,390 --> 00:01:50,679
+bad.
+壞的。
+
+44
+00:01:51,737 --> 00:01:52,668
+And you excel
+而你表現出色
+
+45
+00:01:53,341 --> 00:01:54,528
+at crafting
+在製作時
+
+46
+00:01:55,186 --> 00:01:55,651
+viral
+病毒性的
+
+47
+00:01:56,228 --> 00:01:56,453
+and
+和
+
+48
+00:01:57,768 --> 00:01:59,259
+highly engaging
+高度吸引人
+
+49
+00:02:00,077 --> 00:02:01,008
+posts for
+貼文為
+
+50
+00:02:01,922 --> 00:02:03,782
+X. So for the X platform.
+X.對於X平台來說也是如此。
+
+51
+00:02:04,921 --> 00:02:07,102
+I'll also add formerly Twitter here
+我也會在這裡添加以前的 Twitter
+
+52
+00:02:07,712 --> 00:02:10,326
+to provide some extra context to the model,
+為模型提供一些額外的上下文，
+
+53
+00:02:10,582 --> 00:02:14,897
+which has been trained based on past data, a
+它是根據過去的資料進行訓練的
+
+54
+00:02:14,913 --> 00:02:17,671
+lot of data where X was called Twitter. So
+很多資料中 X 稱為 Twitter。所以
+
+55
+00:02:17,671 --> 00:02:19,821
+I'm providing this context to make it clear
+我提供這個背景是為了清楚地表明這一點
+
+56
+00:02:19,821 --> 00:02:22,639
+that X is Twitter because again, in the
+X 是 Twitter，因為同樣，在
+
+57
+00:02:22,639 --> 00:02:25,152
+training data of the model, it's likely that
+模型的訓練資料，很可能是
+
+58
+00:02:25,442 --> 00:02:29,864
+many posts it saw were actually tweets on
+它看到的許多帖子實際上是推文
+
+59
+00:02:30,123 --> 00:02:30,464
+Twitter.
+嘰嘰喳喳。
+
+60
+00:02:32,182 --> 00:02:34,062
+So that's a role I wanna assign here.
+這就是我想在這裡分配的角色。
+
+61
+00:02:34,840 --> 00:02:37,206
+And then I wanna provide some instructions.
+然後我想提供一些說明。
+
+62
+00:02:38,510 --> 00:02:42,161
+Your task is to generate a post that is
+您的任務是產生一個帖子
+
+63
+00:02:42,275 --> 00:02:44,612
+concise and that all sounds good and
+簡潔，一切聽起來都不錯
+
+64
+00:02:44,710 --> 00:02:46,885
+tailored to the topic provided by the user.
+根據使用者提供的主題自訂。
+
+65
+00:02:48,614 --> 00:02:49,922
+I will also say avoid
+我也會說避免
+
+66
+00:02:50,616 --> 00:02:52,100
+using hashtags
+使用主題標籤
+
+67
+00:02:53,053 --> 00:02:57,361
+and lots of emojis. A few emojis are okay,
+和很多表情符號。幾個表情包就可以了
+
+68
+00:02:59,344 --> 00:03:00,844
+but not too many. Yeah, that sounds good.
+但不是太多。是的，聽起來不錯。
+
+69
+00:03:01,602 --> 00:03:03,424
+Keep the post short
+保持帖子簡短
+
+70
+00:03:04,004 --> 00:03:05,073
+and focused.
+並專注。
+
+71
+00:03:05,965 --> 00:03:08,688
+Structure it in a clean,
+以乾淨的方式建造它，
+
+72
+00:03:09,596 --> 00:03:10,617
+readable way
+可讀方式
+
+73
+00:03:11,379 --> 00:03:14,705
+using line breaks and empty lines
+使用換行符號和空白行
+
+74
+00:03:15,911 --> 00:03:17,197
+To enhance readability.
+以增強可讀性。
+
+75
+00:03:18,452 --> 00:03:19,079
+And then
+進而
+
+76
+00:03:20,157 --> 00:03:22,955
+very important, we have to insert the topic
+非常重要，我們必須插入主題
+
+77
+00:03:22,955 --> 00:03:24,547
+provided by the user. So actually I'll
+由使用者提供。所以實際上我會
+
+78
+00:03:24,644 --> 00:03:26,721
+rename user input here to topic because
+將此處的使用者輸入重命名為主題，因為
+
+79
+00:03:26,753 --> 00:03:28,589
+that's a more meaningful parameter name
+這是一個更有意義的參數名稱
+
+80
+00:03:28,992 --> 00:03:30,876
+because in the end what we get here is a
+因為最終我們得到的是
+
+81
+00:03:30,956 --> 00:03:32,454
+topic entered by the user.
+使用者輸入的主題。
+
+82
+00:03:33,882 --> 00:03:34,895
+And then I'll say here's
+然後我會說這裡是
+
+83
+00:03:35,716 --> 00:03:39,255
+the topic provided by the user for which you
+您所針對的使用者提供的主題
+
+84
+00:03:40,140 --> 00:03:41,105
+need to generate a post.
+需要產生一個帖子。
+
+85
+00:03:41,762 --> 00:03:43,654
+And then what I like to do is
+然後我喜歡做的是
+
+86
+00:03:44,231 --> 00:03:45,176
+add delimiters
+新增分隔符
+
+87
+00:03:45,994 --> 00:03:49,008
+like topic XML tags here, which is nothing
+就像這裡的主題 XML 標籤一樣，這沒什麼
+
+88
+00:03:49,120 --> 00:03:51,669
+you have to do, but something that often
+你必須做的事，但經常發生的事情
+
+89
+00:03:51,845 --> 00:03:52,294
+helps
+幫助
+
+90
+00:03:52,903 --> 00:03:53,753
+the quality
+品質
+
+91
+00:03:54,346 --> 00:03:57,359
+or which helps produce better results with
+或者這有助於產生更好的結果
+
+92
+00:03:57,536 --> 00:03:59,507
+large language models. That is something I
+大語言模型。那是我
+
+93
+00:03:59,539 --> 00:04:01,447
+experienced and something you'll find in
+經驗豐富，你會發現一些東西
+
+94
+00:04:01,543 --> 00:04:03,803
+many guides and best practices out there.
+有很多指南和最佳實踐。
+
+95
+00:04:04,926 --> 00:04:06,913
+You could also use other delimiters like
+您也可以使用其他分隔符，例如
+
+96
+00:04:06,913 --> 00:04:09,703
+triple dashes, for example, to clearly
+例如，三個破折號可以清楚表示
+
+97
+00:04:09,751 --> 00:04:11,963
+separate the user input from the rest of the
+將使用者輸入與其餘部分分開
+
+98
+00:04:11,963 --> 00:04:13,309
+prompt, but I like these XML tags.
+提示，但我喜歡這些 XML 標籤。
+
+99
+00:04:14,226 --> 00:04:16,059
+Again, technically they're not required
+再次強調，從技術上講，它們不是必需的
+
+100
+00:04:16,059 --> 00:04:16,236
+though.
+儘管。
+
+101
+00:04:17,346 --> 00:04:19,920
+And then here I'll insert that topic and
+然後我將在這裡插入該主題並
+
+102
+00:04:19,936 --> 00:04:23,313
+that's now the actual topic we received as a
+這就是我們現在收到的實際主題
+
+103
+00:04:23,313 --> 00:04:23,876
+parameter.
+範圍。
+
+104
+00:04:25,002 --> 00:04:27,415
+And this is now the overall prompt that
+這是現在的整體提示
+
+105
+00:04:27,415 --> 00:04:30,519
+should be sent to the GPT-4o model
+應發送至 GPT-4o 模型
+
+106
+00:04:31,178 --> 00:04:33,205
+through the OpenAI API.
+透過 OpenAI API。

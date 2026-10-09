@@ -1,0 +1,583 @@
+1
+00:00:00,416 --> 00:00:02,918
+Of course, you can also integrate
+
+2
+00:00:02,918 --> 00:00:06,237
+third-party services into your workflows or
+
+3
+00:00:06,269 --> 00:00:08,306
+expose them to your agents as tools. And
+
+4
+00:00:08,594 --> 00:00:10,663
+we'll get back to agents and build them in
+
+5
+00:00:10,695 --> 00:00:12,507
+detail in the next course section.
+
+6
+00:00:13,116 --> 00:00:15,233
+But what do I mean with that?
+
+7
+00:00:15,987 --> 00:00:19,483
+Well, not all your workflows and steps need
+
+8
+00:00:19,515 --> 00:00:22,866
+to run locally on your machine and just use
+
+9
+00:00:22,866 --> 00:00:26,089
+your own internal resources or publicly
+
+10
+00:00:26,089 --> 00:00:28,702
+available resources. You can build such
+
+11
+00:00:29,360 --> 00:00:31,588
+internal workflows if you wanna call them
+
+12
+00:00:31,620 --> 00:00:34,890
+like this. So workflows that do only access
+
+13
+00:00:34,890 --> 00:00:38,000
+your file system, send HTTP requests to
+
+14
+00:00:38,192 --> 00:00:39,763
+public websites and so on.
+
+15
+00:00:40,436 --> 00:00:42,809
+But that might not always be what you need.
+
+16
+00:00:43,306 --> 00:00:44,781
+It is what we did thus far.
+
+17
+00:00:45,310 --> 00:00:47,698
+All the workflows I showed you worked
+
+18
+00:00:47,714 --> 00:00:50,952
+without using any external third-party
+
+19
+00:00:50,952 --> 00:00:51,577
+services.
+
+20
+00:00:52,379 --> 00:00:55,713
+But you can also tap into such services in
+
+21
+00:00:55,809 --> 00:00:58,727
+your workflows. You can, for example, send
+
+22
+00:00:58,727 --> 00:01:01,167
+Slack messages notifications from inside
+
+23
+00:01:01,199 --> 00:01:04,475
+your workflows or check emails from inside
+
+24
+00:01:04,475 --> 00:01:07,445
+your workflows. You can use external
+
+25
+00:01:07,541 --> 00:01:08,232
+services.
+
+26
+00:01:09,292 --> 00:01:11,202
+And of course, depending on which kind of
+
+27
+00:01:11,299 --> 00:01:13,450
+workflow you're building, doing something
+
+28
+00:01:13,466 --> 00:01:15,859
+like that might make a lot of sense.
+
+29
+00:01:16,613 --> 00:01:16,726
+Now,
+
+30
+00:01:17,400 --> 00:01:17,529
+when—
+
+31
+00:01:35,303 --> 00:01:38,076
+the post. So those APIs will typically
+
+32
+00:01:38,188 --> 00:01:40,721
+require you to authenticate in order to
+
+33
+00:01:40,753 --> 00:01:42,164
+grant you that access.
+
+34
+00:01:42,837 --> 00:01:45,579
+It also often makes sense to add an extra
+
+35
+00:01:45,579 --> 00:01:48,593
+human-in-the-loop step to avoid unwanted
+
+36
+00:01:48,593 --> 00:01:51,222
+results. If your workflow automatically
+
+37
+00:01:51,334 --> 00:01:52,969
+publishes a post on LinkedIn,
+
+38
+00:01:53,498 --> 00:01:56,594
+you might wanna add a step that ensures that
+
+39
+00:01:56,627 --> 00:01:58,762
+you're not publishing anything you don't
+
+40
+00:01:58,794 --> 00:01:59,501
+wanna publish.
+
+41
+00:02:00,223 --> 00:02:02,936
+Now, when it comes to interacting with
+
+42
+00:02:03,274 --> 00:02:06,099
+third-party services, like for example, the
+
+43
+00:02:06,164 --> 00:02:07,175
+LinkedIn API,
+
+44
+00:02:07,865 --> 00:02:11,125
+you always need to visit their documentation
+
+45
+00:02:11,157 --> 00:02:13,870
+because all these services have different
+
+46
+00:02:13,870 --> 00:02:16,182
+APIs that require different forms of
+
+47
+00:02:16,278 --> 00:02:18,799
+authentication and that expose different
+
+48
+00:02:18,928 --> 00:02:21,882
+endpoints. There is no one single solution
+
+49
+00:02:21,914 --> 00:02:23,969
+that would work for all these services.
+
+50
+00:02:24,804 --> 00:02:26,666
+So if you, for example, wanna share a post
+
+51
+00:02:26,666 --> 00:02:28,785
+on LinkedIn, you should visit the LinkedIn
+
+52
+00:02:28,898 --> 00:02:29,652
+Posts API.
+
+53
+00:02:30,198 --> 00:02:32,157
+If it's a text-only post, you can dive into
+
+54
+00:02:32,173 --> 00:02:33,200
+this documentation
+
+55
+00:02:33,794 --> 00:02:36,090
+and you can see which kind of request you
+
+56
+00:02:36,106 --> 00:02:39,076
+would need to send to their API to create a
+
+57
+00:02:39,076 --> 00:02:40,345
+post programmatically.
+
+58
+00:02:41,565 --> 00:02:43,523
+As mentioned, you will typically need to
+
+59
+00:02:44,149 --> 00:02:46,188
+authenticate and you'll need to add some
+
+60
+00:02:46,702 --> 00:02:49,512
+token that's issued by them to your request
+
+61
+00:02:49,512 --> 00:02:52,225
+to prove that the request is coming from an
+
+62
+00:02:52,273 --> 00:02:54,601
+authenticated entity. And you therefore also
+
+63
+00:02:54,601 --> 00:02:56,463
+need to check their documentation to learn
+
+64
+00:02:56,576 --> 00:02:58,149
+how to authenticate with them.
+
+65
+00:02:58,839 --> 00:03:01,248
+For example, here for LinkedIn, you could go
+
+66
+00:03:01,328 --> 00:03:04,105
+to their quick start guide and there you
+
+67
+00:03:04,138 --> 00:03:06,674
+will learn how you can apply for API access.
+
+68
+00:03:07,172 --> 00:03:08,472
+So that's one example.
+
+69
+00:03:09,259 --> 00:03:13,177
+In my workflow here, I instead decided to
+
+70
+00:03:13,449 --> 00:03:15,617
+send a Slack notification though.
+
+71
+00:03:16,580 --> 00:03:19,310
+And for that, I added a new function,
+
+72
+00:03:19,326 --> 00:03:21,686
+sendSlackNotification, which takes the
+
+73
+00:03:21,686 --> 00:03:22,665
+message as an input.
+
+74
+00:03:23,563 --> 00:03:26,691
+Which then sends a request to Slack
+
+75
+00:03:26,932 --> 00:03:28,504
+according to their documentation.
+
+76
+00:03:29,177 --> 00:03:31,182
+So just like LinkedIn, they have a
+
+77
+00:03:31,182 --> 00:03:33,556
+documentation page where they explain how
+
+78
+00:03:33,572 --> 00:03:36,155
+you can send messages programmatically.
+
+79
+00:03:37,582 --> 00:03:40,742
+And again, you need to request access.
+
+80
+00:03:41,528 --> 00:03:43,453
+For that, you need to go to their app
+
+81
+00:03:43,517 --> 00:03:44,463
+management page
+
+82
+00:03:45,281 --> 00:03:48,810
+and then there register a new app. In this
+
+83
+00:03:48,810 --> 00:03:50,815
+case, I just created a little demo app.
+
+84
+00:03:51,456 --> 00:03:52,562
+Then you need to go to
+
+85
+00:03:53,236 --> 00:03:54,326
+OAuth and permissions,
+
+86
+00:03:55,224 --> 00:03:59,071
+and then there under scopes, you need to add
+
+87
+00:03:59,151 --> 00:04:01,556
+at least the chat write scope.
+
+88
+00:04:02,614 --> 00:04:03,351
+This will allow
+
+89
+00:04:04,057 --> 00:04:07,712
+this app, this Slack app, to send messages
+
+90
+00:04:07,888 --> 00:04:09,571
+to chats it has been added to.
+
+91
+00:04:10,229 --> 00:04:13,307
+Once you did that, you will need to install
+
+92
+00:04:14,076 --> 00:04:17,379
+this app into your Slack workspace. And once
+
+93
+00:04:17,379 --> 00:04:18,967
+you did that, you'll get a token.
+
+94
+00:04:20,154 --> 00:04:22,705
+This token has then been added to this.env
+
+95
+00:04:22,721 --> 00:04:23,442
+file by me here.
+
+96
+00:04:24,662 --> 00:04:26,811
+And it's this token that I'm also
+
+97
+00:04:26,811 --> 00:04:27,774
+referencing here.
+
+98
+00:04:28,656 --> 00:04:30,790
+And with all that out of the way, I can then
+
+99
+00:04:30,854 --> 00:04:33,533
+send a message by specifying the text and
+
+100
+00:04:33,645 --> 00:04:35,891
+the channel ID to which this message should
+
+101
+00:04:35,891 --> 00:04:36,212
+be sent.
+
+102
+00:04:36,934 --> 00:04:39,308
+For that here on Slack, I created a brand
+
+103
+00:04:39,404 --> 00:04:40,126
+new channel
+
+104
+00:04:40,768 --> 00:04:41,457
+and there
+
+105
+00:04:42,131 --> 00:04:44,858
+I edited this channel and made sure that
+
+106
+00:04:44,874 --> 00:04:47,521
+under integrations, I added this demo app.
+
+107
+00:04:48,500 --> 00:04:49,624
+So that this app
+
+108
+00:04:50,233 --> 00:04:51,533
+has access to this channel.
+
+109
+00:04:52,978 --> 00:04:55,145
+Once I did that, I took a look at the
+
+110
+00:04:55,145 --> 00:04:56,156
+channel details,
+
+111
+00:04:57,231 --> 00:04:59,157
+and there at the bottom, I find the channel
+
+112
+00:04:59,157 --> 00:05:00,489
+ID, which I copied.
+
+113
+00:05:01,324 --> 00:05:02,768
+And that's then this channel ID,
+
+114
+00:05:04,052 --> 00:05:05,753
+which of course also will be gone when you
+
+115
+00:05:05,753 --> 00:05:06,347
+are viewing this.
+
+116
+00:05:07,262 --> 00:05:09,076
+And in Slack's case, that's already all.
+
+117
+00:05:09,413 --> 00:05:11,515
+Then I just check whether everything worked
+
+118
+00:05:11,515 --> 00:05:11,788
+or not,
+
+119
+00:05:12,478 --> 00:05:14,677
+and that should do the trick. With that, I'm
+
+120
+00:05:14,742 --> 00:05:17,022
+sending a Slack notification when that
+
+121
+00:05:17,118 --> 00:05:18,306
+overall workflow is done.
+
+122
+00:05:18,981 --> 00:05:19,992
+So if I now again
+
+123
+00:05:20,522 --> 00:05:21,277
+start this
+
+124
+00:05:22,176 --> 00:05:22,722
+one more time
+
+125
+00:05:23,958 --> 00:05:25,837
+and it again goes through article
+
+126
+00:05:26,126 --> 00:05:28,936
+generation, through the evaluation steps,
+
+127
+00:05:29,080 --> 00:05:32,163
+allows me to enter feedback, and then also
+
+128
+00:05:32,227 --> 00:05:33,865
+through thumbnail generations on.
+
+129
+00:05:34,459 --> 00:05:37,365
+Once all that finished, it should send me a
+
+130
+00:05:37,365 --> 00:05:39,789
+notification to this channel. So here I
+
+131
+00:05:39,933 --> 00:05:42,626
+decided to just accept the post as it is
+
+132
+00:05:42,883 --> 00:05:44,726
+without providing further feedback and
+
+133
+00:05:44,742 --> 00:05:46,345
+without requesting more changes.
+
+134
+00:05:47,772 --> 00:05:50,673
+And here we go. That's this message sent by
+
+135
+00:05:50,673 --> 00:05:53,911
+this Slack app through our application here.
+
+136
+00:05:54,280 --> 00:05:56,604
+So through this code I just showed you.
+
+137
+00:05:57,246 --> 00:05:59,281
+And that's therefore one example for
+
+138
+00:05:59,554 --> 00:06:02,295
+integrating a third-party service, Slack in
+
+139
+00:06:02,295 --> 00:06:04,619
+this case, into your workflow. And of
+
+140
+00:06:04,619 --> 00:06:07,216
+course, your imagination is the limit here.
+
+141
+00:06:07,569 --> 00:06:10,022
+You can reach out to any service and do
+
+142
+00:06:10,150 --> 00:06:12,710
+whatever you want. You'll just have to dive
+
+143
+00:06:12,710 --> 00:06:15,066
+into their docs because that's the place
+
+144
+00:06:15,131 --> 00:06:16,986
+where you'll learn how to authenticate and
+
+145
+00:06:17,067 --> 00:06:19,052
+how to structure your requests to their
+
+146
+00:06:19,100 --> 00:06:19,714
+APIs.

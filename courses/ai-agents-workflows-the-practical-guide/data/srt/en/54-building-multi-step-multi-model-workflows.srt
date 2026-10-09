@@ -1,0 +1,627 @@
+1
+00:00:00,657 --> 00:00:03,626
+Of course, you did not take this course to
+
+2
+00:00:03,626 --> 00:00:06,788
+just learn about simple, basic one-step
+
+3
+00:00:06,852 --> 00:00:09,067
+workflows, though the foundation of course
+
+4
+00:00:09,179 --> 00:00:09,805
+is important.
+
+5
+00:00:10,543 --> 00:00:12,806
+But here we now got an example for a more
+
+6
+00:00:13,095 --> 00:00:16,305
+complex multi-step workflow where we'll
+
+7
+00:00:16,385 --> 00:00:19,338
+actually also use different AI models in
+
+8
+00:00:19,450 --> 00:00:20,381
+different steps.
+
+9
+00:00:21,360 --> 00:00:23,575
+And you find the updated version of this
+
+10
+00:00:23,623 --> 00:00:25,902
+workflow, the updated main.py file
+
+11
+00:00:26,496 --> 00:00:27,858
+also attached to this lecture.
+
+12
+00:00:29,157 --> 00:00:32,428
+This updated version no longer asks for a
+
+13
+00:00:32,428 --> 00:00:35,731
+topic as an input, but instead for a website
+
+14
+00:00:35,731 --> 00:00:36,163
+URL.
+
+15
+00:00:37,093 --> 00:00:39,691
+It then goes ahead and fetches the HTML
+
+16
+00:00:39,723 --> 00:00:43,026
+content of that website by using the
+
+17
+00:00:43,250 --> 00:00:45,495
+requests package again, sending a GET
+
+18
+00:00:45,495 --> 00:00:46,986
+request to that URL.
+
+19
+00:00:47,980 --> 00:00:50,048
+And I'll say right away that this approach
+
+20
+00:00:50,144 --> 00:00:52,789
+will not work for all websites because there
+
+21
+00:00:52,789 --> 00:00:55,275
+are many websites that have mechanisms to
+
+22
+00:00:55,740 --> 00:00:58,593
+defend against requests like this or
+
+23
+00:00:58,882 --> 00:01:01,943
+websites that don't load all the content
+
+24
+00:01:01,943 --> 00:01:04,829
+initially with the first request, which this
+
+25
+00:01:04,829 --> 00:01:07,282
+request here would be, but which instead
+
+26
+00:01:07,458 --> 00:01:09,766
+also load some content with client-side
+
+27
+00:01:09,863 --> 00:01:12,524
+JavaScript code, for example, after the
+
+28
+00:01:12,524 --> 00:01:13,534
+initial page load.
+
+29
+00:01:14,191 --> 00:01:17,012
+All those websites would not really work
+
+30
+00:01:17,012 --> 00:01:17,862
+with this approach.
+
+31
+00:01:18,455 --> 00:01:20,427
+But there are many websites where this
+
+32
+00:01:20,475 --> 00:01:21,581
+approach will work.
+
+33
+00:01:22,222 --> 00:01:25,637
+So this will give us the HTML code of that
+
+34
+00:01:25,653 --> 00:01:26,214
+website.
+
+35
+00:01:27,111 --> 00:01:30,446
+And we then use this HTML code to actually
+
+36
+00:01:30,542 --> 00:01:33,347
+extract the core content of the site.
+
+37
+00:01:34,004 --> 00:01:36,970
+Because if I use my personal website as an
+
+38
+00:01:36,970 --> 00:01:37,723
+example here,
+
+39
+00:01:38,637 --> 00:01:42,244
+the HTML code of one of my posts can be seen
+
+40
+00:01:42,244 --> 00:01:44,071
+if you inspect the page source,
+
+41
+00:01:44,905 --> 00:01:45,867
+looks something like this.
+
+42
+00:01:46,588 --> 00:01:49,858
+Not horrible, but quite a lot of code. I can
+
+43
+00:01:50,291 --> 00:01:52,439
+scroll quite a bit to the right here.
+
+44
+00:01:52,984 --> 00:01:55,437
+And of course, Since it's HTML code, there
+
+45
+00:01:55,549 --> 00:01:58,979
+are many HTML elements, CSS classes,
+
+46
+00:01:59,637 --> 00:02:02,169
+and lots of stuff in there that's not
+
+47
+00:02:02,201 --> 00:02:03,548
+relevant to us humans.
+
+48
+00:02:04,542 --> 00:02:07,539
+The core text which you see here only makes
+
+49
+00:02:07,652 --> 00:02:09,800
+up a part of the actual source code.
+
+50
+00:02:10,537 --> 00:02:12,605
+But it's the overall source code, the
+
+51
+00:02:12,621 --> 00:02:15,474
+overall HTML code that's fetched by this
+
+52
+00:02:15,667 --> 00:02:15,923
+step.
+
+53
+00:02:16,869 --> 00:02:19,418
+Therefore, I also need a step that actually
+
+54
+00:02:19,434 --> 00:02:23,393
+extracts the core content, the core text of
+
+55
+00:02:23,457 --> 00:02:25,990
+this website, the core content that would
+
+56
+00:02:26,086 --> 00:02:27,592
+also matter to us humans.
+
+57
+00:02:28,426 --> 00:02:30,829
+And that's what extract core website content
+
+58
+00:02:30,829 --> 00:02:31,086
+does.
+
+59
+00:02:32,031 --> 00:02:35,204
+This step now actually leverages a large
+
+60
+00:02:35,380 --> 00:02:37,608
+language model to perform this extraction
+
+61
+00:02:38,041 --> 00:02:41,502
+because detecting the core text inside of a
+
+62
+00:02:41,502 --> 00:02:45,236
+sea of HTML elements is non-trivial,
+
+63
+00:02:45,316 --> 00:02:47,447
+especially if you want this to work with all
+
+64
+00:02:47,559 --> 00:02:50,460
+kinds of websites, not just one clearly
+
+65
+00:02:50,460 --> 00:02:51,549
+defined website.
+
+66
+00:02:52,079 --> 00:02:54,471
+So you don't know the HTML structure in
+
+67
+00:02:54,471 --> 00:02:54,920
+advance.
+
+68
+00:02:55,498 --> 00:02:57,890
+And these are exactly the kind of situations
+
+69
+00:02:57,987 --> 00:02:59,897
+where large language models shine.
+
+70
+00:03:01,310 --> 00:03:04,151
+So again, I'm using the OpenAI SDK here, and
+
+71
+00:03:04,328 --> 00:03:04,553
+then
+
+72
+00:03:05,131 --> 00:03:09,000
+I'm using the 4o Mini model here instead of
+
+73
+00:03:09,000 --> 00:03:10,252
+the 4o model.
+
+74
+00:03:11,151 --> 00:03:13,944
+I'm doing that because this 4o Mini model is
+
+75
+00:03:14,153 --> 00:03:18,247
+super cheap, way cheaper than the 4o model.
+
+76
+00:03:19,098 --> 00:03:22,102
+And for tasks like summarizing text,
+
+77
+00:03:22,166 --> 00:03:25,796
+extracting data from text, this 4o Mini
+
+78
+00:03:25,796 --> 00:03:28,880
+model is more than enough. It's absolutely
+
+79
+00:03:28,912 --> 00:03:30,566
+capable to handle those tasks.
+
+80
+00:03:31,867 --> 00:03:34,229
+But these are also the tasks that typically
+
+81
+00:03:34,229 --> 00:03:36,766
+involve a lot of tokens. I mean, again, if
+
+82
+00:03:36,766 --> 00:03:38,597
+you take a look at this source code,
+
+83
+00:03:39,176 --> 00:03:42,533
+all this text here, all this markup is fed
+
+84
+00:03:42,661 --> 00:03:45,101
+to the large language model. So all these
+
+85
+00:03:45,197 --> 00:03:48,067
+HTML tags also consume tokens.
+
+86
+00:03:48,676 --> 00:03:51,144
+So having a very cheap model is definitely
+
+87
+00:03:51,144 --> 00:03:53,196
+important here, especially since, as
+
+88
+00:03:53,244 --> 00:03:55,392
+mentioned, it's more than capable enough for
+
+89
+00:03:55,408 --> 00:03:56,034
+this task.
+
+90
+00:03:56,931 --> 00:03:59,240
+I then have a basic prompt where I instruct
+
+91
+00:03:59,240 --> 00:04:02,029
+the model to extract the core text,
+
+92
+00:04:02,061 --> 00:04:03,985
+excluding navigation, footers, and other
+
+93
+00:04:03,985 --> 00:04:06,517
+non-essential elements from the received
+
+94
+00:04:06,597 --> 00:04:08,713
+HTML code, which is received as input here.
+
+95
+00:04:09,499 --> 00:04:12,769
+And then I return that extracted text. So
+
+96
+00:04:13,090 --> 00:04:15,622
+hopefully the text that's relevant to
+
+97
+00:04:15,622 --> 00:04:16,119
+humans.
+
+98
+00:04:17,820 --> 00:04:20,885
+Once I have this core content, I have
+
+99
+00:04:20,885 --> 00:04:23,821
+another step here which actually summarizes
+
+100
+00:04:23,853 --> 00:04:26,228
+this content because in the previous step, I
+
+101
+00:04:26,260 --> 00:04:29,212
+extracted all the text as it appears on the
+
+102
+00:04:29,212 --> 00:04:31,603
+website. Now I want to create a summary
+
+103
+00:04:31,715 --> 00:04:32,613
+based on this text.
+
+104
+00:04:33,560 --> 00:04:36,416
+For that, I again use 4o Mini because again,
+
+105
+00:04:36,528 --> 00:04:39,336
+for tasks like extraction, but also
+
+106
+00:04:39,513 --> 00:04:42,513
+summaries, it's awesome and it's cheaper
+
+107
+00:04:42,690 --> 00:04:44,439
+than other models. So that's why I'm using
+
+108
+00:04:44,535 --> 00:04:44,583
+it.
+
+109
+00:04:45,342 --> 00:04:48,095
+Have a simple prompt, pass my content, the
+
+110
+00:04:48,095 --> 00:04:50,832
+extracted content to it, and then hopefully
+
+111
+00:04:50,864 --> 00:04:52,839
+get back a summary which I return.
+
+112
+00:04:54,712 --> 00:04:57,371
+And it's then this summary which I again use
+
+113
+00:04:57,371 --> 00:04:58,837
+to generate an ex post.
+
+114
+00:04:59,852 --> 00:05:02,333
+I also log the summary and the core content
+
+115
+00:05:02,607 --> 00:05:03,865
+for debugging purposes.
+
+116
+00:05:05,029 --> 00:05:06,807
+That's my workflow here.
+
+117
+00:05:07,437 --> 00:05:10,297
+Again, leveraging large language models, but
+
+118
+00:05:10,378 --> 00:05:13,134
+different kinds of models. 4o Mini for
+
+119
+00:05:13,134 --> 00:05:14,133
+extraction and summaries, but for
+
+120
+00:05:14,133 --> 00:05:14,527
+post-generation,
+
+121
+00:05:16,706 --> 00:05:18,005
+I'm still using 4.0.
+
+122
+00:05:18,711 --> 00:05:19,417
+And therefore
+
+123
+00:05:20,075 --> 00:05:20,283
+here
+
+124
+00:05:21,358 --> 00:05:23,620
+I can again run this script,
+
+125
+00:05:24,502 --> 00:05:27,261
+paste in a URL like here, the URL from my
+
+126
+00:05:27,309 --> 00:05:29,170
+own website from this article.
+
+127
+00:05:30,582 --> 00:05:32,731
+And then it'll go ahead, fetch that content,
+
+128
+00:05:32,924 --> 00:05:34,993
+send it to the large language model. And
+
+129
+00:05:34,993 --> 00:05:36,902
+this can take a while because it is a lot of
+
+130
+00:05:36,934 --> 00:05:38,747
+content to parse and process.
+
+131
+00:05:39,437 --> 00:05:41,827
+So now the model is doing its work trying to
+
+132
+00:05:41,827 --> 00:05:43,367
+extract the core content.
+
+133
+00:05:43,992 --> 00:05:46,621
+Here we go. That is the core content it
+
+134
+00:05:46,621 --> 00:05:49,009
+detected, the core text it extracted from
+
+135
+00:05:49,185 --> 00:05:51,605
+all that HTML code. Looks pretty good to me.
+
+136
+00:05:52,711 --> 00:05:55,051
+Then it's summarizing it. Here is the
+
+137
+00:05:55,051 --> 00:05:57,856
+summary, a bunch of bullet points because in
+
+138
+00:05:57,856 --> 00:06:00,244
+my prompt I told it to prefer bullet points.
+
+139
+00:06:01,141 --> 00:06:04,891
+And then I got my generated ex post based on
+
+140
+00:06:04,988 --> 00:06:05,917
+that summary.
+
+141
+00:06:07,231 --> 00:06:08,802
+And that's of course a pretty amazing
+
+142
+00:06:08,818 --> 00:06:11,623
+workflow because this now allows me to paste
+
+143
+00:06:11,623 --> 00:06:12,985
+in any URL.
+
+144
+00:06:13,868 --> 00:06:16,340
+With a caveat, because as mentioned, this
+
+145
+00:06:16,854 --> 00:06:19,487
+method of extracting HTML will not work for
+
+146
+00:06:19,487 --> 00:06:21,976
+all sites, but for many sites it will. And
+
+147
+00:06:21,992 --> 00:06:24,401
+therefore I can paste in any URL and just
+
+148
+00:06:24,401 --> 00:06:25,798
+see whether it works or not.
+
+149
+00:06:26,488 --> 00:06:29,138
+And then get a post and a summary based on
+
+150
+00:06:29,138 --> 00:06:31,032
+the website content, which is a pretty
+
+151
+00:06:31,048 --> 00:06:32,750
+amazing workflow in my opinion.
+
+152
+00:06:33,296 --> 00:06:35,063
+And most importantly, it's a workflow that
+
+153
+00:06:35,063 --> 00:06:37,246
+shows you that you can combine multiple
+
+154
+00:06:37,246 --> 00:06:40,361
+steps where every step may or may not use a
+
+155
+00:06:40,377 --> 00:06:41,421
+large language model.
+
+156
+00:06:42,053 --> 00:06:44,069
+And that you can also use different models
+
+157
+00:06:44,166 --> 00:06:45,369
+for different tasks.

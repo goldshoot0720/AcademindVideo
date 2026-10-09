@@ -1,0 +1,455 @@
+1
+00:00:02,131 --> 00:00:05,722
+So time for some examples. And for that,
+
+2
+00:00:05,738 --> 00:00:07,854
+we'll have a look at a couple of algorithms,
+
+3
+00:00:08,270 --> 00:00:10,883
+their space complexity, and a short reason
+
+4
+00:00:11,092 --> 00:00:13,175
+why we have that space complexity.
+
+5
+00:00:13,977 --> 00:00:16,814
+And I wanna start with an algorithm we saw
+
+6
+00:00:17,086 --> 00:00:19,411
+relatively early in the course, and that's
+
+7
+00:00:19,411 --> 00:00:22,104
+the factorial algorithm, and here the
+
+8
+00:00:22,136 --> 00:00:25,406
+loop-based variant. So that algorithm that
+
+9
+00:00:25,502 --> 00:00:27,329
+gives us the factorial of a number.
+
+10
+00:00:27,922 --> 00:00:29,896
+Let's see which space complexity this
+
+11
+00:00:30,153 --> 00:00:30,939
+algorithm has.
+
+12
+00:00:31,757 --> 00:00:33,827
+Here's this algorithm, the factorial
+
+13
+00:00:34,004 --> 00:00:36,170
+algorithm, where we have a loop to derive
+
+14
+00:00:36,170 --> 00:00:37,550
+the factorial of a number.
+
+15
+00:00:38,192 --> 00:00:40,679
+And now the question is, which space
+
+16
+00:00:40,679 --> 00:00:42,155
+complexity do we have here?
+
+17
+00:00:42,925 --> 00:00:45,540
+Now for that, I mentioned on the slide
+
+18
+00:00:46,198 --> 00:00:48,509
+that we first of all have to find places
+
+19
+00:00:48,846 --> 00:00:50,755
+where permanent data is stored
+
+20
+00:00:51,413 --> 00:00:53,611
+and that we then should count those
+
+21
+00:00:53,611 --> 00:00:57,286
+occurrences and see how This depends on n.
+
+22
+00:00:58,250 --> 00:01:00,386
+And when I talk about values being stored, I
+
+23
+00:01:00,498 --> 00:01:03,067
+don't just mean objects or arrays, I also
+
+24
+00:01:03,067 --> 00:01:06,230
+mean numbers or strings. So what's going on
+
+25
+00:01:06,343 --> 00:01:07,322
+in this algorithm?
+
+26
+00:01:07,868 --> 00:01:10,277
+When it starts, we create a new variable and
+
+27
+00:01:10,293 --> 00:01:12,991
+we store the number 1 in it. So that's one
+
+28
+00:01:13,167 --> 00:01:15,319
+value that's getting stored in memory.
+
+29
+00:01:15,977 --> 00:01:18,306
+Actually, even before that, the number
+
+30
+00:01:18,306 --> 00:01:19,333
+parameter we're getting,
+
+31
+00:01:19,911 --> 00:01:22,673
+that acts as a variable we can use inside of
+
+32
+00:01:22,673 --> 00:01:25,305
+the fact function And that's therefore also
+
+33
+00:01:25,305 --> 00:01:26,235
+getting stored in memory.
+
+34
+00:01:26,844 --> 00:01:29,939
+So once this line 4 finished executing, we
+
+35
+00:01:30,099 --> 00:01:33,210
+already have 2 values stored in memory,
+
+36
+00:01:33,643 --> 00:01:34,140
+number
+
+37
+00:01:34,749 --> 00:01:35,535
+and result.
+
+38
+00:01:37,010 --> 00:01:40,458
+Now we create a loop and in the loop we loop
+
+39
+00:01:40,458 --> 00:01:42,735
+through all numbers up to number,
+
+40
+00:01:43,408 --> 00:01:46,952
+almost starting at 0 or 1, though we start
+
+41
+00:01:46,952 --> 00:01:49,149
+at 2 for the reasons mentioned earlier in
+
+42
+00:01:49,261 --> 00:01:49,710
+the course,
+
+43
+00:01:50,303 --> 00:01:53,963
+but roughly, we go through all numbers up to
+
+44
+00:01:54,144 --> 00:01:54,259
+n.
+
+45
+00:01:56,390 --> 00:01:58,584
+We have that i variable which is created
+
+46
+00:01:58,601 --> 00:02:00,893
+here and which gets a new value with every
+
+47
+00:02:00,893 --> 00:02:01,283
+iteration.
+
+48
+00:02:02,082 --> 00:02:04,787
+We have that Boolean here which is created
+
+49
+00:02:04,819 --> 00:02:06,639
+and checked with every iteration.
+
+50
+00:02:07,540 --> 00:02:10,020
+And we update result with every iteration.
+
+51
+00:02:10,390 --> 00:02:12,975
+So how many new values are getting stored
+
+52
+00:02:13,040 --> 00:02:14,061
+with every iteration?
+
+53
+00:02:14,903 --> 00:02:16,312
+Well, we store a new i
+
+54
+00:02:16,892 --> 00:02:18,575
+and we create a new boolean here.
+
+55
+00:02:19,617 --> 00:02:22,310
+But also important, after every iteration,
+
+56
+00:02:22,823 --> 00:02:24,426
+that boolean and that i
+
+57
+00:02:24,971 --> 00:02:27,439
+we used for that iteration is not needed
+
+58
+00:02:27,471 --> 00:02:29,395
+anymore. It's cleaned up. It's not
+
+59
+00:02:29,395 --> 00:02:32,216
+referenced anymore. Instead, when the next
+
+60
+00:02:32,216 --> 00:02:35,695
+iteration starts, a new i and a new boolean
+
+61
+00:02:35,791 --> 00:02:38,356
+is created, but the old ones from the
+
+62
+00:02:38,356 --> 00:02:40,825
+previous iteration are no longer needed.
+
+63
+00:02:41,562 --> 00:02:43,902
+So therefore, that's not permanent data
+
+64
+00:02:43,902 --> 00:02:46,900
+because that does not stick around after
+
+65
+00:02:47,028 --> 00:02:49,994
+every iteration. The i is recreated with
+
+66
+00:02:50,074 --> 00:02:52,703
+every iteration, but the old i's from the
+
+67
+00:02:52,799 --> 00:02:55,075
+previous iterations are not used anymore.
+
+68
+00:02:55,700 --> 00:02:57,864
+So therefore, we actually create no new
+
+69
+00:02:58,008 --> 00:02:59,002
+permanent data here.
+
+70
+00:03:00,172 --> 00:03:01,550
+And then we return the result.
+
+71
+00:03:02,576 --> 00:03:05,445
+So if we have a look at this algorithm, we
+
+72
+00:03:05,461 --> 00:03:07,673
+don't create that many values that would be
+
+73
+00:03:07,930 --> 00:03:10,558
+getting stored in memory, and we actually
+
+74
+00:03:10,574 --> 00:03:12,305
+have no data at all
+
+75
+00:03:13,059 --> 00:03:15,880
+that would be stored in memory and that
+
+76
+00:03:15,880 --> 00:03:19,134
+would grow with a bigger n because even in
+
+77
+00:03:19,166 --> 00:03:22,260
+that loop, we just recreate values but we
+
+78
+00:03:22,276 --> 00:03:24,921
+are not interested in the old values. So we
+
+79
+00:03:25,001 --> 00:03:27,214
+only have one new value around all the time
+
+80
+00:03:27,262 --> 00:03:27,759
+essentially.
+
+81
+00:03:28,625 --> 00:03:31,719
+And therefore, the space complexity
+
+82
+00:03:32,456 --> 00:03:37,233
+of this algorithm is actually constant, O.
+
+83
+00:03:38,067 --> 00:03:41,450
+That means that the space in memory we
+
+84
+00:03:41,610 --> 00:03:45,424
+occupy does not depend on n. It does not
+
+85
+00:03:45,456 --> 00:03:46,546
+depend on the number.
+
+86
+00:03:47,139 --> 00:03:50,905
+If we feed in a number of 10 here, we use
+
+87
+00:03:50,905 --> 00:03:53,325
+the same amount of memory as if we would
+
+88
+00:03:53,389 --> 00:03:54,639
+feed in a bigger number.
+
+89
+00:03:55,536 --> 00:03:57,828
+Now, of course, if we had to measure it in
+
+90
+00:03:58,020 --> 00:04:00,536
+bytes, there might be small differences
+
+91
+00:04:00,601 --> 00:04:03,004
+because of bigger numbers or anything like
+
+92
+00:04:03,004 --> 00:04:05,104
+that. But the general trend
+
+93
+00:04:05,633 --> 00:04:09,719
+is constant because we don't suddenly occupy
+
+94
+00:04:09,719 --> 00:04:13,437
+twice or 3 times as much memory as before.
+
+95
+00:04:14,304 --> 00:04:16,696
+So that's how we can judge the space
+
+96
+00:04:16,777 --> 00:04:19,972
+complexity of this algorithm, and that is
+
+97
+00:04:20,245 --> 00:04:22,573
+the space complexity of this algorithm.
+
+98
+00:04:23,296 --> 00:04:25,014
+I hope it's relatively straightforward how
+
+99
+00:04:25,142 --> 00:04:28,064
+that worked. And with that, we can of course
+
+100
+00:04:28,113 --> 00:04:30,553
+fill out this first row in this table here.
+
+101
+00:04:30,987 --> 00:04:34,118
+We know that the factorial algorithm, if we
+
+102
+00:04:34,118 --> 00:04:36,783
+use a loop-based solution, has a space
+
+103
+00:04:36,783 --> 00:04:40,457
+complexity of O. So a constant space
+
+104
+00:04:40,457 --> 00:04:41,050
+complexity.
+
+105
+00:04:41,595 --> 00:04:43,806
+And that's the case because we operate on
+
+106
+00:04:43,998 --> 00:04:46,017
+one and the same number throughout the
+
+107
+00:04:46,017 --> 00:04:49,078
+entire algorithm and we don't create any new
+
+108
+00:04:49,607 --> 00:04:52,411
+pseudo-permanent values throughout this
+
+109
+00:04:52,411 --> 00:04:52,891
+algorithm.
+
+110
+00:04:54,237 --> 00:04:56,945
+Now let's compare that to the recursive
+
+111
+00:04:56,977 --> 00:04:57,266
+version.
+
+112
+00:04:58,083 --> 00:05:00,470
+Maybe think about this on your own first. In
+
+113
+00:05:00,502 --> 00:05:03,130
+the next lecture, we'll derive its space
+
+114
+00:05:03,130 --> 00:05:04,428
+complexity together.

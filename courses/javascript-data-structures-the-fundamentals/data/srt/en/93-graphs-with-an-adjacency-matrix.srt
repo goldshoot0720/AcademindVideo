@@ -1,0 +1,923 @@
+1
+00:00:02,214 --> 00:00:04,991
+So now we know what graphs are, why we need
+
+2
+00:00:04,991 --> 00:00:08,056
+them. The question now is how we can write
+
+3
+00:00:08,056 --> 00:00:09,806
+code to represent a graph.
+
+4
+00:00:10,608 --> 00:00:12,839
+And the important thing here is that we'll
+
+5
+00:00:12,871 --> 00:00:15,535
+not be building a tree. We're not going to
+
+6
+00:00:15,664 --> 00:00:18,071
+write a tree as we learned it before. We're
+
+7
+00:00:18,071 --> 00:00:20,736
+not going to use that code because we have
+
+8
+00:00:20,800 --> 00:00:23,352
+no nested children. This concept of having
+
+9
+00:00:23,448 --> 00:00:26,403
+children does not exist in a graph. So using
+
+10
+00:00:26,435 --> 00:00:28,254
+a tree would be the wrong form of
+
+11
+00:00:28,287 --> 00:00:29,414
+representing a graph.
+
+12
+00:00:30,847 --> 00:00:33,117
+Our tree code is great whenever we need a
+
+13
+00:00:33,133 --> 00:00:35,340
+tree, and as you learned, there are many
+
+14
+00:00:35,340 --> 00:00:37,710
+cases where you need a tree, but if you need
+
+15
+00:00:37,710 --> 00:00:39,823
+a graph, you can't use that tree code.
+
+16
+00:00:41,629 --> 00:00:44,047
+Instead, we have 2 common approaches for
+
+17
+00:00:44,047 --> 00:00:45,848
+representing a graph in code.
+
+18
+00:00:46,480 --> 00:00:49,758
+We can build a so-called adjacency matrix or
+
+19
+00:00:50,131 --> 00:00:53,379
+an adjacency list. And with both approaches,
+
+20
+00:00:53,412 --> 00:00:56,583
+the general idea is that we want to
+
+21
+00:00:57,149 --> 00:01:01,240
+store and represent the different nodes and
+
+22
+00:01:01,240 --> 00:01:04,138
+the connections between nodes because that's
+
+23
+00:01:04,138 --> 00:01:06,698
+what makes up a graph in the end, nodes and
+
+24
+00:01:06,730 --> 00:01:07,906
+the edges between nodes.
+
+25
+00:01:09,535 --> 00:01:11,918
+Now let's see how an adjacency matrix would
+
+26
+00:01:11,950 --> 00:01:12,191
+work.
+
+27
+00:01:12,916 --> 00:01:15,411
+Let's say this is the graph which we wanna
+
+28
+00:01:15,476 --> 00:01:16,426
+represent in code.
+
+29
+00:01:17,021 --> 00:01:20,094
+We have 3 nodes with the values 1, 2, and 3.
+
+30
+00:01:20,437 --> 00:01:23,370
+Or with the identifiers 1, 2, and 3. You can
+
+31
+00:01:23,370 --> 00:01:25,525
+of course store whichever kind of data you
+
+32
+00:01:25,638 --> 00:01:27,226
+want in graph nodes.
+
+33
+00:01:27,796 --> 00:01:29,343
+And as you can see here, we got a couple of
+
+34
+00:01:29,359 --> 00:01:31,777
+connections. Please note that this is a
+
+35
+00:01:31,986 --> 00:01:34,710
+directed graph with unidirectional edges
+
+36
+00:01:34,807 --> 00:01:34,968
+here.
+
+37
+00:01:36,660 --> 00:01:38,834
+But you could use this matrix also if you
+
+38
+00:01:38,850 --> 00:01:41,397
+had an undirected graph. This does not make
+
+39
+00:01:41,397 --> 00:01:41,916
+a difference.
+
+40
+00:01:42,597 --> 00:01:44,122
+But how would the matrix look like?
+
+41
+00:01:46,098 --> 00:01:48,650
+Well, we would build a matrix with our graph
+
+42
+00:01:48,732 --> 00:01:50,238
+identifiers or values.
+
+43
+00:01:50,918 --> 00:01:53,954
+So we have 1, 2, 3 on both axes here.
+
+44
+00:01:54,677 --> 00:01:57,054
+And then we would look for connections
+
+45
+00:01:57,086 --> 00:02:00,009
+between nodes like this connection between 1
+
+46
+00:02:00,057 --> 00:02:00,523
+and 2.
+
+47
+00:02:01,101 --> 00:02:03,414
+And if we find such a connection, we would
+
+48
+00:02:03,414 --> 00:02:04,362
+store 1
+
+49
+00:02:05,021 --> 00:02:05,759
+or true
+
+50
+00:02:06,546 --> 00:02:10,305
+in the intersection of those 2 identifiers
+
+51
+00:02:10,562 --> 00:02:11,574
+in our matrix.
+
+52
+00:02:12,361 --> 00:02:14,642
+So for example, here we would represent that
+
+53
+00:02:14,754 --> 00:02:16,216
+1 points at 2,
+
+54
+00:02:16,746 --> 00:02:20,583
+by storing true or 1 here in this place in
+
+55
+00:02:20,679 --> 00:02:21,498
+our matrix.
+
+56
+00:02:22,364 --> 00:02:25,190
+Now important, by the way, we would store 0
+
+57
+00:02:25,848 --> 00:02:29,203
+for the intersection of 2 and 1 because it's
+
+58
+00:02:29,348 --> 00:02:32,446
+unidirectional here. 2 does not point at 1
+
+59
+00:02:32,815 --> 00:02:35,480
+and therefore we store 0 here. If it would
+
+60
+00:02:35,544 --> 00:02:38,578
+be bidirectional, so if 2 would also point
+
+61
+00:02:38,594 --> 00:02:41,130
+back at 1, we would store a 1 here, of
+
+62
+00:02:41,147 --> 00:02:43,201
+course, but that's not the case, so it's a
+
+63
+00:02:43,233 --> 00:02:43,635
+0.
+
+64
+00:02:45,346 --> 00:02:48,051
+We got no connection between 1 and 1. In
+
+65
+00:02:48,083 --> 00:02:50,948
+general, a node doesn't connect to itself,
+
+66
+00:02:51,238 --> 00:02:53,202
+so there we always have zeros.
+
+67
+00:02:54,184 --> 00:02:56,374
+And we can then move on to the next
+
+68
+00:02:56,374 --> 00:02:58,483
+connection we find, 1 to 3.
+
+69
+00:02:59,996 --> 00:03:02,733
+We do have this connection. There is an edge
+
+70
+00:03:02,733 --> 00:03:06,843
+between 1 and 3. 1 points at 3, so we would
+
+71
+00:03:06,843 --> 00:03:08,664
+store 1 or true
+
+72
+00:03:09,244 --> 00:03:10,759
+in this intersection as well.
+
+73
+00:03:11,904 --> 00:03:14,006
+Well, and now we can continue filling out
+
+74
+00:03:14,070 --> 00:03:14,873
+this matrix.
+
+75
+00:03:15,515 --> 00:03:19,238
+2 to 2 has no connection because again,
+
+76
+00:03:19,527 --> 00:03:21,822
+nodes don't connect to themselves.
+
+77
+00:03:22,576 --> 00:03:24,999
+2 to 3 has no connection.
+
+78
+00:03:25,529 --> 00:03:28,610
+3 points at 2, but 2 doesn't point at 3.
+
+79
+00:03:29,156 --> 00:03:32,574
+Therefore, we would have 0 or false here as
+
+80
+00:03:32,686 --> 00:03:32,798
+well.
+
+81
+00:03:33,793 --> 00:03:34,740
+3 and 1,
+
+82
+00:03:35,318 --> 00:03:37,966
+we have no connection because 1 points at 3,
+
+83
+00:03:37,982 --> 00:03:40,822
+but 3 doesn't point at 1. So it's a 0 or
+
+84
+00:03:40,951 --> 00:03:41,754
+false. False here.
+
+85
+00:03:42,717 --> 00:03:45,189
+But now we have a connection between 3 and
+
+86
+00:03:45,350 --> 00:03:46,987
+2. And therefore here
+
+87
+00:03:47,678 --> 00:03:49,026
+we would also store a 1
+
+88
+00:03:49,684 --> 00:03:51,916
+or true in our adjacency matrix.
+
+89
+00:03:52,590 --> 00:03:54,421
+And then between 3 and 3 we have no
+
+90
+00:03:54,421 --> 00:03:57,648
+connection, so that's 0. This is how we
+
+91
+00:03:57,712 --> 00:04:00,794
+could represent a graph in an adjacency
+
+92
+00:04:00,794 --> 00:04:01,436
+matrix.
+
+93
+00:04:02,046 --> 00:04:04,069
+So in the end we just store all the nodes
+
+94
+00:04:04,455 --> 00:04:06,606
+and then information about the connections
+
+95
+00:04:06,718 --> 00:04:08,931
+between nodes. And that's really the idea
+
+96
+00:04:08,947 --> 00:04:09,124
+here.
+
+97
+00:04:10,101 --> 00:04:13,146
+So now let's represent this matrix we just
+
+98
+00:04:13,146 --> 00:04:14,059
+saw on the slide.
+
+99
+00:04:14,828 --> 00:04:18,626
+So this matrix in JavaScript. And therefore
+
+100
+00:04:18,722 --> 00:04:20,629
+for the moment, I'll stick to those dummy
+
+101
+00:04:20,661 --> 00:04:22,343
+values of 1, 2, and 3.
+
+102
+00:04:23,144 --> 00:04:25,115
+But of course, I wanna highlight that you
+
+103
+00:04:25,131 --> 00:04:27,182
+can use different values as well.
+
+104
+00:04:28,047 --> 00:04:29,522
+So how could we represent this in
+
+105
+00:04:29,618 --> 00:04:30,195
+JavaScript?
+
+106
+00:04:30,820 --> 00:04:33,319
+Well, a matrix in JavaScript is just an
+
+107
+00:04:33,319 --> 00:04:36,330
+array full of arrays. So a 2-dimensional
+
+108
+00:04:36,460 --> 00:04:36,702
+array.
+
+109
+00:04:37,836 --> 00:04:39,697
+So therefore we can create a new array here,
+
+110
+00:04:40,264 --> 00:04:42,465
+and this array now would have 3
+
+111
+00:04:43,096 --> 00:04:46,332
+nested arrays. 3 because we have 3 nodes.
+
+112
+00:04:46,720 --> 00:04:49,211
+You have as many nested arrays as you have
+
+113
+00:04:49,243 --> 00:04:49,615
+nodes.
+
+114
+00:04:50,278 --> 00:04:52,630
+So here we have one nested array, a second
+
+115
+00:04:52,630 --> 00:04:55,078
+nested array, and a third nested array.
+
+116
+00:04:58,026 --> 00:05:00,518
+That would be our adjacency matrix.
+
+117
+00:05:02,101 --> 00:05:04,331
+So that's the array we're building. Now the
+
+118
+00:05:04,331 --> 00:05:07,844
+first nested array stands for the first node
+
+119
+00:05:07,844 --> 00:05:10,572
+value we have, so 1, let's say. The second
+
+120
+00:05:10,572 --> 00:05:13,074
+one stands for 2, the third one represents
+
+121
+00:05:13,074 --> 00:05:13,427
+3.
+
+122
+00:05:14,101 --> 00:05:16,829
+And now inside of those nested arrays, we
+
+123
+00:05:16,989 --> 00:05:20,984
+add again 3 values to show the connection
+
+124
+00:05:21,016 --> 00:05:23,695
+between the value represented by this array,
+
+125
+00:05:24,225 --> 00:05:24,417
+1,
+
+126
+00:05:25,251 --> 00:05:26,455
+and the other nodes.
+
+127
+00:05:27,130 --> 00:05:30,270
+So the first element we add to this first
+
+128
+00:05:30,270 --> 00:05:31,172
+nested array
+
+129
+00:05:31,928 --> 00:05:35,487
+is a representation of the connection from
+
+130
+00:05:35,487 --> 00:05:38,842
+the node with value 1 to the node with value
+
+131
+00:05:38,939 --> 00:05:39,068
+1.
+
+132
+00:05:39,746 --> 00:05:42,070
+Now, as I mentioned, nodes don't connect to
+
+133
+00:05:42,183 --> 00:05:44,459
+themselves, so you would enter false
+
+134
+00:05:45,234 --> 00:05:46,436
+or 0 here.
+
+135
+00:05:48,633 --> 00:05:51,157
+The second element in this first nested
+
+136
+00:05:51,157 --> 00:05:54,188
+array represents the connection from the
+
+137
+00:05:54,349 --> 00:05:57,947
+first node with value 1 to the second node
+
+138
+00:05:58,205 --> 00:05:59,060
+with value 2.
+
+139
+00:06:00,884 --> 00:06:03,030
+And if you recall, we did have such a
+
+140
+00:06:03,030 --> 00:06:05,044
+connection here, so we should insert
+
+141
+00:06:06,994 --> 00:06:07,590
+a 1 here.
+
+142
+00:06:08,605 --> 00:06:11,442
+The third value in that first nested array
+
+143
+00:06:11,748 --> 00:06:14,879
+represents the connection from value 1, so
+
+144
+00:06:14,911 --> 00:06:18,849
+from node 1 to node 3 with value 3. We did
+
+145
+00:06:18,849 --> 00:06:21,190
+have that connection as well, so this is a 1
+
+146
+00:06:21,636 --> 00:06:21,941
+as well.
+
+147
+00:06:23,241 --> 00:06:24,187
+And we continue like this.
+
+148
+00:06:24,781 --> 00:06:27,686
+The second nested array represents node 2
+
+149
+00:06:27,894 --> 00:06:30,526
+with a value of 2, and the first value is
+
+150
+00:06:30,542 --> 00:06:32,676
+the connection from node 2 to node 1.
+
+151
+00:06:33,350 --> 00:06:36,464
+Node 1 points at 2, but 2 doesn't point at
+
+152
+00:06:36,496 --> 00:06:37,683
+1, so that's a 0.
+
+153
+00:06:38,502 --> 00:06:41,871
+2 to 2 has no connection because nodes don't
+
+154
+00:06:41,871 --> 00:06:44,359
+connect to themselves, so that's a 0.
+
+155
+00:06:45,225 --> 00:06:47,809
+And node 2 also has no connection to 3 in
+
+156
+00:06:47,809 --> 00:06:49,975
+this example, So that's also a 0.
+
+157
+00:06:51,339 --> 00:06:52,895
+And now for the last node here,
+
+158
+00:06:53,825 --> 00:06:54,692
+that's node 3.
+
+159
+00:06:55,253 --> 00:06:57,146
+It has no connection to node 1.
+
+160
+00:06:57,740 --> 00:07:00,884
+I mean, node 1 points at node 3, but node 3
+
+161
+00:07:00,948 --> 00:07:03,740
+doesn't point at node 1 in this example, so
+
+162
+00:07:03,756 --> 00:07:04,478
+that's a 0.
+
+163
+00:07:05,520 --> 00:07:07,638
+It does have a connection to 2 though.
+
+164
+00:07:08,889 --> 00:07:11,216
+You can see that in our example, node 3
+
+165
+00:07:11,472 --> 00:07:12,980
+points at node 2,
+
+166
+00:07:13,959 --> 00:07:14,713
+and therefore,
+
+167
+00:07:16,030 --> 00:07:17,058
+Here we insert a 1.
+
+168
+00:07:17,733 --> 00:07:19,485
+And last but not least, it does not have a
+
+169
+00:07:19,485 --> 00:07:21,815
+connection with itself, so that's a 0.
+
+170
+00:07:23,020 --> 00:07:25,864
+And that would be our adjacency matrix for
+
+171
+00:07:25,912 --> 00:07:27,471
+this simple example.
+
+172
+00:07:28,001 --> 00:07:30,396
+Now if we now, for example, want to find out
+
+173
+00:07:30,572 --> 00:07:32,549
+if there is a connection between, let's say,
+
+174
+00:07:32,677 --> 00:07:34,284
+node 2 and node 3,
+
+175
+00:07:34,830 --> 00:07:37,434
+we would simply access our matrix for the
+
+176
+00:07:37,578 --> 00:07:39,137
+index of node 2,
+
+177
+00:07:39,844 --> 00:07:40,841
+so that's 1, 1,
+
+178
+00:07:41,501 --> 00:07:44,431
+indexes start at 0, so node 2 has an index
+
+179
+00:07:44,431 --> 00:07:44,753
+of 1.
+
+180
+00:07:45,542 --> 00:07:47,861
+And then on that, we would access the index
+
+181
+00:07:47,861 --> 00:07:50,830
+of node 3, which is 2, again because indexes
+
+182
+00:07:50,960 --> 00:07:51,675
+start at 0.
+
+183
+00:07:52,405 --> 00:07:55,052
+And we would get 0 as a result and we would
+
+184
+00:07:55,084 --> 00:07:57,390
+know that there is no connection between
+
+185
+00:07:57,520 --> 00:07:58,895
+node 2 and node 3.
+
+186
+00:08:01,392 --> 00:08:04,339
+If we want to know all connections node 1
+
+187
+00:08:04,516 --> 00:08:04,790
+has,
+
+188
+00:08:05,321 --> 00:08:07,713
+we would simply insert the index of node 1,
+
+189
+00:08:07,913 --> 00:08:09,799
+which is 0, it's this array,
+
+190
+00:08:10,628 --> 00:08:12,217
+And we would get back our list of
+
+191
+00:08:12,249 --> 00:08:14,208
+connections of node 1.
+
+192
+00:08:14,818 --> 00:08:16,906
+And now we would just need to filter that
+
+193
+00:08:16,906 --> 00:08:19,234
+list. So in the end here, we would have to
+
+194
+00:08:19,234 --> 00:08:23,649
+filter and check that the edge is greater
+
+195
+00:08:23,649 --> 00:08:24,211
+than 0
+
+196
+00:08:25,239 --> 00:08:27,310
+and we would get a list of all existing
+
+197
+00:08:27,342 --> 00:08:29,430
+connections. Though of course here we can't
+
+198
+00:08:29,430 --> 00:08:31,325
+see to which other nodes this is connected,
+
+199
+00:08:31,662 --> 00:08:33,492
+but we could see the total number of
+
+200
+00:08:33,508 --> 00:08:36,302
+connections this node has. To see to which
+
+201
+00:08:36,431 --> 00:08:38,825
+nodes it connects, we could use this array.
+
+202
+00:08:39,532 --> 00:08:41,444
+So that's how we can work with an adjacency
+
+203
+00:08:41,476 --> 00:08:42,118
+matrix.
+
+204
+00:08:42,761 --> 00:08:45,958
+Now if you wonder where the actual values of
+
+205
+00:08:45,958 --> 00:08:48,127
+the nodes are stored, well, there are
+
+206
+00:08:48,127 --> 00:08:48,882
+different approaches.
+
+207
+00:08:49,670 --> 00:08:51,035
+You could simply have a separate array,
+
+208
+00:08:51,662 --> 00:08:54,747
+nodes, where you just have 3 values because
+
+209
+00:08:54,747 --> 00:08:58,008
+we have 3 nodes and then every node value
+
+210
+00:08:58,008 --> 00:09:00,113
+could just be a number or if it's more
+
+211
+00:09:00,193 --> 00:09:02,523
+complex, you could have an object, maybe
+
+212
+00:09:02,587 --> 00:09:04,658
+with an ID and then the actual value.
+
+213
+00:09:05,253 --> 00:09:08,272
+So that's really up to you. The node values
+
+214
+00:09:08,384 --> 00:09:12,624
+can be stored separated from the adjacency
+
+215
+00:09:12,624 --> 00:09:13,218
+matrix
+
+216
+00:09:14,246 --> 00:09:16,623
+because the adjacency matrix is really just
+
+217
+00:09:16,639 --> 00:09:18,598
+used to represent the connections,
+
+218
+00:09:19,208 --> 00:09:21,858
+which is the key of a graph. And often when
+
+219
+00:09:21,858 --> 00:09:24,090
+you work with a graph, it's all about those
+
+220
+00:09:24,187 --> 00:09:24,684
+connections.
+
+221
+00:09:25,230 --> 00:09:28,185
+Getting the actual node values will rarely
+
+222
+00:09:28,282 --> 00:09:30,930
+be a challenge because again, you can't just
+
+223
+00:09:30,930 --> 00:09:33,322
+store those in a simple array totally
+
+224
+00:09:33,434 --> 00:09:36,002
+detached from the connections. You just need
+
+225
+00:09:36,002 --> 00:09:38,505
+to make sure that your identifier here
+
+226
+00:09:39,051 --> 00:09:41,731
+allows you to retrieve the connections for
+
+227
+00:09:41,779 --> 00:09:43,287
+that node in the matrix.
+
+228
+00:09:44,026 --> 00:09:46,240
+But that is how you could work with an
+
+229
+00:09:46,272 --> 00:09:49,049
+adjacency matrix. I did mention that this is
+
+230
+00:09:49,081 --> 00:09:51,648
+just one way of working with graphs though.
+
+231
+00:09:52,050 --> 00:09:54,216
+The alternative is the adjacency list.

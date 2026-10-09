@@ -1,0 +1,1087 @@
+1
+00:00:02,260 --> 00:00:05,466
+Now recursion looks nice. We often can write
+
+2
+00:00:05,466 --> 00:00:08,159
+less code to solve a problem, but I can tell
+
+3
+00:00:08,271 --> 00:00:11,654
+you recursion is not always better. It's not
+
+4
+00:00:11,718 --> 00:00:12,904
+always the best solution.
+
+5
+00:00:13,497 --> 00:00:15,565
+And for that, let's have a look at a
+
+6
+00:00:15,565 --> 00:00:18,082
+recursive implementation of the Fibonacci
+
+7
+00:00:18,146 --> 00:00:20,519
+sequence, which we already had a look at in
+
+8
+00:00:20,551 --> 00:00:22,651
+the math algorithm course module.
+
+9
+00:00:23,436 --> 00:00:25,793
+There we used a plain loop to build up an
+
+10
+00:00:25,841 --> 00:00:27,861
+array of numbers where we then return the
+
+11
+00:00:28,069 --> 00:00:30,362
+nth element, and that gave us linear time
+
+12
+00:00:30,410 --> 00:00:32,721
+complexity. The bigger the number is we feed
+
+13
+00:00:32,721 --> 00:00:34,985
+in, the longer it takes, but the time it
+
+14
+00:00:34,985 --> 00:00:37,876
+takes grows in a linear way. That is how we
+
+15
+00:00:37,876 --> 00:00:40,125
+solved the Fibonacci problem before.
+
+16
+00:00:40,687 --> 00:00:42,196
+This, by the way, is also called the
+
+17
+00:00:42,293 --> 00:00:45,408
+bottom-up approach because we're building up
+
+18
+00:00:45,424 --> 00:00:47,062
+our solution from the bottom. We're building
+
+19
+00:00:47,095 --> 00:00:49,359
+up that array from the bottom up to the
+
+20
+00:00:49,359 --> 00:00:51,222
+point we need it, and then we return our
+
+21
+00:00:51,222 --> 00:00:51,623
+value.
+
+22
+00:00:52,876 --> 00:00:55,526
+Now, that was a totally fine approach, but
+
+23
+00:00:55,526 --> 00:00:57,389
+let's now see how we could do this with
+
+24
+00:00:57,389 --> 00:00:59,955
+recursion. The recursive function for the
+
+25
+00:01:00,035 --> 00:01:03,241
+Fibonacci algorithm could look like this. We
+
+26
+00:01:03,257 --> 00:01:03,850
+get our n,
+
+27
+00:01:04,379 --> 00:01:06,095
+or our number, whatever you want to name it,
+
+28
+00:01:06,832 --> 00:01:08,483
+and we first of all check if
+
+29
+00:01:09,397 --> 00:01:09,525
+n—
+
+30
+00:01:10,278 --> 00:01:12,138
+simply less to type, so I'll stick to that—
+
+31
+00:01:12,523 --> 00:01:13,629
+if n is
+
+32
+00:01:14,206 --> 00:01:15,087
+equal to 0
+
+33
+00:01:16,210 --> 00:01:16,338
+or
+
+34
+00:01:17,171 --> 00:01:18,662
+if n is equal to 1.
+
+35
+00:01:19,688 --> 00:01:21,532
+So if we're trying to get the first or the
+
+36
+00:01:21,532 --> 00:01:23,006
+second element in that
+
+37
+00:01:23,664 --> 00:01:25,828
+Fibonacci sequence, and since I start at
+
+38
+00:01:25,844 --> 00:01:28,809
+index 0, the first element is n, second
+
+39
+00:01:28,809 --> 00:01:29,338
+element is n.
+
+40
+00:01:30,092 --> 00:01:31,570
+If you wanna get one of those first 2
+
+41
+00:01:31,683 --> 00:01:33,932
+elements, we return 1 because you learned
+
+42
+00:01:33,932 --> 00:01:35,635
+the Fibonacci sequence is an array that
+
+43
+00:01:35,635 --> 00:01:38,575
+starts with 1, 1, and then we start adding
+
+44
+00:01:38,848 --> 00:01:41,596
+more and more values here. That is how it
+
+45
+00:01:41,644 --> 00:01:43,444
+works, right? That's how the Fibonacci
+
+46
+00:01:43,444 --> 00:01:46,432
+sequence works. So that is kind of our base
+
+47
+00:01:46,561 --> 00:01:48,971
+case here. And now we can add a recursive
+
+48
+00:01:48,971 --> 00:01:49,453
+step.
+
+49
+00:01:50,256 --> 00:01:52,296
+For that, we call our function again from
+
+50
+00:01:52,409 --> 00:01:53,260
+inside the function
+
+51
+00:01:53,855 --> 00:01:54,867
+with n minus 1,
+
+52
+00:01:55,558 --> 00:01:56,249
+and we add
+
+53
+00:01:57,034 --> 00:01:59,672
+another function call with n minus 2 to
+
+54
+00:01:59,688 --> 00:02:01,458
+that. Because in the end, that's how we
+
+55
+00:02:01,458 --> 00:02:03,484
+derived this sequence here, right?
+
+56
+00:02:04,031 --> 00:02:06,834
+We have a new number that is simply the
+
+57
+00:02:06,834 --> 00:02:08,675
+number 2 places in front of it,
+
+58
+00:02:09,418 --> 00:02:12,114
+n minus 2, plus the number 1 place in front
+
+59
+00:02:12,114 --> 00:02:13,390
+of it, n minus 1.
+
+60
+00:02:14,020 --> 00:02:15,357
+So if we feed in, let's say,
+
+61
+00:02:17,721 --> 00:02:20,311
+3 here, we want to get the 4th element
+
+62
+00:02:20,311 --> 00:02:23,104
+because our index starts at 0. So we wanna
+
+63
+00:02:23,104 --> 00:02:24,282
+get 0, 1,
+
+64
+00:02:24,879 --> 00:02:25,073
+2,
+
+65
+00:02:25,750 --> 00:02:28,203
+3, this element, the 3 here indeed.
+
+66
+00:02:28,751 --> 00:02:31,591
+Well, therefore we would simply not make it
+
+67
+00:02:31,591 --> 00:02:34,266
+in here because we have n 3, not 0 or 1.
+
+68
+00:02:34,798 --> 00:02:36,700
+And then we would execute our function for n
+
+69
+00:02:36,716 --> 00:02:39,326
+minus 1, so for 3 minus 1, which is 2,
+
+70
+00:02:39,962 --> 00:02:43,006
+plus same function execution for n minus 2,
+
+71
+00:02:43,489 --> 00:02:44,584
+which is fib of 1.
+
+72
+00:02:46,178 --> 00:02:49,143
+So these 2 functions will then be kicked off
+
+73
+00:02:49,143 --> 00:02:52,242
+and will do their thing, which of course for
+
+74
+00:02:52,258 --> 00:02:54,728
+most numbers will involve that they also
+
+75
+00:02:55,049 --> 00:02:56,540
+trigger new function calls.
+
+76
+00:02:57,358 --> 00:02:59,363
+But eventually, once all those function
+
+77
+00:02:59,363 --> 00:03:03,196
+calls resolve and the result bubbles up, so
+
+78
+00:03:03,228 --> 00:03:05,570
+to say, and comes back to this main initial
+
+79
+00:03:05,634 --> 00:03:06,243
+function call,
+
+80
+00:03:07,141 --> 00:03:09,563
+each of these 2 functions here will return a
+
+81
+00:03:09,563 --> 00:03:09,996
+value
+
+82
+00:03:10,670 --> 00:03:12,755
+and then those values will be added together
+
+83
+00:03:12,851 --> 00:03:14,968
+and this main function call,
+
+84
+00:03:15,577 --> 00:03:18,175
+in quotes, there is no such thing as a main
+
+85
+00:03:18,288 --> 00:03:20,405
+function call, but this function call that
+
+86
+00:03:20,405 --> 00:03:23,406
+started everything will return that overall
+
+87
+00:03:23,663 --> 00:03:24,449
+value eventually.
+
+88
+00:03:25,204 --> 00:03:27,099
+That's the idea how we can leverage
+
+89
+00:03:27,211 --> 00:03:29,828
+recursion to solve this Fibonacci problem.
+
+90
+00:03:30,888 --> 00:03:32,157
+If we try this,
+
+91
+00:03:32,751 --> 00:03:35,689
+and if you try this, use a small number, you
+
+92
+00:03:35,721 --> 00:03:38,451
+will soon see why. So if I try this for 4
+
+93
+00:03:38,451 --> 00:03:39,141
+and 5
+
+94
+00:03:40,040 --> 00:03:43,220
+and I then reload, I get 5 and 8, which are
+
+95
+00:03:43,348 --> 00:03:45,724
+the expected numbers in my sequence. 4 is
+
+96
+00:03:45,901 --> 00:03:47,442
+index 4, so 0,
+
+97
+00:03:48,148 --> 00:03:48,292
+1,
+
+98
+00:03:49,110 --> 00:03:49,302
+2,
+
+99
+00:03:50,088 --> 00:03:50,393
+3,
+
+100
+00:03:50,954 --> 00:03:54,964
+4, that was 5 as expected. 5 is index 5, so
+
+101
+00:03:55,364 --> 00:03:57,513
+the next number in line, that was 8 and that
+
+102
+00:03:57,610 --> 00:03:59,694
+were our results. So this works, what's
+
+103
+00:03:59,694 --> 00:04:00,240
+wrong with it?
+
+104
+00:04:01,058 --> 00:04:03,207
+Well, what's wrong with this approach is
+
+105
+00:04:03,303 --> 00:04:05,468
+that when we call it, we in the end build up
+
+106
+00:04:05,468 --> 00:04:08,659
+such a tree of nested recursive function
+
+107
+00:04:08,691 --> 00:04:09,285
+calls here.
+
+108
+00:04:09,974 --> 00:04:12,027
+In the end, we have a couple of nested
+
+109
+00:04:12,123 --> 00:04:13,840
+function calls. For 4,
+
+110
+00:04:14,546 --> 00:04:17,758
+we call fib and fib inside of that function.
+
+111
+00:04:17,999 --> 00:04:20,744
+And inside of those functions, we call fib,
+
+112
+00:04:20,809 --> 00:04:21,178
+fib,
+
+113
+00:04:21,756 --> 00:04:22,976
+or fib, fib,
+
+114
+00:04:23,763 --> 00:04:26,878
+and maybe even more nested function calls.
+
+115
+00:04:27,617 --> 00:04:30,571
+And this, of course, doesn't look too good.
+
+116
+00:04:30,683 --> 00:04:33,381
+We add more and more function calls
+
+117
+00:04:33,959 --> 00:04:36,544
+for relatively small numbers already.
+
+118
+00:04:37,652 --> 00:04:40,284
+In addition, you can see we have kind of
+
+119
+00:04:40,396 --> 00:04:43,653
+repeated function calls. Fib will always
+
+120
+00:04:43,749 --> 00:04:46,092
+produce the same result. Nonetheless, we're
+
+121
+00:04:46,092 --> 00:04:48,498
+calling it multiple times here simply
+
+122
+00:04:48,498 --> 00:04:51,113
+because it's in different branches of this
+
+123
+00:04:51,466 --> 00:04:52,589
+recursive tree here.
+
+124
+00:04:53,809 --> 00:04:56,167
+Now for this example here, we have 9
+
+125
+00:04:56,504 --> 00:05:00,162
+function executions. We call fib, fib, fib.
+
+126
+00:05:00,852 --> 00:05:03,258
+You can simply add it up. It's 9 boxes which
+
+127
+00:05:03,258 --> 00:05:04,317
+I have in this tree here.
+
+128
+00:05:05,359 --> 00:05:07,762
+So we have 9 function executions for the
+
+129
+00:05:07,762 --> 00:05:08,739
+number 4.
+
+130
+00:05:09,973 --> 00:05:14,155
+Now this gets worse for fib. This tree would
+
+131
+00:05:14,155 --> 00:05:17,487
+look like that here. A lot of nested
+
+132
+00:05:17,503 --> 00:05:20,868
+function calls, 15 executions, even though
+
+133
+00:05:20,884 --> 00:05:24,088
+we just increased fib to fib. So we just
+
+134
+00:05:24,088 --> 00:05:25,402
+increased the number by 1.
+
+135
+00:05:26,075 --> 00:05:26,844
+Nonetheless,
+
+136
+00:05:27,437 --> 00:05:29,183
+we went from 9 executions
+
+137
+00:05:29,920 --> 00:05:32,788
+all the way up to 15 executions. So we added
+
+138
+00:05:32,836 --> 00:05:36,718
+6 extra executions for a number increase of
+
+139
+00:05:36,830 --> 00:05:39,557
+1, so from 4 to 5. So the number was only
+
+140
+00:05:39,557 --> 00:05:41,707
+increased by 1, but we added 6 extra
+
+141
+00:05:41,707 --> 00:05:42,332
+executions,
+
+142
+00:05:42,910 --> 00:05:45,621
+and we got more repetition here, a lot of
+
+143
+00:05:45,653 --> 00:05:48,220
+repeated blocks of code in that tree.
+
+144
+00:05:49,102 --> 00:05:52,006
+And that gets even worse if we go from 5 to
+
+145
+00:05:52,006 --> 00:05:54,781
+6. So again, we only increase the number by
+
+146
+00:05:54,877 --> 00:05:57,220
+1. Nonetheless, the tree now looks like
+
+147
+00:05:57,284 --> 00:06:00,107
+that, and I don't even mark the repeated
+
+148
+00:06:00,252 --> 00:06:02,273
+blocks. You will see a lot of repeated
+
+149
+00:06:02,337 --> 00:06:04,423
+branches, a lot of repeated function calls
+
+150
+00:06:04,423 --> 00:06:07,086
+in there. And here we have 25 code
+
+151
+00:06:07,150 --> 00:06:07,840
+executions.
+
+152
+00:06:08,834 --> 00:06:12,139
+So we go from 9 executions for fib for the
+
+153
+00:06:12,139 --> 00:06:12,716
+number 4
+
+154
+00:06:13,647 --> 00:06:16,454
+to 15 executions if we just increase that
+
+155
+00:06:16,454 --> 00:06:17,706
+number by 1 to 5,
+
+156
+00:06:18,283 --> 00:06:21,331
+to even 25 executions if we increase it
+
+157
+00:06:21,331 --> 00:06:25,486
+again by 1 from 5 to 6. So we add more and
+
+158
+00:06:25,502 --> 00:06:28,343
+more executions for every increase in the
+
+159
+00:06:28,343 --> 00:06:31,312
+number we feed in, and that's a problem.
+
+160
+00:06:31,954 --> 00:06:34,699
+So what would be our time complexity of this
+
+161
+00:06:34,891 --> 00:06:38,712
+recursive function? It's probably not O,
+
+162
+00:06:39,161 --> 00:06:41,906
+which was the time complexity for the
+
+163
+00:06:42,837 --> 00:06:46,448
+loop-based solution. There we had O, but
+
+164
+00:06:46,448 --> 00:06:47,781
+what's the time complexity here?
+
+165
+00:06:48,872 --> 00:06:50,895
+Well, we can of course count.
+
+166
+00:06:51,745 --> 00:06:53,591
+As mentioned multiple times, we got 9
+
+167
+00:06:53,591 --> 00:06:54,602
+executions for 4,
+
+168
+00:06:55,679 --> 00:06:57,045
+Got 15 for 5,
+
+169
+00:06:57,944 --> 00:06:59,712
+got 25 for 6.
+
+170
+00:07:00,451 --> 00:07:03,729
+So if we increase the number we feed to the
+
+171
+00:07:03,729 --> 00:07:04,966
+function by just 1,
+
+172
+00:07:05,722 --> 00:07:07,473
+we have an exponential increase in
+
+173
+00:07:07,570 --> 00:07:10,349
+executions. It doesn't grow in a linear way.
+
+174
+00:07:10,703 --> 00:07:13,917
+It's not like the number goes from 5 to 6
+
+175
+00:07:13,933 --> 00:07:16,793
+and we have 1 extra new execution. No, in
+
+176
+00:07:16,905 --> 00:07:17,355
+this case,
+
+177
+00:07:17,934 --> 00:07:22,013
+from 5 to 6, we go from 15 to 25. So we have
+
+178
+00:07:22,062 --> 00:07:23,618
+10 extra executions,
+
+179
+00:07:24,372 --> 00:07:26,346
+and that was a bigger increase than we had
+
+180
+00:07:26,362 --> 00:07:26,812
+from 4
+
+181
+00:07:27,822 --> 00:07:28,914
+with 9 executions
+
+182
+00:07:29,732 --> 00:07:33,599
+to 5 with 15 executions. So the number of
+
+183
+00:07:33,599 --> 00:07:35,685
+executions we add seems to grow
+
+184
+00:07:36,231 --> 00:07:38,991
+the bigger our n gets, and it grows in an
+
+185
+00:07:39,280 --> 00:07:40,596
+exponential way.
+
+186
+00:07:41,543 --> 00:07:46,132
+Now I'm not talking about O, about quadratic
+
+187
+00:07:46,132 --> 00:07:49,051
+time, because if we had a quadratic time
+
+188
+00:07:49,083 --> 00:07:50,494
+complexity, that would mean
+
+189
+00:07:51,247 --> 00:07:53,924
+that if our n is, let's say,
+
+190
+00:07:54,533 --> 00:07:55,175
+6,
+
+191
+00:07:55,976 --> 00:07:59,294
+we would simply have 6 times 6, 36
+
+192
+00:07:59,903 --> 00:08:02,340
+operations if we had quadratic time.
+
+193
+00:08:03,173 --> 00:08:05,097
+And if we then go to 7, we would have 7
+
+194
+00:08:05,113 --> 00:08:08,014
+times 7, so we would only add 13 new
+
+195
+00:08:08,222 --> 00:08:08,992
+operations here.
+
+196
+00:08:09,986 --> 00:08:12,775
+Now the problem is that this doesn't seem to
+
+197
+00:08:12,807 --> 00:08:15,067
+be the kind of growth we have in our
+
+198
+00:08:15,436 --> 00:08:17,952
+function here because if I check this for
+
+199
+00:08:18,497 --> 00:08:21,287
+different n's, for different numbers, you
+
+200
+00:08:21,287 --> 00:08:24,509
+see the growth is moderate. Of course, we go
+
+201
+00:08:24,509 --> 00:08:27,073
+from 16 to 25 to 36
+
+202
+00:08:27,618 --> 00:08:30,888
+to 49, but the jump isn't as large.
+
+203
+00:08:31,706 --> 00:08:33,966
+Now I can tell you, it just doesn't fit on a
+
+204
+00:08:33,966 --> 00:08:34,463
+slide.
+
+205
+00:08:35,505 --> 00:08:37,990
+If we would go from fib to fib,
+
+206
+00:08:38,695 --> 00:08:41,083
+we would not just add 10 or 12 new
+
+207
+00:08:41,164 --> 00:08:41,837
+executions,
+
+208
+00:08:42,366 --> 00:08:44,710
+No, we would pretty much double the amount
+
+209
+00:08:44,710 --> 00:08:47,488
+of executions here. So quadratic time is too
+
+210
+00:08:47,697 --> 00:08:50,459
+slow. We're not growing with quadratic time
+
+211
+00:08:50,507 --> 00:08:53,333
+here. I can tell you that our algorithm here
+
+212
+00:08:53,686 --> 00:08:57,154
+actually has exponential time complexity, O
+
+213
+00:08:57,459 --> 00:09:00,446
+of Q at the power of N. So not quadratic
+
+214
+00:09:00,446 --> 00:09:03,256
+time, that would be N at the power of 2, but
+
+215
+00:09:03,336 --> 00:09:05,905
+Q at the power of N. Because the bigger the
+
+216
+00:09:05,905 --> 00:09:07,109
+number is you feed in here,
+
+217
+00:09:08,137 --> 00:09:09,567
+the longer it will take.
+
+218
+00:09:10,241 --> 00:09:12,731
+Now, how do I derive this though?
+
+219
+00:09:13,373 --> 00:09:15,798
+Well, for one, you could simply test it for
+
+220
+00:09:16,328 --> 00:09:18,882
+bigger numbers and see how many operations
+
+221
+00:09:18,978 --> 00:09:19,524
+you're getting.
+
+222
+00:09:20,103 --> 00:09:21,323
+But you can also have a look at the
+
+223
+00:09:21,387 --> 00:09:24,021
+function, and what you see is that for every
+
+224
+00:09:24,054 --> 00:09:27,121
+function execution, we start 2 new
+
+225
+00:09:27,651 --> 00:09:30,221
+function executions, right? We have this
+
+226
+00:09:30,221 --> 00:09:33,016
+return statement where we have 2 recursive
+
+227
+00:09:33,112 --> 00:09:33,947
+calls in the end.
+
+228
+00:09:34,492 --> 00:09:37,345
+So since we start 2 new function executions
+
+229
+00:09:37,441 --> 00:09:39,107
+for every execution,
+
+230
+00:09:39,684 --> 00:09:42,312
+that's exactly this exponential growth.
+
+231
+00:09:42,985 --> 00:09:45,677
+We introduce 2 new function calls for every
+
+232
+00:09:45,709 --> 00:09:46,382
+function call,
+
+233
+00:09:46,911 --> 00:09:49,651
+so every function call then again spins up 2
+
+234
+00:09:49,732 --> 00:09:52,247
+new function calls, and that quickly
+
+235
+00:09:52,424 --> 00:09:54,891
+explodes and gives us a lot of ongoing
+
+236
+00:09:54,924 --> 00:09:57,279
+function calls. And that's what we call
+
+237
+00:09:57,552 --> 00:09:59,939
+exponential growth. When the growth
+
+238
+00:10:00,212 --> 00:10:02,861
+basically accelerates itself, you could say.
+
+239
+00:10:03,118 --> 00:10:04,740
+And that's exactly what we have here.
+
+240
+00:10:05,671 --> 00:10:08,529
+And you will relatively soon find a number
+
+241
+00:10:08,802 --> 00:10:11,130
+where this actually crashes your browser.
+
+242
+00:10:11,837 --> 00:10:13,908
+If I try this for 35—
+
+243
+00:10:14,502 --> 00:10:16,349
+and depending on your machine, you might not
+
+244
+00:10:16,349 --> 00:10:17,248
+want to try this—
+
+245
+00:10:17,954 --> 00:10:20,090
+you will already see that this at least is
+
+246
+00:10:20,122 --> 00:10:22,113
+not there instantly. It takes a bit longer
+
+247
+00:10:22,113 --> 00:10:25,212
+than a 5. If I try it for 37 here
+
+248
+00:10:26,384 --> 00:10:28,405
+You already see now we have a significant
+
+249
+00:10:28,469 --> 00:10:30,812
+gap here, a significant pause before this
+
+250
+00:10:30,812 --> 00:10:33,362
+appears. So this takes longer and longer for
+
+251
+00:10:33,362 --> 00:10:36,010
+very small increases here. And this, I can
+
+252
+00:10:36,026 --> 00:10:38,256
+tell you, is not quadratic time. For
+
+253
+00:10:38,256 --> 00:10:40,502
+quadratic time, you would have no problem
+
+254
+00:10:40,502 --> 00:10:41,705
+with such a small number.
+
+255
+00:10:42,267 --> 00:10:45,074
+This indeed is exponential time complexity,
+
+256
+00:10:45,379 --> 00:10:47,529
+because we do not just add one function call
+
+257
+00:10:47,641 --> 00:10:50,160
+with every increase in n, but we add whole
+
+258
+00:10:50,272 --> 00:10:53,227
+new branches this recursive tree, and every
+
+259
+00:10:53,339 --> 00:10:55,572
+branch consists of other branches, and
+
+260
+00:10:55,572 --> 00:10:58,850
+therefore this quickly grows to a number
+
+261
+00:10:59,203 --> 00:11:01,276
+that your computer won't be able to handle.
+
+262
+00:11:01,999 --> 00:11:03,814
+And therefore, this of course is a horrible
+
+263
+00:11:03,862 --> 00:11:04,376
+solution
+
+264
+00:11:04,971 --> 00:11:07,911
+for a problem we already solved with linear
+
+265
+00:11:08,023 --> 00:11:11,076
+time complexity. This is an example for a
+
+266
+00:11:11,076 --> 00:11:13,469
+recursive function that's not better than
+
+267
+00:11:13,502 --> 00:11:17,293
+the loop-based solution. This takes far
+
+268
+00:11:17,582 --> 00:11:21,075
+longer. It's far slower. It's not a good
+
+269
+00:11:21,075 --> 00:11:23,330
+solution for this problem. It might look
+
+270
+00:11:23,459 --> 00:11:25,745
+elegant, but it is a horrible solution like
+
+271
+00:11:25,810 --> 00:11:27,871
+that. Now there is a way of improving this
+
+272
+00:11:28,065 --> 00:11:28,226
+though.

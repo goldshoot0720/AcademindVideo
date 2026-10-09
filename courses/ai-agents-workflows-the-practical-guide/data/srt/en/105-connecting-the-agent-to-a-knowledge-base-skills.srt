@@ -1,0 +1,367 @@
+1
+00:00:00,512 --> 00:00:03,446
+Now we also have support for a sandbox. EVE
+
+2
+00:00:03,574 --> 00:00:05,482
+supports that out of the box, and you can
+
+3
+00:00:05,482 --> 00:00:08,608
+even configure those sandboxes. You can, for
+
+4
+00:00:08,608 --> 00:00:10,708
+example, control the network policy to
+
+5
+00:00:10,756 --> 00:00:13,465
+control which network requests can be made
+
+6
+00:00:13,577 --> 00:00:17,168
+by the agent in its sandbox to, for example,
+
+7
+00:00:17,328 --> 00:00:20,534
+block all network requests so that the agent
+
+8
+00:00:20,534 --> 00:00:22,538
+can't reach out to the World Wide Web
+
+9
+00:00:22,698 --> 00:00:24,125
+because this customer agent here, for
+
+10
+00:00:24,141 --> 00:00:26,289
+example, doesn't need to. There is no reason
+
+11
+00:00:26,321 --> 00:00:28,164
+for it to do web search or anything like
+
+12
+00:00:28,164 --> 00:00:29,816
+that. And that can of course help with
+
+13
+00:00:29,848 --> 00:00:31,980
+combating problems like data
+
+14
+00:00:50,223 --> 00:00:52,827
+Xvolve VPS, for example, you would get
+
+15
+00:00:52,827 --> 00:00:55,459
+Docker as a default. And again, you don't
+
+16
+00:00:55,459 --> 00:00:57,198
+need to do anything there. It'll spin up a
+
+17
+00:00:57,198 --> 00:00:59,539
+Docker container and run those tool
+
+18
+00:00:59,539 --> 00:01:01,067
+executions in that container automatically
+
+19
+00:01:01,132 --> 00:01:03,765
+for you. That is that convenience you get
+
+20
+00:01:04,216 --> 00:01:06,782
+from using a framework. Less control, but
+
+21
+00:01:06,782 --> 00:01:09,444
+also less work for you to do. Now for that
+
+22
+00:01:09,444 --> 00:01:11,689
+sandbox, you can also set up a workspace and
+
+23
+00:01:11,689 --> 00:01:14,142
+for example, pre-populate that with some
+
+24
+00:01:14,238 --> 00:01:17,253
+files the agent should have at its disposal.
+
+25
+00:01:17,686 --> 00:01:19,931
+Here are some made-up knowledge base
+
+26
+00:01:19,931 --> 00:01:22,304
+documents, for example, which the agent can
+
+27
+00:01:22,416 --> 00:01:24,501
+analyze to help with customer support
+
+28
+00:01:24,501 --> 00:01:27,355
+queries. You could actually also turn some
+
+29
+00:01:27,387 --> 00:01:30,498
+of them into skills because Eve does support
+
+30
+00:01:30,546 --> 00:01:31,059
+skills.
+
+31
+00:01:31,590 --> 00:01:34,134
+So you could add a skills folder to the
+
+32
+00:01:34,214 --> 00:01:36,066
+agent folder and set up some skills there,
+
+33
+00:01:36,146 --> 00:01:38,465
+which the agent can then activate just as
+
+34
+00:01:38,561 --> 00:01:40,783
+you learned it. But here for this agent, I
+
+35
+00:01:40,880 --> 00:01:43,858
+did decide to not use skills and instead
+
+36
+00:01:43,971 --> 00:01:46,031
+just set up such a general knowledge base
+
+37
+00:01:46,128 --> 00:01:46,257
+here.
+
+38
+00:01:47,416 --> 00:01:49,332
+But there is no wrong or right solution.
+
+39
+00:01:49,509 --> 00:01:51,059
+When you're building this, you can simply
+
+40
+00:01:51,124 --> 00:01:53,258
+try out different approaches and go with
+
+41
+00:01:53,323 --> 00:01:54,349
+whatever you prefer.
+
+42
+00:01:55,812 --> 00:01:57,818
+One other interesting feature about Eve,
+
+43
+00:01:57,834 --> 00:01:59,937
+which we'll also see in action soon, is the
+
+44
+00:01:59,937 --> 00:02:00,779
+concept of channels, which basically
+
+45
+00:02:00,779 --> 00:02:01,297
+controls how that agent
+
+46
+00:02:03,312 --> 00:02:06,845
+can be invoked or used. Because since, as I
+
+47
+00:02:06,845 --> 00:02:08,338
+mentioned, you'll often be building
+
+48
+00:02:08,434 --> 00:02:09,815
+task-specific agents,
+
+49
+00:02:10,441 --> 00:02:13,524
+you may not primarily be running this on the
+
+50
+00:02:13,524 --> 00:02:16,366
+machine of you or some employee, but instead
+
+51
+00:02:16,463 --> 00:02:18,004
+maybe on some shared VPS.
+
+52
+00:02:18,566 --> 00:02:20,236
+So you can set up different channels like,
+
+53
+00:02:20,252 --> 00:02:22,693
+for example, the Slack channel so that you
+
+54
+00:02:22,741 --> 00:02:25,213
+can invoke this agent from inside Slack. And
+
+55
+00:02:25,246 --> 00:02:27,542
+I'll go through the setup required for that
+
+56
+00:02:27,542 --> 00:02:28,377
+in just a second.
+
+57
+00:02:29,162 --> 00:02:31,327
+The Eve channel is the default, which sets
+
+58
+00:02:31,327 --> 00:02:34,260
+up a little web server that can run locally
+
+59
+00:02:34,292 --> 00:02:36,616
+on your system so that you can play around
+
+60
+00:02:36,616 --> 00:02:38,700
+with it locally, or that could also be
+
+61
+00:02:38,700 --> 00:02:41,105
+deployed and you could put it behind your
+
+62
+00:02:41,105 --> 00:02:43,253
+website and wire up your own chat.
+
+63
+00:02:43,814 --> 00:02:45,305
+The sky is the limit here.
+
+64
+00:02:45,834 --> 00:02:48,078
+It's really up to your imagination and your
+
+65
+00:02:48,078 --> 00:02:50,354
+requirements. There also are many other
+
+66
+00:02:50,483 --> 00:02:52,214
+built-in channels you could use, and you can
+
+67
+00:02:52,310 --> 00:02:54,731
+also build your custom channels if you have
+
+68
+00:02:54,731 --> 00:02:56,269
+your own channel that should be able to
+
+69
+00:02:56,318 --> 00:02:58,738
+connect to this agent. But again, I won't
+
+70
+00:02:58,738 --> 00:03:00,839
+turn this into a complete Eve course. This
+
+71
+00:03:00,839 --> 00:03:02,749
+is just something to be aware of. You also
+
+72
+00:03:02,749 --> 00:03:05,239
+see there are more features. You can, for
+
+73
+00:03:05,239 --> 00:03:08,097
+example, also register subagents. You can
+
+74
+00:03:08,193 --> 00:03:08,996
+run your EVE
+
+75
+00:03:09,719 --> 00:03:13,027
+agent on a schedule as an extra trigger, so
+
+76
+00:03:13,027 --> 00:03:15,741
+to say, so that it runs every day at 9:00
+
+77
+00:03:15,773 --> 00:03:15,837
+AM.
+
+78
+00:03:16,399 --> 00:03:18,936
+You can set up evals, which is basically
+
+79
+00:03:19,033 --> 00:03:22,212
+testing for your agent where you let an AI
+
+80
+00:03:22,565 --> 00:03:25,408
+use your agent and evaluate the results to
+
+81
+00:03:25,408 --> 00:03:27,014
+see if the agent does what it
+
+82
+00:03:27,544 --> 00:03:27,945
+should do.
+
+83
+00:03:28,506 --> 00:03:29,099
+And more.
+
+84
+00:03:29,869 --> 00:03:32,642
+But this agent already is a good example for
+
+85
+00:03:32,850 --> 00:03:35,784
+a demo basic customer support agent you may
+
+86
+00:03:35,880 --> 00:03:38,605
+want for your business, obviously then wired
+
+87
+00:03:38,605 --> 00:03:41,009
+up to a proper database and with a proper
+
+88
+00:03:41,009 --> 00:03:41,698
+knowledge base.
+
+89
+00:03:42,307 --> 00:03:44,471
+But in general, it does have everything it
+
+90
+00:03:44,471 --> 00:03:47,741
+needs for performing basic customer support
+
+91
+00:03:47,741 --> 00:03:48,206
+tasks.
+
+92
+00:03:48,799 --> 00:03:50,963
+So how can we now use it?

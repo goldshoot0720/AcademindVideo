@@ -1,0 +1,1827 @@
+[
+ {
+  "start": 2.196,
+  "end": 4.488,
+  "en": "So now that we had a look at permutations"
+ },
+ {
+  "start": 4.664,
+  "end": 7.085,
+  "en": "without repetition, let's now have a look at"
+ },
+ {
+  "start": 7.085,
+  "end": 10.788,
+  "en": "permutations with repetition. How does this"
+ },
+ {
+  "start": 10.996,
+  "end": 11.493,
+  "en": "look like?"
+ },
+ {
+  "start": 12.519,
+  "end": 15.004,
+  "en": "Now for that, I'll come back to that safe,"
+ },
+ {
+  "start": 15.02,
+  "end": 17.441,
+  "en": "to that password example where we"
+ },
+ {
+  "start": 17.97,
+  "end": 19.3,
+  "en": "have, let's say, our"
+ },
+ {
+  "start": 19.974,
+  "end": 20.551,
+  "en": "digits."
+ },
+ {
+  "start": 21.272,
+  "end": 23.661,
+  "en": "Let's say 1, 2, and 3 are the digits that"
+ },
+ {
+  "start": 23.757,
+  "end": 24.719,
+  "en": "are available to us,"
+ },
+ {
+  "start": 25.344,
+  "end": 27.652,
+  "en": "and we have a certain result length that is"
+ },
+ {
+  "start": 27.748,
+  "end": 30.634,
+  "en": "required. Let's say we want a code that"
+ },
+ {
+  "start": 30.634,
+  "end": 32.174,
+  "en": "consists of 3 digits."
+ },
+ {
+  "start": 32.961,
+  "end": 34.952,
+  "en": "And we then want a function"
+ },
+ {
+  "start": 35.53,
+  "end": 38.484,
+  "en": "that generates us all possible combinations"
+ },
+ {
+  "start": 38.902,
+  "end": 40.893,
+  "en": "where— and that's the difference— every"
+ },
+ {
+  "start": 41.471,
+  "end": 44.281,
+  "en": "element of digits can be used more than"
+ },
+ {
+  "start": 44.442,
+  "end": 47.011,
+  "en": "once. That's also why we have to define a"
+ },
+ {
+  "start": 47.011,
+  "end": 47.878,
+  "en": "result length,"
+ },
+ {
+  "start": 48.456,
+  "end": 50.929,
+  "en": "because otherwise it would not be clear, um,"
+ },
+ {
+  "start": 51.427,
+  "end": 53.418,
+  "en": "which length the result array should have."
+ },
+ {
+  "start": 53.53,
+  "end": 55.907,
+  "en": "Because previously, of course, if every item"
+ },
+ {
+  "start": 56.003,
+  "end": 57.994,
+  "en": "could only be used once, there is a finite"
+ },
+ {
+  "start": 58.026,
+  "end": 60.947,
+  "en": "amount of combinations. If you can reuse"
+ },
+ {
+  "start": 61.14,
+  "end": 63.53,
+  "en": "items, there is no finite amount of"
+ },
+ {
+  "start": 63.948,
+  "end": 66.129,
+  "en": "combinations. You need to instead set a"
+ },
+ {
+  "start": 66.21,
+  "end": 67.91,
+  "en": "length that shouldn't be exceeded."
+ },
+ {
+  "start": 68.295,
+  "end": 70.894,
+  "en": "Otherwise, you can, well, generate a"
+ },
+ {
+  "start": 70.942,
+  "end": 73.798,
+  "en": "combination of this length of just ones,"
+ },
+ {
+  "start": 74.296,
+  "end": 74.472,
+  "en": "right?"
+ },
+ {
+  "start": 75.194,
+  "end": 76.895,
+  "en": "So that's why we now need this extra input."
+ },
+ {
+  "start": 77.199,
+  "end": 79.397,
+  "en": "And then we can get our functions get"
+ },
+ {
+  "start": 80.232,
+  "end": 83.344,
+  "en": "permutations, which now takes 2 inputs, our"
+ },
+ {
+  "start": 83.521,
+  "end": 85.109,
+  "en": "options but also our length."
+ },
+ {
+  "start": 85.784,
+  "end": 88.152,
+  "en": "And that's important. We get the length from"
+ },
+ {
+  "start": 88.345,
+  "end": 90.97,
+  "en": "external now, so as an input, because as I"
+ },
+ {
+  "start": 91.099,
+  "end": 93.821,
+  "en": "just explained, we can't derive it from the"
+ },
+ {
+  "start": 93.821,
+  "end": 94.963,
+  "en": "length of the input array."
+ },
+ {
+  "start": 96.49,
+  "end": 98.418,
+  "en": "So the goal is again that I can call get"
+ },
+ {
+  "start": 98.418,
+  "end": 101.422,
+  "en": "permutations and pass both my digits as well"
+ },
+ {
+  "start": 101.551,
+  "end": 104.479,
+  "en": "as my result length to this call. And now in"
+ },
+ {
+  "start": 104.593,
+  "end": 107.337,
+  "en": "here, we should in the end generate all"
+ },
+ {
+  "start": 107.597,
+  "end": 109.286,
+  "en": "those possible combinations."
+ },
+ {
+  "start": 110.203,
+  "end": 112.531,
+  "en": "Now the general approach is the same as"
+ },
+ {
+  "start": 112.563,
+  "end": 116.714,
+  "en": "before. We will split this up into small"
+ },
+ {
+  "start": 114.84,
+  "end": 118.447,
+  "en": "smaller problems to basically just derive"
+ },
+ {
+  "start": 118.783,
+  "end": 121.492,
+  "en": "combinations of length 1, and then combine"
+ },
+ {
+  "start": 121.525,
+  "end": 124.811,
+  "en": "those 1-element combinations with 1 extra"
+ },
+ {
+  "start": 124.811,
+  "end": 127.504,
+  "en": "digit to derive all possible 2-element"
+ },
+ {
+  "start": 127.536,
+  "end": 129.829,
+  "en": "combinations. And then we'll again combine"
+ },
+ {
+  "start": 129.925,
+  "end": 132.153,
+  "en": "all those possible 2-element combinations"
+ },
+ {
+  "start": 132.249,
+  "end": 134.382,
+  "en": "with the last element, so that we again"
+ },
+ {
+  "start": 134.51,
+  "end": 136.225,
+  "en": "don't have to combine everything with"
+ },
+ {
+  "start": 136.337,
+  "end": 138.293,
+  "en": "everything right from the start, but we"
+ },
+ {
+  "start": 138.293,
+  "end": 141.051,
+  "en": "start instead with simple arrays,"
+ },
+ {
+  "start": 141.628,
+  "end": 144.353,
+  "en": "and we then gradually add more and more"
+ },
+ {
+  "start": 144.353,
+  "end": 146.758,
+  "en": "combinations to those already combined"
+ },
+ {
+  "start": 146.758,
+  "end": 147.062,
+  "en": "arrays."
+ },
+ {
+  "start": 147.896,
+  "end": 150.573,
+  "en": "So therefore, here in that function, at some"
+ },
+ {
+  "start": 150.701,
+  "end": 153.555,
+  "en": "point we will again call ourselves"
+ },
+ {
+  "start": 154.132,
+  "end": 157.001,
+  "en": "and store that in our partial permutation."
+ },
+ {
+  "start": 157.098,
+  "end": 158.572,
+  "en": "So same logic as before,"
+ },
+ {
+  "start": 159.198,
+  "end": 162.051,
+  "en": "but now we don't call ourselves by slicing"
+ },
+ {
+  "start": 162.308,
+  "end": 162.853,
+  "en": "options."
+ },
+ {
+  "start": 163.446,
+  "end": 165.658,
+  "en": "Instead, options will now always be the same"
+ },
+ {
+  "start": 165.706,
+  "end": 168.882,
+  "en": "array, but we'll reduce length by 1 here. So"
+ },
+ {
+  "start": 168.931,
+  "end": 171.157,
+  "en": "our input length, which initially in this"
+ },
+ {
+  "start": 171.271,
+  "end": 174.001,
+  "en": "case here is 3, will only be 2"
+ },
+ {
+  "start": 174.534,
+  "end": 177.376,
+  "en": "for the first time we call getPermutations"
+ },
+ {
+  "start": 177.376,
+  "end": 178.555,
+  "en": "in that main function call."
+ },
+ {
+  "start": 180.098,
+  "end": 182.511,
+  "en": "And then we also need some exit condition to"
+ },
+ {
+  "start": 182.609,
+  "end": 185.395,
+  "en": "avoid an infinite loop where I check if"
+ },
+ {
+  "start": 185.687,
+  "end": 188.019,
+  "en": "length is maybe equal to 1."
+ },
+ {
+  "start": 188.603,
+  "end": 190.322,
+  "en": "And at some point it will be 1 because we"
+ },
+ {
+  "start": 190.322,
+  "end": 192.141,
+  "en": "continuously decrease length here."
+ },
+ {
+  "start": 193.411,
+  "end": 196.303,
+  "en": "So we will reach length 1 at some point of"
+ },
+ {
+  "start": 196.303,
+  "end": 196.576,
+  "en": "time."
+ },
+ {
+  "start": 197.492,
+  "end": 199.372,
+  "en": "And if we have a length of 1,"
+ },
+ {
+  "start": 199.982,
+  "end": 202.296,
+  "en": "I again want to return an array with all the"
+ },
+ {
+  "start": 202.296,
+  "end": 205.204,
+  "en": "combinations of length 1 we can come up"
+ },
+ {
+  "start": 205.204,
+  "end": 205.364,
+  "en": "with."
+ },
+ {
+  "start": 206.007,
+  "end": 208.593,
+  "en": "Because just as before, the overall goal of"
+ },
+ {
+  "start": 208.658,
+  "end": 211.646,
+  "en": "get permutations will be to derive an array"
+ },
+ {
+  "start": 212.176,
+  "end": 214.65,
+  "en": "full of all those permutation arrays we can"
+ },
+ {
+  "start": 214.666,
+  "end": 217.574,
+  "en": "get. So an array full of arrays, that's what"
+ },
+ {
+  "start": 217.574,
+  "end": 220.528,
+  "en": "we will in the end still return here inside"
+ },
+ {
+  "start": 220.528,
+  "end": 222.068,
+  "en": "of this function. So"
+ },
+ {
+  "start": 222.613,
+  "end": 224.81,
+  "en": "at the end here, we'll return permutations."
+ },
+ {
+  "start": 225.5,
+  "end": 227.729,
+  "en": "And since we return an array full of arrays"
+ },
+ {
+  "start": 227.825,
+  "end": 230.343,
+  "en": "here, we also need to return an array full"
+ },
+ {
+  "start": 230.343,
+  "end": 232.396,
+  "en": "of arrays here in this exit condition so"
+ },
+ {
+  "start": 232.396,
+  "end": 234.256,
+  "en": "that we return the same kind of data,"
+ },
+ {
+  "start": 234.737,
+  "end": 237.207,
+  "en": "because getPermutations is a function that"
+ },
+ {
+  "start": 237.287,
+  "end": 239.163,
+  "en": "always should return an array full of"
+ },
+ {
+  "start": 239.163,
+  "end": 239.436,
+  "en": "arrays."
+ },
+ {
+  "start": 240.013,
+  "end": 242.274,
+  "en": "Now we could return options, but that's not"
+ },
+ {
+  "start": 242.274,
+  "end": 244.199,
+  "en": "an array full of arrays, that's an array"
+ },
+ {
+  "start": 244.343,
+  "end": 246.478,
+  "en": "full of numbers. And it's always the same"
+ },
+ {
+  "start": 246.526,
+  "end": 248.711,
+  "en": "array of numbers because we never slice it"
+ },
+ {
+  "start": 248.711,
+  "end": 250.606,
+  "en": "or anything like that. So that's a major"
+ },
+ {
+  "start": 250.606,
+  "end": 252.485,
+  "en": "difference to the other permutations"
+ },
+ {
+  "start": 252.614,
+  "end": 253.481,
+  "en": "algorithm we had."
+ },
+ {
+  "start": 254.236,
+  "end": 256.308,
+  "en": "But what we want to return here is in the"
+ },
+ {
+  "start": 256.389,
+  "end": 259.665,
+  "en": "end all possible combinations where every"
+ },
+ {
+  "start": 260.083,
+  "end": 262.236,
+  "en": "permutation only has a length of 1."
+ },
+ {
+  "start": 262.99,
+  "end": 264.806,
+  "en": "Now of course that in the end means the"
+ },
+ {
+  "start": 264.822,
+  "end": 266.155,
+  "en": "array I wanna return here"
+ },
+ {
+  "start": 267.07,
+  "end": 268.355,
+  "en": "for this input example"
+ },
+ {
+  "start": 268.918,
+  "end": 269.833,
+  "en": "should be an array"
+ },
+ {
+  "start": 270.363,
+  "end": 272.002,
+  "en": "full of arrays where we have an array with"
+ },
+ {
+  "start": 272.05,
+  "end": 274.811,
+  "en": "1, an array with 2, an array with 3"
+ },
+ {
+  "start": 275.34,
+  "end": 278.26,
+  "en": "as a child, so as a nested array. So that's"
+ },
+ {
+  "start": 278.26,
+  "end": 280.216,
+  "en": "our main array, and the individual arrays"
+ },
+ {
+  "start": 280.329,
+  "end": 282.703,
+  "en": "are just, well, arrays that contain those"
+ },
+ {
+  "start": 282.975,
+  "end": 285.189,
+  "en": "individual elements wrapped into arrays"
+ },
+ {
+  "start": 285.301,
+  "end": 288.028,
+  "en": "though. That's the goal here for a length of"
+ },
+ {
+  "start": 288.092,
+  "end": 290.787,
+  "en": "1, because for those options, these are the"
+ },
+ {
+  "start": 290.835,
+  "end": 293.209,
+  "en": "3 different combinations we can come up with"
+ },
+ {
+  "start": 293.626,
+  "end": 296.738,
+  "en": "if we have a length of 1 per combination."
+ },
+ {
+  "start": 297.572,
+  "end": 299.032,
+  "en": "Now of course I don't want to hardcode it"
+ },
+ {
+  "start": 299.032,
+  "end": 300.909,
+  "en": "like this though, because I don't know which"
+ },
+ {
+  "start": 301.342,
+  "end": 303.592,
+  "en": "digits or which options I'll get. So"
+ },
+ {
+  "start": 303.592,
+  "end": 306.083,
+  "en": "instead, we can use options and use the map"
+ },
+ {
+  "start": 306.163,
+  "end": 310.228,
+  "en": "method on that to map every option into an"
+ },
+ {
+  "start": 310.47,
+  "end": 313.207,
+  "en": "array. So to simply wrap every option into"
+ },
+ {
+  "start": 313.239,
+  "end": 316.154,
+  "en": "an array and map overall then returns an"
+ },
+ {
+  "start": 316.154,
+  "end": 318.392,
+  "en": "array and therefore that's an array full of"
+ },
+ {
+  "start": 318.392,
+  "end": 321.136,
+  "en": "arrays which overall is returned in the case"
+ },
+ {
+  "start": 321.136,
+  "end": 323.677,
+  "en": "of length 1. That's the logic here."
+ },
+ {
+  "start": 325.49,
+  "end": 327.939,
+  "en": "So partial permutations will always be an"
+ },
+ {
+  "start": 327.972,
+  "end": 328.168,
+  "en": "array"
+ },
+ {
+  "start": 328.691,
+  "end": 331.291,
+  "en": "full of arrays And those arrays in the array"
+ },
+ {
+  "start": 331.452,
+  "end": 334.045,
+  "en": "will be the possible combinations for those"
+ },
+ {
+  "start": 334.109,
+  "end": 335.607,
+  "en": "given options and the given length."
+ },
+ {
+  "start": 337.91,
+  "end": 339.584,
+  "en": "Now, of course, we don't just want to have"
+ },
+ {
+  "start": 339.633,
+  "end": 341.839,
+  "en": "an array with single elements wrapped into"
+ },
+ {
+  "start": 341.871,
+  "end": 343.756,
+  "en": "an array. Instead, that will be our,"
+ },
+ {
+  "start": 344.287,
+  "end": 347.122,
+  "en": "well, most deeply nested recursive function"
+ },
+ {
+  "start": 347.122,
+  "end": 350.312,
+  "en": "call. So in the most deeply nested recursive"
+ },
+ {
+  "start": 350.328,
+  "end": 352.149,
+  "en": "function call, we will get back an array"
+ },
+ {
+  "start": 352.842,
+  "end": 353.294,
+  "en": "that"
+ },
+ {
+  "start": 354.293,
+  "end": 355.404,
+  "en": "looks like this."
+ },
+ {
+  "start": 356.057,
+  "end": 356.748,
+  "en": "This here,"
+ },
+ {
+  "start": 357.743,
+  "end": 359.943,
+  "en": "what I just basically outlined."
+ },
+ {
+  "start": 360.665,
+  "end": 362.72,
+  "en": "So an array with 3 elements where every"
+ },
+ {
+  "start": 362.72,
+  "end": 364.92,
+  "en": "element is an array with just 1 element per"
+ },
+ {
+  "start": 365.081,
+  "end": 365.707,
+  "en": "nested array."
+ },
+ {
+  "start": 366.429,
+  "end": 368.806,
+  "en": "And now we need to combine those single"
+ },
+ {
+  "start": 369.159,
+  "end": 372.579,
+  "en": "digit, those length of 1 arrays,"
+ },
+ {
+  "start": 373.414,
+  "end": 373.783,
+  "en": "with"
+ },
+ {
+  "start": 375.003,
+  "end": 376.512,
+  "en": "all our options again."
+ },
+ {
+  "start": 377.444,
+  "end": 379.852,
+  "en": "So therefore, now here we can again add a"
+ },
+ {
+  "start": 379.9,
+  "end": 382.694,
+  "en": "for loop. And now since repetition is"
+ },
+ {
+  "start": 382.79,
+  "end": 385.474,
+  "en": "allowed and wanted we can simply use a"
+ },
+ {
+  "start": 385.522,
+  "end": 387.42,
+  "en": "regular for loop where we go through all"
+ },
+ {
+  "start": 387.613,
+  "end": 390.573,
+  "en": "options. So for option of options,"
+ },
+ {
+  "start": 391.329,
+  "end": 393.291,
+  "en": "we go through all the options we have here,"
+ },
+ {
+  "start": 396.159,
+  "end": 398.075,
+  "en": "and we go through all the existing"
+ },
+ {
+  "start": 398.107,
+  "end": 399.959,
+  "en": "permutations which we derived from the"
+ },
+ {
+  "start": 399.959,
+  "end": 400.41,
+  "en": "nested,"
+ },
+ {
+  "start": 401.07,
+  "end": 403.663,
+  "en": "uh, function call. So another nested loop"
+ },
+ {
+  "start": 403.663,
+  "end": 404.387,
+  "en": "which is needed here,"
+ },
+ {
+  "start": 405.015,
+  "end": 410.241,
+  "en": "and that's our existing permutation of"
+ },
+ {
+  "start": 410.686,
+  "end": 412.135,
+  "en": "partial permutations."
+ },
+ {
+  "start": 415.07,
+  "end": 417.319,
+  "en": "And we'll now simply take our main"
+ },
+ {
+  "start": 417.496,
+  "end": 419.746,
+  "en": "permutations, so the overall array which"
+ },
+ {
+  "start": 419.746,
+  "end": 420.372,
+  "en": "we're working on,"
+ },
+ {
+  "start": 421.272,
+  "end": 423.522,
+  "en": "and we push a new item onto it. And that"
+ },
+ {
+  "start": 423.522,
+  "end": 424.711,
+  "en": "should be an array, as you learned."
+ },
+ {
+  "start": 425.37,
+  "end": 426.785,
+  "en": "And that new item"
+ },
+ {
+  "start": 427.46,
+  "end": 429.533,
+  "en": "which we want to push here in the end"
+ },
+ {
+  "start": 430.192,
+  "end": 432.025,
+  "en": "should be our existing"
+ },
+ {
+  "start": 432.604,
+  "end": 433.217,
+  "en": "option here,"
+ },
+ {
+  "start": 434.483,
+  "end": 436.708,
+  "en": "which is not an array though but a single"
+ },
+ {
+  "start": 436.903,
+  "end": 437.78,
+  "en": "item because"
+ },
+ {
+  "start": 439.067,
+  "end": 441.71,
+  "en": "options is the options we receive here. That"
+ },
+ {
+  "start": 441.71,
+  "end": 443.793,
+  "en": "will always be an array of individual"
+ },
+ {
+  "start": 443.793,
+  "end": 445.716,
+  "en": "elements. So option is just such an"
+ },
+ {
+  "start": 445.732,
+  "end": 446.71,
+  "en": "individual element,"
+ },
+ {
+  "start": 447.479,
+  "end": 449.994,
+  "en": "and I rather want to push an array instead"
+ },
+ {
+  "start": 449.994,
+  "end": 452.093,
+  "en": "of a single element. So I'll wrap option"
+ },
+ {
+  "start": 452.222,
+  "end": 454.128,
+  "en": "into square brackets so that we have an"
+ },
+ {
+  "start": 454.128,
+  "end": 454.321,
+  "en": "array,"
+ },
+ {
+  "start": 455.09,
+  "end": 456.259,
+  "en": "and we concat"
+ },
+ {
+  "start": 457.012,
+  "end": 459.24,
+  "en": "our existing permutation"
+ },
+ {
+  "start": 460.057,
+  "end": 461.307,
+  "en": "to that option."
+ },
+ {
+  "start": 461.98,
+  "end": 463.566,
+  "en": "And this in the end will combine every"
+ },
+ {
+  "start": 463.662,
+  "end": 465.793,
+  "en": "option with every existing permutation"
+ },
+ {
+  "start": 466.338,
+  "end": 468.069,
+  "en": "And we do this here for all possible"
+ },
+ {
+  "start": 468.149,
+  "end": 470.328,
+  "en": "combinations, and then we return this in the"
+ },
+ {
+  "start": 470.328,
+  "end": 470.504,
+  "en": "end."
+ },
+ {
+  "start": 471.193,
+  "end": 473.052,
+  "en": "And this will therefore gradually build up"
+ },
+ {
+  "start": 473.196,
+  "end": 474.302,
+  "en": "all permutations."
+ },
+ {
+  "start": 475.135,
+  "end": 478.709,
+  "en": "So if we save this and reload, we see 27"
+ },
+ {
+  "start": 478.805,
+  "end": 481.465,
+  "en": "results here in this case. And if I expand"
+ },
+ {
+  "start": 481.465,
+  "end": 484.365,
+  "en": "this, we see 1, 1, 1, 1, 1, 2, 1, 1, 3,"
+ },
+ {
+  "start": 484.99,
+  "end": 488.916,
+  "en": "1, 2, 1, and so on. And this looks pretty"
+ },
+ {
+  "start": 488.996,
+  "end": 491.4,
+  "en": "good to me. We got a bunch of nice"
+ },
+ {
+  "start": 491.4,
+  "end": 492.233,
+  "en": "combinations here."
+ },
+ {
+  "start": 492.842,
+  "end": 494.893,
+  "en": "And you see there are a lot of combinations"
+ },
+ {
+  "start": 494.909,
+  "end": 496.255,
+  "en": "for just 3 digits."
+ },
+ {
+  "start": 496.912,
+  "end": 499.557,
+  "en": "That's by the way why longer passwords are"
+ },
+ {
+  "start": 499.557,
+  "end": 500.182,
+  "en": "more secure."
+ },
+ {
+  "start": 500.775,
+  "end": 502.425,
+  "en": "Because if you have short passwords,"
+ },
+ {
+  "start": 502.617,
+  "end": 503.307,
+  "en": "computers,"
+ },
+ {
+  "start": 503.9,
+  "end": 506.832,
+  "en": "like our script here, can relatively easy"
+ },
+ {
+  "start": 506.864,
+  "end": 509.877,
+  "en": "combine all possible combinations and simply"
+ },
+ {
+  "start": 509.893,
+  "end": 512.361,
+  "en": "try all those combinations in the password"
+ },
+ {
+  "start": 512.393,
+  "end": 513.867,
+  "en": "field of some website, let's say."
+ },
+ {
+  "start": 514.492,
+  "end": 515.967,
+  "en": "Now the longer a password is,"
+ },
+ {
+  "start": 516.72,
+  "end": 519.188,
+  "en": "the longer it takes to generate all possible"
+ },
+ {
+  "start": 519.268,
+  "end": 521.207,
+  "en": "combinations, and you'll quickly reach a"
+ },
+ {
+  "start": 521.207,
+  "end": 523.579,
+  "en": "point where no modern computer is"
+ },
+ {
+  "start": 524.236,
+  "end": 526.95,
+  "en": "realistically able to do that. So therefore,"
+ },
+ {
+  "start": 527.047,
+  "end": 529.552,
+  "en": "longer passwords are safer because, as you"
+ },
+ {
+  "start": 529.552,
+  "end": 529.873,
+  "en": "see,"
+ },
+ {
+  "start": 530.596,
+  "end": 533.037,
+  "en": "combinations grow quickly. We already have a"
+ },
+ {
+  "start": 533.037,
+  "end": 535.189,
+  "en": "lot of combinations for just 3 digits."
+ },
+ {
+  "start": 535.799,
+  "end": 538.127,
+  "en": "And indeed, if I add a 4th digit here, so"
+ },
+ {
+  "start": 538.127,
+  "end": 540.536,
+  "en": "just one extra number, you see instead of"
+ },
+ {
+  "start": 540.552,
+  "end": 543.603,
+  "en": "27, we now have 64 combinations. So this"
+ },
+ {
+  "start": 543.668,
+  "end": 545.836,
+  "en": "really grows extremely fast."
+ },
+ {
+  "start": 546.735,
+  "end": 548.903,
+  "en": "Now, as before, you can dump in some"
+ },
+ {
+  "start": 548.983,
+  "end": 551.504,
+  "en": "console.log statements to understand how"
+ },
+ {
+  "start": 551.696,
+  "end": 554.581,
+  "en": "this works. Since the logic is very close to"
+ },
+ {
+  "start": 554.581,
+  "end": 557.225,
+  "en": "the logic we had before with the adjustments"
+ },
+ {
+  "start": 557.225,
+  "end": 559.661,
+  "en": "made which I explained, I'll not do it here,"
+ },
+ {
+  "start": 559.869,
+  "end": 561.632,
+  "en": "but definitely feel free to do that if"
+ },
+ {
+  "start": 561.632,
+  "end": 564.276,
+  "en": "you're not sure how this algorithm works"
+ },
+ {
+  "start": 564.276,
+  "end": 564.901,
+  "en": "exactly."
+ },
+ {
+  "start": 566.119,
+  "end": 568.138,
+  "en": "Instead of doing that, I right away want to"
+ },
+ {
+  "start": 568.218,
+  "end": 570.75,
+  "en": "focus on the time complexity instead."
+ },
+ {
+  "start": 571.327,
+  "end": 573.843,
+  "en": "What is the time complexity of this"
+ },
+ {
+  "start": 574.051,
+  "end": 576.679,
+  "en": "algorithm where we do have repetition?"
+ },
+ {
+  "start": 577.28,
+  "end": 578.23,
+  "en": "Do you have an idea?"
+ },
+ {
+  "start": 580.1,
+  "end": 581.988,
+  "en": "Well, before we had factorial time"
+ },
+ {
+  "start": 581.988,
+  "end": 584.894,
+  "en": "complexity and that was without repetition."
+ },
+ {
+  "start": 585.314,
+  "end": 588.43,
+  "en": "Now with repetition, we got more possible"
+ },
+ {
+  "start": 588.446,
+  "end": 589.607,
+  "en": "combinations than before,"
+ },
+ {
+  "start": 590.235,
+  "end": 593.246,
+  "en": "so we probably are not doing better than"
+ },
+ {
+  "start": 593.342,
+  "end": 595.049,
+  "en": "factorial time complexity."
+ },
+ {
+  "start": 595.838,
+  "end": 597.061,
+  "en": "And indeed we don't."
+ },
+ {
+  "start": 597.786,
+  "end": 597.979,
+  "en": "If I"
+ },
+ {
+  "start": 598.655,
+  "end": 599.739,
+  "en": "add my time complexity here,"
+ },
+ {
+  "start": 600.516,
+  "end": 603.898,
+  "en": "it actually depends on 2 input factors."
+ },
+ {
+  "start": 604.803,
+  "end": 607.033,
+  "en": "Because we're feeding in an array of"
+ },
+ {
+  "start": 607.033,
+  "end": 610.802,
+  "en": "elements and also a certain length that we"
+ },
+ {
+  "start": 610.802,
+  "end": 613.465,
+  "en": "want to have for the combinations that are"
+ },
+ {
+  "start": 613.465,
+  "end": 616.288,
+  "en": "generated. And both impacts how often our"
+ },
+ {
+  "start": 616.352,
+  "end": 619.336,
+  "en": "code executes. If we pass in a longer array,"
+ },
+ {
+  "start": 619.801,
+  "end": 621.887,
+  "en": "we have more digits we have to go through."
+ },
+ {
+  "start": 622.512,
+  "end": 624.822,
+  "en": "If we want a longer combination, we have"
+ },
+ {
+  "start": 624.838,
+  "end": 626.859,
+  "en": "more combinations that we need to generate."
+ },
+ {
+  "start": 627.26,
+  "end": 630.068,
+  "en": "So both these factors have a very important"
+ },
+ {
+  "start": 630.068,
+  "end": 632.152,
+  "en": "and a very strong impact on on the time"
+ },
+ {
+  "start": 632.152,
+  "end": 634.636,
+  "en": "complexity and on the number of execution"
+ },
+ {
+  "start": 634.636,
+  "end": 635.565,
+  "en": "steps we have here?"
+ },
+ {
+  "start": 636.479,
+  "end": 638.369,
+  "en": "Well, in the end we can just count again."
+ },
+ {
+  "start": 638.962,
+  "end": 641.686,
+  "en": "We can count our combinations because just"
+ },
+ {
+  "start": 641.686,
+  "end": 643.609,
+  "en": "as before, every combination needs to be"
+ },
+ {
+  "start": 643.609,
+  "end": 645.58,
+  "en": "produced and therefore the number of"
+ },
+ {
+  "start": 645.596,
+  "end": 647.006,
+  "en": "combinations tells us"
+ },
+ {
+  "start": 647.839,
+  "end": 649.105,
+  "en": "which time complexity we have."
+ },
+ {
+  "start": 650.018,
+  "end": 652.902,
+  "en": "And we saw that from 3 to 4 digits we had a"
+ },
+ {
+  "start": 652.902,
+  "end": 655.306,
+  "en": "pretty steep increase. The same would be"
+ },
+ {
+  "start": 655.306,
+  "end": 657.693,
+  "en": "true if I increase the length we want to"
+ },
+ {
+  "start": 657.693,
+  "end": 661.22,
+  "en": "generate by just 1. From 3 to 4. If I do"
+ },
+ {
+  "start": 661.3,
+  "end": 664.363,
+  "en": "that, you see we have 256"
+ },
+ {
+  "start": 665.069,
+  "end": 665.614,
+  "en": "elements here."
+ },
+ {
+  "start": 666.144,
+  "end": 667.763,
+  "en": "So that is what I meant with the password."
+ },
+ {
+  "start": 667.827,
+  "end": 669.944,
+  "en": "If you just want the password that is one"
+ },
+ {
+  "start": 670.057,
+  "end": 671.997,
+  "en": "element longer, you got way more"
+ },
+ {
+  "start": 672.061,
+  "end": 673.713,
+  "en": "combinations that can be generated."
+ },
+ {
+  "start": 674.563,
+  "end": 675.638,
+  "en": "So both"
+ },
+ {
+  "start": 676.375,
+  "end": 677.995,
+  "en": "inputs have a strong impact,"
+ },
+ {
+  "start": 678.701,
+  "end": 680.994,
+  "en": "and indeed the time complexity here"
+ },
+ {
+  "start": 681.122,
+  "end": 681.812,
+  "en": "therefore is"
+ },
+ {
+  "start": 682.951,
+  "end": 684.923,
+  "en": "n at the power of r"
+ },
+ {
+  "start": 685.453,
+  "end": 685.645,
+  "en": "where"
+ },
+ {
+  "start": 686.961,
+  "end": 687.009,
+  "en": "n"
+ },
+ {
+  "start": 687.843,
+  "end": 689.48,
+  "en": "is the number of"
+ },
+ {
+  "start": 690.17,
+  "end": 691.646,
+  "en": "options and r"
+ },
+ {
+  "start": 692.416,
+  "end": 692.881,
+  "en": "is"
+ },
+ {
+  "start": 693.635,
+  "end": 694.967,
+  "en": "the number of"
+ },
+ {
+  "start": 695.961,
+  "end": 699.331,
+  "en": "slots, so is the length, so to say."
+ },
+ {
+  "start": 699.988,
+  "end": 703.165,
+  "en": "So here we had 4 at the power of 4 if we"
+ },
+ {
+  "start": 703.245,
+  "end": 706.213,
+  "en": "would want to fill out those blanks. So n at"
+ },
+ {
+  "start": 706.213,
+  "end": 709.037,
+  "en": "the power of r, number of options at the"
+ },
+ {
+  "start": 709.037,
+  "end": 711.581,
+  "en": "power of the wanted length, That's our time"
+ },
+ {
+  "start": 711.613,
+  "end": 714.528,
+  "en": "complexity and this grows super fast as you"
+ },
+ {
+  "start": 714.528,
+  "end": 717.685,
+  "en": "can tell. If I just bump this up to 6, you"
+ },
+ {
+  "start": 717.685,
+  "end": 720.716,
+  "en": "see we already jump from 256 to"
+ },
+ {
+  "start": 721.471,
+  "end": 725.777,
+  "en": "4,096 and that's a huge increase and you can"
+ },
+ {
+  "start": 725.793,
+  "end": 728.653,
+  "en": "quickly reach areas where your script will"
+ },
+ {
+  "start": 728.75,
+  "end": 729.494,
+  "en": "just freeze."
+ },
+ {
+  "start": 731.29,
+  "end": 733.407,
+  "en": "Now, of course, it's nice that I tell you"
+ },
+ {
+  "start": 733.521,
+  "end": 736.406,
+  "en": "that this is the time complexity here But"
+ },
+ {
+  "start": 736.406,
+  "end": 738.88,
+  "en": "how can you derive this on your own? Because"
+ },
+ {
+  "start": 738.912,
+  "end": 740.855,
+  "en": "that's something I didn't do here with you."
+ },
+ {
+  "start": 741.803,
+  "end": 742.686,
+  "en": "Well, let's have a look."
+ },
+ {
+  "start": 743.313,
+  "end": 746.525,
+  "en": "N at the power of R. We know, for example,"
+ },
+ {
+  "start": 746.541,
+  "end": 749.24,
+  "en": "that we typically have quadratic time, so N"
+ },
+ {
+  "start": 749.336,
+  "end": 752.356,
+  "en": "at the power of 2, if we have a nested for"
+ },
+ {
+  "start": 752.468,
+  "end": 755.102,
+  "en": "loop and we go through all the elements of"
+ },
+ {
+  "start": 755.279,
+  "end": 755.729,
+  "en": "one array"
+ },
+ {
+  "start": 756.564,
+  "end": 758.17,
+  "en": "in those nested loops."
+ },
+ {
+  "start": 758.989,
+  "end": 761.704,
+  "en": "Well, we do have nested for loops here, but"
+ },
+ {
+  "start": 761.704,
+  "end": 764.563,
+  "en": "of course, we also have some recursion here."
+ },
+ {
+  "start": 765.398,
+  "end": 767.292,
+  "en": "And, and that's really important, we get 2"
+ },
+ {
+  "start": 767.34,
+  "end": 770.471,
+  "en": "input elements. So we certainly can't have a"
+ },
+ {
+  "start": 770.471,
+  "end": 773.683,
+  "en": "time complexity that just depends on just"
+ },
+ {
+  "start": 773.683,
+  "end": 776.894,
+  "en": "one element because clearly both inputs have"
+ },
+ {
+  "start": 776.894,
+  "end": 780.105,
+  "en": "a strong impact on the time this algorithm"
+ },
+ {
+  "start": 780.105,
+  "end": 780.491,
+  "en": "takes."
+ },
+ {
+  "start": 781.133,
+  "end": 783.317,
+  "en": "Even if you don't know this in advance, you"
+ },
+ {
+  "start": 783.317,
+  "end": 785.468,
+  "en": "can easily tell that both inputs have a"
+ },
+ {
+  "start": 785.468,
+  "end": 787.716,
+  "en": "strong impact if you have a look at the"
+ },
+ {
+  "start": 787.716,
+  "end": 790.863,
+  "en": "number of combinations you got and how fast"
+ },
+ {
+  "start": 790.863,
+  "end": 793.543,
+  "en": "this number grows no matter which of the 2"
+ },
+ {
+  "start": 793.736,
+  "end": 794.714,
+  "en": "you manipulate."
+ },
+ {
+  "start": 795.437,
+  "end": 797.523,
+  "en": "So that's a clear indicator that our time"
+ },
+ {
+  "start": 797.523,
+  "end": 799.641,
+  "en": "complexity needs to depend on 2"
+ },
+ {
+  "start": 800.251,
+  "end": 801.727,
+  "en": "variables and not just one."
+ },
+ {
+  "start": 802.578,
+  "end": 805.563,
+  "en": "Now why n at the power of r though?"
+ },
+ {
+  "start": 806.429,
+  "end": 808.804,
+  "en": "Now to find out how these 2 are related, you"
+ },
+ {
+  "start": 808.82,
+  "end": 811.163,
+  "en": "can simply simplify your inputs. And for"
+ },
+ {
+  "start": 811.163,
+  "end": 813.394,
+  "en": "example, say you have a length of 2 and you"
+ },
+ {
+  "start": 813.394,
+  "end": 815.625,
+  "en": "have 2 digits. And if you do that and you"
+ },
+ {
+  "start": 815.721,
+  "end": 817.599,
+  "en": "reload, you see 4."
+ },
+ {
+  "start": 818.803,
+  "end": 820.039,
+  "en": "So 4 combinations."
+ },
+ {
+  "start": 820.617,
+  "end": 822.769,
+  "en": "Now let's increase the amount of digits but"
+ },
+ {
+  "start": 822.801,
+  "end": 823.732,
+  "en": "keep the length"
+ },
+ {
+  "start": 824.969,
+  "end": 827.682,
+  "en": "unchanged. So we have 3 digits but still a"
+ },
+ {
+  "start": 827.682,
+  "end": 828.565,
+  "en": "length of 2."
+ },
+ {
+  "start": 829.4,
+  "end": 831.424,
+  "en": "If we do that, you see we grow from 4"
+ },
+ {
+  "start": 832.018,
+  "end": 833.688,
+  "en": "to 9 combinations."
+ },
+ {
+  "start": 834.667,
+  "end": 834.844,
+  "en": "Okay,"
+ },
+ {
+  "start": 835.502,
+  "end": 838.858,
+  "en": "so let's now change this to 4 digits and"
+ },
+ {
+  "start": 838.858,
+  "end": 841.876,
+  "en": "still keep the length. So 4 digits, length"
+ },
+ {
+  "start": 841.973,
+  "end": 842.085,
+  "en": "2."
+ },
+ {
+  "start": 843.433,
+  "end": 844.524,
+  "en": "And we got 16."
+ },
+ {
+  "start": 845.359,
+  "end": 848.52,
+  "en": "So this looks very quadratic to me because 3"
+ },
+ {
+  "start": 848.568,
+  "end": 851.44,
+  "en": "at the power of 2 is 9, 4 at the power of 2"
+ },
+ {
+  "start": 851.536,
+  "end": 854.473,
+  "en": "is 16, and 2 at the power of 2 is 4, which"
+ },
+ {
+  "start": 854.505,
+  "end": 855.371,
+  "en": "we saw earlier."
+ },
+ {
+  "start": 856.205,
+  "end": 858.42,
+  "en": "So it looks like this— the number of"
+ },
+ {
+  "start": 858.42,
+  "end": 861.837,
+  "en": "elements here at the power of length is our"
+ },
+ {
+  "start": 861.886,
+  "end": 864.437,
+  "en": "time complexity. And just to verify this,"
+ },
+ {
+  "start": 864.693,
+  "end": 868.143,
+  "en": "let's increase the length here to 3, from 2"
+ },
+ {
+  "start": 868.143,
+  "end": 870.919,
+  "en": "to 3, and go back to just 2 digits."
+ },
+ {
+  "start": 871.737,
+  "end": 873.357,
+  "en": "If I do this, we now got 8."
+ },
+ {
+  "start": 873.918,
+  "end": 876.147,
+  "en": "So our theory still seems to be true,"
+ },
+ {
+  "start": 876.163,
+  "end": 879.82,
+  "en": "because 2 times 2 times 2 is 8, and that is"
+ },
+ {
+  "start": 879.932,
+  "end": 881.135,
+  "en": "2 at the power of 3."
+ },
+ {
+  "start": 881.792,
+  "end": 883.989,
+  "en": "So it looks like we have n at the power of"
+ },
+ {
+  "start": 884.086,
+  "end": 886.668,
+  "en": "r. Let's verify this by adding one extra"
+ },
+ {
+  "start": 886.668,
+  "end": 888.929,
+  "en": "digit, so that we have 3 digits here."
+ },
+ {
+  "start": 889.554,
+  "end": 891.607,
+  "en": "And if our theory holds, we should now have"
+ },
+ {
+  "start": 891.864,
+  "end": 894.494,
+  "en": "3 at the power of 3 combinations, which"
+ },
+ {
+  "start": 894.59,
+  "end": 899.018,
+  "en": "would be 27. So if I reload, Yep, we got 27"
+ },
+ {
+  "start": 899.018,
+  "end": 901.795,
+  "en": "here. So that looks good to me. And that is"
+ },
+ {
+  "start": 901.891,
+  "end": 905.279,
+  "en": "how you can derive this on your own. You can"
+ },
+ {
+  "start": 905.279,
+  "end": 908.249,
+  "en": "simply count combinations and then quickly"
+ },
+ {
+  "start": 908.313,
+  "end": 910.705,
+  "en": "find out what impacts the number of"
+ },
+ {
+  "start": 910.721,
+  "end": 912.695,
+  "en": "combinations in which way."
+ }
+]

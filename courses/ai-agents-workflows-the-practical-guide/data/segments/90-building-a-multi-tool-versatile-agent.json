@@ -1,0 +1,1367 @@
+[
+ {
+  "start": 0.353,
+  "end": 3.61,
+  "en": "So we got started building agents, which in"
+ },
+ {
+  "start": 3.642,
+  "end": 4.653,
+  "en": "the end just means"
+ },
+ {
+  "start": 5.247,
+  "end": 8.424,
+  "en": "giving large language models indirect access"
+ },
+ {
+  "start": 8.616,
+  "end": 12.195,
+  "en": "to tools. At least if your definition of an"
+ },
+ {
+  "start": 12.371,
+  "end": 17.057,
+  "en": "AI agent also is an autonomous program that"
+ },
+ {
+  "start": 17.105,
+  "end": 21.132,
+  "en": "is able to perform work on its own with help"
+ },
+ {
+  "start": 21.277,
+  "end": 22.223,
+  "en": "of those tools."
+ },
+ {
+  "start": 22.833,
+  "end": 24.582,
+  "en": "If you have a different definition, you"
+ },
+ {
+  "start": 24.582,
+  "end": 26.652,
+  "en": "maybe already saw agents in a previous"
+ },
+ {
+  "start": 26.652,
+  "end": 28.883,
+  "en": "section because we there already built"
+ },
+ {
+  "start": 28.899,
+  "end": 30.728,
+  "en": "workflows that consisted of multiple"
+ },
+ {
+  "start": 31.466,
+  "end": 33.999,
+  "en": "agents that worked together. But for"
+ },
+ {
+  "start": 34.143,
+  "end": 36.901,
+  "en": "autonomous agents, we saw a first example in"
+ },
+ {
+  "start": 36.933,
+  "end": 39.818,
+  "en": "the previous lectures where we built agents,"
+ },
+ {
+  "start": 39.963,
+  "end": 42.672,
+  "en": "AI agents, by equipping large language"
+ },
+ {
+  "start": 42.784,
+  "end": 44.948,
+  "en": "models with tools, which in the end is the"
+ },
+ {
+  "start": 44.948,
+  "end": 47.113,
+  "en": "idea behind an agent according to this"
+ },
+ {
+  "start": 47.113,
+  "end": 49.79,
+  "en": "definition here. Now here's another more"
+ },
+ {
+  "start": 50.078,
+  "end": 53.573,
+  "en": "realistic example of such an AI agent. You"
+ },
+ {
+  "start": 53.83,
+  "end": 57.501,
+  "en": "find this updated main.py file attached and"
+ },
+ {
+  "start": 57.597,
+  "end": 60.018,
+  "en": "also this database.py file here."
+ },
+ {
+  "start": 60.643,
+  "end": 63.194,
+  "en": "And this file or these files"
+ },
+ {
+  "start": 63.772,
+  "end": 67.239,
+  "en": "actually set up a customer service agent."
+ },
+ {
+  "start": 67.335,
+  "end": 71.139,
+  "en": "It's still a dummy agent, which of course is"
+ },
+ {
+  "start": 71.717,
+  "end": 74.43,
+  "en": "missing many functionalities, missing"
+ },
+ {
+  "start": 74.622,
+  "end": 78.266,
+  "en": "extensive testing or potential checks or"
+ },
+ {
+  "start": 78.298,
+  "end": 80.77,
+  "en": "guardrails you might want to add, but still"
+ },
+ {
+  "start": 81.043,
+  "end": 84.092,
+  "en": "a great example for a pretty versatile agent"
+ },
+ {
+  "start": 84.413,
+  "end": 87.431,
+  "en": "that is able to use multiple tools, not just"
+ },
+ {
+  "start": 87.463,
+  "end": 91.315,
+  "en": "one, and also multiple tools per question by"
+ },
+ {
+  "start": 91.315,
+  "end": 93.931,
+  "en": "the user, as you'll see in a second. Here I"
+ },
+ {
+  "start": 93.963,
+  "end": 96.737,
+  "en": "also got a dummy database, a dummy SQLite"
+ },
+ {
+  "start": 96.769,
+  "end": 98.758,
+  "en": "database that's running in this project."
+ },
+ {
+  "start": 98.87,
+  "end": 101.644,
+  "en": "Still the same project created with the uv"
+ },
+ {
+  "start": 101.644,
+  "end": 102.815,
+  "en": "tool I showed you before."
+ },
+ {
+  "start": 103.344,
+  "end": 105.156,
+  "en": "And in there I'm creating some dummy tables,"
+ },
+ {
+  "start": 105.428,
+  "end": 107.401,
+  "en": "one for customers, one for orders."
+ },
+ {
+  "start": 107.978,
+  "end": 109.982,
+  "en": "Every customer has a first name, a last"
+ },
+ {
+  "start": 109.982,
+  "end": 110.672,
+  "en": "name, and a PIN."
+ },
+ {
+  "start": 111.281,
+  "end": 113.815,
+  "en": "And the PIN here will be stored as plain"
+ },
+ {
+  "start": 113.927,
+  "end": 116.733,
+  "en": "text in that database. You would not want to"
+ },
+ {
+  "start": 116.733,
+  "end": 118.705,
+  "en": "do that in production. You would want to"
+ },
+ {
+  "start": 118.721,
+  "end": 122.234,
+  "en": "hash it there, but to keep I'll store it as"
+ },
+ {
+  "start": 122.33,
+  "end": 123.95,
+  "en": "plaintext here, as you'll see."
+ },
+ {
+  "start": 124.833,
+  "end": 127.624,
+  "en": "I got a simple orders table which has order"
+ },
+ {
+  "start": 127.624,
+  "end": 130.592,
+  "en": "IDs, customer IDs, a date for each order,"
+ },
+ {
+  "start": 130.752,
+  "end": 132.325,
+  "en": "and also a product name"
+ },
+ {
+  "start": 132.918,
+  "end": 134.94,
+  "en": "and an amount for every order."
+ },
+ {
+  "start": 135.902,
+  "end": 136.416,
+  "en": "And then I"
+ },
+ {
+  "start": 136.945,
+  "end": 139.095,
+  "en": "clear these tables whenever I start this"
+ },
+ {
+  "start": 139.095,
+  "end": 141.63,
+  "en": "program to then repopulate them with some"
+ },
+ {
+  "start": 141.678,
+  "end": 142.64,
+  "en": "dummy data."
+ },
+ {
+  "start": 143.426,
+  "end": 145.929,
+  "en": "And as mentioned, these are the plaintext"
+ },
+ {
+  "start": 145.929,
+  "end": 148.063,
+  "en": "PINs, which again, you wouldn't store as"
+ },
+ {
+  "start": 148.159,
+  "end": 150.18,
+  "en": "plaintext in a production database. That's"
+ },
+ {
+  "start": 150.18,
+  "end": 151.944,
+  "en": "important. But for this demo, it's fine."
+ },
+ {
+  "start": 153.05,
+  "end": 155.679,
+  "en": "And then in the main.py file, I got a bunch"
+ },
+ {
+  "start": 156.016,
+  "end": 158.853,
+  "en": "of functions, a bunch of tools. Well, first"
+ },
+ {
+  "start": 158.853,
+  "end": 160.969,
+  "en": "I created that database, of course, but then"
+ },
+ {
+  "start": 161.065,
+  "end": 164.015,
+  "en": "I got a bunch of functions, a bunch of tools"
+ },
+ {
+  "start": 164.672,
+  "end": 166.74,
+  "en": "like the verify_customer function, which"
+ },
+ {
+  "start": 166.852,
+  "end": 169.625,
+  "en": "takes the full customer name as an input and"
+ },
+ {
+  "start": 169.641,
+  "end": 171.837,
+  "en": "the PIN of the customer. And then we try to"
+ },
+ {
+  "start": 171.901,
+  "end": 174.37,
+  "en": "find that customer and we use that"
+ },
+ {
+  "start": 174.37,
+  "end": 176.55,
+  "en": "information whether we found the customer or"
+ },
+ {
+  "start": 176.55,
+  "end": 177.368,
+  "en": "not to"
+ },
+ {
+  "start": 178.058,
+  "end": 180.627,
+  "en": "either confirm their existence and return"
+ },
+ {
+  "start": 180.627,
+  "end": 184.304,
+  "en": "the customer ID or to return -1 if we did"
+ },
+ {
+  "start": 184.32,
+  "end": 186.713,
+  "en": "not find a customer for this combination."
+ },
+ {
+  "start": 187.949,
+  "end": 189.876,
+  "en": "We got a get orders function which takes a"
+ },
+ {
+  "start": 189.876,
+  "end": 192.301,
+  "en": "customer ID to retrieve all orders that"
+ },
+ {
+  "start": 192.365,
+  "end": 193.409,
+  "en": "belong to a customer."
+ },
+ {
+  "start": 194.131,
+  "end": 196.877,
+  "en": "Check refund eligibility, which takes a"
+ },
+ {
+  "start": 196.941,
+  "end": 200.04,
+  "en": "customer ID and an order ID and then queries"
+ },
+ {
+  "start": 200.072,
+  "end": 202.191,
+  "en": "the database and checks the date"
+ },
+ {
+  "start": 202.866,
+  "end": 204.782,
+  "en": "of an order and checks whether it's within"
+ },
+ {
+  "start": 204.814,
+  "end": 206.441,
+  "en": "the last 30 days to"
+ },
+ {
+  "start": 207.133,
+  "end": 209.355,
+  "en": "either return true or false, determining"
+ },
+ {
+  "start": 209.484,
+  "end": 212.27,
+  "en": "whether the customer may get a refund for a"
+ },
+ {
+  "start": 212.27,
+  "end": 213.519,
+  "en": "certain order or not."
+ },
+ {
+  "start": 215.143,
+  "end": 217.452,
+  "en": "We have this issueRefund function, which"
+ },
+ {
+  "start": 217.791,
+  "end": 219.874,
+  "en": "just prints something in the console. Of"
+ },
+ {
+  "start": 219.907,
+  "end": 222.587,
+  "en": "course, in reality, this function would"
+ },
+ {
+  "start": 222.636,
+  "end": 224.235,
+  "en": "trigger some refund process."
+ },
+ {
+  "start": 225.381,
+  "end": 227.222,
+  "en": "We got a shareFeedback function, which does"
+ },
+ {
+  "start": 227.319,
+  "end": 229.369,
+  "en": "kind of the same. It just prints something,"
+ },
+ {
+  "start": 229.434,
+  "end": 231.73,
+  "en": "but in reality, that would be stored in some"
+ },
+ {
+  "start": 231.747,
+  "end": 232.135,
+  "en": "database."
+ },
+ {
+  "start": 233.436,
+  "end": 235.563,
+  "en": "And then just as before, here I went for"
+ },
+ {
+  "start": 235.563,
+  "end": 238.898,
+  "en": "this approach where I register all functions"
+ },
+ {
+  "start": 239.011,
+  "end": 241.299,
+  "en": "that may be called by the large language"
+ },
+ {
+  "start": 241.412,
+  "end": 241.75,
+  "en": "model."
+ },
+ {
+  "start": 242.432,
+  "end": 244.718,
+  "en": "And then here I have my tool definitions for"
+ },
+ {
+  "start": 244.766,
+  "end": 246.054,
+  "en": "the large language model."
+ },
+ {
+  "start": 246.843,
+  "end": 247.213,
+  "en": "And again,"
+ },
+ {
+  "start": 247.825,
+  "end": 249.886,
+  "en": "these have the same shape as before. They in"
+ },
+ {
+  "start": 249.918,
+  "end": 252.511,
+  "en": "the end describe all these functions you saw"
+ },
+ {
+  "start": 252.575,
+  "end": 253.01,
+  "en": "up there."
+ },
+ {
+  "start": 254.911,
+  "end": 257.199,
+  "en": "I still also get the same execute tool call"
+ },
+ {
+  "start": 257.312,
+  "end": 259.874,
+  "en": "function as before to have a flexible way of"
+ },
+ {
+  "start": 259.938,
+  "end": 260.518,
+  "en": "calling various tools."
+ },
+ {
+  "start": 262.379,
+  "end": 265.367,
+  "en": "And then in the main function, I'm building"
+ },
+ {
+  "start": 265.479,
+  "end": 266.861,
+  "en": "the actual agent."
+ },
+ {
+  "start": 267.584,
+  "end": 270.234,
+  "en": "I do that by setting a rather long system, a"
+ },
+ {
+  "start": 270.234,
+  "end": 272.563,
+  "en": "developer message where I give the agent"
+ },
+ {
+  "start": 272.563,
+  "end": 275.069,
+  "en": "clear instructions on what they must not do,"
+ },
+ {
+  "start": 275.133,
+  "end": 277.607,
+  "en": "what they should do, how they should behave"
+ },
+ {
+  "start": 277.623,
+  "end": 280.193,
+  "en": "if they can't answer a certain question and"
+ },
+ {
+  "start": 280.193,
+  "end": 280.562,
+  "en": "so on."
+ },
+ {
+  "start": 281.96,
+  "end": 284.707,
+  "en": "And then I have an infinite loop still with"
+ },
+ {
+  "start": 284.707,
+  "end": 287.02,
+  "en": "an exit condition if the user types exit"
+ },
+ {
+  "start": 287.261,
+  "end": 289.14,
+  "en": "that allows the user to interact with this"
+ },
+ {
+  "start": 289.268,
+  "end": 289.815,
+  "en": "chatbot."
+ },
+ {
+  "start": 290.538,
+  "end": 293.205,
+  "en": "I save each user message in that chat"
+ },
+ {
+  "start": 293.205,
+  "end": 295.664,
+  "en": "history so that the large language model"
+ },
+ {
+  "start": 295.841,
+  "end": 298.074,
+  "en": "always gets the entire history and knows"
+ },
+ {
+  "start": 298.331,
+  "end": 300.465,
+  "en": "everything about the ongoing interaction."
+ },
+ {
+  "start": 302.292,
+  "end": 304.755,
+  "en": "And then here I got a new nested loop, which"
+ },
+ {
+  "start": 304.852,
+  "end": 307.138,
+  "en": "I have to limit the amount of tool calls per"
+ },
+ {
+  "start": 307.138,
+  "end": 309.795,
+  "en": "cycle to prevent infinite loops in case the"
+ },
+ {
+  "start": 310.165,
+  "end": 312.942,
+  "en": "model should get into a cycle where it keeps"
+ },
+ {
+  "start": 313.007,
+  "end": 315.679,
+  "en": "on asking for more and more tool calls. I"
+ },
+ {
+  "start": 315.679,
+  "end": 317.671,
+  "en": "don't want it here, which is why I limit it"
+ },
+ {
+  "start": 317.784,
+  "end": 321.794,
+  "en": "at 5 so that in one single go in one single"
+ },
+ {
+  "start": 321.794,
+  "end": 324.04,
+  "en": "cycle for one single question by the user,"
+ },
+ {
+  "start": 324.2,
+  "end": 327.039,
+  "en": "it can't call more than 5 tools. That's my"
+ },
+ {
+  "start": 327.087,
+  "end": 327.649,
+  "en": "idea here."
+ },
+ {
+  "start": 328.852,
+  "end": 330.841,
+  "en": "And then here I send the current chat"
+ },
+ {
+  "start": 330.841,
+  "end": 333.311,
+  "en": "history to the model, in this case using"
+ },
+ {
+  "start": 333.407,
+  "end": 336.327,
+  "en": "GPT-4o. We could also try using a smarter"
+ },
+ {
+  "start": 336.327,
+  "end": 337.45,
+  "en": "model like"
+ },
+ {
+  "start": 337.979,
+  "end": 338.236,
+  "en": "O3"
+ },
+ {
+  "start": 338.781,
+  "end": 341.829,
+  "en": "or something like this, but I will use 4o"
+ },
+ {
+  "start": 342.085,
+  "end": 344.989,
+  "en": "here also because it is rather cheap. But"
+ },
+ {
+  "start": 345.294,
+  "end": 347.058,
+  "en": "this is definitely a use case where you"
+ },
+ {
+  "start": 347.122,
+  "end": 349.528,
+  "en": "could consider using a more powerful model"
+ },
+ {
+  "start": 349.785,
+  "end": 352.111,
+  "en": "because we have quite a complex task here"
+ },
+ {
+  "start": 352.32,
+  "end": 354.404,
+  "en": "with many tools that may be called. So you"
+ },
+ {
+  "start": 354.436,
+  "end": 356.505,
+  "en": "definitely wanna test different model"
+ },
+ {
+  "start": 356.505,
+  "end": 358.863,
+  "en": "versions if you were to build a bot like"
+ },
+ {
+  "start": 358.927,
+  "end": 360.066,
+  "en": "this for production."
+ },
+ {
+  "start": 361.557,
+  "end": 364.524,
+  "en": "I also expose the tools to the API, to the"
+ },
+ {
+  "start": 364.524,
+  "end": 365.23,
+  "en": "model, of course."
+ },
+ {
+  "start": 366.064,
+  "end": 368.373,
+  "en": "And then I take a look at the output. And I"
+ },
+ {
+  "start": 368.373,
+  "end": 371.148,
+  "en": "mentioned before that OpenAI can return"
+ },
+ {
+  "start": 371.276,
+  "end": 373.152,
+  "en": "multiple outputs per"
+ },
+ {
+  "start": 374.163,
+  "end": 374.804,
+  "en": "request."
+ },
+ {
+  "start": 375.349,
+  "end": 377.996,
+  "en": "For example, it could return a message, a"
+ },
+ {
+  "start": 377.996,
+  "end": 380.449,
+  "en": "reply to the user, and at the same time"
+ },
+ {
+  "start": 380.818,
+  "end": 383.383,
+  "en": "request a tool call. And we'll see that in"
+ },
+ {
+  "start": 383.528,
+  "end": 385.563,
+  "en": "action here once I run this actually."
+ },
+ {
+  "start": 386.348,
+  "end": 389.056,
+  "en": "That's why I loop through all the replies I"
+ },
+ {
+  "start": 389.056,
+  "end": 390.963,
+  "en": "got for this one single request"
+ },
+ {
+  "start": 391.62,
+  "end": 393.815,
+  "en": "and I take a look at whether it's not a"
+ },
+ {
+  "start": 393.815,
+  "end": 395.979,
+  "en": "function call, in which case I output the"
+ },
+ {
+  "start": 396.107,
+  "end": 398.334,
+  "en": "text that I got back from the model."
+ },
+ {
+  "start": 399.152,
+  "end": 401.107,
+  "en": "If it is a function call, on the other hand,"
+ },
+ {
+  "start": 401.315,
+  "end": 404.168,
+  "en": "I go ahead and try executing that function"
+ },
+ {
+  "start": 404.536,
+  "end": 406.715,
+  "en": "and I append the result of that function"
+ },
+ {
+  "start": 406.715,
+  "end": 407.709,
+  "en": "call to my messages."
+ },
+ {
+  "start": 408.703,
+  "end": 410.37,
+  "en": "And then here I have a little exit condition"
+ },
+ {
+  "start": 410.851,
+  "end": 413.079,
+  "en": "outside of this loop, but inside of that"
+ },
+ {
+  "start": 413.736,
+  "end": 414.586,
+  "en": "tool loop here"
+ },
+ {
+  "start": 415.195,
+  "end": 417.728,
+  "en": "where I check if the last message we saved"
+ },
+ {
+  "start": 418.0,
+  "end": 420.533,
+  "en": "is not a dictionary because all these"
+ },
+ {
+  "start": 421.03,
+  "end": 423.434,
+  "en": "messages, all these replies which I append"
+ },
+ {
+  "start": 423.434,
+  "end": 426.288,
+  "en": "here, which I get back from OpenAI are"
+ },
+ {
+  "start": 426.48,
+  "end": 429.366,
+  "en": "actually not dictionaries. They are objects"
+ },
+ {
+  "start": 429.366,
+  "end": 430.311,
+  "en": "based on classes."
+ },
+ {
+  "start": 431.049,
+  "end": 433.918,
+  "en": "So if I got such an object and the message"
+ },
+ {
+  "start": 433.95,
+  "end": 436.884,
+  "en": "type is message, so if I got back a regular"
+ },
+ {
+  "start": 436.884,
+  "end": 440.01,
+  "en": "message as the last reply by the model, then"
+ },
+ {
+  "start": 439.93,
+  "end": 442.732,
+  "en": "I know it's done doing tool calls for this"
+ },
+ {
+  "start": 442.78,
+  "end": 444.857,
+  "en": "cycle, which is why I then break"
+ },
+ {
+  "start": 445.582,
+  "end": 446.049,
+  "en": "out of this"
+ },
+ {
+  "start": 446.661,
+  "end": 449.966,
+  "en": "tool call loop back into the main loop where"
+ },
+ {
+  "start": 450.015,
+  "end": 451.131,
+  "en": "I allow the user to"
+ },
+ {
+  "start": 451.714,
+  "end": 452.604,
+  "en": "enter more information."
+ },
+ {
+  "start": 454.166,
+  "end": 456.448,
+  "en": "And it's best if we just take a look at that"
+ },
+ {
+  "start": 456.897,
+  "end": 457.363,
+  "en": "in action."
+ },
+ {
+  "start": 458.376,
+  "end": 461.846,
+  "en": "So I will run this main.puf file, get the"
+ },
+ {
+  "start": 462.135,
+  "end": 464.892,
+  "en": "starting message here, and I'll say I want a"
+ },
+ {
+  "start": 465.533,
+  "end": 465.927,
+  "en": "refund."
+ },
+ {
+  "start": 467.361,
+  "end": 467.992,
+  "en": "And now you"
+ },
+ {
+  "start": 468.575,
+  "end": 471.197,
+  "en": "will see that the model tells me that it can"
+ },
+ {
+  "start": 471.245,
+  "end": 473.106,
+  "en": "help me with that, but it needs my full name"
+ },
+ {
+  "start": 473.106,
+  "end": 473.737,
+  "en": "and my PIN."
+ },
+ {
+  "start": 474.676,
+  "end": 477.096,
+  "en": "Now if I say something like, I don't know,"
+ },
+ {
+  "start": 477.404,
+  "end": 479.301,
+  "en": "it should not continue because it should"
+ },
+ {
+  "start": 479.35,
+  "end": 481.863,
+  "en": "only be able to help me if I do verify, and"
+ },
+ {
+  "start": 481.944,
+  "end": 482.592,
+  "en": "it does that."
+ },
+ {
+  "start": 484.098,
+  "end": 485.307,
+  "en": "So I'll say, sorry, my"
+ },
+ {
+  "start": 485.92,
+  "end": 488.806,
+  "en": "name is, and I'll take a look at my database"
+ },
+ {
+  "start": 488.918,
+  "end": 489.16,
+  "en": "here,"
+ },
+ {
+  "start": 490.353,
+  "end": 491.885,
+  "en": "and you see the customers I added."
+ },
+ {
+  "start": 492.647,
+  "end": 494.109,
+  "en": "Which you also, by the way, see in the"
+ },
+ {
+  "start": 494.109,
+  "end": 495.281,
+  "en": "database.py file,"
+ },
+ {
+  "start": 496.1,
+  "end": 498.333,
+  "en": "these dummy customers, they're called Jane"
+ },
+ {
+  "start": 498.43,
+  "end": 502.092,
+  "en": "Smith, 5678 is her PIN, and John Doe with"
+ },
+ {
+  "start": 502.205,
+  "end": 507.345,
+  "en": "1234. So my name is Jane Smith, 5677. I"
+ },
+ {
+  "start": 507.361,
+  "end": 509.674,
+  "en": "enter a wrong PIN here. It's all lowercase,"
+ },
+ {
+  "start": 509.77,
+  "end": 512.63,
+  "en": "but the function where I verify the identity"
+ },
+ {
+  "start": 512.742,
+  "end": 514.477,
+  "en": "is written such that casing shouldn't"
+ },
+ {
+  "start": 514.493,
+  "end": 514.702,
+  "en": "matter."
+ },
+ {
+  "start": 516.132,
+  "end": 518.686,
+  "en": "So I have a wrong PIN. So now you can see"
+ },
+ {
+  "start": 518.686,
+  "end": 520.794,
+  "en": "that 2 was called. But"
+ },
+ {
+  "start": 521.346,
+  "end": 523.372,
+  "en": "correctly, it identifies that this returned"
+ },
+ {
+  "start": 523.372,
+  "end": 524.458,
+  "en": "false. I"
+ },
+ {
+  "start": 525.154,
+  "end": 526.046,
+  "en": "was not verified."
+ },
+ {
+  "start": 526.954,
+  "end": 528.765,
+  "en": "So I'll say, sorry, the PIN is"
+ },
+ {
+  "start": 530.315,
+  "end": 533.752,
+  "en": "5678. And I don't reenter my name, but since"
+ },
+ {
+  "start": 533.865,
+  "end": 536.222,
+  "en": "all these messages are saved in the chat"
+ },
+ {
+  "start": 536.222,
+  "end": 538.85,
+  "en": "history, it recalls that my name was Chain"
+ },
+ {
+  "start": 538.898,
+  "end": 540.88,
+  "en": "Smith and it is able to verify me."
+ },
+ {
+  "start": 542.008,
+  "end": 544.78,
+  "en": "And it also then called another tool here,"
+ },
+ {
+  "start": 545.006,
+  "end": 547.835,
+  "en": "get orders. So that is multiple tool calls"
+ },
+ {
+  "start": 548.091,
+  "end": 550.579,
+  "en": "for one input from my side where it"
+ },
+ {
+  "start": 550.579,
+  "end": 553.018,
+  "en": "retrieved all orders for my customer ID."
+ },
+ {
+  "start": 554.35,
+  "end": 556.66,
+  "en": "And in my case, it found one order, which"
+ },
+ {
+  "start": 556.837,
+  "end": 557.944,
+  "en": "makes sense because"
+ },
+ {
+  "start": 558.538,
+  "end": 560.319,
+  "en": "for the orders that are being inserted here,"
+ },
+ {
+  "start": 561.009,
+  "end": 564.363,
+  "en": "this second customer, Jane Smith, only has"
+ },
+ {
+  "start": 564.475,
+  "end": 565.919,
+  "en": "one order, which is a keyboard"
+ },
+ {
+  "start": 566.449,
+  "end": 567.331,
+  "en": "for $75,"
+ },
+ {
+  "start": 567.989,
+  "end": 569.674,
+  "en": "which is exactly the information it's"
+ },
+ {
+  "start": 569.674,
+  "end": 570.252,
+  "en": "showing me here."
+ },
+ {
+  "start": 571.455,
+  "end": 573.349,
+  "en": "By the way, you will get different replies"
+ },
+ {
+  "start": 573.846,
+  "end": 576.076,
+  "en": "when you're running this most likely because"
+ },
+ {
+  "start": 576.172,
+  "end": 578.354,
+  "en": "it is not deterministic. It's an AI model,"
+ },
+ {
+  "start": 578.37,
+  "end": 579.525,
+  "en": "it's generating tokens."
+ },
+ {
+  "start": 580.118,
+  "end": 581.851,
+  "en": "But here this all makes sense."
+ },
+ {
+  "start": 582.621,
+  "end": 585.139,
+  "en": "So now it's asking me whether it should"
+ },
+ {
+  "start": 585.172,
+  "end": 587.578,
+  "en": "check if that's eligible for a refund and"
+ },
+ {
+  "start": 587.578,
+  "end": 588.171,
+  "en": "I'll say"
+ },
+ {
+  "start": 588.701,
+  "end": 591.62,
+  "en": "yes please, I want this to be checked if I"
+ },
+ {
+  "start": 591.669,
+  "end": 592.519,
+  "en": "can refund it."
+ },
+ {
+  "start": 593.529,
+  "end": 596.0,
+  "en": "So it goes ahead and calls check refund"
+ },
+ {
+  "start": 596.0,
+  "end": 596.69,
+  "en": "eligibility"
+ },
+ {
+  "start": 597.508,
+  "end": 599.577,
+  "en": "and it tells me that it is eligible, which"
+ },
+ {
+  "start": 599.625,
+  "end": 600.171,
+  "en": "is correct."
+ },
+ {
+  "start": 601.281,
+  "end": 604.215,
+  "en": "So I'll say, so please go ahead and refund."
+ },
+ {
+  "start": 605.521,
+  "end": 606.875,
+  "en": "And now it calls"
+ },
+ {
+  "start": 608.583,
+  "end": 609.454,
+  "en": "issue refunds,"
+ },
+ {
+  "start": 610.034,
+  "end": 611.565,
+  "en": "gives me the confirmation message, and"
+ },
+ {
+  "start": 611.581,
+  "end": 612.355,
+  "en": "everything's fine."
+ },
+ {
+  "start": 613.692,
+  "end": 614.675,
+  "en": "So now I'll exit here."
+ },
+ {
+  "start": 615.755,
+  "end": 617.802,
+  "en": "That all worked just as it should. Now if I"
+ },
+ {
+  "start": 617.947,
+  "end": 620.281,
+  "en": "restart this and I ask like, what is the"
+ },
+ {
+  "start": 620.683,
+  "end": 621.102,
+  "en": "weather,"
+ },
+ {
+  "start": 622.196,
+  "end": 624.143,
+  "en": "it should tell me that this is not really"
+ },
+ {
+  "start": 624.143,
+  "end": 625.575,
+  "en": "something it can help me with."
+ },
+ {
+  "start": 626.568,
+  "end": 627.306,
+  "en": "If I ask"
+ },
+ {
+  "start": 628.093,
+  "end": 629.185,
+  "en": "what are John"
+ },
+ {
+  "start": 629.86,
+  "end": 630.614,
+  "en": "Doe's"
+ },
+ {
+  "start": 631.466,
+  "end": 631.931,
+  "en": "orders,"
+ },
+ {
+  "start": 632.943,
+  "end": 635.159,
+  "en": "it also shouldn't proceed with that unless I"
+ },
+ {
+  "start": 635.159,
+  "end": 637.857,
+  "en": "verify. So I'll verify with Jane and I'll"
+ },
+ {
+  "start": 637.905,
+  "end": 638.435,
+  "en": "say, sure,"
+ },
+ {
+  "start": 639.334,
+  "end": 639.623,
+  "en": "I'm"
+ },
+ {
+  "start": 640.394,
+  "end": 641.245,
+  "en": "Jane Smith,"
+ },
+ {
+  "start": 642.321,
+  "end": 644.554,
+  "en": "my PIN is 5678."
+ },
+ {
+  "start": 645.854,
+  "end": 648.311,
+  "en": "This should not get it to reveal anything"
+ },
+ {
+  "start": 648.408,
+  "end": 649.355,
+  "en": "about John."
+ },
+ {
+  "start": 650.849,
+  "end": 652.952,
+  "en": "So it gives me my order history, which makes"
+ },
+ {
+  "start": 653.0,
+  "end": 654.976,
+  "en": "sense. That's good. It does not reveal"
+ },
+ {
+  "start": 655.088,
+  "end": 657.624,
+  "en": "anything about John. Now, you may be able to"
+ },
+ {
+  "start": 657.656,
+  "end": 659.63,
+  "en": "break this because again, it is a dummy"
+ },
+ {
+  "start": 659.678,
+  "end": 662.454,
+  "en": "example still, but it is an example of a"
+ },
+ {
+  "start": 662.454,
+  "end": 663.642,
+  "en": "more capable"
+ },
+ {
+  "start": 664.235,
+  "end": 667.83,
+  "en": "AI agent, a pretty versatile AI agent that"
+ },
+ {
+  "start": 667.83,
+  "end": 670.221,
+  "en": "got plenty of tools to choose from. And"
+ },
+ {
+  "start": 670.798,
+  "end": 672.66,
+  "en": "ultimately, that is of course the idea"
+ },
+ {
+  "start": 672.66,
+  "end": 674.553,
+  "en": "behind building AI agents."
+ }
+]

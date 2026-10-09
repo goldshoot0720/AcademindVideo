@@ -1,0 +1,752 @@
+[
+ {
+  "start": 0.593,
+  "end": 3.704,
+  "en": "Attached, you find a new agent project"
+ },
+ {
+  "start": 3.72,
+  "end": 4.105,
+  "en": "folder"
+ },
+ {
+  "start": 4.682,
+  "end": 7.424,
+  "en": "for a more generic agent. It's still a"
+ },
+ {
+  "start": 7.489,
+  "end": 9.862,
+  "en": "relatively simple one for educational"
+ },
+ {
+  "start": 10.038,
+  "end": 12.524,
+  "en": "purposes. As you will see, it has support"
+ },
+ {
+  "start": 12.524,
+  "end": 12.877,
+  "en": "for"
+ },
+ {
+  "start": 13.406,
+  "end": 15.764,
+  "en": "agents.md files and user-provided"
+ },
+ {
+  "start": 15.764,
+  "end": 18.378,
+  "en": "instructions. It has support for agent"
+ },
+ {
+  "start": 18.378,
+  "end": 21.008,
+  "en": "skills, and it has a built-in memory"
+ },
+ {
+  "start": 21.04,
+  "end": 23.99,
+  "en": "feature. It does not have a sandbox yet, but"
+ },
+ {
+  "start": 24.006,
+  "end": 26.797,
+  "en": "we'll get back to that later. So, In the"
+ },
+ {
+  "start": 26.813,
+  "end": 28.544,
+  "en": "attached project, if we take a look at"
+ },
+ {
+  "start": 28.64,
+  "end": 31.509,
+  "en": "agent.py, you will see that overall it is"
+ },
+ {
+  "start": 31.606,
+  "end": 34.427,
+  "en": "quite similar to what you saw before. A bit"
+ },
+ {
+  "start": 34.427,
+  "end": 36.944,
+  "en": "longer, but in a nutshell, there still is an"
+ },
+ {
+  "start": 37.056,
+  "end": 40.31,
+  "en": "agent loop in there. We still send requests"
+ },
+ {
+  "start": 40.438,
+  "end": 42.394,
+  "en": "to the OpenAI API here,"
+ },
+ {
+  "start": 43.067,
+  "end": 44.558,
+  "en": "and we still manage our"
+ },
+ {
+  "start": 45.087,
+  "end": 45.76,
+  "en": "context here."
+ },
+ {
+  "start": 46.369,
+  "end": 49.495,
+  "en": "So our history, our conversation, which we"
+ },
+ {
+  "start": 49.495,
+  "end": 52.91,
+  "en": "send to OpenAI with every request. We handle"
+ },
+ {
+  "start": 52.942,
+  "end": 55.955,
+  "en": "the response. We look for tool calls. And of"
+ },
+ {
+  "start": 56.052,
+  "end": 57.959,
+  "en": "course we do provide tools."
+ },
+ {
+  "start": 58.553,
+  "end": 60.766,
+  "en": "But that is already where the important"
+ },
+ {
+  "start": 60.798,
+  "end": 63.493,
+  "en": "differences start. As mentioned, the tools"
+ },
+ {
+  "start": 63.589,
+  "end": 65.899,
+  "en": "we now provide are more versatile."
+ },
+ {
+  "start": 66.477,
+  "end": 68.049,
+  "en": "I have a read file tool,"
+ },
+ {
+  "start": 68.722,
+  "end": 70.214,
+  "en": "a write file tool,"
+ },
+ {
+  "start": 70.824,
+  "end": 74.786,
+  "en": "and then also an edit file and a bash tool."
+ },
+ {
+  "start": 76.037,
+  "end": 77.962,
+  "en": "And the bash tool is simply a tool that"
+ },
+ {
+  "start": 77.962,
+  "end": 80.897,
+  "en": "allows the agent to basically execute"
+ },
+ {
+  "start": 81.074,
+  "end": 83.544,
+  "en": "arbitrary commands, including, for example,"
+ },
+ {
+  "start": 83.576,
+  "end": 85.63,
+  "en": "script files it may have written so it can"
+ },
+ {
+  "start": 85.662,
+  "end": 88.068,
+  "en": "write its own little programs. I also have a"
+ },
+ {
+  "start": 88.068,
+  "end": 91.338,
+  "en": "store memory tool, which does what the name"
+ },
+ {
+  "start": 91.338,
+  "end": 94.287,
+  "en": "implies. It will store some memory entry in"
+ },
+ {
+  "start": 94.335,
+  "end": 97.332,
+  "en": "a predefined path. There is no get memory"
+ },
+ {
+  "start": 97.428,
+  "end": 100.505,
+  "en": "tool because memory in this agent is just a"
+ },
+ {
+  "start": 100.505,
+  "end": 103.037,
+  "en": "markdown file stored in the project folder"
+ },
+ {
+  "start": 103.037,
+  "end": 105.328,
+  "en": "the user is working in. And therefore, if"
+ },
+ {
+  "start": 105.521,
+  "end": 107.62,
+  "en": "the agent wants to read a memory file, it"
+ },
+ {
+  "start": 107.636,
+  "end": 109.783,
+  "en": "can just use the read file tool for that."
+ },
+ {
+  "start": 109.863,
+  "end": 110.52,
+  "en": "That's the idea."
+ },
+ {
+  "start": 111.049,
+  "end": 113.165,
+  "en": "I also have my systems message, my system"
+ },
+ {
+  "start": 113.165,
+  "end": 115.456,
+  "en": "instructions up here, which are of course"
+ },
+ {
+  "start": 115.456,
+  "end": 118.405,
+  "en": "now also more generic, giving the agent some"
+ },
+ {
+  "start": 118.437,
+  "end": 120.424,
+  "en": "general instructions on how it should behave"
+ },
+ {
+  "start": 120.44,
+  "end": 121.113,
+  "en": "and what it should do."
+ },
+ {
+  "start": 121.947,
+  "end": 125.139,
+  "en": "And there also is support for discovering"
+ },
+ {
+  "start": 125.396,
+  "end": 128.187,
+  "en": "extra context when the agent starts. There"
+ },
+ {
+  "start": 128.284,
+  "end": 130.594,
+  "en": "is this load startup context function here,"
+ },
+ {
+  "start": 131.171,
+  "end": 134.284,
+  "en": "and that gets called in run agent before the"
+ },
+ {
+  "start": 134.3,
+  "end": 137.316,
+  "en": "agent loop starts. So before that starts, I"
+ },
+ {
+  "start": 137.669,
+  "end": 141.022,
+  "en": "load extra context, and that startup context"
+ },
+ {
+  "start": 141.022,
+  "end": 144.022,
+  "en": "makes it into the context that is sent to"
+ },
+ {
+  "start": 144.022,
+  "end": 144.599,
+  "en": "the agent."
+ },
+ {
+  "start": 145.61,
+  "end": 147.439,
+  "en": "It ends up in the instructions."
+ },
+ {
+  "start": 148.338,
+  "end": 150.715,
+  "en": "As you can see here, which are sent to the"
+ },
+ {
+  "start": 150.763,
+  "end": 152.9,
+  "en": "agent. So the startup context is always"
+ },
+ {
+  "start": 153.077,
+  "end": 155.454,
+  "en": "present in every agent loop turn,"
+ },
+ {
+  "start": 156.145,
+  "end": 160.016,
+  "en": "and that startup context is in the end the"
+ },
+ {
+  "start": 160.546,
+  "end": 162.506,
+  "en": "agent's MD file, which we try to discover."
+ },
+ {
+  "start": 162.827,
+  "end": 164.787,
+  "en": "So we're taking a look at where the user is"
+ },
+ {
+  "start": 164.964,
+  "end": 166.635,
+  "en": "working in. We're discovering the current"
+ },
+ {
+  "start": 166.667,
+  "end": 168.402,
+  "en": "working directory. That's what this line"
+ },
+ {
+  "start": 168.434,
+  "end": 168.643,
+  "en": "does."
+ },
+ {
+  "start": 169.317,
+  "end": 172.016,
+  "en": "We also find the user's home directory on"
+ },
+ {
+  "start": 172.048,
+  "end": 174.586,
+  "en": "the system, and then I just look in both"
+ },
+ {
+  "start": 174.618,
+  "end": 176.93,
+  "en": "directories the directory where the agent"
+ },
+ {
+  "start": 176.93,
+  "end": 179.337,
+  "en": "was started in and the user's home"
+ },
+ {
+  "start": 179.353,
+  "end": 182.21,
+  "en": "directory, I'm looking for agents.md files"
+ },
+ {
+  "start": 182.868,
+  "end": 183.365,
+  "en": "in a"
+ },
+ {
+  "start": 183.911,
+  "end": 187.153,
+  "en": ".agents subfolder in case of the global"
+ },
+ {
+  "start": 187.153,
+  "end": 189.351,
+  "en": "instructions. So the user's home directory,"
+ },
+ {
+  "start": 189.849,
+  "end": 192.625,
+  "en": ".agents, agents.md, or the project"
+ },
+ {
+  "start": 192.625,
+  "end": 194.038,
+  "en": "directory, agents.md."
+ },
+ {
+  "start": 194.599,
+  "end": 198.371,
+  "en": "And if those are found, I simply add their"
+ },
+ {
+  "start": 198.371,
+  "end": 201.837,
+  "en": "content to the discovered startup context."
+ },
+ {
+  "start": 202.078,
+  "end": 203.377,
+  "en": "So to my sections here."
+ },
+ {
+  "start": 204.067,
+  "end": 206.489,
+  "en": "And I do the same for skills. I look for"
+ },
+ {
+  "start": 206.569,
+  "end": 208.863,
+  "en": "skills too in the home directory and the"
+ },
+ {
+  "start": 208.863,
+  "end": 211.189,
+  "en": "current project directory, always in a"
+ },
+ {
+  "start": 211.51,
+  "end": 213.691,
+  "en": ".agent subfolder. I wanna support that"
+ },
+ {
+  "start": 213.691,
+  "end": 214.269,
+  "en": "standard."
+ },
+ {
+  "start": 215.039,
+  "end": 218.118,
+  "en": "And I continue if nothing was found. But if"
+ },
+ {
+  "start": 218.118,
+  "end": 220.444,
+  "en": "something was found, I'm looking for that"
+ },
+ {
+  "start": 220.444,
+  "end": 222.899,
+  "en": "metadata, which is fenced by these triple"
+ },
+ {
+  "start": 222.979,
+  "end": 225.08,
+  "en": "dashes, which you saw earlier when we had a"
+ },
+ {
+  "start": 225.08,
+  "end": 228.352,
+  "en": "look at skills. So these triple dashes that"
+ },
+ {
+  "start": 228.545,
+  "end": 231.079,
+  "en": "separate the skill metadata, the name and"
+ },
+ {
+  "start": 231.079,
+  "end": 233.678,
+  "en": "the description from the main content. I'm"
+ },
+ {
+  "start": 233.727,
+  "end": 234.835,
+  "en": "looking for those"
+ },
+ {
+  "start": 235.59,
+  "end": 238.0,
+  "en": "and I'm looking for those to extract that"
+ },
+ {
+  "start": 238.0,
+  "end": 240.056,
+  "en": "metadata, which is also called front matter"
+ },
+ {
+  "start": 240.329,
+  "end": 242.643,
+  "en": "because of course I only want to load that"
+ },
+ {
+  "start": 242.643,
+  "end": 245.406,
+  "en": "metadata. So I'm parsing that metadata here"
+ },
+ {
+  "start": 245.791,
+  "end": 247.976,
+  "en": "and I'm not loading the entire skill but"
+ },
+ {
+  "start": 248.024,
+  "end": 250.788,
+  "en": "really just the metadata. And then I put"
+ },
+ {
+  "start": 250.852,
+  "end": 253.358,
+  "en": "that skill metadata, the description most"
+ },
+ {
+  "start": 253.358,
+  "end": 256.218,
+  "en": "importantly, and the information where to"
+ },
+ {
+  "start": 256.298,
+  "end": 258.579,
+  "en": "find the complete skill. So the path to the"
+ },
+ {
+  "start": 258.579,
+  "end": 261.822,
+  "en": "skill, I'm putting that in the end also into"
+ },
+ {
+  "start": 261.854,
+  "end": 265.028,
+  "en": "my context. So I'm loading that information"
+ },
+ {
+  "start": 265.044,
+  "end": 265.172,
+  "en": "here"
+ },
+ {
+  "start": 266.182,
+  "end": 268.138,
+  "en": "with an extra instruction that the entire"
+ },
+ {
+  "start": 268.202,
+  "end": 270.879,
+  "en": "skill.md file for the skill for which I only"
+ },
+ {
+  "start": 270.911,
+  "end": 273.219,
+  "en": "have the description and path should be"
+ },
+ {
+  "start": 273.235,
+  "end": 273.604,
+  "en": "loaded"
+ },
+ {
+  "start": 274.181,
+  "end": 276.329,
+  "en": "if the agent wants to apply it. And I then"
+ },
+ {
+  "start": 276.361,
+  "end": 279.455,
+  "en": "trusted the agent in this general agent here"
+ },
+ {
+  "start": 279.888,
+  "end": 281.09,
+  "en": "that it will use the"
+ },
+ {
+  "start": 281.795,
+  "end": 283.062,
+  "en": "read file tool"
+ },
+ {
+  "start": 283.959,
+  "end": 286.156,
+  "en": "and the information about the skill, like"
+ },
+ {
+  "start": 286.204,
+  "end": 288.336,
+  "en": "the path, which I stored in the general"
+ },
+ {
+  "start": 288.384,
+  "end": 290.692,
+  "en": "instructions that are always sent to the"
+ },
+ {
+  "start": 290.692,
+  "end": 293.401,
+  "en": "agent to load the full skill in the file"
+ },
+ {
+  "start": 293.433,
+  "end": 296.479,
+  "en": "when needed. So I don't have my own complex"
+ },
+ {
+  "start": 296.864,
+  "end": 299.941,
+  "en": "incremental discovery algorithm in here."
+ },
+ {
+  "start": 300.31,
+  "end": 302.618,
+  "en": "Instead, the great thing about these modern"
+ },
+ {
+  "start": 303.051,
+  "end": 305.664,
+  "en": "large language models and the agents you can"
+ },
+ {
+  "start": 305.696,
+  "end": 308.486,
+  "en": "build with them is that you can really just"
+ },
+ {
+  "start": 308.726,
+  "end": 311.275,
+  "en": "nudge them into the right direction, give"
+ },
+ {
+  "start": 311.291,
+  "end": 313.279,
+  "en": "them instructions what they should do, and"
+ },
+ {
+  "start": 313.391,
+  "end": 315.699,
+  "en": "give them the right tools like the read file"
+ },
+ {
+  "start": 315.699,
+  "end": 318.184,
+  "en": "tool, of course, and they can figure it out"
+ },
+ {
+  "start": 318.184,
+  "end": 319.643,
+  "en": "on their own. And you don't need to build"
+ },
+ {
+  "start": 319.643,
+  "end": 321.278,
+  "en": "your own complex logic for"
+ },
+ {
+  "start": 322.031,
+  "end": 325.141,
+  "en": "giving the agent a specific load skill tool"
+ },
+ {
+  "start": 325.317,
+  "end": 327.353,
+  "en": "or anything like that. You could do that."
+ },
+ {
+  "start": 327.577,
+  "end": 330.303,
+  "en": "You could definitely add a load skill tool"
+ },
+ {
+  "start": 330.303,
+  "end": 333.044,
+  "en": "if you felt like you needed to do that, but"
+ },
+ {
+  "start": 333.044,
+  "end": 335.785,
+  "en": "it should work quite well with read file."
+ },
+ {
+  "start": 336.57,
+  "end": 338.109,
+  "en": "So that's my idea here."
+ },
+ {
+  "start": 338.702,
+  "end": 341.588,
+  "en": "In agent tools, we can see the tools I'm"
+ },
+ {
+  "start": 341.668,
+  "end": 342.502,
+  "en": "giving the agent."
+ },
+ {
+  "start": 343.031,
+  "end": 345.259,
+  "en": "And as you see, that is really simple. Read"
+ },
+ {
+  "start": 345.355,
+  "end": 347.583,
+  "en": "file will really just take a path and then"
+ },
+ {
+  "start": 348.08,
+  "end": 350.132,
+  "en": "open the file and read the text in there."
+ },
+ {
+  "start": 350.805,
+  "end": 352.857,
+  "en": "And write file really just stores a file."
+ },
+ {
+  "start": 353.226,
+  "end": 356.319,
+  "en": "It's all kept deliberately very, very"
+ },
+ {
+  "start": 356.448,
+  "end": 360.339,
+  "en": "simple. Store memory will store a memory"
+ },
+ {
+  "start": 360.934,
+  "end": 363.201,
+  "en": "information or a piece of information in a"
+ },
+ {
+  "start": 363.201,
+  "end": 366.079,
+  "en": "markdown file in a memory folder in the"
+ },
+ {
+  "start": 366.159,
+  "end": 368.635,
+  "en": "project folder. That's the idea here. So"
+ },
+ {
+  "start": 368.635,
+  "end": 370.565,
+  "en": "that's the current working directory. And"
+ },
+ {
+  "start": 370.645,
+  "end": 372.446,
+  "en": "then in a memory subfolder, we store a"
+ },
+ {
+  "start": 372.446,
+  "end": 373.185,
+  "en": "markdown file"
+ },
+ {
+  "start": 373.716,
+  "end": 375.05,
+  "en": "and that is how we store memory."
+ },
+ {
+  "start": 375.79,
+  "end": 377.848,
+  "en": "And yeah, that is it. That is the entire"
+ },
+ {
+  "start": 377.88,
+  "end": 378.137,
+  "en": "agent."
+ }
+]

@@ -1,0 +1,457 @@
+[
+ {
+  "start": 2.317,
+  "end": 2.447,
+  "en": "Now,"
+ },
+ {
+  "start": 3.048,
+  "end": 4.315,
+  "en": "what is missing in our trie?"
+ },
+ {
+  "start": 4.949,
+  "end": 7.288,
+  "en": "Of course, a way of removing data."
+ },
+ {
+  "start": 7.92,
+  "end": 11.607,
+  "en": "So after having find and insert, let's also"
+ },
+ {
+  "start": 11.72,
+  "end": 12.831,
+  "en": "add a remove"
+ },
+ {
+  "start": 13.588,
+  "end": 14.361,
+  "en": "functionality"
+ },
+ {
+  "start": 14.941,
+  "end": 16.937,
+  "en": "where we get the key we want to remove."
+ },
+ {
+  "start": 18.6,
+  "end": 21.691,
+  "en": "Now, how do we remove a key? What does"
+ },
+ {
+  "start": 21.789,
+  "end": 23.807,
+  "en": "removing a key in a trie mean?"
+ },
+ {
+  "start": 24.593,
+  "end": 27.488,
+  "en": "If we keep in mind how a trie looks like,"
+ },
+ {
+  "start": 27.909,
+  "end": 29.882,
+  "en": "removing a key of course means that we find"
+ },
+ {
+  "start": 29.882,
+  "end": 29.963,
+  "en": "the"
+ },
+ {
+  "start": 31.526,
+  "end": 35.357,
+  "en": "end node of that full key. So for example,"
+ },
+ {
+  "start": 35.454,
+  "end": 37.65,
+  "en": "here, if we wanted to remove age, we would"
+ },
+ {
+  "start": 37.714,
+  "end": 39.157,
+  "en": "be looking for the E,"
+ },
+ {
+  "start": 39.959,
+  "end": 42.909,
+  "en": "and that node is the node we want to get rid"
+ },
+ {
+  "start": 42.909,
+  "end": 45.586,
+  "en": "of. We don't want to get rid of A and G"
+ },
+ {
+  "start": 46.211,
+  "end": 48.953,
+  "en": "because they don't hold values, or even if"
+ },
+ {
+  "start": 48.953,
+  "end": 51.021,
+  "en": "they would, they would not hold the value"
+ },
+ {
+  "start": 51.021,
+  "end": 54.099,
+  "en": "for age. They would hold the value for A or"
+ },
+ {
+  "start": 54.211,
+  "end": 57.193,
+  "en": "egg, and we want to delete age. So it's"
+ },
+ {
+  "start": 57.193,
+  "end": 60.047,
+  "en": "important to not delete all nodes, but just"
+ },
+ {
+  "start": 60.079,
+  "end": 62.983,
+  "en": "the last node, that holds our value. Now,"
+ },
+ {
+  "start": 63.112,
+  "end": 65.167,
+  "en": "one thing is important though. When I say"
+ },
+ {
+  "start": 65.536,
+  "end": 66.869,
+  "en": "remove the node,"
+ },
+ {
+  "start": 67.543,
+  "end": 69.695,
+  "en": "I don't really mean that we have to delete"
+ },
+ {
+  "start": 69.695,
+  "end": 72.922,
+  "en": "the entire node object, but instead we need"
+ },
+ {
+  "start": 72.922,
+  "end": 75.796,
+  "en": "to remove the value stored in there. So we"
+ },
+ {
+  "start": 75.812,
+  "end": 78.221,
+  "en": "might wanna set the value back to null, for"
+ },
+ {
+  "start": 78.221,
+  "end": 80.228,
+  "en": "example. That is what I want to do here."
+ },
+ {
+  "start": 81.015,
+  "end": 83.648,
+  "en": "You could also alter the remove"
+ },
+ {
+  "start": 83.76,
+  "end": 85.928,
+  "en": "functionality to really get rid of the"
+ },
+ {
+  "start": 85.928,
+  "end": 88.327,
+  "en": "entire node. But then you would need to"
+ },
+ {
+  "start": 88.327,
+  "end": 90.779,
+  "en": "check if that node has any further child"
+ },
+ {
+  "start": 90.827,
+  "end": 93.07,
+  "en": "nodes, in which case you shouldn't delete it"
+ },
+ {
+  "start": 93.409,
+  "end": 95.49,
+  "en": "because you should only delete leaf nodes."
+ },
+ {
+  "start": 96.006,
+  "end": 97.763,
+  "en": "So therefore, I will just take the approach"
+ },
+ {
+  "start": 97.943,
+  "end": 100.053,
+  "en": "of simply deleting the value, which is"
+ },
+ {
+  "start": 100.233,
+  "end": 100.92,
+  "en": "always safe."
+ },
+ {
+  "start": 102.56,
+  "end": 103.63,
+  "en": "Well, and how do we do this?"
+ },
+ {
+  "start": 104.198,
+  "end": 107.329,
+  "en": "We already got a find method which finds us"
+ },
+ {
+  "start": 107.621,
+  "end": 110.136,
+  "en": "a node for a given key. So indeed, what we"
+ },
+ {
+  "start": 110.136,
+  "end": 115.032,
+  "en": "can do is we can get our node with this.find"
+ },
+ {
+  "start": 115.803,
+  "end": 116.558,
+  "en": "for that key"
+ },
+ {
+  "start": 117.409,
+  "end": 119.384,
+  "en": "and that node object then"
+ },
+ {
+  "start": 120.459,
+  "end": 122.45,
+  "en": "is an object with a value key which we can"
+ },
+ {
+  "start": 122.499,
+  "end": 123.093,
+  "en": "set to null."
+ },
+ {
+  "start": 123.831,
+  "end": 126.786,
+  "en": "Now, since objects are reference values in"
+ },
+ {
+  "start": 126.898,
+  "end": 129.901,
+  "en": "JavaScript and we pass the reference here,"
+ },
+ {
+  "start": 130.334,
+  "end": 132.743,
+  "en": "we don't clone it or anything like that, we"
+ },
+ {
+  "start": 132.759,
+  "end": 135.328,
+  "en": "really return the node which we found, I can"
+ },
+ {
+  "start": 135.472,
+  "end": 138.635,
+  "en": "absolutely edit it like this and I edit the"
+ },
+ {
+  "start": 138.635,
+  "end": 141.728,
+  "en": "node in my tree and set its value to null."
+ },
+ {
+  "start": 142.469,
+  "end": 144.855,
+  "en": "Well, and that is all we need for a simple"
+ },
+ {
+  "start": 144.968,
+  "end": 145.919,
+  "en": "remove functionality."
+ },
+ {
+  "start": 147.082,
+  "end": 148.249,
+  "en": "With that, if I"
+ },
+ {
+  "start": 150.145,
+  "end": 150.663,
+  "en": "remove"
+ },
+ {
+  "start": 151.684,
+  "end": 153.483,
+  "en": "name here, for example,"
+ },
+ {
+  "start": 154.131,
+  "end": 156.764,
+  "en": "we can go back and reload. And what we see"
+ },
+ {
+  "start": 157.284,
+  "end": 158.616,
+  "en": "is that in our trie,"
+ },
+ {
+  "start": 159.412,
+  "end": 159.64,
+  "en": "if we"
+ },
+ {
+  "start": 160.209,
+  "end": 161.005,
+  "en": "dig into it,"
+ },
+ {
+  "start": 162.653,
+  "end": 164.352,
+  "en": "in the name branch essentially,"
+ },
+ {
+  "start": 165.022,
+  "end": 167.441,
+  "en": "we do find our names"
+ },
+ {
+  "start": 168.356,
+  "end": 170.234,
+  "en": "somewhere down that tree here,"
+ },
+ {
+  "start": 171.084,
+  "end": 173.652,
+  "en": "but one node above that where we previously"
+ },
+ {
+  "start": 173.652,
+  "end": 176.364,
+  "en": "stored Max as a name, we now have null."
+ },
+ {
+  "start": 177.327,
+  "end": 179.911,
+  "en": "Now one thing we also notice though is that"
+ },
+ {
+  "start": 179.911,
+  "end": 181.885,
+  "en": "we still find that node"
+ },
+ {
+  "start": 182.543,
+  "end": 184.565,
+  "en": "with the find method here."
+ },
+ {
+  "start": 185.143,
+  "end": 188.256,
+  "en": "Sorry, with this method we still find it, it"
+ },
+ {
+  "start": 188.256,
+  "end": 189.748,
+  "en": "just has a value of null."
+ },
+ {
+  "start": 190.583,
+  "end": 193.006,
+  "en": "Now if that's a problem is up to you."
+ },
+ {
+  "start": 193.712,
+  "end": 196.168,
+  "en": "You could of course go for an approach where"
+ },
+ {
+  "start": 196.264,
+  "end": 198.672,
+  "en": "you also wanna delete the entire node and"
+ },
+ {
+  "start": 198.688,
+  "end": 200.855,
+  "en": "not just the value. That indeed might be a"
+ },
+ {
+  "start": 200.855,
+  "end": 202.267,
+  "en": "nice practice at this point."
+ },
+ {
+  "start": 202.941,
+  "end": 205.14,
+  "en": "You could also tweak the find method here"
+ },
+ {
+  "start": 205.895,
+  "end": 208.447,
+  "en": "and for example, check if the node which you"
+ },
+ {
+  "start": 208.479,
+  "end": 210.79,
+  "en": "found has a value that's equal to null."
+ },
+ {
+  "start": 211.368,
+  "end": 213.326,
+  "en": "And if that's the case, you also return"
+ },
+ {
+  "start": 213.438,
+  "end": 213.824,
+  "en": "false"
+ },
+ {
+  "start": 214.353,
+  "end": 216.504,
+  "en": "so that you don't just return false if you"
+ },
+ {
+  "start": 216.504,
+  "end": 219.297,
+  "en": "don't find a node, but you also return false"
+ },
+ {
+  "start": 219.329,
+  "end": 221.833,
+  "en": "if you do find a node but its value is null."
+ },
+ {
+  "start": 222.427,
+  "end": 224.342,
+  "en": "There simply are different ways of doing"
+ },
+ {
+  "start": 224.375,
+  "end": 226.322,
+  "en": "that, as you can see. So this might be a"
+ },
+ {
+  "start": 226.322,
+  "end": 229.186,
+  "en": "tweak you might want to perform to no longer"
+ },
+ {
+  "start": 229.186,
+  "end": 231.729,
+  "en": "return this note, but ultimately it's your"
+ },
+ {
+  "start": 231.842,
+  "end": 234.159,
+  "en": "try and therefore this is entirely up to"
+ },
+ {
+  "start": 234.175,
+  "end": 234.722,
+  "en": "you, of course."
+ }
+]

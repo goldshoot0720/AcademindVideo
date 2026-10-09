@@ -1,0 +1,1222 @@
+[
+ {
+  "start": 2.116,
+  "end": 4.104,
+  "en": "And for this, I'm back in code here. I got"
+ },
+ {
+  "start": 4.104,
+  "end": 6.333,
+  "en": "the same items as before. I got the same"
+ },
+ {
+  "start": 6.429,
+  "end": 7.584,
+  "en": "maximum capacity."
+ },
+ {
+  "start": 8.209,
+  "end": 9.363,
+  "en": "And now let's write a new"
+ },
+ {
+  "start": 10.069,
+  "end": 13.42,
+  "en": "knapsack function that should give us the"
+ },
+ {
+  "start": 13.5,
+  "end": 16.418,
+  "en": "best possible knapsack. So where we get all"
+ },
+ {
+  "start": 16.771,
+  "end": 19.753,
+  "en": "elements and our max capacity,"
+ },
+ {
+  "start": 20.956,
+  "end": 22.671,
+  "en": "or our capacity in general,"
+ },
+ {
+  "start": 23.345,
+  "end": 25.814,
+  "en": "and then we want to write an algorithm that"
+ },
+ {
+  "start": 25.846,
+  "end": 27.818,
+  "en": "gives us the best combination of those"
+ },
+ {
+  "start": 27.915,
+  "end": 29.422,
+  "en": "items. Now important,"
+ },
+ {
+  "start": 30.176,
+  "end": 32.679,
+  "en": "we're solving something here which is called"
+ },
+ {
+  "start": 33.065,
+  "end": 35.584,
+  "en": "the 0-1 knapsack problem."
+ },
+ {
+  "start": 36.113,
+  "end": 37.958,
+  "en": "And that is the problem we solved before"
+ },
+ {
+  "start": 37.958,
+  "end": 38.199,
+  "en": "too."
+ },
+ {
+  "start": 38.841,
+  "end": 41.408,
+  "en": "There also are variations of the knapsack"
+ },
+ {
+  "start": 41.408,
+  "end": 44.183,
+  "en": "problem where you are, for example, allowed"
+ },
+ {
+  "start": 44.296,
+  "end": 47.456,
+  "en": "to take parts of an item so that you say I"
+ },
+ {
+  "start": 47.505,
+  "end": 50.874,
+  "en": "take 2/3 of item A and 1/3 of item B."
+ },
+ {
+  "start": 51.74,
+  "end": 53.81,
+  "en": "And a couple of other variations too where"
+ },
+ {
+  "start": 53.906,
+  "end": 56.746,
+  "en": "you may reuse an item as often as you want."
+ },
+ {
+  "start": 57.292,
+  "end": 60.113,
+  "en": "These are variations. The 0-1 knapsack"
+ },
+ {
+  "start": 60.177,
+  "end": 62.887,
+  "en": "problem is by far the most popular one and"
+ },
+ {
+  "start": 63.047,
+  "end": 65.147,
+  "en": "also the hardest one to solve. So that's the"
+ },
+ {
+  "start": 65.147,
+  "end": 66.445,
+  "en": "one we're going to stick to here."
+ },
+ {
+  "start": 67.375,
+  "end": 70.1,
+  "en": "And with that, let's write a new variation"
+ },
+ {
+  "start": 70.1,
+  "end": 72.73,
+  "en": "of our algorithm, of our problem-solving"
+ },
+ {
+  "start": 72.906,
+  "end": 76.096,
+  "en": "algorithm. Now, however, following a greedy"
+ },
+ {
+  "start": 76.144,
+  "end": 79.046,
+  "en": "approach instead of the dynamic approach so"
+ },
+ {
+  "start": 79.174,
+  "end": 81.194,
+  "en": "that you get an idea of how a greedy"
+ },
+ {
+  "start": 81.194,
+  "end": 82.941,
+  "en": "approach works and might look like."
+ },
+ {
+  "start": 83.68,
+  "end": 86.218,
+  "en": "So the goal is simple. We get elements, so"
+ },
+ {
+  "start": 86.218,
+  "end": 87.069,
+  "en": "we get such an array,"
+ },
+ {
+  "start": 87.599,
+  "end": 90.313,
+  "en": "and we get a capacity restriction which we"
+ },
+ {
+  "start": 90.313,
+  "end": 92.787,
+  "en": "have to adhere to, and we then want to find"
+ },
+ {
+  "start": 92.883,
+  "end": 95.34,
+  "en": "the items we want to take into our knapsack."
+ },
+ {
+  "start": 96.689,
+  "end": 98.858,
+  "en": "So the goal again is that I have my"
+ },
+ {
+  "start": 99.886,
+  "end": 102.086,
+  "en": "sack here in the end, which I get by calling"
+ },
+ {
+  "start": 102.295,
+  "end": 104.849,
+  "en": "knapsack, where I then feed in the items and"
+ },
+ {
+  "start": 104.945,
+  "end": 106.342,
+  "en": "my max capacity here,"
+ },
+ {
+  "start": 107.097,
+  "end": 109.699,
+  "en": "and thereafter I can print this sack and I"
+ },
+ {
+  "start": 109.763,
+  "end": 111.193,
+  "en": "hopefully have the best possible"
+ },
+ {
+  "start": 111.193,
+  "end": 113.743,
+  "en": "combination. Now, a greedy approach is very"
+ },
+ {
+  "start": 113.791,
+  "end": 114.545,
+  "en": "straightforward."
+ },
+ {
+  "start": 115.122,
+  "end": 116.949,
+  "en": "As I mentioned on the slide, a greedy"
+ },
+ {
+  "start": 116.981,
+  "end": 119.129,
+  "en": "approach typically is easy to come up with."
+ },
+ {
+  "start": 119.707,
+  "end": 121.775,
+  "en": "So we would probably go ahead and just write"
+ },
+ {
+  "start": 121.775,
+  "end": 124.308,
+  "en": "a loop and go through all items, all"
+ },
+ {
+  "start": 124.82,
+  "end": 125.398,
+  "en": "elements"
+ },
+ {
+  "start": 125.943,
+  "end": 127.177,
+  "en": "in my elements"
+ },
+ {
+  "start": 127.786,
+  "end": 128.299,
+  "en": "array here."
+ },
+ {
+  "start": 129.309,
+  "end": 131.97,
+  "en": "And we would look at every element and check"
+ },
+ {
+  "start": 132.05,
+  "end": 134.038,
+  "en": "whether it should go into the sack or not,"
+ },
+ {
+  "start": 134.054,
+  "end": 135.305,
+  "en": "into the knapsack or not."
+ },
+ {
+  "start": 136.203,
+  "end": 138.671,
+  "en": "Because remember, with a greedy algorithm,"
+ },
+ {
+  "start": 138.848,
+  "end": 141.573,
+  "en": "with a greedy approach, we make the best"
+ },
+ {
+  "start": 141.589,
+  "end": 144.155,
+  "en": "possible decision in every step."
+ },
+ {
+  "start": 144.813,
+  "end": 147.059,
+  "en": "So we're not looking at an item and we see"
+ },
+ {
+  "start": 147.348,
+  "end": 149.674,
+  "en": "how does it best combine with the other"
+ },
+ {
+  "start": 149.674,
+  "end": 151.535,
+  "en": "items, which is what we're doing with the"
+ },
+ {
+  "start": 151.535,
+  "end": 153.765,
+  "en": "dynamic approach. No, we're looking at an"
+ },
+ {
+  "start": 153.765,
+  "end": 156.396,
+  "en": "item and we'll just have a look, is it good"
+ },
+ {
+  "start": 156.493,
+  "end": 159.557,
+  "en": "to add this item to the knapsack or not? And"
+ },
+ {
+  "start": 159.557,
+  "end": 161.98,
+  "en": "the question whether it's good or not to add"
+ },
+ {
+  "start": 161.98,
+  "end": 164.162,
+  "en": "it is answered by one simple thing."
+ },
+ {
+  "start": 164.691,
+  "end": 167.483,
+  "en": "The question just is, is this item we're"
+ },
+ {
+  "start": 167.483,
+  "end": 170.789,
+  "en": "currently looking at below our max capacity."
+ },
+ {
+  "start": 170.966,
+  "end": 174.177,
+  "en": "So we can check if L.weight,"
+ },
+ {
+  "start": 174.867,
+  "end": 176.296,
+  "en": "every item has a weight property,"
+ },
+ {
+  "start": 176.874,
+  "end": 180.004,
+  "en": "is smaller than our max capacity. And if it"
+ },
+ {
+  "start": 180.004,
+  "end": 182.027,
+  "en": "is, we know, okay, we should add this item."
+ },
+ {
+  "start": 182.653,
+  "end": 183.729,
+  "en": "So here I have my,"
+ },
+ {
+  "start": 184.58,
+  "end": 187.646,
+  "en": "my sack, let's say, my object that describes"
+ },
+ {
+  "start": 187.646,
+  "end": 189.861,
+  "en": "the optimal knapsack I'm deriving here,"
+ },
+ {
+  "start": 190.536,
+  "end": 192.831,
+  "en": "which will have some items, which will have"
+ },
+ {
+  "start": 192.864,
+  "end": 195.737,
+  "en": "a value, and which will have a weight. So"
+ },
+ {
+  "start": 195.737,
+  "end": 197.311,
+  "en": "that's my initial knapsack here."
+ },
+ {
+  "start": 197.922,
+  "end": 199.72,
+  "en": "And if my item I'm looking at here"
+ },
+ {
+  "start": 200.877,
+  "end": 203.302,
+  "en": "has a weight that is smaller than the"
+ },
+ {
+  "start": 203.302,
+  "end": 204.908,
+  "en": "current max capacity,"
+ },
+ {
+  "start": 205.534,
+  "end": 206.691,
+  "en": "I will go to my sack"
+ },
+ {
+  "start": 207.783,
+  "end": 210.818,
+  "en": "and to the items there and push this element"
+ },
+ {
+  "start": 210.931,
+  "end": 211.637,
+  "en": "into the sack."
+ },
+ {
+  "start": 212.296,
+  "end": 214.769,
+  "en": "And of course, therefore update the value by"
+ },
+ {
+  "start": 214.93,
+  "end": 215.235,
+  "en": "adding"
+ },
+ {
+  "start": 216.295,
+  "end": 217.467,
+  "en": "the value"
+ },
+ {
+  "start": 218.318,
+  "end": 218.495,
+  "en": "of my"
+ },
+ {
+  "start": 219.266,
+  "end": 219.635,
+  "en": "item here"
+ },
+ {
+  "start": 220.326,
+  "end": 222.866,
+  "en": "and update the weight by adding"
+ },
+ {
+  "start": 224.912,
+  "end": 227.36,
+  "en": "the weight of my item here. And now"
+ },
+ {
+  "start": 227.408,
+  "end": 229.711,
+  "en": "important, of course, we need to reduce the"
+ },
+ {
+  "start": 229.727,
+  "end": 232.127,
+  "en": "available remaining capacity. So I'll"
+ },
+ {
+  "start": 232.546,
+  "end": 233.85,
+  "en": "actually add a new variable here,"
+ },
+ {
+  "start": 234.414,
+  "end": 236.073,
+  "en": "remaining capacity,"
+ },
+ {
+  "start": 236.652,
+  "end": 238.65,
+  "en": "which initially is just the capacity I'm"
+ },
+ {
+  "start": 238.682,
+  "end": 240.614,
+  "en": "getting here, but now it's the remaining"
+ },
+ {
+  "start": 240.614,
+  "end": 242.673,
+  "en": "capacity we should actually check here."
+ },
+ {
+  "start": 243.413,
+  "end": 246.019,
+  "en": "And once we added an item, we should also"
+ },
+ {
+  "start": 246.083,
+  "end": 248.881,
+  "en": "reduce the remaining capacity by the weight"
+ },
+ {
+  "start": 249.17,
+  "end": 251.048,
+  "en": "of the element so that we have less"
+ },
+ {
+  "start": 251.113,
+  "end": 253.441,
+  "en": "remaining capacity. Because of course, we"
+ },
+ {
+  "start": 253.441,
+  "end": 256.347,
+  "en": "still can't pack more items into the sack"
+ },
+ {
+  "start": 256.556,
+  "end": 258.178,
+  "en": "than we have available capacity."
+ },
+ {
+  "start": 258.98,
+  "end": 260.827,
+  "en": "So we're looking at one single item and we"
+ },
+ {
+  "start": 260.827,
+  "end": 262.738,
+  "en": "decide whether this item should go into the"
+ },
+ {
+  "start": 262.738,
+  "end": 263.54,
+  "en": "sack or not."
+ },
+ {
+  "start": 264.102,
+  "end": 265.788,
+  "en": "And of course, besides updating this, we"
+ },
+ {
+  "start": 265.788,
+  "end": 267.747,
+  "en": "should also check if the weight of the item"
+ },
+ {
+  "start": 267.812,
+  "end": 270.027,
+  "en": "we're trying to put into the knapsack is"
+ },
+ {
+  "start": 270.059,
+  "end": 272.548,
+  "en": "smaller or equal than the remaining"
+ },
+ {
+  "start": 272.548,
+  "end": 273.19,
+  "en": "capacity."
+ },
+ {
+  "start": 273.736,
+  "end": 275.566,
+  "en": "Because it doesn't just have to be smaller."
+ },
+ {
+  "start": 275.839,
+  "end": 278.021,
+  "en": "If it has the same weight, so if it, for"
+ },
+ {
+  "start": 278.021,
+  "end": 280.252,
+  "en": "example, does have a weight of 8 and the max"
+ },
+ {
+  "start": 280.252,
+  "end": 282.627,
+  "en": "capacity is 8, it should also be allowed to"
+ },
+ {
+  "start": 282.643,
+  "end": 284.536,
+  "en": "go in there. So we need smaller than or"
+ },
+ {
+  "start": 284.585,
+  "end": 284.873,
+  "en": "equal."
+ },
+ {
+  "start": 285.868,
+  "end": 286.671,
+  "en": "So with that,"
+ },
+ {
+  "start": 287.473,
+  "end": 289.912,
+  "en": "let's now return our sack here."
+ },
+ {
+  "start": 290.939,
+  "end": 293.796,
+  "en": "So let's return this generated knapsack and"
+ },
+ {
+  "start": 293.812,
+  "end": 296.123,
+  "en": "let's give this algorithm a try. Let's save"
+ },
+ {
+  "start": 296.123,
+  "end": 296.171,
+  "en": "all"
+ },
+ {
+  "start": 297.022,
+  "end": 299.108,
+  "en": "and reload this browser page and we get our"
+ },
+ {
+  "start": 299.268,
+  "end": 300.103,
+  "en": "knapsack here."
+ },
+ {
+  "start": 301.098,
+  "end": 303.025,
+  "en": "And if we have a look at it, we see we got"
+ },
+ {
+  "start": 303.025,
+  "end": 305.37,
+  "en": "the items A and C in there. So this looks"
+ },
+ {
+  "start": 305.37,
+  "end": 308.421,
+  "en": "pretty good. The total value is 13 and the"
+ },
+ {
+  "start": 308.421,
+  "end": 310.974,
+  "en": "total weight is 6. And this, if you"
+ },
+ {
+  "start": 310.974,
+  "end": 313.832,
+  "en": "remember, is our best possible solution."
+ },
+ {
+  "start": 313.881,
+  "end": 316.739,
+  "en": "It's the best solution we can get for these"
+ },
+ {
+  "start": 317.092,
+  "end": 318.184,
+  "en": "input values."
+ },
+ {
+  "start": 319.357,
+  "end": 320.031,
+  "en": "So clearly"
+ },
+ {
+  "start": 320.689,
+  "end": 323.548,
+  "en": "our way shorter algorithm here"
+ },
+ {
+  "start": 324.142,
+  "end": 326.824,
+  "en": "gives us the same result as the way more"
+ },
+ {
+  "start": 326.952,
+  "end": 329.538,
+  "en": "complex dynamic programming approach we"
+ },
+ {
+  "start": 329.538,
+  "end": 330.357,
+  "en": "followed before."
+ },
+ {
+  "start": 330.886,
+  "end": 333.519,
+  "en": "So why would we use that dynamic programming"
+ },
+ {
+  "start": 333.567,
+  "end": 335.606,
+  "en": "approach at all then, if we get the same"
+ },
+ {
+  "start": 335.638,
+  "end": 336.232,
+  "en": "result here?"
+ },
+ {
+  "start": 337.565,
+  "end": 337.709,
+  "en": "Well,"
+ },
+ {
+  "start": 338.368,
+  "end": 340.551,
+  "en": "this is a deceiving result."
+ },
+ {
+  "start": 341.081,
+  "end": 343.023,
+  "en": "We do get the best possible solution here,"
+ },
+ {
+  "start": 343.344,
+  "end": 343.826,
+  "en": "that's true."
+ },
+ {
+  "start": 344.468,
+  "end": 347.181,
+  "en": "But it's easy to change our input such that"
+ },
+ {
+  "start": 347.181,
+  "end": 349.525,
+  "en": "we don't get it anymore. So it's a random"
+ },
+ {
+  "start": 349.525,
+  "end": 351.612,
+  "en": "result that we get the best solution here."
+ },
+ {
+  "start": 352.319,
+  "end": 355.144,
+  "en": "Watch what happens if I just swap B and A."
+ },
+ {
+  "start": 355.642,
+  "end": 358.674,
+  "en": "So I changed the order of B and A. The"
+ },
+ {
+  "start": 358.754,
+  "end": 361.304,
+  "en": "values and the weights are the same. It's"
+ },
+ {
+  "start": 361.304,
+  "end": 364.767,
+  "en": "just that B and A swapped their position in"
+ },
+ {
+  "start": 364.767,
+  "end": 366.274,
+  "en": "this array. Nothing else changed."
+ },
+ {
+  "start": 367.156,
+  "end": 369.321,
+  "en": "With this little change, we should still get"
+ },
+ {
+  "start": 369.401,
+  "end": 371.373,
+  "en": "our best possible solution, of course,"
+ },
+ {
+  "start": 371.822,
+  "end": 373.987,
+  "en": "because that would be a valid input array"
+ },
+ {
+  "start": 373.987,
+  "end": 374.163,
+  "en": "too."
+ },
+ {
+  "start": 375.093,
+  "end": 377.771,
+  "en": "Nonetheless, if I now reload, you see we get"
+ },
+ {
+  "start": 377.771,
+  "end": 378.877,
+  "en": "a false result."
+ },
+ {
+  "start": 379.438,
+  "end": 381.763,
+  "en": "Now there is only one item in the knapsack,"
+ },
+ {
+  "start": 382.084,
+  "end": 382.324,
+  "en": "B,"
+ },
+ {
+  "start": 382.869,
+  "end": 384.938,
+  "en": "and the total value is 6 and the total"
+ },
+ {
+  "start": 384.97,
+  "end": 385.483,
+  "en": "weight is 8."
+ },
+ {
+  "start": 386.173,
+  "end": 388.261,
+  "en": "And we only have one item in there because"
+ },
+ {
+  "start": 388.261,
+  "end": 390.703,
+  "en": "now that I swapped the position of B and A,"
+ },
+ {
+  "start": 391.458,
+  "end": 393.691,
+  "en": "that's the first item we're evaluating."
+ },
+ {
+  "start": 394.429,
+  "end": 397.594,
+  "en": "With its weight of 8, it clearly goes into"
+ },
+ {
+  "start": 397.642,
+  "end": 400.035,
+  "en": "the knapsack because 8 is"
+ },
+ {
+  "start": 400.565,
+  "end": 403.441,
+  "en": "equal to our max capacity. So this item is"
+ },
+ {
+  "start": 403.441,
+  "end": 405.031,
+  "en": "allowed to go into the knapsack."
+ },
+ {
+  "start": 405.689,
+  "end": 408.227,
+  "en": "But once it's in there, we have no capacity"
+ },
+ {
+  "start": 408.259,
+  "end": 408.661,
+  "en": "left."
+ },
+ {
+  "start": 409.287,
+  "end": 411.617,
+  "en": "So because of the greedy approach, where we"
+ },
+ {
+  "start": 411.697,
+  "end": 414.172,
+  "en": "only have a look at one item at a time and"
+ },
+ {
+  "start": 414.188,
+  "end": 416.019,
+  "en": "we try to make the best decision for every"
+ },
+ {
+  "start": 416.116,
+  "end": 418.799,
+  "en": "item and hope that this altogether adds up"
+ },
+ {
+  "start": 419.024,
+  "end": 419.876,
+  "en": "to the best decision,"
+ },
+ {
+  "start": 420.695,
+  "end": 423.765,
+  "en": "we generate a wrong result because now we"
+ },
+ {
+  "start": 424.247,
+  "end": 427.525,
+  "en": "decide to add B into the knapsack. So the"
+ },
+ {
+  "start": 427.525,
+  "end": 429.196,
+  "en": "first item we're looking at, because of"
+ },
+ {
+  "start": 429.228,
+  "end": 431.526,
+  "en": "course if we just look at this item, it is"
+ },
+ {
+  "start": 431.622,
+  "end": 432.458,
+  "en": "correct to add it."
+ },
+ {
+  "start": 433.068,
+  "end": 435.206,
+  "en": "It has a weight that fits in there, so why"
+ },
+ {
+  "start": 435.318,
+  "end": 435.88,
+  "en": "wouldn't we add it?"
+ },
+ {
+  "start": 436.62,
+  "end": 439.3,
+  "en": "But by just looking at this item and by not"
+ },
+ {
+  "start": 439.428,
+  "end": 441.85,
+  "en": "evaluating the other items and all possible"
+ },
+ {
+  "start": 441.915,
+  "end": 442.524,
+  "en": "combinations,"
+ },
+ {
+  "start": 443.182,
+  "end": 446.198,
+  "en": "we miss the fact that there would've been a"
+ },
+ {
+  "start": 446.327,
+  "end": 447.369,
+  "en": "better combination."
+ },
+ {
+  "start": 447.915,
+  "end": 449.904,
+  "en": "And that's the problem with this greedy"
+ },
+ {
+  "start": 449.952,
+  "end": 450.466,
+  "en": "approach."
+ },
+ {
+  "start": 451.461,
+  "end": 453.995,
+  "en": "Now, the greedy approach does not always"
+ },
+ {
+  "start": 454.493,
+  "end": 457.044,
+  "en": "yield a wrong result. There are problems"
+ },
+ {
+  "start": 457.14,
+  "end": 459.21,
+  "en": "which you can solve with a greedy approach,"
+ },
+ {
+  "start": 459.498,
+  "end": 460.734,
+  "en": "so by just having a look at"
+ },
+ {
+  "start": 461.488,
+  "end": 463.717,
+  "en": "one option at a time, and you will get the"
+ },
+ {
+  "start": 463.733,
+  "end": 466.137,
+  "en": "best possible result. In such cases, you"
+ },
+ {
+  "start": 466.137,
+  "end": 468.429,
+  "en": "might still have non-optimal time"
+ },
+ {
+  "start": 468.461,
+  "end": 470.449,
+  "en": "complexity, but sometimes you even have"
+ },
+ {
+  "start": 470.449,
+  "end": 472.628,
+  "en": "that. Sometimes the greedy approach is the"
+ },
+ {
+  "start": 472.628,
+  "end": 474.808,
+  "en": "best possible approach, and therefore it's"
+ },
+ {
+  "start": 474.872,
+  "end": 477.325,
+  "en": "never bad to consider a greedy approach."
+ },
+ {
+  "start": 477.998,
+  "end": 480.21,
+  "en": "But you should always be open to improving"
+ },
+ {
+  "start": 480.258,
+  "end": 482.63,
+  "en": "it, and you should always verify your"
+ },
+ {
+  "start": 482.63,
+  "end": 484.794,
+  "en": "results and do something like we did it"
+ },
+ {
+  "start": 484.794,
+  "end": 488.175,
+  "en": "here. Change your inputs slightly and check"
+ },
+ {
+  "start": 488.175,
+  "end": 490.179,
+  "en": "whether your algorithm still gives you the"
+ },
+ {
+  "start": 490.179,
+  "end": 492.826,
+  "en": "best possible result. And if that's not the"
+ },
+ {
+  "start": 492.826,
+  "end": 494.753,
+  "en": "case, you probably need a different"
+ },
+ {
+  "start": 494.769,
+  "end": 495.283,
+  "en": "solution."
+ },
+ {
+  "start": 496.295,
+  "end": 499.572,
+  "en": "So long story short, it's always a good idea"
+ },
+ {
+  "start": 499.572,
+  "end": 501.563,
+  "en": "if you're thinking about a problem, if"
+ },
+ {
+  "start": 501.563,
+  "end": 504.165,
+  "en": "you're confronted with a problem, to maybe"
+ },
+ {
+  "start": 504.454,
+  "end": 507.49,
+  "en": "check the greedy approach first and try to"
+ },
+ {
+  "start": 507.506,
+  "end": 509.995,
+  "en": "approach the problem as simple as possible."
+ },
+ {
+  "start": 510.332,
+  "end": 512.645,
+  "en": "Don't make it overly complex. Just have a"
+ },
+ {
+  "start": 512.645,
+  "end": 515.07,
+  "en": "look at one problem at a time. Just go"
+ },
+ {
+  "start": 515.135,
+  "end": 516.805,
+  "en": "through all the different steps you might"
+ },
+ {
+  "start": 516.821,
+  "end": 518.764,
+  "en": "have in your algorithm and try to make the"
+ },
+ {
+  "start": 518.844,
+  "end": 520.898,
+  "en": "best decision on every step instead of"
+ },
+ {
+  "start": 520.914,
+  "end": 522.871,
+  "en": "considering all combinations right from the"
+ },
+ {
+  "start": 522.871,
+  "end": 525.567,
+  "en": "start. But then definitely verify your"
+ },
+ {
+  "start": 525.567,
+  "end": 527.814,
+  "en": "result and check if it's the best possible"
+ },
+ {
+  "start": 527.91,
+  "end": 530.381,
+  "en": "one. And if it is, check if it has the best"
+ },
+ {
+  "start": 530.381,
+  "end": 533.221,
+  "en": "possible runtime and be open to using a"
+ },
+ {
+  "start": 533.285,
+  "end": 534.184,
+  "en": "dynamic approach."
+ },
+ {
+  "start": 534.89,
+  "end": 537.762,
+  "en": "Dynamic approaches, dynamic algorithms, so"
+ },
+ {
+  "start": 537.843,
+  "end": 539.832,
+  "en": "when you use dynamic programming in the end,"
+ },
+ {
+  "start": 540.426,
+  "end": 543.122,
+  "en": "guarantee you the best possible solution"
+ },
+ {
+  "start": 543.459,
+  "end": 545.801,
+  "en": "because you always evaluate all possible"
+ },
+ {
+  "start": 545.801,
+  "end": 546.331,
+  "en": "solutions"
+ },
+ {
+  "start": 546.909,
+  "end": 550.022,
+  "en": "and they also typically have the best"
+ },
+ {
+  "start": 549.3,
+  "end": 550.359,
+  "en": "possible runtime."
+ },
+ {
+  "start": 551.017,
+  "end": 553.825,
+  "en": "So you're pretty much never wrong with the"
+ },
+ {
+  "start": 553.825,
+  "end": 556.233,
+  "en": "dynamic approach, but the greedy one can be"
+ },
+ {
+  "start": 556.233,
+  "end": 559.571,
+  "en": "faster. And in an interview situation, it is"
+ },
+ {
+  "start": 559.603,
+  "end": 561.962,
+  "en": "perfectly fine to say, okay, I'm going to"
+ },
+ {
+  "start": 561.994,
+  "end": 563.101,
+  "en": "start with a greedy"
+ },
+ {
+  "start": 563.759,
+  "end": 566.889,
+  "en": "approach here and see how this works, and"
+ },
+ {
+  "start": 566.889,
+  "end": 568.67,
+  "en": "then start with the greedy approach. That's"
+ },
+ {
+  "start": 568.67,
+  "end": 571.206,
+  "en": "perfectly fine. You just need to be open to"
+ },
+ {
+  "start": 571.302,
+  "end": 574.271,
+  "en": "refine it and to maybe deviate from it. And"
+ },
+ {
+  "start": 574.287,
+  "end": 576.534,
+  "en": "that's why you need to know both terms, why"
+ },
+ {
+  "start": 576.534,
+  "end": 577.947,
+  "en": "you need to know both approaches,"
+ },
+ {
+  "start": 578.524,
+  "end": 582.163,
+  "en": "and it is worth evaluating both if you are"
+ },
+ {
+  "start": 582.163,
+  "end": 583.7,
+  "en": "confronted with a problem."
+ }
+]

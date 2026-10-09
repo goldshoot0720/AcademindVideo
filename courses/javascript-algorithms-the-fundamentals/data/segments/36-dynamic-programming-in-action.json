@@ -1,0 +1,1122 @@
+[
+ {
+  "start": 2.291,
+  "end": 5.287,
+  "en": "So therefore, back at our recursive"
+ },
+ {
+  "start": 5.399,
+  "end": 8.204,
+  "en": "Fibonacci function, let's see how we could"
+ },
+ {
+  "start": 8.204,
+  "end": 11.296,
+  "en": "improve that with memoization. So by adding"
+ },
+ {
+  "start": 11.328,
+  "end": 12.177,
+  "en": "such a storage,"
+ },
+ {
+  "start": 13.171,
+  "end": 15.863,
+  "en": "well, in the end we want some global storage"
+ },
+ {
+  "start": 16.215,
+  "end": 18.074,
+  "en": "which is available in every function"
+ },
+ {
+  "start": 18.074,
+  "end": 18.715,
+  "en": "execution"
+ },
+ {
+  "start": 19.26,
+  "end": 21.615,
+  "en": "where we can store the results we derive. So"
+ },
+ {
+  "start": 21.647,
+  "end": 23.955,
+  "en": "of course, for the first function execution,"
+ },
+ {
+  "start": 24.147,
+  "end": 26.887,
+  "en": "that storage will be empty, but the more"
+ },
+ {
+  "start": 27.592,
+  "end": 29.996,
+  "en": "functions we execute, the more results we"
+ },
+ {
+  "start": 29.996,
+  "end": 31.599,
+  "en": "derive for different"
+ },
+ {
+  "start": 32.24,
+  "end": 35.462,
+  "en": "numbers, for different positions we retrieve"
+ },
+ {
+  "start": 35.671,
+  "end": 38.492,
+  "en": "from that Fibonacci sequence, the more our"
+ },
+ {
+  "start": 38.492,
+  "end": 40.864,
+  "en": "storage will be populated with those"
+ },
+ {
+  "start": 40.96,
+  "end": 42.899,
+  "en": "intermediate results. That's the idea."
+ },
+ {
+  "start": 43.861,
+  "end": 45.368,
+  "en": "So therefore, we could set up a global"
+ },
+ {
+  "start": 45.368,
+  "end": 48.173,
+  "en": "storage, let's say a global object which we"
+ },
+ {
+  "start": 48.173,
+  "end": 49.135,
+  "en": "could name memo,"
+ },
+ {
+  "start": 49.792,
+  "end": 52.485,
+  "en": "and we could dynamically add key-value pairs"
+ },
+ {
+  "start": 52.757,
+  "end": 55.081,
+  "en": "to that object with every iteration."
+ },
+ {
+  "start": 55.884,
+  "end": 58.341,
+  "en": "This might work, but the problem with that"
+ },
+ {
+  "start": 58.598,
+  "end": 61.232,
+  "en": "is that we have one object, and if we call"
+ },
+ {
+  "start": 61.506,
+  "end": 64.766,
+  "en": "fib multiple times, let's say for different"
+ },
+ {
+  "start": 65.023,
+  "end": 65.489,
+  "en": "numbers,"
+ },
+ {
+  "start": 66.147,
+  "end": 68.525,
+  "en": "we're reusing one and the same object. This"
+ },
+ {
+  "start": 68.653,
+  "end": 71.737,
+  "en": "can actually be great because on the second"
+ },
+ {
+  "start": 71.785,
+  "end": 74.676,
+  "en": "call, we already take advantage of all the"
+ },
+ {
+  "start": 74.676,
+  "end": 77.15,
+  "en": "intermediate results we derived in the first"
+ },
+ {
+  "start": 77.23,
+  "end": 77.391,
+  "en": "call."
+ },
+ {
+  "start": 78.21,
+  "end": 80.925,
+  "en": "But if you had a function where the input"
+ },
+ {
+  "start": 81.15,
+  "end": 83.636,
+  "en": "produces totally different values, then"
+ },
+ {
+  "start": 83.732,
+  "end": 86.283,
+  "en": "having such a globally stored object could"
+ },
+ {
+  "start": 86.299,
+  "end": 88.465,
+  "en": "be very bad because you might be getting"
+ },
+ {
+  "start": 88.706,
+  "end": 90.904,
+  "en": "incorrect results in your next function"
+ },
+ {
+  "start": 90.904,
+  "end": 93.15,
+  "en": "execution. Hence, we're not going to write"
+ },
+ {
+  "start": 93.15,
+  "end": 93.647,
+  "en": "it like this."
+ },
+ {
+  "start": 94.337,
+  "end": 96.39,
+  "en": "Instead, the idea is that every"
+ },
+ {
+  "start": 97.048,
+  "end": 98.396,
+  "en": "recursive process,"
+ },
+ {
+  "start": 99.134,
+  "end": 102.054,
+  "en": "every Fibonacci number we try to retrieve"
+ },
+ {
+  "start": 102.439,
+  "end": 105.679,
+  "en": "gets its own storage, which is only used for"
+ },
+ {
+  "start": 105.727,
+  "end": 108.919,
+  "en": "this recursive tree. So that fib and fib"
+ },
+ {
+  "start": 108.919,
+  "end": 111.852,
+  "en": "here would generate different storages or"
+ },
+ {
+  "start": 111.98,
+  "end": 113.391,
+  "en": "would use different storages."
+ },
+ {
+  "start": 114.064,
+  "end": 115.315,
+  "en": "And for that, all we need to do"
+ },
+ {
+  "start": 115.972,
+  "end": 118.072,
+  "en": "is we need to provide a second argument here"
+ },
+ {
+  "start": 118.312,
+  "end": 121.759,
+  "en": "to fib, let's say memo or just mem or"
+ },
+ {
+  "start": 121.759,
+  "end": 123.811,
+  "en": "whatever you wanna call it. I'll name it"
+ },
+ {
+  "start": 123.907,
+  "end": 124.227,
+  "en": "memo."
+ },
+ {
+  "start": 125.526,
+  "end": 126.953,
+  "en": "And that will be our storage."
+ },
+ {
+  "start": 127.754,
+  "end": 129.501,
+  "en": "Now we can call fib"
+ },
+ {
+  "start": 130.319,
+  "end": 132.643,
+  "en": "by passing an empty object as a second"
+ },
+ {
+  "start": 132.723,
+  "end": 135.08,
+  "en": "argument. And we do the same here for fib."
+ },
+ {
+  "start": 135.689,
+  "end": 137.997,
+  "en": "Initially, it's empty because this storage"
+ },
+ {
+  "start": 138.334,
+  "end": 140.858,
+  "en": "should get populated populated whilst this"
+ },
+ {
+  "start": 140.858,
+  "end": 143.197,
+  "en": "recursive process is running because we"
+ },
+ {
+  "start": 143.197,
+  "end": 145.05,
+  "en": "wanna store intermediate results."
+ },
+ {
+  "start": 146.52,
+  "end": 149.626,
+  "en": "Now the idea is that inside of our function,"
+ },
+ {
+  "start": 149.691,
+  "end": 150.97,
+  "en": "inside of the fib function,"
+ },
+ {
+  "start": 151.568,
+  "end": 154.853,
+  "en": "we introduce a result helper variable which"
+ },
+ {
+  "start": 154.902,
+  "end": 155.743,
+  "en": "initially is empty."
+ },
+ {
+  "start": 156.503,
+  "end": 158.605,
+  "en": "And then here in this if check, we set"
+ },
+ {
+  "start": 158.605,
+  "end": 159.785,
+  "en": "result equal to 1."
+ },
+ {
+  "start": 160.529,
+  "end": 161.078,
+  "en": "Otherwise,"
+ },
+ {
+  "start": 162.162,
+  "end": 164.797,
+  "en": "down there, we set result equal to this."
+ },
+ {
+  "start": 166.378,
+  "end": 169.023,
+  "en": "Now we'll put this into an else branch"
+ },
+ {
+  "start": 169.44,
+  "end": 171.748,
+  "en": "because now after the if-else statement, we"
+ },
+ {
+  "start": 171.748,
+  "end": 174.874,
+  "en": "can return result. So thus far, that's just"
+ },
+ {
+  "start": 174.906,
+  "end": 176.926,
+  "en": "a rewritten version of what we had before"
+ },
+ {
+  "start": 177.279,
+  "end": 178.417,
+  "en": "using a helper variable."
+ },
+ {
+  "start": 178.962,
+  "end": 180.918,
+  "en": "Now why do I use this helper variable?"
+ },
+ {
+  "start": 181.463,
+  "end": 183.739,
+  "en": "Because now the idea is that we don't just"
+ },
+ {
+  "start": 183.787,
+  "end": 186.16,
+  "en": "return result for every function call,"
+ },
+ {
+  "start": 186.753,
+  "end": 188.404,
+  "en": "and that includes the nested function calls"
+ },
+ {
+  "start": 188.436,
+  "end": 191.049,
+  "en": "of course, but that we also store it in our"
+ },
+ {
+  "start": 191.402,
+  "end": 192.638,
+  "en": "intermediate storage here."
+ },
+ {
+  "start": 193.826,
+  "end": 196.074,
+  "en": "So we can access memo, and since this is a"
+ },
+ {
+  "start": 196.203,
+  "end": 198.756,
+  "en": "JavaScript object, we can dynamically add"
+ },
+ {
+  "start": 198.852,
+  "end": 199.559,
+  "en": "properties"
+ },
+ {
+  "start": 200.153,
+  "end": 202.369,
+  "en": "with the square bracket notation. We can use"
+ },
+ {
+  "start": 202.401,
+  "end": 202.995,
+  "en": "a variable"
+ },
+ {
+  "start": 203.749,
+  "end": 206.013,
+  "en": "which holds the name we wanna use for the"
+ },
+ {
+  "start": 206.013,
+  "end": 207.105,
+  "en": "key we're going to add,"
+ },
+ {
+  "start": 207.699,
+  "end": 208.454,
+  "en": "and that could be n"
+ },
+ {
+  "start": 209.289,
+  "end": 211.232,
+  "en": "so that we have something like 1 as a"
+ },
+ {
+  "start": 211.232,
+  "end": 213.351,
+  "en": "property name or 2 or 3 or 4,"
+ },
+ {
+  "start": 214.106,
+  "end": 217.173,
+  "en": "and the value for that key name is should be"
+ },
+ {
+  "start": 217.173,
+  "end": 219.019,
+  "en": "the Fibonacci number that was derived."
+ },
+ {
+  "start": 219.645,
+  "end": 222.295,
+  "en": "So we set this equal to result. So the idea"
+ },
+ {
+  "start": 222.375,
+  "end": 223.515,
+  "en": "is when we execute fib,"
+ },
+ {
+  "start": 224.077,
+  "end": 224.173,
+  "en": "we"
+ },
+ {
+  "start": 224.944,
+  "end": 226.566,
+  "en": "execute those nested functions,"
+ },
+ {
+  "start": 227.272,
+  "end": 227.658,
+  "en": "and"
+ },
+ {
+  "start": 228.557,
+  "end": 230.548,
+  "en": "ultimately those functions are going to"
+ },
+ {
+  "start": 230.58,
+  "end": 231.897,
+  "en": "return values."
+ },
+ {
+  "start": 232.651,
+  "end": 234.594,
+  "en": "And before we then go further up in our"
+ },
+ {
+  "start": 234.594,
+  "end": 237.292,
+  "en": "recursion tree, we already store those"
+ },
+ {
+  "start": 237.484,
+  "end": 239.813,
+  "en": "returned intermediate values, and we're"
+ },
+ {
+  "start": 240.037,
+  "end": 241.996,
+  "en": "always working on one and the same object."
+ },
+ {
+  "start": 242.542,
+  "end": 244.945,
+  "en": "Now to make sure those nested recursion"
+ },
+ {
+  "start": 245.009,
+  "end": 247.445,
+  "en": "calls also have that same object available,"
+ },
+ {
+  "start": 247.83,
+  "end": 250.265,
+  "en": "we simply pass it as a second argument here."
+ },
+ {
+  "start": 251.291,
+  "end": 253.887,
+  "en": "So now that's not an empty object, but that"
+ },
+ {
+  "start": 253.919,
+  "end": 255.954,
+  "en": "one object which we initially got here."
+ },
+ {
+  "start": 256.482,
+  "end": 258.758,
+  "en": "And since objects are reference types in"
+ },
+ {
+  "start": 258.87,
+  "end": 261.434,
+  "en": "JavaScript, we're always acting on the same"
+ },
+ {
+  "start": 261.594,
+  "end": 263.853,
+  "en": "object. So when we dynamically add a"
+ },
+ {
+  "start": 263.853,
+  "end": 267.106,
+  "en": "property to that object, that property is"
+ },
+ {
+  "start": 267.138,
+  "end": 269.847,
+  "en": "going to be available in our fib function"
+ },
+ {
+  "start": 269.847,
+  "end": 271.565,
+  "en": "calls of that"
+ },
+ {
+  "start": 272.094,
+  "end": 275.513,
+  "en": "overall main function call here. Now fib and"
+ },
+ {
+  "start": 275.625,
+  "end": 278.675,
+  "en": "fib, these 2 lines down there, have their"
+ },
+ {
+  "start": 278.755,
+  "end": 281.083,
+  "en": "own independent storages, the objects we're"
+ },
+ {
+  "start": 281.163,
+  "end": 283.538,
+  "en": "feeding in here. But all nested calls then"
+ },
+ {
+  "start": 283.811,
+  "end": 286.074,
+  "en": "operate on the same storage object,"
+ },
+ {
+  "start": 286.717,
+  "end": 289.156,
+  "en": "and that storage object also receives our"
+ },
+ {
+  "start": 289.269,
+  "end": 289.718,
+  "en": "result."
+ },
+ {
+  "start": 290.649,
+  "end": 292.72,
+  "en": "Now thus far we're storing intermediate"
+ },
+ {
+  "start": 292.72,
+  "end": 294.758,
+  "en": "results, but we're not doing anything with"
+ },
+ {
+  "start": 294.806,
+  "end": 297.053,
+  "en": "it. So currently we have no optimization in"
+ },
+ {
+  "start": 297.214,
+  "end": 297.615,
+  "en": "place."
+ },
+ {
+  "start": 298.434,
+  "end": 300.973,
+  "en": "Therefore, one last step is missing here in"
+ },
+ {
+  "start": 301.149,
+  "end": 302.338,
+  "en": "our fib function."
+ },
+ {
+  "start": 303.318,
+  "end": 304.732,
+  "en": "We now initially want to check"
+ },
+ {
+  "start": 305.262,
+  "end": 308.555,
+  "en": "if for the n we're running this function, we"
+ },
+ {
+  "start": 308.7,
+  "end": 310.965,
+  "en": "already have an entry in our memo object."
+ },
+ {
+  "start": 311.592,
+  "end": 313.439,
+  "en": "Now at first this will not be the case, but"
+ },
+ {
+  "start": 313.439,
+  "end": 315.367,
+  "en": "once we had a couple of nested function"
+ },
+ {
+  "start": 315.367,
+  "end": 318.259,
+  "en": "calls, we might have already derived a value"
+ },
+ {
+  "start": 318.259,
+  "end": 321.696,
+  "en": "for fib or fib or fib or whatever is"
+ },
+ {
+  "start": 321.793,
+  "end": 322.564,
+  "en": "happening down there."
+ },
+ {
+  "start": 323.399,
+  "end": 325.07,
+  "en": "So we check if memo n"
+ },
+ {
+  "start": 325.887,
+  "end": 326.416,
+  "en": "is a thing."
+ },
+ {
+  "start": 327.17,
+  "end": 329.574,
+  "en": "If such a key does not exist yet, this"
+ },
+ {
+  "start": 329.574,
+  "end": 331.803,
+  "en": "returns undefined, which is falsy,"
+ },
+ {
+  "start": 332.38,
+  "end": 333.47,
+  "en": "so we won't make it in there."
+ },
+ {
+  "start": 333.999,
+  "end": 336.804,
+  "en": "But if this returns anything but that,"
+ },
+ {
+  "start": 337.365,
+  "end": 339.0,
+  "en": "we actually will make it in there,"
+ },
+ {
+  "start": 339.674,
+  "end": 340.347,
+  "en": "and we can now"
+ },
+ {
+  "start": 341.068,
+  "end": 343.986,
+  "en": "simply return memo, so that stored"
+ },
+ {
+  "start": 344.034,
+  "end": 346.326,
+  "en": "intermediate result, and the rest of the"
+ },
+ {
+  "start": 346.326,
+  "end": 348.026,
+  "en": "code is therefore then skipped."
+ },
+ {
+  "start": 348.667,
+  "end": 351.953,
+  "en": "And as a result, for some of our nested"
+ },
+ {
+  "start": 351.953,
+  "end": 354.952,
+  "en": "function calls, we won't have to do more"
+ },
+ {
+  "start": 355.385,
+  "end": 358.528,
+  "en": "nested calls. Instead, we find such a stored"
+ },
+ {
+  "start": 358.528,
+  "end": 360.772,
+  "en": "value and we can skip all other steps."
+ },
+ {
+  "start": 362.135,
+  "end": 364.589,
+  "en": "So that means that our solution, which"
+ },
+ {
+  "start": 364.845,
+  "end": 368.036,
+  "en": "previously led to this tree of function"
+ },
+ {
+  "start": 368.052,
+  "end": 368.437,
+  "en": "calls,"
+ },
+ {
+  "start": 369.03,
+  "end": 371.58,
+  "en": "now with our new solution is optimized"
+ },
+ {
+  "start": 371.916,
+  "end": 374.081,
+  "en": "because we get rid of a whole branch of that"
+ },
+ {
+  "start": 374.081,
+  "end": 377.112,
+  "en": "tree. And hence we have way less function"
+ },
+ {
+  "start": 377.112,
+  "end": 379.533,
+  "en": "executions. And of course, for bigger"
+ },
+ {
+  "start": 379.533,
+  "end": 382.706,
+  "en": "numbers, for bigger Ns, that effect is even"
+ },
+ {
+  "start": 382.738,
+  "end": 383.267,
+  "en": "more visible."
+ },
+ {
+  "start": 384.197,
+  "end": 385.575,
+  "en": "So let's take a look at that."
+ },
+ {
+  "start": 386.104,
+  "end": 388.717,
+  "en": "And to see whether we really improved, I'll"
+ },
+ {
+  "start": 388.733,
+  "end": 390.544,
+  "en": "again add a counter variable here"
+ },
+ {
+  "start": 391.153,
+  "end": 393.637,
+  "en": "and I'll increment that counter here at the"
+ },
+ {
+  "start": 393.702,
+  "end": 395.641,
+  "en": "very beginning of the fib function."
+ },
+ {
+  "start": 396.282,
+  "end": 398.045,
+  "en": "And that allows us to utilize that counter"
+ },
+ {
+  "start": 398.045,
+  "end": 399.84,
+  "en": "to see how many iterations we had."
+ },
+ {
+  "start": 400.546,
+  "end": 403.431,
+  "en": "So here I will then console.log counter"
+ },
+ {
+  "start": 404.521,
+  "end": 406.989,
+  "en": "and then also reset counter"
+ },
+ {
+  "start": 408.401,
+  "end": 410.118,
+  "en": "so that we can do the same"
+ },
+ {
+  "start": 410.856,
+  "end": 413.022,
+  "en": "here after calling it for fib."
+ },
+ {
+  "start": 413.92,
+  "end": 416.006,
+  "en": "And now we can even do that for way bigger"
+ },
+ {
+  "start": 416.006,
+  "end": 416.456,
+  "en": "numbers."
+ },
+ {
+  "start": 417.033,
+  "end": 418.301,
+  "en": "Let's say for 20"
+ },
+ {
+  "start": 419.44,
+  "end": 420.371,
+  "en": "and also for"
+ },
+ {
+  "start": 421.045,
+  "end": 423.483,
+  "en": "50, which are numbers I didn't even check"
+ },
+ {
+  "start": 423.548,
+  "end": 426.211,
+  "en": "before. Now you will see this works. So if"
+ },
+ {
+  "start": 426.211,
+  "end": 428.554,
+  "en": "we now save this, we go to the browser and I"
+ },
+ {
+  "start": 428.682,
+  "end": 431.073,
+  "en": "reload there, you see that's super fast. And"
+ },
+ {
+  "start": 431.169,
+  "end": 432.982,
+  "en": "these are not our Fibonacci numbers."
+ },
+ {
+  "start": 433.255,
+  "end": 435.389,
+  "en": "Instead, these are our iterations."
+ },
+ {
+  "start": 435.985,
+  "end": 436.904,
+  "en": "And you see for"
+ },
+ {
+  "start": 437.5,
+  "end": 438.774,
+  "en": "n equal to 50,"
+ },
+ {
+  "start": 439.355,
+  "end": 441.483,
+  "en": "I have 99 as a value there."
+ },
+ {
+  "start": 443.17,
+  "end": 444.765,
+  "en": "Now just to quickly compare this,"
+ },
+ {
+  "start": 445.442,
+  "end": 447.263,
+  "en": "if we have a look at our previous"
+ },
+ {
+  "start": 447.633,
+  "end": 448.681,
+  "en": "implementation here,"
+ },
+ {
+  "start": 449.346,
+  "end": 451.881,
+  "en": "if I bring back this approach real quick,"
+ },
+ {
+  "start": 452.575,
+  "end": 454.932,
+  "en": "we didn't even try this for 50, we tried it"
+ },
+ {
+  "start": 454.932,
+  "end": 457.419,
+  "en": "for 30. Now it might be nice to see what the"
+ },
+ {
+  "start": 457.5,
+  "end": 459.049,
+  "en": "difference is for that. So"
+ },
+ {
+  "start": 459.694,
+  "end": 462.63,
+  "en": "let's quickly bring back that old approach"
+ },
+ {
+  "start": 462.678,
+  "end": 464.882,
+  "en": "here. Fib recursive JS"
+ },
+ {
+  "start": 465.412,
+  "end": 467.93,
+  "en": "and reload with that. And we see for 30,"
+ },
+ {
+  "start": 468.556,
+  "end": 471.813,
+  "en": "that's over 2 million, close to 3 million"
+ },
+ {
+  "start": 472.23,
+  "end": 474.781,
+  "en": "function calls. So pretty much."
+ },
+ {
+  "start": 475.92,
+  "end": 476.048,
+  "en": "Now"
+ },
+ {
+  "start": 476.642,
+  "end": 477.011,
+  "en": "I will"
+ },
+ {
+  "start": 477.845,
+  "end": 480.717,
+  "en": "actually swap this back here to app.js"
+ },
+ {
+  "start": 482.017,
+  "end": 483.781,
+  "en": "and go back to app.js."
+ },
+ {
+  "start": 484.343,
+  "end": 488.001,
+  "en": "And here for 30, if I change that here for"
+ },
+ {
+  "start": 488.193,
+  "end": 490.456,
+  "en": "30, so the last number which is now going to"
+ },
+ {
+  "start": 490.456,
+  "end": 492.541,
+  "en": "get output is just 59."
+ },
+ {
+  "start": 493.166,
+  "end": 496.131,
+  "en": "I would say that's a bit less than almost 3"
+ },
+ {
+  "start": 496.131,
+  "end": 496.435,
+  "en": "million."
+ },
+ {
+  "start": 497.285,
+  "end": 499.993,
+  "en": "So the question there for now is, what's our"
+ },
+ {
+  "start": 499.993,
+  "end": 502.14,
+  "en": "new time complexity with that? It's"
+ },
+ {
+  "start": 502.14,
+  "end": 504.961,
+  "en": "certainly not exponential time complexity"
+ },
+ {
+  "start": 504.961,
+  "end": 505.297,
+  "en": "anymore."
+ },
+ {
+  "start": 505.842,
+  "end": 506.851,
+  "en": "What is it instead?"
+ },
+ {
+  "start": 507.765,
+  "end": 510.137,
+  "en": "And the answer is it's linear time"
+ },
+ {
+  "start": 510.169,
+  "end": 510.81,
+  "en": "complexity."
+ },
+ {
+  "start": 511.451,
+  "end": 513.069,
+  "en": "In the end, you can see it pretty well here."
+ },
+ {
+  "start": 513.598,
+  "end": 517.572,
+  "en": "For fib, so for an n of 20, we had 39"
+ },
+ {
+  "start": 517.636,
+  "end": 518.229,
+  "en": "iterations."
+ },
+ {
+  "start": 519.288,
+  "end": 519.995,
+  "en": "For 30,"
+ },
+ {
+  "start": 520.91,
+  "end": 525.053,
+  "en": "we have 59. So for an increase in n of 10,"
+ },
+ {
+  "start": 525.647,
+  "end": 530.64,
+  "en": "we add 20 iterations. So 2n sounds like our"
+ },
+ {
+  "start": 530.849,
+  "end": 533.049,
+  "en": "time complexity, and as you learned, we then"
+ },
+ {
+  "start": 533.049,
+  "end": 535.843,
+  "en": "simplify this to just O because we care"
+ },
+ {
+  "start": 535.843,
+  "end": 537.015,
+  "en": "about the general trend."
+ },
+ {
+  "start": 537.705,
+  "end": 538.701,
+  "en": "So we went from"
+ },
+ {
+  "start": 539.279,
+  "end": 544.241,
+  "en": "O, which is exponential time complexity, to"
+ },
+ {
+  "start": 544.257,
+  "end": 547.361,
+  "en": "just O, which is a huge improvement."
+ },
+ {
+  "start": 548.053,
+  "end": 549.903,
+  "en": "And the reason for that is what I just"
+ },
+ {
+  "start": 549.903,
+  "end": 551.141,
+  "en": "showed on the slide before."
+ },
+ {
+  "start": 552.235,
+  "end": 555.066,
+  "en": "We are skipping entire branches of our tree"
+ },
+ {
+  "start": 555.436,
+  "end": 558.106,
+  "en": "with this optimization technique with the"
+ },
+ {
+  "start": 558.106,
+  "end": 559.843,
+  "en": "help of dynamic programming."
+ }
+]

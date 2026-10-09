@@ -1,0 +1,1063 @@
+1
+00:00:02,259 --> 00:00:04,102
+Adding elements is good, but sometimes you
+
+2
+00:00:04,182 --> 00:00:05,945
+also wanna get rid of elements. So
+
+3
+00:00:05,945 --> 00:00:08,108
+therefore, we wanna add a delete method,
+
+4
+00:00:08,605 --> 00:00:10,912
+which also should take a value that we want
+
+5
+00:00:10,912 --> 00:00:11,537
+to get rid of.
+
+6
+00:00:12,210 --> 00:00:14,646
+Now, deleting is a bit more complex than
+
+7
+00:00:14,919 --> 00:00:17,258
+adding elements because to delete an
+
+8
+00:00:17,258 --> 00:00:18,973
+element, we first of all have to find it.
+
+9
+00:00:19,566 --> 00:00:21,954
+And chances are that the value that should
+
+10
+00:00:21,986 --> 00:00:25,046
+be deleted is not always just the tail or
+
+11
+00:00:25,110 --> 00:00:25,527
+the head.
+
+12
+00:00:26,056 --> 00:00:28,593
+In addition, since we just get a value here,
+
+13
+00:00:28,963 --> 00:00:31,339
+of course we wanna find all occurrences of
+
+14
+00:00:31,371 --> 00:00:32,479
+that value and delete it.
+
+15
+00:00:33,298 --> 00:00:35,979
+So if I, for example, added Max twice here
+
+16
+00:00:36,413 --> 00:00:37,248
+to my list
+
+17
+00:00:38,019 --> 00:00:39,833
+and then I print it here
+
+18
+00:00:40,588 --> 00:00:43,976
+and thereafter I call linkedList.delete Max
+
+19
+00:00:43,976 --> 00:00:44,473
+like this,
+
+20
+00:00:45,083 --> 00:00:47,797
+I expect that if I print it again, both
+
+21
+00:00:47,893 --> 00:00:50,543
+occurrences of Max were deleted and not just
+
+22
+00:00:50,543 --> 00:00:50,992
+one of them.
+
+23
+00:00:51,538 --> 00:00:53,397
+So that's something we also have to ensure,
+
+24
+00:00:53,670 --> 00:00:56,668
+that delete really finds all occurrences no
+
+25
+00:00:56,716 --> 00:00:58,896
+matter where they are in the list and no
+
+26
+00:00:58,912 --> 00:01:01,284
+matter how often we have that value in the
+
+27
+00:01:01,284 --> 00:01:01,557
+list.
+
+28
+00:01:02,438 --> 00:01:04,522
+So what do we wanna do in delete therefore?
+
+29
+00:01:05,131 --> 00:01:06,911
+Well, first of all, there is a simple check
+
+30
+00:01:07,055 --> 00:01:08,995
+we should implement. We should check if we
+
+31
+00:01:08,995 --> 00:01:11,399
+maybe don't have a head. So if we don't have
+
+32
+00:01:11,399 --> 00:01:12,217
+a first element,
+
+33
+00:01:12,746 --> 00:01:14,926
+if we don't even have a first element, we
+
+34
+00:01:14,926 --> 00:01:16,946
+know that the list is empty. And in that
+
+35
+00:01:16,946 --> 00:01:19,511
+case, I can return null here as a result.
+
+36
+00:01:19,959 --> 00:01:21,643
+You can also return nothing if you want to.
+
+37
+00:01:21,899 --> 00:01:23,920
+In the end, you just wanna return here to
+
+38
+00:01:23,952 --> 00:01:26,282
+make sure that no other code in this method
+
+39
+00:01:26,314 --> 00:01:28,450
+executes, because if the list is empty,
+
+40
+00:01:29,045 --> 00:01:30,539
+deleting does nothing.
+
+41
+00:01:31,358 --> 00:01:33,077
+Alternatively, if you wanted, you could also
+
+42
+00:01:33,206 --> 00:01:36,017
+throw an error and let the user of your list
+
+43
+00:01:36,017 --> 00:01:38,362
+handle it. Whatever you want. I will just
+
+44
+00:01:38,362 --> 00:01:38,908
+return here.
+
+45
+00:01:39,969 --> 00:01:42,218
+Now assuming that we do have a head element,
+
+46
+00:01:42,394 --> 00:01:44,756
+so assuming that the list is not empty,
+
+47
+00:01:45,334 --> 00:01:48,258
+we should again loop through the entire list
+
+48
+00:01:48,467 --> 00:01:51,421
+just as we do it with toArray. And find all
+
+49
+00:01:51,469 --> 00:01:52,752
+nodes that should be deleted.
+
+50
+00:01:53,473 --> 00:01:55,380
+So therefore again, we can implement our
+
+51
+00:01:55,380 --> 00:01:57,593
+current node here and start at the head
+
+52
+00:01:57,625 --> 00:01:59,661
+element. So start at the first element
+
+53
+00:02:00,895 --> 00:02:02,418
+and then add a while loop
+
+54
+00:02:02,979 --> 00:02:04,133
+where we essentially,
+
+55
+00:02:04,742 --> 00:02:07,066
+well, keep on looping as long as we have a
+
+56
+00:02:07,066 --> 00:02:09,759
+current node. Now in this while loop, we now
+
+57
+00:02:09,904 --> 00:02:11,779
+theoretically need to do 2 things.
+
+58
+00:02:12,453 --> 00:02:14,280
+We need to check whether the current node
+
+59
+00:02:14,280 --> 00:02:16,540
+has the value we wanna delete, but that's
+
+60
+00:02:16,540 --> 00:02:18,849
+then not all. We also wanna check if the
+
+61
+00:02:18,849 --> 00:02:21,109
+next node in line maybe is the one we wanna
+
+62
+00:02:21,173 --> 00:02:23,531
+delete. We wanna again, through all the
+
+63
+00:02:23,531 --> 00:02:25,250
+nodes that need deletion.
+
+64
+00:02:25,988 --> 00:02:28,670
+Now what does deleting mean in the context
+
+65
+00:02:28,670 --> 00:02:29,634
+of a linked list though?
+
+66
+00:02:30,565 --> 00:02:33,392
+It actually simply means that we take the
+
+67
+00:02:34,420 --> 00:02:35,094
+next value
+
+68
+00:02:36,106 --> 00:02:36,652
+of a node
+
+69
+00:02:37,552 --> 00:02:40,410
+and instead of letting it point at the next
+
+70
+00:02:40,458 --> 00:02:41,888
+value it previously pointed at,
+
+71
+00:02:42,450 --> 00:02:45,019
+we simply skip that value and point at the,
+
+72
+00:02:45,035 --> 00:02:47,348
+well, value thereafter in line. So if you
+
+73
+00:02:47,428 --> 00:02:50,303
+wanted to delete 1 for example, this node
+
+74
+00:02:50,320 --> 00:02:52,167
+here, if we wanted to delete the node with
+
+75
+00:02:52,167 --> 00:02:52,697
+value 1,
+
+76
+00:02:53,613 --> 00:02:56,087
+we should be able to find out that this is
+
+77
+00:02:56,119 --> 00:02:57,806
+not the first node, of course, because it
+
+78
+00:02:57,806 --> 00:03:00,200
+has a value of first value, but then it's
+
+79
+00:03:00,200 --> 00:03:03,510
+the next node thereafter. We can determine
+
+80
+00:03:03,510 --> 00:03:05,229
+this by looking at the next property of the
+
+81
+00:03:05,342 --> 00:03:05,888
+first node.
+
+82
+00:03:06,498 --> 00:03:08,699
+Now we see the value here for the next node
+
+83
+00:03:08,796 --> 00:03:10,884
+is the value we want to delete, let's say,
+
+84
+00:03:11,382 --> 00:03:14,901
+and therefore we now want to update next on
+
+85
+00:03:14,901 --> 00:03:15,656
+the first node
+
+86
+00:03:16,266 --> 00:03:18,190
+with the node after the one we want to
+
+87
+00:03:18,190 --> 00:03:20,548
+delete. And this effectively deletes the
+
+88
+00:03:20,692 --> 00:03:23,178
+node with value 1 because we remove the
+
+89
+00:03:23,178 --> 00:03:25,872
+pointer at this node, and therefore it's
+
+90
+00:03:25,888 --> 00:03:28,743
+lost in memory. No one points at it anymore.
+
+91
+00:03:29,272 --> 00:03:31,116
+We have no other place that would point at
+
+92
+00:03:31,116 --> 00:03:33,073
+this node, and therefore eventually it will
+
+93
+00:03:33,121 --> 00:03:35,879
+be garbage collected. That is what deleting
+
+94
+00:03:35,927 --> 00:03:37,916
+nodes means in linked lists.
+
+95
+00:03:38,910 --> 00:03:39,487
+So therefore,
+
+96
+00:03:40,161 --> 00:03:40,674
+in our
+
+97
+00:03:41,380 --> 00:03:41,925
+deletion
+
+98
+00:03:42,502 --> 00:03:42,936
+loop here,
+
+99
+00:03:44,172 --> 00:03:45,649
+I actually don't want to
+
+100
+00:03:46,195 --> 00:03:49,246
+look at the current node itself here. I want
+
+101
+00:03:49,246 --> 00:03:50,546
+to look at the next
+
+102
+00:03:51,172 --> 00:03:53,709
+node in line here and compare that next
+
+103
+00:03:53,725 --> 00:03:56,069
+node's value. Now by doing that, we're not
+
+104
+00:03:56,069 --> 00:03:58,622
+checking the current node itself's value,
+
+105
+00:03:58,702 --> 00:04:01,030
+which is a flaw which we'll fix, but we'll
+
+106
+00:04:01,030 --> 00:04:03,278
+simply start at the second node for now, and
+
+107
+00:04:03,310 --> 00:04:05,011
+I'll take care about the first node and so
+
+108
+00:04:05,044 --> 00:04:07,066
+on later too. But with that, we look at the
+
+109
+00:04:07,066 --> 00:04:09,732
+next node in line and check if that node's
+
+110
+00:04:09,732 --> 00:04:11,337
+value is the value we want to get rid of.
+
+111
+00:04:11,804 --> 00:04:13,542
+For that, we can simply add an if check in
+
+112
+00:04:13,574 --> 00:04:15,394
+the while loop and check if
+
+113
+00:04:16,376 --> 00:04:21,481
+current_node.next.value— so the value of the
+
+114
+00:04:21,481 --> 00:04:22,327
+next node in line—
+
+115
+00:04:22,913 --> 00:04:25,729
+is equal to the value we got as an input.
+
+116
+00:04:27,790 --> 00:04:29,680
+If that is the same, we know we want to
+
+117
+00:04:29,728 --> 00:04:32,716
+delete that next node. And how do we delete
+
+118
+00:04:32,716 --> 00:04:32,749
+it?
+
+119
+00:04:33,298 --> 00:04:35,284
+Well, as I just said, we update
+
+120
+00:04:35,317 --> 00:04:38,576
+current_node.next Keep in mind that current
+
+121
+00:04:38,576 --> 00:04:41,065
+node is an object, so if we update its next
+
+122
+00:04:41,065 --> 00:04:43,200
+property, we're doing this on the node
+
+123
+00:04:43,377 --> 00:04:45,464
+object itself because it's a reference
+
+124
+00:04:45,480 --> 00:04:47,294
+value. So we're not just doing this on some
+
+125
+00:04:47,391 --> 00:04:49,719
+variable which cloned the value. No, it's
+
+126
+00:04:49,719 --> 00:04:50,987
+one and the same object in memory.
+
+127
+00:04:51,838 --> 00:04:54,247
+So we're then updating the next property of
+
+128
+00:04:54,247 --> 00:04:54,969
+the current node
+
+129
+00:04:55,676 --> 00:04:57,923
+with the node that comes after the node that
+
+130
+00:04:57,923 --> 00:05:00,027
+should be deleted. And how can we get access
+
+131
+00:05:00,027 --> 00:05:01,873
+to the node after the next node?
+
+132
+00:05:02,644 --> 00:05:04,723
+Well, by accessing the next node
+
+133
+00:05:05,304 --> 00:05:07,467
+and then the next property of that node.
+
+134
+00:05:08,064 --> 00:05:10,404
+This gives us access to the node after the
+
+135
+00:05:10,404 --> 00:05:12,857
+node that should be deleted. And by storing
+
+136
+00:05:12,905 --> 00:05:15,083
+that node after the node that should be
+
+137
+00:05:15,083 --> 00:05:17,438
+deleted in the current node's next pointer,
+
+138
+00:05:17,809 --> 00:05:20,455
+we effectively delete the next node in line
+
+139
+00:05:21,052 --> 00:05:22,756
+because no one is pointing at it then.
+
+140
+00:05:25,562 --> 00:05:27,139
+Now we also of course have the else case
+
+141
+00:05:27,637 --> 00:05:31,015
+that the next node in line is not a node we
+
+142
+00:05:31,015 --> 00:05:31,642
+want to delete.
+
+143
+00:05:32,237 --> 00:05:33,025
+And in that case, we just update current
+
+144
+00:05:33,025 --> 00:05:37,305
+node with currentNode.next. So that's now
+
+145
+00:05:37,305 --> 00:05:39,407
+the same logic as we had it down there when
+
+146
+00:05:39,455 --> 00:05:42,263
+we went through all the nodes in our list.
+
+147
+00:05:42,745 --> 00:05:44,590
+That simply means we move on to the next
+
+148
+00:05:44,590 --> 00:05:47,158
+node and have a look at that node's next
+
+149
+00:05:47,158 --> 00:05:47,495
+value.
+
+150
+00:05:48,505 --> 00:05:50,206
+Can take a while to wrap your head around
+
+151
+00:05:50,206 --> 00:05:52,405
+this, but hopefully I could make the core
+
+152
+00:05:52,437 --> 00:05:53,608
+logic here very clear.
+
+153
+00:05:54,218 --> 00:05:56,143
+You can always, of course, throw in some
+
+154
+00:05:56,143 --> 00:05:58,711
+console.log statements if you want to get a
+
+155
+00:05:58,711 --> 00:06:01,647
+detailed log of what's happening at which
+
+156
+00:06:01,743 --> 00:06:02,273
+point of time.
+
+157
+00:06:03,405 --> 00:06:05,276
+With that, we're always looking at the next
+
+158
+00:06:05,340 --> 00:06:07,775
+nodes and we delete them by not pointing at
+
+159
+00:06:07,839 --> 00:06:08,274
+them anymore,
+
+160
+00:06:08,806 --> 00:06:11,806
+but we skip the very first node of our
+
+161
+00:06:12,677 --> 00:06:14,920
+linked list because we initialize current
+
+162
+00:06:14,920 --> 00:06:17,517
+node with this head, but then we start by
+
+163
+00:06:17,582 --> 00:06:20,098
+looking at the next node's value. We never
+
+164
+00:06:20,098 --> 00:06:21,911
+evaluate the value of current node.
+
+165
+00:06:23,970 --> 00:06:26,422
+Well, simply because if it's the first value
+
+166
+00:06:26,536 --> 00:06:28,547
+which we wanna delete, we have a special
+
+167
+00:06:28,662 --> 00:06:28,972
+case.
+
+168
+00:06:29,949 --> 00:06:31,106
+I want to
+
+169
+00:06:32,214 --> 00:06:34,641
+create a new while loop here where I simply
+
+170
+00:06:35,107 --> 00:06:38,369
+keep on going as long as my head value is
+
+171
+00:06:38,642 --> 00:06:39,060
+truthy.
+
+172
+00:06:39,670 --> 00:06:41,615
+But not just that, but as long as the head
+
+173
+00:06:41,615 --> 00:06:43,655
+is truthy, so as long as we have a head
+
+174
+00:06:43,768 --> 00:06:44,716
+value and
+
+175
+00:06:45,712 --> 00:06:46,965
+this head value,
+
+176
+00:06:47,817 --> 00:06:49,858
+so the value stored in the head node, is
+
+177
+00:06:49,970 --> 00:06:51,641
+equal to the value I want to delete.
+
+178
+00:06:52,204 --> 00:06:54,518
+As long as that's the case, so as long as
+
+179
+00:06:54,550 --> 00:06:57,035
+the first node is the one we want to delete,
+
+180
+00:06:57,661 --> 00:07:01,524
+I will update my head with this head->next.
+
+181
+00:07:02,229 --> 00:07:04,650
+So this means that if the first value is the
+
+182
+00:07:04,650 --> 00:07:06,109
+one we want to delete, we
+
+183
+00:07:07,279 --> 00:07:09,828
+go into this loop and we replace the first
+
+184
+00:07:09,860 --> 00:07:12,072
+node with the previously second node.
+
+185
+00:07:12,809 --> 00:07:15,134
+Now I'm writing this as a while loop and not
+
+186
+00:07:15,134 --> 00:07:17,201
+just as an if statement because
+
+187
+00:07:17,394 --> 00:07:19,878
+theoretically, of course, that new first
+
+188
+00:07:19,878 --> 00:07:22,026
+node could again have the same value as the
+
+189
+00:07:22,187 --> 00:07:24,591
+old first node, and therefore that new first
+
+190
+00:07:24,591 --> 00:07:26,932
+node also needs to be deleted. That's why I
+
+191
+00:07:26,932 --> 00:07:29,448
+wanna keep on going as long
+
+192
+00:07:30,042 --> 00:07:32,478
+as the first node has the value that should
+
+193
+00:07:32,542 --> 00:07:35,716
+be deleted. As soon as we hit a first node
+
+194
+00:07:36,534 --> 00:07:38,698
+that does not have the value we wanted to
+
+195
+00:07:38,714 --> 00:07:40,702
+get rid of, we'll make it out of this while
+
+196
+00:07:40,782 --> 00:07:40,878
+loop.
+
+197
+00:07:42,176 --> 00:07:44,068
+So this simply is some extra code that
+
+198
+00:07:44,068 --> 00:07:47,418
+ensures that we get rid of all head nodes
+
+199
+00:07:47,691 --> 00:07:48,027
+that
+
+200
+00:07:48,957 --> 00:07:50,640
+might have the value we wanna delete.
+
+201
+00:07:51,217 --> 00:07:53,542
+Now after this while loop, we will also need
+
+202
+00:07:53,542 --> 00:07:55,866
+to add some special code because whilst this
+
+203
+00:07:55,930 --> 00:07:58,126
+while loop will delete all nodes that need
+
+204
+00:07:58,126 --> 00:07:58,687
+to be deleted,
+
+205
+00:07:59,297 --> 00:08:02,523
+we wanna update our tail property, this
+
+206
+00:08:02,523 --> 00:08:05,813
+property here, if we happened to delete the
+
+207
+00:08:06,037 --> 00:08:08,750
+last node. So if the last node was a node
+
+208
+00:08:08,846 --> 00:08:11,221
+that needed to be deleted with the while
+
+209
+00:08:11,333 --> 00:08:13,885
+loop here, we wanna update the tail property
+
+210
+00:08:14,093 --> 00:08:17,496
+so that head and tail always point at valid
+
+211
+00:08:17,768 --> 00:08:18,940
+existing nodes.
+
+212
+00:08:19,791 --> 00:08:21,235
+So therefore here I'll check if
+
+213
+00:08:22,326 --> 00:08:25,632
+this tail.value is equal to the value that
+
+214
+00:08:25,632 --> 00:08:27,782
+needs to be deleted, and in this case I'll
+
+215
+00:08:27,782 --> 00:08:30,896
+set this tail equal to the last current node
+
+216
+00:08:30,929 --> 00:08:33,096
+we derived, which will be the last node that
+
+217
+00:08:33,096 --> 00:08:34,203
+was not deleted.
+
+218
+00:08:35,424 --> 00:08:37,719
+And with that, we have our delete function.
+
+219
+00:08:38,538 --> 00:08:39,630
+Now let's give it a try.
+
+220
+00:08:40,480 --> 00:08:43,515
+I'm already deleting max here, so both maxes
+
+221
+00:08:43,515 --> 00:08:44,269
+should be deleted.
+
+222
+00:08:44,879 --> 00:08:47,271
+I then also want to delete
+
+223
+00:08:48,668 --> 00:08:51,718
+first value, which is our first value
+
+224
+00:08:51,718 --> 00:08:52,970
+because we prepend it here,
+
+225
+00:08:53,741 --> 00:08:55,250
+so that we can check whether that really
+
+226
+00:08:55,314 --> 00:08:55,651
+works.
+
+227
+00:08:56,388 --> 00:09:01,756
+And I will also delete 18.51 to see if that
+
+228
+00:09:01,933 --> 00:09:04,119
+last node deletion works correctly.
+
+229
+00:09:05,680 --> 00:09:08,514
+I will also prepend first value twice, so I
+
+230
+00:09:08,514 --> 00:09:10,817
+duplicated this line here to see whether
+
+231
+00:09:10,849 --> 00:09:14,069
+this head loop here really does its job and
+
+232
+00:09:14,069 --> 00:09:16,227
+gets rid of all head nodes that need to be
+
+233
+00:09:16,227 --> 00:09:16,724
+deleted.
+
+234
+00:09:17,959 --> 00:09:19,018
+With that, let's save it
+
+235
+00:09:19,797 --> 00:09:20,525
+and let's go back.
+
+236
+00:09:21,780 --> 00:09:23,782
+Initially, I print this
+
+237
+00:09:24,379 --> 00:09:24,912
+array here.
+
+238
+00:09:25,607 --> 00:09:27,835
+This is coming from line 75. That is
+
+239
+00:09:28,029 --> 00:09:29,999
+printing my linked list with all those
+
+240
+00:09:30,112 --> 00:09:32,050
+elements in it, and that looks good.
+
+241
+00:09:32,631 --> 00:09:35,180
+And thereafter, we just have 3 elements in
+
+242
+00:09:35,277 --> 00:09:35,454
+there:
+
+243
+00:09:36,003 --> 00:09:37,761
+1, hello there, and true.
+
+244
+00:09:40,278 --> 00:09:42,372
+Now let's see if that makes sense.
+
+245
+00:09:43,300 --> 00:09:45,761
+We delete Max, so these 2 elements should
+
+246
+00:09:45,761 --> 00:09:46,575
+indeed be deleted.
+
+247
+00:09:47,353 --> 00:09:49,838
+We delete first value, so these 2 elements
+
+248
+00:09:49,838 --> 00:09:51,810
+indeed should be deleted. And we delete
+
+249
+00:09:51,906 --> 00:09:54,568
+18.51, so this element also should be
+
+250
+00:09:54,568 --> 00:09:54,937
+deleted.
+
+251
+00:09:55,771 --> 00:09:57,759
+So the remaining elements indeed should be
+
+252
+00:09:57,919 --> 00:09:58,048
+1,
+
+253
+00:09:58,817 --> 00:09:59,154
+true,
+
+254
+00:09:59,924 --> 00:10:02,168
+and hello there in between. So 1, hello
+
+255
+00:10:02,185 --> 00:10:04,141
+there, and true— that should be our
+
+256
+00:10:04,349 --> 00:10:06,979
+remaining elements. And that indeed is what
+
+257
+00:10:06,995 --> 00:10:07,636
+we have here.
+
+258
+00:10:08,342 --> 00:10:10,266
+Now let's see if the next pointers were
+
+259
+00:10:10,362 --> 00:10:13,184
+updated correctly. Next on the first element
+
+260
+00:10:13,184 --> 00:10:14,403
+indeed points at hello there.
+
+261
+00:10:15,157 --> 00:10:17,405
+Next at hello there, it indeed points at
+
+262
+00:10:17,405 --> 00:10:20,135
+true and next there indeed points at null.
+
+263
+00:10:20,713 --> 00:10:23,619
+So deleting seems to work. And with that, we
+
+264
+00:10:23,683 --> 00:10:25,979
+got the functionality to append something,
+
+265
+00:10:26,397 --> 00:10:29,062
+to prepend something, and also to delete
+
+266
+00:10:29,062 --> 00:10:29,399
+something.

@@ -1,0 +1,411 @@
+1
+00:00:00,176 --> 00:00:03,052
+In this course, I'll build a demo project.
+
+2
+00:00:03,229 --> 00:00:05,269
+You can follow along, but you don't have to.
+
+3
+00:00:05,349 --> 00:00:07,550
+It'll be a Next.js project, but obviously
+
+4
+00:00:07,582 --> 00:00:09,590
+you can use Codex with any programming
+
+5
+00:00:09,590 --> 00:00:11,920
+language for any project. This is just an
+
+6
+00:00:11,920 --> 00:00:14,185
+example. And the project we'll build in this
+
+7
+00:00:14,249 --> 00:00:16,193
+course will be a tiny notes application,
+
+8
+00:00:16,257 --> 00:00:19,406
+which allows users to authenticate, create
+
+9
+00:00:19,470 --> 00:00:21,687
+notes with a rich text editor,
+
+10
+00:00:22,266 --> 00:00:24,916
+and share those notes publicly so that
+
+11
+00:00:24,997 --> 00:00:27,053
+unauthenticated users can view those notes.
+
+12
+00:00:27,326 --> 00:00:29,173
+Until they are unpublished.
+
+13
+00:00:29,975 --> 00:00:32,850
+And the owners of the notes can also manage
+
+14
+00:00:32,882 --> 00:00:35,162
+those notes, which means they can view,
+
+15
+00:00:35,435 --> 00:00:38,084
+edit, and delete them. Obviously, that's a
+
+16
+00:00:38,084 --> 00:00:40,316
+quite simple, straightforward app, but it
+
+17
+00:00:40,348 --> 00:00:42,660
+has a couple of interesting aspects that
+
+18
+00:00:42,660 --> 00:00:44,892
+allow me to show you all these different
+
+19
+00:00:44,988 --> 00:00:47,557
+core Codex features so that by the end of
+
+20
+00:00:47,557 --> 00:00:49,629
+the course, you can use Codex efficiently in
+
+21
+00:00:49,741 --> 00:00:51,941
+your projects no matter what you're
+
+22
+00:00:51,989 --> 00:00:54,446
+building. So I want to start working on this
+
+23
+00:00:54,703 --> 00:00:57,978
+project. And in order to send my first
+
+24
+00:00:57,994 --> 00:01:00,724
+prompts, I need to be able to give Codex and
+
+25
+00:01:00,820 --> 00:01:01,912
+the models it uses
+
+26
+00:01:02,490 --> 00:01:04,915
+the right context. Because as we learned,
+
+27
+00:01:04,979 --> 00:01:08,030
+providing relevant context matters. And what
+
+28
+00:01:08,030 --> 00:01:11,129
+I like to do when working in a new project
+
+29
+00:01:11,257 --> 00:01:13,473
+or also an existing project for that matter
+
+30
+00:01:13,906 --> 00:01:16,315
+is I like to create a spec file, a
+
+31
+00:01:16,315 --> 00:01:18,963
+specification file that I outlines the
+
+32
+00:01:18,963 --> 00:01:21,690
+project, the tech stack I'll use, the routes
+
+33
+00:01:21,690 --> 00:01:24,674
+I'll have if it's a web project, a database
+
+34
+00:01:24,674 --> 00:01:28,363
+schema. So all the technical details and an
+
+35
+00:01:28,652 --> 00:01:30,881
+overview of the project we're building. And
+
+36
+00:01:30,914 --> 00:01:33,544
+for that, I also like to use AI, like for
+
+37
+00:01:33,544 --> 00:01:34,763
+example ChatGPT,
+
+38
+00:01:35,309 --> 00:01:38,212
+which I send a description of the app I want
+
+39
+00:01:38,212 --> 00:01:41,035
+to build, a description of the tech stack I
+
+40
+00:01:41,099 --> 00:01:43,714
+want to use with the specific libraries I
+
+41
+00:01:43,890 --> 00:01:46,617
+already know I will use, like TipTap for the
+
+42
+00:01:46,617 --> 00:01:49,601
+rich text editor, which is a popular React
+
+43
+00:01:49,601 --> 00:01:52,422
+or in general JavaScript rich text editor
+
+44
+00:01:52,470 --> 00:01:54,971
+library, the BetterAuth library, which is an
+
+45
+00:01:54,971 --> 00:01:56,911
+amazing JavaScript library for adding
+
+46
+00:01:57,039 --> 00:01:57,824
+authentication.
+
+47
+00:01:58,353 --> 00:02:01,207
+I'll inform it that I'll use SQLite for the
+
+48
+00:02:01,223 --> 00:02:04,332
+database using Bun's built-in SQLite client
+
+49
+00:02:04,332 --> 00:02:07,106
+because I'll be using Bun and not Node.js
+
+50
+00:02:07,218 --> 00:02:07,346
+here.
+
+51
+00:02:07,875 --> 00:02:09,847
+And if that all doesn't tell you anything,
+
+52
+00:02:10,023 --> 00:02:12,027
+it's just a demo. As mentioned, you don't
+
+53
+00:02:12,027 --> 00:02:14,239
+have to follow along. It's just a demo tech
+
+54
+00:02:14,303 --> 00:02:16,531
+stack for this demo project I'm using here.
+
+55
+00:02:17,258 --> 00:02:20,331
+I'm also telling the AI that I'll write raw
+
+56
+00:02:20,443 --> 00:02:23,660
+SQL statements or I'll have the AI write raw
+
+57
+00:02:23,660 --> 00:02:26,459
+SQL statements and that I'll bring my own
+
+58
+00:02:26,540 --> 00:02:29,353
+custom migrations script or let the AI
+
+59
+00:02:29,401 --> 00:02:30,016
+create one.
+
+60
+00:02:30,938 --> 00:02:33,880
+Now, I then ask the AI if it needs more
+
+61
+00:02:33,913 --> 00:02:36,484
+information because I want it to draft a
+
+62
+00:02:36,517 --> 00:02:37,174
+spec file.
+
+63
+00:02:41,820 --> 00:02:44,139
+Prompt engineering and providing proper
+
+64
+00:02:44,139 --> 00:02:45,968
+context therefore starts here already. I'm
+
+65
+00:02:45,968 --> 00:02:46,687
+not talking to Codex here,
+
+66
+00:02:48,672 --> 00:02:50,998
+but this will lead to a spec that will be
+
+67
+00:02:51,062 --> 00:02:54,062
+used as one of the inputs for Codex later.
+
+68
+00:02:54,591 --> 00:02:57,335
+And I of course wanna be precise here in my
+
+69
+00:02:57,415 --> 00:02:59,533
+prompt and the context I provide so that I
+
+70
+00:02:59,645 --> 00:03:02,517
+get a good spec. Now ChatGPT had a couple of
+
+71
+00:03:02,854 --> 00:03:05,324
+follow-up questions, though it also always
+
+72
+00:03:05,372 --> 00:03:07,298
+suggested sensible defaults here for me,
+
+73
+00:03:07,442 --> 00:03:09,415
+which worked pretty well for me. So in
+
+74
+00:03:09,431 --> 00:03:11,870
+general, I was happy with that and just had
+
+75
+00:03:11,870 --> 00:03:13,105
+some clarifications.
+
+76
+00:03:14,004 --> 00:03:16,957
+Also, I know that I'll use this BetterAuth
+
+77
+00:03:17,150 --> 00:03:20,281
+library for authentication. So therefore, to
+
+78
+00:03:20,281 --> 00:03:22,352
+provide relevant context, I wanna make
+
+79
+00:03:22,352 --> 00:03:23,364
+ChatGPT here
+
+80
+00:03:23,958 --> 00:03:27,586
+aware of some important information about
+
+81
+00:03:27,586 --> 00:03:31,440
+the database schema this library expects to
+
+82
+00:03:31,440 --> 00:03:34,346
+find because that of course will matter
+
+83
+00:03:34,811 --> 00:03:37,188
+because we need that database schema for all
+
+84
+00:03:37,364 --> 00:03:39,596
+the user and authentication-related tables
+
+85
+00:03:39,965 --> 00:03:42,518
+to have the BetterAuth library work with our
+
+86
+00:03:42,518 --> 00:03:45,790
+project later. And since I also want ChatGPT
+
+87
+00:03:45,790 --> 00:03:48,371
+to include DB schemas, which I clarified
+
+88
+00:03:48,371 --> 00:03:48,643
+again,
+
+89
+00:03:49,477 --> 00:03:52,378
+I wanna provide that information to ChatGPT.
+
+90
+00:03:52,763 --> 00:03:55,568
+So I added this extra piece to my follow-up
+
+91
+00:03:55,729 --> 00:03:58,229
+prompt here where I informed ChatGPT about
+
+92
+00:03:58,229 --> 00:04:00,457
+the official BetterAuth database schema. And
+
+93
+00:04:00,474 --> 00:04:02,349
+I like to use these XML tags if I'm
+
+94
+00:04:02,557 --> 00:04:03,391
+inserting some
+
+95
+00:04:03,920 --> 00:04:06,068
+external content like a snippet from docs.
+
+96
+00:04:06,308 --> 00:04:07,928
+This is not strictly required, but in my
+
+97
+00:04:07,928 --> 00:04:10,252
+experience can help with ensuring that
+
+98
+00:04:10,252 --> 00:04:12,817
+ChatGPT doesn't mess up what's from your
+
+99
+00:04:12,897 --> 00:04:15,527
+prompt and what's from external sources. And
+
+100
+00:04:15,527 --> 00:04:17,772
+I'll paste in that snippet which I copied
+
+101
+00:04:17,788 --> 00:04:20,598
+from the BetterAuth docs. And then I'll send
+
+102
+00:04:20,711 --> 00:04:23,763
+this message to ChatGPT to have it generate
+
+103
+00:04:23,763 --> 00:04:25,152
+that final spec for me.

@@ -1,0 +1,455 @@
+1
+00:00:02,181 --> 00:00:05,005
+Now, as always, when we talk about data
+
+2
+00:00:05,021 --> 00:00:07,299
+structures and algorithms, the time
+
+3
+00:00:07,331 --> 00:00:10,074
+complexity matters. It helps us judge how
+
+4
+00:00:10,299 --> 00:00:12,368
+good a certain approach is and if we can
+
+5
+00:00:12,368 --> 00:00:14,117
+maybe come up with a better approach.
+
+6
+00:00:15,192 --> 00:00:17,245
+For that, I wanna compare trees to arrays.
+
+7
+00:00:17,823 --> 00:00:20,406
+We could also use arrays for storing data.
+
+8
+00:00:20,727 --> 00:00:23,213
+With trees, we just have that extra
+
+9
+00:00:23,775 --> 00:00:26,438
+connectivity, you could say, that we have a
+
+10
+00:00:26,438 --> 00:00:29,454
+certain structure and not just item after
+
+11
+00:00:29,534 --> 00:00:29,855
+item.
+
+12
+00:00:30,723 --> 00:00:31,015
+So
+
+13
+00:00:31,581 --> 00:00:34,510
+how well do these data structures do when we
+
+14
+00:00:34,510 --> 00:00:37,503
+talk about searching or accessing elements,
+
+15
+00:00:37,972 --> 00:00:39,343
+inserting and removing elements?
+
+16
+00:00:40,503 --> 00:00:42,921
+Now if we want to search for an element in a
+
+17
+00:00:42,921 --> 00:00:43,404
+tree,
+
+18
+00:00:43,936 --> 00:00:47,536
+the worst-case time complexity we have is O,
+
+19
+00:00:48,218 --> 00:00:49,662
+linear time complexity.
+
+20
+00:00:50,262 --> 00:00:51,285
+Why is that the case?
+
+21
+00:00:52,877 --> 00:00:54,411
+Well, in the worst case
+
+22
+00:00:55,015 --> 00:00:57,316
+here, when we add a new element, we're also
+
+23
+00:00:57,316 --> 00:00:59,611
+searching We're also finding out whether
+
+24
+00:00:59,659 --> 00:01:01,984
+those other segments already exist. And in
+
+25
+00:01:01,984 --> 00:01:04,164
+the worst case, of course, because we're
+
+26
+00:01:04,228 --> 00:01:05,206
+using recursion here,
+
+27
+00:01:05,832 --> 00:01:08,413
+we're visiting all other nodes before we
+
+28
+00:01:08,413 --> 00:01:11,267
+finally are able to insert the new node we
+
+29
+00:01:11,299 --> 00:01:11,957
+wanna insert.
+
+30
+00:01:12,646 --> 00:01:15,356
+Value is our full path. And only if it has
+
+31
+00:01:15,404 --> 00:01:17,617
+just one segment, we directly insert the
+
+32
+00:01:17,617 --> 00:01:20,487
+element. So only in this case are we done
+
+33
+00:01:20,744 --> 00:01:22,074
+with constant time.
+
+34
+00:01:22,988 --> 00:01:25,281
+In all other cases where we have a longer
+
+35
+00:01:25,410 --> 00:01:25,778
+path,
+
+36
+00:01:26,372 --> 00:01:28,760
+we're looking for whether that node already
+
+37
+00:01:28,760 --> 00:01:31,614
+exists, in which case we drill into it, or
+
+38
+00:01:31,726 --> 00:01:34,115
+if it doesn't exist, in which case we create
+
+39
+00:01:34,131 --> 00:01:36,664
+it but then still drill into it. So in all
+
+40
+00:01:36,792 --> 00:01:38,363
+those cases, we dig deeper.
+
+41
+00:01:39,101 --> 00:01:40,335
+And since we are
+
+42
+00:01:40,944 --> 00:01:44,279
+finding that child node, we are visiting all
+
+43
+00:01:44,792 --> 00:01:45,657
+child nodes.
+
+44
+00:01:46,315 --> 00:01:48,030
+Now of course, we're skipping the child
+
+45
+00:01:48,030 --> 00:01:49,922
+nodes which aren't matching our first
+
+46
+00:01:49,922 --> 00:01:51,830
+segment, which is why we're not going to
+
+47
+00:01:51,862 --> 00:01:53,721
+visit all nodes in all cases.
+
+48
+00:01:54,250 --> 00:01:56,463
+But since I'm talking about the worst case
+
+49
+00:01:56,495 --> 00:01:56,559
+here,
+
+50
+00:01:57,297 --> 00:02:00,332
+Indeed, in some cases, it could be the case
+
+51
+00:02:00,364 --> 00:02:03,431
+that we really need to go through all child
+
+52
+00:02:03,431 --> 00:02:06,241
+nodes to finally find the node we're looking
+
+53
+00:02:06,369 --> 00:02:06,690
+for.
+
+54
+00:02:07,364 --> 00:02:09,837
+So we have linear time here because we have
+
+55
+00:02:09,837 --> 00:02:11,122
+a recursive approach.
+
+56
+00:02:12,551 --> 00:02:14,831
+Now for finding something in an array, there
+
+57
+00:02:14,895 --> 00:02:17,143
+are 2 methods. If we know the index, it's
+
+58
+00:02:17,143 --> 00:02:19,118
+constant time, but of course if we don't
+
+59
+00:02:19,150 --> 00:02:21,029
+know the index, it's also linear time.
+
+60
+00:02:22,747 --> 00:02:23,759
+Now for inserting,
+
+61
+00:02:24,915 --> 00:02:26,891
+as I just described, it's basically the same
+
+62
+00:02:26,940 --> 00:02:29,253
+as searching because we need to find the
+
+63
+00:02:29,253 --> 00:02:31,164
+right place where we can insert something.
+
+64
+00:02:31,534 --> 00:02:33,686
+It's also linear time for the same reasons
+
+65
+00:02:33,831 --> 00:02:36,578
+as just described. And for the array, it's
+
+66
+00:02:36,642 --> 00:02:40,016
+also constant time if we just push it, but
+
+67
+00:02:40,016 --> 00:02:42,457
+otherwise linear time because we need to
+
+68
+00:02:42,457 --> 00:02:44,080
+move all our elements then.
+
+69
+00:02:45,011 --> 00:02:47,823
+And for removing, well, it's the same. We
+
+70
+00:02:47,823 --> 00:02:50,505
+can see it really well in our code here. For
+
+71
+00:02:50,698 --> 00:02:53,427
+removing, yes, if we have just one segment,
+
+72
+00:02:53,444 --> 00:02:55,900
+we can go ahead and remove it. Otherwise,
+
+73
+00:02:55,997 --> 00:02:58,164
+again, we're looking for the right node and
+
+74
+00:02:58,244 --> 00:03:00,284
+we're drilling deeper into it with
+
+75
+00:03:00,332 --> 00:03:02,724
+recursion. And therefore, for removing
+
+76
+00:03:02,837 --> 00:03:06,176
+nodes, in the worst case, we also have O
+
+77
+00:03:06,530 --> 00:03:08,810
+linear time. And for the array, it's the
+
+78
+00:03:08,842 --> 00:03:10,560
+same as for all the other types of
+
+79
+00:03:10,560 --> 00:03:12,856
+accessing. If you remove something at the
+
+80
+00:03:12,936 --> 00:03:15,329
+end, if we just pop it, it's constant time.
+
+81
+00:03:15,666 --> 00:03:16,998
+Otherwise, it's linear time.
+
+82
+00:03:17,752 --> 00:03:20,385
+So you might argue that of course a tree has
+
+83
+00:03:20,481 --> 00:03:22,841
+no real advantages here compared to an
+
+84
+00:03:22,841 --> 00:03:23,065
+array.
+
+85
+00:03:23,852 --> 00:03:25,954
+And you would kind of be right.
+
+86
+00:03:26,596 --> 00:03:28,442
+But there are a couple of things to keep in
+
+87
+00:03:28,442 --> 00:03:31,219
+mind. For one, we're not fully done yet.
+
+88
+00:03:31,412 --> 00:03:33,803
+We'll also learn about trees which we can
+
+89
+00:03:33,803 --> 00:03:36,917
+use for storing all kinds of data which can
+
+90
+00:03:36,949 --> 00:03:37,960
+be more efficient.
+
+91
+00:03:38,699 --> 00:03:39,630
+And in addition,
+
+92
+00:03:40,240 --> 00:03:42,936
+using a tree is not just a question of time
+
+93
+00:03:43,033 --> 00:03:45,438
+complexity. Especially here if we have the
+
+94
+00:03:45,438 --> 00:03:46,336
+same complexity,
+
+95
+00:03:46,977 --> 00:03:48,403
+there also might be other reasons for
+
+96
+00:03:48,483 --> 00:03:49,942
+choosing a tree over an array.
+
+97
+00:03:50,503 --> 00:03:52,042
+And such another reason could be,
+
+98
+00:03:52,651 --> 00:03:55,279
+well, that you simply have some data you're
+
+99
+00:03:55,295 --> 00:03:58,742
+working with which is best represented as a
+
+100
+00:03:58,742 --> 00:04:01,482
+tree-like data structure, like a file
+
+101
+00:04:01,482 --> 00:04:04,271
+system. Here a tree really makes a lot of
+
+102
+00:04:04,271 --> 00:04:06,660
+sense because it makes working with it
+
+103
+00:04:06,932 --> 00:04:10,186
+possibly easier because what you're trying
+
+104
+00:04:10,202 --> 00:04:13,825
+to represent is a tree. So why not also use
+
+105
+00:04:13,825 --> 00:04:15,797
+a tree in programming, right?
+
+106
+00:04:16,455 --> 00:04:19,421
+And that's it for the basic trees. Now we're
+
+107
+00:04:19,421 --> 00:04:20,752
+going to have a look at some
+
+108
+00:04:21,281 --> 00:04:25,258
+more specialized and optimized alternatives
+
+109
+00:04:25,851 --> 00:04:27,968
+which will pick up on the core basics I
+
+110
+00:04:28,016 --> 00:04:30,662
+covered here, which will not focus on file
+
+111
+00:04:30,662 --> 00:04:33,356
+systems though, but which can be used for
+
+112
+00:04:33,404 --> 00:04:36,659
+storing any value and which can then make
+
+113
+00:04:36,659 --> 00:04:39,529
+working with values more efficient in some
+
+114
+00:04:39,577 --> 00:04:40,090
+scenarios.

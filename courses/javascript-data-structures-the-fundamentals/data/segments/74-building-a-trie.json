@@ -1,0 +1,1467 @@
+[
+ {
+  "start": 2.281,
+  "end": 4.231,
+  "en": "So let's build a first trie."
+ },
+ {
+  "start": 4.924,
+  "end": 7.164,
+  "en": "For that, I have a brand new file and in"
+ },
+ {
+  "start": 7.164,
+  "end": 7.293,
+  "en": "there,"
+ },
+ {
+  "start": 7.921,
+  "end": 9.823,
+  "en": "I'm going to build my trie as a class."
+ },
+ {
+  "start": 10.387,
+  "end": 12.111,
+  "en": "And actually, just as with the other tree"
+ },
+ {
+  "start": 12.111,
+  "end": 14.126,
+  "en": "structures, we'll not just have the general"
+ },
+ {
+  "start": 14.255,
+  "end": 16.834,
+  "en": "tree, we'll also have the nodes. So I'll"
+ },
+ {
+  "start": 16.834,
+  "end": 18.349,
+  "en": "also add a class TrieNode."
+ },
+ {
+  "start": 20.813,
+  "end": 23.163,
+  "en": "Now in that TrieNode, we'll store some data"
+ },
+ {
+  "start": 23.552,
+  "end": 25.691,
+  "en": "and actually we'll just store 2 pieces of"
+ },
+ {
+  "start": 25.756,
+  "end": 26.858,
+  "en": "information for the moment."
+ },
+ {
+  "start": 27.492,
+  "end": 30.057,
+  "en": "That's the value that should be stored for a"
+ },
+ {
+  "start": 30.121,
+  "end": 32.717,
+  "en": "given node. So we can set this value equal"
+ },
+ {
+  "start": 32.782,
+  "end": 33.407,
+  "en": "to value."
+ },
+ {
+  "start": 34.208,
+  "end": 36.292,
+  "en": "And of course, we'll have our, let's say,"
+ },
+ {
+  "start": 36.372,
+  "end": 36.997,
+  "en": "children"
+ },
+ {
+  "start": 37.654,
+  "end": 38.183,
+  "en": "array here,"
+ },
+ {
+  "start": 38.776,
+  "end": 41.26,
+  "en": "which— and that's not important— will be an"
+ },
+ {
+  "start": 41.26,
+  "end": 45.091,
+  "en": "array of the length of characters in our"
+ },
+ {
+  "start": 45.267,
+  "end": 48.088,
+  "en": "alphabet. So in the English alphabet, we"
+ },
+ {
+  "start": 48.088,
+  "end": 50.893,
+  "en": "have 26 characters, so that should be an"
+ },
+ {
+  "start": 50.893,
+  "end": 54.868,
+  "en": "array of length 26. And we can generate such"
+ },
+ {
+  "start": 54.964,
+  "end": 57.715,
+  "en": "an array with this function in JavaScript."
+ },
+ {
+  "start": 59.245,
+  "end": 61.129,
+  "en": "In case this should not be clear, calling"
+ },
+ {
+  "start": 61.177,
+  "end": 65.494,
+  "en": "Array26 generates an array with 26 empty"
+ },
+ {
+  "start": 65.591,
+  "end": 65.898,
+  "en": "items."
+ },
+ {
+  "start": 67.787,
+  "end": 68.078,
+  "en": "We can"
+ },
+ {
+  "start": 68.756,
+  "end": 69.451,
+  "en": "store that"
+ },
+ {
+  "start": 70.694,
+  "end": 73.359,
+  "en": "in a constant here, for example, and then we"
+ },
+ {
+  "start": 73.359,
+  "end": 74.101,
+  "en": "could store"
+ },
+ {
+  "start": 75.309,
+  "end": 75.986,
+  "en": "something"
+ },
+ {
+  "start": 76.662,
+  "end": 79.659,
+  "en": "for index 5, and now you would see it's"
+ },
+ {
+  "start": 79.707,
+  "end": 82.398,
+  "en": "still an array with 26 empty items, but"
+ },
+ {
+  "start": 82.534,
+  "end": 85.548,
+  "en": "actually it also has a valid item for index"
+ },
+ {
+  "start": 85.757,
+  "end": 86.046,
+  "en": "5."
+ },
+ {
+  "start": 88.67,
+  "end": 91.357,
+  "en": "So this is the children array which we have"
+ },
+ {
+  "start": 91.373,
+  "end": 93.175,
+  "en": "here for our given node."
+ },
+ {
+  "start": 94.252,
+  "end": 96.47,
+  "en": "Now that's all we need in the TrieNode for"
+ },
+ {
+  "start": 96.502,
+  "end": 99.089,
+  "en": "the moment. Now let's switch to the TrieTree"
+ },
+ {
+  "start": 99.089,
+  "end": 100.632,
+  "en": "structure, to this class here."
+ },
+ {
+  "start": 101.403,
+  "end": 101.676,
+  "en": "There"
+ },
+ {
+  "start": 102.271,
+  "end": 103.38,
+  "en": "in the end, we want to be able to"
+ },
+ {
+  "start": 103.961,
+  "end": 107.349,
+  "en": "insert new data, I would guess, and later we"
+ },
+ {
+  "start": 107.43,
+  "end": 109.301,
+  "en": "also want to be able to retrieve data."
+ },
+ {
+  "start": 110.205,
+  "end": 113.247,
+  "en": "Now for inserting data, We in the end need"
+ },
+ {
+  "start": 113.424,
+  "end": 114.261,
+  "en": "our key,"
+ },
+ {
+  "start": 114.888,
+  "end": 115.966,
+  "en": "which should be a string,"
+ },
+ {
+  "start": 116.497,
+  "end": 119.104,
+  "en": "and our value, which is the value we wanna"
+ },
+ {
+  "start": 119.153,
+  "end": 120.488,
+  "en": "store in a given node."
+ },
+ {
+  "start": 121.876,
+  "end": 124.331,
+  "en": "And now we just need to split up this key,"
+ },
+ {
+  "start": 124.622,
+  "end": 125.316,
+  "en": "which is a string,"
+ },
+ {
+  "start": 125.914,
+  "end": 128.627,
+  "en": "into the individual characters and drill"
+ },
+ {
+  "start": 128.837,
+  "end": 130.694,
+  "en": "down into our tree."
+ },
+ {
+  "start": 132.532,
+  "end": 133.551,
+  "en": "And one way of doing this"
+ },
+ {
+  "start": 134.133,
+  "end": 137.367,
+  "en": "is to use a for loop here, a regular for"
+ },
+ {
+  "start": 137.367,
+  "end": 140.197,
+  "en": "loop where we start with i equal to 0"
+ },
+ {
+  "start": 141.011,
+  "end": 143.662,
+  "en": "where we keep on looping as long as i is"
+ },
+ {
+  "start": 143.694,
+  "end": 145.375,
+  "en": "smaller than key.length."
+ },
+ {
+  "start": 145.94,
+  "end": 149.253,
+  "en": "We can access length on key since key should"
+ },
+ {
+  "start": 149.253,
+  "end": 149.642,
+  "en": "be a string,"
+ },
+ {
+  "start": 150.718,
+  "end": 152.722,
+  "en": "and where we then increment i by 1 after"
+ },
+ {
+  "start": 152.837,
+  "end": 153.798,
+  "en": "every iteration."
+ },
+ {
+  "start": 156.136,
+  "end": 156.875,
+  "en": "I also"
+ },
+ {
+  "start": 157.743,
+  "end": 160.201,
+  "en": "want to start digging into that tree"
+ },
+ {
+  "start": 160.876,
+  "end": 162.226,
+  "en": "on its root node,"
+ },
+ {
+  "start": 162.884,
+  "end": 164.491,
+  "en": "so we should actually add a constructor"
+ },
+ {
+  "start": 164.491,
+  "end": 166.685,
+  "en": "function here on the tree data structure as"
+ },
+ {
+  "start": 166.786,
+  "end": 166.903,
+  "en": "well."
+ },
+ {
+  "start": 167.632,
+  "end": 171.878,
+  "en": "And there set a root node where we construct"
+ },
+ {
+  "start": 171.878,
+  "end": 173.705,
+  "en": "a new trie node."
+ },
+ {
+  "start": 174.522,
+  "end": 176.493,
+  "en": "And the special thing here is that the value"
+ },
+ {
+  "start": 176.782,
+  "end": 180.147,
+  "en": "for this root trie node is empty, an empty"
+ },
+ {
+  "start": 180.147,
+  "end": 180.579,
+  "en": "string"
+ },
+ {
+  "start": 181.156,
+  "end": 183.4,
+  "en": "or null, whatever you want. It should be"
+ },
+ {
+  "start": 183.416,
+  "end": 185.627,
+  "en": "empty. That's what I mentioned earlier."
+ },
+ {
+  "start": 186.845,
+  "end": 189.505,
+  "en": "So we built this root, we add this root here"
+ },
+ {
+  "start": 190.05,
+  "end": 190.402,
+  "en": "on our"
+ },
+ {
+  "start": 191.251,
+  "end": 191.54,
+  "en": "trie,"
+ },
+ {
+  "start": 192.71,
+  "end": 193.831,
+  "en": "and now in insert,"
+ },
+ {
+  "start": 196.56,
+  "end": 198.342,
+  "en": "We want to use that root"
+ },
+ {
+  "start": 199.37,
+  "end": 201.36,
+  "en": "so we can get access like this. Of course,"
+ },
+ {
+  "start": 201.376,
+  "end": 203.785,
+  "en": "we could also just use this root in the code"
+ },
+ {
+  "start": 203.785,
+  "end": 205.856,
+  "en": "down there. It's up to you whether you want"
+ },
+ {
+  "start": 205.856,
+  "end": 207.654,
+  "en": "to store it in a separate constant or not."
+ },
+ {
+  "start": 208.505,
+  "end": 210.961,
+  "en": "And now we go through all the characters in"
+ },
+ {
+  "start": 211.154,
+  "end": 213.771,
+  "en": "our word. And now it's very simple. For"
+ },
+ {
+  "start": 214.124,
+  "end": 216.949,
+  "en": "every character in the word, we need to find"
+ },
+ {
+  "start": 216.949,
+  "end": 219.903,
+  "en": "out which position that character has in the"
+ },
+ {
+  "start": 219.903,
+  "end": 223.181,
+  "en": "alphabet And then once we got that position,"
+ },
+ {
+  "start": 223.438,
+  "end": 226.33,
+  "en": "we can use the right index in our children"
+ },
+ {
+  "start": 226.33,
+  "end": 226.507,
+  "en": "array"
+ },
+ {
+  "start": 227.133,
+  "end": 227.92,
+  "en": "on the given node"
+ },
+ {
+  "start": 228.66,
+  "end": 230.926,
+  "en": "and drill deeper into the tree on that"
+ },
+ {
+  "start": 230.926,
+  "end": 231.376,
+  "en": "index."
+ },
+ {
+  "start": 232.389,
+  "end": 234.962,
+  "en": "So now the question is, how do we get that"
+ },
+ {
+  "start": 235.268,
+  "end": 237.584,
+  "en": "index of a character in the alphabet?"
+ },
+ {
+  "start": 239.062,
+  "end": 240.644,
+  "en": "And again, in JavaScript, that's not too"
+ },
+ {
+  "start": 240.676,
+  "end": 242.322,
+  "en": "difficult. If we had the"
+ },
+ {
+  "start": 243.016,
+  "end": 243.581,
+  "en": "character A,"
+ },
+ {
+  "start": 244.469,
+  "end": 245.728,
+  "en": "there is the charCodeAt"
+ },
+ {
+  "start": 246.576,
+  "end": 248.482,
+  "en": "method which we can call on any string."
+ },
+ {
+  "start": 249.236,
+  "end": 249.957,
+  "en": "It wants the"
+ },
+ {
+  "start": 250.582,
+  "end": 252.44,
+  "en": "index of the character for which you want to"
+ },
+ {
+  "start": 252.52,
+  "end": 254.988,
+  "en": "get the alphabet value. And here, since it's"
+ },
+ {
+  "start": 254.988,
+  "end": 257.247,
+  "en": "just one character, the index here is 0."
+ },
+ {
+  "start": 257.808,
+  "end": 260.132,
+  "en": "If that were ab, we could also get the"
+ },
+ {
+  "start": 260.532,
+  "end": 263.256,
+  "en": "alphabet index for b by using index 1 here."
+ },
+ {
+  "start": 263.641,
+  "end": 264.49,
+  "en": "That's how this works."
+ },
+ {
+  "start": 265.484,
+  "end": 267.471,
+  "en": "And now of course you might see that this is"
+ },
+ {
+  "start": 268.08,
+  "end": 271.573,
+  "en": "79 as a result, which is clearly not the"
+ },
+ {
+  "start": 271.653,
+  "end": 273.143,
+  "en": "alphabet value of a."
+ },
+ {
+  "start": 274.073,
+  "end": 276.077,
+  "en": "Well, this simply also is able to retrieve a"
+ },
+ {
+  "start": 276.077,
+  "end": 277.569,
+  "en": "couple of other special characters,"
+ },
+ {
+  "start": 277.922,
+  "end": 280.183,
+  "en": "including uppercase characters, for example."
+ },
+ {
+  "start": 280.904,
+  "end": 284.144,
+  "en": "So for our purpose, we can simply deduct"
+ },
+ {
+  "start": 284.673,
+  "end": 285.571,
+  "en": "79 here,"
+ },
+ {
+  "start": 286.646,
+  "end": 288.169,
+  "en": "and then we start at 0,"
+ },
+ {
+  "start": 288.73,
+  "end": 291.296,
+  "en": "and this will then be correct. So for B, we"
+ },
+ {
+  "start": 291.296,
+  "end": 295.37,
+  "en": "got 1, for C, we got 2, for Z, we got 25,"
+ },
+ {
+  "start": 295.706,
+  "end": 298.208,
+  "en": "which is the right index for Z since this"
+ },
+ {
+  "start": 298.208,
+  "end": 300.653,
+  "en": "would be the 26th item in the array."
+ },
+ {
+  "start": 303.62,
+  "end": 308.266,
+  "en": "So charCodeAt-97 is the formula we wanna"
+ },
+ {
+  "start": 308.266,
+  "end": 308.477,
+  "en": "use."
+ },
+ {
+  "start": 309.095,
+  "end": 309.598,
+  "en": "So our"
+ },
+ {
+  "start": 310.2,
+  "end": 312.214,
+  "en": "alphabetIndex"
+ },
+ {
+  "start": 312.896,
+  "end": 313.042,
+  "en": "is"
+ },
+ {
+  "start": 314.699,
+  "end": 315.04,
+  "en": "this"
+ },
+ {
+  "start": 316.323,
+  "end": 316.859,
+  "en": "called"
+ },
+ {
+  "start": 317.85,
+  "end": 318.288,
+  "en": "on key"
+ },
+ {
+  "start": 319.18,
+  "end": 319.975,
+  "en": "for i."
+ },
+ {
+  "start": 320.72,
+  "end": 323.12,
+  "en": "So we walk through our key character by"
+ },
+ {
+  "start": 323.12,
+  "end": 323.59,
+  "en": "character."
+ },
+ {
+  "start": 324.434,
+  "end": 326.698,
+  "en": "We start at the first character we get the"
+ },
+ {
+  "start": 326.779,
+  "end": 329.35,
+  "en": "alphabet index for that given character, and"
+ },
+ {
+  "start": 329.447,
+  "end": 333.112,
+  "en": "then we know which child item to access to,"
+ },
+ {
+  "start": 333.385,
+  "end": 335.732,
+  "en": "well, find the next node in line."
+ },
+ {
+  "start": 337.432,
+  "end": 339.66,
+  "en": "So once we got that alphabet index, we can"
+ },
+ {
+  "start": 339.693,
+  "end": 340.701,
+  "en": "simply check if"
+ },
+ {
+  "start": 341.498,
+  "end": 342.377,
+  "en": "on our root here,"
+ },
+ {
+  "start": 345.357,
+  "end": 345.552,
+  "en": "if"
+ },
+ {
+  "start": 346.591,
+  "end": 347.532,
+  "en": "we have an item"
+ },
+ {
+  "start": 348.116,
+  "end": 350.486,
+  "en": "in the children array for that given index,"
+ },
+ {
+  "start": 351.201,
+  "end": 351.882,
+  "en": "and if that's"
+ },
+ {
+  "start": 353.689,
+  "end": 355.88,
+  "en": "truthy, we know we can dig in deeper. If"
+ },
+ {
+  "start": 355.88,
+  "end": 358.968,
+  "en": "this is falsy, we need to create a new node."
+ },
+ {
+  "start": 359.756,
+  "end": 362.876,
+  "en": "So actually, if this is not truthy, if this"
+ },
+ {
+  "start": 362.957,
+  "end": 365.474,
+  "en": "is falsy, we need to create a new node. So"
+ },
+ {
+  "start": 365.474,
+  "end": 366.393,
+  "en": "in that case,"
+ },
+ {
+  "start": 367.958,
+  "end": 370.652,
+  "en": "I want to create a new node by calling new"
+ },
+ {
+  "start": 370.942,
+  "end": 372.039,
+  "en": "TrieNode again,"
+ },
+ {
+  "start": 374.477,
+  "end": 376.199,
+  "en": "passing in just an empty string, for"
+ },
+ {
+  "start": 376.199,
+  "end": 378.667,
+  "en": "example, or a null value, because this is"
+ },
+ {
+  "start": 378.716,
+  "end": 380.974,
+  "en": "not necessarily the final node where we"
+ },
+ {
+  "start": 381.039,
+  "end": 382.078,
+  "en": "wanna store our value."
+ },
+ {
+  "start": 382.881,
+  "end": 385.534,
+  "en": "And that new node now needs to be inserted"
+ },
+ {
+  "start": 385.873,
+  "end": 388.623,
+  "en": "in this place in our node children array."
+ },
+ {
+  "start": 389.384,
+  "end": 390.675,
+  "en": "So now we set root"
+ },
+ {
+  "start": 391.546,
+  "end": 394.966,
+  "en": "children for that given alphabet index equal"
+ },
+ {
+  "start": 395.095,
+  "end": 397.805,
+  "en": "to that new node to insert that new node"
+ },
+ {
+  "start": 397.934,
+  "end": 399.514,
+  "en": "since it didn't exist before."
+ },
+ {
+  "start": 401.2,
+  "end": 402.718,
+  "en": "Now of course, else"
+ },
+ {
+  "start": 403.559,
+  "end": 406.952,
+  "en": "if we did find a node for this character"
+ },
+ {
+  "start": 407.032,
+  "end": 407.34,
+  "en": "already"
+ },
+ {
+  "start": 409.066,
+  "end": 411.297,
+  "en": "we simply wanna continue with the next"
+ },
+ {
+  "start": 411.297,
+  "end": 413.594,
+  "en": "character in line and drill into our tree"
+ },
+ {
+  "start": 413.642,
+  "end": 413.979,
+  "en": "deeper."
+ },
+ {
+  "start": 414.926,
+  "end": 416.468,
+  "en": "And for that, I will simply change"
+ },
+ {
+  "start": 416.998,
+  "end": 418.892,
+  "en": "my const root here to let"
+ },
+ {
+  "start": 419.807,
+  "end": 421.269,
+  "en": "and rename it to node,"
+ },
+ {
+  "start": 421.831,
+  "end": 423.517,
+  "en": "the node I'm looking at, because only"
+ },
+ {
+  "start": 423.517,
+  "end": 424.657,
+  "en": "initially it's the root."
+ },
+ {
+  "start": 425.427,
+  "end": 427.466,
+  "en": "If we wanna drill into the tree deeper,"
+ },
+ {
+  "start": 428.237,
+  "end": 429.746,
+  "en": "I will actually set node"
+ },
+ {
+  "start": 430.485,
+  "end": 431.192,
+  "en": "equal to"
+ },
+ {
+  "start": 433.632,
+  "end": 437.79,
+  "en": "node.children for that given alphabet index."
+ },
+ {
+  "start": 438.192,
+  "end": 440.696,
+  "en": "And of course, here we should also use node,"
+ },
+ {
+  "start": 441.178,
+  "end": 443.297,
+  "en": "and here we should also use node. So in all"
+ },
+ {
+  "start": 443.362,
+  "end": 445.208,
+  "en": "the places where I used the root before, I"
+ },
+ {
+  "start": 445.272,
+  "end": 446.027,
+  "en": "use node now."
+ },
+ {
+  "start": 446.974,
+  "end": 449.784,
+  "en": "So I simply overwrite node with a nested"
+ },
+ {
+  "start": 449.784,
+  "end": 450.281,
+  "en": "node now,"
+ },
+ {
+  "start": 451.116,
+  "end": 453.171,
+  "en": "and we do that whilst we walk through the"
+ },
+ {
+  "start": 453.187,
+  "end": 455.483,
+  "en": "entire string of characters. So step by"
+ },
+ {
+  "start": 455.483,
+  "end": 457.474,
+  "en": "step, we'll drill into this deeper."
+ },
+ {
+  "start": 458.517,
+  "end": 460.894,
+  "en": "Now, one important aspect, however, or one"
+ },
+ {
+  "start": 460.942,
+  "end": 461.536,
+  "en": "important thing"
+ },
+ {
+  "start": 462.194,
+  "end": 465.068,
+  "en": "is that when we do add a new node, we of"
+ },
+ {
+  "start": 465.084,
+  "end": 467.814,
+  "en": "course also want to drill in deeper. We had"
+ },
+ {
+  "start": 467.91,
+  "end": 470.158,
+  "en": "to add the node because it didn't exist"
+ },
+ {
+  "start": 470.158,
+  "end": 472.519,
+  "en": "before, but now that we do have it, we're"
+ },
+ {
+  "start": 472.519,
+  "end": 473.948,
+  "en": "not necessarily at the end."
+ },
+ {
+  "start": 474.558,
+  "end": 476.581,
+  "en": "The word which we picked here, the key,"
+ },
+ {
+  "start": 477.062,
+  "end": 479.712,
+  "en": "might be longer, so one new node might not"
+ },
+ {
+  "start": 479.712,
+  "end": 480.193,
+  "en": "be enough."
+ },
+ {
+  "start": 480.916,
+  "end": 483.405,
+  "en": "Therefore, actually, we want to drill into"
+ },
+ {
+  "start": 483.405,
+  "end": 486.07,
+  "en": "this new node as well. So I'll move this out"
+ },
+ {
+  "start": 486.07,
+  "end": 488.013,
+  "en": "of the else block and remove the else block"
+ },
+ {
+  "start": 488.302,
+  "end": 490.692,
+  "en": "Because no matter if we created a new node"
+ },
+ {
+  "start": 490.708,
+  "end": 492.521,
+  "en": "or not, we want to dig into it."
+ },
+ {
+  "start": 493.66,
+  "end": 496.388,
+  "en": "Now, once we're done with this for loop, so"
+ },
+ {
+  "start": 496.388,
+  "end": 498.987,
+  "en": "once we exhausted our key, we know we"
+ },
+ {
+  "start": 499.115,
+  "end": 501.859,
+  "en": "reached the node either because we created"
+ },
+ {
+  "start": 501.859,
+  "end": 503.56,
+  "en": "it or because it already was there"
+ },
+ {
+  "start": 504.169,
+  "end": 505.918,
+  "en": "where we want to insert a new value."
+ },
+ {
+  "start": 506.688,
+  "end": 507.266,
+  "en": "So now here"
+ },
+ {
+  "start": 507.875,
+  "end": 511.373,
+  "en": "we can access node.value and set this equal"
+ },
+ {
+  "start": 511.726,
+  "end": 513.571,
+  "en": "to this value here."
+ },
+ {
+  "start": 514.773,
+  "end": 517.194,
+  "en": "Now since we set the value like this, this"
+ },
+ {
+  "start": 517.402,
+  "end": 519.887,
+  "en": "also means that we don't have to pass it"
+ },
+ {
+  "start": 520.368,
+  "end": 522.628,
+  "en": "through any constructor because we never"
+ },
+ {
+  "start": 522.628,
+  "end": 524.712,
+  "en": "pass it through a constructor. So we don't"
+ },
+ {
+  "start": 524.712,
+  "end": 526.731,
+  "en": "even need to expect it here on the TryNode."
+ },
+ {
+  "start": 527.116,
+  "end": 529.681,
+  "en": "Instead, we just set a value property here"
+ },
+ {
+  "start": 529.681,
+  "end": 530.899,
+  "en": "which is null initially"
+ },
+ {
+  "start": 531.428,
+  "end": 532.871,
+  "en": "and then this value property can be"
+ },
+ {
+  "start": 532.951,
+  "end": 536.061,
+  "en": "overwritten once we, well, have a value to"
+ },
+ {
+  "start": 536.077,
+  "end": 538.353,
+  "en": "be inserted here with this logic."
+ },
+ {
+  "start": 539.475,
+  "end": 540.597,
+  "en": "So this should be"
+ },
+ {
+  "start": 541.303,
+  "end": 542.297,
+  "en": "a basic trie"
+ },
+ {
+  "start": 543.131,
+  "end": 545.392,
+  "en": "data structure that allows us to insert"
+ },
+ {
+  "start": 545.392,
+  "end": 545.777,
+  "en": "data."
+ },
+ {
+  "start": 546.659,
+  "end": 549.129,
+  "en": "Before we try to find data, let's see"
+ },
+ {
+  "start": 549.161,
+  "end": 549.979,
+  "en": "whether that works."
+ },
+ {
+  "start": 550.62,
+  "end": 552.833,
+  "en": "So for this, let's create a new trie by"
+ },
+ {
+  "start": 552.833,
+  "end": 553.747,
+  "en": "calling new Trie"
+ },
+ {
+  "start": 554.693,
+  "end": 555.191,
+  "en": "like this."
+ },
+ {
+  "start": 556.618,
+  "end": 560.066,
+  "en": "And then here, let's insert for age a value"
+ },
+ {
+  "start": 560.13,
+  "end": 560.739,
+  "en": "of 31"
+ },
+ {
+  "start": 561.654,
+  "end": 562.503,
+  "en": "and for"
+ },
+ {
+  "start": 563.819,
+  "end": 566.417,
+  "en": "name a value of Max"
+ },
+ {
+  "start": 567.347,
+  "end": 570.38,
+  "en": "And also to test this as well for names,"
+ },
+ {
+  "start": 571.279,
+  "end": 571.889,
+  "en": "an array"
+ },
+ {
+  "start": 572.483,
+  "end": 575.324,
+  "en": "of Max and Manu, because of course we should"
+ },
+ {
+  "start": 575.372,
+  "end": 577.843,
+  "en": "be able to store any kind of value. And of"
+ },
+ {
+  "start": 577.859,
+  "end": 580.652,
+  "en": "course we should also be able to use keys"
+ },
+ {
+  "start": 581.005,
+  "end": 584.119,
+  "en": "that include other keys. So names should be"
+ },
+ {
+  "start": 584.119,
+  "end": 586.735,
+  "en": "usable without losing the value that was"
+ },
+ {
+  "start": 586.735,
+  "end": 587.634,
+  "en": "stored for name."
+ },
+ {
+  "start": 588.853,
+  "end": 591.742,
+  "en": "Let's console.log that try thereafter to see"
+ },
+ {
+  "start": 591.742,
+  "end": 592.432,
+  "en": "whether this works."
+ },
+ {
+  "start": 593.123,
+  "end": 594.777,
+  "en": "Let's go back to the browser and reload."
+ },
+ {
+  "start": 595.435,
+  "end": 596.19,
+  "en": "Here's our trie."
+ },
+ {
+  "start": 596.976,
+  "end": 598.935,
+  "en": "It has a root node with no value,"
+ },
+ {
+  "start": 599.706,
+  "end": 601.183,
+  "en": "and in there we got a couple of children."
+ },
+ {
+  "start": 601.552,
+  "end": 603.897,
+  "en": "And we see there are 2 child nodes"
+ },
+ {
+  "start": 603.961,
+  "end": 607.317,
+  "en": "populated, the first one and the 13th one."
+ },
+ {
+  "start": 607.975,
+  "end": 610.191,
+  "en": "The first one makes sense because age"
+ },
+ {
+  "start": 610.769,
+  "end": 611.781,
+  "en": "has an A at the beginning,"
+ },
+ {
+  "start": 612.632,
+  "end": 615.666,
+  "en": "and N probably simply is the 14th character"
+ },
+ {
+  "start": 615.682,
+  "end": 618.139,
+  "en": "in the alphabet, hence it has index 13."
+ },
+ {
+  "start": 619.934,
+  "end": 621.905,
+  "en": "So now if we dig deeper into this, we see on"
+ },
+ {
+  "start": 621.937,
+  "end": 625.062,
+  "en": "the 0 branch we have no value, which makes"
+ },
+ {
+  "start": 625.062,
+  "end": 625.543,
+  "en": "sense,"
+ },
+ {
+  "start": 626.184,
+  "end": 628.507,
+  "en": "but we got more children where the element"
+ },
+ {
+  "start": 628.507,
+  "end": 630.847,
+  "en": "with index 6 holds another node."
+ },
+ {
+  "start": 631.793,
+  "end": 633.924,
+  "en": "That node still has no value, but it has"
+ },
+ {
+  "start": 633.956,
+  "end": 635.174,
+  "en": "more children, and there"
+ },
+ {
+  "start": 635.703,
+  "end": 638.315,
+  "en": "the element with index 4, which is the index"
+ },
+ {
+  "start": 638.443,
+  "end": 639.965,
+  "en": "for G in the alphabet,"
+ },
+ {
+  "start": 640.526,
+  "end": 643.603,
+  "en": "that now finally holds our value of 31."
+ },
+ {
+  "start": 644.213,
+  "end": 647.023,
+  "en": "So the age was stored correctly in our trie."
+ },
+ {
+  "start": 648.387,
+  "end": 650.443,
+  "en": "Now for the name and the names."
+ },
+ {
+  "start": 651.262,
+  "end": 654.136,
+  "en": "Here we start at this element with index 13."
+ },
+ {
+  "start": 654.65,
+  "end": 656.368,
+  "en": "Got no value there, but we got more"
+ },
+ {
+  "start": 656.416,
+  "end": 658.648,
+  "en": "children, or one more child I should say,"
+ },
+ {
+  "start": 658.985,
+  "end": 660.976,
+  "en": "which makes sense because both name and"
+ },
+ {
+  "start": 661.136,
+  "end": 664.251,
+  "en": "names have the same next character. So we"
+ },
+ {
+  "start": 664.284,
+  "end": 665.969,
+  "en": "have one next node here."
+ },
+ {
+  "start": 667.174,
+  "end": 668.635,
+  "en": "There we got no value."
+ },
+ {
+  "start": 669.502,
+  "end": 671.921,
+  "en": "Here, no value, but we got more children or"
+ },
+ {
+  "start": 672.049,
+  "end": 672.802,
+  "en": "one more child."
+ },
+ {
+  "start": 673.411,
+  "end": 675.046,
+  "en": "Again, that makes sense because we have M"
+ },
+ {
+  "start": 675.51,
+  "end": 675.686,
+  "en": "here."
+ },
+ {
+  "start": 676.968,
+  "end": 678.378,
+  "en": "So now we have that,"
+ },
+ {
+  "start": 678.955,
+  "end": 679.628,
+  "en": "no value there,"
+ },
+ {
+  "start": 680.541,
+  "end": 682.432,
+  "en": "but one more child with index 4."
+ },
+ {
+  "start": 683.265,
+  "end": 685.284,
+  "en": "And that makes sense because that's the E,"
+ },
+ {
+  "start": 685.524,
+  "end": 687.575,
+  "en": "which also is part of both"
+ },
+ {
+  "start": 688.729,
+  "end": 689.017,
+  "en": "keys."
+ },
+ {
+  "start": 689.851,
+  "end": 690.828,
+  "en": "But now for that"
+ },
+ {
+  "start": 691.373,
+  "end": 691.789,
+  "en": "node,"
+ },
+ {
+  "start": 692.799,
+  "end": 695.266,
+  "en": "we have a value of max, but we also have"
+ },
+ {
+  "start": 695.362,
+  "end": 697.349,
+  "en": "more children or one more child."
+ },
+ {
+  "start": 698.088,
+  "end": 699.197,
+  "en": "At index 18,"
+ },
+ {
+  "start": 699.855,
+  "end": 701.35,
+  "en": "which is the index of the S."
+ },
+ {
+  "start": 702.523,
+  "end": 703.6,
+  "en": "And indeed, in there"
+ },
+ {
+  "start": 704.291,
+  "end": 705.448,
+  "en": "we also have our"
+ },
+ {
+  "start": 706.283,
+  "end": 709.24,
+  "en": "name array value. So this trie is working"
+ },
+ {
+  "start": 709.273,
+  "end": 711.41,
+  "en": "correctly and we're storing our values"
+ },
+ {
+  "start": 711.442,
+  "end": 714.174,
+  "en": "correctly. And that is the essence of how a"
+ },
+ {
+  "start": 714.174,
+  "end": 715.122,
+  "en": "trie works."
+ },
+ {
+  "start": 716.183,
+  "end": 718.915,
+  "en": "Now let's see how we can find data in a"
+ },
+ {
+  "start": 718.915,
+  "end": 719.188,
+  "en": "trie."
+ }
+]

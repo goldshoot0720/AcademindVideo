@@ -1,0 +1,1272 @@
+[
+ {
+  "start": 2.135,
+  "end": 4.736,
+  "en": "So we had a look at resolving collisions"
+ },
+ {
+  "start": 4.768,
+  "end": 5.699,
+  "en": "with chaining."
+ },
+ {
+  "start": 6.293,
+  "end": 8.862,
+  "en": "We also can resolve collisions with a"
+ },
+ {
+  "start": 8.862,
+  "end": 11.222,
+  "en": "different strategy. Instead of chaining,"
+ },
+ {
+  "start": 11.816,
+  "end": 15.317,
+  "en": "we could also use open addressing. Now what"
+ },
+ {
+  "start": 15.365,
+  "end": 15.975,
+  "en": "does this mean?"
+ },
+ {
+  "start": 16.89,
+  "end": 18.142,
+  "en": "This simply means"
+ },
+ {
+  "start": 18.736,
+  "end": 21.562,
+  "en": "that for our hash table, if we generate the"
+ },
+ {
+  "start": 21.562,
+  "end": 23.168,
+  "en": "same hash for a different key,"
+ },
+ {
+  "start": 23.874,
+  "end": 26.506,
+  "en": "we don't add it as an extra value for that"
+ },
+ {
+  "start": 26.506,
+  "end": 28.51,
+  "en": "given key, for that given hash."
+ },
+ {
+  "start": 29.087,
+  "end": 31.62,
+  "en": "Instead, we simply look for the next empty"
+ },
+ {
+  "start": 32.037,
+  "end": 35.002,
+  "en": "index in our hash table and then store the"
+ },
+ {
+  "start": 35.018,
+  "end": 37.952,
+  "en": "value there. So we search the next empty"
+ },
+ {
+  "start": 38.064,
+  "end": 40.18,
+  "en": "bucket to then store the value there."
+ },
+ {
+  "start": 41.19,
+  "end": 44.092,
+  "en": "Now, this is called open addressing and"
+ },
+ {
+  "start": 44.092,
+  "end": 47.249,
+  "en": "there are different ways of finding the next"
+ },
+ {
+  "start": 47.362,
+  "end": 50.247,
+  "en": "empty slot. We can simply go through all the"
+ },
+ {
+  "start": 50.247,
+  "end": 52.78,
+  "en": "indexes and take the first one that's empty"
+ },
+ {
+  "start": 53.357,
+  "end": 57.348,
+  "en": "or we make bigger jumps to also look into"
+ },
+ {
+  "start": 57.381,
+  "end": 60.809,
+  "en": "the later parts of our hash table and find"
+ },
+ {
+  "start": 60.826,
+  "end": 61.883,
+  "en": "empty spots there."
+ },
+ {
+  "start": 62.812,
+  "end": 65.344,
+  "en": "That can help with efficiently storing the"
+ },
+ {
+  "start": 65.376,
+  "end": 67.539,
+  "en": "hash table in memory then, for example."
+ },
+ {
+  "start": 68.34,
+  "end": 70.743,
+  "en": "Either way, no matter how we find the next"
+ },
+ {
+  "start": 70.759,
+  "end": 73.707,
+  "en": "empty bucket, it is about finding that next"
+ },
+ {
+  "start": 73.723,
+  "end": 74.012,
+  "en": "bucket."
+ },
+ {
+  "start": 74.604,
+  "end": 76.495,
+  "en": "And therefore, of course, it's obvious that"
+ },
+ {
+  "start": 76.527,
+  "end": 79.299,
+  "en": "this approach could fail if we have a very"
+ },
+ {
+  "start": 79.331,
+  "end": 82.824,
+  "en": "small hash table and there simply are no"
+ },
+ {
+  "start": 82.936,
+  "end": 86.156,
+  "en": "empty spaces left. So this needs a bigger"
+ },
+ {
+  "start": 86.204,
+  "end": 89.506,
+  "en": "hash table And of course also a certain way"
+ },
+ {
+  "start": 89.506,
+  "end": 91.253,
+  "en": "of building it such that"
+ },
+ {
+  "start": 91.814,
+  "end": 95.501,
+  "en": "unused spaces, for example, are freed up so"
+ },
+ {
+  "start": 95.501,
+  "end": 97.665,
+  "en": "that we're not keeping values which are not"
+ },
+ {
+  "start": 97.681,
+  "end": 100.422,
+  "en": "getting used anymore. Because if we free up"
+ },
+ {
+  "start": 100.63,
+  "end": 102.986,
+  "en": "values, if we free up keys and their"
+ },
+ {
+  "start": 103.195,
+  "end": 105.743,
+  "en": "indexes, then of course we ensure that those"
+ },
+ {
+  "start": 106.016,
+  "end": 108.613,
+  "en": "buckets, those slots can be taken again."
+ },
+ {
+  "start": 109.158,
+  "end": 110.825,
+  "en": "So here we'll have to make sure that we"
+ },
+ {
+  "start": 110.905,
+  "end": 113.309,
+  "en": "don't run out of space, which is a problem"
+ },
+ {
+  "start": 113.309,
+  "end": 115.715,
+  "en": "we didn't have to deal with if we used the"
+ },
+ {
+  "start": 115.78,
+  "end": 116.582,
+  "en": "chaining approach."
+ },
+ {
+  "start": 117.385,
+  "end": 119.489,
+  "en": "Nonetheless, let's see how we can implement"
+ },
+ {
+  "start": 119.489,
+  "end": 122.106,
+  "en": "a simplified version of open addressing"
+ },
+ {
+  "start": 122.62,
+  "end": 124.739,
+  "en": "before we then also dive into"
+ },
+ {
+  "start": 125.494,
+  "end": 127.629,
+  "en": "the different approaches we can use, into"
+ },
+ {
+  "start": 127.678,
+  "end": 129.01,
+  "en": "the time complexities,"
+ },
+ {
+  "start": 129.669,
+  "end": 132.703,
+  "en": "and we derive what we should do in reality"
+ },
+ {
+  "start": 132.88,
+  "end": 133.587,
+  "en": "when writing code."
+ },
+ {
+  "start": 134.598,
+  "end": 137.408,
+  "en": "So back in code, I stored the chaining"
+ },
+ {
+  "start": 137.408,
+  "end": 138.564,
+  "en": "approach in a new file,"
+ },
+ {
+  "start": 139.239,
+  "end": 141.246,
+  "en": "and now in app.js, I'll again start with the"
+ },
+ {
+  "start": 141.246,
+  "end": 144.375,
+  "en": "basic hash table code and this testing code"
+ },
+ {
+  "start": 144.375,
+  "end": 146.909,
+  "en": "from down there and put this into an empty"
+ },
+ {
+  "start": 147.005,
+  "end": 149.074,
+  "en": "app.js file again so that we can again"
+ },
+ {
+  "start": 149.491,
+  "end": 152.298,
+  "en": "implement this from scratch and now work"
+ },
+ {
+  "start": 152.298,
+  "end": 154.447,
+  "en": "with the open addressing solution."
+ },
+ {
+  "start": 155.538,
+  "end": 157.815,
+  "en": "So how could we implement open addressing?"
+ },
+ {
+  "start": 158.794,
+  "end": 161.713,
+  "en": "In the end, when we set a value, instead of"
+ },
+ {
+  "start": 161.761,
+  "end": 163.83,
+  "en": "just inserting the value"
+ },
+ {
+  "start": 164.487,
+  "end": 167.374,
+  "en": "in the place for the generated key hash, we"
+ },
+ {
+  "start": 167.374,
+  "end": 170.598,
+  "en": "wanna check if that spot is available, if we"
+ },
+ {
+  "start": 170.598,
+  "end": 173.02,
+  "en": "can take that place or if it's already"
+ },
+ {
+  "start": 173.229,
+  "end": 173.694,
+  "en": "occupied."
+ },
+ {
+  "start": 174.689,
+  "end": 177.53,
+  "en": "For that, here in set, once we got the key"
+ },
+ {
+  "start": 177.562,
+  "end": 177.835,
+  "en": "hash"
+ },
+ {
+  "start": 178.942,
+  "end": 180.354,
+  "en": "where the item should be stored,"
+ },
+ {
+  "start": 181.189,
+  "end": 184.816,
+  "en": "I check if in my buckets this place is still"
+ },
+ {
+  "start": 184.944,
+  "end": 187.801,
+  "en": "available by checking if the value that's"
+ },
+ {
+  "start": 187.913,
+  "end": 190.433,
+  "en": "currently stored in there is null."
+ },
+ {
+  "start": 191.058,
+  "end": 193.193,
+  "en": "Initially, we set all values to null, so if"
+ },
+ {
+  "start": 193.225,
+  "end": 193.851,
+  "en": "this is null,"
+ },
+ {
+  "start": 194.429,
+  "end": 196.178,
+  "en": "the place is still available."
+ },
+ {
+  "start": 196.74,
+  "end": 199.291,
+  "en": "Now, if that's the case, we simply reach out"
+ },
+ {
+  "start": 200.046,
+  "end": 202.117,
+  "en": "to that place for that key hash and insert"
+ },
+ {
+  "start": 202.198,
+  "end": 204.365,
+  "en": "our value there. So the same as we did"
+ },
+ {
+  "start": 204.462,
+  "end": 206.629,
+  "en": "before, now just in this if check."
+ },
+ {
+  "start": 207.336,
+  "end": 210.371,
+  "en": "Because in the else case that this place is"
+ },
+ {
+  "start": 210.66,
+  "end": 213.373,
+  "en": "not available and we did store a different"
+ },
+ {
+  "start": 213.373,
+  "end": 214.385,
+  "en": "value in there already,"
+ },
+ {
+  "start": 215.043,
+  "end": 217.628,
+  "en": "in that case, I of course want to look for"
+ },
+ {
+  "start": 217.628,
+  "end": 219.121,
+  "en": "the next empty place."
+ },
+ {
+  "start": 220.181,
+  "end": 222.654,
+  "en": "And we can do this with a simple"
+ },
+ {
+  "start": 223.489,
+  "end": 224.147,
+  "en": "while loop."
+ },
+ {
+  "start": 225.034,
+  "end": 225.982,
+  "en": "We simply check"
+ },
+ {
+  "start": 226.866,
+  "end": 227.074,
+  "en": "if"
+ },
+ {
+  "start": 227.926,
+  "end": 228.842,
+  "en": "this condition here"
+ },
+ {
+  "start": 231.123,
+  "end": 232.441,
+  "en": "is not met."
+ },
+ {
+  "start": 233.164,
+  "end": 235.564,
+  "en": "So we keep on looping as long as we don't"
+ },
+ {
+  "start": 235.629,
+  "end": 237.226,
+  "en": "find a place where this is null."
+ },
+ {
+  "start": 238.049,
+  "end": 240.969,
+  "en": "And we simply change the key hash now. So we"
+ },
+ {
+  "start": 240.969,
+  "end": 244.035,
+  "en": "turn this from const to let so that inside"
+ },
+ {
+  "start": 244.035,
+  "end": 246.773,
+  "en": "of the while loop, I can simply increment"
+ },
+ {
+  "start": 246.773,
+  "end": 246.822,
+  "en": "it."
+ },
+ {
+  "start": 247.418,
+  "end": 249.448,
+  "en": "Keep in mind that this is just a number. So"
+ },
+ {
+  "start": 249.448,
+  "end": 251.462,
+  "en": "now we can add 1 to it and look into the"
+ },
+ {
+  "start": 251.462,
+  "end": 253.721,
+  "en": "next bucket. And then in the next one and"
+ },
+ {
+  "start": 253.802,
+  "end": 256.404,
+  "en": "the next one and so on. And we keep on"
+ },
+ {
+  "start": 256.469,
+  "end": 259.248,
+  "en": "looping until we find a place where we do"
+ },
+ {
+  "start": 259.361,
+  "end": 261.996,
+  "en": "have null as a value. The loop keeps on"
+ },
+ {
+  "start": 261.996,
+  "end": 264.149,
+  "en": "running as long as it's not null. As soon as"
+ },
+ {
+  "start": 264.181,
+  "end": 267.073,
+  "en": "we do find a place where it is null, we have"
+ },
+ {
+  "start": 267.073,
+  "end": 269.419,
+  "en": "an empty spot, and that's when the loop will"
+ },
+ {
+  "start": 269.467,
+  "end": 269.868,
+  "en": "finish."
+ },
+ {
+  "start": 270.527,
+  "end": 272.519,
+  "en": "And therefore, after the loop, we know that"
+ },
+ {
+  "start": 272.519,
+  "end": 275.315,
+  "en": "we found an empty index, an empty place,"
+ },
+ {
+  "start": 275.845,
+  "end": 277.87,
+  "en": "and therefore now we can reach out to this"
+ },
+ {
+  "start": 278.079,
+  "end": 280.992,
+  "en": "buckets for the new key hash, which is the"
+ },
+ {
+  "start": 280.992,
+  "end": 283.524,
+  "en": "incremented one, and store our value in"
+ },
+ {
+  "start": 283.588,
+  "end": 283.783,
+  "en": "there."
+ },
+ {
+  "start": 286.889,
+  "end": 289.674,
+  "en": "However, we shouldn't just store the value"
+ },
+ {
+  "start": 289.674,
+  "end": 291.445,
+  "en": "now. We should also store the information"
+ },
+ {
+  "start": 291.574,
+  "end": 294.343,
+  "en": "for which key we occupied this place,"
+ },
+ {
+  "start": 294.569,
+  "end": 296.968,
+  "en": "because now the same key always yields the"
+ },
+ {
+  "start": 296.968,
+  "end": 299.732,
+  "en": "same hash, but we don't necessarily store a"
+ },
+ {
+  "start": 299.732,
+  "end": 303.349,
+  "en": "value at that hash, at that index. Then we"
+ },
+ {
+  "start": 303.349,
+  "end": 305.085,
+  "en": "might store it at a different index."
+ },
+ {
+  "start": 305.897,
+  "end": 308.661,
+  "en": "Hence here, when I store something, I also"
+ },
+ {
+  "start": 308.661,
+  "end": 310.91,
+  "en": "store information about the key and about"
+ },
+ {
+  "start": 310.91,
+  "end": 312.999,
+  "en": "the value. So the same as we did it with"
+ },
+ {
+  "start": 313.128,
+  "end": 315.922,
+  "en": "chaining, now just a different approach for"
+ },
+ {
+  "start": 316.134,
+  "end": 317.161,
+  "en": "where we store this."
+ },
+ {
+  "start": 317.748,
+  "end": 319.851,
+  "en": "So we should do this whenever we write to"
+ },
+ {
+  "start": 319.949,
+  "end": 320.601,
+  "en": "our buckets."
+ },
+ {
+  "start": 322.64,
+  "end": 325.087,
+  "en": "So now for extracting a value, I want to go"
+ },
+ {
+  "start": 325.103,
+  "end": 325.395,
+  "en": "through"
+ },
+ {
+  "start": 325.979,
+  "end": 326.417,
+  "en": "all my"
+ },
+ {
+  "start": 327.033,
+  "end": 327.665,
+  "en": "places"
+ },
+ {
+  "start": 328.329,
+  "end": 331.085,
+  "en": "in my buckets array, so through all elements"
+ },
+ {
+  "start": 331.085,
+  "end": 331.912,
+  "en": "in my buckets array"
+ },
+ {
+  "start": 332.573,
+  "end": 335.479,
+  "en": "And for that, I'll set i equal to key hash"
+ },
+ {
+  "start": 335.544,
+  "end": 338.321,
+  "en": "here and keep on looping as long as i is"
+ },
+ {
+  "start": 338.53,
+  "end": 341.79,
+  "en": "smaller than this bucket's length and"
+ },
+ {
+  "start": 341.886,
+  "end": 343.909,
+  "en": "increment i after every iteration."
+ },
+ {
+  "start": 344.455,
+  "end": 346.478,
+  "en": "And I want to now search for that key."
+ },
+ {
+  "start": 347.12,
+  "end": 350.059,
+  "en": "So for all the buckets which I'm looking at,"
+ },
+ {
+  "start": 350.46,
+  "end": 353.382,
+  "en": "I want to check if in there I have a value"
+ },
+ {
+  "start": 353.382,
+  "end": 356.353,
+  "en": "stored for this specific key. So I'll check"
+ },
+ {
+  "start": 356.481,
+  "end": 358.721,
+  "en": "if this bucket's for the given"
+ },
+ {
+  "start": 359.303,
+  "end": 359.319,
+  "en": "i,"
+ },
+ {
+  "start": 359.966,
+  "end": 361.712,
+  "en": "so the given key hash which is being"
+ },
+ {
+  "start": 361.728,
+  "end": 363.038,
+  "en": "incremented after every loop,"
+ },
+ {
+  "start": 363.749,
+  "end": 366.627,
+  "en": "if the key stored in there is equal"
+ },
+ {
+  "start": 367.161,
+  "end": 367.745,
+  "en": "to the key"
+ },
+ {
+  "start": 368.378,
+  "end": 368.799,
+  "en": "I got here."
+ },
+ {
+  "start": 369.919,
+  "end": 372.157,
+  "en": "Now of course, if that's the case,"
+ },
+ {
+  "start": 372.741,
+  "end": 374.88,
+  "en": "I want to return this"
+ },
+ {
+  "start": 375.508,
+  "end": 376.12,
+  "en": "buckets.val"
+ },
+ {
+  "start": 378.084,
+  "end": 380.096,
+  "en": "because then I got the value I'm interested"
+ },
+ {
+  "start": 380.096,
+  "end": 380.225,
+  "en": "in."
+ },
+ {
+  "start": 380.918,
+  "end": 383.091,
+  "en": "Of course, however, I might also encounter"
+ },
+ {
+  "start": 383.091,
+  "end": 385.96,
+  "en": "some buckets where no value was stored So"
+ },
+ {
+  "start": 386.056,
+  "end": 388.977,
+  "en": "accessing.key on null would then fail."
+ },
+ {
+  "start": 389.923,
+  "end": 392.17,
+  "en": "We can therefore simply add another check"
+ },
+ {
+  "start": 392.17,
+  "end": 394.271,
+  "en": "here and check if this bucket's i"
+ },
+ {
+  "start": 394.961,
+  "end": 395.266,
+  "en": "is"
+ },
+ {
+  "start": 396.165,
+  "end": 398.443,
+  "en": "falsy with an exclamation mark in the front."
+ },
+ {
+  "start": 399.213,
+  "end": 401.973,
+  "en": "And if it is falsy, if we haven't stored a"
+ },
+ {
+  "start": 402.037,
+  "end": 404.572,
+  "en": "value yet, we can simply continue,"
+ },
+ {
+  "start": 405.551,
+  "end": 407.637,
+  "en": "which means that this code is skipped and we"
+ },
+ {
+  "start": 407.637,
+  "end": 409.739,
+  "en": "continue with the next loop iteration."
+ },
+ {
+  "start": 410.461,
+  "end": 412.611,
+  "en": "With that, we can also alter this code and"
+ },
+ {
+  "start": 412.627,
+  "end": 415.387,
+  "en": "return undefined here because this code now"
+ },
+ {
+  "start": 415.74,
+  "end": 418.02,
+  "en": "only runs if we don't find any value for"
+ },
+ {
+  "start": 418.068,
+  "end": 418.903,
+  "en": "that key anywhere."
+ },
+ {
+  "start": 419.834,
+  "end": 422.515,
+  "en": "And now we should have an adjusted hash"
+ },
+ {
+  "start": 422.58,
+  "end": 423.029,
+  "en": "table here"
+ },
+ {
+  "start": 423.703,
+  "end": 427.332,
+  "en": "which actually uses open addressing to put"
+ },
+ {
+  "start": 427.396,
+  "end": 429.355,
+  "en": "values into the next open spot"
+ },
+ {
+  "start": 429.949,
+  "end": 432.855,
+  "en": "and also retrieve values like this for a"
+ },
+ {
+  "start": 432.935,
+  "end": 435.391,
+  "en": "given key, taking this open addressing"
+ },
+ {
+  "start": 435.504,
+  "end": 437.639,
+  "en": "storage mechanism into account."
+ },
+ {
+  "start": 438.859,
+  "end": 441.267,
+  "en": "Now, if we would now try to save this, we"
+ },
+ {
+  "start": 441.283,
+  "end": 443.579,
+  "en": "would however fail because our"
+ },
+ {
+  "start": 444.237,
+  "end": 446.836,
+  "en": "hash table is so small that for the values"
+ },
+ {
+  "start": 446.836,
+  "end": 449.083,
+  "en": "I'm trying to store, there will not be"
+ },
+ {
+  "start": 449.388,
+  "end": 451.362,
+  "en": "enough slots. And therefore, we'll actually"
+ },
+ {
+  "start": 451.378,
+  "end": 453.704,
+  "en": "have an infinite loop here when we try to"
+ },
+ {
+  "start": 453.704,
+  "end": 454.491,
+  "en": "store something"
+ },
+ {
+  "start": 455.229,
+  "end": 456.85,
+  "en": "and will never stop."
+ },
+ {
+  "start": 457.636,
+  "end": 460.412,
+  "en": "Hence, I'll ramp this up to 100 to ensure"
+ },
+ {
+  "start": 460.46,
+  "end": 462.129,
+  "en": "that we have enough space available,"
+ },
+ {
+  "start": 462.706,
+  "end": 463.766,
+  "en": "and then save that,"
+ },
+ {
+  "start": 465.017,
+  "end": 465.868,
+  "en": "and then reload this."
+ },
+ {
+  "start": 466.943,
+  "end": 469.109,
+  "en": "And now this should finish successfully. And"
+ },
+ {
+  "start": 469.125,
+  "end": 471.003,
+  "en": "what you'll see is that in there"
+ },
+ {
+  "start": 472.02,
+  "end": 472.862,
+  "en": "we got various"
+ },
+ {
+  "start": 473.396,
+  "end": 474.66,
+  "en": "places occupied"
+ },
+ {
+  "start": 476.376,
+  "end": 479.0,
+  "en": "for the different keys which we're trying to"
+ },
+ {
+  "start": 480.98,
+  "end": 482.883,
+  "en": "store. You'll also see that some keys are"
+ },
+ {
+  "start": 482.932,
+  "end": 485.25,
+  "en": "stored under different hashes though."
+ },
+ {
+  "start": 487.112,
+  "end": 490.004,
+  "en": "That happens because for the key D,"
+ },
+ {
+  "start": 490.567,
+  "end": 493.202,
+  "en": "the same hash was generated of course, and"
+ },
+ {
+  "start": 493.283,
+  "end": 495.388,
+  "en": "for the same key of course it's expected"
+ },
+ {
+  "start": 495.388,
+  "end": 497.853,
+  "en": "that we get the same hash. The problem is if"
+ },
+ {
+  "start": 497.885,
+  "end": 500.046,
+  "en": "different keys give us the same hash, but"
+ },
+ {
+  "start": 500.046,
+  "end": 501.062,
+  "en": "for the same key we of course also get the"
+ },
+ {
+  "start": 501.062,
+  "end": 501.239,
+  "en": "same hash."
+ },
+ {
+  "start": 503.336,
+  "end": 505.681,
+  "en": "Our algorithm then stores the values, which"
+ },
+ {
+  "start": 505.681,
+  "end": 507.898,
+  "en": "of course also are equal in that case, in"
+ },
+ {
+  "start": 508.01,
+  "end": 510.162,
+  "en": "different hashes because of this open"
+ },
+ {
+  "start": 510.243,
+  "end": 512.17,
+  "en": "addressing. Now that's actually not"
+ },
+ {
+  "start": 512.17,
+  "end": 514.403,
+  "en": "something I want. If it's the same key as"
+ },
+ {
+  "start": 514.515,
+  "end": 516.587,
+  "en": "before, I don't want to take a new bucket."
+ },
+ {
+  "start": 518.049,
+  "end": 520.265,
+  "en": "Therefore, here we should actually refine"
+ },
+ {
+  "start": 520.297,
+  "end": 523.157,
+  "en": "this check a little bit and say, yes, if a"
+ },
+ {
+  "start": 523.269,
+  "end": 525.598,
+  "en": "bucket isn't occupied yet, I want to store"
+ },
+ {
+  "start": 525.598,
+  "end": 526.273,
+  "en": "the value there,"
+ },
+ {
+  "start": 527.108,
+  "end": 529.406,
+  "en": "but I also want to do this. So Or"
+ },
+ {
+  "start": 530.326,
+  "end": 531.246,
+  "en": "if for"
+ },
+ {
+  "start": 531.778,
+  "end": 534.44,
+  "en": "a given key hash I do find a truthy value,"
+ },
+ {
+  "start": 534.699,
+  "end": 536.344,
+  "en": "so if this is not null,"
+ },
+ {
+  "start": 537.2,
+  "end": 537.538,
+  "en": "but"
+ },
+ {
+  "start": 538.232,
+  "end": 540.669,
+  "en": "if the key stored in there is equal to the"
+ },
+ {
+  "start": 540.669,
+  "end": 543.461,
+  "en": "key to which I now wanna set a new value"
+ },
+ {
+  "start": 544.042,
+  "end": 546.22,
+  "en": "so that we overwrite the existing value"
+ },
+ {
+  "start": 546.317,
+  "end": 548.359,
+  "en": "instead of just adding that key in a new"
+ },
+ {
+  "start": 548.821,
+  "end": 549.151,
+  "en": "bucket."
+ },
+ {
+  "start": 550.952,
+  "end": 552.905,
+  "en": "This is a tiny adjustment we should make"
+ },
+ {
+  "start": 552.905,
+  "end": 555.475,
+  "en": "here to make sure that for the exact same"
+ },
+ {
+  "start": 555.492,
+  "end": 558.344,
+  "en": "key, we do overwrite the same value and we"
+ },
+ {
+  "start": 558.505,
+  "end": 560.961,
+  "en": "only allocate different buckets for"
+ },
+ {
+  "start": 561.186,
+  "end": 563.9,
+  "en": "different keys which lead to the same hash,"
+ },
+ {
+  "start": 563.98,
+  "end": 566.003,
+  "en": "which is the actual problem that should be"
+ },
+ {
+  "start": 566.003,
+  "end": 566.597,
+  "en": "solved here."
+ },
+ {
+  "start": 567.577,
+  "end": 569.744,
+  "en": "With this adjustment made, if we now reload,"
+ },
+ {
+  "start": 570.788,
+  "end": 573.164,
+  "en": "we see every key only occurs once,"
+ },
+ {
+  "start": 573.855,
+  "end": 577.965,
+  "en": "but we see that now no key is lost. We got"
+ },
+ {
+  "start": 578.094,
+  "end": 580.422,
+  "en": "all the keys of the different words I wanted"
+ },
+ {
+  "start": 580.422,
+  "end": 582.686,
+  "en": "to store here, Because now we got no"
+ },
+ {
+  "start": 582.831,
+  "end": 585.224,
+  "en": "collision or in places where we do have"
+ },
+ {
+  "start": 585.32,
+  "end": 588.146,
+  "en": "collision, we are using a strategy for"
+ },
+ {
+  "start": 588.146,
+  "end": 590.588,
+  "en": "resolving that collision. That's the correct"
+ },
+ {
+  "start": 590.636,
+  "end": 592.724,
+  "en": "way of putting it. We're using open"
+ },
+ {
+  "start": 592.948,
+  "end": 595.293,
+  "en": "addressing here to make sure that every key"
+ },
+ {
+  "start": 595.293,
+  "end": 596.658,
+  "en": "gets stored somewhere."
+ },
+ {
+  "start": 597.445,
+  "end": 599.629,
+  "en": "Now, this still is not the perfect solution"
+ },
+ {
+  "start": 599.629,
+  "end": 601.878,
+  "en": "here because with that approach, we could"
+ },
+ {
+  "start": 601.878,
+  "end": 604.447,
+  "en": "still run out of space. I mean, that's not a"
+ },
+ {
+  "start": 604.447,
+  "end": 605.844,
+  "en": "super huge array here"
+ },
+ {
+  "start": 606.519,
+  "end": 609.265,
+  "en": "and we don't have any logic to clear up"
+ },
+ {
+  "start": 609.329,
+  "end": 612.444,
+  "en": "unused memory, so to remove any unused"
+ },
+ {
+  "start": 612.476,
+  "end": 613.488,
+  "en": "key-value pairs."
+ },
+ {
+  "start": 614.146,
+  "end": 615.719,
+  "en": "So that's something we're not doing here,"
+ },
+ {
+  "start": 615.992,
+  "end": 618.24,
+  "en": "but as I mentioned, the built-in JavaScript"
+ },
+ {
+  "start": 618.32,
+  "end": 621.275,
+  "en": "object will do that for you. It is a very"
+ },
+ {
+  "start": 621.307,
+  "end": 623.956,
+  "en": "efficient hash table being implemented under"
+ },
+ {
+  "start": 623.956,
+  "end": 626.734,
+  "en": "the hood. But with that, you now understand"
+ },
+ {
+  "start": 626.75,
+  "end": 629.784,
+  "en": "how it generally works and that it all comes"
+ },
+ {
+  "start": 629.897,
+  "end": 632.819,
+  "en": "down to storing lists of values, but now"
+ },
+ {
+  "start": 633.429,
+  "end": 635.741,
+  "en": "with the addition of keys by which we can"
+ },
+ {
+  "start": 635.741,
+  "end": 637.986,
+  "en": "retrieve those values. Under the hood"
+ },
+ {
+  "start": 638.409,
+  "end": 640.231,
+  "en": "implemented as a hash table."
+ }
+]

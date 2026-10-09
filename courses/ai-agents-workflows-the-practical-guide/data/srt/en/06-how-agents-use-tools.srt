@@ -1,0 +1,495 @@
+1
+00:00:00,353 --> 00:00:03,322
+That's where this harness comes into play
+
+2
+00:00:03,322 --> 00:00:04,702
+again. That harness
+
+3
+00:00:05,248 --> 00:00:05,697
+sends
+
+4
+00:00:06,275 --> 00:00:07,912
+your input to the model.
+
+5
+00:00:09,180 --> 00:00:11,747
+So the prompt you entered in Claude Cowork,
+
+6
+00:00:11,763 --> 00:00:14,524
+for example, the Claude Cowork harness sends
+
+7
+00:00:14,636 --> 00:00:16,257
+that to the model, but
+
+8
+00:00:16,947 --> 00:00:17,974
+not just that.
+
+9
+00:00:18,809 --> 00:00:21,746
+It also sends some extra information which
+
+10
+00:00:21,858 --> 00:00:24,458
+you don't see to the model along with your
+
+11
+00:00:24,506 --> 00:00:27,459
+input. For example, descriptions of the
+
+12
+00:00:27,555 --> 00:00:30,443
+tools the model may use. Tools like reading
+
+13
+00:00:30,507 --> 00:00:32,417
+a file, searching the web, running some
+
+14
+00:00:32,513 --> 00:00:35,561
+code, or more. And in addition, the harness
+
+15
+00:00:35,561 --> 00:00:38,995
+may also send some extra instructions, for
+
+16
+00:00:39,011 --> 00:00:41,369
+example, regarding how the model should
+
+17
+00:00:41,497 --> 00:00:44,161
+behave or how it should in general tackle
+
+18
+00:00:44,161 --> 00:00:46,840
+problems and so on. But that is something
+
+19
+00:00:46,952 --> 00:00:49,343
+we'll get back to later. That information is
+
+20
+00:00:49,375 --> 00:00:52,487
+sent to the model by the harness. The model
+
+21
+00:00:52,567 --> 00:00:54,955
+then, as mentioned, can't execute those
+
+22
+00:00:54,987 --> 00:00:58,192
+tools, but it can decide based on that
+
+23
+00:00:58,192 --> 00:01:00,276
+information it gets, based on the prompt,
+
+24
+00:01:00,356 --> 00:01:02,007
+based on the instructions, and based on
+
+25
+00:01:02,039 --> 00:01:03,289
+these tool descriptions,
+
+26
+00:01:03,946 --> 00:01:05,741
+what it would like to do next.
+
+27
+00:01:06,366 --> 00:01:09,059
+Because a model, since it can output text,
+
+28
+00:01:09,251 --> 00:01:12,040
+can of course replicate a thought process.
+
+29
+00:01:12,456 --> 00:01:15,005
+You could also write down a thought process
+
+30
+00:01:15,085 --> 00:01:17,601
+on a piece of paper, right? A model can do
+
+31
+00:01:17,601 --> 00:01:20,229
+the same. It can describe a thought process
+
+32
+00:01:20,229 --> 00:01:21,801
+to reason through a problem. Problem.
+
+33
+00:01:22,556 --> 00:01:25,366
+And by doing that, since it has that extra
+
+34
+00:01:25,366 --> 00:01:27,743
+information about tools it may use,
+
+35
+00:01:28,337 --> 00:01:30,521
+it can reason about these tools too.
+
+36
+00:01:31,212 --> 00:01:33,797
+And it can come to the conclusion based on a
+
+37
+00:01:33,797 --> 00:01:35,692
+thought process, which could look like this,
+
+38
+00:01:36,431 --> 00:01:39,772
+that it wants to use the read file tool for
+
+39
+00:01:40,141 --> 00:01:42,036
+the problem you threw at it.
+
+40
+00:01:42,807 --> 00:01:44,847
+So that is simply the result of a thought
+
+41
+00:01:44,879 --> 00:01:47,047
+process. Now, as mentioned, the final output
+
+42
+00:01:47,063 --> 00:01:48,155
+of a large language model
+
+43
+00:01:49,534 --> 00:01:52,644
+But that text can, of course, also simply be
+
+44
+00:01:52,884 --> 00:01:54,808
+the name of the tool it wants to use, for
+
+45
+00:01:54,808 --> 00:01:57,052
+example. And that's indeed how it works. The
+
+46
+00:01:57,052 --> 00:01:57,677
+harness
+
+47
+00:01:58,286 --> 00:02:00,434
+sends your prompt and those tool
+
+48
+00:02:00,434 --> 00:02:02,598
+descriptions to the model. The model thinks
+
+49
+00:02:02,598 --> 00:02:05,644
+about it and then sends back a tool call
+
+50
+00:02:05,644 --> 00:02:06,173
+request,
+
+51
+00:02:06,846 --> 00:02:09,507
+which in reality doesn't look like that. It
+
+52
+00:02:09,636 --> 00:02:11,832
+has a more machine-readable format, but that
+
+53
+00:02:11,832 --> 00:02:12,906
+is how you can think of it.
+
+54
+00:02:13,579 --> 00:02:14,669
+The harness then reads that request.
+
+55
+00:02:14,926 --> 00:02:16,625
+Receives that response,
+
+56
+00:02:17,250 --> 00:02:20,408
+analyzes it, and then executes that tool
+
+57
+00:02:20,472 --> 00:02:21,097
+call request.
+
+58
+00:02:21,931 --> 00:02:23,886
+So the harness, the software running on your
+
+59
+00:02:23,918 --> 00:02:26,179
+system, potentially something like Claude
+
+60
+00:02:26,179 --> 00:02:29,481
+Cowork, that's the thing that actually picks
+
+61
+00:02:29,673 --> 00:02:32,623
+up that tool call request and executes it.
+
+62
+00:02:33,056 --> 00:02:36,214
+If in Claude Cowork you see a log like this
+
+63
+00:02:36,743 --> 00:02:38,233
+reading files on your computer,
+
+64
+00:02:38,826 --> 00:02:41,327
+that was the harness, that was Claude Cowork
+
+65
+00:02:41,552 --> 00:02:44,090
+reading the files, but it did that because
+
+66
+00:02:44,122 --> 00:02:46,500
+the model requested it. So the harness does
+
+67
+00:02:46,532 --> 00:02:49,584
+that. And the result of a tool call, so the
+
+68
+00:02:49,584 --> 00:02:52,363
+content of a file, for example, is then sent
+
+69
+00:02:52,476 --> 00:02:54,532
+back to the model. And therefore the model
+
+70
+00:02:54,580 --> 00:02:57,327
+now knows a bit more. Initially, it had your
+
+71
+00:02:57,456 --> 00:02:59,753
+prompt and it came to the conclusion that it
+
+72
+00:02:59,785 --> 00:03:02,436
+wants to read a file. It requested that. The
+
+73
+00:03:02,436 --> 00:03:05,697
+harness then executed that tool, sent the
+
+74
+00:03:05,729 --> 00:03:08,283
+results back to the model. So in the next
+
+75
+00:03:08,283 --> 00:03:10,674
+round, where the model gets called again,
+
+76
+00:03:11,251 --> 00:03:13,512
+it still knows about your prompt and the
+
+77
+00:03:13,512 --> 00:03:15,966
+available tools and the extra instructions,
+
+78
+00:03:16,463 --> 00:03:19,013
+either because the model provider stores
+
+79
+00:03:19,125 --> 00:03:20,264
+that on their servers
+
+80
+00:03:20,873 --> 00:03:20,922
+or
+
+81
+00:03:21,595 --> 00:03:24,306
+also very common because the harness stores
+
+82
+00:03:24,418 --> 00:03:26,583
+this entire conversation with all the tool
+
+83
+00:03:26,583 --> 00:03:29,470
+calls and so on internally and sends the
+
+84
+00:03:29,470 --> 00:03:31,795
+entire conversation to the model with every
+
+85
+00:03:31,795 --> 00:03:34,858
+turn. But either way, the model knows about
+
+86
+00:03:34,858 --> 00:03:37,023
+the entire conversation with all the
+
+87
+00:03:37,071 --> 00:03:39,782
+details, all the context. Including the
+
+88
+00:03:39,815 --> 00:03:42,029
+result of that tool call it requested.
+
+89
+00:03:42,687 --> 00:03:45,047
+So it has more information in round 2
+
+90
+00:03:45,592 --> 00:03:46,732
+than it did in round 1.
+
+91
+00:03:47,277 --> 00:03:48,754
+And that's how it can work through a
+
+92
+00:03:48,882 --> 00:03:51,402
+problem. It can request more tool calls and
+
+93
+00:03:51,434 --> 00:03:53,537
+again, send that back to the harness, the
+
+94
+00:03:53,537 --> 00:03:57,035
+harness executes it and so on until it has
+
+95
+00:03:57,148 --> 00:03:59,699
+gathered enough information across multiple
+
+96
+00:03:59,699 --> 00:04:03,214
+rounds that it's done. So the model does not
+
+97
+00:04:03,391 --> 00:04:06,999
+make a tool call. It instead requests it and
+
+98
+00:04:06,999 --> 00:04:09,420
+the harness executes it. The model just
+
+99
+00:04:09,420 --> 00:04:11,825
+decides. And therefore, after each round,
+
+100
+00:04:12,145 --> 00:04:15,047
+the model may either continue and request
+
+101
+00:04:15,047 --> 00:04:15,945
+another tool call
+
+102
+00:04:16,618 --> 00:04:18,798
+or it may be done. It did everything it
+
+103
+00:04:18,798 --> 00:04:21,331
+needs to do for the task and it outputs one
+
+104
+00:04:21,668 --> 00:04:23,912
+final message at the end. That's always what
+
+105
+00:04:23,912 --> 00:04:25,692
+you get in the end. But along the way, it
+
+106
+00:04:25,756 --> 00:04:28,305
+may, of course, through tool calls, have
+
+107
+00:04:28,417 --> 00:04:31,351
+changed files, executed code, all kinds of
+
+108
+00:04:31,447 --> 00:04:33,788
+other things. That's the idea behind such an
+
+109
+00:04:33,788 --> 00:04:36,370
+agent. So you get a final report. But before
+
+110
+00:04:36,370 --> 00:04:38,491
+that, the work already happened in those
+
+111
+00:04:38,604 --> 00:04:41,351
+laps, in those rounds. And that is simply
+
+112
+00:04:41,576 --> 00:04:45,368
+the agent loop that keeps on going until a
+
+113
+00:04:45,433 --> 00:04:46,525
+task is completed.
+
+114
+00:04:47,200 --> 00:04:49,691
+And tools like Claude Cowork, which are the
+
+115
+00:04:49,691 --> 00:04:53,161
+harness, simply run such an agent loop
+
+116
+00:04:53,161 --> 00:04:53,836
+internally,
+
+117
+00:04:54,495 --> 00:04:56,455
+provide all those tool definitions,
+
+118
+00:04:56,503 --> 00:04:59,106
+instructions, and of course also your prompt
+
+119
+00:04:59,171 --> 00:04:59,396
+to
+
+120
+00:05:00,119 --> 00:05:02,933
+the model, to that loop. And then keep the
+
+121
+00:05:02,933 --> 00:05:05,171
+loop going by executing those tool call
+
+122
+00:05:05,203 --> 00:05:07,827
+requests and feeding the results of those
+
+123
+00:05:07,859 --> 00:05:11,337
+tool calls back into the model until a task
+
+124
+00:05:11,659 --> 00:05:13,816
+is done. That is the entire idea.

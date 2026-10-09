@@ -1,0 +1,223 @@
+1
+00:00:00,530 --> 00:00:02,987
+So in order to show you how you could use a
+
+2
+00:00:02,987 --> 00:00:06,232
+framework like EVE for building AI agents, I
+
+3
+00:00:06,440 --> 00:00:08,625
+prepared a new project which you find
+
+4
+00:00:08,625 --> 00:00:10,697
+attached and we'll of course explore it in
+
+5
+00:00:10,697 --> 00:00:11,805
+greater detail soon.
+
+6
+00:00:12,464 --> 00:00:15,018
+Now, the idea behind EVE and many of these
+
+7
+00:00:15,211 --> 00:00:18,311
+frameworks is that you have pre-built
+
+8
+00:00:18,423 --> 00:00:20,238
+building blocks which you can compose
+
+9
+00:00:20,270 --> 00:00:22,872
+together to build an agent. In case of EVE,
+
+10
+00:00:22,985 --> 00:00:25,490
+that means that you simply set up a project
+
+11
+00:00:25,876 --> 00:00:28,012
+and install the EVE dependency in there.
+
+12
+00:00:28,542 --> 00:00:30,304
+So that is how you could create a new
+
+13
+00:00:30,304 --> 00:00:32,420
+project with Eve pre-installed in it.
+
+14
+00:00:33,109 --> 00:00:35,801
+And once you did that, in the case of Eve,
+
+15
+00:00:35,897 --> 00:00:38,028
+and it's different for every framework, but
+
+16
+00:00:38,076 --> 00:00:40,896
+in the case of Eve, you would use your file
+
+17
+00:00:40,977 --> 00:00:44,374
+system to construct an agent. So the Eve
+
+18
+00:00:44,406 --> 00:00:47,370
+package will scan the file system in which
+
+19
+00:00:47,370 --> 00:00:49,662
+it was installed, so your project, and will
+
+20
+00:00:49,854 --> 00:00:52,786
+look for a certain folder structure, certain
+
+21
+00:00:52,802 --> 00:00:53,668
+file names
+
+22
+00:00:54,245 --> 00:00:57,402
+to compose the agent, to build your agent.
+
+23
+00:00:57,771 --> 00:01:00,224
+For example, it will look for an agent.ts
+
+24
+00:01:00,416 --> 00:01:04,247
+file in an agent subfolder in your project.
+
+25
+00:01:04,343 --> 00:01:06,491
+And it will look into that file to find out
+
+26
+00:01:06,604 --> 00:01:09,024
+which model you want to use for your agent,
+
+27
+00:01:09,072 --> 00:01:11,332
+for example. So which AI model should power
+
+28
+00:01:11,332 --> 00:01:13,657
+the agent as a brain? It would look for
+
+29
+00:01:13,657 --> 00:01:17,183
+files in a tools folder in the agent folder
+
+30
+00:01:17,183 --> 00:01:19,909
+in your project. And every file in there
+
+31
+00:01:20,149 --> 00:01:23,387
+would register a new tool. And in that file,
+
+32
+00:01:23,435 --> 00:01:25,551
+you then need to have a certain structure.
+
+33
+00:01:25,744 --> 00:01:28,068
+You need to use the define_tool function
+
+34
+00:01:28,068 --> 00:01:31,210
+provided by that Eve package to define the
+
+35
+00:01:31,210 --> 00:01:33,598
+tool that should be loaded. But you don't
+
+36
+00:01:33,598 --> 00:01:36,500
+need to manually describe the tools to the
+
+37
+00:01:36,500 --> 00:01:37,093
+agent then
+
+38
+00:01:37,686 --> 00:01:40,219
+or manually set up this complex tool
+
+39
+00:01:40,411 --> 00:01:42,511
+registration which you saw earlier in the
+
+40
+00:01:42,511 --> 00:01:45,028
+course. Instead, the Eve framework will do
+
+41
+00:01:45,381 --> 00:01:48,346
+all of that for you. That is the idea. And
+
+42
+00:01:48,362 --> 00:01:50,879
+that's the general philosophy of Eve. I
+
+43
+00:01:50,991 --> 00:01:53,139
+won't turn this course into a complete Eve
+
+44
+00:01:53,235 --> 00:01:55,079
+course and you might also not be interested
+
+45
+00:01:55,079 --> 00:01:57,403
+in that. You also might not even be a
+
+46
+00:01:57,403 --> 00:01:59,167
+programmer and you might not be interested
+
+47
+00:01:59,167 --> 00:02:01,397
+in writing any code, and that's all fine.
+
+48
+00:02:01,894 --> 00:02:04,028
+That's just a general idea behind this
+
+49
+00:02:04,060 --> 00:02:05,969
+framework, and you'll find similar or
+
+50
+00:02:06,081 --> 00:02:09,001
+comparable ideas in other frameworks. Now
+
+51
+00:02:09,194 --> 00:02:11,311
+we'll just take a look at this codebase to
+
+52
+00:02:11,536 --> 00:02:14,327
+understand how things are wired together and
+
+53
+00:02:14,408 --> 00:02:16,910
+where we can find these building blocks you
+
+54
+00:02:16,975 --> 00:02:18,787
+learned about earlier in the course, or some
+
+55
+00:02:18,836 --> 00:02:20,664
+of them at least, and how you could run that
+
+56
+00:02:20,745 --> 00:02:22,172
+agent built with Eve here then.

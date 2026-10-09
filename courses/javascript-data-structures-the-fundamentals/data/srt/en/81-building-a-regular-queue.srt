@@ -1,0 +1,419 @@
+1
+00:00:02,274 --> 00:00:03,843
+Now, we already built a queue
+
+2
+00:00:04,507 --> 00:00:05,882
+earlier in this course.
+
+3
+00:00:06,610 --> 00:00:09,539
+In the section about lists and tables, we
+
+4
+00:00:09,604 --> 00:00:12,619
+built a queue that used an array and we
+
+5
+00:00:12,619 --> 00:00:15,231
+built a queue with help of a linked list.
+
+6
+00:00:16,720 --> 00:00:18,750
+Now, in this module, we'll start from
+
+7
+00:00:18,782 --> 00:00:19,523
+scratch again.
+
+8
+00:00:20,055 --> 00:00:21,940
+Hence, I have an empty app.js file
+
+9
+00:00:22,697 --> 00:00:25,066
+and we're going to write a priority queue.
+
+10
+00:00:25,725 --> 00:00:27,598
+And therefore, I'll add a new class,
+
+11
+00:00:27,761 --> 00:00:30,790
+PriorityQueue, sounds like a fitting name to
+
+12
+00:00:30,790 --> 00:00:31,001
+me.
+
+13
+00:00:31,642 --> 00:00:33,901
+And the goal is now to build a basic
+
+14
+00:00:33,901 --> 00:00:36,193
+priority queue, though I will already say
+
+15
+00:00:36,484 --> 00:00:38,291
+that this will not be the final
+
+16
+00:00:38,436 --> 00:00:39,276
+implementation,
+
+17
+00:00:39,937 --> 00:00:42,608
+but it will help us understand the final
+
+18
+00:00:42,692 --> 00:00:43,476
+implementation.
+
+19
+00:00:45,363 --> 00:00:47,010
+And for that, I'll implement this with a
+
+20
+00:00:47,139 --> 00:00:50,047
+very basic linked list. And I'll write a
+
+21
+00:00:50,047 --> 00:00:53,035
+brand new basic linked list as part of this
+
+22
+00:00:53,035 --> 00:00:53,600
+PriorityQueue.
+
+23
+00:00:54,278 --> 00:00:56,816
+So let's actually start with a node for this
+
+24
+00:00:56,816 --> 00:00:58,872
+linked list. Let's add a constructor
+
+25
+00:00:59,403 --> 00:01:01,234
+and let's say here in the constructor we
+
+26
+00:01:01,234 --> 00:01:02,182
+want to get a value
+
+27
+00:01:02,776 --> 00:01:05,202
+and we store this in a value property.
+
+28
+00:01:05,909 --> 00:01:08,351
+And of course we have a next field where we
+
+29
+00:01:08,720 --> 00:01:11,194
+point at null at the beginning so that we
+
+30
+00:01:11,194 --> 00:01:13,572
+later can point at another node here. Again,
+
+31
+00:01:13,620 --> 00:01:15,194
+I'm going to build a linked list from
+
+32
+00:01:15,242 --> 00:01:16,849
+scratch together with you here.
+
+33
+00:01:17,941 --> 00:01:20,351
+In the PriorityQueue class, we can now also
+
+34
+00:01:20,367 --> 00:01:23,254
+add a constructor and set the first element
+
+35
+00:01:23,254 --> 00:01:23,446
+here
+
+36
+00:01:23,975 --> 00:01:26,715
+to null initially, because initially we have
+
+37
+00:01:26,715 --> 00:01:28,894
+no first element in our linked list here.
+
+38
+00:01:29,744 --> 00:01:31,282
+And then we have an insert method
+
+39
+00:01:31,811 --> 00:01:34,038
+where we get a value we want to insert,
+
+40
+00:01:34,631 --> 00:01:36,826
+and therefore we build a new node here,
+
+41
+00:01:37,339 --> 00:01:38,685
+which is a new node.
+
+42
+00:01:39,358 --> 00:01:41,329
+We pass the value to that node,
+
+43
+00:01:41,906 --> 00:01:44,421
+and then we essentially want to insert that
+
+44
+00:01:44,421 --> 00:01:46,569
+node. So first of all, we can check if we
+
+45
+00:01:46,649 --> 00:01:48,283
+don't have a first node yet
+
+46
+00:01:49,041 --> 00:01:50,416
+And at the beginning we don't.
+
+47
+00:01:51,145 --> 00:01:53,264
+And if we don't have a first node yet, we
+
+48
+00:01:53,264 --> 00:01:55,950
+set this first equal to our new node
+
+49
+00:01:56,565 --> 00:01:56,953
+like this.
+
+50
+00:01:59,042 --> 00:02:02,107
+Else, if we did have a first node already
+
+51
+00:02:02,140 --> 00:02:04,280
+because we have inserted a value before,
+
+52
+00:02:05,320 --> 00:02:07,616
+we simply go to the end of the
+
+53
+00:02:08,813 --> 00:02:09,573
+linked list
+
+54
+00:02:10,689 --> 00:02:10,883
+by
+
+55
+00:02:11,595 --> 00:02:14,474
+storing the current node under this first.
+
+56
+00:02:15,504 --> 00:02:17,336
+And then we could use a simple while loop
+
+57
+00:02:17,336 --> 00:02:17,464
+here
+
+58
+00:02:18,235 --> 00:02:21,128
+to simply access current node dot next,
+
+59
+00:02:22,429 --> 00:02:24,984
+so the next node in line in this linked
+
+60
+00:02:24,984 --> 00:02:25,321
+list,
+
+61
+00:02:26,109 --> 00:02:28,470
+and we would update current node to now
+
+62
+00:02:28,599 --> 00:02:30,784
+point at current node dot next.
+
+63
+00:02:31,893 --> 00:02:33,259
+And this would simply walk through the
+
+64
+00:02:33,259 --> 00:02:36,038
+entire linked list until there is no next
+
+65
+00:02:36,054 --> 00:02:38,738
+node, so that current node will point at the
+
+66
+00:02:38,866 --> 00:02:40,971
+last node in the linked list.
+
+67
+00:02:42,174 --> 00:02:44,745
+We could also save the last element in a
+
+68
+00:02:44,745 --> 00:02:47,300
+special property but I just wanna save the
+
+69
+00:02:47,300 --> 00:02:49,356
+first element here and simply then walk
+
+70
+00:02:49,485 --> 00:02:50,658
+through all the nodes like this.
+
+71
+00:02:52,140 --> 00:02:54,867
+Well, and then if we know the last node in
+
+72
+00:02:54,980 --> 00:02:55,206
+line,
+
+73
+00:02:56,207 --> 00:02:59,548
+we can set currentNode.next equal to the
+
+74
+00:02:59,661 --> 00:03:01,892
+newNode so that we point at the newNode
+
+75
+00:03:01,959 --> 00:03:02,160
+there.
+
+76
+00:03:04,328 --> 00:03:07,630
+So now we have a regular basic linked list
+
+77
+00:03:07,630 --> 00:03:07,761
+here.
+
+78
+00:03:08,322 --> 00:03:10,646
+Now that's not a priority queue at all,
+
+79
+00:03:10,806 --> 00:03:12,377
+that's just a basic queue.
+
+80
+00:03:13,050 --> 00:03:15,391
+Nonetheless, let's try this. So here we have
+
+81
+00:03:15,391 --> 00:03:15,968
+our queue
+
+82
+00:03:16,497 --> 00:03:17,570
+by instantiating
+
+83
+00:03:18,484 --> 00:03:21,113
+PriorityQueue. Again, it isn't a priority
+
+84
+00:03:21,129 --> 00:03:22,379
+queue yet but we'll get there.
+
+85
+00:03:23,229 --> 00:03:24,479
+And we can insert items,
+
+86
+00:03:25,296 --> 00:03:28,727
+couple of numbers, let's say 5 and 10 and
+
+87
+00:03:29,945 --> 00:03:33,631
+36 and we could also insert strings or
+
+88
+00:03:33,631 --> 00:03:35,555
+whatever you want, that's really up to you.
+
+89
+00:03:36,372 --> 00:03:39,930
+And now if we console.log this queue here,
+
+90
+00:03:40,715 --> 00:03:41,436
+save that,
+
+91
+00:03:42,702 --> 00:03:43,776
+load it in the browser,
+
+92
+00:03:44,545 --> 00:03:47,013
+we see the first value points at a node with
+
+93
+00:03:47,013 --> 00:03:50,041
+value 5, which makes sense because that is
+
+94
+00:03:50,073 --> 00:03:51,451
+the first value we insert.
+
+95
+00:03:52,541 --> 00:03:56,082
+That then points at a next node with value
+
+96
+00:03:56,082 --> 00:03:56,291
+10,
+
+97
+00:03:57,124 --> 00:03:59,127
+makes sense because that is the next node we
+
+98
+00:03:59,127 --> 00:03:59,544
+insert,
+
+99
+00:04:00,249 --> 00:04:03,215
+and that then points at a node with value
+
+100
+00:04:03,215 --> 00:04:06,134
+36, which is the last node we insert here,
+
+101
+00:04:06,824 --> 00:04:09,631
+and that therefore points at null as a next
+
+102
+00:04:09,631 --> 00:04:12,486
+node. But again, that's just a regular queue
+
+103
+00:04:13,000 --> 00:04:15,294
+implemented with a linked list where we have
+
+104
+00:04:15,406 --> 00:04:18,053
+one element after another. How do we now
+
+105
+00:04:18,133 --> 00:04:19,913
+turn this into a priority queue?

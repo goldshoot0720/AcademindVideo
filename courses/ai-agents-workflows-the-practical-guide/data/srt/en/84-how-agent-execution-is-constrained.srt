@@ -1,0 +1,327 @@
+1
+00:00:00,449 --> 00:00:02,101
+Now, as always, of course, you know the
+
+2
+00:00:02,101 --> 00:00:04,789
+game. All the details for executing it are
+
+3
+00:00:04,984 --> 00:00:05,972
+in that README,
+
+4
+00:00:07,008 --> 00:00:09,742
+and you will need that OpenAI API key, of
+
+5
+00:00:09,774 --> 00:00:10,080
+course.
+
+6
+00:00:10,756 --> 00:00:12,799
+So with that setup, we can run
+
+7
+00:00:13,394 --> 00:00:14,714
+this agent.py file
+
+8
+00:00:15,647 --> 00:00:16,856
+and then ask it,
+
+9
+00:00:18,313 --> 00:00:18,880
+look up the
+
+10
+00:00:20,661 --> 00:00:23,803
+order by Alex and refund it.
+
+11
+00:00:25,531 --> 00:00:27,377
+It should be able to do that. We have
+
+12
+00:00:27,886 --> 00:00:29,882
+orders.json here, we have an Alex, we have
+
+13
+00:00:29,898 --> 00:00:32,151
+only one Alex in there. It should find this
+
+14
+00:00:32,232 --> 00:00:35,226
+order. That order is below our threshold, so
+
+15
+00:00:35,226 --> 00:00:37,399
+it should be able to automatically refund
+
+16
+00:00:37,399 --> 00:00:37,448
+it.
+
+17
+00:00:39,170 --> 00:00:40,921
+So if I send that to the
+
+18
+00:00:41,451 --> 00:00:43,380
+model, it's reading orders.json
+
+19
+00:00:44,248 --> 00:00:46,530
+and you see it simulated the refund. It was
+
+20
+00:00:46,530 --> 00:00:48,492
+successful because it was below that
+
+21
+00:00:48,508 --> 00:00:49,026
+threshold.
+
+22
+00:00:49,561 --> 00:00:52,041
+Now if I run it again, refund the order by
+
+23
+00:00:52,268 --> 00:00:54,602
+Sam, it should not be able to do that
+
+24
+00:00:54,666 --> 00:00:56,028
+automatically because that amount is higher
+
+25
+00:00:56,141 --> 00:00:57,567
+than $10 and indeed therefore it's asking
+
+26
+00:00:57,600 --> 00:00:57,632
+me.
+
+27
+00:01:00,399 --> 00:01:00,982
+And here I
+
+28
+00:01:01,533 --> 00:01:02,067
+can choose
+
+29
+00:01:02,974 --> 00:01:05,064
+no or just hit enter and then this is
+
+30
+00:01:05,096 --> 00:01:05,712
+denied.
+
+31
+00:01:06,392 --> 00:01:07,672
+So I couldn't refund.
+
+32
+00:01:08,401 --> 00:01:09,677
+If I try this again,
+
+33
+00:01:11,082 --> 00:01:12,260
+copying this message,
+
+34
+00:01:12,922 --> 00:01:14,181
+refund the order by Sam,
+
+35
+00:01:17,142 --> 00:01:18,669
+it of course again looks up the data. If I
+
+36
+00:01:18,669 --> 00:01:21,161
+now enter Y or yes, both works,
+
+37
+00:01:21,804 --> 00:01:23,926
+it simulates that refund and the model gets
+
+38
+00:01:23,974 --> 00:01:25,549
+the information that the refund was issued.
+
+39
+00:01:26,207 --> 00:01:28,694
+And that shows us how we can handle a human
+
+40
+00:01:28,726 --> 00:01:30,556
+in the loop, how we can simply execute tool
+
+41
+00:01:30,556 --> 00:01:32,867
+calls conditionally, and how we can put
+
+42
+00:01:32,883 --> 00:01:35,964
+logic into a sandbox or put tool calls into
+
+43
+00:01:35,996 --> 00:01:38,436
+a sandbox. And please note that these are
+
+44
+00:01:38,644 --> 00:01:40,907
+all things the model can't work around or
+
+45
+00:01:40,907 --> 00:01:43,379
+the agent can't work around because our
+
+46
+00:01:43,379 --> 00:01:46,075
+logic for the sandbox and also our logic for
+
+47
+00:01:46,428 --> 00:01:49,301
+asking for approval is hardcoded in those
+
+48
+00:01:49,413 --> 00:01:49,702
+tools.
+
+49
+00:01:50,360 --> 00:01:53,977
+If we would just instruct the agent to, for
+
+50
+00:01:53,993 --> 00:01:55,975
+example, ask for approval
+
+51
+00:01:57,457 --> 00:01:58,472
+before issuing
+
+52
+00:02:00,179 --> 00:02:02,608
+refunds greater than $10,
+
+53
+00:02:03,170 --> 00:02:05,549
+we would have to hope that it does that in
+
+54
+00:02:05,581 --> 00:02:08,040
+the right way. The same if we would tell it,
+
+55
+00:02:08,715 --> 00:02:12,345
+don't work outside of sandbox. We could do
+
+56
+00:02:12,345 --> 00:02:15,906
+that and most likely it will adhere to that,
+
+57
+00:02:16,068 --> 00:02:17,152
+but it's not a hard rule.
+
+58
+00:02:17,896 --> 00:02:20,091
+That's why we wanna encode such logic
+
+59
+00:02:20,700 --> 00:02:23,617
+in our code so that the model can't work
+
+60
+00:02:23,617 --> 00:02:25,685
+around it because it doesn't control that
+
+61
+00:02:25,685 --> 00:02:27,992
+code. Now obviously, as mentioned before, if
+
+62
+00:02:27,992 --> 00:02:29,403
+you had a more versatile
+
+63
+00:02:30,252 --> 00:02:33,522
+Bash tool that would allow the model, the
+
+64
+00:02:33,602 --> 00:02:35,942
+agent in the end, to write and execute its
+
+65
+00:02:35,942 --> 00:02:36,679
+own programs,
+
+66
+00:02:37,304 --> 00:02:39,564
+things could change because it could write
+
+67
+00:02:39,564 --> 00:02:41,663
+its own script that can break out of the
+
+68
+00:02:41,695 --> 00:02:44,628
+sandbox. But with basic tools like read file
+
+69
+00:02:44,756 --> 00:02:47,320
+and write file, we have a secure mechanism
+
+70
+00:02:47,320 --> 00:02:51,510
+for enclosing or capturing the agent in a
+
+71
+00:02:51,558 --> 00:02:53,244
+certain path, for example.
+
+72
+00:02:54,127 --> 00:02:57,210
+If you have more complex requirements, if
+
+73
+00:02:57,338 --> 00:02:59,843
+you need to put an entire agent into a
+
+74
+00:02:59,843 --> 00:03:02,027
+sandbox or anything like that, you can of
+
+75
+00:03:02,075 --> 00:03:04,323
+course also look into dedicated tools and
+
+76
+00:03:04,323 --> 00:03:06,057
+solutions like Docker
+
+77
+00:03:06,748 --> 00:03:08,931
+or one of the many sandbox providers or
+
+78
+00:03:08,931 --> 00:03:11,677
+sandbox frameworks, libraries you could say,
+
+79
+00:03:12,046 --> 00:03:13,058
+like AgentOS.
+
+80
+00:03:14,040 --> 00:03:16,285
+But the core idea is always the same. You
+
+81
+00:03:16,398 --> 00:03:19,724
+wanna control via your code what happens for
+
+82
+00:03:19,853 --> 00:03:20,402
+which tools.

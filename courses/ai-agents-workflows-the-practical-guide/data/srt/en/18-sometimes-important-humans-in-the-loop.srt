@@ -1,0 +1,271 @@
+1
+00:00:00,496 --> 00:00:00,624
+There
+
+2
+00:00:01,217 --> 00:00:03,797
+is one last important concept we have to
+
+3
+00:00:03,797 --> 00:00:06,489
+talk about, both when it comes to working
+
+4
+00:00:06,681 --> 00:00:08,908
+with an agent or building an agent. And
+
+5
+00:00:08,908 --> 00:00:12,305
+that's the concept of humans in the loop. If
+
+6
+00:00:12,673 --> 00:00:15,814
+you're using an AI agent and or if you're
+
+7
+00:00:15,814 --> 00:00:19,258
+building it for some actions, you may want
+
+8
+00:00:19,258 --> 00:00:22,431
+to make sure that a person has agreed to
+
+9
+00:00:22,447 --> 00:00:22,559
+them.
+
+10
+00:00:23,520 --> 00:00:27,430
+So that a model asks for a tool, makes that
+
+11
+00:00:27,430 --> 00:00:30,234
+tool request, but Then instead of right away
+
+12
+00:00:30,378 --> 00:00:32,830
+executing that tool, as we learned it thus
+
+13
+00:00:32,878 --> 00:00:33,070
+far,
+
+14
+00:00:33,744 --> 00:00:36,051
+the harness actually pauses
+
+15
+00:00:36,628 --> 00:00:38,760
+and asks a person for approval.
+
+16
+00:00:39,385 --> 00:00:40,987
+If it's in a chat, by either
+
+17
+00:00:41,516 --> 00:00:42,125
+asking there,
+
+18
+00:00:42,878 --> 00:00:42,990
+or
+
+19
+00:00:43,551 --> 00:00:46,436
+if it's a task-specific agent that may be
+
+20
+00:00:46,436 --> 00:00:49,240
+invoked via Slack, for example, by sending a
+
+21
+00:00:49,240 --> 00:00:51,676
+message in Slack or by sending an email and
+
+22
+00:00:51,708 --> 00:00:52,750
+waiting for a response
+
+23
+00:00:53,391 --> 00:00:55,522
+in some way. There are different ways of
+
+24
+00:00:55,634 --> 00:00:57,541
+implementing this technically, but the
+
+25
+00:00:57,638 --> 00:00:59,849
+pausing part is the relevant one here.
+
+26
+00:01:00,747 --> 00:01:02,927
+And then depending on whether the person
+
+27
+00:01:02,927 --> 00:01:05,812
+approved or refuses, the harness continues
+
+28
+00:01:06,037 --> 00:01:08,954
+and either executes the tool or sends a
+
+29
+00:01:08,986 --> 00:01:11,695
+message back to the model that the tool call
+
+30
+00:01:11,824 --> 00:01:14,565
+request could not be granted. And that is a
+
+31
+00:01:14,629 --> 00:01:17,883
+functionality that must be built into the
+
+32
+00:01:17,915 --> 00:01:18,765
+agent if
+
+33
+00:01:19,358 --> 00:01:20,496
+it is something you want.
+
+34
+00:01:21,201 --> 00:01:22,612
+And therefore, of course, it matters,
+
+35
+00:01:22,724 --> 00:01:24,263
+especially also if you're building a
+
+36
+00:01:24,343 --> 00:01:26,956
+task-specific agent. For example, if you are
+
+37
+00:01:26,972 --> 00:01:29,280
+building an agent for your company that
+
+38
+00:01:29,280 --> 00:01:31,941
+should handle customer refunds, you may want
+
+39
+00:01:31,941 --> 00:01:34,877
+to ask a human for approval there instead of
+
+40
+00:01:35,054 --> 00:01:37,524
+auto-approving. But it's also something you
+
+41
+00:01:37,556 --> 00:01:40,925
+find in many general agents that there, they
+
+42
+00:01:41,069 --> 00:01:44,230
+also may let you choose different approval
+
+43
+00:01:44,230 --> 00:01:47,454
+settings so that they also may ask you for
+
+44
+00:01:47,566 --> 00:01:50,294
+approval before they, for example, write a
+
+45
+00:01:50,294 --> 00:01:52,796
+file or run a certain command. And of
+
+46
+00:01:52,860 --> 00:01:55,411
+course, it's always a trade-off whether you
+
+47
+00:01:55,523 --> 00:01:57,625
+want a human in the loop, which slows a
+
+48
+00:01:57,625 --> 00:01:59,085
+model and an agent down,
+
+49
+00:01:59,694 --> 00:02:02,614
+but may be important for certain tools. Or
+
+50
+00:02:02,998 --> 00:02:05,627
+not. And the great thing, of course, is that
+
+51
+00:02:06,028 --> 00:02:08,769
+models as the brains of agents can work
+
+52
+00:02:08,833 --> 00:02:11,767
+around refusals to some extent. If a refund
+
+53
+00:02:11,799 --> 00:02:14,204
+was not granted by the human in the loop,
+
+54
+00:02:14,668 --> 00:02:16,897
+the model will only be able to work around
+
+55
+00:02:16,929 --> 00:02:19,558
+that refusal by drafting a message to the
+
+56
+00:02:19,558 --> 00:02:21,978
+customer telling them that the refund could
+
+57
+00:02:21,978 --> 00:02:24,607
+not be granted, for example, anything like
+
+58
+00:02:24,607 --> 00:02:26,851
+that. In many tools, like for example,
+
+59
+00:02:26,867 --> 00:02:29,801
+Claude Cowork, you can also control this, as
+
+60
+00:02:29,849 --> 00:02:32,847
+I mentioned. You can choose your permission
+
+61
+00:02:33,119 --> 00:02:34,177
+mode here, so to say.
+
+62
+00:02:35,028 --> 00:02:37,645
+And either automatically approve for all
+
+63
+00:02:37,773 --> 00:02:40,551
+critical tasks or be asked for approval.
+
+64
+00:02:41,289 --> 00:02:43,858
+And it then simply depends on how this agent
+
+65
+00:02:43,858 --> 00:02:46,636
+harness was built, what's considered a
+
+66
+00:02:46,748 --> 00:02:49,943
+critical task or not. But the idea of humans
+
+67
+00:02:49,975 --> 00:02:52,993
+in the loop is a crucial one when building
+
+68
+00:02:53,170 --> 00:02:55,402
+agents or when working with agents.

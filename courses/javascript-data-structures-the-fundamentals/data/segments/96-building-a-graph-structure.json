@@ -1,0 +1,832 @@
+[
+ {
+  "start": 2.088,
+  "end": 4.431,
+  "en": "So let's build a graph data structure now."
+ },
+ {
+  "start": 4.981,
+  "end": 6.5,
+  "en": "You know the game, I'm back in a new"
+ },
+ {
+  "start": 6.613,
+  "end": 8.585,
+  "en": "project, empty app.js file,"
+ },
+ {
+  "start": 10.089,
+  "end": 11.842,
+  "en": "and that's where I now wanna build the graph"
+ },
+ {
+  "start": 12.003,
+  "end": 15.409,
+  "en": "data structure using adjacency lists or an"
+ },
+ {
+  "start": 15.554,
+  "end": 17.258,
+  "en": "adjacency list under the hood."
+ },
+ {
+  "start": 18.527,
+  "end": 20.815,
+  "en": "For that, we can create a new class and call"
+ },
+ {
+  "start": 20.944,
+  "end": 23.656,
+  "en": "it Graph because, well, that's what we're"
+ },
+ {
+  "start": 23.672,
+  "end": 24.189,
+  "en": "going to build."
+ },
+ {
+  "start": 25.125,
+  "end": 27.763,
+  "en": "And in the constructor, we wanna do 2"
+ },
+ {
+  "start": 27.763,
+  "end": 28.538,
+  "en": "important things."
+ },
+ {
+  "start": 29.215,
+  "end": 30.474,
+  "en": "We need our nodes"
+ },
+ {
+  "start": 31.07,
+  "end": 33.2,
+  "en": "and that could be an array full of objects"
+ },
+ {
+  "start": 33.555,
+  "end": 35.83,
+  "en": "or to make retrieving nodes a bit more"
+ },
+ {
+  "start": 35.83,
+  "end": 38.169,
+  "en": "efficient, we could also store an object"
+ },
+ {
+  "start": 38.169,
+  "end": 41.299,
+  "en": "here so that we can use any identifier like"
+ },
+ {
+  "start": 41.299,
+  "end": 43.703,
+  "en": "a string ID for the different nodes."
+ },
+ {
+  "start": 45.884,
+  "end": 47.961,
+  "en": "And we'll also have our edges"
+ },
+ {
+  "start": 48.707,
+  "end": 50.54,
+  "en": "and that could be an array now"
+ },
+ {
+  "start": 51.221,
+  "end": 55.107,
+  "en": "or also an object where we then later also"
+ },
+ {
+  "start": 55.172,
+  "end": 58.39,
+  "en": "have the identifiers of nodes and then as a"
+ },
+ {
+  "start": 58.39,
+  "end": 61.688,
+  "en": "value for every identifier, an array full of"
+ },
+ {
+  "start": 61.721,
+  "end": 64.358,
+  "en": "the identifiers of other nodes that node"
+ },
+ {
+  "start": 64.536,
+  "end": 65.216,
+  "en": "should point at."
+ },
+ {
+  "start": 65.928,
+  "end": 67.676,
+  "en": "You'll see how it works very soon."
+ },
+ {
+  "start": 69.376,
+  "end": 72.557,
+  "en": "Now in this class, we need 2 very important"
+ },
+ {
+  "start": 72.557,
+  "end": 72.992,
+  "en": "methods,"
+ },
+ {
+  "start": 73.574,
+  "end": 77.625,
+  "en": "an addNode method and of course an addEdge"
+ },
+ {
+  "start": 77.932,
+  "end": 80.47,
+  "en": "method because these are the 2 things that"
+ },
+ {
+  "start": 80.47,
+  "end": 82.754,
+  "en": "make up graphs. Nodes and edges."
+ },
+ {
+  "start": 84.49,
+  "end": 87.891,
+  "en": "Now for a node, we probably should get some"
+ },
+ {
+  "start": 88.15,
+  "end": 88.685,
+  "en": "identifier"
+ },
+ {
+  "start": 89.284,
+  "end": 91.212,
+  "en": "and a value that should be stored."
+ },
+ {
+  "start": 94.129,
+  "end": 96.535,
+  "en": "And then we could reach out to this node"
+ },
+ {
+  "start": 97.277,
+  "end": 99.344,
+  "en": "and for the given identifier,"
+ },
+ {
+  "start": 100.103,
+  "end": 102.072,
+  "en": "we then store our value."
+ },
+ {
+  "start": 102.782,
+  "end": 105.209,
+  "en": "Now you could also store an object as a"
+ },
+ {
+  "start": 105.209,
+  "end": 107.926,
+  "en": "value which has a val key and stores the"
+ },
+ {
+  "start": 107.926,
+  "end": 110.546,
+  "en": "value and then maybe an ID and again stores"
+ },
+ {
+  "start": 110.578,
+  "end": 111.173,
+  "en": "the identifier"
+ },
+ {
+  "start": 111.747,
+  "end": 113.394,
+  "en": "even though we already have it as a key"
+ },
+ {
+  "start": 113.394,
+  "end": 113.669,
+  "en": "name."
+ },
+ {
+  "start": 114.25,
+  "end": 116.107,
+  "en": "And you could store any kind of metadata"
+ },
+ {
+  "start": 116.123,
+  "end": 116.914,
+  "en": "there as well."
+ },
+ {
+  "start": 117.576,
+  "end": 120.079,
+  "en": "But I'll keep it simple. I'll just store my"
+ },
+ {
+  "start": 120.079,
+  "end": 120.805,
+  "en": "value here"
+ },
+ {
+  "start": 121.757,
+  "end": 124.484,
+  "en": "on the given identifier in my nodes object."
+ },
+ {
+  "start": 126.372,
+  "end": 128.647,
+  "en": "Now, I don't add any edges here because for"
+ },
+ {
+  "start": 128.647,
+  "end": 131.371,
+  "en": "the moment we just added a node. And in a"
+ },
+ {
+  "start": 131.371,
+  "end": 134.157,
+  "en": "graph, you can also have unconnected nodes."
+ },
+ {
+  "start": 134.817,
+  "end": 136.91,
+  "en": "That might not be very useful, but if you"
+ },
+ {
+  "start": 136.91,
+  "end": 139.326,
+  "en": "just signed up on Facebook and you have no"
+ },
+ {
+  "start": 139.326,
+  "end": 141.483,
+  "en": "contacts yet, you would be an unconnected"
+ },
+ {
+  "start": 141.483,
+  "end": 144.876,
+  "en": "node in that context graph, for example."
+ },
+ {
+  "start": 145.423,
+  "end": 147.64,
+  "en": "So we can add a node without edges."
+ },
+ {
+  "start": 148.459,
+  "end": 150.741,
+  "en": "But of course, typically we want edges. So"
+ },
+ {
+  "start": 150.805,
+  "end": 153.119,
+  "en": "we need that addEdge method as well."
+ },
+ {
+  "start": 154.179,
+  "end": 157.601,
+  "en": "And addEdge needs 2 important parameters,"
+ },
+ {
+  "start": 158.34,
+  "end": 162.004,
+  "en": "the start node and the end node. And here,"
+ },
+ {
+  "start": 162.052,
+  "end": 164.735,
+  "en": "of course, I expect the identifiers for"
+ },
+ {
+  "start": 164.783,
+  "end": 165.394,
+  "en": "those nodes."
+ },
+ {
+  "start": 166.535,
+  "end": 169.62,
+  "en": "And with that information provided, we can"
+ },
+ {
+  "start": 169.684,
+  "end": 170.858,
+  "en": "reach out to edges"
+ },
+ {
+  "start": 171.613,
+  "end": 173.735,
+  "en": "for the start node identifier."
+ },
+ {
+  "start": 174.282,
+  "end": 176.806,
+  "en": "So start and end node should be the node"
+ },
+ {
+  "start": 176.838,
+  "end": 177.449,
+  "en": "identifiers."
+ },
+ {
+  "start": 179.29,
+  "end": 180.885,
+  "en": "So for the start node identifier,"
+ },
+ {
+  "start": 181.804,
+  "end": 184.319,
+  "en": "and we then want to set this equal to an"
+ },
+ {
+  "start": 184.319,
+  "end": 184.577,
+  "en": "array"
+ },
+ {
+  "start": 185.528,
+  "end": 187.705,
+  "en": "which holds end node as a value."
+ },
+ {
+  "start": 188.827,
+  "end": 191.112,
+  "en": "This approach is dangerous though because if"
+ },
+ {
+  "start": 191.112,
+  "end": 194.538,
+  "en": "we already did have a list of edges for that"
+ },
+ {
+  "start": 194.538,
+  "end": 196.382,
+  "en": "given node, we now overrode it."
+ },
+ {
+  "start": 197.104,
+  "end": 199.609,
+  "en": "So instead, we'll need to check if this"
+ },
+ {
+  "start": 199.882,
+  "end": 200.187,
+  "en": "edge's"
+ },
+ {
+  "start": 201.279,
+  "end": 203.719,
+  "en": "start node already exists, if that is"
+ },
+ {
+  "start": 203.832,
+  "end": 204.281,
+  "en": "truthy,"
+ },
+ {
+  "start": 205.036,
+  "end": 207.492,
+  "en": "in which case we just want to add end node."
+ },
+ {
+  "start": 208.231,
+  "end": 210.639,
+  "en": "And we only want to add this brand new array"
+ },
+ {
+  "start": 210.639,
+  "end": 213.321,
+  "en": "with end node if we didn't have a list of"
+ },
+ {
+  "start": 213.449,
+  "end": 216.484,
+  "en": "edges for that given node yet. So we need to"
+ },
+ {
+  "start": 216.5,
+  "end": 217.849,
+  "en": "make this differentiation."
+ },
+ {
+  "start": 218.924,
+  "end": 221.189,
+  "en": "Now in this if case here, we want to want to"
+ },
+ {
+  "start": 221.318,
+  "end": 224.458,
+  "en": "add end node, but maybe we already had this"
+ },
+ {
+  "start": 224.458,
+  "end": 226.632,
+  "en": "connection, right? In this case, we don't"
+ },
+ {
+  "start": 226.648,
+  "end": 229.273,
+  "en": "want to add it again because a node can only"
+ },
+ {
+  "start": 229.305,
+  "end": 231.868,
+  "en": "be connected to another node once. You can't"
+ },
+ {
+  "start": 231.868,
+  "end": 234.74,
+  "en": "have 2 connections from node A to node B."
+ },
+ {
+  "start": 237.869,
+  "end": 240.339,
+  "en": "So therefore, we can fine-tune this a bit"
+ },
+ {
+  "start": 240.84,
+  "end": 243.026,
+  "en": "and not just check whether we already have"
+ },
+ {
+  "start": 243.026,
+  "end": 246.312,
+  "en": "an array for start node, but if that given"
+ },
+ {
+  "start": 246.587,
+  "end": 248.079,
+  "en": "array which exists"
+ },
+ {
+  "start": 248.688,
+  "end": 252.119,
+  "en": "if that given array maybe already contains"
+ },
+ {
+  "start": 252.536,
+  "end": 253.209,
+  "en": "end node."
+ },
+ {
+  "start": 254.379,
+  "end": 256.639,
+  "en": "And we can do this in various ways. We"
+ },
+ {
+  "start": 256.703,
+  "end": 260.022,
+  "en": "could, for example, use indexOf, which is a"
+ },
+ {
+  "start": 260.022,
+  "end": 262.074,
+  "en": "method in JavaScript that will give us the"
+ },
+ {
+  "start": 262.154,
+  "end": 263.677,
+  "en": "index of a given value."
+ },
+ {
+  "start": 264.254,
+  "end": 266.338,
+  "en": "And we want to get the index of end node,"
+ },
+ {
+  "start": 266.883,
+  "end": 267.572,
+  "en": "and that will be"
+ },
+ {
+  "start": 268.566,
+  "end": 269.48,
+  "en": "-1 if"
+ },
+ {
+  "start": 270.009,
+  "end": 273.327,
+  "en": "end node is not part of that array yet."
+ },
+ {
+  "start": 274.023,
+  "end": 276.385,
+  "en": "And it will give us the index in all other"
+ },
+ {
+  "start": 276.385,
+  "end": 276.776,
+  "en": "cases."
+ },
+ {
+  "start": 277.476,
+  "end": 278.959,
+  "en": "So if that is equal to -1,"
+ },
+ {
+  "start": 279.84,
+  "end": 280.374,
+  "en": "then we know"
+ },
+ {
+  "start": 280.909,
+  "end": 284.069,
+  "en": "end node was not connected to start node"
+ },
+ {
+  "start": 284.069,
+  "end": 287.164,
+  "en": "before. So now here in this case, we want to"
+ },
+ {
+  "start": 287.309,
+  "end": 288.184,
+  "en": "add the connection."
+ },
+ {
+  "start": 289.24,
+  "end": 291.124,
+  "en": "So then we'll reach out to the edges of"
+ },
+ {
+  "start": 291.124,
+  "end": 293.717,
+  "en": "start node and simply push"
+ },
+ {
+  "start": 294.329,
+  "end": 297.438,
+  "en": "end node as a new value to insert this here."
+ },
+ {
+  "start": 298.996,
+  "end": 299.9,
+  "en": "This is what we could do."
+ },
+ {
+  "start": 300.529,
+  "end": 302.902,
+  "en": "If end node did already exist as a"
+ },
+ {
+  "start": 302.95,
+  "end": 303.547,
+  "en": "connection for start node,"
+ },
+ {
+  "start": 304.616,
+  "end": 306.914,
+  "en": "we do nothing because we don't need to do"
+ },
+ {
+  "start": 307.203,
+  "end": 307.573,
+  "en": "anything."
+ },
+ {
+  "start": 308.231,
+  "end": 310.368,
+  "en": "You could add an extra if check and throw an"
+ },
+ {
+  "start": 310.497,
+  "end": 312.698,
+  "en": "error, but here I'll just do nothing."
+ },
+ {
+  "start": 313.935,
+  "end": 314.192,
+  "en": "Okay,"
+ },
+ {
+  "start": 314.755,
+  "end": 317.583,
+  "en": "so that already is our first very basic"
+ },
+ {
+  "start": 317.647,
+  "end": 320.378,
+  "en": "graph, not the final graph we'll have, but a"
+ },
+ {
+  "start": 320.378,
+  "end": 321.166,
+  "en": "first graph."
+ },
+ {
+  "start": 321.905,
+  "end": 322.917,
+  "en": "Now we can"
+ },
+ {
+  "start": 323.512,
+  "end": 324.154,
+  "en": "create it,"
+ },
+ {
+  "start": 324.797,
+  "end": 325.584,
+  "en": "a new graph,"
+ },
+ {
+  "start": 326.548,
+  "end": 329.408,
+  "en": "and we can replicate the example we had on"
+ },
+ {
+  "start": 329.441,
+  "end": 330.501,
+  "en": "the slide earlier."
+ },
+ {
+  "start": 331.078,
+  "end": 333.435,
+  "en": "So on that graph, we can now add a bunch of"
+ },
+ {
+  "start": 333.707,
+  "end": 334.781,
+  "en": "nodes first of all."
+ },
+ {
+  "start": 336.096,
+  "end": 338.708,
+  "en": "And here I wanna have a node with identifier"
+ },
+ {
+  "start": 338.74,
+  "end": 340.888,
+  "en": "1, and let's say the value here is actually"
+ },
+ {
+  "start": 340.92,
+  "end": 341.401,
+  "en": "max."
+ },
+ {
+  "start": 342.187,
+  "end": 343.597,
+  "en": "The node with identifier 2"
+ },
+ {
+  "start": 344.431,
+  "end": 344.655,
+  "en": "has"
+ },
+ {
+  "start": 345.409,
+  "end": 345.922,
+  "en": "manual,"
+ },
+ {
+  "start": 346.755,
+  "end": 350.057,
+  "en": "and we have joules with identifier 3."
+ },
+ {
+  "start": 351.163,
+  "end": 353.552,
+  "en": "Now these identifiers are what you saw on"
+ },
+ {
+  "start": 353.584,
+  "end": 354.754,
+  "en": "the slides previously."
+ },
+ {
+  "start": 356.068,
+  "end": 357.495,
+  "en": "Here, 1, 2, 3."
+ },
+ {
+  "start": 358.651,
+  "end": 360.61,
+  "en": "Now let's set up connections between those"
+ },
+ {
+  "start": 360.658,
+  "end": 361.011,
+  "en": "nodes."
+ },
+ {
+  "start": 361.541,
+  "end": 363.773,
+  "en": "So on the graph, I'll add a"
+ },
+ {
+  "start": 364.72,
+  "end": 365.186,
+  "en": "new edge"
+ },
+ {
+  "start": 366.085,
+  "end": 369.023,
+  "en": "where the start node should be, let's say,"
+ },
+ {
+  "start": 369.473,
+  "end": 369.666,
+  "en": "1,"
+ },
+ {
+  "start": 370.26,
+  "end": 372.732,
+  "en": "max, and I wanna connect max to manual."
+ },
+ {
+  "start": 373.262,
+  "end": 377.662,
+  "en": "So the end node identifier is 2. I'll also"
+ },
+ {
+  "start": 377.662,
+  "end": 379.075,
+  "en": "connect max to joules,"
+ },
+ {
+  "start": 380.135,
+  "end": 382.045,
+  "en": "and I'll also connect joules"
+ },
+ {
+  "start": 383.363,
+  "end": 383.945,
+  "en": "to manual."
+ },
+ {
+  "start": 387.565,
+  "end": 389.65,
+  "en": "And with that, we can console.log"
+ },
+ {
+  "start": 391.024,
+  "end": 391.234,
+  "en": "our"
+ },
+ {
+  "start": 391.833,
+  "end": 392.237,
+  "en": "graph."
+ },
+ {
+  "start": 395.308,
+  "end": 396.176,
+  "en": "Let's save that"
+ },
+ {
+  "start": 397.092,
+  "end": 398.184,
+  "en": "and reload this screen."
+ },
+ {
+  "start": 399.502,
+  "end": 400.788,
+  "en": "And we see our graph here."
+ },
+ {
+  "start": 401.414,
+  "end": 404.598,
+  "en": "In nodes, we see Max, Manuel, and Jules with"
+ },
+ {
+  "start": 404.631,
+  "end": 406.391,
+  "en": "their respective identifiers."
+ },
+ {
+  "start": 407.456,
+  "end": 408.49,
+  "en": "And in edges"
+ },
+ {
+  "start": 409.127,
+  "end": 411.874,
+  "en": "We see that we have a list for 1, for Max,"
+ },
+ {
+  "start": 412.035,
+  "end": 413.497,
+  "en": "who points at 2 and 3,"
+ },
+ {
+  "start": 414.107,
+  "end": 417.16,
+  "en": "and an entry for 3, so for Jules, who points"
+ },
+ {
+  "start": 417.16,
+  "end": 418.445,
+  "en": "at 2, Manuel."
+ },
+ {
+  "start": 419.024,
+  "end": 421.337,
+  "en": "And that is our first basic graph."
+ },
+ {
+  "start": 422.077,
+  "end": 423.474,
+  "en": "Now let's refine it a bit."
+ }
+]

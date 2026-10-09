@@ -1,0 +1,544 @@
+1
+00:00:00,032 --> 00:00:02,805
+To continue working on this app, we now need
+為了繼續開發這個應用程式，我們現在需要
+
+2
+00:00:02,917 --> 00:00:06,043
+a database, otherwise users can't be stored
+一個資料庫，否則無法儲存使用者
+
+3
+00:00:06,043 --> 00:00:08,127
+and won't be able to log in. And of course,
+並且無法登入。當然，
+
+4
+00:00:08,143 --> 00:00:09,762
+we'll also need to store our notes there in
+我們還需要將我們的筆記儲存在
+
+5
+00:00:09,794 --> 00:00:10,211
+the future.
+未來。
+
+6
+00:00:10,772 --> 00:00:12,647
+Now in our spec.md file,
+現在在我們的spec.md檔案中，
+
+7
+00:00:13,256 --> 00:00:16,350
+we specified that we will have our own
+我們指定我們將擁有自己的
+
+8
+00:00:16,462 --> 00:00:19,236
+migrations script, which will be responsible
+遷移腳本，它將負責
+
+9
+00:00:19,268 --> 00:00:21,464
+for setting up the base schema, the base
+用於設定基本架構、基本
+
+10
+00:00:21,592 --> 00:00:24,558
+tables of that SQLite database. So
+該 SQLite 資料庫的表。所以
+
+11
+00:00:24,558 --> 00:00:26,594
+therefore, the prompt I wanna send to Codex
+因此，我想發送給 Codex 的提示
+
+12
+00:00:26,722 --> 00:00:29,832
+here again using the CLI is that I wanted to
+再次使用 CLI 是我想
+
+13
+00:00:29,848 --> 00:00:31,980
+add a migration script in line with what we
+新增與我們一致的遷移腳本
+
+14
+00:00:32,012 --> 00:00:34,887
+in spec.md and I reminded that we wanna use
+在spec.md中，我提醒我們要使用
+
+15
+00:00:34,903 --> 00:00:38,003
+Bun's built-in SQLite client because Bun,
+Bun的內建SQLite使用者端因為Bun，
+
+16
+00:00:38,276 --> 00:00:40,252
+the JavaScript runtime I'm using here, does
+我在這裡使用的 JavaScript 運行時確實
+
+17
+00:00:40,348 --> 00:00:42,934
+have built-in support for SQLite and we
+有對 SQLite 的內建支援，我們
+
+18
+00:00:42,934 --> 00:00:45,279
+don't need to install any extra packages
+不需要安裝任何額外的軟體包
+
+19
+00:00:45,344 --> 00:00:47,255
+therefore. Now, what I like to do in
+所以。現在，我喜歡做什麼
+
+20
+00:00:47,255 --> 00:00:49,600
+situations like this because providing the
+像這樣的情況因為提供
+
+21
+00:00:49,600 --> 00:00:50,933
+proper context matters
+適當的上下文很重要
+
+22
+00:00:51,592 --> 00:00:54,467
+is I will copy the content of this page.
+是我將複製此頁面的內容。
+
+23
+00:00:54,724 --> 00:00:56,828
+Many documentation pages offer a feature
+許多檔案頁面都提供了一項功能
+
+24
+00:00:56,828 --> 00:00:58,740
+like this these days. So I'll copy the
+這些天都是這樣。所以我會複製
+
+25
+00:00:58,740 --> 00:00:59,993
+content as Markdown
+內容為 Markdown
+
+26
+00:01:00,522 --> 00:01:02,349
+And then in my prompt I'll say something
+然後在我的提示中我會說一些話
+
+27
+00:01:02,349 --> 00:01:04,608
+like this. Here's the relevant BUN SQLite
+像這樣。這是相關的 BUN SQLite
+
+28
+00:01:04,608 --> 00:01:07,332
+documentation using my XML tags again, not
+再次使用我的 XML 標籤的文檔，而不是
+
+29
+00:01:07,332 --> 00:01:09,014
+required but something I like to do.
+必需的，但我喜歡做的事情。
+
+30
+00:01:09,575 --> 00:01:11,482
+And I'll paste that in there because I know
+我會把它貼在那裡，因為我知道
+
+31
+00:01:11,898 --> 00:01:14,030
+this will matter, this will be relevant.
+這很重要，這很相關。
+
+32
+00:01:14,526 --> 00:01:17,202
+Alternatively, you could also grab a link to
+或者，您也可以獲得連結
+
+33
+00:01:17,202 --> 00:01:19,974
+this documentation and say something like
+這個檔案並說類似的話
+
+34
+00:01:19,974 --> 00:01:20,118
+this.
+這。
+
+35
+00:01:20,872 --> 00:01:22,682
+Obviously you don't wanna do both. This is
+顯然你不想兩者都做。這是
+
+36
+00:01:22,714 --> 00:01:23,483
+just an example
+只是一個例子
+
+37
+00:01:24,220 --> 00:01:27,585
+because Codex can search the web.
+因為 Codex 可以在網路上搜尋。
+
+38
+00:01:28,226 --> 00:01:30,887
+It can search the web and a URL like this,
+它可以搜尋網路和這樣的 URL，
+
+39
+00:01:30,952 --> 00:01:33,436
+of course, can also be searched. It can
+當然也可以搜尋。它可以
+
+40
+00:01:33,436 --> 00:01:35,568
+search for that. And that web search will
+搜尋那個。網路搜尋將
+
+41
+00:01:35,600 --> 00:01:38,117
+happen through OpenAI, which enables web
+透過 OpenAI 發生，它使網路成為可能
+
+42
+00:01:38,117 --> 00:01:41,499
+search and which by default serves results
+搜尋並預設提供結果
+
+43
+00:01:41,692 --> 00:01:43,247
+from a web search cache.
+來自網路搜尋快取。
+
+44
+00:01:43,936 --> 00:01:46,805
+That makes it fast and also secure because
+這使得它既快速又安全，因為
+
+45
+00:01:47,062 --> 00:01:50,124
+OpenAI controls which content can be
+OpenAI 控制哪些內容可以
+
+46
+00:01:50,124 --> 00:01:53,394
+retrieved by Codex, which reduces the danger
+由 Codex 檢索，降低了危險
+
+47
+00:01:53,394 --> 00:01:55,478
+of prompt injection attacks so that
+即時注入攻擊，以便
+
+48
+00:01:55,478 --> 00:01:57,802
+malicious website content can't be reached
+無法存取惡意網站內容
+
+49
+00:01:57,802 --> 00:01:58,427
+by default.
+預設情況下。
+
+50
+00:01:59,004 --> 00:02:00,226
+You can change You could change this though
+你可以改變你可以改變這個
+
+51
+00:02:00,307 --> 00:02:02,549
+by setting the web search setting in the
+透過在中設定網路搜尋設置
+
+52
+00:02:02,549 --> 00:02:05,727
+config.toml file to live. The default is
+config.toml 檔案生效。預設為
+
+53
+00:02:05,792 --> 00:02:07,954
+cached, but you could set it to live to have
+已快取，但您可以將其設定為實時
+
+54
+00:02:07,954 --> 00:02:09,955
+a live web search, which is able to retrieve
+即時網路搜尋，能夠檢索
+
+55
+00:02:10,133 --> 00:02:12,412
+all websites if you needed that. This then
+所有網站（如果您需要的話）。那麼這個
+
+56
+00:02:12,412 --> 00:02:14,643
+of course slightly increases the danger of
+當然會稍微增加危險
+
+57
+00:02:14,676 --> 00:02:17,020
+prompt injection attacks. So that could be
+提示注入攻擊。所以這可能是
+
+58
+00:02:17,020 --> 00:02:18,685
+done too. But since I know which
+也完成了。但既然我知道哪個
+
+59
+00:02:18,782 --> 00:02:20,948
+documentation is relevant, I'll just include
+檔案是相關的，我只包括
+
+60
+00:02:20,948 --> 00:02:21,480
+it like this.
+像這樣。
+
+61
+00:02:22,970 --> 00:02:25,266
+And then I'll switch to plan mode.
+然後我將切換到計劃模式。
+
+62
+00:02:27,017 --> 00:02:29,682
+Now let's say right after sending a prompt
+現在我們說在發送提示後立即
+
+63
+00:02:29,682 --> 00:02:32,411
+or after a while, you see that you wanted to
+或者過了一段時間，你發現你想要
+
+64
+00:02:32,411 --> 00:02:32,829
+send more.
+發送更多。
+
+65
+00:02:33,663 --> 00:02:35,750
+For example, that it should include up and
+例如，它應該包括 up 和
+
+66
+00:02:35,847 --> 00:02:37,854
+down migrations so that we can also reverse
+向下遷移，以便我們也可以逆轉
+
+67
+00:02:37,854 --> 00:02:38,094
+them.
+他們。
+
+68
+00:02:38,961 --> 00:02:40,952
+If you send a follow-up message and you hit
+如果您發送後續訊息並點擊
+
+69
+00:02:41,129 --> 00:02:43,922
+enter, by default, that will be injected
+預設輸入將被注入
+
+70
+00:02:44,019 --> 00:02:47,246
+right away and will steer the AI. So this is
+馬上就會引導人工智慧。所以這是
+
+71
+00:02:47,310 --> 00:02:50,183
+called using a message for steering. It will
+使用轉向訊息進行調用。它將
+
+72
+00:02:50,216 --> 00:02:52,607
+be picked up immediately. And now it's
+立即被接走。現在是
+
+73
+00:02:52,623 --> 00:02:54,866
+already done planning here and asks me some
+已經在這裡完成計劃並問我一些問題
+
+74
+00:02:54,866 --> 00:02:55,476
+questions.
+問題。
+
+75
+00:02:56,149 --> 00:02:58,441
+Before we answer that though, let me show
+在我們回答這個問題之前，讓我先展示一下
+
+76
+00:02:58,457 --> 00:03:01,005
+you the alternative. In a new session,
+你是替代方案。在新的會議中，
+
+77
+00:03:01,903 --> 00:03:04,194
+I pasted in the original prompt from before
+我貼了之前的原始提示
+
+78
+00:03:04,563 --> 00:03:06,935
+where I ask it to create the migrations.
+我要求它創建遷移。
+
+79
+00:03:07,913 --> 00:03:10,365
+And if I now start this in plan mode again,
+如果我現在再次以計劃模式開始，
+
+80
+00:03:10,493 --> 00:03:12,737
+let's say, and then I recall that I wanted
+這麼說吧，然後我想起我想要
+
+81
+00:03:12,737 --> 00:03:14,420
+to do something else after it's done with
+完成後做其他事情
+
+82
+00:03:14,420 --> 00:03:17,754
+that, like create the initial set of
+就像創建初始集
+
+83
+00:03:17,770 --> 00:03:20,943
+migrations for auth, I could hit Tab here
+身份驗證遷移，我可以在此處點擊 Tab
+
+84
+00:03:21,296 --> 00:03:23,606
+instead of Enter, and that will queue it.
+而不是 Enter，這會將其排隊。
+
+85
+00:03:24,344 --> 00:03:26,494
+Then you could use this shortcut here to
+然後你可以在這裡使用這個快捷方式
+
+86
+00:03:26,590 --> 00:03:27,280
+edit this again.
+再次編輯此內容。
+
+87
+00:03:28,115 --> 00:03:29,944
+So that's the difference. Hitting Enter in
+這就是差別。點擊進入
+
+88
+00:03:29,976 --> 00:03:32,687
+the CLI will steer and inject it right away.
+CLI 將立即引導並注入它。
+
+89
+00:03:32,864 --> 00:03:35,222
+Hitting Tab will queue it, and it would then
+點擊 Tab 會將其排隊，然後它會
+
+90
+00:03:35,271 --> 00:03:37,870
+be processed after it's done with your main
+在你的 main 完成後進行處理
+
+91
+00:03:37,918 --> 00:03:38,239
+message.
+訊息.
+
+92
+00:03:38,784 --> 00:03:41,592
+Now here I'll cancel this anyways because I
+現在無論如何我都會取消這個因為我
+
+93
+00:03:41,672 --> 00:03:43,662
+only wanna do this once in my main session,
+只想在我的主要會議中這樣做一次，
+
+94
+00:03:43,694 --> 00:03:45,619
+which I started before. But the difference
+我之前就开始了。但差別在於
+
+95
+00:03:45,619 --> 00:03:48,395
+between hitting Enter in the CLI for
+在 CLI 中按 Enter 鍵之間
+
+96
+00:03:48,443 --> 00:03:51,556
+steering and Tab for queuing is important.
+排隊的轉向和 Tab 很重要。
+
+97
+00:03:51,941 --> 00:03:54,253
+Unfortunately, it's exactly the opposite in
+不幸的是，事實恰恰相反
+
+98
+00:03:54,445 --> 00:03:57,591
+the desktop app. There, if you send off a
+桌面應用程式。在那裡，如果你發送一個
+
+99
+00:03:57,591 --> 00:03:59,565
+message and then you send a follow-up
+訊息，然後您發送後續訊息
+
+100
+00:03:59,565 --> 00:04:01,651
+message, if you hit Enter, by default it's
+訊息，如果按 Enter 鍵，預設情況下是
+
+101
+00:04:01,651 --> 00:04:03,914
+queued and there's a steer button you could
+排隊，並且有一個轉向按鈕可以
+
+102
+00:04:03,994 --> 00:04:06,578
+press to steer. So Tab doesn't matter here
+按下即可轉向。所以 Tab 在這裡不重要
+
+103
+00:04:06,723 --> 00:04:07,060
+at all.
+根本不。
+
+104
+00:04:07,991 --> 00:04:09,884
+But the difference is important. You can
+但差別很重要。你可以
+
+105
+00:04:09,997 --> 00:04:12,420
+inject commands either immediately if they
+立即註入命令，如果它們
+
+106
+00:04:12,500 --> 00:04:15,774
+should steer the AI right now and change its
+現在應該引導人工智慧並改變它
+
+107
+00:04:15,774 --> 00:04:16,625
+result right now,
+現在的結果，
+
+108
+00:04:17,155 --> 00:04:19,337
+or queue them if you just wanna queue a
+或者如果您只想排隊的話請排隊
+
+109
+00:04:19,337 --> 00:04:20,429
+follow-up task.
+後續任務。

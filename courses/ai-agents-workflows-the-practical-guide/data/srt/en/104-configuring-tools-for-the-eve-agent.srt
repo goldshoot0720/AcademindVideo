@@ -1,0 +1,251 @@
+1
+00:00:00,512 --> 00:00:01,923
+Now, of course, it wouldn't be an agent
+
+2
+00:00:01,939 --> 00:00:04,985
+without tools. So we have a tools folder and
+
+3
+00:00:05,065 --> 00:00:08,287
+the rule is one file per tool. So it looks
+
+4
+00:00:08,287 --> 00:00:09,746
+like we have a lot of tools here, but
+
+5
+00:00:10,115 --> 00:00:12,407
+actually EVE agents ship with some
+
+6
+00:00:13,016 --> 00:00:15,164
+default tools, which every agent would have
+
+7
+00:00:15,164 --> 00:00:17,617
+out of the box. For example, a bash tool,
+
+8
+00:00:17,745 --> 00:00:19,701
+which allows the agent to run
+
+9
+00:00:20,230 --> 00:00:22,698
+command line commands that, for example,
+
+10
+00:00:22,794 --> 00:00:24,814
+would allow them to write their own scripts
+
+11
+00:00:24,878 --> 00:00:26,161
+and then also execute them.
+
+12
+00:00:26,722 --> 00:00:28,293
+And if you want to disable one of these
+
+13
+00:00:28,469 --> 00:00:30,184
+built-in tools, and of course the
+
+14
+00:00:30,184 --> 00:00:33,006
+documentation will tell you which tools are
+
+15
+00:00:33,215 --> 00:00:33,584
+built in.
+
+16
+00:00:34,322 --> 00:00:36,247
+You can take a look at it and you'll see
+
+17
+00:00:36,263 --> 00:00:38,750
+which tools are available out of the box. If
+
+18
+00:00:38,750 --> 00:00:41,204
+you want to disable such a tool, you have to
+
+19
+00:00:41,317 --> 00:00:43,386
+create a file for it with the name of the
+
+20
+00:00:43,386 --> 00:00:45,488
+tool you want to disable, bash in my case,
+
+21
+00:00:45,889 --> 00:00:48,760
+and then import disable_tool from the Eve
+
+22
+00:00:48,760 --> 00:00:51,199
+library and just call and export it like
+
+23
+00:00:51,199 --> 00:00:53,301
+this. This will disable one of the built-in
+
+24
+00:00:53,349 --> 00:00:55,065
+tools and that's why I have that here.
+
+25
+00:00:55,354 --> 00:00:57,488
+write_file, for example, is also disabled
+
+26
+00:00:57,664 --> 00:00:59,894
+because my customer support agent should
+
+27
+00:01:00,006 --> 00:01:02,877
+neither be able to write files nor execute
+
+28
+00:01:02,877 --> 00:01:06,003
+random commands. Instead, I give my agent a
+
+29
+00:01:06,003 --> 00:01:09,113
+bunch of new commands for finding customers,
+
+30
+00:01:09,482 --> 00:01:11,502
+for getting the data for a customer, for
+
+31
+00:01:11,630 --> 00:01:12,768
+issuing refunds.
+
+32
+00:01:13,377 --> 00:01:16,759
+And here we'll actually also have a little
+
+33
+00:01:16,759 --> 00:01:18,619
+human-in-the-loop step to which I'll get
+
+34
+00:01:18,683 --> 00:01:21,697
+back. And all that is backed by some dummy
+
+35
+00:01:21,953 --> 00:01:25,111
+database, this fake store, which is in the
+
+36
+00:01:25,320 --> 00:01:28,029
+lib folder. Because of course, in reality,
+
+37
+00:01:28,061 --> 00:01:30,145
+you might be connecting your agent to a real
+
+38
+00:01:30,145 --> 00:01:32,180
+database, a real knowledge store,
+
+39
+00:01:32,709 --> 00:01:34,601
+but here for this demo, it's just some
+
+40
+00:01:35,114 --> 00:01:37,679
+hardcoded data, which just sets up some fake
+
+41
+00:01:37,919 --> 00:01:40,244
+customers to work with. Now, I did already
+
+42
+00:01:40,244 --> 00:01:42,183
+mention it. Human in the loop is also
+
+43
+00:01:42,231 --> 00:01:44,299
+something you can easily add with Eve.
+
+44
+00:01:44,956 --> 00:01:46,287
+You can go to a tool
+
+45
+00:01:46,816 --> 00:01:48,595
+and add an approval setting and, for
+
+46
+00:01:48,595 --> 00:01:51,513
+example, set it to always to make sure that
+
+47
+00:01:51,545 --> 00:01:53,757
+when the agent wants to execute that tool,
+
+48
+00:01:54,030 --> 00:01:56,963
+you always trigger a human approval step. So
+
+49
+00:01:56,979 --> 00:01:58,999
+you don't auto-execute the code, which would
+
+50
+00:01:58,999 --> 00:02:01,660
+be the default otherwise. The harness, the
+
+51
+00:02:01,868 --> 00:02:03,984
+Eve harness, would execute that tool
+
+52
+00:02:03,984 --> 00:02:05,860
+normally automatically. You don't don't do
+
+53
+00:02:05,876 --> 00:02:08,366
+that. Instead, you hand the control back to
+
+54
+00:02:08,366 --> 00:02:11,515
+the user who started this agent or who's
+
+55
+00:02:11,515 --> 00:02:14,070
+interacting with that agent, and you ask for
+
+56
+00:02:14,070 --> 00:02:16,046
+approval there. Now, there are different
+
+57
+00:02:16,094 --> 00:02:17,990
+ways of setting up that approval. Besides
+
+58
+00:02:18,086 --> 00:02:19,789
+always, you also get other options for
+
+59
+00:02:19,869 --> 00:02:21,990
+conditional approval and so on. But here,
+
+60
+00:02:22,199 --> 00:02:25,332
+for simplicity, I just set it to always. But
+
+61
+00:02:25,412 --> 00:02:27,709
+that is also supported and easy to add. It's
+
+62
+00:02:27,806 --> 00:02:30,248
+just one line, as you see, and you will see
+
+63
+00:02:30,248 --> 00:02:31,164
+it in action soon.

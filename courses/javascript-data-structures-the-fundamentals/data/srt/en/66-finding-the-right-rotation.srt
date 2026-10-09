@@ -1,0 +1,739 @@
+1
+00:00:02,055 --> 00:00:04,030
+So now that we derived the depths and the
+
+2
+00:00:04,046 --> 00:00:06,503
+balance factors, let's derive which kind of
+
+3
+00:00:06,599 --> 00:00:07,354
+rotation we need.
+
+4
+00:00:08,301 --> 00:00:09,826
+And for that, I will actually create a new
+
+5
+00:00:09,891 --> 00:00:10,501
+class here,
+
+6
+00:00:11,191 --> 00:00:15,125
+the AVL tree class, which will extend the
+
+7
+00:00:15,286 --> 00:00:17,309
+other tree here, so the default
+
+8
+00:00:17,839 --> 00:00:18,818
+binary search tree.
+
+9
+00:00:19,621 --> 00:00:21,516
+And therefore, down here, I also create an
+
+10
+00:00:21,692 --> 00:00:22,206
+AVL tree.
+
+11
+00:00:23,314 --> 00:00:25,144
+I'm doing this so that I can put the
+
+12
+00:00:25,225 --> 00:00:28,324
+AVL-specific logic into the separate class
+
+13
+00:00:28,372 --> 00:00:31,005
+and keep my binary search tree untouched if
+
+14
+00:00:31,021 --> 00:00:33,060
+we ever would want to use this regular
+
+15
+00:00:33,173 --> 00:00:34,441
+binary search tree again.
+
+16
+00:00:35,822 --> 00:00:39,258
+Now with that, here I will again add an add
+
+17
+00:00:39,451 --> 00:00:42,630
+method where I will call super.add,
+
+18
+00:00:43,208 --> 00:00:46,147
+so basically the add method in the class
+
+19
+00:00:46,259 --> 00:00:48,667
+which we're extending, so that we still add
+
+20
+00:00:48,828 --> 00:00:50,482
+our value as we did before.
+
+21
+00:00:51,477 --> 00:00:54,882
+But now after we added this, I want to
+
+22
+00:00:55,573 --> 00:00:56,923
+basically balance this.
+
+23
+00:00:58,562 --> 00:00:59,317
+I want to
+
+24
+00:00:59,847 --> 00:01:00,329
+get my
+
+25
+00:01:00,956 --> 00:01:01,824
+current node
+
+26
+00:01:02,740 --> 00:01:04,043
+by reaching out to this
+
+27
+00:01:05,299 --> 00:01:08,134
+root, which is the root node. We can access
+
+28
+00:01:08,134 --> 00:01:10,292
+this, it's a property of the class we're
+
+29
+00:01:10,292 --> 00:01:12,450
+extending, so we have access to it in the
+
+30
+00:01:12,450 --> 00:01:13,512
+inheriting class as well.
+
+31
+00:01:14,333 --> 00:01:16,233
+So here I have my root node,
+
+32
+00:01:16,990 --> 00:01:20,305
+and on that I will call find to find that
+
+33
+00:01:20,305 --> 00:01:22,793
+node by value. So essentially I wanna find
+
+34
+00:01:22,825 --> 00:01:25,668
+that node in the tree which I just inserted.
+
+35
+00:01:25,830 --> 00:01:28,236
+So this node I just created, I wanna find it
+
+36
+00:01:28,236 --> 00:01:28,463
+here.
+
+37
+00:01:30,196 --> 00:01:33,176
+Once we found it, I want to call a method
+
+38
+00:01:33,176 --> 00:01:34,448
+which we have yet to add,
+
+39
+00:01:35,044 --> 00:01:37,878
+the balance method on this node.
+
+40
+00:01:38,990 --> 00:01:41,155
+And the balance method is now a method we
+
+41
+00:01:41,317 --> 00:01:44,307
+add to our AVL tree. And this of course will
+
+42
+00:01:44,388 --> 00:01:46,425
+be a key method because that will be the
+
+43
+00:01:46,425 --> 00:01:48,462
+method which will determine which kind of
+
+44
+00:01:48,592 --> 00:01:49,193
+rotation we need.
+
+45
+00:01:50,535 --> 00:01:52,754
+Now I will also quickly add the remove
+
+46
+00:01:52,771 --> 00:01:55,811
+method. There I will just call super.remove
+
+47
+00:01:56,068 --> 00:01:57,178
+for the value we're getting
+
+48
+00:01:57,757 --> 00:01:59,785
+and thereafter I will also call balance
+
+49
+00:01:59,785 --> 00:02:02,929
+here, however now on the root node of the
+
+50
+00:02:02,929 --> 00:02:05,493
+tree to simply balance out the entire tree
+
+51
+00:02:05,493 --> 00:02:07,252
+again after we remove the node.
+
+52
+00:02:09,309 --> 00:02:11,383
+We only need to call this on the root node
+
+53
+00:02:11,497 --> 00:02:13,862
+in the remove case because if we remove a
+
+54
+00:02:14,008 --> 00:02:16,862
+value, we'll not break the balance of our
+
+55
+00:02:16,911 --> 00:02:19,248
+tree because it was already balanced before.
+
+56
+00:02:19,620 --> 00:02:21,685
+So by removing one node, we won't break it
+
+57
+00:02:22,314 --> 00:02:25,106
+unless we basically removed the root node,
+
+58
+00:02:25,542 --> 00:02:28,172
+in which case our remove functionality is
+
+59
+00:02:28,269 --> 00:02:30,547
+configured to shift things around so that we
+
+60
+00:02:30,547 --> 00:02:32,860
+have a new root node. And in that case, we
+
+61
+00:02:32,860 --> 00:02:35,351
+might need to rebalance, which is why we
+
+62
+00:02:35,626 --> 00:02:37,987
+rebalance on the root node. And the balance
+
+63
+00:02:37,987 --> 00:02:39,534
+method will basically check whether
+
+64
+00:02:39,534 --> 00:02:41,985
+balancing is needed and do the appropriate
+
+65
+00:02:41,985 --> 00:02:43,210
+thing if that is the case.
+
+66
+00:02:44,712 --> 00:02:46,616
+With that, however, let's focus on balance
+
+67
+00:02:46,793 --> 00:02:49,180
+because there we now need to write the logic
+
+68
+00:02:49,180 --> 00:02:52,778
+to decide if need to balance and if yes,
+
+69
+00:02:52,923 --> 00:02:55,005
+which kind of balancing operation is
+
+70
+00:02:55,102 --> 00:02:55,586
+required.
+
+71
+00:02:56,652 --> 00:02:58,395
+And for that, balance receives the node
+
+72
+00:02:58,831 --> 00:03:00,704
+which we pass in as an argument here.
+
+73
+00:03:01,495 --> 00:03:04,077
+And now we simply need to check this balance
+
+74
+00:03:04,077 --> 00:03:05,999
+factor getter which we just added.
+
+75
+00:03:07,048 --> 00:03:07,871
+We can check if
+
+76
+00:03:08,420 --> 00:03:09,676
+our balance factor
+
+77
+00:03:10,271 --> 00:03:12,102
+is smaller than
+
+78
+00:03:12,681 --> 00:03:12,809
+-1.
+
+79
+00:03:14,368 --> 00:03:16,762
+This would be the case here for the left
+
+80
+00:03:16,762 --> 00:03:18,353
+rotation on value 1.
+
+81
+00:03:19,133 --> 00:03:22,732
+But also for the right-left rotation down
+
+82
+00:03:22,732 --> 00:03:24,323
+there for the root node.
+
+83
+00:03:24,917 --> 00:03:27,343
+In both those cases, we have a
+
+84
+00:03:28,050 --> 00:03:30,950
+node with a balance factor smaller than
+
+85
+00:03:31,493 --> 00:03:31,739
+-1.
+
+86
+00:03:35,012 --> 00:03:37,525
+So there are 2 possible operations that
+
+87
+00:03:37,895 --> 00:03:40,038
+could be required here, and that's the left
+
+88
+00:03:40,151 --> 00:03:40,699
+rotation
+
+89
+00:03:41,279 --> 00:03:43,341
+or as I just showed you, the right-left
+
+90
+00:03:43,373 --> 00:03:43,679
+rotation.
+
+91
+00:03:45,384 --> 00:03:47,356
+But now we need to find out which of the 2
+
+92
+00:03:47,388 --> 00:03:47,966
+is required.
+
+93
+00:03:48,896 --> 00:03:52,455
+Now we require the left rotation if the
+
+94
+00:03:52,520 --> 00:03:53,722
+right child
+
+95
+00:03:54,588 --> 00:03:57,298
+of that node which we're checking, which has
+
+96
+00:03:57,330 --> 00:04:00,762
+that smaller than -1 balance factor, if the
+
+97
+00:04:00,842 --> 00:04:04,370
+right child node of that node has a balance
+
+98
+00:04:04,370 --> 00:04:08,154
+factor smaller than 0. Here it's -1, so we
+
+99
+00:04:08,154 --> 00:04:10,784
+see this is a scenario where we need a left
+
+100
+00:04:10,784 --> 00:04:11,249
+rotation.
+
+101
+00:04:12,162 --> 00:04:15,736
+We need a right-left rotation if on the node
+
+102
+00:04:15,768 --> 00:04:17,995
+which we just checked, which has a balance
+
+103
+00:04:17,995 --> 00:04:19,661
+factor smaller than -1,
+
+104
+00:04:20,238 --> 00:04:23,394
+if on that node the right child has a
+
+105
+00:04:23,523 --> 00:04:25,461
+balance factor greater than 0.
+
+106
+00:04:26,343 --> 00:04:29,034
+So basically, if the child, the right child,
+
+107
+00:04:29,050 --> 00:04:31,598
+has a balance factor of 0, we don't need to
+
+108
+00:04:31,614 --> 00:04:34,738
+do anything. If it's greater than 0, we need
+
+109
+00:04:34,738 --> 00:04:37,478
+a right-left rotation, and if it's smaller
+
+110
+00:04:37,478 --> 00:04:40,382
+than 0, we need a left rotation. We don't
+
+111
+00:04:40,382 --> 00:04:42,781
+need to check the left child because we
+
+112
+00:04:42,781 --> 00:04:45,761
+can't have a left child in this scenario
+
+113
+00:04:45,761 --> 00:04:48,079
+here when the balance factor of the root
+
+114
+00:04:48,079 --> 00:04:49,817
+node is smaller than -1.
+
+115
+00:04:52,026 --> 00:04:54,127
+Because you also need to keep in mind that
+
+116
+00:04:54,127 --> 00:04:56,912
+we balance out the tree for every new node
+
+117
+00:04:56,912 --> 00:04:57,450
+which we add.
+
+118
+00:04:58,850 --> 00:05:00,564
+So therefore here we now want to add an if
+
+119
+00:05:00,580 --> 00:05:00,839
+check
+
+120
+00:05:01,453 --> 00:05:02,925
+and check if the
+
+121
+00:05:03,507 --> 00:05:06,936
+node right, so the right child of the node,
+
+122
+00:05:07,356 --> 00:05:09,720
+if that has a balance factor
+
+123
+00:05:11,179 --> 00:05:12,467
+smaller than 0,
+
+124
+00:05:13,046 --> 00:05:14,640
+and in this case we need to
+
+125
+00:05:15,381 --> 00:05:18,585
+rotate left. We haven't added this method
+
+126
+00:05:18,585 --> 00:05:20,179
+yet, but we'll do so soon.
+
+127
+00:05:21,697 --> 00:05:25,406
+Else if, if node.right.balance_factor is
+
+128
+00:05:26,394 --> 00:05:27,462
+greater than 0,
+
+129
+00:05:28,191 --> 00:05:28,402
+then
+
+130
+00:05:29,309 --> 00:05:33,231
+we need to do a right-left node rotation.
+
+131
+00:05:36,049 --> 00:05:38,661
+And to both those methods, I wanna pass the
+
+132
+00:05:38,661 --> 00:05:40,708
+node on which we want to perform the
+
+133
+00:05:40,740 --> 00:05:43,287
+rotation, which is the node we're balancing.
+
+134
+00:05:45,082 --> 00:05:47,645
+If the balance factor of the right child
+
+135
+00:05:47,694 --> 00:05:50,110
+node is equal to 0, we don't need to do
+
+136
+00:05:50,208 --> 00:05:50,518
+anything.
+
+137
+00:05:51,769 --> 00:05:54,934
+Okay, so that was now this check. But now if
+
+138
+00:05:54,934 --> 00:05:57,296
+the node which we're trying to balance has a
+
+139
+00:05:57,409 --> 00:06:00,478
+balance factor greater than 1, we also wanna
+
+140
+00:06:00,478 --> 00:06:03,029
+do something. If it has a balance factor
+
+141
+00:06:03,174 --> 00:06:07,110
+equal to 1, equal to -1, or equal to 0, we
+
+142
+00:06:07,126 --> 00:06:08,058
+don't need to do anything.
+
+143
+00:06:08,669 --> 00:06:11,057
+But if it has a balance factor greater than
+
+144
+00:06:11,164 --> 00:06:11,306
+1,
+
+145
+00:06:14,185 --> 00:06:16,161
+then the other 2 operations will be
+
+146
+00:06:16,210 --> 00:06:16,679
+relevant.
+
+147
+00:06:17,505 --> 00:06:19,951
+If the node we're checking has a balance
+
+148
+00:06:19,951 --> 00:06:21,376
+factor greater than 1,
+
+149
+00:06:21,910 --> 00:06:24,378
+so for example here, the value 3 has a
+
+150
+00:06:24,394 --> 00:06:25,409
+balance factor of 2,
+
+151
+00:06:26,166 --> 00:06:28,389
+then a right rotation might be required.
+
+152
+00:06:28,917 --> 00:06:29,110
+Or
+
+153
+00:06:29,641 --> 00:06:32,443
+a left-right rotation because there the node
+
+154
+00:06:33,104 --> 00:06:35,745
+also has a balance factor greater than 1.
+
+155
+00:06:36,679 --> 00:06:39,370
+So now we need to check the left child node.
+
+156
+00:06:39,950 --> 00:06:42,870
+If it has a balance factor smaller than 0,
+
+157
+00:06:42,950 --> 00:06:44,305
+we need a left-right rotation.
+
+158
+00:06:45,912 --> 00:06:48,591
+If it has a balance factor greater than 0,
+
+159
+00:06:48,852 --> 00:06:50,175
+we need a right rotation.
+
+160
+00:06:53,180 --> 00:06:54,271
+So back to our code.
+
+161
+00:06:56,180 --> 00:06:56,454
+Here
+
+162
+00:06:57,711 --> 00:07:01,160
+we now check if our node, if the left child
+
+163
+00:07:03,352 --> 00:07:06,428
+has a balance factor smaller than 0,
+
+164
+00:07:07,700 --> 00:07:08,844
+and if that's the case,
+
+165
+00:07:09,407 --> 00:07:11,163
+we call this rotate
+
+166
+00:07:11,823 --> 00:07:14,160
+left, right, and forward the node.
+
+167
+00:07:15,515 --> 00:07:18,161
+Else if, if our left child node
+
+168
+00:07:19,145 --> 00:07:21,355
+of the node we're trying to balance has a
+
+169
+00:07:21,420 --> 00:07:24,644
+balance factor greater than 0, If that's the
+
+170
+00:07:24,644 --> 00:07:28,364
+case, then we need a right rotation. So then
+
+171
+00:07:28,364 --> 00:07:30,854
+we call rotate right and forward the node.
+
+172
+00:07:33,700 --> 00:07:36,062
+This is now the logic we need here. And with
+
+173
+00:07:36,095 --> 00:07:38,343
+that, we're deciding which kind of rotation
+
+174
+00:07:38,376 --> 00:07:38,751
+we need.
+
+175
+00:07:40,059 --> 00:07:42,677
+Now, for the example numbers I added here,
+
+176
+00:07:42,822 --> 00:07:44,477
+1, 2, 3, in this order,
+
+177
+00:07:45,698 --> 00:07:48,767
+we will definitely need a left rotation. We
+
+178
+00:07:48,767 --> 00:07:51,537
+can see it here. I added 1, 2, 3 in exactly
+
+179
+00:07:51,537 --> 00:07:54,232
+that order. So that is the kind of tree We
+
+180
+00:07:54,232 --> 00:07:54,489
+need
+
+181
+00:07:55,181 --> 00:07:57,835
+this tree here. So this is the kind of tree
+
+182
+00:07:57,851 --> 00:08:00,038
+we have and therefore we'll need a left
+
+183
+00:08:00,087 --> 00:08:02,210
+rotation. Hence, let's start with
+
+184
+00:08:02,274 --> 00:08:04,848
+implementing the left rotation logic in the
+
+185
+00:08:04,848 --> 00:08:05,411
+next lecture.

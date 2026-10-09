@@ -1,0 +1,647 @@
+1
+00:00:02,200 --> 00:00:04,481
+So what is the problem with our graph here?
+
+2
+00:00:05,316 --> 00:00:06,842
+Well, I'm not happy with the time
+
+3
+00:00:06,858 --> 00:00:07,710
+complexity.
+
+4
+00:00:08,529 --> 00:00:11,003
+We get various places where time complexity
+
+5
+00:00:11,340 --> 00:00:12,239
+is a problem.
+
+6
+00:00:12,882 --> 00:00:15,516
+For example, whenever we call indexOf,
+
+7
+00:00:16,319 --> 00:00:19,259
+indexOf actually needs to visit all
+
+8
+00:00:19,934 --> 00:00:21,716
+elements in the given array
+
+9
+00:00:22,439 --> 00:00:25,732
+which we store for edge's start node to find
+
+10
+00:00:25,732 --> 00:00:28,689
+out whether end node exists there. So this
+
+11
+00:00:28,786 --> 00:00:31,490
+looks harmless, but this quickly is O
+
+12
+00:00:32,070 --> 00:00:33,760
+for adding an edge, for example.
+
+13
+00:00:34,581 --> 00:00:37,141
+For removing a node, we clearly have a
+
+14
+00:00:37,141 --> 00:00:39,892
+problem with our nested loop here. So that
+
+15
+00:00:39,892 --> 00:00:41,303
+might not be optimal like that.
+
+16
+00:00:43,086 --> 00:00:45,138
+And therefore, it would be interesting to
+
+17
+00:00:45,138 --> 00:00:46,980
+know whether we can do better.
+
+18
+00:00:47,707 --> 00:00:50,341
+And it turns out that we can by using
+
+19
+00:00:50,777 --> 00:00:53,553
+different JavaScript data structures. And
+
+20
+00:00:53,735 --> 00:00:56,041
+actually, we can use data structures that
+
+21
+00:00:56,121 --> 00:00:56,864
+are built in.
+
+22
+00:00:57,897 --> 00:01:00,415
+Now we got our nodes and edges objects up
+
+23
+00:01:00,431 --> 00:01:00,609
+there
+
+24
+00:01:01,303 --> 00:01:03,014
+and we can stick to objects here
+
+25
+00:01:03,884 --> 00:01:07,234
+but I wanna change how we store our edges.
+
+26
+00:01:07,589 --> 00:01:10,987
+So the actual edges, the connections for a
+
+27
+00:01:11,052 --> 00:01:14,216
+given node in this edges object thereafter.
+
+28
+00:01:16,239 --> 00:01:17,421
+So for example here in
+
+29
+00:01:18,095 --> 00:01:18,325
+addEdge,
+
+30
+00:01:19,163 --> 00:01:22,491
+we do set our edges here to an array
+
+31
+00:01:23,278 --> 00:01:26,090
+and we initialize it to be an array with the
+
+32
+00:01:26,090 --> 00:01:28,998
+end node for which we add the edge if we had
+
+33
+00:01:28,998 --> 00:01:29,994
+no edges before,
+
+34
+00:01:30,604 --> 00:01:32,773
+otherwise we use push to add a new
+
+35
+00:01:32,773 --> 00:01:33,303
+connection.
+
+36
+00:01:34,299 --> 00:01:35,858
+Well, instead of using an array,
+
+37
+00:01:36,468 --> 00:01:37,995
+I wanna use a set here now.
+
+38
+00:01:38,782 --> 00:01:40,967
+Now to the set we can still pass an array
+
+39
+00:01:40,967 --> 00:01:43,344
+with end node and that will automatically
+
+40
+00:01:43,682 --> 00:01:46,815
+add end node as a value to this set.
+
+41
+00:01:47,556 --> 00:01:49,703
+The special thing about a Set is
+
+42
+00:01:50,300 --> 00:01:54,562
+that it is storing unique values only and it
+
+43
+00:01:54,562 --> 00:01:56,984
+can do that very efficiently in memory.
+
+44
+00:01:59,300 --> 00:02:01,394
+And therefore, this actually allows us to
+
+45
+00:02:01,427 --> 00:02:03,715
+perform certain operations in a more
+
+46
+00:02:03,844 --> 00:02:05,858
+efficient way in JavaScript.
+
+47
+00:02:06,692 --> 00:02:08,766
+Now, when we add an edge to an already
+
+48
+00:02:08,782 --> 00:02:10,030
+existing Set,
+
+49
+00:02:10,564 --> 00:02:13,740
+we no longer push because push is not a
+
+50
+00:02:13,805 --> 00:02:14,323
+thing on Set.
+
+51
+00:02:15,347 --> 00:02:16,753
+Instead, on a Set,
+
+52
+00:02:17,724 --> 00:02:19,422
+if we create one here,
+
+53
+00:02:20,457 --> 00:02:22,656
+we have an add method instead.
+
+54
+00:02:23,760 --> 00:02:24,633
+So we can just call
+
+55
+00:02:25,798 --> 00:02:26,315
+add here
+
+56
+00:02:26,865 --> 00:02:28,774
+and add our end node like that.
+
+57
+00:02:29,794 --> 00:02:32,812
+And we also don't have indexOf to find out
+
+58
+00:02:32,812 --> 00:02:34,215
+whether a value exists,
+
+59
+00:02:36,894 --> 00:02:37,588
+but instead
+
+60
+00:02:38,186 --> 00:02:39,769
+we have a has method.
+
+61
+00:02:41,065 --> 00:02:43,127
+And the great thing about the has method
+
+62
+00:02:43,706 --> 00:02:45,220
+is that it's super efficient.
+
+63
+00:02:45,977 --> 00:02:47,539
+Now this doesn't return us an
+
+64
+00:02:48,135 --> 00:02:51,470
+index, so we don't need to compare this. We
+
+65
+00:02:51,470 --> 00:02:54,529
+just check whether we already have an entry
+
+66
+00:02:54,871 --> 00:02:55,538
+for end node.
+
+67
+00:02:57,669 --> 00:03:00,009
+Or to be precise, since we wanna add that
+
+68
+00:03:00,009 --> 00:03:02,366
+entry, we check whether we don't have that
+
+69
+00:03:02,366 --> 00:03:05,367
+yet. So whether we do have an existing set,
+
+70
+00:03:05,674 --> 00:03:08,106
+but in that set we don't hence the
+
+71
+00:03:08,106 --> 00:03:10,558
+exclamation mark, have an entry for end node
+
+72
+00:03:10,558 --> 00:03:10,720
+yet.
+
+73
+00:03:12,380 --> 00:03:13,560
+This will use a set
+
+74
+00:03:14,175 --> 00:03:16,586
+and has, unlike indexOf,
+
+75
+00:03:17,168 --> 00:03:19,239
+has a time complexity of O.
+
+76
+00:03:21,067 --> 00:03:23,293
+And that's of course great. With that we
+
+77
+00:03:23,293 --> 00:03:24,138
+improved addEdge.
+
+78
+00:03:25,612 --> 00:03:29,391
+Now for removing a node where we then also
+
+79
+00:03:29,795 --> 00:03:33,170
+need to eventually find existing edges and
+
+80
+00:03:33,509 --> 00:03:34,139
+remove those.
+
+81
+00:03:35,458 --> 00:03:36,619
+Well, we of course still
+
+82
+00:03:37,231 --> 00:03:37,844
+visit all
+
+83
+00:03:38,666 --> 00:03:39,617
+edge entries
+
+84
+00:03:40,198 --> 00:03:41,391
+in this edges,
+
+85
+00:03:42,148 --> 00:03:44,279
+so there's no way around doing that
+
+86
+00:03:44,500 --> 00:03:45,245
+unfortunately.
+
+87
+00:03:47,442 --> 00:03:49,767
+But we can change this code a little bit.
+
+88
+00:03:50,751 --> 00:03:54,028
+Instead of walking through all the stored
+
+89
+00:03:54,060 --> 00:03:56,873
+connections for a given node in this
+
+90
+00:03:57,527 --> 00:03:58,687
+edges object,
+
+91
+00:03:59,259 --> 00:04:01,270
+we can simply call this edges
+
+92
+00:04:01,886 --> 00:04:03,059
+for the edge identifier.
+
+93
+00:04:03,911 --> 00:04:06,097
+And keep in mind that this edges will be a
+
+94
+00:04:06,161 --> 00:04:06,435
+set,
+
+95
+00:04:07,447 --> 00:04:08,042
+and therefore
+
+96
+00:04:08,877 --> 00:04:10,953
+call a method that exists on sets,
+
+97
+00:04:12,124 --> 00:04:13,572
+the delete method.
+
+98
+00:04:14,954 --> 00:04:17,231
+And delete takes a value we want to delete.
+
+99
+00:04:18,490 --> 00:04:18,875
+So here
+
+100
+00:04:19,487 --> 00:04:22,317
+we can simply call delete and forward the
+
+101
+00:04:22,317 --> 00:04:24,215
+node identifier which we want to delete.
+
+102
+00:04:25,742 --> 00:04:28,139
+And that's all. And that's also O.
+
+103
+00:04:29,356 --> 00:04:31,265
+And we can get rid of all that code.
+
+104
+00:04:31,799 --> 00:04:35,083
+So it's now way less code and also more
+
+105
+00:04:35,099 --> 00:04:36,005
+efficient code.
+
+106
+00:04:36,652 --> 00:04:38,978
+Now we still have that outer loop, but at
+
+107
+00:04:38,978 --> 00:04:41,218
+least we got rid of the inner loop. Hence we
+
+108
+00:04:41,218 --> 00:04:43,152
+achieved a better time complexity here.
+
+109
+00:04:44,720 --> 00:04:46,662
+Now for removing an edge, here again I'm
+
+110
+00:04:46,759 --> 00:04:49,914
+using indexOf. This does not exist on Sets.
+
+111
+00:04:50,319 --> 00:04:54,464
+This should be has. And of course, therefore
+
+112
+00:04:54,464 --> 00:04:56,538
+we no longer get back the node index.
+
+113
+00:04:57,044 --> 00:04:58,855
+Instead, we can simply check whether
+
+114
+00:04:59,550 --> 00:05:02,494
+we have a connection to that node here.
+
+115
+00:05:03,802 --> 00:05:05,972
+And if this returns false, hence the
+
+116
+00:05:05,972 --> 00:05:08,013
+exclamation mark here, we wanna throw this
+
+117
+00:05:08,094 --> 00:05:08,353
+error.
+
+118
+00:05:11,022 --> 00:05:13,455
+We could also merge this into one if check,
+
+119
+00:05:13,584 --> 00:05:15,807
+by the way, by simply taking that
+
+120
+00:05:17,209 --> 00:05:20,045
+and combining it with the OR operator here.
+
+121
+00:05:21,013 --> 00:05:23,774
+With that, we check whether we don't have
+
+122
+00:05:23,774 --> 00:05:26,034
+something for the start node or if we do,
+
+123
+00:05:26,750 --> 00:05:28,863
+whether we maybe don't have an entry for the
+
+124
+00:05:28,944 --> 00:05:29,350
+end node.
+
+125
+00:05:30,244 --> 00:05:32,194
+And if we make it past this if check,
+
+126
+00:05:32,842 --> 00:05:34,568
+we no longer use splice.
+
+127
+00:05:35,343 --> 00:05:35,956
+Instead,
+
+128
+00:05:36,714 --> 00:05:40,216
+we use delete to delete our end node here.
+
+129
+00:05:42,143 --> 00:05:42,912
+Now for hasEdge,
+
+130
+00:05:44,350 --> 00:05:46,777
+we still might wanna check if we got nothing
+
+131
+00:05:46,809 --> 00:05:49,301
+at all maybe for the given start node, but
+
+132
+00:05:49,349 --> 00:05:52,435
+thereafter it's not indexOf compared to some
+
+133
+00:05:52,500 --> 00:05:55,592
+number, but it can just be has for the end
+
+134
+00:05:55,690 --> 00:05:55,917
+node
+
+135
+00:05:56,825 --> 00:05:59,485
+and that returns true if we have that entry
+
+136
+00:05:59,826 --> 00:06:01,188
+and false otherwise.
+
+137
+00:06:05,834 --> 00:06:08,539
+So that is how we could restructure this to
+
+138
+00:06:08,636 --> 00:06:12,001
+use sets for storing our edge connections
+
+139
+00:06:12,194 --> 00:06:13,643
+instead of an array.
+
+140
+00:06:15,011 --> 00:06:17,448
+If we now reload this, we got the same
+
+141
+00:06:17,481 --> 00:06:19,818
+result as before just with sets now,
+
+142
+00:06:20,604 --> 00:06:23,039
+but we can clearly see that we got unchanged
+
+143
+00:06:23,087 --> 00:06:24,129
+nodes, for example,
+
+144
+00:06:24,674 --> 00:06:26,581
+but then sets with our connections.
+
+145
+00:06:27,414 --> 00:06:30,010
+And if I don't remove that edge down there,
+
+146
+00:06:30,314 --> 00:06:31,612
+so if I comment this out
+
+147
+00:06:32,366 --> 00:06:34,609
+and we try that again, we of course get a
+
+148
+00:06:34,609 --> 00:06:35,378
+graph where
+
+149
+00:06:36,372 --> 00:06:39,416
+max has a set with 2 entries, for example.
+
+150
+00:06:40,250 --> 00:06:42,477
+So that all seems to work. Let's also try
+
+151
+00:06:42,477 --> 00:06:44,945
+removing a node and see whether that works.
+
+152
+00:06:45,827 --> 00:06:48,379
+And now we see node 2 is removed
+
+153
+00:06:49,118 --> 00:06:49,968
+and therefore
+
+154
+00:06:50,643 --> 00:06:53,676
+3 has no active connections and 1 only
+
+155
+00:06:53,708 --> 00:06:54,591
+points at 3
+
+156
+00:06:55,554 --> 00:06:57,577
+because we deleted node 2
+
+157
+00:06:58,187 --> 00:07:00,691
+and previously we pointed at 2 but since we
+
+158
+00:07:00,691 --> 00:07:01,702
+deleted that node,
+
+159
+00:07:02,280 --> 00:07:04,351
+the related edge was also removed.
+
+160
+00:07:05,121 --> 00:07:08,684
+So that all works but now with sets instead
+
+161
+00:07:08,717 --> 00:07:11,510
+of arrays, hence giving us better time
+
+162
+00:07:11,606 --> 00:07:12,328
+complexity.

@@ -1,0 +1,339 @@
+1
+00:00:02,210 --> 00:00:04,565
+So what's the binary search tree time
+
+2
+00:00:04,597 --> 00:00:06,952
+complexity now? Again, I'm going to compare
+
+3
+00:00:07,016 --> 00:00:07,641
+it to an array
+
+4
+00:00:08,202 --> 00:00:10,252
+and I'm going to have a look at accessing
+
+5
+00:00:10,284 --> 00:00:13,120
+and searching things, insertion and removal.
+
+6
+00:00:13,633 --> 00:00:15,459
+Now let's start with searching things
+
+7
+00:00:16,276 --> 00:00:18,647
+and here it gets interesting. Previously for
+
+8
+00:00:18,775 --> 00:00:22,043
+a basic tree, we saw that we got O as a
+
+9
+00:00:22,123 --> 00:00:24,094
+worst-case time complexity for all
+
+10
+00:00:24,286 --> 00:00:27,330
+operations. Now for the binary search tree,
+
+11
+00:00:27,426 --> 00:00:30,630
+we also have that worst-case time complexity
+
+12
+00:00:30,694 --> 00:00:33,099
+but we get a better average case. And I'll
+
+13
+00:00:33,099 --> 00:00:35,007
+come back to that average case in a second.
+
+14
+00:00:35,520 --> 00:00:36,611
+Now, for the worst case,
+
+15
+00:00:37,364 --> 00:00:39,353
+we simply need to imagine a tree that looks
+
+16
+00:00:39,353 --> 00:00:42,176
+like this. If we only have one line of nodes
+
+17
+00:00:42,176 --> 00:00:43,234
+and we're looking for 2,
+
+18
+00:00:43,924 --> 00:00:47,741
+there is no way for us to not visit all
+
+19
+00:00:47,965 --> 00:00:50,082
+nodes. And that's why we have linear time
+
+20
+00:00:50,178 --> 00:00:52,408
+complexity in the worst case, because our
+
+21
+00:00:52,504 --> 00:00:54,589
+worst case tree could look like this and we
+
+22
+00:00:54,589 --> 00:00:56,834
+have no chance of doing better than linear
+
+23
+00:00:56,834 --> 00:00:59,225
+time then if we're looking for the most
+
+24
+00:00:59,258 --> 00:01:00,558
+deeply nested value.
+
+25
+00:01:01,249 --> 00:01:03,400
+However, this is the worst case.
+
+26
+00:01:04,299 --> 00:01:05,086
+In reality,
+
+27
+00:01:05,744 --> 00:01:07,687
+our trees often might look something like
+
+28
+00:01:07,687 --> 00:01:09,726
+that. And now here's the interesting thing.
+
+29
+00:01:10,160 --> 00:01:13,066
+Because we sorted it, because we know that
+
+30
+00:01:13,066 --> 00:01:16,117
+we have at most 2 child nodes and the left
+
+31
+00:01:16,117 --> 00:01:18,092
+one is always smaller and the right one is
+
+32
+00:01:18,124 --> 00:01:18,815
+always bigger,
+
+33
+00:01:19,473 --> 00:01:22,604
+we can optimize our search algorithm in that
+
+34
+00:01:22,604 --> 00:01:24,916
+tree And we always just have a decision
+
+35
+00:01:25,269 --> 00:01:27,325
+whether we wanna dig into the left or the
+
+36
+00:01:27,341 --> 00:01:28,802
+right child node tree,
+
+37
+00:01:29,348 --> 00:01:31,644
+and we never need to visit the nodes of the
+
+38
+00:01:31,693 --> 00:01:33,154
+tree we decide against.
+
+39
+00:01:33,684 --> 00:01:35,482
+So for example, if we're looking for a value
+
+40
+00:01:35,482 --> 00:01:37,859
+of 2 here, and we start at the top of the
+
+41
+00:01:37,859 --> 00:01:40,476
+tree, we know that it's smaller than 10, so
+
+42
+00:01:40,508 --> 00:01:43,463
+we never need to visit the 14 and 24 nodes.
+
+43
+00:01:44,202 --> 00:01:46,129
+When we're then at 5, we're still looking
+
+44
+00:01:46,209 --> 00:01:48,923
+for 2, so we know we don't have to look at
+
+45
+00:01:49,099 --> 00:01:50,737
+any values on the right side of 5.
+
+46
+00:01:51,747 --> 00:01:55,015
+So therefore, we split our problem set into
+
+47
+00:01:55,111 --> 00:01:57,498
+half with every node that we reach.
+
+48
+00:01:58,075 --> 00:02:00,222
+We always just have to consider one of 2
+
+49
+00:02:00,478 --> 00:02:01,023
+choices.
+
+50
+00:02:01,920 --> 00:02:04,099
+And you might remember from the algorithm
+
+51
+00:02:04,099 --> 00:02:06,630
+course that if you split your problem in
+
+52
+00:02:06,743 --> 00:02:09,899
+half in a recursion, so if you split it in
+
+53
+00:02:10,011 --> 00:02:12,238
+half with every step of a recursion,
+
+54
+00:02:12,815 --> 00:02:15,843
+you have logarithmic time. Now again, I do
+
+55
+00:02:15,859 --> 00:02:18,246
+explain that in more detail in my algorithms
+
+56
+00:02:18,278 --> 00:02:20,345
+course, so make sure you have a look at that
+
+57
+00:02:20,345 --> 00:02:20,633
+as well.
+
+58
+00:02:21,226 --> 00:02:24,146
+There we talk about binary search, which as
+
+59
+00:02:24,210 --> 00:02:24,980
+the name implies
+
+60
+00:02:25,638 --> 00:02:28,286
+uses a similar algorithm, and there I also
+
+61
+00:02:28,302 --> 00:02:30,949
+explain why we have logarithmic time. And
+
+62
+00:02:30,949 --> 00:02:33,307
+logarithmic time is better than linear time,
+
+63
+00:02:33,756 --> 00:02:36,083
+and it's the average case because the worst
+
+64
+00:02:36,083 --> 00:02:38,650
+case is one specific scenario,
+
+65
+00:02:39,452 --> 00:02:42,067
+this scenario. So in most other cases, we'll
+
+66
+00:02:42,099 --> 00:02:44,217
+not have the worst case, and therefore on
+
+67
+00:02:44,410 --> 00:02:47,394
+average in the binary search tree we do have
+
+68
+00:02:47,394 --> 00:02:50,108
+logarithmic time, and therefore we do better
+
+69
+00:02:50,285 --> 00:02:53,142
+than linear time complexity and also better
+
+70
+00:02:53,415 --> 00:02:56,000
+than an array unless we know the index in an
+
+71
+00:02:56,065 --> 00:02:57,975
+array. But if we search something, we don't,
+
+72
+00:02:58,216 --> 00:03:00,657
+and therefore here we see where the binary
+
+73
+00:03:00,657 --> 00:03:03,322
+search tree could be better for storing
+
+74
+00:03:03,370 --> 00:03:06,967
+data. If you can sort your data, a binary
+
+75
+00:03:06,967 --> 00:03:09,680
+search tree might be better because now you
+
+76
+00:03:09,712 --> 00:03:12,121
+can access it in a more optimized way.
+
+77
+00:03:13,229 --> 00:03:14,338
+Now for insertion
+
+78
+00:03:15,158 --> 00:03:17,874
+and for removal, it's the same because
+
+79
+00:03:17,970 --> 00:03:20,445
+they're all about finding values and knowing
+
+80
+00:03:20,478 --> 00:03:22,744
+where to add or remove something. So
+
+81
+00:03:22,808 --> 00:03:25,861
+therefore, here we also on average do better
+
+82
+00:03:25,861 --> 00:03:28,079
+than linear time, and that's the huge
+
+83
+00:03:28,127 --> 00:03:31,229
+advantage of the binary search tree. So it's
+
+84
+00:03:31,229 --> 00:03:34,925
+great if you have data that can be stored in
+
+85
+00:03:34,925 --> 00:03:36,388
+a certain sorted way.

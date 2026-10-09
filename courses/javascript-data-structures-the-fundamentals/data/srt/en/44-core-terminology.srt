@@ -1,0 +1,819 @@
+1
+00:00:02,373 --> 00:00:06,013
+So that are trees and we saw some examples.
+
+2
+00:00:06,205 --> 00:00:09,412
+Now before we write some example code that
+
+3
+00:00:09,717 --> 00:00:12,619
+actually reflects a tree or that allows us
+
+4
+00:00:12,619 --> 00:00:14,768
+to work with a tree data structure,
+
+5
+00:00:15,425 --> 00:00:18,536
+there is more terminology which I wanna get
+
+6
+00:00:18,616 --> 00:00:19,194
+out of the way.
+
+7
+00:00:20,156 --> 00:00:23,475
+We already learned about the node or vertex
+
+8
+00:00:23,523 --> 00:00:25,992
+which is simply a structure in a tree that
+
+9
+00:00:25,992 --> 00:00:29,073
+contains a value. So that bubble in the tree
+
+10
+00:00:29,202 --> 00:00:31,594
+which contains the actual value, for
+
+11
+00:00:31,627 --> 00:00:35,015
+example, the HTML tag or the decision.
+
+12
+00:00:36,123 --> 00:00:39,061
+Now those nodes are connected with edges,
+
+13
+00:00:39,575 --> 00:00:42,353
+which, well, are simply the connections
+
+14
+00:00:42,465 --> 00:00:45,484
+between 2 nodes. And an edge is always
+
+15
+00:00:45,596 --> 00:00:49,466
+between exactly 2 nodes, not between 3 or 4,
+
+16
+00:00:50,076 --> 00:00:53,063
+and also not around one node. It's always a
+
+17
+00:00:53,063 --> 00:00:55,841
+connection between exactly 2 nodes. Nodes.
+
+18
+00:00:56,757 --> 00:00:58,973
+We got this root node, as you learned,
+
+19
+00:00:59,166 --> 00:01:01,206
+that's the topmost node in the tree.
+
+20
+00:01:02,121 --> 00:01:03,792
+And then we got a couple of other terms
+
+21
+00:01:03,888 --> 00:01:05,060
+which we haven't heard yet.
+
+22
+00:01:05,590 --> 00:01:06,361
+For example,
+
+23
+00:01:07,020 --> 00:01:10,216
+in a tree, we can also find subtrees,
+
+24
+00:01:10,794 --> 00:01:13,380
+which are nested trees inside of the tree
+
+25
+00:01:13,766 --> 00:01:16,512
+where the root node of the subtree is not
+
+26
+00:01:16,512 --> 00:01:18,440
+the root node of the overall tree.
+
+27
+00:01:19,484 --> 00:01:22,518
+Here's an example for a subtree. The part in
+
+28
+00:01:22,518 --> 00:01:25,244
+the orange box, that's a subtree of the
+
+29
+00:01:25,324 --> 00:01:26,206
+overall tree.
+
+30
+00:01:27,345 --> 00:01:30,280
+Another important term is the leaf.
+
+31
+00:01:30,954 --> 00:01:34,530
+What's a leaf in a tree? A leaf is a node
+
+32
+00:01:34,626 --> 00:01:37,625
+without any further child nodes. So you
+
+33
+00:01:37,625 --> 00:01:40,143
+could say it's the end of a tree. So it
+
+34
+00:01:40,175 --> 00:01:41,859
+doesn't have its own subtree.
+
+35
+00:01:42,581 --> 00:01:45,596
+If we take this example tree here, we would
+
+36
+00:01:45,628 --> 00:01:49,605
+have 5 leaves because we got 5 nodes without
+
+37
+00:01:49,701 --> 00:01:51,321
+any further child nodes.
+
+38
+00:01:53,084 --> 00:01:56,625
+We also have the concept of paths inside of
+
+39
+00:01:56,625 --> 00:02:00,183
+a tree. Now edges are connections between 2
+
+40
+00:02:00,279 --> 00:02:00,663
+nodes.
+
+41
+00:02:01,256 --> 00:02:04,397
+Paths are now simply a sequence of nodes and
+
+42
+00:02:04,525 --> 00:02:07,570
+edges that connect 2 nodes which are not
+
+43
+00:02:07,570 --> 00:02:10,454
+necessarily in a direct connection to each
+
+44
+00:02:10,454 --> 00:02:10,630
+other.
+
+45
+00:02:11,432 --> 00:02:12,377
+Here's an example.
+
+46
+00:02:13,034 --> 00:02:14,236
+These 2 nodes here,
+
+47
+00:02:14,797 --> 00:02:17,473
+they have a path that connects them.
+
+48
+00:02:18,146 --> 00:02:22,540
+And it's this path of 2 edges and 3 nodes
+
+49
+00:02:22,732 --> 00:02:23,117
+overall.
+
+50
+00:02:24,239 --> 00:02:26,549
+You also see that I'm already introducing
+
+51
+00:02:26,581 --> 00:02:29,243
+another term here, and that's the distance
+
+52
+00:02:29,387 --> 00:02:32,434
+between 2 nodes. The distance is the number
+
+53
+00:02:32,434 --> 00:02:34,310
+of edges we need overall
+
+54
+00:02:34,855 --> 00:02:36,250
+to connect 2 nodes,
+
+55
+00:02:36,828 --> 00:02:39,137
+even if there is another node in between.
+
+56
+00:02:39,826 --> 00:02:43,097
+So the path between these 2 nodes, which are
+
+57
+00:02:43,097 --> 00:02:46,080
+marked with the arrows, that path would have
+
+58
+00:02:46,080 --> 00:02:46,913
+a distance of 2.
+
+59
+00:02:47,731 --> 00:02:50,119
+Or put in other words, the distance between
+
+60
+00:02:50,232 --> 00:02:53,373
+these 2 nodes with the arrows is 2.
+
+61
+00:02:54,255 --> 00:02:57,060
+So distance is another term you should have
+
+62
+00:02:57,108 --> 00:02:59,337
+heard about when you're talking about trees.
+
+63
+00:03:00,667 --> 00:03:02,783
+Now another concept which I already
+
+64
+00:03:03,136 --> 00:03:05,444
+mentioned actually is the parent-child
+
+65
+00:03:05,444 --> 00:03:08,618
+concept. That's a core part of a tree.
+
+66
+00:03:09,452 --> 00:03:11,151
+We have multiple nodes in a tree
+
+67
+00:03:11,776 --> 00:03:14,084
+and multiple nodes are always in some
+
+68
+00:03:14,341 --> 00:03:16,809
+relation and all those nodes are indeed
+
+69
+00:03:16,810 --> 00:03:19,090
+different kinds of relations to each other.
+
+70
+00:03:19,716 --> 00:03:22,350
+For example, we speak of parent and child
+
+71
+00:03:22,366 --> 00:03:25,305
+nodes if 2 nodes are directly connected with
+
+72
+00:03:25,337 --> 00:03:25,754
+each other.
+
+73
+00:03:26,557 --> 00:03:26,814
+The
+
+74
+00:03:27,344 --> 00:03:29,641
+node higher up in the tree is then the
+
+75
+00:03:29,753 --> 00:03:32,627
+parent node of the node below it, which
+
+76
+00:03:32,740 --> 00:03:33,992
+would then be the child node.
+
+77
+00:03:34,908 --> 00:03:37,959
+We also have ancestors and descendants,
+
+78
+00:03:38,505 --> 00:03:40,400
+and that simply are nodes which are
+
+79
+00:03:40,593 --> 00:03:43,226
+indirectly connected. So if there are nodes
+
+80
+00:03:43,339 --> 00:03:43,949
+in between,
+
+81
+00:03:44,526 --> 00:03:47,074
+Then a node on a higher level would be an
+
+82
+00:03:47,250 --> 00:03:47,763
+ancestor.
+
+83
+00:03:48,308 --> 00:03:50,087
+A node on a lower level would be a
+
+84
+00:03:50,087 --> 00:03:50,680
+descendant.
+
+85
+00:03:51,433 --> 00:03:53,804
+We also have sibling nodes, which are nodes
+
+86
+00:03:53,917 --> 00:03:56,481
+on the same level which are not directly
+
+87
+00:03:56,481 --> 00:03:58,740
+connected to each other, but which have the
+
+88
+00:03:58,740 --> 00:04:00,134
+same parent node.
+
+89
+00:04:00,887 --> 00:04:03,083
+And to make those concepts clearer again,
+
+90
+00:04:03,692 --> 00:04:05,086
+in this example tree,
+
+91
+00:04:05,615 --> 00:04:08,563
+the parent node for this node in the bottom
+
+92
+00:04:08,579 --> 00:04:10,790
+right corner would be this node. This node.
+
+93
+00:04:11,239 --> 00:04:13,883
+So this here would be the child node of this
+
+94
+00:04:14,107 --> 00:04:14,844
+parent node.
+
+95
+00:04:15,709 --> 00:04:18,897
+In addition, if we now add this very node at
+
+96
+00:04:18,897 --> 00:04:19,666
+the top here,
+
+97
+00:04:20,211 --> 00:04:23,768
+then that node is not only the root node of
+
+98
+00:04:23,864 --> 00:04:24,377
+the tree,
+
+99
+00:04:24,922 --> 00:04:26,972
+of course it is, but it's not just that,
+
+100
+00:04:27,389 --> 00:04:31,074
+it's also an ancestor to the child node and
+
+101
+00:04:31,074 --> 00:04:33,653
+a parent to the parent node in the middle
+
+102
+00:04:33,653 --> 00:04:33,814
+here.
+
+103
+00:04:34,615 --> 00:04:37,258
+Now if we look at another node here, let's
+
+104
+00:04:37,258 --> 00:04:39,309
+say the node in the bottom left corner,
+
+105
+00:04:39,887 --> 00:04:43,018
+That node would be a descendant of that root
+
+106
+00:04:43,018 --> 00:04:46,133
+level node, for example. It's not a direct
+
+107
+00:04:46,229 --> 00:04:48,413
+child because there is a node in between,
+
+108
+00:04:48,878 --> 00:04:50,982
+but it is on a lower level and therefore a
+
+109
+00:04:50,982 --> 00:04:51,640
+descendant.
+
+110
+00:04:52,652 --> 00:04:55,879
+The node next to that bottom left node here
+
+111
+00:04:56,361 --> 00:04:58,561
+would, for example, be a sibling to that
+
+112
+00:04:58,753 --> 00:04:59,701
+descendant node.
+
+113
+00:05:00,375 --> 00:05:02,832
+So these are a couple of other important
+
+114
+00:05:02,864 --> 00:05:04,261
+terms which you should be aware of.
+
+115
+00:05:05,627 --> 00:05:08,020
+Now there is more terminology, but not much,
+
+116
+00:05:08,295 --> 00:05:08,715
+no worries.
+
+117
+00:05:09,329 --> 00:05:12,628
+For example, when we look at a tree, we also
+
+118
+00:05:12,644 --> 00:05:14,276
+have a concept called degree.
+
+119
+00:05:15,082 --> 00:05:15,986
+The degree
+
+120
+00:05:16,518 --> 00:05:20,261
+of a node is the number of child nodes of a
+
+121
+00:05:20,325 --> 00:05:20,938
+given node.
+
+122
+00:05:22,568 --> 00:05:25,749
+We also have the level of a node. That's the
+
+123
+00:05:25,894 --> 00:05:28,447
+distance between a node and the root node.
+
+124
+00:05:28,899 --> 00:05:31,253
+So the distance, a concept we already
+
+125
+00:05:31,269 --> 00:05:33,521
+learned about, that is something we can have
+
+126
+00:05:33,618 --> 00:05:34,979
+between any 2 nodes,
+
+127
+00:05:35,967 --> 00:05:38,227
+But the distance between a node and the root
+
+128
+00:05:38,227 --> 00:05:42,251
+node is always also called the level of that
+
+129
+00:05:42,459 --> 00:05:44,687
+other node, so of the non-root node.
+
+130
+00:05:46,146 --> 00:05:47,909
+We also have something which is called the
+
+131
+00:05:48,086 --> 00:05:50,827
+depth of a tree, and that's the maximum
+
+132
+00:05:51,035 --> 00:05:53,648
+level in a tree. It simply describes how
+
+133
+00:05:53,921 --> 00:05:55,427
+deeply nested a tree is.
+
+134
+00:05:56,341 --> 00:05:58,361
+We also got the breadth of a tree, and
+
+135
+00:05:58,409 --> 00:06:00,541
+that's the number of leaves in a tree,
+
+136
+00:06:00,733 --> 00:06:04,340
+because this describes how broad it is if we
+
+137
+00:06:04,436 --> 00:06:06,248
+would draw it on a piece of paper, for
+
+138
+00:06:06,280 --> 00:06:08,028
+example. That's how you can think of that.
+
+139
+00:06:08,446 --> 00:06:11,575
+Depth is simply how much vertical space you
+
+140
+00:06:11,575 --> 00:06:14,769
+need. Breadth is how much horizontal space
+
+141
+00:06:14,769 --> 00:06:15,074
+you need.
+
+142
+00:06:15,989 --> 00:06:17,995
+And last but not least, we got the size of a
+
+143
+00:06:17,995 --> 00:06:20,531
+tree, and that's the total number of nodes
+
+144
+00:06:20,788 --> 00:06:21,077
+overall,
+
+145
+00:06:21,606 --> 00:06:24,126
+no matter where they are and how they are
+
+146
+00:06:24,254 --> 00:06:24,720
+connected.
+
+147
+00:06:25,394 --> 00:06:27,063
+Now let's have a look at all those concepts
+
+148
+00:06:27,063 --> 00:06:27,352
+again.
+
+149
+00:06:28,010 --> 00:06:29,807
+For this tree here, for example,
+
+150
+00:06:30,337 --> 00:06:32,504
+we could note the degrees of the different
+
+151
+00:06:32,504 --> 00:06:32,889
+nodes.
+
+152
+00:06:34,028 --> 00:06:36,193
+And keep in mind that the degree of a node
+
+153
+00:06:36,209 --> 00:06:39,256
+is the number of child nodes, of direct
+
+154
+00:06:39,256 --> 00:06:42,528
+child nodes, of that given node. So for the
+
+155
+00:06:42,528 --> 00:06:44,596
+root level node, we would have a degree of 2
+
+156
+00:06:44,933 --> 00:06:47,724
+because this has 2 direct child nodes.
+
+157
+00:06:48,301 --> 00:06:50,739
+For the other nodes here, these would be the
+
+158
+00:06:50,739 --> 00:06:53,898
+degrees. Please note that the node in the
+
+159
+00:06:53,898 --> 00:06:56,448
+middle on the right has a degree of 3
+
+160
+00:06:56,496 --> 00:06:58,629
+because it has 3 child nodes.
+
+161
+00:06:59,287 --> 00:07:01,311
+All the leaves in the bottom row have a
+
+162
+00:07:01,311 --> 00:07:03,945
+degree of 0 because they have no child
+
+163
+00:07:03,945 --> 00:07:04,218
+nodes.
+
+164
+00:07:05,246 --> 00:07:07,415
+We also had that concept of a
+
+165
+00:07:07,961 --> 00:07:08,346
+level,
+
+166
+00:07:08,924 --> 00:07:10,772
+which was the distance between a node and
+
+167
+00:07:10,852 --> 00:07:11,559
+the root node.
+
+168
+00:07:12,860 --> 00:07:16,024
+In this tree here, the level of the root
+
+169
+00:07:16,072 --> 00:07:19,188
+node would be 0 because the distance between
+
+170
+00:07:19,284 --> 00:07:21,758
+that node and the root node, since that is
+
+171
+00:07:21,790 --> 00:07:23,637
+the root node, is of course 0.
+
+172
+00:07:24,360 --> 00:07:26,335
+But here are the distances for the other
+
+173
+00:07:26,448 --> 00:07:29,019
+nodes in the tree. For all the leaf nodes at
+
+174
+00:07:29,019 --> 00:07:31,317
+the very bottom, the distance is 2 because
+
+175
+00:07:31,349 --> 00:07:34,354
+they all have a path of distance 2. They all
+
+176
+00:07:34,467 --> 00:07:38,197
+have 2 edges between themselves and the root
+
+177
+00:07:38,197 --> 00:07:38,457
+node.
+
+178
+00:07:40,180 --> 00:07:43,148
+This tree overall would have a depth of 2
+
+179
+00:07:43,664 --> 00:07:46,117
+because as you learned, the depth of a tree
+
+180
+00:07:46,568 --> 00:07:48,666
+is the maximum level in a tree.
+
+181
+00:07:49,246 --> 00:07:51,507
+Let's also already memorize that the breadth
+
+182
+00:07:51,771 --> 00:07:52,990
+was the number of leaves.
+
+183
+00:07:54,048 --> 00:07:56,328
+And with that in mind, it makes sense that
+
+184
+00:07:56,376 --> 00:07:59,347
+this tree has a depth of 2 because the
+
+185
+00:07:59,347 --> 00:08:02,461
+maximum level here is 2 for all the bottom
+
+186
+00:08:02,574 --> 00:08:03,762
+leaves, for example.
+
+187
+00:08:04,485 --> 00:08:07,118
+And the breadth of this tree would be 5
+
+188
+00:08:07,150 --> 00:08:09,045
+because we have 5 leaves.
+
+189
+00:08:09,639 --> 00:08:12,208
+Again, breadth is basically describing how
+
+190
+00:08:12,208 --> 00:08:14,825
+much space we need horizontally and depth
+
+191
+00:08:14,937 --> 00:08:17,490
+describes how much space we need vertically,
+
+192
+00:08:17,507 --> 00:08:18,020
+you could say.
+
+193
+00:08:20,139 --> 00:08:22,609
+Now, this tree overall would have a size of
+
+194
+00:08:22,866 --> 00:08:25,577
+8 if we have a look at that size property
+
+195
+00:08:26,010 --> 00:08:28,369
+because the size describes the overall
+
+196
+00:08:28,561 --> 00:08:30,454
+number of nodes in a tree.
+
+197
+00:08:31,609 --> 00:08:34,561
+And that's it for the core terms. Sounds
+
+198
+00:08:34,657 --> 00:08:37,096
+like a lot but actually it's not that hard
+
+199
+00:08:37,144 --> 00:08:40,144
+to memorize. A lot of those concepts are
+
+200
+00:08:40,353 --> 00:08:43,930
+related. You also find those slides with
+
+201
+00:08:43,962 --> 00:08:46,295
+those terms attached And in general, the
+
+202
+00:08:46,295 --> 00:08:48,990
+most important part is that you generally
+
+203
+00:08:49,136 --> 00:08:52,348
+understand what a tree is and how it works.
+
+204
+00:08:53,090 --> 00:08:55,237
+And for that, let's now also dive in some
+
+205
+00:08:55,350 --> 00:08:55,721
+code.

@@ -1,0 +1,749 @@
+1
+00:00:00,593 --> 00:00:03,704
+Attached, you find a new agent project
+附上，您發現一個新的代理專案
+
+2
+00:00:03,720 --> 00:00:04,105
+folder
+資料夾
+
+3
+00:00:04,682 --> 00:00:07,424
+for a more generic agent. It's still a
+對於更通用的代理。它仍然是一個
+
+4
+00:00:07,489 --> 00:00:09,862
+relatively simple one for educational
+相對簡單的一種教育方式
+
+5
+00:00:10,038 --> 00:00:12,524
+purposes. As you will see, it has support
+目的。正如您將看到的，它有支援
+
+6
+00:00:12,524 --> 00:00:12,877
+for
+為了
+
+7
+00:00:13,406 --> 00:00:15,764
+agents.md files and user-provided
+Agents.md 檔案和使用者提供的
+
+8
+00:00:15,764 --> 00:00:18,378
+instructions. It has support for agent
+指示。它支援代理
+
+9
+00:00:18,378 --> 00:00:21,008
+skills, and it has a built-in memory
+技能，並且它有內建記憶體
+
+10
+00:00:21,040 --> 00:00:23,990
+feature. It does not have a sandbox yet, but
+特徵。它還沒有沙箱，但是
+
+11
+00:00:24,006 --> 00:00:26,797
+we'll get back to that later. So, In the
+我們稍後再討論這個問題。所以，在
+
+12
+00:00:26,813 --> 00:00:28,544
+attached project, if we take a look at
+附加專案，如果我們看一下
+
+13
+00:00:28,640 --> 00:00:31,509
+agent.py, you will see that overall it is
+agent.py，你會看到整體來說是
+
+14
+00:00:31,606 --> 00:00:34,427
+quite similar to what you saw before. A bit
+與您之前看到的非常相似。一點
+
+15
+00:00:34,427 --> 00:00:36,944
+longer, but in a nutshell, there still is an
+更長，但簡而言之，仍然有
+
+16
+00:00:37,056 --> 00:00:40,310
+agent loop in there. We still send requests
+代理迴圈在那裡。我們仍然發送請求
+
+17
+00:00:40,438 --> 00:00:42,394
+to the OpenAI API here,
+到此處的 OpenAI API，
+
+18
+00:00:43,067 --> 00:00:44,558
+and we still manage our
+我們仍然管理我們的
+
+19
+00:00:45,087 --> 00:00:45,760
+context here.
+上下文在這裡。
+
+20
+00:00:46,369 --> 00:00:49,495
+So our history, our conversation, which we
+所以我們的歷史，我們的對話，我們
+
+21
+00:00:49,495 --> 00:00:52,910
+send to OpenAI with every request. We handle
+將每個請求發送至 OpenAI。我們處理
+
+22
+00:00:52,942 --> 00:00:55,955
+the response. We look for tool calls. And of
+的回應。我們尋找工具調用。和的
+
+23
+00:00:56,052 --> 00:00:57,959
+course we do provide tools.
+當然我們確實提供了工具。
+
+24
+00:00:58,553 --> 00:01:00,766
+But that is already where the important
+但這已經是重要的地方
+
+25
+00:01:00,798 --> 00:01:03,493
+differences start. As mentioned, the tools
+差異開始。如前所述，工具
+
+26
+00:01:03,589 --> 00:01:05,899
+we now provide are more versatile.
+我們現在提供的功能更加通用。
+
+27
+00:01:06,477 --> 00:01:08,049
+I have a read file tool,
+我有一個讀取檔案的工具，
+
+28
+00:01:08,722 --> 00:01:10,214
+a write file tool,
+一個寫檔案工具，
+
+29
+00:01:10,824 --> 00:01:14,786
+and then also an edit file and a bash tool.
+然後還有一個編輯檔案和一個 bash 工具。
+
+30
+00:01:16,037 --> 00:01:17,962
+And the bash tool is simply a tool that
+bash 工具只是一個工具
+
+31
+00:01:17,962 --> 00:01:20,897
+allows the agent to basically execute
+允許代理基本上執行
+
+32
+00:01:21,074 --> 00:01:23,544
+arbitrary commands, including, for example,
+任意命令，包括，例如，
+
+33
+00:01:23,576 --> 00:01:25,630
+script files it may have written so it can
+它可能已經編寫了腳本檔案，因此它可以
+
+34
+00:01:25,662 --> 00:01:28,068
+write its own little programs. I also have a
+自己寫小程式。我也有一個
+
+35
+00:01:28,068 --> 00:01:31,338
+store memory tool, which does what the name
+儲存記憶工具，顧名思義
+
+36
+00:01:31,338 --> 00:01:34,287
+implies. It will store some memory entry in
+暗示。它將儲存一些記憶體條目
+
+37
+00:01:34,335 --> 00:01:37,332
+a predefined path. There is no get memory
+預定義的路徑。沒有獲取記憶體
+
+38
+00:01:37,428 --> 00:01:40,505
+tool because memory in this agent is just a
+工具，因為該代理中的記憶體只是一個
+
+39
+00:01:40,505 --> 00:01:43,037
+markdown file stored in the project folder
+markdown 檔案儲存在專案資料夾中
+
+40
+00:01:43,037 --> 00:01:45,328
+the user is working in. And therefore, if
+使用者正在工作。因此，如果
+
+41
+00:01:45,521 --> 00:01:47,620
+the agent wants to read a memory file, it
+代理想要讀取記憶體檔案，它
+
+42
+00:01:47,636 --> 00:01:49,783
+can just use the read file tool for that.
+只需使用讀取檔案工具即可。
+
+43
+00:01:49,863 --> 00:01:50,520
+That's the idea.
+就是這個想法。
+
+44
+00:01:51,049 --> 00:01:53,165
+I also have my systems message, my system
+我還有我的系統訊息，我的系統
+
+45
+00:01:53,165 --> 00:01:55,456
+instructions up here, which are of course
+這裡的說明，當然是
+
+46
+00:01:55,456 --> 00:01:58,405
+now also more generic, giving the agent some
+現在也比較通用，給代理商一些
+
+47
+00:01:58,437 --> 00:02:00,424
+general instructions on how it should behave
+關於其行為方式的一般說明
+
+48
+00:02:00,440 --> 00:02:01,113
+and what it should do.
+以及它應該做什麼。
+
+49
+00:02:01,947 --> 00:02:05,139
+And there also is support for discovering
+並且還支援發現
+
+50
+00:02:05,396 --> 00:02:08,187
+extra context when the agent starts. There
+代理啟動時的額外上下文。那裡
+
+51
+00:02:08,284 --> 00:02:10,594
+is this load startup context function here,
+這是載入啟動上下文函式嗎，
+
+52
+00:02:11,171 --> 00:02:14,284
+and that gets called in run agent before the
+並且在運行代理之前被調用
+
+53
+00:02:14,300 --> 00:02:17,316
+agent loop starts. So before that starts, I
+代理迴圈開始。所以在開始之前，我
+
+54
+00:02:17,669 --> 00:02:21,022
+load extra context, and that startup context
+載入額外的上下文，以及啟動上下文
+
+55
+00:02:21,022 --> 00:02:24,022
+makes it into the context that is sent to
+使其進入發送到的上下文
+
+56
+00:02:24,022 --> 00:02:24,599
+the agent.
+代理人。
+
+57
+00:02:25,610 --> 00:02:27,439
+It ends up in the instructions.
+它最終出現在說明中。
+
+58
+00:02:28,338 --> 00:02:30,715
+As you can see here, which are sent to the
+正如您在這裡所看到的，這些資訊被發送到
+
+59
+00:02:30,763 --> 00:02:32,900
+agent. So the startup context is always
+代理人。所以啟動上下文總是
+
+60
+00:02:33,077 --> 00:02:35,454
+present in every agent loop turn,
+存在於每個代理迴圈回合中，
+
+61
+00:02:36,145 --> 00:02:40,016
+and that startup context is in the end the
+啟動上下文最終是
+
+62
+00:02:40,546 --> 00:02:42,506
+agent's MD file, which we try to discover.
+代理的 MD 檔案，我們嘗試發現該檔案。
+
+63
+00:02:42,827 --> 00:02:44,787
+So we're taking a look at where the user is
+所以我們要看看使用者在哪裡
+
+64
+00:02:44,964 --> 00:02:46,635
+working in. We're discovering the current
+工作中。我們正在發現當前
+
+65
+00:02:46,667 --> 00:02:48,402
+working directory. That's what this line
+工作目錄。這就是這條線
+
+66
+00:02:48,434 --> 00:02:48,643
+does.
+做。
+
+67
+00:02:49,317 --> 00:02:52,016
+We also find the user's home directory on
+我們也找到了使用者的主目錄
+
+68
+00:02:52,048 --> 00:02:54,586
+the system, and then I just look in both
+系統，然後我只查看兩者
+
+69
+00:02:54,618 --> 00:02:56,930
+directories the directory where the agent
+代理商所在目錄
+
+70
+00:02:56,930 --> 00:02:59,337
+was started in and the user's home
+在使用者的家中啟動
+
+71
+00:02:59,353 --> 00:03:02,210
+directory, I'm looking for agents.md files
+目錄，我正在尋找agents.md檔案
+
+72
+00:03:02,868 --> 00:03:03,365
+in a
+在一個
+
+73
+00:03:03,911 --> 00:03:07,153
+.agents subfolder in case of the global
+.agents 子資料夾（如果是全域的）
+
+74
+00:03:07,153 --> 00:03:09,351
+instructions. So the user's home directory,
+指示。所以使用者的主目錄，
+
+75
+00:03:09,849 --> 00:03:12,625
+.agents, agents.md, or the project
+.agents、agents.md 或專案
+
+76
+00:03:12,625 --> 00:03:14,038
+directory, agents.md.
+目錄，agents.md。
+
+77
+00:03:14,599 --> 00:03:18,371
+And if those are found, I simply add their
+如果找到了這些，我只需添加它們
+
+78
+00:03:18,371 --> 00:03:21,837
+content to the discovered startup context.
+內容到發現的啟動上下文。
+
+79
+00:03:22,078 --> 00:03:23,377
+So to my sections here.
+所以到我這裡的部分。
+
+80
+00:03:24,067 --> 00:03:26,489
+And I do the same for skills. I look for
+我對技能也做了同樣的事情。我尋找
+
+81
+00:03:26,569 --> 00:03:28,863
+skills too in the home directory and the
+技能也在主目錄和
+
+82
+00:03:28,863 --> 00:03:31,189
+current project directory, always in a
+目前專案目錄，始終位於
+
+83
+00:03:31,510 --> 00:03:33,691
+.agent subfolder. I wanna support that
+.agent 子資料夾。我想支援那個
+
+84
+00:03:33,691 --> 00:03:34,269
+standard.
+標準。
+
+85
+00:03:35,039 --> 00:03:38,118
+And I continue if nothing was found. But if
+如果什么也没找到，我就会继续。但如果
+
+86
+00:03:38,118 --> 00:03:40,444
+something was found, I'm looking for that
+找到了一些東西，我正在尋找它
+
+87
+00:03:40,444 --> 00:03:42,899
+metadata, which is fenced by these triple
+元資料，由這些三元組圍起來
+
+88
+00:03:42,979 --> 00:03:45,080
+dashes, which you saw earlier when we had a
+破折號，你之前在我們有一個
+
+89
+00:03:45,080 --> 00:03:48,352
+look at skills. So these triple dashes that
+看技能。所以這些三重破折號
+
+90
+00:03:48,545 --> 00:03:51,079
+separate the skill metadata, the name and
+將技能元資料、名稱和
+
+91
+00:03:51,079 --> 00:03:53,678
+the description from the main content. I'm
+主要內容的描述。我是
+
+92
+00:03:53,727 --> 00:03:54,835
+looking for those
+尋找那些
+
+93
+00:03:55,590 --> 00:03:58,000
+and I'm looking for those to extract that
+我正在尋找那些來提取它
+
+94
+00:03:58,000 --> 00:04:00,056
+metadata, which is also called front matter
+元資料，也稱為 Front Matter
+
+95
+00:04:00,329 --> 00:04:02,643
+because of course I only want to load that
+因為當然我只想載入它
+
+96
+00:04:02,643 --> 00:04:05,406
+metadata. So I'm parsing that metadata here
+元資料。所以我在这里解析元数据
+
+97
+00:04:05,791 --> 00:04:07,976
+and I'm not loading the entire skill but
+我並沒有載入整個技能，但是
+
+98
+00:04:08,024 --> 00:04:10,788
+really just the metadata. And then I put
+實際上只是元資料。然後我把
+
+99
+00:04:10,852 --> 00:04:13,358
+that skill metadata, the description most
+此技能元資料，描述最多
+
+100
+00:04:13,358 --> 00:04:16,218
+importantly, and the information where to
+重要的是，以及去哪裡的訊息
+
+101
+00:04:16,298 --> 00:04:18,579
+find the complete skill. So the path to the
+找到完整的技能。所以通往
+
+102
+00:04:18,579 --> 00:04:21,822
+skill, I'm putting that in the end also into
+技能，我最後也把它放進去
+
+103
+00:04:21,854 --> 00:04:25,028
+my context. So I'm loading that information
+我的背景。所以我正在載入該資訊
+
+104
+00:04:25,044 --> 00:04:25,172
+here
+這裡
+
+105
+00:04:26,182 --> 00:04:28,138
+with an extra instruction that the entire
+帶有一個額外的指令，整個
+
+106
+00:04:28,202 --> 00:04:30,879
+skill.md file for the skill for which I only
+我只使用的技能的 Skill.md 檔案
+
+107
+00:04:30,911 --> 00:04:33,219
+have the description and path should be
+有描述和路徑應該是
+
+108
+00:04:33,235 --> 00:04:33,604
+loaded
+已載入
+
+109
+00:04:34,181 --> 00:04:36,329
+if the agent wants to apply it. And I then
+如果代理人想申請的話。然後我
+
+110
+00:04:36,361 --> 00:04:39,455
+trusted the agent in this general agent here
+信任這裡的總代理的代理
+
+111
+00:04:39,888 --> 00:04:41,090
+that it will use the
+它將使用
+
+112
+00:04:41,795 --> 00:04:43,062
+read file tool
+讀取檔案工具
+
+113
+00:04:43,959 --> 00:04:46,156
+and the information about the skill, like
+以及有關技能的資訊，例如
+
+114
+00:04:46,204 --> 00:04:48,336
+the path, which I stored in the general
+路徑，我儲存在general中
+
+115
+00:04:48,384 --> 00:04:50,692
+instructions that are always sent to the
+始終發送至的指令
+
+116
+00:04:50,692 --> 00:04:53,401
+agent to load the full skill in the file
+代理載入檔案中的完整技能
+
+117
+00:04:53,433 --> 00:04:56,479
+when needed. So I don't have my own complex
+當需要時。所以我沒有自己的情結
+
+118
+00:04:56,864 --> 00:04:59,941
+incremental discovery algorithm in here.
+增量發現演算法在這裡。
+
+119
+00:05:00,310 --> 00:05:02,618
+Instead, the great thing about these modern
+相反，這些現代的偉大之處在於
+
+120
+00:05:03,051 --> 00:05:05,664
+large language models and the agents you can
+大型語言模型和代理
+
+121
+00:05:05,696 --> 00:05:08,486
+build with them is that you can really just
+與他們一起建立你真的可以
+
+122
+00:05:08,726 --> 00:05:11,275
+nudge them into the right direction, give
+推動他們走向正確的方向，給予
+
+123
+00:05:11,291 --> 00:05:13,279
+them instructions what they should do, and
+他們指示他們應該做什麼，以及
+
+124
+00:05:13,391 --> 00:05:15,699
+give them the right tools like the read file
+為他們提供正確的工具，例如讀取檔案
+
+125
+00:05:15,699 --> 00:05:18,184
+tool, of course, and they can figure it out
+當然，他們可以找到工具
+
+126
+00:05:18,184 --> 00:05:19,643
+on their own. And you don't need to build
+靠他們自己。而且你不需要建構
+
+127
+00:05:19,643 --> 00:05:21,278
+your own complex logic for
+你自己的複雜邏輯
+
+128
+00:05:22,031 --> 00:05:25,141
+giving the agent a specific load skill tool
+為代理提供特定的負載技能工具
+
+129
+00:05:25,317 --> 00:05:27,353
+or anything like that. You could do that.
+或類似的東西。你可以這麼做。
+
+130
+00:05:27,577 --> 00:05:30,303
+You could definitely add a load skill tool
+你絕對可以加入一個載入技能工具
+
+131
+00:05:30,303 --> 00:05:33,044
+if you felt like you needed to do that, but
+如果你覺得你需要這樣做，但是
+
+132
+00:05:33,044 --> 00:05:35,785
+it should work quite well with read file.
+它應該可以很好地處理讀取檔案。
+
+133
+00:05:36,570 --> 00:05:38,109
+So that's my idea here.
+這就是我的想法。
+
+134
+00:05:38,702 --> 00:05:41,588
+In agent tools, we can see the tools I'm
+在代理工具中，我們可以看到我正在使用的工具
+
+135
+00:05:41,668 --> 00:05:42,502
+giving the agent.
+給予代理。
+
+136
+00:05:43,031 --> 00:05:45,259
+And as you see, that is really simple. Read
+正如您所看到的，這非常簡單。讀
+
+137
+00:05:45,355 --> 00:05:47,583
+file will really just take a path and then
+檔案實際上只會採取一條路徑，然後
+
+138
+00:05:48,080 --> 00:05:50,132
+open the file and read the text in there.
+打開檔案並閱讀其中的文字。
+
+139
+00:05:50,805 --> 00:05:52,857
+And write file really just stores a file.
+而寫檔案其實只是儲存一個檔案。
+
+140
+00:05:53,226 --> 00:05:56,319
+It's all kept deliberately very, very
+這一切都是非常非常刻意儲存的
+
+141
+00:05:56,448 --> 00:06:00,339
+simple. Store memory will store a memory
+簡單的。儲存記憶將儲存記憶
+
+142
+00:06:00,934 --> 00:06:03,201
+information or a piece of information in a
+訊息或訊息中的一條
+
+143
+00:06:03,201 --> 00:06:06,079
+markdown file in a memory folder in the
+記憶體資料夾中的 markdown 檔案
+
+144
+00:06:06,159 --> 00:06:08,635
+project folder. That's the idea here. So
+專案資料夾。這就是這裡的想法。所以
+
+145
+00:06:08,635 --> 00:06:10,565
+that's the current working directory. And
+這是目前的工作目錄。和
+
+146
+00:06:10,645 --> 00:06:12,446
+then in a memory subfolder, we store a
+然後在記憶體子資料夾中，我們存儲
+
+147
+00:06:12,446 --> 00:06:13,185
+markdown file
+降價檔案
+
+148
+00:06:13,716 --> 00:06:15,050
+and that is how we store memory.
+這就是我們儲存記憶的方式。
+
+149
+00:06:15,790 --> 00:06:17,848
+And yeah, that is it. That is the entire
+是的，就是這樣。這就是整個
+
+150
+00:06:17,880 --> 00:06:18,137
+agent.
+代理人。

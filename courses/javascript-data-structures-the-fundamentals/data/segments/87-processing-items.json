@@ -1,0 +1,1307 @@
+[
+ {
+  "start": 2.377,
+  "end": 4.964,
+  "en": "So we have our heap, in this case here,"
+ },
+ {
+  "start": 5.494,
+  "end": 8.402,
+  "en": "a max-heap to be precise. As I mentioned,"
+ },
+ {
+  "start": 8.772,
+  "end": 10.957,
+  "en": "for a min-heap, we would have to change this"
+ },
+ {
+  "start": 10.957,
+  "end": 11.937,
+  "en": "comparison logic."
+ },
+ {
+  "start": 12.724,
+  "end": 15.343,
+  "en": "We have our max-heap and as I mentioned,"
+ },
+ {
+  "start": 15.439,
+  "end": 17.785,
+  "en": "whilst we don't have a guarantee that we"
+ },
+ {
+  "start": 17.785,
+  "end": 20.95,
+  "en": "have the biggest values at the top, we do"
+ },
+ {
+  "start": 21.078,
+  "end": 23.601,
+  "en": "have a guarantee that the very biggest value"
+ },
+ {
+  "start": 23.89,
+  "end": 27.04,
+  "en": "of the entire heap is the root node. That's"
+ },
+ {
+  "start": 27.088,
+  "end": 28.52,
+  "en": "a guarantee we have."
+ },
+ {
+  "start": 29.904,
+  "end": 31.932,
+  "en": "And therefore, of course, this could be a"
+ },
+ {
+  "start": 31.932,
+  "end": 34.829,
+  "en": "great candidate for a priority queue."
+ },
+ {
+  "start": 36.43,
+  "end": 38.311,
+  "en": "Before we turn it into that though,"
+ },
+ {
+  "start": 38.894,
+  "end": 41.456,
+  "en": "let's actually add a method which we can"
+ },
+ {
+  "start": 41.489,
+  "end": 42.624,
+  "en": "call process,"
+ },
+ {
+  "start": 43.256,
+  "end": 46.078,
+  "en": "which should give us the biggest value and"
+ },
+ {
+  "start": 46.176,
+  "end": 49.242,
+  "en": "also adjust the heap thereafter to remove"
+ },
+ {
+  "start": 49.274,
+  "end": 52.048,
+  "en": "that value and move the next biggest value"
+ },
+ {
+  "start": 52.194,
+  "end": 52.665,
+  "en": "to the top."
+ },
+ {
+  "start": 54.336,
+  "end": 56.246,
+  "en": "First of all, we of course wanna check if"
+ },
+ {
+  "start": 56.246,
+  "end": 58.846,
+  "en": "our heap is empty. So we can check the heap"
+ },
+ {
+  "start": 59.054,
+  "end": 60.402,
+  "en": "elements length,"
+ },
+ {
+  "start": 61.141,
+  "end": 64.11,
+  "en": "and if that is 0, we know that the heap is"
+ },
+ {
+  "start": 64.11,
+  "end": 67.175,
+  "en": "empty and we could throw an error in this"
+ },
+ {
+  "start": 67.175,
+  "end": 70.834,
+  "en": "case or return null or whatever you want."
+ },
+ {
+  "start": 71.685,
+  "end": 74.076,
+  "en": "Now if we do have a length greater than 0,"
+ },
+ {
+  "start": 74.718,
+  "end": 79.115,
+  "en": "we might have a length of exactly 1 element."
+ },
+ {
+  "start": 80.558,
+  "end": 82.754,
+  "en": "In that case, of course, it's also very"
+ },
+ {
+  "start": 82.754,
+  "end": 86.024,
+  "en": "simple. Then we just return this heap"
+ },
+ {
+  "start": 86.088,
+  "end": 87.226,
+  "en": "elements pop."
+ },
+ {
+  "start": 88.188,
+  "end": 90.4,
+  "en": "Since we have exactly one element, we can"
+ },
+ {
+  "start": 90.513,
+  "end": 93.045,
+  "en": "pop that element off, which will remove it"
+ },
+ {
+  "start": 93.061,
+  "end": 95.322,
+  "en": "from the array so that the array is empty"
+ },
+ {
+  "start": 95.322,
+  "end": 95.819,
+  "en": "thereafter."
+ },
+ {
+  "start": 96.348,
+  "end": 99.057,
+  "en": "And pop also returns the element we removed,"
+ },
+ {
+  "start": 99.345,
+  "end": 101.862,
+  "en": "so we overall are able to return that"
+ },
+ {
+  "start": 101.894,
+  "end": 102.247,
+  "en": "element."
+ },
+ {
+  "start": 103.16,
+  "end": 105.677,
+  "en": "But of course, in most cases, we'll probably"
+ },
+ {
+  "start": 105.677,
+  "end": 109.316,
+  "en": "not just have no or one element. Instead,"
+ },
+ {
+  "start": 109.428,
+  "end": 111.641,
+  "en": "most likely we have more elements."
+ },
+ {
+  "start": 113.022,
+  "end": 113.808,
+  "en": "In this case,"
+ },
+ {
+  "start": 114.467,
+  "end": 117.854,
+  "en": "we wanna get our top element, so the topmost"
+ },
+ {
+  "start": 117.918,
+  "end": 120.632,
+  "en": "element, which in a max heap is the biggest"
+ },
+ {
+  "start": 120.728,
+  "end": 123.586,
+  "en": "one and in a min heap is the smallest one."
+ },
+ {
+  "start": 124.597,
+  "end": 126.411,
+  "en": "And we can get this by reaching out to our"
+ },
+ {
+  "start": 126.427,
+  "end": 129.414,
+  "en": "heap elements and get the element at index"
+ },
+ {
+  "start": 129.43,
+  "end": 132.303,
+  "en": "0, which of course is our top element."
+ },
+ {
+  "start": 133.251,
+  "end": 135.675,
+  "en": "Now we wanna return that top element, but"
+ },
+ {
+  "start": 135.675,
+  "end": 137.377,
+  "en": "that's not all we need to do."
+ },
+ {
+  "start": 140.006,
+  "end": 142.378,
+  "en": "Before we return this, we also have to"
+ },
+ {
+  "start": 142.554,
+  "end": 146.337,
+  "en": "reorder our heap and ensure that the next"
+ },
+ {
+  "start": 146.337,
+  "end": 149.959,
+  "en": "biggest value reaches the top, or in case of"
+ },
+ {
+  "start": 149.959,
+  "end": 153.037,
+  "en": "a min heap, that the next smallest value"
+ },
+ {
+  "start": 153.454,
+  "end": 154.191,
+  "en": "reaches the top."
+ },
+ {
+  "start": 155.233,
+  "end": 157.028,
+  "en": "And how can we achieve this now?"
+ },
+ {
+  "start": 158.262,
+  "end": 160.955,
+  "en": "Well, now we can walk through the heap the"
+ },
+ {
+  "start": 161.083,
+  "end": 161.901,
+  "en": "other way around."
+ },
+ {
+  "start": 162.526,
+  "end": 165.379,
+  "en": "For inserting, we inserted the element at"
+ },
+ {
+  "start": 165.411,
+  "end": 167.813,
+  "en": "the and then moved it up"
+ },
+ {
+  "start": 168.378,
+  "end": 169.04,
+  "en": "through the heap."
+ },
+ {
+  "start": 169.911,
+  "end": 172.896,
+  "en": "Now we can start at the top of the heap and"
+ },
+ {
+  "start": 172.928,
+  "end": 174.8,
+  "en": "search for the next biggest one."
+ },
+ {
+  "start": 175.596,
+  "end": 177.315,
+  "en": "And for that, we can use a simple trick"
+ },
+ {
+  "start": 177.524,
+  "end": 177.877,
+  "en": "actually."
+ },
+ {
+  "start": 178.423,
+  "end": 181.797,
+  "en": "We can set our top heap element,"
+ },
+ {
+  "start": 183.243,
+  "end": 185.622,
+  "en": "we saved the old one, so now we can set a"
+ },
+ {
+  "start": 185.622,
+  "end": 186.009,
+  "en": "new one."
+ },
+ {
+  "start": 186.541,
+  "end": 189.153,
+  "en": "We can set it equal to this heap element's"
+ },
+ {
+  "start": 190.008,
+  "end": 192.587,
+  "en": "pop. So we'll simply take the last element"
+ },
+ {
+  "start": 192.587,
+  "end": 195.45,
+  "en": "in the heap, pop that off but not remove it"
+ },
+ {
+  "start": 195.45,
+  "end": 197.887,
+  "en": "and also not return it because that's not"
+ },
+ {
+  "start": 197.887,
+  "end": 200.017,
+  "en": "the element we're looking for. But instead,"
+ },
+ {
+  "start": 200.05,
+  "end": 203.558,
+  "en": "we set this last element as a new top"
+ },
+ {
+  "start": 203.607,
+  "end": 203.888,
+  "en": "element."
+ },
+ {
+  "start": 205.736,
+  "end": 208.65,
+  "en": "Now of course, this last element is not"
+ },
+ {
+  "start": 208.65,
+  "end": 211.596,
+  "en": "necessarily the correct next element in"
+ },
+ {
+  "start": 211.612,
+  "end": 214.365,
+  "en": "line. It might be too small or too big. We"
+ },
+ {
+  "start": 214.365,
+  "end": 217.581,
+  "en": "don't know yet. We just need any new element"
+ },
+ {
+  "start": 217.924,
+  "end": 219.685,
+  "en": "which is not the element we want to return"
+ },
+ {
+  "start": 219.91,
+  "end": 221.612,
+  "en": "because that element should be removed"
+ },
+ {
+  "start": 222.173,
+  "end": 224.502,
+  "en": "at the top. And now we can let this element"
+ },
+ {
+  "start": 224.502,
+  "end": 227.938,
+  "en": "sink down through our heap and swap it with"
+ },
+ {
+  "start": 228.034,
+  "end": 230.427,
+  "en": "other elements that should be above it in"
+ },
+ {
+  "start": 230.459,
+  "end": 231.021,
+  "en": "the heap"
+ },
+ {
+  "start": 231.567,
+  "end": 234.2,
+  "en": "and then check those elements to basically"
+ },
+ {
+  "start": 234.232,
+  "end": 236.978,
+  "en": "establish a new correct heap where the"
+ },
+ {
+  "start": 237.106,
+  "end": 240.992,
+  "en": "topmost element is the biggest or smallest"
+ },
+ {
+  "start": 241.04,
+  "end": 243.063,
+  "en": "element depending on which kind of heap"
+ },
+ {
+  "start": 243.127,
+  "end": 243.673,
+  "en": "you're building."
+ },
+ {
+  "start": 245.632,
+  "end": 249.615,
+  "en": "For that, our current element index here is"
+ },
+ {
+  "start": 249.984,
+  "end": 253.726,
+  "en": "0 initially, so the topmost element index."
+ },
+ {
+  "start": 254.449,
+  "end": 256.216,
+  "en": "And that should actually be a variable"
+ },
+ {
+  "start": 256.392,
+  "end": 257.484,
+  "en": "because we're going to change it."
+ },
+ {
+  "start": 258.4,
+  "end": 260.552,
+  "en": "And now we know that we have a binary heap,"
+ },
+ {
+  "start": 260.568,
+  "end": 263.603,
+  "en": "so we'll have 2 child elements here, a left"
+ },
+ {
+  "start": 263.603,
+  "end": 264.294,
+  "en": "and a right one."
+ },
+ {
+  "start": 264.984,
+  "end": 268.148,
+  "en": "And therefore we'll have a left child index"
+ },
+ {
+  "start": 268.582,
+  "end": 271.2,
+  "en": "which is equal to the current element index"
+ },
+ {
+  "start": 271.328,
+  "end": 271.938,
+  "en": "plus 1."
+ },
+ {
+  "start": 274.354,
+  "end": 277.569,
+  "en": "And we have a right child index, which is"
+ },
+ {
+  "start": 277.617,
+  "end": 279.75,
+  "en": "the current element index plus 2."
+ },
+ {
+  "start": 281.398,
+  "end": 283.579,
+  "en": "And actually, it's not just this formula,"
+ },
+ {
+  "start": 283.902,
+  "end": 286.454,
+  "en": "but if we're looking at any other element"
+ },
+ {
+  "start": 286.47,
+  "end": 289.166,
+  "en": "further down in our heap, which is not the"
+ },
+ {
+  "start": 289.538,
+  "end": 290.329,
+  "en": "root element,"
+ },
+ {
+  "start": 290.91,
+  "end": 294.349,
+  "en": "it'll be 2 times current element index plus"
+ },
+ {
+  "start": 294.542,
+  "end": 298.094,
+  "en": "1 and 2 times current element index plus 2."
+ },
+ {
+  "start": 298.522,
+  "end": 299.647,
+  "en": "And you can easily check this."
+ },
+ {
+  "start": 300.434,
+  "end": 304.612,
+  "en": "The child elements here for 250 are 40 and"
+ },
+ {
+  "start": 304.773,
+  "end": 307.649,
+  "en": "197. That's the left child,"
+ },
+ {
+  "start": 308.308,
+  "end": 309.4,
+  "en": "and it has an index of 1,"
+ },
+ {
+  "start": 310.589,
+  "end": 312.775,
+  "en": "so 2 times 0 plus 1."
+ },
+ {
+  "start": 313.867,
+  "end": 316.679,
+  "en": "That's the right child, which has 2 times 0"
+ },
+ {
+  "start": 316.744,
+  "end": 317.418,
+  "en": "plus 2."
+ },
+ {
+  "start": 318.19,
+  "end": 321.435,
+  "en": "The left child of 40 is 12,"
+ },
+ {
+  "start": 321.966,
+  "end": 325.691,
+  "en": "which has 2 times 1 plus 1 as an index, so"
+ },
+ {
+  "start": 326.06,
+  "end": 326.253,
+  "en": "3,"
+ },
+ {
+  "start": 327.103,
+  "end": 330.601,
+  "en": "and the right child, 15, has an index of 4,"
+ },
+ {
+  "start": 331.131,
+  "end": 333.2,
+  "en": "which is 2 times 1 plus 2."
+ },
+ {
+  "start": 334.404,
+  "end": 339.217,
+  "en": "85 is the left child of 197, which is 2"
+ },
+ {
+  "start": 339.217,
+  "end": 340.565,
+  "en": "times 2 plus 1,"
+ },
+ {
+  "start": 341.464,
+  "end": 344.624,
+  "en": "and 101 is the right child, which is 2 times"
+ },
+ {
+  "start": 344.689,
+  "end": 346.63,
+  "en": "2 plus 2, 6."
+ },
+ {
+  "start": 347.256,
+  "end": 349.711,
+  "en": "So therefore, these formulas will always"
+ },
+ {
+  "start": 349.807,
+  "end": 352.679,
+  "en": "find us the correct left and right child"
+ },
+ {
+  "start": 352.936,
+  "end": 353.321,
+  "en": "indexes."
+ },
+ {
+  "start": 354.06,
+  "end": 356.067,
+  "en": "And we need those because we'll need to"
+ },
+ {
+  "start": 356.067,
+  "end": 359.294,
+  "en": "check all those childs to find elements that"
+ },
+ {
+  "start": 359.294,
+  "end": 361.092,
+  "en": "should move towards the top."
+ },
+ {
+  "start": 362.103,
+  "end": 363.934,
+  "en": "For that, we'll then therefore also need the"
+ },
+ {
+  "start": 363.934,
+  "end": 367.883,
+  "en": "child element index just as we had the"
+ },
+ {
+  "start": 368.044,
+  "end": 370.822,
+  "en": "parent element index for inserting."
+ },
+ {
+  "start": 371.817,
+  "end": 374.53,
+  "en": "And now the child element index should be"
+ },
+ {
+  "start": 374.627,
+  "end": 377.436,
+  "en": "equal to either the left or the right child"
+ },
+ {
+  "start": 377.436,
+  "end": 377.838,
+  "en": "index."
+ },
+ {
+  "start": 378.4,
+  "end": 380.712,
+  "en": "But of course, that depends on which of the"
+ },
+ {
+  "start": 380.712,
+  "end": 383.586,
+  "en": "2 is bigger or smaller depending on which"
+ },
+ {
+  "start": 383.682,
+  "end": 385.721,
+  "en": "kind of heap you're building. So we need to"
+ },
+ {
+  "start": 385.85,
+  "end": 386.861,
+  "en": "make a comparison here."
+ },
+ {
+  "start": 387.857,
+  "end": 389.928,
+  "en": "For that, let's check if we have an element"
+ },
+ {
+  "start": 390.024,
+  "end": 393.027,
+  "en": "for the right child index. So for heap"
+ },
+ {
+  "start": 393.172,
+  "end": 395.436,
+  "en": "elements, if we do find the element for"
+ },
+ {
+  "start": 395.58,
+  "end": 396.945,
+  "en": "right child index,"
+ },
+ {
+  "start": 398.294,
+  "end": 400.766,
+  "en": "and if that returns something truthy, we'll"
+ },
+ {
+  "start": 400.798,
+  "end": 401.232,
+  "en": "continue."
+ },
+ {
+  "start": 402.067,
+  "end": 404.283,
+  "en": "And we'll then check if that element we"
+ },
+ {
+  "start": 404.395,
+  "end": 407.993,
+  "en": "identified for the right child index if that"
+ },
+ {
+  "start": 408.09,
+  "end": 410.473,
+  "en": "is actually greater or equal"
+ },
+ {
+  "start": 411.406,
+  "end": 412.453,
+  "en": "than the left"
+ },
+ {
+  "start": 415.506,
+  "end": 416.688,
+  "en": "child index."
+ },
+ {
+  "start": 418.26,
+  "end": 419.329,
+  "en": "And if that's the case,"
+ },
+ {
+  "start": 419.961,
+  "end": 420.09,
+  "en": "then"
+ },
+ {
+  "start": 421.014,
+  "end": 423.346,
+  "en": "we want to use the right child index because"
+ },
+ {
+  "start": 423.444,
+  "end": 425.383,
+  "en": "that's the bigger one. Otherwise, we'll use"
+ },
+ {
+  "start": 425.383,
+  "end": 426.677,
+  "en": "the left child index."
+ },
+ {
+  "start": 427.421,
+  "end": 430.429,
+  "en": "So we either use the right or the left child"
+ },
+ {
+  "start": 430.494,
+  "end": 432.952,
+  "en": "index as the child element index we now"
+ },
+ {
+  "start": 433.05,
+  "end": 436.736,
+  "en": "wanna compare our random new top value with."
+ },
+ {
+  "start": 437.285,
+  "end": 439.092,
+  "en": "And of course, we wanna compare that to the"
+ },
+ {
+  "start": 439.221,
+  "end": 441.448,
+  "en": "bigger of the 2 values since we're building"
+ },
+ {
+  "start": 441.642,
+  "end": 444.256,
+  "en": "a max heap and we need to find out if the"
+ },
+ {
+  "start": 444.369,
+  "end": 447.432,
+  "en": "child element has a bigger value than this"
+ },
+ {
+  "start": 447.513,
+  "end": 450.024,
+  "en": "random new value we added at the top."
+ },
+ {
+  "start": 451.537,
+  "end": 453.115,
+  "en": "That's the entire logic we have here."
+ },
+ {
+  "start": 453.871,
+  "end": 455.948,
+  "en": "We again need a while loop for that because"
+ },
+ {
+  "start": 455.98,
+  "end": 457.62,
+  "en": "we need to do this over and over again."
+ },
+ {
+  "start": 458.954,
+  "end": 460.609,
+  "en": "And here we wanna keep on looping"
+ },
+ {
+  "start": 461.349,
+  "end": 464.659,
+  "en": "as long as in our heap elements we do find a"
+ },
+ {
+  "start": 464.659,
+  "end": 467.532,
+  "en": "value for the child element index,"
+ },
+ {
+  "start": 468.447,
+  "end": 470.389,
+  "en": "so this index we just derived here,"
+ },
+ {
+  "start": 471.236,
+  "end": 471.784,
+  "en": "and"
+ },
+ {
+  "start": 472.526,
+  "end": 472.993,
+  "en": "as long"
+ },
+ {
+  "start": 474.54,
+  "end": 474.766,
+  "en": "as"
+ },
+ {
+  "start": 475.588,
+  "end": 476.893,
+  "en": "in our heap elements,"
+ },
+ {
+  "start": 477.683,
+  "end": 477.78,
+  "en": "the"
+ },
+ {
+  "start": 478.65,
+  "end": 480.988,
+  "en": "element with the current element index, so"
+ },
+ {
+  "start": 480.988,
+  "end": 483.286,
+  "en": "initially the top one, but we're going to"
+ },
+ {
+  "start": 483.286,
+  "end": 486.163,
+  "en": "change this, as long as that element"
+ },
+ {
+  "start": 487.786,
+  "end": 489.762,
+  "en": "is smaller or equal"
+ },
+ {
+  "start": 491.744,
+  "end": 493.767,
+  "en": "than the child element."
+ },
+ {
+  "start": 498.488,
+  "end": 501.812,
+  "en": "Because as long as this is smaller or equal,"
+ },
+ {
+  "start": 502.325,
+  "end": 505.135,
+  "en": "we're still finding new child elements that"
+ },
+ {
+  "start": 505.135,
+  "end": 506.195,
+  "en": "should move to the top."
+ },
+ {
+  "start": 506.741,
+  "end": 509.631,
+  "en": "And only if we don't find any child elements"
+ },
+ {
+  "start": 509.647,
+  "end": 512.602,
+  "en": "anymore that are bigger, only then we know"
+ },
+ {
+  "start": 512.843,
+  "end": 515.171,
+  "en": "that the biggest one is at the top. That's"
+ },
+ {
+  "start": 515.171,
+  "end": 516.391,
+  "en": "the idea behind this loop."
+ },
+ {
+  "start": 518.259,
+  "end": 519.945,
+  "en": "So therefore, inside of the loop,"
+ },
+ {
+  "start": 521.663,
+  "end": 523.932,
+  "en": "I'm going to create a new constant current"
+ },
+ {
+  "start": 523.997,
+  "end": 526.438,
+  "en": "node, which is this heap elements"
+ },
+ {
+  "start": 527.858,
+  "end": 528.971,
+  "en": "for the current"
+ },
+ {
+  "start": 529.874,
+  "end": 530.778,
+  "en": "element index,"
+ },
+ {
+  "start": 531.423,
+  "end": 533.246,
+  "en": "because we're again going to swap them."
+ },
+ {
+  "start": 536.785,
+  "end": 539.158,
+  "en": "And we got our current child node, which we"
+ },
+ {
+  "start": 539.158,
+  "end": 541.628,
+  "en": "get through this heap elements"
+ },
+ {
+  "start": 542.627,
+  "end": 542.996,
+  "en": "for"
+ },
+ {
+  "start": 544.327,
+  "end": 547.373,
+  "en": "the child element index. And of course, this"
+ },
+ {
+  "start": 547.373,
+  "end": 549.314,
+  "en": "here should also use square brackets"
+ },
+ {
+  "start": 549.939,
+  "end": 551.543,
+  "en": "because we're not calling a method here,"
+ },
+ {
+  "start": 551.623,
+  "end": 553.595,
+  "en": "we're just accessing a value by index."
+ },
+ {
+  "start": 554.269,
+  "end": 556.594,
+  "en": "And now that we saved those nodes here,"
+ },
+ {
+  "start": 557.139,
+  "end": 558.069,
+  "en": "we can swap them"
+ },
+ {
+  "start": 558.598,
+  "end": 560.699,
+  "en": "and we can set this heap elements"
+ },
+ {
+  "start": 561.469,
+  "end": 563.441,
+  "en": "for the child index"
+ },
+ {
+  "start": 564.115,
+  "end": 566.071,
+  "en": "equal to the current node"
+ },
+ {
+  "start": 567.161,
+  "end": 568.909,
+  "en": "and set heap elements"
+ },
+ {
+  "start": 569.487,
+  "end": 571.045,
+  "en": "for the current"
+ },
+ {
+  "start": 572.137,
+  "end": 575.316,
+  "en": "element index equal to the child, the"
+ },
+ {
+  "start": 575.364,
+  "end": 576.616,
+  "en": "current child node."
+ },
+ {
+  "start": 577.917,
+  "end": 579.924,
+  "en": "So we're again swapping that. And since"
+ },
+ {
+  "start": 579.924,
+  "end": 581.433,
+  "en": "we're doing this in a loop, we'll then"
+ },
+ {
+  "start": 581.449,
+  "end": 584.821,
+  "en": "compare the swapped new top value with its"
+ },
+ {
+  "start": 584.821,
+  "end": 585.656,
+  "en": "child values."
+ },
+ {
+  "start": 586.604,
+  "end": 589.06,
+  "en": "And after this loop completed, we'll again"
+ },
+ {
+  "start": 589.092,
+  "end": 591.677,
+  "en": "have a heap where the biggest value is at"
+ },
+ {
+  "start": 591.677,
+  "end": 592.143,
+  "en": "the top."
+ },
+ {
+  "start": 593.01,
+  "end": 595.339,
+  "en": "Let's see whether that works. At the moment,"
+ },
+ {
+  "start": 595.419,
+  "end": 598.601,
+  "en": "250 is at the top. So if we call"
+ },
+ {
+  "start": 599.517,
+  "end": 601.413,
+  "en": "heap_process here,"
+ },
+ {
+  "start": 602.409,
+  "end": 606.418,
+  "en": "we should see that this is removed and 197"
+ },
+ {
+  "start": 606.676,
+  "end": 608.175,
+  "en": "should thereafter be at the top."
+ },
+ {
+  "start": 609.892,
+  "end": 612.545,
+  "en": "If I reload, I get an error that heap is not"
+ },
+ {
+  "start": 612.545,
+  "end": 613.257,
+  "en": "defined."
+ },
+ {
+  "start": 613.921,
+  "end": 617.141,
+  "en": "Yeah, because I named it maxHeap. So let's"
+ },
+ {
+  "start": 617.238,
+  "end": 618.662,
+  "en": "use that down there as well"
+ },
+ {
+  "start": 619.21,
+  "end": 620.271,
+  "en": "and try again."
+ },
+ {
+  "start": 622.024,
+  "end": 622.847,
+  "en": "And this is looking good."
+ },
+ {
+  "start": 624.0,
+  "end": 625.61,
+  "en": "197 is at the top now."
+ },
+ {
+  "start": 626.945,
+  "end": 629.841,
+  "en": "And if we process this 2 times more,"
+ },
+ {
+  "start": 631.76,
+  "end": 634.659,
+  "en": "we see that now we got a heap where 85 is at"
+ },
+ {
+  "start": 634.659,
+  "end": 637.396,
+  "en": "the top. So the biggest value is always at"
+ },
+ {
+  "start": 637.396,
+  "end": 637.819,
+  "en": "the top."
+ },
+ {
+  "start": 638.533,
+  "end": 640.765,
+  "en": "And I know that this logic with that"
+ },
+ {
+  "start": 640.895,
+  "end": 644.162,
+  "en": "swapping and that while loop can be tricky"
+ },
+ {
+  "start": 644.195,
+  "end": 646.783,
+  "en": "to wrap your head around, but I hope that I"
+ },
+ {
+  "start": 646.783,
+  "end": 648.644,
+  "en": "could still explain this in an"
+ },
+ {
+  "start": 648.828,
+  "end": 650.396,
+  "en": "understandable way what we're doing."
+ },
+ {
+  "start": 651.438,
+  "end": 652.465,
+  "en": "For inserting,"
+ },
+ {
+  "start": 653.059,
+  "end": 655.676,
+  "en": "we're inserting data at the end and then"
+ },
+ {
+  "start": 655.709,
+  "end": 658.342,
+  "en": "we're comparing it to its various parent"
+ },
+ {
+  "start": 658.342,
+  "end": 660.863,
+  "en": "nodes to move it up in the tree."
+ },
+ {
+  "start": 661.714,
+  "end": 664.026,
+  "en": "And for removing, for processing,"
+ },
+ {
+  "start": 664.684,
+  "end": 666.37,
+  "en": "we're in the end doing the opposite."
+ },
+ {
+  "start": 667.012,
+  "end": 669.292,
+  "en": "We're removing the topmost element because"
+ },
+ {
+  "start": 669.357,
+  "end": 671.685,
+  "en": "that always is the element we wanna process."
+ },
+ {
+  "start": 672.472,
+  "end": 674.366,
+  "en": "And then we wanna ensure that the new"
+ },
+ {
+  "start": 674.575,
+  "end": 677.417,
+  "en": "biggest element moves to the top. Therefore,"
+ },
+ {
+  "start": 677.546,
+  "end": 680.484,
+  "en": "we take a random element and start comparing"
+ },
+ {
+  "start": 680.58,
+  "end": 682.09,
+  "en": "it to its child nodes."
+ },
+ {
+  "start": 682.684,
+  "end": 684.61,
+  "en": "And if we find a bigger one there, we use"
+ },
+ {
+  "start": 684.61,
+  "end": 685.831,
+  "en": "the bigger one as the new"
+ },
+ {
+  "start": 686.457,
+  "end": 688.817,
+  "en": "top node and we start comparing that."
+ },
+ {
+  "start": 689.492,
+  "end": 692.799,
+  "en": "And we keep on doing that until we find no"
+ },
+ {
+  "start": 692.96,
+  "end": 694.293,
+  "en": "more bigger values,"
+ },
+ {
+  "start": 694.951,
+  "end": 695.641,
+  "en": "or of course"
+ },
+ {
+  "start": 696.235,
+  "end": 697.504,
+  "en": "until we exhausted this."
+ },
+ {
+  "start": 698.178,
+  "end": 700.796,
+  "en": "Then at some point, of course, our array is"
+ },
+ {
+  "start": 700.892,
+  "end": 701.486,
+  "en": "just empty."
+ },
+ {
+  "start": 702.339,
+  "end": 704.808,
+  "en": "That is our max heap here."
+ },
+ {
+  "start": 705.421,
+  "end": 707.922,
+  "en": "And now let's see how we can use this for a"
+ },
+ {
+  "start": 708.068,
+  "end": 708.907,
+  "en": "priority queue."
+ }
+]

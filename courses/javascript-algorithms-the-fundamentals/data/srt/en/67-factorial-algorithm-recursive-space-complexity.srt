@@ -1,0 +1,367 @@
+1
+00:00:02,357 --> 00:00:05,195
+So let's explore this alternative factorial
+
+2
+00:00:05,243 --> 00:00:06,943
+function's space complexity.
+
+3
+00:00:07,472 --> 00:00:09,572
+The difference, of course, is that here I'm
+
+4
+00:00:09,636 --> 00:00:12,587
+using a recursive approach. We're calling
+
+5
+00:00:12,843 --> 00:00:13,469
+ourselves.
+
+6
+00:00:14,062 --> 00:00:16,355
+Now, what's the space complexity
+
+7
+00:00:17,333 --> 00:00:20,765
+here for this algorithm? Is it also constant
+
+8
+00:00:20,941 --> 00:00:23,282
+as for the loop-based solution, or is it
+
+9
+00:00:23,282 --> 00:00:24,020
+maybe different?
+
+10
+00:00:24,885 --> 00:00:27,018
+Now, one word about the time complexities
+
+11
+00:00:27,114 --> 00:00:27,467
+first.
+
+12
+00:00:27,997 --> 00:00:30,967
+There we had the same time complexity no
+
+13
+00:00:30,967 --> 00:00:33,633
+matter if we used the loop-based or the
+
+14
+00:00:33,633 --> 00:00:36,844
+recursive solution. So that did not differ.
+
+15
+00:00:36,924 --> 00:00:38,995
+But maybe there's a difference for space
+
+16
+00:00:38,995 --> 00:00:39,670
+complexities.
+
+17
+00:00:40,762 --> 00:00:42,030
+And indeed there is.
+
+18
+00:00:42,785 --> 00:00:45,354
+For the loop-based solution, we had constant
+
+19
+00:00:45,354 --> 00:00:48,067
+time because no new permanent values were
+
+20
+00:00:48,067 --> 00:00:48,501
+created.
+
+21
+00:00:49,288 --> 00:00:50,829
+For the recursive solution, that's
+
+22
+00:00:50,893 --> 00:00:51,391
+different.
+
+23
+00:00:52,162 --> 00:00:52,836
+There, when we
+
+24
+00:00:53,366 --> 00:00:57,124
+execute this, number is stored in memory as
+
+25
+00:00:57,220 --> 00:00:58,553
+for the loop-based solution.
+
+26
+00:00:59,548 --> 00:01:02,663
+And then here we create a new 1 and a new
+
+27
+00:01:02,920 --> 00:01:05,955
+Boolean. Those are only created temporarily
+
+28
+00:01:06,212 --> 00:01:08,524
+and dropped immediately after they're being
+
+29
+00:01:08,621 --> 00:01:09,648
+used essentially.
+
+30
+00:01:10,323 --> 00:01:12,378
+But then here we call ourselves again.
+
+31
+00:01:13,277 --> 00:01:15,509
+And what's the impact of that?
+
+32
+00:01:16,489 --> 00:01:19,202
+Well, as you know, for recursive functions,
+
+33
+00:01:19,379 --> 00:01:22,123
+when you call yourself again, a new function
+
+34
+00:01:22,123 --> 00:01:25,522
+execution is pushed on top of that execution
+
+35
+00:01:25,554 --> 00:01:25,987
+stack.
+
+36
+00:01:26,852 --> 00:01:28,808
+That means the first function call
+
+37
+00:01:29,738 --> 00:01:32,431
+simply waits for the result of the second
+
+38
+00:01:32,624 --> 00:01:36,134
+function call. So we got kind of 2 ongoing
+
+39
+00:01:36,295 --> 00:01:37,305
+function calls now.
+
+40
+00:01:38,379 --> 00:01:40,607
+Of course, only one function execution runs
+
+41
+00:01:40,623 --> 00:01:42,691
+at the same time, but the other, the first
+
+42
+00:01:42,707 --> 00:01:44,983
+function call is waiting for the result of
+
+43
+00:01:45,032 --> 00:01:46,955
+that currently ongoing function call.
+
+44
+00:01:47,612 --> 00:01:50,466
+Now because of that, that first function
+
+45
+00:01:50,498 --> 00:01:52,710
+call when that whole function started
+
+46
+00:01:53,383 --> 00:01:55,355
+has its number stored in memory.
+
+47
+00:01:55,932 --> 00:01:58,657
+But then when we call this nested function
+
+48
+00:01:58,657 --> 00:02:00,405
+here, so when we call ourselves,
+
+49
+00:02:01,318 --> 00:02:03,851
+we of course create a new function execution
+
+50
+00:02:04,268 --> 00:02:07,169
+and we pass a new argument to that nested
+
+51
+00:02:07,169 --> 00:02:09,686
+function call. So that function call on its
+
+52
+00:02:09,878 --> 00:02:12,619
+own of course occupies some memory, but also
+
+53
+00:02:12,619 --> 00:02:14,880
+the argument we're passing to it, that's a
+
+54
+00:02:14,880 --> 00:02:17,717
+new number in memory that has to be stored.
+
+55
+00:02:17,990 --> 00:02:20,397
+But keep in mind that the parameter we
+
+56
+00:02:20,461 --> 00:02:23,272
+received on the first function call also
+
+57
+00:02:23,272 --> 00:02:26,018
+still is stored in memory. So with every new
+
+58
+00:02:26,018 --> 00:02:28,571
+function call, we create a new number in
+
+59
+00:02:28,571 --> 00:02:31,559
+memory that has to be stored besides the
+
+60
+00:02:31,639 --> 00:02:34,048
+previous numbers, which also still are
+
+61
+00:02:34,048 --> 00:02:36,907
+stored because those previous function calls
+
+62
+00:02:37,244 --> 00:02:38,352
+didn't finish yet.
+
+63
+00:02:39,171 --> 00:02:41,821
+And therefore, for this recursive solution,
+
+64
+00:02:41,901 --> 00:02:45,210
+we actually have a space complexity of O. So
+
+65
+00:02:45,210 --> 00:02:48,229
+we have linear space complexity because with
+
+66
+00:02:48,310 --> 00:02:51,515
+bigger n's, we create more values in memory.
+
+67
+00:02:51,867 --> 00:02:54,159
+And there is a linear relation between that
+
+68
+00:02:54,351 --> 00:02:57,781
+because we call ourselves n times. And
+
+69
+00:02:57,861 --> 00:03:00,249
+that's of course pretty interesting because
+
+70
+00:03:00,265 --> 00:03:02,572
+we had the same time complexity for the 2
+
+71
+00:03:02,684 --> 00:03:05,024
+factorial algorithms, as I mentioned a
+
+72
+00:03:05,024 --> 00:03:05,633
+second ago,
+
+73
+00:03:06,210 --> 00:03:08,502
+but we have different space complexities.
+
+74
+00:03:09,111 --> 00:03:11,947
+So if we compare these 2 approaches,
+
+75
+00:03:12,540 --> 00:03:15,104
+we could lean towards the loop-based
+
+76
+00:03:15,104 --> 00:03:17,396
+solution because it has the same time
+
+77
+00:03:17,492 --> 00:03:20,137
+complexity as the recursive approach, but it
+
+78
+00:03:20,137 --> 00:03:22,258
+has a better space complexity.
+
+79
+00:03:22,885 --> 00:03:25,037
+Now, of course, we're not talking about a
+
+80
+00:03:25,037 --> 00:03:27,367
+horrible difference there. The space
+
+81
+00:03:27,367 --> 00:03:30,179
+complexity, as I mentioned earlier, might
+
+82
+00:03:30,179 --> 00:03:32,653
+not really make a huge difference, but it is
+
+83
+00:03:32,685 --> 00:03:33,922
+something worth noting.
+
+84
+00:03:34,597 --> 00:03:37,119
+Of course, maybe the fact that the code here
+
+85
+00:03:37,119 --> 00:03:39,304
+is a bit shorter and could even be written
+
+86
+00:03:39,417 --> 00:03:41,232
+in a yet shorter way,
+
+87
+00:03:41,843 --> 00:03:44,574
+maybe that outweighs that disadvantage, but
+
+88
+00:03:44,574 --> 00:03:46,728
+it is something worth noting. We have
+
+89
+00:03:46,824 --> 00:03:48,466
+different space complexities here.
+
+90
+00:03:49,061 --> 00:03:51,717
+So that recursive factorial algorithm has a
+
+91
+00:03:51,733 --> 00:03:54,083
+linear space complexity because we create a
+
+92
+00:03:54,083 --> 00:03:56,530
+new value for every nested function call.

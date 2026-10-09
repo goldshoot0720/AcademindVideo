@@ -1,0 +1,535 @@
+1
+00:00:02,276 --> 00:00:04,168
+So now that we know these 2 approaches,
+
+2
+00:00:04,521 --> 00:00:08,529
+adjacency matrices and adjacency lists, the
+
+3
+00:00:08,593 --> 00:00:11,013
+obvious question is which one is better?
+
+4
+00:00:11,318 --> 00:00:12,264
+Which one should you use?
+
+5
+00:00:12,937 --> 00:00:14,573
+And for that we're actually going to compare
+
+6
+00:00:14,781 --> 00:00:15,951
+the time complexity
+
+7
+00:00:16,528 --> 00:00:18,949
+for various operations and the space
+
+8
+00:00:18,949 --> 00:00:19,639
+complexity
+
+9
+00:00:20,216 --> 00:00:23,118
+of those 2 approaches. We'll have a look at
+
+10
+00:00:23,118 --> 00:00:24,897
+the insert time complexity,
+
+11
+00:00:25,506 --> 00:00:28,055
+the time complexity for finding a possible
+
+12
+00:00:28,088 --> 00:00:29,498
+connection between 2 nodes,
+
+13
+00:00:30,092 --> 00:00:32,291
+and the time complexity for finding all
+
+14
+00:00:32,580 --> 00:00:34,555
+adjacent nodes of a given node.
+
+15
+00:00:35,615 --> 00:00:37,365
+Now when it comes to inserting with an
+
+16
+00:00:37,397 --> 00:00:40,561
+adjacency matrix, the time complexity is O,
+
+17
+00:00:41,412 --> 00:00:43,354
+linear time. Now why is that?
+
+18
+00:00:44,141 --> 00:00:45,522
+If we have a matrix like this
+
+19
+00:00:46,148 --> 00:00:47,401
+and we insert a new node,
+
+20
+00:00:48,011 --> 00:00:49,584
+not in the graph on the left but in the
+
+21
+00:00:49,584 --> 00:00:51,559
+matrix, let's say that new node is there,
+
+22
+00:00:52,089 --> 00:00:54,835
+a node with value 4, with an identifier of
+
+23
+00:00:54,835 --> 00:00:55,172
+4,
+
+24
+00:00:55,947 --> 00:00:58,532
+then this is how our matrix grows. So we
+
+25
+00:00:58,532 --> 00:01:00,727
+have to add a lot of new elements to the
+
+26
+00:01:00,727 --> 00:01:01,198
+matrix.
+
+27
+00:01:02,333 --> 00:01:04,569
+So in the end, we have to add a new row
+
+28
+00:01:05,534 --> 00:01:08,012
+and add an entry for connections to every
+
+29
+00:01:08,125 --> 00:01:10,699
+other node in our graph, and we have to
+
+30
+00:01:10,699 --> 00:01:13,635
+revisit all existing entries and represent
+
+31
+00:01:13,667 --> 00:01:15,750
+the connection to our new node there as
+
+32
+00:01:15,928 --> 00:01:16,057
+well.
+
+33
+00:01:18,350 --> 00:01:21,093
+So depending on how you do this, you could
+
+34
+00:01:21,206 --> 00:01:22,933
+even end up with quadratic time,
+
+35
+00:01:23,492 --> 00:01:25,082
+But you can also come up with
+
+36
+00:01:25,114 --> 00:01:27,956
+implementations that give you linear time on
+
+37
+00:01:28,133 --> 00:01:28,438
+average.
+
+38
+00:01:29,755 --> 00:01:31,907
+So no matter what though, no matter if it's
+
+39
+00:01:31,907 --> 00:01:34,654
+linear or even worse quadratic time, you're
+
+40
+00:01:34,654 --> 00:01:37,031
+not going to have a great time complexity
+
+41
+00:01:37,063 --> 00:01:37,175
+there.
+
+42
+00:01:38,348 --> 00:01:42,555
+Now for an adjacency list, this actually can
+
+43
+00:01:42,604 --> 00:01:45,237
+be achieved in a way more efficient way.
+
+44
+00:01:45,655 --> 00:01:48,433
+Depending on how you implement it, you can
+
+45
+00:01:48,466 --> 00:01:51,196
+get constant time inserting values.
+
+46
+00:01:51,742 --> 00:01:54,054
+And well, it should be obvious that this is
+
+47
+00:01:54,166 --> 00:01:57,169
+better than O or even O.
+
+48
+00:01:58,485 --> 00:02:00,813
+Now why that is the case is something we'll
+
+49
+00:02:00,813 --> 00:02:01,873
+explore later.
+
+50
+00:02:02,917 --> 00:02:05,855
+Now for finding edges between nodes in an
+
+51
+00:02:05,952 --> 00:02:07,927
+adjacency matrix, that's O.
+
+52
+00:02:08,858 --> 00:02:11,363
+Because as I showed before, if you have your
+
+53
+00:02:11,427 --> 00:02:14,462
+adjacency matrix, you can get the connection
+
+54
+00:02:14,478 --> 00:02:18,023
+between 2 nodes simply by accessing the
+
+55
+00:02:18,103 --> 00:02:20,815
+appropriate identifiers, the indexes of
+
+56
+00:02:20,847 --> 00:02:23,429
+those nodes, and you get a result. You get
+
+57
+00:02:23,429 --> 00:02:25,265
+an instant result whether a connection
+
+58
+00:02:25,298 --> 00:02:27,194
+between those nodes exists or not.
+
+59
+00:02:28,830 --> 00:02:31,131
+And therefore accessing by index of course
+
+60
+00:02:31,147 --> 00:02:33,772
+is O, so we have a great time complexity
+
+61
+00:02:33,870 --> 00:02:33,999
+here.
+
+62
+00:02:34,990 --> 00:02:39,209
+For adjacency lists, that often is O, though
+
+63
+00:02:39,370 --> 00:02:41,432
+depending on the implementation, we can
+
+64
+00:02:41,609 --> 00:02:43,993
+actually achieve O there as well.
+
+65
+00:02:44,837 --> 00:02:47,454
+And again, that is something you will see
+
+66
+00:02:47,663 --> 00:02:49,991
+later throughout the next lectures when we
+
+67
+00:02:50,055 --> 00:02:52,849
+actually build a whole data structure around
+
+68
+00:02:53,042 --> 00:02:54,102
+an adjacency list.
+
+69
+00:02:55,450 --> 00:02:58,694
+For finding all adjacent nodes, it's O for
+
+70
+00:02:58,742 --> 00:03:01,359
+the adjacency matrix because we basically
+
+71
+00:03:01,712 --> 00:03:04,747
+need to loop through all the entries for a
+
+72
+00:03:04,747 --> 00:03:05,293
+given node.
+
+73
+00:03:06,112 --> 00:03:08,600
+For the adjacency list, again, this can be
+
+74
+00:03:08,600 --> 00:03:09,853
+achieved with O.
+
+75
+00:03:12,068 --> 00:03:14,926
+In case you wonder why it's not O in the
+
+76
+00:03:14,943 --> 00:03:17,817
+adjacency matrix case, keep in mind that
+
+77
+00:03:17,833 --> 00:03:20,305
+with an adjacency matrix you have all those
+
+78
+00:03:20,434 --> 00:03:23,950
+zeros, all those false values, and if you
+
+79
+00:03:24,031 --> 00:03:26,375
+only wanna find the active connections, you
+
+80
+00:03:26,375 --> 00:03:28,623
+need to filter those out, which is why you
+
+81
+00:03:28,623 --> 00:03:30,421
+need to visit all entries
+
+82
+00:03:30,999 --> 00:03:33,697
+in a given row and then just find the true,
+
+83
+00:03:34,210 --> 00:03:35,126
+the 1 entries.
+
+84
+00:03:36,462 --> 00:03:38,308
+So you need to step through all the entries
+
+85
+00:03:38,406 --> 00:03:40,333
+and check whether they're false or true.
+
+86
+00:03:42,860 --> 00:03:45,065
+For an adjacency list, that's not the case.
+
+87
+00:03:45,371 --> 00:03:48,494
+If you retrieve the edges for a given node
+
+88
+00:03:49,009 --> 00:03:51,681
+by identifier, you only get the active
+
+89
+00:03:51,729 --> 00:03:53,389
+connections. You don't need to visit them
+
+90
+00:03:53,502 --> 00:03:56,599
+all to filter out the false values. Instead,
+
+91
+00:03:56,647 --> 00:03:58,486
+you only get the active connections.
+
+92
+00:04:00,293 --> 00:04:02,924
+That's why we have O for adjacency lists
+
+93
+00:04:03,119 --> 00:04:05,457
+down there and O for adjacency matrices.
+
+94
+00:04:07,237 --> 00:04:10,188
+Now we also can think about space complexity
+
+95
+00:04:10,204 --> 00:04:12,481
+here because there we'll also notice a
+
+96
+00:04:12,529 --> 00:04:12,850
+difference.
+
+97
+00:04:13,507 --> 00:04:15,239
+For adjacency matrices,
+
+98
+00:04:15,816 --> 00:04:18,350
+we'll have a space complexity of O.
+
+99
+00:04:19,264 --> 00:04:20,804
+Makes a lot of sense because we have a
+
+100
+00:04:20,804 --> 00:04:22,086
+2-dimensional array
+
+101
+00:04:22,792 --> 00:04:24,989
+where all slots are filled.
+
+102
+00:04:25,534 --> 00:04:28,821
+So if we have 4 nodes, we have 16 array
+
+103
+00:04:28,902 --> 00:04:29,351
+values,
+
+104
+00:04:30,024 --> 00:04:31,756
+and that is of course a lot of space in
+
+105
+00:04:31,788 --> 00:04:33,167
+memory which we occupy.
+
+106
+00:04:33,776 --> 00:04:36,356
+For adjacency lists, it's better. There we
+
+107
+00:04:36,356 --> 00:04:37,301
+have O
+
+108
+00:04:38,102 --> 00:04:38,279
+,
+
+109
+00:04:38,824 --> 00:04:39,849
+and what does this mean?
+
+110
+00:04:40,522 --> 00:04:42,910
+Well, it means the number of nodes plus the
+
+111
+00:04:42,910 --> 00:04:43,775
+number of edges.
+
+112
+00:04:45,233 --> 00:04:47,092
+And again, that is something that is easy to
+
+113
+00:04:47,092 --> 00:04:49,495
+see here. This is our adjacency list,
+
+114
+00:04:50,040 --> 00:04:53,549
+and we see that we have 3 lists, and then in
+
+115
+00:04:53,645 --> 00:04:57,010
+those lists we have 3 items in total. So we
+
+116
+00:04:57,010 --> 00:05:00,199
+have 3 nodes plus 3 edges, we have 6 items.
+
+117
+00:05:00,600 --> 00:05:02,275
+That we store in memory here.
+
+118
+00:05:04,060 --> 00:05:06,571
+For the adjacency matrix, we have 3 nodes,
+
+119
+00:05:06,750 --> 00:05:09,035
+but since we need to store it as a matrix,
+
+120
+00:05:09,099 --> 00:05:11,871
+we have 9 items in memory that need to be
+
+121
+00:05:11,871 --> 00:05:12,243
+stored.
+
+122
+00:05:13,680 --> 00:05:16,610
+9 values that we need to store to represent
+
+123
+00:05:16,610 --> 00:05:17,995
+the connections appropriately.
+
+124
+00:05:19,026 --> 00:05:21,200
+And because of that, it should be easy to
+
+125
+00:05:21,200 --> 00:05:23,840
+see that the adjacency list often is a
+
+126
+00:05:23,856 --> 00:05:26,124
+better choice, and therefore we'll use this
+
+127
+00:05:26,269 --> 00:05:26,993
+in this course.
+
+128
+00:05:27,620 --> 00:05:29,711
+And in the next lectures, we'll now build a
+
+129
+00:05:29,711 --> 00:05:30,515
+complete graph data structure
+
+130
+00:05:32,100 --> 00:05:32,743
+from scratch
+
+131
+00:05:33,402 --> 00:05:35,749
+where we'll have methods for adding nodes
+
+132
+00:05:35,749 --> 00:05:36,649
+and for adding edges,
+
+133
+00:05:37,501 --> 00:05:39,704
+and that data structure will then use an
+
+134
+00:05:39,704 --> 00:05:41,505
+adjacency list under the hood.

@@ -1,0 +1,263 @@
+1
+00:00:02,296 --> 00:00:04,705
+So now we explored the built-in data
+
+2
+00:00:04,705 --> 00:00:07,242
+structures you have in JavaScript. This
+
+3
+00:00:07,242 --> 00:00:10,277
+course, however, of course is not focused on
+
+4
+00:00:10,309 --> 00:00:12,766
+those built-in data structures. You already
+
+5
+00:00:12,798 --> 00:00:14,774
+know these and you'll learn about them in
+
+6
+00:00:15,031 --> 00:00:16,974
+every JavaScript course like in my
+
+7
+00:00:17,198 --> 00:00:19,110
+JavaScript: The Complete Guide course.
+
+8
+00:00:19,704 --> 00:00:22,113
+Instead, this course is about custom data
+
+9
+00:00:22,129 --> 00:00:25,212
+structures and that's why now we're going to
+
+10
+00:00:25,228 --> 00:00:28,070
+dive into the linked list. Custom data
+
+11
+00:00:28,070 --> 00:00:30,946
+structure, our first very custom data
+
+12
+00:00:30,946 --> 00:00:32,809
+structure which we're going to build from
+
+13
+00:00:32,873 --> 00:00:33,323
+scratch.
+
+14
+00:00:34,062 --> 00:00:35,844
+First of all, before we build it, however,
+
+15
+00:00:35,925 --> 00:00:38,222
+let's understand what it is and how it
+
+16
+00:00:38,318 --> 00:00:40,936
+works, and we'll then later also explore why
+
+17
+00:00:41,048 --> 00:00:43,795
+we might need or want this custom data
+
+18
+00:00:43,795 --> 00:00:46,124
+structure and what sets it apart from the
+
+19
+00:00:46,124 --> 00:00:46,815
+built-in ones.
+
+20
+00:00:47,794 --> 00:00:49,802
+A linked list, in the end, as the name
+
+21
+00:00:49,834 --> 00:00:52,709
+implies, is a list data structure, so a bit
+
+22
+00:00:52,709 --> 00:00:53,271
+like an array.
+
+23
+00:00:53,898 --> 00:00:56,693
+We can store values in there values of any
+
+24
+00:00:56,709 --> 00:00:58,829
+kind, for example, numbers, strings,
+
+25
+00:00:59,359 --> 00:01:00,515
+objects, whatever you want.
+
+26
+00:01:01,125 --> 00:01:04,000
+And in a linked list, the interesting thing
+
+27
+00:01:04,112 --> 00:01:07,790
+is that you don't work with indexes as in an
+
+28
+00:01:07,790 --> 00:01:08,079
+array,
+
+29
+00:01:08,754 --> 00:01:11,308
+and you also don't just have unique values
+
+30
+00:01:11,404 --> 00:01:12,255
+like in a set,
+
+31
+00:01:12,785 --> 00:01:16,222
+but instead every element in the linked list
+
+32
+00:01:16,543 --> 00:01:19,948
+does not just know its value, but it also
+
+33
+00:01:19,996 --> 00:01:23,835
+has a pointer at the next element in line,
+
+34
+00:01:24,670 --> 00:01:25,683
+and that continues.
+
+35
+00:01:26,357 --> 00:01:29,137
+So a linked list— and that's where the name
+
+36
+00:01:29,169 --> 00:01:32,848
+comes from— is a list full of elements that
+
+37
+00:01:32,848 --> 00:01:35,547
+are linked to each other. So every element
+
+38
+00:01:35,659 --> 00:01:37,748
+knows about the next element in line and
+
+39
+00:01:38,069 --> 00:01:39,660
+only about that element.
+
+40
+00:01:40,238 --> 00:01:42,728
+An element does not know about the element
+
+41
+00:01:42,744 --> 00:01:45,154
+in front of it. So for example, here, hi
+
+42
+00:01:45,556 --> 00:01:48,801
+knows nothing about 5. Hi only knows about
+
+43
+00:01:48,994 --> 00:01:49,106
+8.
+
+44
+00:01:49,957 --> 00:01:51,690
+And that is how the entire list is then
+
+45
+00:01:51,738 --> 00:01:53,759
+structured. So every element knows about the
+
+46
+00:01:53,759 --> 00:01:54,562
+next element.
+
+47
+00:01:55,107 --> 00:01:58,155
+Now, why might we want or need such a linked
+
+48
+00:01:58,155 --> 00:01:58,412
+list?
+
+49
+00:01:59,038 --> 00:02:01,749
+Linked lists historically were invented
+
+50
+00:02:01,765 --> 00:02:02,519
+because they
+
+51
+00:02:03,113 --> 00:02:04,926
+were really flexible when it came to
+
+52
+00:02:05,359 --> 00:02:07,894
+resizing the list and for memory management.
+
+53
+00:02:08,407 --> 00:02:11,006
+And even today, they bring one important
+
+54
+00:02:11,006 --> 00:02:14,359
+advantage, and that is that the insertion at
+
+55
+00:02:14,359 --> 00:02:16,814
+the start and also typically at the end of
+
+56
+00:02:16,846 --> 00:02:20,119
+the list is very efficient more efficient so
+
+57
+00:02:20,199 --> 00:02:22,172
+than in an array. But again, I will come
+
+58
+00:02:22,285 --> 00:02:24,146
+back to that comparison later.
+
+59
+00:02:25,269 --> 00:02:28,365
+So that is a linked list and how it should
+
+60
+00:02:28,542 --> 00:02:31,510
+work. How could we now implement such a
+
+61
+00:02:31,510 --> 00:02:33,612
+linked list? How could the code for such a
+
+62
+00:02:33,612 --> 00:02:36,323
+linked list look like? Thereafter, once we
+
+63
+00:02:36,323 --> 00:02:38,537
+have that code, we'll compare it to the
+
+64
+00:02:38,585 --> 00:02:40,639
+array and again come back to the question
+
+65
+00:02:41,072 --> 00:02:43,880
+why and when you might want to use a linked
+
+66
+00:02:43,880 --> 00:02:44,217
+list.

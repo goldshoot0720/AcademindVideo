@@ -1,0 +1,795 @@
+1
+00:00:00,288 --> 00:00:02,805
+So we have different kinds of instructions,
+
+2
+00:00:03,254 --> 00:00:05,499
+system instructions built into the agent,
+
+3
+00:00:05,547 --> 00:00:08,016
+and then maybe our custom instructions in an
+
+4
+00:00:08,594 --> 00:00:09,524
+agent.md file.
+
+5
+00:00:10,197 --> 00:00:13,548
+What about skills and memory then? Agent
+
+6
+00:00:13,644 --> 00:00:14,270
+skills
+
+7
+00:00:14,927 --> 00:00:18,006
+is a standardized way to give AI agents new
+
+8
+00:00:18,150 --> 00:00:20,154
+capabilities and expertise. That's not
+
+9
+00:00:20,154 --> 00:00:21,549
+something I made up or
+
+10
+00:00:22,078 --> 00:00:24,211
+the Anthropic team invented for Claude
+
+11
+00:00:24,323 --> 00:00:27,065
+Cowork or Claude Code. Instead, it's a
+
+12
+00:00:27,065 --> 00:00:29,905
+standard. Which is implemented by many
+
+13
+00:00:30,322 --> 00:00:32,747
+agents, many agentic pieces of software,
+
+14
+00:00:33,212 --> 00:00:35,829
+like that AgentsMD approach, but
+
+15
+00:00:36,423 --> 00:00:39,297
+unlike AgentsMD for not loading instructions
+
+16
+00:00:39,410 --> 00:00:42,733
+in general into every context window, into
+
+17
+00:00:42,862 --> 00:00:43,632
+every new session,
+
+18
+00:00:44,226 --> 00:00:47,421
+but instead on demand when a certain task
+
+19
+00:00:47,502 --> 00:00:50,263
+would benefit from that skill. Now that may
+
+20
+00:00:50,263 --> 00:00:52,559
+still sound quite abstract, so let's zoom in
+
+21
+00:00:52,559 --> 00:00:55,851
+a bit. An agent skill. As standardized and
+
+22
+00:00:56,172 --> 00:00:58,371
+as supported by many agents out there,
+
+23
+00:00:58,917 --> 00:01:00,908
+is in the end just a folder so that it can
+
+24
+00:01:00,989 --> 00:01:03,461
+also be easily shared between projects. You
+
+25
+00:01:03,477 --> 00:01:05,645
+can just put it into a project you plan to
+
+26
+00:01:05,645 --> 00:01:06,721
+work on with an agent.
+
+27
+00:01:07,668 --> 00:01:11,377
+And then in that skill folder, you have a
+
+28
+00:01:11,377 --> 00:01:14,797
+skill.md file and it must be named skill.md,
+
+29
+00:01:15,118 --> 00:01:18,073
+which also like agents.md includes some
+
+30
+00:01:18,105 --> 00:01:20,529
+special instructions or extra pieces of
+
+31
+00:01:20,593 --> 00:01:22,649
+knowledge you want the agent to have.
+
+32
+00:01:23,643 --> 00:01:24,717
+Then you can also have some
+
+33
+00:01:25,406 --> 00:01:28,451
+extra resources combined with SkillMD, like
+
+34
+00:01:28,451 --> 00:01:31,448
+certain scripts or deep dive resources or
+
+35
+00:01:31,641 --> 00:01:34,061
+assets like templates, for example, but
+
+36
+00:01:34,061 --> 00:01:34,958
+we'll get back to that.
+
+37
+00:01:35,567 --> 00:01:37,651
+The SkillMD file is the important one. And
+
+38
+00:01:37,651 --> 00:01:40,231
+to make this less abstract, in that demo
+
+39
+00:01:40,312 --> 00:01:41,642
+folder, which I provided to you,
+
+40
+00:01:42,299 --> 00:01:45,424
+you will find 2 folders,.agents and
+
+41
+00:01:45,585 --> 00:01:47,219
+.clawed. If you can't see them, you must
+
+42
+00:01:47,284 --> 00:01:49,255
+make sure that your Finder or Windows
+
+43
+00:01:49,303 --> 00:01:52,076
+Explorer shows hidden folders and files. And
+
+44
+00:01:52,172 --> 00:01:54,291
+just as with AgentsMD and ClaudeMD,
+
+45
+00:01:54,965 --> 00:01:57,261
+.claude is for Claude Cowork and Claude
+
+46
+00:01:57,309 --> 00:01:57,646
+Code,
+
+47
+00:01:58,176 --> 00:02:00,728
+.agents is for most other agents. Both
+
+48
+00:02:01,065 --> 00:02:04,308
+folders, as you can see, simply contain a
+
+49
+00:02:04,340 --> 00:02:05,175
+skills folder.
+
+50
+00:02:05,977 --> 00:02:07,679
+If we open that skills folder,
+
+51
+00:02:08,225 --> 00:02:09,830
+in this case, in this demo project I
+
+52
+00:02:09,830 --> 00:02:12,687
+provided to you, you'll see 3 subfolders.
+
+53
+00:02:12,960 --> 00:02:16,347
+And it's one subfolder per agent skill
+
+54
+00:02:16,957 --> 00:02:19,766
+as standardized that you want to provide to
+
+55
+00:02:19,782 --> 00:02:22,768
+your AI agent for a certain project. For
+
+56
+00:02:22,768 --> 00:02:24,872
+example, a data analytics skill.
+
+57
+00:02:25,578 --> 00:02:28,757
+If I open that skill with a text editor
+
+58
+00:02:28,773 --> 00:02:31,326
+again, this skill.md file, you'll see that
+
+59
+00:02:31,326 --> 00:02:33,493
+in there, there is this weird part at the
+
+60
+00:02:33,493 --> 00:02:35,901
+top. That's some metadata separated from the
+
+61
+00:02:35,901 --> 00:02:38,952
+main content by being put in such a block
+
+62
+00:02:39,128 --> 00:02:41,280
+starting and ending with 3 dashes. We'll get
+
+63
+00:02:41,296 --> 00:02:41,842
+back to that.
+
+64
+00:02:42,484 --> 00:02:44,057
+But then it's the main content of the skill,
+
+65
+00:02:44,266 --> 00:02:46,626
+the piece of information or instructions you
+
+66
+00:02:46,754 --> 00:02:49,322
+want to expose to an AI agent. Now, as I
+
+67
+00:02:49,322 --> 00:02:51,646
+mentioned earlier, the difference compared
+
+68
+00:02:51,646 --> 00:02:54,113
+to AgentsMD is that these files should be
+
+69
+00:02:54,113 --> 00:02:57,254
+loaded on demand by the agent when it's
+
+70
+00:02:57,318 --> 00:02:58,616
+working on a certain task.
+
+71
+00:02:59,337 --> 00:03:02,590
+Whereas AgentsMD and ClaudeMD are always
+
+72
+00:03:02,686 --> 00:03:04,962
+injected into the context window, so are
+
+73
+00:03:05,250 --> 00:03:06,917
+always part of a conversation,
+
+74
+00:03:07,510 --> 00:03:09,401
+no matter what the agent is working on.
+
+75
+00:03:10,138 --> 00:03:12,253
+So for example, the data analytics skill
+
+76
+00:03:12,333 --> 00:03:14,432
+should of course only be activated and
+
+77
+00:03:14,544 --> 00:03:15,618
+loaded and This
+
+78
+00:03:16,180 --> 00:03:18,476
+text here should only be injected into the
+
+79
+00:03:18,476 --> 00:03:20,836
+context window if the agent is really
+
+80
+00:03:20,965 --> 00:03:23,052
+working on a data analytics task.
+
+81
+00:03:23,614 --> 00:03:24,962
+Otherwise, it should not be loaded.
+
+82
+00:03:26,118 --> 00:03:28,558
+And then this skill actually also has some
+
+83
+00:03:29,169 --> 00:03:31,962
+extra nested folder, the references folder
+
+84
+00:03:32,283 --> 00:03:33,503
+with another document.
+
+85
+00:03:34,386 --> 00:03:37,485
+Because one core concept behind agent skills
+
+86
+00:03:37,822 --> 00:03:40,937
+is progressive disclosure, which means these
+
+87
+00:03:40,985 --> 00:03:41,498
+skills
+
+88
+00:03:42,157 --> 00:03:43,779
+are not loaded upfront,
+
+89
+00:03:44,341 --> 00:03:47,522
+but instead discovered and activated on
+
+90
+00:03:47,618 --> 00:03:47,923
+demand.
+
+91
+00:03:48,582 --> 00:03:51,087
+Upfront, only the skill's name and
+
+92
+00:03:51,087 --> 00:03:53,015
+description is loaded into the context
+
+93
+00:03:53,015 --> 00:03:53,320
+window.
+
+94
+00:03:54,139 --> 00:03:56,822
+And that's this metadata part. So only this,
+
+95
+00:03:57,737 --> 00:04:00,773
+the name and description of all the skills,
+
+96
+00:04:00,950 --> 00:04:03,343
+all 3 skills in my case here, are loaded
+
+97
+00:04:03,696 --> 00:04:06,877
+like the entire content of AgentsMD upfront
+
+98
+00:04:06,989 --> 00:04:09,639
+into the context window of every new agent
+
+99
+00:04:09,639 --> 00:04:11,853
+session. But only that, not the main
+
+100
+00:04:11,869 --> 00:04:15,189
+content. This saves token and also makes
+
+101
+00:04:15,189 --> 00:04:17,354
+sure that the agent doesn't have any
+
+102
+00:04:17,354 --> 00:04:20,128
+instructions or notes in its context window
+
+103
+00:04:20,465 --> 00:04:22,084
+that don't really matter to it yet.
+
+104
+00:04:22,774 --> 00:04:24,746
+Now, this description should then give the
+
+105
+00:04:24,859 --> 00:04:27,472
+agent a hint regarding when that skill
+
+106
+00:04:27,520 --> 00:04:28,451
+should be activated.
+
+107
+00:04:29,140 --> 00:04:31,305
+So in this case here, I have a pretty clear
+
+108
+00:04:31,530 --> 00:04:33,710
+hint that this skill should be used when
+
+109
+00:04:33,919 --> 00:04:36,469
+answering business or data questions and so
+
+110
+00:04:36,501 --> 00:04:40,043
+on. Now, many agents or agentic pieces of
+
+111
+00:04:40,043 --> 00:04:42,672
+software, many harnesses, I should say, like
+
+112
+00:04:42,753 --> 00:04:47,129
+Claude Cowork have built-in logic to detect
+
+113
+00:04:47,401 --> 00:04:50,351
+those skills if they are stored in the right
+
+114
+00:04:50,367 --> 00:04:53,621
+path. So in a.claudskills folder, for
+
+115
+00:04:53,637 --> 00:04:55,561
+example, in case of Claude Cowork.
+
+116
+00:04:56,202 --> 00:04:58,158
+And then you must have one folder per skill
+
+117
+00:04:58,222 --> 00:05:00,225
+and you must have a skill.md file. And if
+
+118
+00:05:00,225 --> 00:05:01,828
+you follow that convention, it will be
+
+119
+00:05:01,828 --> 00:05:03,816
+discovered by Claude Cowork, but they will
+
+120
+00:05:03,976 --> 00:05:06,044
+only register this description and they have
+
+121
+00:05:06,221 --> 00:05:09,058
+internal logic so that they expose this
+
+122
+00:05:09,202 --> 00:05:12,409
+skill almost like a tool to the AI agent.
+
+123
+00:05:12,810 --> 00:05:15,456
+And just like for a tool, the AI agent can
+
+124
+00:05:15,456 --> 00:05:18,631
+make a request to load or to activate, you
+
+125
+00:05:18,647 --> 00:05:21,276
+could say, a skill. So to read the rest of
+
+126
+00:05:21,292 --> 00:05:21,950
+the context.
+
+127
+00:05:22,992 --> 00:05:25,269
+And only when that decision was made by the
+
+128
+00:05:25,381 --> 00:05:26,471
+agent, only then
+
+129
+00:05:27,081 --> 00:05:29,357
+is the entire skill MD file read. And then
+
+130
+00:05:29,566 --> 00:05:31,650
+the instructions can be followed or the
+
+131
+00:05:31,650 --> 00:05:33,751
+extra information can be used. But even
+
+132
+00:05:33,799 --> 00:05:35,466
+then, the agent can dive deeper. For
+
+133
+00:05:35,482 --> 00:05:38,033
+example, in this skill, I refer to some
+
+134
+00:05:38,209 --> 00:05:40,520
+other Markdown file in a subfolder, in the
+
+135
+00:05:40,536 --> 00:05:43,039
+references subfolder, and that was not
+
+136
+00:05:43,039 --> 00:05:45,687
+loaded automatically. Instead, since the
+
+137
+00:05:45,687 --> 00:05:48,511
+agent now, once it loaded skill-md, is aware
+
+138
+00:05:48,559 --> 00:05:51,062
+of that subfolder and the file in there, it
+
+139
+00:05:51,062 --> 00:05:54,159
+can again request to read that file.
+
+140
+00:05:54,913 --> 00:05:56,967
+And that's how an agent, how a large
+
+141
+00:05:56,999 --> 00:05:59,951
+language model can progressively discover
+
+142
+00:06:00,465 --> 00:06:02,952
+skills and related files through that
+
+143
+00:06:02,952 --> 00:06:04,845
+officially standardized mechanism.
+
+144
+00:06:05,904 --> 00:06:09,291
+But again, just as with AgentsMD, if your
+
+145
+00:06:09,355 --> 00:06:12,838
+agent you built doesn't have a mechanism for
+
+146
+00:06:12,950 --> 00:06:15,695
+discovering those SkillMD files and doesn't
+
+147
+00:06:15,695 --> 00:06:17,027
+support that standard,
+
+148
+00:06:18,006 --> 00:06:20,173
+the feature is not there. Just because it's
+
+149
+00:06:20,173 --> 00:06:22,372
+a standard does not mean that your software,
+
+150
+00:06:22,677 --> 00:06:24,892
+your agent you might have built, supports
+
+151
+00:06:24,924 --> 00:06:27,235
+it. You may be building some task-specific
+
+152
+00:06:27,235 --> 00:06:29,466
+agent that doesn't need to dynamically
+
+153
+00:06:29,498 --> 00:06:32,387
+discover more information or skills because
+
+154
+00:06:32,387 --> 00:06:35,098
+it is very focused on one main task and
+
+155
+00:06:35,098 --> 00:06:37,567
+doesn't need extra pieces of dynamically
+
+156
+00:06:37,583 --> 00:06:40,630
+loaded information. It is up to you, the
+
+157
+00:06:40,726 --> 00:06:43,901
+person building an agent, whether you want
+
+158
+00:06:43,917 --> 00:06:46,658
+to support features like AgentsMD or this
+
+159
+00:06:46,722 --> 00:06:48,181
+agent skills standard.
+
+160
+00:06:48,823 --> 00:06:50,939
+But of course, pretty much all of the more
+
+161
+00:06:50,971 --> 00:06:53,809
+generic general agents like Claude Cowork,
+
+162
+00:06:54,114 --> 00:06:57,465
+but also ChatGPT and so on, do support that
+
+163
+00:06:57,465 --> 00:06:58,363
+skills feature.
+
+164
+00:06:59,084 --> 00:07:01,730
+And in Claude Cowork, for example, you can,
+
+165
+00:07:01,794 --> 00:07:02,163
+for one,
+
+166
+00:07:03,174 --> 00:07:04,667
+Go to the skill setting
+
+167
+00:07:05,904 --> 00:07:06,176
+and then
+
+168
+00:07:06,931 --> 00:07:08,087
+add new skills here.
+
+169
+00:07:08,954 --> 00:07:11,700
+But if you loaded a folder, it will also
+
+170
+00:07:11,764 --> 00:07:14,060
+discover skills in that folder automatically
+
+171
+00:07:14,317 --> 00:07:16,485
+when working in that folder. So for example,
+
+172
+00:07:16,501 --> 00:07:18,556
+here where I loaded this Claude data
+
+173
+00:07:18,572 --> 00:07:21,687
+analysis folder, which has the skills loaded
+
+174
+00:07:21,880 --> 00:07:21,928
+or
+
+175
+00:07:22,506 --> 00:07:22,747
+in it,
+
+176
+00:07:23,405 --> 00:07:27,130
+if I ask analyze the sales CSV file,
+
+177
+00:07:28,126 --> 00:07:29,552
+it will go ahead
+
+178
+00:07:30,226 --> 00:07:33,656
+and it will find my data analytics skill and
+
+179
+00:07:33,816 --> 00:07:36,429
+most likely also activate it. We can also
+
+180
+00:07:36,477 --> 00:07:38,609
+see that here it read some memory and I'll
+
+181
+00:07:38,786 --> 00:07:41,142
+get back to memory later. We can also see
+
+182
+00:07:41,206 --> 00:07:43,418
+that it listed files on the computer. So
+
+183
+00:07:43,451 --> 00:07:44,989
+it's taking a look at the files it has
+
+184
+00:07:45,118 --> 00:07:47,250
+access to, but that really is just that one
+
+185
+00:07:47,378 --> 00:07:49,831
+folder it has access to here. And you see it
+
+186
+00:07:50,007 --> 00:07:52,844
+also read a skill.md file and those general
+
+187
+00:07:52,844 --> 00:07:54,543
+instructions I mentioned earlier. And then
+
+188
+00:07:54,912 --> 00:07:57,301
+another skill as well, probably because it
+
+189
+00:07:57,381 --> 00:07:59,641
+also plans on creating a report and the
+
+190
+00:07:59,641 --> 00:08:01,744
+server is busy, what can you do? But that's
+
+191
+00:08:02,033 --> 00:08:04,329
+the idea behind agent skills. And that's
+
+192
+00:08:04,458 --> 00:08:07,156
+another important, very common way of
+
+193
+00:08:07,589 --> 00:08:11,170
+loading more context into the agent session.
+
+194
+00:08:11,588 --> 00:08:14,302
+But again, it depends on how the agent or
+
+195
+00:08:14,735 --> 00:08:16,871
+the agentic piece of software was built.
+
+196
+00:08:17,449 --> 00:08:19,858
+And of course, if you as the user then want
+
+197
+00:08:19,858 --> 00:08:21,994
+to use that feature. If you are not
+
+198
+00:08:22,042 --> 00:08:24,836
+providing any skills, there of course aren't
+
+199
+00:08:24,852 --> 00:08:26,683
+any for the agent to load.

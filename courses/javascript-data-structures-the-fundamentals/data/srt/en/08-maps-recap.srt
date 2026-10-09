@@ -1,0 +1,739 @@
+1
+00:00:02,279 --> 00:00:04,702
+Now that we explored objects, let's explore
+
+2
+00:00:04,991 --> 00:00:05,312
+maps.
+
+3
+00:00:06,291 --> 00:00:08,281
+The syntax for using maps in JavaScript
+
+4
+00:00:08,281 --> 00:00:08,811
+looks like this.
+
+5
+00:00:09,485 --> 00:00:11,652
+Just like with sets, we create a map with a
+
+6
+00:00:11,652 --> 00:00:14,059
+constructor function and then we got certain
+
+7
+00:00:14,139 --> 00:00:15,905
+methods for interacting with the map.
+
+8
+00:00:16,177 --> 00:00:19,259
+Specifically for adding new key-value pairs,
+
+9
+00:00:19,436 --> 00:00:20,463
+we use the set method.
+
+10
+00:00:21,137 --> 00:00:23,592
+And there we can use different kinds of keys
+
+11
+00:00:24,764 --> 00:00:27,316
+including Booleans but also objects and
+
+12
+00:00:27,316 --> 00:00:28,985
+arrays and I'll come back to that later.
+
+13
+00:00:29,627 --> 00:00:31,860
+And we can store any kind of value for any
+
+14
+00:00:31,892 --> 00:00:32,133
+key.
+
+15
+00:00:32,855 --> 00:00:34,590
+Now, the interesting thing about maps is
+
+16
+00:00:34,766 --> 00:00:36,324
+that the key-value pairs are actually
+
+17
+00:00:36,533 --> 00:00:38,556
+ordered. So that's a difference to the
+
+18
+00:00:38,701 --> 00:00:41,671
+object. Just like with the object though, we
+
+19
+00:00:41,832 --> 00:00:43,358
+access elements by key.
+
+20
+00:00:44,337 --> 00:00:46,553
+One important difference again compared to
+
+21
+00:00:46,730 --> 00:00:49,878
+objects is that maps are iterable. So you
+
+22
+00:00:49,942 --> 00:00:51,596
+can use the for-of loop there.
+
+23
+00:00:53,009 --> 00:00:55,466
+But again, similar to objects is that keys
+
+24
+00:00:55,578 --> 00:00:58,051
+are unique. The values are not. So that's
+
+25
+00:00:58,051 --> 00:01:00,524
+the same as with objects. You must not have
+
+26
+00:01:00,556 --> 00:01:02,965
+the same key multiple times. If you do, you
+
+27
+00:01:02,965 --> 00:01:05,342
+simply overwrite the value that was stored
+
+28
+00:01:05,358 --> 00:01:06,128
+for that key before.
+
+29
+00:01:07,285 --> 00:01:09,228
+Now keys, and that's also an important
+
+30
+00:01:09,228 --> 00:01:12,905
+difference to objects, can be anything. So
+
+31
+00:01:12,905 --> 00:01:15,233
+you can also use reference values like
+
+32
+00:01:15,249 --> 00:01:17,546
+arrays for keys, and that is a difference.
+
+33
+00:01:18,541 --> 00:01:21,335
+Now also another difference is that maps are
+
+34
+00:01:21,496 --> 00:01:24,049
+really meant to be pure data storages.
+
+35
+00:01:24,723 --> 00:01:26,680
+Now behind the scenes, the interesting thing
+
+36
+00:01:26,793 --> 00:01:29,938
+is that of course maps are actually objects
+
+37
+00:01:29,938 --> 00:01:32,473
+because everything in JavaScript in the end
+
+38
+00:01:32,521 --> 00:01:35,040
+is an object, but they're implemented such
+
+39
+00:01:35,152 --> 00:01:37,254
+that the map object, when you use that,
+
+40
+00:01:37,864 --> 00:01:40,897
+really is just a data store. So you can't
+
+41
+00:01:40,993 --> 00:01:43,448
+add extra functionality to it like you can
+
+42
+00:01:43,496 --> 00:01:44,218
+with an object.
+
+43
+00:01:44,764 --> 00:01:47,267
+You could store a function as a value, but
+
+44
+00:01:47,347 --> 00:01:49,962
+that function would not really be able to
+
+45
+00:01:49,978 --> 00:01:52,369
+interact with the other map key-value pairs.
+
+46
+00:01:52,642 --> 00:01:55,031
+And that's a difference to objects. Maps
+
+47
+00:01:55,047 --> 00:01:57,100
+really are meant to be data stores.
+
+48
+00:01:57,757 --> 00:02:00,275
+Objects are not really focused to be data
+
+49
+00:02:00,275 --> 00:02:03,065
+stores. Objects are just constructs that
+
+50
+00:02:03,065 --> 00:02:05,920
+also happen to work well as data stores.
+
+51
+00:02:06,433 --> 00:02:09,191
+Maps are just data stores, just that,
+
+52
+00:02:09,496 --> 00:02:10,170
+nothing else.
+
+53
+00:02:10,843 --> 00:02:13,457
+So let's now take a look at maps in code.
+
+54
+00:02:14,852 --> 00:02:17,626
+Again, back in an empty app.js file, we can
+
+55
+00:02:17,642 --> 00:02:18,797
+create our map.
+
+56
+00:02:20,119 --> 00:02:21,026
+Let's say our
+
+57
+00:02:22,387 --> 00:02:23,861
+result data map
+
+58
+00:02:25,383 --> 00:02:26,501
+by calling new Map.
+
+59
+00:02:27,797 --> 00:02:30,190
+Now on our result data map, we can now call
+
+60
+00:02:30,319 --> 00:02:32,242
+set to add a new key-value pair,
+
+61
+00:02:32,904 --> 00:02:33,647
+like for example,
+
+62
+00:02:34,767 --> 00:02:35,235
+average
+
+63
+00:02:36,076 --> 00:02:38,291
+1.53,
+
+64
+00:02:39,617 --> 00:02:42,413
+and we can also add another key-value pair,
+
+65
+00:02:43,953 --> 00:02:44,854
+for example,
+
+66
+00:02:46,190 --> 00:02:47,550
+last result
+
+67
+00:02:51,369 --> 00:02:52,163
+undefined
+
+68
+00:02:53,231 --> 00:02:55,416
+or null. So you can really have different
+
+69
+00:02:55,416 --> 00:02:56,594
+kinds of values in there.
+
+70
+00:02:57,433 --> 00:03:01,016
+Now you can also use non-string, number, or
+
+71
+00:03:01,016 --> 00:03:03,501
+symbol keys though. That is one important
+
+72
+00:03:03,501 --> 00:03:05,487
+difference. You could, for example, have,
+
+73
+00:03:05,681 --> 00:03:07,182
+let's say, an object, a country
+
+74
+00:03:08,167 --> 00:03:10,089
+which has a name of Germany,
+
+75
+00:03:10,767 --> 00:03:14,062
+and then let's say a population of 82
+
+76
+00:03:14,062 --> 00:03:14,876
+million people
+
+77
+00:03:15,711 --> 00:03:18,481
+And if you wanted, you could use that as a
+
+78
+00:03:18,481 --> 00:03:21,688
+key. You could set country as a key and then
+
+79
+00:03:21,720 --> 00:03:22,903
+store a value for it,
+
+80
+00:03:25,040 --> 00:03:25,669
+for example
+
+81
+00:03:26,347 --> 00:03:29,511
+0.89, if that would be some result which we
+
+82
+00:03:29,511 --> 00:03:31,916
+want to store for a specific country. And
+
+83
+00:03:31,916 --> 00:03:33,934
+I'll actually name this Germany to be a bit
+
+84
+00:03:33,934 --> 00:03:36,687
+more realistic. So now Germany here is a
+
+85
+00:03:36,687 --> 00:03:39,261
+valid key even though it's an object. This
+
+86
+00:03:39,261 --> 00:03:41,090
+would not be allowed in objects if In
+
+87
+00:03:41,349 --> 00:03:44,813
+objects, your keys may not be other objects.
+
+88
+00:03:45,315 --> 00:03:46,756
+In maps, this is allowed.
+
+89
+00:03:48,449 --> 00:03:50,292
+Now, we can also use for-of
+
+90
+00:03:51,197 --> 00:03:54,656
+and loop through result data like this and
+
+91
+00:03:54,689 --> 00:03:57,582
+then simply console.log our elements. So
+
+92
+00:03:57,582 --> 00:03:58,637
+let's see what that gives us.
+
+93
+00:04:00,102 --> 00:04:00,988
+If we save it,
+
+94
+00:04:01,938 --> 00:04:04,305
+we see what we get back are actually a bunch
+
+95
+00:04:04,369 --> 00:04:04,820
+of arrays.
+
+96
+00:04:05,399 --> 00:04:07,976
+Every key-value pair that's saved in the map
+
+97
+00:04:08,314 --> 00:04:11,080
+is output as an array. Where you always have
+
+98
+00:04:11,080 --> 00:04:14,286
+exactly 2 elements per array. And the first
+
+99
+00:04:14,286 --> 00:04:16,251
+element is always your key name and the
+
+100
+00:04:16,251 --> 00:04:19,007
+second element is always your value. So that
+
+101
+00:04:19,007 --> 00:04:20,221
+is what's being output here.
+
+102
+00:04:21,832 --> 00:04:22,851
+Now, as I mentioned,
+
+103
+00:04:23,514 --> 00:04:26,619
+if we set the same key multiple times, like
+
+104
+00:04:26,619 --> 00:04:28,026
+if we set average again,
+
+105
+00:04:30,095 --> 00:04:32,295
+then it will simply be overwritten. So now
+
+106
+00:04:32,440 --> 00:04:34,752
+you won't have 2 key-value pairs with the
+
+107
+00:04:34,769 --> 00:04:36,450
+same key. Instead, you just have one
+
+108
+00:04:36,806 --> 00:04:39,200
+key-value pair where the previous value was
+
+109
+00:04:39,200 --> 00:04:39,749
+now overwritten.
+
+110
+00:04:40,713 --> 00:04:43,044
+And we can console.log resultData here to
+
+111
+00:04:43,060 --> 00:04:44,461
+have a look at it real quick.
+
+112
+00:04:46,310 --> 00:04:46,811
+Here we go.
+
+113
+00:04:47,491 --> 00:04:48,139
+Now we see
+
+114
+00:04:48,997 --> 00:04:51,651
+this average key has this last value which
+
+115
+00:04:51,748 --> 00:04:52,914
+we assigned and the
+
+116
+00:04:53,561 --> 00:04:55,742
+earlier value was simply overwritten.
+
+117
+00:04:57,497 --> 00:05:00,523
+Now, with our Map, we can do more. We can,
+
+118
+00:05:00,556 --> 00:05:02,584
+for example, get access to all the values or
+
+119
+00:05:02,648 --> 00:05:04,935
+just the keys if we wanted to and that gives
+
+120
+00:05:04,983 --> 00:05:07,417
+us new iterables through which we could loop
+
+121
+00:05:07,465 --> 00:05:09,464
+in case we don't want these key-value arrays
+
+122
+00:05:09,496 --> 00:05:10,447
+but we are just interested in just the keys
+
+123
+00:05:12,286 --> 00:05:13,012
+just the values.
+
+124
+00:05:13,674 --> 00:05:16,497
+We can use get to retrieve a value by key
+
+125
+00:05:18,175 --> 00:05:18,788
+like this
+
+126
+00:05:19,805 --> 00:05:21,790
+because the dot notation and the square
+
+127
+00:05:21,790 --> 00:05:24,060
+bracket notation you have on objects is
+
+128
+00:05:24,158 --> 00:05:25,407
+actually not supported.
+
+129
+00:05:25,974 --> 00:05:28,294
+If I try this here and I try to get my
+
+130
+00:05:28,375 --> 00:05:29,202
+average like that,
+
+131
+00:05:30,078 --> 00:05:31,658
+you will see the first time
+
+132
+00:05:32,333 --> 00:05:34,728
+when I use the get method, I get the value.
+
+133
+00:05:35,386 --> 00:05:38,552
+For the second try here where I use the dot
+
+134
+00:05:38,552 --> 00:05:40,251
+notation, I get undefined.
+
+135
+00:05:40,890 --> 00:05:42,071
+I get undefined and not an error because we
+
+136
+00:05:42,071 --> 00:05:42,170
+can
+
+137
+00:05:44,106 --> 00:05:46,977
+use the dot notation because resultData is
+
+138
+00:05:47,153 --> 00:05:49,784
+also an object. As I mentioned, everything
+
+139
+00:05:49,832 --> 00:05:51,628
+in JavaScript is an object in the end,
+
+140
+00:05:52,206 --> 00:05:54,788
+but it's not our map object where the data
+
+141
+00:05:54,868 --> 00:05:57,916
+is in. Instead, it's the map object in the
+
+142
+00:05:57,916 --> 00:06:01,461
+sense of a construct in our code. The Map
+
+143
+00:06:01,525 --> 00:06:04,637
+Datastore only gives us access to our data
+
+144
+00:06:04,797 --> 00:06:06,963
+with its built-in methods like the get
+
+145
+00:06:06,963 --> 00:06:07,267
+method.
+
+146
+00:06:07,925 --> 00:06:09,690
+Now besides the get method, we of course
+
+147
+00:06:09,850 --> 00:06:11,759
+also, for example, have the delete method
+
+148
+00:06:12,176 --> 00:06:14,601
+which allows us to delete an element by key.
+
+149
+00:06:14,746 --> 00:06:15,388
+For example,
+
+150
+00:06:16,047 --> 00:06:16,448
+delete
+
+151
+00:06:17,235 --> 00:06:19,114
+Germany here by using its key.
+
+152
+00:06:19,660 --> 00:06:21,041
+If I console.log
+
+153
+00:06:21,587 --> 00:06:23,033
+resultData thereafter,
+
+154
+00:06:24,157 --> 00:06:25,571
+you will see that Germany
+
+155
+00:06:26,165 --> 00:06:26,582
+is missing.
+
+156
+00:06:27,128 --> 00:06:29,505
+Now we only have average and the last result
+
+157
+00:06:29,618 --> 00:06:31,545
+and no longer our object key.
+
+158
+00:06:32,284 --> 00:06:34,099
+Of course, here it's important to keep in
+
+159
+00:06:34,115 --> 00:06:37,857
+mind that if you are using objects as keys,
+
+160
+00:06:38,291 --> 00:06:41,101
+you really have to use the exact same object
+
+161
+00:06:41,182 --> 00:06:42,289
+when you try to delete it.
+
+162
+00:06:42,947 --> 00:06:45,819
+Just replicating the object, so if you would
+
+163
+00:06:45,835 --> 00:06:47,199
+just copy this here
+
+164
+00:06:47,905 --> 00:06:50,023
+and try that, would not work.
+
+165
+00:06:50,665 --> 00:06:53,345
+If we try this code, we see Germany is still
+
+166
+00:06:53,521 --> 00:06:53,569
+in.
+
+167
+00:06:54,099 --> 00:06:56,345
+Here it is. That's our Germany object as a
+
+168
+00:06:56,345 --> 00:06:56,586
+key.
+
+169
+00:06:57,131 --> 00:06:58,816
+And the reason for that, of course, is that
+
+170
+00:06:58,977 --> 00:07:01,993
+objects are reference values and here we are
+
+171
+00:07:02,122 --> 00:07:04,545
+creating a brand new object. And even though
+
+172
+00:07:04,545 --> 00:07:06,952
+it looks like the other object to us humans,
+
+173
+00:07:07,257 --> 00:07:09,166
+it's a different place in memory And
+
+174
+00:07:09,182 --> 00:07:11,522
+therefore, this is technically a different
+
+175
+00:07:11,570 --> 00:07:11,843
+key
+
+176
+00:07:12,452 --> 00:07:14,359
+even though it looks the same. This is
+
+177
+00:07:14,391 --> 00:07:17,260
+nothing map-specific. That is how JavaScript
+
+178
+00:07:17,260 --> 00:07:19,568
+works with reference and primitive values.
+
+179
+00:07:19,921 --> 00:07:21,748
+And if that's unclear, attached to this
+
+180
+00:07:21,748 --> 00:07:23,992
+video, you'll find an article and a video on
+
+181
+00:07:24,008 --> 00:07:26,076
+reference and primitive values so that we're
+
+182
+00:07:26,236 --> 00:07:27,326
+all on the same page there.
+
+183
+00:07:28,400 --> 00:07:30,756
+That's it for maps though. That is what you
+
+184
+00:07:30,756 --> 00:07:33,160
+need to know about maps and what you need to
+
+185
+00:07:33,160 --> 00:07:34,971
+know to progress with the course.

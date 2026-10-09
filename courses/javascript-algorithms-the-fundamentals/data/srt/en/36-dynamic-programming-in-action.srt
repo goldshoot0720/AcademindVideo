@@ -1,0 +1,895 @@
+1
+00:00:02,291 --> 00:00:05,287
+So therefore, back at our recursive
+
+2
+00:00:05,399 --> 00:00:08,204
+Fibonacci function, let's see how we could
+
+3
+00:00:08,204 --> 00:00:11,296
+improve that with memoization. So by adding
+
+4
+00:00:11,328 --> 00:00:12,177
+such a storage,
+
+5
+00:00:13,171 --> 00:00:15,863
+well, in the end we want some global storage
+
+6
+00:00:16,215 --> 00:00:18,074
+which is available in every function
+
+7
+00:00:18,074 --> 00:00:18,715
+execution
+
+8
+00:00:19,260 --> 00:00:21,615
+where we can store the results we derive. So
+
+9
+00:00:21,647 --> 00:00:23,955
+of course, for the first function execution,
+
+10
+00:00:24,147 --> 00:00:26,887
+that storage will be empty, but the more
+
+11
+00:00:27,592 --> 00:00:29,996
+functions we execute, the more results we
+
+12
+00:00:29,996 --> 00:00:31,599
+derive for different
+
+13
+00:00:32,240 --> 00:00:35,462
+numbers, for different positions we retrieve
+
+14
+00:00:35,671 --> 00:00:38,492
+from that Fibonacci sequence, the more our
+
+15
+00:00:38,492 --> 00:00:40,864
+storage will be populated with those
+
+16
+00:00:40,960 --> 00:00:42,899
+intermediate results. That's the idea.
+
+17
+00:00:43,861 --> 00:00:45,368
+So therefore, we could set up a global
+
+18
+00:00:45,368 --> 00:00:48,173
+storage, let's say a global object which we
+
+19
+00:00:48,173 --> 00:00:49,135
+could name memo,
+
+20
+00:00:49,792 --> 00:00:52,485
+and we could dynamically add key-value pairs
+
+21
+00:00:52,757 --> 00:00:55,081
+to that object with every iteration.
+
+22
+00:00:55,884 --> 00:00:58,341
+This might work, but the problem with that
+
+23
+00:00:58,598 --> 00:01:01,232
+is that we have one object, and if we call
+
+24
+00:01:01,506 --> 00:01:04,766
+fib multiple times, let's say for different
+
+25
+00:01:05,023 --> 00:01:05,489
+numbers,
+
+26
+00:01:06,147 --> 00:01:08,525
+we're reusing one and the same object. This
+
+27
+00:01:08,653 --> 00:01:11,737
+can actually be great because on the second
+
+28
+00:01:11,785 --> 00:01:14,676
+call, we already take advantage of all the
+
+29
+00:01:14,676 --> 00:01:17,150
+intermediate results we derived in the first
+
+30
+00:01:17,230 --> 00:01:17,391
+call.
+
+31
+00:01:18,210 --> 00:01:20,925
+But if you had a function where the input
+
+32
+00:01:21,150 --> 00:01:23,636
+produces totally different values, then
+
+33
+00:01:23,732 --> 00:01:26,283
+having such a globally stored object could
+
+34
+00:01:26,299 --> 00:01:28,465
+be very bad because you might be getting
+
+35
+00:01:28,706 --> 00:01:30,904
+incorrect results in your next function
+
+36
+00:01:30,904 --> 00:01:33,150
+execution. Hence, we're not going to write
+
+37
+00:01:33,150 --> 00:01:33,647
+it like this.
+
+38
+00:01:34,337 --> 00:01:36,390
+Instead, the idea is that every
+
+39
+00:01:37,048 --> 00:01:38,396
+recursive process,
+
+40
+00:01:39,134 --> 00:01:42,054
+every Fibonacci number we try to retrieve
+
+41
+00:01:42,439 --> 00:01:45,679
+gets its own storage, which is only used for
+
+42
+00:01:45,727 --> 00:01:48,919
+this recursive tree. So that fib and fib
+
+43
+00:01:48,919 --> 00:01:51,852
+here would generate different storages or
+
+44
+00:01:51,980 --> 00:01:53,391
+would use different storages.
+
+45
+00:01:54,064 --> 00:01:55,315
+And for that, all we need to do
+
+46
+00:01:55,972 --> 00:01:58,072
+is we need to provide a second argument here
+
+47
+00:01:58,312 --> 00:02:01,759
+to fib, let's say memo or just mem or
+
+48
+00:02:01,759 --> 00:02:03,811
+whatever you wanna call it. I'll name it
+
+49
+00:02:03,907 --> 00:02:04,227
+memo.
+
+50
+00:02:05,526 --> 00:02:06,953
+And that will be our storage.
+
+51
+00:02:07,754 --> 00:02:09,501
+Now we can call fib
+
+52
+00:02:10,319 --> 00:02:12,643
+by passing an empty object as a second
+
+53
+00:02:12,723 --> 00:02:15,080
+argument. And we do the same here for fib.
+
+54
+00:02:15,689 --> 00:02:17,997
+Initially, it's empty because this storage
+
+55
+00:02:18,334 --> 00:02:20,858
+should get populated populated whilst this
+
+56
+00:02:20,858 --> 00:02:23,197
+recursive process is running because we
+
+57
+00:02:23,197 --> 00:02:25,050
+wanna store intermediate results.
+
+58
+00:02:26,520 --> 00:02:29,626
+Now the idea is that inside of our function,
+
+59
+00:02:29,691 --> 00:02:30,970
+inside of the fib function,
+
+60
+00:02:31,568 --> 00:02:34,853
+we introduce a result helper variable which
+
+61
+00:02:34,902 --> 00:02:35,743
+initially is empty.
+
+62
+00:02:36,503 --> 00:02:38,605
+And then here in this if check, we set
+
+63
+00:02:38,605 --> 00:02:39,785
+result equal to 1.
+
+64
+00:02:40,529 --> 00:02:41,078
+Otherwise,
+
+65
+00:02:42,162 --> 00:02:44,797
+down there, we set result equal to this.
+
+66
+00:02:46,378 --> 00:02:49,023
+Now we'll put this into an else branch
+
+67
+00:02:49,440 --> 00:02:51,748
+because now after the if-else statement, we
+
+68
+00:02:51,748 --> 00:02:54,874
+can return result. So thus far, that's just
+
+69
+00:02:54,906 --> 00:02:56,926
+a rewritten version of what we had before
+
+70
+00:02:57,279 --> 00:02:58,417
+using a helper variable.
+
+71
+00:02:58,962 --> 00:03:00,918
+Now why do I use this helper variable?
+
+72
+00:03:01,463 --> 00:03:03,739
+Because now the idea is that we don't just
+
+73
+00:03:03,787 --> 00:03:06,160
+return result for every function call,
+
+74
+00:03:06,753 --> 00:03:08,404
+and that includes the nested function calls
+
+75
+00:03:08,436 --> 00:03:11,049
+of course, but that we also store it in our
+
+76
+00:03:11,402 --> 00:03:12,638
+intermediate storage here.
+
+77
+00:03:13,826 --> 00:03:16,074
+So we can access memo, and since this is a
+
+78
+00:03:16,203 --> 00:03:18,756
+JavaScript object, we can dynamically add
+
+79
+00:03:18,852 --> 00:03:19,559
+properties
+
+80
+00:03:20,153 --> 00:03:22,369
+with the square bracket notation. We can use
+
+81
+00:03:22,401 --> 00:03:22,995
+a variable
+
+82
+00:03:23,749 --> 00:03:26,013
+which holds the name we wanna use for the
+
+83
+00:03:26,013 --> 00:03:27,105
+key we're going to add,
+
+84
+00:03:27,699 --> 00:03:28,454
+and that could be n
+
+85
+00:03:29,289 --> 00:03:31,232
+so that we have something like 1 as a
+
+86
+00:03:31,232 --> 00:03:33,351
+property name or 2 or 3 or 4,
+
+87
+00:03:34,106 --> 00:03:37,173
+and the value for that key name is should be
+
+88
+00:03:37,173 --> 00:03:39,019
+the Fibonacci number that was derived.
+
+89
+00:03:39,645 --> 00:03:42,295
+So we set this equal to result. So the idea
+
+90
+00:03:42,375 --> 00:03:43,515
+is when we execute fib,
+
+91
+00:03:44,077 --> 00:03:44,173
+we
+
+92
+00:03:44,944 --> 00:03:46,566
+execute those nested functions,
+
+93
+00:03:47,272 --> 00:03:47,658
+and
+
+94
+00:03:48,557 --> 00:03:50,548
+ultimately those functions are going to
+
+95
+00:03:50,580 --> 00:03:51,897
+return values.
+
+96
+00:03:52,651 --> 00:03:54,594
+And before we then go further up in our
+
+97
+00:03:54,594 --> 00:03:57,292
+recursion tree, we already store those
+
+98
+00:03:57,484 --> 00:03:59,813
+returned intermediate values, and we're
+
+99
+00:04:00,037 --> 00:04:01,996
+always working on one and the same object.
+
+100
+00:04:02,542 --> 00:04:04,945
+Now to make sure those nested recursion
+
+101
+00:04:05,009 --> 00:04:07,445
+calls also have that same object available,
+
+102
+00:04:07,830 --> 00:04:10,265
+we simply pass it as a second argument here.
+
+103
+00:04:11,291 --> 00:04:13,887
+So now that's not an empty object, but that
+
+104
+00:04:13,919 --> 00:04:15,954
+one object which we initially got here.
+
+105
+00:04:16,482 --> 00:04:18,758
+And since objects are reference types in
+
+106
+00:04:18,870 --> 00:04:21,434
+JavaScript, we're always acting on the same
+
+107
+00:04:21,594 --> 00:04:23,853
+object. So when we dynamically add a
+
+108
+00:04:23,853 --> 00:04:27,106
+property to that object, that property is
+
+109
+00:04:27,138 --> 00:04:29,847
+going to be available in our fib function
+
+110
+00:04:29,847 --> 00:04:31,565
+calls of that
+
+111
+00:04:32,094 --> 00:04:35,513
+overall main function call here. Now fib and
+
+112
+00:04:35,625 --> 00:04:38,675
+fib, these 2 lines down there, have their
+
+113
+00:04:38,755 --> 00:04:41,083
+own independent storages, the objects we're
+
+114
+00:04:41,163 --> 00:04:43,538
+feeding in here. But all nested calls then
+
+115
+00:04:43,811 --> 00:04:46,074
+operate on the same storage object,
+
+116
+00:04:46,717 --> 00:04:49,156
+and that storage object also receives our
+
+117
+00:04:49,269 --> 00:04:49,718
+result.
+
+118
+00:04:50,649 --> 00:04:52,720
+Now thus far we're storing intermediate
+
+119
+00:04:52,720 --> 00:04:54,758
+results, but we're not doing anything with
+
+120
+00:04:54,806 --> 00:04:57,053
+it. So currently we have no optimization in
+
+121
+00:04:57,214 --> 00:04:57,615
+place.
+
+122
+00:04:58,434 --> 00:05:00,973
+Therefore, one last step is missing here in
+
+123
+00:05:01,149 --> 00:05:02,338
+our fib function.
+
+124
+00:05:03,318 --> 00:05:04,732
+We now initially want to check
+
+125
+00:05:05,262 --> 00:05:08,555
+if for the n we're running this function, we
+
+126
+00:05:08,700 --> 00:05:10,965
+already have an entry in our memo object.
+
+127
+00:05:11,592 --> 00:05:13,439
+Now at first this will not be the case, but
+
+128
+00:05:13,439 --> 00:05:15,367
+once we had a couple of nested function
+
+129
+00:05:15,367 --> 00:05:18,259
+calls, we might have already derived a value
+
+130
+00:05:18,259 --> 00:05:21,696
+for fib or fib or fib or whatever is
+
+131
+00:05:21,793 --> 00:05:22,564
+happening down there.
+
+132
+00:05:23,399 --> 00:05:25,070
+So we check if memo n
+
+133
+00:05:25,887 --> 00:05:26,416
+is a thing.
+
+134
+00:05:27,170 --> 00:05:29,574
+If such a key does not exist yet, this
+
+135
+00:05:29,574 --> 00:05:31,803
+returns undefined, which is falsy,
+
+136
+00:05:32,380 --> 00:05:33,470
+so we won't make it in there.
+
+137
+00:05:33,999 --> 00:05:36,804
+But if this returns anything but that,
+
+138
+00:05:37,365 --> 00:05:39,000
+we actually will make it in there,
+
+139
+00:05:39,674 --> 00:05:40,347
+and we can now
+
+140
+00:05:41,068 --> 00:05:43,986
+simply return memo, so that stored
+
+141
+00:05:44,034 --> 00:05:46,326
+intermediate result, and the rest of the
+
+142
+00:05:46,326 --> 00:05:48,026
+code is therefore then skipped.
+
+143
+00:05:48,667 --> 00:05:51,953
+And as a result, for some of our nested
+
+144
+00:05:51,953 --> 00:05:54,952
+function calls, we won't have to do more
+
+145
+00:05:55,385 --> 00:05:58,528
+nested calls. Instead, we find such a stored
+
+146
+00:05:58,528 --> 00:06:00,772
+value and we can skip all other steps.
+
+147
+00:06:02,135 --> 00:06:04,589
+So that means that our solution, which
+
+148
+00:06:04,845 --> 00:06:08,036
+previously led to this tree of function
+
+149
+00:06:08,052 --> 00:06:08,437
+calls,
+
+150
+00:06:09,030 --> 00:06:11,580
+now with our new solution is optimized
+
+151
+00:06:11,916 --> 00:06:14,081
+because we get rid of a whole branch of that
+
+152
+00:06:14,081 --> 00:06:17,112
+tree. And hence we have way less function
+
+153
+00:06:17,112 --> 00:06:19,533
+executions. And of course, for bigger
+
+154
+00:06:19,533 --> 00:06:22,706
+numbers, for bigger Ns, that effect is even
+
+155
+00:06:22,738 --> 00:06:23,267
+more visible.
+
+156
+00:06:24,197 --> 00:06:25,575
+So let's take a look at that.
+
+157
+00:06:26,104 --> 00:06:28,717
+And to see whether we really improved, I'll
+
+158
+00:06:28,733 --> 00:06:30,544
+again add a counter variable here
+
+159
+00:06:31,153 --> 00:06:33,637
+and I'll increment that counter here at the
+
+160
+00:06:33,702 --> 00:06:35,641
+very beginning of the fib function.
+
+161
+00:06:36,282 --> 00:06:38,045
+And that allows us to utilize that counter
+
+162
+00:06:38,045 --> 00:06:39,840
+to see how many iterations we had.
+
+163
+00:06:40,546 --> 00:06:43,431
+So here I will then console.log counter
+
+164
+00:06:44,521 --> 00:06:46,989
+and then also reset counter
+
+165
+00:06:48,401 --> 00:06:50,118
+so that we can do the same
+
+166
+00:06:50,856 --> 00:06:53,022
+here after calling it for fib.
+
+167
+00:06:53,920 --> 00:06:56,006
+And now we can even do that for way bigger
+
+168
+00:06:56,006 --> 00:06:56,456
+numbers.
+
+169
+00:06:57,033 --> 00:06:58,301
+Let's say for 20
+
+170
+00:06:59,440 --> 00:07:00,371
+and also for
+
+171
+00:07:01,045 --> 00:07:03,483
+50, which are numbers I didn't even check
+
+172
+00:07:03,548 --> 00:07:06,211
+before. Now you will see this works. So if
+
+173
+00:07:06,211 --> 00:07:08,554
+we now save this, we go to the browser and I
+
+174
+00:07:08,682 --> 00:07:11,073
+reload there, you see that's super fast. And
+
+175
+00:07:11,169 --> 00:07:12,982
+these are not our Fibonacci numbers.
+
+176
+00:07:13,255 --> 00:07:15,389
+Instead, these are our iterations.
+
+177
+00:07:15,985 --> 00:07:16,904
+And you see for
+
+178
+00:07:17,500 --> 00:07:18,774
+n equal to 50,
+
+179
+00:07:19,355 --> 00:07:21,483
+I have 99 as a value there.
+
+180
+00:07:23,170 --> 00:07:24,765
+Now just to quickly compare this,
+
+181
+00:07:25,442 --> 00:07:27,263
+if we have a look at our previous
+
+182
+00:07:27,633 --> 00:07:28,681
+implementation here,
+
+183
+00:07:29,346 --> 00:07:31,881
+if I bring back this approach real quick,
+
+184
+00:07:32,575 --> 00:07:34,932
+we didn't even try this for 50, we tried it
+
+185
+00:07:34,932 --> 00:07:37,419
+for 30. Now it might be nice to see what the
+
+186
+00:07:37,500 --> 00:07:39,049
+difference is for that. So
+
+187
+00:07:39,694 --> 00:07:42,630
+let's quickly bring back that old approach
+
+188
+00:07:42,678 --> 00:07:44,882
+here. Fib recursive JS
+
+189
+00:07:45,412 --> 00:07:47,930
+and reload with that. And we see for 30,
+
+190
+00:07:48,556 --> 00:07:51,813
+that's over 2 million, close to 3 million
+
+191
+00:07:52,230 --> 00:07:54,781
+function calls. So pretty much.
+
+192
+00:07:55,920 --> 00:07:56,048
+Now
+
+193
+00:07:56,642 --> 00:07:57,011
+I will
+
+194
+00:07:57,845 --> 00:08:00,717
+actually swap this back here to app.js
+
+195
+00:08:02,017 --> 00:08:03,781
+and go back to app.js.
+
+196
+00:08:04,343 --> 00:08:08,001
+And here for 30, if I change that here for
+
+197
+00:08:08,193 --> 00:08:10,456
+30, so the last number which is now going to
+
+198
+00:08:10,456 --> 00:08:12,541
+get output is just 59.
+
+199
+00:08:13,166 --> 00:08:16,131
+I would say that's a bit less than almost 3
+
+200
+00:08:16,131 --> 00:08:16,435
+million.
+
+201
+00:08:17,285 --> 00:08:19,993
+So the question there for now is, what's our
+
+202
+00:08:19,993 --> 00:08:22,140
+new time complexity with that? It's
+
+203
+00:08:22,140 --> 00:08:24,961
+certainly not exponential time complexity
+
+204
+00:08:24,961 --> 00:08:25,297
+anymore.
+
+205
+00:08:25,842 --> 00:08:26,851
+What is it instead?
+
+206
+00:08:27,765 --> 00:08:30,137
+And the answer is it's linear time
+
+207
+00:08:30,169 --> 00:08:30,810
+complexity.
+
+208
+00:08:31,451 --> 00:08:33,069
+In the end, you can see it pretty well here.
+
+209
+00:08:33,598 --> 00:08:37,572
+For fib, so for an n of 20, we had 39
+
+210
+00:08:37,636 --> 00:08:38,229
+iterations.
+
+211
+00:08:39,288 --> 00:08:39,995
+For 30,
+
+212
+00:08:40,910 --> 00:08:45,053
+we have 59. So for an increase in n of 10,
+
+213
+00:08:45,647 --> 00:08:50,640
+we add 20 iterations. So 2n sounds like our
+
+214
+00:08:50,849 --> 00:08:53,049
+time complexity, and as you learned, we then
+
+215
+00:08:53,049 --> 00:08:55,843
+simplify this to just O because we care
+
+216
+00:08:55,843 --> 00:08:57,015
+about the general trend.
+
+217
+00:08:57,705 --> 00:08:58,701
+So we went from
+
+218
+00:08:59,279 --> 00:09:04,241
+O, which is exponential time complexity, to
+
+219
+00:09:04,257 --> 00:09:07,361
+just O, which is a huge improvement.
+
+220
+00:09:08,053 --> 00:09:09,903
+And the reason for that is what I just
+
+221
+00:09:09,903 --> 00:09:11,141
+showed on the slide before.
+
+222
+00:09:12,235 --> 00:09:15,066
+We are skipping entire branches of our tree
+
+223
+00:09:15,436 --> 00:09:18,106
+with this optimization technique with the
+
+224
+00:09:18,106 --> 00:09:19,843
+help of dynamic programming.

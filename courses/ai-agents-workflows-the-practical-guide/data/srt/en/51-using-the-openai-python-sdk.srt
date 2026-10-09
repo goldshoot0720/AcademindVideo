@@ -1,0 +1,547 @@
+1
+00:00:00,576 --> 00:00:04,550
+Now, when working with APIs like the OpenAI
+
+2
+00:00:04,663 --> 00:00:05,031
+API,
+
+3
+00:00:05,784 --> 00:00:08,140
+constructing requests on your own like this
+
+4
+00:00:08,685 --> 00:00:09,518
+is absolutely fine.
+
+5
+00:00:10,047 --> 00:00:12,338
+The advantage of this approach is that you
+
+6
+00:00:12,435 --> 00:00:15,143
+can send a request like this in any
+
+7
+00:00:15,319 --> 00:00:18,123
+programming language. Of course, the exact
+
+8
+00:00:18,123 --> 00:00:19,966
+code would have to change. You would be
+
+9
+00:00:19,966 --> 00:00:22,290
+using other packages, the syntax would be
+
+10
+00:00:22,290 --> 00:00:25,270
+different, but the URL, the headers, and the
+
+11
+00:00:25,270 --> 00:00:27,130
+payload would always be the same.
+
+12
+00:00:27,755 --> 00:00:30,529
+That is after all the API you're interacting
+
+13
+00:00:30,625 --> 00:00:30,721
+with.
+
+14
+00:00:31,748 --> 00:00:34,217
+But when you're working with officially
+
+15
+00:00:34,329 --> 00:00:36,878
+supported languages, if you wanna call it
+
+16
+00:00:36,878 --> 00:00:39,845
+like this, you also have the option of
+
+17
+00:00:40,406 --> 00:00:44,398
+using an even simpler approach for sending
+
+18
+00:00:44,430 --> 00:00:46,884
+those requests and extracting the responses.
+
+19
+00:00:47,717 --> 00:00:50,684
+Because besides constructing those requests
+
+20
+00:00:50,684 --> 00:00:53,281
+on your own, you can also use the official
+
+21
+00:00:53,554 --> 00:00:56,375
+SDKs, the official software development
+
+22
+00:00:56,375 --> 00:00:56,744
+kits.
+
+23
+00:00:57,562 --> 00:00:59,630
+And it simply depends on the provider which
+
+24
+00:00:59,887 --> 00:01:02,516
+SDKs for which languages are provided.
+
+25
+00:01:03,414 --> 00:01:06,268
+OpenAI here, for example, has examples for
+
+26
+00:01:06,396 --> 00:01:09,282
+Python and JavaScript. Though there, for
+
+27
+00:01:09,298 --> 00:01:12,392
+example, also is an official Go library if
+
+28
+00:01:12,392 --> 00:01:14,172
+you would be working with Go.
+
+29
+00:01:15,037 --> 00:01:16,737
+It's just not in the examples in the
+
+30
+00:01:16,737 --> 00:01:19,061
+documentation. But again, it depends on the
+
+31
+00:01:19,061 --> 00:01:22,044
+provider which SDKs and libraries for which
+
+32
+00:01:22,252 --> 00:01:23,871
+programming languages may exist.
+
+33
+00:01:24,835 --> 00:01:26,810
+But here, if I do switch to Python, I can,
+
+34
+00:01:26,906 --> 00:01:28,689
+for example, see that instead of
+
+35
+00:01:28,689 --> 00:01:31,676
+constructing this request manually as I did
+
+36
+00:01:31,676 --> 00:01:32,174
+it before,
+
+37
+00:01:32,928 --> 00:01:35,851
+I can also install an extra package, the
+
+38
+00:01:35,899 --> 00:01:38,726
+OpenAI package, which is provided by OpenAI,
+
+39
+00:01:39,593 --> 00:01:41,745
+then create such a client object and then
+
+40
+00:01:41,841 --> 00:01:44,812
+use that client to send a request and also,
+
+41
+00:01:45,230 --> 00:01:47,591
+and that's the best thing here in this
+
+42
+00:01:47,655 --> 00:01:50,722
+example, to also extract the response in a
+
+43
+00:01:51,332 --> 00:01:52,246
+way easier way
+
+44
+00:01:52,920 --> 00:01:55,550
+than what I had to do here. So instead of
+
+45
+00:01:55,582 --> 00:01:58,837
+diving into some nested objects in arrays
+
+46
+00:01:58,853 --> 00:01:59,238
+and so on,
+
+47
+00:01:59,911 --> 00:02:02,589
+when using the official SDK, there is an
+
+48
+00:02:02,637 --> 00:02:05,203
+output text field on the response which I
+
+49
+00:02:05,203 --> 00:02:08,170
+can access to get quick and easy access to
+
+50
+00:02:08,170 --> 00:02:09,773
+the received response text.
+
+51
+00:02:10,527 --> 00:02:12,371
+So therefore, that's what I'll do here. I'll
+
+52
+00:02:12,804 --> 00:02:15,498
+add the OpenAI package. I'll install it here
+
+53
+00:02:15,626 --> 00:02:17,534
+into my Python project with uv@.
+
+54
+00:02:18,577 --> 00:02:20,070
+And with that done,
+
+55
+00:02:20,664 --> 00:02:23,795
+instead of importing requests to send my own
+
+56
+00:02:23,795 --> 00:02:25,914
+requests, I'll import OpenAI
+
+57
+00:02:26,926 --> 00:02:29,398
+or specifically from that OpenAI library,
+
+58
+00:02:29,526 --> 00:02:31,116
+I'll import the OpenAI
+
+59
+00:02:31,822 --> 00:02:32,288
+class.
+
+60
+00:02:33,588 --> 00:02:35,514
+This then allows me to create a so-called
+
+61
+00:02:35,514 --> 00:02:38,131
+client by simply calling OpenAI like this.
+
+62
+00:02:39,223 --> 00:02:41,374
+And that will then also automatically detect
+
+63
+00:02:41,374 --> 00:02:44,168
+that OpenAI key if it's available in an
+
+64
+00:02:44,264 --> 00:02:47,491
+environment variable called OpenAI API key.
+
+65
+00:02:48,069 --> 00:02:50,444
+So I actually don't need to manually load it
+
+66
+00:02:50,444 --> 00:02:52,819
+like this anymore. I just need to make sure
+
+67
+00:02:52,867 --> 00:02:53,108
+that the
+
+68
+00:02:53,653 --> 00:02:56,494
+.env file gets loaded. So this line is still
+
+69
+00:02:56,494 --> 00:02:58,693
+important. And you could also always
+
+70
+00:02:58,789 --> 00:03:01,501
+manually set the API key like this if you,
+
+71
+00:03:01,597 --> 00:03:03,491
+for example, had an environment variable
+
+72
+00:03:03,619 --> 00:03:05,529
+that had a different name. But if you're
+
+73
+00:03:05,529 --> 00:03:07,391
+using this name, you don't need to do that.
+
+74
+00:03:08,113 --> 00:03:09,750
+You can just create a client like this.
+
+75
+00:03:10,440 --> 00:03:12,927
+And then with that, in generateExpost, I
+
+76
+00:03:12,943 --> 00:03:16,180
+still want my prompt. But this part here
+
+77
+00:03:16,778 --> 00:03:17,472
+changes now
+
+78
+00:03:18,651 --> 00:03:20,670
+because now we can simply get a response by
+
+79
+00:03:20,734 --> 00:03:21,816
+using that client.
+
+80
+00:03:22,660 --> 00:03:24,553
+And now the suggestion here is actually for
+
+81
+00:03:24,553 --> 00:03:26,786
+the old API, so I don't wanna use that.
+
+82
+00:03:27,385 --> 00:03:29,699
+Instead, now it's client.responses.create.
+
+83
+00:03:31,616 --> 00:03:34,488
+And then to create, we pass at least 2
+
+84
+00:03:34,779 --> 00:03:37,861
+parameters where we tell OpenAI which model
+
+85
+00:03:37,861 --> 00:03:40,507
+we wanna use and then again our input, our
+
+86
+00:03:40,507 --> 00:03:40,830
+prompt.
+
+87
+00:03:41,719 --> 00:03:44,412
+So here for the model, I'll again use GPT-4o
+
+88
+00:03:44,989 --> 00:03:47,586
+just like before. And for input, I'll still
+
+89
+00:03:47,634 --> 00:03:50,150
+provide my prompt also just like before.
+
+90
+00:03:50,984 --> 00:03:54,447
+And now we can return response.outputText
+
+91
+00:03:54,447 --> 00:03:56,691
+because that's now a little convenience
+
+92
+00:03:56,691 --> 00:03:59,224
+field we get on this response object because
+
+93
+00:03:59,256 --> 00:04:01,676
+this response is now coming from that OpenAI
+
+94
+00:04:02,045 --> 00:04:02,462
+SDK.
+
+95
+00:04:03,664 --> 00:04:05,780
+And therefore that's now a bit easier. It's
+
+96
+00:04:05,828 --> 00:04:08,810
+a simpler approach of sending that request
+
+97
+00:04:08,810 --> 00:04:10,044
+and handling the response.
+
+98
+00:04:10,942 --> 00:04:12,994
+And what's really great about this OpenAI
+
+99
+00:04:13,346 --> 00:04:16,216
+SDK is that it can actually be used with
+
+100
+00:04:16,392 --> 00:04:17,883
+many other providers as well
+
+101
+00:04:18,412 --> 00:04:20,849
+because it allows you to set a base URL,
+
+102
+00:04:21,618 --> 00:04:23,446
+which you don't need to set if you're
+
+103
+00:04:23,446 --> 00:04:26,010
+interacting with OpenAI, but which you can
+
+104
+00:04:26,010 --> 00:04:28,319
+set to a different value if you're
+
+105
+00:04:28,431 --> 00:04:30,820
+interacting with the API by some other
+
+106
+00:04:30,820 --> 00:04:33,641
+provider which supports this OpenAI format.
+
+107
+00:04:34,186 --> 00:04:36,670
+Like for example, Google with their Gemini
+
+108
+00:04:36,670 --> 00:04:37,054
+models.
+
+109
+00:04:37,711 --> 00:04:39,955
+In their documentation, you also learn that
+
+110
+00:04:39,955 --> 00:04:42,615
+you can use that same OpenAI package we're
+
+111
+00:04:42,615 --> 00:04:45,851
+using here and you just change that base URL
+
+112
+00:04:46,044 --> 00:04:47,935
+to the Google API URL here
+
+113
+00:04:48,768 --> 00:04:51,989
+and you set your API key, the Gemini API key
+
+114
+00:04:52,053 --> 00:04:52,197
+then.
+
+115
+00:04:52,774 --> 00:04:55,642
+And then you could use this OpenAI SDK just
+
+116
+00:04:56,139 --> 00:04:58,895
+as you use it with OpenAI, though at least
+
+117
+00:04:58,895 --> 00:05:00,947
+right now when I'm recording this, Gemini
+
+118
+00:05:01,027 --> 00:05:03,628
+only works with that old API format.
+
+119
+00:05:04,736 --> 00:05:06,871
+Again, the Gemini documentation is the place
+
+120
+00:05:06,968 --> 00:05:09,103
+to go to learn more about that. But it's
+
+121
+00:05:09,215 --> 00:05:10,708
+worth keeping in mind that the great thing
+
+122
+00:05:10,757 --> 00:05:13,727
+about the OpenAI SDK is that it can be used
+
+123
+00:05:13,727 --> 00:05:15,461
+with some other providers as well.
+
+124
+00:05:16,055 --> 00:05:18,447
+Here I'll use it with OpenAI though, and
+
+125
+00:05:18,463 --> 00:05:19,554
+therefore that's all we need.
+
+126
+00:05:20,084 --> 00:05:21,641
+So if I now save this again
+
+127
+00:05:22,380 --> 00:05:24,050
+and I then run my script again,
+
+128
+00:05:25,029 --> 00:05:27,373
+I can again provide a topic. Like for
+
+129
+00:05:27,373 --> 00:05:29,959
+example, building AI workflows with code
+
+130
+00:05:29,959 --> 00:05:31,983
+gives you way more flexibility than using
+
+131
+00:05:32,095 --> 00:05:33,332
+no-code solutions.
+
+132
+00:05:34,183 --> 00:05:36,704
+And again, a request will be sent. That's
+
+133
+00:05:37,010 --> 00:05:39,306
+the same as before. It will essentially do
+
+134
+00:05:39,354 --> 00:05:41,298
+the same thing as before, just behind the
+
+135
+00:05:41,330 --> 00:05:44,333
+scenes now with help of the SDK. And I get a
+
+136
+00:05:44,333 --> 00:05:46,453
+nice little post which I could now share on
+
+137
+00:05:46,710 --> 00:05:46,951
+X.

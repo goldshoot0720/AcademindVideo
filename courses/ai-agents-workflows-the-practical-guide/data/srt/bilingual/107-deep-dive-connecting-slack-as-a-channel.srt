@@ -1,0 +1,1194 @@
+1
+00:00:00,512 --> 00:00:03,270
+Now, task-specific agents like this one here
+現在，像這裡這樣的特定任務代理
+
+2
+00:00:03,783 --> 00:00:05,883
+often should be invocable from various
+通常應該從不同的地方調用
+
+3
+00:00:05,883 --> 00:00:07,886
+channels, not just locally, and definitely
+頻道，不只是本地頻道，而且絕對是
+
+4
+00:00:07,886 --> 00:00:10,291
+not just with that dev server, which is nice
+不僅僅是開發伺服器，這很好
+
+5
+00:00:10,291 --> 00:00:12,214
+for testing, but which doesn't make the
+用於測試，但這並不意味著
+
+6
+00:00:12,214 --> 00:00:13,000
+agent shareable.
+代理可共享。
+
+7
+00:00:13,801 --> 00:00:15,949
+So that's why you may have other channels
+這就是為什麼您可能有其他管道
+
+8
+00:00:16,046 --> 00:00:16,911
+like Slack. And
+就像鬆弛一樣。和
+
+9
+00:00:17,440 --> 00:00:19,043
+setting up Slack can be a bit
+設定 Slack 可能有點困難
+
+10
+00:00:19,668 --> 00:00:21,961
+annoying. So that's why as a little bonus, I
+惱人的。這就是為什麼作為一點獎勵，我
+
+11
+00:00:21,977 --> 00:00:23,804
+wanna walk you through the steps required.
+我想引導您完成所需的步驟。
+
+12
+00:00:23,997 --> 00:00:26,257
+Though I will say, we'll basically walk
+雖然我會說，但我們基本上會步行
+
+13
+00:00:26,321 --> 00:00:28,020
+through the steps as documented in the
+透過中記錄的步驟
+
+14
+00:00:28,068 --> 00:00:30,777
+README because they are all written down
+README 因為它們都寫下來了
+
+15
+00:00:30,890 --> 00:00:33,698
+here, which hopefully is helpful. The first
+在這裡，希望對您有幫助。第一個
+
+16
+00:00:33,698 --> 00:00:36,090
+important thing to note is that
+需要注意的重要一點是
+
+17
+00:00:36,652 --> 00:00:38,241
+if you're running the agent locally on your
+如果您在本地運行代理
+
+18
+00:00:38,274 --> 00:00:40,907
+system, if you want Slack to connect to it,
+系統，如果您希望 Slack 連接到它，
+
+19
+00:00:40,923 --> 00:00:43,540
+you need to expose that running server from
+你需要公開正在運行的伺服器
+
+20
+00:00:43,636 --> 00:00:44,327
+your system
+你的系統
+
+21
+00:00:44,937 --> 00:00:45,306
+because
+因為
+
+22
+00:00:45,836 --> 00:00:47,730
+Slack needs to be able to reach it. Slack
+Slack 需要能夠達到這一目標。鬆弛
+
+23
+00:00:47,971 --> 00:00:50,460
+needs to be able to reach your computer, so
+需要能夠存取您的計算機，因此
+
+24
+00:00:50,460 --> 00:00:52,836
+to say. Alternatively, you need to put it on
+說。或者，您需要將其放在
+
+25
+00:00:52,884 --> 00:00:55,357
+some VPS that's exposed to the internet.
+一些暴露在互聯網上的 VPS。
+
+26
+00:00:55,437 --> 00:00:57,669
+There is no way around that because, well,
+沒有辦法解決這個問題，因為，好吧，
+
+27
+00:00:58,006 --> 00:01:00,591
+Obviously Slack must be able to talk to your
+顯然 Slack 必須能夠與您交談
+
+28
+00:01:00,591 --> 00:01:00,960
+agent.
+代理人。
+
+29
+00:01:01,554 --> 00:01:03,544
+Now, some options for exposing it are
+現在，暴露它的一些選項是
+
+30
+00:01:03,544 --> 00:01:05,166
+documented here. You could be using a tool
+記錄在這裡。你可能正在使用一個工具
+
+31
+00:01:05,166 --> 00:01:07,574
+called ngrok, which you can install to set
+名為 ngrok，您可以安裝它來設置
+
+32
+00:01:07,574 --> 00:01:09,388
+up a tunnel to a server running on your
+透過隧道連接到運行在您的伺服器上的伺服器
+
+33
+00:01:09,420 --> 00:01:11,604
+system, or you could use a Cloudflare
+系統，或者您可以使用 Cloudflare
+
+34
+00:01:11,668 --> 00:01:13,594
+tunnel, which is what I will use, but you'll
+隧道，這就是我將使用的，但你會
+
+35
+00:01:13,594 --> 00:01:16,131
+need to expose it some way. So first of all,
+需要以某種方式暴露它。所以首先，
+
+36
+00:01:16,259 --> 00:01:18,266
+I'll start the server without that UI
+我將在沒有該 UI 的情況下啟動伺服器
+
+37
+00:01:19,037 --> 00:01:20,144
+with this command here.
+在這裡使用這個命令。
+
+38
+00:01:20,738 --> 00:01:22,858
+So that spins up the same server, but now
+這樣就啟動了同一台伺服器，但現在
+
+39
+00:01:23,291 --> 00:01:25,811
+without a UI. The UI, which you saw before,
+沒有使用者介面。你之前看到的使用者介面，
+
+40
+00:01:25,876 --> 00:01:28,315
+is just there for testing it, The chat UI
+只是為了測試它，聊天 UI
+
+41
+00:01:28,347 --> 00:01:31,856
+you had there, now it's running to be used
+你曾經在那裡，現在它正在運行以供使用
+
+42
+00:01:31,872 --> 00:01:33,523
+from some other source. Could be your own
+來自其他一些來源。可能是你自己的
+
+43
+00:01:33,571 --> 00:01:35,622
+website or could be Slack as mentioned.
+網站或可以是前面提到的 Slack。
+
+44
+00:01:36,455 --> 00:01:37,866
+You need to keep this up and running. You
+您需要保持其正常運作。你
+
+45
+00:01:37,882 --> 00:01:40,045
+can quit it with Ctrl+C, but it needs to be
+可以用 Ctrl+C 退出，但需要
+
+46
+00:01:40,045 --> 00:01:41,744
+up and running in order to be usable.
+啟動並運行以便可用。
+
+47
+00:01:42,385 --> 00:01:43,202
+In a separate
+在單獨的
+
+48
+00:01:43,987 --> 00:01:45,830
+terminal window, I then want to use
+終端機窗口，然後我想使用
+
+49
+00:01:45,830 --> 00:01:47,705
+Cloudflare and that is a tool you need to
+Cloudflare 這是您需要的工具
+
+50
+00:01:47,737 --> 00:01:50,013
+install in order to be able to use it to set
+安裝以便能夠使用它來設置
+
+51
+00:01:50,013 --> 00:01:52,625
+up a tunnel that exposes this to the World
+沿著一條隧道將其暴露給世界
+
+52
+00:01:52,625 --> 00:01:53,811
+Wide Web. So I'll run
+萬維網。所以我會跑
+
+53
+00:01:54,388 --> 00:01:54,966
+this command.
+這個命令。
+
+54
+00:01:56,409 --> 00:01:58,654
+Now you don't even need a Cloudflare account
+現在您甚至不需要 Cloudflare 帳戶
+
+55
+00:01:58,654 --> 00:02:00,178
+for that to experiment with it, which is
+來進行實驗，即
+
+56
+00:02:00,258 --> 00:02:00,515
+nice.
+好的。
+
+57
+00:02:01,060 --> 00:02:03,578
+Just that Cloudflare tool installed is all
+只需安裝Cloudflare工具即可
+
+58
+00:02:03,610 --> 00:02:05,615
+you need. And with that tunnel up and
+你需要。隨著隧道的建立
+
+59
+00:02:05,615 --> 00:02:07,683
+running, that server is now exposed
+正在運行，該伺服器現已暴露
+
+60
+00:02:08,758 --> 00:02:11,228
+to the entire world, so to say. I don't
+可以這麼說，對整個世界。我不
+
+61
+00:02:11,244 --> 00:02:13,649
+wanna go with option B. You could deploy it
+想選擇 B 選項。你可以部署它
+
+62
+00:02:13,649 --> 00:02:15,574
+to Vercel and let them handle some of the
+交給 Vercel 並請他們處理一些
+
+63
+00:02:15,574 --> 00:02:17,290
+complexity, but I won't do that. So we can
+複雜性，但我不會這麼做。所以我們可以
+
+64
+00:02:17,338 --> 00:02:20,129
+head right onto step 2, which is that we
+直接進入步驟 2，也就是我們
+
+65
+00:02:20,129 --> 00:02:22,278
+want to create a Slack app that can connect
+想要建立一個可以連接的 Slack 應用程式
+
+66
+00:02:22,310 --> 00:02:22,951
+to the server.
+到伺服器。
+
+67
+00:02:24,010 --> 00:02:26,143
+So we should head over to that address and
+所以我們應該前往該地址並
+
+68
+00:02:26,159 --> 00:02:28,035
+you'll need to log in with your Slack
+您需要使用 Slack 登入
+
+69
+00:02:28,147 --> 00:02:30,056
+account and then you can click create a new
+帳戶，然後您可以按一下建立新帳戶
+
+70
+00:02:30,232 --> 00:02:32,253
+app, choose blank app here.
+應用程式，此處選擇空白應用程式。
+
+71
+00:02:33,055 --> 00:02:33,311
+So
+所以
+
+72
+00:02:33,857 --> 00:02:35,701
+none of these templates but blank app.
+這些樣板都不是，而是空白的應用程式。
+
+73
+00:02:37,144 --> 00:02:39,951
+Give it a name. I'll name it Eve Demo.
+給它取個名字。我將其命名為 Eve Demo。
+
+74
+00:02:40,817 --> 00:02:42,148
+Assign it to your workspace
+將其分配給您的工作區
+
+75
+00:02:43,303 --> 00:02:45,933
+and click create. And then you got a super
+並點擊創建。然後你就得到了一個超級
+
+76
+00:02:46,029 --> 00:02:49,237
+overwhelming menu. But again, all the steps
+壓倒性的菜單。但話又說回來，所有的步驟
+
+77
+00:02:49,317 --> 00:02:51,418
+are documented here. So first we should go
+記錄在這裡。所以首先我們應該去
+
+78
+00:02:51,418 --> 00:02:52,669
+to OAuth permissions.
+OAuth 權限。
+
+79
+00:02:53,329 --> 00:02:56,712
+Then Scopes, Bot Token Scopes, and add these
+然後是 Scopes、Bot Token Scopes，並添加這些
+
+80
+00:02:56,890 --> 00:02:57,278
+scopes.
+範圍。
+
+81
+00:02:58,814 --> 00:02:59,473
+So that is
+所以那就是
+
+82
+00:03:00,470 --> 00:03:02,367
+OAuth and Permissions where I am already.
+OAuth 和權限我已經在了。
+
+83
+00:03:03,460 --> 00:03:07,358
+Scopes, Bot Token Scopes, and add an OAuth
+範圍、機器人令牌範圍並新增 OAuth
+
+84
+00:03:07,653 --> 00:03:08,047
+scope.
+範圍。
+
+85
+00:03:09,032 --> 00:03:10,149
+And then you can just copy these:
+然後你可以複製這些：
+
+86
+00:03:10,576 --> 00:03:10,920
+app.mentions.read,
+應用程式.提及.閱讀,
+
+87
+00:03:14,850 --> 00:03:15,618
+chat.write,
+聊天.寫,
+
+88
+00:03:18,462 --> 00:03:19,344
+iam.history,
+我的歷史，
+
+89
+00:03:22,047 --> 00:03:22,916
+IAM read,
+IAM 讀到，
+
+90
+00:03:25,749 --> 00:03:26,538
+IAM write,
+IAM 寫，
+
+91
+00:03:30,000 --> 00:03:30,483
+channels history,
+頻道歷史、
+
+92
+00:03:33,558 --> 00:03:35,232
+and groups history
+和團體歷史
+
+93
+00:03:39,064 --> 00:03:40,314
+so that all these are added.
+以便添加所有這些。
+
+94
+00:03:41,780 --> 00:03:43,883
+Okay, so that's the first step. Now
+好的，這是第一步。現在
+
+95
+00:03:44,421 --> 00:03:46,573
+in the same page, you should click install
+在同一頁面中，您應該點擊安裝
+
+96
+00:03:46,622 --> 00:03:47,078
+to workspace.
+到工作區。
+
+97
+00:03:49,045 --> 00:03:49,884
+So that is here
+所以這就是這裡
+
+98
+00:03:52,737 --> 00:03:55,671
+and allow this and then copy that OAuth bot
+並允許此操作，然後複製該 OAuth 機器人
+
+99
+00:03:55,720 --> 00:03:56,252
+token here
+此處的令牌
+
+100
+00:03:57,267 --> 00:03:59,406
+and go back to this project and in.env
+並回傳到該專案和 in.env
+
+101
+00:04:01,045 --> 00:04:03,037
+put that in here for Slack bot token and
+將其放在這裡​​作為 Slack 機器人令牌，然後
+
+102
+00:04:03,214 --> 00:04:04,451
+don't share this with anyone.
+不要與任何人分享這個。
+
+103
+00:04:05,046 --> 00:04:07,215
+This gives people access to that bot in the
+這使人們可以訪問該機器人
+
+104
+00:04:07,215 --> 00:04:08,921
+end and of course I'll delete mine once I'm
+結束，當然，一旦我結束了，我就會刪除我的
+
+105
+00:04:08,921 --> 00:04:09,555
+done recording.
+完成錄音。
+
+106
+00:04:10,320 --> 00:04:12,906
+Step 5, go to basic information, app
+第5步，進入基本資訊、應用程式
+
+107
+00:04:12,906 --> 00:04:14,497
+credentials. So that is
+證書。所以那就是
+
+108
+00:04:15,481 --> 00:04:15,772
+up here,
+在這裡，
+
+109
+00:04:16,853 --> 00:04:17,806
+basic information,
+基本訊息，
+
+110
+00:04:18,548 --> 00:04:19,339
+app credentials,
+應用程式憑證，
+
+111
+00:04:21,066 --> 00:04:22,729
+and then we want the signing secret.
+然後我們想要簽名秘密。
+
+112
+00:04:24,235 --> 00:04:24,897
+So this one,
+所以這個，
+
+113
+00:04:25,558 --> 00:04:26,687
+show it, copy it,
+顯示它、複製它、
+
+114
+00:04:27,848 --> 00:04:28,880
+and then back in.env,
+然後回到.env，
+
+115
+00:04:29,547 --> 00:04:29,983
+put that here.
+把它放在這裡。
+
+116
+00:04:30,758 --> 00:04:32,727
+Next we wanna enable event subscriptions. So
+接下來我們要啟用事件訂閱。所以
+
+117
+00:04:32,776 --> 00:04:35,342
+we go to event subscriptions and turn that
+我們轉到事件訂閱並將其打開
+
+118
+00:04:35,439 --> 00:04:35,585
+on.
+在。
+
+119
+00:04:36,343 --> 00:04:38,248
+So that is event subscriptions.
+這就是事件訂閱。
+
+120
+00:04:39,573 --> 00:04:40,006
+Turn it on
+打開它
+
+121
+00:04:41,001 --> 00:04:42,750
+and set the request URL to
+並將請求 URL 設定為
+
+122
+00:04:43,343 --> 00:04:46,938
+your public host evev1/slack. So if you use
+您的公共主機 evev1/slack。所以如果你使用
+
+123
+00:04:46,938 --> 00:04:47,387
+Cloudflare
+雲耀
+
+124
+00:04:47,981 --> 00:04:49,826
+as I did, you should scroll all the way up
+就像我一樣，你應該一直向上滾動
+
+125
+00:04:49,842 --> 00:04:51,671
+in this terminal where you started it. And
+在您啟動它的這個終端機中。和
+
+126
+00:04:51,687 --> 00:04:52,939
+by the way, you need to keep this running
+順便說一句，你需要保持這個運行
+
+127
+00:04:53,051 --> 00:04:54,543
+for as long as you want to be able to reach
+只要您希望能夠達到
+
+128
+00:04:54,640 --> 00:04:56,758
+your locally running server from outside.
+從外部本地運行的伺服器。
+
+129
+00:04:57,624 --> 00:04:58,779
+And you wanna copy this
+你想複製這個
+
+130
+00:04:59,373 --> 00:05:00,063
+URL here
+網址在這裡
+
+131
+00:05:01,395 --> 00:05:03,449
+and paste this in here as request URL
+並將其貼到此處作為請求 URL
+
+132
+00:05:04,203 --> 00:05:05,968
+and remove any whitespace that may be
+並刪除任何可能的空白
+
+133
+00:05:05,968 --> 00:05:08,038
+thereafter. And then also copy this part,
+此後。然後也複製這部分，
+
+134
+00:05:08,054 --> 00:05:10,493
+very important, and add that after this URL.
+非常重要，並將其添加到此 URL 後面。
+
+135
+00:05:12,397 --> 00:05:13,808
+And then you should see verified here.
+然後你應該在這裡看到驗證。
+
+136
+00:05:14,505 --> 00:05:17,017
+Now under subscribe to bot events, add app
+現在在訂閱機器人事件下，新增應用程式
+
+137
+00:05:17,082 --> 00:05:17,520
+mention.
+提到。
+
+138
+00:05:20,270 --> 00:05:20,882
+So that is here,
+所以這就是這裡，
+
+139
+00:05:23,252 --> 00:05:23,818
+app mention,
+應用程式提及，
+
+140
+00:05:24,790 --> 00:05:27,074
+and also message IM so that you can
+也可以透過 IM 發送訊息，以便您可以
+
+141
+00:05:27,074 --> 00:05:29,584
+basically mention or directly message the
+基本上提到或直接發送訊息
+
+142
+00:05:29,584 --> 00:05:31,058
+bot to work with it.
+機器人來使用它。
+
+143
+00:05:35,611 --> 00:05:36,665
+So these 2 should be added.
+所以應該要加這2個。
+
+144
+00:05:37,435 --> 00:05:38,695
+We should then click Save Changes.
+然後我們應該單擊“儲存更改”。
+
+145
+00:05:39,534 --> 00:05:41,601
+Next, we should go to Socket Mode
+接下來，我們應該進入套接字模式
+
+146
+00:05:43,974 --> 00:05:45,395
+and there disable it.
+並在那裡禁用它。
+
+147
+00:05:46,310 --> 00:05:48,270
+Next, we need to enable interactivity. So we
+接下來，我們需要啟用互動性。所以我們
+
+148
+00:05:48,270 --> 00:05:50,648
+go to Interactivity and Shortcuts, enable
+轉到互動性和快捷方式，啟用
+
+149
+00:05:50,744 --> 00:05:51,082
+that,
+那，
+
+150
+00:05:51,644 --> 00:05:53,122
+and we need the same URL
+我們需要相同的 URL
+
+151
+00:05:53,958 --> 00:05:55,790
+as we just used for event subscription. So
+就像我們剛剛用於事件訂閱一樣。所以
+
+152
+00:05:55,790 --> 00:05:56,113
+we can
+我們可以
+
+153
+00:05:56,792 --> 00:05:58,377
+copy that URL and then
+複製該 URL，然後
+
+154
+00:05:59,056 --> 00:06:01,207
+turn this on, use it here for Interactivity
+打開它，在此處使用它進行交互
+
+155
+00:06:01,239 --> 00:06:03,228
+and Shortcuts, and then click Save Changes.
+和快捷方式，然後按一下儲存變更。
+
+156
+00:06:03,406 --> 00:06:05,185
+Now we should go to App Home.
+現在我們應該轉到應用程式主頁。
+
+157
+00:06:07,339 --> 00:06:07,630
+Here
+這裡
+
+158
+00:06:09,360 --> 00:06:10,136
+and there,
+在那裡，
+
+159
+00:06:10,831 --> 00:06:12,981
+make sure the Messages tab is enabled and
+確保訊息分頁已啟用並且
+
+160
+00:06:13,158 --> 00:06:14,985
+also check Allow users to send slash
+也要檢查允許使用者發送斜杠
+
+161
+00:06:15,098 --> 00:06:15,567
+messages.
+消息。
+
+162
+00:06:17,574 --> 00:06:19,090
+Should be saved automatically, by the way.
+順便說一句，應該會自動儲存。
+
+163
+00:06:19,251 --> 00:06:20,993
+You don't need to click Save. And now last
+您無需單擊“儲存”。現在最後
+
+164
+00:06:21,025 --> 00:06:22,573
+but not least, you need to find out what
+但並非最不重要的是，你需要找出什麼
+
+165
+00:06:22,573 --> 00:06:24,847
+your Slack ID is so that you can allow
+您的 Slack ID 以便您可以允許
+
+166
+00:06:24,992 --> 00:06:27,330
+certain users to send messages. And for
+某些使用者發送訊息。而對於
+
+167
+00:06:27,330 --> 00:06:29,717
+that, I can go to Slack, click on myself, on
+那我可以去 Slack，點擊我自己，
+
+168
+00:06:29,814 --> 00:06:32,276
+these 3 dots here, Copy member ID.
+這 3 個點，複製會員 ID。
+
+169
+00:06:33,046 --> 00:06:34,570
+And you do that for all the members that
+你為所有成員這樣做
+
+170
+00:06:34,570 --> 00:06:36,206
+should be able to interact with that bot.
+應該能夠與該機器人互動。
+
+171
+00:06:36,335 --> 00:06:37,008
+And you go to
+你去
+
+172
+00:06:37,843 --> 00:06:38,035
+.env
+.env
+
+173
+00:06:38,565 --> 00:06:40,810
+and add them here, comma separated if you
+並在此處添加它們，如果您需要，請用逗號分隔
+
+174
+00:06:40,810 --> 00:06:41,998
+had multiple members.
+有多名成員。
+
+175
+00:06:42,832 --> 00:06:43,490
+And that should be it.
+應該就是這樣。
+
+176
+00:06:44,436 --> 00:06:46,586
+Now with that, we wanna restart the server
+現在，我們要重新啟動伺服器
+
+177
+00:06:46,586 --> 00:06:48,607
+to make sure that the updated environment
+以確保更新的環境
+
+178
+00:06:48,607 --> 00:06:50,773
+variables are picked up. And now we need to
+變數被拾取。現在我們需要
+
+179
+00:06:50,837 --> 00:06:54,254
+go to Slack and invite the bot to it. So I
+前往 Slack 並邀請機器人加入。所以我
+
+180
+00:06:54,286 --> 00:06:56,901
+named my bot eve-demo. I installed it into
+將我的機器人命名為 eve-demo。我把它安裝到
+
+181
+00:06:56,949 --> 00:06:57,607
+my workspace.
+我的工作區。
+
+182
+00:06:58,713 --> 00:07:00,943
+I did that. We can reinstall it to make sure
+我就是這麼做的。我們可以重新安裝它以確保
+
+183
+00:07:00,943 --> 00:07:02,434
+that we really got the latest version with
+我們確實得到了最新版本
+
+184
+00:07:02,546 --> 00:07:03,380
+all the permissions.
+所有權限。
+
+185
+00:07:04,086 --> 00:07:05,609
+And now in Slack, in that support channel,
+現在在 Slack 的支援管道中，
+
+186
+00:07:05,625 --> 00:07:06,299
+which I already have,
+我已經有了，
+
+187
+00:07:06,892 --> 00:07:08,913
+I can invite
+我可以邀請
+
+188
+00:07:09,522 --> 00:07:12,409
+@eve-demo to invite it into this channel,
+@eve-demo 邀請它進入此頻道，
+
+189
+00:07:12,425 --> 00:07:14,814
+for example. And with the bot added, we can
+例如。添加機器人後，我們可以
+
+190
+00:07:14,846 --> 00:07:16,658
+now target it with @eve-demo
+現在用 @eve-demo 來定位它
+
+191
+00:07:17,476 --> 00:07:19,962
+and ask, what can you do for me? And that
+並問，你能為我做什麼？還有那個
+
+192
+00:07:19,962 --> 00:07:22,207
+will kick off the bot running on our system
+將啟動在我們系統上運行的機器人
+
+193
+00:07:22,432 --> 00:07:24,115
+through the Cloudflare tunnel. And this
+透過 Cloudflare 隧道。還有這個
+
+194
+00:07:24,212 --> 00:07:25,495
+therefore now gives us a brand new
+因此現在給了我們一個全新的
+
+195
+00:07:25,495 --> 00:07:27,243
+communication channel and we can view the
+溝通管道，我們可以查看
+
+196
+00:07:27,243 --> 00:07:29,537
+thread and see what it can do. And now
+執行緒並看看它能做什麼。而現在
+
+197
+00:07:29,569 --> 00:07:29,778
+again,
+再次，
+
+198
+00:07:30,533 --> 00:07:32,829
+we can take a look at some customer here.
+我們可以在這裡看看一些客戶。
+
+199
+00:07:33,760 --> 00:07:34,547
+Let's pick
+我們來選一下
+
+200
+00:07:35,285 --> 00:07:38,111
+maybe Maya here and ask here in the thread
+也許瑪雅在這裡並在執行緒中詢問
+
+201
+00:07:38,111 --> 00:07:40,552
+as a follow-up, which purchases does
+作為後續行動，購買確實
+
+202
+00:07:41,210 --> 00:07:44,309
+Maya Chen have? We need to, at least right
+陳瓔有嗎？我們需要，至少是對的
+
+203
+00:07:44,341 --> 00:07:46,541
+now, we need to tag the bot again to become
+現在，我們需要再次標記機器人以使其成為
+
+204
+00:07:46,670 --> 00:07:47,521
+active again. So now
+再次活躍。所以現在
+
+205
+00:07:48,195 --> 00:07:50,507
+we can see it's using its tools still as
+我們可以看到它仍然使用它的工具
+
+206
+00:07:50,539 --> 00:07:53,172
+before, but now invoked through Slack.
+之前，但現在透過 Slack 調用。
+
+207
+00:07:54,072 --> 00:07:54,761
+And if we now say
+如果我們現在說
+
+208
+00:07:55,498 --> 00:07:56,059
+refund it,
+退款,
+
+209
+00:07:57,438 --> 00:07:59,409
+we also can see the approval step, which
+我們還可以看到批准步驟，其中
+
+210
+00:07:59,522 --> 00:08:01,397
+does not just work in that chat
+不僅僅在聊天中起作用
+
+211
+00:08:02,166 --> 00:08:05,132
+terminal user interface provided by Eve, but
+Eve 提供的終端機使用者介面，但是
+
+212
+00:08:05,132 --> 00:08:07,135
+which also works with other channels like
+它也適用於其他管道，例如
+
+213
+00:08:07,135 --> 00:08:09,909
+Slack, which actually supports interactivity
+Slack，實際上支援互動性
+
+214
+00:08:10,021 --> 00:08:11,479
+as part of a chat, as you'll see in a
+作為聊天的一部分，正如您將在
+
+215
+00:08:11,479 --> 00:08:13,788
+second. You see, this is how an approved
+第二。你看，這就是批准的方式
+
+216
+00:08:13,788 --> 00:08:15,375
+tool call looks like in Slack.
+工具呼叫看起來像 Slack 中的那樣。
+
+217
+00:08:16,112 --> 00:08:17,266
+I got nice buttons here,
+我這裡有漂亮的按鈕，
+
+218
+00:08:17,795 --> 00:08:19,718
+got some information, and I can, for
+得到了一些資訊，我可以，
+
+219
+00:08:19,718 --> 00:08:20,969
+example, click allow to
+例如，按一下允許
+
+220
+00:08:21,626 --> 00:08:23,776
+confirm this and now the agent can continue
+確認這一點，現在代理可以繼續
+
+221
+00:08:23,792 --> 00:08:25,108
+and go ahead with the refund.
+並繼續退款。
+
+222
+00:08:25,975 --> 00:08:28,157
+And this shows us how such a Slack channel
+這向我們展示了這樣一個 Slack 頻道如何
+
+223
+00:08:28,221 --> 00:08:30,451
+could be connected. Now please note this
+可以連接。現在請注意這一點
+
+224
+00:08:30,451 --> 00:08:32,634
+Cloudflare tunnel which we started like this
+我們是這樣開始的 Cloudflare 隧道
+
+225
+00:08:32,698 --> 00:08:34,784
+is experimental. It's open to the World Wide
+是實驗性的。它向全世界開放
+
+226
+00:08:34,784 --> 00:08:37,608
+Web. If you wanted to protect it, you, if
+網路。如果你想保護它，你，如果
+
+227
+00:08:37,608 --> 00:08:39,581
+you want to continue using Cloudflare, you
+您想繼續使用 Cloudflare，您
+
+228
+00:08:39,613 --> 00:08:41,298
+will need to create a Cloudflare account and
+需要建立一個 Cloudflare 帳戶並且
+
+229
+00:08:41,298 --> 00:08:43,898
+then you can use their features to lock down
+那你可以使用他們的功能來鎖定
+
+230
+00:08:44,106 --> 00:08:46,369
+your, the tunnel to just your account or
+您的，僅通往您帳戶的隧道或
+
+231
+00:08:46,417 --> 00:08:48,439
+anything like that. Here since this was just
+諸如此類的事情。在這裡，因為這只是
+
+232
+00:08:48,439 --> 00:08:50,849
+a demo I'll simply Stop this process, shut
+演示我會簡單地停止這個過程，關閉
+
+233
+00:08:50,849 --> 00:08:53,068
+it down, stop that development server or
+將其關閉，停止該開發伺服器或
+
+234
+00:08:53,100 --> 00:08:54,146
+that Eve server here.
+那個夏娃伺服器在這裡。
+
+235
+00:08:54,869 --> 00:08:57,089
+And that is therefore how you could build
+這就是你如何建構
+
+236
+00:08:57,185 --> 00:09:00,225
+and use an AI agent with the same building
+並在同一棟建築物中使用AI代理
+
+237
+00:09:00,257 --> 00:09:02,348
+blocks you learned about before with the
+您之前了解過的區塊
+
+238
+00:09:02,348 --> 00:09:04,664
+same principles, but now using such a
+相同的原理，但現在使用這樣的
+
+239
+00:09:04,664 --> 00:09:05,098
+framework.
+框架。

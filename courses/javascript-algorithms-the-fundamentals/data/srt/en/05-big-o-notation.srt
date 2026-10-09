@@ -1,0 +1,659 @@
+1
+00:00:02,280 --> 00:00:04,641
+Now of course, not all algorithms in
+
+2
+00:00:04,689 --> 00:00:06,649
+JavaScript take linear time.
+
+3
+00:00:07,500 --> 00:00:10,921
+We saw this here, this linear time function,
+
+4
+00:00:11,675 --> 00:00:14,566
+but we also sometimes have algorithms that
+
+5
+00:00:14,566 --> 00:00:17,634
+take constant time, so where the number of
+
+6
+00:00:17,682 --> 00:00:21,376
+inputs has no influence on the time this
+
+7
+00:00:21,456 --> 00:00:22,275
+algorithm takes.
+
+8
+00:00:22,918 --> 00:00:25,423
+And actually, I can show you an example for
+
+9
+00:00:25,487 --> 00:00:26,355
+constant time
+
+10
+00:00:27,173 --> 00:00:29,340
+Based on that example we just saw.
+
+11
+00:00:30,303 --> 00:00:32,920
+Here I'm in a new tab and now I'm going to
+
+12
+00:00:32,952 --> 00:00:35,729
+rewrite this sumUp function in a different
+
+13
+00:00:35,745 --> 00:00:35,873
+way
+
+14
+00:00:36,563 --> 00:00:38,778
+because that's typical in programming.
+
+15
+00:00:39,356 --> 00:00:42,021
+Often you have more than one way of solving
+
+16
+00:00:42,021 --> 00:00:42,583
+a problem.
+
+17
+00:00:43,369 --> 00:00:45,921
+I mean, if we wouldn't have alternative ways
+
+18
+00:00:46,018 --> 00:00:48,377
+of solving a problem, we wouldn't need to
+
+19
+00:00:48,377 --> 00:00:50,127
+measure the performance, right?
+
+20
+00:00:50,672 --> 00:00:53,786
+This entire idea of finding the best
+
+21
+00:00:53,899 --> 00:00:57,160
+algorithm and of finding a way of comparing
+
+22
+00:00:57,256 --> 00:00:58,573
+performance of algorithms,
+
+23
+00:00:59,200 --> 00:01:02,462
+well, that entire idea would be useless and
+
+24
+00:01:02,494 --> 00:01:05,498
+worthless if we only had one solution per
+
+25
+00:01:05,691 --> 00:01:07,956
+problem. But of course, in programming, you
+
+26
+00:01:07,956 --> 00:01:10,254
+can be very creative and you can find
+
+27
+00:01:11,250 --> 00:01:13,885
+dozens or hundreds of solutions for one and
+
+28
+00:01:13,885 --> 00:01:16,151
+the same problem if you want to. And that's
+
+29
+00:01:16,215 --> 00:01:18,625
+why we need a way of comparing performance,
+
+30
+00:01:19,107 --> 00:01:20,890
+which is exactly what we're working on right
+
+31
+00:01:20,890 --> 00:01:20,971
+now.
+
+32
+00:01:22,079 --> 00:01:24,921
+And here previously, we solved this sum up
+
+33
+00:01:25,049 --> 00:01:26,430
+problem with a loop.
+
+34
+00:01:27,474 --> 00:01:29,513
+Well, it turns out we can solve it in one
+
+35
+00:01:29,641 --> 00:01:31,970
+line with a mathematical equation.
+
+36
+00:01:32,612 --> 00:01:35,695
+There is a pretty nice mathematical formula
+
+37
+00:01:35,968 --> 00:01:37,878
+that does this for us, and it looks like
+
+38
+00:01:37,910 --> 00:01:38,119
+this.
+
+39
+00:01:39,500 --> 00:01:39,629
+You
+
+40
+00:01:40,158 --> 00:01:41,700
+divide n by 2
+
+41
+00:01:42,326 --> 00:01:44,991
+and then multiply the result of this with 1
+
+42
+00:01:45,120 --> 00:01:45,666
+plus n.
+
+43
+00:01:46,982 --> 00:01:49,246
+Now this might look strange, but this is
+
+44
+00:01:49,374 --> 00:01:50,209
+just math.
+
+45
+00:01:50,755 --> 00:01:53,613
+And this is just a math formula which you
+
+46
+00:01:53,709 --> 00:01:56,599
+can derive in mathematics that gives you in
+
+47
+00:01:56,679 --> 00:01:59,665
+the end the sum of all the numbers up to a
+
+48
+00:01:59,665 --> 00:02:00,034
+number.
+
+49
+00:02:00,708 --> 00:02:02,811
+I can prove that if I save that function, if
+
+50
+00:02:02,811 --> 00:02:05,203
+we call sumUp for 3, I get 6.
+
+51
+00:02:05,910 --> 00:02:07,258
+For 4, I get 10.
+
+52
+00:02:07,997 --> 00:02:11,657
+For 5, I get 15. And 15 indeed is 5 plus 4
+
+53
+00:02:11,689 --> 00:02:13,439
+plus 3 plus 2 plus 1.
+
+54
+00:02:14,115 --> 00:02:16,423
+So this works, and this is just math.
+
+55
+00:02:17,101 --> 00:02:18,812
+Now here's one important difference to the
+
+56
+00:02:18,812 --> 00:02:19,941
+solution from before.
+
+57
+00:02:20,474 --> 00:02:23,202
+Here we have no loop, we have one
+
+58
+00:02:23,637 --> 00:02:25,187
+mathematical equation.
+
+59
+00:02:26,542 --> 00:02:27,123
+Now if we
+
+60
+00:02:27,914 --> 00:02:29,173
+try to measure this,
+
+61
+00:02:29,770 --> 00:02:32,046
+so if I now copy this measurement code here
+
+62
+00:02:32,110 --> 00:02:32,775
+from before
+
+63
+00:02:34,446 --> 00:02:37,059
+for a very large number, you immediately see
+
+64
+00:02:37,059 --> 00:02:38,454
+this is much faster.
+
+65
+00:02:39,006 --> 00:02:41,338
+And actually it doesn't change much no
+
+66
+00:02:41,338 --> 00:02:44,094
+matter which number we use. We just have
+
+67
+00:02:44,142 --> 00:02:46,112
+this deviation based on the system we're
+
+68
+00:02:46,128 --> 00:02:48,147
+running on. Now it even took 0
+
+69
+00:02:48,836 --> 00:02:51,384
+milliseconds. That's fast. But generally,
+
+70
+00:02:51,656 --> 00:02:54,124
+you can see no matter which number I enter
+
+71
+00:02:54,124 --> 00:02:57,649
+here, it's super, super fast and it doesn't
+
+72
+00:02:57,649 --> 00:03:00,068
+really change. We definitely don't have a
+
+73
+00:03:00,068 --> 00:03:03,080
+trend as we had it before where large
+
+74
+00:03:03,208 --> 00:03:06,349
+numbers led to a much longer execution time
+
+75
+00:03:06,397 --> 00:03:08,960
+for the function. Now the execution time of
+
+76
+00:03:08,960 --> 00:03:11,407
+this function is pretty much always the same
+
+77
+00:03:11,940 --> 00:03:13,860
+because in there we have no iteration, we
+
+78
+00:03:13,860 --> 00:03:16,813
+have no loop, we have just one mathematical
+
+79
+00:03:16,861 --> 00:03:19,976
+term which is executed no matter which value
+
+80
+00:03:20,008 --> 00:03:21,186
+we feed in for n.
+
+81
+00:03:22,832 --> 00:03:25,737
+And that is such an example for constant
+
+82
+00:03:25,737 --> 00:03:28,222
+time. The time it takes to execute the
+
+83
+00:03:28,222 --> 00:03:30,949
+function is always the same no matter which
+
+84
+00:03:31,062 --> 00:03:32,401
+value n has.
+
+85
+00:03:33,240 --> 00:03:35,482
+And this is not only an example for constant
+
+86
+00:03:35,482 --> 00:03:35,789
+time,
+
+87
+00:03:36,603 --> 00:03:39,477
+This also shows us why it's important to
+
+88
+00:03:39,477 --> 00:03:42,463
+know about time complexity and why it's
+
+89
+00:03:42,463 --> 00:03:45,321
+important that you as a developer are able
+
+90
+00:03:45,417 --> 00:03:48,500
+to figure out which time complexity a
+
+91
+00:03:48,709 --> 00:03:49,576
+function has.
+
+92
+00:03:50,154 --> 00:03:53,076
+Because for this given problem of solving up
+
+93
+00:03:53,204 --> 00:03:55,564
+all numbers up to n, if you would have
+
+94
+00:03:55,564 --> 00:03:58,245
+decided that this loop solution
+
+95
+00:03:58,856 --> 00:04:00,541
+is the best possible solution,
+
+96
+00:04:01,151 --> 00:04:04,058
+you would have taken the slower algorithm.
+
+97
+00:04:04,379 --> 00:04:07,158
+We were able to find a faster one after all.
+
+98
+00:04:08,154 --> 00:04:10,387
+That's why measuring performance is so
+
+99
+00:04:10,387 --> 00:04:13,085
+important and why you need to be able to
+
+100
+00:04:13,599 --> 00:04:16,346
+write algorithms, but why you then also need
+
+101
+00:04:16,346 --> 00:04:19,157
+to be able to compare different alternatives
+
+102
+00:04:19,221 --> 00:04:20,795
+to then find the best one.
+
+103
+00:04:21,566 --> 00:04:24,200
+Now besides linear and constant time, we
+
+104
+00:04:24,361 --> 00:04:27,525
+also find algorithms that have quadratic
+
+105
+00:04:27,589 --> 00:04:30,719
+time, or even cubic time and a lot of other
+
+106
+00:04:30,719 --> 00:04:32,774
+time complexities as well. Pretty much
+
+107
+00:04:32,886 --> 00:04:34,925
+anything is possible here. You can have all
+
+108
+00:04:35,037 --> 00:04:37,477
+kinds of different graphs here that grow
+
+109
+00:04:37,605 --> 00:04:38,841
+faster or slower,
+
+110
+00:04:39,371 --> 00:04:41,602
+but these are some of the common ones.
+
+111
+00:04:42,516 --> 00:04:43,817
+Now we have one problem though.
+
+112
+00:04:44,362 --> 00:04:45,133
+I mentioned
+
+113
+00:04:45,711 --> 00:04:47,556
+that we don't care too much about the
+
+114
+00:04:47,556 --> 00:04:50,221
+concrete numbers we got for a good reason
+
+115
+00:04:50,221 --> 00:04:52,147
+because they are influenced by a lot of
+
+116
+00:04:52,147 --> 00:04:52,725
+factors.
+
+117
+00:04:53,431 --> 00:04:55,790
+Now still, we were able to identify some
+
+118
+00:04:55,919 --> 00:04:58,711
+trend here. We were able to identify that
+
+119
+00:04:58,711 --> 00:05:01,697
+for the iteration solution with the loop,
+
+120
+00:05:02,098 --> 00:05:05,276
+for big numbers, we have a linear relation
+
+121
+00:05:05,308 --> 00:05:07,876
+between input and time it takes to execute
+
+122
+00:05:07,876 --> 00:05:08,406
+the function.
+
+123
+00:05:09,225 --> 00:05:10,300
+And for our
+
+124
+00:05:11,006 --> 00:05:14,265
+one-liner here, we saw that the time doesn't
+
+125
+00:05:14,297 --> 00:05:16,544
+really change a lot. It certainly doesn't
+
+126
+00:05:16,608 --> 00:05:16,865
+grow.
+
+127
+00:05:18,133 --> 00:05:20,236
+And as I mentioned, that's important. We
+
+128
+00:05:20,316 --> 00:05:22,611
+care about the trend, about the kind of
+
+129
+00:05:22,723 --> 00:05:24,553
+function we have, not about the concrete
+
+130
+00:05:24,553 --> 00:05:24,938
+numbers.
+
+131
+00:05:25,532 --> 00:05:27,903
+And when we talk about the performance of an
+
+132
+00:05:28,000 --> 00:05:30,660
+algorithm, we therefore could say, hey,
+
+133
+00:05:31,220 --> 00:05:34,521
+this solution has linear time complexity,
+
+134
+00:05:35,130 --> 00:05:37,278
+the other solution has constant time
+
+135
+00:05:37,374 --> 00:05:38,031
+complexity.
+
+136
+00:05:38,656 --> 00:05:40,963
+But in programming, we use something which
+
+137
+00:05:41,011 --> 00:05:44,216
+is called Big O notation, which simply makes
+
+138
+00:05:44,216 --> 00:05:47,629
+it easier for us to quickly express the time
+
+139
+00:05:47,645 --> 00:05:50,850
+complexity of a given algorithm to other
+
+140
+00:05:50,850 --> 00:05:51,379
+developers.
+
+141
+00:05:52,052 --> 00:05:54,391
+And Big O notation looks like this. For
+
+142
+00:05:54,600 --> 00:05:56,971
+linear time, you write O.
+
+143
+00:05:57,884 --> 00:05:59,615
+For constant, you have O.
+
+144
+00:06:00,368 --> 00:06:02,259
+Quadratic would be O.
+
+145
+00:06:02,932 --> 00:06:06,089
+Cubic would be O.
+
+146
+00:06:06,713 --> 00:06:08,604
+And you got other time complexities as well,
+
+147
+00:06:08,796 --> 00:06:10,351
+and you will see them throughout the course.
+
+148
+00:06:11,040 --> 00:06:13,283
+Now we're using this because it's very easy
+
+149
+00:06:13,347 --> 00:06:13,459
+to
+
+150
+00:06:13,988 --> 00:06:17,289
+add this as an annotation in your code or to
+
+151
+00:06:17,289 --> 00:06:20,352
+tell your interviewer that this solution has
+
+152
+00:06:20,352 --> 00:06:23,500
+a complexity of O, so linear time
+
+153
+00:06:23,548 --> 00:06:24,206
+complexity.
+
+154
+00:06:24,913 --> 00:06:27,659
+Big O notation is a super important concept.
+
+155
+00:06:27,867 --> 00:06:30,115
+You'll find it a lot on the internet, and
+
+156
+00:06:30,115 --> 00:06:31,545
+it's the standard way
+
+157
+00:06:32,155 --> 00:06:34,917
+of comparing performance on algorithms.
+
+158
+00:06:35,575 --> 00:06:37,759
+You derive the Big O
+
+159
+00:06:38,305 --> 00:06:39,204
+of an algorithm,
+
+160
+00:06:39,766 --> 00:06:42,785
+and then you know O is linear, O is
+
+161
+00:06:42,881 --> 00:06:45,402
+constant, and you know constant is better
+
+162
+00:06:45,451 --> 00:06:46,687
+than linear, for example.
+
+163
+00:06:47,332 --> 00:06:51,104
+So this Big O notation plays a huge role and
+
+164
+00:06:51,104 --> 00:06:53,636
+is super important when you're comparing
+
+165
+00:06:53,990 --> 00:06:54,619
+algorithms.

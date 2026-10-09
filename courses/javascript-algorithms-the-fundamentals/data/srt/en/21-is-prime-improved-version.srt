@@ -1,0 +1,623 @@
+1
+00:00:02,261 --> 00:00:04,604
+Now we had a look at the primality test, at
+
+2
+00:00:04,604 --> 00:00:06,481
+the Big O notation, and at the different
+
+3
+00:00:06,529 --> 00:00:07,186
+cases there.
+
+4
+00:00:07,732 --> 00:00:10,363
+And that case thing is something we'll see
+
+5
+00:00:10,443 --> 00:00:12,753
+again and again. It can be confusing at
+
+6
+00:00:12,769 --> 00:00:15,272
+first, but like this overall algorithms
+
+7
+00:00:15,577 --> 00:00:17,405
+thing, it is something that gets easier with
+
+8
+00:00:17,437 --> 00:00:17,887
+practice.
+
+9
+00:00:18,721 --> 00:00:20,293
+Now before we move on to a different
+
+10
+00:00:20,389 --> 00:00:23,469
+algorithm, let's revisit the primality test
+
+11
+00:00:23,598 --> 00:00:25,667
+algorithm though, because we can actually
+
+12
+00:00:25,699 --> 00:00:29,584
+improve it and find a better alternative. O,
+
+13
+00:00:29,937 --> 00:00:31,848
+which is the time complexity we currently
+
+14
+00:00:31,945 --> 00:00:34,979
+have, is not the best possible time
+
+15
+00:00:35,011 --> 00:00:36,489
+complexity we can achieve here.
+
+16
+00:00:37,420 --> 00:00:39,106
+Now to understand how we can improve this,
+
+17
+00:00:39,491 --> 00:00:40,920
+let's have a look at 2 examples.
+
+18
+00:00:41,659 --> 00:00:42,927
+5 is a prime number.
+
+19
+00:00:43,602 --> 00:00:45,400
+It's divisible by itself and by 1.
+
+20
+00:00:45,994 --> 00:00:49,013
+And 9 is not a prime because besides by
+
+21
+00:00:49,061 --> 00:00:51,790
+itself and by 1, we can also divide it by 3.
+
+22
+00:00:53,299 --> 00:00:56,669
+Now the thing is, every number that's not a
+
+23
+00:00:56,669 --> 00:00:57,054
+prime,
+
+24
+00:00:57,632 --> 00:00:58,097
+like 9,
+
+25
+00:00:58,755 --> 00:01:01,804
+has a product that consists of 2 factors a
+
+26
+00:01:01,820 --> 00:01:04,773
+and b. So in the case of 9, that would be 3
+
+27
+00:01:04,773 --> 00:01:07,212
+times 3. That's what makes it not a prime
+
+28
+00:01:07,260 --> 00:01:09,106
+number in the end. We can have a division
+
+29
+00:01:09,106 --> 00:01:10,807
+like this which does not include the number
+
+30
+00:01:10,807 --> 00:01:12,540
+itself and which does not include 1.
+
+31
+00:01:13,230 --> 00:01:16,327
+So both factors a and b, in this case 3 and
+
+32
+00:01:16,423 --> 00:01:19,616
+3, are neither 1 nor the number itself. And
+
+33
+00:01:19,632 --> 00:01:21,636
+that's true for every non-prime number.
+
+34
+00:01:22,821 --> 00:01:24,809
+Now the thing is, if we split that into
+
+35
+00:01:24,841 --> 00:01:27,469
+factors like this, there is a simple rule
+
+36
+00:01:27,629 --> 00:01:28,815
+you can observe in the end.
+
+37
+00:01:29,553 --> 00:01:31,380
+At least one of those factors,
+
+38
+00:01:31,908 --> 00:01:33,896
+sometimes also both like in this case,
+
+39
+00:01:34,521 --> 00:01:37,870
+is smaller or equal than the square root of
+
+40
+00:01:37,902 --> 00:01:39,553
+the number you're analyzing.
+
+41
+00:01:40,627 --> 00:01:43,095
+In this case, the square root of 9 is 3, and
+
+42
+00:01:43,175 --> 00:01:46,268
+in this case, both factors then are smaller
+
+43
+00:01:46,380 --> 00:01:48,896
+or equal, in this case equal, than that
+
+44
+00:01:48,896 --> 00:01:51,190
+square root. And that's simply a rule that's
+
+45
+00:01:51,190 --> 00:01:53,598
+true for every non-primal number.
+
+46
+00:01:54,561 --> 00:01:56,278
+At least one of those factors will be
+
+47
+00:01:56,278 --> 00:01:58,316
+smaller or equal than the square root,
+
+48
+00:01:58,653 --> 00:02:02,826
+because if both factors would be bigger than
+
+49
+00:02:02,826 --> 00:02:04,816
+the square root of the number you're looking
+
+50
+00:02:04,832 --> 00:02:05,009
+at,
+
+51
+00:02:05,635 --> 00:02:07,946
+the multiplication of those factors would
+
+52
+00:02:07,962 --> 00:02:10,369
+yield a bigger number than the number you're
+
+53
+00:02:10,450 --> 00:02:12,456
+looking at, which just can't be the case.
+
+54
+00:02:13,740 --> 00:02:17,015
+And with that in mind, we can rewrite this
+
+55
+00:02:17,129 --> 00:02:18,509
+isPrime algorithm
+
+56
+00:02:19,094 --> 00:02:21,497
+to actually make it a bit more efficient.
+
+57
+00:02:22,802 --> 00:02:23,417
+Instead of going
+
+58
+00:02:23,999 --> 00:02:26,555
+all the way up to number here in our for
+
+59
+00:02:26,668 --> 00:02:26,798
+loop,
+
+60
+00:02:27,574 --> 00:02:29,030
+we can go all the way up
+
+61
+00:02:29,742 --> 00:02:33,350
+to Math.sqrt of number.
+
+62
+00:02:34,171 --> 00:02:36,925
+The Math object is built into JavaScript,
+
+63
+00:02:37,086 --> 00:02:39,517
+available in the browser. Square root is a
+
+64
+00:02:39,630 --> 00:02:42,478
+built-in method and it generates the square
+
+65
+00:02:42,478 --> 00:02:43,376
+root of number.
+
+66
+00:02:44,659 --> 00:02:47,304
+Now that square root in the case of 9 would
+
+67
+00:02:47,384 --> 00:02:50,222
+be 3. And the result is that we have far
+
+68
+00:02:50,655 --> 00:02:52,226
+less loop iterations here.
+
+69
+00:02:53,156 --> 00:02:56,940
+In the case of 9, we only iterate up to
+
+70
+00:02:57,645 --> 00:02:57,822
+3.
+
+71
+00:02:58,607 --> 00:03:01,140
+And the result is that for the big numbers,
+
+72
+00:03:01,349 --> 00:03:02,616
+so in the worst case,
+
+73
+00:03:03,161 --> 00:03:06,287
+we have far less loop iterations. For the
+
+74
+00:03:06,383 --> 00:03:09,686
+good cases, not much changes, but in the bad
+
+75
+00:03:09,686 --> 00:03:13,131
+cases, since we can abuse this fact that we
+
+76
+00:03:13,131 --> 00:03:15,214
+know that at least one factor has to be
+
+77
+00:03:15,214 --> 00:03:18,483
+smaller or equal. For those big numbers, we
+
+78
+00:03:18,483 --> 00:03:21,014
+simply save a lot of iterations by only
+
+79
+00:03:21,046 --> 00:03:22,777
+going up to the square root.
+
+80
+00:03:23,754 --> 00:03:26,334
+So in this case where we have that iteration
+
+81
+00:03:26,334 --> 00:03:28,946
+with 27,277,
+
+82
+00:03:29,618 --> 00:03:31,509
+where we previously had a lot of iterations,
+
+83
+00:03:32,022 --> 00:03:36,027
+27,275 iterations, if I now reload, you'll
+
+84
+00:03:36,027 --> 00:03:39,683
+see we only need 164 iterations. So that is
+
+85
+00:03:39,940 --> 00:03:41,884
+much, much faster.
+
+86
+00:03:43,105 --> 00:03:44,824
+So with this improvement,
+
+87
+00:03:46,126 --> 00:03:48,536
+we can actually improve this worst case a
+
+88
+00:03:48,536 --> 00:03:54,063
+lot. Now instead of O, we have O) in the end
+
+89
+00:03:54,962 --> 00:03:58,626
+as our approximate time complexity function
+
+90
+00:03:59,959 --> 00:04:02,176
+because we know that we will definitely
+
+91
+00:04:02,225 --> 00:04:03,446
+never take n
+
+92
+00:04:04,313 --> 00:04:07,525
+iterations n code executions in there. We'll
+
+93
+00:04:07,589 --> 00:04:08,665
+never need all
+
+94
+00:04:09,195 --> 00:04:12,983
+27,000 and something code executions. We
+
+95
+00:04:12,983 --> 00:04:16,066
+know that we definitely will need at most
+
+96
+00:04:16,435 --> 00:04:17,655
+square root of n
+
+97
+00:04:18,506 --> 00:04:20,689
+or less code executions.
+
+98
+00:04:21,380 --> 00:04:24,285
+And therefore, that's not just our improved
+
+99
+00:04:24,285 --> 00:04:27,143
+worst case, but also the improved average
+
+100
+00:04:27,255 --> 00:04:27,544
+case
+
+101
+00:04:28,299 --> 00:04:30,659
+because we know that we never will need more
+
+102
+00:04:30,707 --> 00:04:33,293
+than the square root of n iterations because
+
+103
+00:04:33,357 --> 00:04:35,542
+that's our loop exit condition in the end
+
+104
+00:04:35,751 --> 00:04:38,337
+and that's what drives our time complexity.
+
+105
+00:04:39,237 --> 00:04:41,871
+So here with some extra math knowledge, we
+
+106
+00:04:41,871 --> 00:04:44,056
+could find a much better result.
+
+107
+00:04:44,827 --> 00:04:47,494
+Now chances are, and that's totally fine by
+
+108
+00:04:47,494 --> 00:04:47,719
+the way,
+
+109
+00:04:48,378 --> 00:04:50,787
+that you didn't come up with that because
+
+110
+00:04:50,787 --> 00:04:52,796
+it's not something you necessarily have in
+
+111
+00:04:52,796 --> 00:04:56,266
+your mind that that's the case for primal
+
+112
+00:04:56,266 --> 00:04:59,061
+numbers and that we have a rule like that.
+
+113
+00:04:59,623 --> 00:05:02,095
+And that's not necessarily an issue. If
+
+114
+00:05:02,095 --> 00:05:04,166
+you're working on a real project that needs
+
+115
+00:05:04,198 --> 00:05:06,124
+optimization, you have Google.
+
+116
+00:05:06,831 --> 00:05:09,431
+As dumb as it sounds, you can use Google to
+
+117
+00:05:09,560 --> 00:05:12,224
+find alternatives, to find math rules like
+
+118
+00:05:12,224 --> 00:05:12,417
+this.
+
+119
+00:05:13,091 --> 00:05:14,520
+In an interview situation,
+
+120
+00:05:15,194 --> 00:05:17,682
+the interviewer might simply point you
+
+121
+00:05:17,682 --> 00:05:20,026
+towards this solution if you just think
+
+122
+00:05:20,026 --> 00:05:22,610
+about it. If you say something like, well,
+
+123
+00:05:22,899 --> 00:05:25,114
+currently we go through all those numbers
+
+124
+00:05:25,307 --> 00:05:27,842
+for a big prime number maybe we can use some
+
+125
+00:05:27,955 --> 00:05:30,424
+math to shrink this. And then maybe you get
+
+126
+00:05:30,424 --> 00:05:32,750
+some help to derive a solution like this.
+
+127
+00:05:33,391 --> 00:05:34,979
+So you don't need to learn this by heart.
+
+128
+00:05:35,251 --> 00:05:37,064
+You never need to do this for algorithms.
+
+129
+00:05:37,561 --> 00:05:40,912
+You just always need to be open to consider
+
+130
+00:05:41,025 --> 00:05:43,639
+alternatives, to consider possible
+
+131
+00:05:43,687 --> 00:05:44,553
+improvements,
+
+132
+00:05:45,098 --> 00:05:45,868
+and therefore to,
+
+133
+00:05:46,461 --> 00:05:48,610
+like we did it in this case, possibly
+
+134
+00:05:48,883 --> 00:05:51,577
+improve your algorithm and make it much,
+
+135
+00:05:52,010 --> 00:05:54,722
+much faster. Faster, and that's why I wanted
+
+136
+00:05:54,722 --> 00:05:55,573
+to show this to you.
+
+137
+00:05:56,183 --> 00:05:59,040
+Now you could add more optimizations. You
+
+138
+00:05:59,056 --> 00:06:01,529
+could, for example, check division by 2 and
+
+139
+00:06:01,561 --> 00:06:04,274
+3 before you actually go into that for loop
+
+140
+00:06:04,675 --> 00:06:06,970
+and therefore rule out a lot of common
+
+141
+00:06:07,484 --> 00:06:08,511
+division operations.
+
+142
+00:06:09,169 --> 00:06:10,999
+You could do that, but it wouldn't really
+
+143
+00:06:11,112 --> 00:06:13,455
+impact the time complexity. In some cases,
+
+144
+00:06:13,504 --> 00:06:15,751
+you would be faster, but in the worst case,
+
+145
+00:06:15,767 --> 00:06:18,014
+you wouldn't be faster, and therefore, since
+
+146
+00:06:18,014 --> 00:06:20,230
+the average case is mostly driven by the
+
+147
+00:06:20,246 --> 00:06:22,653
+worst case, the average case also wouldn't
+
+148
+00:06:22,653 --> 00:06:23,151
+really improve.
+
+149
+00:06:23,714 --> 00:06:26,303
+Nonetheless, below the video you find a, a
+
+150
+00:06:26,303 --> 00:06:29,118
+more elaborate version of this algorithm
+
+151
+00:06:29,408 --> 00:06:31,740
+which has all possible improvements
+
+152
+00:06:31,740 --> 00:06:34,008
+included, which therefore would be the
+
+153
+00:06:34,088 --> 00:06:36,967
+fastest one theoretically, but which still
+
+154
+00:06:36,983 --> 00:06:38,624
+would have O square root of n
+
+155
+00:06:39,219 --> 00:06:41,632
+as a time complexity for the average and the
+
+156
+00:06:41,712 --> 00:06:42,178
+worst case.

@@ -1,0 +1,1219 @@
+1
+00:00:00,496 --> 00:00:03,685
+Now you can implement tool use and build
+現在您可以實現工具使用和建構
+
+2
+00:00:03,781 --> 00:00:06,617
+agents as shown in the previous lecture. The
+代理如上一講所示。這
+
+3
+00:00:06,617 --> 00:00:08,652
+advantage of this approach is that it should
+這種方法的優點是它應該
+
+4
+00:00:08,684 --> 00:00:11,296
+work with all large language models because
+適用於所有大型語言模型，因為
+
+5
+00:00:11,889 --> 00:00:14,885
+the prompts didn't contain anything OpenAI
+提示不包含任何 OpenAI
+
+6
+00:00:14,949 --> 00:00:16,856
+specific. You could have sent them to any
+具體的。您可以將它們發送到任何
+
+7
+00:00:16,856 --> 00:00:17,225
+models.
+模型。
+
+8
+00:00:17,802 --> 00:00:20,990
+But exposing tools to large language models
+但將工具揭露給大型語言模型
+
+9
+00:00:21,183 --> 00:00:24,708
+and describing tools that may be used by
+並描述可能使用的工具
+
+10
+00:00:24,708 --> 00:00:26,743
+these models is such a common
+這些模型很常見
+
+11
+00:00:27,272 --> 00:00:29,883
+use case, such a common scenario that many
+用例，這是一個常見的場景，許多人
+
+12
+00:00:30,219 --> 00:00:33,439
+AI providers actually have built-in support
+人工智慧提供者實際上有內建支援
+
+13
+00:00:33,439 --> 00:00:33,792
+for it.
+為了它。
+
+14
+00:00:34,465 --> 00:00:37,973
+Like for example, OpenAI. They are calling
+例如，OpenAI。他們在呼喚
+
+15
+00:00:38,069 --> 00:00:40,729
+it function calling, but chances are high
+它函式調用，但可能性很高
+
+16
+00:00:40,729 --> 00:00:42,780
+that if you're going through the docs of
+如果你正在瀏覽以下文檔
+
+17
+00:00:42,972 --> 00:00:45,423
+some other provider, you'll also find
+其他一些提供者，您還會發現
+
+18
+00:00:45,455 --> 00:00:47,201
+official tool support.
+官方工具支援。
+
+19
+00:00:48,082 --> 00:00:51,126
+In case of OpenAI, you will actually also
+對於 OpenAI，您實際上還會
+
+20
+00:00:51,126 --> 00:00:54,443
+find a tools section in their docs, but this
+在他們的文檔中找到一個工具部分，但是這個
+
+21
+00:00:54,651 --> 00:00:57,182
+actually refers to tools that are running on
+實際上指的是運行在
+
+22
+00:00:57,374 --> 00:01:01,099
+OpenAI's servers, so tools, functions
+OpenAI的伺服器、工具、功能
+
+23
+00:01:01,468 --> 00:01:03,782
+written by the OpenAI developers.
+由 OpenAI 開發人員編寫。
+
+24
+00:01:04,617 --> 00:01:06,642
+This can also be useful because it, for
+這也很有用，因為它對於
+
+25
+00:01:06,642 --> 00:01:08,040
+example, allows you to
+例如，允許您
+
+26
+00:01:08,714 --> 00:01:12,136
+request web search or expose a web search
+請網路搜尋或公開網路搜尋
+
+27
+00:01:12,249 --> 00:01:14,948
+tool to the large language model that you
+大型語言模型的工具
+
+28
+00:01:14,980 --> 00:01:17,246
+don't have to write yourself, which can be
+不用自己寫，也可以
+
+29
+00:01:17,470 --> 00:01:20,202
+pretty good because web search is complex,
+非常好，因為網路搜尋很複雜，
+
+30
+00:01:20,587 --> 00:01:22,194
+but it's not the focus of this course.
+但這不是本課程的重點。
+
+31
+00:01:22,371 --> 00:01:24,508
+Instead, we will focus on building our own
+相反，我們將專注於建立我們自己的
+
+32
+00:01:24,620 --> 00:01:24,909
+tools.
+工具。
+
+33
+00:01:26,146 --> 00:01:28,363
+And that takes us back to this function
+這讓我們回到這個函式
+
+34
+00:01:28,700 --> 00:01:31,206
+calling topic because that's simply the term
+呼叫主題因為這只是一個術語
+
+35
+00:01:31,350 --> 00:01:32,844
+OpenAI is using for
+OpenAI 用於
+
+36
+00:01:33,454 --> 00:01:36,811
+allowing you to expose tools, which are just
+允許您公開工具，這些工具只是
+
+37
+00:01:36,811 --> 00:01:39,269
+functions, to a large language model.
+函式，到大型語言模型。
+
+38
+00:01:40,666 --> 00:01:43,831
+And to do that, their docs show us that you
+為此，他們的文檔向我們展示了您
+
+39
+00:01:43,831 --> 00:01:47,509
+should expose a tools argument or that you
+應該要暴露一個工具參數或你
+
+40
+00:01:47,509 --> 00:01:50,882
+should pass a tools argument to this create
+應該將工具參數傳遞給此創建
+
+41
+00:01:50,882 --> 00:01:53,837
+method when using the Python SDK. There the
+使用Python SDK時的方法。那裡有
+
+42
+00:01:53,837 --> 00:01:54,898
+Responses API.
+回應 API。
+
+43
+00:01:56,102 --> 00:01:57,789
+If you are using some other programming
+如果您正在使用其他程式設計
+
+44
+00:01:57,869 --> 00:01:59,716
+language, you can of course also just send
+語言，您當然也可以直接傳送
+
+45
+00:01:59,716 --> 00:02:02,977
+an HTTP request to the API endpoint and then
+向 API 端點發出 HTTP 請求，然後
+
+46
+00:02:03,009 --> 00:02:05,434
+just include a tools property in the request
+只需在請求中包含一個工具屬性
+
+47
+00:02:05,579 --> 00:02:07,876
+body. So of course you can use this feature
+身體。所以你當然可以使用這個功能
+
+48
+00:02:07,892 --> 00:02:09,562
+from any programming language.
+來自任何程式語言。
+
+49
+00:02:10,237 --> 00:02:13,257
+Now the value for this tools parameter then
+現在該工具參數的值
+
+50
+00:02:13,514 --> 00:02:15,746
+actually should be a list of tool
+實際上應該是一個工具列表
+
+51
+00:02:15,843 --> 00:02:17,915
+descriptions, a list of function
+描述，功能列表
+
+52
+00:02:18,188 --> 00:02:21,012
+descriptions. Which must have this shape.
+描述。必須有這個形狀。
+
+53
+00:02:21,782 --> 00:02:23,723
+And if that looks familiar from the
+如果這看起來很熟悉
+
+54
+00:02:23,723 --> 00:02:26,370
+structured output lecture, that's no
+結構化輸出講座，那不是
+
+55
+00:02:26,370 --> 00:02:28,680
+coincidence because the idea is kind of the
+巧合，因為這個想法有點
+
+56
+00:02:28,680 --> 00:02:28,985
+same.
+相同的。
+
+57
+00:02:29,659 --> 00:02:32,193
+With structured outputs, we tried to
+透過結構化輸出，我們嘗試
+
+58
+00:02:32,226 --> 00:02:35,883
+describe the data format we wanted the LLM
+描述我們想要 LLM 的資料格式
+
+59
+00:02:35,979 --> 00:02:39,011
+to generate. With this function calling
+來生成。透過這個函式調用
+
+60
+00:02:39,428 --> 00:02:41,851
+feature here, we're trying to describe the
+在這裡，我們試圖描述
+
+61
+00:02:41,995 --> 00:02:44,642
+functions it may request from us. So the
+它可能要求我們提供的功能。所以
+
+62
+00:02:44,642 --> 00:02:46,470
+functions it requests to call.
+它請求調用的函式。
+
+63
+00:02:47,785 --> 00:02:50,318
+And therefore, this is the shape of this
+因此，這就是這個的形狀
+
+64
+00:02:50,831 --> 00:02:53,379
+definition you have to use in your code. And
+您必須在程式碼中使用的定義。和
+
+65
+00:02:53,460 --> 00:02:55,239
+that is how you can define different
+這就是你如何定義不同的
+
+66
+00:02:55,303 --> 00:02:58,204
+functions and their parameters that may be
+函式及其參數可能是
+
+67
+00:02:58,204 --> 00:03:01,154
+invoked by the tool or that may be requested
+由工具呼叫或可能被請求
+
+68
+00:03:01,346 --> 00:03:03,334
+to be invoked by the tool, I should say.
+我應該說，由該工具呼叫。
+
+69
+00:03:04,039 --> 00:03:06,572
+If you do provide such a tools parameter,
+如果您確實提供了這樣的工具參數，
+
+70
+00:03:07,021 --> 00:03:09,730
+then you will actually get back an output
+那麼你實際上會得到一個輸出
+
+71
+00:03:09,730 --> 00:03:10,724
+that may look like this
+可能看起來像這樣
+
+72
+00:03:11,253 --> 00:03:13,561
+if the model decides to call a tool. Of
+如果模型決定呼叫工具。的
+
+73
+00:03:13,577 --> 00:03:15,068
+course, it might not always do that
+當然，它可能並不總是這樣做
+
+74
+00:03:15,501 --> 00:03:17,521
+depending on the prompt that was sent to it
+取決於發送給它的提示
+
+75
+00:03:17,521 --> 00:03:17,809
+by the user.
+由使用者。
+
+76
+00:03:18,724 --> 00:03:21,227
+That prompt, by the way, then no longer
+那個提示，順便說一下，然後不再
+
+77
+00:03:21,227 --> 00:03:23,538
+needs to contain any information about the
+需要包含有關的任何資訊
+
+78
+00:03:23,538 --> 00:03:26,555
+tools. The OpenAI API will handle that
+工具。 OpenAI API 將處理這個問題
+
+79
+00:03:26,668 --> 00:03:29,123
+behind the scenes for you when you're using
+當您使用時在幕後為您服務
+
+80
+00:03:29,155 --> 00:03:30,294
+this tools feature.
+此工具功能。
+
+81
+00:03:31,241 --> 00:03:33,712
+But if the model then decides to use a tool,
+但如果模型隨後決定使用某種工具，
+
+82
+00:03:33,969 --> 00:03:36,344
+it will send back an output which contains
+它將發回一個輸出，其中包含
+
+83
+00:03:36,537 --> 00:03:37,628
+one or more items.
+一項或多項。
+
+84
+00:03:38,206 --> 00:03:41,046
+And the first item then would be of type
+第一項的型別是
+
+85
+00:03:41,175 --> 00:03:43,678
+function call containing the name of the
+包含名稱的函式調用
+
+86
+00:03:43,678 --> 00:03:45,684
+tool, the name of the function it wants to
+工具，它想要的功能的名稱
+
+87
+00:03:45,748 --> 00:03:45,877
+call,
+稱呼，
+
+88
+00:03:46,470 --> 00:03:48,139
+and the values for the arguments.
+以及參數的值。
+
+89
+00:03:48,894 --> 00:03:51,142
+And of course, the name and the argument
+當然，還有名字和論點
+
+90
+00:03:51,142 --> 00:03:53,438
+shape here depends on the structure you
+這裡的形狀取決於你的結構
+
+91
+00:03:53,551 --> 00:03:55,060
+defined. That's the idea.
+定義的。就是這個想法。
+
+92
+00:03:56,120 --> 00:03:59,460
+And you can build pretty complex workflows
+您可以建立相當複雜的工作流程
+
+93
+00:03:59,492 --> 00:04:03,394
+here because the OpenAI API and their models
+這裡是因為 OpenAI API 及其模型
+
+94
+00:04:03,892 --> 00:04:07,409
+actually also support multiple tool calls in
+實際上也支援多種工具調用
+
+95
+00:04:07,666 --> 00:04:10,235
+one single request. So the model could
+一個請求。所以模型可以
+
+96
+00:04:10,235 --> 00:04:13,045
+request multiple tool calls. You could get
+請求多個工具呼叫。你可以獲得
+
+97
+00:04:13,045 --> 00:04:15,614
+back a response which requests multiple tool
+回傳請求多個工具的回應
+
+98
+00:04:15,630 --> 00:04:15,919
+calls.
+來電。
+
+99
+00:04:16,674 --> 00:04:18,472
+And you can go through the official
+而且你可以透過官方
+
+100
+00:04:18,520 --> 00:04:20,703
+documentation to learn more about that if
+檔案以了解更多如果
+
+101
+00:04:20,767 --> 00:04:20,880
+you
+你
+
+102
+00:04:21,554 --> 00:04:22,886
+want to dive deeper here.
+想在這裡深入研究。
+
+103
+00:04:23,416 --> 00:04:26,081
+This course is not an OpenAI course though.
+不過，本課程不是 OpenAI 課程。
+
+104
+00:04:26,145 --> 00:04:28,601
+I'm just using it for my examples. Instead,
+我只是用它來舉例。反而，
+
+105
+00:04:28,633 --> 00:04:30,608
+I wanna focus on how you can generally
+我想重點介紹一下您通常可以如何
+
+106
+00:04:30,800 --> 00:04:32,727
+implement tool call. And for that, we'll for
+實作工具呼叫。為此，我們將為
+
+107
+00:04:32,727 --> 00:04:35,520
+now focus on one tool being called at a
+現在專注於一個被呼叫的工具
+
+108
+00:04:35,520 --> 00:04:35,825
+time.
+時間。
+
+109
+00:04:36,419 --> 00:04:39,565
+And therefore I prepared an updated version
+因此我準備了一個更新版本
+
+110
+00:04:39,614 --> 00:04:42,134
+of this demo program we built in the last
+我們在最後建立的這個演示程式
+
+111
+00:04:42,182 --> 00:04:45,088
+lecture of this first_demo_agent,
+這個first_demo_agent的講座，
+
+112
+00:04:45,650 --> 00:04:48,059
+and you find that updated main.py file
+你會發現更新後的 main.py 檔案
+
+113
+00:04:48,059 --> 00:04:48,364
+attached.
+隨附的。
+
+114
+00:04:49,327 --> 00:04:51,575
+In there, I still have the get_temperature
+在那裡，我仍然有 get_Temperature
+
+115
+00:04:51,575 --> 00:04:54,096
+function, but the rest of the code changed.
+函式，但其餘程式碼發生了變化。
+
+116
+00:04:54,867 --> 00:04:57,660
+I do, for example, now have a tools list
+例如，我現在有一個工具列表
+
+117
+00:04:57,933 --> 00:05:01,386
+which contains one tool description in that
+其中包含一個工具描述
+
+118
+00:05:01,386 --> 00:05:03,473
+shape we saw here in the OpenAI
+我們在 OpenAI 中看到的形狀
+
+119
+00:05:03,473 --> 00:05:04,244
+documentation
+檔案
+
+120
+00:05:04,902 --> 00:05:08,049
+because I'm talking to the OpenAI API here.
+因為我在這裡談論的是 OpenAI API。
+
+121
+00:05:09,014 --> 00:05:09,594
+So I got that.
+所以我明白了。
+
+122
+00:05:10,304 --> 00:05:12,450
+I also got the available functions
+我也得到了可用的功能
+
+123
+00:05:12,563 --> 00:05:15,273
+dictionary here, which simply keeps track of
+這裡的字典，它只是記錄
+
+124
+00:05:15,369 --> 00:05:17,531
+all the functions I wanna expose as tools.
+我想將所有功能公開為工具。
+
+125
+00:05:17,725 --> 00:05:19,483
+And I need that a little bit later in my
+我稍後需要它
+
+126
+00:05:19,483 --> 00:05:19,709
+code.
+程式碼。
+
+127
+00:05:21,280 --> 00:05:23,495
+But first things first, in the main
+但首先，主要是
+
+128
+00:05:23,495 --> 00:05:25,985
+function, I'm now working with a chat
+功能，我現在正在使用聊天功能
+
+129
+00:05:25,985 --> 00:05:28,573
+history, which I manage. This is optional,
+歷史，由我管理。這是可選的，
+
+130
+00:05:28,589 --> 00:05:31,130
+but it helps if you wanna build a chatbot.
+但如果你想建立一個聊天機器人，它會有所幫助。
+
+131
+00:05:31,179 --> 00:05:33,215
+And that is what I do here because I
+這就是我在這裡所做的，因為我
+
+132
+00:05:33,443 --> 00:05:35,658
+actually changed this program to have an
+實際上改變了這個程式
+
+133
+00:05:35,821 --> 00:05:38,034
+infinite loop There is a way of getting out
+無限迴圈有辦法跳出來
+
+134
+00:05:38,034 --> 00:05:40,902
+of it though. The user can type exit. But
+不過。使用者可以鍵入 exit。但
+
+135
+00:05:40,902 --> 00:05:42,921
+other than that, we keep asking for more
+除此之外，我們不斷要求更多
+
+136
+00:05:42,921 --> 00:05:45,068
+questions and we keep prompting the model.
+問題，我們不斷提示模型。
+
+137
+00:05:46,190 --> 00:05:48,626
+That's why I'm managing a chat history here
+這就是我在這裡管理聊天記錄的原因
+
+138
+00:05:48,690 --> 00:05:50,661
+and I start with a developer message, which
+我從開發人員消息開始，其中
+
+139
+00:05:50,709 --> 00:05:53,129
+is a system message with some general
+是一條系統訊息，包含一些常規訊息
+
+140
+00:05:53,257 --> 00:05:55,100
+instructions that should be followed by the
+應遵循的指示
+
+141
+00:05:55,100 --> 00:05:55,308
+tool.
+工具。
+
+142
+00:05:56,141 --> 00:05:58,593
+Then I append the user input
+然後我附加使用者輸入
+
+143
+00:05:59,186 --> 00:06:02,006
+to that chat history and then I send that to
+到該聊天記錄，然後我將其發送到
+
+144
+00:06:02,006 --> 00:06:04,843
+the model. And here I also set up those
+模型。在這裡我也設定了那些
+
+145
+00:06:04,956 --> 00:06:07,328
+tools. I make the model aware of the tools,
+工具。我讓模型意識到這些工具，
+
+146
+00:06:07,456 --> 00:06:08,113
+so to say,
+可以這麼說，
+
+147
+00:06:08,867 --> 00:06:12,954
+or the OpenAI Python SDK and API does that
+或者 OpenAI Python SDK 和 API 可以做到這一點
+
+148
+00:06:13,034 --> 00:06:15,391
+for me because I'm using this tools feature
+對我來說，因為我正在使用這個工具功能
+
+149
+00:06:15,519 --> 00:06:16,224
+to be precise.
+準確地說。
+
+150
+00:06:16,898 --> 00:06:18,885
+I then take a look at the output I get back
+然後我看一下我回傳的輸出
+
+151
+00:06:18,965 --> 00:06:20,969
+at the first output because as mentioned
+在第一個輸出中，因為如上所述
+
+152
+00:06:20,969 --> 00:06:23,694
+here, I'll only deal with one tool call at
+在這裡，我只處理一個工具調用
+
+153
+00:06:23,694 --> 00:06:24,127
+most.
+最多。
+
+154
+00:06:25,137 --> 00:06:27,637
+I append that output object to the chat
+我將該輸出物件附加到聊天中
+
+155
+00:06:27,637 --> 00:06:29,737
+history just to keep track of it.
+歷史只是為了記錄它。
+
+156
+00:06:30,282 --> 00:06:33,456
+So that the model also knows what it replied
+這樣模型也知道它回答了什麼
+
+157
+00:06:33,488 --> 00:06:35,796
+in the past. And then I check whether the
+在過去。然後我檢查是否
+
+158
+00:06:35,877 --> 00:06:38,602
+output type is maybe not a function call,
+輸出型別可能不是函式調用，
+
+159
+00:06:38,762 --> 00:06:41,712
+which means the model did not request to
+這意味著模型沒有要求
+
+160
+00:06:41,728 --> 00:06:43,892
+call a function. It sent back a normal
+呼叫一個函式。它發回正常
+
+161
+00:06:44,068 --> 00:06:45,078
+response instead.
+代替回應。
+
+162
+00:06:45,735 --> 00:06:48,428
+In that case, I simply output that response
+在這種情況下，我只需輸出該回應
+
+163
+00:06:48,540 --> 00:06:52,452
+text and I continue with the loop, skipping
+文本，我繼續迴圈，跳過
+
+164
+00:06:52,965 --> 00:06:53,894
+these lines of code.
+這些程式碼行。
+
+165
+00:06:54,568 --> 00:06:56,844
+Instead, we restart the loop asking for more
+相反，我們重新啟動迴圈，要求更多
+
+166
+00:06:56,956 --> 00:06:59,168
+input because I'm building a versatile
+輸入，因為我正在建造一個多功能的
+
+167
+00:06:59,441 --> 00:07:01,541
+agent, a versatile chatbot here, and a
+代理，這裡有一個多功能的聊天機器人，還有一個
+
+168
+00:07:01,541 --> 00:07:04,409
+chatbot is just an AI agent in the end. And
+聊天機器人最終只是一個人工智慧代理。和
+
+169
+00:07:04,505 --> 00:07:06,620
+that chatbot, of course, can help with all
+當然，聊天機器人可以幫助解決所有問題
+
+170
+00:07:06,668 --> 00:07:09,040
+kinds of questions and not all questions
+各種問題而不是所有問題
+
+171
+00:07:09,136 --> 00:07:10,162
+require tool use.
+需要使用工具。
+
+172
+00:07:10,995 --> 00:07:13,559
+If we make it past this if check though, we
+如果我們通過了這個檢查，我們
+
+173
+00:07:13,559 --> 00:07:16,106
+know that a tool call, a function call to be
+知道工具呼叫、函式呼叫是
+
+174
+00:07:16,106 --> 00:07:17,693
+precise, was requested.
+精確，被要求。
+
+175
+00:07:18,286 --> 00:07:20,961
+And that's where executeToolCall comes into
+這就是executeToolCall 發揮作用的地方
+
+176
+00:07:21,074 --> 00:07:21,346
+play.
+玩。
+
+177
+00:07:22,051 --> 00:07:24,567
+That is a utility function I added here,
+這是我在這裡添加的一個實用函式，
+
+178
+00:07:25,096 --> 00:07:27,547
+which gets that output object that was
+它得到的是輸出物件
+
+179
+00:07:27,579 --> 00:07:28,893
+returned by OpenAI.
+由 OpenAI 傳回。
+
+180
+00:07:29,503 --> 00:07:31,270
+And that then extracts the name of the
+然後提取名稱
+
+181
+00:07:31,334 --> 00:07:33,728
+function and the arguments of the function
+函式和函式的參數
+
+182
+00:07:33,841 --> 00:07:34,805
+the model gave me.
+模型給了我。
+
+183
+00:07:35,849 --> 00:07:39,046
+So it extracts that information about that
+所以它提取有關該資訊
+
+184
+00:07:39,046 --> 00:07:42,098
+intended tool call the model provided to me.
+預期的工具呼叫提供給我的模型。
+
+185
+00:07:42,580 --> 00:07:45,183
+Then I check whether the requested function
+然後我檢查是否請求的功能
+
+186
+00:07:45,183 --> 00:07:47,754
+name is in my available functions. So if the
+名稱在我的可用函式中。所以如果
+
+187
+00:07:47,754 --> 00:07:49,971
+model requested a function I wanna support,
+模型請求了我想要支援的功能，
+
+188
+00:07:50,694 --> 00:07:53,200
+just to make sure I'm not executing some
+只是為了確保我沒有執行一些
+
+189
+00:07:53,200 --> 00:07:55,947
+function I don't want the model to request.
+我不希望模型請求的功能。
+
+190
+00:07:56,958 --> 00:07:59,722
+And if the function that is requested by the
+如果所請求的功能
+
+191
+00:07:59,722 --> 00:08:02,519
+model is supported, I try executing it.
+支援模型，我嘗試執行它。
+
+192
+00:08:03,307 --> 00:08:05,927
+I get that function from my dictionary here.
+我從我的字典中得到這個函式。
+
+193
+00:08:06,475 --> 00:08:09,164
+I execute it. I check whether that works and
+我執行它。我檢查這是否有效並且
+
+194
+00:08:09,502 --> 00:08:12,046
+handle the exception if it doesn't. And I
+如果沒有，則處理例外。而我
+
+195
+00:08:12,094 --> 00:08:15,367
+return the result of that tool call.
+傳回該工具呼叫的結果。
+
+196
+00:08:16,857 --> 00:08:18,818
+And that's then what I'm using here, the
+這就是我在這裡使用的，
+
+197
+00:08:18,818 --> 00:08:19,677
+tool output.
+工具輸出。
+
+198
+00:08:20,422 --> 00:08:23,144
+I add that back into the chat history using
+我使用以下命令將其添加回聊天記錄中
+
+199
+00:08:23,177 --> 00:08:25,300
+this special type, which I know from the
+這種特殊型別，我從
+
+200
+00:08:25,384 --> 00:08:25,955
+OpenAI documentation.
+OpenAI 文檔。
+
+201
+00:08:27,292 --> 00:08:29,187
+And that's why it's important to dive into
+這就是為什麼深入研究很重要
+
+202
+00:08:29,203 --> 00:08:30,921
+the documentation if you're building more
+如果您要建立更多內容，請參閱文檔
+
+203
+00:08:30,969 --> 00:08:34,598
+advanced things with an AI model, with an AI
+具有人工智慧模型的先進事物，具有人工智慧
+
+204
+00:08:34,598 --> 00:08:36,975
+provider, because they do offer all kinds of
+提供者，因為他們確實提供各種
+
+205
+00:08:37,151 --> 00:08:39,415
+features. For example, here I can set the
+特徵。例如，我在這裡可以設置
+
+206
+00:08:39,479 --> 00:08:42,032
+type to function call output. This is
+輸入函式呼叫輸出。這是
+
+207
+00:08:42,241 --> 00:08:43,381
+supported by OpenAI
+由 OpenAI 支援
+
+208
+00:08:43,911 --> 00:08:47,427
+to give the model the information about the
+為模型提供有關
+
+209
+00:08:47,444 --> 00:08:49,740
+result of the intended tool call, because I
+預期工具呼叫的結果，因為我
+
+210
+00:08:49,756 --> 00:08:52,228
+also put that result into this message.
+也將該結果放入此訊息中。
+
+211
+00:08:53,127 --> 00:08:55,760
+And then I request a new response based on
+然後我請求一個新的回應
+
+212
+00:08:55,793 --> 00:08:58,490
+these updated messages, which includes that
+這些更新的訊息，其中包括
+
+213
+00:08:58,586 --> 00:09:01,492
+tool call result. And I output the final
+工具調用結果。我輸出最終的
+
+214
+00:09:01,492 --> 00:09:03,547
+result I get back, the final response.
+結果我回來了，最後的回覆。
+
+215
+00:09:04,205 --> 00:09:06,517
+Please note that here I no longer expose
+請注意，這裡我不再曝光
+
+216
+00:09:06,629 --> 00:09:08,957
+tools to the model because in this app here,
+模型工具，因為在這個應用程式中，
+
+217
+00:09:09,038 --> 00:09:11,574
+in this chat app, I don't wanna support
+在這個聊天應用程式中，我不想支援
+
+218
+00:09:11,863 --> 00:09:15,106
+subsequent multi-step tool calls. Instead,
+隨後的多步驟工具調用。反而，
+
+219
+00:09:15,219 --> 00:09:16,535
+just one tool call
+只要呼叫一個工具
+
+220
+00:09:17,065 --> 00:09:18,975
+per user question, so to say.
+可以這麼說，每個使用者的問題。
+
+221
+00:09:19,697 --> 00:09:21,620
+But that's then one way of implementing this
+但這是實現這一點的一種方法
+
+222
+00:09:21,636 --> 00:09:24,137
+in a relatively clean way. And therefore, of
+以一種相對乾淨的方式。因此，
+
+223
+00:09:24,185 --> 00:09:27,568
+course, here, if I run this main file and I
+當然，在這裡，如果我運行這個主檔案並且我
+
+224
+00:09:27,568 --> 00:09:31,030
+ask, what can you do for me? It should not
+問，你能為我做什麼？不應該
+
+225
+00:09:31,078 --> 00:09:33,226
+execute this get temperature function.
+執行這個取得溫度函式。
+
+226
+00:09:34,204 --> 00:09:36,160
+I should not get any log regarding that.
+我不應該得到任何與此相關的紀錄。
+
+227
+00:09:36,208 --> 00:09:38,532
+Instead, I get the default response, which
+相反，我得到了預設回應，即
+
+228
+00:09:38,532 --> 00:09:41,305
+is good. And if I now ask, what's
+很好。如果我現在問，什麼是
+
+229
+00:09:41,834 --> 00:09:46,163
+the temperature in Tokyo? Then I should see
+東京的溫度是多少？那我應該看看
+
+230
+00:09:46,163 --> 00:09:48,856
+that that function gets executed and I then
+該函式被執行，然後我
+
+231
+00:09:48,952 --> 00:09:51,373
+get a reply that takes the result of that
+得到一個得到結果的回复
+
+232
+00:09:51,373 --> 00:09:52,720
+tool call into account.
+工具調用考慮在內。
+
+233
+00:09:53,538 --> 00:09:56,153
+And now I'll type exit to quit. And then
+現在我將輸入 exit 退出。進而
+
+234
+00:09:56,169 --> 00:09:58,367
+here in this program, I actually output the
+在這個程式中，我實際上輸出了
+
+235
+00:09:58,367 --> 00:10:00,982
+entire chat history so that we can see what
+整個聊天記錄，以便我們可以看到什麼
+
+236
+00:10:00,982 --> 00:10:01,784
+was inside of it,
+就在它裡面，
+
+237
+00:10:02,441 --> 00:10:04,527
+like that system message I set at the
+就像我在
+
+238
+00:10:04,527 --> 00:10:07,061
+beginning, the initial user message,
+開始，初始使用者訊息，
+
+239
+00:10:07,655 --> 00:10:09,821
+the initial response to the first user
+對第一個使用者的初始回應
+
+240
+00:10:09,821 --> 00:10:11,970
+message, the subsequent messages, the tool
+訊息、後續訊息、工具
+
+241
+00:10:11,986 --> 00:10:13,639
+call results, and so on.
+調用結果等等。
+
+242
+00:10:14,537 --> 00:10:16,703
+And that's how you could build or how you
+這就是你如何建構或如何
+
+243
+00:10:16,703 --> 00:10:19,478
+could handle tool calls when using OpenAI
+使用 OpenAI 時可以處理工具調用
+
+244
+00:10:19,686 --> 00:10:21,531
+and in this case, the Python SDK.
+在本例中為 Python SDK。

@@ -1,0 +1,809 @@
+1
+00:00:00,689 --> 00:00:05,017
+I'm back in yet another new project, which
+我又回到了另一個新專案
+
+2
+00:00:05,049 --> 00:00:07,060
+you of course also find attached. It's a
+你當然也會發現附件。這是一個
+
+3
+00:00:07,060 --> 00:00:10,411
+main.py file and a database.py file.
+main.py 檔案和database.py 檔案。
+
+4
+00:00:12,058 --> 00:00:14,092
+And I'll get back to that database in just a
+我很快就會回到該資料庫
+
+5
+00:00:14,092 --> 00:00:14,479
+second.
+第二。
+
+6
+00:00:15,672 --> 00:00:20,045
+This project here is a very simple, basic
+這個專案是一個非常簡單、基本的
+
+7
+00:00:20,255 --> 00:00:21,771
+web research tool.
+網路研究工具。
+
+8
+00:00:22,611 --> 00:00:24,660
+A tool which actually does not visit
+一個實際上不訪問的工具
+
+9
+00:00:24,692 --> 00:00:27,644
+websites and extract content, but instead a
+網站並提取內容，而是
+
+10
+00:00:27,644 --> 00:00:29,571
+tool that's all about creating a research
+旨在創建研究的工具
+
+11
+00:00:29,571 --> 00:00:30,045
+plan and then having the AI
+計劃然後讓人工智慧
+
+12
+00:00:32,253 --> 00:00:35,269
+perform web search based on that research
+根據該研究進行網路搜尋
+
+13
+00:00:35,301 --> 00:00:37,195
+plan and then return
+計劃然後回傳
+
+14
+00:00:37,772 --> 00:00:40,725
+a summary of the research results, a summary
+研究結果的總結、總結
+
+15
+00:00:40,901 --> 00:00:43,966
+of the links it found in its web search.
+它在網路搜尋中找到的連結的數量。
+
+16
+00:00:44,833 --> 00:00:47,978
+And whilst this isn't a super complex
+雖然這不是一個超級複雜的
+
+17
+00:00:48,218 --> 00:00:50,946
+program, a super complex application here,
+程式，這裡是一個超級複雜的應用程式，
+
+18
+00:00:51,428 --> 00:00:54,075
+it is indeed an application that allows me
+這確實是一個應用程式，可以讓我
+
+19
+00:00:54,075 --> 00:00:55,904
+to show you how you could build an
+向您展示如何建構
+
+20
+00:00:55,904 --> 00:00:58,841
+application that takes advantage of multiple
+利用多個優勢的應用程式
+
+21
+00:00:58,969 --> 00:00:59,659
+connected
+已連接
+
+22
+00:01:01,609 --> 00:01:02,630
+agents. Now, just as before,
+代理。現在，就像以前一樣，
+
+23
+00:01:03,308 --> 00:01:06,681
+I'm working with a base tool class which
+我正在使用一個基本工具類
+
+24
+00:01:06,859 --> 00:01:09,168
+looks and works exactly as shown before,
+外觀和工作原理與先前所示完全相同，
+
+25
+00:01:10,737 --> 00:01:13,907
+and I then have a couple of classes that use
+然後我有幾個使用的類
+
+26
+00:01:13,907 --> 00:01:16,494
+this tool class to build some concrete
+這個工具類用來建構一些具體的
+
+27
+00:01:16,494 --> 00:01:18,097
+tools, and I'll get back to those in a
+工具，我會回到那些
+
+28
+00:01:18,131 --> 00:01:18,641
+second.
+第二。
+
+29
+00:01:20,739 --> 00:01:24,264
+I also still have my agent class which also
+我也仍然有我的代理課程
+
+30
+00:01:24,361 --> 00:01:25,687
+works the way it did before,
+像以前一樣工作，
+
+31
+00:01:26,372 --> 00:01:28,793
+And then I got a couple of specialized
+然後我得到了一些專門的
+
+32
+00:01:28,793 --> 00:01:31,550
+agents, and that's where things will get
+代理，事情就會發展到這樣的地步
+
+33
+00:01:31,726 --> 00:01:32,416
+interesting now.
+現在很有趣。
+
+34
+00:01:33,249 --> 00:01:35,974
+Just like before, these agents can register
+和以前一樣，這些代理商可以註冊
+
+35
+00:01:35,974 --> 00:01:36,279
+tools.
+工具。
+
+36
+00:01:37,176 --> 00:01:39,325
+And for example, I have a research planner
+例如，我有一個研究計劃員
+
+37
+00:01:39,501 --> 00:01:43,813
+agent whose task is to create a research
+代理人，其任務是創建一項研究
+
+38
+00:01:43,925 --> 00:01:45,849
+plan together with the user.
+與使用者一起規劃。
+
+39
+00:01:46,490 --> 00:01:48,766
+So the user specifies a topic, and then the
+所以使用者指定一個主題，然後
+
+40
+00:01:48,798 --> 00:01:51,636
+idea is that this agent goes back and forth
+想法是這個代理來回移動
+
+41
+00:01:51,780 --> 00:01:53,094
+with the user to
+與使用者
+
+42
+00:01:53,704 --> 00:01:56,605
+refine the research plan or to create a
+完善研究計劃或創建
+
+43
+00:01:56,733 --> 00:01:58,929
+refined research plan. And you'll see that
+細化研究計劃。你會看到
+
+44
+00:01:58,929 --> 00:01:59,442
+in action
+在行動
+
+45
+00:02:00,020 --> 00:02:00,869
+in just a second.
+只需一秒鐘。
+
+46
+00:02:02,280 --> 00:02:02,488
+This
+這
+
+47
+00:02:03,145 --> 00:02:05,935
+agent also has access to some tools
+代理還可以使用一些工具
+
+48
+00:02:06,592 --> 00:02:09,958
+that allow the agent to store a research
+允許代理存儲研究
+
+49
+00:02:09,974 --> 00:02:13,485
+plan for future use or to retrieve an
+計劃將來使用或檢索
+
+50
+00:02:13,485 --> 00:02:15,938
+existing research plan or actually all
+現有的研究計劃或實際上全部
+
+51
+00:02:16,403 --> 00:02:19,240
+existing research plans and delete research
+現有研究計劃並刪除研究
+
+52
+00:02:19,336 --> 00:02:21,869
+plans. And these are these tools I mentioned
+計劃。這些就是我提到的這些工具
+
+53
+00:02:21,917 --> 00:02:22,190
+before.
+前。
+
+54
+00:02:22,943 --> 00:02:25,925
+In these tools, I, in the end, just reach
+在這些工具中，我最終達到了
+
+55
+00:02:25,989 --> 00:02:28,634
+out to functions defined in this database
+輸出到該資料庫中定義的函式
+
+56
+00:02:28,730 --> 00:02:31,055
+PUI file. To keep this main.py file a bit
+PUI 檔案。稍微保留一下這個 main.py 檔案
+
+57
+00:02:31,055 --> 00:02:31,424
+leaner.
+更瘦了。
+
+58
+00:02:32,819 --> 00:02:35,304
+In this database.py file, I'm again using a
+在此database.py檔案中，我再次使用
+
+59
+00:02:35,480 --> 00:02:38,254
+SQLite database and I have very simple
+SQLite 資料庫跟我有很簡單
+
+60
+00:02:38,254 --> 00:02:39,088
+functions for
+函式為
+
+61
+00:02:39,777 --> 00:02:41,862
+initializing that database and creating a
+初始化該資料庫並建立一個
+
+62
+00:02:41,862 --> 00:02:44,652
+research plans table where every research
+研究計劃表，其中每項研究
+
+63
+00:02:44,748 --> 00:02:46,896
+plan has an ID, a short summary, and some
+計劃有一個 ID、一個簡短的摘要和一些內容
+
+64
+00:02:46,929 --> 00:02:49,382
+details. And then I have these functions for
+細節。然後我有這些功能
+
+65
+00:02:49,478 --> 00:02:51,947
+adding or retrieving or deleting research
+新增、檢索或刪除研究
+
+66
+00:02:52,043 --> 00:02:54,994
+plans. Pretty straightforward and
+計劃。非常簡單且
+
+67
+00:02:55,026 --> 00:02:57,671
+deliberately kept simple for this demo.
+這個演示故意保持簡單。
+
+68
+00:02:59,550 --> 00:03:01,639
+So these are the tools available to this
+這些是可用的工具
+
+69
+00:03:01,863 --> 00:03:03,566
+research planner agent.
+研究計劃代理。
+
+70
+00:03:04,338 --> 00:03:07,117
+I also got a system instruction here where I
+我還在這裡得到了系統指令
+
+71
+00:03:07,165 --> 00:03:09,536
+try to guide this agent and make it clear
+嘗試引導該代理人並使其明確
+
+72
+00:03:09,976 --> 00:03:12,773
+how this agent should work and how it should
+這個代理應該如何工作以及它應該如何工作
+
+73
+00:03:12,822 --> 00:03:14,074
+try to help the user.
+嘗試幫助使用者。
+
+74
+00:03:16,213 --> 00:03:18,620
+And then we have this run function. And
+然後我們就有了這個 run 函式。和
+
+75
+00:03:18,620 --> 00:03:21,642
+again, I opted for a design where
+我再次選擇了這樣的設計
+
+76
+00:03:22,192 --> 00:03:24,228
+I don't have a lot of shared
+我沒有太多的分享
+
+77
+00:03:24,988 --> 00:03:27,814
+logic between agents. I have none of that
+代理之間的邏輯。我什麼都沒有
+
+78
+00:03:27,814 --> 00:03:31,250
+actually. The base run function, the base
+實際上。基本運行函式，基本
+
+79
+00:03:31,250 --> 00:03:34,526
+run method is empty. Instead, my idea really
+run 方法為空。相反，我的想法確實
+
+80
+00:03:34,558 --> 00:03:36,132
+is that I want to be able to build
+我希望能夠建構
+
+81
+00:03:37,031 --> 00:03:39,199
+agents that are really different from each
+彼此之間確實不同的代理
+
+82
+00:03:39,199 --> 00:03:41,800
+other, where every agent can do exactly what
+其他，每個代理都可以做什麼
+
+83
+00:03:41,800 --> 00:03:44,096
+it needs to do and where I can fine-tune the
+它需要做什麼以及我可以在哪裡進行微調
+
+84
+00:03:44,096 --> 00:03:46,328
+logic for every agent, which is why every
+每個代理的邏輯，這就是為什麼每個
+
+85
+00:03:46,505 --> 00:03:50,022
+agent has its own very specialized run
+代理商有自己非常專業的運作
+
+86
+00:03:50,214 --> 00:03:52,655
+method. Like this research planner, agent,
+方法。像是這位研究策劃者、代理人，
+
+87
+00:03:52,767 --> 00:03:54,996
+which actually spins up a little chat.
+這實際上引發了一些聊天。
+
+88
+00:03:56,214 --> 00:03:58,700
+It has an infinite loop with some exit
+它有一個無限迴圈，有一些出口
+
+89
+00:03:58,700 --> 00:04:01,955
+conditions. And in that chat, it tries to
+狀況。在那次聊天中，它試圖
+
+90
+00:04:02,067 --> 00:04:04,633
+refine that research plan together with the
+與
+
+91
+00:04:04,633 --> 00:04:07,006
+user, asking for initial input.
+使用者，要求初始輸入。
+
+92
+00:04:07,535 --> 00:04:11,031
+And the user can also insert exit to
+使用者還可以插入 exit 到
+
+93
+00:04:11,608 --> 00:04:15,136
+exit the entire program or accept to accept
+退出整個程式或接受接受
+
+94
+00:04:15,152 --> 00:04:16,803
+a research plan and move on.
+制定研究計劃並繼續前進。
+
+95
+00:04:17,557 --> 00:04:19,449
+We'll also see that in just a second.
+我們稍後也會看到這一點。
+
+96
+00:04:20,363 --> 00:04:22,511
+But if the user enters anything else, that
+但如果使用者輸入其他內容，
+
+97
+00:04:22,511 --> 00:04:25,700
+input will be used to refine the research
+投入將用於完善研究
+
+98
+00:04:25,732 --> 00:04:26,021
+plan.
+計劃。
+
+99
+00:04:27,399 --> 00:04:29,611
+And for that, I got a nested loop here
+為此，我在這裡有一個嵌套迴圈
+
+100
+00:04:30,204 --> 00:04:30,589
+actually
+實際上
+
+101
+00:04:31,326 --> 00:04:34,196
+to allow the agent to also use tools
+允許代理也使用工具
+
+102
+00:04:34,773 --> 00:04:36,744
+because of course the user also might have
+因為當然使用者也可能有
+
+103
+00:04:36,776 --> 00:04:39,789
+asked the agent to store the research plan
+要求代理人儲存研究計劃
+
+104
+00:04:39,998 --> 00:04:41,649
+or get existing research plans.
+或取得現有的研究計劃。
+
+105
+00:04:42,402 --> 00:04:44,149
+So that's all in there and that is kind of
+這就是全部內容，就是這樣
+
+106
+00:04:44,149 --> 00:04:46,489
+similar to what you saw before in the
+與您之前在中看到的類似
+
+107
+00:04:46,489 --> 00:04:47,547
+previous example.
+前面的例子。
+
+108
+00:04:48,479 --> 00:04:51,820
+Ultimately, this agent here, which is using
+最終，這裡的代理正在使用
+
+109
+00:04:51,949 --> 00:04:55,322
+the GPT-4o model, because all my agents here
+GPT-4o 模型，因為我所有的代理人都在這裡
+
+110
+00:04:55,322 --> 00:04:58,005
+do, also for cost reasons, this agent here
+這樣做，也是出於成本原因，這裡的代理
+
+111
+00:04:58,375 --> 00:05:01,346
+will in the end produce a research plan. And
+最終會產生一個研究計劃。和
+
+112
+00:05:01,346 --> 00:05:02,519
+that's also important.
+這也很重要。
+
+113
+00:05:03,098 --> 00:05:06,535
+If the user types accept, the plan is to
+如果使用者輸入接受，則計劃是
+
+114
+00:05:06,632 --> 00:05:09,459
+move on. And therefore I have some extra
+繼續前進。因此我有一些額外的
+
+115
+00:05:09,459 --> 00:05:10,118
+logic here
+邏輯在這裡
+
+116
+00:05:10,648 --> 00:05:14,600
+that prompts the agent to actually
+這會促使代理商實際上
+
+117
+00:05:15,146 --> 00:05:17,490
+produce a final version of the discussed
+產生所討論的最終版本
+
+118
+00:05:17,490 --> 00:05:19,353
+research plan so that it takes a look at the
+研究計劃，以便研究
+
+119
+00:05:19,353 --> 00:05:22,692
+entire history and based on what the user
+整個歷史記錄並基於使用者的內容
+
+120
+00:05:22,692 --> 00:05:25,165
+and the agent decided, it will produce one
+代理人決定，它將生產一個
+
+121
+00:05:25,422 --> 00:05:28,473
+final research plan, one final description
+最終研究計劃，一份最終描述
+
+122
+00:05:28,714 --> 00:05:30,881
+of how the research should be conducted.
+應該如何進行研究。
+
+123
+00:05:31,861 --> 00:05:33,338
+And then, and that is new,
+然後，這是新的，
+
+124
+00:05:34,012 --> 00:05:36,726
+I return that research plan that was
+我退回那個研究計劃
+
+125
+00:05:36,919 --> 00:05:37,513
+produced here.
+產自這裡。
+
+126
+00:05:38,685 --> 00:05:40,130
+I return that here.
+我把它還在這裡。
+
+127
+00:05:40,676 --> 00:05:43,355
+In that run method so that I can hand it off
+在那個運行方法中，這樣我就可以把它交給
+
+128
+00:05:43,403 --> 00:05:44,445
+to some other agent.
+給其他一些代理人。
+
+129
+00:05:45,889 --> 00:05:48,247
+An alternative approach would be to spin up
+另一種方法是旋轉
+
+130
+00:05:48,311 --> 00:05:51,118
+another agent in here, but I went for this
+這裡有另一個特工，但我是這麼做的
+
+131
+00:05:51,118 --> 00:05:53,941
+return approach. Now, where am I returning
+回傳方法。現在，我要回到哪裡
+
+132
+00:05:53,941 --> 00:05:56,347
+it to? Well, that would be my main method,
+它到?嗯，這將是我的主要方法，
+
+133
+00:05:56,492 --> 00:05:57,871
+my main function here actually.
+實際上我在這裡的主要功能是。
+
+134
+00:05:58,962 --> 00:06:01,272
+It's here where I create that research
+我就是在這裡進行這項研究的
+
+135
+00:06:01,304 --> 00:06:03,437
+planner agent, where I start it, and then
+規劃代理，我從哪裡開始，然後
+
+136
+00:06:04,191 --> 00:06:06,405
+that's the research plan that is ultimately
+這就是最終的研究計劃
+
+137
+00:06:06,597 --> 00:06:08,249
+returned by agent run.
+由代理運行回傳。
+
+138
+00:06:09,163 --> 00:06:11,199
+Because that's how this agent works. Again,
+因為這就是這個代理人的工作原理。再次，
+
+139
+00:06:11,648 --> 00:06:13,940
+if you are writing your own code, you have
+如果您正在編寫自己的程式碼，那麼您有
+
+140
+00:06:14,357 --> 00:06:17,146
+full control over how things should behave
+完全控制事物的行為方式
+
+141
+00:06:17,419 --> 00:06:19,390
+and how you wanna connect different things.
+以及你想如何連結不同的事物。
+
+142
+00:06:20,224 --> 00:06:23,157
+And speaking of connecting things, the idea
+說到連結事物，這個想法
+
+143
+00:06:23,173 --> 00:06:25,434
+here of course is to have multiple agents
+這裡當然是要有多個代理
+
+144
+00:06:25,514 --> 00:06:27,950
+that are working together and that are
+正在一起工作，並且是
+
+145
+00:06:27,998 --> 00:06:29,762
+connected by passing data
+透過傳遞資料連接
+
+146
+00:06:30,467 --> 00:06:33,417
+from one agent to another. So the result
+從一個代理到另一個代理。所以結果
+
+147
+00:06:33,753 --> 00:06:35,853
+from this research planner agent should be
+從這個研究計劃代理人應該是
+
+148
+00:06:35,853 --> 00:06:38,017
+passed to the web search agent. How am I
+傳遞給網路搜尋代理程式。我怎麼樣
+
+149
+00:06:38,194 --> 00:06:40,149
+doing that? Well, this web search agent,
+這樣做？嗯，這個網路搜尋代理，
+
+150
+00:06:40,647 --> 00:06:42,908
+also has a run method, but unlike the other
+還有一個 run 方法，但與其他方法不同
+
+151
+00:06:42,908 --> 00:06:45,603
+run method, here we want an input.
+run 方法，這裡我們需要一個輸入。
+
+152
+00:06:46,999 --> 00:06:49,693
+And that is that research plan that was
+這就是那個研究計劃
+
+153
+00:06:49,806 --> 00:06:52,629
+created here. And again, that's just one way
+在這裡創建。再說一遍，這只是一種方法
+
+154
+00:06:52,629 --> 00:06:55,067
+of doing it. You could also build your agent
+這樣做。您也可以建立您的代理
+
+155
+00:06:55,195 --> 00:06:58,131
+such that you can pass data to it through
+這樣你就可以透過將資料傳遞給它
+
+156
+00:06:58,147 --> 00:06:59,205
+its constructor,
+它的建構子，
+
+157
+00:06:59,735 --> 00:07:01,996
+or you use some dependency injection
+或者你使用一些依賴注入
+
+158
+00:07:01,996 --> 00:07:04,884
+mechanism, or you store that data in some
+機制，或將該資料儲存在某些
+
+159
+00:07:04,884 --> 00:07:07,274
+global variable to which all agents have
+所有代理程式都擁有的全域變數
+
+160
+00:07:07,274 --> 00:07:07,627
+access.
+使用權。
+
+161
+00:07:08,254 --> 00:07:11,489
+This is entirely up to you. I went for this
+這完全取決於你。我就是為了這個
+
+162
+00:07:11,489 --> 00:07:12,006
+approach here.
+接近這裡。

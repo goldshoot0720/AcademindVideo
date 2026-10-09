@@ -1,0 +1,1064 @@
+1
+00:00:00,658 --> 00:00:03,597
+As mentioned, I'll use the OpenAI API here
+如前所述，我將在這裡使用 OpenAI API
+
+2
+00:00:03,886 --> 00:00:05,990
+and therefore a good start is to take a look
+因此，一個好的開始就是看一下
+
+3
+00:00:05,990 --> 00:00:07,918
+at their documentation because as mentioned,
+在他們的文檔中，因為如上所述，
+
+4
+00:00:07,982 --> 00:00:10,086
+that's always what you should do as a first
+這始終是你應該做的第一件事
+
+5
+00:00:10,086 --> 00:00:10,391
+step.
+步。
+
+6
+00:00:11,612 --> 00:00:14,278
+Now here in the overview page, I get a first
+現在在概述頁面中，我得到了第一個
+
+7
+00:00:14,326 --> 00:00:16,382
+impression on how I could send a request
+對如何發送請求的印象
+
+8
+00:00:16,719 --> 00:00:19,016
+here using the curl tool, which is a tool
+這裡使用curl工具，這是一個工具
+
+9
+00:00:19,128 --> 00:00:21,296
+that comes pre-installed on Linux, for
+預裝在 Linux 上，用於
+
+10
+00:00:21,296 --> 00:00:24,492
+example. But the shape of this request shows
+例子。但這個請求的形狀表明
+
+11
+00:00:24,525 --> 00:00:26,692
+us how we can in general send it with help
+我們一般如何在幫助下發送它
+
+12
+00:00:26,836 --> 00:00:29,721
+of any language and any library we might be
+我們可能是任何語言和任何圖書館
+
+13
+00:00:29,721 --> 00:00:30,843
+using in any language.
+在任何語言中使用。
+
+14
+00:00:31,741 --> 00:00:33,392
+So here for example, the goal would be to
+例如，這裡的目標是
+
+15
+00:00:33,424 --> 00:00:35,812
+send a request to this address, which is the
+向該地址發送請求，該地址是
+
+16
+00:00:35,892 --> 00:00:37,623
+address of the OpenAI API.
+OpenAI API 的位址。
+
+17
+00:00:38,953 --> 00:00:40,765
+Then we would specify that we're sending
+然後我們會指定我們要發送
+
+18
+00:00:40,797 --> 00:00:42,688
+some data formatted as JSON.
+一些格式化為 JSON 的資料。
+
+19
+00:00:43,826 --> 00:00:46,839
+We would include this authorization header,
+我們將包含此授權標頭，
+
+20
+00:00:46,967 --> 00:00:49,147
+which includes our API key, which is
+其中包括我們的 API 金鑰，即
+
+21
+00:00:49,147 --> 00:00:52,048
+important. If we forget this, we will not
+重要的。如果我們忘記這一點，我們就不會
+
+22
+00:00:52,160 --> 00:00:54,436
+get a response, not a success response
+得到回應，而不是成功回應
+
+23
+00:00:54,500 --> 00:00:57,438
+anyways. Because we need to authenticate and
+無論如何。因為我們需要驗證並
+
+24
+00:00:57,614 --> 00:00:59,991
+tell OpenAI who's sending the request.
+告訴 OpenAI 誰發送了請求。
+
+25
+00:01:01,002 --> 00:01:03,250
+And then we would attach some data where we
+然後我們會附加一些資料
+
+26
+00:01:03,250 --> 00:01:05,450
+specify which model we wanna talk to.
+指定我們想要與哪個模型交談。
+
+27
+00:01:06,140 --> 00:01:08,067
+And again, that is important also from a
+再說一遍，這也很重要
+
+28
+00:01:08,067 --> 00:01:09,255
+pricing perspective.
+定價角度。
+
+29
+00:01:10,539 --> 00:01:12,787
+And we would send our input, our prompt.
+我們會發送我們的輸入，我們的提示。
+
+30
+00:01:13,927 --> 00:01:16,801
+Now you can also send more complex prompts.
+現在您還可以發送更複雜的提示。
+
+31
+00:01:17,363 --> 00:01:19,611
+You can see that if you dive a bit deeper
+如果你再深入一點就會發現
+
+32
+00:01:19,611 --> 00:01:20,639
+into the documentation.
+到文檔中。
+
+33
+00:01:21,297 --> 00:01:24,892
+You can, for example, send an entire history
+例如，您可以傳送整個歷史記錄
+
+34
+00:01:25,085 --> 00:01:25,695
+of messages
+訊息數
+
+35
+00:01:26,353 --> 00:01:28,809
+where you can also include developer or
+您也可以在其中包含開發人員或
+
+36
+00:01:29,114 --> 00:01:31,682
+system messages, as they used to be called
+系統訊息，因為它們曾經被稱為
+
+37
+00:01:31,682 --> 00:01:34,539
+in the past, that provide some general
+過去，這提供了一些一般性的
+
+38
+00:01:34,571 --> 00:01:36,979
+instructions to the model. You could also
+模型的說明。你也可以
+
+39
+00:01:36,979 --> 00:01:39,402
+send an existing chat history that may
+傳送現有的聊天記錄
+
+40
+00:01:39,595 --> 00:01:43,527
+include past responses by the AI so that the
+包括人工智慧過去的反應，以便
+
+41
+00:01:43,608 --> 00:01:46,449
+overall context is available to the AI for
+人工智慧可以使用整體上下文
+
+42
+00:01:46,449 --> 00:01:49,129
+the new response it will generate because
+它將產生新的回應，因為
+
+43
+00:01:49,562 --> 00:01:50,780
+And that's the important part here.
+這就是這裡的重要部分。
+
+44
+00:01:51,325 --> 00:01:53,265
+For every request you're sending to the
+對於您發送至的每個請求
+
+45
+00:01:53,265 --> 00:01:53,650
+model,
+模型，
+
+46
+00:01:54,275 --> 00:01:57,898
+you start a brand new session with it, so to
+你用它開始一個全新的工作階段，所以
+
+47
+00:01:57,898 --> 00:02:00,767
+say. So it doesn't know anything about past
+說。所以它對過去一無所知
+
+48
+00:02:00,783 --> 00:02:02,274
+questions you might have sent.
+您可能已發送的問題。
+
+49
+00:02:03,043 --> 00:02:04,919
+If you send this input, it won't know
+如果您發送此輸入，它不會知道
+
+50
+00:02:05,175 --> 00:02:08,125
+anything about prior conversations you had
+關於你們之前的談話的任何事情
+
+51
+00:02:08,237 --> 00:02:08,573
+with it,
+有了它，
+
+52
+00:02:09,118 --> 00:02:12,212
+unlike ChatGPT. But that's the case because
+與 ChatGPT 不同。但事實就是如此，因為
+
+53
+00:02:12,324 --> 00:02:15,274
+ChatGPT is an AI application built by
+ChatGPT 是一款由
+
+54
+00:02:15,354 --> 00:02:17,890
+OpenAI. As explained before.
+開放人工智慧。正如之前所解释的。
+
+55
+00:02:18,420 --> 00:02:21,358
+And therefore, it's this ChatGPT application
+因此，這就是 ChatGPT 應用程式
+
+56
+00:02:21,390 --> 00:02:24,248
+that, for example, manages the chat history.
+例如，管理聊天記錄。
+
+57
+00:02:24,344 --> 00:02:27,379
+And it's this application that always sends
+正是這個應用程式總是發送
+
+58
+00:02:27,492 --> 00:02:30,334
+this entire history to the large language
+大語言的整個歷史
+
+59
+00:02:30,462 --> 00:02:33,481
+model, which, as mentioned, is something you
+模型，如前面提到的，它是你的東西
+
+60
+00:02:33,513 --> 00:02:36,130
+can also do. But you are in the driver's
+也可以做。但你在司機的座位上
+
+61
+00:02:36,178 --> 00:02:38,860
+seat. You control what's sent to which
+座位。您可以控制發送內容
+
+62
+00:02:38,972 --> 00:02:41,075
+model. That's the key takeaway here.
+模型。這是這裡的關鍵要點。
+
+63
+00:02:42,007 --> 00:02:44,993
+But first things first, I wanna send a
+但首先，我想發送一個
+
+64
+00:02:44,993 --> 00:02:46,037
+request like this.
+像這樣的請求。
+
+65
+00:02:46,776 --> 00:02:49,923
+So as a first step, I will actually install
+所以作為第一步，我將實際安裝
+
+66
+00:02:50,212 --> 00:02:53,054
+a library which I can do with uv add here
+我可以在此處使用 uv 添加一個庫
+
+67
+00:02:53,118 --> 00:02:54,772
+since I'm using the uv tool.
+因為我使用的是 uv 工具。
+
+68
+00:02:55,591 --> 00:02:57,501
+And the library I wanna install is the
+我想安裝的函式庫是
+
+69
+00:02:57,501 --> 00:02:58,722
+requests library.
+請求庫。
+
+70
+00:02:59,942 --> 00:03:01,660
+Of course, if you're not using uv, you can
+當然，如果你不使用uv，你可以
+
+71
+00:03:01,692 --> 00:03:04,470
+also pip install requests like you probably
+也可能像你一樣 pip install 請求
+
+72
+00:03:04,582 --> 00:03:06,686
+did in many other Python projects before.
+之前在許多其他Python專案中做過。
+
+73
+00:03:07,328 --> 00:03:10,298
+So here I'll use Uwe though and install this
+所以在這裡我將使用 Uwe 並安裝它
+
+74
+00:03:10,347 --> 00:03:12,867
+requests library. And with that installed,
+請求庫。安裝後，
+
+75
+00:03:12,884 --> 00:03:14,329
+I'll import requests here
+我將在這裡導入請求
+
+76
+00:03:15,019 --> 00:03:16,512
+and then send my request here.
+然後將我的請求發送到這裡。
+
+77
+00:03:17,363 --> 00:03:19,675
+So I'll get back a response by sending a
+所以我會透過發送一個回复
+
+78
+00:03:20,221 --> 00:03:22,903
+POST request because you actually need to
+POST 要求，因為您實際上需要
+
+79
+00:03:22,903 --> 00:03:25,938
+send a POST request to the OpenAI API.
+向 OpenAI API 發送 POST 請求。
+
+80
+00:03:27,062 --> 00:03:29,213
+And the URL to which I wanna send the
+以及我想要發送的 URL
+
+81
+00:03:29,213 --> 00:03:30,401
+request is
+請求是
+
+82
+00:03:30,995 --> 00:03:32,296
+this URL here.
+這個網址在這裡。
+
+83
+00:03:33,002 --> 00:03:34,540
+Now, just as a side note,
+現在，作為旁注，
+
+84
+00:03:35,229 --> 00:03:38,978
+the OpenAI API actually changed over time.
+OpenAI API 實際上隨著時間的推移而發生了變化。
+
+85
+00:03:39,475 --> 00:03:42,359
+In the past, there also was another API
+過去還有另外一個API
+
+86
+00:03:42,359 --> 00:03:42,808
+available,
+可用的，
+
+87
+00:03:43,577 --> 00:03:45,644
+and you can still see that, at least at the
+你仍然可以看到這一點，至少在
+
+88
+00:03:45,644 --> 00:03:47,502
+point of time where I'm recording this, if
+我記錄這個的時間點，如果
+
+89
+00:03:47,502 --> 00:03:49,873
+you dive into the documentation, and then
+你深入研究文檔，然後
+
+90
+00:03:50,210 --> 00:03:52,165
+you might have a dropdown here
+你可能在這裡有一個下拉式選單
+
+91
+00:03:53,430 --> 00:03:54,856
+which allows you to switch between the
+它允許您在
+
+92
+00:03:54,856 --> 00:03:57,452
+responses and the chat completions API,
+回應和聊天完成 API，
+
+93
+00:03:57,917 --> 00:04:00,624
+which is the previous standard API, so the
+這是之前的標準API，所以
+
+94
+00:04:00,785 --> 00:04:01,105
+old API.
+舊的 API。
+
+95
+00:04:03,112 --> 00:04:05,343
+There, the URL was different. It was
+在那裡，URL 是不同的。原來是
+
+96
+00:04:05,456 --> 00:04:08,314
+api.openai.com and then at the end
+api.openai.com 然後在最後
+
+97
+00:04:08,410 --> 00:04:10,000
+/chat/completions.
+/聊天/完成。
+
+98
+00:04:11,300 --> 00:04:13,741
+And the way you would send data to it also
+以及向其發送資料的方式
+
+99
+00:04:13,805 --> 00:04:14,255
+differed.
+不同。
+
+100
+00:04:14,833 --> 00:04:18,221
+Now with the more modern, newer Responses
+現在有了更現代、更新的回應
+
+101
+00:04:18,285 --> 00:04:18,702
+API,
+應用程式介面，
+
+102
+00:04:19,409 --> 00:04:22,123
+this is the address you send the request to,
+這是您發送請求的位址，
+
+103
+00:04:22,941 --> 00:04:26,024
+/responses, and the format of your data also
+/responses，以及資料的格式
+
+104
+00:04:26,089 --> 00:04:26,426
+changed.
+改變了。
+
+105
+00:04:27,457 --> 00:04:30,693
+Now in many guides, you will see the old API
+現在在許多指南中，您都會看到舊的 API
+
+106
+00:04:30,693 --> 00:04:31,065
+format
+格式
+
+107
+00:04:31,648 --> 00:04:32,085
+and
+和
+
+108
+00:04:32,619 --> 00:04:32,829
+AI
+人工智慧
+
+109
+00:04:34,091 --> 00:04:37,429
+tools like GitHub Copilot also may suggest
+GitHub Copilot 等工具也可能會建議
+
+110
+00:04:37,575 --> 00:04:38,793
+the old API.
+舊的API。
+
+111
+00:04:39,523 --> 00:04:41,650
+You can use it, but the recommendation is to
+您可以使用它，但建議
+
+112
+00:04:41,698 --> 00:04:43,514
+use the modern one. So
+使用現代的。所以
+
+113
+00:04:44,161 --> 00:04:45,779
+this address, which you find in the
+這個地址，您可以在
+
+114
+00:04:45,779 --> 00:04:47,736
+documentation, the responses API.
+檔案、回應 API。
+
+115
+00:04:48,529 --> 00:04:49,580
+So that's what I'll do here.
+這就是我在這裡要做的。
+
+116
+00:04:51,078 --> 00:04:54,690
+Now we also need to attach some data to this
+現在我們還需要附加一些資料到此
+
+117
+00:04:54,739 --> 00:04:56,480
+request, which with the requests package can
+request，配合requests包可以
+
+118
+00:04:56,480 --> 00:04:58,791
+be done by specifying the JSON
+透過指定 JSON 來完成
+
+119
+00:05:01,056 --> 00:05:03,144
+So that will be the payload of my request,
+這將是我的請求的有效負載，
+
+120
+00:05:03,192 --> 00:05:04,477
+which should be a dictionary.
+這應該是一本字典。
+
+121
+00:05:05,601 --> 00:05:07,657
+In there we need to specify a model
+在那裡我們需要指定一個模型
+
+122
+00:05:08,492 --> 00:05:09,922
+and I'll fill that out in a second
+我稍後會填寫
+
+123
+00:05:10,741 --> 00:05:12,266
+and my input.
+和我的意見。
+
+124
+00:05:13,246 --> 00:05:15,479
+Again, I could send a more complex chat
+同樣，我可以發送更複雜的聊天內容
+
+125
+00:05:15,479 --> 00:05:17,872
+history if I wanted to, but to get started
+歷史，如果我想的話，但要開始
+
+126
+00:05:18,064 --> 00:05:20,811
+we can also just send an input string, just
+我們也可以只發送一個輸入字串，只需
+
+127
+00:05:20,891 --> 00:05:21,678
+a simple prompt.
+一個簡單的提示。
+
+128
+00:05:23,027 --> 00:05:24,971
+Now I'll also fill that out later.
+現在我也會稍後填寫。
+
+129
+00:05:25,699 --> 00:05:26,490
+It's then this
+然後就是這個
+
+130
+00:05:27,314 --> 00:05:29,463
+payload that should be added here
+應在此處新增的有效負載
+
+131
+00:05:30,060 --> 00:05:31,869
+as data to this request.
+作為此請求的資料。
+
+132
+00:05:33,540 --> 00:05:35,033
+And I'll split this across multiple lines to
+我將把它分成多行
+
+133
+00:05:35,033 --> 00:05:36,689
+make it a bit easier to read like this.
+讓它更容易像這樣閱讀。
+
+134
+00:05:38,152 --> 00:05:40,379
+Now we also need to add some headers,
+現在我們還需要添加一些標題，
+
+135
+00:05:41,057 --> 00:05:42,961
+which again will be a dictionary of headers
+這又是一個標題字典
+
+136
+00:05:43,058 --> 00:05:45,494
+we wanna add. So metadata we attach to the
+我們想補充一下。所以我們附加到的元資料
+
+137
+00:05:45,494 --> 00:05:46,027
+request
+要求
+
+138
+00:05:46,705 --> 00:05:48,302
+and that will be the content-type header
+這將是內容型別標頭
+
+139
+00:05:49,027 --> 00:05:51,188
+and then this authorization header, which
+然後是這個授權標頭，其中
+
+140
+00:05:51,285 --> 00:05:52,510
+includes the API key.
+包括 API 金鑰。
+
+141
+00:05:53,424 --> 00:05:55,626
+So the Content-Type header is of course
+所以 Content-Type 標頭當然是
+
+142
+00:05:55,658 --> 00:05:56,414
+straightforward.
+直截了當。
+
+143
+00:05:57,265 --> 00:05:58,921
+The Authorization header
+授權標頭
+
+144
+00:06:00,078 --> 00:06:01,155
+is a bit more complex.
+有點複雜。
+
+145
+00:06:01,765 --> 00:06:02,914
+It is Bearer
+它是承載者
+
+146
+00:06:03,643 --> 00:06:06,250
+as a hardcoded text and then our API key.
+作為硬編碼文本，然後是我們的 API 密鑰。
+
+147
+00:06:07,027 --> 00:06:09,196
+And that's the API key you find in your
+這就是您在
+
+148
+00:06:09,293 --> 00:06:10,723
+dashboard once you're logged in.
+登入後的儀表板。
+
+149
+00:06:11,935 --> 00:06:13,114
+So here I'll create a new one.
+所以在這裡我將創建一個新的。
+
+150
+00:06:15,306 --> 00:06:17,251
+And again, it will be invalid once you're
+再次強調，一旦你
+
+151
+00:06:17,284 --> 00:06:17,766
+viewing this.
+正在查看此內容。
+
+152
+00:06:18,729 --> 00:06:19,676
+So I'll copy it here
+所以我將其複製到這裡
+
+153
+00:06:20,558 --> 00:06:21,955
+and then of course I could paste it in here.
+然後我當然可以將它貼到這裡。
+
+154
+00:06:22,886 --> 00:06:23,849
+That's how that looks like.
+看起來就是這樣。
+
+155
+00:06:24,731 --> 00:06:26,545
+It's not a good idea to
+這不是一個好主意
+
+156
+00:06:27,123 --> 00:06:29,755
+put your API keys directly into your code
+將您的 API 金鑰直接放入您的程式碼中
+
+157
+00:06:29,787 --> 00:06:31,680
+though because again, you shouldn't share it
+不過，因為你不應該分享它
+
+158
+00:06:31,713 --> 00:06:34,345
+with anyone and of course you will often
+與任何人，當然你會經常
+
+159
+00:06:34,345 --> 00:06:37,121
+share your code. So having the key in there
+分享你的程式碼。所以鑰匙就在那裡
+
+160
+00:06:37,233 --> 00:06:38,212
+is not a great idea.
+這不是一個好主意。
+
+161
+00:06:39,240 --> 00:06:41,246
+Instead, what's typically done is that you
+相反，通常所做的是您
+
+162
+00:06:41,326 --> 00:06:43,974
+add a.env file, an environment variable
+新增.env檔案，環境變數
+
+163
+00:06:43,990 --> 00:06:44,311
+file,
+檔案，
+
+164
+00:06:45,194 --> 00:06:46,911
+And in your.gitignore file, you make sure
+在你的 .gitignore 檔案中，你確保
+
+165
+00:06:46,959 --> 00:06:49,414
+that this is not included if you're using
+如果您使用的話，這不包括在內
+
+166
+00:06:49,527 --> 00:06:50,827
+Git for version control
+Git 用於版本控制
+
+167
+00:06:51,934 --> 00:06:54,309
+so that this.env file is not pushed to
+這樣 this.env 檔案就不會被推送到
+
+168
+00:06:54,325 --> 00:06:55,159
+GitHub, for example.
+例如，GitHub。
+
+169
+00:06:56,507 --> 00:06:58,545
+And then in there, in this.env file,
+然後在 this.env 檔案中，
+
+170
+00:06:59,139 --> 00:07:01,306
+you can set up a variable that might be
+你可以設定一個變數，它可能是
+
+171
+00:07:01,306 --> 00:07:03,151
+called OPENAI_API_KEY
+稱為 OPENAI_API_KEY
+
+172
+00:07:04,114 --> 00:07:06,377
+and then store your key here. But this will
+然後將您的密鑰儲存在這裡。但這會
+
+173
+00:07:06,377 --> 00:07:08,736
+now only ever live on your system. It's not
+現在只存在於您的系統上。它不是
+
+174
+00:07:08,928 --> 00:07:10,806
+pushed to GitHub. So that's why it will be
+推送到 GitHub。所以這就是為什麼會這樣
+
+175
+00:07:10,806 --> 00:07:11,079
+safe.
+安全的。
+
+176
+00:07:12,315 --> 00:07:14,354
+And then you can use that key in your
+然後你可以在你的
+
+177
+00:07:14,787 --> 00:07:16,729
+main.py file through that environment
+通過該環境的 main.py 檔案
+
+178
+00:07:16,729 --> 00:07:17,115
+variable.
+多變的。
+
+179
+00:07:18,014 --> 00:07:19,940
+Now to make sure that this environment
+現在要確保這個環境
+
+180
+00:07:19,940 --> 00:07:22,910
+variable gets loaded, you wanna install an
+變數被載入，你想安裝一個
+
+181
+00:07:22,910 --> 00:07:23,680
+extra package
+額外套餐
+
+182
+00:07:24,355 --> 00:07:26,249
+which is called python.env.
+它被稱為 python.env。
+
+183
+00:07:26,987 --> 00:07:30,070
+That's a package that loads.env files and
+這是一個載入 .env 檔案的套件
+
+184
+00:07:30,760 --> 00:07:32,381
+puts the environment variables that are
+將環境變數設定為
+
+185
+00:07:32,381 --> 00:07:34,982
+defined in those files into your actual
+在這些檔案中定義到您的實際
+
+186
+00:07:35,190 --> 00:07:37,101
+environment so that they're available in
+環境，以便它們可以在
+
+187
+00:07:37,101 --> 00:07:38,289
+your code when it runs.
+當你的程式碼運行時。
+
+188
+00:07:39,182 --> 00:07:41,108
+With that installed, what you would do is
+安裝後，你要做的是
+
+189
+00:07:41,286 --> 00:07:41,529
+you would
+你會
+
+190
+00:07:42,095 --> 00:07:42,872
+import from
+進口自
+
+191
+00:07:43,811 --> 00:07:44,313
+dotenv
+多滕夫
+
+192
+00:07:45,009 --> 00:07:46,692
+the load_dotenv function,
+load_dotenv 函式，
+
+193
+00:07:47,291 --> 00:07:49,640
+execute that at the beginning of your script
+在腳本的開頭執行它
+
+194
+00:07:49,981 --> 00:07:52,364
+so that it runs as the first thing because
+所以它作為第一件事運行，因為
+
+195
+00:07:52,478 --> 00:07:54,261
+that is what will load those environment
+這就是載入這些環境的內容
+
+196
+00:07:54,261 --> 00:07:54,796
+variables.
+變數。
+
+197
+00:07:56,427 --> 00:07:57,607
+And then with that done,
+然後完成後，
+
+198
+00:07:58,205 --> 00:08:00,049
+you can access your environment variables.
+您可以存取您的環境變數。
+
+199
+00:08:01,391 --> 00:08:03,752
+So here I would now get my OpenAI
+所以在這裡我現在可以得到我的 OpenAI
+
+200
+00:08:04,987 --> 00:08:05,581
+API key
+API金鑰
+
+201
+00:08:06,447 --> 00:08:09,944
+by using Python's built-in os package.
+透過使用Python的內建os包。
+
+202
+00:08:10,842 --> 00:08:13,232
+And then there is a getenv function which
+然後有一個 getenv 函式
+
+203
+00:08:13,248 --> 00:08:15,189
+can load the value of an environment
+可以載入環境的值
+
+204
+00:08:15,189 --> 00:08:16,842
+variable into this program.
+變數到這個程式。
+
+205
+00:08:18,317 --> 00:08:20,579
+The name here, OpenAI API key,
+這裡的名稱，OpenAI API 金鑰，
+
+206
+00:08:21,381 --> 00:08:23,820
+of course must be the same as you specified
+當然必須與您指定的相同
+
+207
+00:08:24,076 --> 00:08:24,557
+here though.
+不過在這裡。
+
+208
+00:08:25,456 --> 00:08:27,092
+With that, that will be available and now
+這樣，就可以使用了，現在
+
+209
+00:08:27,365 --> 00:08:28,680
+OpenAI API key
+OpenAI API 金鑰
+
+210
+00:08:29,851 --> 00:08:31,279
+can be used here like this.
+可以像這樣在這裡使用。
+
+211
+00:08:33,485 --> 00:08:36,015
+And that's now the base setup we need. Now
+這就是我們現在需要的基本設定。現在
+
+212
+00:08:36,143 --> 00:08:38,141
+we can work on the model and the actual
+我們可以研究模型和實際情況
+
+213
+00:08:38,158 --> 00:08:38,432
+prompt.
+迅速的。

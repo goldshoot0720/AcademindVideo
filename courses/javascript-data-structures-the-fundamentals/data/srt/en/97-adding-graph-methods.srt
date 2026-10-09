@@ -1,0 +1,651 @@
+1
+00:00:02,120 --> 00:00:04,400
+We got this first graph, but it has a couple
+
+2
+00:00:04,432 --> 00:00:05,027
+of issues.
+
+3
+00:00:05,653 --> 00:00:08,351
+For example, at the moment, we could add an
+
+4
+00:00:08,528 --> 00:00:08,672
+edge
+
+5
+00:00:09,251 --> 00:00:11,210
+for nodes that don't exist.
+
+6
+00:00:11,756 --> 00:00:13,860
+So between 4 and 5, for example,
+
+7
+00:00:14,470 --> 00:00:17,410
+I could do that and I would now have this
+
+8
+00:00:17,442 --> 00:00:17,988
+connection
+
+9
+00:00:18,646 --> 00:00:21,762
+even though we have no nodes 4 and 5.
+
+10
+00:00:22,597 --> 00:00:24,942
+So we might wanna make our graph a little
+
+11
+00:00:24,942 --> 00:00:27,934
+bit more robust. When we add an edge, we
+
+12
+00:00:27,966 --> 00:00:30,816
+wanna check if this edge's start node
+
+13
+00:00:32,491 --> 00:00:35,454
+does not exist. So if that is falsy, if we
+
+14
+00:00:35,534 --> 00:00:38,095
+don't find an entry in edges for start node,
+
+15
+00:00:38,835 --> 00:00:42,201
+or if we don't find an entry in edges for
+
+16
+00:00:42,378 --> 00:00:45,213
+end node. If either of the 2 nodes does not
+
+17
+00:00:45,213 --> 00:00:47,409
+exist, we can throw an error
+
+18
+00:00:48,120 --> 00:00:49,363
+where we, for example, say
+
+19
+00:00:49,960 --> 00:00:51,559
+start or end node
+
+20
+00:00:52,390 --> 00:00:53,789
+does not exist.
+
+21
+00:00:56,090 --> 00:00:58,263
+So that if we now try to add
+
+22
+00:00:59,407 --> 00:01:00,115
+an edge between
+
+23
+00:01:00,792 --> 00:01:00,985
+4
+
+24
+00:01:02,064 --> 00:01:02,627
+and 5
+
+25
+00:01:04,077 --> 00:01:06,999
+and we reload, we actually get this error.
+
+26
+00:01:08,698 --> 00:01:11,044
+So that's one thing that probably makes
+
+27
+00:01:11,060 --> 00:01:11,416
+sense.
+
+28
+00:01:12,082 --> 00:01:14,345
+It's also worth noting that at the moment,
+
+29
+00:01:14,361 --> 00:01:17,949
+if we add the same node twice, so if I add
+
+30
+00:01:19,295 --> 00:01:21,254
+1 again, but now assign
+
+31
+00:01:22,185 --> 00:01:24,144
+Michael as a value here,
+
+32
+00:01:24,818 --> 00:01:27,901
+we would simply overwrite Max. We would keep
+
+33
+00:01:28,030 --> 00:01:30,647
+all the edges, but we would overwrite Max.
+
+34
+00:01:31,337 --> 00:01:34,292
+Now that really depends on your graph and
+
+35
+00:01:34,388 --> 00:01:35,320
+your use case
+
+36
+00:01:35,898 --> 00:01:37,728
+whether you want to allow this or not.
+
+37
+00:01:38,402 --> 00:01:41,132
+We could add a check here and check if a
+
+38
+00:01:41,132 --> 00:01:44,135
+node for the given identifier already exists
+
+39
+00:01:44,264 --> 00:01:46,693
+And if it does, we again throw an error here
+
+40
+00:01:47,384 --> 00:01:47,915
+where we say
+
+41
+00:01:49,878 --> 00:01:52,732
+node exists already
+
+42
+00:01:53,343 --> 00:01:56,154
+so that the user is not able to override it.
+
+43
+00:01:56,460 --> 00:01:58,516
+That's something we could add but something
+
+44
+00:01:58,532 --> 00:01:59,561
+we don't have to add.
+
+45
+00:02:00,300 --> 00:02:02,653
+An alternative is that we do override the
+
+46
+00:02:02,653 --> 00:02:05,617
+value but we clear all edges for this node.
+
+47
+00:02:06,216 --> 00:02:08,371
+We could do this by calling delete
+
+48
+00:02:08,954 --> 00:02:09,245
+this
+
+49
+00:02:09,896 --> 00:02:12,772
+edges for the given identifier. That would
+
+50
+00:02:12,804 --> 00:02:16,002
+clear the entry for that identifier in the
+
+51
+00:02:16,082 --> 00:02:18,139
+edges. So it would clear the list of
+
+52
+00:02:18,187 --> 00:02:20,227
+connections for that given identifier.
+
+53
+00:02:20,998 --> 00:02:23,698
+These are all options we have and it really
+
+54
+00:02:23,714 --> 00:02:26,574
+comes down to what you are building. So here
+
+55
+00:02:26,574 --> 00:02:29,578
+I'll go with this behavior of throwing an
+
+56
+00:02:29,739 --> 00:02:32,293
+error if we try to overwrite but of course
+
+57
+00:02:32,390 --> 00:02:34,703
+that does not mean that this is the only
+
+58
+00:02:34,720 --> 00:02:35,780
+right way of doing it.
+
+59
+00:02:37,589 --> 00:02:38,996
+Now we might wanna do more.
+
+60
+00:02:40,080 --> 00:02:42,442
+We also might want to find out whether a
+
+61
+00:02:42,442 --> 00:02:43,931
+certain connection exists.
+
+62
+00:02:44,750 --> 00:02:46,844
+We could name the method hasEdge
+
+63
+00:02:47,665 --> 00:02:49,308
+and we get the start node
+
+64
+00:02:50,001 --> 00:02:51,451
+and the end node here.
+
+65
+00:02:52,417 --> 00:02:55,028
+And the idea is that we return true if
+
+66
+00:02:55,640 --> 00:02:58,364
+this connection exists and false otherwise.
+
+67
+00:03:00,816 --> 00:03:03,485
+For this, we can reach out to our edges for
+
+68
+00:03:03,550 --> 00:03:04,387
+the start node.
+
+69
+00:03:05,128 --> 00:03:07,865
+And in there, we now want to find again with
+
+70
+00:03:08,042 --> 00:03:08,493
+indexOf
+
+71
+00:03:10,521 --> 00:03:12,373
+if end node exists.
+
+72
+00:03:14,337 --> 00:03:15,576
+Now if this is -1,
+
+73
+00:03:16,204 --> 00:03:18,667
+we know the connection does not exist. So
+
+74
+00:03:18,699 --> 00:03:20,696
+this check here would return true
+
+75
+00:03:21,259 --> 00:03:23,980
+if the connection does not exist and false
+
+76
+00:03:24,014 --> 00:03:24,781
+if it exists.
+
+77
+00:03:25,565 --> 00:03:28,111
+So we can simply change this to this check
+
+78
+00:03:28,650 --> 00:03:31,502
+and now return true if the connection exists
+
+79
+00:03:31,711 --> 00:03:32,819
+and false otherwise.
+
+80
+00:03:33,413 --> 00:03:36,030
+So we can now simply return this value and
+
+81
+00:03:36,046 --> 00:03:38,679
+we'll get a proper response to our question
+
+82
+00:03:39,177 --> 00:03:41,167
+of whether that edge exists or not.
+
+83
+00:03:42,083 --> 00:03:43,223
+So we can go down there
+
+84
+00:03:43,849 --> 00:03:46,674
+and on the graph, we can now check if there
+
+85
+00:03:46,674 --> 00:03:47,975
+is an edge between let's say
+
+86
+00:03:49,131 --> 00:03:49,725
+3 and 2,
+
+87
+00:03:50,576 --> 00:03:52,936
+which is the case. So we should get true
+
+88
+00:03:53,080 --> 00:03:53,193
+here.
+
+89
+00:03:54,204 --> 00:03:56,131
+Let's console.log the response.
+
+90
+00:03:56,853 --> 00:03:58,504
+But let's also check whether there is an
+
+91
+00:03:58,680 --> 00:04:01,486
+edge between 2 and 1, which is not, so we
+
+92
+00:04:01,486 --> 00:04:02,976
+should be getting false here.
+
+93
+00:04:04,147 --> 00:04:05,525
+So if we now save that
+
+94
+00:04:06,311 --> 00:04:07,000
+and reload,
+
+95
+00:04:08,139 --> 00:04:11,249
+I get this error because of course here I
+
+96
+00:04:11,265 --> 00:04:13,910
+have a logical error in this check. We wanna
+
+97
+00:04:13,910 --> 00:04:15,817
+check whether those nodes exist,
+
+98
+00:04:17,228 --> 00:04:19,905
+so of course we should check our nodes
+
+99
+00:04:20,002 --> 00:04:22,954
+object here, not the edges. The nodes is
+
+100
+00:04:23,146 --> 00:04:24,014
+what we wanna check.
+
+101
+00:04:24,576 --> 00:04:25,042
+My bad.
+
+102
+00:04:25,621 --> 00:04:26,488
+So let's fix this.
+
+103
+00:04:27,324 --> 00:04:28,416
+And now if we reload,
+
+104
+00:04:29,557 --> 00:04:32,948
+I get true here but then an error when I try
+
+105
+00:04:32,948 --> 00:04:33,301
+to call
+
+106
+00:04:33,896 --> 00:04:34,281
+indexOf
+
+107
+00:04:35,422 --> 00:04:38,314
+for a node that simply has no connections at
+
+108
+00:04:38,314 --> 00:04:38,362
+all.
+
+109
+00:04:39,134 --> 00:04:41,672
+And that makes a lot of sense. If we have no
+
+110
+00:04:41,849 --> 00:04:44,918
+edge from a certain node, in this case node
+
+111
+00:04:44,918 --> 00:04:47,874
+2 does have no edge that starts at node 2,
+
+112
+00:04:48,438 --> 00:04:51,410
+there simply will be no array stored in
+
+113
+00:04:51,911 --> 00:04:54,302
+edges for the to identifier,
+
+114
+00:04:54,916 --> 00:04:57,484
+and therefore we call indexOf on undefined.
+
+115
+00:04:59,832 --> 00:05:02,334
+To avoid this error, we want to check if
+
+116
+00:05:02,480 --> 00:05:03,287
+this edge's
+
+117
+00:05:03,868 --> 00:05:04,805
+start node
+
+118
+00:05:05,628 --> 00:05:07,905
+is maybe not even a thing by adding an
+
+119
+00:05:07,905 --> 00:05:08,891
+exclamation mark here.
+
+120
+00:05:09,687 --> 00:05:12,872
+And now checking edges is correct, and if
+
+121
+00:05:12,937 --> 00:05:14,530
+that's the case, we can return
+
+122
+00:05:15,677 --> 00:05:17,601
+false here because then we know that there
+
+123
+00:05:17,697 --> 00:05:19,845
+will be no connection because we have
+
+124
+00:05:19,845 --> 00:05:22,234
+absolutely no connections in total that
+
+125
+00:05:22,266 --> 00:05:24,928
+would start at start node. So we know start
+
+126
+00:05:24,928 --> 00:05:27,413
+node doesn't have any connections at all, so
+
+127
+00:05:27,413 --> 00:05:29,625
+it clearly won't have a connection to end
+
+128
+00:05:29,866 --> 00:05:32,511
+node, so we can just return false right
+
+129
+00:05:32,511 --> 00:05:32,719
+away.
+
+130
+00:05:33,473 --> 00:05:36,198
+With that adjustment made, we get true and
+
+131
+00:05:36,359 --> 00:05:38,956
+false and then our graph in the end. So
+
+132
+00:05:39,020 --> 00:05:41,281
+that's now also working and now we can also
+
+133
+00:05:41,345 --> 00:05:43,798
+check whether a certain edge between 2 nodes
+
+134
+00:05:43,926 --> 00:05:44,503
+exists.
+
+135
+00:05:46,854 --> 00:05:48,975
+We also could get all
+
+136
+00:05:49,891 --> 00:05:52,525
+edges for a given node.
+
+137
+00:05:53,586 --> 00:05:56,063
+And when I say node here, I always mean the
+
+138
+00:05:56,063 --> 00:05:57,033
+node identifier.
+
+139
+00:05:59,579 --> 00:06:01,818
+For this, we could simply return this.edges
+
+140
+00:06:02,478 --> 00:06:03,267
+for node,
+
+141
+00:06:04,266 --> 00:06:06,488
+and that will then simply return a list of
+
+142
+00:06:06,585 --> 00:06:09,269
+all the connections this node has, or if it
+
+143
+00:06:09,285 --> 00:06:10,473
+has no connections at all,
+
+144
+00:06:11,252 --> 00:06:13,071
+this will return undefined.
+
+145
+00:06:14,029 --> 00:06:15,686
+So we can also use that down there
+
+146
+00:06:16,367 --> 00:06:17,693
+and console.log
+
+147
+00:06:18,485 --> 00:06:20,943
+graph.getAllEdges for
+
+148
+00:06:21,541 --> 00:06:22,075
+node 1,
+
+149
+00:06:23,514 --> 00:06:24,354
+for node 2,
+
+150
+00:06:25,260 --> 00:06:26,522
+and for node 3, let's say.
+
+151
+00:06:27,137 --> 00:06:29,030
+And if we do that, if we check this for all
+
+152
+00:06:29,225 --> 00:06:29,581
+nodes
+
+153
+00:06:32,154 --> 00:06:34,355
+and we reload, we get the connections for
+
+154
+00:06:34,355 --> 00:06:37,590
+node 1, undefined for node 2 because we got
+
+155
+00:06:37,590 --> 00:06:39,968
+no edges that would start at node 2,
+
+156
+00:06:40,657 --> 00:06:41,622
+And then also
+
+157
+00:06:42,506 --> 00:06:44,370
+our connections for node 3.
+
+158
+00:06:44,949 --> 00:06:48,598
+So that is all relatively straightforward as
+
+159
+00:06:48,614 --> 00:06:49,064
+you can tell.
+
+160
+00:06:50,012 --> 00:06:52,874
+Now one feature is missing though and that
+
+161
+00:06:52,874 --> 00:06:55,831
+is a feature that allows us to remove a node
+
+162
+00:06:56,169 --> 00:06:57,037
+or an edge.
+
+163
+00:06:57,616 --> 00:06:58,773
+Let's work on that next.

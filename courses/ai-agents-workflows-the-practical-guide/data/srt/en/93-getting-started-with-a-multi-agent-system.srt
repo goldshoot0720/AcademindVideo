@@ -1,0 +1,647 @@
+1
+00:00:00,689 --> 00:00:05,017
+I'm back in yet another new project, which
+
+2
+00:00:05,049 --> 00:00:07,060
+you of course also find attached. It's a
+
+3
+00:00:07,060 --> 00:00:10,411
+main.py file and a database.py file.
+
+4
+00:00:12,058 --> 00:00:14,092
+And I'll get back to that database in just a
+
+5
+00:00:14,092 --> 00:00:14,479
+second.
+
+6
+00:00:15,672 --> 00:00:20,045
+This project here is a very simple, basic
+
+7
+00:00:20,255 --> 00:00:21,771
+web research tool.
+
+8
+00:00:22,611 --> 00:00:24,660
+A tool which actually does not visit
+
+9
+00:00:24,692 --> 00:00:27,644
+websites and extract content, but instead a
+
+10
+00:00:27,644 --> 00:00:29,571
+tool that's all about creating a research
+
+11
+00:00:29,571 --> 00:00:30,045
+plan and then having the AI
+
+12
+00:00:32,253 --> 00:00:35,269
+perform web search based on that research
+
+13
+00:00:35,301 --> 00:00:37,195
+plan and then return
+
+14
+00:00:37,772 --> 00:00:40,725
+a summary of the research results, a summary
+
+15
+00:00:40,901 --> 00:00:43,966
+of the links it found in its web search.
+
+16
+00:00:44,833 --> 00:00:47,978
+And whilst this isn't a super complex
+
+17
+00:00:48,218 --> 00:00:50,946
+program, a super complex application here,
+
+18
+00:00:51,428 --> 00:00:54,075
+it is indeed an application that allows me
+
+19
+00:00:54,075 --> 00:00:55,904
+to show you how you could build an
+
+20
+00:00:55,904 --> 00:00:58,841
+application that takes advantage of multiple
+
+21
+00:00:58,969 --> 00:00:59,659
+connected
+
+22
+00:01:01,609 --> 00:01:02,630
+agents. Now, just as before,
+
+23
+00:01:03,308 --> 00:01:06,681
+I'm working with a base tool class which
+
+24
+00:01:06,859 --> 00:01:09,168
+looks and works exactly as shown before,
+
+25
+00:01:10,737 --> 00:01:13,907
+and I then have a couple of classes that use
+
+26
+00:01:13,907 --> 00:01:16,494
+this tool class to build some concrete
+
+27
+00:01:16,494 --> 00:01:18,097
+tools, and I'll get back to those in a
+
+28
+00:01:18,131 --> 00:01:18,641
+second.
+
+29
+00:01:20,739 --> 00:01:24,264
+I also still have my agent class which also
+
+30
+00:01:24,361 --> 00:01:25,687
+works the way it did before,
+
+31
+00:01:26,372 --> 00:01:28,793
+And then I got a couple of specialized
+
+32
+00:01:28,793 --> 00:01:31,550
+agents, and that's where things will get
+
+33
+00:01:31,726 --> 00:01:32,416
+interesting now.
+
+34
+00:01:33,249 --> 00:01:35,974
+Just like before, these agents can register
+
+35
+00:01:35,974 --> 00:01:36,279
+tools.
+
+36
+00:01:37,176 --> 00:01:39,325
+And for example, I have a research planner
+
+37
+00:01:39,501 --> 00:01:43,813
+agent whose task is to create a research
+
+38
+00:01:43,925 --> 00:01:45,849
+plan together with the user.
+
+39
+00:01:46,490 --> 00:01:48,766
+So the user specifies a topic, and then the
+
+40
+00:01:48,798 --> 00:01:51,636
+idea is that this agent goes back and forth
+
+41
+00:01:51,780 --> 00:01:53,094
+with the user to
+
+42
+00:01:53,704 --> 00:01:56,605
+refine the research plan or to create a
+
+43
+00:01:56,733 --> 00:01:58,929
+refined research plan. And you'll see that
+
+44
+00:01:58,929 --> 00:01:59,442
+in action
+
+45
+00:02:00,020 --> 00:02:00,869
+in just a second.
+
+46
+00:02:02,280 --> 00:02:02,488
+This
+
+47
+00:02:03,145 --> 00:02:05,935
+agent also has access to some tools
+
+48
+00:02:06,592 --> 00:02:09,958
+that allow the agent to store a research
+
+49
+00:02:09,974 --> 00:02:13,485
+plan for future use or to retrieve an
+
+50
+00:02:13,485 --> 00:02:15,938
+existing research plan or actually all
+
+51
+00:02:16,403 --> 00:02:19,240
+existing research plans and delete research
+
+52
+00:02:19,336 --> 00:02:21,869
+plans. And these are these tools I mentioned
+
+53
+00:02:21,917 --> 00:02:22,190
+before.
+
+54
+00:02:22,943 --> 00:02:25,925
+In these tools, I, in the end, just reach
+
+55
+00:02:25,989 --> 00:02:28,634
+out to functions defined in this database
+
+56
+00:02:28,730 --> 00:02:31,055
+PUI file. To keep this main.py file a bit
+
+57
+00:02:31,055 --> 00:02:31,424
+leaner.
+
+58
+00:02:32,819 --> 00:02:35,304
+In this database.py file, I'm again using a
+
+59
+00:02:35,480 --> 00:02:38,254
+SQLite database and I have very simple
+
+60
+00:02:38,254 --> 00:02:39,088
+functions for
+
+61
+00:02:39,777 --> 00:02:41,862
+initializing that database and creating a
+
+62
+00:02:41,862 --> 00:02:44,652
+research plans table where every research
+
+63
+00:02:44,748 --> 00:02:46,896
+plan has an ID, a short summary, and some
+
+64
+00:02:46,929 --> 00:02:49,382
+details. And then I have these functions for
+
+65
+00:02:49,478 --> 00:02:51,947
+adding or retrieving or deleting research
+
+66
+00:02:52,043 --> 00:02:54,994
+plans. Pretty straightforward and
+
+67
+00:02:55,026 --> 00:02:57,671
+deliberately kept simple for this demo.
+
+68
+00:02:59,550 --> 00:03:01,639
+So these are the tools available to this
+
+69
+00:03:01,863 --> 00:03:03,566
+research planner agent.
+
+70
+00:03:04,338 --> 00:03:07,117
+I also got a system instruction here where I
+
+71
+00:03:07,165 --> 00:03:09,536
+try to guide this agent and make it clear
+
+72
+00:03:09,976 --> 00:03:12,773
+how this agent should work and how it should
+
+73
+00:03:12,822 --> 00:03:14,074
+try to help the user.
+
+74
+00:03:16,213 --> 00:03:18,620
+And then we have this run function. And
+
+75
+00:03:18,620 --> 00:03:21,642
+again, I opted for a design where
+
+76
+00:03:22,192 --> 00:03:24,228
+I don't have a lot of shared
+
+77
+00:03:24,988 --> 00:03:27,814
+logic between agents. I have none of that
+
+78
+00:03:27,814 --> 00:03:31,250
+actually. The base run function, the base
+
+79
+00:03:31,250 --> 00:03:34,526
+run method is empty. Instead, my idea really
+
+80
+00:03:34,558 --> 00:03:36,132
+is that I want to be able to build
+
+81
+00:03:37,031 --> 00:03:39,199
+agents that are really different from each
+
+82
+00:03:39,199 --> 00:03:41,800
+other, where every agent can do exactly what
+
+83
+00:03:41,800 --> 00:03:44,096
+it needs to do and where I can fine-tune the
+
+84
+00:03:44,096 --> 00:03:46,328
+logic for every agent, which is why every
+
+85
+00:03:46,505 --> 00:03:50,022
+agent has its own very specialized run
+
+86
+00:03:50,214 --> 00:03:52,655
+method. Like this research planner, agent,
+
+87
+00:03:52,767 --> 00:03:54,996
+which actually spins up a little chat.
+
+88
+00:03:56,214 --> 00:03:58,700
+It has an infinite loop with some exit
+
+89
+00:03:58,700 --> 00:04:01,955
+conditions. And in that chat, it tries to
+
+90
+00:04:02,067 --> 00:04:04,633
+refine that research plan together with the
+
+91
+00:04:04,633 --> 00:04:07,006
+user, asking for initial input.
+
+92
+00:04:07,535 --> 00:04:11,031
+And the user can also insert exit to
+
+93
+00:04:11,608 --> 00:04:15,136
+exit the entire program or accept to accept
+
+94
+00:04:15,152 --> 00:04:16,803
+a research plan and move on.
+
+95
+00:04:17,557 --> 00:04:19,449
+We'll also see that in just a second.
+
+96
+00:04:20,363 --> 00:04:22,511
+But if the user enters anything else, that
+
+97
+00:04:22,511 --> 00:04:25,700
+input will be used to refine the research
+
+98
+00:04:25,732 --> 00:04:26,021
+plan.
+
+99
+00:04:27,399 --> 00:04:29,611
+And for that, I got a nested loop here
+
+100
+00:04:30,204 --> 00:04:30,589
+actually
+
+101
+00:04:31,326 --> 00:04:34,196
+to allow the agent to also use tools
+
+102
+00:04:34,773 --> 00:04:36,744
+because of course the user also might have
+
+103
+00:04:36,776 --> 00:04:39,789
+asked the agent to store the research plan
+
+104
+00:04:39,998 --> 00:04:41,649
+or get existing research plans.
+
+105
+00:04:42,402 --> 00:04:44,149
+So that's all in there and that is kind of
+
+106
+00:04:44,149 --> 00:04:46,489
+similar to what you saw before in the
+
+107
+00:04:46,489 --> 00:04:47,547
+previous example.
+
+108
+00:04:48,479 --> 00:04:51,820
+Ultimately, this agent here, which is using
+
+109
+00:04:51,949 --> 00:04:55,322
+the GPT-4o model, because all my agents here
+
+110
+00:04:55,322 --> 00:04:58,005
+do, also for cost reasons, this agent here
+
+111
+00:04:58,375 --> 00:05:01,346
+will in the end produce a research plan. And
+
+112
+00:05:01,346 --> 00:05:02,519
+that's also important.
+
+113
+00:05:03,098 --> 00:05:06,535
+If the user types accept, the plan is to
+
+114
+00:05:06,632 --> 00:05:09,459
+move on. And therefore I have some extra
+
+115
+00:05:09,459 --> 00:05:10,118
+logic here
+
+116
+00:05:10,648 --> 00:05:14,600
+that prompts the agent to actually
+
+117
+00:05:15,146 --> 00:05:17,490
+produce a final version of the discussed
+
+118
+00:05:17,490 --> 00:05:19,353
+research plan so that it takes a look at the
+
+119
+00:05:19,353 --> 00:05:22,692
+entire history and based on what the user
+
+120
+00:05:22,692 --> 00:05:25,165
+and the agent decided, it will produce one
+
+121
+00:05:25,422 --> 00:05:28,473
+final research plan, one final description
+
+122
+00:05:28,714 --> 00:05:30,881
+of how the research should be conducted.
+
+123
+00:05:31,861 --> 00:05:33,338
+And then, and that is new,
+
+124
+00:05:34,012 --> 00:05:36,726
+I return that research plan that was
+
+125
+00:05:36,919 --> 00:05:37,513
+produced here.
+
+126
+00:05:38,685 --> 00:05:40,130
+I return that here.
+
+127
+00:05:40,676 --> 00:05:43,355
+In that run method so that I can hand it off
+
+128
+00:05:43,403 --> 00:05:44,445
+to some other agent.
+
+129
+00:05:45,889 --> 00:05:48,247
+An alternative approach would be to spin up
+
+130
+00:05:48,311 --> 00:05:51,118
+another agent in here, but I went for this
+
+131
+00:05:51,118 --> 00:05:53,941
+return approach. Now, where am I returning
+
+132
+00:05:53,941 --> 00:05:56,347
+it to? Well, that would be my main method,
+
+133
+00:05:56,492 --> 00:05:57,871
+my main function here actually.
+
+134
+00:05:58,962 --> 00:06:01,272
+It's here where I create that research
+
+135
+00:06:01,304 --> 00:06:03,437
+planner agent, where I start it, and then
+
+136
+00:06:04,191 --> 00:06:06,405
+that's the research plan that is ultimately
+
+137
+00:06:06,597 --> 00:06:08,249
+returned by agent run.
+
+138
+00:06:09,163 --> 00:06:11,199
+Because that's how this agent works. Again,
+
+139
+00:06:11,648 --> 00:06:13,940
+if you are writing your own code, you have
+
+140
+00:06:14,357 --> 00:06:17,146
+full control over how things should behave
+
+141
+00:06:17,419 --> 00:06:19,390
+and how you wanna connect different things.
+
+142
+00:06:20,224 --> 00:06:23,157
+And speaking of connecting things, the idea
+
+143
+00:06:23,173 --> 00:06:25,434
+here of course is to have multiple agents
+
+144
+00:06:25,514 --> 00:06:27,950
+that are working together and that are
+
+145
+00:06:27,998 --> 00:06:29,762
+connected by passing data
+
+146
+00:06:30,467 --> 00:06:33,417
+from one agent to another. So the result
+
+147
+00:06:33,753 --> 00:06:35,853
+from this research planner agent should be
+
+148
+00:06:35,853 --> 00:06:38,017
+passed to the web search agent. How am I
+
+149
+00:06:38,194 --> 00:06:40,149
+doing that? Well, this web search agent,
+
+150
+00:06:40,647 --> 00:06:42,908
+also has a run method, but unlike the other
+
+151
+00:06:42,908 --> 00:06:45,603
+run method, here we want an input.
+
+152
+00:06:46,999 --> 00:06:49,693
+And that is that research plan that was
+
+153
+00:06:49,806 --> 00:06:52,629
+created here. And again, that's just one way
+
+154
+00:06:52,629 --> 00:06:55,067
+of doing it. You could also build your agent
+
+155
+00:06:55,195 --> 00:06:58,131
+such that you can pass data to it through
+
+156
+00:06:58,147 --> 00:06:59,205
+its constructor,
+
+157
+00:06:59,735 --> 00:07:01,996
+or you use some dependency injection
+
+158
+00:07:01,996 --> 00:07:04,884
+mechanism, or you store that data in some
+
+159
+00:07:04,884 --> 00:07:07,274
+global variable to which all agents have
+
+160
+00:07:07,274 --> 00:07:07,627
+access.
+
+161
+00:07:08,254 --> 00:07:11,489
+This is entirely up to you. I went for this
+
+162
+00:07:11,489 --> 00:07:12,006
+approach here.

@@ -1,0 +1,203 @@
+1
+00:00:02,436 --> 00:00:05,418
+So we built a tree and some nodes. We added
+
+2
+00:00:05,418 --> 00:00:07,790
+methods to add and remove nodes and
+
+3
+00:00:08,031 --> 00:00:09,409
+therefore data to the tree.
+
+4
+00:00:10,435 --> 00:00:13,481
+And we actually also already had a first
+
+5
+00:00:13,481 --> 00:00:16,671
+look at the time complexity that it takes to
+
+6
+00:00:16,703 --> 00:00:18,434
+do those various things.
+
+7
+00:00:19,332 --> 00:00:22,522
+Now I wanna dig deeper into the subject of
+
+8
+00:00:22,794 --> 00:00:26,337
+finding nodes in a tree. And that's also
+
+9
+00:00:26,337 --> 00:00:29,864
+sometimes called traversing a tree. We wanna
+
+10
+00:00:29,864 --> 00:00:32,397
+move through the data in our tree tree
+
+11
+00:00:32,573 --> 00:00:34,899
+through the different nodes to find a
+
+12
+00:00:34,899 --> 00:00:37,866
+certain element. That can be relevant for a
+
+13
+00:00:37,866 --> 00:00:40,657
+tree like ours, for a file system tree. It
+
+14
+00:00:40,657 --> 00:00:43,078
+could also be relevant for the DOM tree if
+
+15
+00:00:43,078 --> 00:00:45,965
+you're searching for an HTML element on the
+
+16
+00:00:46,029 --> 00:00:46,334
+page.
+
+17
+00:00:47,409 --> 00:00:49,959
+And when it comes to traversing a tree, when
+
+18
+00:00:49,959 --> 00:00:51,499
+you're building your own tree,
+
+19
+00:00:52,044 --> 00:00:55,027
+you can implement this search algorithm
+
+20
+00:00:55,572 --> 00:00:58,636
+in 2 different ways. There are 2 ways of
+
+21
+00:00:58,636 --> 00:01:01,314
+searching for something in a tree. There are
+
+22
+00:01:01,506 --> 00:01:05,097
+2 ways of moving through a tree. You can go
+
+23
+00:01:05,194 --> 00:01:05,931
+through a tree
+
+24
+00:01:06,492 --> 00:01:09,971
+depth-first and breadth-first. Now what's
+
+25
+00:01:10,003 --> 00:01:10,548
+the difference?
+
+26
+00:01:11,205 --> 00:01:14,187
+If you explore a tree depth-first, if you're
+
+27
+00:01:14,251 --> 00:01:17,137
+looking for an element depth-first, you
+
+28
+00:01:17,137 --> 00:01:19,782
+first of all go down an entire path in your
+
+29
+00:01:19,798 --> 00:01:22,491
+tree like this, all the orange nodes,
+
+30
+00:01:23,149 --> 00:01:25,842
+and then only once you explored an entire
+
+31
+00:01:26,130 --> 00:01:29,390
+path you move to the sibling nodes in that
+
+32
+00:01:29,566 --> 00:01:31,654
+branch you're looking at and later also the
+
+33
+00:01:31,751 --> 00:01:33,437
+other branches you got in your tree.
+
+34
+00:01:34,256 --> 00:01:36,216
+Now, if you're looking for something
+
+35
+00:01:36,489 --> 00:01:37,549
+breadth-first,
+
+36
+00:01:38,159 --> 00:01:40,151
+you take a different approach. There, you
+
+37
+00:01:40,183 --> 00:01:43,122
+don't dig into one path and drill deeply
+
+38
+00:01:43,299 --> 00:01:44,439
+into the tree immediately.
+
+39
+00:01:44,985 --> 00:01:47,507
+Instead, you simply move through different
+
+40
+00:01:47,507 --> 00:01:50,494
+siblings on one level and only if you don't
+
+41
+00:01:50,526 --> 00:01:51,586
+find your element there,
+
+42
+00:01:52,132 --> 00:01:54,461
+you look into the next level and go through
+
+43
+00:01:54,461 --> 00:01:57,044
+the siblings there. So these are really just
+
+44
+00:01:57,108 --> 00:02:00,218
+2 different ways of traversing a tree, of
+
+45
+00:02:00,266 --> 00:02:03,231
+moving through a tree to find something. Now
+
+46
+00:02:03,359 --> 00:02:06,229
+let's add a search algorithm, a find method
+
+47
+00:02:06,325 --> 00:02:08,777
+to our basic tree here, and let's implement
+
+48
+00:02:08,825 --> 00:02:11,598
+it in both ways so that we can get a feeling
+
+49
+00:02:11,694 --> 00:02:14,259
+for how it looks like. And of course, I'll
+
+50
+00:02:14,259 --> 00:02:17,208
+thereafter also share some information about
+
+51
+00:02:17,384 --> 00:02:18,859
+when to use which approach.

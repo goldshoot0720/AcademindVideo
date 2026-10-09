@@ -1,0 +1,334 @@
+1
+00:00:00,529 --> 00:00:03,484
+So I'm in that project which I provided to
+所以我在我提供給的那個專案中
+
+2
+00:00:03,484 --> 00:00:03,580
+you,
+你，
+
+3
+00:00:04,126 --> 00:00:06,133
+and you'll see some things in there that may
+你會在那裡看到一些東西
+
+4
+00:00:06,133 --> 00:00:08,317
+look familiar, like AgentsMD and ClaudeMD.
+看起來很眼熟，像是 AgentsMD 和 ClaudeMD。
+
+5
+00:00:08,381 --> 00:00:11,865
+But be careful, these are actually not here
+但要小心，這些其實並不在這裡
+
+6
+00:00:12,379 --> 00:00:12,588
+for
+為了
+
+7
+00:00:13,118 --> 00:00:15,414
+the agent we're going to build. Instead,
+我們要建構的代理。反而，
+
+8
+00:00:15,607 --> 00:00:18,465
+these are here because I used an agent.
+這些之所以放在這裡是因為我使用了代理。
+
+9
+00:00:29,749 --> 00:00:32,274
+Ignore these other files regarding that.
+忽略與此相關的其他檔案。
+
+10
+00:00:33,359 --> 00:00:35,528
+Also worth noting is that with such
+另外值得注意的是，有了這樣的
+
+11
+00:00:35,722 --> 00:00:38,377
+frameworks like EVE, but also CrewAI and the
+像 EVE 這樣的框架，還有 CrewAI 和
+
+12
+00:00:38,377 --> 00:00:41,054
+others, you'll often build task-specific
+其他人，您通常會建立特定於任務的
+
+13
+00:00:41,054 --> 00:00:43,436
+agents. Now don't get me wrong, you could
+代理。現在別誤會我的意思，你可以
+
+14
+00:00:43,469 --> 00:00:46,109
+build general agents with them too, but most
+也與他們建立總代理，但大多數
+
+15
+00:00:46,109 --> 00:00:48,605
+people don't build that many general agents.
+人們不會建立那麼多的總代理。
+
+16
+00:00:48,685 --> 00:00:51,117
+You might just be using a pre-built solution
+您可能只是使用預先建置的解決方案
+
+17
+00:00:51,133 --> 00:00:53,734
+like Claude Code or Claude Cowork. Or any
+例如 Claude Code 或 Claude Cowork。或任何
+
+18
+00:00:53,847 --> 00:00:57,041
+other common general agent. Most companies
+其他常見總代理。大多數公司
+
+19
+00:00:57,073 --> 00:01:00,026
+instead build their own task-specific agents
+相反，建立自己的特定任務代理
+
+20
+00:01:00,283 --> 00:01:03,124
+to help with customer support, finance, or
+幫助客戶支援、財務或
+
+21
+00:01:03,333 --> 00:01:05,756
+other things like that. And that is where
+其他類似的事情。那就是地方
+
+22
+00:01:05,804 --> 00:01:08,453
+frameworks like Eve shine. So the example
+像 Eve Shine 這樣的框架。所以這個例子
+
+23
+00:01:08,453 --> 00:01:10,876
+you'll find in this project here is also a
+你會發現在這個專案中還有一個
+
+24
+00:01:10,876 --> 00:01:13,894
+task-specific agent, a customer support
+特定任務代理、客戶支援
+
+25
+00:01:13,990 --> 00:01:16,237
+agent specifically. Now, I will also show
+具體代理。現在我也來展示一下
+
+26
+00:01:16,317 --> 00:01:18,789
+you how to run it soon, but before we do
+你如何盡快運行它，但在我們開始之前
+
+27
+00:01:18,805 --> 00:01:21,421
+that, let's see how this is structured, how
+那，讓我們看看它是如何被建構的，如何
+
+28
+00:01:21,694 --> 00:01:23,394
+Eve thinks and works.
+夏娃思考並工作。
+
+29
+00:01:24,180 --> 00:01:27,259
+I already mentioned the agent.ts file where
+我已經提到了 agent.ts 檔案，其中
+
+30
+00:01:27,467 --> 00:01:29,937
+you most importantly register which model
+你最重要的是註冊哪個型號
+
+31
+00:01:29,969 --> 00:01:32,679
+will act as the brain of this agent. You
+將充當該代理的大腦。你
+
+32
+00:01:32,695 --> 00:01:35,629
+could register more things there. You could
+可以在那裡註冊更多的東西。你可以
+
+33
+00:01:35,661 --> 00:01:37,730
+control how compaction should work.
+控制壓實的工作方式。
+
+34
+00:01:38,147 --> 00:01:40,119
+Compaction is that process that gets
+壓縮是得到的過程
+
+35
+00:01:40,312 --> 00:01:42,444
+triggered automatically when the agent runs
+代理運行時自動觸發
+
+36
+00:01:42,541 --> 00:01:45,154
+out of available context window space. And
+超出可用的上下文視窗空間。和
+
+37
+00:01:45,187 --> 00:01:46,918
+there are more settings you can control
+您可以控制更多設置
+
+38
+00:01:47,047 --> 00:01:49,019
+here. But the most important thing is
+這裡。但最重要的是
+
+39
+00:01:49,260 --> 00:01:51,553
+setting up which brain should be used.
+設定應該使用哪個大腦。
+
+40
+00:01:52,243 --> 00:01:55,002
+And I'll get back to how exactly we inject
+我會回到我們到底是如何注入的
+
+41
+00:01:55,002 --> 00:01:56,991
+the value here later. We'll do this through
+這裡的值稍後再說。我們將透過
+
+42
+00:01:56,991 --> 00:01:58,787
+a concept called an environment variable,
+一個稱為環境變數的概念，
+
+43
+00:01:59,156 --> 00:02:00,873
+which you already saw earlier when I ran
+我之前跑步時你已經看到了
+
+44
+00:02:01,482 --> 00:02:04,690
+export OPENAI_API_KEY. When using Eve, we
+匯出 OPENAI_API_KEY。使用 Eve 時，我們
+
+45
+00:02:04,690 --> 00:02:04,883
+can
+能
+
+46
+00:02:05,492 --> 00:02:07,914
+write that environment variable into a.env
+將該環境變數寫入 a.env
+
+47
+00:02:08,075 --> 00:02:10,112
+file and it will be loaded automatically
+檔案，它將自動載入
+
+48
+00:02:10,128 --> 00:02:11,924
+then. That's quite convenient. But again,
+然後。那是相當方便的。但話又說回來，
+
+49
+00:02:11,940 --> 00:02:14,282
+I'll get back to that. What you'll also find
+我會回到那個。您還會發現什麼
+
+50
+00:02:14,378 --> 00:02:16,929
+next to agent.ts is an instructions.md file.
+agent.ts 旁邊是 instructions.md 檔案。
+
+51
+00:02:17,506 --> 00:02:19,943
+And this now must be named instructions.md
+現在必須將其命名為 instructions.md
+
+52
+00:02:19,991 --> 00:02:22,620
+because the Eve framework will look for such
+因為 Eve 框架會找這樣的
+
+53
+00:02:22,668 --> 00:02:24,671
+a file and it will then load the
+一個檔案，然後它將載入
+
+54
+00:02:24,671 --> 00:02:27,381
+instructions in here as system instructions
+這裡的說明作為系統說明
+
+55
+00:02:27,605 --> 00:02:29,032
+for the agent it's creating.
+對於它正在創建的代理。
+
+56
+00:02:29,721 --> 00:02:31,917
+So that would be similar to these
+所以這會類似這些
+
+57
+00:02:31,965 --> 00:02:34,338
+instructions we had in our custom agent
+我們在定制代理中收到的說明
+
+58
+00:02:34,338 --> 00:02:34,626
+before,
+前，
+
+59
+00:02:35,476 --> 00:02:37,528
+with the difference that we had to wire them
+不同的是我們必須給它們接線
+
+60
+00:02:37,624 --> 00:02:40,253
+up manually, right? We had to point at those
+手動起來吧？我們必須指出那些
+
+61
+00:02:40,301 --> 00:02:40,894
+instructions.
+指示。
+
+62
+00:02:41,471 --> 00:02:43,619
+With that file-based approach of the Eve
+透過 Eve 基於檔案的方法
+
+63
+00:02:43,795 --> 00:02:45,927
+framework and the decisions it's making for
+框架及其所做的決策
+
+64
+00:02:46,040 --> 00:02:48,300
+us, we just have to follow the file name
+我們，我們只需按照檔案名
+
+65
+00:02:48,300 --> 00:02:49,806
+convention it expects. And it will
+它所期望的約定。並且它會
+
+66
+00:02:49,987 --> 00:02:51,809
+automatically load these system
+自動載入這些系統
+
+67
+00:02:51,809 --> 00:02:52,515
+instructions.
+指示。
