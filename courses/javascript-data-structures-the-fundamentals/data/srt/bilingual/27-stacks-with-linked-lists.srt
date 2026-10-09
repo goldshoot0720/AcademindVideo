@@ -1,0 +1,1169 @@
+1
+00:00:02,294 --> 00:00:04,732
+So let's start implementing those methods
+那麼讓我們開始實作這些方法
+
+2
+00:00:04,765 --> 00:00:06,963
+here. Let's start with pushing. Now it's up
+這裡。讓我們從推動開始。現在已經到了
+
+3
+00:00:07,027 --> 00:00:08,984
+to you whether you want to push to the end
+給你是否要堅持到底
+
+4
+00:00:09,032 --> 00:00:11,503
+or to the start of the list. The way we
+或到列表的開頭。我們的方式
+
+5
+00:00:11,519 --> 00:00:13,717
+implemented the linked list, both is very
+實現了鍊錶，兩者都非常
+
+6
+00:00:13,813 --> 00:00:17,086
+efficient and has a time complexity of O, so
+高效且時間複雜度為 O，因此
+
+7
+00:00:17,199 --> 00:00:19,220
+constant time, because we're keeping track
+恆定的時間，因為我們正在跟踪
+
+8
+00:00:19,284 --> 00:00:20,600
+of both the head and the tail.
+標頭和尾部。
+
+9
+00:00:21,691 --> 00:00:24,290
+Now traditionally, a linked list might not
+現在傳統上，鍊錶可能不會
+
+10
+00:00:24,402 --> 00:00:26,951
+keep track of the tail. The last item. And
+跟踪尾巴。最後一項。和
+
+11
+00:00:26,967 --> 00:00:29,131
+therefore I will use prepend because we'll
+因此我將使用 prepend 因為我們會
+
+12
+00:00:29,291 --> 00:00:31,630
+always keep track of the head of the
+始終追蹤標頭
+
+13
+00:00:31,630 --> 00:00:33,248
+beginning of our linked list,
+我們的鍊錶的開頭，
+
+14
+00:00:34,017 --> 00:00:36,501
+even in the most traditional implementation
+即使在最傳統的實作中
+
+15
+00:00:36,501 --> 00:00:37,991
+we might have in a linked list. But again,
+我們可能有一個連結列表。但話又說回來，
+
+16
+00:00:38,199 --> 00:00:40,443
+in our implementation here, you could do
+在我們這裡的實作中，你可以這樣做
+
+17
+00:00:40,523 --> 00:00:42,509
+either of the 2 approaches and both would be
+兩種方法中的任何一種都可以
+
+18
+00:00:42,526 --> 00:00:42,894
+efficient.
+高效的。
+
+19
+00:00:44,272 --> 00:00:46,595
+I'm going to use this list, however, and
+不過，我將使用這個列表，並且
+
+20
+00:00:46,675 --> 00:00:49,287
+call prepend and prepend my value here.
+調用 prepend 並在此處添加我的值。
+
+21
+00:00:50,200 --> 00:00:52,748
+And that's all. That's how easy it is to add
+僅此而已。添加就是這麼簡單
+
+22
+00:00:52,780 --> 00:00:53,501
+a new item.
+一個新專案。
+
+23
+00:00:54,544 --> 00:00:56,872
+Now let's continue with the pop method. We
+現在讓我們繼續 pop 方法。我們
+
+24
+00:00:56,872 --> 00:00:59,104
+need to be able to remove that first item
+需要能夠刪除第一項
+
+25
+00:00:59,104 --> 00:01:01,705
+from the list. Now in the linked list, we do
+從列表中。現在在連結列表中，我們這樣做
+
+26
+00:01:01,705 --> 00:01:03,183
+have a delete method,
+有刪除方法，
+
+27
+00:01:03,857 --> 00:01:06,217
+but there we actually go through the entire
+但我們實際上經歷了整個過程
+
+28
+00:01:06,362 --> 00:01:09,413
+list and then remove an item there.
+列表，然後刪除其中的專案。
+
+29
+00:01:09,942 --> 00:01:12,768
+We remove the item there once we find it,
+一旦我們找到該專案，我們就會將其刪除，
+
+30
+00:01:13,314 --> 00:01:14,920
+and going through the entire list and
+並瀏覽整個清單並
+
+31
+00:01:15,000 --> 00:01:17,698
+checking that entire list is probably not
+檢查整個清單可能不是
+
+32
+00:01:17,890 --> 00:01:18,998
+what we want to do.
+我們想做的事。
+
+33
+00:01:20,165 --> 00:01:22,742
+Therefore, to optimize this and to make the
+因此，要對此進行最佳化並使
+
+34
+00:01:22,742 --> 00:01:24,605
+removal of the first item of the list a
+刪除清單 a 的第一項
+
+35
+00:01:24,605 --> 00:01:25,140
+little bit more
+多一點
+
+36
+00:01:25,756 --> 00:01:26,177
+efficient,
+高效率的，
+
+37
+00:01:26,840 --> 00:01:31,171
+we can add a deleteHead method to our linked
+我們可以在連結中加入一個deleteHead方法
+
+38
+00:01:31,171 --> 00:01:31,676
+list here.
+在這裡列出。
+
+39
+00:01:33,240 --> 00:01:35,842
+And there, first of all, check if we maybe
+首先，檢查我們是否可以
+
+40
+00:01:35,842 --> 00:01:38,156
+don't have a head, hence the exclamation
+沒有頭，因此驚嘆號
+
+41
+00:01:38,156 --> 00:01:39,971
+mark here, in which case we return null
+標記此處，這種情況下我們回傳 null
+
+42
+00:01:40,180 --> 00:01:40,871
+because nothing
+因為什麼都沒有
+
+43
+00:01:41,530 --> 00:01:43,396
+was removed. In this case, if we don't have
+被刪除。在這種情況下，如果我們沒有
+
+44
+00:01:43,396 --> 00:01:46,105
+a head, it means the list is empty. And then
+一個頭，這意味著列表是空的。進而
+
+45
+00:01:46,105 --> 00:01:47,779
+we can't remove the first item, of course.
+當然，我們無法刪除第一項。
+
+46
+00:01:48,842 --> 00:01:49,293
+Otherwise,
+否則，
+
+47
+00:01:50,130 --> 00:01:52,271
+we can store the deleted item,
+我們可以儲存刪除的專案，
+
+48
+00:01:55,690 --> 00:01:57,714
+this head, because we know we will have a
+這個頭，因為我們知道我們會有一個
+
+49
+00:01:57,714 --> 00:01:59,819
+head. It's not empty, so we will have a
+頭。它不是空的，所以我們會有一個
+
+50
+00:01:59,819 --> 00:02:02,374
+first item. I store this here so that I can
+第一項。我把它存放在這裡，這樣我就可以
+
+51
+00:02:02,391 --> 00:02:04,528
+return it in the end, because in between,
+最後回傳它，因為在這之間，
+
+52
+00:02:04,560 --> 00:02:07,199
+before returning, I want to update the list
+回來之前，我想更新列表
+
+53
+00:02:07,215 --> 00:02:09,613
+and remove that first item. And how do we
+並刪除第一項。而我們如何
+
+54
+00:02:09,613 --> 00:02:11,705
+remove the first item from a linked list?
+從連結清單中刪除第一項？
+
+55
+00:02:12,787 --> 00:02:14,966
+Well, we check if there is a second item by
+好吧，我們檢查是否有第二個專案
+
+56
+00:02:14,966 --> 00:02:16,985
+going to the first item and checking the
+轉到第一項並檢查
+
+57
+00:02:16,985 --> 00:02:19,773
+next property, which points at the next item
+next 屬性，指向下一個專案
+
+58
+00:02:19,998 --> 00:02:21,440
+in line, if you remember.
+排隊，如果你還記得的話。
+
+59
+00:02:22,337 --> 00:02:24,180
+And if that's the case, if we have a second
+如果是這樣的話 如果我們還有第二次
+
+60
+00:02:24,244 --> 00:02:24,452
+item,
+物品，
+
+61
+00:02:24,981 --> 00:02:28,090
+then we set the first item, the new first
+然後我們設定第一個專案，新的第一個
+
+62
+00:02:28,170 --> 00:02:30,653
+item, equal to the old second item. So the
+項，等於舊的第二項。所以
+
+63
+00:02:30,734 --> 00:02:33,522
+old second item is now the new first item,
+舊的第二項現在是新的第一項，
+
+64
+00:02:34,115 --> 00:02:36,005
+and that's why I'm saving the old first item
+這就是為什麼我要儲存舊的第一個專案
+
+65
+00:02:36,021 --> 00:02:38,056
+here in deleted item so that I can still
+在已刪除的專案中，這樣我仍然可以
+
+66
+00:02:38,105 --> 00:02:40,046
+return it after updating the list.
+更新列表後回傳。
+
+67
+00:02:41,410 --> 00:02:43,657
+Now else, if we don't have a second item, we
+現在，如果我們沒有第二項，我們
+
+68
+00:02:43,657 --> 00:02:45,743
+know that there only was one item in the
+知道其中只有一項
+
+69
+00:02:45,743 --> 00:02:47,750
+entire list, and therefore now the list is
+整個列表，因此現在列表是
+
+70
+00:02:47,894 --> 00:02:49,210
+empty, and we can set both head
+空，我們可以設定兩個頭
+
+71
+00:02:49,740 --> 00:02:52,918
+and tail to null in this case because now
+在這種情況下，尾部為空，因為現在
+
+72
+00:02:53,062 --> 00:02:53,977
+it's an empty list.
+這是一個空列表。
+
+73
+00:02:54,892 --> 00:02:57,251
+And this is how we can delete the first item
+這就是我們刪除第一項的方法
+
+74
+00:02:57,299 --> 00:02:59,787
+in a convenient way. And now back in app.js,
+以一種方便的方式。現在回到app.js，
+
+75
+00:03:00,092 --> 00:03:00,301
+here
+這裡
+
+76
+00:03:01,071 --> 00:03:04,329
+on pop, we can simply call this.list.delete
+在 pop 上，我們可以簡單地呼叫 this.list.delete
+
+77
+00:03:05,227 --> 00:03:06,382
+head, just like that.
+頭，就這樣。
+
+78
+00:03:07,729 --> 00:03:09,541
+And we can also return this, of course,
+當然，我們也可以回傳這個，
+
+79
+00:03:09,734 --> 00:03:12,444
+because deleteHead also returns a value,
+因為deleteHead也回傳一個值，
+
+80
+00:03:12,685 --> 00:03:14,641
+right? There we also return the deleted
+正確的？在那裡我們也回傳已刪除的
+
+81
+00:03:14,705 --> 00:03:17,351
+item, or null if nothing was there to
+專案，如果沒有任何內容，則為 null
+
+82
+00:03:17,351 --> 00:03:19,677
+delete. And we then can also return that
+刪除。然後我們也可以回傳
+
+83
+00:03:19,677 --> 00:03:21,120
+result here in pop. Therefore,
+結果在這裡流行。所以，
+
+84
+00:03:22,243 --> 00:03:24,809
+now for isEmpty, here I wanna check if the
+現在對於 isEmpty，我想檢查是否
+
+85
+00:03:24,809 --> 00:03:26,717
+list is empty. And how could we check this?
+列表為空。我們如何檢查這一點？
+
+86
+00:03:27,535 --> 00:03:30,053
+Well, if we don't have a first item
+好吧，如果我們沒有第一項
+
+87
+00:03:30,584 --> 00:03:33,415
+the list is empty, right? That's basically
+清單是空的，對嗎？基本上就是這樣
+
+88
+00:03:33,415 --> 00:03:35,826
+the check we have here in deleteHead. If we
+我們在deleteHead 中進行的檢查。如果我們
+
+89
+00:03:35,842 --> 00:03:38,236
+don't have a head, we know the list is empty
+沒有頭，我們知道清單是空的
+
+90
+00:03:38,511 --> 00:03:39,691
+and there's nothing left to remove.
+並且沒有什麼可以刪除的。
+
+91
+00:03:40,432 --> 00:03:42,301
+So if we just want to know if it's empty, we
+所以如果我們只是想知道它是否為空，我們
+
+92
+00:03:42,301 --> 00:03:45,024
+just have to check if we do have a first
+只需檢查我們是否有第一個
+
+93
+00:03:45,104 --> 00:03:45,362
+item.
+物品。
+
+94
+00:03:46,071 --> 00:03:48,149
+So we can simply return the result of
+所以我們可以簡單地回傳結果
+
+95
+00:03:48,150 --> 00:03:48,796
+checking this
+檢查這個
+
+96
+00:03:49,757 --> 00:03:50,171
+list head.
+列表頭。
+
+97
+00:03:52,710 --> 00:03:54,241
+Head is a property
+頭是一個屬性
+
+98
+00:03:54,838 --> 00:03:57,289
+we have here in this list, and like all
+我們在這個清單中，和所有的一樣
+
+99
+00:03:57,418 --> 00:03:59,644
+properties, it can also be accessed from
+屬性，也可以從
+
+100
+00:03:59,676 --> 00:04:00,515
+outside this class. So we can read the
+在這個班級之外。所以我們可以讀到
+
+101
+00:04:02,466 --> 00:04:05,627
+head property value also from inside our
+標頭財產價值也來自我們內部
+
+102
+00:04:05,627 --> 00:04:07,954
+stack where we created the linked list.
+我們在其中創建鍊錶的堆疊。
+
+103
+00:04:08,724 --> 00:04:11,741
+Now if this is false, I know it's empty, so
+現在，如果這是假的，我知道它是空的，所以
+
+104
+00:04:11,789 --> 00:04:14,180
+I wanna add exclamation mark here. So if we
+我想在這裡加感嘆號。所以如果我們
+
+105
+00:04:14,196 --> 00:04:15,143
+don't have a head,
+沒有頭，
+
+106
+00:04:15,704 --> 00:04:18,448
+isEmpty should return true because then the
+isEmpty 應該回傳 true 因為這樣
+
+107
+00:04:18,448 --> 00:04:19,411
+list is empty.
+列表為空。
+
+108
+00:04:20,695 --> 00:04:22,941
+And last but not least, for toArray, we can
+最後但並非最不重要的一點是，對於 toArray，我們可以
+
+109
+00:04:22,941 --> 00:04:26,760
+return this.list.toArray because we already
+回傳 this.list.toArray 因為我們已經
+
+110
+00:04:26,937 --> 00:04:29,761
+do have a toArray method on the linked list.
+鍊錶上確實有一個 toArray 方法。
+
+111
+00:04:31,782 --> 00:04:33,258
+Here. So we can safely return that.
+這裡。所以我們可以安全地回傳它。
+
+112
+00:04:34,850 --> 00:04:36,899
+Well, and with all of that, we rebuilt the
+好吧，有了這一切，我們重建了
+
+113
+00:04:36,899 --> 00:04:39,722
+stack but now based on a linked list. Now
+堆疊，但現在基於鍊錶。現在
+
+114
+00:04:39,722 --> 00:04:41,949
+again, we can check this by basically
+再次，我們基本上可以透過以下方式檢查這一點
+
+115
+00:04:42,045 --> 00:04:44,659
+copying all that code I checked on my other
+複製我在其他裝置上檢查過的所有程式碼
+
+116
+00:04:44,659 --> 00:04:47,645
+stack implementation. So this same code,
+堆疊實作。所以同樣的程式碼，
+
+117
+00:04:48,355 --> 00:04:49,113
+I will add it here,
+我在這裡補充一下，
+
+118
+00:04:49,646 --> 00:04:51,646
+and the only difference should now be that
+現在唯一的區別應該是
+
+119
+00:04:51,646 --> 00:04:54,551
+the first item is now always the item we're,
+現在第一個專案始終是我們的專案，
+
+120
+00:04:54,650 --> 00:04:56,633
+we're looking for. It's the topmost item, so
+我們正在尋找。這是最上面的專案，所以
+
+121
+00:04:56,633 --> 00:04:58,732
+to say. Because that's how we implemented
+說。因為這就是我們實施的方式
+
+122
+00:04:58,732 --> 00:05:00,806
+this, by calling prepend on the linked list.
+這是透過在鍊錶上呼叫 prepend 來實現的。
+
+123
+00:05:01,470 --> 00:05:03,999
+As I said, you could go for append, but just
+正如我所說，你可以去追加，但只是
+
+124
+00:05:03,999 --> 00:05:04,987
+to show you the difference,
+為了向您展示差異，
+
+125
+00:05:05,580 --> 00:05:08,000
+it's up to you ultimately what you define as
+這最終取決於你的定義
+
+126
+00:05:08,048 --> 00:05:10,436
+the topmost item. If that's the first or the
+最上面的專案。如果這是第一個或第一個
+
+127
+00:05:10,436 --> 00:05:12,227
+last item, that's totally up to you.
+最後一項，這完全取決於你。
+
+128
+00:05:13,737 --> 00:05:14,853
+Hence, if we now save that
+因此，如果我們現在儲存它
+
+129
+00:05:15,532 --> 00:05:16,260
+and reload here,
+並在這裡重新載入，
+
+130
+00:05:17,069 --> 00:05:19,382
+we get an error. Now we get this error
+我們得到一個錯誤。現在我們得到這個錯誤
+
+131
+00:05:19,399 --> 00:05:22,052
+because I'm just running that HTML file like
+因為我只是運行該 HTML 檔案，例如
+
+132
+00:05:22,165 --> 00:05:22,602
+this here
+這裡這個
+
+133
+00:05:23,384 --> 00:05:25,360
+I basically just double-clicked on it,
+我基本上只是雙擊它，
+
+134
+00:05:25,938 --> 00:05:28,509
+and now I'm using that import syntax which
+現在我正在使用導入語法
+
+135
+00:05:28,670 --> 00:05:31,305
+is supported by modern JavaScript but which
+現代 JavaScript 支援，但
+
+136
+00:05:31,401 --> 00:05:32,349
+does not run
+不運行
+
+137
+00:05:32,928 --> 00:05:35,515
+in files which are just opened through the
+在剛剛通過開啟的檔案中
+
+138
+00:05:35,515 --> 00:05:37,137
+file protocol like this.
+像這樣的檔案協議。
+
+139
+00:05:37,668 --> 00:05:40,415
+And you're always using the file protocol if
+並且您始終使用檔案協議，如果
+
+140
+00:05:40,415 --> 00:05:41,974
+you're just double-clicking on a file.
+您只需雙擊一個檔案即可。
+
+141
+00:05:42,825 --> 00:05:45,091
+To make this work, we need a little basic
+為了使這項工作成功，我們需要一些基本知識
+
+142
+00:05:45,219 --> 00:05:45,766
+web server,
+網路伺服器，
+
+143
+00:05:46,521 --> 00:05:48,770
+and for that I'll use an npm package here.
+為此，我將在這裡使用 npm 套件。
+
+144
+00:05:49,172 --> 00:05:50,277
+HTTP server,
+HTTP 伺服器，
+
+145
+00:05:50,854 --> 00:05:53,145
+which is a very basic development server
+這是一個非常基本的開發伺服器
+
+146
+00:05:53,177 --> 00:05:55,869
+which you can use to quickly run some code
+您可以使用它來快速運行一些程式碼
+
+147
+00:05:56,046 --> 00:05:58,321
+on a server, to test some code on a server.
+在伺服器上，測試伺服器上的一些程式碼。
+
+148
+00:05:58,946 --> 00:06:00,997
+And here's how you install it. Now you need
+安裝方法如下。現在你需要
+
+149
+00:06:01,045 --> 00:06:02,182
+Node.js for this,
+Node.js 為此，
+
+150
+00:06:02,855 --> 00:06:05,563
+both because we need npm but also because
+既因為我們需要 npm，也因為
+
+151
+00:06:05,659 --> 00:06:07,534
+that development server is built with
+該開發伺服器是用建構的
+
+152
+00:06:07,614 --> 00:06:08,271
+Node.js.
+Node.js。
+
+153
+00:06:08,816 --> 00:06:12,213
+So on nodejs.org, you should simply download
+所以在nodejs.org上，你應該簡單下載
+
+154
+00:06:12,245 --> 00:06:14,328
+that latest version here, walk through the
+最新版本在這裡，瀏覽一下
+
+155
+00:06:14,328 --> 00:06:16,507
+installer, and install this on your system.
+安裝程式，並將其安裝在您的系統上。
+
+156
+00:06:16,892 --> 00:06:18,819
+It is available for all operating systems.
+它適用於所有作業系統。
+
+157
+00:06:19,300 --> 00:06:21,693
+And once you installed Node, we can run this
+一旦你安裝了 Node，我們就可以運行它
+
+158
+00:06:21,693 --> 00:06:23,764
+command here in the terminal.
+在終端機機中輸入命令。
+
+159
+00:06:24,422 --> 00:06:26,510
+I'm going to use the terminal built into my
+我將使用內建的終端機
+
+160
+00:06:26,510 --> 00:06:29,464
+IDE here with Terminal, New Terminal in
+IDE 與終端機，新終端機在
+
+161
+00:06:29,496 --> 00:06:30,219
+Visual Studio Code.
+Visual Studio 程式碼。
+
+162
+00:06:31,006 --> 00:06:32,483
+And I'll copy this command in there.
+我將把這個命令複製到那裡。
+
+163
+00:06:33,093 --> 00:06:35,694
+On Linux and macOS, you might need to add
+在 Linux 和 macOS 上，您可能需要添加
+
+164
+00:06:35,694 --> 00:06:38,344
+sudo in front of this to get the right
+sudo 在此前面以獲得正確的
+
+165
+00:06:38,472 --> 00:06:40,286
+permissions for running this command. On
+運行此命令的權限。在
+
+166
+00:06:40,399 --> 00:06:42,117
+Windows, this will not be required.
+Windows，這不是必需的。
+
+167
+00:06:43,209 --> 00:06:45,137
+And the sudo command doesn't even exist
+而且 sudo 命令甚至不存在
+
+168
+00:06:45,137 --> 00:06:45,314
+there.
+那裡。
+
+169
+00:06:45,940 --> 00:06:48,045
+And that will now install that HTTP server.
+現在將安裝該 HTTP 伺服器。
+
+170
+00:06:48,607 --> 00:06:49,700
+And once that is installed,
+一旦安裝完畢，
+
+171
+00:06:50,278 --> 00:06:52,174
+all you need to do is you need to run
+你所需要做的就是跑
+
+172
+00:06:52,367 --> 00:06:54,922
+http-server, which now is a command that is
+http-server，現在是一個指令
+
+173
+00:06:54,970 --> 00:06:57,203
+available inside of the terminal that
+在終端機內部可用
+
+174
+00:06:57,203 --> 00:06:59,790
+navigated into that project folder. So you
+導航到該專案資料夾。所以你
+
+175
+00:06:59,790 --> 00:07:02,665
+need to have navigated into this project
+需要導航到該專案
+
+176
+00:07:02,665 --> 00:07:05,445
+folder to run this code to host these files.
+資料夾來運行此程式碼來託管這些檔案。
+
+177
+00:07:06,039 --> 00:07:08,674
+If you open the integrated IDE terminal
+如果打開集成IDE終端機
+
+178
+00:07:08,674 --> 00:07:11,051
+here, it it's automatically navigated into
+在這裡，它會自動導航到
+
+179
+00:07:11,099 --> 00:07:12,881
+that project folder, which is quite
+那個專案資料夾，相當
+
+180
+00:07:12,929 --> 00:07:13,443
+convenient.
+方便的。
+
+181
+00:07:14,310 --> 00:07:16,767
+So if we now run http server here, this will
+所以如果我們現在在這裡運行 http 伺服器，這將
+
+182
+00:07:16,863 --> 00:07:20,861
+serve the index.html file by default here on
+預設情況下提供index.html檔案
+
+183
+00:07:20,894 --> 00:07:23,045
+this URL. You can also just enter
+這個網址。您也可以直接輸入
+
+184
+00:07:23,061 --> 00:07:25,807
+localhost:8080. It will still not work like
+本地主機：8080。它仍然不會像
+
+185
+00:07:25,871 --> 00:07:27,942
+this though. We also need to adjust our
+不過這個。我們也需要調整自己的
+
+186
+00:07:28,039 --> 00:07:28,954
+index.html file
+索引.html 檔案
+
+187
+00:07:29,548 --> 00:07:30,062
+and there
+在那裡
+
+188
+00:07:31,073 --> 00:07:32,229
+add type
+新增型別
+
+189
+00:07:33,000 --> 00:07:34,285
+equal module.
+等模組。
+
+190
+00:07:34,847 --> 00:07:35,923
+On the script tag
+在腳本標籤上
+
+191
+00:07:36,549 --> 00:07:38,685
+because we're now using a feature called ES
+因為我們現在正在使用一個名為 ES 的功能
+
+192
+00:07:38,878 --> 00:07:41,672
+modules by importing another file, and we
+透過導入另一個檔案來模組，我們
+
+193
+00:07:41,672 --> 00:07:43,327
+need to let the browser know by adding this
+需要透過添加這個來讓瀏覽器知道
+
+194
+00:07:43,455 --> 00:07:44,419
+type on the script tag.
+在腳本標籤上鍵入。
+
+195
+00:07:44,965 --> 00:07:46,956
+This will not work in old versions of
+這在舊版本中不起作用
+
+196
+00:07:46,988 --> 00:07:49,060
+Internet Explorer, but here, since we're
+Internet Explorer，但是在這裡，因為我們
+
+197
+00:07:49,060 --> 00:07:50,811
+just learning about algorithms and so on,
+只是學習演算法之類的，
+
+198
+00:07:51,164 --> 00:07:53,220
+we're going to use a modern browser anyways.
+無論如何我們都會使用現代瀏覽器。
+
+199
+00:07:54,457 --> 00:07:55,019
+With that,
+就這樣，
+
+200
+00:07:55,661 --> 00:07:57,428
+you can stop and restart that server.
+您可以停止並重新啟動該伺服器。
+
+201
+00:07:58,070 --> 00:07:59,692
+It should also work if you don't do it, but
+如果你不這樣做，它也應該有效，但是
+
+202
+00:07:59,692 --> 00:08:00,897
+to be safe, you can do that.
+為了安全起見，你可以這樣做。
+
+203
+00:08:02,549 --> 00:08:05,099
+And thereafter you can load localhost:8080
+此後您可以載入 localhost:8080
+
+204
+00:08:05,131 --> 00:08:08,210
+here in your browser and you should see this
+在你的瀏覽器中你應該會看到這個
+
+205
+00:08:08,242 --> 00:08:08,595
+output.
+輸出。
+
+206
+00:08:09,221 --> 00:08:11,851
+And what we see here is now our linked list
+我們現在看到的是我們的鍊錶
+
+207
+00:08:11,931 --> 00:08:14,465
+output where we have a first item of buy
+我們購買的第一個商品的產出
+
+208
+00:08:14,513 --> 00:08:15,074
+ingredients.
+原料。
+
+209
+00:08:15,636 --> 00:08:17,496
+And that makes sense because this was the
+這是有道理的，因為這是
+
+210
+00:08:17,625 --> 00:08:18,555
+last item I
+最後一項我
+
+211
+00:08:19,629 --> 00:08:20,014
+added here.
+添加到這裡。
+
+212
+00:08:20,592 --> 00:08:22,757
+And again, now the first item is the topmost
+再說一次，現在第一項是最上面的
+
+213
+00:08:22,757 --> 00:08:25,547
+one per our definition. So first item is
+根據我們的定義有一個。所以第一項是
+
+214
+00:08:25,579 --> 00:08:27,809
+that, then wash the dishes, then cook
+然後洗碗，然後煮飯
+
+215
+00:08:27,809 --> 00:08:28,129
+dinner,
+晚餐，
+
+216
+00:08:28,691 --> 00:08:30,503
+and then we're popping off the first item
+然後我們彈出第一個專案
+
+217
+00:08:30,952 --> 00:08:32,638
+We're left with wash the dishes and cook
+我們只剩下洗碗和煮飯了
+
+218
+00:08:32,638 --> 00:08:35,094
+dinner. We're popping off those items and
+晚餐。我們正在彈出這些物品並且
+
+219
+00:08:35,126 --> 00:08:37,727
+we're left with an empty list. And that's
+我們只剩下一個空列表。那就是
+
+220
+00:08:37,775 --> 00:08:40,279
+now again the stack implementation, now
+現在再次是堆疊實現，現在
+
+221
+00:08:40,584 --> 00:08:42,992
+based on a linked list. I'm now going to
+基於鍊錶。我現在要去
+
+222
+00:08:43,057 --> 00:08:44,999
+quit this development server because we
+退出這個開發伺服器，因為我們
+
+223
+00:08:44,999 --> 00:08:46,075
+don't need it here anymore.
+這裡不再需要它了。
+
+224
+00:08:46,669 --> 00:08:48,916
+You can of course now always test your app
+當然，您現在可以隨時測試您的應用程式
+
+225
+00:08:49,012 --> 00:08:51,260
+by serving your files. That will always work
+透過提供您的檔案。這永遠有效
+
+226
+00:08:51,485 --> 00:08:53,347
+even if you're not using imports.
+即使您不使用進口。
+
+227
+00:08:53,909 --> 00:08:55,321
+But if you're not using them, you also don't
+但如果你不使用它們，你也不會
+
+228
+00:08:55,338 --> 00:08:55,610
+need it.
+需要它。
+
+229
+00:08:56,140 --> 00:08:58,629
+But the most important takeaway is now that
+但現在最重要的收穫是
+
+230
+00:08:58,629 --> 00:09:01,296
+we built the stack data structure in 2
+我們在2中建構了棧資料結構
+
+231
+00:09:01,296 --> 00:09:03,369
+different ways, but of course such that it
+不同的方式，但當然這樣
+
+232
+00:09:03,449 --> 00:09:05,345
+always works exactly the same.
+總是工作得完全相同。
+
+233
+00:09:06,100 --> 00:09:09,329
+Now let's explore the time complexity of the
+現在我們來探討一下時間複雜度
+
+234
+00:09:09,329 --> 00:09:10,486
+stack data structure.
+堆疊資料結構。

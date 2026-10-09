@@ -1,0 +1,524 @@
+1
+00:00:02,274 --> 00:00:03,843
+Now, we already built a queue
+現在，我們已經建立了一個佇列
+
+2
+00:00:04,507 --> 00:00:05,882
+earlier in this course.
+在本課程的前面部分。
+
+3
+00:00:06,610 --> 00:00:09,539
+In the section about lists and tables, we
+在關於清單和表格的部分中，我們
+
+4
+00:00:09,604 --> 00:00:12,619
+built a queue that used an array and we
+建立了一個使用陣列的佇列，我們
+
+5
+00:00:12,619 --> 00:00:15,231
+built a queue with help of a linked list.
+在鍊錶的幫助下建立了一個佇列。
+
+6
+00:00:16,720 --> 00:00:18,750
+Now, in this module, we'll start from
+現在，在本單元中，我們將從
+
+7
+00:00:18,782 --> 00:00:19,523
+scratch again.
+再刮一次。
+
+8
+00:00:20,055 --> 00:00:21,940
+Hence, I have an empty app.js file
+因此，我有一個空的 app.js 檔案
+
+9
+00:00:22,697 --> 00:00:25,066
+and we're going to write a priority queue.
+我們將編寫一個優先權佇列。
+
+10
+00:00:25,725 --> 00:00:27,598
+And therefore, I'll add a new class,
+因此，我將添加一個新課程，
+
+11
+00:00:27,761 --> 00:00:30,790
+PriorityQueue, sounds like a fitting name to
+PriorityQueue，聽起來像是個合適的名字
+
+12
+00:00:30,790 --> 00:00:31,001
+me.
+我。
+
+13
+00:00:31,642 --> 00:00:33,901
+And the goal is now to build a basic
+現在的目標是建立一個基本的
+
+14
+00:00:33,901 --> 00:00:36,193
+priority queue, though I will already say
+優先佇列，儘管我已經說過了
+
+15
+00:00:36,484 --> 00:00:38,291
+that this will not be the final
+這不會是最終的
+
+16
+00:00:38,436 --> 00:00:39,276
+implementation,
+執行，
+
+17
+00:00:39,937 --> 00:00:42,608
+but it will help us understand the final
+但這將有助於我們理解最終的結果
+
+18
+00:00:42,692 --> 00:00:43,476
+implementation.
+執行。
+
+19
+00:00:45,363 --> 00:00:47,010
+And for that, I'll implement this with a
+為此，我將用
+
+20
+00:00:47,139 --> 00:00:50,047
+very basic linked list. And I'll write a
+非常基本的鍊錶。我會寫一個
+
+21
+00:00:50,047 --> 00:00:53,035
+brand new basic linked list as part of this
+全新的基本鍊錶作為其一部分
+
+22
+00:00:53,035 --> 00:00:53,600
+PriorityQueue.
+優先佇列。
+
+23
+00:00:54,278 --> 00:00:56,816
+So let's actually start with a node for this
+所以讓我們實際上從一個節點開始
+
+24
+00:00:56,816 --> 00:00:58,872
+linked list. Let's add a constructor
+連結列表。讓我們加入一個建構子
+
+25
+00:00:59,403 --> 00:01:01,234
+and let's say here in the constructor we
+假設在建構函式中我們
+
+26
+00:01:01,234 --> 00:01:02,182
+want to get a value
+想要得到一個值
+
+27
+00:01:02,776 --> 00:01:05,202
+and we store this in a value property.
+我們將其儲存在一個值屬性中。
+
+28
+00:01:05,909 --> 00:01:08,351
+And of course we have a next field where we
+當然，我們還有下一個領域
+
+29
+00:01:08,720 --> 00:01:11,194
+point at null at the beginning so that we
+一開始就指向 null，這樣我們
+
+30
+00:01:11,194 --> 00:01:13,572
+later can point at another node here. Again,
+稍後可以指向這裡的另一個節點。再次，
+
+31
+00:01:13,620 --> 00:01:15,194
+I'm going to build a linked list from
+我將建立一個連結列表
+
+32
+00:01:15,242 --> 00:01:16,849
+scratch together with you here.
+在這裡和你一起刮。
+
+33
+00:01:17,941 --> 00:01:20,351
+In the PriorityQueue class, we can now also
+在 PriorityQueue 類別中，我們現在還可以
+
+34
+00:01:20,367 --> 00:01:23,254
+add a constructor and set the first element
+新增建構子並設定第一個元素
+
+35
+00:01:23,254 --> 00:01:23,446
+here
+這裡
+
+36
+00:01:23,975 --> 00:01:26,715
+to null initially, because initially we have
+最初為 null，因為最初我們有
+
+37
+00:01:26,715 --> 00:01:28,894
+no first element in our linked list here.
+這裡我們的連結列表中沒有第一個元素。
+
+38
+00:01:29,744 --> 00:01:31,282
+And then we have an insert method
+然後我們有一個插入方法
+
+39
+00:01:31,811 --> 00:01:34,038
+where we get a value we want to insert,
+我們得到一個我們想要插入的值，
+
+40
+00:01:34,631 --> 00:01:36,826
+and therefore we build a new node here,
+因此我們在這裡建立一個新節點，
+
+41
+00:01:37,339 --> 00:01:38,685
+which is a new node.
+這是一個新節點。
+
+42
+00:01:39,358 --> 00:01:41,329
+We pass the value to that node,
+我們將值傳遞給該節點，
+
+43
+00:01:41,906 --> 00:01:44,421
+and then we essentially want to insert that
+然後我們本質上想插入
+
+44
+00:01:44,421 --> 00:01:46,569
+node. So first of all, we can check if we
+節點。首先，我們可以檢查是否
+
+45
+00:01:46,649 --> 00:01:48,283
+don't have a first node yet
+還沒有第一個節點
+
+46
+00:01:49,041 --> 00:01:50,416
+And at the beginning we don't.
+一開始我們不這樣做。
+
+47
+00:01:51,145 --> 00:01:53,264
+And if we don't have a first node yet, we
+如果我們還沒有第一個節點，我們
+
+48
+00:01:53,264 --> 00:01:55,950
+set this first equal to our new node
+將其設定為等於我們的新節點
+
+49
+00:01:56,565 --> 00:01:56,953
+like this.
+像這樣。
+
+50
+00:01:59,042 --> 00:02:02,107
+Else, if we did have a first node already
+否則，如果我們已經有了第一個節點
+
+51
+00:02:02,140 --> 00:02:04,280
+because we have inserted a value before,
+因為我們之前已經插入了一個值，
+
+52
+00:02:05,320 --> 00:02:07,616
+we simply go to the end of the
+我們簡單地走到最後
+
+53
+00:02:08,813 --> 00:02:09,573
+linked list
+鍊錶
+
+54
+00:02:10,689 --> 00:02:10,883
+by
+經過
+
+55
+00:02:11,595 --> 00:02:14,474
+storing the current node under this first.
+首先將當前節點儲存在該節點下。
+
+56
+00:02:15,504 --> 00:02:17,336
+And then we could use a simple while loop
+然後我們可以使用一個簡單的 while 迴圈
+
+57
+00:02:17,336 --> 00:02:17,464
+here
+這裡
+
+58
+00:02:18,235 --> 00:02:21,128
+to simply access current node dot next,
+接下來只需訪問當前節點點，
+
+59
+00:02:22,429 --> 00:02:24,984
+so the next node in line in this linked
+所以這個連結中的下一個節點
+
+60
+00:02:24,984 --> 00:02:25,321
+list,
+列表，
+
+61
+00:02:26,109 --> 00:02:28,470
+and we would update current node to now
+我們將當前節點更新為現在
+
+62
+00:02:28,599 --> 00:02:30,784
+point at current node dot next.
+指向當前節點下一個點。
+
+63
+00:02:31,893 --> 00:02:33,259
+And this would simply walk through the
+這將簡單地遍歷
+
+64
+00:02:33,259 --> 00:02:36,038
+entire linked list until there is no next
+整個鍊錶，直到沒有下一個
+
+65
+00:02:36,054 --> 00:02:38,738
+node, so that current node will point at the
+節點，這樣當前節點將指向
+
+66
+00:02:38,866 --> 00:02:40,971
+last node in the linked list.
+鍊錶中的最後一個節點。
+
+67
+00:02:42,174 --> 00:02:44,745
+We could also save the last element in a
+我們還可以將最後一個元素儲存在
+
+68
+00:02:44,745 --> 00:02:47,300
+special property but I just wanna save the
+特殊財產，但我只是想儲存
+
+69
+00:02:47,300 --> 00:02:49,356
+first element here and simply then walk
+這裡的第一個元素然後簡單地走
+
+70
+00:02:49,485 --> 00:02:50,658
+through all the nodes like this.
+像這樣通過所有節點。
+
+71
+00:02:52,140 --> 00:02:54,867
+Well, and then if we know the last node in
+好吧，如果我們知道最後一個節點
+
+72
+00:02:54,980 --> 00:02:55,206
+line,
+線，
+
+73
+00:02:56,207 --> 00:02:59,548
+we can set currentNode.next equal to the
+我們可以將 currentNode.next 設定為等於
+
+74
+00:02:59,661 --> 00:03:01,892
+newNode so that we point at the newNode
+newNode，以便我們指向 newNode
+
+75
+00:03:01,959 --> 00:03:02,160
+there.
+那裡。
+
+76
+00:03:04,328 --> 00:03:07,630
+So now we have a regular basic linked list
+現在我們有了一個常規的基本鍊錶
+
+77
+00:03:07,630 --> 00:03:07,761
+here.
+這裡。
+
+78
+00:03:08,322 --> 00:03:10,646
+Now that's not a priority queue at all,
+現在這根本不是優先權佇列，
+
+79
+00:03:10,806 --> 00:03:12,377
+that's just a basic queue.
+這只是一個基本的佇列。
+
+80
+00:03:13,050 --> 00:03:15,391
+Nonetheless, let's try this. So here we have
+儘管如此，我們還是試試看。所以這裡我們有
+
+81
+00:03:15,391 --> 00:03:15,968
+our queue
+我們的佇列
+
+82
+00:03:16,497 --> 00:03:17,570
+by instantiating
+透過實例化
+
+83
+00:03:18,484 --> 00:03:21,113
+PriorityQueue. Again, it isn't a priority
+優先佇列。再說一遍，這不是優先事項
+
+84
+00:03:21,129 --> 00:03:22,379
+queue yet but we'll get there.
+還在排隊，但我們會到達那裡。
+
+85
+00:03:23,229 --> 00:03:24,479
+And we can insert items,
+我們可以插入專案，
+
+86
+00:03:25,296 --> 00:03:28,727
+couple of numbers, let's say 5 and 10 and
+幾個數字，比如說 5 和 10，
+
+87
+00:03:29,945 --> 00:03:33,631
+36 and we could also insert strings or
+36 我們也可以插入字串或
+
+88
+00:03:33,631 --> 00:03:35,555
+whatever you want, that's really up to you.
+無論你想要什麼，這完全取決於你。
+
+89
+00:03:36,372 --> 00:03:39,930
+And now if we console.log this queue here,
+現在如果我們在這裡console.log這個佇列，
+
+90
+00:03:40,715 --> 00:03:41,436
+save that,
+儲存那個，
+
+91
+00:03:42,702 --> 00:03:43,776
+load it in the browser,
+將其載入到瀏覽器中，
+
+92
+00:03:44,545 --> 00:03:47,013
+we see the first value points at a node with
+我們看到第一個值指向一個節點
+
+93
+00:03:47,013 --> 00:03:50,041
+value 5, which makes sense because that is
+值 5，這是有道理的，因為那是
+
+94
+00:03:50,073 --> 00:03:51,451
+the first value we insert.
+我們插入的第一個值。
+
+95
+00:03:52,541 --> 00:03:56,082
+That then points at a next node with value
+然後指向具有值的下一個節點
+
+96
+00:03:56,082 --> 00:03:56,291
+10,
+10、
+
+97
+00:03:57,124 --> 00:03:59,127
+makes sense because that is the next node we
+這是有道理的，因為這是我們的下一個節點
+
+98
+00:03:59,127 --> 00:03:59,544
+insert,
+插入，
+
+99
+00:04:00,249 --> 00:04:03,215
+and that then points at a node with value
+然後指向一個具有值的節點
+
+100
+00:04:03,215 --> 00:04:06,134
+36, which is the last node we insert here,
+36，這是我們在這裡插入的最後一個節點，
+
+101
+00:04:06,824 --> 00:04:09,631
+and that therefore points at null as a next
+因此指向 null 作為下一個
+
+102
+00:04:09,631 --> 00:04:12,486
+node. But again, that's just a regular queue
+節點。但同樣，這只是一個常規佇列
+
+103
+00:04:13,000 --> 00:04:15,294
+implemented with a linked list where we have
+用鍊錶實現，我們有
+
+104
+00:04:15,406 --> 00:04:18,053
+one element after another. How do we now
+一個又一個元素。我們現在該怎麼辦
+
+105
+00:04:18,133 --> 00:04:19,913
+turn this into a priority queue?
+把它變成優先權佇列？

@@ -1,0 +1,559 @@
+1
+00:00:02,359 --> 00:00:05,698
+For this, back in my project, I got the old
+為此，回到我的專案中，我得到了舊的
+
+2
+00:00:05,795 --> 00:00:08,604
+tree stored in the first tree.js file and
+樹儲存在第一個 tree.js 檔案中，並且
+
+3
+00:00:08,620 --> 00:00:10,290
+got an empty app.js file.
+得到一個空的 app.js 檔案。
+
+4
+00:00:11,172 --> 00:00:13,645
+And in here, I want to build this binary
+在這裡，我想建立這個二進位檔案
+
+5
+00:00:13,773 --> 00:00:14,399
+search tree.
+搜尋樹。
+
+6
+00:00:15,266 --> 00:00:16,903
+Now, how do we build this tree?
+現在，我們如何建構這棵樹？
+
+7
+00:00:17,449 --> 00:00:19,440
+Well, we start quite similar to the other
+好吧，我們的開始與其他非常相似
+
+8
+00:00:19,440 --> 00:00:21,816
+tree. We can define our tree class,
+樹。我們可以定義我們的樹類，
+
+9
+00:00:22,410 --> 00:00:25,074
+and we will also work with nodes, so we also
+我們也將使用節點，所以我們也
+
+10
+00:00:25,074 --> 00:00:27,017
+might want to have a class for that.
+可能想為此開設一堂課。
+
+11
+00:00:28,188 --> 00:00:29,887
+And in the Tree class,
+在 Tree 類別中，
+
+12
+00:00:30,689 --> 00:00:33,223
+we definitely also want a constructor again
+我們肯定還想要一個建構子
+
+13
+00:00:33,656 --> 00:00:35,724
+where we set the root node of the tree
+我們在其中設定樹的根節點
+
+14
+00:00:36,302 --> 00:00:39,252
+to a new node which we create like that.
+到我們這樣創建的新節點。
+
+15
+00:00:40,054 --> 00:00:41,930
+And of course, we can also initialize this
+當然，我們也可以初始化這個
+
+16
+00:00:42,075 --> 00:00:45,137
+with a value here, or we say that we
+這裡有一個值，或者我們說我們
+
+17
+00:00:45,137 --> 00:00:47,078
+initially don't want to have a value here
+最初不想在這裡有值
+
+18
+00:00:47,431 --> 00:00:49,836
+and values have to be set explicitly by
+且值必須由以下方式明確設定
+
+19
+00:00:49,836 --> 00:00:52,867
+calling functions, methods on the tree which
+呼叫樹上的函式、方法
+
+20
+00:00:52,899 --> 00:00:53,909
+we have yet to add.
+我們還沒有添加。
+
+21
+00:00:54,567 --> 00:00:56,335
+That's the approach I'll follow, therefore I
+這就是我將遵循的方法，因此我
+
+22
+00:00:56,335 --> 00:00:58,954
+will deliberately pass in null here to make
+這裡會故意傳入null來使得
+
+23
+00:00:59,002 --> 00:01:01,573
+it clear that initially the root node has no
+很明顯，最初根節點沒有
+
+24
+00:01:01,573 --> 00:01:01,910
+value.
+價值。
+
+25
+00:01:02,778 --> 00:01:05,092
+Of course, in the Node class, we then also
+當然，在 Node 類別中，我們還
+
+26
+00:01:05,172 --> 00:01:06,120
+add a constructor
+新增建構子
+
+27
+00:01:06,779 --> 00:01:10,298
+and in there, we simply set this value equal
+在那裡，我們只需將該值設為等於
+
+28
+00:01:10,410 --> 00:01:13,463
+to the value we get here in the constructor
+到我們在建構子中得到的值
+
+29
+00:01:13,463 --> 00:01:13,913
+function,
+功能，
+
+30
+00:01:14,572 --> 00:01:16,886
+which is null for the first node we create,
+我們建立的第一個節點為 null，
+
+31
+00:01:16,982 --> 00:01:19,232
+for the root node, but for other nodes, it
+對於根節點來說，但是對於其他節點來說，
+
+32
+00:01:19,248 --> 00:01:19,923
+will not be null.
+不會為空。
+
+33
+00:01:20,853 --> 00:01:22,760
+Now of course that's not all. We need to be
+當然，這還不是全部。我們需要成為
+
+34
+00:01:22,840 --> 00:01:24,987
+able to add new data, we need to be able to
+能夠新增資料，我們需要能夠
+
+35
+00:01:25,083 --> 00:01:25,900
+remove data,
+刪除資料，
+
+36
+00:01:26,445 --> 00:01:28,544
+and we of course also later want to be able
+我們當然也希望以後能夠
+
+37
+00:01:28,544 --> 00:01:31,108
+to find out if a certain piece of data
+找出某條資料是否
+
+38
+00:01:31,108 --> 00:01:33,929
+exists in that tree so that we can retrieve
+存在於該樹中以便我們可以檢索
+
+39
+00:01:33,929 --> 00:01:34,041
+it.
+它。
+
+40
+00:01:34,970 --> 00:01:37,550
+So therefore I'll add an add method here,
+因此我將在這裡添加一個 add 方法，
+
+41
+00:01:37,855 --> 00:01:41,508
+I'll add a remove method here, and I'll add
+我會在這裡添加一個刪除方法，然後我會添加
+
+42
+00:01:41,508 --> 00:01:42,678
+a find method here.
+這裡有一個 find 方法。
+
+43
+00:01:43,591 --> 00:01:46,845
+Now for adding, we'll accept a value For
+現在為了添加，我們將接受一個值 For
+
+44
+00:01:47,054 --> 00:01:49,671
+removing, we'll also accept a value because
+刪除後，我們還將接受一個值，因為
+
+45
+00:01:49,687 --> 00:01:51,020
+we'll remove this value then.
+然後我們將刪除這個值。
+
+46
+00:01:52,015 --> 00:01:54,456
+And for finding, I'll also add a value.
+為了查找，我還將添加一個值。
+
+47
+00:01:55,082 --> 00:01:57,555
+Side note, if you would be storing objects,
+旁注，如果您要儲存物件，
+
+48
+00:01:57,587 --> 00:01:59,802
+of course you might need a little tweak
+當然你可能需要一些調整
+
+49
+00:01:59,802 --> 00:02:02,323
+here. For example, you also might want to
+這裡。例如，您可能還想
+
+50
+00:02:02,468 --> 00:02:05,085
+accept some comparison function or anything
+接受一些比較功能或任何東西
+
+51
+00:02:05,117 --> 00:02:07,798
+like that that allows you to find the object
+這樣你就可以找到物體
+
+52
+00:02:07,927 --> 00:02:08,585
+by value.
+按價值。
+
+53
+00:02:09,693 --> 00:02:11,877
+Now what do we do in those methods here?
+現在我們在這些方法中做什麼？
+
+54
+00:02:12,326 --> 00:02:14,810
+Well, in the end, we always operate on the
+好吧，最後，我們總是按照
+
+55
+00:02:14,890 --> 00:02:17,037
+root node. So we simply reach out to the
+根節點。所以我們只需聯繫
+
+56
+00:02:17,053 --> 00:02:19,873
+root node, and I expect to have an add
+根節點，我希望有一個添加
+
+57
+00:02:19,873 --> 00:02:21,364
+method on that node as well.
+該節點上的方法也是如此。
+
+58
+00:02:21,972 --> 00:02:23,959
+It could of course also be called add_node
+當然也可以稱為add_node
+
+59
+00:02:23,959 --> 00:02:25,786
+if you prefer that, but I'll just go with
+如果你願意的話，但我會選擇
+
+60
+00:02:25,866 --> 00:02:26,139
+add
+添加
+
+61
+00:02:26,764 --> 00:02:27,773
+and forward the value.
+並轉發該值。
+
+62
+00:02:28,382 --> 00:02:30,449
+For removing, I'll also reach out to the
+如需刪除，我也會聯繫
+
+63
+00:02:30,449 --> 00:02:33,029
+root node, call remove on that, and forward
+根節點，對其呼叫remove，然後轉發
+
+64
+00:02:33,029 --> 00:02:33,526
+the value.
+值。
+
+65
+00:02:34,439 --> 00:02:37,340
+And for finding, well, you guess it, I also
+為了尋找，好吧，你猜對了，我也
+
+66
+00:02:37,340 --> 00:02:39,907
+reach out to root, Call find and pass the
+聯絡 root，呼叫 find 並傳遞
+
+67
+00:02:39,907 --> 00:02:42,957
+value. Important though, I wanna return the
+價值。但重要的是，我想歸還
+
+68
+00:02:42,957 --> 00:02:44,499
+node which I identified here.
+我在這裡確定的節點。
+
+69
+00:02:45,109 --> 00:02:47,854
+We can also return the added node if we want
+如果需要，我們也可以回傳新增的節點
+
+70
+00:02:47,854 --> 00:02:49,733
+to, but I'm fine with just returning the
+到，但我很樂意回傳
+
+71
+00:02:49,733 --> 00:02:50,745
+node we found here.
+我們在這裡找到的節點。
+
+72
+00:02:51,692 --> 00:02:54,405
+And now with that, it's time to move on to
+現在，是時候繼續了
+
+73
+00:02:54,437 --> 00:02:54,887
+the node.
+節點。
+
+74
+00:02:55,642 --> 00:02:58,660
+There we now also need all those methods.
+我們現在還需要所有這些方法。
+
+75
+00:02:59,174 --> 00:03:01,149
+And let's start with the add method, which
+讓我們從 add 方法開始，它
+
+76
+00:03:01,197 --> 00:03:03,718
+of course receives a value. What do we do
+當然會收到一個值。我們做什麼
+
+77
+00:03:03,750 --> 00:03:03,943
+here?
+這裡？
+
+78
+00:03:05,259 --> 00:03:08,694
+In this add method, we of course want to,
+在這個 add 方法中，我們當然想要，
+
+79
+00:03:08,727 --> 00:03:11,343
+well, add this new value, but for that I'll
+好吧，請添加這個新值，但為此我會
+
+80
+00:03:11,375 --> 00:03:14,441
+first of all wanna find out whether the node
+首先想知道節點是否
+
+81
+00:03:14,490 --> 00:03:17,716
+we're trying to add this value to does have
+我們正在嘗試將此值添加到確實有
+
+82
+00:03:17,716 --> 00:03:20,205
+a value already. Because initially for this
+已經有一個值了。因為最初是為了這個
+
+83
+00:03:20,269 --> 00:03:22,661
+root node, for example, the value is null.
+以根節點為例，值為null。
+
+84
+00:03:23,495 --> 00:03:25,438
+So here we can add an if check and check if
+所以這裡我們可以加入一個if檢查並檢查if
+
+85
+00:03:25,727 --> 00:03:26,786
+this value
+這個值
+
+86
+00:03:27,412 --> 00:03:29,098
+is equal to null.
+等於空。
+
+87
+00:03:30,061 --> 00:03:33,609
+And if that's the case, if the current value
+如果是這樣的話，如果當前值
+
+88
+00:03:33,609 --> 00:03:36,819
+is null, Then adding a value simply means
+為null，那麼加一個值只是意味著
+
+89
+00:03:36,899 --> 00:03:39,274
+that we wanna set the value of that node
+我們想要設定該節點的值
+
+90
+00:03:39,306 --> 00:03:41,007
+because it doesn't have a value yet.
+因為它還沒有價值。
+
+91
+00:03:41,553 --> 00:03:43,607
+So in this case, we set value, this value
+所以在這種情況下，我們設定value，這個值
+
+92
+00:03:43,783 --> 00:03:44,602
+equal to value.
+等於值。
+
+93
+00:03:45,324 --> 00:03:47,250
+And we can return thereafter to make sure
+之後我們可以回傳以確保
+
+94
+00:03:47,250 --> 00:03:48,935
+that no other code executes.
+沒有其他程式碼執行。
+
+95
+00:03:49,817 --> 00:03:51,631
+Because now, of course, that's not the only
+因為現在，當然，這不是唯一的
+
+96
+00:03:51,647 --> 00:03:53,781
+code we eventually want to execute here.
+我們最終要在這裡執行的程式碼。
+
+97
+00:03:54,391 --> 00:03:56,622
+Sometimes this is enough, but sometimes this
+有時這已經足夠了，但有時這
+
+98
+00:03:56,638 --> 00:03:58,034
+node already has a value
+節點已經有值了
+
+99
+00:03:58,868 --> 00:04:00,906
+and then of course we want to add a new
+然後我們當然想增加一個新的
+
+100
+00:04:00,906 --> 00:04:03,760
+node. And now it depends on the value we're
+節點。現在這取決於我們的價值
+
+101
+00:04:03,776 --> 00:04:06,004
+about to add. We need to find out if the
+即將添加。我們需要查明是否
+
+102
+00:04:06,004 --> 00:04:09,627
+value we wanna add is smaller or bigger than
+我們想要新增的值小於或大於
+
+103
+00:04:09,627 --> 00:04:12,448
+the value of this node on which we wanna add
+我們要新增的該節點的值
+
+104
+00:04:12,448 --> 00:04:12,528
+it.
+它。
+
+105
+00:04:13,297 --> 00:04:15,269
+So we check this node's value
+所以我們檢查這個節點的值
+
+106
+00:04:15,942 --> 00:04:19,212
+and let's say if this node's value is
+假設這個節點的值是
+
+107
+00:04:20,462 --> 00:04:21,280
+smaller
+較小
+
+108
+00:04:21,809 --> 00:04:24,838
+than value, so smaller than the value we
+比值，所以小於我們的值
+
+109
+00:04:24,838 --> 00:04:27,756
+wanna add, then we know the incoming value
+想要添加，然後我們知道傳入的值
+
+110
+00:04:27,804 --> 00:04:30,395
+is bigger, right? Right? And as I mentioned
+更大了，對吧？正確的？正如我所提到的
+
+111
+00:04:30,395 --> 00:04:32,825
+on the slide, such values need to go to the
+在投影片上，這些值需要轉到
+
+112
+00:04:32,841 --> 00:04:34,048
+right. So we add
+正確的。所以我們添加

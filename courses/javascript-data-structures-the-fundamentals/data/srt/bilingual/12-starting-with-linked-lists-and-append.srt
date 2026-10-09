@@ -1,0 +1,1644 @@
+1
+00:00:02,262 --> 00:00:04,637
+So let's write our first custom data
+所以讓我們來寫第一個自訂資料
+
+2
+00:00:04,685 --> 00:00:07,702
+structure, a linked list. Now, a linked list
+結構，鍊錶。現在，一個連結列表
+
+3
+00:00:07,878 --> 00:00:10,301
+is a data structure, of course. This entire
+當然是資料結構。這整個
+
+4
+00:00:10,301 --> 00:00:12,291
+course is about data structures. And
+課程是關於資料結構的。和
+
+5
+00:00:12,371 --> 00:00:12,756
+therefore,
+所以，
+
+6
+00:00:13,334 --> 00:00:15,548
+unlike in my algorithms course, we're now
+與我的演算法課程不同，我們現在
+
+7
+00:00:15,596 --> 00:00:18,324
+not just going to write some function that
+不只是要寫一些函式
+
+8
+00:00:18,324 --> 00:00:20,779
+does something because we're not just going
+做某事因為我們不只是去
+
+9
+00:00:20,811 --> 00:00:22,705
+to write the solution for a problem.
+寫出問題的解決方案。
+
+10
+00:00:22,897 --> 00:00:26,074
+Instead, we wanna store data. And that has
+相反，我們想要儲存資料。那有
+
+11
+00:00:26,187 --> 00:00:27,615
+one important implication.
+一個重要的意義。
+
+12
+00:00:28,417 --> 00:00:30,758
+In this course, the data structures we're
+在本課程中，我們將學習資料結構
+
+13
+00:00:30,758 --> 00:00:33,837
+going to build will build up on the core
+將在核心基礎上建構
+
+14
+00:00:33,966 --> 00:00:36,099
+data structures that are built into
+內建的資料結構
+
+15
+00:00:36,131 --> 00:00:37,093
+JavaScript,
+JavaScript，
+
+16
+00:00:37,638 --> 00:00:39,723
+obviously, because if that would not be the
+顯然，因為如果那不是
+
+17
+00:00:39,723 --> 00:00:40,140
+case,
+案件，
+
+18
+00:00:40,926 --> 00:00:42,946
+well, we would have to build up on the
+好吧，我們必須在此基礎上
+
+19
+00:00:42,946 --> 00:00:45,047
+language with which JavaScript is
+JavaScript 所使用的語言
+
+20
+00:00:45,111 --> 00:00:45,721
+implemented,
+實施的，
+
+21
+00:00:46,298 --> 00:00:48,575
+and ultimately we could go all the way down
+最終我們可以一路走下去
+
+22
+00:00:48,640 --> 00:00:50,580
+to machine code, right, if we want to
+機器程式碼，對吧，如果我們想的話
+
+23
+00:00:50,628 --> 00:00:51,414
+reinvent the wheel.
+重新發明輪子。
+
+24
+00:00:52,104 --> 00:00:54,253
+So that's not what we're going to do. Not
+所以這不是我們要做的事。不是
+
+25
+00:00:54,253 --> 00:00:56,033
+that we could easily do it in JavaScript,
+我們可以很容易地用 JavaScript 做到這一點，
+
+26
+00:00:56,097 --> 00:00:57,942
+but that's not what we want to do either.
+但這也不是我們想要做的。
+
+27
+00:00:58,423 --> 00:01:00,845
+Instead, we'll take what JavaScript has—
+相反，我們將採用 JavaScript 所擁有的——
+
+28
+00:01:01,455 --> 00:01:04,085
+arrays, objects, and so on— and we'll
+陣列、物件等等——我們將
+
+29
+00:01:04,181 --> 00:01:05,064
+enhance this.
+加強這一點。
+
+30
+00:01:05,882 --> 00:01:08,801
+We'll enhance this to build a new data
+我們將增強它以建立新的資料
+
+31
+00:01:08,849 --> 00:01:12,105
+structure on top of those built-in ones, to
+那些內建結構之上的結構，
+
+32
+00:01:12,201 --> 00:01:15,073
+then with our new data structure use those
+然後用我們的新資料結構使用那些
+
+33
+00:01:15,185 --> 00:01:16,917
+built-in ones in a better way,
+以更好的方式內置，
+
+34
+00:01:17,575 --> 00:01:17,944
+to then
+到那時
+
+35
+00:01:18,874 --> 00:01:21,264
+enhance those built-in structures such that
+增強這些內建結構，以便
+
+36
+00:01:21,264 --> 00:01:24,121
+our custom data structure does a certain
+我們的自訂資料結構做了一定的事情
+
+37
+00:01:24,233 --> 00:01:26,560
+thing in a better way. Otherwise, there
+事情以更好的方式。否則，有
+
+38
+00:01:26,560 --> 00:01:28,582
+would be no reason to come up with a custom
+沒有理由想出一個習慣
+
+39
+00:01:28,582 --> 00:01:30,460
+data structure if it would do just the same
+資料結構（如果它能做同樣的事情）
+
+40
+00:01:30,589 --> 00:01:32,515
+thing, right? So in the case of the linked
+事，對吧？所以在連結的情況下
+
+41
+00:01:32,515 --> 00:01:34,858
+list, we're also going to build up on some
+在清單中，我們還將建立一些
+
+42
+00:01:34,906 --> 00:01:37,233
+built-in data structures, and then we're
+內建資料結構，然後我們
+
+43
+00:01:37,233 --> 00:01:38,742
+going to enhance those
+將加強那些
+
+44
+00:01:39,320 --> 00:01:41,920
+with a certain functionality. Now therefore,
+具有一定的功能。因此，現在，
+
+45
+00:01:42,064 --> 00:01:44,151
+we're not going to write a function because
+我們不會寫函式，因為
+
+46
+00:01:44,151 --> 00:01:46,205
+a function is basically there to execute
+基本上有一個函式可以執行
+
+47
+00:01:46,301 --> 00:01:49,046
+code, right? To, to solve a problem, to take
+程式碼，對嗎？去，解決問題，採取
+
+48
+00:01:49,046 --> 00:01:50,715
+some inputs and produce a result.
+一些輸入並產生結果。
+
+49
+00:01:51,292 --> 00:01:53,823
+Instead, a data structure of course is in
+相反，資料結構當然是在
+
+50
+00:01:53,920 --> 00:01:57,028
+the end in JavaScript an object. Even arrays
+JavaScript 中的結尾是一個物件。偶數陣列
+
+51
+00:01:57,284 --> 00:01:59,624
+are objects in the end, right? So we're
+到底是物體吧？所以我們是
+
+52
+00:01:59,624 --> 00:02:01,738
+going to build our custom object here
+將在這裡建立我們的自訂物件
+
+53
+00:02:01,787 --> 00:02:02,203
+therefore,
+所以，
+
+54
+00:02:02,972 --> 00:02:06,064
+and specifically I will build my own class
+具體來說，我將建立自己的課程
+
+55
+00:02:06,096 --> 00:02:08,756
+here so that we have a blueprint for our
+在這裡，我們有一個我們的藍圖
+
+56
+00:02:08,756 --> 00:02:10,903
+custom data structure and we can simply
+自訂資料結構，我們可以簡單地
+
+57
+00:02:10,919 --> 00:02:13,290
+instantiate our class to then have a new
+實例化我們的類，然後有一個新的
+
+58
+00:02:13,403 --> 00:02:15,325
+instance of our custom data structure.
+我們的自訂資料結構的實例。
+
+59
+00:02:16,030 --> 00:02:17,648
+And I think that should make a lot of sense
+我認為這應該很有意義
+
+60
+00:02:17,648 --> 00:02:19,427
+because if you recall
+因為如果你還記得
+
+61
+00:02:19,972 --> 00:02:23,179
+the recaps about Sets and Maps, there we
+關於集合和地圖的回顧，我們在那裡
+
+62
+00:02:23,323 --> 00:02:26,450
+also created a new Map or a new Set with the
+也建立了一個新的 Map 或一個新的 Set
+
+63
+00:02:26,450 --> 00:02:29,673
+constructor function. So those built-in data
+建構子。所以那些內建資料
+
+64
+00:02:29,673 --> 00:02:31,742
+structures also in the end are just
+結構最終也只是
+
+65
+00:02:31,998 --> 00:02:34,564
+constructor functions and therefore just
+建構子，因此只是
+
+66
+00:02:34,564 --> 00:02:36,328
+classes behind the scenes, you could say.
+你可以說是幕後的課程。
+
+67
+00:02:36,793 --> 00:02:38,893
+And by the way, for objects and arrays, it's
+順便說一句，對於物件和陣列，它是
+
+68
+00:02:38,893 --> 00:02:41,635
+not that different. We have those shortcuts
+沒那麼不同。我們有那些捷徑
+
+69
+00:02:41,699 --> 00:02:43,303
+with the square brackets and the curly
+用方括號和大括號
+
+70
+00:02:43,367 --> 00:02:46,157
+braces, but ultimately we can create an
+大括號，但最終我們可以創建一個
+
+71
+00:02:46,253 --> 00:02:48,562
+array with the array constructor function,
+帶有陣列建構子的陣列，
+
+72
+00:02:48,915 --> 00:02:51,319
+and we can also create an object with help
+我們還可以在幫助下創建一個物件
+
+73
+00:02:51,319 --> 00:02:53,515
+of the built-in object constructor function.
+內建物件建構函式。
+
+74
+00:02:53,563 --> 00:02:55,808
+So that's all how JavaScript works, and
+這就是 JavaScript 的工作原理，並且
+
+75
+00:02:55,808 --> 00:02:57,379
+that's what we're going to utilize here as
+這就是我們要在這裡使用的
+
+76
+00:02:57,491 --> 00:02:57,635
+well.
+出色地。
+
+77
+00:02:58,389 --> 00:03:00,200
+So I'm going to create a class, and I'll
+所以我要建立一個類，然後
+
+78
+00:03:00,200 --> 00:03:02,669
+name it LinkedList because we're going to
+將其命名為 LinkedList 因為我們想要
+
+79
+00:03:02,701 --> 00:03:05,827
+build a blueprint for a LinkedList object so
+為 LinkedList 物件建立一個藍圖，以便
+
+80
+00:03:05,827 --> 00:03:08,424
+that we later can build as many different
+我們以後可以建造盡可能多的不同的
+
+81
+00:03:08,536 --> 00:03:11,037
+linked lists as we want based on this
+基於此我們想要的鍊錶
+
+82
+00:03:11,037 --> 00:03:13,201
+blueprint. That's what classes are there
+藍圖。這就是那裡的課程
+
+83
+00:03:13,201 --> 00:03:13,441
+for.
+為了。
+
+84
+00:03:14,724 --> 00:03:17,049
+So what do we want to do inside of this
+那我們想在其中做什麼
+
+85
+00:03:17,049 --> 00:03:18,075
+LinkedList class?
+鍊錶類別？
+
+86
+00:03:19,213 --> 00:03:20,977
+Well, we should add a constructor function
+好吧，我們應該要加入一個建構函式
+
+87
+00:03:21,218 --> 00:03:23,334
+because the constructor function in a class
+因為類別中的建構函式
+
+88
+00:03:23,462 --> 00:03:26,477
+is the first code that executes whenever you
+是每當您執行的第一個程式碼
+
+89
+00:03:26,573 --> 00:03:30,469
+later call new LinkedList. So that is when
+稍後調用新的LinkedList。所以那就是當
+
+90
+00:03:30,501 --> 00:03:31,961
+we want to construct a LinkedList,
+我們想要建構一個 LinkedList，
+
+91
+00:03:33,003 --> 00:03:35,472
+LinkedList1. That is what we want to be able
+鍊錶1.這就是我們希望能夠做到的
+
+92
+00:03:35,472 --> 00:03:36,226
+to call later.
+稍後再打電話。
+
+93
+00:03:36,835 --> 00:03:39,144
+And of course, therefore, when we do that,
+當然，因此，當我們這樣做時，
+
+94
+00:03:39,192 --> 00:03:41,469
+something should happen, and that something
+應該會發生一些事情，並且發生一些事情
+
+95
+00:03:41,822 --> 00:03:44,376
+when new is used, well, that goes into the
+當使用 new 時，那麼，這就會進入
+
+96
+00:03:44,376 --> 00:03:45,323
+constructor function.
+建構子。
+
+97
+00:03:46,785 --> 00:03:49,339
+Now to get an idea for what we wanna do in
+現在來了解我們想要做什麼
+
+98
+00:03:49,435 --> 00:03:51,797
+the constructor function, let's again have a
+建構子，讓我們再來一個
+
+99
+00:03:51,797 --> 00:03:54,367
+look at how a linked list should look like
+看看鍊錶應該是什麼樣子
+
+100
+00:03:54,367 --> 00:03:54,656
+in the end.
+到底。
+
+101
+00:03:55,475 --> 00:03:57,435
+We have these elements in there
+我們裡面有這些元素
+
+102
+00:03:58,029 --> 00:04:00,278
+and we also typically call those elements in
+我們通常也會將這些元素稱為
+
+103
+00:04:00,278 --> 00:04:03,057
+a linked list nodes. So when you hear me say
+一個鍊錶節點。所以當你聽到我說
+
+104
+00:04:03,490 --> 00:04:06,864
+node, I mean an element in a linked list. So
+節點，我的意思是鍊錶中的元素。所以
+
+105
+00:04:06,864 --> 00:04:08,968
+we have these nodes in this linked list
+我們在這個鍊錶中有這些節點
+
+106
+00:04:08,968 --> 00:04:10,734
+example, we have 4 nodes.
+例如，我們有 4 個節點。
+
+107
+00:04:11,360 --> 00:04:14,137
+And to help us with efficiently inserting
+並幫助我們有效率地插入
+
+108
+00:04:14,426 --> 00:04:16,673
+new nodes, at least at the end and the
+新節點，至少在末尾和
+
+109
+00:04:16,673 --> 00:04:19,048
+beginning of the list, we also typically
+在列表的開頭，我們通常也
+
+110
+00:04:19,080 --> 00:04:21,696
+keep track of the first node, which is
+追蹤第一個節點，即
+
+111
+00:04:21,728 --> 00:04:24,682
+called the head node or just head, and the
+稱為頭節點或簡稱為頭，且
+
+112
+00:04:24,682 --> 00:04:27,234
+last node, which is called tail node or
+最後一個節點，稱為尾節點或
+
+113
+00:04:27,506 --> 00:04:27,779
+tail.
+尾巴。
+
+114
+00:04:28,646 --> 00:04:30,861
+So we have nodes in the linked list and we
+所以我們在鍊錶中有節點
+
+115
+00:04:30,861 --> 00:04:34,215
+got 2 specific nodes or 2 specific markers
+有 2 個特定節點或 2 個特定標記
+
+116
+00:04:34,408 --> 00:04:36,576
+which we wanna place end which we wanna keep
+我們想要放置的結束我們想要保留的
+
+117
+00:04:36,576 --> 00:04:39,243
+updated, and that's the head marker which
+更新了，這就是標頭標記
+
+118
+00:04:39,452 --> 00:04:41,621
+always points at the first node in the
+總是指向第一個節點
+
+119
+00:04:41,621 --> 00:04:44,657
+linked list and the tail marker which always
+鍊錶和尾部標記總是
+
+120
+00:04:44,754 --> 00:04:47,200
+points at the last node in the linked list.
+指向鍊錶中的最後一個節點。
+
+121
+00:04:47,667 --> 00:04:50,518
+And we'll need head and tail to make sure
+我們需要頭和尾來確保
+
+122
+00:04:50,872 --> 00:04:53,352
+that we can efficiently prepend and append
+我們可以有效地前置和附加
+
+123
+00:04:53,787 --> 00:04:55,404
+elements to that linked list.
+該連結列表的元素。
+
+124
+00:04:57,043 --> 00:05:00,092
+So nodes, head, and tail, these are a couple
+所以節點、頭和尾，這是一對
+
+125
+00:05:00,092 --> 00:05:01,131
+of important terms.
+的重要術語。
+
+126
+00:05:01,812 --> 00:05:04,772
+Now in the constructor, initially we have no
+現在在建構函式中，最初我們沒有
+
+127
+00:05:04,772 --> 00:05:07,726
+nodes because initially when we just create
+節點，因為最初當我們剛剛創建時
+
+128
+00:05:07,726 --> 00:05:09,732
+the linked list, it's an empty linked list.
+鍊錶，它是一個空鍊錶。
+
+129
+00:05:10,711 --> 00:05:13,472
+So therefore you could imagine that here you
+因此你可以想像在這裡你
+
+130
+00:05:13,504 --> 00:05:16,522
+want to, for example, add a nodes property
+例如，想要新增一個節點屬性
+
+131
+00:05:16,699 --> 00:05:19,283
+to our class and set this to an empty array,
+到我們的類別並將其設為空陣列，
+
+132
+00:05:19,685 --> 00:05:21,434
+right? That is something that could come to
+正確的？這是可能會發生的事情
+
+133
+00:05:21,434 --> 00:05:23,489
+your mind. You want to add this empty array
+你的想法。你要加入這個空陣列
+
+134
+00:05:23,778 --> 00:05:25,833
+and in this array you later want to manage
+在這個陣列中，您稍後想要管理
+
+135
+00:05:25,865 --> 00:05:26,314
+the nodes.
+節點。
+
+136
+00:05:27,390 --> 00:05:29,460
+We could do this, but if we do this, we're
+我們可以做到這一點，但如果我們這樣做，我們
+
+137
+00:05:29,557 --> 00:05:32,847
+back to basically just rebuilding an array.
+回到基本上只是重建一個陣列。
+
+138
+00:05:33,490 --> 00:05:35,689
+We would just wrap the built-in array with
+我們只需將內置陣列包裝起來
+
+139
+00:05:35,817 --> 00:05:36,861
+our own object,
+我們自己的物件，
+
+140
+00:05:37,407 --> 00:05:39,205
+and chances are that we
+很可能我們
+
+141
+00:05:39,751 --> 00:05:42,255
+don't really have a much better data
+確實沒有更好的資料
+
+142
+00:05:42,255 --> 00:05:45,289
+structure thereafter. Maybe we can improve
+此後的結構。也許我們可以改進
+
+143
+00:05:45,289 --> 00:05:48,163
+it in some parts, but ultimately I don't
+它在某些部分，但最終我不
+
+144
+00:05:48,163 --> 00:05:50,105
+just want to rebuild an array here.
+只是想在這裡重建一個陣列。
+
+145
+00:05:51,068 --> 00:05:53,557
+Instead, the idea will be that we don't
+相反，我們的想法是我們不
+
+146
+00:05:53,557 --> 00:05:55,836
+store the entire list anywhere.
+將整個清單儲存在任何地方。
+
+147
+00:05:56,591 --> 00:05:59,863
+We just store our different nodes and every
+我們只是儲存不同的節點和每個
+
+148
+00:05:59,911 --> 00:06:02,396
+node knows about the next node but every
+節點知道下一個節點，但每個
+
+149
+00:06:02,396 --> 00:06:04,672
+node itself does not necessarily know
+節點本身不一定知道
+
+150
+00:06:04,784 --> 00:06:06,467
+something about the list it's part of.
+關於它所屬的列表的一些資訊。
+
+151
+00:06:07,028 --> 00:06:09,096
+And the list also doesn't know all its
+而該列表也不知道其全部
+
+152
+00:06:09,096 --> 00:06:11,709
+nodes. Instead, the list should know the
+節點。相反，列表應該知道
+
+153
+00:06:11,918 --> 00:06:13,729
+first and the last node
+第一個和最後一個節點
+
+154
+00:06:14,306 --> 00:06:15,540
+of its list elements
+其列表元素的
+
+155
+00:06:16,406 --> 00:06:19,051
+and the nodes themselves then know about the
+然後節點本身就知道
+
+156
+00:06:19,051 --> 00:06:20,125
+next one in line.
+佇列中的下一個。
+
+157
+00:06:20,734 --> 00:06:23,107
+So there is no place where the entire list
+所以沒有地方可以存放整個列表
+
+158
+00:06:23,203 --> 00:06:23,267
+is
+是
+
+159
+00:06:23,796 --> 00:06:26,842
+stored, it's just implicitly stored because
+存儲，它只是隱式存儲，因為
+
+160
+00:06:26,842 --> 00:06:29,294
+a list knows its starting and ending value
+列表知道它的起始值和結束值
+
+161
+00:06:29,471 --> 00:06:31,685
+and every value then knows the next value in
+然後每個值都知道下一個值
+
+162
+00:06:31,717 --> 00:06:34,270
+line. That's the idea of a linked list. And
+線。這就是鍊錶的想法。和
+
+163
+00:06:34,350 --> 00:06:36,742
+therefore we won't have a nodes property
+因此我們不會有節點屬性
+
+164
+00:06:36,838 --> 00:06:39,599
+here. Instead, we'll have our head property,
+這裡。相反，我們將擁有我們的標頭財產，
+
+165
+00:06:40,145 --> 00:06:41,975
+which I add with this.head.
+我用 this.head 添加了它。
+
+166
+00:06:42,553 --> 00:06:44,447
+And initially that's null because initially
+最初它是空的，因為最初
+
+167
+00:06:44,479 --> 00:06:45,892
+we have no head property.
+我們沒有標頭財產。
+
+168
+00:06:46,566 --> 00:06:48,685
+And I'll add the tail property, which also
+我將添加 tail 屬性，這也
+
+169
+00:06:48,733 --> 00:06:49,552
+is null initially.
+最初為空。
+
+170
+00:06:50,178 --> 00:06:53,067
+And that will be the first element of the
+這將是第一個元素
+
+171
+00:06:53,131 --> 00:06:55,876
+list, and that here will be the last element
+列表，這裡將是最後一個元素
+
+172
+00:06:55,956 --> 00:06:58,493
+of the list. Initially both is null because
+列表中的。最初兩者都為空，因為
+
+173
+00:06:58,525 --> 00:07:00,339
+initially we have no elements.
+最初我們沒有元素。
+
+174
+00:07:00,933 --> 00:07:02,765
+Of course, you, by the way, could tweak the
+當然，順便說一句，你可以調整
+
+175
+00:07:02,765 --> 00:07:05,239
+constructor to accept a starting and ending
+接受開始與結束的建構函式
+
+176
+00:07:05,272 --> 00:07:07,666
+value if you wanted to, but here I'll start
+如果您願意的話，可以值，但我將從這裡開始
+
+177
+00:07:07,666 --> 00:07:10,381
+simple and not allow this functionality.
+簡單且不允許此功能。
+
+178
+00:07:11,474 --> 00:07:13,949
+So this is now my LinkedList constructor.
+這就是我的 LinkedList 建構子。
+
+179
+00:07:14,350 --> 00:07:16,488
+Not too exciting. Right now it's an empty
+不太令人興奮。現在它是一個空的
+
+180
+00:07:16,520 --> 00:07:16,857
+list.
+列表。
+
+181
+00:07:17,548 --> 00:07:19,894
+Now let's make sure we can add something to
+現在讓我們確保我們可以添加一些東西
+
+182
+00:07:19,894 --> 00:07:22,144
+the list. So therefore, we probably wanna
+名單。因此，我們可能想要
+
+183
+00:07:22,288 --> 00:07:24,763
+add an append method, and this is how we can
+加上一個追加方法，這就是我們可以做的
+
+184
+00:07:24,859 --> 00:07:26,048
+add a method in a class.
+在類別中加入方法。
+
+185
+00:07:26,787 --> 00:07:28,633
+Append should take a value,
+追加應該取一個值，
+
+186
+00:07:29,195 --> 00:07:31,538
+and that value can actually be of any kind.
+該值實際上可以是任何型別。
+
+187
+00:07:31,618 --> 00:07:33,239
+We don't care. Can be a string, can be a
+我們不在乎。可以是字串，也可以是
+
+188
+00:07:33,239 --> 00:07:34,989
+number, can be an object, can be an array.
+number，可以是物件，可以是陣列。
+
+189
+00:07:35,454 --> 00:07:37,011
+Everything is allowed. It should be some
+一切都是允許的。應該有一些
+
+190
+00:07:37,075 --> 00:07:37,412
+value,
+價值，
+
+191
+00:07:37,958 --> 00:07:40,703
+and that value should be added to our linked
+該值應該會添加到我們的連結中
+
+192
+00:07:40,767 --> 00:07:41,104
+list.
+列表。
+
+193
+00:07:42,212 --> 00:07:44,571
+Therefore, here I then want to create my
+因此，在這裡我想創建我的
+
+194
+00:07:45,887 --> 00:07:46,272
+newNode.
+新節點。
+
+195
+00:07:46,850 --> 00:07:48,327
+You can of course name this constant however
+你當然可以命名這個常數
+
+196
+00:07:48,327 --> 00:07:50,461
+you want, and that should always be an
+你想要的，那應該永遠是
+
+197
+00:07:50,622 --> 00:07:53,607
+object. Now, why is newNode an object and
+目的。現在，為什麼 newNode 是一個物件並且
+
+198
+00:07:53,623 --> 00:07:54,683
+not just a value?
+不只是一個值？
+
+199
+00:07:55,838 --> 00:07:57,909
+Because you have to keep in mind that every
+因為你必須記住，每一個
+
+200
+00:07:58,246 --> 00:08:00,926
+node knows about the next node in line.
+節點知道佇列中的下一個節點。
+
+201
+00:08:01,054 --> 00:08:02,836
+Every element knows about the next element.
+每個元素都知道下一個元素。
+
+202
+00:08:03,076 --> 00:08:05,548
+So it's not enough to just store the value.
+所以僅僅儲存值是不夠的。
+
+203
+00:08:05,965 --> 00:08:08,918
+We also need to store a pointer at the next
+我們還需要在下一個位置儲存一個指標
+
+204
+00:08:08,998 --> 00:08:11,325
+element in line. Otherwise, it's no linked
+行中的元素。不然就沒有連結了
+
+205
+00:08:11,325 --> 00:08:13,315
+list. Otherwise, it's a standalone value
+列表。否則，它是一個獨立的值
+
+206
+00:08:13,347 --> 00:08:14,567
+that doesn't know anything.
+那什麼都不知道。
+
+207
+00:08:15,177 --> 00:08:17,071
+And since our list also doesn't know all
+而且因為我們的清單也不知道全部
+
+208
+00:08:17,199 --> 00:08:19,494
+values, all values would be lost in the end.
+價值觀，一切價值觀最終都會消失。
+
+209
+00:08:20,072 --> 00:08:21,869
+So therefore, it's not enough to just store
+因此，僅僅儲存是不夠的
+
+210
+00:08:21,869 --> 00:08:24,277
+the value. We want an object instead.
+值。我們想要一個物件。
+
+211
+00:08:25,704 --> 00:08:27,628
+And this can be a very trivial object
+這可能是個非常瑣碎的物件
+
+212
+00:08:27,628 --> 00:08:30,160
+though. It would have a value property which
+儘管。它會有一個值屬性
+
+213
+00:08:30,257 --> 00:08:31,764
+holds the value we're getting.
+儲存我們得到的值。
+
+214
+00:08:32,373 --> 00:08:34,329
+So this is the name of the property, this is
+這是屬性的名稱，這是
+
+215
+00:08:34,361 --> 00:08:36,942
+the name of this parameter we're getting,
+我們得到的這個參數的名稱，
+
+216
+00:08:37,391 --> 00:08:39,747
+which value we're then storing as a value
+然後我們將哪個值儲存為值
+
+217
+00:08:39,891 --> 00:08:41,975
+for the value property. Okay, that's a lot
+對於值屬性。好吧，就這麼多了
+
+218
+00:08:41,975 --> 00:08:42,424
+of values,
+的價值觀，
+
+219
+00:08:43,098 --> 00:08:44,765
+but I think value is a name that makes sense
+但我認為價值是個有意義的名字
+
+220
+00:08:44,765 --> 00:08:44,941
+here.
+這裡。
+
+221
+00:08:45,583 --> 00:08:48,356
+So we have value stored as a property with
+所以我們將價值儲存為屬性
+
+222
+00:08:48,388 --> 00:08:49,975
+the input value we received here.
+我們在這裡收到的輸入值。
+
+223
+00:08:51,017 --> 00:08:53,422
+And then, that's important, we'll also add
+然後，這很重要，我們還將添加
+
+224
+00:08:53,422 --> 00:08:56,211
+another property which is called next, and
+另一個被稱為 next 的屬性，以及
+
+225
+00:08:56,323 --> 00:08:59,000
+this should point at the next element in
+這應該指向下一個元素
+
+226
+00:08:59,112 --> 00:08:59,337
+line.
+線。
+
+227
+00:09:00,395 --> 00:09:03,793
+Now of course, initially right now we have
+當然，現在一開始我們有
+
+228
+00:09:03,793 --> 00:09:06,502
+no next element, right? So this can simply
+沒有下一個元素，對嗎？所以這可以簡單地
+
+229
+00:09:06,582 --> 00:09:09,596
+be null, because if we just append a new
+為空，因為如果我們只是附加一個新的
+
+230
+00:09:10,029 --> 00:09:12,706
+element, append means that it's added at the
+元素，append表示它被加到
+
+231
+00:09:12,898 --> 00:09:13,876
+end of the list,
+列表末尾，
+
+232
+00:09:14,421 --> 00:09:18,124
+and naturally such an element never has a
+自然地，這樣的元素永遠不會有
+
+233
+00:09:18,124 --> 00:09:20,432
+pointer at some next element because it's
+指向下一個元素的指標，因為它是
+
+234
+00:09:20,432 --> 00:09:22,099
+the last one in the list. There is no next
+清單中的最後一個。沒有下一個了
+
+235
+00:09:22,276 --> 00:09:22,549
+element.
+元素。
+
+236
+00:09:23,511 --> 00:09:25,660
+So therefore, this is our new node which we
+因此，這是我們的新節點
+
+237
+00:09:25,660 --> 00:09:26,381
+want to create,
+想要創造，
+
+238
+00:09:27,167 --> 00:09:30,904
+and this node should then be added to our
+然後這個節點應該要被加到我們的
+
+239
+00:09:31,032 --> 00:09:33,341
+list. Now what does that mean? However,
+列表。現在這意味著什麼？然而，
+
+240
+00:09:33,903 --> 00:09:36,244
+we're not managing the list as an array, so
+我們沒有將列表作為陣列來管理，所以
+
+241
+00:09:36,244 --> 00:09:36,917
+we don't do
+我們不做
+
+242
+00:09:37,607 --> 00:09:40,654
+this.list.push or anything like that. That's
+this.list.push 或類似的東西。那是
+
+243
+00:09:40,654 --> 00:09:42,867
+not what we do because we have no list in
+不是我們所做的，因為我們沒有清單
+
+244
+00:09:42,915 --> 00:09:43,701
+its entirety.
+它的全部。
+
+245
+00:09:44,503 --> 00:09:47,790
+Instead, appending means that we now need to
+相反，追加意味著我們現在需要
+
+246
+00:09:47,854 --> 00:09:52,154
+go to the previously last element, so to our
+轉到之前的最後一個元素，所以到我們的
+
+247
+00:09:52,346 --> 00:09:52,635
+tail,
+尾巴，
+
+248
+00:09:53,630 --> 00:09:56,341
+and we need to update the next value
+我們需要更新下一個值
+
+249
+00:09:56,918 --> 00:09:57,528
+on the tail
+在尾巴上
+
+250
+00:09:58,122 --> 00:10:00,801
+and make sure that the next value of our
+並確保我們的下一個值
+
+251
+00:10:01,250 --> 00:10:04,763
+previous tail node now points at this new
+之前的尾節點現在指向這個新的
+
+252
+00:10:04,876 --> 00:10:06,704
+node. That is what we need to do.
+節點。這就是我們需要做的。
+
+253
+00:10:07,539 --> 00:10:08,421
+So for this,
+所以對於這個，
+
+254
+00:10:09,432 --> 00:10:11,244
+we should reach out to this tail
+我們應該伸手去觸碰這條尾巴
+
+255
+00:10:11,774 --> 00:10:14,373
+and then to the next property of the tail
+然後到尾部的下一個屬性
+
+256
+00:10:15,385 --> 00:10:18,085
+and set this equal to newNode.
+並將其設為等於 newNode。
+
+257
+00:10:18,905 --> 00:10:22,023
+So basically our newNode is now stored in
+所以基本上我們的 newNode 現在就儲存在
+
+258
+00:10:22,055 --> 00:10:24,837
+the next property of the previously last
+前一個屬性的下一個屬性
+
+259
+00:10:24,837 --> 00:10:25,117
+node.
+節點。
+
+260
+00:10:27,947 --> 00:10:31,089
+And once we updated the next property of our
+一旦我們更新了我們的下一個屬性
+
+261
+00:10:31,330 --> 00:10:31,943
+old tail,
+老尾巴，
+
+262
+00:10:32,716 --> 00:10:34,891
+we can override the tail property of this
+我們可以重寫它的 tail 屬性
+
+263
+00:10:34,891 --> 00:10:38,013
+constructor with our newNode. Now this does
+建構子與我們的 newNode.現在這確實
+
+264
+00:10:38,062 --> 00:10:41,361
+not mean that we replace the old tail object
+並不代表我們取代舊的 tail 物件
+
+265
+00:10:41,377 --> 00:10:44,726
+in memory. The old element that was our tail
+記憶中。舊元素就是我們的尾巴
+
+266
+00:10:44,919 --> 00:10:47,066
+previously still exists in memory.
+以前還存在於記憶中。
+
+267
+00:10:47,803 --> 00:10:50,512
+It's just that in this linked list object,
+只是在這個鍊錶物件中，
+
+268
+00:10:50,624 --> 00:10:53,429
+we store a new value for the tail property.
+我們為 tail 屬性儲存一個新值。
+
+269
+00:10:53,669 --> 00:10:55,640
+This does not delete the old object which
+這不會刪除舊物件
+
+270
+00:10:55,672 --> 00:10:58,317
+was the tail previously. It's just not tied
+之前是尾巴。只是沒有被束縛
+
+271
+00:10:58,317 --> 00:11:00,544
+to the tail property anymore. That's why
+到尾部財產了。這就是為什麼
+
+272
+00:11:00,544 --> 00:11:02,804
+this order here matters because here we
+這裡的順序很重要，因為在這裡我們
+
+273
+00:11:02,804 --> 00:11:05,304
+still reach out to the old tail and update
+仍然伸手到舊的尾巴並更新
+
+274
+00:11:05,448 --> 00:11:07,291
+the old tail's next property.
+老尾巴的下一個屬性。
+
+275
+00:11:08,077 --> 00:11:11,154
+And thereafter, we replace the old tail in
+此後，我們將舊的尾巴替換為
+
+276
+00:11:11,202 --> 00:11:13,269
+the linked list with our new node.
+帶有新節點的鍊錶。
+
+277
+00:11:14,169 --> 00:11:15,989
+Now the element which was our tail
+現在是我們尾巴的元素
+
+278
+00:11:16,183 --> 00:11:18,695
+previously still exists, and the next
+之前的仍然存在，接下來的
+
+279
+00:11:18,695 --> 00:11:21,659
+property of that previous tail element also
+前一個尾元素的屬性也是
+
+280
+00:11:21,659 --> 00:11:23,788
+still points at the new node. So that is not
+仍然指向新節點。所以那不是
+
+281
+00:11:23,871 --> 00:11:25,020
+overwritten by this line.
+被這一行覆蓋。
+
+282
+00:11:26,950 --> 00:11:28,633
+Now of course, this implementation has one
+當然，現在這個實作有一個
+
+283
+00:11:28,681 --> 00:11:31,401
+flaw. Initially tail is null, so reaching
+缺陷。最初 tail 為空，因此到達
+
+284
+00:11:31,498 --> 00:11:33,651
+out to the next property will fail.
+出到下一個屬性將會失敗。
+
+285
+00:11:34,230 --> 00:11:37,137
+So we should actually check if we have a
+所以我們實際上應該檢查我們是否有
+
+286
+00:11:37,268 --> 00:11:37,545
+tail
+尾巴
+
+287
+00:11:38,101 --> 00:11:40,004
+before we try to do so
+在我們嘗試這樣做之前
+
+288
+00:11:40,795 --> 00:11:44,183
+before we try to edit our old tail. If we
+在我們嘗試編輯舊尾巴之前。如果我們
+
+289
+00:11:44,264 --> 00:11:45,345
+don't have a tail,
+沒有尾巴，
+
+290
+00:11:45,894 --> 00:11:47,943
+so basically if our list is empty,
+所以基本上如果我們的清單是空的
+
+291
+00:11:48,524 --> 00:11:50,751
+then of course we don't want to update the
+那我們當然不想更新
+
+292
+00:11:50,880 --> 00:11:52,526
+tail because then there is nothing to
+尾巴，因為這樣就沒有什麼可做的了
+
+293
+00:11:52,558 --> 00:11:55,156
+update. So if we don't have a tail yet, it's
+更新。所以如果我們還沒有尾巴的話
+
+294
+00:11:55,156 --> 00:11:57,625
+enough to just set the tail to the new node.
+足以將尾部設定為新節點。
+
+295
+00:11:58,061 --> 00:12:00,134
+We always wanna do that, but we only wanna
+我們一直想這麼做，但我們只想
+
+296
+00:12:00,214 --> 00:12:02,207
+update the old tail if we have one.
+如果我們有的話，請更新舊的尾巴。
+
+297
+00:12:04,006 --> 00:12:07,203
+We also of course want to set our head equal
+我們當然也希望保持平等
+
+298
+00:12:07,235 --> 00:12:09,089
+to the new node if we don't have a head yet.
+如果我們還沒有頭的話，就到新節點。
+
+299
+00:12:09,902 --> 00:12:11,475
+Which would be the case if the list is still
+如果清單仍然是這樣的話，情況會怎樣
+
+300
+00:12:11,588 --> 00:12:11,845
+empty.
+空的。
+
+301
+00:12:12,567 --> 00:12:14,782
+So I also want to add another if check and
+所以我還想再增加一個 if 檢查和
+
+302
+00:12:14,879 --> 00:12:16,869
+check if we have a head property.
+檢查我們是否有 head 屬性。
+
+303
+00:12:17,527 --> 00:12:19,277
+And if we don't have it, hence the
+如果我們沒有它，那麼
+
+304
+00:12:19,277 --> 00:12:20,947
+exclamation mark, if head is
+驚嘆號，如果頭是
+
+305
+00:12:21,781 --> 00:12:24,430
+falsy, so if it's null for example, then I
+假的，所以如果它是空的，那麼我
+
+306
+00:12:24,494 --> 00:12:26,517
+want to set this head equal to the new node
+想要將此頭設定為等於新節點
+
+307
+00:12:26,581 --> 00:12:26,806
+as well.
+以及。
+
+308
+00:12:27,641 --> 00:12:28,171
+Typically
+通常
+
+309
+00:12:28,765 --> 00:12:31,429
+when we append a value, the head should not
+當我們附加一個值時，標頭不應該
+
+310
+00:12:31,494 --> 00:12:33,645
+be updated because the head is the first
+被更新，因為標頭是第一個
+
+311
+00:12:33,661 --> 00:12:35,828
+value of the list and appending means that
+列表的值和附加意味著
+
+312
+00:12:35,828 --> 00:12:37,850
+we add it at the end. But if the list is
+我們把它加到最後。但如果列表是
+
+313
+00:12:37,978 --> 00:12:40,047
+empty, if it has no element yet, if both
+空，如果它還沒有元素，如果兩者
+
+314
+00:12:40,223 --> 00:12:42,484
+head and tail is null, then of course the
+head 和 tail 為空，那當然
+
+315
+00:12:42,484 --> 00:12:44,649
+head should also be updated because then we
+head 也應該更新，因為這樣我們
+
+316
+00:12:44,649 --> 00:12:47,440
+just added the only new element to this
+剛剛新增了唯一的新元素
+
+317
+00:12:47,440 --> 00:12:49,492
+list. So now the list has exactly one
+列表。所以現在清單中只有一個
+
+318
+00:12:49,621 --> 00:12:52,042
+element, and of course that element then, if
+元素，當然還有那個元素，如果
+
+319
+00:12:52,042 --> 00:12:54,111
+it's the only element, is both head and
+它是唯一的元素，既是 head 又是
+
+320
+00:12:54,111 --> 00:12:56,164
+tail. So this is kind of a special case.
+尾巴。所以這是一個特殊情況。
+
+321
+00:12:56,901 --> 00:12:59,243
+So this is now an append function that
+所以現在這是一個附加函式
+
+322
+00:12:59,243 --> 00:13:00,509
+should do the trick.
+應該可以解決問題。
+
+323
+00:13:01,728 --> 00:13:04,605
+Now in order to see Whether our linked list
+現在為了看看我們的鍊錶是否
+
+324
+00:13:04,686 --> 00:13:07,360
+and its append function works, we also
+它的附加功能有效，我們也
+
+325
+00:13:07,360 --> 00:13:09,357
+certainly want some method in our linked
+當然需要我們連結中的一些方法
+
+326
+00:13:09,357 --> 00:13:12,112
+list that outputs all the nodes so that we
+輸出所有節點的列表，以便我們
+
+327
+00:13:12,112 --> 00:13:14,480
+can print it to the console, for example.
+例如，可以將其列印到控制台。
+
+328
+00:13:15,011 --> 00:13:16,461
+That's something we're going to implement
+這就是我們要實施的事情
+
+329
+00:13:16,526 --> 00:13:16,864
+next.
+下一個。

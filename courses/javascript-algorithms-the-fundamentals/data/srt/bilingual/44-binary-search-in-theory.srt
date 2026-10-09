@@ -1,0 +1,344 @@
+1
+00:00:02,195 --> 00:00:04,294
+We learned about linear search. Now it's
+我們學習了線性搜尋。現在是
+
+2
+00:00:04,358 --> 00:00:05,784
+time for binary search.
+進行二分查找的時間。
+
+3
+00:00:06,361 --> 00:00:09,694
+Binary search is an algorithm that actually
+二分查找其實是一種演算法
+
+4
+00:00:09,870 --> 00:00:12,081
+will give us a result better than linear
+會給我們一個比線性更好的結果
+
+5
+00:00:12,194 --> 00:00:13,139
+time complexity,
+時間複雜度，
+
+6
+00:00:13,796 --> 00:00:16,232
+and it also solves the problem of finding a
+並且它還解決了尋找問題
+
+7
+00:00:16,232 --> 00:00:18,908
+certain element in a list of elements.
+元素清單中的某個元素。
+
+8
+00:00:19,484 --> 00:00:22,144
+However, there is one important restriction
+然而，有一個重要的限制
+
+9
+00:00:22,144 --> 00:00:23,250
+with binary search.
+用二分查找。
+
+10
+00:00:24,227 --> 00:00:27,096
+Linear search worked on ordered and
+線性搜尋適用於有序和
+
+11
+00:00:27,416 --> 00:00:30,558
+unordered lists. So the list didn't have to
+無序列表。所以這個清單不必
+
+12
+00:00:30,558 --> 00:00:32,899
+be sorted. The items in the array could be
+被排序。陣列中的專案可以是
+
+13
+00:00:32,899 --> 00:00:33,684
+in any order.
+以任何順序。
+
+14
+00:00:34,886 --> 00:00:37,595
+Binary search, on the other hand, only works
+另一方面，二分搜尋僅有效
+
+15
+00:00:37,676 --> 00:00:39,888
+on ordered lists. It does not work on
+在有序列表上。它不起作用
+
+16
+00:00:40,080 --> 00:00:42,565
+unordered lists. So you need to sort your
+無序列表。所以你需要對你的
+
+17
+00:00:42,565 --> 00:00:45,466
+list first. And of course, you need to take
+先列出來。當然，你需要採取
+
+18
+00:00:45,466 --> 00:00:48,031
+that into account. If you have an unordered
+考慮到這一點。如果你有一個無序的
+
+19
+00:00:48,031 --> 00:00:51,237
+list and you need to sort that first, even
+列表，你需要先對其進行排序，甚至
+
+20
+00:00:51,237 --> 00:00:53,594
+the fact that binary search, as you will
+事實上，二分搜尋，就像你會的那樣
+
+21
+00:00:53,642 --> 00:00:56,415
+learn, performs better than linear search
+學習，比線性搜尋表現更好
+
+22
+00:00:56,912 --> 00:00:58,980
+doesn't help that much because that sorting
+沒有多大幫助，因為排序
+
+23
+00:00:58,900 --> 00:00:59,749
+sorting of the
+的排序
+
+24
+00:01:00,293 --> 00:01:03,210
+list also takes up some performance. We'll
+list 也占用了一些性能。出色地
+
+25
+00:01:03,258 --> 00:01:05,677
+dive into sort algorithms in the next
+接下來深入研究排序演算法
+
+26
+00:01:05,677 --> 00:01:07,471
+section, by the way. For now, let's focus on
+順便說一下。現在，讓我們重點關注
+
+27
+00:01:07,584 --> 00:01:07,840
+search.
+搜尋.
+
+28
+00:01:08,721 --> 00:01:11,621
+So for binary search to work, you need a
+因此，要使二分搜尋起作用，您需要一個
+
+29
+00:01:11,653 --> 00:01:14,377
+sorted list. You need a list where all the
+排序列表。您需要一個列表，其中包含所有
+
+30
+00:01:14,377 --> 00:01:17,373
+items are sorted in some order, ascending or
+專案按某種順序排序，升序或
+
+31
+00:01:17,437 --> 00:01:19,408
+descending, up to you, typically ascending.
+下降，由您決定，通常是上升。
+
+32
+00:01:19,841 --> 00:01:22,036
+Now for this module, we'll assume we just
+現在對於這個模組，我們假設我們只是
+
+33
+00:01:22,084 --> 00:01:24,663
+have such lists. In the next module, we will
+有這樣的清單。在下一個模組中，我們將
+
+34
+00:01:24,728 --> 00:01:26,955
+learn how we can sort arrays with different
+了解如何使用不同的方法對陣列進行排序
+
+35
+00:01:26,955 --> 00:01:27,467
+algorithms.
+演算法.
+
+36
+00:01:28,559 --> 00:01:31,016
+Now if you have a sorted array, what you do
+現在如果你有一個排序陣列，你會做什麼
+
+37
+00:01:31,064 --> 00:01:33,377
+with binary search is in the end you find
+用二分找最後就是你找到的
+
+38
+00:01:33,377 --> 00:01:35,336
+the median, you find the element in the
+中位數，您可以找到其中的元素
+
+39
+00:01:35,336 --> 00:01:37,601
+middle. Now if you have an array with, let's
+中間。現在如果你有一個陣列，讓我們
+
+40
+00:01:37,601 --> 00:01:39,994
+say, 6 items instead of 7 as we have here,
+比如說，6 個專案而不是我們這裡的 7 個專案，
+
+41
+00:01:40,379 --> 00:01:43,174
+then you take, uh, one item below the
+然後你拿，呃，下面的一項
+
+42
+00:01:43,174 --> 00:01:45,502
+theoretical middle. So you take the item
+理論中。所以你拿走該物品
+
+43
+00:01:45,583 --> 00:01:47,911
+closest to the middle of the list, and then
+最靠近清單中間的位置，然後
+
+44
+00:01:47,911 --> 00:01:48,377
+what you do
+你做什麼
+
+45
+00:01:49,036 --> 00:01:50,818
+is you check if that's the item you're
+你檢查一下這是否是你想要的物品嗎
+
+46
+00:01:50,818 --> 00:01:53,709
+looking for. So here I'm looking for 5. 10
+尋找。所以我在這裡尋找 5. 10
+
+47
+00:01:53,709 --> 00:01:55,090
+is in the middle, that's That's not the item
+在中間，那不是該專案
+
+48
+00:01:55,090 --> 00:01:57,082
+I'm looking for, but that's what we do
+我在尋找，但這就是我們所做的
+
+49
+00:01:57,082 --> 00:01:59,186
+first. We check if it is the item we're
+第一的。我們檢查它是否是我們想要的物品
+
+50
+00:01:59,186 --> 00:02:01,338
+looking for. Now, if it's not the element
+尋找。現在，如果它不是元素
+
+51
+00:02:01,338 --> 00:02:03,570
+we're looking for, we take the half of the
+我們正在尋找，我們拿了一半
+
+52
+00:02:03,570 --> 00:02:06,702
+list in which the item must be. Since it's
+該專案必須在其中的清單。既然是
+
+53
+00:02:06,702 --> 00:02:09,111
+sorted, we can find out if the item we're
+排序後，我們可以找出我們正在排序的專案
+
+54
+00:02:09,192 --> 00:02:11,810
+looking for is smaller or bigger than the
+尋找比
+
+55
+00:02:11,922 --> 00:02:15,054
+item we just checked. So 10 is bigger. Since
+我們剛剛檢查過的專案。所以 10 更大。自從
+
+56
+00:02:15,054 --> 00:02:17,319
+the list is sorted, we know that the item
+清單已排序，我們知道該專案
+
+57
+00:02:17,319 --> 00:02:19,792
+we're looking for, the 5, has to be in the
+我們正在尋找的 5 必須位於
+
+58
+00:02:19,792 --> 00:02:21,414
+first half of the list.
+清單的前半部。
+
+59
+00:02:22,378 --> 00:02:24,160
+So we then take this as a new list,
+所以我們把它當作一個新列表，
+
+60
+00:02:24,770 --> 00:02:28,384
+and on that list we repeat the process. We
+在那個清單上我們重複這個過程。我們
+
+61
+00:02:28,400 --> 00:02:30,102
+again have a look at the middle, check if
+再次看中間，檢查是否
+
+62
+00:02:30,102 --> 00:02:31,933
+it's the item we're looking for, and if not,
+這是我們正在尋找的物品，如果不是，
+
+63
+00:02:32,077 --> 00:02:34,390
+check in which half the item has to be, and
+檢查該專案必須是哪一半，以及
+
+64
+00:02:34,518 --> 00:02:36,718
+so on. That's binary search.
+很快。這就是二分查找。
+
+65
+00:02:37,393 --> 00:02:39,416
+And because we're splitting this in half
+因為我們要把它分成兩半
+
+66
+00:02:39,481 --> 00:02:42,114
+every time, we will actually be able to do
+每次，我們實際上都能做到
+
+67
+00:02:42,211 --> 00:02:44,780
+better than linear time complexity, as you
+比線性時間複雜度更好，因為你
+
+68
+00:02:44,780 --> 00:02:45,069
+will learn.
+會學習的。
+
+69
+00:02:46,065 --> 00:02:47,607
+Now let's implement this algorithm.
+現在讓我們來實作這個演算法。

@@ -1,0 +1,329 @@
+1
+00:00:02,296 --> 00:00:04,705
+So now we explored the built-in data
+現在我們探索內建資料
+
+2
+00:00:04,705 --> 00:00:07,242
+structures you have in JavaScript. This
+JavaScript 中的結構。這
+
+3
+00:00:07,242 --> 00:00:10,277
+course, however, of course is not focused on
+當然，然而，當然不是重點
+
+4
+00:00:10,309 --> 00:00:12,766
+those built-in data structures. You already
+那些內建的資料結構。你已經
+
+5
+00:00:12,798 --> 00:00:14,774
+know these and you'll learn about them in
+了解這些，你就會了解它們
+
+6
+00:00:15,031 --> 00:00:16,974
+every JavaScript course like in my
+每門 JavaScript 課程都像我的
+
+7
+00:00:17,198 --> 00:00:19,110
+JavaScript: The Complete Guide course.
+JavaScript：完整指南課程。
+
+8
+00:00:19,704 --> 00:00:22,113
+Instead, this course is about custom data
+相反，本課程是關於自訂資料的
+
+9
+00:00:22,129 --> 00:00:25,212
+structures and that's why now we're going to
+結構，這就是為什麼現在我們要
+
+10
+00:00:25,228 --> 00:00:28,070
+dive into the linked list. Custom data
+深入鍊錶。自訂資料
+
+11
+00:00:28,070 --> 00:00:30,946
+structure, our first very custom data
+結構，我們的第一個非常客製化的資料
+
+12
+00:00:30,946 --> 00:00:32,809
+structure which we're going to build from
+我們要建構的結構
+
+13
+00:00:32,873 --> 00:00:33,323
+scratch.
+刮痕。
+
+14
+00:00:34,062 --> 00:00:35,844
+First of all, before we build it, however,
+然而，首先，在我們建造它之前，
+
+15
+00:00:35,925 --> 00:00:38,222
+let's understand what it is and how it
+讓我們了解它是什麼以及它是如何實現的
+
+16
+00:00:38,318 --> 00:00:40,936
+works, and we'll then later also explore why
+有效，稍後我們也會探討為什麼
+
+17
+00:00:41,048 --> 00:00:43,795
+we might need or want this custom data
+我們可能需要或想要這個自訂資料
+
+18
+00:00:43,795 --> 00:00:46,124
+structure and what sets it apart from the
+結構以及它與
+
+19
+00:00:46,124 --> 00:00:46,815
+built-in ones.
+內建的。
+
+20
+00:00:47,794 --> 00:00:49,802
+A linked list, in the end, as the name
+一個鍊錶，到底如名字
+
+21
+00:00:49,834 --> 00:00:52,709
+implies, is a list data structure, so a bit
+意味著，是一個列表資料結構，所以有點
+
+22
+00:00:52,709 --> 00:00:53,271
+like an array.
+就像一個陣列。
+
+23
+00:00:53,898 --> 00:00:56,693
+We can store values in there values of any
+我們可以將值儲存在任何值中
+
+24
+00:00:56,709 --> 00:00:58,829
+kind, for example, numbers, strings,
+種類，例如數字、字串、
+
+25
+00:00:59,359 --> 00:01:00,515
+objects, whatever you want.
+物件，無論你想要什麼。
+
+26
+00:01:01,125 --> 00:01:04,000
+And in a linked list, the interesting thing
+在鍊錶中，有趣的是
+
+27
+00:01:04,112 --> 00:01:07,790
+is that you don't work with indexes as in an
+是你不使用索引
+
+28
+00:01:07,790 --> 00:01:08,079
+array,
+大批，
+
+29
+00:01:08,754 --> 00:01:11,308
+and you also don't just have unique values
+而且你不僅有獨特的價值觀
+
+30
+00:01:11,404 --> 00:01:12,255
+like in a set,
+就像在一個集合中一樣，
+
+31
+00:01:12,785 --> 00:01:16,222
+but instead every element in the linked list
+而是鍊錶中的每個元素
+
+32
+00:01:16,543 --> 00:01:19,948
+does not just know its value, but it also
+不僅知道它的價值，還知道它的價值
+
+33
+00:01:19,996 --> 00:01:23,835
+has a pointer at the next element in line,
+有一個指向行中下一個元素的指標，
+
+34
+00:01:24,670 --> 00:01:25,683
+and that continues.
+這樣的情況還在繼續。
+
+35
+00:01:26,357 --> 00:01:29,137
+So a linked list— and that's where the name
+所以是一個鍊錶——這就是名字的所在
+
+36
+00:01:29,169 --> 00:01:32,848
+comes from— is a list full of elements that
+來自－是一個充滿元素的列表
+
+37
+00:01:32,848 --> 00:01:35,547
+are linked to each other. So every element
+是相互關聯的。所以每個元素
+
+38
+00:01:35,659 --> 00:01:37,748
+knows about the next element in line and
+知道行中的下一個元素並且
+
+39
+00:01:38,069 --> 00:01:39,660
+only about that element.
+僅關於該元素。
+
+40
+00:01:40,238 --> 00:01:42,728
+An element does not know about the element
+一個元素不知道該元素
+
+41
+00:01:42,744 --> 00:01:45,154
+in front of it. So for example, here, hi
+在它的前面。例如，在這裡，嗨
+
+42
+00:01:45,556 --> 00:01:48,801
+knows nothing about 5. Hi only knows about
+對 5 一無所知。嗨，只知道
+
+43
+00:01:48,994 --> 00:01:49,106
+8.
+8.
+
+44
+00:01:49,957 --> 00:01:51,690
+And that is how the entire list is then
+這就是整個清單的樣子
+
+45
+00:01:51,738 --> 00:01:53,759
+structured. So every element knows about the
+結構化。所以每個元素都知道
+
+46
+00:01:53,759 --> 00:01:54,562
+next element.
+下一個元素。
+
+47
+00:01:55,107 --> 00:01:58,155
+Now, why might we want or need such a linked
+現在，為什麼我們想要或需要這樣一個連結
+
+48
+00:01:58,155 --> 00:01:58,412
+list?
+列表？
+
+49
+00:01:59,038 --> 00:02:01,749
+Linked lists historically were invented
+歷史上鍊錶是被發明的
+
+50
+00:02:01,765 --> 00:02:02,519
+because they
+因為他們
+
+51
+00:02:03,113 --> 00:02:04,926
+were really flexible when it came to
+當涉及到時我們真的很靈活
+
+52
+00:02:05,359 --> 00:02:07,894
+resizing the list and for memory management.
+調整清單大小和記憶體管理。
+
+53
+00:02:08,407 --> 00:02:11,006
+And even today, they bring one important
+即使在今天，他們也帶來了一個重要的
+
+54
+00:02:11,006 --> 00:02:14,359
+advantage, and that is that the insertion at
+優點，那就是插入
+
+55
+00:02:14,359 --> 00:02:16,814
+the start and also typically at the end of
+開始時，通常在也結束時
+
+56
+00:02:16,846 --> 00:02:20,119
+the list is very efficient more efficient so
+該列表非常有效 更有效所以
+
+57
+00:02:20,199 --> 00:02:22,172
+than in an array. But again, I will come
+比在陣列中。但我還是會來
+
+58
+00:02:22,285 --> 00:02:24,146
+back to that comparison later.
+稍後再回到那個比較。
+
+59
+00:02:25,269 --> 00:02:28,365
+So that is a linked list and how it should
+這就是一個鍊錶以及它應該如何
+
+60
+00:02:28,542 --> 00:02:31,510
+work. How could we now implement such a
+工作。我們現在如何實現這樣一個
+
+61
+00:02:31,510 --> 00:02:33,612
+linked list? How could the code for such a
+連結列表？這樣的程式碼怎麼可能
+
+62
+00:02:33,612 --> 00:02:36,323
+linked list look like? Thereafter, once we
+鍊錶是什麼樣子的？此後，一旦我們
+
+63
+00:02:36,323 --> 00:02:38,537
+have that code, we'll compare it to the
+有了該程式碼，我們將其與
+
+64
+00:02:38,585 --> 00:02:40,639
+array and again come back to the question
+陣列並再次回到問題
+
+65
+00:02:41,072 --> 00:02:43,880
+why and when you might want to use a linked
+為什麼以及何時您可能想要使用連結
+
+66
+00:02:43,880 --> 00:02:44,217
+list.
+列表。

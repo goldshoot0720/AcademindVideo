@@ -1,0 +1,254 @@
+1
+00:00:02,436 --> 00:00:05,418
+So we built a tree and some nodes. We added
+所以我們建構了一棵樹和一些節點。我們添加了
+
+2
+00:00:05,418 --> 00:00:07,790
+methods to add and remove nodes and
+新增和刪除節點的方法以及
+
+3
+00:00:08,031 --> 00:00:09,409
+therefore data to the tree.
+因此資料到樹。
+
+4
+00:00:10,435 --> 00:00:13,481
+And we actually also already had a first
+我們其實也已經有了第一個
+
+5
+00:00:13,481 --> 00:00:16,671
+look at the time complexity that it takes to
+看看它所需的時間複雜度
+
+6
+00:00:16,703 --> 00:00:18,434
+do those various things.
+做那些不同的事情。
+
+7
+00:00:19,332 --> 00:00:22,522
+Now I wanna dig deeper into the subject of
+現在我想更深入地探討這個主題
+
+8
+00:00:22,794 --> 00:00:26,337
+finding nodes in a tree. And that's also
+尋找樹中的節點。這也是
+
+9
+00:00:26,337 --> 00:00:29,864
+sometimes called traversing a tree. We wanna
+有時稱為遍歷樹。我們想要
+
+10
+00:00:29,864 --> 00:00:32,397
+move through the data in our tree tree
+在我們的樹中移動資料
+
+11
+00:00:32,573 --> 00:00:34,899
+through the different nodes to find a
+透過不同的節點找到
+
+12
+00:00:34,899 --> 00:00:37,866
+certain element. That can be relevant for a
+某些元素。這可能與
+
+13
+00:00:37,866 --> 00:00:40,657
+tree like ours, for a file system tree. It
+像我們的樹一樣，用於檔案系統樹。它
+
+14
+00:00:40,657 --> 00:00:43,078
+could also be relevant for the DOM tree if
+也可能與 DOM 樹相關，如果
+
+15
+00:00:43,078 --> 00:00:45,965
+you're searching for an HTML element on the
+您正在搜尋 HTML 元素
+
+16
+00:00:46,029 --> 00:00:46,334
+page.
+頁。
+
+17
+00:00:47,409 --> 00:00:49,959
+And when it comes to traversing a tree, when
+當涉及到遍歷一棵樹時，
+
+18
+00:00:49,959 --> 00:00:51,499
+you're building your own tree,
+你正在建造自己的樹，
+
+19
+00:00:52,044 --> 00:00:55,027
+you can implement this search algorithm
+你可以實現這個搜尋演算法
+
+20
+00:00:55,572 --> 00:00:58,636
+in 2 different ways. There are 2 ways of
+以兩種不同的方式。有2種方法
+
+21
+00:00:58,636 --> 00:01:01,314
+searching for something in a tree. There are
+在树上寻找东西。有
+
+22
+00:01:01,506 --> 00:01:05,097
+2 ways of moving through a tree. You can go
+穿過樹的 2 種方法。你可以走了
+
+23
+00:01:05,194 --> 00:01:05,931
+through a tree
+穿過一棵樹
+
+24
+00:01:06,492 --> 00:01:09,971
+depth-first and breadth-first. Now what's
+深度優先和廣度優先。現在是什麼
+
+25
+00:01:10,003 --> 00:01:10,548
+the difference?
+區別？
+
+26
+00:01:11,205 --> 00:01:14,187
+If you explore a tree depth-first, if you're
+如果你深度優先探索一棵樹，如果你
+
+27
+00:01:14,251 --> 00:01:17,137
+looking for an element depth-first, you
+尋找深度優先的元素，你
+
+28
+00:01:17,137 --> 00:01:19,782
+first of all go down an entire path in your
+首先，沿著你的整個路徑走下去
+
+29
+00:01:19,798 --> 00:01:22,491
+tree like this, all the orange nodes,
+像這樣的樹，所有橘色節點，
+
+30
+00:01:23,149 --> 00:01:25,842
+and then only once you explored an entire
+然後只有當你探索了整個
+
+31
+00:01:26,130 --> 00:01:29,390
+path you move to the sibling nodes in that
+移動到該節點的同級節點的路徑
+
+32
+00:01:29,566 --> 00:01:31,654
+branch you're looking at and later also the
+您正在查看的分支以及稍後的分支
+
+33
+00:01:31,751 --> 00:01:33,437
+other branches you got in your tree.
+你在樹上得到的其他樹枝。
+
+34
+00:01:34,256 --> 00:01:36,216
+Now, if you're looking for something
+現在，如果你正在尋找一些東西
+
+35
+00:01:36,489 --> 00:01:37,549
+breadth-first,
+廣度優先，
+
+36
+00:01:38,159 --> 00:01:40,151
+you take a different approach. There, you
+你採取不同的方法。在那裡，你
+
+37
+00:01:40,183 --> 00:01:43,122
+don't dig into one path and drill deeply
+不要一刀切、深鑽
+
+38
+00:01:43,299 --> 00:01:44,439
+into the tree immediately.
+立即進入樹中。
+
+39
+00:01:44,985 --> 00:01:47,507
+Instead, you simply move through different
+相反，你只需通過不同的
+
+40
+00:01:47,507 --> 00:01:50,494
+siblings on one level and only if you don't
+一級兄弟姊妹，只有當你不這樣做時
+
+41
+00:01:50,526 --> 00:01:51,586
+find your element there,
+在那裡找到你的元素，
+
+42
+00:01:52,132 --> 00:01:54,461
+you look into the next level and go through
+你會進入下一個層次並經歷
+
+43
+00:01:54,461 --> 00:01:57,044
+the siblings there. So these are really just
+那裡的兄弟姊妹。所以這些真的只是
+
+44
+00:01:57,108 --> 00:02:00,218
+2 different ways of traversing a tree, of
+遍歷樹的兩種不同方式
+
+45
+00:02:00,266 --> 00:02:03,231
+moving through a tree to find something. Now
+穿過一棵樹去尋找東西。現在
+
+46
+00:02:03,359 --> 00:02:06,229
+let's add a search algorithm, a find method
+讓我們加入一個搜尋演算法，一個 find 方法
+
+47
+00:02:06,325 --> 00:02:08,777
+to our basic tree here, and let's implement
+到這裡的基本樹，讓我們實現
+
+48
+00:02:08,825 --> 00:02:11,598
+it in both ways so that we can get a feeling
+兩種方式都可以讓我們有一種感覺
+
+49
+00:02:11,694 --> 00:02:14,259
+for how it looks like. And of course, I'll
+看看它的樣子。當然，我會
+
+50
+00:02:14,259 --> 00:02:17,208
+thereafter also share some information about
+此後也分享一些有關
+
+51
+00:02:17,384 --> 00:02:18,859
+when to use which approach.
+何時使用哪種方法。

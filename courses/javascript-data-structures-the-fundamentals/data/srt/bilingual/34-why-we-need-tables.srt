@@ -1,0 +1,1199 @@
+1
+00:00:02,214 --> 00:00:05,312
+So here I'm back in code in an empty app.js
+所以我回到了空 app.js 中的程式碼
+
+2
+00:00:05,328 --> 00:00:07,735
+file, and I wanna start very simple. I wanna
+檔案，我想開始很簡單。我想要
+
+3
+00:00:07,735 --> 00:00:08,955
+show you an example
+給你看一個例子
+
+4
+00:00:09,484 --> 00:00:09,693
+for
+為了
+
+5
+00:00:10,222 --> 00:00:14,491
+why we might need key-value stores, why we
+為什麼我們可能需要鍵值存儲，為什麼我們
+
+6
+00:00:14,491 --> 00:00:16,802
+might be interested in storing values for
+可能有興趣儲存以下值
+
+7
+00:00:16,802 --> 00:00:19,659
+keys instead of working with indexes only.
+鍵而不是僅使用索引。
+
+8
+00:00:20,092 --> 00:00:21,681
+Because that of course would be the
+因為那當然是
+
+9
+00:00:21,681 --> 00:00:24,137
+alternative, right? We could work just with
+另一種選擇，對吧？我們可以與
+
+10
+00:00:24,185 --> 00:00:27,874
+arrays, just with indexes, And we could work
+陣列，只有索引，我們可以工作
+
+11
+00:00:27,874 --> 00:00:30,053
+with just what we have already therefore,
+就我們已經擁有的而言，
+
+12
+00:00:30,502 --> 00:00:32,858
+and we wouldn't need objects. Well, let's
+我們不需要物件。好吧，讓我們
+
+13
+00:00:32,922 --> 00:00:35,422
+write a simple algorithm here. Let's say we
+在這裡寫一個簡單的演算法。假設我們
+
+14
+00:00:35,486 --> 00:00:36,688
+have a word,
+說句話，
+
+15
+00:00:37,553 --> 00:00:38,691
+and that could be
+那可能是
+
+16
+00:00:39,957 --> 00:00:40,582
+Academind,
+學術界，
+
+17
+00:00:41,479 --> 00:00:42,457
+my company basically.
+我的公司基本上是。
+
+18
+00:00:43,322 --> 00:00:46,351
+And we now wanna write an algorithm that
+現在我們想寫一個演算法
+
+19
+00:00:46,383 --> 00:00:49,588
+finds the first repeating character.
+找到第一個重複字元。
+
+20
+00:00:50,389 --> 00:00:51,703
+So in this case, the
+所以在這種情況下，
+
+21
+00:00:52,297 --> 00:00:54,463
+a, let's say. Let's actually write it
+一個，比方說。我們來實際寫一下
+
+22
+00:00:54,463 --> 00:00:56,132
+lowercase here so that this is really
+這裡小寫，所以這實際上是
+
+23
+00:00:56,164 --> 00:00:57,577
+repeating and it's really the same
+重複，真的是一樣的
+
+24
+00:00:57,673 --> 00:01:00,642
+character. So the a is the first character
+特點。所以 a 是第一個字符
+
+25
+00:01:00,658 --> 00:01:01,733
+that's repeating here.
+這又在這裡重複了。
+
+26
+00:01:03,001 --> 00:01:05,488
+The d would be the second character. But we
+d 將是第二個字元。但我們
+
+27
+00:01:05,488 --> 00:01:07,559
+now want to write an algorithm that finds
+現在想寫一個演算法來找到
+
+28
+00:01:07,559 --> 00:01:09,806
+the first repeating character. This is a
+第一個重複字元。這是一個
+
+29
+00:01:09,806 --> 00:01:12,149
+question you might be asked for in an
+您可能會被問到的問題
+
+30
+00:01:12,213 --> 00:01:14,524
+interview, to write such an algorithm. And
+面試，寫這麼演算法。和
+
+31
+00:01:14,540 --> 00:01:16,353
+sometimes you might have problems you need
+有時你可能會遇到你需要的問題
+
+32
+00:01:16,386 --> 00:01:18,843
+to solve in real programs where you need to
+在實際程式中解決您需要的問題
+
+33
+00:01:18,875 --> 00:01:19,841
+do something similar.
+做類似的事情。
+
+34
+00:01:20,469 --> 00:01:22,852
+Now, how could we solve this problem?
+現在，我們要如何解決這個問題呢？
+
+35
+00:01:22,981 --> 00:01:23,464
+Therefore,
+所以，
+
+36
+00:01:24,655 --> 00:01:27,393
+our first naive implementation would be that
+我們的第一個天真的實作是
+
+37
+00:01:27,393 --> 00:01:28,717
+we have a nested loop.
+我們有一個巢狀迴圈。
+
+38
+00:01:29,671 --> 00:01:31,094
+We write a function
+我們寫一個函式
+
+39
+00:01:32,890 --> 00:01:35,591
+find_first_rep— the name is up to you—
+find_first_rep—名稱由您決定—
+
+40
+00:01:36,286 --> 00:01:39,524
+and this takes some text, some string, as an
+這需要一些文字、一些字串作為
+
+41
+00:01:39,524 --> 00:01:39,832
+input.
+輸入。
+
+42
+00:01:40,755 --> 00:01:42,456
+And in there, we write a for loop
+在那裡，我們編寫一個 for 迴圈
+
+43
+00:01:43,006 --> 00:01:46,302
+where we start at i equal to 0 and we loop
+我們從 i 等於 0 開始迴圈
+
+44
+00:01:46,383 --> 00:01:49,149
+as long as i is smaller than the length of
+只要 i 小於 的長度
+
+45
+00:01:49,149 --> 00:01:50,767
+the string and we increment i.
+字串，然後我們增加 i。
+
+46
+00:01:52,392 --> 00:01:55,037
+Now in this loop, we write another nested
+現在在這個迴圈中，我們寫另一個嵌套
+
+47
+00:01:55,037 --> 00:01:57,747
+loop with j, which is basically i+ 1,
+用 j 迴圈，基本上是 i+ 1，
+
+48
+00:01:58,989 --> 00:02:01,022
+and where we also loop as long as that is
+我們也迴圈只要那是
+
+49
+00:02:01,086 --> 00:02:02,923
+within the boundaries of the input string
+在輸入字串的邊界內
+
+50
+00:02:03,341 --> 00:02:04,739
+and we increment it after every loop.
+我們在每次迴圈後遞增它。
+
+51
+00:02:05,349 --> 00:02:07,053
+So now we have our nested loop where we
+現在我們有了巢狀迴圈
+
+52
+00:02:07,053 --> 00:02:08,949
+essentially can then go through every
+基本上可以遍歷每一個
+
+53
+00:02:08,981 --> 00:02:10,878
+character in the string and for every
+字串中的字元以及每個
+
+54
+00:02:10,894 --> 00:02:13,683
+character, go through all our following
+性格，請瀏覽我們所有的以下內容
+
+55
+00:02:13,940 --> 00:02:14,934
+characters thereafter.
+此後的字元。
+
+56
+00:02:15,799 --> 00:02:17,530
+And if we do that, we can
+如果我們這樣做，我們就可以
+
+57
+00:02:18,123 --> 00:02:20,319
+basically return as soon
+基本上盡快回傳
+
+58
+00:02:20,912 --> 00:02:23,301
+as we find out that string for index i is
+我們發現索引 i 的字串是
+
+59
+00:02:23,317 --> 00:02:26,458
+the same as string for index j, because that
+與索引 j 的字串相同，因為
+
+60
+00:02:26,458 --> 00:02:28,526
+means that we have a repeated character.
+意味著我們有一個重複的角色。
+
+61
+00:02:29,087 --> 00:02:30,995
+And since we want to find the first repeated
+因為我們想找第一個重複的
+
+62
+00:02:31,027 --> 00:02:31,620
+character here,
+這裡的人物，
+
+63
+00:02:32,229 --> 00:02:35,066
+I can just return str here.
+我可以在這裡回傳 str 。
+
+64
+00:02:36,300 --> 00:02:38,560
+With that, we should have a find_first_wrap
+有了這個，我們應該有一個 find_first_wrap
+
+65
+00:02:38,560 --> 00:02:39,009
+function
+功能
+
+66
+00:02:39,682 --> 00:02:42,791
+which we can call with findFirstRep for
+我們可以用 findFirstRep 來呼叫它
+
+67
+00:02:42,791 --> 00:02:43,095
+word,
+單字，
+
+68
+00:02:43,752 --> 00:02:45,820
+and where we can console.log the result.
+以及我們可以在哪裡console.log結果。
+
+69
+00:02:47,198 --> 00:02:48,816
+And this should then give us the first
+這應該給我們第一個
+
+70
+00:02:48,816 --> 00:02:50,659
+repeated character, so in this case a.
+重複的字符，所以在本例中是a。
+
+71
+00:02:51,204 --> 00:02:53,752
+Now I did open my sidebar again here because
+現在我確實在這裡再次打開側邊欄，因為
+
+72
+00:02:53,848 --> 00:02:55,643
+you should make sure that in index.html
+你應該確保在index.html中
+
+73
+00:02:56,108 --> 00:02:58,511
+you're not having type module anymore so
+你不再有型別模組了，所以
+
+74
+00:02:58,511 --> 00:03:01,139
+that you can again just open this index.html
+你可以再次打開這個index.html
+
+75
+00:03:01,155 --> 00:03:01,348
+file
+檔案
+
+76
+00:03:01,876 --> 00:03:04,440
+by double-clicking on it in the Explorer or
+透過在資源管理器中雙擊它或
+
+77
+00:03:04,440 --> 00:03:04,857
+Finder.
+發現者。
+
+78
+00:03:05,647 --> 00:03:07,525
+And with that, if we save all of that
+有了這個，如果我們儲存所有這些
+
+79
+00:03:08,399 --> 00:03:10,504
+and we reload this page, we should see A.
+然後我們重新載入此頁面，我們應該會看到 A。
+
+80
+00:03:11,556 --> 00:03:13,547
+And if we validate this with another string,
+如果我們用另一個字串驗證這一點，
+
+81
+00:03:14,150 --> 00:03:15,084
+let's say with
+讓我們說
+
+82
+00:03:15,939 --> 00:03:16,326
+hello,
+你好，
+
+83
+00:03:17,567 --> 00:03:18,421
+we should see L.
+我們應該見到L。
+
+84
+00:03:20,049 --> 00:03:20,436
+And we do.
+我們確實這麼做了。
+
+85
+00:03:21,450 --> 00:03:24,198
+So this works. And this is now a solution
+所以這有效。現在這是一個解決方案
+
+86
+00:03:24,796 --> 00:03:27,658
+without hash tables, without objects. It's
+沒有雜湊表，沒有物件。它是
+
+87
+00:03:27,771 --> 00:03:31,464
+just a solution with 2 nested loops. I'm
+只是一個帶有 2 個嵌套迴圈的解決方案。我是
+
+88
+00:03:31,513 --> 00:03:33,855
+showing this because I wanna show you why we
+展示這個是因為我想告訴你為什麼我們
+
+89
+00:03:33,903 --> 00:03:36,165
+have objects and therefore also
+有物件，因此也
+
+90
+00:03:36,710 --> 00:03:39,020
+hash tables since that is how objects are
+雜湊表，因為這就是物件的方式
+
+91
+00:03:39,132 --> 00:03:41,186
+implemented as I mentioned. What's the time
+正如我提到的那樣實施。現在幾點了
+
+92
+00:03:41,282 --> 00:03:41,908
+complexity
+複雜
+
+93
+00:03:42,565 --> 00:03:44,811
+of this solution, of this algorithm?
+這個解決方案，這個演算法？
+
+94
+00:03:46,014 --> 00:03:47,955
+Well, we have a nested loop here and as you
+好吧，我們這裡有一個嵌套迴圈，就像你一樣
+
+95
+00:03:47,955 --> 00:03:48,613
+know from my
+從我的知道
+
+96
+00:03:49,142 --> 00:03:51,853
+algorithms course, nested loops typically
+演算法課程，通常是嵌套迴圈
+
+97
+00:03:51,901 --> 00:03:54,677
+mean that you have quadratic time complexity
+意味著你有二次時間複雜度
+
+98
+00:03:55,238 --> 00:03:57,757
+and indeed here the time complexity would be
+事實上，這裡的時間複雜度是
+
+99
+00:03:58,206 --> 00:03:59,459
+O
+氧
+
+100
+00:04:00,069 --> 00:04:03,041
+because we basically go through the entire
+因為我們基本上都經歷了整個
+
+101
+00:04:03,041 --> 00:04:06,608
+string twice and do that in a nested manner,
+字串兩次並以嵌套方式執行，
+
+102
+00:04:06,736 --> 00:04:08,584
+which means that for every character we go
+這意味著對於每個角色我們都會去
+
+103
+00:04:08,584 --> 00:04:09,435
+through the entire string.
+穿過整個字串。
+
+104
+00:04:10,013 --> 00:04:11,716
+And since we go through every character, we
+由於我們遍歷了每個角色，所以我們
+
+105
+00:04:11,716 --> 00:04:13,853
+do that go through the entire string part
+遍歷整個字串部分
+
+106
+00:04:14,110 --> 00:04:16,985
+multiple times. So we have time complexity
+多次。所以我們有時間複雜度
+
+107
+00:04:17,082 --> 00:04:17,226
+of
+的
+
+108
+00:04:18,126 --> 00:04:18,849
+O.
+奧。
+
+109
+00:04:19,764 --> 00:04:22,014
+So that is of course not ideal. That's
+所以當然不理想。那是
+
+110
+00:04:22,062 --> 00:04:24,487
+typically not what we want, at least not if
+通常不是我們想要的，至少不是如果
+
+111
+00:04:24,487 --> 00:04:27,199
+we can do better. And we can do better with
+我們可以做得更好。我們可以做得更好
+
+112
+00:04:27,231 --> 00:04:29,300
+a JavaScript object and therefore with a
+一個 JavaScript 物件，因此具有
+
+113
+00:04:29,300 --> 00:04:32,057
+hash table. So before we then also dive into
+雜湊表。所以在我們深入研究之前
+
+114
+00:04:32,490 --> 00:04:35,409
+how to build such a hash table, let's first
+如何建構這樣的雜湊表，我們首先
+
+115
+00:04:35,409 --> 00:04:38,439
+of all rebuild this algorithm with the
+全部重建該演算法
+
+116
+00:04:38,439 --> 00:04:40,812
+JavaScript objects and therefore implicitly
+JavaScript 物件，因此隱式
+
+117
+00:04:40,924 --> 00:04:43,297
+with a hash table so that we understand the
+與雜湊表，以便我們了解
+
+118
+00:04:43,410 --> 00:04:46,504
+use of a hash table and why we need objects.
+雜湊表的使用以及為什麼我們需要物件。
+
+119
+00:04:47,755 --> 00:04:49,775
+So I'm back in an empty app.js file,
+所以我回到了一個空的 app.js 檔案，
+
+120
+00:04:50,401 --> 00:04:52,277
+saved the old solution here in
+將舊解決方案儲存在此處
+
+121
+00:04:52,309 --> 00:04:53,431
+firstRepBasic.
+第一代表基本。
+
+122
+00:04:53,996 --> 00:04:56,671
+And let's now see how we could rebuild this
+現在讓我們看看如何重建它
+
+123
+00:04:56,671 --> 00:04:57,288
+solution
+解決方案
+
+124
+00:04:57,887 --> 00:05:00,806
+with an object and therefore implicitly with
+與一個物件，因此隱式與
+
+125
+00:05:00,806 --> 00:05:01,519
+a hash table.
+一個雜湊表。
+
+126
+00:05:02,380 --> 00:05:05,191
+So the word is, let's say, academind again,
+所以這個詞，讓我們再說一遍，學術界，
+
+127
+00:05:06,091 --> 00:05:10,075
+and the findFirstRep function still takes a
+且 findFirstRep 函式仍然需要
+
+128
+00:05:10,107 --> 00:05:10,412
+string,
+細繩，
+
+129
+00:05:12,035 --> 00:05:14,140
+and I still want to be able to console.log
+我仍然希望能夠 console.log
+
+130
+00:05:14,156 --> 00:05:16,457
+the result of calling that function with my
+使用 my 呼叫該函式的結果
+
+131
+00:05:16,586 --> 00:05:19,406
+word. How can we now build this such that we
+單字。我們現在如何建構這個，以便我們
+
+132
+00:05:19,503 --> 00:05:21,617
+don't need quadratic time complexity?
+不需要二次時間複雜度？
+
+133
+00:05:22,163 --> 00:05:24,299
+Well, we can build a hash table, we can
+好吧，我們可以建立一個雜湊表，我們可以
+
+134
+00:05:24,428 --> 00:05:27,431
+build an object and basically store
+建立一個物件並基本上存儲
+
+135
+00:05:28,186 --> 00:05:30,307
+the occurrence of every character in the
+中每個字元的出現次數
+
+136
+00:05:30,307 --> 00:05:30,660
+string.
+細繩。
+
+137
+00:05:31,559 --> 00:05:32,636
+And as soon
+並且盡快
+
+138
+00:05:33,166 --> 00:05:35,848
+as we find that a character has already been
+因為我們發現一個角色已經被
+
+139
+00:05:35,848 --> 00:05:36,362
+stored,
+儲存,
+
+140
+00:05:37,037 --> 00:05:39,462
+we know that we have a repetition and we can
+我們知道我們有一個重複，我們可以
+
+141
+00:05:39,510 --> 00:05:39,880
+return.
+回傳。
+
+142
+00:05:40,570 --> 00:05:42,755
+So here we can create our table, and that's
+所以在這裡我們可以創建我們的表，那就是
+
+143
+00:05:42,803 --> 00:05:45,614
+an empty object initially. And again, under
+最初是一個空物件。再一次，在
+
+144
+00:05:45,614 --> 00:05:47,506
+the hood That will be implemented as a hash
+the hood 將作為雜湊實現
+
+145
+00:05:47,570 --> 00:05:49,542
+table, but that doesn't matter too much
+表，但這並不重要
+
+146
+00:05:49,542 --> 00:05:51,401
+right now. We'll learn how it works under
+現在。我們將了解它是如何運作的
+
+147
+00:05:51,401 --> 00:05:53,549
+the hood later. For the moment, it's just
+引擎蓋稍後。目前來說，只是
+
+148
+00:05:53,710 --> 00:05:55,152
+object as we're used to it.
+我們習慣的物件。
+
+149
+00:05:56,210 --> 00:05:58,823
+And now we still loop through all the chars
+現在我們仍然迴圈所有的字符
+
+150
+00:05:59,160 --> 00:06:00,346
+of the input string,
+輸入字串的，
+
+151
+00:06:01,179 --> 00:06:02,814
+but there's one important difference now.
+但現在有一個重要的區別。
+
+152
+00:06:03,504 --> 00:06:06,373
+We won't have a nested loop. Instead, for
+我們不會有巢狀迴圈。相反，對於
+
+153
+00:06:06,373 --> 00:06:06,982
+every char,
+每個字符，
+
+154
+00:06:07,511 --> 00:06:08,761
+we reach out to the table
+我們把手伸向桌子
+
+155
+00:06:09,579 --> 00:06:12,624
+and we dynamically add char as a key to the
+我們動態地將 char 新增為鍵
+
+156
+00:06:12,624 --> 00:06:15,306
+table. So our individual characters are now
+桌子。所以我們的個人角色現在是
+
+157
+00:06:15,515 --> 00:06:19,147
+keys in the table. So A will be a key, C
+表中的鍵。所以A會是鑰匙，C
+
+158
+00:06:19,147 --> 00:06:20,866
+will be a key, and so on.
+將是一把鑰匙，等等。
+
+159
+00:06:21,637 --> 00:06:23,601
+And the value could just be a number, 1,
+該值可以只是一個數字，1，
+
+160
+00:06:24,279 --> 00:06:26,426
+to mark that this occurred once, for
+標記這發生過一次，對於
+
+161
+00:06:26,458 --> 00:06:28,831
+example. It can be any value though. It
+例子。但它可以是任何值。它
+
+162
+00:06:28,879 --> 00:06:31,317
+could also be true, it doesn't matter. It
+也可能是真的，沒關係。它
+
+163
+00:06:31,317 --> 00:06:34,073
+should just not be null or anything like
+不應該為空或類似的東西
+
+164
+00:06:34,073 --> 00:06:35,907
+that. So I'll go with 1.
+那。所以我會選擇1。
+
+165
+00:06:37,482 --> 00:06:40,403
+Now with that, I save 1 for every character
+現在，我為每個角色儲存 1 個
+
+166
+00:06:40,686 --> 00:06:41,553
+in my string.
+在我的字串中。
+
+167
+00:06:42,243 --> 00:06:45,246
+Now some characters repeat like the A, and
+現在有些字元像 A 一樣重複，並且
+
+168
+00:06:45,262 --> 00:06:47,510
+that's exactly what I wanna find here with
+這正是我想在這裡找到的
+
+169
+00:06:47,510 --> 00:06:48,313
+this algorithm.
+這個演算法。
+
+170
+00:06:48,971 --> 00:06:51,460
+Now if we would not change this code,
+現在如果我們不改變這段程式碼，
+
+171
+00:06:52,006 --> 00:06:54,318
+whenever we reach A for the second time,
+每當我們第二次到達A時，
+
+172
+00:06:54,912 --> 00:06:57,931
+we would overwrite the value that was stored
+我們將覆蓋儲存的值
+
+173
+00:06:57,947 --> 00:07:00,708
+for the key A the first time with that new
+第一次使用新鑰匙 A
+
+174
+00:07:00,837 --> 00:07:03,229
+value, which turns out to be the same value,
+值，結果是相同的值，
+
+175
+00:07:03,342 --> 00:07:05,686
+but you get my point. We would overwrite it.
+但你明白我的意思。我們會覆蓋它。
+
+176
+00:07:06,553 --> 00:07:08,866
+Therefore, we can add an if check here and
+因此，我們可以在這裡添加一個 if 檢查，
+
+177
+00:07:08,947 --> 00:07:10,408
+check if we find
+檢查我們是否找到
+
+178
+00:07:11,035 --> 00:07:14,617
+a value for the key char. So we look into
+鍵字符的值。所以讓我們研究一下
+
+179
+00:07:14,649 --> 00:07:18,247
+our table and check if for A we already have
+我們的表格並檢查我們是否已經有 A
+
+180
+00:07:18,376 --> 00:07:19,854
+a truthy entry.
+一個真實的條目。
+
+181
+00:07:20,512 --> 00:07:22,360
+That's why you shouldn't store null or
+這就是為什麼你不應該儲存 null 或
+
+182
+00:07:22,360 --> 00:07:24,384
+anything like that for this key.
+與此鍵類似的任何東西。
+
+183
+00:07:25,171 --> 00:07:27,950
+Now, if we haven't added a key before, then
+現在，如果我們之前沒有添加過密鑰，那麼
+
+184
+00:07:28,158 --> 00:07:31,339
+the value will be undefined, which is falsy,
+該值將是未定義的，這是錯誤的，
+
+185
+00:07:31,628 --> 00:07:33,877
+so we won't make it into this if statement.
+所以我們不會將其放入這個 if 語句中。
+
+186
+00:07:34,407 --> 00:07:36,962
+We'll only make it in there if a char has
+只有當一個字元有時我們才會在那裡
+
+187
+00:07:37,075 --> 00:07:38,360
+already been stored as a key.
+已經被儲存為密鑰。
+
+188
+00:07:39,067 --> 00:07:40,722
+Well, and since we wanna find the first
+好吧，既然我們想找到第一個
+
+189
+00:07:40,770 --> 00:07:42,843
+repetition, we know that the first time we
+重複，我們知道第一次
+
+190
+00:07:42,843 --> 00:07:45,012
+make it into this if check, we found a
+讓它進入這個if檢查，我們發現了一個
+
+191
+00:07:45,012 --> 00:07:47,326
+repetition because we already did store a
+重複，因為我們已經儲存了
+
+192
+00:07:47,422 --> 00:07:48,242
+character as a key.
+字符作為鍵。
+
+193
+00:07:48,804 --> 00:07:50,829
+And hence then we can just return char.
+因此我們可以直接回傳 char。
+
+194
+00:07:51,857 --> 00:07:52,918
+If I save that
+如果我儲存那個
+
+195
+00:07:53,544 --> 00:07:55,890
+and I reload, I find A for Academind.
+然後我重新載入，我發現 A 代表 Academind。
+
+196
+00:07:56,501 --> 00:07:59,602
+And if we again try this for hello,
+如果我們再嘗試這個打招呼，
+
+197
+00:08:00,277 --> 00:08:01,450
+we'll find L.
+我們會找到L。
+
+198
+00:08:02,800 --> 00:08:04,712
+So we got the same result as before, but the
+所以我們得到了和之前一樣的結果，但是
+
+199
+00:08:04,712 --> 00:08:07,411
+advantage is that we have a better time
+優點是我們有更好的時光
+
+200
+00:08:07,508 --> 00:08:10,963
+complexity. We only have one loop here. We
+複雜。我們這裡只有一個迴圈。我們
+
+201
+00:08:11,059 --> 00:08:12,891
+go through the string only once.
+僅遍歷字串一次。
+
+202
+00:08:13,485 --> 00:08:14,353
+So therefore,
+因此，
+
+203
+00:08:14,900 --> 00:08:17,937
+the time complexity here really is just O.
+這裡的時間複雜度其實只是O。
+
+204
+00:08:18,210 --> 00:08:21,407
+It's linear time because at most we only go
+這是線性時間，因為我們最多只走
+
+205
+00:08:21,423 --> 00:08:23,721
+through the entire string once. We have no
+遍歷整個字串一次。我們沒有
+
+206
+00:08:23,769 --> 00:08:25,537
+nested loop or anything like that.
+嵌套迴圈或類似的東西。
+
+207
+00:08:26,162 --> 00:08:28,134
+And therefore it's the same problem solved
+因此解決了同樣的問題
+
+208
+00:08:28,551 --> 00:08:30,507
+just in a more efficient way.
+只是以更有效的方式。
+
+209
+00:08:31,212 --> 00:08:34,418
+And this shows us why we need tables, why we
+這向我們展示了為什麼我們需要表格，為什麼我們
+
+210
+00:08:34,418 --> 00:08:37,592
+need objects for certain algorithms because
+某些演算法需要物件，因為
+
+211
+00:08:37,624 --> 00:08:39,756
+with such an object, with such a table
+有了這樣的物體，有了這樣的桌子
+
+212
+00:08:39,788 --> 00:08:42,802
+therefore, where we were aware of the keys,
+因此，在我們知道鑰匙的地方，
+
+213
+00:08:43,379 --> 00:08:45,751
+we were able to solve this problem more
+我們能夠更多地解決這個問題
+
+214
+00:08:45,976 --> 00:08:48,028
+efficiently and that's something we couldn't
+高效，這是我們做不到的
+
+215
+00:08:48,044 --> 00:08:49,711
+do without that object.
+沒有那個物體就可以做。
+
+216
+00:08:50,368 --> 00:08:52,564
+Now besides that, besides cases like this
+除此之外，除了這樣的案例
+
+217
+00:08:52,773 --> 00:08:55,177
+where we wanna derive a solution and objects
+我們想要匯出解決方案和物件
+
+218
+00:08:55,177 --> 00:08:57,181
+help us to do that in a more efficient way,
+幫助我們以更有效的方式做到這一點，
+
+219
+00:08:57,598 --> 00:08:59,510
+Of course, we also need objects in
+當然，我們還需要物件
+
+220
+00:08:59,510 --> 00:09:02,482
+JavaScript to group data in a logical way.
+JavaScript 以邏輯方式將資料分組。
+
+221
+00:09:03,125 --> 00:09:05,149
+We could store a person here
+我們可以在這裡寄放一個人
+
+222
+00:09:06,097 --> 00:09:06,788
+by grouping
+透過分組
+
+223
+00:09:07,543 --> 00:09:10,211
+the name and the age and so on together into
+姓名和年齡等一起組成
+
+224
+00:09:10,275 --> 00:09:12,669
+one object. And that would also be a valid
+一個物體。這也是一個有效的
+
+225
+00:09:12,749 --> 00:09:15,706
+use case of storing data in JavaScript and
+在 JavaScript 中儲存資料的用例
+
+226
+00:09:15,818 --> 00:09:17,827
+when we might wanna use an object.
+當我們想要使用一個物件時。
+
+227
+00:09:18,855 --> 00:09:21,329
+Also, in the end, of course, though, because
+當然，最後也是因為
+
+228
+00:09:21,426 --> 00:09:24,333
+we then wanna retrieve by that key. So it
+然後我們想透過該密鑰進行檢索。所以它
+
+229
+00:09:24,397 --> 00:09:26,579
+always comes down to that we somehow want to
+總是歸結為我們以某種方式想要
+
+230
+00:09:26,579 --> 00:09:29,435
+retrieve something by key, and with tables,
+透過鍵和表格檢索某些內容，
+
+231
+00:09:29,708 --> 00:09:31,649
+that's something we can do in an efficient
+這是我們可以有效地做的事情
+
+232
+00:09:31,697 --> 00:09:34,457
+way. We can't do it like this with just
+方式。我們不能這樣做
+
+233
+00:09:34,505 --> 00:09:36,895
+lists because there we have no keys, we only
+列出因為我們沒有鑰匙，我們只有
+
+234
+00:09:36,911 --> 00:09:37,617
+have indexes.
+有索引。
+
+235
+00:09:38,676 --> 00:09:40,104
+So that's why we need tables.
+這就是我們需要表格的原因。
+
+236
+00:09:40,698 --> 00:09:43,104
+That's why tables are useful, why objects,
+這就是為什麼表有用，為什麼物件有用，
+
+237
+00:09:43,329 --> 00:09:45,366
+which are tables, are useful.
+這些是表格，很有用。
+
+238
+00:09:45,976 --> 00:09:48,174
+And now let's see how JavaScript actually
+現在讓我們看看 JavaScript 實際上是如何
+
+239
+00:09:48,399 --> 00:09:51,447
+implements this object under the hood with a
+在底層實現這個物件
+
+240
+00:09:51,511 --> 00:09:52,137
+hash table.
+雜湊表。

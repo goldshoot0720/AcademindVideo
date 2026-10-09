@@ -1,0 +1,369 @@
+1
+00:00:02,215 --> 00:00:05,378
+So we had a look at this recursive Fibonacci
+所以我們來看看這個遞迴斐波那契
+
+2
+00:00:05,411 --> 00:00:08,092
+function and we found out that it provides
+函式，我們發現它提供了
+
+3
+00:00:08,124 --> 00:00:10,228
+us with a solution that isn't really that
+我們提供的解決方案並非如此
+
+4
+00:00:10,228 --> 00:00:10,533
+great.
+偉大的。
+
+5
+00:00:11,191 --> 00:00:14,402
+By calling itself twice per iteration, we
+透過每次迭代調用自身兩次，我們
+
+6
+00:00:14,547 --> 00:00:17,581
+ended up with an exponential time complexity
+最終時間複雜度呈指數級
+
+7
+00:00:18,160 --> 00:00:21,146
+and that is way worse than the loop-based
+這比基於迴圈的要糟糕得多
+
+8
+00:00:21,146 --> 00:00:23,667
+solution we had a look earlier which gave us
+我們之前看過的解決方案給了我們
+
+9
+00:00:23,860 --> 00:00:25,176
+linear time complexity.
+線性時間複雜度。
+
+10
+00:00:25,882 --> 00:00:28,528
+So does this mean that we're at the end with
+那麼這是否意味著我們已經結束了
+
+11
+00:00:28,688 --> 00:00:30,740
+recursive solutions for this problem?
+這個問題的遞迴解決方案？
+
+12
+00:00:31,494 --> 00:00:32,456
+This wouldn't be
+這不會是
+
+13
+00:00:33,001 --> 00:00:35,583
+too horrible or too bad. I mean, we do have
+太可怕或太糟糕了。我的意思是，我們確實有
+
+14
+00:00:35,583 --> 00:00:38,212
+a loop-based solution and recursion might be
+基於迴圈的解決方案和遞迴可能是
+
+15
+00:00:38,228 --> 00:00:39,559
+better for other problems.
+更好地解決其他問題。
+
+16
+00:00:40,312 --> 00:00:43,519
+But in order to understand more complex
+但為了理解更複雜的
+
+17
+00:00:43,519 --> 00:00:45,074
+problems we're going to dive in
+我們要深入研究的問題
+
+18
+00:00:45,748 --> 00:00:48,971
+later, we now have to understand how we
+後來，我們現在必須了解我們如何
+
+19
+00:00:48,971 --> 00:00:52,771
+still could make recursion work with this
+仍然可以用這個進行遞迴
+
+20
+00:00:52,883 --> 00:00:53,813
+problem as well.
+問題也是如此。
+
+21
+00:00:54,342 --> 00:00:56,714
+We can use a technique for that which is
+我們可以使用一種技術來實現
+
+22
+00:00:56,827 --> 00:00:59,023
+called dynamic programming.
+稱為動態規劃。
+
+23
+00:01:00,129 --> 00:01:02,726
+So what is dynamic programming? How does
+那什麼是動態規劃呢？怎麼樣
+
+24
+00:01:02,822 --> 00:01:05,835
+this help us with this problem or with this
+這可以幫助我們解決這個問題或這個
+
+25
+00:01:05,948 --> 00:01:07,647
+exponential time complexity?
+指數時間複雜度？
+
+26
+00:01:08,689 --> 00:01:11,061
+Well, we had a look at recursion. Now we're
+好吧，我們了解了遞迴。現在我們是
+
+27
+00:01:11,093 --> 00:01:13,402
+going to combine this with a technique
+將其與一種技術結合起來
+
+28
+00:01:13,482 --> 00:01:16,512
+called memoization, which essentially means
+稱為記憶化，本質上意味著
+
+29
+00:01:16,544 --> 00:01:18,371
+that we're going to store some data.
+我們要儲存一些資料。
+
+30
+00:01:19,044 --> 00:01:22,026
+It's not memorization but memoization.
+這不是記憶，而是記憶。
+
+31
+00:01:22,539 --> 00:01:24,559
+That's a technical term for basically
+這是一個技術術語，基本上是
+
+32
+00:01:24,639 --> 00:01:26,130
+keeping some data around
+保留一些資料
+
+33
+00:01:26,707 --> 00:01:29,047
+for the execution of a function for a
+執行一個函式
+
+34
+00:01:29,047 --> 00:01:31,708
+certain process, in this case, for this
+特定的過程，在這種情況下，為此
+
+35
+00:01:31,836 --> 00:01:32,413
+recursion.
+遞迴.
+
+36
+00:01:33,536 --> 00:01:35,459
+So we're going to combine recursion with
+所以我們將把遞迴與
+
+37
+00:01:35,459 --> 00:01:37,078
+some data that's going to be stored.
+一些將要儲存的資料。
+
+38
+00:01:37,687 --> 00:01:40,332
+Recursion, of course, is great for repeated
+當然，遞迴非常適合重複
+
+39
+00:01:40,429 --> 00:01:44,003
+computations, but as we saw, it can lead to
+計算，但正如我們所見，它可能導致
+
+40
+00:01:44,099 --> 00:01:47,530
+duplicate work depending on your problem
+根據您的問題重複工作
+
+41
+00:01:47,562 --> 00:01:49,886
+you're solving, depending on your function.
+你正在解決，取決於你的職能。
+
+42
+00:01:50,752 --> 00:01:53,076
+Remember that with recursion, in this case,
+請記住，在這種情況下，透過遞迴，
+
+43
+00:01:53,173 --> 00:01:55,866
+with the Fibonacci function, we had those
+有了斐波那契函式，我們就有了
+
+44
+00:01:55,978 --> 00:01:58,367
+branches here, which in the end are the same
+這裡的分支，最終是相同的
+
+45
+00:01:58,447 --> 00:02:01,689
+computations executed multiple times. So
+計算執行多次。所以
+
+46
+00:02:01,754 --> 00:02:04,145
+we're repeating certain steps here. We're
+我們在這裡重複某些步驟。是
+
+47
+00:02:04,145 --> 00:02:06,473
+repeating the same calculation multiple
+重複相同的計算倍數
+
+48
+00:02:06,489 --> 00:02:09,297
+times and that's exactly what's causing this
+次，這正是造成這種情況的原因
+
+49
+00:02:09,378 --> 00:02:11,464
+exponential growth rate. That's what's
+指數成長率。就是這樣
+
+50
+00:02:11,464 --> 00:02:12,572
+causing the problem.
+導致問題。
+
+51
+00:02:13,150 --> 00:02:16,713
+So how does data storage or storing some
+那麼資料如何儲存或儲存一些
+
+52
+00:02:16,761 --> 00:02:18,013
+data help us?
+資料對我們有幫助嗎？
+
+53
+00:02:18,767 --> 00:02:21,946
+Well, we can avoid unnecessary recursive
+好吧，我們可以避免不必要的遞迴
+
+54
+00:02:21,962 --> 00:02:25,557
+steps if we store certain data for this
+如果我們為此儲存某些資料，則執行以下步驟
+
+55
+00:02:25,750 --> 00:02:28,748
+process, for this recursion. To be precise,
+過程，對於這個遞迴。準確地說，
+
+56
+00:02:29,117 --> 00:02:32,499
+we could store intermediate results and make
+我們可以儲存中間結果並進行
+
+57
+00:02:32,499 --> 00:02:35,064
+sure that they're available to every new
+確保每個新人都可以使用它們
+
+58
+00:02:35,192 --> 00:02:36,411
+function execution.
+函式執行。
+
+59
+00:02:36,956 --> 00:02:39,136
+Then we could check if we already made a
+然後我們可以檢查我們是否已經做了
+
+60
+00:02:39,136 --> 00:02:41,621
+certain calculation. Going back to this
+一定的計算。回到這個
+
+61
+00:02:41,621 --> 00:02:44,169
+picture, we could check if we already have a
+圖片，我們可以檢查我們是否已經有
+
+62
+00:02:44,169 --> 00:02:47,824
+result for fib, and then we don't need to do
+fib 的結果，然後我們不需要做
+
+63
+00:02:47,872 --> 00:02:51,351
+this fib calculation a second time. We can
+第二次計算這個小纖維。我們可以
+
+64
+00:02:51,399 --> 00:02:54,557
+save that extra function call, which in turn
+儲存額外的函式調用，這反過來又
+
+65
+00:02:54,701 --> 00:02:57,619
+saves us the extra function calls for fib
+為我們節省了對 fib 的額外函式調用
+
+66
+00:02:57,892 --> 00:03:00,892
+and fib. That's the idea. If we can
+和謊言。就是這個想法。如果我們可以
+
+67
+00:03:01,084 --> 00:03:04,517
+eliminate extra function calls, we eliminate
+消除額外的函式調用，我們消除
+
+68
+00:03:04,710 --> 00:03:07,534
+whole branches of this recursive tree.
+這棵遞迴樹的整個分支。
+
+69
+00:03:08,159 --> 00:03:10,646
+And that's what dynamic programming is all
+這就是動態規劃的全部內容
+
+70
+00:03:10,646 --> 00:03:13,470
+about. It's about recursion, solving a
+關於。這是關於遞迴，解決
+
+71
+00:03:13,518 --> 00:03:16,951
+certain problem with memoization, so with
+記憶存在一定的問題，所以
+
+72
+00:03:16,983 --> 00:03:19,614
+storing some intermediate results, with
+儲存一些中間結果，
+
+73
+00:03:19,614 --> 00:03:22,887
+storing some data to optimize this recursion
+儲存一些資料來優化此遞迴
+
+74
+00:03:23,080 --> 00:03:23,593
+process.
+過程。

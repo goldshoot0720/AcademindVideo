@@ -1,0 +1,809 @@
+1
+00:00:02,200 --> 00:00:04,481
+So what is the problem with our graph here?
+那我們的圖表有什麼問題呢？
+
+2
+00:00:05,316 --> 00:00:06,842
+Well, I'm not happy with the time
+嗯，我對時間不滿意
+
+3
+00:00:06,858 --> 00:00:07,710
+complexity.
+複雜。
+
+4
+00:00:08,529 --> 00:00:11,003
+We get various places where time complexity
+我們得到了時間複雜度不同的地方
+
+5
+00:00:11,340 --> 00:00:12,239
+is a problem.
+是一個問題。
+
+6
+00:00:12,882 --> 00:00:15,516
+For example, whenever we call indexOf,
+例如，每當我們呼叫indexOf時，
+
+7
+00:00:16,319 --> 00:00:19,259
+indexOf actually needs to visit all
+indexOf實際上需要存取所有
+
+8
+00:00:19,934 --> 00:00:21,716
+elements in the given array
+給定陣列中的元素
+
+9
+00:00:22,439 --> 00:00:25,732
+which we store for edge's start node to find
+我們儲存它以供邊緣的起始節點查找
+
+10
+00:00:25,732 --> 00:00:28,689
+out whether end node exists there. So this
+判斷那裡是否存在結束節點。所以這個
+
+11
+00:00:28,786 --> 00:00:31,490
+looks harmless, but this quickly is O
+看起來無害，但這很快就是O
+
+12
+00:00:32,070 --> 00:00:33,760
+for adding an edge, for example.
+例如，用於新增邊緣。
+
+13
+00:00:34,581 --> 00:00:37,141
+For removing a node, we clearly have a
+為了刪除一個節點，我們顯然有一個
+
+14
+00:00:37,141 --> 00:00:39,892
+problem with our nested loop here. So that
+我們這裡的嵌套迴圈有問題。以便
+
+15
+00:00:39,892 --> 00:00:41,303
+might not be optimal like that.
+可能不是這樣的最佳選擇。
+
+16
+00:00:43,086 --> 00:00:45,138
+And therefore, it would be interesting to
+因此，有趣的是
+
+17
+00:00:45,138 --> 00:00:46,980
+know whether we can do better.
+知道我們是否可以做得更好。
+
+18
+00:00:47,707 --> 00:00:50,341
+And it turns out that we can by using
+事實證明我們可以透過使用
+
+19
+00:00:50,777 --> 00:00:53,553
+different JavaScript data structures. And
+不同的 JavaScript 資料結構。和
+
+20
+00:00:53,735 --> 00:00:56,041
+actually, we can use data structures that
+實際上，我們可以使用這樣的資料結構
+
+21
+00:00:56,121 --> 00:00:56,864
+are built in.
+是內建的。
+
+22
+00:00:57,897 --> 00:01:00,415
+Now we got our nodes and edges objects up
+現在我們得到了節點和邊緣物件
+
+23
+00:01:00,431 --> 00:01:00,609
+there
+那裡
+
+24
+00:01:01,303 --> 00:01:03,014
+and we can stick to objects here
+我們可以堅持這裡的物體
+
+25
+00:01:03,884 --> 00:01:07,234
+but I wanna change how we store our edges.
+但我想改變我們儲存邊緣的方式。
+
+26
+00:01:07,589 --> 00:01:10,987
+So the actual edges, the connections for a
+所以實際的邊緣，連接
+
+27
+00:01:11,052 --> 00:01:14,216
+given node in this edges object thereafter.
+此後此邊緣物件中的給定節點。
+
+28
+00:01:16,239 --> 00:01:17,421
+So for example here in
+例如這裡
+
+29
+00:01:18,095 --> 00:01:18,325
+addEdge,
+添加邊，
+
+30
+00:01:19,163 --> 00:01:22,491
+we do set our edges here to an array
+我們確實將這裡的邊設定為一個陣列
+
+31
+00:01:23,278 --> 00:01:26,090
+and we initialize it to be an array with the
+我們將它初始化為一個陣列
+
+32
+00:01:26,090 --> 00:01:28,998
+end node for which we add the edge if we had
+如果我們有的話，我們為其添加邊的結束節點
+
+33
+00:01:28,998 --> 00:01:29,994
+no edges before,
+之前沒有邊緣，
+
+34
+00:01:30,604 --> 00:01:32,773
+otherwise we use push to add a new
+否則我們使用push來新增新的
+
+35
+00:01:32,773 --> 00:01:33,303
+connection.
+聯繫。
+
+36
+00:01:34,299 --> 00:01:35,858
+Well, instead of using an array,
+好吧，而不是使用陣列，
+
+37
+00:01:36,468 --> 00:01:37,995
+I wanna use a set here now.
+我現在想在這裡使用一套。
+
+38
+00:01:38,782 --> 00:01:40,967
+Now to the set we can still pass an array
+現在對於集合我們仍然可以傳遞一個陣列
+
+39
+00:01:40,967 --> 00:01:43,344
+with end node and that will automatically
+與結束節點，這將自動
+
+40
+00:01:43,682 --> 00:01:46,815
+add end node as a value to this set.
+將結束節點作為值新增至該集合。
+
+41
+00:01:47,556 --> 00:01:49,703
+The special thing about a Set is
+Set 的特別之處在於
+
+42
+00:01:50,300 --> 00:01:54,562
+that it is storing unique values only and it
+它只儲存唯一值並且它
+
+43
+00:01:54,562 --> 00:01:56,984
+can do that very efficiently in memory.
+可以在記憶體中非常有效地做到這一點。
+
+44
+00:01:59,300 --> 00:02:01,394
+And therefore, this actually allows us to
+因此，這實際上使我們能夠
+
+45
+00:02:01,427 --> 00:02:03,715
+perform certain operations in a more
+以更多方式執行某些操作
+
+46
+00:02:03,844 --> 00:02:05,858
+efficient way in JavaScript.
+JavaScript 中的有效方法。
+
+47
+00:02:06,692 --> 00:02:08,766
+Now, when we add an edge to an already
+現在，當我們在已經存在的邊緣添加一條邊時
+
+48
+00:02:08,782 --> 00:02:10,030
+existing Set,
+現有的集合，
+
+49
+00:02:10,564 --> 00:02:13,740
+we no longer push because push is not a
+我們不再推動，因為推動不是
+
+50
+00:02:13,805 --> 00:02:14,323
+thing on Set.
+設定上的事情。
+
+51
+00:02:15,347 --> 00:02:16,753
+Instead, on a Set,
+相反，在集合上，
+
+52
+00:02:17,724 --> 00:02:19,422
+if we create one here,
+如果我們在這裡創建一個，
+
+53
+00:02:20,457 --> 00:02:22,656
+we have an add method instead.
+我們有一個 add 方法。
+
+54
+00:02:23,760 --> 00:02:24,633
+So we can just call
+所以我們可以調用
+
+55
+00:02:25,798 --> 00:02:26,315
+add here
+添加到這裡
+
+56
+00:02:26,865 --> 00:02:28,774
+and add our end node like that.
+並像這樣添加我們的結束節點。
+
+57
+00:02:29,794 --> 00:02:32,812
+And we also don't have indexOf to find out
+而且我們也沒有 indexOf 來找
+
+58
+00:02:32,812 --> 00:02:34,215
+whether a value exists,
+值是否存在，
+
+59
+00:02:36,894 --> 00:02:37,588
+but instead
+但相反
+
+60
+00:02:38,186 --> 00:02:39,769
+we have a has method.
+我們有一個 has 方法。
+
+61
+00:02:41,065 --> 00:02:43,127
+And the great thing about the has method
+has 方法的優點在於
+
+62
+00:02:43,706 --> 00:02:45,220
+is that it's super efficient.
+就是它超有效率。
+
+63
+00:02:45,977 --> 00:02:47,539
+Now this doesn't return us an
+現在這不會為我們帶來
+
+64
+00:02:48,135 --> 00:02:51,470
+index, so we don't need to compare this. We
+索引，所以我們不需要比較這個。我們
+
+65
+00:02:51,470 --> 00:02:54,529
+just check whether we already have an entry
+只需檢查我們是否已經有一個條目
+
+66
+00:02:54,871 --> 00:02:55,538
+for end node.
+為端節點。
+
+67
+00:02:57,669 --> 00:03:00,009
+Or to be precise, since we wanna add that
+或者準確地說，因為我們想添加
+
+68
+00:03:00,009 --> 00:03:02,366
+entry, we check whether we don't have that
+條目，我們檢查是否沒有該條目
+
+69
+00:03:02,366 --> 00:03:05,367
+yet. So whether we do have an existing set,
+然而。所以無論我們是否有現有的集合，
+
+70
+00:03:05,674 --> 00:03:08,106
+but in that set we don't hence the
+但在那個集合中我們不因此
+
+71
+00:03:08,106 --> 00:03:10,558
+exclamation mark, have an entry for end node
+感嘆號，有一個結束節點條目
+
+72
+00:03:10,558 --> 00:03:10,720
+yet.
+然而。
+
+73
+00:03:12,380 --> 00:03:13,560
+This will use a set
+這將使用一個集合
+
+74
+00:03:14,175 --> 00:03:16,586
+and has, unlike indexOf,
+與indexOf不同的是，
+
+75
+00:03:17,168 --> 00:03:19,239
+has a time complexity of O.
+時間複雜度為O。
+
+76
+00:03:21,067 --> 00:03:23,293
+And that's of course great. With that we
+這當然很棒。有了這個我們
+
+77
+00:03:23,293 --> 00:03:24,138
+improved addEdge.
+改良了addEdge。
+
+78
+00:03:25,612 --> 00:03:29,391
+Now for removing a node where we then also
+現在刪除一個節點，然後我們也
+
+79
+00:03:29,795 --> 00:03:33,170
+need to eventually find existing edges and
+最終需要找到現有的邊緣並且
+
+80
+00:03:33,509 --> 00:03:34,139
+remove those.
+刪除那些。
+
+81
+00:03:35,458 --> 00:03:36,619
+Well, we of course still
+嗯，我們當然還是
+
+82
+00:03:37,231 --> 00:03:37,844
+visit all
+訪問所有
+
+83
+00:03:38,666 --> 00:03:39,617
+edge entries
+邊緣條目
+
+84
+00:03:40,198 --> 00:03:41,391
+in this edges,
+在這個邊緣，
+
+85
+00:03:42,148 --> 00:03:44,279
+so there's no way around doing that
+所以沒有辦法這樣做
+
+86
+00:03:44,500 --> 00:03:45,245
+unfortunately.
+很遺憾。
+
+87
+00:03:47,442 --> 00:03:49,767
+But we can change this code a little bit.
+但我們可以稍微改變一下這段程式碼。
+
+88
+00:03:50,751 --> 00:03:54,028
+Instead of walking through all the stored
+而不是遍歷所有儲存的
+
+89
+00:03:54,060 --> 00:03:56,873
+connections for a given node in this
+給定節點的連接
+
+90
+00:03:57,527 --> 00:03:58,687
+edges object,
+邊緣物件，
+
+91
+00:03:59,259 --> 00:04:01,270
+we can simply call this edges
+我們可以簡單地稱之為邊緣
+
+92
+00:04:01,886 --> 00:04:03,059
+for the edge identifier.
+為邊緣標識符。
+
+93
+00:04:03,911 --> 00:04:06,097
+And keep in mind that this edges will be a
+請記住，該邊緣將是
+
+94
+00:04:06,161 --> 00:04:06,435
+set,
+放，
+
+95
+00:04:07,447 --> 00:04:08,042
+and therefore
+因此
+
+96
+00:04:08,877 --> 00:04:10,953
+call a method that exists on sets,
+呼叫集合上存在的方法，
+
+97
+00:04:12,124 --> 00:04:13,572
+the delete method.
+刪除方法。
+
+98
+00:04:14,954 --> 00:04:17,231
+And delete takes a value we want to delete.
+而delete則採用我們想要刪除的值。
+
+99
+00:04:18,490 --> 00:04:18,875
+So here
+所以在這裡
+
+100
+00:04:19,487 --> 00:04:22,317
+we can simply call delete and forward the
+我們可以簡單地調用刪除並轉發
+
+101
+00:04:22,317 --> 00:04:24,215
+node identifier which we want to delete.
+我們要刪除的節點標識符。
+
+102
+00:04:25,742 --> 00:04:28,139
+And that's all. And that's also O.
+僅此而已。那也是O。
+
+103
+00:04:29,356 --> 00:04:31,265
+And we can get rid of all that code.
+我們可以擺脫所有這些程式碼。
+
+104
+00:04:31,799 --> 00:04:35,083
+So it's now way less code and also more
+所以現在程式碼更少了，而且更多了
+
+105
+00:04:35,099 --> 00:04:36,005
+efficient code.
+高效率的程式碼。
+
+106
+00:04:36,652 --> 00:04:38,978
+Now we still have that outer loop, but at
+現在我們仍然有那個外迴圈，但是在
+
+107
+00:04:38,978 --> 00:04:41,218
+least we got rid of the inner loop. Hence we
+至少我們擺脫了內迴圈。因此我們
+
+108
+00:04:41,218 --> 00:04:43,152
+achieved a better time complexity here.
+在這裡實現了更好的時間複雜度。
+
+109
+00:04:44,720 --> 00:04:46,662
+Now for removing an edge, here again I'm
+現在為了去除邊緣，我再次在這裡
+
+110
+00:04:46,759 --> 00:04:49,914
+using indexOf. This does not exist on Sets.
+使用indexOf.這在集合中不存在。
+
+111
+00:04:50,319 --> 00:04:54,464
+This should be has. And of course, therefore
+這個應該是有的。當然，因此
+
+112
+00:04:54,464 --> 00:04:56,538
+we no longer get back the node index.
+我們不再取回節點索引。
+
+113
+00:04:57,044 --> 00:04:58,855
+Instead, we can simply check whether
+相反，我們可以簡單地檢查是否
+
+114
+00:04:59,550 --> 00:05:02,494
+we have a connection to that node here.
+我們在這裡與該節點有連接。
+
+115
+00:05:03,802 --> 00:05:05,972
+And if this returns false, hence the
+如果傳回 false，則
+
+116
+00:05:05,972 --> 00:05:08,013
+exclamation mark here, we wanna throw this
+這裡有驚嘆號，我們想丟掉這個
+
+117
+00:05:08,094 --> 00:05:08,353
+error.
+錯誤。
+
+118
+00:05:11,022 --> 00:05:13,455
+We could also merge this into one if check,
+我們也可以將其合併為一個 if 檢查，
+
+119
+00:05:13,584 --> 00:05:15,807
+by the way, by simply taking that
+順便說一句，簡單地採取
+
+120
+00:05:17,209 --> 00:05:20,045
+and combining it with the OR operator here.
+並將其與此處的 OR 運算子結合。
+
+121
+00:05:21,013 --> 00:05:23,774
+With that, we check whether we don't have
+這樣，我們檢查是否沒有
+
+122
+00:05:23,774 --> 00:05:26,034
+something for the start node or if we do,
+起始節點的一些東西或者如果我們這樣做的話，
+
+123
+00:05:26,750 --> 00:05:28,863
+whether we maybe don't have an entry for the
+我們是否可能沒有以下條目
+
+124
+00:05:28,944 --> 00:05:29,350
+end node.
+結束節點。
+
+125
+00:05:30,244 --> 00:05:32,194
+And if we make it past this if check,
+如果我們通過了這個 if 檢查，
+
+126
+00:05:32,842 --> 00:05:34,568
+we no longer use splice.
+我們不再使用拼接。
+
+127
+00:05:35,343 --> 00:05:35,956
+Instead,
+反而，
+
+128
+00:05:36,714 --> 00:05:40,216
+we use delete to delete our end node here.
+我們使用delete來刪除這裡的結束節點。
+
+129
+00:05:42,143 --> 00:05:42,912
+Now for hasEdge,
+現在對於 hasEdge，
+
+130
+00:05:44,350 --> 00:05:46,777
+we still might wanna check if we got nothing
+我們仍然可能想檢查一下我們是否一無所獲
+
+131
+00:05:46,809 --> 00:05:49,301
+at all maybe for the given start node, but
+可能對於給定的起始節點，但是
+
+132
+00:05:49,349 --> 00:05:52,435
+thereafter it's not indexOf compared to some
+此後與某些相比它不是indexOf
+
+133
+00:05:52,500 --> 00:05:55,592
+number, but it can just be has for the end
+數字，但它可以只是最後
+
+134
+00:05:55,690 --> 00:05:55,917
+node
+節點
+
+135
+00:05:56,825 --> 00:05:59,485
+and that returns true if we have that entry
+如果我們有該條目，則傳回 true
+
+136
+00:05:59,826 --> 00:06:01,188
+and false otherwise.
+否則為假。
+
+137
+00:06:05,834 --> 00:06:08,539
+So that is how we could restructure this to
+這就是我們如何將其重組為
+
+138
+00:06:08,636 --> 00:06:12,001
+use sets for storing our edge connections
+使用集合來儲存我們的邊緣連接
+
+139
+00:06:12,194 --> 00:06:13,643
+instead of an array.
+而不是陣列。
+
+140
+00:06:15,011 --> 00:06:17,448
+If we now reload this, we got the same
+如果我們現在重新載入它，我們會得到相同的結果
+
+141
+00:06:17,481 --> 00:06:19,818
+result as before just with sets now,
+現在的結果和以前一樣，
+
+142
+00:06:20,604 --> 00:06:23,039
+but we can clearly see that we got unchanged
+但我們可以清楚地看到我們沒有改變
+
+143
+00:06:23,087 --> 00:06:24,129
+nodes, for example,
+節點，例如
+
+144
+00:06:24,674 --> 00:06:26,581
+but then sets with our connections.
+但隨後與我們的聯繫建立了聯繫。
+
+145
+00:06:27,414 --> 00:06:30,010
+And if I don't remove that edge down there,
+如果我不去掉下面的邊緣
+
+146
+00:06:30,314 --> 00:06:31,612
+so if I comment this out
+所以如果我註解掉這個
+
+147
+00:06:32,366 --> 00:06:34,609
+and we try that again, we of course get a
+我們再試一次，我們當然得到了
+
+148
+00:06:34,609 --> 00:06:35,378
+graph where
+圖表其中
+
+149
+00:06:36,372 --> 00:06:39,416
+max has a set with 2 entries, for example.
+例如，max 有一個包含 2 個條目的集合。
+
+150
+00:06:40,250 --> 00:06:42,477
+So that all seems to work. Let's also try
+所以這一切似乎都有效。我們也來嘗試一下
+
+151
+00:06:42,477 --> 00:06:44,945
+removing a node and see whether that works.
+刪除一個節點並查看是否有效。
+
+152
+00:06:45,827 --> 00:06:48,379
+And now we see node 2 is removed
+現在我們看到節點 2 被刪除了
+
+153
+00:06:49,118 --> 00:06:49,968
+and therefore
+因此
+
+154
+00:06:50,643 --> 00:06:53,676
+3 has no active connections and 1 only
+3 沒有活動連接，1 只有
+
+155
+00:06:53,708 --> 00:06:54,591
+points at 3
+點為 3
+
+156
+00:06:55,554 --> 00:06:57,577
+because we deleted node 2
+因為我們刪除了節點2
+
+157
+00:06:58,187 --> 00:07:00,691
+and previously we pointed at 2 but since we
+之前我們指向 2 但因為我們
+
+158
+00:07:00,691 --> 00:07:01,702
+deleted that node,
+刪除該節點，
+
+159
+00:07:02,280 --> 00:07:04,351
+the related edge was also removed.
+相關的邊也被刪除。
+
+160
+00:07:05,121 --> 00:07:08,684
+So that all works but now with sets instead
+這樣一切都有效，但現在用集合代替
+
+161
+00:07:08,717 --> 00:07:11,510
+of arrays, hence giving us better time
+陣列，因此給我們更好的時間
+
+162
+00:07:11,606 --> 00:07:12,328
+complexity.
+複雜。

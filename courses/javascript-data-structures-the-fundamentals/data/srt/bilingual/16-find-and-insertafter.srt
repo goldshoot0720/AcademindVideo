@@ -1,0 +1,844 @@
+1
+00:00:02,200 --> 00:00:04,465
+Now we can add more functionalities to our
+現在我們可以為我們的應用程式添加更多功能
+
+2
+00:00:04,530 --> 00:00:07,743
+linked list. One functionality which I think
+連結列表。我認為的一項功能
+
+3
+00:00:07,903 --> 00:00:09,863
+would make sense as well is that we can also
+也是有道理的，我們也可以
+
+4
+00:00:09,911 --> 00:00:13,783
+find a specific value. And with find here, I
+找到一個特定的值。透過找到這裡，我
+
+5
+00:00:13,783 --> 00:00:16,434
+mean that I wanna find the first occurrence
+意思是我想找第一個出現的地方
+
+6
+00:00:16,498 --> 00:00:17,269
+of that value.
+那個值。
+
+7
+00:00:18,249 --> 00:00:20,032
+We can of course have the same value in the
+我們當然可以在
+
+8
+00:00:20,032 --> 00:00:22,120
+list multiple times, as you see here at the
+多次列出，正如您在此處看到的
+
+9
+00:00:22,120 --> 00:00:25,076
+example of max or first value, but I just
+最大值或第一個值的範例，但我只是
+
+10
+00:00:25,076 --> 00:00:27,020
+want to find the first occurrence, let's
+想要找到第一個出現的地方，讓我們
+
+11
+00:00:27,020 --> 00:00:28,948
+say. Of course, you could also add other
+說。當然，你還可以加入其他的
+
+12
+00:00:28,948 --> 00:00:30,748
+functionalities where you find all
+您可以找到所有功能
+
+13
+00:00:30,876 --> 00:00:33,511
+occurrences or count how often an element
+出現次數或計算元素的出現頻率
+
+14
+00:00:33,511 --> 00:00:34,299
+exists in the list.
+存在於列表中。
+
+15
+00:00:35,279 --> 00:00:36,902
+But here I just wanna find the first
+但在這裡我只想找到第一個
+
+16
+00:00:36,902 --> 00:00:37,468
+occurrence
+發生
+
+17
+00:00:38,034 --> 00:00:41,106
+and therefore here maybe between prepend and
+因此這裡可能在 prepend 和
+
+18
+00:00:41,106 --> 00:00:42,949
+delete, but the position doesn't matter,
+刪除，但位置無關緊要，
+
+19
+00:00:43,143 --> 00:00:44,598
+I'll add a find method
+我將添加一個查找方法
+
+20
+00:00:45,148 --> 00:00:46,611
+which receives the value that should be
+它接收到的值應該是
+
+21
+00:00:46,611 --> 00:00:47,010
+found.
+成立。
+
+22
+00:00:48,890 --> 00:00:51,424
+Now first of all, just as with delete, I'll
+現在首先，就像刪除一樣，我將
+
+23
+00:00:51,424 --> 00:00:53,673
+check if we don't have a head. So if the
+檢查我們是否沒有頭。所以如果
+
+24
+00:00:53,673 --> 00:00:55,488
+list is empty, in which case I'll return
+列表為空，在這種情況下我將回傳
+
+25
+00:00:55,488 --> 00:00:57,607
+nothing because we can't find anything if
+什麼都沒有，因為如果我們找不到任何東西
+
+26
+00:00:57,607 --> 00:00:58,330
+the list is empty.
+該列表為空。
+
+27
+00:00:59,052 --> 00:01:00,674
+And thereafter, again, we can start
+此後，我們可以再次開始
+
+28
+00:01:01,300 --> 00:01:03,436
+with current node equal to this head
+目前節點等於該頭
+
+29
+00:01:04,174 --> 00:01:07,193
+to then go through all our elements. So here
+然後檢查我們所有的元素。所以在這裡
+
+30
+00:01:07,305 --> 00:01:09,826
+I'll again go through all current nodes. So
+我將再次檢查所有當前節點。所以
+
+31
+00:01:09,826 --> 00:01:13,182
+same logic as in toArray. I'll go through
+與 toArray 中的邏輯相同。我會透過
+
+32
+00:01:13,407 --> 00:01:15,302
+all the nodes I have here
+我這裡的所有節點
+
+33
+00:01:16,377 --> 00:01:17,967
+and I wanna check if
+我想檢查是否
+
+34
+00:01:19,029 --> 00:01:21,685
+current node dot value is equal
+當前節點點值相等
+
+35
+00:01:22,284 --> 00:01:23,045
+to the value
+到值
+
+36
+00:01:25,280 --> 00:01:26,592
+I got here as an argument.
+我來這裡是為了爭論。
+
+37
+00:01:28,506 --> 00:01:31,008
+If that is the case, I know that I found the
+如果是這樣的話，我知道我找到了
+
+38
+00:01:31,008 --> 00:01:33,640
+node I wanted to find, and then I'll return
+我想找到的節點，然後我會回傳
+
+39
+00:01:33,753 --> 00:01:34,624
+this current node.
+這個當前節點。
+
+40
+00:01:36,750 --> 00:01:39,019
+Thereafter, we can simply set current node
+此後，我們可以簡單地設定當前節點
+
+41
+00:01:39,100 --> 00:01:41,499
+equal to current node next. That is our
+等於當前節點的下一個。那就是我們的
+
+42
+00:01:41,693 --> 00:01:43,865
+looping logic we got in the toArray method
+我們在 toArray 方法中得到的迴圈邏輯
+
+43
+00:01:43,898 --> 00:01:44,108
+as well.
+以及。
+
+44
+00:01:46,579 --> 00:01:48,622
+So with that, we check the value of every
+因此，我們檢查每個的值
+
+45
+00:01:48,622 --> 00:01:51,871
+node, and the first time we find a node with
+節點，而我們第一次找到一個節點
+
+46
+00:01:51,887 --> 00:01:54,091
+the value we're looking for, we return that
+我們正在尋找的值，我們回傳它
+
+47
+00:01:54,091 --> 00:01:56,310
+node. And by calling return here, of course,
+節點。當然，透過在這裡呼叫 return ，
+
+48
+00:01:56,326 --> 00:01:58,463
+we'll then not continue with the loop, we'll
+然後我們不會繼續迴圈，我們會
+
+49
+00:01:58,512 --> 00:02:00,440
+not continue with this function. That is
+不再繼續使用此功能。那是
+
+50
+00:02:00,488 --> 00:02:02,288
+what I mean with finding the first
+我所說的找到第一個是什麼意思
+
+51
+00:02:02,288 --> 00:02:04,602
+occurrence. We finish after we have at least
+發生。我們至少完成後
+
+52
+00:02:04,670 --> 00:02:05,006
+one hit.
+一擊。
+
+53
+00:02:06,782 --> 00:02:08,367
+If we make it through the loop without
+如果我們沒有通過迴圈
+
+54
+00:02:08,383 --> 00:02:10,874
+finding anything, I'll return nothing, or
+找到任何東西，我不會回傳任何東西，或者
+
+55
+00:02:10,874 --> 00:02:14,074
+maybe we simply return null. In both cases,
+也許我們只是回傳 null。在這兩種情況下，
+
+56
+00:02:14,106 --> 00:02:16,530
+so here at the end and in this initial if
+所以在最後和這個最初的 if 中
+
+57
+00:02:16,595 --> 00:02:18,602
+check, so that we make it clear that we
+檢查，以便我們明確我們
+
+58
+00:02:18,666 --> 00:02:19,613
+didn't find anything.
+沒有找到任何東西。
+
+59
+00:02:20,834 --> 00:02:21,444
+Let's give it a try
+讓我們嘗試一下
+
+60
+00:02:22,054 --> 00:02:22,969
+here. After
+這裡。後
+
+61
+00:02:23,595 --> 00:02:24,173
+doing all
+盡一切努力
+
+62
+00:02:24,944 --> 00:02:25,683
+those things here,
+這裡的那些東西，
+
+63
+00:02:26,293 --> 00:02:28,348
+let's now call find for
+現在讓我們呼叫 find 來查找
+
+64
+00:02:29,344 --> 00:02:29,841
+Max,
+最大限度，
+
+65
+00:02:30,403 --> 00:02:33,245
+which we shouldn't find, but then also for
+我們不應該找到它，但也為了
+
+66
+00:02:34,562 --> 00:02:36,826
+Hello There, which we never deleted, so
+你好，我們從未刪除過，所以
+
+67
+00:02:36,890 --> 00:02:37,725
+which we should find.
+我們應該找到它。
+
+68
+00:02:38,432 --> 00:02:39,363
+So let's save that,
+所以讓我們來儲存一下，
+
+69
+00:02:40,181 --> 00:02:40,566
+reload,
+重新載入，
+
+70
+00:02:41,385 --> 00:02:42,541
+and we see null here
+我們在這裡看到 null
+
+71
+00:02:43,071 --> 00:02:46,602
+from line 99. So we didn't find Max as we
+從第 99 行開始。所以我們沒有找到 Max
+
+72
+00:02:46,602 --> 00:02:47,067
+expected,
+預期的，
+
+73
+00:02:47,661 --> 00:02:50,037
+but we see a value for Hello there, which is
+但我們看到 Hello There 的一個值，即
+
+74
+00:02:50,149 --> 00:02:50,840
+the correct node.
+正確的節點。
+
+75
+00:02:51,417 --> 00:02:52,621
+So that also works.
+所以這也有效。
+
+76
+00:02:53,681 --> 00:02:56,297
+And with that, we also implemented a find
+同時，我們也實現了一個發現
+
+77
+00:02:56,474 --> 00:02:56,747
+method.
+方法。
+
+78
+00:02:57,357 --> 00:02:59,764
+Now to conclude this linked list, let's
+現在總結這個鍊錶，讓我們
+
+79
+00:02:59,764 --> 00:03:01,514
+build up on the find method
+建立在 find 方法的基礎上
+
+80
+00:03:02,172 --> 00:03:06,057
+and let's maybe add an insertAfter method.
+我們也許可以加入一個 insertAfter 方法。
+
+81
+00:03:06,747 --> 00:03:08,450
+InsertAfter.
+之後插入。
+
+82
+00:03:09,237 --> 00:03:12,352
+The idea here is that we can insert a value,
+這裡的想法是我們可以插入一個值，
+
+83
+00:03:12,625 --> 00:03:15,356
+but we specify after which value it should
+但我們指定它應該在哪個值之後
+
+84
+00:03:15,356 --> 00:03:18,054
+be inserted, so that we also get a second
+被插入，這樣我們也得到了第二個
+
+85
+00:03:18,166 --> 00:03:20,463
+parameter here, the after value.
+這裡的參數，就是後面的數值。
+
+86
+00:03:21,603 --> 00:03:23,900
+Now the idea is simple. We find the after
+現在的想法很簡單。我們發現之後
+
+87
+00:03:23,948 --> 00:03:26,855
+value, so we find the node with this value,
+value，所以我們找到具有該值的節點，
+
+88
+00:03:27,161 --> 00:03:29,249
+and if we do find a node, so if this doesn't
+如果我們確實找到了一個節點，那麼如果沒有找到
+
+89
+00:03:29,249 --> 00:03:29,891
+return null,
+傳回空值，
+
+90
+00:03:30,453 --> 00:03:33,743
+then we want to create a new node after that
+然後我們想建立一個新節點
+
+91
+00:03:33,825 --> 00:03:36,444
+old node, after that, uh, well, value we
+老節點，在那之後，呃，好吧，值我們
+
+92
+00:03:36,509 --> 00:03:36,818
+found.
+成立。
+
+93
+00:03:38,628 --> 00:03:40,958
+For that, let's first of all check whether
+為此，我們首先檢查是否
+
+94
+00:03:40,958 --> 00:03:44,582
+we do find a node for after value. So here I
+我們確實找到了一個用於後值的節點。所以在這裡我
+
+95
+00:03:44,615 --> 00:03:44,987
+will then
+那麼將會
+
+96
+00:03:45,667 --> 00:03:47,493
+find my existing node
+找到我現有的節點
+
+97
+00:03:48,169 --> 00:03:49,908
+by calling this.find.
+透過調用 this.find.
+
+98
+00:03:50,504 --> 00:03:53,515
+This refers to the class, so this.find for
+this 指的是類，所以 this.find 為
+
+99
+00:03:53,547 --> 00:03:56,059
+after value, and this should return null if
+值後，如果
+
+100
+00:03:56,059 --> 00:03:58,805
+it doesn't find it or return the first node
+它沒有找到它或回傳第一個節點
+
+101
+00:03:58,920 --> 00:04:00,544
+it found if it did find it.
+如果它確實找到了，它就找到了。
+
+102
+00:04:01,086 --> 00:04:03,172
+And important, we therefore insert the value
+重要的是，我們因此插入值
+
+103
+00:04:03,252 --> 00:04:05,738
+after the first node we find, not after
+在我們找到的第一個節點之後，而不是之後
+
+104
+00:04:05,834 --> 00:04:08,048
+every node we find for that value. That's
+我們找到該值的每個節點。那是
+
+105
+00:04:08,144 --> 00:04:09,684
+not the functionality we have here.
+不是我們這裡的功能。
+
+106
+00:04:10,502 --> 00:04:12,411
+So we find our node here,
+所以我們在這裡找到我們的節點，
+
+107
+00:04:13,374 --> 00:04:15,988
+we want to check if existing node is truthy.
+我們要檢查現有節點是否為真。
+
+108
+00:04:16,277 --> 00:04:18,731
+If it's not, there's nothing we need to do
+如果不是，我們無需做任何事情
+
+109
+00:04:18,828 --> 00:04:21,554
+because we can't insert it if we don't find
+因為如果找不到我們就無法插入它
+
+110
+00:04:21,554 --> 00:04:24,025
+the after value. But if we do find that
+後的值。但如果我們確實發現了
+
+111
+00:04:24,025 --> 00:04:25,725
+value, if we do get a node for that,
+值，如果我們確實得到了一個節點，
+
+112
+00:04:26,270 --> 00:04:28,596
+then of course we need a new node So we can
+那我們當然需要一個新節點所以我們可以
+
+113
+00:04:28,692 --> 00:04:29,591
+copy that code.
+複製該程式碼。
+
+114
+00:04:30,120 --> 00:04:32,028
+And now of course the next value of the new
+現在當然是新值的下一個值
+
+115
+00:04:32,076 --> 00:04:35,267
+node should not be our head, but instead the
+節點不應該是我們的頭，而是
+
+116
+00:04:35,267 --> 00:04:36,647
+next value here
+下一個值在這裡
+
+117
+00:04:37,256 --> 00:04:37,689
+should be,
+應該是
+
+118
+00:04:38,475 --> 00:04:40,768
+since we added after the existing node,
+因為我們在現有節點之後添加了，
+
+119
+00:04:41,522 --> 00:04:43,029
+well, it should be the next value of the
+好吧，它應該是下一個值
+
+120
+00:04:43,029 --> 00:04:45,771
+existing node because we insert the new
+現有節點，因為我們插入新節點
+
+121
+00:04:45,771 --> 00:04:48,433
+value between the existing node and the
+現有節點和現有節點之間的值
+
+122
+00:04:48,962 --> 00:04:52,234
+old next value after the existing node. So
+現有節點之後的舊下一個值。所以
+
+123
+00:04:52,266 --> 00:04:55,447
+here we use existing_node.next. That is the
+這裡我們使用existing_node.next。那就是
+
+124
+00:04:55,447 --> 00:04:56,854
+next value of the new node.
+新節點的下一個值。
+
+125
+00:04:57,889 --> 00:05:01,317
+And we then update existing node's next
+然後我們更新現有節點的下一個
+
+126
+00:05:01,382 --> 00:05:03,209
+value with the new node
+新節點的值
+
+127
+00:05:03,808 --> 00:05:06,130
+so that we basically put new node between
+這樣我們基本上就把新節點放在
+
+128
+00:05:06,325 --> 00:05:08,812
+existing node and the old existing
+現有節點和舊現有節點
+
+129
+00:05:09,333 --> 00:05:10,194
+next node.
+下一個節點。
+
+130
+00:05:12,778 --> 00:05:14,554
+And this should be all. Let's see whether
+這應該就是全部了。讓我們看看是否
+
+131
+00:05:14,554 --> 00:05:15,119
+that works.
+有效。
+
+132
+00:05:15,700 --> 00:05:16,184
+For that,
+為此，
+
+133
+00:05:16,814 --> 00:05:17,024
+here
+這裡
+
+134
+00:05:20,285 --> 00:05:23,364
+I'm going to add a new call to linked list 1
+我將向連結列表 1 新增一個調用
+
+135
+00:05:24,047 --> 00:05:24,909
+insert after.
+插入後。
+
+136
+00:05:26,510 --> 00:05:27,689
+And let's say after 1,
+假設 1 之後，
+
+137
+00:05:30,990 --> 00:05:32,785
+so after the first element, I want to insert
+所以在第一個元素之後，我想插入
+
+138
+00:05:32,785 --> 00:05:34,759
+something. And after hello there, I want to
+某物。在你好之後，我想要
+
+139
+00:05:34,823 --> 00:05:37,590
+insert something. So I want to insert
+插入一些東西。所以我想插入
+
+140
+00:05:38,609 --> 00:05:41,409
+after 1, let's say new value 1.
+1 之後，假設新值 1。
+
+141
+00:05:42,590 --> 00:05:44,711
+And then I want to insert after
+然後我想在之後插入
+
+142
+00:05:45,974 --> 00:05:48,060
+hello there new value 2.
+你好，新值 2。
+
+143
+00:05:49,478 --> 00:05:51,218
+And thereafter, I'll again simply
+此後，我將再次簡單地
+
+144
+00:05:52,604 --> 00:05:53,587
+print this entire array.
+列印整個陣列。
+
+145
+00:05:55,090 --> 00:05:56,346
+Let's give it a try and reload.
+讓我們嘗試一下並重新載入。
+
+146
+00:05:57,038 --> 00:05:59,405
+Here's our array, and in there we see 1 is
+這是我們的陣列，其中我們看到 1 是
+
+147
+00:05:59,405 --> 00:06:01,563
+still the first value, but thereafter I
+仍然是第一個值，但此後我
+
+148
+00:06:01,740 --> 00:06:03,206
+inserted new value 1,
+插入新值1，
+
+149
+00:06:04,124 --> 00:06:06,265
+and the next value is hello there.
+下一個值是你好。
+
+150
+00:06:07,055 --> 00:06:09,341
+So that is the next element, the next node
+這就是下一個元素，下一個節點
+
+151
+00:06:09,454 --> 00:06:12,369
+in line. And after hello there, I also
+排隊。在你好之後，我也
+
+152
+00:06:12,433 --> 00:06:14,743
+inserted new value 2. And that's exactly
+插入新值 2。這正是
+
+153
+00:06:14,759 --> 00:06:15,273
+what I wanted.
+我想要什麼。
+
+154
+00:06:15,899 --> 00:06:17,537
+New value 1 after 1,
+1後的新值1，
+
+155
+00:06:18,709 --> 00:06:19,673
+that's what we got here.
+這就是我們得到的。
+
+156
+00:06:20,942 --> 00:06:23,479
+And new value 2 after hello there,
+你好之後的新值 2，
+
+157
+00:06:24,314 --> 00:06:25,230
+that is what we got here.
+這就是我們得到的。
+
+158
+00:06:26,193 --> 00:06:28,602
+So with that, we also have the insertAfter
+這樣，我們還有 insertAfter
+
+159
+00:06:28,811 --> 00:06:30,963
+method. Now you could add more and more
+方法。現在您可以添加越來越多的內容
+
+160
+00:06:30,963 --> 00:06:33,372
+methods for counting elements or whatever
+計算元素或其他的方法
+
+161
+00:06:33,404 --> 00:06:33,950
+you want to do,
+你想做的事
+
+162
+00:06:34,592 --> 00:06:37,178
+but I would say we have a decent linked list
+但我想說我們有一個不錯的鍊錶
+
+163
+00:06:37,178 --> 00:06:37,354
+here.
+這裡。
+
+164
+00:06:38,205 --> 00:06:40,357
+Now with that linked list created,
+現在創建了該連結列表，
+
+165
+00:06:41,032 --> 00:06:43,945
+Let's take a step back and let's again check
+讓我們退後一步，再次檢查一下
+
+166
+00:06:44,958 --> 00:06:46,535
+what the advantage of this might be
+這可能有什麼好處
+
+167
+00:06:47,131 --> 00:06:50,043
+and how it actually compares to the array
+以及它與陣列的實際比較
+
+168
+00:06:50,365 --> 00:06:53,165
+which ships with JavaScript. Where is the
+與 JavaScript 一起提供。哪裡是
+
+169
+00:06:53,165 --> 00:06:54,146
+linked list better?
+鍊錶更好嗎？

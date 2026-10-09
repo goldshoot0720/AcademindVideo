@@ -1,0 +1,2319 @@
+1
+00:00:02,150 --> 00:00:04,810
+Now here I'll get started with the without
+現在我將從沒有開始
+
+2
+00:00:04,810 --> 00:00:05,600
+repetitions
+重複
+
+3
+00:00:06,342 --> 00:00:08,534
+scenario so that we come up with an
+場景，以便我們想出一個
+
+4
+00:00:08,534 --> 00:00:10,356
+algorithm that takes some input and then
+演算法需要一些輸入，然後
+
+5
+00:00:10,388 --> 00:00:13,110
+gives us all possible combinations where no
+給我們所有可能的組合，其中沒有
+
+6
+00:00:13,271 --> 00:00:14,270
+element is repeated.
+元素被重複。
+
+7
+00:00:15,123 --> 00:00:19,052
+So for example, I have my to-do list items,
+例如，我有我的待辦事項清單項，
+
+8
+00:00:19,551 --> 00:00:21,264
+and that is walk the dog,
+那就是遛狗，
+
+9
+00:00:22,963 --> 00:00:23,416
+clean
+乾淨的
+
+10
+00:00:25,051 --> 00:00:27,883
+the toilet, and that should of course not be
+廁所，那當然不應該
+
+11
+00:00:27,883 --> 00:00:28,935
+console but const.
+控制台但常數。
+
+12
+00:00:29,502 --> 00:00:30,691
+So clean the toilet,
+於是把廁所打掃乾淨
+
+13
+00:00:31,270 --> 00:00:32,925
+buy groceries,
+買雜貨，
+
+14
+00:00:33,744 --> 00:00:37,247
+and order food. So I have 4 items here in
+並點餐。所以我這裡有 4 件物品
+
+15
+00:00:37,520 --> 00:00:37,649
+one,
+一，
+
+16
+00:00:38,565 --> 00:00:39,261
+in one array,
+在一個陣列中，
+
+17
+00:00:40,429 --> 00:00:42,116
+and this is the input which I want to feed
+這是我想要提供的輸入
+
+18
+00:00:42,213 --> 00:00:42,944
+to a function.
+到一個函式。
+
+19
+00:00:48,450 --> 00:00:50,091
+getPermutations could be the name of the
+getPermutations 可以是
+
+20
+00:00:50,091 --> 00:00:51,991
+function, and I want to be able to call
+函式，我希望能夠調用
+
+21
+00:00:52,248 --> 00:00:54,743
+getPermutations and feed in my to-do list
+getPermutations 並添加到我的待辦事項清單中
+
+22
+00:00:54,824 --> 00:00:55,129
+items
+專案
+
+23
+00:00:55,847 --> 00:00:56,392
+And
+和
+
+24
+00:00:56,969 --> 00:00:59,598
+as a result, I get all possible combinations
+結果，我得到了所有可能的組合
+
+25
+00:00:59,694 --> 00:01:02,003
+in one array, for example. So I then
+例如，在一個陣列中。所以我然後
+
+26
+00:01:02,115 --> 00:01:03,991
+console.log that result array.
+console.log 結果陣列。
+
+27
+00:01:05,386 --> 00:01:05,931
+That's the goal.
+這就是目標。
+
+28
+00:01:06,508 --> 00:01:09,250
+Now getPermutations therefore, of course,
+現在 getPermutations 因此，當然，
+
+29
+00:01:09,555 --> 00:01:12,921
+should take our array of input values as an
+應該將我們的輸入值陣列作為
+
+30
+00:01:13,082 --> 00:01:13,515
+argument.
+爭論。
+
+31
+00:01:14,140 --> 00:01:15,952
+Now that's of course just one way of
+這當然只是一種方式
+
+32
+00:01:16,609 --> 00:01:18,549
+writing this function. You could also use
+編寫這個函式。你也可以使用
+
+33
+00:01:18,549 --> 00:01:20,842
+the rest parameter to take a bunch of
+剩下的參數取一堆
+
+34
+00:01:20,874 --> 00:01:23,054
+comma-separated input values, a bunch of
+以逗號分隔的輸入值，一堆
+
+35
+00:01:23,102 --> 00:01:25,952
+comma-separated parameters, But I expect one
+逗號分隔的參數，但我期望一個
+
+36
+00:01:26,017 --> 00:01:28,396
+parameter which should be an array with all
+參數應該是一個包含所有內容的陣列
+
+37
+00:01:28,671 --> 00:01:31,276
+the values which then should be used in the
+然後應該在中使用的值
+
+38
+00:01:31,341 --> 00:01:32,490
+different permutations.
+不同的排列。
+
+39
+00:01:33,970 --> 00:01:35,954
+So the name is up to you. I'll name this
+所以名字由你決定。我將命名這個
+
+40
+00:01:36,809 --> 00:01:39,680
+options because this is an array full of our
+選項，因為這是一個充滿我們的陣列
+
+41
+00:01:39,809 --> 00:01:42,519
+permutation options. We are free to combine
+排列選項。我們可以自由組合
+
+42
+00:01:42,551 --> 00:01:43,826
+them in different ways, and that's why I
+以不同的方式對待他們，這就是為什麼我
+
+43
+00:01:43,826 --> 00:01:44,646
+named this options.
+命名此選項。
+
+44
+00:01:46,330 --> 00:01:47,896
+So what can we now do inside of this
+那我們現在可以在其中做什麼
+
+45
+00:01:48,179 --> 00:01:48,413
+algorithm?
+演算法?
+
+46
+00:01:49,808 --> 00:01:51,564
+Well, we wanna derive all possible
+好吧，我們想導出所有可能的結果
+
+47
+00:01:51,841 --> 00:01:54,019
+combinations, or as we call them,
+組合，或我們所說的，
+
+48
+00:01:54,214 --> 00:01:54,604
+permutations.
+排列。
+
+49
+00:01:55,682 --> 00:01:57,109
+So I'll add a new helper variable
+所以我將會新增一個新的輔助變數
+
+50
+00:01:57,365 --> 00:02:00,139
+permutations, which initially probably is an
+排列，最初可能是
+
+51
+00:02:00,251 --> 00:02:00,732
+empty array.
+空陣列。
+
+52
+00:02:01,613 --> 00:02:04,178
+And in the end, we'll return that array. But
+最後，我們將傳回該陣列。但
+
+53
+00:02:04,178 --> 00:02:05,782
+in the end, of course, it shouldn't be empty
+當然，最後它不應該是空的
+
+54
+00:02:05,782 --> 00:02:08,138
+anymore, but instead it should contain a
+不再，但它應該包含一個
+
+55
+00:02:08,186 --> 00:02:10,960
+bunch of nested arrays which describe our
+一堆描述我們的嵌套陣列
+
+56
+00:02:11,056 --> 00:02:13,781
+individual combinations we came up with. So
+我們想出了單獨的組合。所以
+
+57
+00:02:13,781 --> 00:02:16,009
+it should be an array full of arrays where
+它應該是一個充滿陣列的陣列，其中
+
+58
+00:02:16,186 --> 00:02:18,735
+every array looks like this input array, but
+每個陣列看起來都像這個輸入陣列，但是
+
+59
+00:02:18,927 --> 00:02:20,418
+where the items are then ordered
+然後訂購物品的地方
+
+60
+00:02:20,594 --> 00:02:22,681
+differently. That we have all possible
+不同。我們擁有一切可能
+
+61
+00:02:23,002 --> 00:02:25,202
+combinations and orders we can come up with
+我們可以想出的組合和順序
+
+62
+00:02:25,347 --> 00:02:26,439
+for those given inputs.
+對於那些給定的輸入。
+
+63
+00:02:27,515 --> 00:02:29,843
+That's the goal. Now what happens in between
+這就是目標。現在中間發生了什麼
+
+64
+00:02:29,843 --> 00:02:31,160
+those 2 lines therefore?
+那麼這兩行呢？
+
+65
+00:02:31,995 --> 00:02:34,645
+Well, we probably need some for loop to go
+好吧，我們可能需要一些 for 迴圈
+
+66
+00:02:34,661 --> 00:02:36,540
+through all the options, right? We wanna
+透過所有的選擇，對嗎？我們想要
+
+67
+00:02:37,054 --> 00:02:39,415
+derive all possible combinations, so we
+匯出所有可能的組合，所以我們
+
+68
+00:02:39,415 --> 00:02:40,973
+certainly need to have a look at every
+當然需要查看每一個
+
+69
+00:02:41,005 --> 00:02:43,414
+option. So therefore a loop probably makes
+選項。因此，一個迴圈可能使
+
+70
+00:02:43,414 --> 00:02:43,815
+sense,
+感覺，
+
+71
+00:02:44,378 --> 00:02:46,144
+and I'll use a regular for loop where I
+我將使用常規的 for 迴圈
+
+72
+00:02:46,160 --> 00:02:48,475
+start at the very first element And then we
+從第一個元素開始然後我們
+
+73
+00:02:48,475 --> 00:02:50,897
+go maybe through all options and we
+也許經歷了所有的選擇，我們
+
+74
+00:02:50,897 --> 00:02:54,207
+increment i by 1 after every iteration step.
+每次迭代步驟後將 i 加 1。
+
+75
+00:02:55,680 --> 00:02:57,585
+So now we would go through all the elements,
+所以現在我們要檢查所有的元素，
+
+76
+00:02:58,058 --> 00:02:59,948
+all the array elements we receive on the
+我們收到的所有陣列元素
+
+77
+00:02:59,948 --> 00:03:00,518
+input array.
+輸入陣列。
+
+78
+00:03:02,277 --> 00:03:03,620
+Now every item here
+現在這裡的每一項
+
+79
+00:03:04,478 --> 00:03:06,420
+we got from that input array needs to be
+我們從輸入陣列得到的需要是
+
+80
+00:03:06,420 --> 00:03:09,122
+combined with all other items in all
+與所有其他專案結合
+
+81
+00:03:09,332 --> 00:03:11,961
+possible orders, in all possible
+可能的順序，在所有可能的情況下
+
+82
+00:03:12,582 --> 00:03:14,733
+ways of sorting those items. To say.
+對這些專案進行排序的方法。說。
+
+83
+00:03:15,712 --> 00:03:17,460
+So that screams for a nested loop,
+所以這需要一個嵌套迴圈，
+
+84
+00:03:18,022 --> 00:03:20,348
+but the problem here is we don't know how
+但問題是我們不知道如何
+
+85
+00:03:20,348 --> 00:03:22,803
+many nested loops we'll need because we'll
+我們需要許多嵌套迴圈，因為我們將
+
+86
+00:03:22,819 --> 00:03:26,445
+basically need one nested loop per extra
+基本上每額外需要一個嵌套迴圈
+
+87
+00:03:26,589 --> 00:03:28,819
+element in the input array. Now this is a
+輸入陣列中的元素。現在這是一個
+
+88
+00:03:28,851 --> 00:03:31,450
+use case or a problem that screams for
+用例或令人尖叫的問題
+
+89
+00:03:31,563 --> 00:03:34,258
+recursion because with recursion we can call
+遞迴，因為透過遞迴我們可以調用
+
+90
+00:03:34,466 --> 00:03:36,488
+ourselves and we don't need to know in
+我們自己，我們不需要知道
+
+91
+00:03:36,488 --> 00:03:38,541
+advance how often that will happen. We just
+提前確定這種情況發生的頻率。我們只是
+
+92
+00:03:38,541 --> 00:03:40,964
+need some exit condition that makes sure we
+需要一些退出條件來確保我們
+
+93
+00:03:41,044 --> 00:03:42,681
+don't call ourselves anymore
+別再稱呼我們自己了
+
+94
+00:03:43,355 --> 00:03:44,526
+if we got no more
+如果我們不再有
+
+95
+00:03:45,361 --> 00:03:47,527
+reason to call ourselves. That's how we
+給我們自己打電話的理由。我們就是這樣
+
+96
+00:03:47,527 --> 00:03:49,821
+could describe recursion. And recursion
+可以描述遞迴。和遞迴
+
+97
+00:03:49,869 --> 00:03:51,939
+sounds like a fitting tool here since we
+聽起來像是個合適的工具，因為我們
+
+98
+00:03:51,955 --> 00:03:54,282
+don't know in advance how many nested loops
+事先不知道有多少個嵌套迴圈
+
+99
+00:03:54,282 --> 00:03:54,811
+we would need.
+我們需要。
+
+100
+00:03:56,031 --> 00:03:58,839
+Now, how can we use recursion here to solve
+現在，我們如何使用遞迴來解決
+
+101
+00:03:58,839 --> 00:04:01,566
+this permutations problem? I'll say right
+這個排列問題？我會說對的
+
+102
+00:04:01,566 --> 00:04:03,925
+away, it'll be a bit tricky to wrap your
+離開，包裹你的會有點棘手
+
+103
+00:04:03,989 --> 00:04:06,893
+head around this, which is why after we
+解決這個問題，這就是為什麼我們之後
+
+104
+00:04:07,022 --> 00:04:09,734
+wrote this algorithm, I also dump in some
+寫了這個演算法，我也轉儲了一些
+
+105
+00:04:09,847 --> 00:04:12,977
+console.log statements so that we can see
+console.log語句讓我們可以看到
+
+106
+00:04:13,122 --> 00:04:13,828
+what happens
+會發生什麼
+
+107
+00:04:14,406 --> 00:04:16,317
+after we got the result. But to understand
+當我們得到結果後。但要明白
+
+108
+00:04:16,317 --> 00:04:18,195
+what we're going to build, here's the
+我們要建構什麼，這是
+
+109
+00:04:18,195 --> 00:04:22,145
+general idea. We got our input array of the
+總體思路。我們得到了輸入陣列
+
+110
+00:04:22,370 --> 00:04:24,633
+different options we have, so of our todo
+我們有不同的選擇，所以我們的待辦事項
+
+111
+00:04:24,681 --> 00:04:27,828
+items, or simplified, of A, B, C, and D.
+A、B、C 和 D 項或簡化項。
+
+112
+00:04:28,551 --> 00:04:30,686
+That's the input array we get on our main
+這是我們在 main 上得到的輸入陣列
+
+113
+00:04:30,879 --> 00:04:31,569
+function call.
+函式呼叫。
+
+114
+00:04:32,388 --> 00:04:35,501
+Now the idea with recursion or of solving
+現在用遞迴或求解的想法
+
+115
+00:04:35,533 --> 00:04:36,591
+this recursively
+這樣遞迴地
+
+116
+00:04:37,120 --> 00:04:39,413
+is in the end that we call this same
+最終我們稱之為相同
+
+117
+00:04:39,525 --> 00:04:42,651
+function again with a shorter array where we
+使用更短的陣列再次運行，我們
+
+118
+00:04:42,731 --> 00:04:45,440
+omit the first element. So where we then
+省略第一個元素。那我們在哪裡
+
+119
+00:04:45,857 --> 00:04:48,870
+just pass an array with b, c, and d into
+只需將包含 b、c 和 d 的陣列傳遞到
+
+120
+00:04:48,902 --> 00:04:49,528
+ourselves.
+我們自己。
+
+121
+00:04:50,521 --> 00:04:52,878
+And we'll do this recursively until,
+我們將遞迴地執行此操作，直到，
+
+122
+00:04:53,487 --> 00:04:54,914
+which we have to check with some if
+我們必須與一些人核實一下
+
+123
+00:04:54,914 --> 00:04:58,905
+condition, until we only get one element. So
+條件，直到我們只得到一個元素。所以
+
+124
+00:04:58,937 --> 00:05:01,230
+until we get an array with just one element,
+直到我們得到一個只有一個元素的陣列，
+
+125
+00:05:01,646 --> 00:05:03,858
+then we'll not call ourselves again.
+那我們就不會再打電話給自己了。
+
+126
+00:05:04,307 --> 00:05:06,808
+Instead, we will then basically write some
+相反，我們基本上會寫一些
+
+127
+00:05:06,872 --> 00:05:10,769
+code to combine this single element
+組合該單一元素的程式碼
+
+128
+00:05:11,747 --> 00:05:14,409
+with the other element we left out when we
+與我們遺漏的另一個元素
+
+129
+00:05:14,409 --> 00:05:16,333
+created that single element array.
+建立了該單元素陣列。
+
+130
+00:05:16,895 --> 00:05:20,406
+So we in the end combine D with C here. And
+所以我們最終在這裡將D和C結合起來。和
+
+131
+00:05:20,583 --> 00:05:22,571
+with combine, I mean that we'll
+聯合收割機，我的意思是我們會
+
+132
+00:05:23,229 --> 00:05:26,243
+need some code, some loop in the end, that
+需要一些程式碼，最後需要一些迴圈，
+
+133
+00:05:26,276 --> 00:05:28,889
+gives us all possible combinations of these
+給了我們所有可能的組合
+
+134
+00:05:29,002 --> 00:05:32,658
+2 elements. So C and D and D and C in this
+2 個元素。所以 C 和 D 以及 D 和 C 在這個
+
+135
+00:05:32,770 --> 00:05:33,315
+case here.
+案例在這裡。
+
+136
+00:05:33,973 --> 00:05:36,654
+Now by splitting this problem into smaller
+現在把這個問題分解成更小的問題
+
+137
+00:05:36,766 --> 00:05:39,767
+arrays, we will be able to use a loop
+陣列，我們將能夠使用迴圈
+
+138
+00:05:39,912 --> 00:05:42,287
+because we'll have simplified the problem.
+因為我們會簡化問題。
+
+139
+00:05:43,202 --> 00:05:45,144
+Because when we now derive these
+因為當我們現在導出這些
+
+140
+00:05:45,208 --> 00:05:47,022
+combinations, we'll combine these
+組合，我們將組合這些
+
+141
+00:05:47,279 --> 00:05:48,065
+permutations
+排列
+
+142
+00:05:48,820 --> 00:05:51,211
+with the element we left out to derive that
+與我們遺漏的元素一起得出
+
+143
+00:05:51,709 --> 00:05:54,020
+middle shorter array. So in this case, we
+中間較短的陣列。所以在這種情況下，我們
+
+144
+00:05:54,020 --> 00:05:57,246
+would combine B with CD and DC, and we'll
+將 B 與 CD 和 DC 結合起來，我們將
+
+145
+00:05:57,246 --> 00:05:59,493
+derive all new combinations we get by
+匯出我們得到的所有新組合
+
+146
+00:05:59,493 --> 00:06:02,750
+combining CD and DC with B. So we'll get
+將 CD 和 DC 與 B 結合。所以我們會得到
+
+147
+00:06:03,023 --> 00:06:05,346
+these combinations, and we would then take
+這些組合，然後我們將採取
+
+148
+00:06:05,410 --> 00:06:07,188
+those and combine them with the last
+並將它們與最後一個結合起來
+
+149
+00:06:07,188 --> 00:06:09,815
+remaining element, A, in this example.
+在此範例中，剩餘元素 A。
+
+150
+00:06:10,696 --> 00:06:13,244
+So that's the general idea. And by using
+這就是總體思路。並透過使用
+
+151
+00:06:13,292 --> 00:06:15,134
+recursion and splitting the problem into
+遞迴並將問題分解為
+
+152
+00:06:15,198 --> 00:06:17,857
+smaller arrays, we'll be able to step by
+較小的陣列，我們將能夠逐步
+
+153
+00:06:17,857 --> 00:06:19,491
+step build up those combinations.
+步驟建立這些組合。
+
+154
+00:06:20,100 --> 00:06:22,840
+So we'll not have to compare everything with
+所以我們不必將所有內容與
+
+155
+00:06:22,872 --> 00:06:24,490
+everything, which would require
+一切，這需要
+
+156
+00:06:25,451 --> 00:06:27,453
+a huge amount of nested loops, and we
+大量的嵌套迴圈，我們
+
+157
+00:06:27,533 --> 00:06:29,712
+wouldn't even know how many loops we need.
+甚至不知道我們需要多少個迴圈。
+
+158
+00:06:30,337 --> 00:06:31,795
+Instead of combining everything with
+而不是將所有內容與
+
+159
+00:06:31,843 --> 00:06:34,311
+everything, we'll instead just combine one
+一切，我們將只組合一個
+
+160
+00:06:34,600 --> 00:06:37,814
+set of existing permutations which we build
+我們建構的一組現有排列
+
+161
+00:06:37,814 --> 00:06:38,570
+up from the ground
+從地面上
+
+162
+00:06:39,148 --> 00:06:41,703
+with one extra element so that we always
+加上一個額外的元素，這樣我們總是
+
+163
+00:06:41,735 --> 00:06:44,197
+just combine one element with a set of
+只需將一個元素與一組元素組合起來
+
+164
+00:06:44,213 --> 00:06:46,711
+permutations instead of all elements with
+排列而不是所有元素
+
+165
+00:06:46,872 --> 00:06:49,467
+all other elements. That's the general idea.
+所有其他元素。這就是總體思路。
+
+166
+00:06:51,410 --> 00:06:53,654
+So here we could add a helper constant,
+所以在這裡我們可以加入一個輔助常數，
+
+167
+00:06:55,870 --> 00:06:56,350
+partial
+部分的
+
+168
+00:06:57,045 --> 00:06:58,783
+permutations, for example.
+例如，排列。
+
+169
+00:06:59,857 --> 00:07:00,387
+Where I call
+我打電話的地方
+
+170
+00:07:00,997 --> 00:07:03,389
+get permutations again, so where I call
+再次得到排列，所以我打電話的地方
+
+171
+00:07:03,389 --> 00:07:04,738
+myself recursively,
+我自己遞迴地，
+
+172
+00:07:06,039 --> 00:07:09,218
+and I feed in my options but with the slice
+我輸入我的選擇，但是用切片
+
+173
+00:07:09,346 --> 00:07:09,716
+method
+方法
+
+174
+00:07:10,374 --> 00:07:12,526
+and the argument of 1 fat 2 slice.
+還有1肥2片的說法。
+
+175
+00:07:13,361 --> 00:07:15,400
+This is the starting point of slice
+這是切片的起點
+
+176
+00:07:15,512 --> 00:07:17,519
+essentially, and slice, as you learned,
+本質上，正如你所學的那樣，切片
+
+177
+00:07:17,535 --> 00:07:19,992
+takes a slice, a part of that array on which
+取得一個切片，該切片是該陣列的一部分
+
+178
+00:07:20,024 --> 00:07:22,208
+you call it. So this will then start at the
+你稱之為。所以這將從
+
+179
+00:07:22,336 --> 00:07:24,311
+element at index 1, so at the second
+索引 1 處的元素，因此在第二個
+
+180
+00:07:24,424 --> 00:07:26,995
+element, it including that element and go
+元素，它包括該元素和 go
+
+181
+00:07:27,091 --> 00:07:29,325
+all the way to the end of the array. So put
+一直到陣列的最後。所以說
+
+182
+00:07:29,325 --> 00:07:31,012
+in other words, it will take all the
+換句話說，這將需要所有
+
+183
+00:07:31,028 --> 00:07:33,118
+elements we have in options except for the
+我們在選項中擁有的元素除了
+
+184
+00:07:33,118 --> 00:07:33,793
+first element.
+第一個元素。
+
+185
+00:07:35,463 --> 00:07:37,531
+And then this new array, which is that
+然後是這個新陣列
+
+186
+00:07:38,031 --> 00:07:39,954
+options array without the first element,
+沒有第一個元素的選項陣列，
+
+187
+00:07:40,293 --> 00:07:42,539
+will be fed back into getPermutations.
+將會被回饋到 getPermutations 中。
+
+188
+00:07:43,347 --> 00:07:44,951
+And there we then call ourselves again,
+然後我們再稱呼自己，
+
+189
+00:07:45,291 --> 00:07:45,680
+again
+再次
+
+190
+00:07:46,263 --> 00:07:48,353
+leaving out the new first element we have.
+忽略我們擁有的新的第一個元素。
+
+191
+00:07:48,710 --> 00:07:50,557
+And therefore the array we feed to
+因此我們輸入的陣列
+
+192
+00:07:50,654 --> 00:07:52,814
+getPermutations, to our nested recursive
+getPermutations，到我們的嵌套遞迴
+
+193
+00:07:52,863 --> 00:07:54,395
+calls, will get smaller and smaller until
+電話，會變得越來越小，直到
+
+194
+00:07:54,395 --> 00:07:54,949
+there ultimately is just one
+最終只有一個
+
+195
+00:07:57,126 --> 00:07:57,848
+element included.
+包括元素。
+
+196
+00:07:59,067 --> 00:08:00,576
+Now of course, since we have recursion, we
+當然，既然我們有遞迴，我們
+
+197
+00:08:00,656 --> 00:08:03,143
+also need some exit condition which we need
+還需要一些我們需要的退出條件
+
+198
+00:08:03,143 --> 00:08:05,036
+to run before we call ourselves again.
+在我們再次打電話給自己之前逃跑。
+
+199
+00:08:05,405 --> 00:08:06,881
+Otherwise we would have an infinite loop.
+否則我們就會陷入無限迴圈。
+
+200
+00:08:07,490 --> 00:08:09,865
+And here we should check if our length is
+在這裡我們應該檢查我們的長度是否是
+
+201
+00:08:09,961 --> 00:08:11,999
+equal to 1, which means we now have an array
+等於 1，這意味著我們現在有一個陣列
+
+202
+00:08:12,608 --> 00:08:14,726
+as our argument which just has 1 element.
+作為我們的參數，它只有 1 個元素。
+
+203
+00:08:15,336 --> 00:08:17,501
+In that case, I'm fine, and I then want to
+在這種情況下，我很好，然後我想要
+
+204
+00:08:17,501 --> 00:08:18,592
+return a new array
+傳回一個新陣列
+
+205
+00:08:19,603 --> 00:08:21,384
+that includes my options.
+這包括我的選擇。
+
+206
+00:08:22,347 --> 00:08:25,266
+So options already is an array with just 1
+所以 options 已經是一個只有 1 的陣列
+
+207
+00:08:25,443 --> 00:08:28,108
+element in there. And I now wrap this in a
+裡面有元素。現在我把它包裝在一個
+
+208
+00:08:28,108 --> 00:08:30,806
+new array so that we return an array with
+新陣列，以便我們回傳一個陣列
+
+209
+00:08:30,822 --> 00:08:32,798
+just one array, which then has just one
+只有一個陣列，那麼它就只有一個
+
+210
+00:08:32,990 --> 00:08:34,998
+item. That's what I return here.
+物品。這就是我回到這裡的原因。
+
+211
+00:08:35,641 --> 00:08:38,194
+Now, why am I doing that? Well, because
+現在，我為什麼要這麼做？嗯，因為
+
+212
+00:08:38,307 --> 00:08:42,129
+getPermutations returns an array. We always
+getPermutations 傳回一個陣列。我們總是
+
+213
+00:08:42,145 --> 00:08:43,992
+return an array here in the end, and
+最後傳回一個陣列，並且
+
+214
+00:08:43,992 --> 00:08:45,486
+therefore we should also return an array
+因此我們也應該傳回一個陣列
+
+215
+00:08:45,935 --> 00:08:48,666
+when we have just one element in our options
+當我們的選擇中只有一個元素時
+
+216
+00:08:48,666 --> 00:08:50,722
+array. Now, you could argue that options is
+大批。現在，你可能會說選項是
+
+217
+00:08:50,898 --> 00:08:52,761
+already an array, but keep in mind that
+已經是一個陣列，但請記住
+
+218
+00:08:52,761 --> 00:08:55,010
+permutations, which we're going to return in
+排列，我們將回傳
+
+219
+00:08:55,010 --> 00:08:57,179
+the end, will also be an array full of
+最後，也將是一個充滿的陣列
+
+220
+00:08:57,179 --> 00:08:58,592
+arrays because every
+陣列，因為每個
+
+221
+00:08:59,187 --> 00:09:02,175
+permutation, so every combination of items,
+排列，所以每個專案的組合，
+
+222
+00:09:02,480 --> 00:09:03,396
+will be in an array,
+將在一個陣列中，
+
+223
+00:09:03,926 --> 00:09:06,015
+and all those combination arrays will be
+所有這些組合陣列將是
+
+224
+00:09:06,015 --> 00:09:08,698
+part of that overall permutations array. So
+整個排列陣列的一部分。所以
+
+225
+00:09:08,730 --> 00:09:11,526
+we will return an array of arrays here too,
+我們也會在這裡傳回一個陣列的陣列，
+
+226
+00:09:12,104 --> 00:09:13,598
+and therefore that should also be the case
+因此情況也應該如此
+
+227
+00:09:13,711 --> 00:09:15,285
+here in our exit condition for the
+在我們的退出條件中
+
+228
+00:09:15,333 --> 00:09:17,679
+recursion. We should also return an array of
+遞迴.我們還應該傳回一個陣列
+
+229
+00:09:17,679 --> 00:09:20,185
+arrays here, and we do. We now have an array
+這裡有陣列，我們也這樣做。我們現在有一個陣列
+
+230
+00:09:20,700 --> 00:09:23,719
+full of options which in this case is again
+充滿了選擇，在這種情況下又是
+
+231
+00:09:23,831 --> 00:09:26,304
+just one array with one element, but still
+只有一個陣列和一個元素，但仍然
+
+232
+00:09:26,561 --> 00:09:28,423
+it's an array of arrays. That's the logic
+它是一個陣列的陣列。這就是邏輯
+
+233
+00:09:28,423 --> 00:09:28,664
+here.
+這裡。
+
+234
+00:09:30,093 --> 00:09:33,127
+So now we have this exit condition, and with
+所以現在我們有了這個退出條件
+
+235
+00:09:33,480 --> 00:09:36,402
+this step here, we therefore split our array
+因此，在這一步驟中，我們分割了陣列
+
+236
+00:09:36,852 --> 00:09:38,906
+until we only have an array with just one
+直到我們只有一個陣列
+
+237
+00:09:39,083 --> 00:09:39,436
+element.
+元素。
+
+238
+00:09:40,721 --> 00:09:42,519
+Now partial permutations,
+現在部分排列，
+
+239
+00:09:43,097 --> 00:09:45,746
+therefore, when we drill down really deeply
+因此，當我們深入研究時
+
+240
+00:09:45,826 --> 00:09:46,677
+here in the recursion,
+在遞迴中，
+
+241
+00:09:47,351 --> 00:09:49,395
+will at some point only be
+只會在某個時刻
+
+242
+00:09:50,009 --> 00:09:52,820
+one array with one array inside, which then
+一個陣列裡面有一個陣列，然後
+
+243
+00:09:52,917 --> 00:09:55,324
+just contains one option. Let's say which
+僅包含一個選項。我們來談談哪個
+
+244
+00:09:55,502 --> 00:09:57,586
+just contains order food.
+僅含訂單食品。
+
+245
+00:09:59,724 --> 00:10:01,950
+This at some point will be the case for some
+在某些時候，某些人會出現這種情況
+
+246
+00:10:02,208 --> 00:10:04,837
+deeply nested recursive function call.
+深度嵌套的遞迴函式呼叫。
+
+247
+00:10:06,112 --> 00:10:08,015
+So now we have our partial permutations,
+現在我們有了部分排列，
+
+248
+00:10:08,737 --> 00:10:10,776
+for example, an array with just one array
+例如，一個只有一個陣列的陣列
+
+249
+00:10:10,857 --> 00:10:12,168
+with just one element in there.
+裡面只有一個元素。
+
+250
+00:10:13,350 --> 00:10:15,454
+And now we want to find combinations of
+現在我們想要找到以下組合
+
+251
+00:10:15,652 --> 00:10:17,610
+basically this item here
+基本上這個專案在這裡
+
+252
+00:10:18,621 --> 00:10:21,510
+with the other option we have here. Now
+與我們這裡的另一個選項。現在
+
+253
+00:10:21,655 --> 00:10:24,496
+options is 2 items, for example, right?
+例如選項是 2 項，對吧？
+
+254
+00:10:24,560 --> 00:10:26,951
+Could be buy groceries and order food if
+可以購買雜貨和訂餐，如果
+
+255
+00:10:26,967 --> 00:10:28,877
+we're in some nested recursive calls. And we
+我們正在進行一些嵌套遞迴呼叫。而我們
+
+256
+00:10:28,893 --> 00:10:30,996
+want to see how we can combine these 2
+想看看我們如何將這兩者結合起來
+
+257
+00:10:31,060 --> 00:10:33,035
+items, order food and buy groceries.
+物品、訂購食物和購買雜貨。
+
+258
+00:10:34,110 --> 00:10:35,538
+Now here we're going through all the
+現在我們正在經歷所有
+
+259
+00:10:35,555 --> 00:10:37,449
+options, and that's wrong because
+選項，這是錯誤的，因為
+
+260
+00:10:38,026 --> 00:10:40,177
+order food, one of the 2 options we have in
+點餐，我們有兩種選擇之一
+
+261
+00:10:40,290 --> 00:10:43,018
+this example case here, is already in the
+這裡的這個例子已經在
+
+262
+00:10:43,082 --> 00:10:45,249
+partial permutations. So I certainly don't
+部分排列。所以我當然不
+
+263
+00:10:45,265 --> 00:10:47,111
+want to go through all options again.
+想要再次檢查所有選項。
+
+264
+00:10:48,139 --> 00:10:51,270
+Instead, what I wanna do is I wanna only go,
+相反，我想做的就是我只想走，
+
+265
+00:10:51,607 --> 00:10:53,694
+for example, through all my partial
+例如，透過我所有的部分
+
+266
+00:10:53,694 --> 00:10:55,733
+permutations and combine that with the
+排列並將其與
+
+267
+00:10:56,006 --> 00:10:58,575
+remaining options I have here. So with the
+我這裡還有剩下的選擇。所以與
+
+268
+00:10:58,656 --> 00:11:00,663
+options that are not already part of the
+尚未包含的選項
+
+269
+00:11:00,663 --> 00:11:01,899
+partial permutations.
+部分排列。
+
+270
+00:11:02,830 --> 00:11:05,544
+So therefore here I go through all partial
+因此，我在這裡回顧了所有部分
+
+271
+00:11:06,138 --> 00:11:08,771
+permutations by using the length of partial
+使用部分的長度進行排列
+
+272
+00:11:08,771 --> 00:11:11,694
+permutations as my loop condition.
+排列作為我的迴圈條件。
+
+273
+00:11:13,486 --> 00:11:14,581
+And we can then derive
+然後我們可以得出
+
+274
+00:11:15,322 --> 00:11:16,337
+our partial
+我們的部分
+
+275
+00:11:16,933 --> 00:11:19,382
+permutation, so singular,
+排列，如此奇異，
+
+276
+00:11:20,172 --> 00:11:23,020
+by accessing partial permutations for
+透過訪問部分排列
+
+277
+00:11:23,695 --> 00:11:23,727
+i.
+我。
+
+278
+00:11:25,399 --> 00:11:27,199
+Now what this will do is it will go through
+現在這會做的是它會經歷
+
+279
+00:11:27,473 --> 00:11:29,723
+all the permutations we have here in partial
+我們這裡的所有排列都是部分的
+
+280
+00:11:29,739 --> 00:11:30,189
+permutations,
+排列，
+
+281
+00:11:31,065 --> 00:11:33,164
+and in this example there only is one, but
+在這個例子中只有一個，但是
+
+282
+00:11:33,164 --> 00:11:35,198
+of course you're not limited to one. The
+當然你不限於其中之一。這
+
+283
+00:11:35,198 --> 00:11:37,426
+more recursive calls that have finished
+更多已完成的遞迴調用
+
+284
+00:11:37,426 --> 00:11:39,509
+executing, the longer this array will get.
+執行時，該陣列將變得越長。
+
+285
+00:11:40,143 --> 00:11:42,134
+So we go through all the permutations we
+所以我們經歷了所有的排列
+
+286
+00:11:42,134 --> 00:11:43,226
+derived thus far,
+到目前為止，得出
+
+287
+00:11:44,237 --> 00:11:46,148
+and then I have a look at each partial
+然後我看一下每個部分
+
+288
+00:11:46,164 --> 00:11:47,561
+permutation we have in there.
+我們在那裡有排列。
+
+289
+00:11:48,316 --> 00:11:50,403
+And now we need another nested loop where we
+現在我們需要另一個嵌套迴圈
+
+290
+00:11:50,419 --> 00:11:52,651
+go through all the items in that partial
+瀏覽該部分中的所有專案
+
+291
+00:11:52,667 --> 00:11:55,445
+permutation. And we know that we only need
+排列。我們知道我們只需要
+
+292
+00:11:55,541 --> 00:11:58,110
+one more nested loop because each partial
+又一個嵌套迴圈，因為每個部分
+
+293
+00:11:58,126 --> 00:12:00,872
+permutation will not have any other nested
+排列不會有任何其他嵌套
+
+294
+00:12:00,872 --> 00:12:01,225
+arrays.
+陣列。
+
+295
+00:12:02,237 --> 00:12:04,453
+So here, for example, with just one element
+例如，這裡只有一個元素
+
+296
+00:12:04,469 --> 00:12:04,742
+in there,
+在那裡，
+
+297
+00:12:05,432 --> 00:12:07,005
+We execute this loop once
+我們執行這個迴圈一次
+
+298
+00:12:07,743 --> 00:12:09,187
+and we have a look at the partial
+我們來看部分
+
+299
+00:12:09,267 --> 00:12:11,321
+permutation we find in there. So at this
+我們在那裡找到的排列。所以在這個
+
+300
+00:12:11,385 --> 00:12:11,963
+nested array,
+嵌套陣列，
+
+301
+00:12:12,573 --> 00:12:14,434
+and now I need access to the concrete items
+現在我需要訪問特定專案
+
+302
+00:12:14,434 --> 00:12:16,103
+in that array, which is why we need another
+在該陣列中，這就是為什麼我們需要另一個
+
+303
+00:12:16,103 --> 00:12:16,986
+nested array.
+嵌套陣列。
+
+304
+00:12:17,644 --> 00:12:20,356
+So here I'll use j as a variable and we also
+所以在這裡我將使用 j 作為變數，我們也
+
+305
+00:12:20,356 --> 00:12:22,763
+start at the very first element and we go
+從第一個元素開始，我們開始
+
+306
+00:12:22,843 --> 00:12:24,335
+through all the partial
+通過所有的部分
+
+307
+00:12:25,651 --> 00:12:29,149
+permutation singular items. Partial
+排列奇異項。部分的
+
+308
+00:12:29,181 --> 00:12:31,637
+permutation is still an array, so we can
+排列仍然是一個陣列，所以我們可以
+
+309
+00:12:31,669 --> 00:12:34,750
+call length on that and increment j after
+調用長度並在之後增加 j
+
+310
+00:12:34,942 --> 00:12:35,969
+every iteration.
+每次迭代。
+
+311
+00:12:37,361 --> 00:12:37,636
+So
+所以
+
+312
+00:12:38,234 --> 00:12:39,219
+now with that,
+現在有了這個，
+
+313
+00:12:40,092 --> 00:12:41,433
+we have a look at all these
+我們看看所有這些
+
+314
+00:12:42,257 --> 00:12:45,068
+concrete elements in that nested array, in
+該嵌套陣列中的具體元素
+
+315
+00:12:45,100 --> 00:12:45,456
+that array,
+那個陣列，
+
+316
+00:12:47,122 --> 00:12:49,062
+and we want to combine that concrete element
+我們想結合具體的元素
+
+317
+00:12:49,127 --> 00:12:51,391
+or all those concrete elements with the
+或所有那些具體元素
+
+318
+00:12:51,391 --> 00:12:53,882
+remaining option we got here. Now we only
+我們在這裡找到了剩下的選項。現在我們只
+
+319
+00:12:53,898 --> 00:12:55,903
+have one remaining option at all times
+任何時候都剩下一個選擇
+
+320
+00:12:55,936 --> 00:12:58,588
+because we always slice after the first
+因為我們總是在第一個之後切片
+
+321
+00:12:58,669 --> 00:13:01,208
+option here. So it's only that first option
+選項在這裡。所以這只是第一個選擇
+
+322
+00:13:01,208 --> 00:13:03,052
+which we didn't slice which we need to
+我們沒有切片我們需要切片
+
+323
+00:13:03,052 --> 00:13:04,666
+compare to our other permutations.
+與我們的其他排列進行比較。
+
+324
+00:13:05,884 --> 00:13:08,375
+So therefore, after slicing, before we enter
+因此，在切片之後，在我們進入之前
+
+325
+00:13:08,440 --> 00:13:11,509
+any loop, I'll have my first option, and
+任何迴圈，我都會有第一個選擇，並且
+
+326
+00:13:11,509 --> 00:13:12,361
+that is simply
+這就是簡單的
+
+327
+00:13:12,939 --> 00:13:16,268
+options for index 0. So that first option
+索引 0 的選項。所以第一個選項
+
+328
+00:13:16,268 --> 00:13:19,417
+which is not part of the array we fed to get
+這不是我們要取得的陣列的一部分
+
+329
+00:13:19,417 --> 00:13:19,985
+permutations.
+排列。
+
+330
+00:13:21,684 --> 00:13:23,693
+And now it's this first option which we need
+現在這是我們需要的第一個選項
+
+331
+00:13:23,693 --> 00:13:24,308
+to combine
+結合
+
+332
+00:13:24,908 --> 00:13:26,528
+with our permutations.
+與我們的排列。
+
+333
+00:13:27,850 --> 00:13:31,517
+So basically, we just need a way of moving
+所以基本上，我們只需要一種移動方式
+
+334
+00:13:31,875 --> 00:13:33,391
+that first option
+第一個選項
+
+335
+00:13:34,140 --> 00:13:36,189
+in front and after
+前後
+
+336
+00:13:36,963 --> 00:13:38,076
+our nested values.
+我們的嵌套值。
+
+337
+00:13:38,657 --> 00:13:40,125
+And for that, in this inner loop,
+為此，在這個內部迴圈中，
+
+338
+00:13:40,673 --> 00:13:41,851
+we can derive our
+我們可以得到我們的
+
+339
+00:13:44,384 --> 00:13:45,336
+permutation
+排列
+
+340
+00:13:47,208 --> 00:13:48,707
+in front, for example,
+前面，例如
+
+341
+00:13:50,672 --> 00:13:53,072
+and derive that by taking our partial
+並透過取我們的部分推導出來
+
+342
+00:13:53,893 --> 00:13:54,215
+permutation.
+排列。
+
+343
+00:13:56,320 --> 00:13:58,186
+So for example, this first permutation we
+例如，我們的第一個排列
+
+344
+00:13:58,186 --> 00:13:58,886
+have here
+這裡有
+
+345
+00:14:00,467 --> 00:14:03,232
+and then by slicing this to just take a part
+然後將其切成一部分
+
+346
+00:14:03,232 --> 00:14:04,963
+of that and slicing it from the beginning
+並從頭開始對其進行切片
+
+347
+00:14:05,464 --> 00:14:06,887
+all the way up to j.
+一直到 j。
+
+348
+00:14:08,570 --> 00:14:09,681
+So this index we have here,
+所以我們這裡有這個索引，
+
+349
+00:14:11,178 --> 00:14:13,062
+and we also have permutation
+我們也有排列
+
+350
+00:14:14,141 --> 00:14:16,605
+after, or however you want to name it, where
+之後，或無論你想如何命名它，在哪裡
+
+351
+00:14:16,637 --> 00:14:18,023
+we do the opposite, where we take the
+我們做相反的事情，我們採取
+
+352
+00:14:18,023 --> 00:14:20,657
+partial permutation without an s at the end
+末尾不帶 s 的部分排列
+
+353
+00:14:21,158 --> 00:14:22,807
+and slice it from j to the end.
+並將其從 j 切片到末尾。
+
+354
+00:14:23,615 --> 00:14:26,153
+So we essentially just take that partial
+所以我們本質上只是採取部分
+
+355
+00:14:26,250 --> 00:14:28,028
+permutation we have here
+我們這裡有排列
+
+356
+00:14:28,873 --> 00:14:30,524
+which of course can have more than one
+當然可以有多個
+
+357
+00:14:30,636 --> 00:14:32,334
+element. If it just has one, there's not
+元素。如果只有一個則沒有
+
+358
+00:14:32,382 --> 00:14:34,529
+much to slice, but if it has more than one
+要切片的東西很多，但如果有多個
+
+359
+00:14:34,562 --> 00:14:37,141
+element and we basically take different
+元素和我們基本上採取不同的
+
+360
+00:14:37,141 --> 00:14:37,814
+slices
+切片
+
+361
+00:14:38,391 --> 00:14:39,865
+from that first permutation,
+從第一個排列開始，
+
+362
+00:14:40,410 --> 00:14:41,163
+for the first run
+第一次運行
+
+363
+00:14:41,772 --> 00:14:44,048
+the permutation front just has the first
+排列前沿只有第一個
+
+364
+00:14:44,160 --> 00:14:46,243
+item, for the next run it has 2 items, and
+專案，對於下一次運行，它有 2 個專案，並且
+
+365
+00:14:46,259 --> 00:14:46,547
+so on.
+很快。
+
+366
+00:14:47,220 --> 00:14:49,592
+And we insert first option after those
+我們在這些之後插入第一個選項
+
+367
+00:14:49,624 --> 00:14:52,236
+different slices so that we basically inject
+不同的切片，以便我們基本上註入
+
+368
+00:14:52,252 --> 00:14:55,201
+first option in all possible positions in
+所有可能位置中的第一個選項
+
+369
+00:14:55,233 --> 00:14:57,128
+that permutation we already have.
+我們已經有了這種排列。
+
+370
+00:14:58,123 --> 00:14:59,921
+And that's what we do last here in this
+這就是我們最後要做的
+
+371
+00:15:00,066 --> 00:15:00,708
+nested loop.
+嵌套迴圈。
+
+372
+00:15:01,415 --> 00:15:04,722
+We take our permutations, so that helper
+我們進行排列，這樣助手
+
+373
+00:15:04,786 --> 00:15:06,280
+array we defined at the beginning,
+我們在開始時定義的陣列，
+
+374
+00:15:07,355 --> 00:15:10,197
+and we push a new permutation into it.
+然後我們將新的排列推入其中。
+
+375
+00:15:11,129 --> 00:15:12,622
+And that should be an array, of course.
+當然，那應該是一個陣列。
+
+376
+00:15:13,216 --> 00:15:15,110
+And for that, we use permutation
+為此，我們使用排列
+
+377
+00:15:15,929 --> 00:15:18,354
+in front, which is an array because we used
+前面，這是一個陣列，因為我們使用了
+
+378
+00:15:18,354 --> 00:15:20,441
+slice. Slice returns an array.
+片。切片傳回一個陣列。
+
+379
+00:15:20,988 --> 00:15:24,080
+And on that we can call concat. Concat is a
+我們可以在此基礎上呼叫 concat。康卡特是一個
+
+380
+00:15:24,144 --> 00:15:26,383
+bit like push, but it takes arrays as an
+有點像push，但它需要陣列作為
+
+381
+00:15:26,383 --> 00:15:28,959
+input instead of individual elements, and it
+輸入而不是單個元素，並且它
+
+382
+00:15:28,959 --> 00:15:31,400
+will then merge those arrays with the array
+然後將這些陣列與陣列合併
+
+383
+00:15:31,481 --> 00:15:33,849
+on which you call it. It will also return a
+你稱之為它。它還會回傳一個
+
+384
+00:15:33,914 --> 00:15:35,146
+brand new array thereafter.
+此後全新陣列。
+
+385
+00:15:37,670 --> 00:15:40,334
+And to concat we pass the first option.
+為了連接我們通過第一個選項。
+
+386
+00:15:40,770 --> 00:15:42,917
+However, I just said that it operates on
+然而，我只是說它運行於
+
+387
+00:15:43,030 --> 00:15:45,259
+arrays, and the first option is something
+陣列，第一個選項是
+
+388
+00:15:45,291 --> 00:15:47,406
+like buy groceries, which is a string.
+就像買雜貨一樣，這是一個字串。
+
+389
+00:15:48,013 --> 00:15:50,056
+So we should wrap this into an array.
+所以我們應該將其包裝到一個陣列中。
+
+390
+00:15:52,178 --> 00:15:54,622
+And we pass another value to concat and that
+我們將另一個值傳遞給 concat
+
+391
+00:15:54,622 --> 00:15:55,507
+is permutationAfter.
+是排列之後。
+
+392
+00:15:57,760 --> 00:15:59,506
+And whilst this might sound or it might look
+雖然這聽起來或看起來可能是
+
+393
+00:15:59,570 --> 00:16:01,559
+very complex, this will in the end move
+非常複雜，這最終會移動
+
+394
+00:16:01,899 --> 00:16:04,389
+first option into all the different places
+第一個選擇進入所有不同的地方
+
+395
+00:16:04,729 --> 00:16:06,831
+in the different permutations we have. And
+在我們擁有的不同排列中。和
+
+396
+00:16:06,847 --> 00:16:09,624
+we'll build up those permutations step by
+我們將逐步建立這些排列
+
+397
+00:16:09,624 --> 00:16:12,160
+step with these recursive steps
+執行這些遞迴步驟
+
+398
+00:16:13,006 --> 00:16:13,558
+that we call.
+我們稱之為。
+
+399
+00:16:14,404 --> 00:16:16,297
+And then in the end, we return permutations.
+最後，我們回傳排列。
+
+400
+00:16:16,971 --> 00:16:18,785
+And that should be all. Now I know that's
+這應該就是全部了。現在我知道那是
+
+401
+00:16:18,817 --> 00:16:21,144
+super hard to wrap your head around, so
+超級難纏你的頭，所以
+
+402
+00:16:21,144 --> 00:16:23,118
+let's first of all see if this works before
+首先讓我們看看這是否有效
+
+403
+00:16:23,150 --> 00:16:24,739
+we again take another look at it.
+我們再次審視它。
+
+404
+00:16:25,477 --> 00:16:27,242
+So let's save everything and go back to the
+所以讓我們儲存所有內容並回傳到
+
+405
+00:16:27,242 --> 00:16:28,446
+browser and reload.
+瀏覽器並重新載入。
+
+406
+00:16:29,810 --> 00:16:31,527
+And what you see is I get an array here,
+你看到的是我在這裡得到一個陣列，
+
+407
+00:16:32,137 --> 00:16:33,469
+an array with, um,
+一個陣列，嗯，
+
+408
+00:16:34,319 --> 00:16:35,266
+6 elements.
+6 個元素。
+
+409
+00:16:36,470 --> 00:16:36,839
+We have
+我們有
+
+410
+00:16:37,738 --> 00:16:39,471
+walk the dog, clean the toilet, buy
+遛狗、打掃廁所、買東西
+
+411
+00:16:39,519 --> 00:16:41,335
+groceries, and order food.
+雜貨，並訂購食物。
+
+412
+00:16:42,252 --> 00:16:44,826
+We have clean the toilet, walk the dog, buy
+我們打掃廁所、遛狗、買東西
+
+413
+00:16:44,826 --> 00:16:46,273
+groceries, order food,
+雜貨、訂餐、
+
+414
+00:16:47,062 --> 00:16:49,056
+and so on. So we got a bunch of combinations
+等等。所以我們得到了一堆組合
+
+415
+00:16:49,153 --> 00:16:49,217
+here.
+這裡。
+
+416
+00:16:50,722 --> 00:16:52,844
+However, I can already tell that there are
+然而，我已經可以說，有
+
+417
+00:16:52,990 --> 00:16:54,805
+combinations I'm missing. For example,
+我缺少的組合。例如，
+
+418
+00:16:55,485 --> 00:16:58,645
+order food as a first element doesn't exist
+點餐作為第一個元素不存在
+
+419
+00:16:58,645 --> 00:16:58,774
+here.
+這裡。
+
+420
+00:17:00,169 --> 00:17:02,335
+And the reason for this is a tiny mistake I
+原因是我犯了一個小錯誤
+
+421
+00:17:02,368 --> 00:17:03,362
+have here in the for loop.
+在 for 迴圈中有這裡。
+
+422
+00:17:03,915 --> 00:17:06,092
+This exit condition here, or this loop
+這裡的退出條件，或者這個迴圈
+
+423
+00:17:06,092 --> 00:17:07,487
+condition is wrong.
+條件錯誤。
+
+424
+00:17:08,722 --> 00:17:12,154
+I go through all my j's as long as j is
+只要 j 存在，我就會遍歷所有的 j
+
+425
+00:17:12,411 --> 00:17:15,554
+smaller than the partial permutation length.
+小於部分排列長度。
+
+426
+00:17:16,981 --> 00:17:19,948
+Now as a result, if my partial permutation,
+現在的結果是，如果我的部分排列，
+
+427
+00:17:19,964 --> 00:17:20,959
+like in this case here,
+就像這裡的例子一樣，
+
+428
+00:17:21,873 --> 00:17:23,861
+is just one element—
+只是一個元素——
+
+429
+00:17:24,936 --> 00:17:27,325
+this array has just order food as a single
+這個陣列只是將食物作為一個單獨點
+
+430
+00:17:27,325 --> 00:17:27,710
+element—
+元素-
+
+431
+00:17:28,608 --> 00:17:31,335
+this loop here will only execute once.
+這裡的迴圈只會執行一次。
+
+432
+00:17:32,633 --> 00:17:34,123
+Now the problem with that is
+現在的問題是
+
+433
+00:17:34,876 --> 00:17:36,639
+that I then take the slice here,
+然後我在這裡切一片，
+
+434
+00:17:37,344 --> 00:17:41,606
+and from 0 to j, where j is 0 in the first
+以及從 0 到 j，其中 j 在第一個為 0
+
+435
+00:17:41,606 --> 00:17:43,529
+loop iteration, which is the only loop
+迴圈迭代，這是唯一的迴圈
+
+436
+00:17:43,529 --> 00:17:45,821
+iteration we have as I just explained,
+正如我剛才所解釋的，我們進行了迭代，
+
+437
+00:17:46,974 --> 00:17:49,666
+then slice will not include the element at
+那麼切片將不包含位於的元素
+
+438
+00:17:49,698 --> 00:17:51,541
+index 1. So this will be an empty array,
+索引 1。所以這將是一個空陣列，
+
+439
+00:17:52,102 --> 00:17:52,999
+and this will be the,
+這將是，
+
+440
+00:17:53,528 --> 00:17:56,028
+uh, upper array. Now the problem is I need
+呃，上面的陣列。現在的問題是我需要
+
+441
+00:17:56,028 --> 00:17:59,458
+to go through that twice though. So that I
+不過要經歷兩次。這樣我
+
+442
+00:17:59,618 --> 00:18:03,546
+add order food both in front and after the
+在前面和後面添加點餐
+
+443
+00:18:03,626 --> 00:18:05,182
+other element I'm comparing it to.
+我正在將其與其他元素進行比較。
+
+444
+00:18:05,743 --> 00:18:08,180
+So therefore we should have smaller or equal
+因此我們應該有更小或等於
+
+445
+00:18:08,597 --> 00:18:11,274
+than here as an exit condition and not just
+比這裡作為退出條件而不僅僅是
+
+446
+00:18:11,323 --> 00:18:12,028
+smaller than.
+小於。
+
+447
+00:18:13,182 --> 00:18:15,684
+And if we do that and we then reload here,
+如果我們這樣做然後我們在這裡重新載入，
+
+448
+00:18:16,053 --> 00:18:19,083
+now we have 24 items and this looks much
+現在我們有 24 件商品，這看起來很多
+
+449
+00:18:19,179 --> 00:18:20,814
+better. And if we go through that,
+更好的。如果我們經歷這些，
+
+450
+00:18:21,600 --> 00:18:24,310
+it looks pretty good. I say, I say we should
+看起來不錯。我說，我說我們應該
+
+451
+00:18:24,310 --> 00:18:27,308
+have all possible combinations here. And as
+這裡有所有可能的組合。並且作為
+
+452
+00:18:27,308 --> 00:18:28,719
+you can see, we have quite a few
+你可以看到，我們有很多
+
+453
+00:18:28,719 --> 00:18:31,590
+combinations. We have 24 possible
+組合。我們有24種可能
+
+454
+00:18:31,606 --> 00:18:34,060
+combinations for only 4
+僅 4 種組合
+
+455
+00:18:34,653 --> 00:18:38,309
+input values. So that's quite a bit. But
+輸入值。所以這已經相當多了。但
+
+456
+00:18:38,357 --> 00:18:40,522
+this is now the permutation algorithm.
+這就是現在的排列演算法。
+
+457
+00:18:40,747 --> 00:18:42,816
+However, I am aware that this is an
+然而，我知道這是一個
+
+458
+00:18:42,912 --> 00:18:45,526
+algorithm which can be very hard to come up
+很難想出的演算法
+
+459
+00:18:45,638 --> 00:18:46,905
+with and to understand
+與並理解
+
+460
+00:18:47,498 --> 00:18:49,663
+if you haven't seen it before and if you
+如果您以前沒有看過並且如果您
+
+461
+00:18:49,663 --> 00:18:52,390
+don't know permutations from math or from
+不知道數學或來自的排列
+
+462
+00:18:52,406 --> 00:18:54,478
+anything else. So let's throw in some
+還要別的嗎。所以讓我們加入一些
+
+463
+00:18:54,543 --> 00:18:56,860
+console logs to get a better understanding
+控制台紀錄以獲得更好的理解
+
+464
+00:18:56,972 --> 00:18:57,857
+for this algorithm.
+對於這個演算法。

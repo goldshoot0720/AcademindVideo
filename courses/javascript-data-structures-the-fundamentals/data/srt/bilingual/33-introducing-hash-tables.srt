@@ -1,0 +1,529 @@
+1
+00:00:02,054 --> 00:00:04,415
+So now after exploring various list
+所以現在在探索各種清單之後
+
+2
+00:00:04,463 --> 00:00:07,256
+structures, let's dive into tables, or
+結構，讓我們深入研究表格，或者
+
+3
+00:00:07,256 --> 00:00:10,114
+specifically into the hash table, which is
+具體到雜湊表中，即
+
+4
+00:00:10,226 --> 00:00:13,020
+the main and actually the only table
+主表，實際上是唯一的表
+
+5
+00:00:13,036 --> 00:00:15,974
+structure we'll be using and which matters.
+我們將使用的結構以及哪個結構很重要。
+
+6
+00:00:16,953 --> 00:00:18,045
+What is a hash table?
+什麼是雜湊表？
+
+7
+00:00:18,639 --> 00:00:20,710
+Before we learn what it is and how we can
+在我們了解它是什麼以及我們如何能夠之前
+
+8
+00:00:20,742 --> 00:00:23,198
+build our own one, here's one important
+建立我們自己的一個，這是一個重要的
+
+9
+00:00:23,214 --> 00:00:24,354
+thing you have to know.
+你必須知道的事。
+
+10
+00:00:24,916 --> 00:00:28,125
+In JavaScript, Under the hood, the
+在 JavaScript 中，在底層，
+
+11
+00:00:28,125 --> 00:00:31,122
+JavaScript object you're working with all
+您正在使用的 JavaScript 物件
+
+12
+00:00:31,250 --> 00:00:31,699
+the time
+時間
+
+13
+00:00:32,276 --> 00:00:36,076
+is basically implemented as a hash table by
+基本上是透過雜湊表實現的
+
+14
+00:00:36,124 --> 00:00:38,079
+the JavaScript engine that's running your
+運行你的 JavaScript 引擎
+
+15
+00:00:38,143 --> 00:00:38,432
+code.
+程式碼。
+
+16
+00:00:39,185 --> 00:00:41,462
+That means what you're now going to learn
+這意味著你現在要學習的內容
+
+17
+00:00:41,510 --> 00:00:42,680
+about the hash table
+關於雜湊表
+
+18
+00:00:43,417 --> 00:00:45,934
+really is important because it tells you, it
+真的很重要，因為它告訴你，它
+
+19
+00:00:45,982 --> 00:00:48,659
+teaches you how the built-in JavaScript
+教你如何使用內建的 JavaScript
+
+20
+00:00:48,787 --> 00:00:51,128
+object works under the hood. But of course,
+物件在幕後工作。但當然，
+
+21
+00:00:51,208 --> 00:00:52,538
+another important implication
+另一個重要的意義
+
+22
+00:00:53,116 --> 00:00:56,225
+is that in reality, you won't really need to
+事實上，你真的不需要
+
+23
+00:00:56,257 --> 00:00:57,957
+build your own hash tables
+建立您自己的雜湊表
+
+24
+00:00:58,502 --> 00:01:00,719
+because the JavaScript object already is
+因為 JavaScript 物件已經是
+
+25
+00:01:00,832 --> 00:01:03,193
+one, a very optimized one, and therefore
+一，一個非常優化的，因此
+
+26
+00:01:03,643 --> 00:01:05,363
+there don't really is a need to build your
+確實沒有必要建立你的
+
+27
+00:01:05,411 --> 00:01:08,094
+own ones. Nonetheless, you'll learn it here
+自己的。儘管如此，你還是會在這裡學到它
+
+28
+00:01:08,463 --> 00:01:10,938
+because knowing how something works which
+因為知道某件事是如何運作的
+
+29
+00:01:10,938 --> 00:01:13,508
+you use every day is always important and
+您每天使用的始終很重要且
+
+30
+00:01:13,589 --> 00:01:16,272
+ultimately is what makes up a good
+最終才是好的
+
+31
+00:01:16,497 --> 00:01:18,634
+programmer. You need to know your tools.
+程式設計師.您需要了解您的工具。
+
+32
+00:01:19,485 --> 00:01:21,654
+So what is a hash table then? What is the
+那什麼是雜湊表呢？什麼是
+
+33
+00:01:21,703 --> 00:01:23,454
+JavaScript object under the hood?
+JavaScript 物件在幕後？
+
+34
+00:01:24,450 --> 00:01:26,198
+Well, it we wanna store something in a
+好吧，我們想將一些東西存放在
+
+35
+00:01:26,198 --> 00:01:29,196
+JavaScript object, it's a key-value pair,
+JavaScript 物件，它是鍵值對，
+
+36
+00:01:29,404 --> 00:01:33,396
+right? So our input is a key of our choice,
+正確的？所以我們的輸入是我們選擇的關鍵，
+
+37
+00:01:33,813 --> 00:01:34,599
+could be name,
+可以是名字，
+
+38
+00:01:35,256 --> 00:01:37,244
+could be an address, could be whatever you
+可以是一個地址，可以是任何你想要的
+
+39
+00:01:37,276 --> 00:01:39,328
+want, and then you have a value for that
+想要，然後你就有價值
+
+40
+00:01:39,360 --> 00:01:42,486
+key. So for the key name, that would be Max,
+鑰匙。所以對於鍵名來說，那就是 Max，
+
+41
+00:01:42,550 --> 00:01:43,223
+for example.
+例如。
+
+42
+00:01:43,768 --> 00:01:46,237
+But again, you're really free here to store
+但再說一次，你真的可以自由地在這裡存儲
+
+43
+00:01:46,237 --> 00:01:48,562
+whatever you want as key-value pairs in the
+任何你想要的鍵值對
+
+44
+00:01:48,562 --> 00:01:48,706
+end.
+結尾。
+
+45
+00:01:49,860 --> 00:01:49,973
+Now,
+現在，
+
+46
+00:01:50,807 --> 00:01:53,249
+A hash table is then the data structure
+雜湊表就是資料結構
+
+47
+00:01:53,393 --> 00:01:55,016
+where this data is getting stored.
+這些資料的儲存位置。
+
+48
+00:01:55,546 --> 00:01:56,831
+And a hash table
+和一個雜湊表
+
+49
+00:01:57,393 --> 00:01:57,907
+actually
+實際上
+
+50
+00:01:58,598 --> 00:02:01,875
+can simply be thought of as an array, so as
+可以簡單地認為是一個陣列，所以
+
+51
+00:02:01,907 --> 00:02:02,758
+a list again,
+再次列出清單，
+
+52
+00:02:03,337 --> 00:02:05,409
+which has an index and which then stores
+它有一個索引，然後存儲
+
+53
+00:02:05,586 --> 00:02:07,417
+values for the different indexes.
+不同指標的值。
+
+54
+00:02:08,268 --> 00:02:12,108
+So in that hash table, for index 0, we might
+所以在那個雜湊表中，對於索引 0，我們可能
+
+55
+00:02:12,108 --> 00:02:13,682
+be storing value 31.
+儲存值31。
+
+56
+00:02:14,341 --> 00:02:16,284
+We got a couple of other indexes as well for
+我們還得到了一些其他索引
+
+57
+00:02:16,284 --> 00:02:17,971
+which we store other kinds of data.
+我們儲存其他型別的資料。
+
+58
+00:02:18,693 --> 00:02:20,985
+And now we got this new key-value pair which
+現在我們得到了這個新的鍵值對
+
+59
+00:02:21,001 --> 00:02:23,790
+you want to store. And of course, we're used
+你想要儲存。當然，我們習慣了
+
+60
+00:02:23,983 --> 00:02:26,002
+to the key being our
+關鍵是我們的
+
+61
+00:02:26,692 --> 00:02:29,032
+entry to the value once it's stored in an
+一旦該值儲存在一個
+
+62
+00:02:29,096 --> 00:02:29,529
+object.
+目的。
+
+63
+00:02:30,058 --> 00:02:32,158
+And that is how objects work in JavaScript,
+這就是 JavaScript 中物件的工作原理，
+
+64
+00:02:32,222 --> 00:02:34,466
+but under the hood, they use such a hash
+但在幕後，他們使用這樣的雜湊
+
+65
+00:02:34,482 --> 00:02:34,787
+table.
+桌子。
+
+66
+00:02:35,364 --> 00:02:37,336
+Therefore, as you can see, we're working
+因此，如您所見，我們正在努力
+
+67
+00:02:37,368 --> 00:02:39,388
+with an index and not with a key.
+使用索引而不是鍵。
+
+68
+00:02:40,269 --> 00:02:41,552
+So how does this work?
+那麼這是如何運作的呢？
+
+69
+00:02:42,161 --> 00:02:44,549
+Well, we in the end need a process of
+那麼，我們最終需要一個過程
+
+70
+00:02:44,645 --> 00:02:48,332
+transforming this key to an index, and
+將此鍵轉換為索引，以及
+
+71
+00:02:48,348 --> 00:02:49,919
+that's called hashing.
+這就是所謂的散列。
+
+72
+00:02:50,512 --> 00:02:53,478
+We need a hashing function which converts a
+我們需要一個雜湊函式來轉換
+
+73
+00:02:53,478 --> 00:02:54,841
+key to an index.
+索引的鍵。
+
+74
+00:02:55,498 --> 00:02:57,774
+So there are different ways of building such
+所以有不同的方法來建構這樣的
+
+75
+00:02:57,822 --> 00:03:00,275
+a function and I'll show you one possible
+一個函式，我將向您展示一個可能的函式
+
+76
+00:03:00,355 --> 00:03:02,182
+implementation over the next lectures.
+在接下來的講座中實施。
+
+77
+00:03:02,776 --> 00:03:04,779
+But we could have a function which takes the
+但我們可以有一個函式，它接受
+
+78
+00:03:04,779 --> 00:03:05,741
+key name
+鍵名
+
+79
+00:03:06,302 --> 00:03:09,091
+and spits out the index 1 for that. And this
+並為此輸出索引 1。還有這個
+
+80
+00:03:09,091 --> 00:03:11,688
+is really just an example. But then we would
+這實際上只是一個例子。但那時我們會
+
+81
+00:03:11,752 --> 00:03:14,301
+know that for index 1 we store Max.
+知道對於索引 1，我們儲存 Max。
+
+82
+00:03:15,359 --> 00:03:17,379
+And of course the hashing function is built
+當然，也建構了雜湊函式
+
+83
+00:03:17,379 --> 00:03:20,056
+such that for the same input it always
+這樣對於相同的輸入它總是
+
+84
+00:03:20,152 --> 00:03:23,520
+generates the same hash. The same index so
+產生相同的雜湊值。相同的索引所以
+
+85
+00:03:23,520 --> 00:03:25,879
+that we always would store the value for key
+我們總是會儲存鍵的值
+
+86
+00:03:25,879 --> 00:03:27,340
+name in index 1.
+索引 1 中的名稱。
+
+87
+00:03:28,255 --> 00:03:30,437
+And if we later want to retrieve a value by
+如果我們稍後想透過以下方式檢索值
+
+88
+00:03:30,437 --> 00:03:32,556
+key, the same hashing function would
+鍵，相同的雜湊函式將
+
+89
+00:03:32,604 --> 00:03:35,813
+basically rehash that key. And since I just
+基本上重新散列該密鑰。而且因為我剛剛
+
+90
+00:03:35,813 --> 00:03:38,044
+said that the same key always yields the
+說相同的密鑰總是產生
+
+91
+00:03:38,044 --> 00:03:41,077
+same hash, the same index, we could retrieve
+相同的雜湊值，相同的索引，我們可以檢索
+
+92
+00:03:41,109 --> 00:03:41,831
+that data.
+那個資料。
+
+93
+00:03:42,457 --> 00:03:44,527
+So under the hood, we're basically working
+所以在幕後，我們基本上是在工作
+
+94
+00:03:44,720 --> 00:03:45,876
+with an array here,
+這裡有一個陣列，
+
+95
+00:03:46,550 --> 00:03:49,309
+but we have that different kind of access
+但我們有不同型別的存取權限
+
+96
+00:03:49,677 --> 00:03:51,985
+through the key. And since this is a really
+透過鑰匙。因為這確實是一個
+
+97
+00:03:52,002 --> 00:03:55,159
+useful pattern, JavaScript has this object
+有用的模式，JavaScript 有這個物件
+
+98
+00:03:55,287 --> 00:03:55,415
+thing
+事物
+
+99
+00:03:55,944 --> 00:03:58,204
+which in the end gives us the direct access
+最終讓我們可以直接訪問
+
+100
+00:03:58,333 --> 00:04:00,785
+through the key and takes care of the
+透過鑰匙並照顧
+
+101
+00:04:00,817 --> 00:04:02,644
+hashing and so under the hood.
+雜湊等等。
+
+102
+00:04:03,622 --> 00:04:07,452
+Now let's see why we need such tables, such
+現在讓我們看看為什麼我們需要這樣的表，例如
+
+103
+00:04:07,629 --> 00:04:09,857
+objects, such hash tables therefore in the
+物件，這樣的雜湊表因此在
+
+104
+00:04:09,873 --> 00:04:12,742
+end, before we then also build our own one
+結束，然後我們也建立自己的一個
+
+105
+00:04:12,918 --> 00:04:15,739
+to see what JavaScript in the end does under
+看看 JavaScript 到底做了什麼
+
+106
+00:04:15,739 --> 00:04:16,027
+the hood.
+引擎蓋。

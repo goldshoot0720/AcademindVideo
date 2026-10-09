@@ -1,0 +1,439 @@
+1
+00:00:02,215 --> 00:00:04,383
+So we got our first trie. We can insert
+所以我們進行了第一次嘗試。我們可以插入
+
+2
+00:00:04,383 --> 00:00:07,418
+data. Now let's see how we can find
+資料。現在讓我們看看如何找到
+
+3
+00:00:07,578 --> 00:00:10,292
+something. So I'll add a find method, and we
+某物。所以我會加入一個 find 方法，然後我們
+
+4
+00:00:10,292 --> 00:00:13,037
+want to find by key. That's the idea behind
+想透過鑰匙找到。這就是背後的想法
+
+5
+00:00:13,037 --> 00:00:15,928
+the trie. The keys are our identifiers. The
+特里樹。密鑰是我們的識別碼。這
+
+6
+00:00:15,928 --> 00:00:18,705
+keys are what allows us to find a value.
+鍵可以讓我們找到一個值。
+
+7
+00:00:19,701 --> 00:00:21,114
+So how do we find here?
+那我們要如何找到這裡呢？
+
+8
+00:00:22,013 --> 00:00:24,213
+In the end, we can use a quite similar logic
+最後，我們可以使用一個非常相似的邏輯
+
+9
+00:00:24,422 --> 00:00:27,442
+to inserting. We can again create a for loop
+到插入。我們可以再次建立一個for迴圈
+
+10
+00:00:27,506 --> 00:00:30,877
+where we start at 0 and keep on going
+我們從 0 開始並繼續前進
+
+11
+00:00:30,990 --> 00:00:32,254
+through our key characters.
+透過我們的關鍵人物。
+
+12
+00:00:33,110 --> 00:00:34,882
+So the same logic as we had it for
+所以與我們的邏輯相同
+
+13
+00:00:35,093 --> 00:00:35,548
+inserting.
+插入。
+
+14
+00:00:39,387 --> 00:00:40,344
+And we can also again
+我們還可以再次
+
+15
+00:00:40,928 --> 00:00:42,274
+start at our root node
+從我們的根節點開始
+
+16
+00:00:43,507 --> 00:00:45,939
+and then change this node for every
+然後為每個更改此節點
+
+17
+00:00:45,972 --> 00:00:46,491
+iteration.
+迭代。
+
+18
+00:00:49,083 --> 00:00:50,662
+In the end here, we still also want to get
+到最後這裡我們還想得到
+
+19
+00:00:50,662 --> 00:00:51,626
+that alphabet index.
+那字母表索引。
+
+20
+00:00:52,486 --> 00:00:53,830
+And of course, we therefore could also
+當然，因此我們也可以
+
+21
+00:00:53,927 --> 00:00:56,160
+outsource this formula into a separate
+將這個公式外包到一個單獨的
+
+22
+00:00:56,451 --> 00:00:58,782
+method, but I'll just copy it. So we get
+方法，但我只是複製它。所以我們得到
+
+23
+00:00:58,782 --> 00:01:00,530
+this alphabet index for our key here.
+這個字母表索引是我們這裡的關鍵。
+
+24
+00:01:03,054 --> 00:01:03,926
+And once we got that,
+一旦我們明白了，
+
+25
+00:01:04,589 --> 00:01:05,009
+we see
+我們看到
+
+26
+00:01:05,638 --> 00:01:07,625
+if we can find a node for this given
+如果我們可以找到給定的節點
+
+27
+00:01:07,884 --> 00:01:09,289
+identified alphabet index.
+確定的字母表索引。
+
+28
+00:01:10,468 --> 00:01:12,358
+Because we don't necessarily need to have
+因為我們不一定需要有
+
+29
+00:01:12,407 --> 00:01:14,826
+one if we're trying to find a key that
+如果我們試圖找到一把鑰匙
+
+30
+00:01:14,842 --> 00:01:17,115
+hasn't been inserted before, we'll not be
+之前沒有插入過，我們不會
+
+31
+00:01:17,278 --> 00:01:19,128
+able to find all nodes along the way.
+能夠找到沿途的所有節點。
+
+32
+00:01:20,053 --> 00:01:21,383
+So we simply
+所以我們簡單地
+
+33
+00:01:21,976 --> 00:01:23,562
+reach out to our node and there to its
+到達我們的節點並到達它的
+
+34
+00:01:23,562 --> 00:01:24,027
+children
+孩子們
+
+35
+00:01:24,604 --> 00:01:26,142
+for the given alphabet index,
+對於給定的字母表索引，
+
+36
+00:01:26,927 --> 00:01:29,507
+and we check if we don't find this, if that
+我們檢查是否沒有找到這個，如果有
+
+37
+00:01:29,507 --> 00:01:32,680
+is falsy, if we don't have a node for that
+是假的，如果我們沒有一個節點的話
+
+38
+00:01:32,712 --> 00:01:33,001
+given
+給定
+
+39
+00:01:33,914 --> 00:01:34,379
+index.
+指數。
+
+40
+00:01:35,260 --> 00:01:36,766
+And if that's the case, we simply return
+如果是這樣的話，我們只需回傳
+
+41
+00:01:37,263 --> 00:01:38,834
+false or null,
+假或空，
+
+42
+00:01:39,747 --> 00:01:41,926
+or you throw an error. That's totally up to
+或者你拋出一個錯誤。這完全取決於
+
+43
+00:01:41,926 --> 00:01:42,039
+you.
+你。
+
+44
+00:01:43,064 --> 00:01:45,115
+If we make it past this if check though, we
+如果我們通過了這個檢查，我們
+
+45
+00:01:45,180 --> 00:01:47,789
+we know that we did find a node, so now we
+我們知道我們確實找到了一個節點，所以現在我們
+
+46
+00:01:47,789 --> 00:01:50,285
+can progress to the next character of our
+可以進步到我們的下一個角色
+
+47
+00:01:50,285 --> 00:01:50,527
+key.
+鑰匙。
+
+48
+00:01:51,090 --> 00:01:52,427
+So we simply update node
+所以我們只要更新節點
+
+49
+00:01:53,168 --> 00:01:54,492
+and set it equal to,
+並將其設為等於
+
+50
+00:01:55,209 --> 00:01:57,672
+well, the node which we just accessed on our
+好吧，我們剛剛訪問的節點
+
+51
+00:01:57,819 --> 00:01:58,634
+children array.
+兒童陣列。
+
+52
+00:02:00,553 --> 00:02:02,506
+And once we're done with the for loop, we
+一旦我們完成了 for 迴圈，我們
+
+53
+00:02:02,716 --> 00:02:05,298
+either return false in between if we didn't
+如果我們不這樣做，則傳回 false
+
+54
+00:02:05,298 --> 00:02:08,397
+find some node, or if we really completed
+找到一些節點，或者如果我們真的完成了
+
+55
+00:02:08,397 --> 00:02:11,512
+the for loop, we hopefully found a value.
+for 迴圈，我們希望找到一個值。
+
+56
+00:02:12,364 --> 00:02:14,327
+So now we can return
+所以現在我們可以回傳
+
+57
+00:02:16,049 --> 00:02:16,677
+our node
+我們的節點
+
+58
+00:02:17,433 --> 00:02:20,185
+which we have in the end because we updated
+我們最終得到了這個，因為我們更新了
+
+59
+00:02:20,410 --> 00:02:22,522
+in every iteration. So at the end we have
+在每次迭代中。所以最後我們有
+
+60
+00:02:22,522 --> 00:02:24,957
+the node with the value we were looking for.
+具有我們正在尋找的值的節點。
+
+61
+00:02:26,070 --> 00:02:27,634
+Of course you could also just return
+當然你也可以直接回傳
+
+62
+00:02:27,827 --> 00:02:28,279
+node.value.
+節點.值。
+
+63
+00:02:29,076 --> 00:02:31,224
+That really depends on what you want in your
+這實際上取決於您想要什麼
+
+64
+00:02:31,272 --> 00:02:31,886
+application.
+應用。
+
+65
+00:02:32,887 --> 00:02:34,194
+So let's give this a try now.
+所以現在讓我們來試試。
+
+66
+00:02:36,010 --> 00:02:38,611
+Here I log the entire trie, but thereafter I
+在這裡我記錄了整個特里樹，但從此我
+
+67
+00:02:38,676 --> 00:02:39,742
+want to console.log
+想要console.log
+
+68
+00:02:40,336 --> 00:02:41,926
+try.find
+嘗試尋找
+
+69
+00:02:42,504 --> 00:02:44,141
+for, let's say, age,
+因為，比方說，年齡，
+
+70
+00:02:44,928 --> 00:02:45,057
+which
+哪個
+
+71
+00:02:45,715 --> 00:02:46,614
+should work of course,
+當然應該有效，
+
+72
+00:02:47,320 --> 00:02:47,706
+also
+也
+
+73
+00:02:48,685 --> 00:02:50,515
+for names and for name,
+為了名字和為了名字，
+
+74
+00:02:51,190 --> 00:02:53,774
+but also for, let's say, hobby, which
+但也為了，比如說，愛好，
+
+75
+00:02:53,903 --> 00:02:55,219
+clearly does not exist.
+顯然不存在。
+
+76
+00:02:56,247 --> 00:02:57,660
+And if we now save all that
+如果我們現在儲存所有這些
+
+77
+00:02:58,334 --> 00:02:58,992
+and reload,
+並重新載入，
+
+78
+00:02:59,763 --> 00:03:01,577
+we see we find the nodes for
+我們看到我們找到了節點
+
+79
+00:03:02,171 --> 00:03:02,637
+the age,
+年齡，
+
+80
+00:03:03,311 --> 00:03:03,504
+for
+為了
+
+81
+00:03:04,339 --> 00:03:06,458
+the, the names, and for the single name But
+的、名稱和單一名稱但是
+
+82
+00:03:06,458 --> 00:03:08,624
+we also get false at the end, which of
+最後我們也會得到 false，其中
+
+83
+00:03:08,673 --> 00:03:10,374
+course is the console.log statement for
+當然是 console.log 語句
+
+84
+00:03:10,374 --> 00:03:13,519
+hobby because that is not existing in our
+愛好，因為我們不存在這種愛好
+
+85
+00:03:13,583 --> 00:03:13,840
+trie.
+特里。
+
+86
+00:03:14,707 --> 00:03:17,178
+And that is a very basic yet fully
+這是一個非常基本但完整的
+
+87
+00:03:17,258 --> 00:03:19,650
+functional trie which we can build and which
+我們可以建構哪些功能特里樹
+
+88
+00:03:19,762 --> 00:03:21,832
+works exactly as a trie should work.
+其工作方式與 trie 的工作方式完全相同。

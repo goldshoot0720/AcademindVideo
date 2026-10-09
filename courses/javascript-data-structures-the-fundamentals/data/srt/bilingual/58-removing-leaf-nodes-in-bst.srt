@@ -1,0 +1,939 @@
+1
+00:00:02,341 --> 00:00:04,923
+When it comes to removing values from our
+當談到從我們的價值觀中刪除價值觀時
+
+2
+00:00:04,923 --> 00:00:05,307
+tree,
+樹，
+
+3
+00:00:05,901 --> 00:00:07,248
+it gets a bit more tricky.
+事情變得有點棘手。
+
+4
+00:00:07,889 --> 00:00:08,066
+Why?
+為什麼？
+
+5
+00:00:08,916 --> 00:00:11,674
+Well, adding is fairly straightforward. We
+嗯，添加相當簡單。我們
+
+6
+00:00:11,674 --> 00:00:14,769
+simply check where we wanna add a value, we
+只需檢查我們想要在哪裡添加值，我們
+
+7
+00:00:14,785 --> 00:00:17,254
+do that recursively to dig deeply into the
+遞迴地執行此操作以深入挖掘
+
+8
+00:00:17,254 --> 00:00:17,447
+tree,
+樹，
+
+9
+00:00:18,152 --> 00:00:20,478
+and we then go ahead and, well, add that
+然後我們繼續添加
+
+10
+00:00:20,478 --> 00:00:23,091
+value in the right place. It's not that much
+價值在正確的地方。沒那麼多
+
+11
+00:00:23,107 --> 00:00:24,005
+code as you can see.
+程式碼如你所見。
+
+12
+00:00:24,791 --> 00:00:27,615
+Removing is more difficult At least if we
+移除會更困難 至少如果我們
+
+13
+00:00:27,775 --> 00:00:31,228
+don't want to remove entire branches just
+不想刪除整個分支
+
+14
+00:00:31,228 --> 00:00:32,641
+because we remove one
+因為我們刪除了一個
+
+15
+00:00:33,219 --> 00:00:36,190
+element, one value which is quite high up in
+元素，一個值相當高的元素
+
+16
+00:00:36,287 --> 00:00:36,720
+the tree.
+樹。
+
+17
+00:00:37,796 --> 00:00:40,301
+In the first tree which we built,
+在我們建造的第一棵樹中，
+
+18
+00:00:40,928 --> 00:00:43,529
+our remove functionality was quite
+我們的刪除功能非常好
+
+19
+00:00:43,529 --> 00:00:44,525
+straightforward.
+直截了當。
+
+20
+00:00:45,264 --> 00:00:48,218
+When we found a matching node, we removed it
+當我們找到匹配的節點時，我們將其刪除
+
+21
+00:00:48,475 --> 00:00:51,398
+and that has one important implication, we
+這有一個重要的含義，我們
+
+22
+00:00:51,607 --> 00:00:55,041
+also removed all child nodes, that node
+也刪除了所有子節點，該節點
+
+23
+00:00:55,394 --> 00:00:58,983
+which we removed. So that simply means that
+我們刪除了。所以這僅僅意味著
+
+24
+00:00:59,240 --> 00:01:01,884
+we didn't care whether that got rid of an
+我們不在乎這是否擺脫了
+
+25
+00:01:01,900 --> 00:01:03,727
+entire branch or a subtree.
+整個分支或子樹。
+
+26
+00:01:04,832 --> 00:01:06,547
+For that simple tree, that was enough
+對於那棵簡單的樹來說，這就足夠了
+
+27
+00:01:06,755 --> 00:01:08,422
+because we just wanted to get started.
+因為我們只是想開始。
+
+28
+00:01:08,999 --> 00:01:11,402
+And for the file system, it even made sense.
+對於檔案系統來說，這甚至是有意義的。
+
+29
+00:01:11,963 --> 00:01:14,928
+If you remove a folder, all subfolders and
+如果刪除資料夾、所有子資料夾和
+
+30
+00:01:15,088 --> 00:01:17,652
+all the files in the folder are gone. That
+資料夾中的所有檔案都消失了。那
+
+31
+00:01:17,652 --> 00:01:19,639
+is what we expect from a file system.
+是我們對檔案系統的期望。
+
+32
+00:01:20,649 --> 00:01:23,261
+For the binary search tree, it should be
+對於二元搜尋樹來說，應該是
+
+33
+00:01:23,261 --> 00:01:25,729
+different though. If we remove a value
+雖然不同。如果我們刪除一個值
+
+34
+00:01:25,745 --> 00:01:28,149
+there, let's say in our example tree,
+在那裡，讓我們在我們的範例樹中說，
+
+35
+00:01:28,710 --> 00:01:30,698
+if I remove the value 20,
+如果我刪除值 20，
+
+36
+00:01:31,531 --> 00:01:34,544
+I don't wanna lose all the nested nodes in
+我不想丟失所有巢狀節點
+
+37
+00:01:34,576 --> 00:01:37,829
+there. I don't wanna lose the value 25 then.
+那裡。我不想失去 25 的值。
+
+38
+00:01:38,422 --> 00:01:41,355
+Instead, the tree needs to be reorganized
+相反，樹需要重新組織
+
+39
+00:01:41,612 --> 00:01:45,714
+such that 25 still is kept around and takes
+這樣 25 仍然保留在周圍並需要
+
+40
+00:01:45,714 --> 00:01:48,327
+a new place in the tree and we really only
+樹上的一個新位置，我們真的只
+
+41
+00:01:48,343 --> 00:01:51,308
+remove the value 20. And of course, that's a
+刪除值 20。當然，這是一個
+
+42
+00:01:51,308 --> 00:01:53,632
+bit more tricky because it's not enough to
+有點棘手，因為這還不夠
+
+43
+00:01:53,632 --> 00:01:56,165
+just find a value and remove the node. We
+只需找到一個值並刪除該節點即可。我們
+
+44
+00:01:56,213 --> 00:01:59,387
+also need to reorganize any child nodes that
+還需要重新組織所有子節點
+
+45
+00:01:59,483 --> 00:02:01,311
+to-be-removed node might have.
+要刪除的節點可能有。
+
+46
+00:02:02,529 --> 00:02:05,511
+Now, let's nonetheless start with the simple
+現在，讓我們從簡單的開始
+
+47
+00:02:05,511 --> 00:02:08,124
+case that we wanna remove a node entirely,
+如果我們想完全刪除一個節點，
+
+48
+00:02:08,540 --> 00:02:10,929
+at least if it has no left or right child.
+至少在它沒有左或右孩子的情況下是這樣。
+
+49
+00:02:11,666 --> 00:02:13,494
+This is fairly trivial to implement.
+這實作起來相當簡單。
+
+50
+00:02:14,792 --> 00:02:16,283
+In the Node class here,
+在此處的 Node 類別中，
+
+51
+00:02:16,908 --> 00:02:17,694
+I'll add a
+我會添加一個
+
+52
+00:02:18,319 --> 00:02:18,784
+remove
+消除
+
+53
+00:02:19,377 --> 00:02:21,157
+method where we get a value that should be
+方法，我們得到一個應該是的值
+
+54
+00:02:21,221 --> 00:02:21,670
+removed
+已刪除
+
+55
+00:02:22,327 --> 00:02:25,534
+and the first step simply is that we find
+第一步就是我們發現
+
+56
+00:02:25,534 --> 00:02:27,554
+the node that should be removed. And for
+應刪除的節點。而對於
+
+57
+00:02:27,554 --> 00:02:30,024
+that we can use the existing find method
+我們可以使用現有的 find 方法
+
+58
+00:02:30,024 --> 00:02:32,509
+which we implemented earlier. So here we got
+我們之前實施過。所以我們得到了
+
+59
+00:02:32,509 --> 00:02:32,765
+the
+這
+
+60
+00:02:33,327 --> 00:02:35,876
+identified node which is the node we wanna
+已識別節點，這是我們想要的節點
+
+61
+00:02:35,876 --> 00:02:36,261
+remove
+消除
+
+62
+00:02:36,918 --> 00:02:39,868
+and we get it by calling this.find and then
+我們透過調用 this.find 然後得到它
+
+63
+00:02:39,884 --> 00:02:42,209
+we pass the value to find and this will
+我們傳遞要查找的值，這將
+
+64
+00:02:42,289 --> 00:02:44,197
+trigger this method and find us the node
+觸發這個方法並找到我們的節點
+
+65
+00:02:44,229 --> 00:02:46,395
+that should be removed. Of course, we might
+應該將其刪除。當然，我們可能
+
+66
+00:02:46,395 --> 00:02:48,465
+not find anything here, so I'm going to
+在這裡找不到任何東西，所以我要去
+
+67
+00:02:48,465 --> 00:02:51,096
+check if we don't have an identified node,
+檢查我們是否沒有已識別的節點，
+
+68
+00:02:51,433 --> 00:02:53,471
+which means there is no node to remove.
+這意味著沒有要刪除的節點。
+
+69
+00:02:54,001 --> 00:02:55,557
+And if that's the case, we can throw a new
+如果是這樣的話，我們可以拋出一個新的
+
+70
+00:02:55,846 --> 00:02:57,338
+error where we simply say
+我們簡單地說的錯誤
+
+71
+00:02:57,868 --> 00:03:00,724
+could not find node with that value,
+找不到具有該值的節點，
+
+72
+00:03:01,558 --> 00:03:02,329
+anything like that.
+諸如此類的事情。
+
+73
+00:03:03,227 --> 00:03:05,024
+But of course, if we make it past this if
+但當然，如果我們能渡過這個難關的話
+
+74
+00:03:05,072 --> 00:03:06,420
+check, we know we did find a node.
+檢查一下，我們知道我們確實找到了一個節點。
+
+75
+00:03:07,014 --> 00:03:08,506
+And therefore, now I want to find out if
+因此，現在我想知道是否
+
+76
+00:03:08,603 --> 00:03:10,785
+this identified node maybe has neither a
+這個已識別的節點可能既沒有
+
+77
+00:03:10,865 --> 00:03:13,560
+left nor a right child. What which means
+左子亦無右子。這意味著什麼
+
+78
+00:03:13,672 --> 00:03:15,819
+that the identified node would be a leaf,
+所識別的節點將是葉子，
+
+79
+00:03:16,140 --> 00:03:17,870
+which would make removing it easier.
+這將使刪除它更容易。
+
+80
+00:03:18,559 --> 00:03:20,129
+So if we don't have
+所以如果我們沒有
+
+81
+00:03:21,203 --> 00:03:22,212
+a left node
+左節點
+
+82
+00:03:22,869 --> 00:03:24,808
+on the identified node, so if we don't have
+在已識別的節點上，所以如果我們沒有
+
+83
+00:03:24,808 --> 00:03:27,340
+a left child, if this is falsy, so if it is
+左孩子，如果這是假的，那麼如果是
+
+84
+00:03:27,372 --> 00:03:28,413
+null for example,
+例如，為空，
+
+85
+00:03:29,118 --> 00:03:32,194
+and if we don't have a right child, then we
+如果我們沒有合適的孩子，那麼我們
+
+86
+00:03:32,194 --> 00:03:34,870
+know this identified node is a leaf node
+知道這個識別的節點是葉節點
+
+87
+00:03:34,966 --> 00:03:37,161
+without any children, and therefore removing
+沒有任何孩子，因此刪除
+
+88
+00:03:37,209 --> 00:03:37,995
+it will be easy.
+這很容易。
+
+89
+00:03:38,812 --> 00:03:41,007
+Now to remove it, what we basically want to
+現在要刪除它，我們基本上想要什麼
+
+90
+00:03:41,071 --> 00:03:45,616
+do is we wanna go to the parent node
+我們要做的是去父節點
+
+91
+00:03:46,355 --> 00:03:48,780
+and tell it that it should no longer point
+並告訴它不應該再指向
+
+92
+00:03:48,845 --> 00:03:51,399
+at this identified node, right? Because
+在這個確定的節點，對嗎？因為
+
+93
+00:03:51,431 --> 00:03:53,969
+that's how our tree is built. Every node
+這就是我們的樹的建構方式。每個節點
+
+94
+00:03:54,001 --> 00:03:56,314
+points at other nodes with left and right
+用 left 和 right 指向其他節點
+
+95
+00:03:56,877 --> 00:03:59,222
+and removing a node therefore means that the
+因此刪除一個節點意味著
+
+96
+00:03:59,222 --> 00:04:02,338
+parent node should no longer point at that
+父節點不應再指向該節點
+
+97
+00:04:02,595 --> 00:04:03,607
+to-be-removed node.
+待刪除節點。
+
+98
+00:04:04,523 --> 00:04:06,499
+Therefore, we in general should store a new
+因此，我們一般應該儲存一個新的
+
+99
+00:04:06,611 --> 00:04:08,828
+piece of information when we create a node
+當我們創建節點時的一條訊息
+
+100
+00:04:09,166 --> 00:04:10,047
+And that's the parent.
+那就是父母。
+
+101
+00:04:10,608 --> 00:04:12,740
+And the parent should initially be null,
+而父級最初應該為空，
+
+102
+00:04:13,510 --> 00:04:16,459
+but if we add a value to the right or to the
+但如果我們在右側或右側添加一個值
+
+103
+00:04:16,459 --> 00:04:18,912
+left node, so here in the add method, when
+左節點，所以這裡在add方法中，當
+
+104
+00:04:19,024 --> 00:04:21,044
+we add something on the right or the left
+我們在右側或左側添加一些東西
+
+105
+00:04:21,124 --> 00:04:22,615
+property of an existing node,
+現有節點的屬性，
+
+106
+00:04:23,192 --> 00:04:25,725
+then I also want to set the parent of this
+然後我也想設定這個的父級
+
+107
+00:04:25,853 --> 00:04:26,783
+to-be-added node.
+待添加節點。
+
+108
+00:04:27,457 --> 00:04:29,028
+And that's something we can achieve
+這就是我們可以實現的目標
+
+109
+00:04:29,300 --> 00:04:31,400
+relatively easy. Whenever we're creating a
+相對容易。每當我們創建一個
+
+110
+00:04:31,400 --> 00:04:34,045
+new node, we don't just wanna assign it to
+新節點，我們不只是想將其分配給
+
+111
+00:04:34,173 --> 00:04:36,642
+right or left, But on that new node,
+向右或向左，但是在那個新節點上，
+
+112
+00:04:37,315 --> 00:04:39,768
+we also want to set parent equal to this, so
+我們還想將parent設定為等於這個，所以
+
+113
+00:04:39,945 --> 00:04:42,990
+to the node that created this new node. We
+到創建這個新節點的節點。我們
+
+114
+00:04:42,990 --> 00:04:43,519
+do this here
+在這裡做這個
+
+115
+00:04:44,353 --> 00:04:45,042
+and we do this here.
+我們在這裡這樣做。
+
+116
+00:04:45,796 --> 00:04:48,361
+And with that, we keep track of the parents
+這樣我們就可以追蹤父母
+
+117
+00:04:48,441 --> 00:04:49,547
+of our different nodes.
+我們不同的節點。
+
+118
+00:04:50,381 --> 00:04:52,417
+Now that we got the parent, when we want to
+現在我們有了父母，當我們想要的時候
+
+119
+00:04:52,529 --> 00:04:55,078
+remove a node and we know it's a leaf node,
+刪除一個節點，我們知道它是葉節點，
+
+120
+00:04:55,751 --> 00:04:59,582
+then we want to get the parent of the
+然後我們想要得到的父母
+
+121
+00:04:59,759 --> 00:05:02,984
+identified node So we could call this
+已識別節點所以我們可以稱為
+
+122
+00:05:03,369 --> 00:05:05,328
+identified parent therefore
+因此確定了父母
+
+123
+00:05:05,938 --> 00:05:08,282
+by reaching out to identified_node.parent.
+透過聯絡identified_node.parent。
+
+124
+00:05:09,374 --> 00:05:11,092
+Now that's the parent of the node we want to
+現在這是我們想要的節點的父節點
+
+125
+00:05:11,156 --> 00:05:12,890
+remove. How does this help us?
+消除。這對我們有什麼幫助？
+
+126
+00:05:13,645 --> 00:05:16,198
+Well, now we can add a new utility method
+好吧，現在我們可以添加一個新的實用方法
+
+127
+00:05:16,198 --> 00:05:16,310
+here,
+這裡，
+
+128
+00:05:16,840 --> 00:05:18,109
+remove_child,
+刪除子項，
+
+129
+00:05:19,024 --> 00:05:21,256
+where we want to get the node that we want
+我們想要得到我們想要的節點的地方
+
+130
+00:05:21,256 --> 00:05:24,098
+to remove. And in here we simply check if
+刪除。在這裡我們簡單地檢查是否
+
+131
+00:05:24,643 --> 00:05:27,292
+this node on which we call remove_child has
+我們呼叫remove_child的這個節點有
+
+132
+00:05:27,292 --> 00:05:28,062
+a left node.
+一個左節點。
+
+133
+00:05:28,655 --> 00:05:30,370
+And if that's the case, we check if this
+如果是這種情況，我們檢查是否
+
+134
+00:05:30,819 --> 00:05:31,300
+left
+左邊
+
+135
+00:05:32,005 --> 00:05:35,195
+is equal to the node we want to remove. So
+等於我們要刪除的節點。所以
+
+136
+00:05:35,227 --> 00:05:37,295
+if our left node is the child node that
+如果我們的左節點是子節點
+
+137
+00:05:37,295 --> 00:05:38,000
+should be removed,
+應該刪除，
+
+138
+00:05:38,577 --> 00:05:40,918
+and if that's the case, we simply set this
+如果是這樣的話，我們只需設定這個
+
+139
+00:05:40,918 --> 00:05:44,941
+left equal to null. So we no longer point at
+左等於空。所以我們不再指
+
+140
+00:05:45,005 --> 00:05:47,474
+this node here. Left instead points at
+這個節點在這裡。左而不是指向
+
+141
+00:05:47,474 --> 00:05:49,814
+nothing, and that means that the node we
+什麼都沒有，這意味著我們的節點
+
+142
+00:05:49,814 --> 00:05:52,524
+originally pointed at is, well, ready to be
+最初指出的是，嗯，準備好了
+
+143
+00:05:52,524 --> 00:05:53,357
+garbage collected.
+垃圾收集。
+
+144
+00:05:54,771 --> 00:05:55,944
+And I thereafter return.
+然後我就回來了。
+
+145
+00:05:56,940 --> 00:05:58,981
+Or if we don't make it into this if check,
+或者如果我們沒有進入這個 if 檢查，
+
+146
+00:05:59,527 --> 00:06:02,660
+we basically just check the other child node
+我們基本上只是檢查另一個子節點
+
+147
+00:06:02,660 --> 00:06:05,392
+we have, the right node, and check if that's
+我們有正確的節點，並檢查它是否是
+
+148
+00:06:05,392 --> 00:06:07,369
+the node we want to delete. And if this is
+the node we want to delete.如果這是
+
+149
+00:06:07,401 --> 00:06:09,731
+the case, we basically do the same just with
+在這種情況下，我們基本上也做同樣的事情
+
+150
+00:06:09,731 --> 00:06:11,611
+the right node, and then we return.
+正確的節點，然後我們回傳。
+
+151
+00:06:12,543 --> 00:06:14,921
+And now with that, we can call removeChild
+現在我們可以呼叫removeChild
+
+152
+00:06:15,098 --> 00:06:17,926
+on this identified parent here. So there we
+on this identified parent here.所以我們
+
+153
+00:06:17,926 --> 00:06:20,736
+call removeChild and forward the identified
+呼叫removeChild並轉發已識別的
+
+154
+00:06:20,736 --> 00:06:21,507
+node to it.
+節點到它。
+
+155
+00:06:22,181 --> 00:06:24,252
+And that should be a relatively elegant way
+這應該是個比較優雅的方式
+
+156
+00:06:24,332 --> 00:06:26,981
+of getting rid of a child node that we
+擺脫我們的子節點
+
+157
+00:06:27,061 --> 00:06:28,875
+identified for a given value.
+識別給定值。
+
+158
+00:06:29,822 --> 00:06:31,828
+Now, as I mentioned before, this only works
+現在，正如我之前提到的，這只有效
+
+159
+00:06:31,893 --> 00:06:34,349
+for leaf nodes here. We're not really having
+此處為葉節點。我們並沒有真正擁有
+
+160
+00:06:34,397 --> 00:06:36,676
+a solution for nodes that have other nested
+具有其他巢狀節點的解決方案
+
+161
+00:06:36,692 --> 00:06:36,997
+nodes,
+節點，
+
+162
+00:06:37,575 --> 00:06:39,854
+but it is a start, and we can give it a try
+但這只是一個開始，我們可以嘗試一下
+
+163
+00:06:40,240 --> 00:06:40,352
+by
+經過
+
+164
+00:06:41,588 --> 00:06:43,691
+going back to our code down there.
+回到我們下面的程式碼。
+
+165
+00:06:44,413 --> 00:06:47,142
+And here I wanna remove a leaf node now. So
+現在我想刪除一個葉節點。所以
+
+166
+00:06:47,142 --> 00:06:49,470
+let's dig into our tree and let's pick the,
+讓我們深入研究我們的樹，然後選擇，
+
+167
+00:06:50,177 --> 00:06:54,111
+uh, the deeply— the most deeply nested node
+呃，最深的－嵌套最深的節點
+
+168
+00:06:54,111 --> 00:06:56,230
+I can find here, which is the one with value
+我可以在這裡找到，這是有價值的
+
+169
+00:06:56,294 --> 00:06:58,735
+39. So therefore here I will call
+39. 所以在這裡我會打電話給
+
+170
+00:06:58,847 --> 00:07:00,678
+tree.remove,
+樹.刪除，
+
+171
+00:07:01,417 --> 00:07:04,242
+and the idea is that finding 39 should now
+這個想法是現在要找到 39 應該
+
+172
+00:07:04,323 --> 00:07:04,660
+fail
+失敗
+
+173
+00:07:05,190 --> 00:07:07,277
+and that we also shouldn't see it if we
+如果我們
+
+174
+00:07:07,374 --> 00:07:08,738
+print the entire tree here.
+在這裡列印整個樹。
+
+175
+00:07:09,541 --> 00:07:10,697
+So let's save everything
+所以讓我們儲存一切
+
+176
+00:07:11,388 --> 00:07:14,034
+and reload here. And indeed we get undefined
+並在此處重新載入。事實上我們得到了未定義的結果
+
+177
+00:07:14,034 --> 00:07:16,966
+here when we search 39, which is good.
+當我們搜尋 39 時，這很好。
+
+178
+00:07:17,239 --> 00:07:19,706
+That's the value we wanna get. We shouldn't
+這就是我們想要得到的價值。我們不應該
+
+179
+00:07:19,722 --> 00:07:20,139
+find it.
+找到它。
+
+180
+00:07:20,924 --> 00:07:22,510
+And if I now inspect the entire tree,
+如果我現在檢查整棵樹，
+
+181
+00:07:23,071 --> 00:07:24,802
+we see 5 is there, 20 is there,
+我們看到有 5 個，有 20 個，
+
+182
+00:07:25,715 --> 00:07:27,862
+and in 20 we got 25.
+20 年後我們得到了 25 個。
+
+183
+00:07:28,615 --> 00:07:30,939
+But in there, if we dig deeper, we see that
+但在那裡，如果我們深入挖掘，我們會看到
+
+184
+00:07:30,939 --> 00:07:33,471
+now there the right node which we had
+現在我們有了正確的節點
+
+185
+00:07:33,599 --> 00:07:36,034
+earlier, 39, is gone.
+早先的39歲已經過去了。
+
+186
+00:07:36,627 --> 00:07:39,191
+So this works. We were able to remove this.
+所以這有效。我們能夠刪除這個。
+
+187
+00:07:40,076 --> 00:07:42,544
+Now let's also make sure we can also remove
+現在我們還要確保我們也可以刪除
+
+188
+00:07:42,657 --> 00:07:44,076
+non-leaf nodes.
+非葉節點。

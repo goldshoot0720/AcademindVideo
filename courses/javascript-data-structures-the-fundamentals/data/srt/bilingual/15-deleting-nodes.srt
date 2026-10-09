@@ -1,0 +1,1329 @@
+1
+00:00:02,259 --> 00:00:04,102
+Adding elements is good, but sometimes you
+添加元素固然很好，但有時你
+
+2
+00:00:04,182 --> 00:00:05,945
+also wanna get rid of elements. So
+也想擺脫元素。所以
+
+3
+00:00:05,945 --> 00:00:08,108
+therefore, we wanna add a delete method,
+因此，我們想新增一個刪除方法，
+
+4
+00:00:08,605 --> 00:00:10,912
+which also should take a value that we want
+這也應該採用我們想要的數值
+
+5
+00:00:10,912 --> 00:00:11,537
+to get rid of.
+擺脫。
+
+6
+00:00:12,210 --> 00:00:14,646
+Now, deleting is a bit more complex than
+現在，刪除比
+
+7
+00:00:14,919 --> 00:00:17,258
+adding elements because to delete an
+新增元素是因為要刪除一個
+
+8
+00:00:17,258 --> 00:00:18,973
+element, we first of all have to find it.
+元素，我們首先要找到它。
+
+9
+00:00:19,566 --> 00:00:21,954
+And chances are that the value that should
+很可能該值應該
+
+10
+00:00:21,986 --> 00:00:25,046
+be deleted is not always just the tail or
+被刪除的並不總是只是尾部或
+
+11
+00:00:25,110 --> 00:00:25,527
+the head.
+頭。
+
+12
+00:00:26,056 --> 00:00:28,593
+In addition, since we just get a value here,
+另外，由於我們只是在這裡取得一個值，
+
+13
+00:00:28,963 --> 00:00:31,339
+of course we wanna find all occurrences of
+當然我們想找到所有出現的
+
+14
+00:00:31,371 --> 00:00:32,479
+that value and delete it.
+該值並將其刪除。
+
+15
+00:00:33,298 --> 00:00:35,979
+So if I, for example, added Max twice here
+例如，如果我在這裡添加 Max 兩次
+
+16
+00:00:36,413 --> 00:00:37,248
+to my list
+到我的清單
+
+17
+00:00:38,019 --> 00:00:39,833
+and then I print it here
+然後我在這裡列印它
+
+18
+00:00:40,588 --> 00:00:43,976
+and thereafter I call linkedList.delete Max
+然後我呼叫 linkedList.delete Max
+
+19
+00:00:43,976 --> 00:00:44,473
+like this,
+像這樣，
+
+20
+00:00:45,083 --> 00:00:47,797
+I expect that if I print it again, both
+我希望如果我再次列印它，兩者都會
+
+21
+00:00:47,893 --> 00:00:50,543
+occurrences of Max were deleted and not just
+Max 的出現已被刪除，而不僅僅是
+
+22
+00:00:50,543 --> 00:00:50,992
+one of them.
+其中之一。
+
+23
+00:00:51,538 --> 00:00:53,397
+So that's something we also have to ensure,
+所以這也是我們必須確保的，
+
+24
+00:00:53,670 --> 00:00:56,668
+that delete really finds all occurrences no
+刪除確實找到了所有出現的情況 no
+
+25
+00:00:56,716 --> 00:00:58,896
+matter where they are in the list and no
+不管它們在清單中的位置，也不管
+
+26
+00:00:58,912 --> 00:01:01,284
+matter how often we have that value in the
+無論我們多久獲得一次這種價值
+
+27
+00:01:01,284 --> 00:01:01,557
+list.
+列表。
+
+28
+00:01:02,438 --> 00:01:04,522
+So what do we wanna do in delete therefore?
+那我們在刪除時想要做什麼呢？
+
+29
+00:01:05,131 --> 00:01:06,911
+Well, first of all, there is a simple check
+嗯，首先，有一個簡單的檢查
+
+30
+00:01:07,055 --> 00:01:08,995
+we should implement. We should check if we
+我們應該執行。我們應該檢查一下我們是否
+
+31
+00:01:08,995 --> 00:01:11,399
+maybe don't have a head. So if we don't have
+也許沒有頭。所以如果我們沒有
+
+32
+00:01:11,399 --> 00:01:12,217
+a first element,
+第一個元素，
+
+33
+00:01:12,746 --> 00:01:14,926
+if we don't even have a first element, we
+如果我們甚至沒有第一個元素，我們
+
+34
+00:01:14,926 --> 00:01:16,946
+know that the list is empty. And in that
+知道清單是空的。並在那
+
+35
+00:01:16,946 --> 00:01:19,511
+case, I can return null here as a result.
+在這種情況下，我可以在這裡回傳 null 作為結果。
+
+36
+00:01:19,959 --> 00:01:21,643
+You can also return nothing if you want to.
+如果您願意，也可以不回傳任何內容。
+
+37
+00:01:21,899 --> 00:01:23,920
+In the end, you just wanna return here to
+最後，你只想回到這裡
+
+38
+00:01:23,952 --> 00:01:26,282
+make sure that no other code in this method
+確保此方法中沒有其他程式碼
+
+39
+00:01:26,314 --> 00:01:28,450
+executes, because if the list is empty,
+執行，因為如果清單為空，
+
+40
+00:01:29,045 --> 00:01:30,539
+deleting does nothing.
+刪除什麼也不做。
+
+41
+00:01:31,358 --> 00:01:33,077
+Alternatively, if you wanted, you could also
+或者，如果您願意，您也可以
+
+42
+00:01:33,206 --> 00:01:36,017
+throw an error and let the user of your list
+拋出一個錯誤並讓您的清單的使用者
+
+43
+00:01:36,017 --> 00:01:38,362
+handle it. Whatever you want. I will just
+處理它。任何你想要的。我只會
+
+44
+00:01:38,362 --> 00:01:38,908
+return here.
+回傳這裡。
+
+45
+00:01:39,969 --> 00:01:42,218
+Now assuming that we do have a head element,
+現在假設我們確實有一個 head 元素，
+
+46
+00:01:42,394 --> 00:01:44,756
+so assuming that the list is not empty,
+所以假設列表不為空，
+
+47
+00:01:45,334 --> 00:01:48,258
+we should again loop through the entire list
+我們應該再次迴圈遍歷整個列表
+
+48
+00:01:48,467 --> 00:01:51,421
+just as we do it with toArray. And find all
+就像我們對 toArray 所做的那樣。並找到所有
+
+49
+00:01:51,469 --> 00:01:52,752
+nodes that should be deleted.
+應刪除的節點。
+
+50
+00:01:53,473 --> 00:01:55,380
+So therefore again, we can implement our
+因此，我們可以再次實施我們的
+
+51
+00:01:55,380 --> 00:01:57,593
+current node here and start at the head
+當前節點在這裡並從標頭開始
+
+52
+00:01:57,625 --> 00:01:59,661
+element. So start at the first element
+元素。所以從第一個元素開始
+
+53
+00:02:00,895 --> 00:02:02,418
+and then add a while loop
+然後加入一個 while 迴圈
+
+54
+00:02:02,979 --> 00:02:04,133
+where we essentially,
+我們基本上，
+
+55
+00:02:04,742 --> 00:02:07,066
+well, keep on looping as long as we have a
+好吧，只要我們有一個就繼續迴圈
+
+56
+00:02:07,066 --> 00:02:09,759
+current node. Now in this while loop, we now
+當前節點。現在在這個 while 迴圈中，我們現在
+
+57
+00:02:09,904 --> 00:02:11,779
+theoretically need to do 2 things.
+理論上需要做兩件事。
+
+58
+00:02:12,453 --> 00:02:14,280
+We need to check whether the current node
+我們需要檢查當前節點是否
+
+59
+00:02:14,280 --> 00:02:16,540
+has the value we wanna delete, but that's
+具有我們想要刪除的值，但那就是
+
+60
+00:02:16,540 --> 00:02:18,849
+then not all. We also wanna check if the
+那麼就不是全部。我們還想檢查是否
+
+61
+00:02:18,849 --> 00:02:21,109
+next node in line maybe is the one we wanna
+佇列中的下一個節點可能就是我們想要的節點
+
+62
+00:02:21,173 --> 00:02:23,531
+delete. We wanna again, through all the
+刪除。我們想再次，透過所有
+
+63
+00:02:23,531 --> 00:02:25,250
+nodes that need deletion.
+需要刪除的節點。
+
+64
+00:02:25,988 --> 00:02:28,670
+Now what does deleting mean in the context
+現在刪除在上下文中意味著什麼
+
+65
+00:02:28,670 --> 00:02:29,634
+of a linked list though?
+鍊錶呢？
+
+66
+00:02:30,565 --> 00:02:33,392
+It actually simply means that we take the
+它實際上只是意味著我們採取
+
+67
+00:02:34,420 --> 00:02:35,094
+next value
+下一個值
+
+68
+00:02:36,106 --> 00:02:36,652
+of a node
+一個節點的
+
+69
+00:02:37,552 --> 00:02:40,410
+and instead of letting it point at the next
+而不是讓它指向下一個
+
+70
+00:02:40,458 --> 00:02:41,888
+value it previously pointed at,
+值它之前指出的，
+
+71
+00:02:42,450 --> 00:02:45,019
+we simply skip that value and point at the,
+我們只需跳過該值並指向，
+
+72
+00:02:45,035 --> 00:02:47,348
+well, value thereafter in line. So if you
+好吧，此後的價值就行了。所以如果你
+
+73
+00:02:47,428 --> 00:02:50,303
+wanted to delete 1 for example, this node
+例如想刪除1這個節點
+
+74
+00:02:50,320 --> 00:02:52,167
+here, if we wanted to delete the node with
+在這裡，如果我們想刪除節點
+
+75
+00:02:52,167 --> 00:02:52,697
+value 1,
+值1，
+
+76
+00:02:53,613 --> 00:02:56,087
+we should be able to find out that this is
+我們應該能夠發現這是
+
+77
+00:02:56,119 --> 00:02:57,806
+not the first node, of course, because it
+當然不是第一個節點，因為它
+
+78
+00:02:57,806 --> 00:03:00,200
+has a value of first value, but then it's
+其值為第一個值，但隨後它是
+
+79
+00:03:00,200 --> 00:03:03,510
+the next node thereafter. We can determine
+之後的下一個節點。我們可以確定
+
+80
+00:03:03,510 --> 00:03:05,229
+this by looking at the next property of the
+透過查看的下一個屬性來實現這一點
+
+81
+00:03:05,342 --> 00:03:05,888
+first node.
+第一個節點。
+
+82
+00:03:06,498 --> 00:03:08,699
+Now we see the value here for the next node
+現在我們在這裡看到下一個節點的值
+
+83
+00:03:08,796 --> 00:03:10,884
+is the value we want to delete, let's say,
+是我們要刪除的值，比方說，
+
+84
+00:03:11,382 --> 00:03:14,901
+and therefore we now want to update next on
+因此我們現在要更新下一個
+
+85
+00:03:14,901 --> 00:03:15,656
+the first node
+第一個節點
+
+86
+00:03:16,266 --> 00:03:18,190
+with the node after the one we want to
+與我們想要的節點之後的節點
+
+87
+00:03:18,190 --> 00:03:20,548
+delete. And this effectively deletes the
+刪除。這有效地刪除了
+
+88
+00:03:20,692 --> 00:03:23,178
+node with value 1 because we remove the
+值為 1 的節點，因為我們刪除了
+
+89
+00:03:23,178 --> 00:03:25,872
+pointer at this node, and therefore it's
+指向該節點的指標，因此它是
+
+90
+00:03:25,888 --> 00:03:28,743
+lost in memory. No one points at it anymore.
+迷失在記憶中。沒有人再指指點點了。
+
+91
+00:03:29,272 --> 00:03:31,116
+We have no other place that would point at
+我們沒有其他地方可以指出
+
+92
+00:03:31,116 --> 00:03:33,073
+this node, and therefore eventually it will
+這個節點，因此最終它將
+
+93
+00:03:33,121 --> 00:03:35,879
+be garbage collected. That is what deleting
+被垃圾收集。就是這樣刪除的
+
+94
+00:03:35,927 --> 00:03:37,916
+nodes means in linked lists.
+節點表示鍊錶中的節點。
+
+95
+00:03:38,910 --> 00:03:39,487
+So therefore,
+因此，
+
+96
+00:03:40,161 --> 00:03:40,674
+in our
+在我們的
+
+97
+00:03:41,380 --> 00:03:41,925
+deletion
+刪除
+
+98
+00:03:42,502 --> 00:03:42,936
+loop here,
+在這裡迴圈，
+
+99
+00:03:44,172 --> 00:03:45,649
+I actually don't want to
+其實我不想
+
+100
+00:03:46,195 --> 00:03:49,246
+look at the current node itself here. I want
+在這裡查看當前節點本身。我想
+
+101
+00:03:49,246 --> 00:03:50,546
+to look at the next
+看看下一個
+
+102
+00:03:51,172 --> 00:03:53,709
+node in line here and compare that next
+節點在此排隊並比較下一個
+
+103
+00:03:53,725 --> 00:03:56,069
+node's value. Now by doing that, we're not
+節點的值。現在透過這樣做，我們不是
+
+104
+00:03:56,069 --> 00:03:58,622
+checking the current node itself's value,
+檢查當前節點本身的值，
+
+105
+00:03:58,702 --> 00:04:01,030
+which is a flaw which we'll fix, but we'll
+這是一個我們會修復的缺陷，但我們會
+
+106
+00:04:01,030 --> 00:04:03,278
+simply start at the second node for now, and
+現在只需從第二個節點開始，並且
+
+107
+00:04:03,310 --> 00:04:05,011
+I'll take care about the first node and so
+我會關心第一個節點，所以
+
+108
+00:04:05,044 --> 00:04:07,066
+on later too. But with that, we look at the
+稍後也會。但有了這個，讓我們看看
+
+109
+00:04:07,066 --> 00:04:09,732
+next node in line and check if that node's
+行中的下一個節點並檢查該節點是否
+
+110
+00:04:09,732 --> 00:04:11,337
+value is the value we want to get rid of.
+value 是我們想要擺脫的值。
+
+111
+00:04:11,804 --> 00:04:13,542
+For that, we can simply add an if check in
+為此，我們可以簡單地添加一個 if 檢查
+
+112
+00:04:13,574 --> 00:04:15,394
+the while loop and check if
+while 迴圈並檢查是否
+
+113
+00:04:16,376 --> 00:04:21,481
+current_node.next.value— so the value of the
+current_node.next.value——所以的值
+
+114
+00:04:21,481 --> 00:04:22,327
+next node in line—
+行中的下一個節點—
+
+115
+00:04:22,913 --> 00:04:25,729
+is equal to the value we got as an input.
+等於我們作為輸入所獲得的值。
+
+116
+00:04:27,790 --> 00:04:29,680
+If that is the same, we know we want to
+如果是一樣的，我們就知道我們想要
+
+117
+00:04:29,728 --> 00:04:32,716
+delete that next node. And how do we delete
+刪除下一個節點。以及我們如何刪除
+
+118
+00:04:32,716 --> 00:04:32,749
+it?
+它？
+
+119
+00:04:33,298 --> 00:04:35,284
+Well, as I just said, we update
+嗯，正如我剛才所說，我們更新
+
+120
+00:04:35,317 --> 00:04:38,576
+current_node.next Keep in mind that current
+current_node.next 請記住，目前
+
+121
+00:04:38,576 --> 00:04:41,065
+node is an object, so if we update its next
+節點是一個物件，所以如果我們更新它的下一個
+
+122
+00:04:41,065 --> 00:04:43,200
+property, we're doing this on the node
+屬性，我們在節點上執行此操作
+
+123
+00:04:43,377 --> 00:04:45,464
+object itself because it's a reference
+物件本身，因為它是一個參照
+
+124
+00:04:45,480 --> 00:04:47,294
+value. So we're not just doing this on some
+價值。所以我們不只是在某些方面這樣做
+
+125
+00:04:47,391 --> 00:04:49,719
+variable which cloned the value. No, it's
+克隆值的變數。不，是
+
+126
+00:04:49,719 --> 00:04:50,987
+one and the same object in memory.
+記憶體中同一個物件。
+
+127
+00:04:51,838 --> 00:04:54,247
+So we're then updating the next property of
+所以我們然後更新下一個屬性
+
+128
+00:04:54,247 --> 00:04:54,969
+the current node
+當前節點
+
+129
+00:04:55,676 --> 00:04:57,923
+with the node that comes after the node that
+與該節點之後的節點
+
+130
+00:04:57,923 --> 00:05:00,027
+should be deleted. And how can we get access
+應該刪除。我們如何獲得存取權限
+
+131
+00:05:00,027 --> 00:05:01,873
+to the node after the next node?
+到下一個節點之後的節點？
+
+132
+00:05:02,644 --> 00:05:04,723
+Well, by accessing the next node
+好了，透過訪問下一個節點
+
+133
+00:05:05,304 --> 00:05:07,467
+and then the next property of that node.
+然後是該節點的下一個屬性。
+
+134
+00:05:08,064 --> 00:05:10,404
+This gives us access to the node after the
+這使我們可以訪問之後的節點
+
+135
+00:05:10,404 --> 00:05:12,857
+node that should be deleted. And by storing
+應刪除的節點。並透過存儲
+
+136
+00:05:12,905 --> 00:05:15,083
+that node after the node that should be
+應該是的節點之後的那個節點
+
+137
+00:05:15,083 --> 00:05:17,438
+deleted in the current node's next pointer,
+刪除目前節點的next指標，
+
+138
+00:05:17,809 --> 00:05:20,455
+we effectively delete the next node in line
+我們有效地刪除了行中的下一個節點
+
+139
+00:05:21,052 --> 00:05:22,756
+because no one is pointing at it then.
+因為那時沒有人指著它。
+
+140
+00:05:25,562 --> 00:05:27,139
+Now we also of course have the else case
+現在我們當然也有 else 情況
+
+141
+00:05:27,637 --> 00:05:31,015
+that the next node in line is not a node we
+行中的下一個節點不是我們的節點
+
+142
+00:05:31,015 --> 00:05:31,642
+want to delete.
+想要刪除。
+
+143
+00:05:32,237 --> 00:05:33,025
+And in that case, we just update current
+在這種情況下，我們只需更新當前的
+
+144
+00:05:33,025 --> 00:05:37,305
+node with currentNode.next. So that's now
+帶有 currentNode.next 的節點。所以現在就是這樣
+
+145
+00:05:37,305 --> 00:05:39,407
+the same logic as we had it down there when
+與我們當時的邏輯相同
+
+146
+00:05:39,455 --> 00:05:42,263
+we went through all the nodes in our list.
+我們遍歷了清單中的所有節點。
+
+147
+00:05:42,745 --> 00:05:44,590
+That simply means we move on to the next
+這僅僅意味著我們繼續下一步
+
+148
+00:05:44,590 --> 00:05:47,158
+node and have a look at that node's next
+節點並查看該節點的下一個
+
+149
+00:05:47,158 --> 00:05:47,495
+value.
+價值。
+
+150
+00:05:48,505 --> 00:05:50,206
+Can take a while to wrap your head around
+可能需要一段時間才能集中註意力
+
+151
+00:05:50,206 --> 00:05:52,405
+this, but hopefully I could make the core
+這個，但希望我能做核心
+
+152
+00:05:52,437 --> 00:05:53,608
+logic here very clear.
+這裡的邏輯非常清晰。
+
+153
+00:05:54,218 --> 00:05:56,143
+You can always, of course, throw in some
+當然，你總是可以添加一些
+
+154
+00:05:56,143 --> 00:05:58,711
+console.log statements if you want to get a
+console.log 語句如果你想得到
+
+155
+00:05:58,711 --> 00:06:01,647
+detailed log of what's happening at which
+發生的事情的詳細紀錄
+
+156
+00:06:01,743 --> 00:06:02,273
+point of time.
+時間點。
+
+157
+00:06:03,405 --> 00:06:05,276
+With that, we're always looking at the next
+有了這個，我們總是在尋找下一個
+
+158
+00:06:05,340 --> 00:06:07,775
+nodes and we delete them by not pointing at
+節點，我們透過不指向來刪除它們
+
+159
+00:06:07,839 --> 00:06:08,274
+them anymore,
+他們不再是
+
+160
+00:06:08,806 --> 00:06:11,806
+but we skip the very first node of our
+但我們跳過了我們的第一個節點
+
+161
+00:06:12,677 --> 00:06:14,920
+linked list because we initialize current
+鍊錶，因為我們初始化當前
+
+162
+00:06:14,920 --> 00:06:17,517
+node with this head, but then we start by
+具有這個頭的節點，但是我們從
+
+163
+00:06:17,582 --> 00:06:20,098
+looking at the next node's value. We never
+查看下一個節點的值。我們從來不
+
+164
+00:06:20,098 --> 00:06:21,911
+evaluate the value of current node.
+評估當前節點的值。
+
+165
+00:06:23,970 --> 00:06:26,422
+Well, simply because if it's the first value
+好吧，只是因為如果它是第一個值
+
+166
+00:06:26,536 --> 00:06:28,547
+which we wanna delete, we have a special
+我們想要刪除，我們有一個特別的
+
+167
+00:06:28,662 --> 00:06:28,972
+case.
+案件。
+
+168
+00:06:29,949 --> 00:06:31,106
+I want to
+我想要
+
+169
+00:06:32,214 --> 00:06:34,641
+create a new while loop here where I simply
+在這裡創建一個新的 while 迴圈，我只是
+
+170
+00:06:35,107 --> 00:06:38,369
+keep on going as long as my head value is
+只要我的頭值還在，就繼續前進
+
+171
+00:06:38,642 --> 00:06:39,060
+truthy.
+誠實。
+
+172
+00:06:39,670 --> 00:06:41,615
+But not just that, but as long as the head
+但不僅如此，只要標頭
+
+173
+00:06:41,615 --> 00:06:43,655
+is truthy, so as long as we have a head
+是真的，所以只要我們有頭腦
+
+174
+00:06:43,768 --> 00:06:44,716
+value and
+值和
+
+175
+00:06:45,712 --> 00:06:46,965
+this head value,
+這個水頭值，
+
+176
+00:06:47,817 --> 00:06:49,858
+so the value stored in the head node, is
+所以儲存在頭節點中的值是
+
+177
+00:06:49,970 --> 00:06:51,641
+equal to the value I want to delete.
+等於我要刪除的值。
+
+178
+00:06:52,204 --> 00:06:54,518
+As long as that's the case, so as long as
+只要是這樣的話，只要
+
+179
+00:06:54,550 --> 00:06:57,035
+the first node is the one we want to delete,
+第一個節點是我們要刪除的節點，
+
+180
+00:06:57,661 --> 00:07:01,524
+I will update my head with this head->next.
+我將用這個頭更新我的頭->下一步。
+
+181
+00:07:02,229 --> 00:07:04,650
+So this means that if the first value is the
+所以這意味著如果第一個值是
+
+182
+00:07:04,650 --> 00:07:06,109
+one we want to delete, we
+我們想要刪除一個，我們
+
+183
+00:07:07,279 --> 00:07:09,828
+go into this loop and we replace the first
+進入這個迴圈，我們替換第一個
+
+184
+00:07:09,860 --> 00:07:12,072
+node with the previously second node.
+節點與先前的第二個節點。
+
+185
+00:07:12,809 --> 00:07:15,134
+Now I'm writing this as a while loop and not
+現在我將其寫為 while 迴圈而不是
+
+186
+00:07:15,134 --> 00:07:17,201
+just as an if statement because
+就像 if 語句一樣，因為
+
+187
+00:07:17,394 --> 00:07:19,878
+theoretically, of course, that new first
+當然，從理論上講，新的第一
+
+188
+00:07:19,878 --> 00:07:22,026
+node could again have the same value as the
+節點可以再次具有與
+
+189
+00:07:22,187 --> 00:07:24,591
+old first node, and therefore that new first
+舊的第一個節點，因此新的第一個節點
+
+190
+00:07:24,591 --> 00:07:26,932
+node also needs to be deleted. That's why I
+節點也需要刪除。這就是為什麼我
+
+191
+00:07:26,932 --> 00:07:29,448
+wanna keep on going as long
+想要繼續下去
+
+192
+00:07:30,042 --> 00:07:32,478
+as the first node has the value that should
+因為第一個節點的值應該是
+
+193
+00:07:32,542 --> 00:07:35,716
+be deleted. As soon as we hit a first node
+被刪除。一旦我們到達第一個節點
+
+194
+00:07:36,534 --> 00:07:38,698
+that does not have the value we wanted to
+沒有我們想要的價值
+
+195
+00:07:38,714 --> 00:07:40,702
+get rid of, we'll make it out of this while
+擺脫掉，我們會渡過難關的
+
+196
+00:07:40,782 --> 00:07:40,878
+loop.
+環形。
+
+197
+00:07:42,176 --> 00:07:44,068
+So this simply is some extra code that
+所以這只是一些額外的程式碼
+
+198
+00:07:44,068 --> 00:07:47,418
+ensures that we get rid of all head nodes
+確保我們擺脫所有頭節點
+
+199
+00:07:47,691 --> 00:07:48,027
+that
+那
+
+200
+00:07:48,957 --> 00:07:50,640
+might have the value we wanna delete.
+可能有我們想要刪除的值。
+
+201
+00:07:51,217 --> 00:07:53,542
+Now after this while loop, we will also need
+現在，在 while 迴圈之後，我們還需要
+
+202
+00:07:53,542 --> 00:07:55,866
+to add some special code because whilst this
+添加一些特殊程式碼，因為雖然這
+
+203
+00:07:55,930 --> 00:07:58,126
+while loop will delete all nodes that need
+while迴圈將刪除所有需要的節點
+
+204
+00:07:58,126 --> 00:07:58,687
+to be deleted,
+待刪除，
+
+205
+00:07:59,297 --> 00:08:02,523
+we wanna update our tail property, this
+我們想更新我們的尾部屬性，這個
+
+206
+00:08:02,523 --> 00:08:05,813
+property here, if we happened to delete the
+這裡的屬性，如果我們碰巧刪除了
+
+207
+00:08:06,037 --> 00:08:08,750
+last node. So if the last node was a node
+最後一個節點。所以如果最後一個節點是一個節點
+
+208
+00:08:08,846 --> 00:08:11,221
+that needed to be deleted with the while
+需要同時刪除
+
+209
+00:08:11,333 --> 00:08:13,885
+loop here, we wanna update the tail property
+在這裡迴圈，我們想要更新 tail 屬性
+
+210
+00:08:14,093 --> 00:08:17,496
+so that head and tail always point at valid
+這樣 head 和 tail 總是指向 valid
+
+211
+00:08:17,768 --> 00:08:18,940
+existing nodes.
+現有節點。
+
+212
+00:08:19,791 --> 00:08:21,235
+So therefore here I'll check if
+因此，我在這裡檢查是否
+
+213
+00:08:22,326 --> 00:08:25,632
+this tail.value is equal to the value that
+這個 tail.value 等於這個值
+
+214
+00:08:25,632 --> 00:08:27,782
+needs to be deleted, and in this case I'll
+需要刪除，在這種情況下我會
+
+215
+00:08:27,782 --> 00:08:30,896
+set this tail equal to the last current node
+設定此尾部等於最後一個目前節點
+
+216
+00:08:30,929 --> 00:08:33,096
+we derived, which will be the last node that
+我們得出，這將是最後一個節點
+
+217
+00:08:33,096 --> 00:08:34,203
+was not deleted.
+沒有被刪除。
+
+218
+00:08:35,424 --> 00:08:37,719
+And with that, we have our delete function.
+這樣，我們就有了刪除功能。
+
+219
+00:08:38,538 --> 00:08:39,630
+Now let's give it a try.
+現在讓我們試試看。
+
+220
+00:08:40,480 --> 00:08:43,515
+I'm already deleting max here, so both maxes
+我已經在這裡刪除了 max，所以兩個 max
+
+221
+00:08:43,515 --> 00:08:44,269
+should be deleted.
+應該刪除。
+
+222
+00:08:44,879 --> 00:08:47,271
+I then also want to delete
+然後我也想刪除
+
+223
+00:08:48,668 --> 00:08:51,718
+first value, which is our first value
+第一個值，這是我們的第一個值
+
+224
+00:08:51,718 --> 00:08:52,970
+because we prepend it here,
+因為我們在這裡前置它，
+
+225
+00:08:53,741 --> 00:08:55,250
+so that we can check whether that really
+這樣我們就可以檢查是否真的
+
+226
+00:08:55,314 --> 00:08:55,651
+works.
+作品。
+
+227
+00:08:56,388 --> 00:09:01,756
+And I will also delete 18.51 to see if that
+我還會刪除 18.51 看看是否
+
+228
+00:09:01,933 --> 00:09:04,119
+last node deletion works correctly.
+最後一個節點刪除工作正常。
+
+229
+00:09:05,680 --> 00:09:08,514
+I will also prepend first value twice, so I
+我還將在第一個值前面添加兩次，所以我
+
+230
+00:09:08,514 --> 00:09:10,817
+duplicated this line here to see whether
+在這裡複製這一行，看看是否
+
+231
+00:09:10,849 --> 00:09:14,069
+this head loop here really does its job and
+這裡的標頭迴圈確實發揮了作用
+
+232
+00:09:14,069 --> 00:09:16,227
+gets rid of all head nodes that need to be
+刪除所有需要的頭節點
+
+233
+00:09:16,227 --> 00:09:16,724
+deleted.
+已刪除。
+
+234
+00:09:17,959 --> 00:09:19,018
+With that, let's save it
+這樣，讓我們儲存它
+
+235
+00:09:19,797 --> 00:09:20,525
+and let's go back.
+讓我們回去吧。
+
+236
+00:09:21,780 --> 00:09:23,782
+Initially, I print this
+最初，我會列印這個
+
+237
+00:09:24,379 --> 00:09:24,912
+array here.
+陣列在這裡。
+
+238
+00:09:25,607 --> 00:09:27,835
+This is coming from line 75. That is
+這是來自第 75 行。即
+
+239
+00:09:28,029 --> 00:09:29,999
+printing my linked list with all those
+列印我的連結清單與所有這些
+
+240
+00:09:30,112 --> 00:09:32,050
+elements in it, and that looks good.
+裡面的元素，看起來不錯。
+
+241
+00:09:32,631 --> 00:09:35,180
+And thereafter, we just have 3 elements in
+此後，我們只有 3 個元素
+
+242
+00:09:35,277 --> 00:09:35,454
+there:
+那裡：
+
+243
+00:09:36,003 --> 00:09:37,761
+1, hello there, and true.
+1、你好，確實如此。
+
+244
+00:09:40,278 --> 00:09:42,372
+Now let's see if that makes sense.
+現在讓我們看看這是否有道理。
+
+245
+00:09:43,300 --> 00:09:45,761
+We delete Max, so these 2 elements should
+我們刪除 Max，所以這 2 個元素應該
+
+246
+00:09:45,761 --> 00:09:46,575
+indeed be deleted.
+確實要刪除。
+
+247
+00:09:47,353 --> 00:09:49,838
+We delete first value, so these 2 elements
+我們刪除第一個值，所以這兩個元素
+
+248
+00:09:49,838 --> 00:09:51,810
+indeed should be deleted. And we delete
+確實應該刪除。然後我們刪除
+
+249
+00:09:51,906 --> 00:09:54,568
+18.51, so this element also should be
+18.51，所以這個元素也應該是
+
+250
+00:09:54,568 --> 00:09:54,937
+deleted.
+已刪除。
+
+251
+00:09:55,771 --> 00:09:57,759
+So the remaining elements indeed should be
+所以剩下的元素確實應該是
+
+252
+00:09:57,919 --> 00:09:58,048
+1,
+1、
+
+253
+00:09:58,817 --> 00:09:59,154
+true,
+真的，
+
+254
+00:09:59,924 --> 00:10:02,168
+and hello there in between. So 1, hello
+中間你好。所以1，你好
+
+255
+00:10:02,185 --> 00:10:04,141
+there, and true— that should be our
+在那裡，真實的──那應該是我們的
+
+256
+00:10:04,349 --> 00:10:06,979
+remaining elements. And that indeed is what
+剩餘元素。確實如此
+
+257
+00:10:06,995 --> 00:10:07,636
+we have here.
+我們這裡有。
+
+258
+00:10:08,342 --> 00:10:10,266
+Now let's see if the next pointers were
+現在讓我們看看下一個指標是否是
+
+259
+00:10:10,362 --> 00:10:13,184
+updated correctly. Next on the first element
+已正確更新。接下來是第一個元素
+
+260
+00:10:13,184 --> 00:10:14,403
+indeed points at hello there.
+確實指向你好。
+
+261
+00:10:15,157 --> 00:10:17,405
+Next at hello there, it indeed points at
+接下來你好，它確實指向
+
+262
+00:10:17,405 --> 00:10:20,135
+true and next there indeed points at null.
+true 和 next 確實指向 null。
+
+263
+00:10:20,713 --> 00:10:23,619
+So deleting seems to work. And with that, we
+所以刪除似乎有效。就這樣，我們
+
+264
+00:10:23,683 --> 00:10:25,979
+got the functionality to append something,
+具有附加某些內容的功能，
+
+265
+00:10:26,397 --> 00:10:29,062
+to prepend something, and also to delete
+前置一些東西，也可以刪除
+
+266
+00:10:29,062 --> 00:10:29,399
+something.
+某物。

@@ -1,0 +1,1414 @@
+1
+00:00:02,279 --> 00:00:03,980
+In the end, what we want to do in this
+最後，我們想在這方面做什麼
+
+2
+00:00:04,205 --> 00:00:05,955
+2-child scenario
+2孩場景
+
+3
+00:00:06,597 --> 00:00:08,860
+is we still want to move nodes around and
+我們仍然想移動節點嗎？
+
+4
+00:00:08,860 --> 00:00:10,786
+swap values around, but we need to do this
+交換值，但我們需要這樣做
+
+5
+00:00:10,786 --> 00:00:11,637
+in a smart way.
+以一種聰明的方式。
+
+6
+00:00:12,552 --> 00:00:17,206
+So we do want to delete the 25 value here,
+所以我們確實想刪除這裡的 25 值，
+
+7
+00:00:17,351 --> 00:00:19,325
+so this value, but we don't want to lose the
+所以這個值，但我們不想失去
+
+8
+00:00:19,438 --> 00:00:20,786
+left and right child nodes.
+左右子節點。
+
+9
+00:00:21,556 --> 00:00:23,162
+Now here's a trick we can use though.
+現在我們可以使用一個技巧。
+
+10
+00:00:23,771 --> 00:00:26,580
+We know that the right node and all child
+我們知道正確的節點和所有子節點
+
+11
+00:00:26,580 --> 00:00:28,844
+values that might be in there have to be
+那裡可能存在的值必須是
+
+12
+00:00:28,844 --> 00:00:30,900
+bigger than the value of the node we want to
+比我們想要的節點的值大
+
+13
+00:00:30,916 --> 00:00:33,534
+remove, simply by the way our binary search
+簡單地透過我們的二分搜尋的方式刪除
+
+14
+00:00:33,663 --> 00:00:34,707
+tree is built up.
+樹建立起來了。
+
+15
+00:00:35,510 --> 00:00:37,534
+So this value is of course bigger, but
+所以這個值當然更大，但是
+
+16
+00:00:37,598 --> 00:00:39,253
+inside of that right node,
+在該右側節點內部，
+
+17
+00:00:39,831 --> 00:00:42,305
+we also might have more child nodes which
+我們還可能有更多的子節點
+
+18
+00:00:42,642 --> 00:00:45,276
+values would also be bigger than 25.
+值也將大於 25。
+
+19
+00:00:45,871 --> 00:00:46,272
+And if the
+如果
+
+20
+00:00:46,899 --> 00:00:49,806
+right node here had a left node, that left
+這裡的右節點有一個左節點，那個左節點
+
+21
+00:00:49,806 --> 00:00:52,376
+node's value would be smaller than 28 but
+節點的值將小於 28 但
+
+22
+00:00:52,521 --> 00:00:55,026
+bigger than 25. I hope this makes sense
+大於 25。我希望這是有道理的
+
+23
+00:00:55,026 --> 00:00:56,792
+because this is how the binary search tree
+因為這就是二元搜尋樹的方式
+
+24
+00:00:56,792 --> 00:00:57,209
+is built.
+已建成。
+
+25
+00:00:58,076 --> 00:01:01,480
+We wanna find that next closest value.
+我們想要找到下一個最接近的值。
+
+26
+00:01:02,107 --> 00:01:04,997
+So for example, a value smaller than 28 but
+例如，一個小於 28 但
+
+27
+00:01:05,141 --> 00:01:07,999
+bigger than 25. We wanna find the node with
+大於 25。我們想找到以下節點：
+
+28
+00:01:08,176 --> 00:01:11,981
+that value in that right child node subtree
+該右子節點子樹中的值
+
+29
+00:01:12,688 --> 00:01:16,027
+because we can then take that closest node
+因為我們可以選取最近的節點
+
+30
+00:01:16,621 --> 00:01:20,217
+and replace the to-be-removed node with it,
+並用它取代要刪除的節點，
+
+31
+00:01:20,618 --> 00:01:22,398
+with that node's value.
+與該節點的值。
+
+32
+00:01:23,120 --> 00:01:25,141
+Now why would we do that?
+現在我們為什麼要這樣做呢？
+
+33
+00:01:26,007 --> 00:01:28,348
+Well, we know that if we find that
+好吧，我們知道如果我們發現
+
+34
+00:01:29,118 --> 00:01:30,064
+closest
+最接近的
+
+35
+00:01:30,818 --> 00:01:31,171
+value,
+價值，
+
+36
+00:01:32,021 --> 00:01:35,853
+that we can safely set the existing left
+我們可以安全地設定現有的 left
+
+37
+00:01:35,853 --> 00:01:37,040
+node as a child
+節點作為子節點
+
+38
+00:01:37,714 --> 00:01:40,328
+because that closest value can't have any
+因為最接近的值不能有任何
+
+39
+00:01:40,376 --> 00:01:42,685
+smaller value because it already is the
+較小的值，因為它已經是
+
+40
+00:01:42,685 --> 00:01:46,021
+closest value. So the left node's spot has
+最接近的值。所以左邊節點的位置有
+
+41
+00:01:46,071 --> 00:01:46,810
+to be open.
+開放。
+
+42
+00:01:48,580 --> 00:01:51,280
+And we can safely set the right node of the
+我們可以安全地設定正確的節點
+
+43
+00:01:51,280 --> 00:01:53,349
+to-be-removed node, so this node,
+待刪除的節點，因此該節點，
+
+44
+00:01:54,012 --> 00:01:56,405
+as a new right node value
+作為新的右節點值
+
+45
+00:01:57,165 --> 00:01:59,947
+for that new node we have here. Because we
+對於我們這裡的新節點。因為我們
+
+46
+00:02:00,093 --> 00:02:03,507
+picked a node smaller than 28 with a value
+選取一個小於 28 且值小於 28 的節點
+
+47
+00:02:03,507 --> 00:02:06,322
+smaller than 28, or if we don't find such a
+小於 28，或者如果我們沒有找到這樣的
+
+48
+00:02:06,322 --> 00:02:08,866
+node, we took that 28 node. And therefore we
+節點，我們採用了 28 個節點。因此我們
+
+49
+00:02:08,866 --> 00:02:11,060
+know there won't be a scenario where 28
+知道不會有這樣的情況 28
+
+50
+00:02:11,520 --> 00:02:13,862
+could be smaller and should be the left
+可以更小，應該是左邊
+
+51
+00:02:13,862 --> 00:02:15,659
+node. No, it will always be the right node.
+節點。不，它永遠是正確的節點。
+
+52
+00:02:16,589 --> 00:02:18,691
+Might be a bit confusing, but I hope the
+可能有點混亂，但我希望
+
+53
+00:02:18,691 --> 00:02:21,579
+general idea is clear that we simply try to
+整體思路很明確，我們只是嘗試
+
+54
+00:02:21,579 --> 00:02:24,146
+find the closest value where the left child
+找到左孩子最接近的值
+
+55
+00:02:24,146 --> 00:02:26,681
+node spot is open so that we can bring in
+節點點已開放，以便我們可以引入
+
+56
+00:02:26,793 --> 00:02:29,183
+our existing left node and where we can then
+我們現有的左節點以及我們可以在哪裡
+
+57
+00:02:29,183 --> 00:02:29,697
+safely
+安全地
+
+58
+00:02:30,226 --> 00:02:33,595
+copy over our right node subtree.
+複製我們的右節點子樹。
+
+59
+00:02:34,414 --> 00:02:35,761
+And that's what we're going to implement
+這就是我們要實現的
+
+60
+00:02:35,761 --> 00:02:35,890
+now.
+現在。
+
+61
+00:02:36,756 --> 00:02:39,528
+So in here, in this if check, if we have
+所以在這裡，在這個 if 檢查中，如果我們有
+
+62
+00:02:39,641 --> 00:02:40,529
+both child nodes,
+兩個子節點，
+
+63
+00:02:41,320 --> 00:02:44,548
+we want to find the next bigger node. And
+我們想要找到下一個更大的節點。和
+
+64
+00:02:44,564 --> 00:02:46,872
+not any bigger node, but the closest node.
+不是任何更大的節點，而是最近的節點。
+
+65
+00:02:47,791 --> 00:02:49,356
+For that, we'll need a little helper
+為此，我們需要一個小幫手
+
+66
+00:02:49,969 --> 00:02:51,501
+method, which I'm going to add here,
+方法，我要在這裡添加，
+
+67
+00:02:52,372 --> 00:02:53,695
+which I'll call find_next.
+我將其稱為 find_next。
+
+68
+00:02:56,442 --> 00:02:56,924
+And in there,
+在那裡，
+
+69
+00:02:57,568 --> 00:02:59,032
+I want to check if this
+我想檢查一下是否是這樣
+
+70
+00:02:59,724 --> 00:03:01,800
+node for which we call it has a left node.
+我們稱為的節點有一個左節點。
+
+71
+00:03:02,782 --> 00:03:03,296
+And if we
+如果我們
+
+72
+00:03:03,865 --> 00:03:06,209
+don't have this, hence the exclamation mark,
+沒有這個，所以有感嘆號，
+
+73
+00:03:06,387 --> 00:03:08,812
+I'll return this because I know there is no
+我會退回這個，因為我知道沒有
+
+74
+00:03:08,877 --> 00:03:11,561
+left node, so there is no smaller node left.
+左節點，因此沒有剩下更小的節點。
+
+75
+00:03:11,803 --> 00:03:13,841
+So this node on which we are calling
+所以我們呼叫的這個節點
+
+76
+00:03:13,890 --> 00:03:16,805
+find_next has to be the smallest value we
+find_next 必須是我們最小的值
+
+77
+00:03:16,805 --> 00:03:19,331
+find close to the node we're looking for.
+找到靠近我們要尋找的節點。
+
+78
+00:03:21,371 --> 00:03:23,438
+Otherwise, I'll recursively call
+否則，我將遞迴調用
+
+79
+00:03:24,052 --> 00:03:27,492
+this.left.find_next until we definitely have
+this.left.find_next 直到我們確實有
+
+80
+00:03:27,540 --> 00:03:29,365
+the closest bigger value.
+最接近的較大值。
+
+81
+00:03:31,111 --> 00:03:33,448
+So this will simply find us the next node
+所以這會簡單地找到我們下一個節點
+
+82
+00:03:33,738 --> 00:03:36,397
+that is bigger than the node we're trying to
+它比我們想要的節點大
+
+83
+00:03:36,397 --> 00:03:38,960
+remove, or to be precise, that has a value
+刪除，或準確地說，刪除有價值的內容
+
+84
+00:03:38,992 --> 00:03:40,828
+which is bigger than the value of the node
+比節點的值大
+
+85
+00:03:40,828 --> 00:03:43,415
+we want to remove, but that is not too big.
+我們想刪除，但那不是太大。
+
+86
+00:03:43,656 --> 00:03:45,151
+That's what find_next will do.
+這就是 find_next 要做的事情。
+
+87
+00:03:45,971 --> 00:03:47,465
+So now in here I can call
+所以現在我可以在這裡打電話
+
+88
+00:03:47,851 --> 00:03:49,137
+identified_node.right.find_next.
+identified_node.right.find_next。
+
+89
+00:03:52,366 --> 00:03:54,491
+I call it on the right node because only on
+我在正確的節點上調用它，因為只有在
+
+90
+00:03:54,491 --> 00:03:57,654
+the right node's subtree we find bigger
+我們發現右側節點的子樹更大
+
+91
+00:03:57,654 --> 00:03:59,585
+values than the value we want to remove.
+值比我們要刪除的值。
+
+92
+00:03:59,967 --> 00:04:02,297
+Right, on the left node subtree we would
+右，在左節點子樹上，我們將
+
+93
+00:04:02,394 --> 00:04:05,646
+only find smaller values. I want the closest
+只找到較小的值。我想要最接近的
+
+94
+00:04:05,710 --> 00:04:08,444
+bigger value, so it's the right node we have
+值更大，所以這是我們擁有的正確節點
+
+95
+00:04:08,477 --> 00:04:09,414
+to start looking at.
+開始查看。
+
+96
+00:04:10,979 --> 00:04:13,367
+So with that, we find the next bigger node.
+這樣，我們就找到了下一個更大的節點。
+
+97
+00:04:15,044 --> 00:04:16,657
+Now we could have the scenario
+現在我們可以有這樣的場景
+
+98
+00:04:17,205 --> 00:04:17,592
+that
+那
+
+99
+00:04:18,173 --> 00:04:20,721
+the next bigger node's value
+下一個更大的節點的值
+
+100
+00:04:21,801 --> 00:04:22,903
+is not equal
+不等於
+
+101
+00:04:24,985 --> 00:04:27,831
+to the identified node, so the to-be-removed
+到已識別的節點，因此要刪除的
+
+102
+00:04:27,831 --> 00:04:29,944
+node's right node's value.
+節點的右節點的值。
+
+103
+00:04:30,729 --> 00:04:32,348
+Because of course, theoretically, that could
+當然，從理論上講，這可以
+
+104
+00:04:32,412 --> 00:04:32,877
+be the case.
+就這樣吧。
+
+105
+00:04:34,256 --> 00:04:36,099
+And actually here, if we reload, it is the
+實際上在這裡，如果我們重新載入，那就是
+
+106
+00:04:36,099 --> 00:04:36,323
+case.
+案件。
+
+107
+00:04:37,061 --> 00:04:38,118
+If we're removing the
+如果我們要刪除
+
+108
+00:04:38,663 --> 00:04:42,606
+node with value 25, the closest bigger value
+值為 25 的節點，最接近的較大值
+
+109
+00:04:42,606 --> 00:04:46,309
+we find is 28, which is the right child
+我們找到 28，這是正確的孩子
+
+110
+00:04:46,357 --> 00:04:47,142
+node's value.
+節點的值。
+
+111
+00:04:47,735 --> 00:04:49,867
+Now theoretically, there could be a smaller
+現在理論上來說，可能有一個更小的
+
+112
+00:04:50,139 --> 00:04:52,832
+bigger value. There could be 26, for
+更大的價值。可能有 26 個，因為
+
+113
+00:04:52,864 --> 00:04:56,118
+example, if that right child node had a left
+例如，如果該右子節點有一個左子節點
+
+114
+00:04:56,214 --> 00:04:58,715
+child node with a value of 26. But that's
+值為 26 的子節點。但那是
+
+115
+00:04:58,715 --> 00:05:01,183
+not the case here. And therefore this right
+這裡的情況並非如此。因此這項權利
+
+116
+00:05:01,183 --> 00:05:03,460
+child node is the closest bigger node.
+子節點是最近的較大節點。
+
+117
+00:05:04,165 --> 00:05:07,419
+Now if that's not the case, if we don't have
+現在，如果情況並非如此，如果我們沒有
+
+118
+00:05:07,451 --> 00:05:09,134
+that scenario which we have here,
+我們這裡的場景，
+
+119
+00:05:09,776 --> 00:05:12,292
+then what I wanna do is I wanna call this
+那麼我想做的就是我想稱之為
+
+120
+00:05:12,501 --> 00:05:13,671
+remove again.
+再次刪除。
+
+121
+00:05:14,200 --> 00:05:16,877
+So I wanna recursively call remove
+所以我想遞迴呼叫remove
+
+122
+00:05:17,614 --> 00:05:20,724
+and forward next bigger node.value
+並轉發下一個更大的node.value
+
+123
+00:05:21,718 --> 00:05:24,010
+so that we keep on doing that. And this will
+以便我們繼續這樣做。這將
+
+124
+00:05:24,187 --> 00:05:27,024
+move the items around correctly such that we
+正確地移動物品，以便我們
+
+125
+00:05:27,329 --> 00:05:29,941
+never lose a value. And we'll inspect this
+永遠不會失去價值。我們會檢查這個
+
+126
+00:05:30,438 --> 00:05:31,785
+in just a second, no worries.
+只需一秒鐘，無需擔心。
+
+127
+00:05:33,163 --> 00:05:35,872
+I also want to reach out to the identified
+我也想聯絡已確定的
+
+128
+00:05:35,888 --> 00:05:38,774
+node and set its value, so the value of the
+節點並設定其值，因此
+
+129
+00:05:38,774 --> 00:05:40,120
+node that should be removed,
+應刪除的節點，
+
+130
+00:05:40,697 --> 00:05:43,967
+equal to next bigger node.value. So I'm
+等於下一個更大的節點值。所以我是
+
+131
+00:05:43,999 --> 00:05:45,923
+basically taking the value of the next
+基本上取下一個的值
+
+132
+00:05:45,923 --> 00:05:48,584
+bigger node and setting this as a value of
+更大的節點並將其設定為
+
+133
+00:05:48,584 --> 00:05:49,818
+the to be removed node.
+要刪除的節點。
+
+134
+00:05:50,491 --> 00:05:53,553
+Why can I do that? Well, because I know that
+為什麼我可以這麼做？嗯，因為我知道
+
+135
+00:05:53,617 --> 00:05:56,967
+the next bigger node I find has to be bigger
+我發現的下一個更大的節點必須更大
+
+136
+00:05:57,528 --> 00:06:00,412
+than the left node's value, so we don't
+比左節點的值，所以我們不
+
+137
+00:06:00,428 --> 00:06:01,709
+violate that rule,
+違反該規則，
+
+138
+00:06:02,815 --> 00:06:04,337
+and it has to be smaller
+而且它必須更小
+
+139
+00:06:04,914 --> 00:06:07,173
+than the existing right node's value.
+比現有的右節點的值。
+
+140
+00:06:07,734 --> 00:06:10,105
+So simply taking that next bigger node's
+所以簡單地採用下一個更大的節點
+
+141
+00:06:10,105 --> 00:06:12,877
+value and adding it here as a value of the
+值並將其添加到此處作為
+
+142
+00:06:12,989 --> 00:06:15,216
+to-be-removed node is perfectly fine.
+要刪除的節點完全沒問題。
+
+143
+00:06:15,969 --> 00:06:17,812
+And therefore, we don't technically delete
+因此，從技術上講，我們不會刪除
+
+144
+00:06:17,812 --> 00:06:19,943
+this node object, but we overwrite its
+這個節點物件，但我們覆蓋它
+
+145
+00:06:20,119 --> 00:06:20,616
+value.
+價值。
+
+146
+00:06:21,321 --> 00:06:23,548
+We keep its left and right child nodes
+我們保留它的左右子節點
+
+147
+00:06:23,580 --> 00:06:26,164
+because again, that will not be a problem
+因為這又不是問題
+
+148
+00:06:26,212 --> 00:06:26,405
+here.
+這裡。
+
+149
+00:06:26,952 --> 00:06:29,411
+We of course have to recursively call remove
+我們當然必須遞迴呼叫remove
+
+150
+00:06:29,587 --> 00:06:31,853
+though, because with that we ensure that we
+不過，因為這樣我們就可以確保
+
+151
+00:06:31,853 --> 00:06:34,797
+get rid of that next bigger node, which we
+擺脫下一個更大的節點，我們
+
+152
+00:06:34,797 --> 00:06:37,922
+now basically used to replace our existing
+現在基本上用來取代我們現有的
+
+153
+00:06:37,971 --> 00:06:40,452
+node, right? Otherwise we have that node
+節點，對嗎？否則我們就有該節點
+
+154
+00:06:40,468 --> 00:06:40,838
+twice.
+兩次。
+
+155
+00:06:42,302 --> 00:06:44,730
+Now again, that is the case that would kick
+現在再一次，這種情況會踢
+
+156
+00:06:44,811 --> 00:06:44,940
+in
+在
+
+157
+00:06:45,523 --> 00:06:48,582
+if the right node of the to-be-removed node
+如果要刪除的節點的右節點
+
+158
+00:06:49,181 --> 00:06:50,929
+would have a left node.
+將有一個左節點。
+
+159
+00:06:51,974 --> 00:06:53,707
+Which is bigger than the to-be-removed
+哪個比要刪除的更大
+
+160
+00:06:53,739 --> 00:06:55,826
+node's value but smaller than the right
+節點的值但小於右側的值
+
+161
+00:06:55,826 --> 00:06:56,468
+node's value.
+節點的值。
+
+162
+00:06:57,013 --> 00:06:58,923
+Now that's not the case here, but we can of
+現在情況並非如此，但我們可以
+
+163
+00:06:58,955 --> 00:07:01,411
+course test it by simply adding
+當然只需添加即可測試它
+
+164
+00:07:02,101 --> 00:07:05,455
+such a value here. Let's say 26. It's bigger
+這裡有這樣的價值。假設是 26。它更大
+
+165
+00:07:05,455 --> 00:07:07,702
+than 25, which is the value we want to
+大於 25，這是我們想要的值
+
+166
+00:07:07,702 --> 00:07:10,446
+remove, but smaller than 28, which is the
+刪除，但小於 28，這是
+
+167
+00:07:10,575 --> 00:07:13,255
+right node's value of the 25 node.
+25 節點的右節點值。
+
+168
+00:07:14,202 --> 00:07:15,534
+And if we now save everything
+如果我們現在拯救一切
+
+169
+00:07:16,433 --> 00:07:19,356
+and reload We'll see that in the right node,
+並重新載入我們將在右側節點中看到，
+
+170
+00:07:19,581 --> 00:07:21,991
+26 is now the new value because we
+26 現在是新值，因為我們
+
+171
+00:07:21,991 --> 00:07:23,983
+successfully removed 25.
+成功刪除25。
+
+172
+00:07:24,642 --> 00:07:27,378
+The left node is still 23, which is smaller
+左節點仍然是23，較小
+
+173
+00:07:27,378 --> 00:07:29,603
+than 26, so no issues here.
+超過 26，所以這裡沒有問題。
+
+174
+00:07:30,366 --> 00:07:33,841
+And the right node is 28, no problems here
+正確的節點是28，這裡沒有問題
+
+175
+00:07:34,020 --> 00:07:34,199
+either.
+任何一個。
+
+176
+00:07:35,736 --> 00:07:37,653
+We see that the parent is no longer up to
+我們看到父母不再能勝任
+
+177
+00:07:37,686 --> 00:07:40,280
+date, which makes a lot of sense because we
+日期，這很有意義，因為我們
+
+178
+00:07:40,811 --> 00:07:42,583
+changed something here. We also need to
+這裡改變了一些東西。我們還需要
+
+179
+00:07:42,583 --> 00:07:43,930
+update the parent.
+更新父級。
+
+180
+00:07:44,637 --> 00:07:49,072
+So we should set identifiedNode.left.parent
+所以我們應該設定identifiedNode.left.parent
+
+181
+00:07:49,522 --> 00:07:51,643
+equal to our updated identified node
+等於我們更新後的辨識節點
+
+182
+00:07:52,334 --> 00:07:55,735
+and do the same for our right child node. So
+對我們的右子節點執行相同的操作。所以
+
+183
+00:07:55,816 --> 00:07:58,069
+update the parent to point at the updated
+更新父級以指向更新的
+
+184
+00:07:58,167 --> 00:08:00,582
+identified node. And if we do that and
+已識別的節點。如果我們這樣做並且
+
+185
+00:08:00,615 --> 00:08:01,117
+reload,
+重新載入，
+
+186
+00:08:02,340 --> 00:08:03,370
+we see that here
+我們在這裡看到
+
+187
+00:08:05,979 --> 00:08:08,652
+our left node points at the right parent
+我們的左節點指向右父節點
+
+188
+00:08:09,269 --> 00:08:09,790
+This one here.
+這裡這個。
+
+189
+00:08:12,338 --> 00:08:14,554
+And the same is true for our write node.
+我們的寫節點也是如此。
+
+190
+00:08:15,702 --> 00:08:16,365
+Okay, so
+好吧，那麼
+
+191
+00:08:16,915 --> 00:08:18,662
+that's that. With that, we
+就是這樣。至此，我們
+
+192
+00:08:19,260 --> 00:08:21,865
+worked around that. But what about the other
+解決這個問題。但其他的呢
+
+193
+00:08:21,865 --> 00:08:24,950
+case which we had originally where we didn't
+我們原本沒有的情況
+
+194
+00:08:24,950 --> 00:08:26,768
+have that 26 value?
+有那個 26 值嗎？
+
+195
+00:08:27,320 --> 00:08:29,398
+So I'm going to remove it now. What about
+所以我現在要把它刪除。怎麼樣
+
+196
+00:08:29,398 --> 00:08:30,430
+that scenario where
+那個場景
+
+197
+00:08:31,208 --> 00:08:32,815
+we actually do have
+我們實際上有
+
+198
+00:08:35,010 --> 00:08:38,303
+next bigger value, which is our right child
+下一個更大的數值，這是我們的右孩子
+
+199
+00:08:38,351 --> 00:08:40,563
+node's value? What do we do in that case?
+節點的值？在這種情況下我們該怎麼辦？
+
+200
+00:08:43,236 --> 00:08:45,780
+Well, that's our else case here in this
+嗯，這就是我們這裡的其他情況
+
+201
+00:08:45,990 --> 00:08:47,053
+nested if statement.
+嵌套 if 語句。
+
+202
+00:08:47,681 --> 00:08:49,613
+And here what we need to do is we need to
+我們需要做的是
+
+203
+00:08:49,613 --> 00:08:51,433
+reach out to our identified node
+聯絡我們確定的節點
+
+204
+00:08:52,029 --> 00:08:53,619
+and set the value equal to
+並將值設為等於
+
+205
+00:08:53,733 --> 00:08:54,807
+identified_node.right.value,
+identified_node.right.value，
+
+206
+00:08:56,480 --> 00:08:58,782
+because our right child node is the next
+因為我們的右子節點是下一個
+
+207
+00:08:58,782 --> 00:09:01,675
+biggest node, the next biggest value. So
+最大的節點，下一個最大的值。所以
+
+208
+00:09:01,723 --> 00:09:03,726
+therefore we want to take that value and use
+因此我們想要取得該值並使用
+
+209
+00:09:03,726 --> 00:09:06,498
+it on the to-be-removed node to effectively
+它在要刪除的節點上有效
+
+210
+00:09:06,530 --> 00:09:08,500
+remove the existing value and overwrite it
+刪除現有值並覆蓋它
+
+211
+00:09:08,533 --> 00:09:09,878
+with that next biggest value.
+與下一個最大的值。
+
+212
+00:09:10,696 --> 00:09:11,801
+But we then also
+但我們隨後也
+
+213
+00:09:12,538 --> 00:09:15,503
+want to set the new right node because we're
+想要設定新的右側節點，因為我們是
+
+214
+00:09:15,503 --> 00:09:17,602
+taking the existing one. We want to set the
+採取現有的。我們想要設定
+
+215
+00:09:17,602 --> 00:09:19,492
+new right node equal to
+新的右節點等於
+
+216
+00:09:19,573 --> 00:09:21,303
+identified_node.right.right.
+identified_node.right.right。
+
+217
+00:09:21,896 --> 00:09:24,283
+So basically we move the right node of the
+所以基本上我們就移動了右邊的節點
+
+218
+00:09:24,380 --> 00:09:27,136
+old right node up one level because we also
+舊的右節點上升一級，因為我們也
+
+219
+00:09:27,136 --> 00:09:29,269
+moved the right node. Up one level.
+移動了正確的節點。上升一級。
+
+220
+00:09:30,830 --> 00:09:32,802
+Yeah, I know that's a lot to wrap your head
+是的，我知道這讓你費盡心思
+
+221
+00:09:32,802 --> 00:09:35,341
+around, but we'll see it in the console in
+周圍，但我們會在控制台中看到它
+
+222
+00:09:35,389 --> 00:09:36,084
+just a second.
+稍等一下。
+
+223
+00:09:37,010 --> 00:09:39,291
+We also want to update the parents here, so
+我們也想在這裡向家長通報最新情況，所以
+
+224
+00:09:39,308 --> 00:09:41,573
+left.parent is equal to identified_node,
+left.parent等於identified_node，
+
+225
+00:09:42,241 --> 00:09:45,213
+and right.parent
+和右.parent
+
+226
+00:09:47,262 --> 00:09:49,054
+is now also equal to identified_node.
+現在也等於identified_node。
+
+227
+00:09:50,830 --> 00:09:53,165
+And therefore, we can actually also take it
+因此，我們實際上也可以採取
+
+228
+00:09:53,927 --> 00:09:55,435
+and pull it out of here
+然後把它從這裡拉出來
+
+229
+00:09:56,209 --> 00:09:58,378
+and move it to the very end of this method,
+並將其移動到該方法的最後，
+
+230
+00:09:59,036 --> 00:10:01,189
+even after this else block, because we also
+即使在這個 else 區塊之後，因為我們也
+
+231
+00:10:01,205 --> 00:10:02,571
+want to update the parent thereafter.
+之後想要更新父級。
+
+232
+00:10:03,374 --> 00:10:05,302
+And do this here just with one little
+在這裡只需一點點就可以做到這一點
+
+233
+00:10:05,302 --> 00:10:06,908
+addition. We want to check if
+添加。我們想檢查是否
+
+234
+00:10:07,551 --> 00:10:10,459
+left exists, if this is truthy, because if
+左存在，如果這是真的，因為如果
+
+235
+00:10:10,459 --> 00:10:12,242
+it is null, there will be no parent to
+它為空，不會有父級
+
+236
+00:10:12,290 --> 00:10:12,627
+update.
+更新。
+
+237
+00:10:13,254 --> 00:10:15,117
+And do the same for right as well
+對右邊也做同樣的事情
+
+238
+00:10:15,664 --> 00:10:17,688
+so that we update the parents appropriately.
+以便我們適當更新父母的資訊。
+
+239
+00:10:18,395 --> 00:10:19,535
+And if we now save that
+如果我們現在儲存它
+
+240
+00:10:20,708 --> 00:10:22,363
+and we reload, we got our tree
+然後我們重新載入，我們得到了我們的樹
+
+241
+00:10:23,289 --> 00:10:24,836
+And now we see on the right node we got the
+現在我們在正確的節點上看到我們得到了
+
+242
+00:10:24,836 --> 00:10:27,318
+value of 28, left is 23,
+值為 28，左邊為 23，
+
+243
+00:10:27,882 --> 00:10:29,591
+and right does not exist here.
+而權利在這裡並不存在。
+
+244
+00:10:30,461 --> 00:10:32,655
+And now we can also try this with way more
+現在我們還可以嘗試更多
+
+245
+00:10:32,655 --> 00:10:36,838
+values. Of course, we can add 21 here and 15
+價值觀。當然，我們可以在這裡添加21和15
+
+246
+00:10:37,422 --> 00:10:39,022
+and 27 and
+27 和
+
+247
+00:10:39,858 --> 00:10:40,533
+31.
+31.
+
+248
+00:10:43,956 --> 00:10:46,126
+And if we now save that, we hopefully should
+如果我們現在儲存它，我們希望應該
+
+249
+00:10:46,126 --> 00:10:49,490
+see all those values except for 39, 20, and
+查看除 39、20 和 之外的所有這些值
+
+250
+00:10:49,522 --> 00:10:52,280
+25 and they should be structured correctly,
+25 而它們的結構應該正確，
+
+251
+00:10:52,360 --> 00:10:52,762
+of course.
+當然。
+
+252
+00:10:53,661 --> 00:10:55,397
+So let's dig into our tree.
+那麼讓我們深入研究一下我們的樹。
+
+253
+00:10:56,039 --> 00:10:57,630
+Now on the left node of the root node,
+現在在根節點的左側節點上，
+
+254
+00:10:57,662 --> 00:10:59,638
+nothing will have changed because the
+一切都不會改變，因為
+
+255
+00:10:59,638 --> 00:11:01,217
+numbers I added are all bigger.
+我加的數字都更大。
+
+256
+00:11:01,952 --> 00:11:04,076
+But on the right branch, we see we have a
+但在右邊的分支上，我們看到有一個
+
+257
+00:11:04,092 --> 00:11:05,252
+value of 21 here,
+這裡的值為21，
+
+258
+00:11:05,860 --> 00:11:10,073
+which makes sense since we removed 25 and
+這是有道理的，因為我們刪除了 25 和
+
+259
+00:11:10,187 --> 00:11:10,592
+20.
+20.
+
+260
+00:11:12,764 --> 00:11:14,385
+And there the left node is 15,
+左邊的節點是 15，
+
+261
+00:11:15,429 --> 00:11:17,015
+which has no left or right node.
+它沒有左或右節點。
+
+262
+00:11:17,786 --> 00:11:19,854
+And the right node is 27, which is bigger,
+右邊的節點是27，更大，
+
+263
+00:11:20,031 --> 00:11:21,873
+which then has a smaller value, which is
+然後它有一個較小的值，即
+
+264
+00:11:21,986 --> 00:11:24,183
+bigger than 21 though, 23,
+雖然大於21，23，
+
+265
+00:11:24,797 --> 00:11:26,342
+and a bigger value, 28.
+還有一個更大的值，28。
+
+266
+00:11:26,940 --> 00:11:29,430
+And the bigger value 28 has an even bigger
+更大的值 28 甚至更大
+
+267
+00:11:29,430 --> 00:11:30,626
+value, 31,
+值，31，
+
+268
+00:11:32,598 --> 00:11:33,261
+which looks good.
+看起來不錯。
+
+269
+00:11:34,198 --> 00:11:36,233
+And the smaller value 23
+較小的值 23
+
+270
+00:11:36,781 --> 00:11:39,057
+has no bigger and no smaller value, but the
+沒有更大也沒有更小的值，但是
+
+271
+00:11:39,057 --> 00:11:42,316
+parents are all correct. So this is all
+父母都是對的。這就是全部
+
+272
+00:11:42,445 --> 00:11:44,350
+looking good. And with that, we got a binary
+看起來不錯。这样我们就得到了一个二进制檔案
+
+273
+00:11:44,382 --> 00:11:46,420
+search tree where we can add things, where
+搜尋樹，我們可以在其中添加東西，在哪裡
+
+274
+00:11:46,420 --> 00:11:48,738
+we can find things and where we can now also
+我們可以找到東西，現在也可以在哪裡找到
+
+275
+00:11:48,754 --> 00:11:49,702
+remove things.
+刪除東西。
+
+276
+00:11:50,281 --> 00:11:51,084
+And yes, I know
+是的，我知道
+
+277
+00:11:51,663 --> 00:11:53,431
+wrapping your head around this can be
+圍繞這個可以是
+
+278
+00:11:53,431 --> 00:11:56,002
+tricky. You see it in action here, and I
+棘手。你在这里看到它的实际效果，而我
+
+279
+00:11:56,147 --> 00:11:58,525
+hope I could make it clear how this all
+希望我能說清楚這一切是如何發生的
+
+280
+00:11:58,718 --> 00:11:59,040
+works.
+作品。
+
+281
+00:11:59,843 --> 00:12:03,893
+Now it's time for a closer analysis, or most
+現在是時候進行更仔細的分析了，或者說大多數
+
+282
+00:12:03,893 --> 00:12:06,111
+importantly, it's also time to have a look
+重要的是，也是時候看看了
+
+283
+00:12:06,208 --> 00:12:07,509
+at the time complexity.
+在時間複雜度上。

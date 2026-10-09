@@ -1,0 +1,669 @@
+1
+00:00:02,276 --> 00:00:04,168
+So now that we know these 2 approaches,
+現在我們知道了這兩種方法，
+
+2
+00:00:04,521 --> 00:00:08,529
+adjacency matrices and adjacency lists, the
+鄰接矩陣與鄰接表
+
+3
+00:00:08,593 --> 00:00:11,013
+obvious question is which one is better?
+顯而易見的問題是哪一個比較好？
+
+4
+00:00:11,318 --> 00:00:12,264
+Which one should you use?
+您應該使用哪一個？
+
+5
+00:00:12,937 --> 00:00:14,573
+And for that we're actually going to compare
+為此我們實際上要比較
+
+6
+00:00:14,781 --> 00:00:15,951
+the time complexity
+時間複雜度
+
+7
+00:00:16,528 --> 00:00:18,949
+for various operations and the space
+用於各種操作和空間
+
+8
+00:00:18,949 --> 00:00:19,639
+complexity
+複雜
+
+9
+00:00:20,216 --> 00:00:23,118
+of those 2 approaches. We'll have a look at
+這兩種方法中。我們來看看
+
+10
+00:00:23,118 --> 00:00:24,897
+the insert time complexity,
+插入時間複雜度，
+
+11
+00:00:25,506 --> 00:00:28,055
+the time complexity for finding a possible
+尋找可能的時間複雜度
+
+12
+00:00:28,088 --> 00:00:29,498
+connection between 2 nodes,
+2個節點之間的連接，
+
+13
+00:00:30,092 --> 00:00:32,291
+and the time complexity for finding all
+以及找到所有的時間複雜度
+
+14
+00:00:32,580 --> 00:00:34,555
+adjacent nodes of a given node.
+給定節點的相鄰節點。
+
+15
+00:00:35,615 --> 00:00:37,365
+Now when it comes to inserting with an
+現在當涉及到插入時
+
+16
+00:00:37,397 --> 00:00:40,561
+adjacency matrix, the time complexity is O,
+鄰接矩陣，時間複雜度為O，
+
+17
+00:00:41,412 --> 00:00:43,354
+linear time. Now why is that?
+線性時間。這是為什麼呢？
+
+18
+00:00:44,141 --> 00:00:45,522
+If we have a matrix like this
+如果我們有一個像這樣的矩陣
+
+19
+00:00:46,148 --> 00:00:47,401
+and we insert a new node,
+然後我們插入一個新節點，
+
+20
+00:00:48,011 --> 00:00:49,584
+not in the graph on the left but in the
+不是在左邊的圖表中，而是在
+
+21
+00:00:49,584 --> 00:00:51,559
+matrix, let's say that new node is there,
+矩陣，假設有新節點，
+
+22
+00:00:52,089 --> 00:00:54,835
+a node with value 4, with an identifier of
+值為 4 的節點，識別碼為
+
+23
+00:00:54,835 --> 00:00:55,172
+4,
+4、
+
+24
+00:00:55,947 --> 00:00:58,532
+then this is how our matrix grows. So we
+這就是我們的矩陣的成長方式。所以我們
+
+25
+00:00:58,532 --> 00:01:00,727
+have to add a lot of new elements to the
+必須添加很多新元素
+
+26
+00:01:00,727 --> 00:01:01,198
+matrix.
+矩陣。
+
+27
+00:01:02,333 --> 00:01:04,569
+So in the end, we have to add a new row
+所以最後我們必須新增一個新行
+
+28
+00:01:05,534 --> 00:01:08,012
+and add an entry for connections to every
+並為每個連接添加一個條目
+
+29
+00:01:08,125 --> 00:01:10,699
+other node in our graph, and we have to
+圖中的其他節點，我們必須
+
+30
+00:01:10,699 --> 00:01:13,635
+revisit all existing entries and represent
+重新造訪所有現有條目並代表
+
+31
+00:01:13,667 --> 00:01:15,750
+the connection to our new node there as
+到我們新節點的連接為
+
+32
+00:01:15,928 --> 00:01:16,057
+well.
+出色地。
+
+33
+00:01:18,350 --> 00:01:21,093
+So depending on how you do this, you could
+因此，取決於您如何執行此操作，您可以
+
+34
+00:01:21,206 --> 00:01:22,933
+even end up with quadratic time,
+甚至最終得到二次時間，
+
+35
+00:01:23,492 --> 00:01:25,082
+But you can also come up with
+但你也可以想出
+
+36
+00:01:25,114 --> 00:01:27,956
+implementations that give you linear time on
+為您提供線性時間的實現
+
+37
+00:01:28,133 --> 00:01:28,438
+average.
+平均的。
+
+38
+00:01:29,755 --> 00:01:31,907
+So no matter what though, no matter if it's
+所以不管怎樣，不管是不是
+
+39
+00:01:31,907 --> 00:01:34,654
+linear or even worse quadratic time, you're
+線性或更糟的二次時間，你
+
+40
+00:01:34,654 --> 00:01:37,031
+not going to have a great time complexity
+時間複雜度不會很高
+
+41
+00:01:37,063 --> 00:01:37,175
+there.
+那裡。
+
+42
+00:01:38,348 --> 00:01:42,555
+Now for an adjacency list, this actually can
+現在對於鄰接表，這實際上可以
+
+43
+00:01:42,604 --> 00:01:45,237
+be achieved in a way more efficient way.
+以更有效的方式實現。
+
+44
+00:01:45,655 --> 00:01:48,433
+Depending on how you implement it, you can
+根據您的實施方式，您可以
+
+45
+00:01:48,466 --> 00:01:51,196
+get constant time inserting values.
+獲得恆定時間插入值。
+
+46
+00:01:51,742 --> 00:01:54,054
+And well, it should be obvious that this is
+嗯，很明顯，這是
+
+47
+00:01:54,166 --> 00:01:57,169
+better than O or even O.
+比 O 甚至 O 更好。
+
+48
+00:01:58,485 --> 00:02:00,813
+Now why that is the case is something we'll
+現在我們將了解為什麼會發生這種情況
+
+49
+00:02:00,813 --> 00:02:01,873
+explore later.
+稍後探索。
+
+50
+00:02:02,917 --> 00:02:05,855
+Now for finding edges between nodes in an
+現在尋找節點之間的邊
+
+51
+00:02:05,952 --> 00:02:07,927
+adjacency matrix, that's O.
+鄰接矩陣，即O。
+
+52
+00:02:08,858 --> 00:02:11,363
+Because as I showed before, if you have your
+因為正如我之前所展示的，如果你有你的
+
+53
+00:02:11,427 --> 00:02:14,462
+adjacency matrix, you can get the connection
+鄰接矩陣，即可得到連接
+
+54
+00:02:14,478 --> 00:02:18,023
+between 2 nodes simply by accessing the
+兩個節點之間只需訪問
+
+55
+00:02:18,103 --> 00:02:20,815
+appropriate identifiers, the indexes of
+適當的標識符，索引
+
+56
+00:02:20,847 --> 00:02:23,429
+those nodes, and you get a result. You get
+這些節點，你就會得到結果。你得到
+
+57
+00:02:23,429 --> 00:02:25,265
+an instant result whether a connection
+即時結果是否連接
+
+58
+00:02:25,298 --> 00:02:27,194
+between those nodes exists or not.
+這些節點之間存在或不存在。
+
+59
+00:02:28,830 --> 00:02:31,131
+And therefore accessing by index of course
+因此當然可以透過索引來訪問
+
+60
+00:02:31,147 --> 00:02:33,772
+is O, so we have a great time complexity
+是 O，所以我們有很大的時間複雜度
+
+61
+00:02:33,870 --> 00:02:33,999
+here.
+這裡。
+
+62
+00:02:34,990 --> 00:02:39,209
+For adjacency lists, that often is O, though
+對於鄰接表，通常是 O，但是
+
+63
+00:02:39,370 --> 00:02:41,432
+depending on the implementation, we can
+根據實施情況，我們可以
+
+64
+00:02:41,609 --> 00:02:43,993
+actually achieve O there as well.
+實際上也在那裡實現了O。
+
+65
+00:02:44,837 --> 00:02:47,454
+And again, that is something you will see
+再說一遍，這就是你會看到的東西
+
+66
+00:02:47,663 --> 00:02:49,991
+later throughout the next lectures when we
+稍後在接下來的講座中，當我們
+
+67
+00:02:50,055 --> 00:02:52,849
+actually build a whole data structure around
+實際上圍繞著建構一個完整的資料結構
+
+68
+00:02:53,042 --> 00:02:54,102
+an adjacency list.
+鄰接表。
+
+69
+00:02:55,450 --> 00:02:58,694
+For finding all adjacent nodes, it's O for
+對於尋找所有相鄰節點，它是 O
+
+70
+00:02:58,742 --> 00:03:01,359
+the adjacency matrix because we basically
+鄰接矩陣，因為我們基本上
+
+71
+00:03:01,712 --> 00:03:04,747
+need to loop through all the entries for a
+需要迴圈遍歷a的所有條目
+
+72
+00:03:04,747 --> 00:03:05,293
+given node.
+給定節點。
+
+73
+00:03:06,112 --> 00:03:08,600
+For the adjacency list, again, this can be
+對於鄰接表，同樣，這可以是
+
+74
+00:03:08,600 --> 00:03:09,853
+achieved with O.
+與 O 一起實現。
+
+75
+00:03:12,068 --> 00:03:14,926
+In case you wonder why it's not O in the
+如果你想知道為什麼它不是 O
+
+76
+00:03:14,943 --> 00:03:17,817
+adjacency matrix case, keep in mind that
+鄰接矩陣的情況，請記住
+
+77
+00:03:17,833 --> 00:03:20,305
+with an adjacency matrix you have all those
+有了鄰接矩陣，你就擁有了所有這些
+
+78
+00:03:20,434 --> 00:03:23,950
+zeros, all those false values, and if you
+零，所有這些假值，如果你
+
+79
+00:03:24,031 --> 00:03:26,375
+only wanna find the active connections, you
+只想找到活躍的聯繫，你
+
+80
+00:03:26,375 --> 00:03:28,623
+need to filter those out, which is why you
+需要過濾掉那些，這就是為什麼你
+
+81
+00:03:28,623 --> 00:03:30,421
+need to visit all entries
+需要存取所有條目
+
+82
+00:03:30,999 --> 00:03:33,697
+in a given row and then just find the true,
+在給定的行中然後找到真實的，
+
+83
+00:03:34,210 --> 00:03:35,126
+the 1 entries.
+1 個條目。
+
+84
+00:03:36,462 --> 00:03:38,308
+So you need to step through all the entries
+所以你需要單步執行所有條目
+
+85
+00:03:38,406 --> 00:03:40,333
+and check whether they're false or true.
+並檢查它們是真是假。
+
+86
+00:03:42,860 --> 00:03:45,065
+For an adjacency list, that's not the case.
+對於鄰接表來說，情況並非如此。
+
+87
+00:03:45,371 --> 00:03:48,494
+If you retrieve the edges for a given node
+如果檢索給定節點的邊
+
+88
+00:03:49,009 --> 00:03:51,681
+by identifier, you only get the active
+透過標識符，您只能獲得活動的
+
+89
+00:03:51,729 --> 00:03:53,389
+connections. You don't need to visit them
+連接。你不需要拜訪他們
+
+90
+00:03:53,502 --> 00:03:56,599
+all to filter out the false values. Instead,
+所有這些都是為了過濾掉錯誤值。反而，
+
+91
+00:03:56,647 --> 00:03:58,486
+you only get the active connections.
+您只能獲得活動連線。
+
+92
+00:04:00,293 --> 00:04:02,924
+That's why we have O for adjacency lists
+這就是為什麼我們用 O 來表示鄰接表
+
+93
+00:04:03,119 --> 00:04:05,457
+down there and O for adjacency matrices.
+下面的 O 表示鄰接矩陣。
+
+94
+00:04:07,237 --> 00:04:10,188
+Now we also can think about space complexity
+現在我們還可以考慮空間複雜度
+
+95
+00:04:10,204 --> 00:04:12,481
+here because there we'll also notice a
+在這裡，因為我們也會注意到
+
+96
+00:04:12,529 --> 00:04:12,850
+difference.
+不同之處。
+
+97
+00:04:13,507 --> 00:04:15,239
+For adjacency matrices,
+對於鄰接矩陣，
+
+98
+00:04:15,816 --> 00:04:18,350
+we'll have a space complexity of O.
+我們的空間複雜度將為 O。
+
+99
+00:04:19,264 --> 00:04:20,804
+Makes a lot of sense because we have a
+這很有意義，因為我們有一個
+
+100
+00:04:20,804 --> 00:04:22,086
+2-dimensional array
+二維陣列
+
+101
+00:04:22,792 --> 00:04:24,989
+where all slots are filled.
+所有插槽都被填滿的地方。
+
+102
+00:04:25,534 --> 00:04:28,821
+So if we have 4 nodes, we have 16 array
+所以如果我們有 4 個節點，我們就有 16 個陣列
+
+103
+00:04:28,902 --> 00:04:29,351
+values,
+價值觀，
+
+104
+00:04:30,024 --> 00:04:31,756
+and that is of course a lot of space in
+這當然是很大的空間
+
+105
+00:04:31,788 --> 00:04:33,167
+memory which we occupy.
+我們佔據的記憶。
+
+106
+00:04:33,776 --> 00:04:36,356
+For adjacency lists, it's better. There we
+對於鄰接表來說，它更好。在那裡我們
+
+107
+00:04:36,356 --> 00:04:37,301
+have O
+有O
+
+108
+00:04:38,102 --> 00:04:38,279
+,
+,
+
+109
+00:04:38,824 --> 00:04:39,849
+and what does this mean?
+這意味著什麼？
+
+110
+00:04:40,522 --> 00:04:42,910
+Well, it means the number of nodes plus the
+嗯，這意味著節點數加上
+
+111
+00:04:42,910 --> 00:04:43,775
+number of edges.
+邊數。
+
+112
+00:04:45,233 --> 00:04:47,092
+And again, that is something that is easy to
+再說一次，這是很容易做到的事情
+
+113
+00:04:47,092 --> 00:04:49,495
+see here. This is our adjacency list,
+見這裡。這是我們的鄰接列表，
+
+114
+00:04:50,040 --> 00:04:53,549
+and we see that we have 3 lists, and then in
+我們看到我們有 3 個列表，然後在
+
+115
+00:04:53,645 --> 00:04:57,010
+those lists we have 3 items in total. So we
+這些清單總共有 3 項。所以我們
+
+116
+00:04:57,010 --> 00:05:00,199
+have 3 nodes plus 3 edges, we have 6 items.
+有 3 個節點加 3 個邊，我們有 6 個專案。
+
+117
+00:05:00,600 --> 00:05:02,275
+That we store in memory here.
+我們儲存在記憶體中。
+
+118
+00:05:04,060 --> 00:05:06,571
+For the adjacency matrix, we have 3 nodes,
+對於鄰接矩陣，我們有 3 個節點，
+
+119
+00:05:06,750 --> 00:05:09,035
+but since we need to store it as a matrix,
+但由於我們需要將其儲存為矩陣，
+
+120
+00:05:09,099 --> 00:05:11,871
+we have 9 items in memory that need to be
+我們記憶體中有 9 項需要
+
+121
+00:05:11,871 --> 00:05:12,243
+stored.
+儲存。
+
+122
+00:05:13,680 --> 00:05:16,610
+9 values that we need to store to represent
+我們需要儲存來表示的 9 個值
+
+123
+00:05:16,610 --> 00:05:17,995
+the connections appropriately.
+連接適當。
+
+124
+00:05:19,026 --> 00:05:21,200
+And because of that, it should be easy to
+正因為如此，應該很容易
+
+125
+00:05:21,200 --> 00:05:23,840
+see that the adjacency list often is a
+看到鄰接表通常是
+
+126
+00:05:23,856 --> 00:05:26,124
+better choice, and therefore we'll use this
+更好的選擇，因此我們將使用它
+
+127
+00:05:26,269 --> 00:05:26,993
+in this course.
+在這門課程中。
+
+128
+00:05:27,620 --> 00:05:29,711
+And in the next lectures, we'll now build a
+在接下來的講座中，我們現在將建構一個
+
+129
+00:05:29,711 --> 00:05:30,515
+complete graph data structure
+完整的圖資料結構
+
+130
+00:05:32,100 --> 00:05:32,743
+from scratch
+從頭開始
+
+131
+00:05:33,402 --> 00:05:35,749
+where we'll have methods for adding nodes
+我們將在其中添加節點的方法
+
+132
+00:05:35,749 --> 00:05:36,649
+and for adding edges,
+為了添加邊緣，
+
+133
+00:05:37,501 --> 00:05:39,704
+and that data structure will then use an
+然後該資料結構將使用
+
+134
+00:05:39,704 --> 00:05:41,505
+adjacency list under the hood.
+引擎蓋下的鄰接清單。

@@ -1,0 +1,634 @@
+1
+00:00:02,117 --> 00:00:04,924
+So we got the solution for leaf nodes. We
+這樣我們就得到了葉節點的解。我們
+
+2
+00:00:04,924 --> 00:00:07,411
+can remove those, but now we also want to be
+可以刪除那些，但現在我們也想成為
+
+3
+00:00:07,411 --> 00:00:10,025
+able to remove nodes that have child values.
+能夠刪除具有子值的節點。
+
+4
+00:00:11,036 --> 00:00:11,325
+So
+所以
+
+5
+00:00:11,886 --> 00:00:13,683
+in this if check, we're taking care about
+在這個 if 檢查中，我們關心的是
+
+6
+00:00:13,683 --> 00:00:16,971
+nodes that have no children, and that is the
+沒有子節點的節點，即
+
+7
+00:00:16,971 --> 00:00:18,014
+definition of a leaf node.
+葉節點的定義。
+
+8
+00:00:19,040 --> 00:00:20,420
+So we can simply
+所以我們可以簡單地
+
+9
+00:00:21,591 --> 00:00:23,917
+return here because we're done. But if we
+回傳這裡，因為我們已經完成了。但如果我們
+
+10
+00:00:23,917 --> 00:00:26,483
+make it past this if check, we didn't remove
+讓它過去如果檢查，我們沒有刪除
+
+11
+00:00:26,483 --> 00:00:26,997
+anything yet.
+還沒有什麼。
+
+12
+00:00:27,944 --> 00:00:30,176
+So now we want to check if the node we wanna
+所以現在我們要檢查我們想要的節點是否
+
+13
+00:00:30,176 --> 00:00:33,740
+remove maybe has both left and right, or if
+刪除可能有左和右，或者如果
+
+14
+00:00:33,740 --> 00:00:35,009
+it has just one child.
+它只有一個孩子。
+
+15
+00:00:35,667 --> 00:00:37,465
+So here we check if identified node has
+所以在這裡我們檢查識別的節點是否有
+
+16
+00:00:37,642 --> 00:00:40,067
+left, if that is truthy, and if identified
+左，如果這是真的，並且如果確定的話
+
+17
+00:00:40,067 --> 00:00:42,716
+node has a right node. If both is truthy,
+節點有一個正確的節點。如果兩者都是真的，
+
+18
+00:00:42,780 --> 00:00:45,590
+that means the identified node has 2 child
+這意味著所辨識的節點有 2 個子節點
+
+19
+00:00:45,590 --> 00:00:45,815
+nodes.
+節點。
+
+20
+00:00:47,276 --> 00:00:49,861
+The else case will thereafter be that we
+此後的其他情況將是我們
+
+21
+00:00:50,006 --> 00:00:51,965
+only have either left or right.
+只有左或右。
+
+22
+00:00:53,137 --> 00:00:55,306
+Well, let's start with the one child node
+好吧，讓我們從一個子節點開始
+
+23
+00:00:55,306 --> 00:00:57,635
+case. So with the else case here, because in
+案件。所以對於這裡的 else 情況，因為在
+
+24
+00:00:57,635 --> 00:01:00,237
+the if case we have 2 child nodes. Let's
+if 情況下我們有 2 個子節點。讓我們
+
+25
+00:01:00,237 --> 00:01:01,057
+start with one.
+從一個開始。
+
+26
+00:01:01,812 --> 00:01:02,727
+What do we want to do here?
+我們想在這裡做什麼？
+
+27
+00:01:03,434 --> 00:01:05,217
+Now for that, let's have a look at our tree.
+現在，讓我們看看我們的樹。
+
+28
+00:01:05,764 --> 00:01:06,278
+Let's say
+比方說
+
+29
+00:01:06,952 --> 00:01:07,161
+here
+這裡
+
+30
+00:01:08,318 --> 00:01:11,515
+on the right branch of our root node,
+在根節點的右邊分支上，
+
+31
+00:01:12,270 --> 00:01:13,956
+we want to remove the value 20.
+我們想要刪除值 20。
+
+32
+00:01:14,679 --> 00:01:18,294
+Now we have one other child here, this right
+現在我們這裡又多了一個孩子，就是這個
+
+33
+00:01:18,294 --> 00:01:20,767
+node, but we have no left node. Parent is
+節點，但我們沒有左節點。父級是
+
+34
+00:01:20,767 --> 00:01:21,874
+something else, as you learned.
+別的東西，正如你所學到的。
+
+35
+00:01:22,532 --> 00:01:25,485
+So we want to remove 20 without losing 25.
+所以我們想刪除 20 個而不遺失 25 個。
+
+36
+00:01:26,432 --> 00:01:27,892
+Now what does this mean?
+現在這意味著什麼？
+
+37
+00:01:28,727 --> 00:01:29,818
+Well, we could simply
+好吧，我們可以簡單地
+
+38
+00:01:30,652 --> 00:01:34,199
+move this entire right node subtree here
+將整個右節點子樹移到此處
+
+39
+00:01:34,825 --> 00:01:35,788
+up one level.
+上升一級。
+
+40
+00:01:36,413 --> 00:01:39,366
+If we could replace this to-be-removed node
+如果我們可以替換這個要刪除的節點
+
+41
+00:01:40,024 --> 00:01:42,688
+with the right node, we would keep the right
+有了正確的節點，我們就會保留正確的
+
+42
+00:01:42,688 --> 00:01:45,512
+node and also all its children if we really
+節點及其所有子節點，如果我們真的
+
+43
+00:01:45,512 --> 00:01:48,240
+move that entire object. Then we also keep
+移動整個物件。然後我們還保留
+
+44
+00:01:48,368 --> 00:01:50,116
+all the children this right node has.
+該右節點擁有的所有子節點。
+
+45
+00:01:50,774 --> 00:01:52,233
+And of course, the same would work if we
+當然，如果我們
+
+46
+00:01:52,297 --> 00:01:53,404
+only had a left node.
+只有一個左節點。
+
+47
+00:01:54,061 --> 00:01:57,012
+So we wanna replace the to-be-removed node
+所以我們要替換要刪除的節點
+
+48
+00:01:57,766 --> 00:02:00,332
+with one of its child nodes, the only child
+及其子節點之一，唯一的子節點
+
+49
+00:02:00,332 --> 00:02:02,401
+node it happens to have. That's what we
+它恰好有節點。這就是我們
+
+50
+00:02:02,401 --> 00:02:04,694
+wanna do in the one child node case.
+想要在一個子節點的情況下做。
+
+51
+00:02:05,769 --> 00:02:06,827
+How do we make this work?
+我們如何讓這項工作發揮作用？
+
+52
+00:02:07,533 --> 00:02:09,377
+Well, first of all, we have to identify the
+嗯，首先，我們必須確定
+
+53
+00:02:09,377 --> 00:02:10,451
+child node which we have.
+我們擁有的子節點。
+
+54
+00:02:11,093 --> 00:02:12,568
+So the child node which we have
+所以我們有的子節點
+
+55
+00:02:13,162 --> 00:02:13,835
+equal to,
+等於，
+
+56
+00:02:14,605 --> 00:02:15,968
+and now we can use a little trick here.
+現在我們可以在這裡使用一個小技巧。
+
+57
+00:02:16,529 --> 00:02:17,507
+We can use our
+我們可以用我們的
+
+58
+00:02:18,533 --> 00:02:20,618
+identified node, which is the node we wanna
+已識別節點，這就是我們想要的節點
+
+59
+00:02:20,618 --> 00:02:20,986
+remove,
+消除，
+
+60
+00:02:22,045 --> 00:02:22,478
+and
+和
+
+61
+00:02:23,007 --> 00:02:23,905
+access left,
+訪問左側，
+
+62
+00:02:24,787 --> 00:02:27,352
+and then use the OR operator and do the same
+然後使用 OR 運算子並執行相同的操作
+
+63
+00:02:27,352 --> 00:02:28,009
+with right.
+與權利。
+
+64
+00:02:29,100 --> 00:02:31,986
+The way JavaScript behaves is such that if
+JavaScript 的行為方式是這樣的：
+
+65
+00:02:32,002 --> 00:02:32,772
+this is truthy,
+這是實話，
+
+66
+00:02:33,301 --> 00:02:36,203
+if left is truthy, we'll store the value
+如果 left 為真，我們將儲存該值
+
+67
+00:02:36,203 --> 00:02:37,951
+left returns in childNode.
+left 回傳 childNode 中。
+
+68
+00:02:38,560 --> 00:02:40,628
+If it's falsy, we'll move on to the second
+如果它是假的，我們將繼續第二個
+
+69
+00:02:40,644 --> 00:02:43,372
+part and store that value. So child_node
+部分並儲存該值。所以子節點
+
+70
+00:02:43,372 --> 00:02:45,956
+will then always hold a pointer at that left
+然後將始終在左邊保留一個指標
+
+71
+00:02:46,021 --> 00:02:48,011
+or right child_node object.
+或右 child_node 物件。
+
+72
+00:02:49,086 --> 00:02:50,386
+And now we wanna replace
+現在我們想要替換
+
+73
+00:02:51,076 --> 00:02:52,505
+the to-be-removed node
+待刪除節點
+
+74
+00:02:53,163 --> 00:02:54,511
+with that child_node.
+與那個child_node。
+
+75
+00:02:55,651 --> 00:02:56,549
+And how can we do this?
+我們怎樣才能做到這一點？
+
+76
+00:02:57,256 --> 00:03:00,241
+Well, one easy way of doing it is that we
+嗯，一個簡單的方法是我們
+
+77
+00:03:00,321 --> 00:03:02,135
+reach out to the identified node
+到達已識別的節點
+
+78
+00:03:03,114 --> 00:03:04,189
+and we set
+我們設定
+
+79
+00:03:04,735 --> 00:03:06,356
+left equal to
+左等於
+
+80
+00:03:07,126 --> 00:03:08,893
+child_node.left,
+左子節點，
+
+81
+00:03:09,696 --> 00:03:13,373
+and we set right equal to child_node.right.
+我們將 right 設定為等於 child_node.right。
+
+82
+00:03:14,032 --> 00:03:17,452
+And of course, we set identified_node.value
+當然，我們設定了identified_node.value
+
+83
+00:03:18,046 --> 00:03:20,214
+equal to child_node.value.
+等於child_node.value。
+
+84
+00:03:20,793 --> 00:03:23,121
+So now we copied all the values, all the
+所以現在我們複製了所有的值，所有的
+
+85
+00:03:23,121 --> 00:03:25,161
+pointers child_node had, to the
+child_node 的指標，指向
+
+86
+00:03:25,273 --> 00:03:26,220
+to-be-removed node.
+待刪除節點。
+
+87
+00:03:26,879 --> 00:03:28,790
+Therefore, we technically of course didn't
+因此，我們技術上當然沒有
+
+88
+00:03:28,806 --> 00:03:31,456
+remove the to-be-removed node, but we
+刪除要刪除的節點，但我們
+
+89
+00:03:31,616 --> 00:03:33,864
+overwrote all the data that was stored in
+覆蓋了儲存在的所有資料
+
+90
+00:03:33,864 --> 00:03:36,454
+it. Which then is the same as if we would
+它。這與我們將要執行的操作是一樣的
+
+91
+00:03:36,454 --> 00:03:37,709
+have removed it, right?
+已經刪除了，對嗎？
+
+92
+00:03:38,932 --> 00:03:40,540
+Now let's see if that works. That should
+現在讓我們看看這是否有效。那應該
+
+93
+00:03:40,540 --> 00:03:41,087
+already be all.
+已經是全部了。
+
+94
+00:03:42,170 --> 00:03:43,606
+We can see whether it works
+我們可以看看是否有效
+
+95
+00:03:44,203 --> 00:03:45,542
+by also removing
+同時刪除
+
+96
+00:03:46,639 --> 00:03:47,785
+the 20 value here.
+這裡的 20 值。
+
+97
+00:03:48,511 --> 00:03:51,157
+If that works, the 25 value should still be
+如果可行，25 值應該仍然是
+
+98
+00:03:51,157 --> 00:03:51,335
+there,
+那裡，
+
+99
+00:03:54,309 --> 00:03:55,166
+and that has
+那有
+
+100
+00:03:55,764 --> 00:03:58,480
+the value 25. That node is still there, so
+值 25。該節點仍然存在，所以
+
+101
+00:03:58,496 --> 00:03:59,304
+it seems to work.
+似乎有效。
+
+102
+00:04:00,117 --> 00:04:01,787
+Now let's see if it also works if we had
+現在讓我們看看如果我們有的話它是否也有效
+
+103
+00:04:01,819 --> 00:04:05,030
+more nested nodes. So let's say here we also
+更多巢狀節點。所以我們在這裡也說
+
+104
+00:04:05,095 --> 00:04:10,297
+have a 23 node and a 28 node. So the 25 node
+有一個 23 節點和一個 28 節點。所以25個節點
+
+105
+00:04:10,393 --> 00:04:11,822
+should have 2 children.
+應該有2個孩子。
+
+106
+00:04:12,593 --> 00:04:13,669
+If we now reload,
+如果我們現在重新載入，
+
+107
+00:04:14,584 --> 00:04:14,921
+we see
+我們看到
+
+108
+00:04:15,612 --> 00:04:19,160
+our right branch has the value 25 and that
+我們右邊分支的值為 25
+
+109
+00:04:19,160 --> 00:04:21,424
+still has its left and its right node.
+仍然有它的左節點和右節點。
+
+110
+00:04:22,195 --> 00:04:24,122
+And those nodes then have no further
+然後這些節點就沒有進一步的
+
+111
+00:04:24,122 --> 00:04:24,491
+children.
+孩子們。
+
+112
+00:04:25,230 --> 00:04:28,400
+So that works. The we have one child node
+這樣就可以了。我們有一個子節點
+
+113
+00:04:28,433 --> 00:04:31,002
+case works and I hope it's clear how it
+案例是有效的，我希望它是如何運作的
+
+114
+00:04:31,099 --> 00:04:31,327
+works.
+作品。
+
+115
+00:04:32,126 --> 00:04:34,620
+Now what for the scenario that we have both
+現在我們都有的情況該怎麼辦
+
+116
+00:04:34,896 --> 00:04:37,925
+child nodes? Then we can't just swap them,
+子節點？那我們就不能只是交換它們，
+
+117
+00:04:38,216 --> 00:04:40,290
+right? Then we need to find some other
+正確的？然後我們需要找一些其他的
+
+118
+00:04:40,290 --> 00:04:40,759
+solution.
+解決方案。
+
+119
+00:04:41,941 --> 00:04:44,418
+Let's say here we want to remove
+假設這裡我們要刪除
+
+120
+00:04:48,255 --> 00:04:49,226
+the 25 node.
+25個節點。
+
+121
+00:04:50,792 --> 00:04:54,727
+The 25 node, of course, here, the 25 node,
+25節點，當然這裡是25節點，
+
+122
+00:04:54,743 --> 00:04:57,956
+of course, has the 23 and the 28 child
+當然，有23和28的孩子
+
+123
+00:04:57,956 --> 00:04:59,402
+nodes. We can see this here.
+節點。我們可以在這裡看到這一點。
+
+124
+00:04:59,948 --> 00:05:03,000
+The 25 node has a left child node and a
+25節點有一個左子節點和一個
+
+125
+00:05:03,000 --> 00:05:05,057
+right child node. And we don't wanna lose
+右子節點。我們不想失去
+
+126
+00:05:05,169 --> 00:05:08,029
+those 2 just because we deleted 25.
+那 2 個只是因為我們刪除了 25 個。
+
+127
+00:05:08,768 --> 00:05:10,197
+So what can we do in that case?
+那麼這種情況下我們能做什麼呢？

@@ -1,0 +1,719 @@
+1
+00:00:02,215 --> 00:00:04,351
+So let's build our first custom list
+所以讓我們建立我們的第一個自訂列表
+
+2
+00:00:04,351 --> 00:00:06,679
+structure, and that will be a stack.
+結構，這將是一個堆疊。
+
+3
+00:00:07,562 --> 00:00:10,244
+A stack is a special kind of array, we could
+堆疊是一種特殊的陣列，我們可以
+
+4
+00:00:10,244 --> 00:00:13,118
+say, actually kind of a simplified array if
+比如說，其實就是一個簡化的陣列，如果
+
+5
+00:00:13,118 --> 00:00:14,129
+you want to call it like this.
+你想這樣稱呼它。
+
+6
+00:00:15,061 --> 00:00:17,421
+Now here's an example. Let's stick to the
+現在這是一個例子。讓我們堅持
+
+7
+00:00:17,437 --> 00:00:19,155
+array example. We have an array with 2
+陣列範例。我們有一個陣列有 2
+
+8
+00:00:19,203 --> 00:00:20,873
+items, pizza and apples.
+物品、比薩和蘋果。
+
+9
+00:00:21,869 --> 00:00:24,679
+Now if that weren't a regular array but a
+現在，如果這不是一個常規陣列而是一個
+
+10
+00:00:24,679 --> 00:00:28,340
+stack, then there would only be 2 operations
+堆疊，那麼就只有2個操作
+
+11
+00:00:28,693 --> 00:00:31,792
+that we can perform to add and remove items.
+我們可以執行新增和刪除專案。
+
+12
+00:00:32,611 --> 00:00:35,935
+For adding items, we can push a new item
+為了新增專案，我們可以推送一個新專案
+
+13
+00:00:36,143 --> 00:00:36,978
+onto the stack
+到堆疊上
+
+14
+00:00:37,524 --> 00:00:39,901
+and it will always be the topmost item then.
+然後它將永遠是最上面的專案。
+
+15
+00:00:40,270 --> 00:00:43,385
+So new items are always pushed to the top,
+所以新的專案總是被推到頂部，
+
+16
+00:00:43,851 --> 00:00:45,055
+on top of the stack.
+在堆疊的頂部。
+
+17
+00:00:45,617 --> 00:00:47,351
+And in an array, that simply means it's now
+在陣列中，這僅僅意味著現在
+
+18
+00:00:47,400 --> 00:00:49,150
+at the end of the array, you could say.
+你可以說在陣列的最後。
+
+19
+00:00:50,194 --> 00:00:52,939
+And if we then want to read an item from the
+如果我們想從
+
+20
+00:00:52,939 --> 00:00:55,987
+stack, we can pop it off, which means we
+堆疊，我們可以將其彈出，這意味著我們
+
+21
+00:00:55,987 --> 00:00:57,110
+remove it from the top.
+將其從頂部取出。
+
+22
+00:00:57,831 --> 00:01:00,333
+And therefore, such a stack data structure
+因此，這樣的堆疊資料結構
+
+23
+00:01:00,782 --> 00:01:01,119
+is a
+是一個
+
+24
+00:01:01,664 --> 00:01:05,561
+LIFO data structure, last in, first out. The
+LIFO 資料結構，後進先出。這
+
+25
+00:01:05,673 --> 00:01:08,175
+item we added last is the first item we'll
+我們最後新增的專案是我們要新增的第一個專案
+
+26
+00:01:08,175 --> 00:01:08,464
+remove.
+消除。
+
+27
+00:01:09,442 --> 00:01:12,473
+And unlike in a regular array, we can't add
+與常規陣列不同的是，我們不能添加
+
+28
+00:01:12,649 --> 00:01:15,536
+item in the middle or at the beginning, and
+中間或開頭的專案，以及
+
+29
+00:01:15,552 --> 00:01:18,118
+we also can't remove items from there. We
+我們也無法從那裡刪除專案。我們
+
+30
+00:01:18,118 --> 00:01:20,846
+can only add them to the top or remove them
+只能將它們添加到頂部或將其刪除
+
+31
+00:01:20,846 --> 00:01:23,239
+from the top with pushing and popping. And
+從頂部推動和彈出。和
+
+32
+00:01:23,255 --> 00:01:25,439
+that's why I call it a simplified array
+這就是為什麼我稱它為簡化陣列
+
+33
+00:01:25,503 --> 00:01:27,960
+because there's way less we can do with it.
+因為我們能用它做的事情要少得多。
+
+34
+00:01:28,780 --> 00:01:28,892
+Now,
+現在，
+
+35
+00:01:29,438 --> 00:01:32,490
+why and when might we need such a stack?
+為什麼以及什麼時候我們需要這樣的堆疊？
+
+36
+00:01:32,971 --> 00:01:34,706
+There are a couple of examples.
+有幾個例子。
+
+37
+00:01:35,605 --> 00:01:38,496
+One example can be shown in JavaScript and
+JavaScript 中可以顯示一個範例，
+
+38
+00:01:38,577 --> 00:01:39,862
+in the browser itself.
+在瀏覽器本身。
+
+39
+00:01:40,584 --> 00:01:41,676
+Let's add a function
+我們來加入一個函式
+
+40
+00:01:42,206 --> 00:01:43,218
+printResult
+列印結果
+
+41
+00:01:44,616 --> 00:01:47,153
+and there I want some result and I simply
+我想要一些結果，我只是
+
+42
+00:01:47,185 --> 00:01:49,642
+console.log that. So it's a very simple
+console.log 那個。所以這是一個非常簡單的
+
+43
+00:01:49,674 --> 00:01:51,375
+function, but I just wanna show you
+功能，但我只是想告訴你
+
+44
+00:01:51,375 --> 00:01:51,728
+something.
+某物。
+
+45
+00:01:53,028 --> 00:01:55,804
+Then we have another function, add, and that
+然後我們還有另一個函式 add，
+
+46
+00:01:55,916 --> 00:01:57,537
+takes 2 numbers, let's say,
+需要 2 個數字，比方說，
+
+47
+00:01:58,163 --> 00:02:01,453
+and it then calls printResult and passes the
+然後它調用 printResult 並傳遞
+
+48
+00:02:01,453 --> 00:02:03,282
+result of that addition to it
+添加的結果
+
+49
+00:02:04,133 --> 00:02:05,288
+so that we can output it here.
+這樣我們就可以在這裡輸出它。
+
+50
+00:02:06,042 --> 00:02:08,337
+And then here I call that with 2 numbers.
+然後我在這裡用 2 個數字來稱呼它。
+
+51
+00:02:09,171 --> 00:02:10,231
+Now if we save that
+現在如果我們儲存它
+
+52
+00:02:11,402 --> 00:02:13,568
+and we open that in the browser, we see 6.
+我們在瀏覽器中打開它，我們看到 6。
+
+53
+00:02:13,825 --> 00:02:16,040
+Now that's probably not too surprising. I
+現在這可能並不太令人驚訝。我
+
+54
+00:02:16,056 --> 00:02:17,106
+want to show you something else.
+想給你看點別的東西。
+
+55
+00:02:17,848 --> 00:02:20,706
+In the Chrome DevTools, go to Sources here,
+在 Chrome DevTools 中，前往這裡的 Sources，
+
+56
+00:02:22,288 --> 00:02:23,934
+and there you should find your source file
+在那裡你應該找到你的原始檔案
+
+57
+00:02:24,144 --> 00:02:25,307
+with the code we just wrote.
+用我們剛剛寫的程式碼。
+
+58
+00:02:26,083 --> 00:02:28,508
+Now in there, let's add a breakpoint inside
+現在，讓我們在裡面增加一個中斷點
+
+59
+00:02:28,508 --> 00:02:28,638
+of
+的
+
+60
+00:02:29,236 --> 00:02:31,645
+printResult by simply clicking here on the
+只需單擊此處即可列印結果
+
+61
+00:02:31,661 --> 00:02:32,486
+line next to it
+旁邊的線
+
+62
+00:02:33,181 --> 00:02:34,718
+and then reload the page. And now code
+然後重新載入頁面。現在程式碼
+
+63
+00:02:34,718 --> 00:02:35,982
+execution will pause here.
+執行將在此暫停。
+
+64
+00:02:36,776 --> 00:02:39,190
+Now I don't wanna debug that code, it's not
+現在我不想除錯該程式碼，它不是
+
+65
+00:02:39,190 --> 00:02:39,854
+that difficult.
+太難了。
+
+66
+00:02:40,405 --> 00:02:42,139
+I wanna draw your attention to that thing
+我想讓你注意那件事
+
+67
+00:02:42,253 --> 00:02:43,955
+here in the bottom left corner.
+在左下角。
+
+68
+00:02:44,500 --> 00:02:46,954
+This is the so-called call stack in
+這就是所謂的呼叫棧
+
+69
+00:02:47,067 --> 00:02:49,730
+JavaScript. And yes, you heard that right,
+JavaScript。是的，你沒聽錯，
+
+70
+00:02:49,874 --> 00:02:51,318
+it's a call stack.
+這是一個呼叫堆疊。
+
+71
+00:02:52,200 --> 00:02:56,002
+JavaScript uses such a stack approach, such
+JavaScript 使用了這樣的堆疊方法，例如
+
+72
+00:02:56,002 --> 00:02:57,478
+a stack structure
+堆疊結構
+
+73
+00:02:58,055 --> 00:02:59,066
+for managing your
+用於管理您的
+
+74
+00:02:59,659 --> 00:03:02,034
+code execution flow, you could say.
+程式碼執行流程，你可以說。
+
+75
+00:03:02,804 --> 00:03:05,370
+In JavaScript, only one function can run at
+在 JavaScript 中，只能執行一個函式
+
+76
+00:03:05,370 --> 00:03:07,504
+the same time, but of course, as we're doing
+同時，當然，就像我們正在做的那樣
+
+77
+00:03:07,536 --> 00:03:10,423
+it here, functions can call each other. So
+在這裡，函式可以互相呼叫。所以
+
+78
+00:03:10,647 --> 00:03:12,970
+the add function calls printResult, and
+add 函式呼叫 printResult，並且
+
+79
+00:03:12,970 --> 00:03:15,759
+therefore the add function will only fully
+因此 add 函式只會完全
+
+80
+00:03:15,791 --> 00:03:17,842
+be done when printResult is done.
+當 printResult 完成時完成。
+
+81
+00:03:18,419 --> 00:03:21,447
+Therefore, add kind of needs to wait until
+因此，添加種類需要等到
+
+82
+00:03:21,559 --> 00:03:22,569
+printResult is done.
+列印結果完成。
+
+83
+00:03:23,162 --> 00:03:25,373
+And again, since JavaScript doesn't run 2
+再說一次，因為 JavaScript 不運行 2
+
+84
+00:03:25,469 --> 00:03:27,649
+functions at the same time, it simply keeps
+同時發揮作用，它只是保持
+
+85
+00:03:27,649 --> 00:03:30,100
+track of all the functions it started
+追蹤它啟動的所有功能
+
+86
+00:03:30,757 --> 00:03:32,104
+and of the function that's currently
+以及當前的功能
+
+87
+00:03:32,136 --> 00:03:34,155
+running. And it does that with a stack
+跑步。它用堆疊來做到這一點
+
+88
+00:03:34,155 --> 00:03:35,709
+structure because
+結構因為
+
+89
+00:03:36,302 --> 00:03:38,197
+We start at the bottom. Anonymous means
+我們從底部開始。匿名手段
+
+90
+00:03:38,229 --> 00:03:40,494
+we're starting in our main script. We then
+我們從我們的主腳本開始。我們然後
+
+91
+00:03:40,558 --> 00:03:43,609
+call one function, add, so that function
+呼叫一個函式，添加，使該函式
+
+92
+00:03:43,609 --> 00:03:44,460
+starts executing.
+開始執行。
+
+93
+00:03:45,054 --> 00:03:46,708
+And then we move on to print result.
+然後我們繼續列印結果。
+
+94
+00:03:47,527 --> 00:03:50,081
+And it makes sense to build this up in such
+在這樣的情況下建立這個是有意義的
+
+95
+00:03:50,129 --> 00:03:53,083
+a stack structure because the last function
+堆疊結構，因為最後一個函式
+
+96
+00:03:53,083 --> 00:03:55,091
+that was called is always the function
+被呼叫的始終是函式
+
+97
+00:03:55,091 --> 00:03:57,130
+that's currently running. So that's this
+目前正在運行。所以就是這個
+
+98
+00:03:57,403 --> 00:04:00,615
+LIFO approach, last in, first out. The last
+LIFO 方法，後進先出。最後一個
+
+99
+00:04:00,631 --> 00:04:02,205
+function that was called is the first
+被呼叫的函式是第一個
+
+100
+00:04:02,237 --> 00:04:03,457
+function that needs to complete.
+需要完成的功能。
+
+101
+00:04:04,163 --> 00:04:06,138
+Only when that last function completed,
+只有當最後一個函式完成時，
+
+102
+00:04:06,491 --> 00:04:08,770
+printResult in this case, the function that
+printResult 在這種情況下，該函式
+
+103
+00:04:08,819 --> 00:04:10,986
+was executed before that is able to
+在能夠之前執行
+
+104
+00:04:10,986 --> 00:04:11,323
+complete.
+完全的。
+
+105
+00:04:12,109 --> 00:04:14,100
+And that's why this is managed as a stack.
+這就是為什麼將其作為堆疊進行管理的原因。
+
+106
+00:04:14,581 --> 00:04:15,978
+And of course, that's a very technical
+當然，這是一個非常技術性的
+
+107
+00:04:15,978 --> 00:04:18,289
+example, but it is an example which you're
+示例，但它是您的示例
+
+108
+00:04:18,289 --> 00:04:20,167
+implicitly using every day.
+每天都隱含地使用。
+
+109
+00:04:21,018 --> 00:04:23,330
+I also have a less technical example though.
+不過，我還有一個不太技術性的例子。
+
+110
+00:04:23,811 --> 00:04:26,123
+Let's talk about your day in the office.
+我們來談談你在辦公室的一天。
+
+111
+00:04:26,717 --> 00:04:29,012
+Okay, maybe you're learning programming
+好吧，也許你正在學習程式設計
+
+112
+00:04:29,044 --> 00:04:30,987
+because you want to get a job, but you
+因為你想找到工作，但你
+
+113
+00:04:31,356 --> 00:04:33,348
+definitely know the feeling of having some
+肯定知道擁有一些的感覺
+
+114
+00:04:33,524 --> 00:04:35,950
+work that needs to be done. And we all know
+需要完成的工作。我們都知道
+
+115
+00:04:35,950 --> 00:04:36,640
+these days
+這些日子
+
+116
+00:04:37,235 --> 00:04:38,985
+where we're there, we want to get some work
+我們在那裡，我們想要找到一些工作
+
+117
+00:04:38,985 --> 00:04:41,636
+done, and we get new work all the time, and
+完成了，我們一直都有新的工作，而且
+
+118
+00:04:41,668 --> 00:04:43,451
+it's always urgent work.
+這總是緊急的工作。
+
+119
+00:04:44,061 --> 00:04:45,844
+And there are jobs which are always like
+有些工作總是像
+
+120
+00:04:45,844 --> 00:04:48,269
+this. For example, if you're a police
+這。例如，如果你是警察
+
+121
+00:04:48,301 --> 00:04:51,948
+officer, you get a new job pushed in, so to
+警官，你得到了一份新工作，所以
+
+122
+00:04:51,996 --> 00:04:54,919
+say, and you need to get this job done so
+說，你需要完成這項工作
+
+123
+00:04:54,919 --> 00:04:56,798
+that you can come back to the task you did
+你可以回到你所做的任務
+
+124
+00:04:56,911 --> 00:04:57,039
+before.
+前。
+
+125
+00:04:58,034 --> 00:04:59,750
+And that's a typical stack.
+這是一個典型的堆疊。
+
+126
+00:05:00,360 --> 00:05:03,376
+We just did something, we get a new task and
+我們剛剛做了一些事情，我們得到了一個新任務
+
+127
+00:05:03,408 --> 00:05:06,777
+we need to prioritize that. So the last task
+我們需要優先考慮這一點。那麼最後一個任務
+
+128
+00:05:07,017 --> 00:05:09,744
+that came in is now the first task we need
+這是我們現在需要的第一個任務
+
+129
+00:05:09,744 --> 00:05:10,354
+to complete
+完成
+
+130
+00:05:10,947 --> 00:05:13,803
+and that's exactly what our stack here was
+這正是我們這裡的堆疊
+
+131
+00:05:14,059 --> 00:05:15,166
+all about, right?
+所有關於，對吧？
+
+132
+00:05:15,840 --> 00:05:18,776
+So that is a stack and that hopefully shows
+這是一個堆疊，希望能夠顯示
+
+133
+00:05:18,792 --> 00:05:21,535
+you when such a stack would be used in the
+當你在使用這樣的堆疊時
+
+134
+00:05:21,535 --> 00:05:23,957
+technical world but also in the real world.
+科技世界，也包括現實世界。
+
+135
+00:05:24,487 --> 00:05:26,830
+And now let's build such a stack data
+現在讓我們建構這樣一個堆疊資料
+
+136
+00:05:26,830 --> 00:05:29,560
+structures because it turns out JavaScript
+結構體，因為它是 JavaScript
+
+137
+00:05:29,560 --> 00:05:32,369
+doesn't come with one. Of course, we can use
+不附帶一個。當然，我們可以使用
+
+138
+00:05:32,449 --> 00:05:35,034
+a regular array such that we only push and
+一個常規陣列，這樣我們只推送和
+
+139
+00:05:35,098 --> 00:05:37,554
+pop. We could do that, but we could then
+流行音樂。我們可以做到這一點，但我們可以
+
+140
+00:05:37,651 --> 00:05:40,380
+also still manipulate it in other ways. And
+也仍然以其他方式操縱它。和
+
+141
+00:05:40,380 --> 00:05:42,724
+that's something we might wanna rule out so
+這是我們可能想要排除的事情
+
+142
+00:05:42,724 --> 00:05:45,405
+that there absolutely is no chance of using
+絕對沒有機會使用
+
+143
+00:05:45,517 --> 00:05:48,246
+our data structure in any other way than we
+我們的資料結構以任何其他方式
+
+144
+00:05:48,246 --> 00:05:48,647
+intended.
+故意的。

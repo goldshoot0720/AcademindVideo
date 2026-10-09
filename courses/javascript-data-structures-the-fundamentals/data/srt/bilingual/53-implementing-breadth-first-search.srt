@@ -1,0 +1,419 @@
+1
+00:00:02,132 --> 00:00:04,344
+Now let's see how we could build this with a
+現在讓我們看看如何使用
+
+2
+00:00:04,344 --> 00:00:05,690
+breadth-first search.
+廣度優先搜尋。
+
+3
+00:00:06,363 --> 00:00:08,415
+Now here in the tree itself, it stays
+現在它就在樹本身裡
+
+4
+00:00:08,512 --> 00:00:10,579
+unchanged. We check the root node and
+不變。我們檢查根節點並
+
+5
+00:00:10,611 --> 00:00:11,702
+otherwise drill deeper.
+否則鑽得更深。
+
+6
+00:00:12,295 --> 00:00:15,517
+But now inside of a node, the goal is to go
+但現在在節點內部，目標是
+
+7
+00:00:15,581 --> 00:00:17,088
+through all children, of course.
+當然是透過所有的孩子。
+
+8
+00:00:17,745 --> 00:00:21,272
+But if we don't find a value on a child, we
+但如果我們找不到孩子的價值，我們
+
+9
+00:00:21,352 --> 00:00:23,163
+don't want to drill deeper immediately.
+不想立即鑽得更深。
+
+10
+00:00:23,516 --> 00:00:25,552
+Instead, we want to check the other children
+相反，我們想檢查其他孩子
+
+11
+00:00:25,600 --> 00:00:27,812
+first. We want to check all the siblings of
+第一的。我們想檢查所有的兄弟姐妹
+
+12
+00:00:27,844 --> 00:00:30,649
+that child where the value did not match. We
+值不符的那個孩子。我們
+
+13
+00:00:30,649 --> 00:00:32,541
+want to first check all the the siblings
+想要先檢查所有的兄弟姊妹
+
+14
+00:00:33,374 --> 00:00:36,180
+so that we first explore this level of the
+所以我們先探索這個層面
+
+15
+00:00:36,180 --> 00:00:39,209
+tree in breadth before we dig deeper and
+在我們深入挖掘之前，先將樹廣度
+
+16
+00:00:39,305 --> 00:00:41,870
+then do the same in the next branch and on
+然後在下一個分支中執行相同的操作
+
+17
+00:00:41,870 --> 00:00:42,544
+that level there.
+那裡的水平。
+
+18
+00:00:43,634 --> 00:00:44,451
+So therefore here
+所以所以這裡
+
+19
+00:00:45,301 --> 00:00:47,817
+we of course still check that, but I want to
+我們當然仍然會檢查這一點，但我想
+
+20
+00:00:47,946 --> 00:00:50,094
+do that for all children.
+為所有孩子這樣做。
+
+21
+00:00:51,023 --> 00:00:54,534
+So this code here is now moved out of this
+所以這裡的程式碼現在已移出此
+
+22
+00:00:54,534 --> 00:00:56,826
+for loop so that the for loop is able to
+for 迴圈，以便 for 迴圈能夠
+
+23
+00:00:56,858 --> 00:00:59,535
+complete. So first of all, we check all
+完全的。所以首先，我們檢查所有
+
+24
+00:00:59,824 --> 00:01:02,501
+children, so the value of all the children
+孩子，所以所有孩子的價值
+
+25
+00:01:02,549 --> 00:01:05,130
+we have here for this given node, and only
+對於這個給定的節點，我們只有
+
+26
+00:01:05,130 --> 00:01:07,149
+if none of those children has a fitting
+如果這些孩子都沒有合適的
+
+27
+00:01:07,197 --> 00:01:08,991
+value, we move on.
+價值，我們繼續前進。
+
+28
+00:01:10,065 --> 00:01:12,212
+And now when we move on, of course, we want
+現在，當我們繼續前進時，當然，我們想要
+
+29
+00:01:12,228 --> 00:01:15,962
+to drill into the values of all children. So
+深入滲透所有孩子的價值觀。所以
+
+30
+00:01:16,010 --> 00:01:16,859
+essentially,
+本質上，
+
+31
+00:01:17,853 --> 00:01:19,920
+we can add another for loop here where we
+我們可以在這裡新增另一個 for 迴圈
+
+32
+00:01:19,936 --> 00:01:23,077
+again go through all children, but now here
+再次檢查所有孩子，但現在在這裡
+
+33
+00:01:23,205 --> 00:01:23,814
+with the goal
+帶著目標
+
+34
+00:01:24,583 --> 00:01:26,858
+of digging deeper because we know that none
+深入挖掘，因為我們知道沒有
+
+35
+00:01:26,906 --> 00:01:29,070
+of these children has a matching value. We
+這些孩子有一個匹配值。我們
+
+36
+00:01:29,070 --> 00:01:30,707
+checked this first. In our
+首先檢查了這個。在我們的
+
+37
+00:01:31,241 --> 00:01:32,534
+breadth-first approach.
+廣度優先方法。
+
+38
+00:01:33,423 --> 00:01:35,265
+But now that we know this, we of course want
+但既然我們知道了這一點，我們當然想要
+
+39
+00:01:35,265 --> 00:01:38,143
+to drill deeper in all those child elements.
+更深入地研究所有這些子元素。
+
+40
+00:01:38,697 --> 00:01:40,735
+And then for every child, we call find
+然後對於每個孩子，我們調用 find
+
+41
+00:01:40,735 --> 00:01:41,576
+again, and we again
+再次，我們再次
+
+42
+00:01:42,191 --> 00:01:44,715
+first explore all children of that child.
+首先探索該孩子的所有孩子。
+
+43
+00:01:45,087 --> 00:01:46,964
+And only if we don't find a match there, we
+只有當我們在那裡找不到匹配項時，我們
+
+44
+00:01:47,045 --> 00:01:47,595
+dig deeper.
+挖得更深。
+
+45
+00:01:49,253 --> 00:01:51,040
+So this is now breadth-first.
+所以現在這是廣度優先。
+
+46
+00:01:51,571 --> 00:01:53,294
+And with that, if I reload,
+這樣，如果我重新載入，
+
+47
+00:01:53,825 --> 00:01:56,433
+we still find personal, but what we see here
+我們仍然發現個人的，但我們在這裡看到的
+
+48
+00:01:56,433 --> 00:01:57,077
+is quite interesting.
+很有趣。
+
+49
+00:01:57,716 --> 00:02:00,039
+We first check the root node, but then we
+我們先檢查根節點，然後我們
+
+50
+00:02:00,200 --> 00:02:02,218
+already are at the point where we return the
+已經到了我們回傳的點
+
+51
+00:02:02,218 --> 00:02:04,542
+personal node. So we never check the
+個人節點。所以我們從不檢查
+
+52
+00:02:04,622 --> 00:02:06,689
+documents node or anything like that. And
+文檔節點或類似的東西。和
+
+53
+00:02:06,769 --> 00:02:09,237
+with checked, that's not entirely correct. I
+經過檢查，這並不完全正確。我
+
+54
+00:02:09,285 --> 00:02:12,153
+mean, we never executed find on the
+意思是，我們從未在
+
+55
+00:02:12,153 --> 00:02:14,797
+documents node because we console.log here
+文檔節點，因為我們在這裡 console.log
+
+56
+00:02:14,941 --> 00:02:16,976
+if find gets called on a node.
+如果 find 在節點上被呼叫。
+
+57
+00:02:17,537 --> 00:02:20,212
+So this only gets called for the root node
+所以這只會被根節點調用
+
+58
+00:02:20,709 --> 00:02:22,792
+because this here is already the result from
+因為這已經是結果
+
+59
+00:02:22,792 --> 00:02:24,539
+the console.log in line 110.
+console.log 第 110 行。
+
+60
+00:02:25,116 --> 00:02:26,063
+So that's a different log.
+所以這是一個不同的紀錄。
+
+61
+00:02:26,737 --> 00:02:28,583
+And therefore the console.log in the find
+因此找到console.log
+
+62
+00:02:28,583 --> 00:02:31,055
+method only gets called once for the root
+方法只為 root 呼叫一次
+
+63
+00:02:31,055 --> 00:02:33,287
+node. It never gets called for documents or
+節點。它永遠不會被要求提供檔案或
+
+64
+00:02:33,399 --> 00:02:35,550
+games or anything like that. And the reason
+遊戲或類似的東西。以及原因
+
+65
+00:02:35,550 --> 00:02:37,541
+for that is the breadth-first search.
+因為這就是廣度優先搜尋。
+
+66
+00:02:38,135 --> 00:02:40,222
+Here we go through all the children first,
+在這裡我們先檢查所有的孩子，
+
+67
+00:02:40,383 --> 00:02:41,747
+and therefore initially through all the
+因此最初透過所有
+
+68
+00:02:41,747 --> 00:02:44,861
+children of the root node. And only if we
+根節點的子節點。並且只有當我們
+
+69
+00:02:44,878 --> 00:02:46,981
+don't find the value there, we dig deeper.
+在那裡找不到價值，我們會深入研究。
+
+70
+00:02:47,671 --> 00:02:49,533
+So if I would be looking for something else
+所以如果我想尋找其他東西
+
+71
+00:02:49,533 --> 00:02:52,070
+here, let's say if I would be looking for
+在這裡，假設我是否要找
+
+72
+00:02:54,640 --> 00:02:57,081
+cod.exe. If we would be doing that and I
+程式碼.exe。如果我們這樣做的話我
+
+73
+00:02:57,097 --> 00:02:59,474
+reload, now of course we have more logs here
+重新載入，現在當然我們這裡有更多紀錄
+
+74
+00:02:59,927 --> 00:03:01,237
+because now we're exploring this
+因為現在我們正在探索這個
+
+75
+00:03:01,544 --> 00:03:03,858
+breadth-first. But still you see root node
+廣度優先。但你仍然看到根節點
+
+76
+00:03:03,874 --> 00:03:05,964
+first, then we're going through more nodes.
+首先，然後我們將經歷更多的節點。
+
+77
+00:03:06,304 --> 00:03:08,248
+But of course that also is a nested, a
+當然，這也是一個嵌套的、
+
+78
+00:03:08,248 --> 00:03:09,447
+deeply nested value.
+深層嵌套的值。
+
+79
+00:03:11,684 --> 00:03:13,705
+But for personal, we can definitely see a
+但就個人而言，我們絕對可以看到
+
+80
+00:03:13,705 --> 00:03:16,261
+great difference to the depth-first search
+與深度優先搜尋有很大區別
+
+81
+00:03:16,600 --> 00:03:19,673
+where we avoid unnecessary calls of find on
+我們可以避免不必要的 find 調用
+
+82
+00:03:19,770 --> 00:03:20,477
+child nodes.
+子節點。
+
+83
+00:03:21,233 --> 00:03:23,001
+And that of course now leaves one important
+當然，現在還剩下一個重要的問題
+
+84
+00:03:23,001 --> 00:03:24,931
+question: which one is better?
+問題：哪一個比較好？

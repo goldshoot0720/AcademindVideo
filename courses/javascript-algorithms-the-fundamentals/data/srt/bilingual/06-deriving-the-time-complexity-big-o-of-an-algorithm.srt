@@ -1,0 +1,1419 @@
+1
+00:00:02,277 --> 00:00:04,778
+Now it's nice that we know about Big O. Big
+現在很高興我們了解 Big O. Big
+
+2
+00:00:04,826 --> 00:00:07,215
+O is great and we care about the function,
+O 很棒，我們關心功能，
+
+3
+00:00:07,472 --> 00:00:09,925
+not about the concrete numbers. Now you just
+不是關於具體數字。現在你只需
+
+4
+00:00:09,974 --> 00:00:11,850
+learned that for such a linear time
+得知對於這樣一個線性時間
+
+5
+00:00:11,898 --> 00:00:14,079
+complexity, we would refer to
+複雜性，我們會參考
+
+6
+00:00:14,608 --> 00:00:17,943
+O. We would say this solution has a time
+O.我們會說這個解決方案有一個時間
+
+7
+00:00:17,991 --> 00:00:19,723
+complexity of O,
+O 的複雜度，
+
+8
+00:00:20,477 --> 00:00:22,914
+which just means it has linear time
+這只是意味著它有線性時間
+
+9
+00:00:22,962 --> 00:00:23,507
+complexity.
+複雜。
+
+10
+00:00:24,165 --> 00:00:26,907
+But the question is, how can we derive this?
+但問題是，我們要如何得出這個結論呢？
+
+11
+00:00:27,276 --> 00:00:29,781
+Because the goal is not that you learn it by
+因為目標不是讓你透過以下方式學習它
+
+12
+00:00:29,781 --> 00:00:30,102
+heart.
+心。
+
+13
+00:00:30,985 --> 00:00:32,671
+The goal of this course, and that's
+本課程的目標是
+
+14
+00:00:32,671 --> 00:00:35,240
+important, is not that you learn about a
+重要的不是你要了解一個
+
+15
+00:00:35,240 --> 00:00:38,355
+couple of algorithms and you memorize how to
+幾個演算法，你記住如何
+
+16
+00:00:38,355 --> 00:00:40,828
+solve them and you memorize their time
+解決它們，你就能記住它們的時間
+
+17
+00:00:40,860 --> 00:00:41,630
+complexities.
+複雜性。
+
+18
+00:00:42,449 --> 00:00:45,051
+The goal of this course is that by the end
+本課程的目標是到最後
+
+19
+00:00:45,051 --> 00:00:47,876
+of the course, you are able to come up with
+當然，你可以想出
+
+20
+00:00:47,989 --> 00:00:49,000
+algorithms on your own
+自己的演算法
+
+21
+00:00:49,530 --> 00:00:51,104
+and you're able to derive the time
+你就能得到時間
+
+22
+00:00:51,136 --> 00:00:52,308
+complexity on your own.
+複雜性取決於你自己。
+
+23
+00:00:52,902 --> 00:00:55,148
+And of course, you could always use an
+當然，你總是可以使用
+
+24
+00:00:55,148 --> 00:00:56,464
+approach like we did before
+像我們之前那樣接近
+
+25
+00:00:57,137 --> 00:00:59,865
+for logging the start and the end time and
+用於記錄開始和結束時間以及
+
+26
+00:00:59,961 --> 00:01:01,662
+finding the difference, and then you could
+找到差異，然後你就可以
+
+27
+00:01:01,710 --> 00:01:03,571
+try to find the relation.
+試著找出其中的關係。
+
+28
+00:01:04,309 --> 00:01:06,410
+Now, for linear time complexity, that's
+現在，對於線性時間複雜度，那就是
+
+29
+00:01:06,539 --> 00:01:07,389
+fairly easy,
+相當容易，
+
+30
+00:01:07,983 --> 00:01:10,036
+but for other time complexities, it's hard
+但對於其他時間複雜度來說，這很難
+
+31
+00:01:10,132 --> 00:01:12,924
+to see that relation since you always have
+看到這種關係，因為你總是有
+
+32
+00:01:12,972 --> 00:01:15,475
+to keep in mind that the time you see here
+請記住，您在這裡看到的時間
+
+33
+00:01:15,683 --> 00:01:18,090
+is heavily influenced by a couple of other
+深受其他幾個因素的影響
+
+34
+00:01:18,154 --> 00:01:21,670
+factors. So you can't really rely on it to
+因素。所以你不能真正依賴它
+
+35
+00:01:21,702 --> 00:01:21,798
+be
+是
+
+36
+00:01:22,505 --> 00:01:25,106
+very exact or correct, and therefore you
+非常準確或正確，因此您
+
+37
+00:01:25,138 --> 00:01:25,604
+might
+可能
+
+38
+00:01:26,198 --> 00:01:29,875
+accidentally see a linear relationship where
+偶然看到線性關係
+
+39
+00:01:29,875 --> 00:01:31,545
+you just have some distortion
+你只是有一些扭曲
+
+40
+00:01:32,123 --> 00:01:33,600
+and you actually have a different time
+而你實際上有不同的時間
+
+41
+00:01:33,664 --> 00:01:34,226
+complexity.
+複雜。
+
+42
+00:01:34,868 --> 00:01:37,309
+So using these numbers in the browser is not
+所以在瀏覽器中使用這些數字並不是
+
+43
+00:01:37,341 --> 00:01:39,493
+how you should derive Big O and the time
+你應該如何導出大O和時間
+
+44
+00:01:39,589 --> 00:01:40,247
+complexity.
+複雜。
+
+45
+00:01:41,050 --> 00:01:43,153
+The question then, of course, is how should
+當然，接下來的問題是應該如何
+
+46
+00:01:43,153 --> 00:01:43,715
+you derive it?
+你得出它嗎？
+
+47
+00:01:44,582 --> 00:01:46,153
+For that, we use a technique which is called
+為此，我們使用一種稱為
+
+48
+00:01:46,249 --> 00:01:47,996
+asymptotic analysis.
+漸近分析。
+
+49
+00:01:48,750 --> 00:01:50,673
+And it involves 3 simple steps.
+它涉及 3 個簡單的步驟。
+
+50
+00:01:51,635 --> 00:01:52,148
+First of all,
+首先，
+
+51
+00:01:52,741 --> 00:01:55,098
+for a given algorithm, you define its
+對於給定的演算法，您定義它的
+
+52
+00:01:55,242 --> 00:01:55,691
+function.
+功能。
+
+53
+00:01:56,444 --> 00:01:59,538
+Now here, I mean the mathematical function
+現在，我的意思是數學函式
+
+54
+00:01:59,891 --> 00:02:02,921
+you would write to get a graph as we have it
+您可以寫信來取得我們現有的圖表
+
+55
+00:02:02,921 --> 00:02:03,337
+on the left.
+在左側。
+
+56
+00:02:04,219 --> 00:02:06,111
+Now of course, that gives us a new problem
+當然，這給我們帶來了一個新問題
+
+57
+00:02:06,207 --> 00:02:06,383
+though.
+儘管。
+
+58
+00:02:06,928 --> 00:02:09,509
+How do we define that function? How do we
+我們如何定義該函式？我們如何
+
+59
+00:02:09,525 --> 00:02:12,763
+know which function this JavaScript
+知道這個 JavaScript 是哪個函式
+
+60
+00:02:12,795 --> 00:02:15,360
+function, so this code has, what the
+函式，那麼這段程式碼有什麼
+
+61
+00:02:15,360 --> 00:02:16,290
+mathematical
+數學的
+
+62
+00:02:16,948 --> 00:02:19,146
+equation for that would be. Now, one
+其方程式為。現在，一
+
+63
+00:02:19,146 --> 00:02:20,029
+important note here,
+這裡重要的說明，
+
+64
+00:02:20,719 --> 00:02:23,479
+I mean the mathematical equation of its time
+我指的是當時的數學方程
+
+65
+00:02:23,527 --> 00:02:24,281
+complexity.
+複雜。
+
+66
+00:02:24,811 --> 00:02:27,474
+So what would be the math function be for a
+那麼數學函式是什麼呢？
+
+67
+00:02:27,474 --> 00:02:29,881
+graph as we have it on the right here, which
+右邊的圖表，其中
+
+68
+00:02:29,881 --> 00:02:32,609
+is produced by this JavaScript function? How
+是由這個 JavaScript 函式產生的嗎？如何
+
+69
+00:02:32,609 --> 00:02:35,145
+can we translate this JavaScript function
+我們可以翻譯這個 JavaScript 函式嗎
+
+70
+00:02:35,498 --> 00:02:38,788
+into a math function that produces such a
+進入數學函式，產生這樣一個
+
+71
+00:02:38,788 --> 00:02:39,157
+graph?
+圖形？
+
+72
+00:02:39,831 --> 00:02:42,767
+Deriving the mathematical time complexity
+推導數學時間複雜度
+
+73
+00:02:42,799 --> 00:02:45,863
+functions. For JavaScript algorithms sounds
+功能。對於 JavaScript 演算法來說
+
+74
+00:02:46,007 --> 00:02:47,578
+scary, but it isn't hard.
+很可怕，但這並不難。
+
+75
+00:02:48,236 --> 00:02:50,176
+All you need to do in the end is you need to
+最後你需要做的就是
+
+76
+00:02:50,240 --> 00:02:53,992
+count the number of expression executions.
+計算表達式執行的次數。
+
+77
+00:02:54,409 --> 00:02:55,917
+So with that, I mean, you look at your
+所以，我的意思是，你看看你的
+
+78
+00:02:55,949 --> 00:02:58,386
+function, at your algorithm, and then you
+函式，在你的演算法中，然後你
+
+79
+00:02:58,434 --> 00:03:00,086
+look at each expression,
+看每一個表情，
+
+80
+00:03:00,679 --> 00:03:03,373
+so roughly speaking, every line of code in
+粗略地說，每一行程式碼
+
+81
+00:03:03,469 --> 00:03:03,549
+it,
+它，
+
+82
+00:03:04,207 --> 00:03:06,147
+and you count how often that's getting
+你計算一下這種情況發生的頻率
+
+83
+00:03:06,372 --> 00:03:09,450
+executed. Now, of course, by counting this,
+被執行。當然，現在算起來，
+
+84
+00:03:09,563 --> 00:03:12,112
+you will not get the real time in
+你不會得到實時的
+
+85
+00:03:12,208 --> 00:03:14,678
+milliseconds or seconds this function will
+毫秒或秒此函式將
+
+86
+00:03:14,790 --> 00:03:16,958
+take, But as I already mentioned earlier,
+但是正如我之前提到的，
+
+87
+00:03:17,038 --> 00:03:19,336
+that's not what we're interested in anyways.
+無論如何，這不是我們感興趣的。
+
+88
+00:03:19,464 --> 00:03:21,939
+It's way too unreliable and influenced by
+它太不可靠且受到影響
+
+89
+00:03:21,939 --> 00:03:23,272
+too many aspects.
+太多方面。
+
+90
+00:03:24,252 --> 00:03:25,907
+Instead, we simply assume
+相反，我們簡單地假設
+
+91
+00:03:26,598 --> 00:03:29,490
+that every expression in JavaScript takes
+JavaScript 中的每個表達式都採用
+
+92
+00:03:29,715 --> 00:03:31,868
+roughly the same amount of time. If we then
+大致相同的時間。如果我們那麼
+
+93
+00:03:31,900 --> 00:03:35,531
+count the number of expression executions,
+計算表達式執行的次數，
+
+94
+00:03:35,756 --> 00:03:38,198
+so of code line executions we could say,
+因此，對於程式碼行執行，我們可以說，
+
+95
+00:03:38,793 --> 00:03:40,673
+we can easily compare that number to the
+我們可以輕易地將這個數字與
+
+96
+00:03:40,673 --> 00:03:43,048
+number of another. Alternative function.
+另一個的號碼。替代功能。
+
+97
+00:03:43,449 --> 00:03:45,213
+That's the approach we're going to take
+這就是我們要採取的方法
+
+98
+00:03:45,213 --> 00:03:45,325
+here.
+這裡。
+
+99
+00:03:46,255 --> 00:03:48,420
+Now we can have a look at that for a couple
+現在我們可以看看一對夫婦的情況
+
+100
+00:03:48,420 --> 00:03:51,836
+of scenarios. Let's account for n equal to
+場景。讓我們考慮 n 等於
+
+101
+00:03:51,948 --> 00:03:52,092
+1,
+1、
+
+102
+00:03:52,830 --> 00:03:53,648
+n equal to 3,
+n 等於 3，
+
+103
+00:03:54,353 --> 00:03:57,384
+n equal to 10, and then let's see if we can
+n 等於 10，然後我們看看是否可以
+
+104
+00:03:57,496 --> 00:03:59,052
+detect a pattern
+檢測模式
+
+105
+00:03:59,645 --> 00:04:02,756
+for n equal to anything, so to n.
+因為 n 等於任何值，所以 n 等於任何值。
+
+106
+00:04:04,055 --> 00:04:06,941
+For that, I'll add some space here in the
+為此，我將在此處添加一些空間
+
+107
+00:04:06,941 --> 00:04:09,520
+function because that makes annotating it a
+函式，因為這使得註釋它成為
+
+108
+00:04:09,520 --> 00:04:10,066
+bit easier.
+容易一點。
+
+109
+00:04:10,629 --> 00:04:12,686
+And now let's count, and let's start with n
+現在我們來數一下，從 n 開始
+
+110
+00:04:12,798 --> 00:04:16,076
+equal to 1. How often does this first
+等於 1。第一次出現的頻率是多少
+
+111
+00:04:16,156 --> 00:04:18,795
+expression here execute where we initialize
+這裡的表達式在我們初始化的地方執行
+
+112
+00:04:18,827 --> 00:04:20,072
+the result variable?
+結果變數？
+
+113
+00:04:21,640 --> 00:04:22,578
+Well, I'd say
+嗯，我會說
+
+114
+00:04:23,112 --> 00:04:27,575
+for n equal to 1, this executes 1 time. When
+如果 n 等於 1，則執行 1 次。什麼時候
+
+115
+00:04:27,639 --> 00:04:30,156
+this function, the sumUp function, executes,
+這個函式，即 sumUp 函式，執行，
+
+116
+00:04:30,708 --> 00:04:31,796
+this line here,
+這條線在這裡，
+
+117
+00:04:32,332 --> 00:04:35,645
+let result equals 0, is executed exactly
+讓結果等於0，精確執行
+
+118
+00:04:35,742 --> 00:04:35,888
+once.
+一次。
+
+119
+00:04:36,787 --> 00:04:39,065
+Now, how often does this for loop
+現在，這個 for 迴圈多久執行一次
+
+120
+00:04:39,306 --> 00:04:41,777
+initialization run? And important, I really
+初始化運行？重要的是，我真的
+
+121
+00:04:41,777 --> 00:04:44,456
+mean the initialization of the for loop, not
+意思是for迴圈的初始化，不是
+
+122
+00:04:44,504 --> 00:04:45,034
+the body.
+身體。
+
+123
+00:04:46,028 --> 00:04:48,756
+Well, for n equal 1, this runs once. We
+好吧，如果 n 等於 1，則運行一次。我們
+
+124
+00:04:48,756 --> 00:04:50,504
+initialize this for loop once.
+初始化這個 for 迴圈一次。
+
+125
+00:04:51,563 --> 00:04:53,954
+Now, what with the code inside of the loop,
+現在，迴圈內的程式碼怎麼辦？
+
+126
+00:04:54,435 --> 00:04:55,622
+how often does that run?
+運轉頻率是多少？
+
+127
+00:04:57,082 --> 00:04:58,735
+Well, if n is equal to 1,
+那麼，如果 n 等於 1，
+
+128
+00:04:59,585 --> 00:04:59,794
+then
+然後
+
+129
+00:05:00,467 --> 00:05:03,468
+we initialize i to 1, we run this loop, or
+我們將 i 初始化為 1，執行這個迴圈，或者
+
+130
+00:05:03,756 --> 00:05:05,971
+we run through that body in the loop, as
+我們在迴圈中遍歷該主體，如下所示
+
+131
+00:05:06,083 --> 00:05:09,552
+long as i is smaller or equal than 1. And if
+只要 i 小於或等於 1。如果
+
+132
+00:05:09,760 --> 00:05:13,052
+n is equal to 1, that means we execute the
+n 等於 1，這表示我們執行
+
+133
+00:05:13,052 --> 00:05:16,842
+body in the loop exactly once because after
+主體在迴圈中恰好一次，因為之後
+
+134
+00:05:16,842 --> 00:05:19,234
+that first loop iteration, i will be
+第一個迴圈迭代，我將是
+
+135
+00:05:19,250 --> 00:05:20,310
+incremented to 2.
+增加到2。
+
+136
+00:05:21,081 --> 00:05:23,875
+That of course is not smaller or equal than
+這當然不小於或等於
+
+137
+00:05:24,132 --> 00:05:26,942
+n, which is 1, and therefore we'll leave the
+n，為 1，因此我們將保留
+
+138
+00:05:26,942 --> 00:05:27,617
+loop thereafter.
+此後迴圈。
+
+139
+00:05:28,644 --> 00:05:30,427
+And now what about this last expression?
+那麼最後一個表達式又如何呢？
+
+140
+00:05:30,876 --> 00:05:33,783
+This of course also is only executed once.
+這當然也只執行一次。
+
+141
+00:05:34,008 --> 00:05:36,384
+Once we make it out of the loop, we run this
+一旦我們脫離了迴圈，我們就運行這個
+
+142
+00:05:36,416 --> 00:05:36,641
+line.
+線。
+
+143
+00:05:37,556 --> 00:05:40,094
+So that's the case for n equal to 1. Every
+這就是 n 等於 1 的情況。
+
+144
+00:05:40,206 --> 00:05:42,117
+expression in this function runs once.
+此函式中的表達式運行一次。
+
+145
+00:05:42,936 --> 00:05:44,847
+Now what for n equal 3?
+現在 n 等於 3 又怎樣呢？
+
+146
+00:05:46,067 --> 00:05:48,428
+What about that first expression here where
+這裡的第一個表達式怎麼樣？
+
+147
+00:05:48,460 --> 00:05:50,323
+we set the result equal to 0?
+我們將結果設為0？
+
+148
+00:05:51,672 --> 00:05:54,723
+Well, this still only runs once. It doesn't
+好吧，這仍然只運行一次。事實並非如此
+
+149
+00:05:54,739 --> 00:05:57,967
+matter that n is equal to 3. When the sumUp
+只要 n 等於 3 即可。當 sumUp
+
+150
+00:05:58,111 --> 00:06:00,504
+function runs, this line only is reached
+函式運行，僅到達此行
+
+151
+00:06:00,504 --> 00:06:00,841
+once.
+一次。
+
+152
+00:06:01,644 --> 00:06:03,378
+What about the loop initialization?
+那麼迴圈初始化呢？
+
+153
+00:06:04,293 --> 00:06:06,717
+That also is only reached once. We only
+這也只能達到一次。我們只
+
+154
+00:06:06,926 --> 00:06:10,490
+execute this line of code once. Yes, we will
+執行這行程式碼一次。是的，我們會
+
+155
+00:06:10,715 --> 00:06:13,124
+iterate through that loop a bit more, but
+進一步迭代該迴圈，但是
+
+156
+00:06:13,124 --> 00:06:15,468
+the loop initialization, if we wanna count
+迴圈初始化，如果我們想計數
+
+157
+00:06:15,468 --> 00:06:17,186
+it, is only executed once.
+它，只執行一次。
+
+158
+00:06:17,924 --> 00:06:19,819
+But what about the loop body now?
+但是現在迴圈體呢？
+
+159
+00:06:20,814 --> 00:06:24,250
+Well, this does now indeed execute 3 times
+嗯，現在確實執行了 3 次
+
+160
+00:06:24,828 --> 00:06:28,425
+because i is 1 initially, We loop as long as
+因為 i 最初是 1，所以我們迴圈只要
+
+161
+00:06:28,682 --> 00:06:30,723
+i is smaller or equal than n
+i 小於或等於 n
+
+162
+00:06:31,253 --> 00:06:34,931
+and n is 3, which means we loop once, then
+n 為 3，這表示我們迴圈一次，然後
+
+163
+00:06:35,205 --> 00:06:36,442
+we increment i to 2,
+我們將 i 增加到 2，
+
+164
+00:06:37,052 --> 00:06:40,297
+still smaller or equal than 3, so we loop a
+仍然小於或等於 3，所以我們迴圈 a
+
+165
+00:06:40,345 --> 00:06:43,687
+second time. We increment i to 3, that is
+第二次。我們將 i 增加到 3，即
+
+166
+00:06:43,879 --> 00:06:47,365
+still smaller or equal than 3, so we loop a
+仍然小於或等於 3，所以我們迴圈 a
+
+167
+00:06:47,398 --> 00:06:51,317
+third time and only then i is incremented to
+第三次，然後 i 才增加到
+
+168
+00:06:51,349 --> 00:06:53,920
+4, which means we don't execute the loop
+4，這意味著我們不執行迴圈
+
+169
+00:06:53,920 --> 00:06:55,766
+again. So that's now a difference.
+再次。所以現在這是一個區別。
+
+170
+00:06:56,393 --> 00:06:58,544
+And that last expression is still only
+最後的表達仍然只是
+
+171
+00:06:58,641 --> 00:07:00,872
+executed once, of course, because once we're
+當然，執行一次，因為一旦我們
+
+172
+00:07:00,888 --> 00:07:02,992
+out of the loop, we execute that line, but
+在迴圈之外，我們執行該行，但是
+
+173
+00:07:02,992 --> 00:07:04,983
+thereafter the function is done. We don't
+此後該功能完成。我們不
+
+174
+00:07:04,983 --> 00:07:05,882
+run anything else.
+運行其他任何東西。
+
+175
+00:07:07,231 --> 00:07:08,740
+Now for n equal to 10,
+現在，當 n 等於 10 時，
+
+176
+00:07:09,334 --> 00:07:12,353
+it's similar. The first 2 expressions and
+很相似。前 2 個表達式和
+
+177
+00:07:12,449 --> 00:07:15,163
+the return statement are each only executed
+return 語句只被執行
+
+178
+00:07:15,259 --> 00:07:18,214
+once, but now the body inside of the loop is
+一次，但現在迴圈內的主體是
+
+179
+00:07:18,326 --> 00:07:19,739
+executed 10 times.
+執行10次。
+
+180
+00:07:20,316 --> 00:07:21,728
+And therefore you can of course see a
+因此你當然可以看到
+
+181
+00:07:21,856 --> 00:07:25,015
+pattern here. For this algorithm, we can say
+模式在這裡。對於這個演算法，我們可以說
+
+182
+00:07:25,528 --> 00:07:28,976
+that the only dynamic part is the body in
+唯一的動態部位是身體
+
+183
+00:07:28,976 --> 00:07:31,783
+our loop, and the times this body is
+我們的迴圈，以及這個身體的時間
+
+184
+00:07:31,783 --> 00:07:34,685
+executed is exactly the same number as we
+執行的數量與我們完全相同
+
+185
+00:07:34,830 --> 00:07:36,562
+feed into this function here.
+在這裡輸入這個函式。
+
+186
+00:07:37,235 --> 00:07:39,224
+So therefore, for n equal n,
+因此，對於 n 等於 n，
+
+187
+00:07:40,122 --> 00:07:40,378
+the
+這
+
+188
+00:07:40,924 --> 00:07:43,265
+3 expressions here are only executed once,
+這裡的3個表達式只執行一次，
+
+189
+00:07:43,666 --> 00:07:45,735
+but the content in the loop, the code in the
+但是迴圈中的內容，程式碼中
+
+190
+00:07:45,735 --> 00:07:47,645
+loop is executed n times.
+迴圈執行n次。
+
+191
+00:07:48,223 --> 00:07:50,262
+And with that, we can now derive a function.
+這樣，我們現在就可以導出一個函式了。
+
+192
+00:07:51,209 --> 00:07:53,633
+If we wanna express the time complexity here
+如果我們想在這裡表達時間複雜度
+
+193
+00:07:54,243 --> 00:07:55,078
+with T,
+與 T，
+
+194
+00:07:55,929 --> 00:07:56,700
+then we could say
+那我們可以說
+
+195
+00:07:57,294 --> 00:07:59,542
+for the case that n is equal to n, which is
+對於 n 等於 n 的情況，即
+
+196
+00:07:59,542 --> 00:08:01,934
+of course the case we wanna consider because
+當然我們要考慮這種情況，因為
+
+197
+00:08:02,271 --> 00:08:04,262
+the user is able to feed any number in,
+使用者可以輸入任何數字，
+
+198
+00:08:05,016 --> 00:08:07,280
+then we could say the number of code
+那我們可以說程式碼的數量
+
+199
+00:08:07,280 --> 00:08:09,560
+executions we get for this function is 1+
+我們得到的這個函式的執行次數是 1+
+
+200
+00:08:10,138 --> 00:08:10,266
+1+
+1+
+
+201
+00:08:11,181 --> 00:08:11,230
+n+
+n+
+
+202
+00:08:12,064 --> 00:08:12,193
+1.
+1.
+
+203
+00:08:13,846 --> 00:08:15,963
+Now of course we can sum this up to 3 plus
+現在我們當然可以將其加起來為 3+
+
+204
+00:08:16,076 --> 00:08:19,108
+n, and we could rewrite this as 3 plus 1
+n，我們可以將其重寫為 3 加 1
+
+205
+00:08:19,204 --> 00:08:19,653
+times n.
+次 n.
+
+206
+00:08:20,327 --> 00:08:22,766
+1 times n simply because, well, just n is
+1 乘以 n 只是因為 n 是
+
+207
+00:08:22,814 --> 00:08:24,916
+the same as 1 times n, and you'll see in a
+與 1 乘以 n 相同，你會看到
+
+208
+00:08:24,932 --> 00:08:26,488
+second why I'm writing it like this.
+第二，為什麼我要這樣寫。
+
+209
+00:08:27,242 --> 00:08:29,456
+This is in the end a mathematical function
+這最終是一個數學函式
+
+210
+00:08:29,809 --> 00:08:31,718
+that would describe the number of code
+這將描述程式碼的數量
+
+211
+00:08:31,718 --> 00:08:33,981
+executions we have for this JavaScript
+我們對此 JavaScript 的執行
+
+212
+00:08:33,981 --> 00:08:34,350
+function.
+功能。
+
+213
+00:08:35,088 --> 00:08:38,617
+Now it does not describe the absolute amount
+現在它沒有描述絕對數量
+
+214
+00:08:38,633 --> 00:08:41,008
+of milliseconds or seconds this function
+此函式的毫秒或秒數
+
+215
+00:08:41,040 --> 00:08:43,608
+takes But as I said, that is hard to
+但正如我所說，這很難
+
+216
+00:08:43,608 --> 00:08:44,861
+quantify anyways.
+無論如何量化。
+
+217
+00:08:45,615 --> 00:08:46,627
+But if we assume
+但如果我們假設
+
+218
+00:08:47,205 --> 00:08:50,561
+that every line of code execution roughly
+每行程式碼執行大致
+
+219
+00:08:50,577 --> 00:08:52,199
+takes the same amount of time, you could
+花費相同的時間，你可以
+
+220
+00:08:52,199 --> 00:08:52,391
+say,
+說，
+
+221
+00:08:53,323 --> 00:08:54,559
+if we assume that,
+如果我們假設，
+
+222
+00:08:55,153 --> 00:08:58,188
+then of course we can use such an equation
+那我們當然可以用這樣的方程
+
+223
+00:08:58,637 --> 00:08:59,858
+to compare this
+比較這個
+
+224
+00:09:00,612 --> 00:09:02,684
+algorithm to other algorithms.
+演算法到其他演算法。
+
+225
+00:09:03,663 --> 00:09:04,177
+However,
+然而，
+
+226
+00:09:04,723 --> 00:09:06,907
+we don't even need to be that exact.
+我們甚至不需要那麼精確。
+
+227
+00:09:07,757 --> 00:09:10,566
+After all, if you always count all code
+畢竟，如果你總是計算所有程式碼
+
+228
+00:09:10,566 --> 00:09:11,352
+executions,
+處決，
+
+229
+00:09:11,946 --> 00:09:14,963
+you have a slower algorithm just by adding
+只需添加即可獲得較慢的演算法
+
+230
+00:09:15,139 --> 00:09:17,338
+an additional line of code in there, right?
+那裡多了一行程式碼，對嗎？
+
+231
+00:09:17,402 --> 00:09:19,312
+Because we would have to count that, and
+因為我們必須計算這個，並且
+
+232
+00:09:19,392 --> 00:09:21,671
+therefore we would have a different
+因此我們會有不同的
+
+233
+00:09:21,719 --> 00:09:23,902
+mathematical function because we added one
+數學函式，因為我們加了一個
+
+234
+00:09:23,902 --> 00:09:24,560
+extra line.
+額外的線。
+
+235
+00:09:25,105 --> 00:09:27,192
+But of course, the big picture wouldn't
+但當然，大局不會
+
+236
+00:09:27,192 --> 00:09:28,973
+really be changed. That's why we don't have
+真的要改變了。這就是為什麼我們沒有
+
+237
+00:09:28,973 --> 00:09:30,963
+to be that exact, because we don't really
+準確地說，因為我們並不真正
+
+238
+00:09:31,027 --> 00:09:32,969
+care about the exact number of code
+關心程式碼的確切數量
+
+239
+00:09:32,969 --> 00:09:33,627
+executions.
+處決。
+
+240
+00:09:34,236 --> 00:09:35,085
+As mentioned before,
+如同前面所提到的，
+
+241
+00:09:35,614 --> 00:09:38,066
+we instead care about the general function,
+相反，我們關心一般功能，
+
+242
+00:09:38,338 --> 00:09:41,030
+the kind of function to be precise, the
+準確地說，函式的型別是
+
+243
+00:09:41,126 --> 00:09:43,402
+trend, the growth rate implied by that
+趨勢，即該趨勢所隱含的成長率
+
+244
+00:09:43,466 --> 00:09:43,883
+function.
+功能。
+
+245
+00:09:45,084 --> 00:09:47,296
+So therefore, when we define that function,
+因此，當我們定義該函式時，
+
+246
+00:09:47,312 --> 00:09:49,619
+we don't need the exact function with the
+我們不需要確切的函式
+
+247
+00:09:49,619 --> 00:09:53,048
+exact numbers. Instead, we can generalize
+確切的數字。相反，我們可以概括
+
+248
+00:09:53,144 --> 00:09:55,404
+that, and therefore we could also write a
+因此我們也可以寫一個
+
+249
+00:09:55,564 --> 00:09:59,025
+times n plus b. I replaced the concrete
+乘以 n 加 b。我更換了混凝土
+
+250
+00:09:59,025 --> 00:10:02,456
+numbers 1 and 3 with coefficients simply
+數字 1 和 3 帶有係數
+
+251
+00:10:02,456 --> 00:10:04,861
+because the concrete numbers don't matter.
+因為具體數字並不重要。
+
+252
+00:10:05,182 --> 00:10:07,330
+It's the big picture that matters to us
+對我們來說重要的是大局
+
+253
+00:10:07,330 --> 00:10:09,639
+here. Which kind of function is this? And
+這裡。這是一個什麼樣的函式呢？和
+
+254
+00:10:09,655 --> 00:10:10,890
+this is a linear function.
+這是一個線性函式。
+
+255
+00:10:11,756 --> 00:10:14,225
+Okay, so now we got the general mathematical
+好的，現在我們得到了一般的數學知識
+
+256
+00:10:14,241 --> 00:10:16,278
+function. And no worries, we'll of course
+功能。不用擔心，我們當然會
+
+257
+00:10:16,583 --> 00:10:19,196
+see this process of deriving the function
+看看這個函式的推導過程
+
+258
+00:10:19,196 --> 00:10:21,537
+and so on for other algorithms in this
+對於此中的其他演算法依此類推
+
+259
+00:10:21,537 --> 00:10:22,147
+course as well.
+當然也是如此。
+
+260
+00:10:22,756 --> 00:10:23,975
+So we got this function now.
+所以我們現在有了這個功能。
+
+261
+00:10:24,648 --> 00:10:27,759
+Now in order to derive this Big O notation,
+現在為了導出這個大O符號，
+
+262
+00:10:28,176 --> 00:10:31,525
+we need to find the fastest growing term in
+我們需要找到成長最快的術語
+
+263
+00:10:31,557 --> 00:10:34,362
+that function. And here, that's easy. That
+那個功能。在這裡，這很容易。那
+
+264
+00:10:34,362 --> 00:10:37,167
+is a times n, because b is a constant
+是 a 乘以 n，因為 b 是常數
+
+265
+00:10:37,167 --> 00:10:39,330
+coefficient which doesn't grow at all. It's
+根本不成長的係數。它是
+
+266
+00:10:39,555 --> 00:10:41,189
+always exactly the same number.
+總是完全相同的數字。
+
+267
+00:10:41,878 --> 00:10:44,347
+a times n, on the other hand, depends on n,
+另一方面，a 乘以 n 取決於 n，
+
+268
+00:10:44,763 --> 00:10:47,840
+and for a bigger n, that term is bigger.
+n 越大，該項越大。
+
+269
+00:10:49,042 --> 00:10:51,398
+So now that we found this fastest growing
+現在我們發現這個成長最快的
+
+270
+00:10:51,510 --> 00:10:51,847
+term,
+學期，
+
+271
+00:10:52,392 --> 00:10:55,197
+we remove the coefficient from that term,
+我們從該項中刪除係數，
+
+272
+00:10:55,277 --> 00:10:57,520
+because again, we don't care about the exact
+因為我們不關心具體的情況
+
+273
+00:10:57,520 --> 00:11:00,425
+numbers. We care about the general picture,
+數字。我們關心整體情況，
+
+274
+00:11:00,489 --> 00:11:02,784
+the big picture, the general kind of
+整體情況，一般情況
+
+275
+00:11:02,881 --> 00:11:03,266
+function.
+功能。
+
+276
+00:11:04,502 --> 00:11:07,135
+This process here is called asymptotic
+這個過程在這裡被稱為漸近
+
+277
+00:11:07,215 --> 00:11:07,921
+analysis.
+分析。
+
+278
+00:11:08,659 --> 00:11:11,324
+Now we narrowed this down to basically this
+現在我們將範圍縮小到基本上是這樣
+
+279
+00:11:11,324 --> 00:11:14,021
+function. We can clearly see that the time
+功能。我們可以清楚地看到時間
+
+280
+00:11:14,117 --> 00:11:15,787
+complexity depends on n.
+複雜性取決於n。
+
+281
+00:11:16,621 --> 00:11:16,750
+Well,
+出色地，
+
+282
+00:11:17,328 --> 00:11:20,008
+and that n is simply what you put between
+n 只是你放在之間的東西
+
+283
+00:11:20,008 --> 00:11:22,705
+the parentheses of the Big O notation. That
+大 O 表示法的括號。那
+
+284
+00:11:22,705 --> 00:11:24,294
+is why it's Big O of n.
+這就是為什麼它是大O of n。

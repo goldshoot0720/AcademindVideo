@@ -1,0 +1,359 @@
+1
+00:00:02,119 --> 00:00:04,561
+So we're not fully convinced by the time
+所以我們當時還沒有完全相信
+
+2
+00:00:04,609 --> 00:00:07,709
+complexity we have with our current priority
+目前優先事項的複雜性
+
+3
+00:00:07,725 --> 00:00:10,519
+queue. We might be able to do better than
+佇列。我們或許可以做得更好
+
+4
+00:00:10,551 --> 00:00:13,603
+linear time in the worst case insert
+最壞情況下的線性時間插入
+
+5
+00:00:13,603 --> 00:00:14,213
+operation.
+手術。
+
+6
+00:00:15,032 --> 00:00:18,100
+And therefore, let me introduce the other
+因此，讓我介紹另一個
+
+7
+00:00:18,260 --> 00:00:21,729
+big topic of this course section, heaps.
+本課程部分的大主題是堆。
+
+8
+00:00:22,516 --> 00:00:25,407
+We can actually use a heap to build our
+我們實際上可以使用堆來建造我們的
+
+9
+00:00:25,407 --> 00:00:28,957
+priority queue to get a better insert time.
+優先佇列以獲得更好的插入時間。
+
+10
+00:00:29,503 --> 00:00:30,789
+Now what is a heap though?
+那什麼是堆呢？
+
+11
+00:00:31,672 --> 00:00:35,191
+There are 2 main kinds of heaps and that
+有兩種主要型別的堆
+
+12
+00:00:35,191 --> 00:00:37,199
+would be min-heaps and max-heaps.
+將是最小堆和最大堆。
+
+13
+00:00:38,002 --> 00:00:40,717
+Min-heaps are trees where the parent node
+最小堆是父節點所在的樹
+
+14
+00:00:40,749 --> 00:00:41,280
+values
+價值觀
+
+15
+00:00:42,019 --> 00:00:45,537
+are smaller or equal than the child node
+小於或等於子節點
+
+16
+00:00:45,569 --> 00:00:46,019
+values.
+價值觀。
+
+17
+00:00:46,758 --> 00:00:48,911
+And for a max-heap, it's the other way
+對於最大堆，則是另一種方式
+
+18
+00:00:48,927 --> 00:00:49,393
+around.
+大約。
+
+19
+00:00:49,987 --> 00:00:52,397
+Here is how a min-heap could look like. This
+這是最小堆的樣子。這
+
+20
+00:00:52,397 --> 00:00:53,345
+is a min-heap tree.
+是一棵最小堆樹。
+
+21
+00:00:54,630 --> 00:00:57,407
+It has a root node of 3, let's say,
+它的根節點為 3，比方說，
+
+22
+00:00:58,017 --> 00:01:00,603
+and because it's a min heap, the parent node
+因為它是一個最小堆，所以父節點
+
+23
+00:01:00,667 --> 00:01:03,525
+value has to be smaller than the child node
+值必須小於子節點
+
+24
+00:01:03,718 --> 00:01:06,752
+values. So the child node level would look
+價值觀。所以子節點層級看起來
+
+25
+00:01:06,752 --> 00:01:09,819
+like this. These are values bigger than 3.
+像這樣。這些值大於 3。
+
+26
+00:01:10,461 --> 00:01:12,629
+Well, and then it continues like that. The
+嗯，然後就這樣繼續下去。這
+
+27
+00:01:12,629 --> 00:01:15,808
+next level has bigger values than the level
+下一個級別的值比該級別更大
+
+28
+00:01:16,145 --> 00:01:16,515
+before.
+前。
+
+29
+00:01:17,189 --> 00:01:20,221
+This is a min heap. And a max heap is
+這是一個最小堆。最大堆是
+
+30
+00:01:20,253 --> 00:01:22,865
+basically just the opposite. There you would
+基本上正好相反。在那裡你會
+
+31
+00:01:22,881 --> 00:01:25,027
+have the biggest value at the top and the
+在頂部和底部具有最大的值
+
+32
+00:01:25,027 --> 00:01:26,742
+smallest value at the bottom.
+最小值在底部。
+
+33
+00:01:27,286 --> 00:01:29,754
+Now this heap specifically, which you see on
+現在具體來說就是這個堆，你可以在上面看到
+
+34
+00:01:29,802 --> 00:01:33,038
+this slide, is a binary heap, a very common
+這張投影片，是二元堆，一個很常見的
+
+35
+00:01:33,230 --> 00:01:37,075
+heap form. There we have only 2 child nodes
+堆形式。那裡我們只有 2 個子節點
+
+36
+00:01:37,316 --> 00:01:40,103
+per level, as you can see. So it's a bit
+如您所見，每個級別。所以有點
+
+37
+00:01:40,103 --> 00:01:43,564
+like a binary search tree in regards to the
+就像二元搜尋樹一樣
+
+38
+00:01:43,564 --> 00:01:46,704
+amount of children per node, but it doesn't
+每個節點的子節點數量，但事實並非如此
+
+39
+00:01:46,704 --> 00:01:48,803
+have anything else in common with that in
+與此有其他共同點
+
+40
+00:01:48,851 --> 00:01:51,337
+the end. For example, here, as you can see,
+結束。例如，在这里，如您所见，
+
+41
+00:01:51,578 --> 00:01:53,985
+the left child is not smaller than the
+左孩子不小於
+
+42
+00:01:53,985 --> 00:01:56,457
+parent. Indeed, that would be horrible
+父母。確實，這將是可怕的
+
+43
+00:01:56,713 --> 00:01:59,409
+because the entire idea behind a heap is
+因為堆背後的整個想法是
+
+44
+00:01:59,602 --> 00:02:02,378
+that the parent is smaller or bigger than
+父級小於或大於
+
+45
+00:02:02,635 --> 00:02:05,925
+all its children. So we don't have that left
+它的所有孩子。所以我們沒有剩下的了
+
+46
+00:02:05,957 --> 00:02:09,455
+is smaller, right is bigger differentiation.
+越小，右邊的差異越大。
+
+47
+00:02:09,937 --> 00:02:13,676
+All children are smaller or all children are
+所有孩子都較小或所有孩子都較小
+
+48
+00:02:13,884 --> 00:02:16,051
+bigger. That's the idea behind a heap.
+大。這就是堆背後的想法。
+
+49
+00:02:17,478 --> 00:02:20,330
+And now that we see this heap tree here,
+現在我們在這裡看到了這棵堆樹，
+
+50
+00:02:20,859 --> 00:02:23,071
+you might see how this could help us with
+您可能會看到這如何幫助我們
+
+51
+00:02:23,263 --> 00:02:24,369
+priority queues.
+優先權佇列。
+
+52
+00:02:24,962 --> 00:02:27,863
+Since we always have bigger values or
+因為我們總是有更大的價值觀或
+
+53
+00:02:28,007 --> 00:02:30,843
+smaller values depending on which kind of
+較小的值取決於哪種型別
+
+54
+00:02:30,859 --> 00:02:31,485
+heap we build
+我們建造的堆
+
+55
+00:02:32,142 --> 00:02:35,299
+at the top, we can easily add new items with
+在頂部，我們可以輕鬆新增專案
+
+56
+00:02:35,347 --> 00:02:37,895
+a high priority and we know that they will
+高度優先，我們知道他們會
+
+57
+00:02:37,927 --> 00:02:39,161
+be at the top. Or
+處於頂部。或者
+
+58
+00:02:40,075 --> 00:02:42,398
+if we use a min heap, a low priority would
+如果我們使用最小堆，則優先順序較低
+
+59
+00:02:42,414 --> 00:02:45,283
+be at the top. Whatever our ordering logic
+處於頂部。無論我們的訂購邏輯為何
+
+60
+00:02:45,363 --> 00:02:48,633
+is with a heap, we have easy access to those
+是有一個堆，我們可以很容易地訪問那些
+
+61
+00:02:48,889 --> 00:02:52,207
+extreme values. So either to the big or to
+極端值。所以要嘛去大，要嘛去
+
+62
+00:02:52,207 --> 00:02:54,596
+the small ones. And that's exactly what we
+小的。這正是我們所做的
+
+63
+00:02:54,596 --> 00:02:56,054
+need with a priority queue.
+需要一個優先權佇列。
+
+64
+00:02:56,599 --> 00:02:59,468
+We wanna put the unimportant items to the
+我們想把不重要的東西放到
+
+65
+00:02:59,565 --> 00:03:02,290
+bottom of that tree, so to say, and put the
+可以這麼說，在那棵樹的底部，然後把
+
+66
+00:03:02,290 --> 00:03:04,117
+important items to the top.
+重要專案置頂。
+
+67
+00:03:05,014 --> 00:03:08,028
+Now what's interesting is how we can build
+現在有趣的是我們如何建構
+
+68
+00:03:08,156 --> 00:03:11,153
+such a heap tree because it's actually built
+這樣的堆樹因為它是實際建造的
+
+69
+00:03:11,169 --> 00:03:13,830
+differently than our other trees, as you
+與我們其他的樹不同，因為您
+
+70
+00:03:13,830 --> 00:03:14,311
+will see.
+會看到的。
+
+71
+00:03:15,860 --> 00:03:18,283
+So let's switch back to code and let's
+那麼讓我們切換回程式碼，讓我們
+
+72
+00:03:18,332 --> 00:03:19,818
+slowly build up a heap.
+慢慢堆積成一堆。

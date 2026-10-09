@@ -1,0 +1,1469 @@
+1
+00:00:02,133 --> 00:00:05,276
+Now we know why hash tables are useful, why
+現在我們知道為什麼雜湊表有用了，為什麼
+
+2
+00:00:05,325 --> 00:00:08,276
+we need such table-like data structures, and
+我們需要這樣的表狀資料結構，並且
+
+3
+00:00:08,292 --> 00:00:10,553
+the hash table is really just how you can
+雜湊表確實就是這樣
+
+4
+00:00:10,553 --> 00:00:12,639
+efficiently build such a table data
+有效率地建構這樣一個表資料
+
+5
+00:00:12,639 --> 00:00:13,184
+structure.
+結構。
+
+6
+00:00:13,809 --> 00:00:15,959
+Now JavaScript, as I already mentioned
+現在是 JavaScript，正如我已經提到的
+
+7
+00:00:16,071 --> 00:00:18,798
+multiple times, comes with a built-in table
+多次使用，配有內置桌子
+
+8
+00:00:18,798 --> 00:00:20,947
+structure, and that would be the JavaScript
+結構，這就是 JavaScript
+
+9
+00:00:21,027 --> 00:00:23,802
+object, which already is a key-value store,
+物件，它已經是一個鍵值存儲，
+
+10
+00:00:24,315 --> 00:00:26,160
+but under the hood, the object in the end
+但在幕後，物體最終
+
+11
+00:00:26,160 --> 00:00:28,886
+just is built with such a hash table. So
+就是用這樣的雜湊表建構的。所以
+
+12
+00:00:28,886 --> 00:00:31,499
+let's now build our own hash table to
+現在讓我們建立自己的雜湊表
+
+13
+00:00:31,547 --> 00:00:33,759
+understand what the JavaScript object does
+了解 JavaScript 物件的作用
+
+14
+00:00:34,112 --> 00:00:34,801
+behind the scenes.
+在幕後。
+
+15
+00:00:35,635 --> 00:00:37,559
+Now for the hash table, you learned that in
+現在對於雜湊表，您了解到
+
+16
+00:00:37,559 --> 00:00:39,418
+the end it's just an array that works with
+最後它只是一個可以使用的陣列
+
+17
+00:00:39,482 --> 00:00:40,364
+indexes, you could say,
+索引，你可以說，
+
+18
+00:00:40,909 --> 00:00:42,993
+but that we have a hashing function that
+但我們有一個雜湊函式
+
+19
+00:00:42,993 --> 00:00:45,654
+translates keys which we as a developer want
+翻譯我們作為開發人員想要的金鑰
+
+20
+00:00:45,654 --> 00:00:46,311
+to work with
+一起工作
+
+21
+00:00:46,920 --> 00:00:49,148
+into indexes which then can be stored.
+到可以儲存的索引中。
+
+22
+00:00:49,806 --> 00:00:51,906
+So therefore, we'll now need to build the
+因此，我們現在需要建構
+
+23
+00:00:51,906 --> 00:00:54,871
+hashing function on our own and then build a
+我們自己的雜湊函式，然後建立一個
+
+24
+00:00:54,871 --> 00:00:56,362
+couple of functions that allow us to
+幾個函式使我們能夠
+
+25
+00:00:56,378 --> 00:00:58,526
+interact with that hashing function and with
+與該雜湊函式交互並與
+
+26
+00:00:58,558 --> 00:01:01,285
+the underlying hash table array. Before we
+底層雜湊表陣列。在我們之前
+
+27
+00:01:01,285 --> 00:01:03,823
+do that, however, let me clarify one thing.
+然而，這樣做讓我澄清一件事。
+
+28
+00:01:04,642 --> 00:01:07,163
+Why do we need to translate the key into
+為什麼我們需要將金鑰翻譯成
+
+29
+00:01:07,163 --> 00:01:10,006
+such an index, into such a hash? Why don't
+這樣的索引，變成這樣的雜湊？為什麼不
+
+30
+00:01:10,102 --> 00:01:11,998
+we just use the key itself
+我們只使用金鑰本身
+
+31
+00:01:12,592 --> 00:01:13,491
+as an index?
+作為索引？
+
+32
+00:01:14,214 --> 00:01:16,912
+Now, there are multiple reasons for that.
+現在，造成這種情況的原因有很多。
+
+33
+00:01:17,587 --> 00:01:19,338
+Depending on the programming language you're
+取決於您使用的程式語言
+
+34
+00:01:19,434 --> 00:01:20,028
+working with,
+與,
+
+35
+00:01:20,622 --> 00:01:24,461
+you simply might not be able to use a string
+你可能根本無法使用字串
+
+36
+00:01:24,654 --> 00:01:24,959
+key
+鑰匙
+
+37
+00:01:25,521 --> 00:01:28,570
+as an index. If you just have something like
+作為索引。如果你有類似的東西
+
+38
+00:01:28,650 --> 00:01:31,745
+a default array where the index values are
+一個預設陣列，其中索引值為
+
+39
+00:01:31,889 --> 00:01:35,128
+numbers, you can't just use a string. So
+數字，不能只使用字串。所以
+
+40
+00:01:35,144 --> 00:01:36,828
+then you would need a function that
+那你需要一個函式
+
+41
+00:01:36,828 --> 00:01:39,730
+translates your string into such an index.
+將您的字串轉換為這樣的索引。
+
+42
+00:01:40,291 --> 00:01:42,328
+But there also is another reason.
+但還有另一個原因。
+
+43
+00:01:43,162 --> 00:01:46,032
+If you just take the key which is provided
+如果您只拿提供的鑰匙
+
+44
+00:01:46,064 --> 00:01:49,191
+by the user and you use that as an index,
+由使用者建立並使用它作為索引，
+
+45
+00:01:49,576 --> 00:01:51,131
+let's assume that would be possible.
+讓我們假設這是可能的。
+
+46
+00:01:51,740 --> 00:01:53,937
+If you would do that, there is the danger
+如果你這樣做，就會有危險
+
+47
+00:01:54,242 --> 00:01:57,113
+that you have a hash table
+你有一個雜湊表
+
+48
+00:01:57,771 --> 00:02:01,188
+where your index values, where your keys
+你的索引值在哪裡，你的鍵在哪裡
+
+49
+00:02:01,765 --> 00:02:04,958
+are not spread out evenly. Now, it really
+分佈不均勻。現在，真的是
+
+50
+00:02:04,990 --> 00:02:08,278
+depends on the environment and the exact use
+取決於環境和特定用途
+
+51
+00:02:08,278 --> 00:02:11,134
+case whether that matters, but it could lead
+情況是否重要，但它可能會導致
+
+52
+00:02:11,391 --> 00:02:15,016
+to inefficient memory usage, storage, and
+低效的記憶體使用、儲存和
+
+53
+00:02:15,016 --> 00:02:17,470
+therefore to performance disadvantages
+因此導致性能劣勢
+
+54
+00:02:18,128 --> 00:02:20,551
+if your keys are not spread out evenly
+如果你的鑰匙分佈不均勻
+
+55
+00:02:21,112 --> 00:02:24,096
+in memory, so to say. Now it's really a bit
+可以這麼說，在記憶中。現在確實有點
+
+56
+00:02:24,144 --> 00:02:26,856
+too advanced to really take a deep dive into
+太高級了，無法真正深入研究
+
+57
+00:02:27,193 --> 00:02:29,182
+all the details here, since that really
+所有細節都在這裡，因為那真的
+
+58
+00:02:29,278 --> 00:02:30,706
+leads us down the road to
+帶領我們走上通往
+
+59
+00:02:31,284 --> 00:02:33,915
+how computers work internally, how memory is
+電腦內部如何運作，記憶體如何
+
+60
+00:02:33,963 --> 00:02:36,867
+utilized, and that again depends way too
+利用，這也取決於方式
+
+61
+00:02:36,883 --> 00:02:39,931
+much also on the exact environment in which
+也很大程度取決於具體的環境
+
+62
+00:02:40,027 --> 00:02:41,616
+you're running, on your programming
+你正在運行，正在程式設計
+
+63
+00:02:41,648 --> 00:02:42,642
+language, and so on.
+語言等等。
+
+64
+00:02:43,412 --> 00:02:45,225
+The important takeaway just is that there
+重要的一點是
+
+65
+00:02:45,322 --> 00:02:48,596
+might be good reasons for having well-spread
+可能是廣傳的好理由
+
+66
+00:02:48,612 --> 00:02:52,032
+out index values and therefore we might not
+出索引值，因此我們可能不會
+
+67
+00:02:52,224 --> 00:02:54,745
+want to take the keys provided by the user.
+想要取得使用者提供的密鑰。
+
+68
+00:02:55,275 --> 00:02:57,185
+And in addition, there might be technical
+另外，可能還有技術方面的
+
+69
+00:02:57,282 --> 00:02:59,642
+reasons that simply don't allow us to take
+根本不允許我們採取的原因
+
+70
+00:02:59,722 --> 00:03:01,199
+strings as keys.
+字串作為鍵。
+
+71
+00:03:01,937 --> 00:03:04,506
+In the end, you also must not forget that if
+最後，您也一定不要忘記，如果
+
+72
+00:03:04,506 --> 00:03:05,052
+you really
+你真的
+
+73
+00:03:05,726 --> 00:03:08,054
+dig down into how a computer works,
+深入研究電腦的工作原理，
+
+74
+00:03:08,632 --> 00:03:10,912
+it works just with zeros and ones.
+它只適用於零和一。
+
+75
+00:03:11,586 --> 00:03:13,818
+So ultimately, of course, it depends on the
+當然，最終這取決於
+
+76
+00:03:13,914 --> 00:03:15,777
+programming language you're working with
+您正在使用的程式語言
+
+77
+00:03:16,082 --> 00:03:19,424
+which features you can use and which kind of
+您可以使用哪些功能以及哪種功能
+
+78
+00:03:19,617 --> 00:03:21,625
+data structures are built into the
+資料結構內建於
+
+79
+00:03:21,625 --> 00:03:22,509
+programming language.
+程式設計語言.
+
+80
+00:03:23,393 --> 00:03:24,485
+Again, back in
+再一次，回到
+
+81
+00:03:25,064 --> 00:03:27,843
+app.js, in an empty JavaScript file, let's
+app.js，在一個空的 JavaScript 檔案中，讓我們
+
+82
+00:03:27,972 --> 00:03:30,800
+build our own hash table data structure.
+建立我們自己的雜湊表資料結構。
+
+83
+00:03:30,960 --> 00:03:33,612
+I'll again build it as a class and I'll name
+我將再次將其建構為一個類，我將命名
+
+84
+00:03:33,660 --> 00:03:34,704
+it Hashtable.
+它是雜湊表。
+
+85
+00:03:35,829 --> 00:03:38,223
+And in this class, we'll need a constructor
+在這個類別中，我們需要一個建構函式
+
+86
+00:03:38,335 --> 00:03:40,553
+function, a constructor method, which does
+function，一個建構函式方法，它的作用是
+
+87
+00:03:40,762 --> 00:03:42,582
+something when we call new
+當我們呼叫 new 時的東西
+
+88
+00:03:43,244 --> 00:03:45,731
+Hashtable, which we of course wanna call to
+雜湊表，我們當然想要呼叫它
+
+89
+00:03:45,763 --> 00:03:47,201
+create such a new table
+建立這樣一個新表
+
+90
+00:03:49,138 --> 00:03:49,429
+like this.
+像這樣。
+
+91
+00:03:50,508 --> 00:03:53,609
+Actually, we can grab our algorithm from
+實際上，我們可以從中獲得我們的演算法
+
+92
+00:03:53,625 --> 00:03:56,581
+before, this first grab object JavaScript
+之前，這首先抓取 JavaScript 物件
+
+93
+00:03:56,581 --> 00:03:57,979
+file into which I saved it now,
+我現在將其儲存到的檔案，
+
+94
+00:03:58,605 --> 00:04:01,574
+copy that and move that into app.js.
+複製它並將其移至 app.js 中。
+
+95
+00:04:02,303 --> 00:04:04,864
+And in here now I'll create that table here
+現在我將在這裡建立該表
+
+96
+00:04:05,318 --> 00:04:05,772
+with new
+與新的
+
+97
+00:04:06,518 --> 00:04:09,047
+Hashtable instead of the built-in JavaScript
+Hashtable 取代內建 JavaScript
+
+98
+00:04:09,111 --> 00:04:11,398
+object to really show you how that works and
+反對真正向您展示它是如何工作的並且
+
+99
+00:04:11,398 --> 00:04:12,074
+how we can use our own hash table.
+我們如何使用我們自己的雜湊表。
+
+100
+00:04:14,677 --> 00:04:16,923
+Okay, so this code won't run right now, but
+好的，所以這段程式碼現在不會運行，但是
+
+101
+00:04:16,939 --> 00:04:19,232
+we'll make it work once we implemented our
+一旦我們實施了我們的計劃，我們就會讓它發揮作用
+
+102
+00:04:19,264 --> 00:04:19,921
+hash table.
+雜湊表。
+
+103
+00:04:20,803 --> 00:04:21,894
+So what should happen here in the
+那麼這裡應該發生什麼
+
+104
+00:04:21,894 --> 00:04:22,423
+constructor?
+建構子？
+
+105
+00:04:23,176 --> 00:04:25,357
+As I mentioned, under the hood, a hash table
+正如我所提到的，在底層，有一個雜湊表
+
+106
+00:04:25,357 --> 00:04:27,249
+is really just an array that works with
+實際上只是一個可以使用的陣列
+
+107
+00:04:27,346 --> 00:04:27,763
+indexes.
+索引。
+
+108
+00:04:28,580 --> 00:04:30,184
+So we can create our
+所以我們可以創建我們的
+
+109
+00:04:30,874 --> 00:04:33,824
+table, or how it's often called, we can
+表，或它通常的稱呼，我們可以
+
+110
+00:04:33,840 --> 00:04:35,299
+create a couple of buckets here,
+在這裡創建幾個桶，
+
+111
+00:04:36,727 --> 00:04:37,945
+which is in the end just our array,
+這最終就是我們的陣列，
+
+112
+00:04:38,587 --> 00:04:40,383
+by calling the built-in array
+透過呼叫內建陣列
+
+113
+00:04:40,976 --> 00:04:42,293
+function in JavaScript.
+JavaScript 中的函式。
+
+114
+00:04:43,079 --> 00:04:46,258
+This needs a size like 100 to create a new
+這需要像 100 這樣的大小來創建一個新的
+
+115
+00:04:46,370 --> 00:04:47,943
+array of that size.
+該大小的陣列。
+
+116
+00:04:48,858 --> 00:04:50,833
+Now here I'll go with 100,
+現在我會選擇100，
+
+117
+00:04:51,411 --> 00:04:53,514
+and this will create an array with 100
+這將建立一個包含 100 的陣列
+
+118
+00:04:53,771 --> 00:04:56,628
+slots, you could say 100 buckets. And
+插槽，你可以說 100 個桶子。和
+
+119
+00:04:56,724 --> 00:04:58,892
+buckets is really just a term you'll see a
+桶子實際上只是一個術語，您會看到
+
+120
+00:04:59,036 --> 00:04:59,662
+lot when you
+很多時候你
+
+121
+00:05:00,561 --> 00:05:03,338
+research about hash tables, and hence I'll
+關於雜湊表的研究，因此我將
+
+122
+00:05:03,451 --> 00:05:05,104
+use that term here as well.
+這裡也使用這個術語。
+
+123
+00:05:05,875 --> 00:05:08,411
+Now this gives us an array with 100 empty
+現在這給了我們一個有 100 個空的陣列
+
+124
+00:05:08,603 --> 00:05:09,245
+slots,
+插槽,
+
+125
+00:05:09,791 --> 00:05:12,358
+and I will call fill on that to replace the
+我會呼叫 fill 來替換
+
+126
+00:05:12,518 --> 00:05:15,615
+empty values with null values so that there
+空值與空值，以便有
+
+127
+00:05:15,679 --> 00:05:17,829
+is still no useful data in there, but it's
+那裡仍然沒有有用的資料，但它是
+
+128
+00:05:17,829 --> 00:05:20,974
+technically not empty, but there is at least
+技術上不為空，但至少有
+
+129
+00:05:21,134 --> 00:05:23,910
+nothing in each slot. Might sound a bit
+每個插槽中都沒有任何內容。聽起來可能有點
+
+130
+00:05:23,910 --> 00:05:26,236
+strange, but that's just how arrays work
+很奇怪，但這就是陣列的工作原理
+
+131
+00:05:26,252 --> 00:05:28,980
+under the hood. This gives us a 100-item
+在引擎蓋下。這給了我們 100 個專案
+
+132
+00:05:28,980 --> 00:05:31,435
+long array where every item is null.
+長陣列，其中每個專案都為空。
+
+133
+00:05:32,750 --> 00:05:35,927
+Now these are the slots which I want to
+現在這些是我想要的插槽
+
+134
+00:05:35,959 --> 00:05:37,500
+reserve for my
+為我預留
+
+135
+00:05:38,448 --> 00:05:39,459
+key-value pairs.
+鍵值對。
+
+136
+00:05:40,134 --> 00:05:43,072
+Of course, the fact that I only have 100
+當然，事實上我只有100
+
+137
+00:05:43,168 --> 00:05:46,043
+items here basically means that I can only
+這裡的專案基本上意味著我只能
+
+138
+00:05:46,075 --> 00:05:48,275
+store 100 different keys in here.
+在這裡儲存 100 個不同的密鑰。
+
+139
+00:05:48,821 --> 00:05:51,053
+So we might want a bigger size than that,
+所以我們可能想要比這個更大的尺寸，
+
+140
+00:05:51,293 --> 00:05:53,766
+but I'll come back to sizing and how to work
+但我會回到尺寸和如何工作
+
+141
+00:05:53,766 --> 00:05:56,111
+with more keys later. For the moment, let's
+稍後有更多鑰匙。暫時讓我們
+
+142
+00:05:56,111 --> 00:05:57,315
+work with 100 here.
+在這裡與 100 人一起工作。
+
+143
+00:05:58,600 --> 00:06:00,575
+Now these are our buckets. Now what we'll
+現在這些是我們的桶子。現在我們要做什麼
+
+144
+00:06:00,607 --> 00:06:04,043
+definitely also need is an add, or let's say
+肯定還需要添加，或者可以說
+
+145
+00:06:04,123 --> 00:06:04,573
+a set
+一套
+
+146
+00:06:05,343 --> 00:06:06,997
+method which allows us to add a new
+方法允許我們添加一個新的
+
+147
+00:06:07,093 --> 00:06:07,864
+key-value pair.
+鍵值對。
+
+148
+00:06:08,393 --> 00:06:10,865
+And I'll name it set and not add to make it
+我將其命名為 set，而不是添加以使其成為
+
+149
+00:06:10,865 --> 00:06:13,947
+clear that this will always set the value to
+清楚這將始終將值設為
+
+150
+00:06:13,947 --> 00:06:16,034
+a specific key. And if that key should
+一個特定的鍵。如果該鍵應該
+
+151
+00:06:16,082 --> 00:06:17,944
+already exist, it will just override it,
+已經存在，它只會覆蓋它，
+
+152
+00:06:18,169 --> 00:06:20,416
+which by the way is what we want. If a key
+順便說一句，這就是我們想要的。如果有一把鑰匙
+
+153
+00:06:20,496 --> 00:06:22,984
+already exists, we wanna override the value
+已經存在，我們想要覆蓋該值
+
+154
+00:06:22,984 --> 00:06:24,862
+for that key with that new value.
+為具有新值的鍵。
+
+155
+00:06:25,665 --> 00:06:26,869
+So that takes a key
+所以這需要一把鑰匙
+
+156
+00:06:27,976 --> 00:06:29,790
+and a value. Set takes both.
+和一個值。 Set 兩者兼具。
+
+157
+00:06:30,545 --> 00:06:33,084
+And now we need to translate the key which
+現在我們需要翻譯金鑰
+
+158
+00:06:33,278 --> 00:06:35,365
+is a string, let's say, which always should
+比方說，是一個字串，它總是應該
+
+159
+00:06:35,381 --> 00:06:36,886
+be a string for our hash table,
+是我們的雜湊表的字串，
+
+160
+00:06:37,484 --> 00:06:39,814
+into an index. We need a translation method.
+進入索引。我們需要一種翻譯方法。
+
+161
+00:06:40,493 --> 00:06:42,904
+And for this, I'll add a hash method.
+為此，我將添加一個雜湊方法。
+
+162
+00:06:43,568 --> 00:06:45,979
+And this takes a key as an input and should
+這需要一個鍵作為輸入，並且應該
+
+163
+00:06:45,979 --> 00:06:48,811
+return a number which we can use as an index
+傳回一個我們可以用來當作索引的數字
+
+164
+00:06:49,135 --> 00:06:49,938
+in our array.
+在我們的陣列中。
+
+165
+00:06:51,772 --> 00:06:54,200
+Now you can build more or less complex
+現在您可以建立或多或少複雜的
+
+166
+00:06:54,328 --> 00:06:57,447
+hashing methods, hashing functions. There is
+散列方法，散列函式。有
+
+167
+00:06:57,560 --> 00:06:59,714
+no limit to the complexity you wanna add
+您想要添加的複雜性沒有限制
+
+168
+00:06:59,714 --> 00:06:59,843
+there.
+那裡。
+
+169
+00:07:00,568 --> 00:07:03,073
+I'll go with a very simple one for now
+我現在選擇一個非常簡單的
+
+170
+00:07:03,282 --> 00:07:04,920
+because at the moment it's just about
+因為目前只是關於
+
+171
+00:07:05,048 --> 00:07:08,244
+understanding hash tables. So I will work
+了解雜湊表。所以我會工作
+
+172
+00:07:08,244 --> 00:07:09,802
+with a simple hashing function.
+使用簡單的雜湊函式。
+
+173
+00:07:10,428 --> 00:07:13,479
+I will basically take the characters of the
+我基本上會選擇角色
+
+174
+00:07:13,479 --> 00:07:14,331
+key which I'm getting,
+我得到的鑰匙，
+
+175
+00:07:14,989 --> 00:07:16,852
+and again, key should be a string, so I'm
+再說一遍，鍵應該是一個字串，所以我
+
+176
+00:07:16,852 --> 00:07:18,185
+talking about characters,
+談論人物，
+
+177
+00:07:18,843 --> 00:07:21,140
+and every character will have a key code, a
+每個字元都會有一個關鍵程式碼，一個
+
+178
+00:07:21,188 --> 00:07:24,287
+char code. So we could say that A has a code
+字元程式碼。所以我們可以說 A 有一個程式碼
+
+179
+00:07:24,400 --> 00:07:24,930
+of 1,
+共 1 個，
+
+180
+00:07:25,588 --> 00:07:27,339
+B has a code of 2, and so on.
+B 的程式碼為 2，依此類推。
+
+181
+00:07:28,986 --> 00:07:32,782
+And my hash is then simply just the result
+我的雜湊值就是結果
+
+182
+00:07:32,880 --> 00:07:35,460
+of adding all those codes together, let's
+將所有這些程式碼添加在一起，讓我們
+
+183
+00:07:35,460 --> 00:07:35,508
+say.
+說。
+
+184
+00:07:37,908 --> 00:07:41,500
+So if we had something like AB as a string
+所以如果我們有像 AB 這樣的字串
+
+185
+00:07:41,694 --> 00:07:44,644
+and A is 1 and B is 2, we would have
+A 為 1，B 為 2，我們有
+
+186
+00:07:45,732 --> 00:07:49,401
+1 plus 2, we would have a hash of 3. That's
+1 加 2，我們將得到 3 的雜湊值。那就是
+
+187
+00:07:49,401 --> 00:07:50,440
+how this should work.
+這應該如何運作。
+
+188
+00:07:51,349 --> 00:07:54,921
+So here my hash actually starts at 0.
+所以這裡我的雜湊值其實是從 0 開始的。
+
+189
+00:07:55,729 --> 00:07:57,557
+And then I go through all the characters
+然後我瀏覽所有的角色
+
+190
+00:07:58,381 --> 00:07:58,656
+in my
+在我的
+
+191
+00:07:59,449 --> 00:08:01,874
+key string. So I loop through all the
+密鑰字串。所以我迴圈遍歷所有
+
+192
+00:08:01,874 --> 00:08:02,795
+characters in there
+裡面的人物
+
+193
+00:08:03,711 --> 00:08:04,755
+and I simply add
+我簡單地添加
+
+194
+00:08:05,398 --> 00:08:08,131
+a new value to hash, a new number to hash,
+要散列的新值，要散列的新數字，
+
+195
+00:08:08,693 --> 00:08:10,944
+and that should be char.charAt.
+那應該是 char.charAt。
+
+196
+00:08:17,360 --> 00:08:19,773
+charCodeAt is a built-in method in
+charCodeAt 是一個內建方法
+
+197
+00:08:19,773 --> 00:08:21,710
+JavaScript which you can call on strings
+可以在字串上呼叫的 JavaScript
+
+198
+00:08:22,352 --> 00:08:24,599
+And charCodeAt will just convert that
+charCodeAt 只會將其轉換
+
+199
+00:08:24,599 --> 00:08:26,829
+character to a number then which starts at
+字元到一個數字，然後從
+
+200
+00:08:26,829 --> 00:08:29,525
+index 0 for the first character, for A,
+索引 0 表示第一個字符，對於 A，
+
+201
+00:08:30,054 --> 00:08:31,418
+and then gets bigger and bigger.
+然後變得越來越大。
+
+202
+00:08:32,397 --> 00:08:34,435
+So that's my hash, but of course that could
+這就是我的雜湊，但當然可以
+
+203
+00:08:34,467 --> 00:08:35,959
+be bigger than 100.
+大於 100。
+
+204
+00:08:36,777 --> 00:08:38,269
+Hence, I will return
+因此，我會回來
+
+205
+00:08:38,959 --> 00:08:39,954
+my hash number
+我的雜湊值
+
+206
+00:08:40,484 --> 00:08:43,211
+divided with the modulus operator to get an
+除以模運算子即可得到
+
+207
+00:08:43,211 --> 00:08:47,528
+integer by 100, so by my MAX_SIZE. And
+整數乘以 100，所以乘以我的 MAX_SIZE。和
+
+208
+00:08:47,544 --> 00:08:49,116
+therefore I'll actually store this in a new
+因此我實際上會將其存儲在一個新的
+
+209
+00:08:49,309 --> 00:08:50,063
+property here
+這裡的財產
+
+210
+00:08:51,394 --> 00:08:52,294
+Let's maybe name it
+也許我們可以給它取個名字
+
+211
+00:08:54,304 --> 00:08:54,818
+size,
+尺寸，
+
+212
+00:08:55,638 --> 00:08:58,419
+and that could be 1000 to actually have a
+實際擁有一個可能需要 1000
+
+213
+00:08:58,467 --> 00:08:59,239
+bit more space.
+多一點空間。
+
+214
+00:09:00,136 --> 00:09:02,291
+And then I use this here, but also down
+然後我這裡就用這個，還下來
+
+215
+00:09:02,323 --> 00:09:05,604
+there I'll refer to this.size so that I can
+在那裡我會參考 this.size 以便我可以
+
+216
+00:09:05,620 --> 00:09:07,036
+use this size.
+使用這個尺寸。
+
+217
+00:09:08,240 --> 00:09:08,707
+So now I
+所以現在我
+
+218
+00:09:09,400 --> 00:09:10,125
+divide my
+分我的
+
+219
+00:09:12,364 --> 00:09:13,460
+hash by that,
+散列，
+
+220
+00:09:14,314 --> 00:09:15,764
+and hence we should get a hash that's
+因此我們應該得到一個雜湊值
+
+221
+00:09:15,764 --> 00:09:18,392
+definitely smaller than our size since I
+肯定比我們的尺寸小，因為我
+
+222
+00:09:18,392 --> 00:09:20,784
+divided by it, so it should fit into this
+除以它，所以它應該適合這個
+
+223
+00:09:20,784 --> 00:09:21,105
+array.
+大批。
+
+224
+00:09:21,667 --> 00:09:23,513
+You might already be able to see another
+您可能已經能夠看到另一個
+
+225
+00:09:23,513 --> 00:09:25,086
+problem which we'll eventually face,
+我們最終會面臨的問題，
+
+226
+00:09:25,664 --> 00:09:27,992
+and that is that we could derive the same
+那就是我們可以推導出相同的
+
+227
+00:09:28,008 --> 00:09:29,998
+hash for different characters with that
+不同字元的雜湊值
+
+228
+00:09:30,014 --> 00:09:32,647
+logic. I will come back to this later. For
+邏輯。我稍後會再談這個。為了
+
+229
+00:09:32,647 --> 00:09:34,413
+the moment, let's just go with this logic
+現在，讓我們按照這個邏輯進行
+
+230
+00:09:34,413 --> 00:09:35,023
+nonetheless
+儘管如此
+
+231
+00:09:35,697 --> 00:09:38,346
+and just use inputs which won't clash.
+並且只使用不會衝突的輸入。
+
+232
+00:09:39,004 --> 00:09:40,931
+But again, I'll solve this problem later.
+不過，我稍後會解決這個問題。
+
+233
+00:09:41,637 --> 00:09:43,949
+So here for set, we can now, however,
+所以在這裡，我們現在可以，
+
+234
+00:09:44,874 --> 00:09:48,483
+get our hash, our key hash, by calling this
+透過呼叫這個來獲取我們的雜湊值，我們的密鑰雜湊值
+
+235
+00:09:48,839 --> 00:09:50,393
+hash and forwarding the key.
+散列並轉送密鑰。
+
+236
+00:09:51,202 --> 00:09:52,755
+And now key hash will be a number.
+現在密鑰雜湊將是一個數字。
+
+237
+00:09:53,646 --> 00:09:55,482
+And with that, we can reach out to
+這樣，我們就可以接觸到
+
+238
+00:09:56,142 --> 00:09:56,432
+this
+這
+
+239
+00:09:58,317 --> 00:09:58,832
+buckets
+水桶
+
+240
+00:10:01,216 --> 00:10:04,209
+for the given key hash, so for that number
+對於給定的密鑰雜湊，因此對於該數字
+
+241
+00:10:04,209 --> 00:10:05,044
+we derived here,
+我們在這裡得出，
+
+242
+00:10:05,719 --> 00:10:07,616
+and store our value in there.
+並將我們的值儲存在那裡。
+
+243
+00:10:08,323 --> 00:10:10,926
+So this now accesses a certain item in our
+所以現在訪問我們的某個專案
+
+244
+00:10:10,958 --> 00:10:11,601
+buckets array
+桶陣列
+
+245
+00:10:12,344 --> 00:10:14,808
+identified by the index here and stores the
+由此處的索引標識並存儲
+
+246
+00:10:14,808 --> 00:10:16,089
+value for that index.
+該索引的值。
+
+247
+00:10:18,030 --> 00:10:19,318
+This is our set function.
+這是我們設定的函式。
+
+248
+00:10:20,076 --> 00:10:22,380
+Now we also want to be able to get a value,
+現在我們還希望能夠獲得一個值，
+
+249
+00:10:22,396 --> 00:10:24,909
+of course, by key. So we have the get
+當然，透過鑰匙。所以我們得到了
+
+250
+00:10:24,909 --> 00:10:26,842
+method, which also gets a key.
+方法，它也獲得一個密鑰。
+
+251
+00:10:28,368 --> 00:10:30,393
+And here all we have to do is we have to
+在這裡我們要做的就是我們必須
+
+252
+00:10:30,441 --> 00:10:31,276
+return this
+回傳這個
+
+253
+00:10:31,823 --> 00:10:32,273
+buckets
+水桶
+
+254
+00:10:32,851 --> 00:10:35,100
+for the key. However, not the key like this.
+為鑰匙。然而，不是這樣的關鍵。
+
+255
+00:10:35,518 --> 00:10:37,302
+Instead, again, we need the hash
+相反，我們再次需要雜湊值
+
+256
+00:10:37,845 --> 00:10:41,065
+So key hash is this hash key. And of course,
+所以key hash就是這個hash key。當然，
+
+257
+00:10:41,146 --> 00:10:43,412
+our hashing function always generates the
+我們的雜湊函式總是生成
+
+258
+00:10:43,412 --> 00:10:44,901
+same hash for the same key.
+相同的密鑰具有相同的雜湊值。
+
+259
+00:10:45,548 --> 00:10:48,685
+So we can retrieve an item by that generated
+所以我們可以透過產生的來檢索一個專案
+
+260
+00:10:48,911 --> 00:10:49,461
+hash then.
+那麼雜湊。
+
+261
+00:10:52,923 --> 00:10:55,126
+Now with that, we have a very simple hash
+現在我們有了一個非常簡單的雜湊
+
+262
+00:10:55,191 --> 00:10:57,928
+table. Now we add new items with set and we
+桌子。現在我們用 set 新增專案
+
+263
+00:10:57,944 --> 00:10:58,981
+get items with get.
+使用 get 取得物品。
+
+264
+00:10:59,580 --> 00:11:00,909
+So down there in our algorithm,
+所以在我們的演算法中，
+
+265
+00:11:01,834 --> 00:11:03,962
+if I wanna add a new item,
+如果我想新增一個專案，
+
+266
+00:11:04,898 --> 00:11:05,668
+I have to call
+我得打電話
+
+267
+00:11:06,519 --> 00:11:08,285
+table.set
+表格集
+
+268
+00:11:09,409 --> 00:11:12,732
+and then pass in char as a key and 1 as a
+然後傳入 char 作為鍵和 1 作為
+
+269
+00:11:12,780 --> 00:11:13,839
+value, for example.
+例如，值。
+
+270
+00:11:14,626 --> 00:11:17,130
+And if I wanna check if this exists, if what
+如果我想檢查這是否存在，如果是什麼
+
+271
+00:11:17,178 --> 00:11:18,976
+I have for a given key is truthy,
+我對給定的密鑰是真實的，
+
+272
+00:11:19,586 --> 00:11:21,786
+I have to call table.get
+我必須呼叫 table.get
+
+273
+00:11:22,331 --> 00:11:24,177
+for char, which is our key.
+對於 char，這是我們的關鍵。
+
+274
+00:11:25,622 --> 00:11:28,432
+With that, we have our own hash table in
+這樣，我們就有了自己的雜湊表
+
+275
+00:11:28,432 --> 00:11:28,737
+use.
+使用。
+
+276
+00:11:29,555 --> 00:11:33,164
+And if we now test this, I still get L as a
+如果我們現在測試這個，我仍然得到 L 作為
+
+277
+00:11:33,164 --> 00:11:34,750
+result for hello.
+結果你好。
+
+278
+00:11:35,407 --> 00:11:38,132
+But you will also be able to test these 4
+但您也可以測試這 4 個
+
+279
+00:11:38,132 --> 00:11:40,583
+strings where this will not work correctly
+無法正常工作的字串
+
+280
+00:11:40,615 --> 00:11:42,682
+because we'll have some repetition, we'll
+因為我們會有一些重複，所以我們會
+
+281
+00:11:42,682 --> 00:11:45,230
+have some collisions. Because currently, as
+有一些碰撞。因為目前，作為
+
+282
+00:11:45,326 --> 00:11:46,096
+I mentioned before,
+我之前提到過，
+
+283
+00:11:46,705 --> 00:11:49,156
+our hashing function might definitely
+我們的雜湊函式肯定可以
+
+284
+00:11:49,509 --> 00:11:53,002
+generate the same hash for 2 different keys
+為 2 個不同的金鑰產生相同的雜湊值
+
+285
+00:11:53,451 --> 00:11:55,774
+simply because of the way it's built and
+僅僅因為它的建構方式和
+
+286
+00:11:55,838 --> 00:11:57,649
+because we have a limited size.
+因為我們的規模有限。
+
+287
+00:11:58,547 --> 00:12:01,435
+Now to investigate this problem a bit closer
+現在更仔細地研究這個問題
+
+288
+00:12:01,515 --> 00:12:03,970
+and to find a solution, let's first of all
+為了找到解決方案，我們首先
+
+289
+00:12:04,243 --> 00:12:06,537
+add a couple of new methods here to the hash
+在此處向雜湊添加幾個新方法
+
+290
+00:12:06,650 --> 00:12:09,650
+table which allows us to gain more insights
+表格可以讓我們獲得更多的見解
+
+291
+00:12:09,955 --> 00:12:12,265
+into the table, into the keys and the
+進入表格，進入按鍵和
+
+292
+00:12:12,265 --> 00:12:14,640
+indexes which are used so that we can then
+使用索引，以便我們可以
+
+293
+00:12:14,768 --> 00:12:17,431
+thereafter find and fix any problems we
+此後發現並解決我們的任何問題
+
+294
+00:12:17,431 --> 00:12:17,865
+might have.
+可能有。

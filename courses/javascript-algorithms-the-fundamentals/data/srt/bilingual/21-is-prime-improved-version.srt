@@ -1,0 +1,779 @@
+1
+00:00:02,261 --> 00:00:04,604
+Now we had a look at the primality test, at
+現在我們來看素性測試，在
+
+2
+00:00:04,604 --> 00:00:06,481
+the Big O notation, and at the different
+大 O 符號，並且在不同的
+
+3
+00:00:06,529 --> 00:00:07,186
+cases there.
+那裡的案件。
+
+4
+00:00:07,732 --> 00:00:10,363
+And that case thing is something we'll see
+我們將會看到這個案例
+
+5
+00:00:10,443 --> 00:00:12,753
+again and again. It can be confusing at
+一次又一次。這可能會令人困惑
+
+6
+00:00:12,769 --> 00:00:15,272
+first, but like this overall algorithms
+首先，但像這樣的整體演算法
+
+7
+00:00:15,577 --> 00:00:17,405
+thing, it is something that gets easier with
+事情，這是一件變得更容易的事情
+
+8
+00:00:17,437 --> 00:00:17,887
+practice.
+實踐。
+
+9
+00:00:18,721 --> 00:00:20,293
+Now before we move on to a different
+現在，在我們轉向不同的方向之前
+
+10
+00:00:20,389 --> 00:00:23,469
+algorithm, let's revisit the primality test
+演算法，讓我們回顧一下素性測試
+
+11
+00:00:23,598 --> 00:00:25,667
+algorithm though, because we can actually
+不過，因為我們其實可以
+
+12
+00:00:25,699 --> 00:00:29,584
+improve it and find a better alternative. O,
+改進它並找到更好的替代方案。哦，
+
+13
+00:00:29,937 --> 00:00:31,848
+which is the time complexity we currently
+這是我們目前的時間複雜度
+
+14
+00:00:31,945 --> 00:00:34,979
+have, is not the best possible time
+擁有，還不是最好的時機
+
+15
+00:00:35,011 --> 00:00:36,489
+complexity we can achieve here.
+我們可以在這裡實現複雜性。
+
+16
+00:00:37,420 --> 00:00:39,106
+Now to understand how we can improve this,
+現在要了解我們如何改進這一點，
+
+17
+00:00:39,491 --> 00:00:40,920
+let's have a look at 2 examples.
+讓我們來看兩個例子。
+
+18
+00:00:41,659 --> 00:00:42,927
+5 is a prime number.
+5是質數。
+
+19
+00:00:43,602 --> 00:00:45,400
+It's divisible by itself and by 1.
+它能被自身和 1 整除。
+
+20
+00:00:45,994 --> 00:00:49,013
+And 9 is not a prime because besides by
+9 不是質數，因為除此之外
+
+21
+00:00:49,061 --> 00:00:51,790
+itself and by 1, we can also divide it by 3.
+本身除以 1，我們也可以將它除以 3。
+
+22
+00:00:53,299 --> 00:00:56,669
+Now the thing is, every number that's not a
+現在的問題是，每個都不是
+
+23
+00:00:56,669 --> 00:00:57,054
+prime,
+主要的，
+
+24
+00:00:57,632 --> 00:00:58,097
+like 9,
+像9，
+
+25
+00:00:58,755 --> 00:01:01,804
+has a product that consists of 2 factors a
+有一個由 2 個因素組成的產品
+
+26
+00:01:01,820 --> 00:01:04,773
+and b. So in the case of 9, that would be 3
+和b。所以在 9 的情況下，那就是 3
+
+27
+00:01:04,773 --> 00:01:07,212
+times 3. That's what makes it not a prime
+乘以 3。這就是它不是素數的原因
+
+28
+00:01:07,260 --> 00:01:09,106
+number in the end. We can have a division
+最後的數字。我們可以有一個部門
+
+29
+00:01:09,106 --> 00:01:10,807
+like this which does not include the number
+像這樣不包括數字
+
+30
+00:01:10,807 --> 00:01:12,540
+itself and which does not include 1.
+本身且不包括 1。
+
+31
+00:01:13,230 --> 00:01:16,327
+So both factors a and b, in this case 3 and
+所以因子 a 和 b，在本例中為 3 和
+
+32
+00:01:16,423 --> 00:01:19,616
+3, are neither 1 nor the number itself. And
+3，既不是 1，也不是數字本身。和
+
+33
+00:01:19,632 --> 00:01:21,636
+that's true for every non-prime number.
+對於每個非素數都是如此。
+
+34
+00:01:22,821 --> 00:01:24,809
+Now the thing is, if we split that into
+現在的問題是，如果我們把它分成
+
+35
+00:01:24,841 --> 00:01:27,469
+factors like this, there is a simple rule
+像這樣的因素，有一個簡單的規則
+
+36
+00:01:27,629 --> 00:01:28,815
+you can observe in the end.
+你可以觀察到底。
+
+37
+00:01:29,553 --> 00:01:31,380
+At least one of those factors,
+這些因素中至少有一個，
+
+38
+00:01:31,908 --> 00:01:33,896
+sometimes also both like in this case,
+有時也像在這種情況下一樣，
+
+39
+00:01:34,521 --> 00:01:37,870
+is smaller or equal than the square root of
+小於或等於的平方根
+
+40
+00:01:37,902 --> 00:01:39,553
+the number you're analyzing.
+您正在分析的數字。
+
+41
+00:01:40,627 --> 00:01:43,095
+In this case, the square root of 9 is 3, and
+在這種情況下，9 的平方根是 3，並且
+
+42
+00:01:43,175 --> 00:01:46,268
+in this case, both factors then are smaller
+在這種情況下，兩個因素都較小
+
+43
+00:01:46,380 --> 00:01:48,896
+or equal, in this case equal, than that
+或等於，在本例中等於，比
+
+44
+00:01:48,896 --> 00:01:51,190
+square root. And that's simply a rule that's
+平方根。這只是一條規則
+
+45
+00:01:51,190 --> 00:01:53,598
+true for every non-primal number.
+對於每個非素數都成立。
+
+46
+00:01:54,561 --> 00:01:56,278
+At least one of those factors will be
+這些因素中至少有一個是
+
+47
+00:01:56,278 --> 00:01:58,316
+smaller or equal than the square root,
+小於或等於平方根，
+
+48
+00:01:58,653 --> 00:02:02,826
+because if both factors would be bigger than
+因為如果兩個因素都大於
+
+49
+00:02:02,826 --> 00:02:04,816
+the square root of the number you're looking
+您正在尋找的數字的平方根
+
+50
+00:02:04,832 --> 00:02:05,009
+at,
+在，
+
+51
+00:02:05,635 --> 00:02:07,946
+the multiplication of those factors would
+這些因子的乘積將
+
+52
+00:02:07,962 --> 00:02:10,369
+yield a bigger number than the number you're
+產生比你現在的數字更大的數字
+
+53
+00:02:10,450 --> 00:02:12,456
+looking at, which just can't be the case.
+看看，事實並非如此。
+
+54
+00:02:13,740 --> 00:02:17,015
+And with that in mind, we can rewrite this
+考慮到這一點，我們可以重寫這個
+
+55
+00:02:17,129 --> 00:02:18,509
+isPrime algorithm
+isPrime演算法
+
+56
+00:02:19,094 --> 00:02:21,497
+to actually make it a bit more efficient.
+實際上使其更有效率。
+
+57
+00:02:22,802 --> 00:02:23,417
+Instead of going
+而不是去
+
+58
+00:02:23,999 --> 00:02:26,555
+all the way up to number here in our for
+一直到我們的 for 中的數字
+
+59
+00:02:26,668 --> 00:02:26,798
+loop,
+環形，
+
+60
+00:02:27,574 --> 00:02:29,030
+we can go all the way up
+我們可以一直走下去
+
+61
+00:02:29,742 --> 00:02:33,350
+to Math.sqrt of number.
+到數字的 Math.sqrt。
+
+62
+00:02:34,171 --> 00:02:36,925
+The Math object is built into JavaScript,
+Math 物件內建於 JavaScript 中，
+
+63
+00:02:37,086 --> 00:02:39,517
+available in the browser. Square root is a
+在瀏覽器中可用。平方根是
+
+64
+00:02:39,630 --> 00:02:42,478
+built-in method and it generates the square
+內建方法，它產生平方
+
+65
+00:02:42,478 --> 00:02:43,376
+root of number.
+數的根。
+
+66
+00:02:44,659 --> 00:02:47,304
+Now that square root in the case of 9 would
+現在 9 的平方根是
+
+67
+00:02:47,384 --> 00:02:50,222
+be 3. And the result is that we have far
+是 3. 結果是我們已經遠了
+
+68
+00:02:50,655 --> 00:02:52,226
+less loop iterations here.
+這裡的迴圈迭代更少。
+
+69
+00:02:53,156 --> 00:02:56,940
+In the case of 9, we only iterate up to
+在 9 的情況下，我們只迭代到
+
+70
+00:02:57,645 --> 00:02:57,822
+3.
+3.
+
+71
+00:02:58,607 --> 00:03:01,140
+And the result is that for the big numbers,
+結果是對於大數字來說，
+
+72
+00:03:01,349 --> 00:03:02,616
+so in the worst case,
+所以在最壞的情況下
+
+73
+00:03:03,161 --> 00:03:06,287
+we have far less loop iterations. For the
+我們的迴圈迭代要少得多。對於
+
+74
+00:03:06,383 --> 00:03:09,686
+good cases, not much changes, but in the bad
+好的情況，變化不大，但壞的情況
+
+75
+00:03:09,686 --> 00:03:13,131
+cases, since we can abuse this fact that we
+情況下，因為我們可以濫用這個事實，即我們
+
+76
+00:03:13,131 --> 00:03:15,214
+know that at least one factor has to be
+知道至少必須有一個因素
+
+77
+00:03:15,214 --> 00:03:18,483
+smaller or equal. For those big numbers, we
+小於或等於。對於那些大數字，我們
+
+78
+00:03:18,483 --> 00:03:21,014
+simply save a lot of iterations by only
+只需透過以下方式即可節省大量迭代
+
+79
+00:03:21,046 --> 00:03:22,777
+going up to the square root.
+直到平方根。
+
+80
+00:03:23,754 --> 00:03:26,334
+So in this case where we have that iteration
+所以在這種情況下我們有迭代
+
+81
+00:03:26,334 --> 00:03:28,946
+with 27,277,
+共有 27,277 個，
+
+82
+00:03:29,618 --> 00:03:31,509
+where we previously had a lot of iterations,
+我們之前進行過多次迭代，
+
+83
+00:03:32,022 --> 00:03:36,027
+27,275 iterations, if I now reload, you'll
+27,275 次迭代，如果我現在重新載入，你會
+
+84
+00:03:36,027 --> 00:03:39,683
+see we only need 164 iterations. So that is
+看到我們只需要 164 次迭代。所以那就是
+
+85
+00:03:39,940 --> 00:03:41,884
+much, much faster.
+快得多。
+
+86
+00:03:43,105 --> 00:03:44,824
+So with this improvement,
+所以有了這個改進，
+
+87
+00:03:46,126 --> 00:03:48,536
+we can actually improve this worst case a
+我們實際上可以改善這種最壞的情況
+
+88
+00:03:48,536 --> 00:03:54,063
+lot. Now instead of O, we have O) in the end
+很多。現在最後我們有 O) 而不是 O
+
+89
+00:03:54,962 --> 00:03:58,626
+as our approximate time complexity function
+作為我們的近似時間複雜度函式
+
+90
+00:03:59,959 --> 00:04:02,176
+because we know that we will definitely
+因為我們知道我們一定會
+
+91
+00:04:02,225 --> 00:04:03,446
+never take n
+從不採取n
+
+92
+00:04:04,313 --> 00:04:07,525
+iterations n code executions in there. We'll
+迭代 n 次程式碼執行。出色地
+
+93
+00:04:07,589 --> 00:04:08,665
+never need all
+永遠不需要全部
+
+94
+00:04:09,195 --> 00:04:12,983
+27,000 and something code executions. We
+27,000 次左右的程式碼執行。我們
+
+95
+00:04:12,983 --> 00:04:16,066
+know that we definitely will need at most
+知道我們肯定最多需要
+
+96
+00:04:16,435 --> 00:04:17,655
+square root of n
+n 的平方根
+
+97
+00:04:18,506 --> 00:04:20,689
+or less code executions.
+或更少的程式碼執行。
+
+98
+00:04:21,380 --> 00:04:24,285
+And therefore, that's not just our improved
+因此，這不僅僅是我們改進的
+
+99
+00:04:24,285 --> 00:04:27,143
+worst case, but also the improved average
+最壞的情況，但也是改善的平均情況
+
+100
+00:04:27,255 --> 00:04:27,544
+case
+案件
+
+101
+00:04:28,299 --> 00:04:30,659
+because we know that we never will need more
+因為我們知道我們永遠不會需要更多
+
+102
+00:04:30,707 --> 00:04:33,293
+than the square root of n iterations because
+比 n 次迭代的平方根因為
+
+103
+00:04:33,357 --> 00:04:35,542
+that's our loop exit condition in the end
+這就是我們最後的迴圈退出條件
+
+104
+00:04:35,751 --> 00:04:38,337
+and that's what drives our time complexity.
+這就是我們時間複雜度的驅動因素。
+
+105
+00:04:39,237 --> 00:04:41,871
+So here with some extra math knowledge, we
+因此，有了一些額外的數學知識，我們
+
+106
+00:04:41,871 --> 00:04:44,056
+could find a much better result.
+可以找到更好的結果。
+
+107
+00:04:44,827 --> 00:04:47,494
+Now chances are, and that's totally fine by
+現在有機會了，那也完全沒問題
+
+108
+00:04:47,494 --> 00:04:47,719
+the way,
+道路，
+
+109
+00:04:48,378 --> 00:04:50,787
+that you didn't come up with that because
+你沒有想出這個因為
+
+110
+00:04:50,787 --> 00:04:52,796
+it's not something you necessarily have in
+這不是你必須擁有的東西
+
+111
+00:04:52,796 --> 00:04:56,266
+your mind that that's the case for primal
+你認為這就是原始的情況
+
+112
+00:04:56,266 --> 00:04:59,061
+numbers and that we have a rule like that.
+數字，我們有這樣的規則。
+
+113
+00:04:59,623 --> 00:05:02,095
+And that's not necessarily an issue. If
+這不一定是問題。如果
+
+114
+00:05:02,095 --> 00:05:04,166
+you're working on a real project that needs
+你正在做一個真正的專案，需要
+
+115
+00:05:04,198 --> 00:05:06,124
+optimization, you have Google.
+優化，你有谷歌。
+
+116
+00:05:06,831 --> 00:05:09,431
+As dumb as it sounds, you can use Google to
+儘管聽起來很愚蠢，但您可以使用 Google
+
+117
+00:05:09,560 --> 00:05:12,224
+find alternatives, to find math rules like
+尋找替代方案，找出數學規則，例如
+
+118
+00:05:12,224 --> 00:05:12,417
+this.
+這。
+
+119
+00:05:13,091 --> 00:05:14,520
+In an interview situation,
+在接受採訪的情況下，
+
+120
+00:05:15,194 --> 00:05:17,682
+the interviewer might simply point you
+面試官可能只是簡單地指出你
+
+121
+00:05:17,682 --> 00:05:20,026
+towards this solution if you just think
+如果您認為這個解決方案
+
+122
+00:05:20,026 --> 00:05:22,610
+about it. If you say something like, well,
+關於它。如果你說類似的話，那麼，
+
+123
+00:05:22,899 --> 00:05:25,114
+currently we go through all those numbers
+目前我們正在檢查所有這些數字
+
+124
+00:05:25,307 --> 00:05:27,842
+for a big prime number maybe we can use some
+對於一個大質數也許我們可以用一些
+
+125
+00:05:27,955 --> 00:05:30,424
+math to shrink this. And then maybe you get
+數學來縮小這個。然後也許你會得到
+
+126
+00:05:30,424 --> 00:05:32,750
+some help to derive a solution like this.
+一些幫助得出這樣的解決方案。
+
+127
+00:05:33,391 --> 00:05:34,979
+So you don't need to learn this by heart.
+所以你不需要死記硬背。
+
+128
+00:05:35,251 --> 00:05:37,064
+You never need to do this for algorithms.
+對於演算法你永遠不需要這樣做。
+
+129
+00:05:37,561 --> 00:05:40,912
+You just always need to be open to consider
+你只需要始終保持開放的態度去考慮
+
+130
+00:05:41,025 --> 00:05:43,639
+alternatives, to consider possible
+替代方案，考慮可能的
+
+131
+00:05:43,687 --> 00:05:44,553
+improvements,
+改進，
+
+132
+00:05:45,098 --> 00:05:45,868
+and therefore to,
+因此，
+
+133
+00:05:46,461 --> 00:05:48,610
+like we did it in this case, possibly
+就像我們在這個例子中所做的那樣，可能
+
+134
+00:05:48,883 --> 00:05:51,577
+improve your algorithm and make it much,
+改進你的演算法並讓它變得更大，
+
+135
+00:05:52,010 --> 00:05:54,722
+much faster. Faster, and that's why I wanted
+快得多。更快，這就是我想要的原因
+
+136
+00:05:54,722 --> 00:05:55,573
+to show this to you.
+向您展示這個。
+
+137
+00:05:56,183 --> 00:05:59,040
+Now you could add more optimizations. You
+現在您可以新增更多優化。你
+
+138
+00:05:59,056 --> 00:06:01,529
+could, for example, check division by 2 and
+例如，可以檢查除以 2 和
+
+139
+00:06:01,561 --> 00:06:04,274
+3 before you actually go into that for loop
+3 在你真正進入 for 迴圈之前
+
+140
+00:06:04,675 --> 00:06:06,970
+and therefore rule out a lot of common
+因此排除了很多常見的
+
+141
+00:06:07,484 --> 00:06:08,511
+division operations.
+分部運作。
+
+142
+00:06:09,169 --> 00:06:10,999
+You could do that, but it wouldn't really
+你可以這樣做，但實際上不會
+
+143
+00:06:11,112 --> 00:06:13,455
+impact the time complexity. In some cases,
+影響時間複雜度。在某些情況下，
+
+144
+00:06:13,504 --> 00:06:15,751
+you would be faster, but in the worst case,
+你會更快，但在最壞的情況下，
+
+145
+00:06:15,767 --> 00:06:18,014
+you wouldn't be faster, and therefore, since
+你不會更快，因此，因為
+
+146
+00:06:18,014 --> 00:06:20,230
+the average case is mostly driven by the
+平均情況主要是由
+
+147
+00:06:20,246 --> 00:06:22,653
+worst case, the average case also wouldn't
+最壞的情況，平均情況也不會
+
+148
+00:06:22,653 --> 00:06:23,151
+really improve.
+真正改善。
+
+149
+00:06:23,714 --> 00:06:26,303
+Nonetheless, below the video you find a, a
+儘管如此，在影片下方您會發現
+
+150
+00:06:26,303 --> 00:06:29,118
+more elaborate version of this algorithm
+該演算法的更詳細版本
+
+151
+00:06:29,408 --> 00:06:31,740
+which has all possible improvements
+具有所有可能的改進
+
+152
+00:06:31,740 --> 00:06:34,008
+included, which therefore would be the
+包括在內，因此這將是
+
+153
+00:06:34,088 --> 00:06:36,967
+fastest one theoretically, but which still
+理論上最快，但仍然
+
+154
+00:06:36,983 --> 00:06:38,624
+would have O square root of n
+將有 O 的 n 平方根
+
+155
+00:06:39,219 --> 00:06:41,632
+as a time complexity for the average and the
+作為平均值和的時間複雜度
+
+156
+00:06:41,712 --> 00:06:42,178
+worst case.
+最壞的情況。

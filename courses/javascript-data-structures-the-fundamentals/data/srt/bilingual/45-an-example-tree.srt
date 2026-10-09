@@ -1,0 +1,324 @@
+1
+00:00:02,261 --> 00:00:05,967
+Now let's build our first basic tree data
+現在讓我們建立第一個基本樹資料
+
+2
+00:00:05,967 --> 00:00:08,309
+structure, and let's start with a concrete
+結構，讓我們從具體開始
+
+3
+00:00:08,309 --> 00:00:11,036
+example. We're building an application that
+例子。我們正在建立一個應用程式
+
+4
+00:00:11,036 --> 00:00:14,356
+needs some kind of file system, for example,
+需要某種檔案系統，例如，
+
+5
+00:00:14,388 --> 00:00:16,730
+because you're building a Dropbox-like
+因為你正在建造一個類似 Dropbox 的
+
+6
+00:00:16,858 --> 00:00:18,847
+application where you need to
+您需要的應用程式
+
+7
+00:00:19,441 --> 00:00:21,975
+allow users to manage folders and files,
+允許使用者管理資料夾和檔案，
+
+8
+00:00:22,248 --> 00:00:23,788
+anything like that. So we need a file
+諸如此類的事情。所以我們需要一個檔案
+
+9
+00:00:23,788 --> 00:00:26,210
+system, and if we take a closer look at that
+系統，如果我們仔細看看
+
+10
+00:00:26,258 --> 00:00:29,564
+file system here It's of course a tree. We
+這裡的檔案系統當然是一棵樹。我們
+
+11
+00:00:29,564 --> 00:00:30,800
+got multiple folders
+有多個資料夾
+
+12
+00:00:31,377 --> 00:00:33,769
+and in those folders we could have files.
+在這些資料夾中我們可以有檔案。
+
+13
+00:00:34,298 --> 00:00:37,781
+So both a folder and a file is basically
+所以資料夾和檔案基本上都是
+
+14
+00:00:37,797 --> 00:00:41,424
+just a node, a vertex in that tree.
+只是樹中的一個節點、一個頂點。
+
+15
+00:00:42,210 --> 00:00:45,115
+And then the connections that describe the
+然後是描述的連接
+
+16
+00:00:45,115 --> 00:00:47,250
+file system are our edges.
+檔案系統是我們的優勢。
+
+17
+00:00:48,004 --> 00:00:50,475
+So in the end, a file system is a tree and
+所以最終，檔案系統是一棵樹
+
+18
+00:00:50,491 --> 00:00:52,353
+this shows you why tree data structures
+這向您展示了為什麼樹資料結構
+
+19
+00:00:52,481 --> 00:00:54,857
+matter. It's very easy to imagine
+事情。這很容易想像
+
+20
+00:00:54,985 --> 00:00:57,457
+applications that need to deal with file
+需要處理檔案的應用程式
+
+21
+00:00:57,457 --> 00:01:00,379
+systems internally in code, for example, a
+程式碼內部的系統，例如
+
+22
+00:01:00,443 --> 00:01:01,920
+Dropbox-like application.
+類似 Dropbox 的應用程式。
+
+23
+00:01:02,675 --> 00:01:04,778
+Now I can also say right away that we will
+現在我也可以馬上說我們會
+
+24
+00:01:04,778 --> 00:01:07,636
+not just use trees for file systems. Of
+不僅僅是將樹用於檔案系統。的
+
+25
+00:01:07,652 --> 00:01:07,941
+course,
+課程，
+
+26
+00:01:08,551 --> 00:01:10,799
+there are also other kinds of data which we
+我們還有其他型別的資料
+
+27
+00:01:10,799 --> 00:01:13,015
+might want to save where a tree can be
+可能想儲存一棵樹所在的位置
+
+28
+00:01:13,031 --> 00:01:15,038
+helpful, but a file system should be an
+有幫助，但檔案系統應該是
+
+29
+00:01:15,038 --> 00:01:16,643
+example that makes a lot of sense.
+這個例子很有意義。
+
+30
+00:01:17,558 --> 00:01:19,019
+So how could we now
+那我們現在怎麼才能
+
+31
+00:01:19,694 --> 00:01:22,568
+build a data structure that allows us to add
+建立一個允許我們添加的資料結構
+
+32
+00:01:22,664 --> 00:01:24,334
+new folders or files,
+新資料夾或檔案，
+
+33
+00:01:24,992 --> 00:01:26,902
+and there isn't a big difference in the end
+最終沒有什麼大的差別
+
+34
+00:01:26,934 --> 00:01:28,379
+here, by the way, in the tree, whether it's
+在這裡，順便說一句，在樹上，無論是
+
+35
+00:01:28,379 --> 00:01:30,643
+a folder or a file, it's simply a node.
+一個資料夾或一個檔案，它只是一個節點。
+
+36
+00:01:31,204 --> 00:01:33,019
+So how do we build such a data structure
+那我們要如何建構這樣的資料結構呢
+
+37
+00:01:33,019 --> 00:01:35,571
+that allows us to add nodes and connect
+這允許我們添加節點並連接
+
+38
+00:01:35,603 --> 00:01:36,213
+those nodes?
+那些節點？
+
+39
+00:01:37,289 --> 00:01:39,103
+Well, if we think about it carefully,
+那麼，如果我們仔細想一想，
+
+40
+00:01:39,681 --> 00:01:40,772
+the tree as a whole
+樹作為一個整體
+
+41
+00:01:41,928 --> 00:01:42,474
+isn't really
+不是真的
+
+42
+00:01:43,148 --> 00:01:45,508
+that special. It's just a combination of all
+那個特別的。這只是所有的組合
+
+43
+00:01:45,621 --> 00:01:48,173
+the nodes, right? In the end, the node is
+節點，對吧？最終，該節點為
+
+44
+00:01:48,285 --> 00:01:49,843
+the interesting data structure here.
+這裡有趣的資料結構。
+
+45
+00:01:50,436 --> 00:01:52,955
+We have a node that is connected to another
+我們有一個節點連接到另一個節點
+
+46
+00:01:52,955 --> 00:01:55,555
+node or to multiple other nodes potentially.
+節點或可能到多個其他節點。
+
+47
+00:01:56,004 --> 00:01:58,186
+A node can have multiple children after all.
+畢竟一個節點可以有多個子節點。
+
+48
+00:01:59,181 --> 00:02:01,540
+And then those nodes also can have more
+然後這些節點還可以有更多
+
+49
+00:02:01,668 --> 00:02:02,117
+children.
+孩子們。
+
+50
+00:02:02,727 --> 00:02:04,925
+And the tree is really just the combination
+這棵樹實際上只是組合
+
+51
+00:02:04,973 --> 00:02:07,107
+of all those nodes and the only thing that
+所有這些節點中唯一的
+
+52
+00:02:07,123 --> 00:02:09,658
+matters to the tree is what the root node
+對樹來說最重要的是根節點
+
+53
+00:02:09,787 --> 00:02:09,915
+is.
+是。
+
+54
+00:02:10,846 --> 00:02:13,525
+So the tree data structure is fairly simple.
+所以樹的資料結構相當簡單。
+
+55
+00:02:13,894 --> 00:02:16,686
+It could be as simple as an object that
+它可以像一個物件一樣簡單
+
+56
+00:02:16,686 --> 00:02:18,467
+simply keeps track of the root node.
+只是追蹤根節點。
+
+57
+00:02:19,174 --> 00:02:21,568
+And then every node itself could also be an
+然後每個節點本身也可以是一個
+
+58
+00:02:21,568 --> 00:02:24,605
+object which has a children array, which is
+物件有一個子陣列，它是
+
+59
+00:02:25,264 --> 00:02:28,189
+a list of all the nested, the child nodes,
+所有巢狀子節點的列表，
+
+60
+00:02:29,040 --> 00:02:31,676
+and maybe a pointer at the parent node it
+也許還有一個指向父節點的指標
+
+61
+00:02:31,692 --> 00:02:34,167
+belongs to so that we have a pointer in both
+屬於這樣我們在兩者中都有一個指標
+
+62
+00:02:34,263 --> 00:02:36,223
+directions to the children and to the
+給孩子們和
+
+63
+00:02:36,223 --> 00:02:36,705
+parent.
+父母。
+
+64
+00:02:37,413 --> 00:02:39,405
+Well, let's start with that and let's
+好吧，讓我們從這個開始，讓我們
+
+65
+00:02:39,486 --> 00:02:41,350
+implement such a basic tree.
+實現這樣一個基本的樹。

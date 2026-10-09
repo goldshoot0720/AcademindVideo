@@ -1,0 +1,899 @@
+1
+00:00:02,195 --> 00:00:05,143
+So how can we make remove work? Now first of
+那我們要怎麼進行刪除工作呢？現在第一個
+
+2
+00:00:05,143 --> 00:00:07,290
+all, I'm going to remove that slash here to
+所有，我要刪除這裡的斜杠
+
+3
+00:00:07,306 --> 00:00:08,748
+be in line with the other paths.
+與其他路徑保持一致。
+
+4
+00:00:09,709 --> 00:00:13,426
+And now in remove, we in the end get a path
+現在在刪除中，我們最終得到了一條路徑
+
+5
+00:00:13,554 --> 00:00:15,140
+to the value we wanna remove.
+到我們想要刪除的值。
+
+6
+00:00:15,974 --> 00:00:17,752
+And now it's up to you how you interpret
+現在取決於你如何解釋
+
+7
+00:00:17,800 --> 00:00:21,229
+this. My goal is not to remove all nodes
+這。我的目標不是刪除所有節點
+
+8
+00:00:21,261 --> 00:00:22,318
+that are included here,
+包括在這裡，
+
+9
+00:00:23,023 --> 00:00:25,427
+but really just the final node. So really
+但其實只是最後一個節點。所以真的
+
+10
+00:00:25,427 --> 00:00:28,295
+just Call of Duty executable, not the game's
+只是使命召喚可執行檔案，而不是遊戲的
+
+11
+00:00:28,295 --> 00:00:28,615
+folder.
+資料夾。
+
+12
+00:00:29,738 --> 00:00:31,712
+And therefore, again, we need to drill into
+因此，我們再次需要深入研究
+
+13
+00:00:31,824 --> 00:00:32,611
+our nodes.
+我們的節點。
+
+14
+00:00:33,365 --> 00:00:34,970
+I'm going to reach out to the root node,
+我要到達根節點，
+
+15
+00:00:35,515 --> 00:00:37,505
+and there, of course, on every node will
+當然，在每個節點上都會
+
+16
+00:00:37,537 --> 00:00:38,629
+have a remove_node
+有一個remove_node
+
+17
+00:00:39,287 --> 00:00:40,651
+method which I can call.
+我可以呼叫的方法。
+
+18
+00:00:41,389 --> 00:00:43,234
+And this method wants an index.
+而且這個方法需要一個索引。
+
+19
+00:00:43,860 --> 00:00:44,775
+This is how we
+我們就是這樣
+
+20
+00:00:45,401 --> 00:00:47,760
+implemented this before, but this is not how
+以前實現過這個，但這不是如何實現的
+
+21
+00:00:47,808 --> 00:00:48,723
+I want it to work now.
+我希望它現在就可以工作。
+
+22
+00:00:49,413 --> 00:00:51,547
+Instead, this should take the path which I'm
+相反，這應該走我現在的路
+
+23
+00:00:51,580 --> 00:00:52,735
+getting as an argument here,
+在這裡作為一個論點，
+
+24
+00:00:53,265 --> 00:00:56,024
+which I want to forward to remove_node. So
+我想將其轉發到remove_node。所以
+
+25
+00:00:56,072 --> 00:00:58,749
+in remove node, I also get that path or as I
+在刪除節點中，我也得到了該路徑或像我一樣
+
+26
+00:00:58,861 --> 00:01:01,426
+call it from a node perspective, a value
+從節點的角度來說，它是一個值
+
+27
+00:01:01,746 --> 00:01:03,846
+because it could be a path with multiple
+因為它可能是一條有多個路徑
+
+28
+00:01:03,846 --> 00:01:06,619
+segments or it could already be the final
+部分或它可能已經是最終的
+
+29
+00:01:06,651 --> 00:01:09,664
+value we wanna remove just as with add node.
+我們想要刪除的值就像新增節點一樣。
+
+30
+00:01:10,097 --> 00:01:12,421
+There it could be a path with multiple
+那裡可能有一條包含多個的路徑
+
+31
+00:01:12,421 --> 00:01:15,273
+segments or it already is the final value we
+段或者它已經是我們的最終值
+
+32
+00:01:15,290 --> 00:01:15,770
+wanna add.
+想補充一下。
+
+33
+00:01:17,245 --> 00:01:20,627
+So again, just as before, we wanna split our
+再說一次，就像以前一樣，我們想分開我們的
+
+34
+00:01:20,979 --> 00:01:23,528
+value here into segments just as we're doing
+就像我們正在做的那樣，將這裡的值分成幾部分
+
+35
+00:01:23,560 --> 00:01:24,297
+it for adding.
+它用於添加。
+
+36
+00:01:24,859 --> 00:01:26,754
+Because we still need to find out if we
+因為我們仍然需要弄清楚我們是否
+
+37
+00:01:26,914 --> 00:01:29,580
+already are working on the final value that
+已經在研究最終值
+
+38
+00:01:29,580 --> 00:01:32,101
+should be removed or if we got additional
+應該被刪除或如果我們有額外的
+
+39
+00:01:32,150 --> 00:01:33,884
+segments into which we need to drill.
+我們需要鑽取的部分。
+
+40
+00:01:35,201 --> 00:01:37,545
+So therefore, just as before, we wanna check
+因此，就像以前一樣，我們要檢查
+
+41
+00:01:37,674 --> 00:01:40,468
+if we got no segments or if we got one
+如果我們沒有片段或如果我們有片段
+
+42
+00:01:40,516 --> 00:01:41,079
+segment.
+部分。
+
+43
+00:01:42,283 --> 00:01:44,563
+So I'm going to copy this. If we got no
+所以我要複製這個。如果我們沒有
+
+44
+00:01:44,676 --> 00:01:47,149
+segments, I'm just returning. We didn't find
+片段，我剛回來。我們沒有找到
+
+45
+00:01:47,149 --> 00:01:49,397
+anything then, so well, nothing we can do.
+那麼，好吧，我們無能為力。
+
+46
+00:01:50,120 --> 00:01:52,227
+We didn't get any value, I mean. If it's
+我的意思是，我們沒有得到任何價值。如果是
+
+47
+00:01:52,227 --> 00:01:55,714
+just one segment, then I know I wanna look
+只有一個片段，然後我知道我想看
+
+48
+00:01:55,762 --> 00:01:56,763
+for a node
+對於一個節點
+
+49
+00:01:57,296 --> 00:02:00,267
+with this exact value inside of this node on
+在此節點內使用這個精確值
+
+50
+00:02:00,363 --> 00:02:01,699
+which removeNode is called.
+呼叫了哪個removeNode。
+
+51
+00:02:02,254 --> 00:02:04,227
+And if I find such a node, I wanna remove
+如果我找到這樣的節點，我想刪除
+
+52
+00:02:04,227 --> 00:02:04,325
+it.
+它。
+
+53
+00:02:06,478 --> 00:02:08,905
+So I'll get my existing node index here
+所以我將在這裡獲取現有的節點索引
+
+54
+00:02:09,901 --> 00:02:11,572
+by reaching out to this.children
+透過接觸 this.children
+
+55
+00:02:12,167 --> 00:02:14,143
+and calling findIndex on it.
+並對其呼叫 findIndex 。
+
+56
+00:02:14,882 --> 00:02:17,334
+findIndex is a default method we can call on
+findIndex 是我們可以呼叫的預設方法
+
+57
+00:02:17,384 --> 00:02:18,513
+arrays in JavaScript.
+JavaScript 中的陣列。
+
+58
+00:02:19,593 --> 00:02:21,003
+There we get a child,
+在那裡我們有了一個孩子，
+
+59
+00:02:21,900 --> 00:02:24,240
+and we want to return true if the child
+如果孩子我們想要回傳 true
+
+60
+00:02:24,240 --> 00:02:25,233
+value is equal
+值相等
+
+61
+00:02:26,067 --> 00:02:28,022
+to the first segment
+到第一段
+
+62
+00:02:29,031 --> 00:02:29,560
+we got here.
+我們到了。
+
+63
+00:02:30,570 --> 00:02:32,893
+Then we know this is the index of the node
+那我們知道這是節點的索引
+
+64
+00:02:32,893 --> 00:02:33,502
+we want to remove.
+我們想要刪除。
+
+65
+00:02:34,576 --> 00:02:37,172
+Now if existing node index
+現在如果現有節點索引
+
+66
+00:02:38,085 --> 00:02:40,088
+is smaller than 0,
+小於 0，
+
+67
+00:02:40,889 --> 00:02:42,828
+which is the return value we'll get if we
+這是我們將得到的回傳值
+
+68
+00:02:42,908 --> 00:02:44,639
+don't find a matching child,
+找不到合適的孩子，
+
+69
+00:02:45,233 --> 00:02:47,784
+I'll actually throw a new error here, could
+我實際上會在這裡拋出一個新錯誤，可以
+
+70
+00:02:47,784 --> 00:02:51,057
+not find matching value, to let the user of
+找不到符合的值，讓使用者
+
+71
+00:02:51,089 --> 00:02:53,287
+this code know that he passed in some
+這段程式碼知道他傳入了一些
+
+72
+00:02:53,336 --> 00:02:54,346
+incorrect information.
+不正確的資訊。
+
+73
+00:02:55,742 --> 00:02:58,711
+If we do get an index greater or equal to 0,
+如果我們確實得到一個大於或等於 0 的索引，
+
+74
+00:02:58,791 --> 00:03:01,150
+we know we did find a child with that value
+我們知道我們確實找到了一個具有這種價值的孩子
+
+75
+00:03:01,278 --> 00:03:03,123
+and then we wanna remove it. So then we
+然後我們想刪除它。那麼我們
+
+76
+00:03:03,123 --> 00:03:04,856
+simply reach out to this children
+只需向這些孩子伸出援手
+
+77
+00:03:05,450 --> 00:03:07,745
+and there we can call splice for existing
+在那裡我們可以呼叫現有的 splice
+
+78
+00:03:08,017 --> 00:03:11,114
+node index and then 1 element so that this 1
+節點索引，然後是 1 個元素，這樣這個 1
+
+79
+00:03:11,291 --> 00:03:13,638
+element starting at this index and therefore
+從此索引開始的元素，因此
+
+80
+00:03:13,638 --> 00:03:15,623
+the element with that index is being
+具有該索引的元素正在
+
+81
+00:03:15,801 --> 00:03:16,269
+removed.
+已刪除。
+
+82
+00:03:17,512 --> 00:03:19,627
+Now that happens if we have one segment.
+現在，如果我們有一個細分市場，就會發生這種情況。
+
+83
+00:03:20,152 --> 00:03:23,250
+Now if we have more segments than that, so
+現在，如果我們有更多的段，那麼
+
+84
+00:03:23,298 --> 00:03:27,607
+if segments.length is greater than 1,
+如果segments.length大於1，
+
+85
+00:03:29,172 --> 00:03:31,581
+then we know we need to drill into our nodes
+那我們知道我們需要深入研究我們的節點
+
+86
+00:03:31,856 --> 00:03:32,227
+deeper.
+更深。
+
+87
+00:03:33,149 --> 00:03:35,089
+And for that, again, we need to find any
+為此，我們再次需要找到任何
+
+88
+00:03:35,170 --> 00:03:37,159
+existing child node first of all.
+首先是現有的子節點。
+
+89
+00:03:37,838 --> 00:03:39,814
+So I'm going to copy that code from adding a
+所以我要複製新增程式碼
+
+90
+00:03:39,814 --> 00:03:40,205
+node
+節點
+
+91
+00:03:40,777 --> 00:03:42,897
+to search for an existing child node
+搜尋現有的子節點
+
+92
+00:03:43,588 --> 00:03:43,797
+where
+在哪裡
+
+93
+00:03:44,471 --> 00:03:47,298
+I have the first segment of all the segments
+我有所有段落中的第一段
+
+94
+00:03:47,298 --> 00:03:49,274
+that might be left as a value.
+這可能會保留為一個值。
+
+95
+00:03:50,189 --> 00:03:52,261
+Now here we have the problem that if we
+現在我們遇到的問題是，如果我們
+
+96
+00:03:52,277 --> 00:03:53,884
+don't find this child node,
+找不到這個子節點，
+
+97
+00:03:54,446 --> 00:03:55,891
+we can't drill in deeper.
+我們無法鑽得更深。
+
+98
+00:03:56,679 --> 00:03:58,718
+For adding a node, that was no problem.
+對於添加節點來說，這沒有問題。
+
+99
+00:03:59,971 --> 00:04:00,405
+If we
+如果我們
+
+100
+00:04:00,935 --> 00:04:03,425
+didn't find a child node here in the else
+else中沒有在這裡找到子節點
+
+101
+00:04:03,425 --> 00:04:05,256
+case, we simply created it.
+案例，我們只是創建了它。
+
+102
+00:04:05,850 --> 00:04:06,701
+But for deleting,
+但對於刪除來說，
+
+103
+00:04:07,280 --> 00:04:09,946
+well, we wanna delete it. And we can't
+好吧，我們想刪除它。而我們不能
+
+104
+00:04:09,946 --> 00:04:11,424
+delete what's not there.
+刪除不存在的內容。
+
+105
+00:04:12,436 --> 00:04:13,593
+So therefore, here,
+因此，在這裡，
+
+106
+00:04:14,268 --> 00:04:14,782
+if we
+如果我們
+
+107
+00:04:15,392 --> 00:04:17,899
+don't find an existing child node, if this
+找不到現有的子節點，如果這樣
+
+108
+00:04:17,899 --> 00:04:20,469
+is falsy— so if it's undefined, for example,
+是假的——所以如果它是未定義的，例如，
+
+109
+00:04:20,485 --> 00:04:22,044
+if we find no child node—
+如果我們沒有找到子節點——
+
+110
+00:04:22,863 --> 00:04:23,474
+well, then
+好吧，那麼
+
+111
+00:04:24,229 --> 00:04:24,775
+I again
+我又
+
+112
+00:04:25,434 --> 00:04:26,783
+will throw an
+會拋出一個
+
+113
+00:04:27,361 --> 00:04:27,635
+error.
+錯誤。
+
+114
+00:04:28,406 --> 00:04:29,193
+Could not find
+找不到
+
+115
+00:04:30,334 --> 00:04:32,117
+matching path, for example.
+例如，匹配路徑。
+
+116
+00:04:32,824 --> 00:04:34,768
+And we could also provide more information
+我們還可以提供更多資訊
+
+117
+00:04:34,768 --> 00:04:35,442
+if we wanted to.
+如果我們願意的話。
+
+118
+00:04:36,311 --> 00:04:38,147
+For example, the path segment for which we
+例如，我們的路徑段
+
+119
+00:04:38,147 --> 00:04:40,772
+failed. There I could then return
+失敗的。然後我可以回到那裡
+
+120
+00:04:41,544 --> 00:04:45,055
+segments because that was the segment we
+細分因為那是我們的細分
+
+121
+00:04:45,055 --> 00:04:47,428
+were looking for and we didn't find a child
+我們正在尋找，但沒有找到孩子
+
+122
+00:04:47,428 --> 00:04:48,935
+node with that segment.
+與該段的節點。
+
+123
+00:04:51,917 --> 00:04:54,060
+Now if we make it past this if check here,
+現在，如果我們通過了這裡檢查，
+
+124
+00:04:54,350 --> 00:04:56,702
+we know that we did find a child node,
+我們知道我們確實找到了一個子節點，
+
+125
+00:04:57,330 --> 00:04:59,360
+and then we'll repeat the same from adding a
+然後我們將透過添加重複相同的操作
+
+126
+00:04:59,360 --> 00:05:02,056
+node. We'll simply call remove_node in this
+節點。我們將簡單地在此呼叫remove_node
+
+127
+00:05:02,171 --> 00:05:03,559
+case on that node
+該節點上的情況
+
+128
+00:05:04,158 --> 00:05:06,810
+and forward our remaining segments.
+並轉發我們剩餘的部分。
+
+129
+00:05:07,554 --> 00:05:09,754
+So we call slice with the index of 1 to
+所以我們呼叫索引為1的slice來
+
+130
+00:05:09,754 --> 00:05:11,890
+start with the second segment, skipping the
+從第二段開始，跳過
+
+131
+00:05:11,890 --> 00:05:14,035
+first one, which is the value of the
+第一個，這是
+
+132
+00:05:14,035 --> 00:05:15,583
+existing child node. Therefore, it's
+現有子節點。因此，它是
+
+133
+00:05:15,583 --> 00:05:15,841
+skipped.
+跳過了。
+
+134
+00:05:16,502 --> 00:05:18,535
+And we join this back together into a
+我們將其重新組合成一個
+
+135
+00:05:18,535 --> 00:05:18,873
+string.
+細繩。
+
+136
+00:05:21,663 --> 00:05:23,581
+And this should hopefully do the trick.
+這應該可以解決問題。
+
+137
+00:05:24,161 --> 00:05:25,933
+With that, we should be able to remove the
+有了這個，我們應該能夠刪除
+
+138
+00:05:25,933 --> 00:05:27,157
+Call of Duty executable,
+使命召喚可執行檔案，
+
+139
+00:05:27,866 --> 00:05:30,009
+but, uh, Call of Duty 3 should fail.
+但是，呃，《決勝時刻 3》應該會失敗。
+
+140
+00:05:30,647 --> 00:05:30,775
+Or
+或者
+
+141
+00:05:31,692 --> 00:05:34,055
+a wrong folder name up here should also
+這裡的資料夾名稱錯誤也應該
+
+142
+00:05:34,120 --> 00:05:34,393
+fail.
+失敗。
+
+143
+00:05:35,309 --> 00:05:35,808
+Let's see,
+讓我們來看看，
+
+144
+00:05:36,515 --> 00:05:38,670
+if I reload, I get an error: could not find
+如果我重新載入，我會收到錯誤：找不到
+
+145
+00:05:38,670 --> 00:05:39,444
+matching value.
+匹配值。
+
+146
+00:05:40,154 --> 00:05:42,202
+That's good. Let's now comment out this here
+那挺好的。現在讓我們在這裡評論一下
+
+147
+00:05:43,945 --> 00:05:44,477
+and reload.
+並重新載入。
+
+148
+00:05:45,402 --> 00:05:47,169
+And now I also get an error, but this time
+現在我也遇到了錯誤，但是這次
+
+149
+00:05:47,169 --> 00:05:49,644
+for the path segment games, which is not
+對於路徑段遊戲，這不是
+
+150
+00:05:49,644 --> 00:05:52,520
+found because we didn't create any node that
+發現是因為我們沒有創建任何節點
+
+151
+00:05:52,617 --> 00:05:53,693
+would have that name.
+會有這個名字。
+
+152
+00:05:54,561 --> 00:05:56,233
+And if I now also comment out this, we
+如果我現在也註解掉這一點，我們
+
+153
+00:05:56,233 --> 00:05:56,572
+should have
+應該有
+
+154
+00:05:57,798 --> 00:05:59,930
+Removed all the failing code, and now
+刪除了所有失敗的程式碼，現在
+
+155
+00:06:00,123 --> 00:06:01,069
+reloading works.
+重新載入工作。
+
+156
+00:06:02,063 --> 00:06:04,469
+And now let's see, we got our documents,
+現在讓我們看看，我們拿到了檔案，
+
+157
+00:06:05,030 --> 00:06:06,874
+and there everything is in order. We got the
+一切都井井有條。我們得到了
+
+158
+00:06:06,874 --> 00:06:09,616
+personal folder with the text document.
+包含文字檔案的個人資料夾。
+
+159
+00:06:10,482 --> 00:06:13,016
+But if we scroll down to the games, we still
+但如果我們向下滾動到遊戲，我們仍然
+
+160
+00:06:13,112 --> 00:06:15,373
+have that, which is good. It shouldn't have
+擁有這個，這很好。不應該有
+
+161
+00:06:15,437 --> 00:06:16,030
+been removed.
+已刪除。
+
+162
+00:06:16,896 --> 00:06:19,751
+But in the children array of games, we only
+但在兒童遊戲中，我們只
+
+163
+00:06:19,767 --> 00:06:22,573
+have one node left even though we added 2
+即使我們新增了 2 個節點，仍剩下 1 個節點
+
+164
+00:06:22,845 --> 00:06:23,439
+originally.
+起初。
+
+165
+00:06:24,514 --> 00:06:26,361
+And we see that the only node that is left
+我們看到剩下的唯一節點
+
+166
+00:06:26,361 --> 00:06:27,854
+here is Call of Duty 2,
+這是《決勝時刻2》，
+
+167
+00:06:28,609 --> 00:06:30,262
+which makes sense because Call of Duty
+這是有道理的，因為使命召喚
+
+168
+00:06:30,840 --> 00:06:34,437
+without a number, just cod.executable, was
+沒有數字，只有 cod.executable，是
+
+169
+00:06:34,453 --> 00:06:34,839
+removed.
+已刪除。
+
+170
+00:06:35,914 --> 00:06:38,853
+So removing also seems to work again
+所以刪除似乎也能再次發揮作用
+
+171
+00:06:39,110 --> 00:06:41,309
+recursively with those checks.
+遞迴地進行這些檢查。
+
+172
+00:06:42,016 --> 00:06:44,505
+And with that, we built a basic tree, which
+這樣，我們就建立了一個基本的樹，
+
+173
+00:06:44,505 --> 00:06:47,539
+is great for file systems or for dummy file
+非常適合檔案系統或虛擬檔案
+
+174
+00:06:47,539 --> 00:06:48,872
+systems as we have it here.
+我們這裡擁有的系統。
+
+175
+00:06:49,483 --> 00:06:52,382
+And you hopefully have an idea of how a tree
+希望你知道一棵樹是如何
+
+176
+00:06:52,382 --> 00:06:54,589
+data structure looks and works
+資料結構的外觀和工作原理
+
+177
+00:06:55,120 --> 00:06:57,697
+and how those theoretical concepts from
+以及這些理論概念是如何從
+
+178
+00:06:57,697 --> 00:07:00,371
+before are translated into code here.
+之前的內容都翻譯成程式碼了。
+
+179
+00:07:01,161 --> 00:07:04,124
+Now let's analyze this tree data structure a
+現在我們來分析一下這個樹狀資料結構
+
+180
+00:07:04,124 --> 00:07:04,479
+little bit.
+一點。

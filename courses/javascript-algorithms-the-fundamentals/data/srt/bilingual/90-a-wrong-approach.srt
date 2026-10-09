@@ -1,0 +1,644 @@
+1
+00:00:02,198 --> 00:00:05,216
+So we got that knapsack problem, and as you
+所以我們遇到了背包問題，就像你一樣
+
+2
+00:00:05,312 --> 00:00:06,837
+learned, the first step is that we should
+了解到，第一步是我們應該
+
+3
+00:00:06,837 --> 00:00:08,506
+verify the problem and the inputs.
+驗證問題和輸入。
+
+4
+00:00:09,180 --> 00:00:11,491
+And one important question that I would ask
+我要問的一個重要問題
+
+5
+00:00:11,491 --> 00:00:13,176
+here, for example, in an interview
+例如，在一次訪談中
+
+6
+00:00:13,176 --> 00:00:15,889
+situation, is whether the items can be used
+情況，就是物品是否可以使用
+
+7
+00:00:15,921 --> 00:00:19,773
+multiple times. So whether I can put 2 A's
+多次。那我可不可以把2個A
+
+8
+00:00:19,773 --> 00:00:23,271
+or 2 B's into my knapsack, or if I'm limited
+或是在我的背包裡放 2 個 B，或者如果我能力有限
+
+9
+00:00:23,384 --> 00:00:25,663
+to using an item only one time.
+只使用一個專案一次。
+
+10
+00:00:26,336 --> 00:00:29,605
+And here, let's say we can use each item
+在這裡，假設我們可以使用每個專案
+
+11
+00:00:29,861 --> 00:00:32,762
+only once. So we're not allowed to have 2 Bs
+只有一次。所以我們不允許有 2 個 B
+
+12
+00:00:32,842 --> 00:00:35,486
+or 2 As in our knapsack. That's an important
+或 2 就像我們的背包一樣。這是一個重要的
+
+13
+00:00:35,486 --> 00:00:37,633
+piece of information because if we would be
+一則訊息，因為如果我們
+
+14
+00:00:37,633 --> 00:00:40,373
+allowed to reuse items, the best solution
+允許重複使用物品，最好的解決方案
+
+15
+00:00:40,373 --> 00:00:42,728
+would not be to have, say, C and A in our
+比方說，我們的系統中不會有 C 和 A
+
+16
+00:00:43,081 --> 00:00:45,148
+knapsack. Instead, it would be best to have
+背包。相反，最好有
+
+17
+00:00:45,244 --> 00:00:48,561
+2 Cs in our knapsack because then we would
+我們的背包裡有 2 個 C，因為這樣我們就會
+
+18
+00:00:48,609 --> 00:00:51,718
+have a weight of 6, 2 times 3, and a value
+權重為 6、2 乘以 3 和值
+
+19
+00:00:51,734 --> 00:00:54,427
+of 10. So this That's why this verification
+10. 所以這就是為什麼要進行此驗證
+
+20
+00:00:54,780 --> 00:00:55,566
+really matters.
+真的很重要。
+
+21
+00:00:56,480 --> 00:00:58,661
+Well, now that I verified this, let's come
+好吧，既然我驗證了這一點，那麼讓我們來吧
+
+22
+00:00:58,709 --> 00:01:00,858
+up with our first verbal solution.
+完成我們的第一個口頭解決方案。
+
+23
+00:01:01,756 --> 00:01:04,225
+And I would say the first thing that comes
+我想說的第一件事是
+
+24
+00:01:04,257 --> 00:01:07,256
+to my mind, one possible approach we can
+在我看來，我們可以採取一種可能的方法
+
+25
+00:01:07,368 --> 00:01:07,817
+look into,
+調查，
+
+26
+00:01:08,411 --> 00:01:10,399
+is that we could derive all possible
+就是我們可以導出所有可能的
+
+27
+00:01:10,431 --> 00:01:11,682
+combinations of items.
+專案的組合。
+
+28
+00:01:12,580 --> 00:01:14,633
+And we try to combine all items in all
+我們嘗試將所有專案組合起來
+
+29
+00:01:14,681 --> 00:01:15,370
+possible ways,
+可能的方式，
+
+30
+00:01:15,948 --> 00:01:18,754
+and we find the combination with the highest
+我們找到最高的組合
+
+31
+00:01:18,754 --> 00:01:19,059
+value.
+價值。
+
+32
+00:01:19,876 --> 00:01:20,918
+And a fitting weight.
+還有合適的重量。
+
+33
+00:01:21,671 --> 00:01:23,963
+So a weight that is below 8 and the highest
+所以重量低於 8 且最高
+
+34
+00:01:23,963 --> 00:01:24,844
+possible value.
+可能的值。
+
+35
+00:01:25,486 --> 00:01:27,809
+So my simple first solution is that I want
+所以我簡單的第一個解決方案是我想要
+
+36
+00:01:27,809 --> 00:01:30,438
+to combine A, B, C in all possible ways
+以所有可能的方式組合 A、B、C
+
+37
+00:01:31,015 --> 00:01:33,098
+and see which combination gives us the
+看看哪個組合給了我們
+
+38
+00:01:33,098 --> 00:01:33,803
+highest value.
+最高值。
+
+39
+00:01:34,460 --> 00:01:36,383
+Well, let's write down a first version here.
+好吧，讓我們在這裡寫下第一個版本。
+
+40
+00:01:37,024 --> 00:01:39,541
+And the first thing that came to my mind
+我首先想到的是
+
+41
+00:01:39,605 --> 00:01:42,009
+when I thought about combinations is that
+當我想到組合時
+
+42
+00:01:42,009 --> 00:01:44,717
+permutations example I showed you in the
+我在中向您展示了排列範例
+
+43
+00:01:44,733 --> 00:01:47,105
+last module, because there we derived all
+最後一個模組，因為我們在那裡導出了所有
+
+44
+00:01:47,217 --> 00:01:49,669
+possible ways of combining various items
+組合各種物品的可能方式
+
+45
+00:01:50,279 --> 00:01:53,537
+So maybe we can use that to find a solution
+所以也許我們可以用它來找到解決方案
+
+46
+00:01:53,537 --> 00:01:54,725
+for the knapsack problem.
+對於背包問題。
+
+47
+00:01:55,383 --> 00:01:57,309
+Therefore, here I have the permutation
+因此，這裡我有排列
+
+48
+00:01:57,309 --> 00:02:00,262
+algorithm for the case without repetitions
+不重複情況的演算法
+
+49
+00:02:00,535 --> 00:02:03,199
+because we're only allowed to use every item
+因為我們只被允許使用每件物品
+
+50
+00:02:03,247 --> 00:02:03,488
+once.
+一次。
+
+51
+00:02:04,291 --> 00:02:06,104
+And I will now simply set up my
+我現在只需設定我的
+
+52
+00:02:07,099 --> 00:02:09,346
+items here, my items that could go into my
+這裡的物品，我的物品可以進入我的
+
+53
+00:02:09,443 --> 00:02:10,004
+knapsack,
+背包，
+
+54
+00:02:10,566 --> 00:02:13,070
+and I will put them through that algorithm
+我會讓他們透過這個演算法
+
+55
+00:02:13,118 --> 00:02:15,349
+here and, well, see how that works out.
+在這裡，好吧，看看效果如何。
+
+56
+00:02:16,120 --> 00:02:19,427
+So here I'll add my items. Name A
+所以在這裡我將添加我的專案。姓名A
+
+57
+00:02:20,181 --> 00:02:23,649
+with a value of, let's say, um, 3 was the
+其值為，比方說，嗯，3 是
+
+58
+00:02:23,649 --> 00:02:25,575
+first item, a weight of 3.
+第一項，權重為 3。
+
+59
+00:02:26,522 --> 00:02:28,433
+And then I'll repeat this twice to also have
+然後我會重複兩次
+
+60
+00:02:28,545 --> 00:02:32,318
+B and C. The second item B has a value of 6
+B 和 C。第二項 B 的值為 6
+
+61
+00:02:33,024 --> 00:02:35,898
+and a weight of 8. And the third item C has
+權重為 8。第三個專案 C 有
+
+62
+00:02:35,946 --> 00:02:38,145
+a value of 10 and also a weight of 3.
+值為 10，權重為 3。
+
+63
+00:02:38,964 --> 00:02:41,436
+So now I have these items, and now I'll call
+現在我有了這些物品，現在我會打電話
+
+64
+00:02:41,452 --> 00:02:43,764
+get permutations and feed my items into
+取得排列並將我的專案輸入
+
+65
+00:02:43,796 --> 00:02:44,053
+that.
+那。
+
+66
+00:02:44,839 --> 00:02:45,674
+And then I got my
+然後我得到了我的
+
+67
+00:02:46,669 --> 00:02:48,900
+constant allPermutations,
+所有排列不變，
+
+68
+00:02:49,655 --> 00:02:51,918
+which I'll console.log to see which
+我將透過 console.log 來查看哪一個
+
+69
+00:02:52,223 --> 00:02:53,524
+combinations we have here.
+我們這裡有組合。
+
+70
+00:02:54,069 --> 00:02:55,434
+And then I'll first of all have a look at
+然後我先看一下
+
+71
+00:02:55,434 --> 00:02:57,216
+the output and see what's in there. And that
+輸出並看看裡面有什麼。還有那個
+
+72
+00:02:57,264 --> 00:02:59,928
+was one of the steps I also recommended to
+是我也推薦的步驟之一
+
+73
+00:02:59,928 --> 00:03:02,722
+simplify problems. Console.log your
+簡化問題。 Console.log 你的
+
+74
+00:03:02,722 --> 00:03:05,145
+intermediate results. I could now try to
+中間結果。我現在可以嘗試
+
+75
+00:03:05,145 --> 00:03:07,120
+write the code that then goes through all
+寫作然後遍歷所有的程式碼
+
+76
+00:03:07,232 --> 00:03:09,207
+the combinations and checks which one has
+組合併檢查哪一個具有
+
+77
+00:03:09,255 --> 00:03:11,390
+the highest value, but I'd rather just have
+最高的價值，但我寧願只擁有
+
+78
+00:03:11,390 --> 00:03:13,652
+a look at all my combinations to see if that
+看看我所有的組合，看看是否是這樣
+
+79
+00:03:13,652 --> 00:03:16,602
+makes sense before I write the rest of this
+在我寫剩下的部分之前是有道理的
+
+80
+00:03:16,682 --> 00:03:19,584
+algorithm. So here we go. Let's save this
+演算法.那麼我們就開始吧。讓我們儲存這個
+
+81
+00:03:19,584 --> 00:03:21,556
+and reload. And here's my array of
+並重新載入。這是我的陣列
+
+82
+00:03:21,572 --> 00:03:22,197
+combinations.
+組合。
+
+83
+00:03:23,191 --> 00:03:24,890
+Now let's explore those combinations. I got
+現在讓我們來探索這些組合。我得到了
+
+84
+00:03:25,018 --> 00:03:25,612
+ABC,
+ABC,
+
+85
+00:03:26,477 --> 00:03:27,167
+I got BAC,
+我得到了BAC，
+
+86
+00:03:28,241 --> 00:03:30,212
+I got BCA, and so on.
+我得到了BCA，等等。
+
+87
+00:03:31,030 --> 00:03:34,124
+And now that I look at this, I see that this
+現在我看到這個，我發現這個
+
+88
+00:03:34,348 --> 00:03:35,310
+solution makes
+解決方案使
+
+89
+00:03:35,839 --> 00:03:36,801
+pretty much no sense.
+幾乎沒有任何意義。
+
+90
+00:03:37,763 --> 00:03:40,668
+The problem here is permutations seem to be
+這裡的問題是排列似乎是
+
+91
+00:03:40,668 --> 00:03:42,886
+totally wrong for this problem
+這個問題完全錯誤
+
+92
+00:03:43,480 --> 00:03:44,974
+because permutations,
+因為排列，
+
+93
+00:03:45,810 --> 00:03:48,108
+no matter if we use them without or with
+無論我們是否使用它們
+
+94
+00:03:48,124 --> 00:03:50,421
+repetition, are about the order
+重複，與順序有關
+
+95
+00:03:51,016 --> 00:03:54,695
+of values in a combination. So we never have
+值的組合。所以我們從來沒有
+
+96
+00:03:55,049 --> 00:03:58,471
+just 2 or just 3 or just 1 item combined.
+僅 2 件或僅 3 件或僅 1 件商品組合。
+
+97
+00:03:58,519 --> 00:04:00,753
+Instead, we always combine all items and we
+相反，我們總是將所有專案組合起來，然後
+
+98
+00:04:00,753 --> 00:04:02,986
+just have different ways of ordering the
+只是有不同的訂購方式
+
+99
+00:04:02,986 --> 00:04:05,139
+items. That's what permutations are about.
+專案.這就是排列的意義。
+
+100
+00:04:05,653 --> 00:04:07,628
+And that's why permutations are, of course,
+當然，這就是為什麼排列是，
+
+101
+00:04:07,724 --> 00:04:09,956
+totally inappropriate for this problem
+完全不適合這個問題
+
+102
+00:04:10,470 --> 00:04:12,830
+because I don't want to put all items into
+因為我不想將所有專案放入
+
+103
+00:04:12,879 --> 00:04:15,528
+the knapsack and put them into the sack in a
+並將它們放入袋子中
+
+104
+00:04:15,592 --> 00:04:16,266
+different order.
+不同的順序。
+
+105
+00:04:16,957 --> 00:04:19,189
+Instead, I just want to put all the items
+相反，我只想把所有的專案
+
+106
+00:04:19,221 --> 00:04:21,790
+into the knapsack that give me the highest
+進入給我最高的背包
+
+107
+00:04:21,854 --> 00:04:23,925
+value whilst being below the weight
+價值同時低於重量
+
+108
+00:04:24,182 --> 00:04:26,655
+threshold. And that's not the case here. I
+臨界點。但這裡的情況並非如此。我
+
+109
+00:04:26,671 --> 00:04:28,678
+always have all 3 items in the knapsack
+背包中始終保留全部 3 件物品
+
+110
+00:04:28,678 --> 00:04:31,022
+here, and therefore I always exceed the the
+在這裡，因此我總是超越
+
+111
+00:04:31,182 --> 00:04:33,314
+threshold, and in addition, I would always
+閾值，此外，我總是
+
+112
+00:04:33,330 --> 00:04:34,196
+have the same value.
+具有相同的值。
+
+113
+00:04:34,805 --> 00:04:36,649
+So that's why it matters to
+所以這就是為什麼重要的是
+
+114
+00:04:37,274 --> 00:04:38,316
+come up with an idea,
+提出一個想法，
+
+115
+00:04:39,118 --> 00:04:41,891
+phrase it, check it, and then also check it
+表達它，檢查它，然後也檢查它
+
+116
+00:04:42,019 --> 00:04:43,911
+early so that you don't continue with an
+儘早，這樣你就不會繼續
+
+117
+00:04:43,991 --> 00:04:45,738
+idea that doesn't make much sense.
+這個想法沒有太大意義。
+
+118
+00:04:46,876 --> 00:04:49,441
+Now, the general idea of having a look at
+現在，看看整體思路
+
+119
+00:04:49,521 --> 00:04:52,407
+all possible combinations wasn't horrible,
+所有可能的組合並不可怕，
+
+120
+00:04:52,808 --> 00:04:55,196
+but it's important to realize here that
+但重要的是要意識到這一點
+
+121
+00:04:55,212 --> 00:04:57,857
+we're not interested in the combinations
+我們對組合不感興趣
+
+122
+00:04:57,857 --> 00:05:00,182
+where we always include all items and we
+我們總是包含所有專案並且我們
+
+123
+00:05:00,182 --> 00:05:02,330
+have different orders, different ways of
+有不同的順序，不同的方式
+
+124
+00:05:02,346 --> 00:05:04,927
+sorting them, but that instead we care about
+對它們進行排序，但我們關心的是
+
+125
+00:05:05,072 --> 00:05:08,487
+all combinations in a sense of do we take A
+所有組合在某種意義上我們都採取A
+
+126
+00:05:09,000 --> 00:05:12,174
+or do we take A and B or maybe A and C or do
+或者我們採取A和B或也許A和C或做
+
+127
+00:05:12,222 --> 00:05:15,508
+we take all 3? So we care about the number
+我們三個都拿嗎？所以我們關心的是數字
+
+128
+00:05:15,508 --> 00:05:17,881
+of items and not just about the order of
+的專案而不僅僅是順序
+
+129
+00:05:17,913 --> 00:05:18,458
+items here.
+專案在這裡。

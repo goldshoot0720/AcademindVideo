@@ -1,0 +1,424 @@
+1
+00:00:02,210 --> 00:00:04,565
+So what's the binary search tree time
+那麼二元搜尋樹時間是多少
+
+2
+00:00:04,597 --> 00:00:06,952
+complexity now? Again, I'm going to compare
+現在複雜嗎？我再一次比較一下
+
+3
+00:00:07,016 --> 00:00:07,641
+it to an array
+它到一個陣列
+
+4
+00:00:08,202 --> 00:00:10,252
+and I'm going to have a look at accessing
+我將查看訪問
+
+5
+00:00:10,284 --> 00:00:13,120
+and searching things, insertion and removal.
+以及搜尋、插入和刪除。
+
+6
+00:00:13,633 --> 00:00:15,459
+Now let's start with searching things
+現在讓我們開始搜尋東西
+
+7
+00:00:16,276 --> 00:00:18,647
+and here it gets interesting. Previously for
+這裡變得有趣了。以前用於
+
+8
+00:00:18,775 --> 00:00:22,043
+a basic tree, we saw that we got O as a
+一棵基本樹，我們看到 O 作為
+
+9
+00:00:22,123 --> 00:00:24,094
+worst-case time complexity for all
+最壞情況的時間複雜度
+
+10
+00:00:24,286 --> 00:00:27,330
+operations. Now for the binary search tree,
+營運.現在對於二元搜尋樹，
+
+11
+00:00:27,426 --> 00:00:30,630
+we also have that worst-case time complexity
+我們也有最壞情況的時間複雜度
+
+12
+00:00:30,694 --> 00:00:33,099
+but we get a better average case. And I'll
+但我們得到了更好的平均情況。我會
+
+13
+00:00:33,099 --> 00:00:35,007
+come back to that average case in a second.
+稍後再回到那個平均情況。
+
+14
+00:00:35,520 --> 00:00:36,611
+Now, for the worst case,
+現在，對於最壞的情況，
+
+15
+00:00:37,364 --> 00:00:39,353
+we simply need to imagine a tree that looks
+我們只需要想像一棵樹看起來
+
+16
+00:00:39,353 --> 00:00:42,176
+like this. If we only have one line of nodes
+像這樣。如果我們只有一行節點
+
+17
+00:00:42,176 --> 00:00:43,234
+and we're looking for 2,
+我們正在尋找 2，
+
+18
+00:00:43,924 --> 00:00:47,741
+there is no way for us to not visit all
+我們沒有辦法不訪問所有
+
+19
+00:00:47,965 --> 00:00:50,082
+nodes. And that's why we have linear time
+節點。這就是為什麼我們有線性時間
+
+20
+00:00:50,178 --> 00:00:52,408
+complexity in the worst case, because our
+最壞情況下的複雜性，因為我們
+
+21
+00:00:52,504 --> 00:00:54,589
+worst case tree could look like this and we
+最壞情況的樹可能看起來像這樣，我們
+
+22
+00:00:54,589 --> 00:00:56,834
+have no chance of doing better than linear
+沒有機會比線性做得更好
+
+23
+00:00:56,834 --> 00:00:59,225
+time then if we're looking for the most
+那麼如果我們正在尋找最多的時間
+
+24
+00:00:59,258 --> 00:01:00,558
+deeply nested value.
+深層嵌套的值。
+
+25
+00:01:01,249 --> 00:01:03,400
+However, this is the worst case.
+然而，這是最壞的情況。
+
+26
+00:01:04,299 --> 00:01:05,086
+In reality,
+事實上，
+
+27
+00:01:05,744 --> 00:01:07,687
+our trees often might look something like
+我們的樹通常看起來像
+
+28
+00:01:07,687 --> 00:01:09,726
+that. And now here's the interesting thing.
+那。現在有趣的事情來了。
+
+29
+00:01:10,160 --> 00:01:13,066
+Because we sorted it, because we know that
+因為我們對它進行了排序，因為我們知道
+
+30
+00:01:13,066 --> 00:01:16,117
+we have at most 2 child nodes and the left
+我們最多有 2 個子節點，左邊
+
+31
+00:01:16,117 --> 00:01:18,092
+one is always smaller and the right one is
+一個總是較小的，正確的一個是
+
+32
+00:01:18,124 --> 00:01:18,815
+always bigger,
+總是更大，
+
+33
+00:01:19,473 --> 00:01:22,604
+we can optimize our search algorithm in that
+我們可以優化我們的搜尋演算法
+
+34
+00:01:22,604 --> 00:01:24,916
+tree And we always just have a decision
+樹 我們總是有一個決定
+
+35
+00:01:25,269 --> 00:01:27,325
+whether we wanna dig into the left or the
+我們是否想深入左側或右側
+
+36
+00:01:27,341 --> 00:01:28,802
+right child node tree,
+右子節點樹，
+
+37
+00:01:29,348 --> 00:01:31,644
+and we never need to visit the nodes of the
+我們永遠不需要訪問的節點
+
+38
+00:01:31,693 --> 00:01:33,154
+tree we decide against.
+我們決定反對的樹。
+
+39
+00:01:33,684 --> 00:01:35,482
+So for example, if we're looking for a value
+例如，如果我們正在尋找一個值
+
+40
+00:01:35,482 --> 00:01:37,859
+of 2 here, and we start at the top of the
+這裡有 2 個，我們從頂部開始
+
+41
+00:01:37,859 --> 00:01:40,476
+tree, we know that it's smaller than 10, so
+樹，我們知道它小於 10，所以
+
+42
+00:01:40,508 --> 00:01:43,463
+we never need to visit the 14 and 24 nodes.
+我們永遠不需要訪問 14 和 24 節點。
+
+43
+00:01:44,202 --> 00:01:46,129
+When we're then at 5, we're still looking
+當我們五歲的時候，我們仍在尋找
+
+44
+00:01:46,209 --> 00:01:48,923
+for 2, so we know we don't have to look at
+對於 2，所以我們知道我們不必看
+
+45
+00:01:49,099 --> 00:01:50,737
+any values on the right side of 5.
+5 右側的任何值。
+
+46
+00:01:51,747 --> 00:01:55,015
+So therefore, we split our problem set into
+因此，我們將問題集分為
+
+47
+00:01:55,111 --> 00:01:57,498
+half with every node that we reach.
+我們到達的每個節點都有一半。
+
+48
+00:01:58,075 --> 00:02:00,222
+We always just have to consider one of 2
+我們總是只需要考慮以下兩個之一
+
+49
+00:02:00,478 --> 00:02:01,023
+choices.
+選擇。
+
+50
+00:02:01,920 --> 00:02:04,099
+And you might remember from the algorithm
+你可能還記得演算法中的
+
+51
+00:02:04,099 --> 00:02:06,630
+course that if you split your problem in
+當然，如果你把你的問題分成
+
+52
+00:02:06,743 --> 00:02:09,899
+half in a recursion, so if you split it in
+一半在遞迴中，所以如果你把它分成
+
+53
+00:02:10,011 --> 00:02:12,238
+half with every step of a recursion,
+遞迴的每一步都減半，
+
+54
+00:02:12,815 --> 00:02:15,843
+you have logarithmic time. Now again, I do
+你有對數時間。現在我再說一次
+
+55
+00:02:15,859 --> 00:02:18,246
+explain that in more detail in my algorithms
+在我的演算法中更詳細地解釋這一點
+
+56
+00:02:18,278 --> 00:02:20,345
+course, so make sure you have a look at that
+當然，所以一定要看看
+
+57
+00:02:20,345 --> 00:02:20,633
+as well.
+以及。
+
+58
+00:02:21,226 --> 00:02:24,146
+There we talk about binary search, which as
+在那裡我們談論二分搜尋，即
+
+59
+00:02:24,210 --> 00:02:24,980
+the name implies
+顧名思義
+
+60
+00:02:25,638 --> 00:02:28,286
+uses a similar algorithm, and there I also
+使用類似的演算法，我也有
+
+61
+00:02:28,302 --> 00:02:30,949
+explain why we have logarithmic time. And
+解釋為什麼我們有對數時間。和
+
+62
+00:02:30,949 --> 00:02:33,307
+logarithmic time is better than linear time,
+對數時間優於線性時間，
+
+63
+00:02:33,756 --> 00:02:36,083
+and it's the average case because the worst
+這是平均情況，因為最壞的情況
+
+64
+00:02:36,083 --> 00:02:38,650
+case is one specific scenario,
+case 是一種特定的場景，
+
+65
+00:02:39,452 --> 00:02:42,067
+this scenario. So in most other cases, we'll
+這個場景。所以在大多數其他情況下，我們會
+
+66
+00:02:42,099 --> 00:02:44,217
+not have the worst case, and therefore on
+沒有最壞的情況，因此
+
+67
+00:02:44,410 --> 00:02:47,394
+average in the binary search tree we do have
+我們所擁有的二元搜尋樹的平均值
+
+68
+00:02:47,394 --> 00:02:50,108
+logarithmic time, and therefore we do better
+對數時間，因此我們做得更好
+
+69
+00:02:50,285 --> 00:02:53,142
+than linear time complexity and also better
+比線性時間複雜度也更好
+
+70
+00:02:53,415 --> 00:02:56,000
+than an array unless we know the index in an
+比陣列除非我們知道陣列中的索引
+
+71
+00:02:56,065 --> 00:02:57,975
+array. But if we search something, we don't,
+大批。但如果我們搜尋某些東西，我們不會，
+
+72
+00:02:58,216 --> 00:03:00,657
+and therefore here we see where the binary
+因此在這裡我們看到二進位檔案在哪裡
+
+73
+00:03:00,657 --> 00:03:03,322
+search tree could be better for storing
+搜尋樹可以更好地存儲
+
+74
+00:03:03,370 --> 00:03:06,967
+data. If you can sort your data, a binary
+資料。如果您可以對資料進行排序，則可以使用二進位
+
+75
+00:03:06,967 --> 00:03:09,680
+search tree might be better because now you
+搜尋樹可能會更好，因為現在你
+
+76
+00:03:09,712 --> 00:03:12,121
+can access it in a more optimized way.
+可以以更優化的方式存取它。
+
+77
+00:03:13,229 --> 00:03:14,338
+Now for insertion
+現在進行插入
+
+78
+00:03:15,158 --> 00:03:17,874
+and for removal, it's the same because
+對於刪除，它是相同的，因為
+
+79
+00:03:17,970 --> 00:03:20,445
+they're all about finding values and knowing
+他們都是為了尋找價值和了解
+
+80
+00:03:20,478 --> 00:03:22,744
+where to add or remove something. So
+在哪裡新增或刪除某些內容。所以
+
+81
+00:03:22,808 --> 00:03:25,861
+therefore, here we also on average do better
+因此，我們在這裡平均做得更好
+
+82
+00:03:25,861 --> 00:03:28,079
+than linear time, and that's the huge
+比線性時間，這是巨大的
+
+83
+00:03:28,127 --> 00:03:31,229
+advantage of the binary search tree. So it's
+二元搜尋樹的優點。所以這是
+
+84
+00:03:31,229 --> 00:03:34,925
+great if you have data that can be stored in
+如果您有可以儲存的資料，那就太好了
+
+85
+00:03:34,925 --> 00:03:36,388
+a certain sorted way.
+某種排序方式。

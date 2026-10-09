@@ -1,0 +1,1709 @@
+1
+00:00:02,197 --> 00:00:04,956
+For that, I'm back in an empty app.js file,
+為此，我回到了一個空的 app.js 檔案，
+
+2
+00:00:05,245 --> 00:00:07,667
+and in there we'll add a new sort function.
+我們將在其中新增一個新的排序函式。
+
+3
+00:00:08,212 --> 00:00:11,147
+And that sort function will again take an
+此排序函式將再次採用
+
+4
+00:00:11,324 --> 00:00:11,500
+array
+大批
+
+5
+00:00:12,126 --> 00:00:12,912
+as an input
+作為輸入
+
+6
+00:00:13,489 --> 00:00:14,756
+so that we can call it
+這樣我們就可以稱之為
+
+7
+00:00:16,232 --> 00:00:19,247
+with any input array of our choice: -3, 10,
+使用我們選擇的任何輸入陣列：-3、10、
+
+8
+00:00:19,680 --> 00:00:20,755
+1, 100,
+1, 100,
+
+9
+00:00:21,284 --> 00:00:21,573
+-10,
+-10,
+
+10
+00:00:22,166 --> 00:00:22,824
+22,
+22、
+
+11
+00:00:23,514 --> 00:00:24,781
+15, something like that.
+15、類似的事情。
+
+12
+00:00:25,390 --> 00:00:27,636
+Now this should then again give me a sorted
+現在這應該再次給我一個排序
+
+13
+00:00:27,636 --> 00:00:27,893
+array.
+大批。
+
+14
+00:00:28,486 --> 00:00:30,910
+And I want to console.log that sorted array
+我想 console.log 已排序的陣列
+
+15
+00:00:30,990 --> 00:00:32,820
+thereafter to see whether that worked.
+然後看看這是否有效。
+
+16
+00:00:33,237 --> 00:00:35,548
+Currently, it's of course not really sorted,
+目前，當然還沒有真正排序，
+
+17
+00:00:35,629 --> 00:00:36,238
+as you can tell.
+正如你所知。
+
+18
+00:00:36,768 --> 00:00:38,822
+-10 should be the first value after all, and
+畢竟 -10 應該是第一個值，而且
+
+19
+00:00:38,871 --> 00:00:39,144
+so on.
+很快。
+
+20
+00:00:40,315 --> 00:00:42,305
+So previously, we implemented this with a
+所以之前，我們用一個
+
+21
+00:00:42,305 --> 00:00:44,312
+bubble sort. Now we're going to use the
+冒泡排序。現在我們將使用
+
+22
+00:00:44,312 --> 00:00:47,185
+quicksort algorithm. Now, how do we do that?
+快速排序演算法。現在，我們該怎麼做呢？
+
+23
+00:00:48,308 --> 00:00:51,598
+Inside of that sort function, I again first
+在該排序函式內部，我再次首先
+
+24
+00:00:51,598 --> 00:00:53,653
+of all copy that array.
+全部複製該陣列。
+
+25
+00:00:54,903 --> 00:00:56,891
+Because I'm going to change it and I don't
+因為我要改變它但我沒有改變
+
+26
+00:00:56,891 --> 00:00:59,247
+want to change the original array. So I'll
+想要改變原來的陣列。所以我會
+
+27
+00:00:59,247 --> 00:01:01,892
+name this copied array here, and again
+在這裡命名這個複製的陣列，然後再次命名
+
+28
+00:01:01,940 --> 00:01:04,649
+simply use the spread operator to copy the
+只需使用擴充運算子來複製
+
+29
+00:01:04,665 --> 00:01:06,668
+array we get as a parameter into a new
+我們將陣列作為參數傳入一個新的
+
+30
+00:01:06,684 --> 00:01:09,233
+array. Now we can change that copied array
+大批。現在我們可以更改複製的陣列
+
+31
+00:01:09,473 --> 00:01:11,637
+inside of the function without changing the
+在函式內部而不改變
+
+32
+00:01:11,653 --> 00:01:12,134
+input array.
+輸入陣列。
+
+33
+00:01:13,400 --> 00:01:15,821
+How does this algorithm now work? What are
+這個演算法現在如何運作？什麼是
+
+34
+00:01:15,885 --> 00:01:18,177
+we doing with that? Well, first of all,
+我們用那個做什麼？嗯，首先，
+
+35
+00:01:18,946 --> 00:01:20,004
+we can check
+我們可以檢查
+
+36
+00:01:20,613 --> 00:01:21,527
+the copied array
+複製的陣列
+
+37
+00:01:22,297 --> 00:01:22,907
+length here.
+長度在這裡。
+
+38
+00:01:24,144 --> 00:01:26,345
+And we do this to have an exit condition, a
+我們這樣做是為了有一個退出條件
+
+39
+00:01:26,490 --> 00:01:28,498
+base case, since we're going to write the
+基本情況，因為我們要寫
+
+40
+00:01:28,498 --> 00:01:29,510
+recursive function.
+遞迴函式。
+
+41
+00:01:30,506 --> 00:01:32,868
+So I want to check if the length is smaller
+所以我想檢查長度是否更小
+
+42
+00:01:32,916 --> 00:01:35,712
+or equal than 1. If that's the case, I want
+或等於 1。如果是這樣的話，我想要
+
+43
+00:01:35,712 --> 00:01:38,427
+to return the copied array. I don't want to
+傳回複製的陣列。我不想
+
+44
+00:01:38,443 --> 00:01:40,483
+call myself again. I don't want to have
+再次打電話給我自己。我不想擁有
+
+45
+00:01:40,483 --> 00:01:41,977
+another recursive step.
+另一個遞迴步驟。
+
+46
+00:01:43,038 --> 00:01:45,223
+We don't have any recursive step right now,
+我們現在沒有任何遞迴步驟，
+
+47
+00:01:45,351 --> 00:01:47,665
+but we're going to add one. And since, as
+但我們要添加一個。自從，作為
+
+48
+00:01:47,761 --> 00:01:49,703
+you saw on the slides, Since we're going to
+你在幻燈片上看到了，因為我們要
+
+49
+00:01:49,703 --> 00:01:50,938
+split that array into
+將該陣列拆分為
+
+50
+00:01:51,467 --> 00:01:53,455
+a bunch of individual arrays, which in the
+一堆單獨的陣列，其中
+
+51
+00:01:53,455 --> 00:01:56,037
+end are always arrays with just one element,
+end 始終是只有一個元素的陣列，
+
+52
+00:01:56,358 --> 00:01:59,565
+we check if an array is one element long or
+我們檢查陣列是否只有一個元素長或
+
+53
+00:01:59,565 --> 00:02:01,761
+shorter, in which case we know we're done.
+更短，在這種情況下我們知道我們已經完成了。
+
+54
+00:02:01,890 --> 00:02:03,846
+We don't need to split this array anymore,
+我們不需要再分割這個陣列了，
+
+55
+00:02:04,150 --> 00:02:06,908
+so we just return that array with that one
+所以我們只回傳那個陣列
+
+56
+00:02:07,021 --> 00:02:07,470
+element here.
+元素在這裡。
+
+57
+00:02:08,464 --> 00:02:10,869
+Now, what are we doing outside of this base
+現在，我們在這個基地之外做什麼
+
+58
+00:02:10,869 --> 00:02:13,370
+case though? Now here we need to do that
+但情況如何？現在我們需要這樣做
+
+59
+00:02:13,370 --> 00:02:15,807
+splitting. So I'm going to construct 2 new
+分裂。所以我要建造 2 個新的
+
+60
+00:02:15,920 --> 00:02:16,497
+arrays here.
+陣列在這裡。
+
+61
+00:02:17,042 --> 00:02:19,319
+And I'll name it the smaller array,
+我將其命名為較小的陣列，
+
+62
+00:02:19,848 --> 00:02:22,398
+or smaller elements array, to make it really
+或更小的元素陣列，使其真正
+
+63
+00:02:22,398 --> 00:02:23,969
+clear what will go into that array,
+清楚該陣列中將包含什麼內容，
+
+64
+00:02:24,643 --> 00:02:27,545
+and the bigger elements array to make it
+和更大的元素陣列來製作它
+
+65
+00:02:27,545 --> 00:02:28,988
+clear what will go into this array.
+明確該陣列中將包含哪些內容。
+
+66
+00:02:29,694 --> 00:02:33,591
+Now I'll also add a center elements array,
+現在我還要新增一個中心元素陣列，
+
+67
+00:02:33,863 --> 00:02:36,509
+or I could also name it equal elements
+或者我也可以將其命名為相等元素
+
+68
+00:02:36,509 --> 00:02:36,718
+array,
+大批，
+
+69
+00:02:37,247 --> 00:02:39,139
+which will be our 3rd array in the middle.
+這將是中間的第三個陣列。
+
+70
+00:02:39,476 --> 00:02:41,737
+And this array, the center elements array,
+這個陣列，中心元素陣列，
+
+71
+00:02:42,041 --> 00:02:43,725
+will contain our pivot element.
+將包含我們的主元元素。
+
+72
+00:02:44,543 --> 00:02:46,901
+So I'll also get that pivot element here,
+所以我也會在這裡得到那個樞軸元素，
+
+73
+00:02:47,254 --> 00:02:50,559
+and that pivot element simply here could be
+此處的樞軸元素可以是
+
+74
+00:02:50,559 --> 00:02:53,768
+the first item of the array we got, so the
+我們得到的陣列的第一項，所以
+
+75
+00:02:53,768 --> 00:02:55,132
+first item of the input array.
+輸入陣列的第一項。
+
+76
+00:02:55,693 --> 00:02:58,581
+And for that, I'll use copiedArray.shift.
+為此，我將使用 CopyArray.shift。
+
+77
+00:02:58,966 --> 00:03:01,084
+shift is a method which is available on
+移位是一種可用的方法
+
+78
+00:03:01,084 --> 00:03:04,068
+arrays in JavaScript, and it shifts the
+JavaScript 中的陣列，它改變了
+
+79
+00:03:04,116 --> 00:03:07,019
+array to the left, so it moves all items to
+陣列向左移動，因此它將所有專案移動到
+
+80
+00:03:07,019 --> 00:03:09,763
+the left and therefore drops the first item
+左邊，因此丟棄第一個專案
+
+81
+00:03:10,132 --> 00:03:12,024
+which however is not lost but instead
+然而，它並沒有失去，而是
+
+82
+00:03:12,040 --> 00:03:15,167
+returned by shift. So this stores the first
+輪班回傳。所以這儲存了第一個
+
+83
+00:03:15,183 --> 00:03:17,957
+item of copied array in pivot element and
+樞軸元素中複製的陣列的專案和
+
+84
+00:03:17,973 --> 00:03:20,539
+changes copied array to only contain the
+將複製的陣列變更為僅包含
+
+85
+00:03:20,539 --> 00:03:23,217
+remaining items, and 10 would then be the
+剩餘的專案，然後 10 將是
+
+86
+00:03:23,217 --> 00:03:24,323
+new first item.
+新的第一個專案。
+
+87
+00:03:24,964 --> 00:03:26,969
+So I change copied array, and that's why I
+所以我改變了複製的陣列，這就是為什麼我
+
+88
+00:03:27,129 --> 00:03:29,727
+do copy array in the first place, and store
+首先複製陣列，然後存儲
+
+89
+00:03:29,855 --> 00:03:32,405
+the first element of copied array in pivot
+資料透視表中複製陣列的第一個元素
+
+90
+00:03:32,421 --> 00:03:32,742
+element.
+元素。
+
+91
+00:03:33,447 --> 00:03:35,853
+And pivot element now is added to that
+現在將樞軸元素添加到其中
+
+92
+00:03:35,853 --> 00:03:37,905
+center elements array. That's also what I
+中心元素陣列。這也是我
+
+93
+00:03:37,953 --> 00:03:40,644
+showed on the slide. The pivot element goes
+幻燈片上顯示。樞軸元素去
+
+94
+00:03:40,676 --> 00:03:43,689
+into that middle array. And now all items
+進入中間的陣列。現在所有專案
+
+95
+00:03:43,721 --> 00:03:45,740
+that are equal to pivot element in copied
+等於複製中的主元元素
+
+96
+00:03:45,740 --> 00:03:47,678
+array would go into the center elements
+陣列將進入中心元素
+
+97
+00:03:47,727 --> 00:03:48,351
+array as well.
+陣列也是如此。
+
+98
+00:03:49,345 --> 00:03:51,652
+So that's something we will need to check,
+這就是我們需要檢查的事情
+
+99
+00:03:51,812 --> 00:03:54,536
+but we need to check that for all items in
+但我們需要檢查中的所有專案
+
+100
+00:03:54,536 --> 00:03:55,898
+the remaining copied array.
+剩餘的複製陣列。
+
+101
+00:03:56,683 --> 00:03:56,908
+So
+所以
+
+102
+00:03:57,981 --> 00:03:59,904
+we have to go through that array.
+我們必須遍歷該陣列。
+
+103
+00:04:00,849 --> 00:04:03,012
+And I will use a while loop here because I'm
+我將在這裡使用 while 迴圈，因為我
+
+104
+00:04:03,028 --> 00:04:04,871
+going to manipulate that copied array
+將操作複製的陣列
+
+105
+00:04:05,256 --> 00:04:06,637
+throughout that while loop.
+在整個 while 迴圈中。
+
+106
+00:04:07,295 --> 00:04:09,447
+So here I have my while loop, and I want to
+所以這裡我有我的 while 迴圈，我想
+
+107
+00:04:09,447 --> 00:04:11,743
+continue with this loop as long
+繼續這個迴圈只要
+
+108
+00:04:12,321 --> 00:04:13,975
+as copied array length
+作為複製的陣列長度
+
+109
+00:04:14,729 --> 00:04:17,395
+is truthy, which basically will be the case
+是真的，基本上就是這樣
+
+110
+00:04:17,475 --> 00:04:20,494
+as long as length doesn't reach 0. So as
+只要長度不達0。所以
+
+111
+00:04:20,606 --> 00:04:22,420
+long as the array is not empty, we'll
+只要陣列不為空，我們就會
+
+112
+00:04:22,452 --> 00:04:24,492
+continue in the while loop. Now we will
+繼續在 while 迴圈中。現在我們將
+
+113
+00:04:24,604 --> 00:04:27,671
+gradually make that array empty inside of
+逐漸使該陣列內部為空
+
+114
+00:04:27,671 --> 00:04:29,662
+the while loop so that eventually the loop
+while 迴圈，以便最終迴圈
+
+115
+00:04:29,662 --> 00:04:30,160
+will stop.
+會停止。
+
+116
+00:04:30,963 --> 00:04:33,453
+Now inside of that while loop, we have a
+現在在 while 迴圈內部，我們有一個
+
+117
+00:04:33,517 --> 00:04:34,674
+look at every element,
+審視每一個元素，
+
+118
+00:04:35,365 --> 00:04:38,562
+the current element, by simply repeating
+當前元素，只需重複
+
+119
+00:04:38,674 --> 00:04:40,956
+that copied array shift process.
+複製陣列移位過程。
+
+120
+00:04:41,566 --> 00:04:43,334
+We used it once to get the pivot element.
+我們使用它一次來獲取樞軸元素。
+
+121
+00:04:43,655 --> 00:04:45,406
+Now inside of the while loop, we're doing it
+現在在 while 迴圈內部，我們正在這樣做
+
+122
+00:04:45,406 --> 00:04:48,073
+to get access to the next element, so to the
+訪問下一個元素，因此
+
+123
+00:04:48,073 --> 00:04:50,708
+new first element of that shifted— of that
+新的第一個元素發生了變化——
+
+124
+00:04:50,708 --> 00:04:51,367
+copied array.
+複製的陣列。
+
+125
+00:04:52,009 --> 00:04:54,259
+And that manipulates copied arrays, so the
+這會操作複製的陣列，所以
+
+126
+00:04:54,259 --> 00:04:57,247
+length shrinks by 1 for the next iteration.
+下一次迭代時長度縮小 1。
+
+127
+00:04:57,808 --> 00:04:59,876
+So we retrieve the first element of the
+所以我們檢索第一個元素
+
+128
+00:04:59,876 --> 00:05:02,007
+copied array and we remove it from that
+複製的陣列，我們從中刪除它
+
+129
+00:05:02,039 --> 00:05:04,107
+copied array thereafter and shorten that
+之後複製陣列並縮短它
+
+130
+00:05:04,107 --> 00:05:04,684
+copied array.
+複製的陣列。
+
+131
+00:05:05,389 --> 00:05:08,129
+And now we need to check this current
+現在我們需要檢查當前的
+
+132
+00:05:08,129 --> 00:05:08,514
+element.
+元素。
+
+133
+00:05:09,075 --> 00:05:11,751
+We wanna find out if current element is
+我們想知道當前元素是否為
+
+134
+00:05:12,040 --> 00:05:13,787
+equal to the pivot element.
+等於主元元素。
+
+135
+00:05:14,460 --> 00:05:17,521
+If that's the case, the current element, so
+如果是這樣的話，當前元素，所以
+
+136
+00:05:17,521 --> 00:05:18,787
+the element we're currently looking at,
+我們目前正在查看的元素，
+
+137
+00:05:18,931 --> 00:05:20,790
+should go into the center elements array.
+應該進入中心元素陣列。
+
+138
+00:05:21,608 --> 00:05:23,435
+So here we have the center elements array
+所以這裡我們有中心元素陣列
+
+139
+00:05:23,835 --> 00:05:26,159
+and we push the current element into it if
+我們將當前元素推入其中，如果
+
+140
+00:05:26,159 --> 00:05:28,373
+this element is equal to the pivot element.
+該元素等於主元元素。
+
+141
+00:05:28,968 --> 00:05:31,621
+So in case we had another -3 in there, that
+所以萬一我們還有另一個 -3 在那裡，
+
+142
+00:05:31,621 --> 00:05:33,550
+would go into that center elements array.
+將進入該中心元素陣列。
+
+143
+00:05:33,952 --> 00:05:35,447
+And let's add it here to prove that it
+讓我們在這裡添加它來證明它
+
+144
+00:05:35,479 --> 00:05:35,768
+works.
+作品。
+
+145
+00:05:36,842 --> 00:05:38,628
+Now we also of course might have the case
+現在我們當然也可能有這種情況
+
+146
+00:05:38,628 --> 00:05:41,470
+that the current element is smaller than the
+目前元素小於
+
+147
+00:05:41,470 --> 00:05:43,840
+pivot element. So I'll add an else if check
+樞軸元素。所以我會加一個 else if 檢查
+
+148
+00:05:44,392 --> 00:05:47,860
+and check if current element is smaller than
+並檢查當前元素是否小於
+
+149
+00:05:47,876 --> 00:05:48,674
+the pivot element.
+樞軸元素。
+
+150
+00:05:50,958 --> 00:05:52,653
+Since our pivot element for the first
+由於我們的第一個樞軸元素
+
+151
+00:05:52,653 --> 00:05:53,272
+iteration is
+迭代是
+
+152
+00:05:54,103 --> 00:05:56,862
+-3, that would for example be the case for
+-3，例如，情況就是這樣
+
+153
+00:05:57,408 --> 00:05:59,593
+-10. Once we have this as a current element,
+-10。一旦我們將其作為當前元素，
+
+154
+00:05:59,834 --> 00:06:01,810
+it will be smaller than our pivot element.
+它將比我們的樞軸元素小。
+
+155
+00:06:02,581 --> 00:06:03,544
+So here
+所以在這裡
+
+156
+00:06:04,171 --> 00:06:07,383
+we see that it is smaller, so we add it to
+我們發現它更小，所以我們將它添加到
+
+157
+00:06:07,383 --> 00:06:09,873
+the smaller elements array. We push the
+較小的元素陣列。我們推動
+
+158
+00:06:09,873 --> 00:06:12,058
+current element to the smaller elements
+當前元素到較小元素
+
+159
+00:06:12,058 --> 00:06:12,202
+array.
+大批。
+
+160
+00:06:13,086 --> 00:06:15,688
+And else, we know it's greater, so we use
+另外，我們知道它更大，所以我們使用
+
+161
+00:06:15,720 --> 00:06:15,993
+that
+那
+
+162
+00:06:16,523 --> 00:06:18,948
+bigger elements array and push current
+更大的元素陣列和推動電流
+
+163
+00:06:19,029 --> 00:06:20,233
+element into that array.
+元素到該陣列中。
+
+164
+00:06:20,876 --> 00:06:23,750
+So now every element of that array will be
+所以現在該陣列的每個元素都會是
+
+165
+00:06:23,750 --> 00:06:26,140
+put into one of those 3 arrays, which
+放入這 3 個陣列之一，其中
+
+166
+00:06:26,189 --> 00:06:27,520
+therefore will have different lengths.
+因此會有不同的長度。
+
+167
+00:06:28,403 --> 00:06:30,633
+Since we change copied array with every
+因為我們每次都會更改複製的陣列
+
+168
+00:06:30,730 --> 00:06:33,313
+iteration, because shift does remove that
+迭代，因為移位確實刪除了
+
+169
+00:06:33,313 --> 00:06:35,896
+first item, it shrinks and shrinks, and
+第一項，它不斷縮小，並且
+
+170
+00:06:35,896 --> 00:06:38,351
+eventually copied array will be empty, at
+最終複製的陣列將為空，位於
+
+171
+00:06:38,351 --> 00:06:41,015
+which point it has a length of 0, which will
+它的長度為 0 的點，這將
+
+172
+00:06:41,079 --> 00:06:42,555
+then exit this while loop.
+然後退出這個 while 迴圈。
+
+173
+00:06:43,743 --> 00:06:45,572
+Now we're done with the while loop. We got
+現在我們已經完成了 while 迴圈。我們得到了
+
+174
+00:06:45,572 --> 00:06:48,235
+our 3 new arrays: the center, the smaller,
+我們的 3 個新陣列：中心的、較小的、
+
+175
+00:06:48,316 --> 00:06:49,984
+and the larger, or the bigger elements
+和更大的或更大的元素
+
+176
+00:06:49,984 --> 00:06:50,161
+array.
+大批。
+
+177
+00:06:50,723 --> 00:06:52,568
+And now the question is what?
+現在的問題是什麼呢？
+
+178
+00:06:53,194 --> 00:06:55,537
+Now we did this once, but now we need to
+現在我們已經這樣做了一次，但現在我們需要
+
+179
+00:06:55,537 --> 00:06:58,104
+repeat this for every new array we
+對每個新陣列重複此操作
+
+180
+00:06:58,104 --> 00:06:58,794
+generated,
+生成,
+
+181
+00:06:59,693 --> 00:07:02,100
+except for the center array because that
+除了中心陣列，因為
+
+182
+00:07:02,116 --> 00:07:04,266
+only contains elements which are equal
+只包含相等的元素
+
+183
+00:07:04,346 --> 00:07:06,786
+anyways. So we won't need to sort those into
+無論如何。所以我們不需要將它們分類
+
+184
+00:07:06,834 --> 00:07:09,128
+different arrays. So we need to repeat it
+不同的陣列。所以我們需要重複一遍
+
+185
+00:07:09,160 --> 00:07:11,535
+twice for the smaller and bigger elements
+較小和較大元素兩次
+
+186
+00:07:11,584 --> 00:07:11,744
+array.
+大批。
+
+187
+00:07:12,771 --> 00:07:15,724
+Hence, we will in the end call this sort
+因此，我們最終將這種型別稱為
+
+188
+00:07:15,756 --> 00:07:18,742
+function again recursively. 2 times for the
+再次遞迴函式。 2次為
+
+189
+00:07:18,742 --> 00:07:20,493
+smaller and bigger elements array.
+較小和較大的元素陣列。
+
+190
+00:07:21,377 --> 00:07:22,277
+So we got our
+所以我們得到了我們的
+
+191
+00:07:23,080 --> 00:07:25,523
+smaller elements sorted
+較小的元素已排序
+
+192
+00:07:26,744 --> 00:07:28,704
+array, a very long name, but I wanna be
+陣列，一個很長的名字，但我想要
+
+193
+00:07:28,769 --> 00:07:29,604
+clear what's in there,
+清楚裡面有什麼
+
+194
+00:07:30,456 --> 00:07:33,445
+by simply calling sort again and passing the
+只需再次調用 sort 並傳遞
+
+195
+00:07:33,445 --> 00:07:35,405
+smaller elements array to it.
+較小的元素陣列。
+
+196
+00:07:36,225 --> 00:07:37,928
+And we repeat that for the
+我們重複一遍
+
+197
+00:07:38,490 --> 00:07:41,126
+bigger elements sorted array where we pass
+我們傳遞的更大元素排序陣列
+
+198
+00:07:41,142 --> 00:07:41,543
+in the
+在
+
+199
+00:07:42,266 --> 00:07:43,713
+bigger elements array.
+更大的元素陣列。
+
+200
+00:07:44,677 --> 00:07:47,215
+So here we call ourselves recursively with
+所以在這裡我們遞迴地呼叫自己
+
+201
+00:07:47,231 --> 00:07:48,371
+the sort function,
+排序函式，
+
+202
+00:07:49,319 --> 00:07:51,890
+and with that we'll get 2 new arrays in the
+這樣我們就會得到 2 個新陣列
+
+203
+00:07:51,890 --> 00:07:54,476
+end. Now these are recursive calls which go
+結尾。現在這些是遞迴調用
+
+204
+00:07:54,476 --> 00:07:56,147
+through that whole process again, but
+再次經歷整個過程，但是
+
+205
+00:07:56,308 --> 00:07:58,685
+ultimately, as always in recursion, all
+最終，就像在遞迴中一樣，所有
+
+206
+00:07:58,814 --> 00:08:01,368
+those nested function calls are going to
+那些巢狀函式呼叫將會
+
+207
+00:08:01,368 --> 00:08:03,698
+finish, are going to return their overall
+完成後，將回傳他們的總體
+
+208
+00:08:03,698 --> 00:08:04,276
+results,
+結果，
+
+209
+00:08:04,902 --> 00:08:08,035
+and we're going to get those overall results
+我們將得到這些總體結果
+
+210
+00:08:08,051 --> 00:08:10,477
+back in this main function call in the end.
+最後回到這個主函式呼叫。
+
+211
+00:08:10,798 --> 00:08:12,773
+So in the end, we'll have sorted arrays for
+所以最後，我們將得到排序後的陣列
+
+212
+00:08:12,789 --> 00:08:15,117
+smaller and bigger elements. We have the
+較小和較大的元素。我們有
+
+213
+00:08:15,117 --> 00:08:17,333
+center elements array which contains only
+中心元素陣列僅包含
+
+214
+00:08:17,365 --> 00:08:19,100
+equal values anyways.
+無論如何都是相等的值。
+
+215
+00:08:19,790 --> 00:08:21,267
+So now we can return
+所以現在我們可以回傳
+
+216
+00:08:21,942 --> 00:08:22,198
+the
+這
+
+217
+00:08:23,242 --> 00:08:25,635
+smaller elements sorted array,
+較小的元素排序陣列，
+
+218
+00:08:26,341 --> 00:08:29,376
+call concat on it, which is a default
+對其調用 concat，這是預設的
+
+219
+00:08:30,130 --> 00:08:33,101
+array method in JavaScript, and concatenate
+JavaScript 中的陣列方法和連接
+
+220
+00:08:33,101 --> 00:08:35,413
+the center elements array as well as the
+中心元素陣列以及
+
+221
+00:08:35,509 --> 00:08:37,996
+bigger elements sorted array
+更大的元素排序陣列
+
+222
+00:08:39,039 --> 00:08:41,958
+so that we build one new long array
+這樣我們就可以建立一個新的長陣列
+
+223
+00:08:42,487 --> 00:08:46,160
+by combining these smaller center and bigger
+透過將這些較小的中心和較大的中心結合起來
+
+224
+00:08:46,160 --> 00:08:47,027
+elements arrays.
+元素陣列。
+
+225
+00:08:47,780 --> 00:08:49,769
+And that's the overall result we return.
+這就是我們回傳的整體結果。
+
+226
+00:08:50,587 --> 00:08:53,009
+Now let's see whether that works before we
+現在讓我們先看看這是否有效
+
+227
+00:08:53,218 --> 00:08:55,688
+put in some logs and also judge the time
+放入一些紀錄並判斷時間
+
+228
+00:08:55,720 --> 00:08:56,281
+complexity.
+複雜。
+
+229
+00:08:57,308 --> 00:08:58,094
+Let's save that
+讓我們儲存它
+
+230
+00:08:58,848 --> 00:08:59,377
+and reload.
+並重新載入。
+
+231
+00:09:00,275 --> 00:09:02,312
+And you see what I get back is this array,
+你看我回傳的是這個陣列，
+
+232
+00:09:02,377 --> 00:09:04,141
+which looks quite sorted to me.
+對我來說這看起來很排序。
+
+233
+00:09:04,661 --> 00:09:07,179
+Sorted in an ascending order. If you want to
+按升序排列。如果你想
+
+234
+00:09:07,179 --> 00:09:09,421
+sort in descending order, you simply need to
+按降序排序，您只需
+
+235
+00:09:09,421 --> 00:09:09,957
+switch your
+切換你的
+
+236
+00:09:10,477 --> 00:09:11,176
+IF logic here.
+IF 邏輯在這裡。
+
+237
+00:09:12,790 --> 00:09:14,799
+Now that looks pretty good. Now let's
+現在看起來不錯。現在讓我們
+
+238
+00:09:14,847 --> 00:09:17,504
+understand how it works. And to understand
+了解它是如何工作的。並了解
+
+239
+00:09:17,504 --> 00:09:19,692
+this, I'll shorten it a little bit. I'll
+這個，我會縮短一點。患病的
+
+240
+00:09:19,773 --> 00:09:20,647
+add, let's
+添加，讓我們
+
+241
+00:09:21,488 --> 00:09:21,568
+say,
+說，
+
+242
+00:09:22,618 --> 00:09:23,296
+-3 here
+-3 這裡
+
+243
+00:09:24,070 --> 00:09:24,571
+and also
+還有
+
+244
+00:09:25,120 --> 00:09:25,410
+-10,
+-10,
+
+245
+00:09:26,314 --> 00:09:28,025
+but that's it. I'll copy that,
+但僅此而已。我複製一下，
+
+246
+00:09:28,655 --> 00:09:31,141
+comment this one out, and and now shorten
+註解掉這個，然後縮短
+
+247
+00:09:31,189 --> 00:09:32,467
+this one to only have,
+這一個只有一個，
+
+248
+00:09:34,035 --> 00:09:36,380
+yeah, let's say these 4 elements, -15 works
+是的，假設這 4 個元素，-15 有效
+
+249
+00:09:36,380 --> 00:09:36,510
+too.
+也。
+
+250
+00:09:37,205 --> 00:09:39,129
+So these 4 elements and now let's dump in a
+所以這 4 個元素現在讓我們轉儲到
+
+251
+00:09:39,129 --> 00:09:41,654
+couple of console logs. Let's add one here
+幾個控制台紀錄。我們在這裡添加一個
+
+252
+00:09:43,085 --> 00:09:45,448
+at the beginning, function starting
+一開始，函式啟動
+
+253
+00:09:47,153 --> 00:09:49,348
+and let's simply console.log the array we're
+讓我們簡單地console.log我們的陣列
+
+254
+00:09:49,348 --> 00:09:51,611
+getting. I could also log the copied array
+得到。我還可以記錄複製的陣列
+
+255
+00:09:51,692 --> 00:09:53,373
+but that will be exactly the same here.
+但這裡是完全一樣的。
+
+256
+00:09:55,706 --> 00:09:57,653
+Well, if we make it into this check, I want
+好吧，如果我們把它納入這張支票，我想要
+
+257
+00:09:57,653 --> 00:09:57,958
+to know.
+知道。
+
+258
+00:09:58,859 --> 00:09:59,181
+So
+所以
+
+259
+00:10:00,210 --> 00:10:01,159
+I will output
+我會輸出
+
+260
+00:10:01,738 --> 00:10:02,832
+only one item
+只有一件商品
+
+261
+00:10:03,926 --> 00:10:07,035
+returning here so that we see when that is
+回傳這裡以便我們看看那是什麼時候
+
+262
+00:10:07,067 --> 00:10:07,453
+the case.
+案件。
+
+263
+00:10:08,420 --> 00:10:12,545
+And I can console.log my one item array in
+我可以 console.log 我的一項陣列
+
+264
+00:10:12,545 --> 00:10:14,774
+that case. So I'll console.log the copied
+那種情況。所以我將 console.log 複製的內容
+
+265
+00:10:14,774 --> 00:10:15,550
+array in this case.
+在這種情況下是陣列。
+
+266
+00:10:17,427 --> 00:10:18,655
+And of course, we also want to know what's
+當然，我們也想知道什麼是
+
+267
+00:10:18,655 --> 00:10:21,030
+going on down there. So after that while
+那裡繼續下去。所以在那段時間之後
+
+268
+00:10:21,159 --> 00:10:22,877
+loop I will console.log
+迴圈我將console.log
+
+269
+00:10:23,811 --> 00:10:25,229
+after while—
+過了一會兒——
+
+270
+00:10:25,825 --> 00:10:27,323
+whoops— after while,
+哎呀——過了一會兒，
+
+271
+00:10:29,853 --> 00:10:31,337
+and then console.log the
+然後console.log
+
+272
+00:10:32,063 --> 00:10:35,113
+smaller element sorted array— and not the
+較小的元素排序陣列 - 而不是
+
+273
+00:10:35,113 --> 00:10:36,953
+sorted array, sorry, but the smaller
+排序陣列，抱歉，但較小
+
+274
+00:10:37,679 --> 00:10:38,260
+elements array—
+元素陣列—
+
+275
+00:10:39,051 --> 00:10:42,307
+and also the center elements array and the
+還有中心元素陣列和
+
+276
+00:10:42,550 --> 00:10:44,026
+bigger elements array.
+更大的元素陣列。
+
+277
+00:10:47,166 --> 00:10:49,201
+And with that, let's save it and let's
+然後，讓我們儲存它並讓我們
+
+278
+00:10:49,201 --> 00:10:49,654
+reload.
+重新載入。
+
+279
+00:10:50,251 --> 00:10:51,931
+And of course, we get quite some outputs
+當然，我們得到了相當多的輸出
+
+280
+00:10:51,931 --> 00:10:53,853
+here, but not too bad. So let's go through
+在這裡，但還不錯。那麼讓我們來看看
+
+281
+00:10:53,869 --> 00:10:56,145
+that to understand how this algorithm works.
+了解該演算法的工作原理。
+
+282
+00:10:57,112 --> 00:10:58,900
+We're starting the function unsurprisingly,
+我們毫不奇怪地啟動了這個函式，
+
+283
+00:10:59,045 --> 00:11:01,477
+and we get an array with 4 elements, which
+我們得到一個包含 4 個元素的陣列，其中
+
+284
+00:11:01,477 --> 00:11:03,830
+is of course that input array we got here.
+當然是我們在這裡得到的輸入陣列。
+
+285
+00:11:06,647 --> 00:11:09,123
+Now after the while loop, you see that our
+現在，在 while 迴圈之後，您會看到我們的
+
+286
+00:11:09,123 --> 00:11:11,289
+smaller elements array, which is the first
+較小的元素陣列，這是第一個
+
+287
+00:11:11,289 --> 00:11:12,201
+one we're logging here,
+我們在這裡記錄的一個，
+
+288
+00:11:12,776 --> 00:11:15,489
+right, that's this log from line 29,
+沒錯，這就是第 29 行的紀錄，
+
+289
+00:11:16,083 --> 00:11:18,651
+has only one element, -15, which makes
+只有一個元素 -15，這使得
+
+290
+00:11:18,651 --> 00:11:21,236
+sense. Our first pivot element will be -3,
+感覺。我們的第一個主元元素是-3，
+
+291
+00:11:21,525 --> 00:11:23,098
+and there is only one smaller item here,
+這裡只有一件較小的物品，
+
+292
+00:11:23,146 --> 00:11:24,061
+which is -15.
+即-15。
+
+293
+00:11:25,072 --> 00:11:26,742
+We have one other element in the center
+我們在中心還有另一個元素
+
+294
+00:11:26,742 --> 00:11:29,391
+array because -3 occurs again, and the
+陣列，因為 -3 再次出現，並且
+
+295
+00:11:29,487 --> 00:11:31,863
+bigger elements array only contains only one
+較大的元素陣列僅包含一個
+
+296
+00:11:31,959 --> 00:11:34,479
+element, 10, which is the only one bigger
+元素 10，這是唯一更大的元素
+
+297
+00:11:34,527 --> 00:11:34,848
+element.
+元素。
+
+298
+00:11:35,587 --> 00:11:37,786
+Then the function starts again for our 15
+然後函式再次啟動我們的 15
+
+299
+00:11:37,834 --> 00:11:39,439
+array, but that's only one item, so we
+陣列，但這只是一項，所以我們
+
+300
+00:11:39,439 --> 00:11:39,793
+return.
+回傳。
+
+301
+00:11:40,483 --> 00:11:43,998
+We then also start again for 10, but we only
+然後我們也重新開始 10，但我們只
+
+302
+00:11:43,998 --> 00:11:46,069
+have one item, so we return, and so we're
+有一件物品，所以我們回傳，所以我們
+
+303
+00:11:46,085 --> 00:11:46,278
+done.
+完畢。
+
+304
+00:11:46,888 --> 00:11:48,894
+Now that wasn't too interesting, so let's
+現在這不太有趣，所以讓我們
+
+305
+00:11:48,974 --> 00:11:51,157
+add one more element here. Let's say we also
+此處再新增一個元素。假設我們也
+
+306
+00:11:51,157 --> 00:11:53,228
+have 100 in there, so another bigger
+那裡有 100 個，所以另一個更大的
+
+307
+00:11:53,308 --> 00:11:53,694
+element.
+元素。
+
+308
+00:11:54,865 --> 00:11:55,973
+If I now reload,
+如果我現在重新載入，
+
+309
+00:11:56,760 --> 00:11:58,413
+you see we got this array.
+你看我們得到了這個陣列。
+
+310
+00:11:59,103 --> 00:12:01,110
+Now after the while loop, we got still only
+現在，在 while 迴圈之後，我們仍然只是
+
+311
+00:12:01,190 --> 00:12:03,678
+one element in the smaller array, 2 elements
+較小陣列中的 1 個元素，2 個元素
+
+312
+00:12:03,678 --> 00:12:06,150
+in the equal or center array, but also 2
+在相等或中心陣列中，還有 2
+
+313
+00:12:06,230 --> 00:12:07,900
+elements in the bigger elements array, 10
+較大元素陣列中的元素，10
+
+314
+00:12:08,012 --> 00:12:10,131
+and 100, because they both are bigger than
+和 100，因為它們都大於
+
+315
+00:12:10,500 --> 00:12:12,361
+-3, is our first pivot element.
+-3，是我們的第一個樞軸元素。
+
+316
+00:12:13,388 --> 00:12:15,778
+The function starts again for -15, so for
+該函式在 -15 時再次開始，因此對於
+
+317
+00:12:15,794 --> 00:12:16,597
+the smaller array.
+較小的陣列。
+
+318
+00:12:17,142 --> 00:12:19,147
+There's only one item, so we return. The
+只有一件物品，所以我們回來。這
+
+319
+00:12:19,147 --> 00:12:21,570
+function starts again for 10 and 100. That's
+函式再次開始 10 和 100。那就是
+
+320
+00:12:21,570 --> 00:12:22,613
+our bigger elements array.
+我們更大的元素陣列。
+
+321
+00:12:23,174 --> 00:12:24,842
+And after the while loop, you see the
+在 while 迴圈之後，你會看到
+
+322
+00:12:24,842 --> 00:12:27,570
+smaller elements array is empty, which makes
+較小的元素陣列為空，這使得
+
+323
+00:12:27,570 --> 00:12:28,596
+a lot of sense because
+有很多意義，因為
+
+324
+00:12:29,350 --> 00:12:31,500
+10 was the pivot element that was picked,
+10 是被選取的樞軸元素，
+
+325
+00:12:31,596 --> 00:12:33,345
+which is why it's in the center elements
+這就是為什麼它位於中心元素中
+
+326
+00:12:33,345 --> 00:12:35,655
+array. And there are no smaller elements in
+大批。而且裡面沒有更小的元素
+
+327
+00:12:35,703 --> 00:12:37,067
+there, so that array is empty.
+在那裡，所以該陣列是空的。
+
+328
+00:12:37,613 --> 00:12:39,748
+The bigger elements array has one element in
+較大的元素陣列中有一個元素
+
+329
+00:12:39,796 --> 00:12:42,236
+it, 100 though, which also makes sense.
+不過，100，這也是有道理的。
+
+330
+00:12:42,975 --> 00:12:45,560
+So we call the function again for the empty
+所以我們再次為空調使用該函式
+
+331
+00:12:45,560 --> 00:12:45,801
+array.
+大批。
+
+332
+00:12:46,362 --> 00:12:48,931
+Well, that's only one item, or no item to be
+好吧，這只是一件物品，或者沒有任何物品
+
+333
+00:12:48,931 --> 00:12:50,697
+precise, so we return that empty array,
+精確，所以我們回傳那個空陣列，
+
+334
+00:12:51,259 --> 00:12:53,089
+which was that smaller elements array.
+這是那個較小的元素陣列。
+
+335
+00:12:54,053 --> 00:12:56,637
+And we start the function again with the 100
+我們再次以 100 開始該函式
+
+336
+00:12:56,637 --> 00:12:58,082
+array, so the bigger elements array.
+陣列，因此陣列元素較大。
+
+337
+00:12:58,821 --> 00:13:00,988
+It's only one item, so we return that. And
+這只是一件物品，所以我們將其退回。和
+
+338
+00:13:01,213 --> 00:13:03,541
+then we got that overall sorted array here.
+然後我們在這裡得到了總體排序的陣列。
+
+339
+00:13:04,023 --> 00:13:06,488
+And that's the quicksort algorithm. Really
+這就是快速排序演算法。真的
+
+340
+00:13:06,520 --> 00:13:09,725
+not too complex. Now, does it perform better
+不太複雜。現在，它的表現是否更好
+
+341
+00:13:10,144 --> 00:13:12,318
+than the bubble sort though? Is it better
+比冒泡排序呢？是不是更好了
+
+342
+00:13:12,318 --> 00:13:12,737
+than that?
+比那個？

@@ -1,0 +1,839 @@
+1
+00:00:02,132 --> 00:00:04,488
+So now that we had a look at hash tables,
+現在我們已經了解了雜湊表，
+
+2
+00:00:04,584 --> 00:00:06,765
+how they work, and why they're useful,
+它們如何運作以及為什麼有用，
+
+3
+00:00:07,470 --> 00:00:09,714
+let's analyze the time complexities. And
+讓我們來分析一下時間複雜度。和
+
+4
+00:00:09,875 --> 00:00:12,376
+most importantly, let's compare that to the
+最重要的是，讓我們將其與
+
+5
+00:00:12,456 --> 00:00:15,181
+built-in construct JavaScript ships with,
+內建構造 JavaScript 附帶，
+
+6
+00:00:15,582 --> 00:00:16,672
+arrays and objects.
+陣列和物件。
+
+7
+00:00:17,506 --> 00:00:19,798
+And let's start with comparing hash tables
+讓我們從比較雜湊表開始
+
+8
+00:00:19,830 --> 00:00:20,439
+to object.
+反對。
+
+9
+00:00:21,097 --> 00:00:23,020
+As I mentioned, and that's really important
+正如我所提到的，這非常重要
+
+10
+00:00:23,020 --> 00:00:23,261
+to me,
+大部頭書，
+
+11
+00:00:23,902 --> 00:00:27,285
+objects in JavaScript are hash tables under
+JavaScript 中的物件是下面的雜湊表
+
+12
+00:00:27,285 --> 00:00:29,513
+the hood. So in this comparison, you'll see
+引擎蓋。所以在這個比較中，你會看到
+
+13
+00:00:29,513 --> 00:00:32,016
+a lot of equality. Of course, the built-in
+很多平等。當然，內建
+
+14
+00:00:32,016 --> 00:00:34,489
+JavaScript objects are very efficient hash
+JavaScript 物件是非常有效率的雜湊
+
+15
+00:00:34,505 --> 00:00:37,202
+tables with good collision resolving
+具有良好碰撞解決能力的表
+
+16
+00:00:37,234 --> 00:00:40,285
+strategies so that in reality, you won't run
+策略，這樣實際上你就不會逃跑
+
+17
+00:00:40,285 --> 00:00:42,485
+into any problems when working with them.
+與他們合作時遇到任何問題。
+
+18
+00:00:43,095 --> 00:00:44,957
+It's really just important to understand
+理解真的很重要
+
+19
+00:00:44,957 --> 00:00:47,366
+that under the hood, they do use hash tables
+在幕後，他們確實使用雜湊表
+
+20
+00:00:47,816 --> 00:00:50,465
+and now that tells you something. But that's
+現在這告訴你一些事情。但那是
+
+21
+00:00:50,465 --> 00:00:52,616
+why you can work with key-value pairs in
+為什麼你可以使用鍵值對
+
+22
+00:00:52,713 --> 00:00:55,169
+JavaScript because you got those built-in
+JavaScript 因為你有那些內建的
+
+23
+00:00:55,362 --> 00:00:57,610
+hash tables. JavaScript objects.
+雜湊表。 JavaScript 物件。
+
+24
+00:00:58,910 --> 00:01:02,025
+So how does this now look like when we have
+那麼當我們有
+
+25
+00:01:02,025 --> 00:01:04,465
+a look at time complexity? And let's start
+看看時間複雜度？讓我們開始吧
+
+26
+00:01:04,754 --> 00:01:06,424
+with accessing elements.
+與訪問元素。
+
+27
+00:01:07,018 --> 00:01:08,222
+So we have a key
+所以我們有一把鑰匙
+
+28
+00:01:08,768 --> 00:01:11,417
+name, for example, and for that key we want
+例如，名稱，以及我們想要的鍵
+
+29
+00:01:11,417 --> 00:01:12,878
+to find the stored value.
+找到儲存的值。
+
+30
+00:01:14,082 --> 00:01:14,933
+In theory,
+理論上，
+
+31
+00:01:15,527 --> 00:01:17,341
+that is constant time.
+那是常數時間。
+
+32
+00:01:18,160 --> 00:01:20,712
+The reason for that is that if we want to
+原因是如果我們想要
+
+33
+00:01:20,825 --> 00:01:22,527
+get a value by key
+透過鍵獲取值
+
+34
+00:01:23,138 --> 00:01:26,350
+In the basic hash version, which didn't have
+在基本雜湊版本中，沒有
+
+35
+00:01:26,382 --> 00:01:28,529
+any strategies for solving collisions,
+任何解決衝突的策略，
+
+36
+00:01:29,616 --> 00:01:33,201
+there get was as simple as generating the
+get 就像生成一樣簡單
+
+37
+00:01:33,201 --> 00:01:33,561
+hash
+散列
+
+38
+00:01:36,643 --> 00:01:39,377
+and then retrieving the value at that index.
+然後檢索該索引處的值。
+
+39
+00:01:40,024 --> 00:01:42,240
+Sure, for generating the hash, we actually
+當然，為了生成雜湊，我們實際上
+
+40
+00:01:42,289 --> 00:01:45,094
+have a loop where we loop through the entire
+有一個迴圈，我們迴圈遍歷整個
+
+41
+00:01:45,308 --> 00:01:48,872
+key, but that's just a very short key And we
+鍵，但這只是一個非常短的鍵 我們
+
+42
+00:01:48,872 --> 00:01:51,981
+can neglect this. We don't need to go
+可以忽略這一點。我們不需要去
+
+43
+00:01:51,981 --> 00:01:54,721
+through all elements in the hash table. We
+遍歷雜湊表中的所有元素。我們
+
+44
+00:01:54,801 --> 00:01:57,445
+don't need to run a super long or complex
+不需要運行超長或複雜的
+
+45
+00:01:57,445 --> 00:02:00,073
+loop. We just go through the entire key. And
+環形。我們只需瀏覽整個密鑰即可。和
+
+46
+00:02:00,089 --> 00:02:02,316
+if the key is just 1 character long, that's
+如果密鑰只有 1 個字元長，那就是
+
+47
+00:02:02,316 --> 00:02:04,623
+just 1 iteration. If it's 10 characters
+只需 1 次迭代。如果是10個字符
+
+48
+00:02:04,720 --> 00:02:07,444
+long, it's 10 iterations. But that does not
+很長，迭代了 10 次。但這並不
+
+49
+00:02:07,444 --> 00:02:11,145
+make it O because our n here is not really
+讓它變成 O 因為我們這裡的 n 並不是真的
+
+50
+00:02:11,145 --> 00:02:11,482
+the key.
+關鍵。
+
+51
+00:02:12,091 --> 00:02:14,847
+It is our entire hash table array, I would
+這是我們的整個雜湊表陣列，我會
+
+52
+00:02:14,847 --> 00:02:17,187
+say. And we don't have to go through that.
+說。我們不必經歷這些。
+
+53
+00:02:17,940 --> 00:02:20,233
+Therefore, in theory, if we ignore the
+因此，理論上，如果我們忽略
+
+54
+00:02:20,281 --> 00:02:23,054
+problem of hash collisions, then
+雜湊衝突問題，那麼
+
+55
+00:02:24,048 --> 00:02:26,260
+we have O, constant time.
+我們有O，恆定的時間。
+
+56
+00:02:27,174 --> 00:02:30,108
+Now, with hash collisions, that looks a bit
+現在，由於雜湊衝突，看起來有點
+
+57
+00:02:30,140 --> 00:02:30,637
+different.
+不同的。
+
+58
+00:02:31,727 --> 00:02:34,596
+No matter if we use the chaining strategy
+無論我們是否使用鍊式策略
+
+59
+00:02:35,173 --> 00:02:38,364
+or the open addressing strategy, in both
+或開放尋址策略，在兩者中
+
+60
+00:02:38,460 --> 00:02:41,281
+cases, when we get a value for the key,
+情況下，當我們得到鍵的值時，
+
+61
+00:02:41,842 --> 00:02:44,647
+we can't just generate the hash and get the
+我們不能只生成雜湊值並獲取
+
+62
+00:02:44,647 --> 00:02:47,821
+value by that hash. Instead, we still have
+該雜湊值。相反，我們仍然有
+
+63
+00:02:47,853 --> 00:02:50,547
+to loop through our buckets and find the
+遍歷我們的桶子並找到
+
+64
+00:02:50,659 --> 00:02:53,544
+right value stored for this hash and the
+為此雜湊存儲的正確值和
+
+65
+00:02:53,544 --> 00:02:54,410
+original key.
+原來的鑰匙。
+
+66
+00:02:54,987 --> 00:02:57,199
+And we do this no matter if we're using open
+無論我們是否使用 open，我們都會這樣做
+
+67
+00:02:57,375 --> 00:02:59,892
+addressing or if we're using the chaining
+尋址或如果我們使用連結
+
+68
+00:02:59,956 --> 00:03:02,104
+approach. With the chaining approach, we
+方法。透過鍊式方法，我們
+
+69
+00:03:02,265 --> 00:03:04,220
+also need to go through all the values
+還需要遍歷所有的值
+
+70
+00:03:04,445 --> 00:03:06,368
+stored for a given hash.
+儲存給定的雜湊值。
+
+71
+00:03:07,186 --> 00:03:09,302
+Now, of course, that can still be very
+當然，現在這仍然是非常
+
+72
+00:03:09,334 --> 00:03:11,658
+efficient. It does not mean that we need to
+高效的。這並不意味著我們需要
+
+73
+00:03:11,658 --> 00:03:13,309
+go through the entire hash table.
+遍歷整個雜湊表。
+
+74
+00:03:14,063 --> 00:03:16,515
+But still, it's certainly also not always
+但仍然，這當然也不總是
+
+75
+00:03:16,691 --> 00:03:20,378
+constant time. It can be O if we have a lot
+恆定時間。如果我們有很多，那就可以了
+
+76
+00:03:20,378 --> 00:03:23,424
+of collisions and therefore a lot of nested
+碰撞，因此有很多嵌套
+
+77
+00:03:23,440 --> 00:03:24,882
+array values, for example.
+例如，陣列值。
+
+78
+00:03:25,844 --> 00:03:27,575
+Now, for built-in objects, it's the same
+現在，對於內建物件，它是相同的
+
+79
+00:03:27,607 --> 00:03:28,761
+problem, but of course
+問題，但當然
+
+80
+00:03:29,434 --> 00:03:31,294
+those are built in a very efficient way.
+這些都是以非常有效的方式建構的。
+
+81
+00:03:31,951 --> 00:03:33,987
+So here I would say we have O,
+所以在這裡我想說我們有O，
+
+82
+00:03:34,564 --> 00:03:36,727
+though I will say that of course the
+雖然我會說當然
+
+83
+00:03:36,743 --> 00:03:39,292
+built-in objects are hash tables, and
+內建物件是雜湊表，並且
+
+84
+00:03:39,292 --> 00:03:41,697
+therefore they also have to deal with hash
+因此他們還必須處理雜湊
+
+85
+00:03:41,697 --> 00:03:42,323
+collisions.
+碰撞。
+
+86
+00:03:42,917 --> 00:03:45,501
+They're just smart enough to allocate
+他們只是夠聰明來分配
+
+87
+00:03:46,223 --> 00:03:48,887
+enough space, to derive the hash in an
+足夠的空間，派生出雜湊值
+
+88
+00:03:48,935 --> 00:03:51,727
+efficient way, and do a lot of tweaks that
+有效的方法，並做很多調整
+
+89
+00:03:52,209 --> 00:03:54,279
+will certainly make them more efficient than
+肯定會讓他們比
+
+90
+00:03:54,456 --> 00:03:56,719
+our dummy hash table we generated here.
+我們在這裡產生的虛擬雜湊表。
+
+91
+00:03:57,184 --> 00:04:00,057
+Still, you'll not always have O when working
+不過，工作時你並不總是有 O
+
+92
+00:04:00,089 --> 00:04:02,223
+with objects when it comes to retrieving
+檢索時使用物件
+
+93
+00:04:02,255 --> 00:04:04,855
+values, because of course you also still
+價值觀，因為當然你也還
+
+94
+00:04:04,968 --> 00:04:07,102
+have hash collision problems there.
+那裡有雜湊衝突問題。
+
+95
+00:04:07,632 --> 00:04:09,700
+But since they deal with it so efficiently,
+但由於他們處理得如此高效
+
+96
+00:04:09,959 --> 00:04:12,641
+you generally can roughly assume that you
+你通常可以粗略地假設你
+
+97
+00:04:12,641 --> 00:04:15,743
+got constant time when accessing elements in
+訪問元素時獲得恆定時間
+
+98
+00:04:15,760 --> 00:04:17,021
+the built-in objects.
+內建物件。
+
+99
+00:04:18,680 --> 00:04:21,588
+Now what with insertion, insertion at end?
+現在插入，最後插入怎麼辦？
+
+100
+00:04:22,332 --> 00:04:24,982
+Well, there isn't really a start or an end,
+嗯，其實沒有開始也沒有結束，
+
+101
+00:04:25,176 --> 00:04:27,083
+so we can have a look at insertion in
+所以我們可以看看插入
+
+102
+00:04:27,196 --> 00:04:27,649
+general.
+一般的。
+
+103
+00:04:28,172 --> 00:04:32,298
+And that's O in theory, or again with hash
+理論上這就是 O，或者同樣是雜湊
+
+104
+00:04:32,298 --> 00:04:33,479
+collision, O.
+碰撞，O.
+
+105
+00:04:34,177 --> 00:04:36,359
+And the reason for that is simple. No matter
+原因很簡單。不管
+
+106
+00:04:36,424 --> 00:04:39,040
+which resolving strategy we use, when we set
+當我們設定時，我們使用哪種解決策略
+
+107
+00:04:39,168 --> 00:04:39,874
+a new value
+一個新的價值
+
+108
+00:04:40,532 --> 00:04:43,020
+in the basic version where we ignore the
+在我們忽略的基本版本中
+
+109
+00:04:43,020 --> 00:04:44,352
+problem of collisions,
+碰撞問題，
+
+110
+00:04:44,946 --> 00:04:48,043
+there indeed we can simply just get the
+確實我們可以簡單地得到
+
+111
+00:04:48,059 --> 00:04:50,659
+hash, which as I mentioned is super quick
+雜湊，正如我所提到的，速度非常快
+
+112
+00:04:50,659 --> 00:04:52,954
+and efficient, and then insert a value for
+和高效，然後插入一個值
+
+113
+00:04:52,954 --> 00:04:54,976
+it. That would be constant time.
+它。那將是恆定的時間。
+
+114
+00:04:55,843 --> 00:04:58,154
+But since we do have collisions, that is not
+但既然我們確實有碰撞，那就不是
+
+115
+00:04:58,170 --> 00:05:00,336
+how it will look like in reality. And
+它在現實中會是什麼樣子。和
+
+116
+00:05:00,352 --> 00:05:02,693
+therefore, for example, with chaining, we
+因此，例如，透過連結，我們
+
+117
+00:05:02,693 --> 00:05:05,049
+still then have to go through all the nested
+仍然必須遍歷所有嵌套
+
+118
+00:05:05,161 --> 00:05:07,165
+elements for a specific hash
+特定雜湊的元素
+
+119
+00:05:07,710 --> 00:05:10,339
+and find out if a value for that key was
+並找出該鍵的值是否為
+
+120
+00:05:10,435 --> 00:05:12,936
+already stored and we wanna update it or if
+已經存儲並且我們想要更新它或者如果
+
+121
+00:05:12,936 --> 00:05:15,341
+a new element should be stored. So again, we
+應該儲存一個新元素。那麼，我們再一次
+
+122
+00:05:15,341 --> 00:05:18,306
+have a tendency towards O because of that
+因此有 O 傾向
+
+123
+00:05:18,306 --> 00:05:19,412
+collision problem.
+碰撞問題。
+
+124
+00:05:20,791 --> 00:05:22,875
+And for the same reasons as with element
+出於與元素相同的原因
+
+125
+00:05:22,875 --> 00:05:26,193
+access, built-in objects tend to have O
+訪問，內置物件往往有 O
+
+126
+00:05:26,385 --> 00:05:26,497
+here,
+這裡，
+
+127
+00:05:27,026 --> 00:05:29,142
+though again, of course, under the hood,
+當然，在幕後，
+
+128
+00:05:29,287 --> 00:05:31,258
+they also have to deal with collisions.
+他們還必須處理碰撞。
+
+129
+00:05:31,836 --> 00:05:34,658
+It's certainly not always perfect and not
+它當然並不總是完美的，也不總是
+
+130
+00:05:34,722 --> 00:05:36,727
+always constant time, but they are very
+總是恆定的時間，但它們非常
+
+131
+00:05:36,727 --> 00:05:39,758
+efficient. Still, they do the same we do
+高效的。儘管如此，他們還是和我們做同樣的事情
+
+132
+00:05:39,774 --> 00:05:41,939
+under the hood, just in a more elegant way,
+在引擎蓋下，只是以一種更優雅的方式，
+
+133
+00:05:41,955 --> 00:05:42,372
+probably.
+大概。
+
+134
+00:05:43,157 --> 00:05:45,002
+Now, as I mentioned, we don't have different
+現在，正如我所提到的，我們沒有不同的
+
+135
+00:05:45,002 --> 00:05:47,968
+places of inserting something, and therefore
+插入東西的地方，因此
+
+136
+00:05:47,968 --> 00:05:49,540
+for insertion at the beginning it's the
+對於在開頭插入它是
+
+137
+00:05:49,540 --> 00:05:51,448
+same, and for insertion in the middle it's
+相同，並且為了在中間插入它
+
+138
+00:05:51,561 --> 00:05:52,202
+also the same.
+也一樣。
+
+139
+00:05:53,084 --> 00:05:55,121
+Now, if you wanna find a specific element,
+現在，如果你想找到一個特定的元素，
+
+140
+00:05:55,490 --> 00:06:00,043
+we also have O in theory, or O in reality
+理論上我們也有O，或者現實中也有O
+
+141
+00:06:00,075 --> 00:06:00,973
+because in the end,
+因為最後，
+
+142
+00:06:01,662 --> 00:06:04,579
+well, finding always happens by key so this
+好吧，發現總是透過鑰匙發生，所以這個
+
+143
+00:06:04,579 --> 00:06:06,646
+is the same as element access in the
+與中的元素訪問相同
+
+144
+00:06:06,646 --> 00:06:07,095
+beginning.
+開始。
+
+145
+00:06:08,169 --> 00:06:09,900
+So it's very trivial here in the end as you
+所以最後這裡是非常微不足道的，因為你
+
+146
+00:06:09,916 --> 00:06:12,144
+can see, always the same time complexity
+可以看到，時間複雜度始終相同
+
+147
+00:06:12,320 --> 00:06:13,715
+which of course can be great
+這當然很棒
+
+148
+00:06:14,244 --> 00:06:15,558
+and which of course means that if we now
+這當然意味著如果我們現在
+
+149
+00:06:15,702 --> 00:06:17,513
+compare this all to arrays,
+將這一切與陣列進行比較，
+
+150
+00:06:18,347 --> 00:06:20,639
+we have the time complexities we already
+我們已經有了時間複雜度
+
+151
+00:06:20,687 --> 00:06:21,072
+know
+知道
+
+152
+00:06:21,777 --> 00:06:24,902
+and we now are better in certain aspects.
+我們現在在某些方面做得更好。
+
+153
+00:06:25,143 --> 00:06:28,512
+For example, insertion, is always O in hash
+例如插入，在hash中總是O
+
+154
+00:06:28,528 --> 00:06:30,824
+tables if we leave aside the collisions,
+如果我們拋開碰撞，
+
+155
+00:06:31,194 --> 00:06:32,816
+searching is also O.
+搜尋也是O。
+
+156
+00:06:33,506 --> 00:06:35,803
+But again, with collisions, it's not always
+但同樣，對於碰撞，並非總是如此
+
+157
+00:06:35,835 --> 00:06:38,533
+like this and therefore performance and time
+像這樣，因此性能和時間
+
+158
+00:06:38,630 --> 00:06:41,215
+complexity shouldn't be your only criteria.
+複雜性不應該是您的唯一標準。
+
+159
+00:06:41,520 --> 00:06:43,833
+You shouldn't start storing everything in
+你不應該開始將所有內容儲存在
+
+160
+00:06:43,929 --> 00:06:46,643
+objects just because it's theoretically
+對像只是因為它是理論上的
+
+161
+00:06:46,820 --> 00:06:47,719
+always O.
+總是O。
+
+162
+00:06:48,266 --> 00:06:50,610
+It will have that collision problem and
+它會有碰撞問題並且
+
+163
+00:06:50,610 --> 00:06:52,891
+therefore arrays can of course be more
+因此陣列當然可以更多
+
+164
+00:06:52,923 --> 00:06:55,484
+efficient if you simply need a list of
+如果您只需要一個列表，那麼效率很高
+
+165
+00:06:55,516 --> 00:06:57,741
+values and if there is no other reason for
+價值觀，如果沒有其他原因
+
+166
+00:06:57,838 --> 00:06:58,628
+using keys.
+使用按鍵。
+
+167
+00:06:59,306 --> 00:07:01,402
+But I will come back to that in the next
+但我會在下一篇回到這個主題
+
+168
+00:07:01,402 --> 00:07:01,773
+lectures.
+講座。

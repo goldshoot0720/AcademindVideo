@@ -1,0 +1,754 @@
+1
+00:00:02,199 --> 00:00:04,399
+Now what about the time complexity of this
+現在這個的時間複雜度怎麼樣
+
+2
+00:00:04,511 --> 00:00:05,009
+algorithm?
+演算法?
+
+3
+00:00:05,571 --> 00:00:08,220
+Now that's a bit more tricky. For one, we
+現在有點棘手了。其一，我們
+
+4
+00:00:08,220 --> 00:00:09,633
+got different cases, of course.
+當然，有不同的情況。
+
+5
+00:00:10,451 --> 00:00:12,763
+For the case that we get a negative number
+對於我們得到負數的情況
+
+6
+00:00:13,020 --> 00:00:15,123
+or a number that can't be divided by,
+或不能被除的數字，
+
+7
+00:00:16,167 --> 00:00:18,977
+by 2 even once, so that would be our best
+就算只有一次，那就是我們最好的了
+
+8
+00:00:18,977 --> 00:00:21,834
+case, something like a number equal to 13,
+例如等於 13 的數字，
+
+9
+00:00:22,348 --> 00:00:25,110
+we basically have constant time because for
+我們基本上有恆定的時間，因為
+
+10
+00:00:25,254 --> 00:00:28,096
+such a number, for for 13, we make it into
+這樣一個數字，對於13，我們將其變成
+
+11
+00:00:28,112 --> 00:00:30,440
+this loop once, we immediately see that we
+這個迴圈一次，我們立刻看到我們
+
+12
+00:00:30,440 --> 00:00:32,832
+can't divide it by 2, and we return false.
+不能除以 2，我們回傳 false。
+
+13
+00:00:33,827 --> 00:00:36,766
+But the worst case is a bit more tricky. The
+但最壞的情況有點棘手。這
+
+14
+00:00:36,798 --> 00:00:39,254
+worst case would be a large number that can
+最糟的情況是一個很大的數字可以
+
+15
+00:00:39,350 --> 00:00:41,903
+be divided by 2, like a million.
+除以 2，例如一百萬。
+
+16
+00:00:42,594 --> 00:00:45,227
+If we check a million manually here in the
+如果我們在這裡手動檢查一百萬
+
+17
+00:00:45,227 --> 00:00:45,676
+terminal,
+終端機，
+
+18
+00:00:46,334 --> 00:00:49,016
+we can divide it by 2 and we get 500,000.
+我們可以將它除以 2，得到 500,000。
+
+19
+00:00:49,561 --> 00:00:52,694
+We can take 500,000 and divide this by 2 We
+我們可以將 500,000 除以 2 我們
+
+20
+00:00:52,694 --> 00:00:54,882
+can take the result of that and divide it by
+可以得到結果並將其除以
+
+21
+00:00:54,882 --> 00:00:55,222
+2
+2
+
+22
+00:00:55,838 --> 00:00:58,091
+and so on. We can do that for quite some
+等等。我們可以為相當多的人做到這一點
+
+23
+00:00:58,124 --> 00:00:58,496
+time,
+時間，
+
+24
+00:01:07,847 --> 00:01:09,327
+but then at some point here,
+但後來在某個時刻，
+
+25
+00:01:10,179 --> 00:01:13,782
+in this case for 15,625 divided by 2,
+在本例中，15,625 除以 2，
+
+26
+00:01:14,361 --> 00:01:16,424
+we get a non-integer number and this is
+我們得到一個非整數，這是
+
+27
+00:01:16,457 --> 00:01:18,242
+where our while loop would finish.
+我們的 while 迴圈將在哪裡結束。
+
+28
+00:01:18,973 --> 00:01:21,045
+So if you have a look, we had 1 step, 2
+所以如果你看一下，我們有 1 個步驟，2 個步驟
+
+29
+00:01:21,141 --> 00:01:26,537
+steps, 3 steps, 4 steps, 5 steps, 6 steps, 7
+步數、3步、4步、5步、6步、7步
+
+30
+00:01:26,585 --> 00:01:29,685
+steps here for a million. Now that's not too
+在這裡邁出一百萬步。現在那還不算
+
+31
+00:01:29,813 --> 00:01:31,339
+horrible, right? That's pretty okay.
+太可怕了，對吧？那很好。
+
+32
+00:01:32,142 --> 00:01:34,326
+So what is our time complexity therefore?
+那我們的時間複雜度是多少呢？
+
+33
+00:01:35,193 --> 00:01:37,393
+Of course, for bigger numbers that are
+當然，對於更大的數字
+
+34
+00:01:37,586 --> 00:01:40,332
+divisible by 2 but that are not 2 at the
+能被 2 整除，但不是 2
+
+35
+00:01:40,332 --> 00:01:41,087
+power of something,
+某事物的力量，
+
+36
+00:01:42,002 --> 00:01:42,115
+we
+我們
+
+37
+00:01:42,885 --> 00:01:45,182
+take a couple of runs through that while
+在那段時間跑幾次
+
+38
+00:01:45,294 --> 00:01:47,523
+loop but will still be done relatively
+迴圈但仍會相對完成
+
+39
+00:01:47,635 --> 00:01:48,100
+quick.
+快的。
+
+40
+00:01:49,415 --> 00:01:53,070
+So we don't have O here. That's not what we
+所以我們這裡沒有O。那不是我們的
+
+41
+00:01:53,070 --> 00:01:55,218
+have here in the worst case because we're
+在最壞的情況下這裡有因為我們
+
+42
+00:01:55,314 --> 00:01:58,504
+far away from the n, from 1 million
+遠離n，遠離100萬
+
+43
+00:01:58,632 --> 00:01:59,353
+iterations.
+迭代。
+
+44
+00:02:00,540 --> 00:02:03,393
+So instead, what we typically would have
+所以相反，我們通常會擁有
+
+45
+00:02:03,489 --> 00:02:03,601
+here
+這裡
+
+46
+00:02:04,211 --> 00:02:08,106
+is something like log, a logarithmic time
+類似 log，對數時間
+
+47
+00:02:08,154 --> 00:02:09,244
+complexity function.
+複雜度函式。
+
+48
+00:02:10,174 --> 00:02:12,514
+If you think about this slide again, I
+如果你再想想這張投影片，我
+
+49
+00:02:13,107 --> 00:02:15,335
+had a look at logarithmic time complexity
+看看對數時間複雜度
+
+50
+00:02:15,367 --> 00:02:17,083
+there as well. And if you look at this
+那裡也有。如果你看看這個
+
+51
+00:02:17,195 --> 00:02:19,345
+chart, you see that of course it grows,
+圖表，你會看到它當然在增長，
+
+52
+00:02:20,019 --> 00:02:22,186
+but for big numbers it doesn't grow a lot.
+但對於大數字來說，它不會成長很多。
+
+53
+00:02:23,390 --> 00:02:25,765
+Very large numbers like 1 million or 10
+非常大的數字，例如 100 萬或 10
+
+54
+00:02:25,797 --> 00:02:29,055
+million are almost on the same time level as
+百萬幾乎處於同一時間水平
+
+55
+00:02:29,264 --> 00:02:32,361
+smaller numbers like just 100 or just 1,000.
+較小的數字，例如 100 或 1,000。
+
+56
+00:02:32,714 --> 00:02:35,876
+So we just have a relatively steep curve at
+所以我們只有一條相對陡峭的曲線
+
+57
+00:02:35,908 --> 00:02:38,444
+the beginning for small numbers, but very
+開始時人數很少，但非常多
+
+58
+00:02:38,476 --> 00:02:41,975
+quickly we approach a relatively constant
+很快我們就接近一個相對恆定的
+
+59
+00:02:42,168 --> 00:02:45,280
+time complexity. For algorithms that have
+時間複雜度。對於具有
+
+60
+00:02:45,280 --> 00:02:47,350
+such a logarithmic time complexity.
+這樣的對數時間複雜度。
+
+61
+00:02:47,928 --> 00:02:51,072
+And a good way of getting a feeling for that
+這是一種感受的好方法
+
+62
+00:02:51,072 --> 00:02:53,848
+and foreseeing that is that we don't count
+預見到我們不算數
+
+63
+00:02:53,976 --> 00:02:56,334
+operations manually, but we add a couple of
+手動操作，但我們添加了一些
+
+64
+00:02:56,366 --> 00:02:59,783
+console logs so that we get those operations
+控制台紀錄以便我們獲得這些操作
+
+65
+00:02:59,816 --> 00:03:00,826
+counted for us.
+對我們來說很重要。
+
+66
+00:03:01,741 --> 00:03:03,698
+For that, I'll just paste the function here
+為此，我將函式貼到此處
+
+67
+00:03:03,826 --> 00:03:05,960
+in the browser. Of course, we could also
+在瀏覽器中。當然，我們也可以
+
+68
+00:03:06,056 --> 00:03:07,468
+edit it in our app.js file,
+在我們的 app.js 檔案中編輯它，
+
+69
+00:03:08,318 --> 00:03:10,871
+but I'll add it here And inside of that
+但我會在這裡添加它並在裡面
+
+70
+00:03:10,969 --> 00:03:13,310
+while loop, I'll now add a new line,
+while 迴圈，我現在新增一個新行，
+
+71
+00:03:13,911 --> 00:03:14,805
+console.log
+控制台紀錄
+
+72
+00:03:16,649 --> 00:03:17,356
+executing,
+執行,
+
+73
+00:03:19,477 --> 00:03:20,087
+just like this.
+就像這樣。
+
+74
+00:03:20,762 --> 00:03:22,658
+And now we can call this function for
+現在我們可以呼叫這個函式
+
+75
+00:03:22,754 --> 00:03:24,875
+various values. I'll just clear the console.
+各種價值觀。我會清除控制台。
+
+76
+00:03:25,004 --> 00:03:26,675
+The function is still there, just not
+功能還是有的，但沒了
+
+77
+00:03:26,707 --> 00:03:27,382
+visible anymore.
+不再可見。
+
+78
+00:03:28,072 --> 00:03:30,916
+And now I'll call isPowerOfTwo for let's say
+現在我將呼叫 isPowerOfTwo 來讓我們說
+
+79
+00:03:31,350 --> 00:03:31,527
+3.
+3.
+
+80
+00:03:32,635 --> 00:03:33,150
+And we see
+我們看到
+
+81
+00:03:33,680 --> 00:03:34,901
+executing once.
+執行一次。
+
+82
+00:03:35,545 --> 00:03:36,994
+Now let's call it for
+現在我們稱之為
+
+83
+00:03:37,832 --> 00:03:40,553
+900,999.
+900,999。
+
+84
+00:03:41,326 --> 00:03:41,600
+Still
+仍然
+
+85
+00:03:42,260 --> 00:03:44,499
+only once. Now that's our best case, of
+只有一次。現在這是我們最好的情況
+
+86
+00:03:44,580 --> 00:03:44,774
+course.
+課程。
+
+87
+00:03:45,505 --> 00:03:47,079
+Let's now call it for
+現在讓我們稱之為
+
+88
+00:03:48,167 --> 00:03:48,216
+8.
+8.
+
+89
+00:03:49,076 --> 00:03:51,316
+Here we see 3 executions.
+這裡我們看到 3 次處決。
+
+90
+00:03:52,328 --> 00:03:55,660
+Now let's call it for 16. We see 4
+現在我們稱之為 16。我們看到 4
+
+91
+00:03:55,692 --> 00:03:56,484
+executions.
+處決。
+
+92
+00:03:57,503 --> 00:03:58,959
+Now let's call it for
+現在我們稱之為
+
+93
+00:04:00,883 --> 00:04:01,498
+a million.
+一百萬。
+
+94
+00:04:03,825 --> 00:04:05,336
+And we see 7 executions, so
+我們看到有 7 人被處決，所以
+
+95
+00:04:05,995 --> 00:04:07,650
+far away from a million.
+距離一百萬還很遠。
+
+96
+00:04:08,711 --> 00:04:11,989
+Now even for large numbers that ultimately
+現在，即使對於大量的人來說，最終
+
+97
+00:04:12,247 --> 00:04:13,615
+are a power of 2
+是 2 的冪
+
+98
+00:04:14,274 --> 00:04:15,690
+will not take too long.
+不會花太長時間。
+
+99
+00:04:17,476 --> 00:04:19,585
+If we quickly derive such a number with the
+如果我們快速導出這樣一個數字
+
+100
+00:04:19,665 --> 00:04:21,407
+built-in math power function,
+內建數學冪函式，
+
+101
+00:04:22,229 --> 00:04:22,616
+let's say
+比方說
+
+102
+00:04:23,212 --> 00:04:23,535
+50,
+50、
+
+103
+00:04:24,099 --> 00:04:26,195
+which is quite a large number, even if I
+這是一個相當大的數字，即使我
+
+104
+00:04:26,195 --> 00:04:29,238
+take that number here, you see we only have
+把這個數字拿在這裡，你看我們只有
+
+105
+00:04:29,238 --> 00:04:32,656
+50 executions here. So far away from
+這裡處決了 50 人。如此遙遠
+
+106
+00:04:32,929 --> 00:04:35,224
+whatever that number is iterations.
+無論這個數字是什麼，都是迭代次數。
+
+107
+00:04:35,978 --> 00:04:38,097
+So you see I can add bigger and bigger
+所以你看我可以加越來越大的東西
+
+108
+00:04:38,161 --> 00:04:40,199
+numbers, but the number of executions
+數字，但執行次數
+
+109
+00:04:40,312 --> 00:04:40,874
+doesn't grow
+不成長
+
+110
+00:04:41,419 --> 00:04:43,939
+even close to as fast as those numbers are
+甚至接近這些數字的速度
+
+111
+00:04:44,003 --> 00:04:44,420
+growing.
+生長。
+
+112
+00:04:44,950 --> 00:04:47,454
+And that always is a great indicator for
+這始終是一個很好的指標
+
+113
+00:04:47,598 --> 00:04:50,038
+logarithmic time, even if you
+對數時間，即使你
+
+114
+00:04:50,648 --> 00:04:52,750
+don't calculate it mathematically, which is
+不要用數學方法計算它，即
+
+115
+00:04:52,750 --> 00:04:54,580
+hard here since we also have different
+這裡很難，因為我們也有不同的
+
+116
+00:04:54,580 --> 00:04:55,013
+cases.
+案例。
+
+117
+00:04:55,543 --> 00:04:58,304
+Just by exploring the nature of this
+只要探索這個本質
+
+118
+00:04:58,433 --> 00:05:01,259
+algorithm and running this calculation with
+演算法並運行該計算
+
+119
+00:05:01,259 --> 00:05:04,358
+a couple of demo numbers and logging each
+幾個演示號碼並記錄每個號碼
+
+120
+00:05:04,535 --> 00:05:07,072
+execution to the console, just with this
+執行到控制台，就這樣
+
+121
+00:05:07,185 --> 00:05:09,336
+approach, which is a fine approach of
+方法，這是一個很好的方法
+
+122
+00:05:09,593 --> 00:05:12,628
+analyzing the time complexity, we are able
+分析時間複雜度，我們可以
+
+123
+00:05:12,661 --> 00:05:15,342
+to tell that we certainly don't have O here.
+告訴我們這裡肯定沒有O。
+
+124
+00:05:15,776 --> 00:05:17,928
+Otherwise, that number would need to be much
+否則，這個數字將需要很多
+
+125
+00:05:18,040 --> 00:05:20,738
+closer to that number. And if you have
+更接近這個數字。如果你有
+
+126
+00:05:20,754 --> 00:05:23,034
+something like this where the number of
+像這樣的東西，其中的數量
+
+127
+00:05:23,082 --> 00:05:26,600
+operations grows, it's not constant, but it
+業務成長，它不是恆定的，但它
+
+128
+00:05:26,696 --> 00:05:28,833
+grows at a much slower pace,
+成長速度慢得多，
+
+129
+00:05:29,604 --> 00:05:32,125
+then you typically have logarithmic time.
+那你通常會得到對數時間。
+
+130
+00:05:32,639 --> 00:05:35,193
+That's a typical example, and that's how you
+這是一個典型的例子，你就是這樣
+
+131
+00:05:35,209 --> 00:05:37,908
+can derive that with console logs and by
+可以透過控制台紀錄得出
+
+132
+00:05:37,956 --> 00:05:40,542
+simply thinking about the nature of this
+只是想這件事的本質
+
+133
+00:05:40,687 --> 00:05:41,088
+algorithm.
+演算法.
+
+134
+00:05:42,197 --> 00:05:44,349
+Now with that newly gained knowledge, coming
+現在有了新獲得的知識，
+
+135
+00:05:44,446 --> 00:05:45,859
+back to our code here,
+回到我們的程式碼，
+
+136
+00:05:46,550 --> 00:05:48,750
+we actually have to correct our worst case.
+我們實際上必須糾正最壞的情況。
+
+137
+00:05:49,184 --> 00:05:51,995
+It's Not a million, it's actually a big
+這不是一百萬，實際上是一個很大
+
+138
+00:05:51,995 --> 00:05:55,192
+number that is a power of 2 because that is
+2 的冪的數字，因為它是
+
+139
+00:05:55,288 --> 00:05:57,200
+where we will take the most iterations.
+我們將在其中進行最多的迭代。
+
+140
+00:05:57,955 --> 00:06:00,124
+So something like the large number we
+所以像我們這樣的大數字
+
+141
+00:06:00,124 --> 00:06:02,758
+derived here in the console a second ago,
+一秒鐘前在控制台中匯出，
+
+142
+00:06:03,031 --> 00:06:04,911
+something like that number, that is the
+類似那個數字，那就是
+
+143
+00:06:05,007 --> 00:06:07,529
+actual worst case because there for this
+實際上最壞的情況因為有這個
+
+144
+00:06:07,529 --> 00:06:10,019
+exact number we saw that we would take 50
+我們看到的確切數字是 50
+
+145
+00:06:10,469 --> 00:06:11,336
+loop iterations.
+迴圈迭代。
+
+146
+00:06:12,396 --> 00:06:14,549
+Now actually this also allows us to refine
+現在其實這也讓我們可以細化
+
+147
+00:06:14,645 --> 00:06:18,004
+our time complexity judgment here. Log of n
+我們這裡的時間複雜度判斷。 n 的對數
+
+148
+00:06:18,342 --> 00:06:20,822
+is fine, you could say it has O, but of
+很好，你可以說它有 O，但是
+
+149
+00:06:20,918 --> 00:06:22,625
+course since we here always talk about a
+當然，因為我們在這裡總是談論
+
+150
+00:06:22,625 --> 00:06:23,526
+power of 2,
+2 的冪，
+
+151
+00:06:24,073 --> 00:06:25,152
+we know that for a subtle
+我們知道對於微妙的

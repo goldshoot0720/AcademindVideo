@@ -1,0 +1,924 @@
+1
+00:00:02,055 --> 00:00:04,030
+So now that we derived the depths and the
+現在我們已經導出了深度和
+
+2
+00:00:04,046 --> 00:00:06,503
+balance factors, let's derive which kind of
+平衡因素，我們來推導哪一種
+
+3
+00:00:06,599 --> 00:00:07,354
+rotation we need.
+我們需要的輪換。
+
+4
+00:00:08,301 --> 00:00:09,826
+And for that, I will actually create a new
+為此，我實際上會創建一個新的
+
+5
+00:00:09,891 --> 00:00:10,501
+class here,
+在這裡上課，
+
+6
+00:00:11,191 --> 00:00:15,125
+the AVL tree class, which will extend the
+AVL 樹類，它將擴充功能
+
+7
+00:00:15,286 --> 00:00:17,309
+other tree here, so the default
+這裡有其他樹，所以預設
+
+8
+00:00:17,839 --> 00:00:18,818
+binary search tree.
+二元搜尋樹。
+
+9
+00:00:19,621 --> 00:00:21,516
+And therefore, down here, I also create an
+因此，在這裡，我還創建了一個
+
+10
+00:00:21,692 --> 00:00:22,206
+AVL tree.
+AVL 樹。
+
+11
+00:00:23,314 --> 00:00:25,144
+I'm doing this so that I can put the
+我這樣做是為了把
+
+12
+00:00:25,225 --> 00:00:28,324
+AVL-specific logic into the separate class
+AVL 特定邏輯放入單獨的類別中
+
+13
+00:00:28,372 --> 00:00:31,005
+and keep my binary search tree untouched if
+並保持我的二元搜尋樹不變，如果
+
+14
+00:00:31,021 --> 00:00:33,060
+we ever would want to use this regular
+我們曾經想使用這個常規的
+
+15
+00:00:33,173 --> 00:00:34,441
+binary search tree again.
+再次二元搜尋樹。
+
+16
+00:00:35,822 --> 00:00:39,258
+Now with that, here I will again add an add
+現在，我在這裡再次添加一個添加
+
+17
+00:00:39,451 --> 00:00:42,630
+method where I will call super.add,
+我將呼叫 super.add 的方法，
+
+18
+00:00:43,208 --> 00:00:46,147
+so basically the add method in the class
+所以基本上就是類別中的 add 方法
+
+19
+00:00:46,259 --> 00:00:48,667
+which we're extending, so that we still add
+我們正在擴充功能它，所以我們仍然添加
+
+20
+00:00:48,828 --> 00:00:50,482
+our value as we did before.
+我們的價值和以前一樣。
+
+21
+00:00:51,477 --> 00:00:54,882
+But now after we added this, I want to
+但現在我們添加了這個之後，我想要
+
+22
+00:00:55,573 --> 00:00:56,923
+basically balance this.
+基本上平衡了這個。
+
+23
+00:00:58,562 --> 00:00:59,317
+I want to
+我想要
+
+24
+00:00:59,847 --> 00:01:00,329
+get my
+得到我的
+
+25
+00:01:00,956 --> 00:01:01,824
+current node
+當前節點
+
+26
+00:01:02,740 --> 00:01:04,043
+by reaching out to this
+透過接觸到這個
+
+27
+00:01:05,299 --> 00:01:08,134
+root, which is the root node. We can access
+root，即根節點。我們可以訪問
+
+28
+00:01:08,134 --> 00:01:10,292
+this, it's a property of the class we're
+這是我們班的財產
+
+29
+00:01:10,292 --> 00:01:12,450
+extending, so we have access to it in the
+擴充功能，所以我們可以在
+
+30
+00:01:12,450 --> 00:01:13,512
+inheriting class as well.
+繼承類別也是如此。
+
+31
+00:01:14,333 --> 00:01:16,233
+So here I have my root node,
+所以這裡我有我的根節點，
+
+32
+00:01:16,990 --> 00:01:20,305
+and on that I will call find to find that
+然後我會打電話給 find 來找到
+
+33
+00:01:20,305 --> 00:01:22,793
+node by value. So essentially I wanna find
+按值節點。所以本質上我想找到
+
+34
+00:01:22,825 --> 00:01:25,668
+that node in the tree which I just inserted.
+我剛剛插入的樹中的那個節點。
+
+35
+00:01:25,830 --> 00:01:28,236
+So this node I just created, I wanna find it
+所以我剛剛創建的這個節點，我想找到它
+
+36
+00:01:28,236 --> 00:01:28,463
+here.
+這裡。
+
+37
+00:01:30,196 --> 00:01:33,176
+Once we found it, I want to call a method
+一旦我們找到它，我想呼叫一個方法
+
+38
+00:01:33,176 --> 00:01:34,448
+which we have yet to add,
+我們還沒有添加，
+
+39
+00:01:35,044 --> 00:01:37,878
+the balance method on this node.
+該節點上的平衡方法。
+
+40
+00:01:38,990 --> 00:01:41,155
+And the balance method is now a method we
+平衡法現在是我們的一種方法
+
+41
+00:01:41,317 --> 00:01:44,307
+add to our AVL tree. And this of course will
+加入我們的 AVL 樹。這當然會
+
+42
+00:01:44,388 --> 00:01:46,425
+be a key method because that will be the
+是一個關鍵方法，因為這將是
+
+43
+00:01:46,425 --> 00:01:48,462
+method which will determine which kind of
+方法將確定哪種
+
+44
+00:01:48,592 --> 00:01:49,193
+rotation we need.
+我們需要的輪換。
+
+45
+00:01:50,535 --> 00:01:52,754
+Now I will also quickly add the remove
+現在我也將快速新增刪除
+
+46
+00:01:52,771 --> 00:01:55,811
+method. There I will just call super.remove
+方法。在那裡我將調用 super.remove
+
+47
+00:01:56,068 --> 00:01:57,178
+for the value we're getting
+對於我們所得到的價值
+
+48
+00:01:57,757 --> 00:01:59,785
+and thereafter I will also call balance
+此後我也會打電話平衡
+
+49
+00:01:59,785 --> 00:02:02,929
+here, however now on the root node of the
+在這裡，但是現在在根節點上
+
+50
+00:02:02,929 --> 00:02:05,493
+tree to simply balance out the entire tree
+樹來簡單地平衡整個樹
+
+51
+00:02:05,493 --> 00:02:07,252
+again after we remove the node.
+刪除節點後再次執行此操作。
+
+52
+00:02:09,309 --> 00:02:11,383
+We only need to call this on the root node
+我們只需要在根節點上呼叫這個即可
+
+53
+00:02:11,497 --> 00:02:13,862
+in the remove case because if we remove a
+在刪除的情況下，因為如果我們刪除一個
+
+54
+00:02:14,008 --> 00:02:16,862
+value, we'll not break the balance of our
+價值，我們不會打破我們的平衡
+
+55
+00:02:16,911 --> 00:02:19,248
+tree because it was already balanced before.
+樹，因為它之前已經平衡了。
+
+56
+00:02:19,620 --> 00:02:21,685
+So by removing one node, we won't break it
+因此，透過刪除一個節點，我們不會破壞它
+
+57
+00:02:22,314 --> 00:02:25,106
+unless we basically removed the root node,
+除非我們基本上刪除了根節點，
+
+58
+00:02:25,542 --> 00:02:28,172
+in which case our remove functionality is
+在這種情況下，我們的刪除功能是
+
+59
+00:02:28,269 --> 00:02:30,547
+configured to shift things around so that we
+設定來改變事情，以便我們
+
+60
+00:02:30,547 --> 00:02:32,860
+have a new root node. And in that case, we
+有一個新的根節點。在這種情況下，我們
+
+61
+00:02:32,860 --> 00:02:35,351
+might need to rebalance, which is why we
+可能需要重新平衡，這就是為什麼我們
+
+62
+00:02:35,626 --> 00:02:37,987
+rebalance on the root node. And the balance
+在根節點上重新平衡。以及餘額
+
+63
+00:02:37,987 --> 00:02:39,534
+method will basically check whether
+方法基本上會檢查是否
+
+64
+00:02:39,534 --> 00:02:41,985
+balancing is needed and do the appropriate
+需要平衡並採取適當的措施
+
+65
+00:02:41,985 --> 00:02:43,210
+thing if that is the case.
+事情如果是這樣的話。
+
+66
+00:02:44,712 --> 00:02:46,616
+With that, however, let's focus on balance
+然而，讓我們專注於平衡
+
+67
+00:02:46,793 --> 00:02:49,180
+because there we now need to write the logic
+因為我們現在需要寫邏輯
+
+68
+00:02:49,180 --> 00:02:52,778
+to decide if need to balance and if yes,
+決定是否需要平衡，如果需要，
+
+69
+00:02:52,923 --> 00:02:55,005
+which kind of balancing operation is
+哪種平衡操作是
+
+70
+00:02:55,102 --> 00:02:55,586
+required.
+必需的。
+
+71
+00:02:56,652 --> 00:02:58,395
+And for that, balance receives the node
+為此，balance接收節點
+
+72
+00:02:58,831 --> 00:03:00,704
+which we pass in as an argument here.
+我們在這裡作為參數傳遞。
+
+73
+00:03:01,495 --> 00:03:04,077
+And now we simply need to check this balance
+現在我們只需要檢查這個餘額
+
+74
+00:03:04,077 --> 00:03:05,999
+factor getter which we just added.
+我們剛剛新增的因子獲取器。
+
+75
+00:03:07,048 --> 00:03:07,871
+We can check if
+我們可以檢查是否
+
+76
+00:03:08,420 --> 00:03:09,676
+our balance factor
+我們的平衡因素
+
+77
+00:03:10,271 --> 00:03:12,102
+is smaller than
+小於
+
+78
+00:03:12,681 --> 00:03:12,809
+-1.
+-1。
+
+79
+00:03:14,368 --> 00:03:16,762
+This would be the case here for the left
+對左邊來說就是這種情況
+
+80
+00:03:16,762 --> 00:03:18,353
+rotation on value 1.
+值 1 上的旋轉。
+
+81
+00:03:19,133 --> 00:03:22,732
+But also for the right-left rotation down
+還可作左右旋轉向下
+
+82
+00:03:22,732 --> 00:03:24,323
+there for the root node.
+那裡是根節點。
+
+83
+00:03:24,917 --> 00:03:27,343
+In both those cases, we have a
+在這兩種情況下，我們都有一個
+
+84
+00:03:28,050 --> 00:03:30,950
+node with a balance factor smaller than
+平衡因子小於的節點
+
+85
+00:03:31,493 --> 00:03:31,739
+-1.
+-1。
+
+86
+00:03:35,012 --> 00:03:37,525
+So there are 2 possible operations that
+所以有兩種可能的操作
+
+87
+00:03:37,895 --> 00:03:40,038
+could be required here, and that's the left
+這裡可能需要，這是左邊
+
+88
+00:03:40,151 --> 00:03:40,699
+rotation
+旋轉
+
+89
+00:03:41,279 --> 00:03:43,341
+or as I just showed you, the right-left
+或者正如我剛才向你展示的那樣，右-左
+
+90
+00:03:43,373 --> 00:03:43,679
+rotation.
+旋轉。
+
+91
+00:03:45,384 --> 00:03:47,356
+But now we need to find out which of the 2
+但現在我們需要找出這 2 個中的哪一個
+
+92
+00:03:47,388 --> 00:03:47,966
+is required.
+是必須的。
+
+93
+00:03:48,896 --> 00:03:52,455
+Now we require the left rotation if the
+現在我們需要左旋轉，如果
+
+94
+00:03:52,520 --> 00:03:53,722
+right child
+右孩子
+
+95
+00:03:54,588 --> 00:03:57,298
+of that node which we're checking, which has
+我們正在檢查的節點的
+
+96
+00:03:57,330 --> 00:04:00,762
+that smaller than -1 balance factor, if the
+小於-1平衡因子，如果
+
+97
+00:04:00,842 --> 00:04:04,370
+right child node of that node has a balance
+該節點的右子節點有餘額
+
+98
+00:04:04,370 --> 00:04:08,154
+factor smaller than 0. Here it's -1, so we
+小於 0 的因子。這裡是 -1，所以我們
+
+99
+00:04:08,154 --> 00:04:10,784
+see this is a scenario where we need a left
+看看這是一個我們需要向左的場景
+
+100
+00:04:10,784 --> 00:04:11,249
+rotation.
+旋轉。
+
+101
+00:04:12,162 --> 00:04:15,736
+We need a right-left rotation if on the node
+如果在節點上，我們需要左右旋轉
+
+102
+00:04:15,768 --> 00:04:17,995
+which we just checked, which has a balance
+我們剛剛檢查過，其中有餘額
+
+103
+00:04:17,995 --> 00:04:19,661
+factor smaller than -1,
+小於-1的因子，
+
+104
+00:04:20,238 --> 00:04:23,394
+if on that node the right child has a
+如果在該節點上右子節點有
+
+105
+00:04:23,523 --> 00:04:25,461
+balance factor greater than 0.
+平衡係數大於0。
+
+106
+00:04:26,343 --> 00:04:29,034
+So basically, if the child, the right child,
+所以基本上，如果這個孩子，正確的孩子，
+
+107
+00:04:29,050 --> 00:04:31,598
+has a balance factor of 0, we don't need to
+平衡係數為0，我們不需要
+
+108
+00:04:31,614 --> 00:04:34,738
+do anything. If it's greater than 0, we need
+做任何事。如果它大於0，我們需要
+
+109
+00:04:34,738 --> 00:04:37,478
+a right-left rotation, and if it's smaller
+左右旋轉，如果它更小
+
+110
+00:04:37,478 --> 00:04:40,382
+than 0, we need a left rotation. We don't
+大於 0，我們需要左旋轉。我們不
+
+111
+00:04:40,382 --> 00:04:42,781
+need to check the left child because we
+需要檢查左孩子因為我們
+
+112
+00:04:42,781 --> 00:04:45,761
+can't have a left child in this scenario
+在這種情況下不能有左孩子
+
+113
+00:04:45,761 --> 00:04:48,079
+here when the balance factor of the root
+這裡當根的平衡因子
+
+114
+00:04:48,079 --> 00:04:49,817
+node is smaller than -1.
+節點小於-1。
+
+115
+00:04:52,026 --> 00:04:54,127
+Because you also need to keep in mind that
+因為您還需要記住
+
+116
+00:04:54,127 --> 00:04:56,912
+we balance out the tree for every new node
+我們為每個新節點平衡樹
+
+117
+00:04:56,912 --> 00:04:57,450
+which we add.
+我們添加了。
+
+118
+00:04:58,850 --> 00:05:00,564
+So therefore here we now want to add an if
+因此，我們現在要新增一個 if
+
+119
+00:05:00,580 --> 00:05:00,839
+check
+查看
+
+120
+00:05:01,453 --> 00:05:02,925
+and check if the
+並檢查是否
+
+121
+00:05:03,507 --> 00:05:06,936
+node right, so the right child of the node,
+節點右，所以該節點的右子節點，
+
+122
+00:05:07,356 --> 00:05:09,720
+if that has a balance factor
+如果有一個平衡因素
+
+123
+00:05:11,179 --> 00:05:12,467
+smaller than 0,
+小於 0，
+
+124
+00:05:13,046 --> 00:05:14,640
+and in this case we need to
+在這種情況下我們需要
+
+125
+00:05:15,381 --> 00:05:18,585
+rotate left. We haven't added this method
+向左旋轉。我們還沒有加入這個方法
+
+126
+00:05:18,585 --> 00:05:20,179
+yet, but we'll do so soon.
+還沒有，但我們很快就會這樣做。
+
+127
+00:05:21,697 --> 00:05:25,406
+Else if, if node.right.balance_factor is
+否則如果，如果node.right.balance_factor是
+
+128
+00:05:26,394 --> 00:05:27,462
+greater than 0,
+大於0，
+
+129
+00:05:28,191 --> 00:05:28,402
+then
+然後
+
+130
+00:05:29,309 --> 00:05:33,231
+we need to do a right-left node rotation.
+我們需要進行左右節點旋轉。
+
+131
+00:05:36,049 --> 00:05:38,661
+And to both those methods, I wanna pass the
+對於這兩種方法，我想透過
+
+132
+00:05:38,661 --> 00:05:40,708
+node on which we want to perform the
+我們想要執行的節點
+
+133
+00:05:40,740 --> 00:05:43,287
+rotation, which is the node we're balancing.
+旋轉，這是我們正在平衡的節點。
+
+134
+00:05:45,082 --> 00:05:47,645
+If the balance factor of the right child
+如果右孩子的平衡因子
+
+135
+00:05:47,694 --> 00:05:50,110
+node is equal to 0, we don't need to do
+節點等於0，我們不需要這樣做
+
+136
+00:05:50,208 --> 00:05:50,518
+anything.
+任何事物。
+
+137
+00:05:51,769 --> 00:05:54,934
+Okay, so that was now this check. But now if
+好的，這就是現在的這張支票。但現在如果
+
+138
+00:05:54,934 --> 00:05:57,296
+the node which we're trying to balance has a
+我們試圖平衡的節點有一個
+
+139
+00:05:57,409 --> 00:06:00,478
+balance factor greater than 1, we also wanna
+平衡因子大於1，我們也想要
+
+140
+00:06:00,478 --> 00:06:03,029
+do something. If it has a balance factor
+做某事。如果有平衡係數的話
+
+141
+00:06:03,174 --> 00:06:07,110
+equal to 1, equal to -1, or equal to 0, we
+等於1、等於-1、或等於0，我們
+
+142
+00:06:07,126 --> 00:06:08,058
+don't need to do anything.
+不需要做任何事。
+
+143
+00:06:08,669 --> 00:06:11,057
+But if it has a balance factor greater than
+但如果它的平衡係數大於
+
+144
+00:06:11,164 --> 00:06:11,306
+1,
+1、
+
+145
+00:06:14,185 --> 00:06:16,161
+then the other 2 operations will be
+那麼其他 2 個操作將是
+
+146
+00:06:16,210 --> 00:06:16,679
+relevant.
+相關的。
+
+147
+00:06:17,505 --> 00:06:19,951
+If the node we're checking has a balance
+如果我們正在檢查的節點有餘額
+
+148
+00:06:19,951 --> 00:06:21,376
+factor greater than 1,
+係數大於 1，
+
+149
+00:06:21,910 --> 00:06:24,378
+so for example here, the value 3 has a
+例如這裡，值 3 有一個
+
+150
+00:06:24,394 --> 00:06:25,409
+balance factor of 2,
+平衡係數為2，
+
+151
+00:06:26,166 --> 00:06:28,389
+then a right rotation might be required.
+那麼可能需要進行右旋轉。
+
+152
+00:06:28,917 --> 00:06:29,110
+Or
+或者
+
+153
+00:06:29,641 --> 00:06:32,443
+a left-right rotation because there the node
+左右旋轉，因為有節點
+
+154
+00:06:33,104 --> 00:06:35,745
+also has a balance factor greater than 1.
+平衡係數也大於 1。
+
+155
+00:06:36,679 --> 00:06:39,370
+So now we need to check the left child node.
+所以現在我們需要檢查左子節點。
+
+156
+00:06:39,950 --> 00:06:42,870
+If it has a balance factor smaller than 0,
+如果平衡因子小於0，
+
+157
+00:06:42,950 --> 00:06:44,305
+we need a left-right rotation.
+我們需要左右旋轉。
+
+158
+00:06:45,912 --> 00:06:48,591
+If it has a balance factor greater than 0,
+如果平衡係數大於0，
+
+159
+00:06:48,852 --> 00:06:50,175
+we need a right rotation.
+我們需要正確的輪換。
+
+160
+00:06:53,180 --> 00:06:54,271
+So back to our code.
+回到我們的程式碼。
+
+161
+00:06:56,180 --> 00:06:56,454
+Here
+這裡
+
+162
+00:06:57,711 --> 00:07:01,160
+we now check if our node, if the left child
+我們現在檢查我們的節點是否是左子節點
+
+163
+00:07:03,352 --> 00:07:06,428
+has a balance factor smaller than 0,
+平衡因子小於0，
+
+164
+00:07:07,700 --> 00:07:08,844
+and if that's the case,
+如果是這樣的話
+
+165
+00:07:09,407 --> 00:07:11,163
+we call this rotate
+我們稱之為旋轉
+
+166
+00:07:11,823 --> 00:07:14,160
+left, right, and forward the node.
+向左、向右和向前移動節點。
+
+167
+00:07:15,515 --> 00:07:18,161
+Else if, if our left child node
+else if，如果我們的左子節點
+
+168
+00:07:19,145 --> 00:07:21,355
+of the node we're trying to balance has a
+我們試圖平衡的節點有一個
+
+169
+00:07:21,420 --> 00:07:24,644
+balance factor greater than 0, If that's the
+平衡係數大於0，如果是
+
+170
+00:07:24,644 --> 00:07:28,364
+case, then we need a right rotation. So then
+如果是這種情況，那麼我們需要右旋轉。那麼那麼
+
+171
+00:07:28,364 --> 00:07:30,854
+we call rotate right and forward the node.
+我們稱該節點為右旋轉和前轉。
+
+172
+00:07:33,700 --> 00:07:36,062
+This is now the logic we need here. And with
+這就是我們現在需要的邏輯。並與
+
+173
+00:07:36,095 --> 00:07:38,343
+that, we're deciding which kind of rotation
+我們正在決定哪種輪換
+
+174
+00:07:38,376 --> 00:07:38,751
+we need.
+我們需要。
+
+175
+00:07:40,059 --> 00:07:42,677
+Now, for the example numbers I added here,
+現在，對於我在此處添加的示例數字，
+
+176
+00:07:42,822 --> 00:07:44,477
+1, 2, 3, in this order,
+1、2、3，依照這個順序，
+
+177
+00:07:45,698 --> 00:07:48,767
+we will definitely need a left rotation. We
+我們肯定需要左旋轉。我們
+
+178
+00:07:48,767 --> 00:07:51,537
+can see it here. I added 1, 2, 3 in exactly
+可以在這裡看到。我精確地添加了 1, 2, 3
+
+179
+00:07:51,537 --> 00:07:54,232
+that order. So that is the kind of tree We
+那個訂單。這就是我們的樹
+
+180
+00:07:54,232 --> 00:07:54,489
+need
+需要
+
+181
+00:07:55,181 --> 00:07:57,835
+this tree here. So this is the kind of tree
+這裡的這棵樹。所以這就是這種樹
+
+182
+00:07:57,851 --> 00:08:00,038
+we have and therefore we'll need a left
+我們有，因此我們需要左轉
+
+183
+00:08:00,087 --> 00:08:02,210
+rotation. Hence, let's start with
+旋轉。因此，讓我們從
+
+184
+00:08:02,274 --> 00:08:04,848
+implementing the left rotation logic in the
+實作左旋邏輯
+
+185
+00:08:04,848 --> 00:08:05,411
+next lecture.
+下一個講座。

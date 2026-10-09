@@ -1,0 +1,829 @@
+1
+00:00:02,088 --> 00:00:04,431
+So let's build a graph data structure now.
+現在讓我們建立一個圖資料結構。
+
+2
+00:00:04,981 --> 00:00:06,500
+You know the game, I'm back in a new
+你知道這個遊戲，我又回來了
+
+3
+00:00:06,613 --> 00:00:08,585
+project, empty app.js file,
+專案，空 app.js 檔案，
+
+4
+00:00:10,089 --> 00:00:11,842
+and that's where I now wanna build the graph
+這就是我現在想要建立圖表的地方
+
+5
+00:00:12,003 --> 00:00:15,409
+data structure using adjacency lists or an
+使用鄰接表或鄰接表的資料結構
+
+6
+00:00:15,554 --> 00:00:17,258
+adjacency list under the hood.
+引擎蓋下的鄰接清單。
+
+7
+00:00:18,527 --> 00:00:20,815
+For that, we can create a new class and call
+為此，我們可以創建一個新類別並調用
+
+8
+00:00:20,944 --> 00:00:23,656
+it Graph because, well, that's what we're
+它是圖表，因為，這就是我們要做的
+
+9
+00:00:23,672 --> 00:00:24,189
+going to build.
+要去建造。
+
+10
+00:00:25,125 --> 00:00:27,763
+And in the constructor, we wanna do 2
+在建構子中，我們想做 2
+
+11
+00:00:27,763 --> 00:00:28,538
+important things.
+重要的事情。
+
+12
+00:00:29,215 --> 00:00:30,474
+We need our nodes
+我們需要我們的節點
+
+13
+00:00:31,070 --> 00:00:33,200
+and that could be an array full of objects
+這可能是個充滿物件的陣列
+
+14
+00:00:33,555 --> 00:00:35,830
+or to make retrieving nodes a bit more
+或使檢索節點更多一些
+
+15
+00:00:35,830 --> 00:00:38,169
+efficient, we could also store an object
+高效，我們還可以儲存一個物件
+
+16
+00:00:38,169 --> 00:00:41,299
+here so that we can use any identifier like
+在這裡我們可以使用任何標識符，例如
+
+17
+00:00:41,299 --> 00:00:43,703
+a string ID for the different nodes.
+不同節點的字串 ID。
+
+18
+00:00:45,884 --> 00:00:47,961
+And we'll also have our edges
+我們也會有我們的優勢
+
+19
+00:00:48,707 --> 00:00:50,540
+and that could be an array now
+現在這可能是陣列
+
+20
+00:00:51,221 --> 00:00:55,107
+or also an object where we then later also
+或者也是一個物件，我們稍後也可以
+
+21
+00:00:55,172 --> 00:00:58,390
+have the identifiers of nodes and then as a
+具有節點的標識符，然後作為
+
+22
+00:00:58,390 --> 00:01:01,688
+value for every identifier, an array full of
+每個標識符的值，一個充滿的陣列
+
+23
+00:01:01,721 --> 00:01:04,358
+the identifiers of other nodes that node
+該節點的其他節點的標識符
+
+24
+00:01:04,536 --> 00:01:05,216
+should point at.
+應該指出。
+
+25
+00:01:05,928 --> 00:01:07,676
+You'll see how it works very soon.
+您很快就會看到它是如何工作的。
+
+26
+00:01:09,376 --> 00:01:12,557
+Now in this class, we need 2 very important
+現在在這個類別中，我們需要2個非常重要的
+
+27
+00:01:12,557 --> 00:01:12,992
+methods,
+方法，
+
+28
+00:01:13,574 --> 00:01:17,625
+an addNode method and of course an addEdge
+一個 addNode 方法，當然還有一個 addEdge
+
+29
+00:01:17,932 --> 00:01:20,470
+method because these are the 2 things that
+方法，因為這是兩件事
+
+30
+00:01:20,470 --> 00:01:22,754
+make up graphs. Nodes and edges.
+組成圖表。節點和邊。
+
+31
+00:01:24,490 --> 00:01:27,891
+Now for a node, we probably should get some
+現在對於一個節點，我們可能應該得到一些
+
+32
+00:01:28,150 --> 00:01:28,685
+identifier
+識別符
+
+33
+00:01:29,284 --> 00:01:31,212
+and a value that should be stored.
+以及應該儲存的值。
+
+34
+00:01:34,129 --> 00:01:36,535
+And then we could reach out to this node
+然後我們就可以聯絡到這個節點
+
+35
+00:01:37,277 --> 00:01:39,344
+and for the given identifier,
+對於給定的標識符，
+
+36
+00:01:40,103 --> 00:01:42,072
+we then store our value.
+然後我們儲存我們的值。
+
+37
+00:01:42,782 --> 00:01:45,209
+Now you could also store an object as a
+現在您也可以將物件儲存為
+
+38
+00:01:45,209 --> 00:01:47,926
+value which has a val key and stores the
+value 具有 val 鍵並存儲
+
+39
+00:01:47,926 --> 00:01:50,546
+value and then maybe an ID and again stores
+值，然後可能是 ID，並再次存儲
+
+40
+00:01:50,578 --> 00:01:51,173
+the identifier
+識別符
+
+41
+00:01:51,747 --> 00:01:53,394
+even though we already have it as a key
+即使我們已經把它當作鑰匙
+
+42
+00:01:53,394 --> 00:01:53,669
+name.
+姓名。
+
+43
+00:01:54,250 --> 00:01:56,107
+And you could store any kind of metadata
+你可以儲存任何型別的元資料
+
+44
+00:01:56,123 --> 00:01:56,914
+there as well.
+那裡也有。
+
+45
+00:01:57,576 --> 00:02:00,079
+But I'll keep it simple. I'll just store my
+但我會保持簡單。我只會儲存我的
+
+46
+00:02:00,079 --> 00:02:00,805
+value here
+值在這裡
+
+47
+00:02:01,757 --> 00:02:04,484
+on the given identifier in my nodes object.
+在我的節點物件中給定的標識符上。
+
+48
+00:02:06,372 --> 00:02:08,647
+Now, I don't add any edges here because for
+現在，我不在這裡添加任何邊，因為
+
+49
+00:02:08,647 --> 00:02:11,371
+the moment we just added a node. And in a
+當我們剛剛新增一個節點時。並且在一個
+
+50
+00:02:11,371 --> 00:02:14,157
+graph, you can also have unconnected nodes.
+圖表中，也可以有未連接的節點。
+
+51
+00:02:14,817 --> 00:02:16,910
+That might not be very useful, but if you
+這可能不是很有用，但如果你
+
+52
+00:02:16,910 --> 00:02:19,326
+just signed up on Facebook and you have no
+剛在 Facebook 上註冊，您還沒有
+
+53
+00:02:19,326 --> 00:02:21,483
+contacts yet, you would be an unconnected
+還沒有聯繫，你將是一個未聯繫的人
+
+54
+00:02:21,483 --> 00:02:24,876
+node in that context graph, for example.
+例如，該上下文圖中的節點。
+
+55
+00:02:25,423 --> 00:02:27,640
+So we can add a node without edges.
+所以我們可以新增一個沒有邊的節點。
+
+56
+00:02:28,459 --> 00:02:30,741
+But of course, typically we want edges. So
+但當然，通常我們需要邊緣。所以
+
+57
+00:02:30,805 --> 00:02:33,119
+we need that addEdge method as well.
+我們還需要 addEdge 方法。
+
+58
+00:02:34,179 --> 00:02:37,601
+And addEdge needs 2 important parameters,
+而addEdge需要2個重要參數，
+
+59
+00:02:38,340 --> 00:02:42,004
+the start node and the end node. And here,
+起始節點和結束節點。而在這裡，
+
+60
+00:02:42,052 --> 00:02:44,735
+of course, I expect the identifiers for
+當然，我期望標識符
+
+61
+00:02:44,783 --> 00:02:45,394
+those nodes.
+那些節點。
+
+62
+00:02:46,535 --> 00:02:49,620
+And with that information provided, we can
+有了這些訊息，我們就可以
+
+63
+00:02:49,684 --> 00:02:50,858
+reach out to edges
+觸及邊緣
+
+64
+00:02:51,613 --> 00:02:53,735
+for the start node identifier.
+為起始節點標識符。
+
+65
+00:02:54,282 --> 00:02:56,806
+So start and end node should be the node
+所以起始節點和結束節點應該是
+
+66
+00:02:56,838 --> 00:02:57,449
+identifiers.
+標識符。
+
+67
+00:02:59,290 --> 00:03:00,885
+So for the start node identifier,
+所以對於起始節點識別碼來說，
+
+68
+00:03:01,804 --> 00:03:04,319
+and we then want to set this equal to an
+然後我們想將其設定為等於
+
+69
+00:03:04,319 --> 00:03:04,577
+array
+大批
+
+70
+00:03:05,528 --> 00:03:07,705
+which holds end node as a value.
+它將結束節點作為一個值。
+
+71
+00:03:08,827 --> 00:03:11,112
+This approach is dangerous though because if
+但這種方法很危險，因為如果
+
+72
+00:03:11,112 --> 00:03:14,538
+we already did have a list of edges for that
+我們已經有一個邊列表了
+
+73
+00:03:14,538 --> 00:03:16,382
+given node, we now overrode it.
+給定節點，我們現在覆蓋它。
+
+74
+00:03:17,104 --> 00:03:19,609
+So instead, we'll need to check if this
+因此，我們需要檢查這是否
+
+75
+00:03:19,882 --> 00:03:20,187
+edge's
+邊緣的
+
+76
+00:03:21,279 --> 00:03:23,719
+start node already exists, if that is
+起始節點已經存在，如果是
+
+77
+00:03:23,832 --> 00:03:24,281
+truthy,
+誠實，
+
+78
+00:03:25,036 --> 00:03:27,492
+in which case we just want to add end node.
+在這種情況下，我們只想新增結束節點。
+
+79
+00:03:28,231 --> 00:03:30,639
+And we only want to add this brand new array
+我們只想加入這個全新的陣列
+
+80
+00:03:30,639 --> 00:03:33,321
+with end node if we didn't have a list of
+如果我們沒有列表，則使用結束節點
+
+81
+00:03:33,449 --> 00:03:36,484
+edges for that given node yet. So we need to
+該給定節點的邊。所以我們需要
+
+82
+00:03:36,500 --> 00:03:37,849
+make this differentiation.
+進行這種區分。
+
+83
+00:03:38,924 --> 00:03:41,189
+Now in this if case here, we want to want to
+現在，在這種情況下，我們想要
+
+84
+00:03:41,318 --> 00:03:44,458
+add end node, but maybe we already had this
+添加結束節點，但也許我們已經有了這個
+
+85
+00:03:44,458 --> 00:03:46,632
+connection, right? In this case, we don't
+連接，對嗎？在這種情況下，我們不
+
+86
+00:03:46,648 --> 00:03:49,273
+want to add it again because a node can only
+想再添加，因為一個節點只能
+
+87
+00:03:49,305 --> 00:03:51,868
+be connected to another node once. You can't
+連接到另一個節點一次。你不能
+
+88
+00:03:51,868 --> 00:03:54,740
+have 2 connections from node A to node B.
+從節點 A 到節點 B 有 2 個連接。
+
+89
+00:03:57,869 --> 00:04:00,339
+So therefore, we can fine-tune this a bit
+因此，我們可以稍微調整一下
+
+90
+00:04:00,840 --> 00:04:03,026
+and not just check whether we already have
+而不僅僅是檢查我們是否已經擁有
+
+91
+00:04:03,026 --> 00:04:06,312
+an array for start node, but if that given
+起始節點的陣列，但如果給定
+
+92
+00:04:06,587 --> 00:04:08,079
+array which exists
+存在的陣列
+
+93
+00:04:08,688 --> 00:04:12,119
+if that given array maybe already contains
+如果給定的陣列可能已經包含
+
+94
+00:04:12,536 --> 00:04:13,209
+end node.
+結束節點。
+
+95
+00:04:14,379 --> 00:04:16,639
+And we can do this in various ways. We
+我們可以透過多種方式做到這一點。我們
+
+96
+00:04:16,703 --> 00:04:20,022
+could, for example, use indexOf, which is a
+例如，可以使用indexOf，這是一個
+
+97
+00:04:20,022 --> 00:04:22,074
+method in JavaScript that will give us the
+JavaScript 中的方法將為我們提供
+
+98
+00:04:22,154 --> 00:04:23,677
+index of a given value.
+給定值的索引。
+
+99
+00:04:24,254 --> 00:04:26,338
+And we want to get the index of end node,
+我們想要得到結束節點的索引，
+
+100
+00:04:26,883 --> 00:04:27,572
+and that will be
+那將是
+
+101
+00:04:28,566 --> 00:04:29,480
+-1 if
+-1 如果
+
+102
+00:04:30,009 --> 00:04:33,327
+end node is not part of that array yet.
+結束節點還不是該陣列的一部分。
+
+103
+00:04:34,023 --> 00:04:36,385
+And it will give us the index in all other
+它會給我們所有其他的索引
+
+104
+00:04:36,385 --> 00:04:36,776
+cases.
+案例。
+
+105
+00:04:37,476 --> 00:04:38,959
+So if that is equal to -1,
+所以如果它等於-1，
+
+106
+00:04:39,840 --> 00:04:40,374
+then we know
+然後我們知道
+
+107
+00:04:40,909 --> 00:04:44,069
+end node was not connected to start node
+結束節點未連接起始節點
+
+108
+00:04:44,069 --> 00:04:47,164
+before. So now here in this case, we want to
+前。所以現在在這種情況下，我們想要
+
+109
+00:04:47,309 --> 00:04:48,184
+add the connection.
+新增連接。
+
+110
+00:04:49,240 --> 00:04:51,124
+So then we'll reach out to the edges of
+然後我們將觸及邊緣
+
+111
+00:04:51,124 --> 00:04:53,717
+start node and simply push
+啟動節點並簡單地推送
+
+112
+00:04:54,329 --> 00:04:57,438
+end node as a new value to insert this here.
+結束節點作為新值插入此處。
+
+113
+00:04:58,996 --> 00:04:59,900
+This is what we could do.
+這就是我們能做的。
+
+114
+00:05:00,529 --> 00:05:02,902
+If end node did already exist as a
+如果端節點已經作為
+
+115
+00:05:02,950 --> 00:05:03,547
+connection for start node,
+起始節點的連接，
+
+116
+00:05:04,616 --> 00:05:06,914
+we do nothing because we don't need to do
+我們什麼都不做，因為我們不需要做
+
+117
+00:05:07,203 --> 00:05:07,573
+anything.
+任何事物。
+
+118
+00:05:08,231 --> 00:05:10,368
+You could add an extra if check and throw an
+你可以添加一個額外的 if 檢查並拋出一個
+
+119
+00:05:10,497 --> 00:05:12,698
+error, but here I'll just do nothing.
+錯誤，但在這裡我什麼都不做。
+
+120
+00:05:13,935 --> 00:05:14,192
+Okay,
+好的，
+
+121
+00:05:14,755 --> 00:05:17,583
+so that already is our first very basic
+這已經是我們的第一個非常基本的了
+
+122
+00:05:17,647 --> 00:05:20,378
+graph, not the final graph we'll have, but a
+圖，不是我們最終得到的圖，而是一個
+
+123
+00:05:20,378 --> 00:05:21,166
+first graph.
+第一張圖。
+
+124
+00:05:21,905 --> 00:05:22,917
+Now we can
+現在我們可以
+
+125
+00:05:23,512 --> 00:05:24,154
+create it,
+創建它，
+
+126
+00:05:24,797 --> 00:05:25,584
+a new graph,
+一個新的圖表，
+
+127
+00:05:26,548 --> 00:05:29,408
+and we can replicate the example we had on
+我們可以複製我們的例子
+
+128
+00:05:29,441 --> 00:05:30,501
+the slide earlier.
+之前的幻燈片。
+
+129
+00:05:31,078 --> 00:05:33,435
+So on that graph, we can now add a bunch of
+所以在這張圖上，我們現在可以加一堆
+
+130
+00:05:33,707 --> 00:05:34,781
+nodes first of all.
+首先是節點。
+
+131
+00:05:36,096 --> 00:05:38,708
+And here I wanna have a node with identifier
+在這裡我想要一個有識別符的節點
+
+132
+00:05:38,740 --> 00:05:40,888
+1, and let's say the value here is actually
+1，假設這裡的值其實是
+
+133
+00:05:40,920 --> 00:05:41,401
+max.
+最大限度。
+
+134
+00:05:42,187 --> 00:05:43,597
+The node with identifier 2
+標識符為2的節點
+
+135
+00:05:44,431 --> 00:05:44,655
+has
+有
+
+136
+00:05:45,409 --> 00:05:45,922
+manual,
+手動的，
+
+137
+00:05:46,755 --> 00:05:50,057
+and we have joules with identifier 3.
+我們有標識符為 3 的焦耳。
+
+138
+00:05:51,163 --> 00:05:53,552
+Now these identifiers are what you saw on
+現在這些標識符就是您在上面看到的
+
+139
+00:05:53,584 --> 00:05:54,754
+the slides previously.
+之前的幻燈片。
+
+140
+00:05:56,068 --> 00:05:57,495
+Here, 1, 2, 3.
+這裡，1、2、3。
+
+141
+00:05:58,651 --> 00:06:00,610
+Now let's set up connections between those
+現在讓我們在這些之間建立連接
+
+142
+00:06:00,658 --> 00:06:01,011
+nodes.
+節點。
+
+143
+00:06:01,541 --> 00:06:03,773
+So on the graph, I'll add a
+所以在圖表上，我將添加一個
+
+144
+00:06:04,720 --> 00:06:05,186
+new edge
+新邊緣
+
+145
+00:06:06,085 --> 00:06:09,023
+where the start node should be, let's say,
+起始節點應該在哪裡，比方說，
+
+146
+00:06:09,473 --> 00:06:09,666
+1,
+1、
+
+147
+00:06:10,260 --> 00:06:12,732
+max, and I wanna connect max to manual.
+max，我想將 max 連接到手動。
+
+148
+00:06:13,262 --> 00:06:17,662
+So the end node identifier is 2. I'll also
+所以結束節點標識符是2。我也會
+
+149
+00:06:17,662 --> 00:06:19,075
+connect max to joules,
+將 max 連接到焦耳，
+
+150
+00:06:20,135 --> 00:06:22,045
+and I'll also connect joules
+我也會連接焦耳
+
+151
+00:06:23,363 --> 00:06:23,945
+to manual.
+至手動。
+
+152
+00:06:27,565 --> 00:06:29,650
+And with that, we can console.log
+這樣，我們就可以 console.log
+
+153
+00:06:31,024 --> 00:06:31,234
+our
+我們的
+
+154
+00:06:31,833 --> 00:06:32,237
+graph.
+圖形。
+
+155
+00:06:35,308 --> 00:06:36,176
+Let's save that
+讓我們儲存它
+
+156
+00:06:37,092 --> 00:06:38,184
+and reload this screen.
+並重新載入此畫面。
+
+157
+00:06:39,502 --> 00:06:40,788
+And we see our graph here.
+我們在這裡看到我們的圖表。
+
+158
+00:06:41,414 --> 00:06:44,598
+In nodes, we see Max, Manuel, and Jules with
+在節點中，我們看到 Max、Manuel 和 Jules 以及
+
+159
+00:06:44,631 --> 00:06:46,391
+their respective identifiers.
+他們各自的識別符。
+
+160
+00:06:47,456 --> 00:06:48,490
+And in edges
+並且在邊緣
+
+161
+00:06:49,127 --> 00:06:51,874
+We see that we have a list for 1, for Max,
+我們看到我們有一個 1 的列表，對於 Max，
+
+162
+00:06:52,035 --> 00:06:53,497
+who points at 2 and 3,
+誰指出2和3，
+
+163
+00:06:54,107 --> 00:06:57,160
+and an entry for 3, so for Jules, who points
+和 3 的條目，所以對於朱爾斯來說，他點
+
+164
+00:06:57,160 --> 00:06:58,445
+at 2, Manuel.
+2、曼努埃爾.
+
+165
+00:06:59,024 --> 00:07:01,337
+And that is our first basic graph.
+這是我們的第一個基本圖表。
+
+166
+00:07:02,077 --> 00:07:03,474
+Now let's refine it a bit.
+現在讓我們稍微完善一下。

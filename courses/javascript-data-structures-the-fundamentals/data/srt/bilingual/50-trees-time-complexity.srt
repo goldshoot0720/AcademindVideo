@@ -1,0 +1,569 @@
+1
+00:00:02,181 --> 00:00:05,005
+Now, as always, when we talk about data
+現在，一如既往，當我們談論資料時
+
+2
+00:00:05,021 --> 00:00:07,299
+structures and algorithms, the time
+結構和演算法，時間
+
+3
+00:00:07,331 --> 00:00:10,074
+complexity matters. It helps us judge how
+複雜性很重要。它可以幫助我們判斷如何
+
+4
+00:00:10,299 --> 00:00:12,368
+good a certain approach is and if we can
+好的某種方法是如果我們可以的話
+
+5
+00:00:12,368 --> 00:00:14,117
+maybe come up with a better approach.
+也許想出更好的方法。
+
+6
+00:00:15,192 --> 00:00:17,245
+For that, I wanna compare trees to arrays.
+為此，我想將樹與陣列進行比較。
+
+7
+00:00:17,823 --> 00:00:20,406
+We could also use arrays for storing data.
+我們也可以使用陣列來儲存資料。
+
+8
+00:00:20,727 --> 00:00:23,213
+With trees, we just have that extra
+有了樹木，我們就擁有了額外的
+
+9
+00:00:23,775 --> 00:00:26,438
+connectivity, you could say, that we have a
+連接性，你可以說，我們有一個
+
+10
+00:00:26,438 --> 00:00:29,454
+certain structure and not just item after
+一定的結構而不僅僅是後面的專案
+
+11
+00:00:29,534 --> 00:00:29,855
+item.
+物品。
+
+12
+00:00:30,723 --> 00:00:31,015
+So
+所以
+
+13
+00:00:31,581 --> 00:00:34,510
+how well do these data structures do when we
+當我們
+
+14
+00:00:34,510 --> 00:00:37,503
+talk about searching or accessing elements,
+談論搜尋或存取元素，
+
+15
+00:00:37,972 --> 00:00:39,343
+inserting and removing elements?
+插入和刪除元素？
+
+16
+00:00:40,503 --> 00:00:42,921
+Now if we want to search for an element in a
+現在如果我們想在 a 中搜尋一個元素
+
+17
+00:00:42,921 --> 00:00:43,404
+tree,
+樹，
+
+18
+00:00:43,936 --> 00:00:47,536
+the worst-case time complexity we have is O,
+最壞情況的時間複雜度是 O，
+
+19
+00:00:48,218 --> 00:00:49,662
+linear time complexity.
+線性時間複雜度。
+
+20
+00:00:50,262 --> 00:00:51,285
+Why is that the case?
+為什麼會這樣呢？
+
+21
+00:00:52,877 --> 00:00:54,411
+Well, in the worst case
+好吧，在最壞的情況下
+
+22
+00:00:55,015 --> 00:00:57,316
+here, when we add a new element, we're also
+在這裡，當我們添加一個新元素時，我們也
+
+23
+00:00:57,316 --> 00:00:59,611
+searching We're also finding out whether
+搜尋 我們也在尋找是否
+
+24
+00:00:59,659 --> 00:01:01,984
+those other segments already exist. And in
+這些其他部分已經存在。並且在
+
+25
+00:01:01,984 --> 00:01:04,164
+the worst case, of course, because we're
+當然是最壞的情況，因為我們
+
+26
+00:01:04,228 --> 00:01:05,206
+using recursion here,
+這裡使用遞迴，
+
+27
+00:01:05,832 --> 00:01:08,413
+we're visiting all other nodes before we
+在我們之前我們正在訪問所有其他節點
+
+28
+00:01:08,413 --> 00:01:11,267
+finally are able to insert the new node we
+終於能夠插入新節點了
+
+29
+00:01:11,299 --> 00:01:11,957
+wanna insert.
+想插入。
+
+30
+00:01:12,646 --> 00:01:15,356
+Value is our full path. And only if it has
+價值是我們的完整路徑。並且只有當它有
+
+31
+00:01:15,404 --> 00:01:17,617
+just one segment, we directly insert the
+只是一段，我們直接插入
+
+32
+00:01:17,617 --> 00:01:20,487
+element. So only in this case are we done
+元素。所以只有在這種情況下我們才會完成
+
+33
+00:01:20,744 --> 00:01:22,074
+with constant time.
+以恆定的時間。
+
+34
+00:01:22,988 --> 00:01:25,281
+In all other cases where we have a longer
+在所有其他情況下，我們有更長的時間
+
+35
+00:01:25,410 --> 00:01:25,778
+path,
+小路，
+
+36
+00:01:26,372 --> 00:01:28,760
+we're looking for whether that node already
+我們正在尋找該節點是否已經存在
+
+37
+00:01:28,760 --> 00:01:31,614
+exists, in which case we drill into it, or
+存在，在這種情況下我們深入研究它，或者
+
+38
+00:01:31,726 --> 00:01:34,115
+if it doesn't exist, in which case we create
+如果它不存在，在這種情況下我們創建
+
+39
+00:01:34,131 --> 00:01:36,664
+it but then still drill into it. So in all
+但仍然深入其中。所以總的來說
+
+40
+00:01:36,792 --> 00:01:38,363
+those cases, we dig deeper.
+對於這些案例，我們會進行更深入的挖掘。
+
+41
+00:01:39,101 --> 00:01:40,335
+And since we are
+既然我們是
+
+42
+00:01:40,944 --> 00:01:44,279
+finding that child node, we are visiting all
+找到該子節點，我們正在訪問所有
+
+43
+00:01:44,792 --> 00:01:45,657
+child nodes.
+子節點。
+
+44
+00:01:46,315 --> 00:01:48,030
+Now of course, we're skipping the child
+當然，現在我們要跳過孩子
+
+45
+00:01:48,030 --> 00:01:49,922
+nodes which aren't matching our first
+與我們的第一個節點不符的節點
+
+46
+00:01:49,922 --> 00:01:51,830
+segment, which is why we're not going to
+部分，這就是為什麼我們不打算
+
+47
+00:01:51,862 --> 00:01:53,721
+visit all nodes in all cases.
+在所有情況下訪問所有節點。
+
+48
+00:01:54,250 --> 00:01:56,463
+But since I'm talking about the worst case
+但既然我說的是最壞的情況
+
+49
+00:01:56,495 --> 00:01:56,559
+here,
+這裡，
+
+50
+00:01:57,297 --> 00:02:00,332
+Indeed, in some cases, it could be the case
+確實，在某些情況下，可能是這樣
+
+51
+00:02:00,364 --> 00:02:03,431
+that we really need to go through all child
+我們真的需要經歷所有的孩子
+
+52
+00:02:03,431 --> 00:02:06,241
+nodes to finally find the node we're looking
+節點最終找到我們正在尋找的節點
+
+53
+00:02:06,369 --> 00:02:06,690
+for.
+為了。
+
+54
+00:02:07,364 --> 00:02:09,837
+So we have linear time here because we have
+所以我們這裡有線性時間，因為我們有
+
+55
+00:02:09,837 --> 00:02:11,122
+a recursive approach.
+遞迴方法。
+
+56
+00:02:12,551 --> 00:02:14,831
+Now for finding something in an array, there
+現在要在陣列中尋找某些內容，
+
+57
+00:02:14,895 --> 00:02:17,143
+are 2 methods. If we know the index, it's
+有2種方法。如果我們知道索引，那就是
+
+58
+00:02:17,143 --> 00:02:19,118
+constant time, but of course if we don't
+恆定的時間，但當然如果我們不這樣做
+
+59
+00:02:19,150 --> 00:02:21,029
+know the index, it's also linear time.
+知道索引，它也是線性時間。
+
+60
+00:02:22,747 --> 00:02:23,759
+Now for inserting,
+現在插入，
+
+61
+00:02:24,915 --> 00:02:26,891
+as I just described, it's basically the same
+正如我剛才所描述的，基本上是一樣的
+
+62
+00:02:26,940 --> 00:02:29,253
+as searching because we need to find the
+作為搜尋，因為我們需要找到
+
+63
+00:02:29,253 --> 00:02:31,164
+right place where we can insert something.
+我們可以插入一些東西的正確位置。
+
+64
+00:02:31,534 --> 00:02:33,686
+It's also linear time for the same reasons
+出於同樣的原因，它也是線性時間
+
+65
+00:02:33,831 --> 00:02:36,578
+as just described. And for the array, it's
+正如剛才所描述的。對於陣列來說，它是
+
+66
+00:02:36,642 --> 00:02:40,016
+also constant time if we just push it, but
+如果我們只是推動它，時間也是恆定的，但是
+
+67
+00:02:40,016 --> 00:02:42,457
+otherwise linear time because we need to
+否則是線性時間，因為我們需要
+
+68
+00:02:42,457 --> 00:02:44,080
+move all our elements then.
+然後移動我們所有的元素。
+
+69
+00:02:45,011 --> 00:02:47,823
+And for removing, well, it's the same. We
+至於刪除，嗯，是一樣的。我們
+
+70
+00:02:47,823 --> 00:02:50,505
+can see it really well in our code here. For
+在我們的程式碼中可以很好地看到它。為了
+
+71
+00:02:50,698 --> 00:02:53,427
+removing, yes, if we have just one segment,
+刪除，是的，如果我們只有一個片段，
+
+72
+00:02:53,444 --> 00:02:55,900
+we can go ahead and remove it. Otherwise,
+我們可以繼續將其刪除。否則，
+
+73
+00:02:55,997 --> 00:02:58,164
+again, we're looking for the right node and
+再次，我們正在尋找正確的節點並且
+
+74
+00:02:58,244 --> 00:03:00,284
+we're drilling deeper into it with
+我們正在更深入地研究它
+
+75
+00:03:00,332 --> 00:03:02,724
+recursion. And therefore, for removing
+遞迴.因此，為了去除
+
+76
+00:03:02,837 --> 00:03:06,176
+nodes, in the worst case, we also have O
+節點，在最壞的情況下，我們還有 O
+
+77
+00:03:06,530 --> 00:03:08,810
+linear time. And for the array, it's the
+線性時間。對於陣列來說，它是
+
+78
+00:03:08,842 --> 00:03:10,560
+same as for all the other types of
+與所有其他型別相同
+
+79
+00:03:10,560 --> 00:03:12,856
+accessing. If you remove something at the
+訪問。如果您在
+
+80
+00:03:12,936 --> 00:03:15,329
+end, if we just pop it, it's constant time.
+最後，如果我們只是彈出它，它就是常數時間。
+
+81
+00:03:15,666 --> 00:03:16,998
+Otherwise, it's linear time.
+否則，它是線性時間。
+
+82
+00:03:17,752 --> 00:03:20,385
+So you might argue that of course a tree has
+所以你可能會說，一棵樹當然有
+
+83
+00:03:20,481 --> 00:03:22,841
+no real advantages here compared to an
+與
+
+84
+00:03:22,841 --> 00:03:23,065
+array.
+大批。
+
+85
+00:03:23,852 --> 00:03:25,954
+And you would kind of be right.
+你是對的。
+
+86
+00:03:26,596 --> 00:03:28,442
+But there are a couple of things to keep in
+但有幾件事要記住
+
+87
+00:03:28,442 --> 00:03:31,219
+mind. For one, we're not fully done yet.
+頭腦。其一，我們還沒有完全完成。
+
+88
+00:03:31,412 --> 00:03:33,803
+We'll also learn about trees which we can
+我們還將了解樹木，我們可以
+
+89
+00:03:33,803 --> 00:03:36,917
+use for storing all kinds of data which can
+用於儲存各種資料，可以
+
+90
+00:03:36,949 --> 00:03:37,960
+be more efficient.
+提高效率。
+
+91
+00:03:38,699 --> 00:03:39,630
+And in addition,
+另外，
+
+92
+00:03:40,240 --> 00:03:42,936
+using a tree is not just a question of time
+使用一棵樹不僅僅是時間問題
+
+93
+00:03:43,033 --> 00:03:45,438
+complexity. Especially here if we have the
+複雜。尤其是在這裡，如果我們有
+
+94
+00:03:45,438 --> 00:03:46,336
+same complexity,
+同樣的複雜度，
+
+95
+00:03:46,977 --> 00:03:48,403
+there also might be other reasons for
+也可能有其他原因
+
+96
+00:03:48,483 --> 00:03:49,942
+choosing a tree over an array.
+選擇樹而不是陣列。
+
+97
+00:03:50,503 --> 00:03:52,042
+And such another reason could be,
+另一個原因可能是，
+
+98
+00:03:52,651 --> 00:03:55,279
+well, that you simply have some data you're
+好吧，你只是有一些資料
+
+99
+00:03:55,295 --> 00:03:58,742
+working with which is best represented as a
+與之合作最能代表的是
+
+100
+00:03:58,742 --> 00:04:01,482
+tree-like data structure, like a file
+樹狀資料結構，就像檔案一樣
+
+101
+00:04:01,482 --> 00:04:04,271
+system. Here a tree really makes a lot of
+系統。這裡一棵樹確實能帶來很多
+
+102
+00:04:04,271 --> 00:04:06,660
+sense because it makes working with it
+有意義，因為它使得與它一起工作
+
+103
+00:04:06,932 --> 00:04:10,186
+possibly easier because what you're trying
+可能更容易，因為你正在嘗試
+
+104
+00:04:10,202 --> 00:04:13,825
+to represent is a tree. So why not also use
+代表的是一棵樹。那為什麼不也使用
+
+105
+00:04:13,825 --> 00:04:15,797
+a tree in programming, right?
+程式設計中的樹，對嗎？
+
+106
+00:04:16,455 --> 00:04:19,421
+And that's it for the basic trees. Now we're
+這就是基本的樹。現在我們是
+
+107
+00:04:19,421 --> 00:04:20,752
+going to have a look at some
+去看看一些
+
+108
+00:04:21,281 --> 00:04:25,258
+more specialized and optimized alternatives
+更專業和優化的替代方案
+
+109
+00:04:25,851 --> 00:04:27,968
+which will pick up on the core basics I
+這將了解我的核心基礎知識
+
+110
+00:04:28,016 --> 00:04:30,662
+covered here, which will not focus on file
+這裡介紹一下，不會重點討論檔案
+
+111
+00:04:30,662 --> 00:04:33,356
+systems though, but which can be used for
+雖然系統，但可用於
+
+112
+00:04:33,404 --> 00:04:36,659
+storing any value and which can then make
+儲存任何值，然後可以使
+
+113
+00:04:36,659 --> 00:04:39,529
+working with values more efficient in some
+在某些方面更有效地遵循價值觀
+
+114
+00:04:39,577 --> 00:04:40,090
+scenarios.
+場景。

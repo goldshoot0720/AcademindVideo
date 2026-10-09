@@ -1,0 +1,854 @@
+1
+00:00:02,355 --> 00:00:05,112
+Okay, so let's get started building our own
+好的，讓我們開始建立我們自己的
+
+2
+00:00:05,320 --> 00:00:05,817
+stack.
+堆。
+
+3
+00:00:06,683 --> 00:00:08,926
+Now, just as before in the first course
+現在，就像第一門課程之前一樣
+
+4
+00:00:08,926 --> 00:00:11,234
+section, I will build my own data structure
+部分，我將建構自己的資料結構
+
+5
+00:00:11,394 --> 00:00:14,023
+as a class so that we can instantiate it
+作為一個類，以便我們可以實例化它
+
+6
+00:00:14,199 --> 00:00:14,984
+when we wanna use it.
+當我們想使用它時。
+
+7
+00:00:15,577 --> 00:00:17,885
+And I'll name it Stack because that's what
+我將其命名為 Stack 因為這就是
+
+8
+00:00:17,901 --> 00:00:18,735
+we're building, I guess.
+我猜我們正在建造。
+
+9
+00:00:19,584 --> 00:00:21,667
+Now, how could we build this stack?
+現在，我們如何建構這個堆疊？
+
+10
+00:00:22,212 --> 00:00:24,809
+Well, you learned that all the custom data
+好吧，您了解到所有自訂資料
+
+11
+00:00:24,809 --> 00:00:27,661
+structures which we're going to build in the
+我們要建造的結構
+
+12
+00:00:27,741 --> 00:00:30,049
+end will just wrap built-in data structures.
+end 將僅包裝內建資料結構。
+
+13
+00:00:30,386 --> 00:00:33,372
+Data structures because we don't wanna dive
+資料結構，因為我們不想深入研究
+
+14
+00:00:33,372 --> 00:00:35,587
+into machine code and start rewriting
+寫入機器碼並開始重寫
+
+15
+00:00:35,683 --> 00:00:38,219
+JavaScript. Instead, we wanna extend what's
+JavaScript。相反，我們想擴充功能什麼
+
+16
+00:00:38,347 --> 00:00:41,349
+already part of JavaScript and make it more
+已經是 JavaScript 的一部分，並使其變得更強大
+
+17
+00:00:41,397 --> 00:00:44,110
+specific, make it more efficient, add new
+具體、提高效率、增加新內容
+
+18
+00:00:44,110 --> 00:00:44,976
+functionalities.
+功能。
+
+19
+00:00:45,795 --> 00:00:47,737
+Therefore, here it would make sense to
+因此，這裡有意義的是
+
+20
+00:00:47,817 --> 00:00:51,124
+basically extend the built-in array, so to
+基本上擴充功能了內建陣列，所以
+
+21
+00:00:51,124 --> 00:00:51,381
+say.
+說。
+
+22
+00:00:51,974 --> 00:00:53,965
+And I don't mean extend in
+我的意思並不是說延伸
+
+23
+00:00:54,623 --> 00:00:57,753
+an inheritant way, but instead I mean extend
+繼承的方式，但我的意思是擴充功能
+
+24
+00:00:57,753 --> 00:01:00,929
+in the sense of wrap an array and make sure
+在包裝陣列的意義上並確保
+
+25
+00:01:01,041 --> 00:01:03,415
+that we can only interact with it in certain
+我們只能在某些情況下與它互動
+
+26
+00:01:03,527 --> 00:01:03,751
+ways.
+方式。
+
+27
+00:01:04,810 --> 00:01:06,462
+Therefore, here I'll add a constructor
+因此，這裡我將會加入一個建構函式
+
+28
+00:01:07,472 --> 00:01:09,974
+method to my Stack class, and in there
+方法到我的 Stack 類，並在那裡
+
+29
+00:01:10,535 --> 00:01:11,578
+I'll set up my
+我將設定我的
+
+30
+00:01:12,107 --> 00:01:12,957
+items, let's say,
+專案，比方說，
+
+31
+00:01:13,967 --> 00:01:16,421
+which should be an empty array initially,
+最初應該是空陣列，
+
+32
+00:01:16,678 --> 00:01:17,495
+just like this.
+就像這樣。
+
+33
+00:01:18,458 --> 00:01:22,194
+And now the stack is all about having 2 main
+現在堆疊就是有 2 個 main
+
+34
+00:01:22,467 --> 00:01:23,943
+operations: push
+操作：推
+
+35
+00:01:24,552 --> 00:01:25,034
+and pop.
+和流行音樂。
+
+36
+00:01:26,013 --> 00:01:28,453
+So to add a new item, we want to be able to
+因此，要新增專案，我們希望能夠
+
+37
+00:01:28,565 --> 00:01:31,133
+push a new item to the top. Hence, we can
+將新專案推到頂部。因此，我們可以
+
+38
+00:01:31,133 --> 00:01:32,449
+add a push method here.
+在這裡添加一個push方法。
+
+39
+00:01:33,140 --> 00:01:35,547
+And of course, there we simply reach out to
+當然，我們只需聯繫
+
+40
+00:01:35,547 --> 00:01:36,543
+the items we got here
+我們在這裡得到的物品
+
+41
+00:01:37,233 --> 00:01:37,971
+and push
+並推
+
+42
+00:01:38,501 --> 00:01:39,801
+onto that array.
+到該陣列上。
+
+43
+00:01:40,507 --> 00:01:42,353
+Now of course, here we expect to get the
+當然，現在我們期望得到
+
+44
+00:01:42,353 --> 00:01:45,307
+value as a parameter, and it's that value
+value 作為參數，就是那個值
+
+45
+00:01:45,644 --> 00:01:47,153
+which we wanna push to items.
+我們想要將其推送到專案中。
+
+46
+00:01:47,987 --> 00:01:50,716
+Push is a default method that exists on the
+Push是一種預設的方法
+
+47
+00:01:50,796 --> 00:01:52,963
+built-in array, so we can simply call it
+內建陣列，所以我們可以簡單地呼叫它
+
+48
+00:01:52,963 --> 00:01:55,660
+like this, and this will add the item at the
+像這樣，這會將專案添加到
+
+49
+00:01:55,532 --> 00:01:56,721
+end of the array.
+陣列的末尾。
+
+50
+00:01:58,344 --> 00:02:01,092
+We can then also add a pop method
+然後我們也可以加入一個 pop 方法
+
+51
+00:02:01,622 --> 00:02:04,032
+and this does not require any parameter
+這不需要任何參數
+
+52
+00:02:04,209 --> 00:02:07,412
+because we always pop the topmost, the last
+因為我們總是彈出最上面、最後一個
+
+53
+00:02:07,429 --> 00:02:08,298
+element so to say.
+元素可以這麼說。
+
+54
+00:02:09,039 --> 00:02:11,696
+So we reach out to this.items and call pop
+所以我們聯繫 this.items 並調用 pop
+
+55
+00:02:11,777 --> 00:02:13,549
+like that and that will remove the item.
+這樣就會刪除該專案。
+
+56
+00:02:14,000 --> 00:02:17,182
+Side note, we can return it because pop also
+旁注，我們可以將其退回，因為 pop 也可以
+
+57
+00:02:17,569 --> 00:02:20,073
+returns the item that was popped off the
+回傳從彈出的專案
+
+58
+00:02:20,073 --> 00:02:20,250
+array
+大批
+
+59
+00:02:20,816 --> 00:02:22,366
+and we can therefore return it here as well.
+因此我們也可以將其回傳這裡。
+
+60
+00:02:22,710 --> 00:02:24,823
+So that when we're working with the stack
+這樣當我們使用堆疊時
+
+61
+00:02:24,919 --> 00:02:27,597
+and we do pop an item, we get that popped
+我們確實彈出一個專案，我們將其彈出
+
+62
+00:02:27,726 --> 00:02:27,952
+item
+物品
+
+63
+00:02:28,533 --> 00:02:30,727
+as a return result of calling pop.
+作為呼叫 pop 的回傳結果。
+
+64
+00:02:32,166 --> 00:02:34,517
+And with that, we got our basic stack
+這樣，我們就得到了基本的堆疊
+
+65
+00:02:34,533 --> 00:02:37,404
+finished. This is all that's to it in the
+完成的。這就是它的全部內容
+
+66
+00:02:37,517 --> 00:02:40,517
+end. That is all we need in a very basic
+結尾。這就是我們所需要的一個非常基本的
+
+67
+00:02:40,517 --> 00:02:41,003
+stack.
+堆。
+
+68
+00:02:41,586 --> 00:02:44,485
+Now we can add a bunch of utility methods if
+現在我們可以加入一堆實用方法，如果
+
+69
+00:02:44,485 --> 00:02:45,000
+we want to.
+我們想要。
+
+70
+00:02:45,548 --> 00:02:48,592
+We could add an isEmpty method that checks
+我們可以加入一個 isEmpty 方法來檢查
+
+71
+00:02:48,592 --> 00:02:50,460
+whether we do have items in the stack or
+堆疊中是否有專案或
+
+72
+00:02:50,460 --> 00:02:50,669
+not.
+不是。
+
+73
+00:02:51,434 --> 00:02:53,077
+And here we want to return a boolean.
+在這裡我們想傳回一個布林值。
+
+74
+00:02:53,609 --> 00:02:55,445
+We basically want to return a check where we
+我們基本上想退一張支票
+
+75
+00:02:55,445 --> 00:02:58,601
+check if this items length is equal to 0.
+檢查該專案的長度是否等於0。
+
+76
+00:02:59,406 --> 00:03:02,303
+That will return true if our array is empty
+如果我們的陣列為空，則傳回 true
+
+77
+00:03:02,662 --> 00:03:03,773
+and false otherwise.
+否則為假。
+
+78
+00:03:06,316 --> 00:03:09,725
+We can also add a toArray method here, as we
+我們也可以在這裡加入一個 toArray 方法，因為我們
+
+79
+00:03:09,789 --> 00:03:11,906
+basically also did it before for the linked
+基本上之前也做過連結
+
+80
+00:03:11,906 --> 00:03:12,164
+list.
+列表。
+
+81
+00:03:13,025 --> 00:03:15,302
+toArray in the end should just return this
+toArray 最後應該回傳這個
+
+82
+00:03:15,741 --> 00:03:16,359
+items here,
+這裡的物品，
+
+83
+00:03:17,124 --> 00:03:17,742
+and we can
+我們可以
+
+84
+00:03:18,346 --> 00:03:21,798
+call slice on it to return a copy so that if
+對其呼叫 slice 以傳回副本，以便如果
+
+85
+00:03:21,798 --> 00:03:24,286
+we manipulate the returned array, we don't
+我們操作傳回的陣列，但我們不操作
+
+86
+00:03:24,286 --> 00:03:26,870
+manipulate the array inside of stack. That's
+操作棧內的陣列。那是
+
+87
+00:03:26,870 --> 00:03:29,214
+that reference type thing which we have in
+我們擁有的參照型別
+
+88
+00:03:29,262 --> 00:03:29,824
+JavaScript.
+JavaScript。
+
+89
+00:03:31,268 --> 00:03:33,917
+And with that, we got a basic stack. I will
+這樣，我們就得到了一個基本的堆疊。我會
+
+90
+00:03:34,077 --> 00:03:36,485
+also show you another way of implementing
+也向您展示了另一種實施方式
+
+91
+00:03:36,517 --> 00:03:39,246
+the stack, but this is a very basic stack
+堆疊，但這是一個非常基本的堆疊
+
+92
+00:03:39,615 --> 00:03:41,494
+which we could absolutely use like that.
+我們絕對可以這樣使用。
+
+93
+00:03:42,344 --> 00:03:44,913
+Now the question of course is, why would we
+現在的問題當然是，我們為什麼要
+
+94
+00:03:44,993 --> 00:03:48,347
+build this if the built-in array already has
+如果內建陣列已經有，則建構它
+
+95
+00:03:48,540 --> 00:03:50,032
+push and pop methods?
+推和彈出方法？
+
+96
+00:03:51,187 --> 00:03:54,092
+Well, simply to restrict what we can do with
+好吧，只是為了限制我們可以做什麼
+
+97
+00:03:54,092 --> 00:03:57,221
+it. Sometimes you want to reduce the amount
+它。有時你想減少用量
+
+98
+00:03:57,221 --> 00:03:58,826
+of options you have in code.
+程式碼中的選項。
+
+99
+00:03:59,516 --> 00:04:01,794
+If you're building this stack data
+如果您正在建立此堆疊資料
+
+100
+00:04:01,794 --> 00:04:04,330
+structure, let's say for a project you're
+結構，假設您的專案
+
+101
+00:04:04,490 --> 00:04:04,891
+working in,
+工作於,
+
+102
+00:04:05,549 --> 00:04:07,603
+you might want that people who are using
+你可能希望那些正在使用的人
+
+103
+00:04:07,635 --> 00:04:11,374
+that stack are only able to push and pop so
+該堆疊只能壓入和彈出所以
+
+104
+00:04:11,406 --> 00:04:14,423
+that there is no danger of this array of
+這一連串不存在危險
+
+105
+00:04:14,599 --> 00:04:17,390
+items being used incorrectly, that there is
+物品使用不當，有
+
+106
+00:04:17,503 --> 00:04:19,957
+no danger that some colleague of you tries
+你的某些同事嘗試這樣做不會有危險
+
+107
+00:04:19,989 --> 00:04:21,657
+to add something in the beginning or
+在開頭添加一些內容或
+
+108
+00:04:21,657 --> 00:04:22,524
+anything like that.
+諸如此類的事情。
+
+109
+00:04:23,181 --> 00:04:25,908
+You probably will use this stack in a place
+你可能會在某個地方使用這個堆疊
+
+110
+00:04:25,908 --> 00:04:28,635
+of the code where you need this LIFO
+您需要此 LIFO 的程式碼的位置
+
+111
+00:04:28,892 --> 00:04:31,747
+approach, this last in first out pattern,
+方法，這種後進先出的模式，
+
+112
+00:04:32,180 --> 00:04:34,522
+and therefore you absolutely wanna prevent
+因此你絕對想阻止
+
+113
+00:04:34,747 --> 00:04:37,442
+that people start reading arbitrary values
+人們開始閱讀任意值
+
+114
+00:04:37,538 --> 00:04:39,784
+from the stack or start adding items at the
+從堆疊中或開始新增專案
+
+115
+00:04:39,784 --> 00:04:42,898
+beginning. Hence, creating a stack to
+開始。因此，創建一個堆疊
+
+116
+00:04:43,075 --> 00:04:45,467
+actually reduce the amount of options you
+實際上減少了​​你的選擇數量
+
+117
+00:04:45,483 --> 00:04:47,731
+have when it comes to interacting with the
+當涉及到與
+
+118
+00:04:47,731 --> 00:04:50,926
+list can be a good thing because sometimes
+列出清單可能是一件好事，因為有時
+
+119
+00:04:51,022 --> 00:04:53,768
+having less options simply leads to cleaner
+選擇越少只會導致更清潔
+
+120
+00:04:53,768 --> 00:04:56,899
+code or ensures that your app works
+編寫程式碼或確保您的應用程式正常運行
+
+121
+00:04:56,899 --> 00:04:57,428
+correctly.
+正確。
+
+122
+00:04:58,167 --> 00:05:00,254
+That's why you might need such a stack. And
+這就是為什麼您可能需要這樣的堆疊。和
+
+123
+00:05:00,334 --> 00:05:01,828
+here we can of course also test it now,
+當然現在也可以測試一下，
+
+124
+00:05:02,357 --> 00:05:05,247
+create a new stack, and then on that stack
+建立一個新堆疊，然後在該堆疊上
+
+125
+00:05:05,247 --> 00:05:07,078
+we can call push and add
+我們可以呼叫push並添加
+
+126
+00:05:07,720 --> 00:05:08,651
+cooking or
+做飯或
+
+127
+00:05:09,984 --> 00:05:10,289
+cook
+廚師
+
+128
+00:05:11,349 --> 00:05:11,750
+dinner
+晚餐
+
+129
+00:05:12,296 --> 00:05:13,019
+as a task.
+作為一項任務。
+
+130
+00:05:13,581 --> 00:05:16,214
+And then I first of all, however, need to
+然而，我首先需要
+
+131
+00:05:16,728 --> 00:05:17,739
+wash the dishes.
+洗碗。
+
+132
+00:05:18,397 --> 00:05:20,003
+Of course, I also need to do this after
+當然，我還需要在之後執行此操作
+
+133
+00:05:20,003 --> 00:05:21,817
+dinner, but I also need to do it before
+晚餐，但我還需要在之前做
+
+134
+00:05:22,572 --> 00:05:26,072
+I cook dinner so that I have clean dishes on
+我做飯，以便我有乾淨的盤子
+
+135
+00:05:26,120 --> 00:05:26,811
+which I can eat.
+我可以吃。
+
+136
+00:05:27,630 --> 00:05:30,327
+And of course, I also need to buy
+當然，我還需要購買
+
+137
+00:05:31,483 --> 00:05:31,611
+my
+我的
+
+138
+00:05:32,927 --> 00:05:34,708
+ingredients for the dinner.
+晚餐的食材。
+
+139
+00:05:35,494 --> 00:05:37,981
+And since a stack is built such that we
+由於堆疊的建構使得我們
+
+140
+00:05:38,061 --> 00:05:41,526
+always add items on top, this will be the
+始終在頂部添加專案，這將是
+
+141
+00:05:41,526 --> 00:05:44,077
+topmost item and therefore is the item we
+最上面的專案，因此是我們的專案
+
+142
+00:05:44,077 --> 00:05:46,996
+have to do first so that we can reach wash
+必須先做這樣我們才能到達盥洗處
+
+143
+00:05:46,996 --> 00:05:48,777
+the dishes and then cook dinner.
+洗碗，然後煮飯。
+
+144
+00:05:49,547 --> 00:05:51,408
+So I can console.log
+所以我可以console.log
+
+145
+00:05:52,033 --> 00:05:54,311
+stackToArray here,
+這裡的 stackToArray ，
+
+146
+00:05:55,322 --> 00:05:55,996
+and thereafter
+以及此後
+
+147
+00:05:57,006 --> 00:05:58,755
+I want to call stack.pop
+我想叫 stack.pop
+
+148
+00:05:59,995 --> 00:06:00,469
+and
+和
+
+149
+00:06:01,074 --> 00:06:02,104
+log this again.
+再次記錄這個。
+
+150
+00:06:03,036 --> 00:06:04,769
+And then again call stack.pop
+然後再呼叫stack.pop
+
+151
+00:06:05,979 --> 00:06:06,544
+twice
+兩次
+
+152
+00:06:09,514 --> 00:06:11,920
+and log this again. We can also log the
+並再次記錄。我們還可以記錄
+
+153
+00:06:11,920 --> 00:06:15,129
+results when we call pop here, actually,
+實際上，當我們在這裡呼叫 pop 時，結果是
+
+154
+00:06:15,483 --> 00:06:17,786
+because pop does return the value that was
+因為 pop 確實傳回了原來的值
+
+155
+00:06:17,899 --> 00:06:20,524
+popped off. So of course we can output that
+彈出來。所以我們當然可以輸出
+
+156
+00:06:20,943 --> 00:06:21,232
+as well.
+以及。
+
+157
+00:06:21,925 --> 00:06:23,318
+And if we save all of that
+如果我們儲存所有這些
+
+158
+00:06:24,288 --> 00:06:27,013
+and we go back to the browser, reload this
+然後我們回傳瀏覽器，重新載入
+
+159
+00:06:27,125 --> 00:06:27,414
+page,
+頁，
+
+160
+00:06:28,168 --> 00:06:30,685
+we see at first this is what we have in our
+我們首先看到這就是我們的
+
+161
+00:06:30,798 --> 00:06:33,700
+array. Buy ingredients is the topmost item,
+大批。購買食材是最上面的一項，
+
+162
+00:06:33,716 --> 00:06:35,432
+so to say. It's the last item.
+這麼說吧。這是最後一項。
+
+163
+00:06:36,105 --> 00:06:39,441
+Therefore, when we pop here in line 30,
+因此，當我們在第 30 行彈出這裡時，
+
+164
+00:06:40,259 --> 00:06:41,814
+here this log, we
+在這裡這個紀錄，我們
+
+165
+00:06:42,584 --> 00:06:44,476
+remove buy ingredients and we're left with
+去掉購買成分，我們剩下
+
+166
+00:06:44,524 --> 00:06:46,448
+this array. And then we remove wash the
+這個陣列。然後我們取出清洗
+
+167
+00:06:46,448 --> 00:06:48,709
+dishes and cook dinner and we're left with
+洗碗煮飯，剩下的就是我們
+
+168
+00:06:48,758 --> 00:06:51,804
+an empty array. So our stack works. And as
+一個空陣列。所以我們的堆疊可以工作。並且作為
+
+169
+00:06:51,804 --> 00:06:54,823
+you see a stack isn't too complicated.
+你看堆疊並不太複雜。
+
+170
+00:06:55,453 --> 00:06:58,573
+Now let me show you an alternative way of
+現在讓我向您展示另一種方法
+
+171
+00:06:58,606 --> 00:06:59,495
+building that stack.
+建構該堆疊。

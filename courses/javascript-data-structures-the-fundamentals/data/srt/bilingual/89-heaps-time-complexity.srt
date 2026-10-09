@@ -1,0 +1,604 @@
+1
+00:00:02,052 --> 00:00:04,907
+To analyze the time complexity, again, let's
+為了分析時間複雜度，我們再次
+
+2
+00:00:04,907 --> 00:00:07,232
+have a look at the time complexity of the
+看看時間複雜度
+
+3
+00:00:07,232 --> 00:00:09,942
+linked list solution and let's focus on
+鍊錶解決方案，讓我們專注於
+
+4
+00:00:10,198 --> 00:00:11,369
+inserting for now.
+暫時插入。
+
+5
+00:00:12,059 --> 00:00:15,073
+There we had O in the worst case
+在最壞的情況下我們有 O
+
+6
+00:00:15,891 --> 00:00:18,313
+and it was very unlikely that we had the
+我們不太可能擁有
+
+7
+00:00:18,393 --> 00:00:19,948
+best case of O.
+O 最好的情況
+
+8
+00:00:20,878 --> 00:00:24,134
+Now what's our time complexity for inserting
+現在我們插入的時間複雜度是多少
+
+9
+00:00:24,230 --> 00:00:27,503
+items with our heap-based priority queue.
+帶有我們基於堆的優先權佇列的專案。
+
+10
+00:00:28,644 --> 00:00:29,800
+We do have a loop here,
+我們這裡確實有一個迴圈，
+
+11
+00:00:30,443 --> 00:00:33,222
+so you might think that it's O as well.
+所以你可能會認為它也是O。
+
+12
+00:00:33,945 --> 00:00:36,548
+After all, we are walking through the entire
+畢竟我們正在走遍整個
+
+13
+00:00:36,837 --> 00:00:37,833
+array here, right?
+陣列在這裡，對吧？
+
+14
+00:00:38,605 --> 00:00:41,272
+Well, not quite. Keep in mind that we're
+嗯，不完全是。請記住，我們是
+
+15
+00:00:41,272 --> 00:00:42,894
+dividing by 2 here,
+這裡除以2，
+
+16
+00:00:43,858 --> 00:00:46,654
+so we're not visiting every node. But since
+所以我們不會訪問每個節點。但自從
+
+17
+00:00:46,654 --> 00:00:49,626
+we insert an item at the bottom of this tree
+我們在這棵樹的底部插入一個專案
+
+18
+00:00:49,931 --> 00:00:52,486
+and we then move it up by swapping it with
+然後我們通過交換它來將其向上移動
+
+19
+00:00:52,582 --> 00:00:55,364
+parents, we always just need to visit one
+父母，我們總是需要去探望一位
+
+20
+00:00:55,637 --> 00:00:58,661
+parent. So we just visit every level of the
+父母。所以我們只訪問每個級別
+
+21
+00:00:58,709 --> 00:01:00,527
+tree but not every node.
+樹，但不是每個節點。
+
+22
+00:01:01,366 --> 00:01:03,770
+And you might remember from the algorithms
+你可能還記得演算法中的
+
+23
+00:01:03,867 --> 00:01:07,159
+course that if you do divide a problem set
+當然，如果你確實劃分了一個問題集
+
+24
+00:01:07,272 --> 00:01:07,772
+by 2
+2
+
+25
+00:01:08,466 --> 00:01:11,710
+in a recursion or in a loop, you end up with
+在遞迴或迴圈中，你最終會得到
+
+26
+00:01:11,808 --> 00:01:12,973
+logarithmic time.
+對數時間。
+
+27
+00:01:14,766 --> 00:01:17,630
+And therefore, for inserting in our
+因此，為了插入我們的
+
+28
+00:01:17,630 --> 00:01:21,696
+heap-based priority queue, we have O),
+基於堆的優先權佇列，我們有O)，
+
+29
+00:01:22,323 --> 00:01:25,649
+logarithmic time, which clearly is better
+對數時間，顯然更好
+
+30
+00:01:25,842 --> 00:01:29,409
+than linear time. So we were able to improve
+比線性時間。所以我們能夠改進
+
+31
+00:01:29,473 --> 00:01:31,064
+this insertion logic.
+這個插入邏輯。
+
+32
+00:01:32,349 --> 00:01:33,940
+But now what about processing?
+但現在處理怎麼樣？
+
+33
+00:01:34,759 --> 00:01:38,455
+For processing, we always access the topmost
+為了進行處理，我們總是訪問最頂層
+
+34
+00:01:38,535 --> 00:01:38,824
+item.
+物品。
+
+35
+00:01:39,660 --> 00:01:42,745
+And that of course has constant time, no
+當然，時間是恆定的，不
+
+36
+00:01:42,809 --> 00:01:45,300
+matter if we pop it because it's the only
+如果我們彈出它也沒關係，因為它是唯一的
+
+37
+00:01:45,380 --> 00:01:47,706
+one or if we access it by index.
+一個或如果我們通過索引訪問它。
+
+38
+00:01:48,588 --> 00:01:52,195
+But, and we must not forget this, we also
+但是，我們絕不能忘記這一點，我們也
+
+39
+00:01:52,195 --> 00:01:56,108
+have to reorder our heap thereafter. So we
+此後必須重新排序我們的堆。所以我們
+
+40
+00:01:56,124 --> 00:01:58,994
+move the last item to the top and then swap
+將最後一項移至頂部，然後交換
+
+41
+00:01:59,074 --> 00:02:00,501
+it with child items.
+與兒童物品一起使用。
+
+42
+00:02:01,111 --> 00:02:03,452
+So again, in the end, we walk through our
+所以，最後，我們再一次走過我們的
+
+43
+00:02:03,580 --> 00:02:04,157
+heap here
+堆在這裡
+
+44
+00:02:04,686 --> 00:02:05,183
+in a loop.
+迴圈中。
+
+45
+00:02:05,889 --> 00:02:08,631
+Now again, as with inserting, we're not
+現在，與插入一樣，我們不是
+
+46
+00:02:08,631 --> 00:02:12,158
+going to visit every item in our tree
+將訪問我們樹中的每個專案
+
+47
+00:02:12,383 --> 00:02:13,505
+though, in our heap.
+不過，在我們的堆裡。
+
+48
+00:02:14,308 --> 00:02:17,423
+Instead, we initially pick the bigger child
+相反，我們首先選擇較大的孩子
+
+49
+00:02:17,616 --> 00:02:19,945
+or the smaller one depending on which kind
+或較小的一個，取決於哪一種
+
+50
+00:02:19,945 --> 00:02:22,193
+of heap you're building. In this case, the
+您正在建造的堆。在這種情況下，
+
+51
+00:02:22,193 --> 00:02:25,598
+bigger one. Compare it to that. So compare
+更大的。與此相比。所以比較一下
+
+52
+00:02:25,790 --> 00:02:27,830
+our new topmost item to that.
+我們新的最上面的專案。
+
+53
+00:02:28,520 --> 00:02:31,395
+And if we're smaller, we know that we need
+如果我們規模較小，我們知道我們需要
+
+54
+00:02:31,427 --> 00:02:33,547
+to swap the topmost item.
+交換最上面的專案。
+
+55
+00:02:34,238 --> 00:02:36,791
+And then we do that and continue in that
+然後我們這樣做並繼續這樣做
+
+56
+00:02:36,807 --> 00:02:39,730
+branch of the tree. So we never look at the
+樹的分支。所以我們從來不看
+
+57
+00:02:39,778 --> 00:02:43,117
+other branch. So again, we're visiting every
+其他分公司。再說一遍，我們正在訪問每一個
+
+58
+00:02:43,310 --> 00:02:46,921
+level of the heap tree but not every node.
+堆樹的級別，但不是每個節點。
+
+59
+00:02:47,338 --> 00:02:48,478
+So again, here
+再說一遍，這裡
+
+60
+00:02:49,393 --> 00:02:52,891
+for processing items, so for removing them
+用於處理物品，因此用於移除它們
+
+61
+00:02:53,261 --> 00:02:56,422
+in the end, we also have logarithmic time.
+最後，我們還有對數時間。
+
+62
+00:02:56,872 --> 00:02:59,135
+So we have the same time complexity for
+所以我們有相同的時間複雜度
+
+63
+00:02:59,344 --> 00:03:02,409
+inserting and for processing when we're
+插入並進行處理時，我們
+
+64
+00:03:02,409 --> 00:03:04,881
+using a heap for the priority queue.
+使用堆作為優先權佇列。
+
+65
+00:03:06,004 --> 00:03:08,588
+Now for the linked list-based solution, that
+現在對於基於鍊錶的解決方案，
+
+66
+00:03:08,588 --> 00:03:11,913
+was different. There we actually did better
+是不同的。在那裡我們實際上做得更好
+
+67
+00:03:12,202 --> 00:03:14,322
+for processing. We had O,
+進行加工。我們有O，
+
+68
+00:03:14,852 --> 00:03:17,888
+but we did worse for inserting. There we had
+但我們在插入方面做得更差。在那裡我們有
+
+69
+00:03:18,048 --> 00:03:20,040
+O in the majority of cases.
+大多數情況下都是O。
+
+70
+00:03:20,940 --> 00:03:23,735
+So is the new solution better now though? Is
+那麼現在新的解決方案比較好嗎？是
+
+71
+00:03:23,992 --> 00:03:29,276
+O) in both cases better than linear time in
+O）在這兩種情況下都比線性時間好
+
+72
+00:03:29,453 --> 00:03:32,119
+one case and constant time in the other?
+一種情況是恆定時間，另一種情況是恆定時間？
+
+73
+00:03:32,505 --> 00:03:33,902
+Which approach is better?
+哪種方法比較好？
+
+74
+00:03:35,416 --> 00:03:37,997
+And to answer this question, I'm using
+為了回答這個問題，我正在使用
+
+75
+00:03:38,177 --> 00:03:38,994
+wolframalpha.com.
+Wolframalpha.com。
+
+76
+00:03:40,320 --> 00:03:42,749
+There you can plot mathematical functions
+在那裡您可以繪製數學函式
+
+77
+00:03:43,413 --> 00:03:47,948
+and I'm plotting 2 times logarithm of n or
+我正在繪製 n 的 2 倍對數或
+
+78
+00:03:47,948 --> 00:03:49,129
+in this case x
+在這種情況下x
+
+79
+00:03:49,663 --> 00:03:54,079
+from 0 to 50 and x plus 1 from 0 to 50.
+從 0 到 50，x 從 0 到 50 加 1。
+
+80
+00:03:56,214 --> 00:03:59,017
+Now, 2 times logarithm because we have
+現在，2 倍對數，因為我們有
+
+81
+00:03:59,131 --> 00:04:03,295
+logarithm of n or of x for inserting and for
+n 或 x 的對數，用於插入和
+
+82
+00:04:03,295 --> 00:04:06,425
+processing. So if we do both after each
+加工。所以如果我們每次之後都做
+
+83
+00:04:06,569 --> 00:04:09,041
+other, we have 2 times log of n
+另外，我們有 n 的 2 倍對數
+
+84
+00:04:10,517 --> 00:04:12,331
+and x plus 1 because
+x 加 1 因為
+
+85
+00:04:12,909 --> 00:04:16,423
+a linear function is just x or just n plus 1
+線性函式就是 x 或 n 加 1
+
+86
+00:04:16,600 --> 00:04:19,392
+for the constant time if we insert and
+如果我們插入並且在恆定時間內
+
+87
+00:04:19,424 --> 00:04:21,992
+process right after each other with the
+緊接著處理
+
+88
+00:04:21,992 --> 00:04:23,485
+linked list-based solution.
+基於鍊錶的解決方案。
+
+89
+00:04:24,239 --> 00:04:26,422
+And here in the chart, we can see how this
+在圖表中，我們可以看到這是如何
+
+90
+00:04:26,486 --> 00:04:27,898
+behaves if we do this.
+如果我們這樣做的話就會表現出來。
+
+91
+00:04:28,556 --> 00:04:31,189
+Once or if we do this 50 times.
+一次或如果我們這樣做 50 次。
+
+92
+00:04:31,864 --> 00:04:33,871
+And what you can clearly see is that the
+你可以清楚看到的是
+
+93
+00:04:33,871 --> 00:04:37,066
+logarithm-based solution is way better.
+基於對數的解決方案要好得多。
+
+94
+00:04:37,644 --> 00:04:40,984
+So even though we have that constant time
+所以即使我們有固定的時間
+
+95
+00:04:41,080 --> 00:04:43,425
+for processing in the linked list-based
+用於基於鍊錶的處理
+
+96
+00:04:43,425 --> 00:04:43,954
+solution,
+解決方案，
+
+97
+00:04:44,613 --> 00:04:47,551
+the linear time we need for inserting data
+插入資料所需的線性時間
+
+98
+00:04:47,904 --> 00:04:52,272
+is really, really bad. We do way better in
+真的非常非常糟糕。我們在這方面做得更好
+
+99
+00:04:52,336 --> 00:04:54,823
+the heap-based solution even though
+基於堆的解決方案即使
+
+100
+00:04:54,839 --> 00:04:58,398
+processing is a bit slower, but inserting is
+處理速度有點慢，但插入是
+
+101
+00:04:58,606 --> 00:05:01,315
+so much faster that it's an absolute
+快得多，這是絕對的
+
+102
+00:05:01,315 --> 00:05:01,956
+no-brainer.
+不用想也知道。
+
+103
+00:05:02,518 --> 00:05:05,403
+And these are the kind of tasks where heaps
+這些都是需要大量處理的任務
+
+104
+00:05:05,563 --> 00:05:06,333
+really shine.
+真的很閃耀。
+
+105
+00:05:06,910 --> 00:05:09,651
+Whenever you have a problem where you need
+每當您在需要的地方遇到問題時
+
+106
+00:05:09,651 --> 00:05:11,622
+the biggest or smallest value
+最大或最小值
+
+107
+00:05:12,200 --> 00:05:14,828
+at the top of a tree, so where you want easy
+在樹頂，所以你想要輕鬆的地方
+
+108
+00:05:15,005 --> 00:05:17,377
+access to the biggest or the smallest value,
+取得最大值或最小值，
+
+109
+00:05:17,906 --> 00:05:19,862
+but you don't care about the order of the
+但你不關心的順序
+
+110
+00:05:19,910 --> 00:05:22,316
+other items, And that's important. The other
+其他專案，這很重要。另一個
+
+111
+00:05:22,396 --> 00:05:24,931
+items are not ordered. So whenever that does
+未訂購物品。所以每當這樣的時候
+
+112
+00:05:25,043 --> 00:05:27,754
+not matter, but you need easy access to the
+沒關係，但您需要輕鬆訪問
+
+113
+00:05:27,851 --> 00:05:29,086
+biggest or smallest one,
+最大或最小的一個，
+
+114
+00:05:29,616 --> 00:05:32,888
+in such cases, heaps can be useful. And
+在這種情況下，堆可能很有用。和
+
+115
+00:05:32,969 --> 00:05:36,322
+that's why heaps are so useful for priority
+這就是為什麼堆疊對於優先順序如此有用
+
+116
+00:05:36,354 --> 00:05:39,482
+queues because there we need exactly that
+佇列，因為我們正是需要那個
+
+117
+00:05:39,482 --> 00:05:41,793
+behavior. We don't care about the other
+行為。我們不關心對方
+
+118
+00:05:41,793 --> 00:05:44,761
+items. We just need the biggest, the most
+專案.我們只需要最大、最多的
+
+119
+00:05:44,761 --> 00:05:46,461
+important one at the top.
+重要的一個在頂部。
+
+120
+00:05:47,107 --> 00:05:49,422
+And that is how heaps work and how we can
+這就是堆的工作原理以及我們如何能夠
+
+121
+00:05:49,438 --> 00:05:51,283
+use them with priority queues.
+將它們與優先權佇列一起使用。

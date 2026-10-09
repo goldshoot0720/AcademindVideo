@@ -1,0 +1,664 @@
+1
+00:00:02,198 --> 00:00:04,766
+Now, thus far in this course, we already saw
+現在，到目前為止，在本課程中，我們已經看到了
+
+2
+00:00:04,766 --> 00:00:07,222
+a couple of algorithms and a couple of
+一些演算法和一些
+
+3
+00:00:07,334 --> 00:00:10,528
+different time complexities. I also showed
+不同的時間複雜度。我還展示了
+
+4
+00:00:10,528 --> 00:00:10,914
+you this
+你這個
+
+5
+00:00:11,491 --> 00:00:14,782
+asymptotic analysis approach that allows you
+漸近分析方法可以讓您
+
+6
+00:00:14,782 --> 00:00:15,680
+to derive the
+得出
+
+7
+00:00:16,322 --> 00:00:19,260
+time complexity of an algorithm on your own.
+自己的演算法的時間複雜度。
+
+8
+00:00:19,837 --> 00:00:22,534
+And we most often saw something like O
+我們最常看到像 O 這樣的東西
+
+9
+00:00:23,128 --> 00:00:26,257
+or O thus far. Throughout the course, we'll
+或 O 到目前為止。在整個課程中，我們將
+
+10
+00:00:26,257 --> 00:00:27,654
+also see a couple of other time
+還看到其他時間
+
+11
+00:00:27,702 --> 00:00:28,761
+complexities, of course.
+當然，複雜性。
+
+12
+00:00:29,564 --> 00:00:32,164
+Now, there are 2 important takeaways here.
+現在，這裡有兩個重要的要點。
+
+13
+00:00:32,453 --> 00:00:35,359
+The first important takeaway is that we're
+第一個重要的收穫是我們
+
+14
+00:00:35,359 --> 00:00:38,698
+really only interested in this asymptotic
+真的只對這漸近有興趣
+
+15
+00:00:38,714 --> 00:00:41,700
+analysis. We're only interested in the big
+分析。我們只對大的興趣
+
+16
+00:00:41,845 --> 00:00:44,638
+picture, in the nature of an algorithm. We
+圖片，本質上是演算法。我們
+
+17
+00:00:44,638 --> 00:00:47,512
+don't care if it theoretically is O
+不在乎理論上是否為O
+
+18
+00:00:48,090 --> 00:00:49,117
+or O
+或O
+
+19
+00:00:49,695 --> 00:00:51,461
+or anything like that. For us, it's
+或類似的東西。對我們來說，它是
+
+20
+00:00:51,461 --> 00:00:53,965
+interesting that it's O so that there is a
+有趣的是它是 O 所以有一個
+
+21
+00:00:54,270 --> 00:00:56,823
+linear relation between n
+n 之間的線性關係
+
+22
+00:00:57,402 --> 00:01:00,149
+and the time this algorithm takes. And it
+以及該演算法所花費的時間。還有它
+
+23
+00:01:00,149 --> 00:01:02,752
+doesn't matter to us how steep that linear
+該線性有多陡對我們來說並不重要
+
+24
+00:01:03,025 --> 00:01:05,868
+graph would be. It doesn't matter to us if
+圖表將是。對我們來說並不重要
+
+25
+00:01:05,933 --> 00:01:08,937
+the runtime grows twice as fast as n
+運行時間的成長速度是 n 的兩倍
+
+26
+00:01:09,531 --> 00:01:11,507
+or anything like that. We just care about
+或類似的東西。我們只關心
+
+27
+00:01:11,556 --> 00:01:13,982
+the general trend. That's the first
+大勢所趨。這是第一個
+
+28
+00:01:13,982 --> 00:01:14,576
+important thing.
+重要的事情。
+
+29
+00:01:15,556 --> 00:01:16,648
+But in addition,
+但除此之外，
+
+30
+00:01:17,243 --> 00:01:20,360
+you also should reach a state where you
+你也應該達到這樣的狀態：
+
+31
+00:01:20,392 --> 00:01:23,346
+don't need to count all operations, but
+不需要計算所有操作，但是
+
+32
+00:01:23,346 --> 00:01:25,670
+where you simply look at a function like
+你只需查看類似的函式
+
+33
+00:01:25,670 --> 00:01:28,843
+this and you quickly see which kind of time
+這樣你很快就能看出是哪一種時間
+
+34
+00:01:28,891 --> 00:01:32,080
+complexity we have here. It's of course good
+我們這裡的複雜性。這當然好
+
+35
+00:01:32,096 --> 00:01:34,564
+if you're able to identify best and worst
+如果你能夠辨識最好和最差的
+
+36
+00:01:34,580 --> 00:01:36,823
+cases since that is also something you
+案例，因為這也是你的事情
+
+37
+00:01:36,823 --> 00:01:38,313
+should be capable of doing.
+應該有能力做。
+
+38
+00:01:38,970 --> 00:01:41,086
+But more importantly, you should be able to
+但更重要的是，你應該能夠
+
+39
+00:01:41,775 --> 00:01:44,531
+relatively quickly see what the worst or
+相對較快地看到什麼是最糟糕的或
+
+40
+00:01:44,739 --> 00:01:48,040
+average case runtime is, what Big O notation
+平均情況運行時間是什麼 Big O 表示法
+
+41
+00:01:48,040 --> 00:01:48,537
+we would use.
+我們會用。
+
+42
+00:01:49,163 --> 00:01:51,429
+And there are a couple of very easy
+還有一些非常簡單的
+
+43
+00:01:52,280 --> 00:01:55,912
+rules, or at least hints towards which time
+規則，或至少暗示具體時間
+
+44
+00:01:55,912 --> 00:01:58,418
+complexity we have for which kind of
+我們有哪種複雜性
+
+45
+00:01:58,627 --> 00:01:59,045
+algorithm.
+演算法.
+
+46
+00:01:59,929 --> 00:02:02,307
+Thus far, we mostly saw O
+到目前為止，我們主要看到的是O
+
+47
+00:02:02,885 --> 00:02:03,656
+and O.
+和O。
+
+48
+00:02:04,251 --> 00:02:08,927
+We also had O), but that is kind of similar
+我們也有 O)，但這有點相似
+
+49
+00:02:08,927 --> 00:02:12,751
+to O, just a bit more specific than just O.
+到 O，只是比 O 更具體一點。
+
+50
+00:02:13,329 --> 00:02:16,430
+But these are the 2 general kinds of time
+但這是兩種一般的時間
+
+51
+00:02:16,478 --> 00:02:18,502
+complexities we saw thus far.
+到目前為止我們看到的複雜性。
+
+52
+00:02:19,353 --> 00:02:21,602
+O, as you learned, is linear time
+如您所知，O 是線性時間
+
+53
+00:02:21,602 --> 00:02:23,738
+complexity, which means a higher n
+複雜性，這意味著更高的 n
+
+54
+00:02:24,332 --> 00:02:26,244
+leads to an increase in runtime, and the
+導致運行時間增加，並且
+
+55
+00:02:26,260 --> 00:02:28,235
+increase in runtime is linear.
+運行時間的增加是線性的。
+
+56
+00:02:29,151 --> 00:02:32,138
+And O, on the other hand, means that the
+另一方面，O 意味著
+
+57
+00:02:32,363 --> 00:02:34,917
+runtime is not really affected by a higher
+運行時間並沒有真正受到更高的影響
+
+58
+00:02:35,093 --> 00:02:35,158
+n.
+名詞
+
+59
+00:02:36,137 --> 00:02:37,872
+Now, to quickly identify
+現在，快速識別
+
+60
+00:02:38,563 --> 00:02:41,372
+which kind of time complexity which function
+哪一種時間複雜度哪一種函式
+
+61
+00:02:41,372 --> 00:02:42,543
+or algorithm has,
+或者演算法有，
+
+62
+00:02:43,136 --> 00:02:46,406
+there is a simple rule. You typically have
+有一個簡單的規則。你通常有
+
+63
+00:02:46,406 --> 00:02:50,926
+an O kind of algorithm if you find a single
+一種 O 類演算法，如果你找到一個
+
+64
+00:02:51,054 --> 00:02:54,260
+loop in there. With single loop, I mean that
+在那裡迴圈。對於單迴圈，我的意思是
+
+65
+00:02:54,421 --> 00:02:56,441
+an algorithm could have multiple loops but
+一個演算法可以有多個迴圈，但是
+
+66
+00:02:56,505 --> 00:02:57,723
+no nested loops.
+沒有嵌套迴圈。
+
+67
+00:02:58,268 --> 00:03:00,368
+For example, here for get_min, we quickly
+例如，這裡對於 get_min，我們很快
+
+68
+00:03:00,368 --> 00:03:01,762
+see that there is a loop in there.
+看到那裡有一個迴圈。
+
+69
+00:03:02,372 --> 00:03:05,385
+Now if we had a second loop after this first
+現在如果我們在第一個迴圈之後有第二個迴圈
+
+70
+00:03:05,401 --> 00:03:07,950
+loop, we would still have linear time
+迴圈，我們仍然有線性時間
+
+71
+00:03:07,982 --> 00:03:10,659
+complexity, just something like 2n or
+複雜度，就像 2n 或
+
+72
+00:03:10,771 --> 00:03:11,429
+anything like that.
+諸如此類的事情。
+
+73
+00:03:12,134 --> 00:03:15,324
+If we had a nested loop in there though, so
+如果我們在那裡有一個嵌套迴圈，那麼
+
+74
+00:03:15,420 --> 00:03:16,559
+a loop in the loop,
+迴圈中的迴圈，
+
+75
+00:03:17,104 --> 00:03:19,797
+then I can tell you it will not be linear
+那我可以告訴你這不會是線性的
+
+76
+00:03:19,845 --> 00:03:22,506
+time complexity. Then it would probably be
+時間複雜度。那麼可能會是
+
+77
+00:03:22,570 --> 00:03:24,975
+quadratic time complexity, but we'll see
+二次時間複雜度，但我們會看到
+
+78
+00:03:24,975 --> 00:03:28,566
+this later. So a loop, a single loop without
+這個稍後再說。所以一個迴圈，一個沒有的迴圈
+
+79
+00:03:28,646 --> 00:03:31,724
+any nested loops, is a great hint towards
+任何嵌套迴圈，都是一個很好的提示
+
+80
+00:03:32,012 --> 00:03:33,391
+linear time complexity.
+線性時間複雜度。
+
+81
+00:03:34,338 --> 00:03:36,650
+On the other hand, if you have a function
+另一方面，如果你有一個函式
+
+82
+00:03:36,827 --> 00:03:40,231
+without any loops and without any other
+沒有任何迴圈並且沒有任何其他
+
+83
+00:03:40,295 --> 00:03:42,832
+function calls inside of it, there is a very
+裡面的函式調用，有一個非常
+
+84
+00:03:42,928 --> 00:03:46,043
+high chance you are dealing with constant
+你很有可能正在處理不斷的
+
+85
+00:03:46,155 --> 00:03:48,580
+time complexity like down there.
+時間複雜度就像下面一樣。
+
+86
+00:03:49,543 --> 00:03:52,192
+So these are 2 easy rules which are easy to
+所以這是兩個簡單的規則，很容易
+
+87
+00:03:52,192 --> 00:03:55,131
+memorize. Have a loop without any nested
+記住。有一個沒有任何巢狀的迴圈
+
+88
+00:03:55,131 --> 00:03:57,844
+loops and of course also without any nested
+迴圈，當然也沒有任何嵌套
+
+89
+00:03:57,876 --> 00:04:00,028
+function calls, so without any function
+函式調用，所以沒有任何函式
+
+90
+00:04:00,028 --> 00:04:01,296
+calls inside of the function,
+函式內部調用，
+
+91
+00:04:01,890 --> 00:04:03,817
+then you're dealing with linear time
+那你正在處理線性時間
+
+92
+00:04:03,817 --> 00:04:04,957
+complexity most likely.
+最有可能的複雜性。
+
+93
+00:04:05,567 --> 00:04:07,956
+Have a function where you have no loop and
+有一個沒有迴圈的函式並且
+
+94
+00:04:08,069 --> 00:04:10,811
+no nested function calls, then it most
+沒有巢狀函式調用，那麼它最
+
+95
+00:04:10,875 --> 00:04:13,265
+likely is constant time complexity.
+可能是恆定的時間複雜度。
+
+96
+00:04:14,243 --> 00:04:16,537
+Now, cases like our is_prime
+現在，像我們的 is_prime 這樣的情況
+
+97
+00:04:17,371 --> 00:04:20,338
+function here, our is_prime algorithm where
+函式在這裡，我們的 is_prime 演算法在哪裡
+
+98
+00:04:20,338 --> 00:04:22,455
+we actually had O of square root of n,
+我們實際上有 n 的平方根 O，
+
+99
+00:04:23,208 --> 00:04:25,999
+there the square root part is nice to have.
+平方根部分很不錯。
+
+100
+00:04:26,191 --> 00:04:29,046
+Of course, it's more specific than just O of
+當然，它比僅僅O of更具體
+
+101
+00:04:29,222 --> 00:04:31,885
+n, but if you would say that this algorithm
+n，但如果你說這個演算法
+
+102
+00:04:31,965 --> 00:04:35,092
+is O of n, it would also not be horrible. We
+是 O of n，也不會太可怕。我們
+
+103
+00:04:35,092 --> 00:04:38,767
+just can be a bit more specific here. So the
+這裡可以更具體一點。所以
+
+104
+00:04:38,767 --> 00:04:41,013
+takeaway here simply is that if you have a
+這裡的要點很簡單，如果你有一個
+
+105
+00:04:41,013 --> 00:04:42,986
+loop, it most likely is linear time
+迴圈，很可能是線性時間
+
+106
+00:04:43,034 --> 00:04:45,906
+complexity, but it then is worth taking a
+複雜性，但值得考慮
+
+107
+00:04:45,906 --> 00:04:48,618
+closer look at that loop to see what's going
+仔細看看那個迴圈，看看發生了什麼
+
+108
+00:04:48,794 --> 00:04:51,008
+on in that loop. And you should check how
+在那個迴圈中。你應該檢查如何
+
+109
+00:04:51,201 --> 00:04:54,426
+your iterator, your exit condition variable,
+你的迭代器，你的退出條件變數，
+
+110
+00:04:54,490 --> 00:04:57,185
+changes with every iteration and what your
+每次迭代都會發生變化，您的
+
+111
+00:04:57,378 --> 00:04:59,528
+exit or your runtime condition is.
+exit 或者你的運行時條件是。
+
+112
+00:05:00,266 --> 00:05:02,544
+And if you then see something strange like
+如果你隨後看到一些奇怪的東西，例如
+
+113
+00:05:02,544 --> 00:05:05,608
+that you shrink that number up to which you
+你將這個數字縮小到你
+
+114
+00:05:05,737 --> 00:05:06,058
+loop,
+環形，
+
+115
+00:05:06,844 --> 00:05:07,598
+or that you
+或者你
+
+116
+00:05:08,384 --> 00:05:11,496
+don't just add 1 to the iterator after every
+不要只是在每個之後向迭代器添加 1
+
+117
+00:05:11,512 --> 00:05:13,855
+iteration but you add a bigger number— if
+迭代，但你添加了一個更大的數字——如果
+
+118
+00:05:13,855 --> 00:05:16,277
+you have something like this, chances are
+你有這樣的東西，很可能
+
+119
+00:05:16,406 --> 00:05:18,299
+you're better off than linear time
+你比線性時間好
+
+120
+00:05:18,331 --> 00:05:21,090
+complexity because you won't go through all
+複雜性，因為你不會經歷所有
+
+121
+00:05:21,379 --> 00:05:23,625
+the numbers up to a number, but you instead
+數字最多為一個數字，但你卻
+
+122
+00:05:23,625 --> 00:05:25,663
+shrink the number of iterations you're going
+減少你要進行的迭代次數
+
+123
+00:05:25,663 --> 00:05:27,732
+through simply by changing the exit
+只需更改出口即可透過
+
+124
+00:05:27,781 --> 00:05:31,282
+condition and/or by by how you manipulate i
+條件和/或透過你如何操縱我
+
+125
+00:05:31,796 --> 00:05:34,144
+after every iteration. So that's the second
+每次迭代後。所以這是第二個
+
+126
+00:05:34,144 --> 00:05:36,540
+step. The first step is that you look for
+步。第一步是你尋找
+
+127
+00:05:36,540 --> 00:05:38,807
+loops and then if you have a loop, as a
+迴圈然後如果你有一個迴圈，作為
+
+128
+00:05:38,807 --> 00:05:41,621
+second step, analyze that loop and see if
+第二步，分析該迴圈並查看是否
+
+129
+00:05:41,621 --> 00:05:43,856
+there is something strange about it that
+有一些奇怪的事情
+
+130
+00:05:44,017 --> 00:05:46,027
+influences the number of iterations and
+影響迭代次數和
+
+131
+00:05:46,107 --> 00:05:48,648
+maybe decreases that number so that you're
+也許減少這個數字，這樣你就
+
+132
+00:05:48,648 --> 00:05:50,819
+not on linear time but you're better than
+不是線性時間，但你比
+
+133
+00:05:50,867 --> 00:05:51,076
+that.
+那。

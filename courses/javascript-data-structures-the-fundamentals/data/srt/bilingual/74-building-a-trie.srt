@@ -1,0 +1,1464 @@
+1
+00:00:02,281 --> 00:00:04,231
+So let's build a first trie.
+那麼讓我們來建構第一個嘗試。
+
+2
+00:00:04,924 --> 00:00:07,164
+For that, I have a brand new file and in
+為此，我有一個全新的檔案，在
+
+3
+00:00:07,164 --> 00:00:07,293
+there,
+那裡，
+
+4
+00:00:07,921 --> 00:00:09,823
+I'm going to build my trie as a class.
+我將把我的特里樹作為一個類別來建構。
+
+5
+00:00:10,387 --> 00:00:12,111
+And actually, just as with the other tree
+事實上，就像另一棵樹一樣
+
+6
+00:00:12,111 --> 00:00:14,126
+structures, we'll not just have the general
+結構，我們不只有一般的
+
+7
+00:00:14,255 --> 00:00:16,834
+tree, we'll also have the nodes. So I'll
+樹，我們也會有節點。所以我會
+
+8
+00:00:16,834 --> 00:00:18,349
+also add a class TrieNode.
+也加入一個 TrieNode 類別。
+
+9
+00:00:20,813 --> 00:00:23,163
+Now in that TrieNode, we'll store some data
+現在在 TrieNode 中，我們將儲存一些資料
+
+10
+00:00:23,552 --> 00:00:25,691
+and actually we'll just store 2 pieces of
+實際上我們只儲存 2 塊
+
+11
+00:00:25,756 --> 00:00:26,858
+information for the moment.
+暫時的訊息。
+
+12
+00:00:27,492 --> 00:00:30,057
+That's the value that should be stored for a
+這是應該儲存的值
+
+13
+00:00:30,121 --> 00:00:32,717
+given node. So we can set this value equal
+給定節點。所以我們可以設定這個值等於
+
+14
+00:00:32,782 --> 00:00:33,407
+to value.
+價值。
+
+15
+00:00:34,208 --> 00:00:36,292
+And of course, we'll have our, let's say,
+當然，我們會有我們的，比方說，
+
+16
+00:00:36,372 --> 00:00:36,997
+children
+孩子們
+
+17
+00:00:37,654 --> 00:00:38,183
+array here,
+陣列在這裡，
+
+18
+00:00:38,776 --> 00:00:41,260
+which— and that's not important— will be an
+這——但這並不重要——將是
+
+19
+00:00:41,260 --> 00:00:45,091
+array of the length of characters in our
+我們的字元長度陣列
+
+20
+00:00:45,267 --> 00:00:48,088
+alphabet. So in the English alphabet, we
+字母。所以在英文字母中，我們
+
+21
+00:00:48,088 --> 00:00:50,893
+have 26 characters, so that should be an
+有 26 個字符，所以應該是
+
+22
+00:00:50,893 --> 00:00:54,868
+array of length 26. And we can generate such
+長度為26的陣列。我們可以產生這樣的
+
+23
+00:00:54,964 --> 00:00:57,715
+an array with this function in JavaScript.
+JavaScript 中具有此函式的陣列。
+
+24
+00:00:59,245 --> 00:01:01,129
+In case this should not be clear, calling
+如果不清楚，請致電
+
+25
+00:01:01,177 --> 00:01:05,494
+Array26 generates an array with 26 empty
+Array26 產生一個有 26 個空的陣列
+
+26
+00:01:05,591 --> 00:01:05,898
+items.
+專案.
+
+27
+00:01:07,787 --> 00:01:08,078
+We can
+我們可以
+
+28
+00:01:08,756 --> 00:01:09,451
+store that
+存放那個
+
+29
+00:01:10,694 --> 00:01:13,359
+in a constant here, for example, and then we
+例如，這裡是一個常數，然後我們
+
+30
+00:01:13,359 --> 00:01:14,101
+could store
+可以儲存
+
+31
+00:01:15,309 --> 00:01:15,986
+something
+某物
+
+32
+00:01:16,662 --> 00:01:19,659
+for index 5, and now you would see it's
+對於索引 5，現在您會看到它
+
+33
+00:01:19,707 --> 00:01:22,398
+still an array with 26 empty items, but
+仍然是一個包含 26 個空項的陣列，但是
+
+34
+00:01:22,534 --> 00:01:25,548
+actually it also has a valid item for index
+實際上它還有一個有效的索引項
+
+35
+00:01:25,757 --> 00:01:26,046
+5.
+5.
+
+36
+00:01:28,670 --> 00:01:31,357
+So this is the children array which we have
+這就是我們的子陣列
+
+37
+00:01:31,373 --> 00:01:33,175
+here for our given node.
+這裡是我們給定的節點。
+
+38
+00:01:34,252 --> 00:01:36,470
+Now that's all we need in the TrieNode for
+現在這就是我們在 TrieNode 所需要的
+
+39
+00:01:36,502 --> 00:01:39,089
+the moment. Now let's switch to the TrieTree
+那一刻。現在讓我們切換到 TrieTree
+
+40
+00:01:39,089 --> 00:01:40,632
+structure, to this class here.
+結構，到這個類別這裡。
+
+41
+00:01:41,403 --> 00:01:41,676
+There
+那裡
+
+42
+00:01:42,271 --> 00:01:43,380
+in the end, we want to be able to
+最後，我們希望能夠
+
+43
+00:01:43,961 --> 00:01:47,349
+insert new data, I would guess, and later we
+我猜插入新資料，然後我們
+
+44
+00:01:47,430 --> 00:01:49,301
+also want to be able to retrieve data.
+也希望能夠檢索資料。
+
+45
+00:01:50,205 --> 00:01:53,247
+Now for inserting data, We in the end need
+現在為了插入資料，我們最終需要
+
+46
+00:01:53,424 --> 00:01:54,261
+our key,
+我們的鑰匙，
+
+47
+00:01:54,888 --> 00:01:55,966
+which should be a string,
+這應該是一個字串，
+
+48
+00:01:56,497 --> 00:01:59,104
+and our value, which is the value we wanna
+以及我們的價值，這就是我們想要的價值
+
+49
+00:01:59,153 --> 00:02:00,488
+store in a given node.
+儲存在給定的節點中。
+
+50
+00:02:01,876 --> 00:02:04,331
+And now we just need to split up this key,
+現在我們只需要把這個金鑰分開，
+
+51
+00:02:04,622 --> 00:02:05,316
+which is a string,
+這是一個字串，
+
+52
+00:02:05,914 --> 00:02:08,627
+into the individual characters and drill
+深入各個角色並進行鑽研
+
+53
+00:02:08,837 --> 00:02:10,694
+down into our tree.
+下到我們的樹上。
+
+54
+00:02:12,532 --> 00:02:13,551
+And one way of doing this
+這樣做的一種方法
+
+55
+00:02:14,133 --> 00:02:17,367
+is to use a for loop here, a regular for
+就是這裡使用一個for迴圈，一個常規的for
+
+56
+00:02:17,367 --> 00:02:20,197
+loop where we start with i equal to 0
+迴圈，我們從 i 等於 0 開始
+
+57
+00:02:21,011 --> 00:02:23,662
+where we keep on looping as long as i is
+只要 i 還在，我們就繼續迴圈
+
+58
+00:02:23,694 --> 00:02:25,375
+smaller than key.length.
+小於 key.length。
+
+59
+00:02:25,940 --> 00:02:29,253
+We can access length on key since key should
+我們可以存取密鑰的長度，因為密鑰應該
+
+60
+00:02:29,253 --> 00:02:29,642
+be a string,
+是一個字串，
+
+61
+00:02:30,718 --> 00:02:32,722
+and where we then increment i by 1 after
+然後我們將 i 加 1
+
+62
+00:02:32,837 --> 00:02:33,798
+every iteration.
+每次迭代。
+
+63
+00:02:36,136 --> 00:02:36,875
+I also
+我也
+
+64
+00:02:37,743 --> 00:02:40,201
+want to start digging into that tree
+想要開始挖掘那棵樹
+
+65
+00:02:40,876 --> 00:02:42,226
+on its root node,
+在其根節點上，
+
+66
+00:02:42,884 --> 00:02:44,491
+so we should actually add a constructor
+所以我們實際上應該要加入一個建構函式
+
+67
+00:02:44,491 --> 00:02:46,685
+function here on the tree data structure as
+這裡的樹資料結構函式為
+
+68
+00:02:46,786 --> 00:02:46,903
+well.
+出色地。
+
+69
+00:02:47,632 --> 00:02:51,878
+And there set a root node where we construct
+並且設定了一個我們建構的根節點
+
+70
+00:02:51,878 --> 00:02:53,705
+a new trie node.
+一個新的 trie 節點。
+
+71
+00:02:54,522 --> 00:02:56,493
+And the special thing here is that the value
+這裡的特別之處在於該值
+
+72
+00:02:56,782 --> 00:03:00,147
+for this root trie node is empty, an empty
+因為這個根 trie 節點是空的，一個空的
+
+73
+00:03:00,147 --> 00:03:00,579
+string
+細繩
+
+74
+00:03:01,156 --> 00:03:03,400
+or null, whatever you want. It should be
+或 null，無論你想要什麼。應該是
+
+75
+00:03:03,416 --> 00:03:05,627
+empty. That's what I mentioned earlier.
+空的。這就是我之前提到的。
+
+76
+00:03:06,845 --> 00:03:09,505
+So we built this root, we add this root here
+所以我們建立了這個根，我們在這裡加入這個根
+
+77
+00:03:10,050 --> 00:03:10,402
+on our
+在我們的
+
+78
+00:03:11,251 --> 00:03:11,540
+trie,
+特里樹，
+
+79
+00:03:12,710 --> 00:03:13,831
+and now in insert,
+現在在插入中，
+
+80
+00:03:16,560 --> 00:03:18,342
+We want to use that root
+我們想使用該根
+
+81
+00:03:19,370 --> 00:03:21,360
+so we can get access like this. Of course,
+所以我們可以像這樣訪問。當然，
+
+82
+00:03:21,376 --> 00:03:23,785
+we could also just use this root in the code
+我們也可以在程式碼中使用這個根
+
+83
+00:03:23,785 --> 00:03:25,856
+down there. It's up to you whether you want
+下面。取決於你是否願意
+
+84
+00:03:25,856 --> 00:03:27,654
+to store it in a separate constant or not.
+是否將其儲存在單獨的常數中。
+
+85
+00:03:28,505 --> 00:03:30,961
+And now we go through all the characters in
+現在我們來看看裡面的所有角色
+
+86
+00:03:31,154 --> 00:03:33,771
+our word. And now it's very simple. For
+我們的話。現在就很簡單了。為了
+
+87
+00:03:34,124 --> 00:03:36,949
+every character in the word, we need to find
+單字中的每個字符，我們需要找到
+
+88
+00:03:36,949 --> 00:03:39,903
+out which position that character has in the
+找出該角色在其中的位置
+
+89
+00:03:39,903 --> 00:03:43,181
+alphabet And then once we got that position,
+字母 然後一旦我們得到了那個位置，
+
+90
+00:03:43,438 --> 00:03:46,330
+we can use the right index in our children
+我們可以在我們的孩子身上使用正確的索引
+
+91
+00:03:46,330 --> 00:03:46,507
+array
+大批
+
+92
+00:03:47,133 --> 00:03:47,920
+on the given node
+在給定節點上
+
+93
+00:03:48,660 --> 00:03:50,926
+and drill deeper into the tree on that
+然後在樹上鑽得更深
+
+94
+00:03:50,926 --> 00:03:51,376
+index.
+指數。
+
+95
+00:03:52,389 --> 00:03:54,962
+So now the question is, how do we get that
+所以現在的問題是，我們要如何得到它
+
+96
+00:03:55,268 --> 00:03:57,584
+index of a character in the alphabet?
+字母表中字符的索引？
+
+97
+00:03:59,062 --> 00:04:00,644
+And again, in JavaScript, that's not too
+再說一次，在 JavaScript 中，這也不是太
+
+98
+00:04:00,676 --> 00:04:02,322
+difficult. If we had the
+難的。如果我們有
+
+99
+00:04:03,016 --> 00:04:03,581
+character A,
+角色A，
+
+100
+00:04:04,469 --> 00:04:05,728
+there is the charCodeAt
+有 charCodeAt
+
+101
+00:04:06,576 --> 00:04:08,482
+method which we can call on any string.
+我們可以在任何字串上呼叫該方法。
+
+102
+00:04:09,236 --> 00:04:09,957
+It wants the
+它想要的是
+
+103
+00:04:10,582 --> 00:04:12,440
+index of the character for which you want to
+您想要的字元的索引
+
+104
+00:04:12,520 --> 00:04:14,988
+get the alphabet value. And here, since it's
+取得字母值。在這裡，因為它是
+
+105
+00:04:14,988 --> 00:04:17,247
+just one character, the index here is 0.
+只有一個字符，這裡的索引是0。
+
+106
+00:04:17,808 --> 00:04:20,132
+If that were ab, we could also get the
+如果是 ab，我們也可以得到
+
+107
+00:04:20,532 --> 00:04:23,256
+alphabet index for b by using index 1 here.
+b 的字母索引使用此處的索引 1。
+
+108
+00:04:23,641 --> 00:04:24,490
+That's how this works.
+這就是它的工作原理。
+
+109
+00:04:25,484 --> 00:04:27,471
+And now of course you might see that this is
+當然現在你可能會看到這是
+
+110
+00:04:28,080 --> 00:04:31,573
+79 as a result, which is clearly not the
+結果是79，這顯然不是
+
+111
+00:04:31,653 --> 00:04:33,143
+alphabet value of a.
+a 的字母值。
+
+112
+00:04:34,073 --> 00:04:36,077
+Well, this simply also is able to retrieve a
+嗯，這也只是能夠檢索一個
+
+113
+00:04:36,077 --> 00:04:37,569
+couple of other special characters,
+其他幾個特殊字符，
+
+114
+00:04:37,922 --> 00:04:40,183
+including uppercase characters, for example.
+例如，包括大寫字元。
+
+115
+00:04:40,904 --> 00:04:44,144
+So for our purpose, we can simply deduct
+所以為了我們的目的，我們可以簡單地扣除
+
+116
+00:04:44,673 --> 00:04:45,571
+79 here,
+79 在這裡，
+
+117
+00:04:46,646 --> 00:04:48,169
+and then we start at 0,
+然後我們從 0 開始，
+
+118
+00:04:48,730 --> 00:04:51,296
+and this will then be correct. So for B, we
+那麼這就是正確的。所以對於B，我們
+
+119
+00:04:51,296 --> 00:04:55,370
+got 1, for C, we got 2, for Z, we got 25,
+得到 1，對於 C，我們得到 2，對於 Z，我們得到 25，
+
+120
+00:04:55,706 --> 00:04:58,208
+which is the right index for Z since this
+這是 Z 的正確索引，因為
+
+121
+00:04:58,208 --> 00:05:00,653
+would be the 26th item in the array.
+將是陣列中的第 26 項。
+
+122
+00:05:03,620 --> 00:05:08,266
+So charCodeAt-97 is the formula we wanna
+所以 charCodeAt-97 就是我們想要的公式
+
+123
+00:05:08,266 --> 00:05:08,477
+use.
+使用。
+
+124
+00:05:09,095 --> 00:05:09,598
+So our
+所以我們的
+
+125
+00:05:10,200 --> 00:05:12,214
+alphabetIndex
+字母索引
+
+126
+00:05:12,896 --> 00:05:13,042
+is
+是
+
+127
+00:05:14,699 --> 00:05:15,040
+this
+這
+
+128
+00:05:16,323 --> 00:05:16,859
+called
+被稱為
+
+129
+00:05:17,850 --> 00:05:18,288
+on key
+按鍵上
+
+130
+00:05:19,180 --> 00:05:19,975
+for i.
+對於 i.
+
+131
+00:05:20,720 --> 00:05:23,120
+So we walk through our key character by
+所以我們透過以下方式來了解我們的關鍵人物
+
+132
+00:05:23,120 --> 00:05:23,590
+character.
+特點。
+
+133
+00:05:24,434 --> 00:05:26,698
+We start at the first character we get the
+我們從我們得到的第一個字元開始
+
+134
+00:05:26,779 --> 00:05:29,350
+alphabet index for that given character, and
+該給定字元的字母索引，以及
+
+135
+00:05:29,447 --> 00:05:33,112
+then we know which child item to access to,
+然後我們知道要訪問哪個子專案，
+
+136
+00:05:33,385 --> 00:05:35,732
+well, find the next node in line.
+好吧，找到佇列中的下一個節點。
+
+137
+00:05:37,432 --> 00:05:39,660
+So once we got that alphabet index, we can
+所以一旦我們得到了字母表索引，我們就可以
+
+138
+00:05:39,693 --> 00:05:40,701
+simply check if
+只需檢查是否
+
+139
+00:05:41,498 --> 00:05:42,377
+on our root here,
+我們的根在這裡，
+
+140
+00:05:45,357 --> 00:05:45,552
+if
+如果
+
+141
+00:05:46,591 --> 00:05:47,532
+we have an item
+我們有一個專案
+
+142
+00:05:48,116 --> 00:05:50,486
+in the children array for that given index,
+在給定索引的子陣列中，
+
+143
+00:05:51,201 --> 00:05:51,882
+and if that's
+如果那是
+
+144
+00:05:53,689 --> 00:05:55,880
+truthy, we know we can dig in deeper. If
+說實話，我們知道我們可以更深入地挖掘。如果
+
+145
+00:05:55,880 --> 00:05:58,968
+this is falsy, we need to create a new node.
+這是錯誤的，我們需要建立一個新節點。
+
+146
+00:05:59,756 --> 00:06:02,876
+So actually, if this is not truthy, if this
+所以實際上，如果這不是真的，如果這
+
+147
+00:06:02,957 --> 00:06:05,474
+is falsy, we need to create a new node. So
+是假的，我們需要建立一個新節點。所以
+
+148
+00:06:05,474 --> 00:06:06,393
+in that case,
+在這種情況下，
+
+149
+00:06:07,958 --> 00:06:10,652
+I want to create a new node by calling new
+我想透過呼叫 new 來建立一個新節點
+
+150
+00:06:10,942 --> 00:06:12,039
+TrieNode again,
+再次TrieNode，
+
+151
+00:06:14,477 --> 00:06:16,199
+passing in just an empty string, for
+僅傳入一個空字串，對於
+
+152
+00:06:16,199 --> 00:06:18,667
+example, or a null value, because this is
+範例，或 null 值，因為這是
+
+153
+00:06:18,716 --> 00:06:20,974
+not necessarily the final node where we
+不一定是我們所在的最終節點
+
+154
+00:06:21,039 --> 00:06:22,078
+wanna store our value.
+想要儲存我們的價值。
+
+155
+00:06:22,881 --> 00:06:25,534
+And that new node now needs to be inserted
+現在需要插入該新節點
+
+156
+00:06:25,873 --> 00:06:28,623
+in this place in our node children array.
+在我們的節點子陣列的這個地方。
+
+157
+00:06:29,384 --> 00:06:30,675
+So now we set root
+所以現在我們設定root
+
+158
+00:06:31,546 --> 00:06:34,966
+children for that given alphabet index equal
+給定字母表索引的子級等於
+
+159
+00:06:35,095 --> 00:06:37,805
+to that new node to insert that new node
+到該新節點以插入該新節點
+
+160
+00:06:37,934 --> 00:06:39,514
+since it didn't exist before.
+因為它以前不存在。
+
+161
+00:06:41,200 --> 00:06:42,718
+Now of course, else
+現在當然，否則
+
+162
+00:06:43,559 --> 00:06:46,952
+if we did find a node for this character
+如果我們確實找到了這個角色的節點
+
+163
+00:06:47,032 --> 00:06:47,340
+already
+已經
+
+164
+00:06:49,066 --> 00:06:51,297
+we simply wanna continue with the next
+我們只是想繼續下一個
+
+165
+00:06:51,297 --> 00:06:53,594
+character in line and drill into our tree
+角色排成一列並鑽入我們的樹中
+
+166
+00:06:53,642 --> 00:06:53,979
+deeper.
+更深。
+
+167
+00:06:54,926 --> 00:06:56,468
+And for that, I will simply change
+為此，我會簡單地改變
+
+168
+00:06:56,998 --> 00:06:58,892
+my const root here to let
+我的 const root 在這裡讓
+
+169
+00:06:59,807 --> 00:07:01,269
+and rename it to node,
+並將其重命名為節點，
+
+170
+00:07:01,831 --> 00:07:03,517
+the node I'm looking at, because only
+我正在查看的節點，因為只有
+
+171
+00:07:03,517 --> 00:07:04,657
+initially it's the root.
+最初它是根。
+
+172
+00:07:05,427 --> 00:07:07,466
+If we wanna drill into the tree deeper,
+如果我們想鑽得更深，
+
+173
+00:07:08,237 --> 00:07:09,746
+I will actually set node
+我實際上會設定節點
+
+174
+00:07:10,485 --> 00:07:11,192
+equal to
+等於
+
+175
+00:07:13,632 --> 00:07:17,790
+node.children for that given alphabet index.
+node.children 對應給定的字母表索引。
+
+176
+00:07:18,192 --> 00:07:20,696
+And of course, here we should also use node,
+當然，這裡我們也應該使用node，
+
+177
+00:07:21,178 --> 00:07:23,297
+and here we should also use node. So in all
+這裡我們也應該使用node。所以總的來說
+
+178
+00:07:23,362 --> 00:07:25,208
+the places where I used the root before, I
+我之前使用root的地方，我
+
+179
+00:07:25,272 --> 00:07:26,027
+use node now.
+現在使用節點。
+
+180
+00:07:26,974 --> 00:07:29,784
+So I simply overwrite node with a nested
+所以我只是用巢狀覆蓋節點
+
+181
+00:07:29,784 --> 00:07:30,281
+node now,
+現在節點，
+
+182
+00:07:31,116 --> 00:07:33,171
+and we do that whilst we walk through the
+當我們走過
+
+183
+00:07:33,187 --> 00:07:35,483
+entire string of characters. So step by
+整個字串。所以一步步來
+
+184
+00:07:35,483 --> 00:07:37,474
+step, we'll drill into this deeper.
+步驟，我們將更深入地研究這一點。
+
+185
+00:07:38,517 --> 00:07:40,894
+Now, one important aspect, however, or one
+然而，現在有一個重要的方面，或者說一個
+
+186
+00:07:40,942 --> 00:07:41,536
+important thing
+重要的事情
+
+187
+00:07:42,194 --> 00:07:45,068
+is that when we do add a new node, we of
+是當我們新增一個節點時，我們
+
+188
+00:07:45,084 --> 00:07:47,814
+course also want to drill in deeper. We had
+當然還想鑽得更深。我們有
+
+189
+00:07:47,910 --> 00:07:50,158
+to add the node because it didn't exist
+添加節點，因為它不存在
+
+190
+00:07:50,158 --> 00:07:52,519
+before, but now that we do have it, we're
+以前，但現在我們有了它，我們
+
+191
+00:07:52,519 --> 00:07:53,948
+not necessarily at the end.
+不一定在最後。
+
+192
+00:07:54,558 --> 00:07:56,581
+The word which we picked here, the key,
+我們在這裡選擇的詞，鑰匙，
+
+193
+00:07:57,062 --> 00:07:59,712
+might be longer, so one new node might not
+可能會更長，因此一個新節點可能不會
+
+194
+00:07:59,712 --> 00:08:00,193
+be enough.
+就足夠了。
+
+195
+00:08:00,916 --> 00:08:03,405
+Therefore, actually, we want to drill into
+因此，實際上，我們想要深入研究
+
+196
+00:08:03,405 --> 00:08:06,070
+this new node as well. So I'll move this out
+這個新節點也是如此。所以我會把它移出去
+
+197
+00:08:06,070 --> 00:08:08,013
+of the else block and remove the else block
+else 區塊並刪除 else 區塊
+
+198
+00:08:08,302 --> 00:08:10,692
+Because no matter if we created a new node
+因為無論我們是否創建了一個新節點
+
+199
+00:08:10,708 --> 00:08:12,521
+or not, we want to dig into it.
+或不，我們想深入研究它。
+
+200
+00:08:13,660 --> 00:08:16,388
+Now, once we're done with this for loop, so
+現在，一旦我們完成了這個 for 迴圈，那麼
+
+201
+00:08:16,388 --> 00:08:18,987
+once we exhausted our key, we know we
+一旦我們用完鑰匙，我們就知道我們
+
+202
+00:08:19,115 --> 00:08:21,859
+reached the node either because we created
+到達該節點是因為我們創建了
+
+203
+00:08:21,859 --> 00:08:23,560
+it or because it already was there
+它或者因為它已經在那裡
+
+204
+00:08:24,169 --> 00:08:25,918
+where we want to insert a new value.
+我們想要插入新值的地方。
+
+205
+00:08:26,688 --> 00:08:27,266
+So now here
+所以現在在這裡
+
+206
+00:08:27,875 --> 00:08:31,373
+we can access node.value and set this equal
+我們可以存取node.value並將其設定為相等
+
+207
+00:08:31,726 --> 00:08:33,571
+to this value here.
+到這裡的這個值。
+
+208
+00:08:34,773 --> 00:08:37,194
+Now since we set the value like this, this
+既然我們這樣設定值，那麼
+
+209
+00:08:37,402 --> 00:08:39,887
+also means that we don't have to pass it
+也意味著我們不必通過它
+
+210
+00:08:40,368 --> 00:08:42,628
+through any constructor because we never
+透過任何建構子，因為我們從來沒有
+
+211
+00:08:42,628 --> 00:08:44,712
+pass it through a constructor. So we don't
+透過建構子傳遞它。所以我們不
+
+212
+00:08:44,712 --> 00:08:46,731
+even need to expect it here on the TryNode.
+甚至需要在 TryNode 上期待它。
+
+213
+00:08:47,116 --> 00:08:49,681
+Instead, we just set a value property here
+相反，我們只是在這裡設定一個 value 屬性
+
+214
+00:08:49,681 --> 00:08:50,899
+which is null initially
+最初為空
+
+215
+00:08:51,428 --> 00:08:52,871
+and then this value property can be
+然後這個值屬性可以是
+
+216
+00:08:52,951 --> 00:08:56,061
+overwritten once we, well, have a value to
+一旦我們有價值，就被覆蓋
+
+217
+00:08:56,077 --> 00:08:58,353
+be inserted here with this logic.
+用這個邏輯插入這裡。
+
+218
+00:08:59,475 --> 00:09:00,597
+So this should be
+所以這應該是
+
+219
+00:09:01,303 --> 00:09:02,297
+a basic trie
+一個基本的特里樹
+
+220
+00:09:03,131 --> 00:09:05,392
+data structure that allows us to insert
+允許我們插入的資料結構
+
+221
+00:09:05,392 --> 00:09:05,777
+data.
+資料。
+
+222
+00:09:06,659 --> 00:09:09,129
+Before we try to find data, let's see
+在我們嘗試尋找資料之前，讓我們先看看
+
+223
+00:09:09,161 --> 00:09:09,979
+whether that works.
+是否有效。
+
+224
+00:09:10,620 --> 00:09:12,833
+So for this, let's create a new trie by
+為此，我們創建一個新的字典樹
+
+225
+00:09:12,833 --> 00:09:13,747
+calling new Trie
+呼叫新的特里樹
+
+226
+00:09:14,693 --> 00:09:15,191
+like this.
+像這樣。
+
+227
+00:09:16,618 --> 00:09:20,066
+And then here, let's insert for age a value
+然後在這裡，我們為年齡插入一個值
+
+228
+00:09:20,130 --> 00:09:20,739
+of 31
+共 31 個
+
+229
+00:09:21,654 --> 00:09:22,503
+and for
+並為
+
+230
+00:09:23,819 --> 00:09:26,417
+name a value of Max
+指定一個 Max 值
+
+231
+00:09:27,347 --> 00:09:30,380
+And also to test this as well for names,
+並且還要測試名稱，
+
+232
+00:09:31,279 --> 00:09:31,889
+an array
+一個陣列
+
+233
+00:09:32,483 --> 00:09:35,324
+of Max and Manu, because of course we should
+馬克斯和馬努，因為我們當然應該
+
+234
+00:09:35,372 --> 00:09:37,843
+be able to store any kind of value. And of
+能夠儲存任何型別的價值。和的
+
+235
+00:09:37,859 --> 00:09:40,652
+course we should also be able to use keys
+當然我們也應該能夠使用密鑰
+
+236
+00:09:41,005 --> 00:09:44,119
+that include other keys. So names should be
+包括其他鍵。所以名字應該是
+
+237
+00:09:44,119 --> 00:09:46,735
+usable without losing the value that was
+可以使用而不失去原有的價值
+
+238
+00:09:46,735 --> 00:09:47,634
+stored for name.
+為名稱而儲存。
+
+239
+00:09:48,853 --> 00:09:51,742
+Let's console.log that try thereafter to see
+讓我們嘗試查看console.log
+
+240
+00:09:51,742 --> 00:09:52,432
+whether this works.
+這是否有效。
+
+241
+00:09:53,123 --> 00:09:54,777
+Let's go back to the browser and reload.
+讓我們回傳瀏覽器並重新載入。
+
+242
+00:09:55,435 --> 00:09:56,190
+Here's our trie.
+這是我們的特里。
+
+243
+00:09:56,976 --> 00:09:58,935
+It has a root node with no value,
+它有一個沒有值的根節點，
+
+244
+00:09:59,706 --> 00:10:01,183
+and in there we got a couple of children.
+在那裡我們有幾個孩子。
+
+245
+00:10:01,552 --> 00:10:03,897
+And we see there are 2 child nodes
+我們看到有2個子節點
+
+246
+00:10:03,961 --> 00:10:07,317
+populated, the first one and the 13th one.
+人口較多，第一個和第十三個。
+
+247
+00:10:07,975 --> 00:10:10,191
+The first one makes sense because age
+第一個是有道理的，因為年齡
+
+248
+00:10:10,769 --> 00:10:11,781
+has an A at the beginning,
+有一個 A 開頭，
+
+249
+00:10:12,632 --> 00:10:15,666
+and N probably simply is the 14th character
+N 可能只是第 14 個字符
+
+250
+00:10:15,682 --> 00:10:18,139
+in the alphabet, hence it has index 13.
+在字母表中，因此它的索引為 13。
+
+251
+00:10:19,934 --> 00:10:21,905
+So now if we dig deeper into this, we see on
+所以現在如果我們更深入地研究這個問題，我們就會看到
+
+252
+00:10:21,937 --> 00:10:25,062
+the 0 branch we have no value, which makes
+0 分支我們沒有值，這使得
+
+253
+00:10:25,062 --> 00:10:25,543
+sense,
+感覺，
+
+254
+00:10:26,184 --> 00:10:28,507
+but we got more children where the element
+但我們有更多的孩子，其中元素
+
+255
+00:10:28,507 --> 00:10:30,847
+with index 6 holds another node.
+索引 6 持有另一個節點。
+
+256
+00:10:31,793 --> 00:10:33,924
+That node still has no value, but it has
+該節點仍然沒有價值，但它有
+
+257
+00:10:33,956 --> 00:10:35,174
+more children, and there
+更多的孩子，還有
+
+258
+00:10:35,703 --> 00:10:38,315
+the element with index 4, which is the index
+索引為 4 的元素，即索引
+
+259
+00:10:38,443 --> 00:10:39,965
+for G in the alphabet,
+對於字母表中的 G，
+
+260
+00:10:40,526 --> 00:10:43,603
+that now finally holds our value of 31.
+現在終於保持了我們的值 31。
+
+261
+00:10:44,213 --> 00:10:47,023
+So the age was stored correctly in our trie.
+所以年齡被正確地儲存在我們的特里樹中。
+
+262
+00:10:48,387 --> 00:10:50,443
+Now for the name and the names.
+現在是名字和名字。
+
+263
+00:10:51,262 --> 00:10:54,136
+Here we start at this element with index 13.
+這裡我們從索引為 13 的元素開始。
+
+264
+00:10:54,650 --> 00:10:56,368
+Got no value there, but we got more
+那裡沒有任何價值，但我們得到了更多
+
+265
+00:10:56,416 --> 00:10:58,648
+children, or one more child I should say,
+孩子們，或者我應該說還有一個孩子，
+
+266
+00:10:58,985 --> 00:11:00,976
+which makes sense because both name and
+這是有道理的，因為名字和
+
+267
+00:11:01,136 --> 00:11:04,251
+names have the same next character. So we
+名稱具有相同的下一個字元。所以我們
+
+268
+00:11:04,284 --> 00:11:05,969
+have one next node here.
+這裡有一個下一個節點。
+
+269
+00:11:07,174 --> 00:11:08,635
+There we got no value.
+在那裡我們沒有任何價值。
+
+270
+00:11:09,502 --> 00:11:11,921
+Here, no value, but we got more children or
+在這裡，沒有價值，但我們有更多的孩子或
+
+271
+00:11:12,049 --> 00:11:12,802
+one more child.
+又一個孩子。
+
+272
+00:11:13,411 --> 00:11:15,046
+Again, that makes sense because we have M
+再說一遍，這是有道理的，因為我們有 M
+
+273
+00:11:15,510 --> 00:11:15,686
+here.
+這裡。
+
+274
+00:11:16,968 --> 00:11:18,378
+So now we have that,
+所以現在我們有了，
+
+275
+00:11:18,955 --> 00:11:19,628
+no value there,
+那裡沒有價值，
+
+276
+00:11:20,541 --> 00:11:22,432
+but one more child with index 4.
+但還有一個索引為 4 的孩子。
+
+277
+00:11:23,265 --> 00:11:25,284
+And that makes sense because that's the E,
+這是有道理的，因為那是 E，
+
+278
+00:11:25,524 --> 00:11:27,575
+which also is part of both
+這也是兩者的一部分
+
+279
+00:11:28,729 --> 00:11:29,017
+keys.
+鍵。
+
+280
+00:11:29,851 --> 00:11:30,828
+But now for that
+但現在為此
+
+281
+00:11:31,373 --> 00:11:31,789
+node,
+節點，
+
+282
+00:11:32,799 --> 00:11:35,266
+we have a value of max, but we also have
+我們有一個 max 值，但我們也有
+
+283
+00:11:35,362 --> 00:11:37,349
+more children or one more child.
+更多的孩子或更多的孩子。
+
+284
+00:11:38,088 --> 00:11:39,197
+At index 18,
+在索引 18 處，
+
+285
+00:11:39,855 --> 00:11:41,350
+which is the index of the S.
+這是S的索引。
+
+286
+00:11:42,523 --> 00:11:43,600
+And indeed, in there
+確實，在那裡
+
+287
+00:11:44,291 --> 00:11:45,448
+we also have our
+我們也有我們的
+
+288
+00:11:46,283 --> 00:11:49,240
+name array value. So this trie is working
+名稱陣列值。所以這個特里樹正在工作
+
+289
+00:11:49,273 --> 00:11:51,410
+correctly and we're storing our values
+正確並且我們正在存儲我們的值
+
+290
+00:11:51,442 --> 00:11:54,174
+correctly. And that is the essence of how a
+正確。這就是如何
+
+291
+00:11:54,174 --> 00:11:55,122
+trie works.
+特里工作。
+
+292
+00:11:56,183 --> 00:11:58,915
+Now let's see how we can find data in a
+現在讓我們看看如何在 a 中找到資料
+
+293
+00:11:58,915 --> 00:11:59,188
+trie.
+特里。

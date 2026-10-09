@@ -1,0 +1,1304 @@
+1
+00:00:02,377 --> 00:00:04,964
+So we have our heap, in this case here,
+所以我們有我們的堆，在這種情況下，
+
+2
+00:00:05,494 --> 00:00:08,402
+a max-heap to be precise. As I mentioned,
+準確地說是最大堆。正如我所提到的，
+
+3
+00:00:08,772 --> 00:00:10,957
+for a min-heap, we would have to change this
+對於最小堆，我們必須改變它
+
+4
+00:00:10,957 --> 00:00:11,937
+comparison logic.
+比較邏輯。
+
+5
+00:00:12,724 --> 00:00:15,343
+We have our max-heap and as I mentioned,
+我們有最大堆，正如我所提到的，
+
+6
+00:00:15,439 --> 00:00:17,785
+whilst we don't have a guarantee that we
+雖然我們不能保證我們
+
+7
+00:00:17,785 --> 00:00:20,950
+have the biggest values at the top, we do
+我們在高層擁有最大的價值觀
+
+8
+00:00:21,078 --> 00:00:23,601
+have a guarantee that the very biggest value
+保證最大的價值
+
+9
+00:00:23,890 --> 00:00:27,040
+of the entire heap is the root node. That's
+整個堆的根節點。那是
+
+10
+00:00:27,088 --> 00:00:28,520
+a guarantee we have.
+我們有保證。
+
+11
+00:00:29,904 --> 00:00:31,932
+And therefore, of course, this could be a
+因此，當然，這可能是
+
+12
+00:00:31,932 --> 00:00:34,829
+great candidate for a priority queue.
+優先權佇列的最佳候選者。
+
+13
+00:00:36,430 --> 00:00:38,311
+Before we turn it into that though,
+在我們把它變成那樣之前，
+
+14
+00:00:38,894 --> 00:00:41,456
+let's actually add a method which we can
+讓我們實際添加一個方法，我們可以
+
+15
+00:00:41,489 --> 00:00:42,624
+call process,
+呼叫過程，
+
+16
+00:00:43,256 --> 00:00:46,078
+which should give us the biggest value and
+這應該會為我們帶來最大的價值
+
+17
+00:00:46,176 --> 00:00:49,242
+also adjust the heap thereafter to remove
+此後還要調整堆以刪除
+
+18
+00:00:49,274 --> 00:00:52,048
+that value and move the next biggest value
+該值並移動下一個最大值
+
+19
+00:00:52,194 --> 00:00:52,665
+to the top.
+到頂部。
+
+20
+00:00:54,336 --> 00:00:56,246
+First of all, we of course wanna check if
+首先，我們當然想檢查是否
+
+21
+00:00:56,246 --> 00:00:58,846
+our heap is empty. So we can check the heap
+我們的堆是空的。這樣我們就可以檢查堆
+
+22
+00:00:59,054 --> 00:01:00,402
+elements length,
+元素長度，
+
+23
+00:01:01,141 --> 00:01:04,110
+and if that is 0, we know that the heap is
+如果是 0，我們就知道堆是
+
+24
+00:01:04,110 --> 00:01:07,175
+empty and we could throw an error in this
+空，我們可能會拋出一個錯誤
+
+25
+00:01:07,175 --> 00:01:10,834
+case or return null or whatever you want.
+case 或回傳 null 或任何你想要的。
+
+26
+00:01:11,685 --> 00:01:14,076
+Now if we do have a length greater than 0,
+現在如果我們的長度確實大於 0，
+
+27
+00:01:14,718 --> 00:01:19,115
+we might have a length of exactly 1 element.
+我們的長度可能剛好是 1 個元素。
+
+28
+00:01:20,558 --> 00:01:22,754
+In that case, of course, it's also very
+當然，這樣的話，也非常
+
+29
+00:01:22,754 --> 00:01:26,024
+simple. Then we just return this heap
+簡單的。然後我們只回傳這個堆
+
+30
+00:01:26,088 --> 00:01:27,226
+elements pop.
+流行元素。
+
+31
+00:01:28,188 --> 00:01:30,400
+Since we have exactly one element, we can
+因為我們只有一個元素，所以我們可以
+
+32
+00:01:30,513 --> 00:01:33,045
+pop that element off, which will remove it
+彈出該元素，這將刪除它
+
+33
+00:01:33,061 --> 00:01:35,322
+from the array so that the array is empty
+從陣列中取出，使陣列為空
+
+34
+00:01:35,322 --> 00:01:35,819
+thereafter.
+此後。
+
+35
+00:01:36,348 --> 00:01:39,057
+And pop also returns the element we removed,
+而 pop 也回傳我們刪除的元素，
+
+36
+00:01:39,345 --> 00:01:41,862
+so we overall are able to return that
+所以我們總體上能夠回傳
+
+37
+00:01:41,894 --> 00:01:42,247
+element.
+元素。
+
+38
+00:01:43,160 --> 00:01:45,677
+But of course, in most cases, we'll probably
+但當然，在大多數情況下，我們可能會
+
+39
+00:01:45,677 --> 00:01:49,316
+not just have no or one element. Instead,
+不僅僅是沒有或只有一個元素。反而，
+
+40
+00:01:49,428 --> 00:01:51,641
+most likely we have more elements.
+很可能我們有更多的元素。
+
+41
+00:01:53,022 --> 00:01:53,808
+In this case,
+在這種情況下，
+
+42
+00:01:54,467 --> 00:01:57,854
+we wanna get our top element, so the topmost
+我們想要得到最上面的元素，所以最上面的
+
+43
+00:01:57,918 --> 00:02:00,632
+element, which in a max heap is the biggest
+元素，在最大堆中是最大的
+
+44
+00:02:00,728 --> 00:02:03,586
+one and in a min heap is the smallest one.
+一個，在最小堆中是最小的一個。
+
+45
+00:02:04,597 --> 00:02:06,411
+And we can get this by reaching out to our
+我們可以透過聯絡我們的
+
+46
+00:02:06,427 --> 00:02:09,414
+heap elements and get the element at index
+堆元素並取得索引處的元素
+
+47
+00:02:09,430 --> 00:02:12,303
+0, which of course is our top element.
+0，這當然是我們的頂級元素。
+
+48
+00:02:13,251 --> 00:02:15,675
+Now we wanna return that top element, but
+現在我們想回傳頂部元素，但是
+
+49
+00:02:15,675 --> 00:02:17,377
+that's not all we need to do.
+這不是我們需要做的全部。
+
+50
+00:02:20,006 --> 00:02:22,378
+Before we return this, we also have to
+在我們回傳之前，我們還必須
+
+51
+00:02:22,554 --> 00:02:26,337
+reorder our heap and ensure that the next
+重新排序我們的堆並確保下一個
+
+52
+00:02:26,337 --> 00:02:29,959
+biggest value reaches the top, or in case of
+最大的值到達頂部，或在以下情況
+
+53
+00:02:29,959 --> 00:02:33,037
+a min heap, that the next smallest value
+最小堆，即下一個最小值
+
+54
+00:02:33,454 --> 00:02:34,191
+reaches the top.
+到達頂部。
+
+55
+00:02:35,233 --> 00:02:37,028
+And how can we achieve this now?
+現在我們要怎麼實現這個目標？
+
+56
+00:02:38,262 --> 00:02:40,955
+Well, now we can walk through the heap the
+好吧，現在我們可以遍歷堆了
+
+57
+00:02:41,083 --> 00:02:41,901
+other way around.
+反過來說。
+
+58
+00:02:42,526 --> 00:02:45,379
+For inserting, we inserted the element at
+為了插入，我們將元素插入到
+
+59
+00:02:45,411 --> 00:02:47,813
+the and then moved it up
+然後將其向上移動
+
+60
+00:02:48,378 --> 00:02:49,040
+through the heap.
+通過堆。
+
+61
+00:02:49,911 --> 00:02:52,896
+Now we can start at the top of the heap and
+現在我們可以從堆的頂部開始
+
+62
+00:02:52,928 --> 00:02:54,800
+search for the next biggest one.
+尋找下一個最大的。
+
+63
+00:02:55,596 --> 00:02:57,315
+And for that, we can use a simple trick
+為此，我們可以使用一個簡單的技巧
+
+64
+00:02:57,524 --> 00:02:57,877
+actually.
+實際上。
+
+65
+00:02:58,423 --> 00:03:01,797
+We can set our top heap element,
+我們可以設定我們的頂部堆元素，
+
+66
+00:03:03,243 --> 00:03:05,622
+we saved the old one, so now we can set a
+我們儲存了舊的，所以現在我們可以設定一個
+
+67
+00:03:05,622 --> 00:03:06,009
+new one.
+新的。
+
+68
+00:03:06,541 --> 00:03:09,153
+We can set it equal to this heap element's
+我們可以將其設定為等於該堆元素的
+
+69
+00:03:10,008 --> 00:03:12,587
+pop. So we'll simply take the last element
+流行音樂。所以我們只需要最後一個元素
+
+70
+00:03:12,587 --> 00:03:15,450
+in the heap, pop that off but not remove it
+在堆中，將其彈出但不刪除它
+
+71
+00:03:15,450 --> 00:03:17,887
+and also not return it because that's not
+並且也不回傳它，因為那不是
+
+72
+00:03:17,887 --> 00:03:20,017
+the element we're looking for. But instead,
+我們正在尋找的元素。但相反，
+
+73
+00:03:20,050 --> 00:03:23,558
+we set this last element as a new top
+我們將最後一個元素設定為新的頂部
+
+74
+00:03:23,607 --> 00:03:23,888
+element.
+元素。
+
+75
+00:03:25,736 --> 00:03:28,650
+Now of course, this last element is not
+當然，最後一個元素不是
+
+76
+00:03:28,650 --> 00:03:31,596
+necessarily the correct next element in
+必然是正確的下一個元素
+
+77
+00:03:31,612 --> 00:03:34,365
+line. It might be too small or too big. We
+線。它可能太小或太大。我們
+
+78
+00:03:34,365 --> 00:03:37,581
+don't know yet. We just need any new element
+還不知道。我們只需要任何新元素
+
+79
+00:03:37,924 --> 00:03:39,685
+which is not the element we want to return
+這不是我們想要回傳的元素
+
+80
+00:03:39,910 --> 00:03:41,612
+because that element should be removed
+因為該元素應該被刪除
+
+81
+00:03:42,173 --> 00:03:44,502
+at the top. And now we can let this element
+在頂部。現在我們可以讓這個元素
+
+82
+00:03:44,502 --> 00:03:47,938
+sink down through our heap and swap it with
+透過我們的堆沉入並交換它
+
+83
+00:03:48,034 --> 00:03:50,427
+other elements that should be above it in
+應位於其上方的其他元素
+
+84
+00:03:50,459 --> 00:03:51,021
+the heap
+堆疊
+
+85
+00:03:51,567 --> 00:03:54,200
+and then check those elements to basically
+然後檢查這些元素基本上
+
+86
+00:03:54,232 --> 00:03:56,978
+establish a new correct heap where the
+建立一個新的正確堆，其中
+
+87
+00:03:57,106 --> 00:04:00,992
+topmost element is the biggest or smallest
+最上面的元素是最大或最小的
+
+88
+00:04:01,040 --> 00:04:03,063
+element depending on which kind of heap
+元素取決於哪種型別的堆
+
+89
+00:04:03,127 --> 00:04:03,673
+you're building.
+你正在建造。
+
+90
+00:04:05,632 --> 00:04:09,615
+For that, our current element index here is
+為此，我們目前的元素索引是
+
+91
+00:04:09,984 --> 00:04:13,726
+0 initially, so the topmost element index.
+最初為 0，因此是最頂層的元素索引。
+
+92
+00:04:14,449 --> 00:04:16,216
+And that should actually be a variable
+這實際上應該是一個變數
+
+93
+00:04:16,392 --> 00:04:17,484
+because we're going to change it.
+因為我們要改變它。
+
+94
+00:04:18,400 --> 00:04:20,552
+And now we know that we have a binary heap,
+現在我們知道我們有一個二進制堆，
+
+95
+00:04:20,568 --> 00:04:23,603
+so we'll have 2 child elements here, a left
+所以我們這裡有 2 個子元素，一個是 left
+
+96
+00:04:23,603 --> 00:04:24,294
+and a right one.
+和一個正確的。
+
+97
+00:04:24,984 --> 00:04:28,148
+And therefore we'll have a left child index
+因此我們將有一個左子索引
+
+98
+00:04:28,582 --> 00:04:31,200
+which is equal to the current element index
+等於當前元素索引
+
+99
+00:04:31,328 --> 00:04:31,938
+plus 1.
+加 1。
+
+100
+00:04:34,354 --> 00:04:37,569
+And we have a right child index, which is
+我們有一個右子索引，即
+
+101
+00:04:37,617 --> 00:04:39,750
+the current element index plus 2.
+目前元素索引加 2。
+
+102
+00:04:41,398 --> 00:04:43,579
+And actually, it's not just this formula,
+事實上，不只是這個公式，
+
+103
+00:04:43,902 --> 00:04:46,454
+but if we're looking at any other element
+但如果我們考慮任何其他元素
+
+104
+00:04:46,470 --> 00:04:49,166
+further down in our heap, which is not the
+在我們的堆的更下面，這不是
+
+105
+00:04:49,538 --> 00:04:50,329
+root element,
+根元素，
+
+106
+00:04:50,910 --> 00:04:54,349
+it'll be 2 times current element index plus
+它將是當前元素索引的 2 倍加上
+
+107
+00:04:54,542 --> 00:04:58,094
+1 and 2 times current element index plus 2.
+目前元素索引的 1 和 2 倍加 2。
+
+108
+00:04:58,522 --> 00:04:59,647
+And you can easily check this.
+您可以輕鬆檢查這一點。
+
+109
+00:05:00,434 --> 00:05:04,612
+The child elements here for 250 are 40 and
+這裡 250 的子元素是 40 和
+
+110
+00:05:04,773 --> 00:05:07,649
+197. That's the left child,
+197.那是左邊的孩子，
+
+111
+00:05:08,308 --> 00:05:09,400
+and it has an index of 1,
+它的索引為 1，
+
+112
+00:05:10,589 --> 00:05:12,775
+so 2 times 0 plus 1.
+所以 2 乘以 0 加 1。
+
+113
+00:05:13,867 --> 00:05:16,679
+That's the right child, which has 2 times 0
+這是右孩子，有 2 乘以 0
+
+114
+00:05:16,744 --> 00:05:17,418
+plus 2.
+加 2。
+
+115
+00:05:18,190 --> 00:05:21,435
+The left child of 40 is 12,
+40的左孩子是12，
+
+116
+00:05:21,966 --> 00:05:25,691
+which has 2 times 1 plus 1 as an index, so
+其中有 2 乘以 1 加 1 作為索引，所以
+
+117
+00:05:26,060 --> 00:05:26,253
+3,
+3、
+
+118
+00:05:27,103 --> 00:05:30,601
+and the right child, 15, has an index of 4,
+右子節點 15 的索引為 4，
+
+119
+00:05:31,131 --> 00:05:33,200
+which is 2 times 1 plus 2.
+等於 2 乘以 1 加 2。
+
+120
+00:05:34,404 --> 00:05:39,217
+85 is the left child of 197, which is 2
+85 是 197 的左孩子，即 2
+
+121
+00:05:39,217 --> 00:05:40,565
+times 2 plus 1,
+乘以 2 加 1，
+
+122
+00:05:41,464 --> 00:05:44,624
+and 101 is the right child, which is 2 times
+101 是右孩子，是 2 倍
+
+123
+00:05:44,689 --> 00:05:46,630
+2 plus 2, 6.
+2 加 2, 6。
+
+124
+00:05:47,256 --> 00:05:49,711
+So therefore, these formulas will always
+因此，這些公式總是
+
+125
+00:05:49,807 --> 00:05:52,679
+find us the correct left and right child
+為我們找到正確的左右孩子
+
+126
+00:05:52,936 --> 00:05:53,321
+indexes.
+索引。
+
+127
+00:05:54,060 --> 00:05:56,067
+And we need those because we'll need to
+我們需要這些，因為我們需要
+
+128
+00:05:56,067 --> 00:05:59,294
+check all those childs to find elements that
+檢查所有這些子元素以找到符合以下條件的元素
+
+129
+00:05:59,294 --> 00:06:01,092
+should move towards the top.
+應該向頂部移動。
+
+130
+00:06:02,103 --> 00:06:03,934
+For that, we'll then therefore also need the
+為此，我們還需要
+
+131
+00:06:03,934 --> 00:06:07,883
+child element index just as we had the
+子元素索引就像我們有的那樣
+
+132
+00:06:08,044 --> 00:06:10,822
+parent element index for inserting.
+用於插入的父元素索引。
+
+133
+00:06:11,817 --> 00:06:14,530
+And now the child element index should be
+現在子元素索引應該是
+
+134
+00:06:14,627 --> 00:06:17,436
+equal to either the left or the right child
+等於左孩子或右孩子
+
+135
+00:06:17,436 --> 00:06:17,838
+index.
+指數。
+
+136
+00:06:18,400 --> 00:06:20,712
+But of course, that depends on which of the
+但當然，這取決於哪一個
+
+137
+00:06:20,712 --> 00:06:23,586
+2 is bigger or smaller depending on which
+2 更大或更小取決於哪個
+
+138
+00:06:23,682 --> 00:06:25,721
+kind of heap you're building. So we need to
+您正在建置的堆型別。所以我們需要
+
+139
+00:06:25,850 --> 00:06:26,861
+make a comparison here.
+這裡做一個比較。
+
+140
+00:06:27,857 --> 00:06:29,928
+For that, let's check if we have an element
+為此，我們檢查是否有一個元素
+
+141
+00:06:30,024 --> 00:06:33,027
+for the right child index. So for heap
+為右子索引。所以對於堆
+
+142
+00:06:33,172 --> 00:06:35,436
+elements, if we do find the element for
+元素，如果我們確實找到了元素
+
+143
+00:06:35,580 --> 00:06:36,945
+right child index,
+右子索引，
+
+144
+00:06:38,294 --> 00:06:40,766
+and if that returns something truthy, we'll
+如果回傳的結果是真的，我們就會
+
+145
+00:06:40,798 --> 00:06:41,232
+continue.
+繼續。
+
+146
+00:06:42,067 --> 00:06:44,283
+And we'll then check if that element we
+然後我們將檢查該元素是否我們
+
+147
+00:06:44,395 --> 00:06:47,993
+identified for the right child index if that
+確定右子索引，如果
+
+148
+00:06:48,090 --> 00:06:50,473
+is actually greater or equal
+實際上大於或等於
+
+149
+00:06:51,406 --> 00:06:52,453
+than the left
+比左邊
+
+150
+00:06:55,506 --> 00:06:56,688
+child index.
+子索引。
+
+151
+00:06:58,260 --> 00:06:59,329
+And if that's the case,
+如果是這樣的話
+
+152
+00:06:59,961 --> 00:07:00,090
+then
+然後
+
+153
+00:07:01,014 --> 00:07:03,346
+we want to use the right child index because
+我們想使用右子索引，因為
+
+154
+00:07:03,444 --> 00:07:05,383
+that's the bigger one. Otherwise, we'll use
+那是更大的。否則，我們將使用
+
+155
+00:07:05,383 --> 00:07:06,677
+the left child index.
+左子索引。
+
+156
+00:07:07,421 --> 00:07:10,429
+So we either use the right or the left child
+所以我們要嘛使用右孩子，要嘛使用左孩子
+
+157
+00:07:10,494 --> 00:07:12,952
+index as the child element index we now
+index 作為我們現在的子元素索引
+
+158
+00:07:13,050 --> 00:07:16,736
+wanna compare our random new top value with.
+想將我們隨機的新最高值與.
+
+159
+00:07:17,285 --> 00:07:19,092
+And of course, we wanna compare that to the
+當然，我們想將其與
+
+160
+00:07:19,221 --> 00:07:21,448
+bigger of the 2 values since we're building
+自我們建構以來兩個值中較大的一個
+
+161
+00:07:21,642 --> 00:07:24,256
+a max heap and we need to find out if the
+最大堆，我們需要找出是否
+
+162
+00:07:24,369 --> 00:07:27,432
+child element has a bigger value than this
+子元素的值比這個大
+
+163
+00:07:27,513 --> 00:07:30,024
+random new value we added at the top.
+我們在頂部添加了隨機新值。
+
+164
+00:07:31,537 --> 00:07:33,115
+That's the entire logic we have here.
+這就是我們這裡的全部邏輯。
+
+165
+00:07:33,871 --> 00:07:35,948
+We again need a while loop for that because
+我們再次需要一個 while 迴圈，因為
+
+166
+00:07:35,980 --> 00:07:37,620
+we need to do this over and over again.
+我們需要一遍又一遍地這樣做。
+
+167
+00:07:38,954 --> 00:07:40,609
+And here we wanna keep on looping
+在這裡我們想繼續迴圈
+
+168
+00:07:41,349 --> 00:07:44,659
+as long as in our heap elements we do find a
+只要在我們的堆元素中我們確實找到了一個
+
+169
+00:07:44,659 --> 00:07:47,532
+value for the child element index,
+子元素索引的值，
+
+170
+00:07:48,447 --> 00:07:50,389
+so this index we just derived here,
+所以我們剛剛在這裡得到這個指數，
+
+171
+00:07:51,236 --> 00:07:51,784
+and
+和
+
+172
+00:07:52,526 --> 00:07:52,993
+as long
+只要
+
+173
+00:07:54,540 --> 00:07:54,766
+as
+作為
+
+174
+00:07:55,588 --> 00:07:56,893
+in our heap elements,
+在我們的堆元素中，
+
+175
+00:07:57,683 --> 00:07:57,780
+the
+這
+
+176
+00:07:58,650 --> 00:08:00,988
+element with the current element index, so
+元素與當前元素索引，所以
+
+177
+00:08:00,988 --> 00:08:03,286
+initially the top one, but we're going to
+最初是最上面的，但我們要
+
+178
+00:08:03,286 --> 00:08:06,163
+change this, as long as that element
+改變這個，只要那個元素
+
+179
+00:08:07,786 --> 00:08:09,762
+is smaller or equal
+小於或等於
+
+180
+00:08:11,744 --> 00:08:13,767
+than the child element.
+比子元素。
+
+181
+00:08:18,488 --> 00:08:21,812
+Because as long as this is smaller or equal,
+因為只要這個小於等於，
+
+182
+00:08:22,325 --> 00:08:25,135
+we're still finding new child elements that
+我們仍在尋找新的子元素
+
+183
+00:08:25,135 --> 00:08:26,195
+should move to the top.
+應該移動到頂部。
+
+184
+00:08:26,741 --> 00:08:29,631
+And only if we don't find any child elements
+而只有當我們找不到任何子元素時
+
+185
+00:08:29,647 --> 00:08:32,602
+anymore that are bigger, only then we know
+更大的，只有那時我們才知道
+
+186
+00:08:32,843 --> 00:08:35,171
+that the biggest one is at the top. That's
+最大的一個在頂部。那是
+
+187
+00:08:35,171 --> 00:08:36,391
+the idea behind this loop.
+這個迴圈背後的想法。
+
+188
+00:08:38,259 --> 00:08:39,945
+So therefore, inside of the loop,
+因此，在迴圈內部，
+
+189
+00:08:41,663 --> 00:08:43,932
+I'm going to create a new constant current
+我要建立一個新的恆流
+
+190
+00:08:43,997 --> 00:08:46,438
+node, which is this heap elements
+節點，就是這個堆元素
+
+191
+00:08:47,858 --> 00:08:48,971
+for the current
+對於當前的
+
+192
+00:08:49,874 --> 00:08:50,778
+element index,
+元素索引，
+
+193
+00:08:51,423 --> 00:08:53,246
+because we're again going to swap them.
+因為我們要再交換它們。
+
+194
+00:08:56,785 --> 00:08:59,158
+And we got our current child node, which we
+我們得到了當前的子節點，我們
+
+195
+00:08:59,158 --> 00:09:01,628
+get through this heap elements
+遍歷這個堆元素
+
+196
+00:09:02,627 --> 00:09:02,996
+for
+為了
+
+197
+00:09:04,327 --> 00:09:07,373
+the child element index. And of course, this
+子元素索引。當然，這個
+
+198
+00:09:07,373 --> 00:09:09,314
+here should also use square brackets
+這裡也應該使用方括號
+
+199
+00:09:09,939 --> 00:09:11,543
+because we're not calling a method here,
+因為我們沒有在這裡呼叫方法，
+
+200
+00:09:11,623 --> 00:09:13,595
+we're just accessing a value by index.
+我們只是透過索引存取一個值。
+
+201
+00:09:14,269 --> 00:09:16,594
+And now that we saved those nodes here,
+現在我們在這裡儲存了這些節點，
+
+202
+00:09:17,139 --> 00:09:18,069
+we can swap them
+我們可以交換它們
+
+203
+00:09:18,598 --> 00:09:20,699
+and we can set this heap elements
+我們可以設定這個堆元素
+
+204
+00:09:21,469 --> 00:09:23,441
+for the child index
+對於子索引
+
+205
+00:09:24,115 --> 00:09:26,071
+equal to the current node
+等於當前節點
+
+206
+00:09:27,161 --> 00:09:28,909
+and set heap elements
+並設定堆元素
+
+207
+00:09:29,487 --> 00:09:31,045
+for the current
+對於當前的
+
+208
+00:09:32,137 --> 00:09:35,316
+element index equal to the child, the
+元素索引等於子元素，
+
+209
+00:09:35,364 --> 00:09:36,616
+current child node.
+當前子節點。
+
+210
+00:09:37,917 --> 00:09:39,924
+So we're again swapping that. And since
+所以我們再次交換它。自從
+
+211
+00:09:39,924 --> 00:09:41,433
+we're doing this in a loop, we'll then
+我們正在迴圈中執行此操作，然後我們將
+
+212
+00:09:41,449 --> 00:09:44,821
+compare the swapped new top value with its
+將交換後的新最高值與其進行比較
+
+213
+00:09:44,821 --> 00:09:45,656
+child values.
+孩子的價值觀。
+
+214
+00:09:46,604 --> 00:09:49,060
+And after this loop completed, we'll again
+在這個迴圈完成後，我們將再次
+
+215
+00:09:49,092 --> 00:09:51,677
+have a heap where the biggest value is at
+有一個堆，其中最大值位於
+
+216
+00:09:51,677 --> 00:09:52,143
+the top.
+頂部。
+
+217
+00:09:53,010 --> 00:09:55,339
+Let's see whether that works. At the moment,
+讓我們看看這是否有效。眼下，
+
+218
+00:09:55,419 --> 00:09:58,601
+250 is at the top. So if we call
+250位於頂部。所以如果我們打電話
+
+219
+00:09:59,517 --> 00:10:01,413
+heap_process here,
+這裡的堆行程，
+
+220
+00:10:02,409 --> 00:10:06,418
+we should see that this is removed and 197
+我們應該看到它被刪除了並且 197
+
+221
+00:10:06,676 --> 00:10:08,175
+should thereafter be at the top.
+此後應位於頂部。
+
+222
+00:10:09,892 --> 00:10:12,545
+If I reload, I get an error that heap is not
+如果我重新載入，我會收到一個錯誤，指出堆不是
+
+223
+00:10:12,545 --> 00:10:13,257
+defined.
+定義的。
+
+224
+00:10:13,921 --> 00:10:17,141
+Yeah, because I named it maxHeap. So let's
+是的，因為我將其命名為 maxHeap。那麼讓我們
+
+225
+00:10:17,238 --> 00:10:18,662
+use that down there as well
+也用那裡
+
+226
+00:10:19,210 --> 00:10:20,271
+and try again.
+然後再試一次。
+
+227
+00:10:22,024 --> 00:10:22,847
+And this is looking good.
+這看起來不錯。
+
+228
+00:10:24,000 --> 00:10:25,610
+197 is at the top now.
+197現在在頂部。
+
+229
+00:10:26,945 --> 00:10:29,841
+And if we process this 2 times more,
+如果我們再處理兩次，
+
+230
+00:10:31,760 --> 00:10:34,659
+we see that now we got a heap where 85 is at
+我們看到現在我們得到了一個堆，其中 85 位於
+
+231
+00:10:34,659 --> 00:10:37,396
+the top. So the biggest value is always at
+頂部。所以最大的值總是在
+
+232
+00:10:37,396 --> 00:10:37,819
+the top.
+頂部。
+
+233
+00:10:38,533 --> 00:10:40,765
+And I know that this logic with that
+我知道這個邏輯
+
+234
+00:10:40,895 --> 00:10:44,162
+swapping and that while loop can be tricky
+交換和 while 迴圈可能很棘手
+
+235
+00:10:44,195 --> 00:10:46,783
+to wrap your head around, but I hope that I
+讓你頭腦清醒，但我希望我
+
+236
+00:10:46,783 --> 00:10:48,644
+could still explain this in an
+仍然可以解釋這一點
+
+237
+00:10:48,828 --> 00:10:50,396
+understandable way what we're doing.
+我們正在做的事情是可以理解的。
+
+238
+00:10:51,438 --> 00:10:52,465
+For inserting,
+對於插入，
+
+239
+00:10:53,059 --> 00:10:55,676
+we're inserting data at the end and then
+我們在最後插入資料然後
+
+240
+00:10:55,709 --> 00:10:58,342
+we're comparing it to its various parent
+我們正在將它與其不同的父級進行比較
+
+241
+00:10:58,342 --> 00:11:00,863
+nodes to move it up in the tree.
+節點將其在樹中向上移動。
+
+242
+00:11:01,714 --> 00:11:04,026
+And for removing, for processing,
+為了去除，為了加工，
+
+243
+00:11:04,684 --> 00:11:06,370
+we're in the end doing the opposite.
+我們最終卻做了相反的事。
+
+244
+00:11:07,012 --> 00:11:09,292
+We're removing the topmost element because
+我們刪除最上面的元素是因為
+
+245
+00:11:09,357 --> 00:11:11,685
+that always is the element we wanna process.
+這始終是我們想要處理的元素。
+
+246
+00:11:12,472 --> 00:11:14,366
+And then we wanna ensure that the new
+然後我們要確保新的
+
+247
+00:11:14,575 --> 00:11:17,417
+biggest element moves to the top. Therefore,
+最大的元素移動到頂部。所以，
+
+248
+00:11:17,546 --> 00:11:20,484
+we take a random element and start comparing
+我們取一個隨機元素並開始比較
+
+249
+00:11:20,580 --> 00:11:22,090
+it to its child nodes.
+它到它的子節點。
+
+250
+00:11:22,684 --> 00:11:24,610
+And if we find a bigger one there, we use
+如果我們在那裡找到一個更大的，我們使用
+
+251
+00:11:24,610 --> 00:11:25,831
+the bigger one as the new
+大的跟新的一樣
+
+252
+00:11:26,457 --> 00:11:28,817
+top node and we start comparing that.
+頂部節點，我們開始比較它。
+
+253
+00:11:29,492 --> 00:11:32,799
+And we keep on doing that until we find no
+我們繼續這樣做，直到我們發現沒有
+
+254
+00:11:32,960 --> 00:11:34,293
+more bigger values,
+更多更大的價值，
+
+255
+00:11:34,951 --> 00:11:35,641
+or of course
+或者當然
+
+256
+00:11:36,235 --> 00:11:37,504
+until we exhausted this.
+直到我們用盡這個。
+
+257
+00:11:38,178 --> 00:11:40,796
+Then at some point, of course, our array is
+當然，在某個時刻，我們的陣列是
+
+258
+00:11:40,892 --> 00:11:41,486
+just empty.
+只是空的。
+
+259
+00:11:42,339 --> 00:11:44,808
+That is our max heap here.
+這是我們這裡的最大堆。
+
+260
+00:11:45,421 --> 00:11:47,922
+And now let's see how we can use this for a
+現在讓我們看看如何使用它
+
+261
+00:11:48,068 --> 00:11:48,907
+priority queue.
+優先佇列。

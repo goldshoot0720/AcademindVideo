@@ -1,0 +1,579 @@
+1
+00:00:02,120 --> 00:00:04,118
+Now in the last lecture, we had a look at
+在上一講中，我們了解了
+
+2
+00:00:04,151 --> 00:00:07,422
+this Fibonacci solution with our recursive
+這個斐波那契解決方案與我們的遞迴
+
+3
+00:00:07,439 --> 00:00:09,405
+calls and you learned that it's bad because
+打電話，你知道這很糟糕，因為
+
+4
+00:00:09,405 --> 00:00:10,807
+it's actually O.
+其實是O。
+
+5
+00:00:15,379 --> 00:00:17,941
+Now how do I know that it's this kind of
+現在我怎麼知道是這樣的
+
+6
+00:00:18,038 --> 00:00:19,827
+exponential growth and that it's not a
+指數成長，而且這不是
+
+7
+00:00:19,827 --> 00:00:21,648
+quadratic or cubic function?
+二次函式還是三次函式？
+
+8
+00:00:22,980 --> 00:00:25,461
+Well, we can implement a simple check here
+好了，我們可以在這裡實作一個簡單的檢查
+
+9
+00:00:25,737 --> 00:00:26,856
+that allows us to find out.
+這讓我們能夠找到答案。
+
+10
+00:00:27,458 --> 00:00:29,427
+Let's add a counter variable which is 0
+讓我們新增一個計數器變數，其值為 0
+
+11
+00:00:29,427 --> 00:00:29,944
+initially,
+最初，
+
+12
+00:00:30,541 --> 00:00:33,833
+and then here I add 1 to it in every call of
+然後我每次調用時加 1
+
+13
+00:00:33,833 --> 00:00:36,512
+the fib function. So that will also increase
+fib 函式。這樣也會增加
+
+14
+00:00:36,512 --> 00:00:38,787
+the counter if we have those nested calls.
+如果我們有這些嵌套調用，則計數器。
+
+15
+00:00:40,697 --> 00:00:40,827
+Now
+現在
+
+16
+00:00:41,828 --> 00:00:43,412
+I will comment this out here
+我會在這裡評論這一點
+
+17
+00:00:44,172 --> 00:00:47,436
+and instead now call fib with, let's say, 5,
+現在用 5 來呼叫 fib，
+
+18
+00:00:48,454 --> 00:00:51,621
+and thereafter console.log the counter. I
+然後console.log 計數器。我
+
+19
+00:00:51,621 --> 00:00:53,685
+don't care about the result of this call for
+不關心這次呼籲的結果
+
+20
+00:00:53,734 --> 00:00:55,098
+5, so I'll just log the counter.
+5，所以我只記錄計數器。
+
+21
+00:00:55,714 --> 00:00:57,591
+And then reset the counter thereafter.
+然後重置​​計數器。
+
+22
+00:00:58,383 --> 00:01:00,486
+And then I'll repeat this and also call it
+然後我會重複這個並稱之為
+
+23
+00:01:00,486 --> 00:01:00,939
+for 10
+10個
+
+24
+00:01:02,576 --> 00:01:04,635
+and also call it for 20
+並且還叫它20
+
+25
+00:01:05,456 --> 00:01:07,483
+and also call it for 30 here.
+這裡也叫30。
+
+26
+00:01:09,413 --> 00:01:10,780
+And now let's see what we get here.
+現在讓我們看看我們得到了什麼。
+
+27
+00:01:12,060 --> 00:01:15,407
+You see, I get 15, 170, and then some big
+你看，我得到了 15、170，然後是一些大的
+
+28
+00:01:15,407 --> 00:01:15,779
+numbers.
+數字。
+
+29
+00:01:16,361 --> 00:01:17,234
+Now that's interesting.
+現在這很有趣。
+
+30
+00:01:17,994 --> 00:01:21,439
+Now that's the output for 5, 10, 20, and 30.
+現在這是 5、10、20 和 30 的輸出。
+
+31
+00:01:21,913 --> 00:01:22,573
+That's our n.
+這就是我們的n。
+
+32
+00:01:24,329 --> 00:01:26,552
+Now if we had quadratic time,
+現在如果我們有二次時間
+
+33
+00:01:27,212 --> 00:01:28,130
+then for
+然後對於
+
+34
+00:01:28,823 --> 00:01:31,786
+n equal to 5, we would expect 5 times 5
+n 等於 5，我們預期 5 乘以 5
+
+35
+00:01:31,979 --> 00:01:33,396
+because that's 5 squared.
+因為那是5的平方。
+
+36
+00:01:33,992 --> 00:01:36,311
+Now this gives us 25, but that doesn't say
+現在這給了我們 25，但這並沒有說明
+
+37
+00:01:36,311 --> 00:01:38,549
+much. It's a bigger number than we actually
+很多。這個數字比我們實際的數字還要大
+
+38
+00:01:38,581 --> 00:01:40,803
+got, so it seems that it's less than
+得到了，所以看起來小於
+
+39
+00:01:40,835 --> 00:01:41,527
+quadratic time,
+二次時間，
+
+40
+00:01:42,203 --> 00:01:45,035
+but for small n's we can have deviations. So
+但對於較小的 n，我們可能會出現偏差。所以
+
+41
+00:01:45,035 --> 00:01:47,046
+let's check a bigger n. Let's check 10.
+讓我們檢查一個更大的n。我們來檢查一下 10。
+
+42
+00:01:48,577 --> 00:01:51,211
+For 10, if it were n squared, we have 10
+對於 10，如果它是 n 平方，我們有 10
+
+43
+00:01:51,211 --> 00:01:53,782
+times 10, which is 100, but we see, oh, we
+乘以 10，即 100，但我們看到，哦，我們
+
+44
+00:01:53,782 --> 00:01:57,879
+had 177 executions. So now we already see
+有177人被處決。所以現在我們已經看到了
+
+45
+00:01:58,216 --> 00:02:01,671
+for a tiny increase in n, we certainly don't
+對於 n 的微小增加，我們當然不會
+
+46
+00:02:01,671 --> 00:02:02,843
+have quadratic time
+有二次時間
+
+47
+00:02:03,438 --> 00:02:05,655
+because if we had quadratic time,
+因為如果我們有二次時間，
+
+48
+00:02:06,410 --> 00:02:09,190
+we shouldn't see an increase in operations
+我們不應該看到營運量增加
+
+49
+00:02:09,222 --> 00:02:11,551
+from 15 to 177.
+從 15 到 177。
+
+50
+00:02:12,194 --> 00:02:14,571
+Instead, we should see 4 times as many
+相反，我們應該看到 4 倍的數量
+
+51
+00:02:14,667 --> 00:02:16,849
+operations, right? Because for quadratic
+運營，對吧？因為對於二次
+
+52
+00:02:16,849 --> 00:02:20,298
+time, we go from 25 to 100. So if we went
+時間，我們從 25 到 100。所以如果我們去
+
+53
+00:02:20,298 --> 00:02:21,373
+from 15 to
+從 15 到
+
+54
+00:02:22,063 --> 00:02:24,999
+60 here, it would maybe be quadratic time,
+這裡是 60，可能是時間的二次方，
+
+55
+00:02:25,031 --> 00:02:27,309
+but that's not what we have here. So we can
+但這不是我們這裡所擁有的。所以我們可以
+
+56
+00:02:27,502 --> 00:02:29,571
+rule out quadratic time with this simple
+用這個簡單的方法排除二次時間
+
+57
+00:02:29,603 --> 00:02:29,956
+check.
+查看。
+
+58
+00:02:30,967 --> 00:02:34,144
+Now what about cubic time? Maybe we have
+那麼立方時間呢？也許我們有
+
+59
+00:02:34,240 --> 00:02:34,994
+cubic time.
+立方時間。
+
+60
+00:02:35,620 --> 00:02:37,801
+That would mean that for 5, we have 5 times
+這意味著對於 5，我們有 5 次
+
+61
+00:02:37,866 --> 00:02:38,716
+5 times 5,
+5乘以5，
+
+62
+00:02:39,310 --> 00:02:42,807
+125. And for 10, we have 10 times 10 times
+125. 對於 10，我們有 10 次 10 次
+
+63
+00:02:42,839 --> 00:02:43,689
+10, 1,000.
+10、1,000。
+
+64
+00:02:44,364 --> 00:02:46,549
+Now that's bigger than what we have here, so
+現在它比我們這裡的還要大，所以
+
+65
+00:02:46,549 --> 00:02:49,344
+maybe we have cubic time. We should validate
+也許我們有立方時間。我們應該驗證
+
+66
+00:02:49,344 --> 00:02:51,562
+it for a bigger n though because we have
+雖然它是一個更大的 n 因為我們有
+
+67
+00:02:51,594 --> 00:02:55,835
+quite a gap between 177 and 1,000. So maybe
+177和1000之間差距很大。所以也許
+
+68
+00:02:55,835 --> 00:02:57,860
+we're between quadratic and cubic time.
+我們處於二次時間和三次時間之間。
+
+69
+00:02:59,225 --> 00:03:00,511
+Let's validate for 20.
+讓我們驗證一下 20。
+
+70
+00:03:01,314 --> 00:03:04,672
+If we had cubic time for 20, we would get 20
+如果我們有 20 的立方時間，我們會得到 20
+
+71
+00:03:04,688 --> 00:03:06,985
+times 20 times 20, 8,000.
+乘以 20 乘以 20，8,000。
+
+72
+00:03:07,660 --> 00:03:08,431
+And what do we have?
+我們有什麼？
+
+73
+00:03:09,090 --> 00:03:10,295
+Oh, we have 22,000.
+哦，我們有22,000。
+
+74
+00:03:12,238 --> 00:03:13,666
+So you're seeing the pattern here.
+所以你在這裡看到了這種模式。
+
+75
+00:03:14,244 --> 00:03:17,022
+For relatively small increases in n,
+對於 n 相對較小的增加，
+
+76
+00:03:17,921 --> 00:03:21,437
+our number of operations grows quickly,
+我們的業務數量快速成長，
+
+77
+00:03:22,111 --> 00:03:25,418
+way quicker than it would for cubic or
+比立方體或立方體快得多
+
+78
+00:03:25,546 --> 00:03:26,237
+quadratic time.
+二次時間。
+
+79
+00:03:26,911 --> 00:03:29,592
+And we can continue to play this game. Even
+我們可以繼續玩這個遊戲。甚至
+
+80
+00:03:29,640 --> 00:03:33,718
+if I take 20, so n at the power of 4, even
+如果我取 20，那麼 n 為 4 次方，即使
+
+81
+00:03:33,766 --> 00:03:37,426
+in that case, here we have 160,000, Yes,
+那麼，我們這裡有 160,000，是的，
+
+82
+00:03:37,586 --> 00:03:39,590
+that's bigger, but if we have a look at
+那更大，但如果我們看一下
+
+83
+00:03:39,590 --> 00:03:41,898
+slightly bigger Ns, like 30,
+Ns稍大一點，例如30，
+
+84
+00:03:42,555 --> 00:03:45,664
+we see that 30 times 30 times 30 times 30
+我們看到 30 乘以 30 乘以 30 乘以 30
+
+85
+00:03:46,321 --> 00:03:48,084
+is 810,000,
+是810,000，
+
+86
+00:03:48,902 --> 00:03:52,476
+but here we already have over 2 million,
+但這裡我們已經有超過200萬，
+
+87
+00:03:53,390 --> 00:03:53,566
+right?
+正確的？
+
+88
+00:03:54,175 --> 00:03:57,204
+So this will lead nowhere. It's definitely
+所以這不會有任何結果。絕對是
+
+89
+00:03:57,252 --> 00:03:59,352
+not N at the power of anything.
+不是 N 的任何力量。
+
+90
+00:03:59,881 --> 00:04:02,894
+Instead, only Q at the power of N yields
+相反，只有 Q 的 N 次方才會產生
+
+91
+00:04:02,990 --> 00:04:06,453
+results that explain such big jumps. Because
+結果解釋瞭如此大的跳躍。因為
+
+92
+00:04:06,453 --> 00:04:09,310
+indeed, 2 at the power of n, if I have
+事實上，2 的 n 次方，如果我有
+
+93
+00:04:09,406 --> 00:04:10,080
+Math.pow,
+數學.pow,
+
+94
+00:04:11,027 --> 00:04:13,884
+2 at the power of 30, for example, yields
+例如，2 的 30 次方得出
+
+95
+00:04:13,916 --> 00:04:15,825
+this number. Now this is certainly bigger
+這個數字。現在這肯定更大了
+
+96
+00:04:16,082 --> 00:04:18,939
+than the number we got there. So in reality,
+比我們到達那裡的數字還要多。所以在現實中，
+
+97
+00:04:19,292 --> 00:04:22,100
+for this algorithm, we might be a bit better
+對於這個演算法，我們可能會更好一點
+
+98
+00:04:22,165 --> 00:04:23,336
+than 2 at the power of n.
+大於 2 的 n 次方。
+
+99
+00:04:24,010 --> 00:04:26,145
+But since we're always just caring about the
+但由於我們總是只關心
+
+100
+00:04:26,209 --> 00:04:28,921
+general trend, we're definitely closer to
+大趨勢，我們肯定更接近
+
+101
+00:04:29,066 --> 00:04:31,344
+this, especially if we test this for bigger
+這，特別是如果我們測試更大的
+
+102
+00:04:31,344 --> 00:04:32,019
+and bigger n's.
+和更大的n。
+
+103
+00:04:32,612 --> 00:04:35,518
+Than we are to cubic, quadratic, or any of
+比我們對三次、二次或任何一個
+
+104
+00:04:35,727 --> 00:04:37,155
+those time complexities.
+那些時間複雜度。
+
+105
+00:04:37,749 --> 00:04:39,804
+And that's how you can validate this.
+這就是你可以驗證這一點的方法。
+
+106
+00:04:40,398 --> 00:04:42,886
+Now, with experience, you simply see
+現在，憑藉經驗，您只需要看到
+
+107
+00:04:42,950 --> 00:04:44,539
+something like this. You don't need to run
+像這樣的東西。你不需要跑
+
+108
+00:04:44,652 --> 00:04:47,284
+these calculations I just ran. But to
+這些計算是我剛剛運行的。但要
+
+109
+00:04:47,284 --> 00:04:50,222
+explain it to you that I don't make up this
+向你解釋這不是我編的
+
+110
+00:04:50,254 --> 00:04:52,373
+value, but that there is a reason behind
+價值，但背後有一個原因
+
+111
+00:04:52,373 --> 00:04:53,849
+assuming this time complexity,
+假設這個時間複雜度，
+
+112
+00:04:54,427 --> 00:04:56,578
+I think that's a nice way of understanding
+我認為這是一個很好的理解方式
+
+113
+00:04:56,835 --> 00:04:58,906
+why cubic and quadratic time and all those
+為什麼三次和二次時間以及所有這些
+
+114
+00:04:58,938 --> 00:05:02,050
+time complexities are not suited to explain
+時間複雜度不適合解釋
+
+115
+00:05:02,325 --> 00:05:02,535
+this
+這
+
+116
+00:05:03,295 --> 00:05:05,720
+strong growth which we indeed have here.
+我們這裡確實有強勁的成長。

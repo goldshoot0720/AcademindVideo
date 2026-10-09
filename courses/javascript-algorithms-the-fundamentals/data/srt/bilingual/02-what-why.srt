@@ -1,0 +1,784 @@
+1
+00:00:02,340 --> 00:00:04,536
+Now maybe you're in this course because you
+現在也許您參加這門課程是因為您
+
+2
+00:00:04,600 --> 00:00:07,069
+want to ace coding interviews, and that
+想要在程式設計面試中取得好成績
+
+3
+00:00:07,069 --> 00:00:09,457
+would be totally fine, though this course is
+完全沒問題，儘管這門課是
+
+4
+00:00:09,489 --> 00:00:11,573
+for everyone who's interested in algorithms,
+對於每一個對演算法有興趣的人，
+
+5
+00:00:11,974 --> 00:00:13,416
+whatever your reasons might be.
+無論你的原因是什麼。
+
+6
+00:00:14,058 --> 00:00:16,590
+But if we're briefly sticking to that
+但如果我們暫時堅持這一點
+
+7
+00:00:16,767 --> 00:00:19,716
+interview situation, you might get an
+面試情況，你可能會得到
+
+8
+00:00:19,909 --> 00:00:21,560
+interview question like this one.
+像這樣的面試問題。
+
+9
+00:00:22,393 --> 00:00:25,647
+You got a list of items where every item has
+你得到了一個專案列表，其中每個專案都有
+
+10
+00:00:25,759 --> 00:00:27,588
+a value and the weight.
+值和權重。
+
+11
+00:00:28,954 --> 00:00:31,588
+And then you got a bag which has a maximum
+然後你得到一個袋子，裡面有一個最大的
+
+12
+00:00:31,701 --> 00:00:35,700
+capacity, a maximum weight it can hold of x,
+容量，它可以容納的最大重量 x，
+
+13
+00:00:35,716 --> 00:00:38,576
+and that could be any number in kilograms,
+這可以是任何以公斤為單位的數字，
+
+14
+00:00:38,833 --> 00:00:39,556
+anything like that.
+諸如此類的事情。
+
+15
+00:00:40,455 --> 00:00:42,913
+So now your goal is to write a program that
+所以現在你的目標是寫一個程式
+
+16
+00:00:43,009 --> 00:00:44,583
+basically calculates
+基本上計算
+
+17
+00:00:45,114 --> 00:00:45,226
+the
+這
+
+18
+00:00:46,142 --> 00:00:48,198
+items that should go into the bag to
+應該放入包包中的物品
+
+19
+00:00:48,214 --> 00:00:51,186
+maximize the value of the items whilst of
+最大化物品的價值，同時
+
+20
+00:00:51,298 --> 00:00:53,852
+course ensuring that you don't exceed that
+當然確保你不超過這個
+
+21
+00:00:53,852 --> 00:00:57,046
+maximum bag weight, so that capacity of the
+最大袋子重量，以便容量
+
+22
+00:00:57,078 --> 00:00:57,383
+weight.
+重量。
+
+23
+00:00:58,586 --> 00:01:00,896
+And here's an example with some numbers you
+這是一個包含一些數字的範例
+
+24
+00:01:00,912 --> 00:01:03,206
+might be getting or you might then derive on
+可能會得到或你可能會得到
+
+25
+00:01:03,254 --> 00:01:03,639
+your own.
+你自己的。
+
+26
+00:01:04,217 --> 00:01:07,634
+A list of items, let's say ABC, and of
+專案列表，比方說 ABC，以及
+
+27
+00:01:07,666 --> 00:01:09,993
+course that could be concrete items like
+當然，這可能是具體的專案，例如
+
+28
+00:01:09,993 --> 00:01:12,463
+bread and butter and whatever, but here it's
+麵包和奶油什麼的，但這裡是
+
+29
+00:01:12,463 --> 00:01:15,383
+ABC. And every item has a value and a
+ABC。每件物品都有其價值和用途
+
+30
+00:01:15,511 --> 00:01:15,752
+weight.
+重量。
+
+31
+00:01:16,715 --> 00:01:18,977
+And then we have this max weight, let's say
+然後我們就有了最大重量，比方說
+
+32
+00:01:18,977 --> 00:01:22,667
+it's 8, and our goal is to derive a bag and
+是 8，我們的目標是匯出一個套件並
+
+33
+00:01:22,667 --> 00:01:24,881
+derive what should be in the bag. And in
+得出袋子裡應該有什麼。並且在
+
+34
+00:01:24,993 --> 00:01:26,712
+this very simple example here,
+這是一個非常簡單的例子，
+
+35
+00:01:27,242 --> 00:01:30,341
+that would be the items A and C because
+那就是專案 A 和 C 因為
+
+36
+00:01:30,453 --> 00:01:34,854
+combined they have a value of 13 and a
+它們的總和值為 13 和
+
+37
+00:01:34,854 --> 00:01:37,327
+weight of 6. So the weight is below that
+重量為 6。所以重量低於該重量
+
+38
+00:01:37,359 --> 00:01:40,651
+weight of 8 and the value is a pretty big
+重量為8，價值相當大
+
+39
+00:01:40,651 --> 00:01:44,585
+one. Now we could have also just put item B
+一。現在我們也可以只放置 B 項
+
+40
+00:01:44,665 --> 00:01:47,861
+into the bag since that also has a weight of
+放入袋子中，因為它的重量也為
+
+41
+00:01:47,877 --> 00:01:49,162
+8, so it would fit in.
+8，這樣就可以了。
+
+42
+00:01:49,804 --> 00:01:51,796
+But with that, we would only get a value of
+但這樣一來，我們只能得到一個值
+
+43
+00:01:51,796 --> 00:01:54,333
+6, so that wouldn't be the maximum.
+6，所以這不是最大值。
+
+44
+00:01:55,088 --> 00:01:56,806
+Now to us humans, that's a pretty
+現在對我們人類來說，這是一個漂亮的
+
+45
+00:01:56,806 --> 00:01:59,215
+straightforward problem and we can solve
+簡單的問題我們可以解決
+
+46
+00:01:59,215 --> 00:02:00,323
+this pretty quickly.
+這很快。
+
+47
+00:02:01,270 --> 00:02:04,755
+But if you would need to write a program, if
+但是如果你需要寫一個程式，如果
+
+48
+00:02:04,803 --> 00:02:06,955
+you would need to write code that solves
+你需要編寫程式碼來解決
+
+49
+00:02:06,987 --> 00:02:09,797
+that, you would probably quickly reach a
+那，你可能很快就會達到
+
+50
+00:02:09,797 --> 00:02:11,981
+point where this becomes difficult.
+這變得困難的點。
+
+51
+00:02:12,912 --> 00:02:15,610
+Now this task here is a very popular
+現在這個任務很受歡迎
+
+52
+00:02:16,301 --> 00:02:19,320
+problem which is called the knapsack problem
+稱為背包問題的問題
+
+53
+00:02:19,817 --> 00:02:21,889
+and it's often asked in interviews.
+面試中常會被問到。
+
+54
+00:02:22,226 --> 00:02:24,102
+Throughout the course, we will solve it.
+在整個課程中，我們將解決它。
+
+55
+00:02:24,326 --> 00:02:26,764
+We're not at this point yet, but we will
+我們還沒到這一步，但我們會
+
+56
+00:02:26,876 --> 00:02:27,918
+solve it throughout the course.
+在整個課程中解決它。
+
+57
+00:02:28,495 --> 00:02:30,821
+But I already wanted to put it out there.
+但我已經想把它放在那裡了。
+
+58
+00:02:31,061 --> 00:02:33,434
+That's the knapsack problem and we'll
+這就是背包問題，我們將
+
+59
+00:02:33,466 --> 00:02:34,509
+revisit it later.
+稍後再看。
+
+60
+00:02:35,374 --> 00:02:36,240
+Now the question is,
+現在的問題是，
+
+61
+00:02:36,898 --> 00:02:40,041
+why are companies asking for something like
+為什麼公司會要求類似的東西
+
+62
+00:02:40,121 --> 00:02:40,425
+this?
+這？
+
+63
+00:02:41,243 --> 00:02:43,825
+It's probably not a problem you will need to
+這可能不是您需要的問題
+
+64
+00:02:43,825 --> 00:02:46,775
+solve when you work at Google or Facebook,
+當你在 Google 或 Facebook 工作時解決，
+
+65
+00:02:47,016 --> 00:02:49,549
+right? Their users don't pack bags.
+正確的？他們的使用者不收拾行李。
+
+66
+00:02:50,302 --> 00:02:52,994
+Well, actually, you might need to solve
+好吧，實際上，你可能需要解決
+
+67
+00:02:53,282 --> 00:02:56,407
+similar problems if you're responsible at
+如果您負責的話，也會遇到類似的問題
+
+68
+00:02:56,471 --> 00:03:00,396
+Facebook for coding or for working on the
+Facebook 用於編碼或工作
+
+69
+00:03:00,396 --> 00:03:02,847
+part where users can create
+使用者可以建立的部分
+
+70
+00:03:03,504 --> 00:03:06,677
+groups with a maximum number of participants
+具有最大參與者人數的組別
+
+71
+00:03:06,709 --> 00:03:08,952
+and so on. You might actually have similar
+等等。你實際上可能有類似的
+
+72
+00:03:08,952 --> 00:03:10,858
+problems, but most importantly,
+問題，但最重要的是，
+
+73
+00:03:11,595 --> 00:03:15,168
+questions like this are asked to check your
+詢問此類問題是為了檢查您的
+
+74
+00:03:15,441 --> 00:03:18,340
+problem-solving skills because as a
+解決問題的能力，因為作為
+
+75
+00:03:18,340 --> 00:03:20,957
+developer You need to be able to solve
+開發人員您需要能夠解決
+
+76
+00:03:21,311 --> 00:03:23,849
+problems. You're getting hired to solve
+問題。你被雇用來解決問題
+
+77
+00:03:24,042 --> 00:03:26,163
+problems. And even if you're working on your
+問題。即使你正在努力工作
+
+78
+00:03:26,211 --> 00:03:29,071
+own as a freelancer, you are solving
+作為自由工作者，您正在解決
+
+79
+00:03:29,183 --> 00:03:31,336
+problems. Or if you're working on your own
+問題。或者如果你自己工作
+
+80
+00:03:31,336 --> 00:03:33,762
+private projects or on your own startup,
+私人專案或您自己的新創公司，
+
+81
+00:03:34,067 --> 00:03:36,333
+you're also solving problems. As a
+你也在解決問題。作為一個
+
+82
+00:03:36,333 --> 00:03:39,321
+developer, you're always solving problems.
+開發人員，你總是在解決問題。
+
+83
+00:03:40,092 --> 00:03:43,016
+And with that, let's take a step back and
+說到這裡，讓我們退後一步，
+
+84
+00:03:43,466 --> 00:03:46,190
+have a look at the term algorithm. What does
+看看術語“算法”。什麼是
+
+85
+00:03:46,239 --> 00:03:48,456
+this actually mean and why do we need
+這實際上意味著以及為什麼我們需要
+
+86
+00:03:48,833 --> 00:03:49,178
+algorithms?
+演算法?
+
+87
+00:03:50,620 --> 00:03:51,616
+Now, what is an algorithm?
+現在，什麼是演算法？
+
+88
+00:03:52,419 --> 00:03:56,147
+An algorithm, in simple words, is just a
+簡單來說，演算法就是一個
+
+89
+00:03:56,196 --> 00:03:58,944
+sequence of steps, of instructions you could
+您可以執行的步驟順序、說明
+
+90
+00:03:58,944 --> 00:03:59,120
+say,
+說，
+
+91
+00:03:59,731 --> 00:04:02,350
+to solve a clearly defined problem.
+解決一個明確定義的問題。
+
+92
+00:04:04,390 --> 00:04:07,282
+Back at this knapsack problem, we would have
+回到這個背包問題，我們會有
+
+93
+00:04:07,282 --> 00:04:10,264
+to come up with code, with an algorithm
+提出程式碼和演算法
+
+94
+00:04:10,264 --> 00:04:12,930
+therefore, which gets a clearly defined
+因此，這得到了明確定義
+
+95
+00:04:12,930 --> 00:04:15,174
+input, which has the goal of solving a
+輸入，其目標是解決
+
+96
+00:04:15,288 --> 00:04:15,727
+clearly defined problem,
+明確定義的問題，
+
+97
+00:04:16,896 --> 00:04:18,644
+maximizing the value and
+價值最大化和
+
+98
+00:04:19,237 --> 00:04:20,890
+keeping that weight in mind.
+記住這個重量。
+
+99
+00:04:21,547 --> 00:04:23,504
+And then you have to come up with steps that
+然後你必須想出一些步驟
+
+100
+00:04:23,504 --> 00:04:24,498
+solve that problem.
+解決這個問題。
+
+101
+00:04:25,172 --> 00:04:27,578
+And that's what an algorithm is about. We
+這就是演算法的意義。我們
+
+102
+00:04:27,578 --> 00:04:30,898
+have these 2 key parts, a sequence of steps
+有這兩個關鍵部分，一系列步驟
+
+103
+00:04:31,492 --> 00:04:33,208
+and a clearly defined problem.
+以及一個明確定義的問題。
+
+104
+00:04:33,898 --> 00:04:35,678
+And these are the 2 things that in the end
+這是最終的兩件事
+
+105
+00:04:35,758 --> 00:04:36,865
+make up an algorithm.
+制定一個算法。
+
+106
+00:04:37,442 --> 00:04:39,993
+And the same steps with the same input
+相同的步驟和相同的輸入
+
+107
+00:04:40,474 --> 00:04:42,655
+should always lead to the same solution to a
+應該總是導致相同的解決方案
+
+108
+00:04:42,719 --> 00:04:44,660
+problem. That's the idea behind an
+問題。這就是背後的想法
+
+109
+00:04:44,660 --> 00:04:45,141
+algorithm.
+演算法.
+
+110
+00:04:46,023 --> 00:04:47,994
+And therefore, of course, every program
+因此，當然，每個程式
+
+111
+00:04:48,090 --> 00:04:50,365
+you're writing is an algorithm. The entire
+你寫的是一個演算法。整個
+
+112
+00:04:50,590 --> 00:04:53,763
+code, all code combined in a program is an
+程式碼，程式中組合的所有程式碼都是
+
+113
+00:04:53,859 --> 00:04:56,679
+algorithm. And of course, such programs can
+演算法.當然，這樣的程式可以
+
+114
+00:04:56,679 --> 00:04:59,580
+be split up in many smaller algorithms. If
+被分成許多較小的演算法。如果
+
+115
+00:04:59,708 --> 00:05:02,656
+you add a click listener to a button and on
+您為按鈕新增一個點擊偵聽器
+
+116
+00:05:02,753 --> 00:05:05,236
+every click you add a number to another
+每次點擊都會將一個數字加到另一個數字
+
+117
+00:05:05,236 --> 00:05:07,576
+number, you also have an algorithm there.
+數字，你也有演算法。
+
+118
+00:05:07,961 --> 00:05:10,300
+It's all an algorithm if you wanna think of
+如果你想的話，這都是演算法
+
+119
+00:05:10,300 --> 00:05:10,877
+it like that.
+就這樣。
+
+120
+00:05:11,663 --> 00:05:13,781
+And as a programmer, as I mentioned, your
+正如我所提到的，作為一名程式設計師，你的
+
+121
+00:05:13,973 --> 00:05:16,781
+goal is to solve problems. You need to be
+目標是解決問題。你需要成為
+
+122
+00:05:16,797 --> 00:05:19,123
+able to do that, and of course you need to
+能夠做到這一點，當然你需要
+
+123
+00:05:19,123 --> 00:05:22,091
+be able to do that efficiently, which means
+能夠有效地做到這一點，這意味著
+
+124
+00:05:22,636 --> 00:05:25,267
+for a given problem you wanna find the best
+對於給定的問題，你想找到最好的
+
+125
+00:05:25,459 --> 00:05:27,834
+possible solution. And now of course there
+可能的解決方案。現在當然有
+
+126
+00:05:27,930 --> 00:05:30,513
+are different ways of defining the best
+定義最佳的不同方式
+
+127
+00:05:30,513 --> 00:05:31,523
+possible solution.
+可能的解決方案。
+
+128
+00:05:32,358 --> 00:05:34,411
+And now of course the question is, what is
+現在的問題當然是，什麼是
+
+129
+00:05:34,684 --> 00:05:37,058
+the best possible solution to a given
+給定的最佳可能解決方案
+
+130
+00:05:37,074 --> 00:05:37,539
+problem?
+問題？
+
+131
+00:05:38,357 --> 00:05:40,938
+Is it the algorithm that has the
+它的演算法是否具有
+
+132
+00:05:41,483 --> 00:05:43,888
+minimum amount of code, so the least amount
+最少的程式碼量，所以最少的量
+
+133
+00:05:43,888 --> 00:05:44,273
+of code?
+程式碼？
+
+134
+00:05:45,171 --> 00:05:47,383
+Is it the algorithm that takes
+是不是演算法需要
+
+135
+00:05:47,977 --> 00:05:49,965
+the least amount of time to finish so that
+完成時間最短，以便
+
+136
+00:05:49,965 --> 00:05:51,424
+it has the best performance?
+它有最好的性能嗎？
+
+137
+00:05:52,386 --> 00:05:55,031
+Is it the algorithm that uses the least
+是使用最少的演算法嗎
+
+138
+00:05:55,031 --> 00:05:55,897
+amount of memory
+記憶體量
+
+139
+00:05:56,426 --> 00:05:58,414
+so that it doesn't take up a lot of
+這樣就不會佔用很多
+
+140
+00:05:58,478 --> 00:05:59,777
+resources on the computer?
+電腦上的資源？
+
+141
+00:06:00,803 --> 00:06:03,224
+Or is it simply your personal preference
+或者這只是您的個人喜好
+
+142
+00:06:03,224 --> 00:06:05,837
+because you like code snippet A better than
+因為你比較喜歡程式碼片段 A
+
+143
+00:06:05,933 --> 00:06:06,831
+code snippet B?
+程式碼片段B？
+
+144
+00:06:07,698 --> 00:06:09,656
+Well, of course we could discuss about that.
+嗯，我們當然可以討論這個問題。
+
+145
+00:06:10,121 --> 00:06:10,234
+The
+這
+
+146
+00:06:10,763 --> 00:06:13,412
+best possible solution very much depends on
+最好的解決方案很大程度取決於
+
+147
+00:06:13,412 --> 00:06:15,386
+the circumstances in which you're working,
+你工作的環境，
+
+148
+00:06:16,365 --> 00:06:18,804
+but often it will be the best performance
+但往往這會是最好的表現
+
+149
+00:06:18,949 --> 00:06:19,703
+you're looking for.
+你正在尋找。
+
+150
+00:06:20,313 --> 00:06:23,122
+That is typically what you would consider
+這通常是您會考慮的
+
+151
+00:06:23,603 --> 00:06:26,252
+the best possible solution, the algorithm
+最好的解決方案，演算法
+
+152
+00:06:26,476 --> 00:06:28,771
+with the best performance so that it takes
+具有最佳性能，以便需要
+
+153
+00:06:28,820 --> 00:06:30,505
+the least amount of time.
+最短的時間。
+
+154
+00:06:31,693 --> 00:06:34,006
+And with that, The question, of course, is
+當然，問題是
+
+155
+00:06:34,424 --> 00:06:36,611
+how do we measure performance?
+我們如何衡量績效？
+
+156
+00:06:37,158 --> 00:06:39,329
+Because if we can't measure it, we can't
+因為如果我們無法測量它，我們就無法
+
+157
+00:06:39,329 --> 00:06:39,763
+judge it.
+判斷一下。

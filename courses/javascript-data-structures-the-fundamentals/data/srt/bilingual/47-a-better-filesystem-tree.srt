@@ -1,0 +1,1749 @@
+1
+00:00:02,601 --> 00:00:04,400
+Now let's continue working on our
+現在讓我們繼續我們的工作
+
+2
+00:00:04,995 --> 00:00:07,548
+tree here, which in this case we're using to
+這裡的樹，在本例中我們用它來
+
+3
+00:00:07,580 --> 00:00:08,833
+build a file system.
+建構檔案系統。
+
+4
+00:00:09,652 --> 00:00:12,881
+It works with those basic functionalities we
+它與我們的基本功能一起使用
+
+5
+00:00:12,881 --> 00:00:13,234
+got here,
+到了這裡，
+
+6
+00:00:14,005 --> 00:00:16,848
+but of course we can definitely also refine
+但當然我們也絕對可以改進
+
+7
+00:00:16,912 --> 00:00:18,695
+it, and that's what I wanna do now.
+這就是我現在想做的事。
+
+8
+00:00:20,012 --> 00:00:22,437
+I want to be able to use this differently.
+我希望能夠以不同的方式使用它。
+
+9
+00:00:22,839 --> 00:00:24,236
+It would be nice if we could call
+如果我們能打電話就好了
+
+10
+00:00:24,830 --> 00:00:25,746
+the file system here
+檔案系統在這裡
+
+11
+00:00:26,517 --> 00:00:28,621
+and we had like an add method, let's say,
+我們有一個 add 方法，比方說，
+
+12
+00:00:29,088 --> 00:00:29,701
+And there
+還有那裡
+
+13
+00:00:30,315 --> 00:00:31,525
+we can add a
+我們可以添加一個
+
+14
+00:00:32,090 --> 00:00:33,188
+value, which
+值，其中
+
+15
+00:00:34,028 --> 00:00:36,045
+in our case here for the file system is a
+在我們的例子中，檔案系統是
+
+16
+00:00:36,045 --> 00:00:39,191
+path to the file we want to add. So for
+我們要新增的檔案的路徑。所以對於
+
+17
+00:00:39,191 --> 00:00:40,741
+example, we want to be able to add
+例如，我們希望能夠添加
+
+18
+00:00:40,921 --> 00:00:42,748
+Documents, Personal,
+檔案，個人，
+
+19
+00:00:44,070 --> 00:00:46,958
+text.docx,
+文本.docx,
+
+20
+00:00:47,921 --> 00:00:49,618
+and we want to be able to call Games,
+我們希望能夠調用遊戲，
+
+21
+00:00:53,370 --> 00:00:55,749
+cod.executable, like this.
+cod.executable，像這樣。
+
+22
+00:00:56,348 --> 00:00:58,000
+It would be nice if we could call it like
+如果我們能這樣稱呼它就好了
+
+23
+00:00:58,000 --> 00:01:00,598
+this and maybe we also add a second file
+也許我們還會添加第二個檔案
+
+24
+00:01:01,368 --> 00:01:03,452
+and thereafter we also want to be able to
+此後我們也希望能夠
+
+25
+00:01:03,452 --> 00:01:04,238
+call remove
+呼叫刪除
+
+26
+00:01:04,896 --> 00:01:07,398
+and remove something like this just by
+並刪除這樣的東西
+
+27
+00:01:07,398 --> 00:01:08,809
+passing in the path.
+在路徑中經過。
+
+28
+00:01:09,386 --> 00:01:11,134
+As a side note, if you're wondering how you
+作為旁注，如果您想知道如何
+
+29
+00:01:11,166 --> 00:01:13,380
+would store the actual values which are in
+將儲存實際值
+
+30
+00:01:13,412 --> 00:01:14,021
+the files,
+檔案，
+
+31
+00:01:14,695 --> 00:01:16,395
+well, here we're just building a data
+好吧，這裡我們只是建立一個資料
+
+32
+00:01:16,395 --> 00:01:18,912
+structure that represents the file system in
+表示檔案系統的結構體
+
+33
+00:01:19,009 --> 00:01:19,474
+general
+一般的
+
+34
+00:01:20,067 --> 00:01:22,537
+without the data in the files. So that you,
+沒有檔案中的資料。這樣你，
+
+35
+00:01:22,553 --> 00:01:25,182
+for example, could use it to just render it
+例如，可以用它來渲染它
+
+36
+00:01:25,182 --> 00:01:25,808
+on the screen.
+在螢幕上。
+
+37
+00:01:26,401 --> 00:01:29,127
+If you would need the file data, the data
+如果您需要檔案資料，則資料
+
+38
+00:01:29,127 --> 00:01:31,419
+that's in a file, you would probably fetch
+這是在一個檔案中，你可能會獲取
+
+39
+00:01:31,468 --> 00:01:33,472
+it from a file system and this could
+它來自檔案系統，這可以
+
+40
+00:01:33,536 --> 00:01:36,679
+describe where it exists on a real physical
+描述它在真實物理上的存在位置
+
+41
+00:01:36,679 --> 00:01:39,244
+file system. So this is really just there to
+檔案系統。所以這真的只是為了
+
+42
+00:01:39,244 --> 00:01:41,457
+describe the structure of the file system.
+描述檔案系統的結構。
+
+43
+00:01:41,874 --> 00:01:43,910
+That's where this example is coming from,
+這就是這個例子的來源，
+
+44
+00:01:44,022 --> 00:01:45,481
+that's what we wanna have here.
+這就是我們想要的。
+
+45
+00:01:46,187 --> 00:01:48,031
+And this is how I now want to be able to
+這就是我現在想要能夠做到的
+
+46
+00:01:48,047 --> 00:01:50,838
+interact with the file system. Of course,
+與檔案系統互動。當然，
+
+47
+00:01:50,854 --> 00:01:53,231
+that's not something that would currently be
+這不是目前的情況
+
+48
+00:01:53,328 --> 00:01:53,713
+working.
+在職的。
+
+49
+00:01:54,725 --> 00:01:57,939
+So therefore, we need to fine-tune our tree
+因此，我們需要微調我們的樹
+
+50
+00:01:58,083 --> 00:02:00,348
+and also our nodes a little bit.
+還有我們的節點。
+
+51
+00:02:01,136 --> 00:02:03,497
+Let's start with the tree. Obviously, there
+讓我們從樹開始。顯然，有
+
+52
+00:02:04,027 --> 00:02:05,281
+we need an add method
+我們需要一個添加方法
+
+53
+00:02:05,859 --> 00:02:07,160
+and we need a remove method.
+我們需要一個刪除方法。
+
+54
+00:02:07,787 --> 00:02:11,080
+The remove method takes a path to the
+刪除方法需要一個路徑
+
+55
+00:02:11,161 --> 00:02:13,506
+element that should be removed and the add
+應刪除的元素和新增的元素
+
+56
+00:02:13,506 --> 00:02:16,302
+method also takes a path to the element that
+方法也採取指向元素的路徑
+
+57
+00:02:16,302 --> 00:02:17,025
+should be added.
+應該添加。
+
+58
+00:02:17,764 --> 00:02:19,987
+So the goal in the end is that in the add
+所以最終的目標是添加
+
+59
+00:02:20,003 --> 00:02:23,771
+method, we drill into our root node and all
+方法，我們鑽取根節點和所有
+
+60
+00:02:23,964 --> 00:02:24,979
+its child nodes
+它的子節點
+
+61
+00:02:25,655 --> 00:02:28,454
+and look for these path segments.
+並尋找這些路徑段。
+
+62
+00:02:29,193 --> 00:02:32,183
+And if they exist, we go deeper, and if they
+如果它們存在，我們會更深入，如果它們存在
+
+63
+00:02:32,247 --> 00:02:35,382
+don't exist, we create them. So if we have a
+不存在，我們創造它們。所以如果我們有一個
+
+64
+00:02:35,462 --> 00:02:36,266
+documents
+檔案
+
+65
+00:02:37,712 --> 00:02:38,098
+node
+節點
+
+66
+00:02:39,078 --> 00:02:42,293
+below our root node already, we go into that
+已經在我們的根節點下面了，我們進入那個
+
+67
+00:02:42,293 --> 00:02:44,606
+and look for a personal node in there. And
+並在那裡尋找個人節點。和
+
+68
+00:02:44,638 --> 00:02:46,595
+if that exists, we go into that existing
+如果存在的話，我們就進入那個現有的
+
+69
+00:02:46,627 --> 00:02:49,804
+node and add a tags node, a tags/docx node.
+節點並新增一個標籤節點，一個標籤/docx節點。
+
+70
+00:02:50,397 --> 00:02:52,082
+And if it doesn't exist, we create it
+如果它不存在，我們就創建它
+
+71
+00:02:52,082 --> 00:02:54,264
+instead. That could be the idea here.
+反而。這可能就是這裡的想法。
+
+72
+00:02:54,873 --> 00:02:56,862
+And for removing, it's similar. We simply
+對於刪除來說，也是類似的。我們簡單地
+
+73
+00:02:56,975 --> 00:02:59,301
+look for the different path segments and if
+尋找不同的路徑段，如果
+
+74
+00:02:59,301 --> 00:03:02,878
+we find a full match, we delete that last
+我們找到一個完整的匹配項，我們刪除最後一個
+
+75
+00:03:02,910 --> 00:03:03,648
+node in there.
+節點在那裡。
+
+76
+00:03:04,499 --> 00:03:06,745
+That's the goal. And of course, that'll be a
+這就是目標。當然，這將是一個
+
+77
+00:03:06,825 --> 00:03:07,932
+bit more tricky.
+有點棘手。
+
+78
+00:03:09,007 --> 00:03:11,461
+But we can build it in a kind of recursive
+但我們可以用一種遞迴的方式來建構它
+
+79
+00:03:11,493 --> 00:03:14,108
+way. We don't wanna do all the heavy lifting
+方式。我們不想做所有繁重的工作
+
+80
+00:03:14,140 --> 00:03:14,397
+here.
+這裡。
+
+81
+00:03:15,022 --> 00:03:16,962
+Instead, in the tree, we can start simple
+相反，在樹中，我們可以從簡單的開始
+
+82
+00:03:17,010 --> 00:03:19,190
+and reach out to the root node because that
+並到達根節點，因為
+
+83
+00:03:19,190 --> 00:03:21,130
+is the only node we have access to here
+是我們可以訪問的唯一節點
+
+84
+00:03:21,659 --> 00:03:23,358
+and call addNode on that.
+並呼叫 addNode 。
+
+85
+00:03:24,544 --> 00:03:27,879
+And now addNode, of course, wants the value
+現在 addNode 當然想要這個值
+
+86
+00:03:28,809 --> 00:03:29,674
+which it should add,
+它應該添加，
+
+87
+00:03:30,412 --> 00:03:32,912
+and that's not going to work here because we
+這裡行不通，因為我們
+
+88
+00:03:32,912 --> 00:03:35,365
+don't have just the value, but we have the
+我們不僅擁有價值，而且擁有
+
+89
+00:03:35,461 --> 00:03:38,748
+full path to the value including the final
+包含最終值的完整路徑
+
+90
+00:03:38,748 --> 00:03:40,607
+value, but not just the value.
+價值，但不僅僅是價值。
+
+91
+00:03:41,296 --> 00:03:43,812
+But that won't be a problem. We just have to
+但這不會成為問題。我們只需要
+
+92
+00:03:43,876 --> 00:03:46,665
+adjust add node a little bit so that we're
+稍微調整新增節點，以便我們
+
+93
+00:03:46,825 --> 00:03:49,213
+adding some logic in there that is able to
+在那裡添加一些邏輯能夠
+
+94
+00:03:49,309 --> 00:03:51,841
+find out if it's getting the real final
+看看是否進入真正的決賽
+
+95
+00:03:51,889 --> 00:03:54,773
+value here or still a path leading up to
+此處的值或仍是通往的路徑
+
+96
+00:03:54,773 --> 00:03:55,270
+that value.
+那個值。
+
+97
+00:03:55,879 --> 00:03:57,866
+And in the file system example, for which
+在檔案系統範例中，
+
+98
+00:03:57,962 --> 00:03:59,757
+we're now tailoring this tree, of course,
+當然，我們現在正在定制這棵樹，
+
+99
+00:04:00,366 --> 00:04:02,209
+there we can easily determine what's the
+在那裡我們可以很容易地確定是什麼
+
+100
+00:04:02,209 --> 00:04:04,276
+case by splitting the string we're getting
+透過分割我們得到的字串來解決這個問題
+
+101
+00:04:04,533 --> 00:04:06,055
+on the forward slash
+在正斜線上
+
+102
+00:04:06,776 --> 00:04:09,101
+And then we know the last element in the
+然後我們就知道最後一個元素
+
+103
+00:04:09,101 --> 00:04:09,774
+array that
+陣列
+
+104
+00:04:10,383 --> 00:04:12,884
+is created because of that splitting, that's
+是因為分裂而創造的，那就是
+
+105
+00:04:12,884 --> 00:04:14,984
+the value we want to add, and all other
+我們想要增加的價值，以及所有其他
+
+106
+00:04:15,128 --> 00:04:17,260
+elements are path segments.
+元素是路徑段。
+
+107
+00:04:18,510 --> 00:04:22,181
+So therefore, we can add the path as a value
+因此，我們可以將路徑新增為值
+
+108
+00:04:22,181 --> 00:04:24,185
+to the new node we want to add on the root
+到我們想要加入根的新節點
+
+109
+00:04:24,249 --> 00:04:24,522
+node.
+節點。
+
+110
+00:04:25,227 --> 00:04:27,808
+And now we need to go to add_node and adjust
+現在我們需要去add_node並調整
+
+111
+00:04:27,808 --> 00:04:28,914
+our code in there.
+我們的程式碼在那裡。
+
+112
+00:04:29,796 --> 00:04:34,348
+Here we wanna split our string on the slash,
+這裡我們想在斜槓上分割字串，
+
+113
+00:04:34,845 --> 00:04:36,817
+and I'm going to repeat it. With that, of
+我要重複一遍。就這樣，
+
+114
+00:04:36,913 --> 00:04:39,110
+course, our node is not really generic
+當然，我們的節點並不是真正通用的
+
+115
+00:04:39,110 --> 00:04:42,143
+anymore. Now we're really fine-tuning it for
+不再了。現在我們正在對其進行微調
+
+116
+00:04:42,143 --> 00:04:45,047
+this specific purpose and for this specific
+為了這個特定的目的和為了這個特定的
+
+117
+00:04:45,176 --> 00:04:47,198
+kind of data we're feeding into that file
+我們輸入該檔案的資料型別
+
+118
+00:04:47,198 --> 00:04:47,647
+system.
+系統。
+
+119
+00:04:48,385 --> 00:04:50,295
+But that of course is the end— the idea of
+但這當然就是結束了——這個想法
+
+120
+00:04:50,471 --> 00:04:52,750
+building a tree. It's there to solve a
+建造一棵樹。它的存在是為了解決一個
+
+121
+00:04:52,750 --> 00:04:56,008
+certain problem. In this case, there to be
+某些問題。在這種情況下，必須有
+
+122
+00:04:56,088 --> 00:04:58,591
+able to work with paths in a file system.
+能夠使用檔案系統中的路徑。
+
+123
+00:04:59,538 --> 00:05:01,127
+Hence here in add_node,
+因此在 add_node 中，
+
+124
+00:05:02,266 --> 00:05:05,058
+we can get our segments by calling
+我們可以透過呼叫來獲取我們的段
+
+125
+00:05:05,315 --> 00:05:08,139
+split_on_value and splitting on the forward
+split_on_value 和前向拆分
+
+126
+00:05:08,139 --> 00:05:08,621
+slash.
+削減。
+
+127
+00:05:09,246 --> 00:05:11,474
+Split is a default JavaScript method which
+Split 是一個預設的 JavaScript 方法
+
+128
+00:05:11,571 --> 00:05:12,917
+we can call on any string
+我們可以呼叫任何字串
+
+129
+00:05:13,574 --> 00:05:16,332
+and it will now create a new segment here
+現在它將在這裡創建一個新的段
+
+130
+00:05:16,957 --> 00:05:19,361
+for, well, every element we find in that
+因為我們在其中找到的每一個元素
+
+131
+00:05:19,361 --> 00:05:21,509
+string for and after a slash.
+斜線及其後的字串。
+
+132
+00:05:22,151 --> 00:05:24,251
+To get a feeling for how it works, let's
+為了了解它是如何運作的，讓我們
+
+133
+00:05:24,251 --> 00:05:25,886
+actually grab that string here,
+實際上抓住這裡的繩子，
+
+134
+00:05:26,415 --> 00:05:27,825
+go back into the browser
+回傳瀏覽器
+
+135
+00:05:29,060 --> 00:05:31,192
+and let's simply call split on that string
+讓我們簡單地對該字串呼叫 split
+
+136
+00:05:31,865 --> 00:05:33,388
+and split on the forward slash.
+並在正斜線上分開。
+
+137
+00:05:34,013 --> 00:05:35,904
+And you see what we get is an array with 4
+你看我們得到的是一個包含 4 的陣列
+
+138
+00:05:36,097 --> 00:05:38,036
+elements where the first element is empty
+第一個元素為空的元素
+
+139
+00:05:38,197 --> 00:05:39,976
+because it's the element in front of the
+因為它是前面的元素
+
+140
+00:05:40,024 --> 00:05:42,175
+first slash which is nothing but it's still
+第一個斜槓沒什麼，但它仍然是
+
+141
+00:05:42,207 --> 00:05:42,849
+part of the array.
+陣列的一部分。
+
+142
+00:05:43,636 --> 00:05:45,402
+Then we have documents which is the first
+然後我們有第一個檔案
+
+143
+00:05:45,482 --> 00:05:47,489
+element after the first slash,
+第一個斜槓之後的元素，
+
+144
+00:05:48,148 --> 00:05:50,444
+then personal which is the next element and
+然後是個人，這是下一個元素，
+
+145
+00:05:50,540 --> 00:05:54,153
+then text.docx which is our last segment and
+然後 text.docx 這是我們的最後一段
+
+146
+00:05:54,233 --> 00:05:56,224
+therefore as we know the value which we
+因此，當我們知道我們的價值時
+
+147
+00:05:56,240 --> 00:05:58,183
+really wanna add somewhere in the tree.
+真的想在樹中添加某個地方。
+
+148
+00:05:59,243 --> 00:06:01,378
+So that's what we get here when we split
+這是我們分手後的結果
+
+149
+00:06:01,378 --> 00:06:01,523
+this.
+這。
+
+150
+00:06:02,743 --> 00:06:05,376
+Now therefore with all those segments at
+因此現在所有這些部分都在
+
+151
+00:06:05,473 --> 00:06:05,858
+hand,
+手，
+
+152
+00:06:07,320 --> 00:06:10,436
+We now want to find out if segments length
+我們現在想知道段的長度
+
+153
+00:06:10,773 --> 00:06:12,106
+is exactly 1.
+正好是 1。
+
+154
+00:06:13,504 --> 00:06:15,302
+Actually, we can first of all check if
+實際上，我們首先可以檢查是否
+
+155
+00:06:15,351 --> 00:06:18,547
+segments length is 0, which means there is
+段長度為0，這表示有
+
+156
+00:06:18,676 --> 00:06:20,924
+nothing to add, in which case we can just
+沒有什麼可添加的，在這種情況下我們可以
+
+157
+00:06:20,972 --> 00:06:22,322
+return without doing anything.
+不做任何事就回傳。
+
+158
+00:06:23,077 --> 00:06:25,245
+But if we have exactly 1, we know what we
+但如果我們剛好有 1，我們就知道我們要做什麼
+
+159
+00:06:25,325 --> 00:06:28,072
+get is just the one value we really want to
+get 只是我們真正想要的一個值
+
+160
+00:06:28,216 --> 00:06:28,586
+insert.
+插入。
+
+161
+00:06:29,405 --> 00:06:31,959
+In this case, we want to build our new node
+在本例中，我們要建構新節點
+
+162
+00:06:33,570 --> 00:06:35,836
+and pass in segments,
+並分段傳遞，
+
+163
+00:06:36,484 --> 00:06:39,284
+the first and only element, as a value.
+作為值的第一個也是唯一的元素。
+
+164
+00:06:39,640 --> 00:06:41,647
+Because now we're really already in the
+因為現在我們真的已經處於
+
+165
+00:06:41,647 --> 00:06:44,225
+place in the tree where we want to add the
+在樹中我們要新增的位置
+
+166
+00:06:44,241 --> 00:06:47,956
+real final value, the final segment of that
+真正的最終值，該值的最後一部分
+
+167
+00:06:47,972 --> 00:06:49,562
+long path we fed in.
+我們吃東西的路很長。
+
+168
+00:06:52,300 --> 00:06:53,989
+So therefore, that's where we then also push
+因此，這就是我們推動的地方
+
+169
+00:06:54,118 --> 00:06:55,044
+this to our children
+這給我們的孩子
+
+170
+00:06:55,645 --> 00:06:58,098
+and where we return information about the
+以及我們在哪裡回傳有關的資訊
+
+171
+00:06:58,098 --> 00:06:58,958
+created node here.
+在這裡創建了節點。
+
+172
+00:07:00,821 --> 00:07:03,758
+Now, if the segment's length is longer than
+現在，如果該段的長度長於
+
+173
+00:07:03,887 --> 00:07:06,471
+1, then we know we don't just have the value
+1、那麼我們就知道我們不只擁有價值
+
+174
+00:07:06,471 --> 00:07:08,895
+left. Instead, we need to drill deeper
+左邊。相反，我們需要更深入地研究
+
+175
+00:07:09,489 --> 00:07:12,924
+and now either create all the missing
+現在要么創建所有缺失的
+
+176
+00:07:12,956 --> 00:07:13,774
+segments or
+段或
+
+177
+00:07:14,320 --> 00:07:17,498
+look for children in that node that match
+在該節點中尋找匹配的子節點
+
+178
+00:07:17,611 --> 00:07:20,837
+the segments prior to the last segment so
+最後一個片段之前的片段所以
+
+179
+00:07:20,837 --> 00:07:22,779
+that match those segments here
+與此處的這些段落相匹配
+
+180
+00:07:23,550 --> 00:07:25,941
+to see whether we wanna drill into those and
+看看我們是否想深入研究這些
+
+181
+00:07:25,957 --> 00:07:27,097
+then continue from there.
+然後從那裡繼續。
+
+182
+00:07:30,068 --> 00:07:31,047
+So here
+所以在這裡
+
+183
+00:07:31,962 --> 00:07:35,270
+we wanna find any children that match the
+我們想要找到任何符合的孩子
+
+184
+00:07:35,672 --> 00:07:37,920
+first segment in our segments array.
+我們的段陣列中的第一個段。
+
+185
+00:07:39,205 --> 00:07:41,533
+And only the first segment is of interest
+只有第一部分是感興趣的
+
+186
+00:07:41,533 --> 00:07:43,508
+here because the other segments are then
+這裡是因為其他段落是
+
+187
+00:07:43,781 --> 00:07:46,431
+nested in that other children if it exists.
+嵌套在其他子項中（如果存在）。
+
+188
+00:07:47,411 --> 00:07:50,140
+So we wanna search for an existing child
+所以我們想尋找一個現有的孩子
+
+189
+00:07:50,365 --> 00:07:50,783
+node
+節點
+
+190
+00:07:51,794 --> 00:07:55,007
+where we would look at all our children And
+我們會在那裡看到我們所有的孩子
+
+191
+00:07:55,024 --> 00:07:57,675
+with the find method, we're looking for a
+使用 find 方法，我們正在尋找
+
+192
+00:07:57,675 --> 00:08:00,392
+child where the child value
+孩子價值所在
+
+193
+00:08:01,330 --> 00:08:02,332
+is equal to
+等於
+
+194
+00:08:02,947 --> 00:08:04,924
+the first element in our segments array.
+我們的段陣列中的第一個元素。
+
+195
+00:08:07,610 --> 00:08:09,836
+Now if we do find something there, if
+現在，如果我們確實在那裡找到了一些東西，如果
+
+196
+00:08:09,836 --> 00:08:13,354
+existing child node is truthy, if we do find
+如果我們找到的話，現有的子節點是真的
+
+197
+00:08:13,354 --> 00:08:13,935
+something there,
+那裡有什麼東西，
+
+198
+00:08:14,483 --> 00:08:16,274
+then we know we need to reach out to that
+然後我們知道我們需要接觸到這個
+
+199
+00:08:16,274 --> 00:08:17,374
+existing child node
+現有子節點
+
+200
+00:08:17,895 --> 00:08:19,540
+and call add node on that
+並在其上調用添加節點
+
+201
+00:08:20,094 --> 00:08:21,445
+and simply pass in
+並簡單地傳入
+
+202
+00:08:21,968 --> 00:08:24,908
+our segments but now without that first
+我們的細分市場，但現在沒有了
+
+203
+00:08:24,973 --> 00:08:27,380
+segment because that first segment was the
+段，因為第一段是
+
+204
+00:08:27,380 --> 00:08:28,817
+value of the child node already.
+子節點的值已經存在。
+
+205
+00:08:30,910 --> 00:08:32,854
+So we only need to feed in the remaining
+所以我們只需要將剩餘的部分填入即可
+
+206
+00:08:32,903 --> 00:08:35,916
+segments and we do that by calling slice
+分段，我們透過呼叫 slice 來做到這一點
+
+207
+00:08:35,965 --> 00:08:36,143
+here
+這裡
+
+208
+00:08:36,840 --> 00:08:39,060
+and now there we can define a start index
+現在我們可以定義一個起始索引
+
+209
+00:08:39,060 --> 00:08:41,303
+and we wanna start at index 1 and go to the
+我們想從索引 1 開始並轉到
+
+210
+00:08:41,385 --> 00:08:43,362
+end which means we simply skip the first
+end 這意味著我們只需跳過第一個
+
+211
+00:08:43,362 --> 00:08:43,656
+element.
+元素。
+
+212
+00:08:47,512 --> 00:08:50,701
+Now else, if we don't find an existing child
+現在，如果我們找不到現有的孩子
+
+213
+00:08:50,701 --> 00:08:52,960
+node, it basically means we need to create
+節點，這基本上意味著我們需要創建
+
+214
+00:08:52,960 --> 00:08:53,537
+that node.
+那個節點。
+
+215
+00:08:54,659 --> 00:08:56,293
+So here we wanna create a new
+所以在這裡我們想創建一個新的
+
+216
+00:08:57,046 --> 00:09:00,700
+node for the first segment we have, which is
+我們擁有的第一個段的節點，即
+
+217
+00:09:00,876 --> 00:09:03,424
+not the final segment. We got more at this
+不是最後一段。我們在這方面得到了更多
+
+218
+00:09:03,536 --> 00:09:05,843
+point, otherwise we would've made into this
+點，否則我們就會這樣做
+
+219
+00:09:05,859 --> 00:09:08,263
+if block. But we know that this segment also
+如果阻止。但我們知道這個部分也
+
+220
+00:09:08,263 --> 00:09:10,074
+needs to be created because it's missing
+需要創建，因為它丟失了
+
+221
+00:09:10,250 --> 00:09:10,827
+thus far.
+到目前為止。
+
+222
+00:09:11,884 --> 00:09:13,807
+So here we create a new node.
+所以這裡我們建立一個新節點。
+
+223
+00:09:14,339 --> 00:09:16,502
+But then on that new node, we immediately
+但然後在那個新節點上，我們立即
+
+224
+00:09:16,599 --> 00:09:16,809
+call
+稱呼
+
+225
+00:09:17,567 --> 00:09:20,538
+addNode to add more nodes inside of it,
+addNode 在其中加入更多節點，
+
+226
+00:09:21,135 --> 00:09:21,991
+and we pass in
+我們傳入
+
+227
+00:09:22,733 --> 00:09:24,977
+all other segments we extracted.
+我們提取的所有其他片段。
+
+228
+00:09:27,612 --> 00:09:29,114
+And now what's really important, by the way,
+順便說一句，現在真正重要的是
+
+229
+00:09:29,130 --> 00:09:31,373
+is I don't just wanna pass in an array of
+我不只是想傳遞一系列
+
+230
+00:09:31,406 --> 00:09:34,198
+segments here, but keep in mind that addNode
+此處分段，但請記住 addNode
+
+231
+00:09:34,456 --> 00:09:36,555
+always wants a value which is a string that
+總是想要一個值，該值是一個字串
+
+232
+00:09:36,555 --> 00:09:37,027
+we split.
+我們分手了。
+
+233
+00:09:37,613 --> 00:09:38,249
+So actually,
+所以實際上，
+
+234
+00:09:38,998 --> 00:09:42,278
+we should join our array again with a slash
+我們應該用斜線再次加入我們的陣列
+
+235
+00:09:42,679 --> 00:09:44,958
+so that we pass in such a string that can be
+這樣我們就可以傳入這樣一個字串
+
+236
+00:09:44,958 --> 00:09:45,632
+split again.
+再次分裂。
+
+237
+00:09:46,322 --> 00:09:48,295
+Of course, alternatively, we could write the
+當然，我們也可以這樣寫
+
+238
+00:09:48,456 --> 00:09:50,670
+addNode method such that it also works with
+addNode 方法，它也適用於
+
+239
+00:09:50,702 --> 00:09:52,980
+an array and we check whether we get an
+一個陣列，我們檢查是否得到一個
+
+240
+00:09:52,980 --> 00:09:54,456
+array before we try splitting,
+在我們嘗試分割之前陣列，
+
+241
+00:09:55,050 --> 00:09:57,024
+but I wanna keep it simple so we always
+但我想保持簡單所以我們總是
+
+242
+00:09:57,152 --> 00:09:58,853
+split, which means that when we call
+split，這意味著當我們調用
+
+243
+00:09:59,045 --> 00:10:00,858
+addNode, we pass in a string again.
+addNode，我們再次傳入一個字串。
+
+244
+00:10:01,805 --> 00:10:03,570
+So now here we're looking for a child node.
+所以現在我們在這裡尋找一個子節點。
+
+245
+00:10:03,875 --> 00:10:06,442
+If it exists, we add a node on that. If not,
+如果存在，我們就在其上新增一個節點。如果不，
+
+246
+00:10:06,506 --> 00:10:08,929
+we create it and add a node on that new
+我們創建它並在新的上添加一個節點
+
+247
+00:10:08,929 --> 00:10:09,747
+created node.
+創建的節點。
+
+248
+00:10:11,096 --> 00:10:13,649
+And we then still return information about
+然後我們仍然回傳有關的資訊
+
+249
+00:10:13,649 --> 00:10:16,282
+that created node in that case. So we still
+在這種情況下創建了節點。所以我們還是
+
+250
+00:10:16,314 --> 00:10:18,707
+return information about that node that we
+傳回有關我們的節點的資訊
+
+251
+00:10:18,707 --> 00:10:21,597
+created and the index of that node. That
+建立的以及該節點的索引。那
+
+252
+00:10:21,597 --> 00:10:23,829
+does not change just because it's an
+不會因為它是一個而改變
+
+253
+00:10:23,861 --> 00:10:24,712
+intermediate node.
+中間節點。
+
+254
+00:10:25,772 --> 00:10:28,068
+Of course, we also should add it to our
+當然，我們也應該將其添加到我們的
+
+255
+00:10:28,100 --> 00:10:29,352
+children here by
+孩子們在這裡
+
+256
+00:10:29,882 --> 00:10:30,332
+pushing
+推動
+
+257
+00:10:30,910 --> 00:10:33,222
+this node to our children of that node.
+該節點到該節點的子節點。
+
+258
+00:10:35,742 --> 00:10:38,147
+So with that, we recursively go deeper and
+因此，我們遞迴地深入並
+
+259
+00:10:38,227 --> 00:10:39,670
+deeper into our nodes,
+深入我們的節點，
+
+260
+00:10:40,215 --> 00:10:42,732
+and we try to add any nodes that might be
+我們嘗試新增任何可能的節點
+
+261
+00:10:42,732 --> 00:10:45,986
+missing so that we are able to call add like
+缺少這樣我們就可以呼叫 add 之類的
+
+262
+00:10:45,986 --> 00:10:46,178
+that.
+那。
+
+263
+00:10:46,948 --> 00:10:48,535
+Now let's see whether that works. For that,
+現在讓我們看看這是否有效。為此，
+
+264
+00:10:48,567 --> 00:10:50,459
+I'm going to comment out remove because
+我要註解掉刪除因為
+
+265
+00:10:50,491 --> 00:10:51,773
+that's not working yet,
+那還沒有起作用，
+
+266
+00:10:52,655 --> 00:10:54,466
+and I'm saving all that code, and I'll
+我正在儲存所有程式碼，然後我會
+
+267
+00:10:54,498 --> 00:10:55,076
+reload this
+重新載入這個
+
+268
+00:10:55,941 --> 00:10:57,031
+file here, this page.
+檔案在此，本頁。
+
+269
+00:10:58,169 --> 00:10:59,821
+And what we see is we got a root node now
+我們看到的是我們現在有了一個根節點
+
+270
+00:11:00,574 --> 00:11:01,925
+which has a child
+有一個孩子
+
+271
+00:11:02,667 --> 00:11:05,296
+and that child node here
+以及這裡的子節點
+
+272
+00:11:05,990 --> 00:11:06,200
+then
+然後
+
+273
+00:11:06,942 --> 00:11:09,120
+has a value of nothing and it has more
+沒有什麼價值，但它還有更多
+
+274
+00:11:09,136 --> 00:11:09,668
+children.
+孩子們。
+
+275
+00:11:11,392 --> 00:11:12,315
+It has 2 children
+它有2個孩子
+
+276
+00:11:13,335 --> 00:11:16,071
+and here the first child is the documents
+這裡的第一個孩子是檔案
+
+277
+00:11:16,087 --> 00:11:18,500
+child, the second child is the games child.
+孩子中，老二是遊戲孩子。
+
+278
+00:11:19,380 --> 00:11:22,162
+The documents child has another child node
+文檔子節點還有另一個子節點
+
+279
+00:11:23,416 --> 00:11:25,025
+which is the personal node
+這是個人節點
+
+280
+00:11:25,684 --> 00:11:28,122
+and that has another child which is the tags
+還有另一個孩子，那就是標籤
+
+281
+00:11:28,235 --> 00:11:28,765
+document.
+檔案.
+
+282
+00:11:29,680 --> 00:11:31,799
+And for the games branch of our tree,
+對於我們樹上的遊戲分支，
+
+283
+00:11:32,490 --> 00:11:32,843
+there
+那裡
+
+284
+00:11:33,373 --> 00:11:34,786
+we also got 2 children.
+我們還有兩個孩子。
+
+285
+00:11:35,540 --> 00:11:36,921
+We got Call of Duty exe
+我們得到了使命召喚exe
+
+286
+00:11:37,532 --> 00:11:39,490
+and Call of Duty 2 executable.
+和《使命召喚 2》可執行檔。
+
+287
+00:11:40,117 --> 00:11:41,530
+And that's exactly what we wanna have,
+這正是我們想要的，
+
+288
+00:11:41,626 --> 00:11:44,340
+right? Documents with personal tags and then
+正確的？帶有個人標籤的文檔，然後
+
+289
+00:11:44,436 --> 00:11:47,085
+2 executables in the games branch.
+games 分支中有 2 個可執行檔。
+
+290
+00:11:47,760 --> 00:11:50,361
+So it looks like adding this works. The only
+所以看起來添加這個是有效的。唯一的
+
+291
+00:11:50,377 --> 00:11:51,982
+thing that's a bit strange is that in the
+有點奇怪的是在
+
+292
+00:11:52,079 --> 00:11:54,615
+root node, we got another empty node
+根節點，我們得到另一個空節點
+
+293
+00:11:55,193 --> 00:11:55,739
+first of all.
+首先。
+
+294
+00:11:56,959 --> 00:11:58,774
+Here it is, which then holds the other
+這是它，然後儲存另一個
+
+295
+00:11:58,806 --> 00:11:59,111
+nodes.
+節點。
+
+296
+00:11:59,689 --> 00:12:01,085
+The reason for that is that before the
+原因是在之前
+
+297
+00:12:01,085 --> 00:12:03,429
+starting slash, we have this empty segment
+開始斜杠，我們有這個空段
+
+298
+00:12:03,478 --> 00:12:04,393
+which I showed you before.
+我之前向你展示過。
+
+299
+00:12:05,003 --> 00:12:06,849
+And therefore, we can get rid by simply
+因此，我們可以簡單地擺脫
+
+300
+00:12:06,849 --> 00:12:09,482
+removing that starting slash here because we
+刪除這裡的起始斜杠，因為我們
+
+301
+00:12:09,498 --> 00:12:11,393
+already have a root node which has nothing
+已經有一個什麼都沒有的根節點
+
+302
+00:12:11,489 --> 00:12:14,427
+else. So with that, now the root node itself
+別的。這樣，現在根節點本身
+
+303
+00:12:14,539 --> 00:12:15,535
+has the documents
+有檔案
+
+304
+00:12:16,145 --> 00:12:18,232
+and the games nodes, and then in there we
+和遊戲節點，然後我們就在那裡
+
+305
+00:12:18,232 --> 00:12:19,099
+have the other nodes.
+有其他節點。
+
+306
+00:12:19,852 --> 00:12:22,145
+And that's exactly what we want. Now we can
+這正是我們想要的。現在我們可以
+
+307
+00:12:22,257 --> 00:12:24,341
+use this tree, which is now really
+使用這棵樹，它現在真的
+
+308
+00:12:24,405 --> 00:12:27,275
+fine-tuned for this exact purpose with those
+為了這個確切的目的與那些進行微調
+
+309
+00:12:27,451 --> 00:12:28,397
+add helper methods.
+新增輔助方法。
+
+310
+00:12:29,214 --> 00:12:31,811
+And I'm showing you this not just because
+我向你展示這個不僅僅是因為
+
+311
+00:12:31,940 --> 00:12:34,921
+this might be a nice example, a file system
+這可能是一個很好的例子，檔案系統
+
+312
+00:12:35,066 --> 00:12:36,781
+is something we can relate to,
+是我們可以連結到的東西，
+
+313
+00:12:37,406 --> 00:12:39,250
+but because this is how you think about
+但因為這就是你的想法
+
+314
+00:12:39,250 --> 00:12:41,542
+trees or how you can think about trees
+樹或者你如何思考樹
+
+315
+00:12:42,039 --> 00:12:42,792
+recursively.
+遞迴地。
+
+316
+00:12:43,482 --> 00:12:45,277
+We work with recursion here in the end.
+最後我們在這裡使用遞迴。
+
+317
+00:12:45,646 --> 00:12:47,238
+Because from inside add node,
+因為從裡面加入節點，
+
+318
+00:12:47,832 --> 00:12:49,488
+we call add node again.
+我們再次呼叫新增節點。
+
+319
+00:12:50,147 --> 00:12:52,848
+And we do that as often as needed to drill
+我們根據鑽探需要經常這樣做
+
+320
+00:12:53,121 --> 00:12:56,002
+into our notes and create all the missing
+進入我們的筆記並創建所有缺少的
+
+321
+00:12:56,098 --> 00:12:59,946
+segments and final values which we wanna add
+我們想要新增的段和最終值
+
+322
+00:13:00,526 --> 00:13:01,299
+as we're doing it here.
+正如我們在這裡所做的那樣。
+
+323
+00:13:03,462 --> 00:13:05,163
+And just to show you that this really works,
+只是為了向您展示這確實有效，
+
+324
+00:13:05,585 --> 00:13:07,869
+if I would just add documents first of all,
+如果我先添加檔案，
+
+325
+00:13:08,809 --> 00:13:10,819
+and then I add something in a personal
+然後我在個人中添加一些內容
+
+326
+00:13:10,916 --> 00:13:13,889
+folder, in documents, we'll still just have
+資料夾，在檔案中，我們仍然有
+
+327
+00:13:13,921 --> 00:13:15,515
+one documents node overall.
+整個文檔節點。
+
+328
+00:13:16,214 --> 00:13:16,994
+So if I reload here,
+所以如果我在這裡重新載入，
+
+329
+00:13:17,710 --> 00:13:18,176
+you see now
+你現在看到了
+
+330
+00:13:18,949 --> 00:13:21,798
+we still only have 2 children, documents
+我們仍然只有 2 個孩子，檔案
+
+331
+00:13:22,329 --> 00:13:22,860
+and games.
+和遊戲。
+
+332
+00:13:23,600 --> 00:13:24,437
+And in documents,
+並且在檔案中，
+
+333
+00:13:25,223 --> 00:13:28,180
+we have the personal node, which then holds
+我們有個人節點，然後它儲存
+
+334
+00:13:29,650 --> 00:13:30,733
+our text document.
+我們的文本文檔。
+
+335
+00:13:31,683 --> 00:13:34,198
+So that works. It's really checking whether
+這樣就可以了。這確實是在檢查是否
+
+336
+00:13:34,198 --> 00:13:36,859
+that exists already, the documents node in
+已經存在的檔案節點
+
+337
+00:13:36,859 --> 00:13:37,248
+this case.
+這個案例。
+
+338
+00:13:38,208 --> 00:13:40,280
+And if it does exist, it adds a node on
+如果確實存在，它會添加一個節點
+
+339
+00:13:40,312 --> 00:13:40,601
+that.
+那。
+
+340
+00:13:41,276 --> 00:13:43,991
+And if it does not exist, it creates it and
+如果它不存在，它會創建它並
+
+341
+00:13:44,071 --> 00:13:46,095
+then adds a new node on that newly created
+然後在新建立的節點上新增一個新節點
+
+342
+00:13:46,095 --> 00:13:49,067
+node. This is how we work here. And you
+節點。這就是我們在這裡的工作方式。你呢
+
+343
+00:13:49,067 --> 00:13:51,364
+could certainly also write this differently,
+當然也可以用不同的方式寫，
+
+344
+00:13:51,556 --> 00:13:53,693
+but I hope that this code is also quite
+但我希望這段程式碼也很不錯
+
+345
+00:13:53,789 --> 00:13:56,680
+understandable and makes sense to you.
+對您來說是可以理解且有意義的。
+
+346
+00:13:57,580 --> 00:13:59,764
+Now, how could we make that remove
+現在，我們怎麼能刪除它
+
+347
+00:13:59,973 --> 00:14:02,688
+functionality work? Feel free to try it on
+功能工作？隨意嘗試一下
+
+348
+00:14:02,720 --> 00:14:04,888
+your own, though of course that will also be
+你自己的，當然那也是
+
+349
+00:14:04,888 --> 00:14:07,246
+challenging. We'll do it together in the
+具有挑戰性的。我們將在
+
+350
+00:14:07,246 --> 00:14:07,900
+next lecture.
+下一個講座。

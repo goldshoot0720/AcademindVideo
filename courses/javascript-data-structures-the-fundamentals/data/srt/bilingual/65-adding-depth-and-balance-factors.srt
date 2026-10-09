@@ -1,0 +1,714 @@
+1
+00:00:02,275 --> 00:00:04,534
+So let's now build an AVL tree.
+現在讓我們建造一棵 AVL 樹。
+
+2
+00:00:05,063 --> 00:00:07,643
+And of course, as you learned, an AVL tree
+當然，如您所知，AVL 樹
+
+3
+00:00:07,643 --> 00:00:10,447
+builds up on the binary search tree. So
+建立在二元搜尋樹的基礎上。所以
+
+4
+00:00:10,447 --> 00:00:12,722
+we'll actually start with that. I'll just
+我們實際上將從那裡開始。我就
+
+5
+00:00:12,770 --> 00:00:13,523
+clear out
+清除
+
+6
+00:00:14,196 --> 00:00:16,504
+all those additions and all of that down
+所有這些添加和所有這些
+
+7
+00:00:16,600 --> 00:00:19,340
+there and just console.log my tree.
+在那裡，只需 console.log 我的樹。
+
+8
+00:00:19,981 --> 00:00:22,000
+And I first of all want to come back to that
+首先我想回到這一點
+
+9
+00:00:22,048 --> 00:00:23,954
+problematic tree we could be facing.
+我們可能面臨的有問題的樹。
+
+10
+00:00:24,772 --> 00:00:26,438
+For that, I'm just going to add a couple of
+為此，我只想添加一些
+
+11
+00:00:26,486 --> 00:00:27,063
+numbers there
+那裡的數字
+
+12
+00:00:27,672 --> 00:00:30,324
+And I'm going to add 1, 2, and 3 here.
+我將在這裡添加 1、2 和 3。
+
+13
+00:00:31,288 --> 00:00:32,541
+And if we now save that
+如果我們現在儲存它
+
+14
+00:00:33,858 --> 00:00:34,469
+and reload,
+並重新載入，
+
+15
+00:00:35,064 --> 00:00:35,706
+we got a tree
+我們有一棵樹
+
+16
+00:00:36,429 --> 00:00:40,285
+which is very right-heavy. So we got no left
+這是非常右重的。所以我們已經沒有剩下的了
+
+17
+00:00:40,285 --> 00:00:42,133
+branch on the root node. Instead, we got a
+根節點上的分支。相反，我們得到了一個
+
+18
+00:00:42,133 --> 00:00:44,623
+right branch, and in there, another right
+右邊的分支，在那裡，另一個右邊
+
+19
+00:00:44,623 --> 00:00:46,729
+branch. And that's exactly the kind of
+分支。這正是那種
+
+20
+00:00:46,778 --> 00:00:49,305
+problem we wanna solve with the AVL tree.
+我們想用 AVL 樹解決的問題。
+
+21
+00:00:50,942 --> 00:00:53,647
+So therefore, we'll build up on this binary
+因此，我們將在此二進位檔案的基礎上進行建構
+
+22
+00:00:53,923 --> 00:00:56,997
+search tree and build our AVL tree.
+搜尋樹並建立我們的 AVL 樹。
+
+23
+00:00:57,558 --> 00:01:00,365
+And we need 2 main things for that.
+為此我們需要做兩件事。
+
+24
+00:01:01,407 --> 00:01:04,487
+We need a way of deriving all those balance
+我們需要一種方法來實現所有這些平衡
+
+25
+00:01:04,695 --> 00:01:07,246
+factors here, and for that we need to find
+這裡的因素，為此我們需要找到
+
+26
+00:01:07,246 --> 00:01:10,213
+out the depth of our various trees and
+走出我們各種樹木的深處，
+
+27
+00:01:10,293 --> 00:01:10,983
+subtrees here.
+子樹在這裡。
+
+28
+00:01:11,737 --> 00:01:14,303
+And once we got those balance factors, we
+一旦我們獲得了這些平衡因素，我們
+
+29
+00:01:14,303 --> 00:01:17,238
+need those 4 rotation methods here.
+這裡需要這 4 種旋轉方法。
+
+30
+00:01:17,928 --> 00:01:20,061
+Now let's start with the balance factors.
+現在讓我們從平衡因素開始。
+
+31
+00:01:20,719 --> 00:01:23,189
+For this, I'll actually go to the node
+為此，我實際上會轉到節點
+
+32
+00:01:24,374 --> 00:01:26,167
+So to this Node class
+所以對於這個 Node 類別
+
+33
+00:01:26,701 --> 00:01:28,801
+and then maybe here below the constructor,
+然後也許在建構子下面，
+
+34
+00:01:28,978 --> 00:01:30,384
+I'll add a couple of getters.
+我將添加幾個吸氣劑。
+
+35
+00:01:30,982 --> 00:01:33,795
+A getter in JavaScript is in the end like a
+JavaScript 中的 getter 最終就像
+
+36
+00:01:33,795 --> 00:01:36,633
+property but a dynamically calculated
+屬性而是動態計算的
+
+37
+00:01:36,957 --> 00:01:39,146
+property which is exactly what helps us
+財產這正是對我們有幫助的
+
+38
+00:01:39,146 --> 00:01:39,276
+here.
+這裡。
+
+39
+00:01:42,182 --> 00:01:43,199
+I will add a getter
+我將添加一個吸氣劑
+
+40
+00:01:43,780 --> 00:01:45,216
+for the general depth
+對於一般深度
+
+41
+00:01:45,797 --> 00:01:49,507
+of a certain node. So basically telling us
+某個節點的。所以基本上告訴我們
+
+42
+00:01:49,507 --> 00:01:51,557
+how many nodes it has below itself.
+它自身下面有多少個節點。
+
+43
+00:01:52,547 --> 00:01:54,900
+And then I also have specific getters for
+然後我還有特定的吸氣劑
+
+44
+00:01:54,965 --> 00:01:56,141
+the leftDepth
+左深度
+
+45
+00:01:57,624 --> 00:01:58,205
+like this
+像這樣
+
+46
+00:01:58,898 --> 00:02:00,983
+and for the rightDepth.
+和正確的深度。
+
+47
+00:02:01,647 --> 00:02:04,646
+And these are default JavaScript getters. So
+這些是預設的 JavaScript getter。所以
+
+48
+00:02:04,646 --> 00:02:06,947
+in case you don't know this getter syntax,
+如果你不知道這個 getter 語法，
+
+49
+00:02:07,362 --> 00:02:09,949
+definitely check out a dedicated JavaScript
+一定要查看專用的 JavaScript
+
+50
+00:02:09,949 --> 00:02:10,854
+course first.
+當然第一。
+
+51
+00:02:12,520 --> 00:02:13,830
+I will also add a
+我也會添加一個
+
+52
+00:02:14,379 --> 00:02:17,972
+balanceFactor getter to derive the balance
+取得餘額的balanceFactor getter
+
+53
+00:02:17,972 --> 00:02:18,828
+factor thereafter.
+之後的因素。
+
+54
+00:02:20,031 --> 00:02:22,553
+So now with that, how do we calculate those
+那現在我們要如何計算這些
+
+55
+00:02:22,585 --> 00:02:23,516
+different things?
+不同的東西？
+
+56
+00:02:24,191 --> 00:02:27,002
+Let's maybe start with the left depth of a
+讓我們從 a 的左深度開始
+
+57
+00:02:27,002 --> 00:02:29,395
+given node. For this, I first of all check
+給定節點。為此，我首先檢查
+
+58
+00:02:29,427 --> 00:02:32,703
+if we have a left child. If we don't have a
+如果我們有一個左孩子。如果我們沒有
+
+59
+00:02:32,783 --> 00:02:36,140
+left child node, then there is no depth on
+左子節點，則沒有深度
+
+60
+00:02:36,140 --> 00:02:38,886
+the left side, so we can return 0 in this
+左邊，所以我們可以在這裡回到 0
+
+61
+00:02:38,886 --> 00:02:41,857
+case because this node for which we're
+情況是因為我們要處理的這個節點
+
+62
+00:02:41,857 --> 00:02:44,572
+trying to get the left depth doesn't have a
+試圖獲得左側深度沒有
+
+63
+00:02:44,572 --> 00:02:47,448
+left child, so So its depth on the left
+左邊的孩子，所以它的深度在左邊
+
+64
+00:02:47,464 --> 00:02:48,846
+branch is 0.
+分支為 0。
+
+65
+00:02:50,758 --> 00:02:52,847
+If we don't make it into the ZIF check, we
+如果我們沒有進入 ZIF 檢查，我們
+
+66
+00:02:52,847 --> 00:02:55,550
+know that we do have a left child and then
+知道我們確實有一個左孩子然後
+
+67
+00:02:56,147 --> 00:02:57,422
+our left depth
+我們的左側深度
+
+68
+00:02:58,003 --> 00:03:02,246
+is this.left.depth+ 1.
+是 this.left.深度+ 1。
+
+69
+00:03:03,569 --> 00:03:06,093
+This will access the depth getter which we
+這將訪問我們的深度獲取器
+
+70
+00:03:06,093 --> 00:03:09,026
+have yet to populate but this will then take
+尚未填充，但這將需要
+
+71
+00:03:09,026 --> 00:03:11,812
+the depth from the left child and simply add
+左孩子的深度並簡單地添加
+
+72
+00:03:11,910 --> 00:03:15,078
+1. And that will be the left depth for this
+1. 這將是這個的左側深度
+
+73
+00:03:15,078 --> 00:03:16,543
+node for which we're checking it.
+我們正在檢查它的節點。
+
+74
+00:03:17,638 --> 00:03:19,361
+Now, of course, we'll have the same kind of
+現在，當然，我們會有同樣的
+
+75
+00:03:19,409 --> 00:03:21,003
+logic in the right depth,
+正確深度的邏輯，
+
+76
+00:03:21,599 --> 00:03:23,974
+but here we check for this right and then
+但在這裡我們檢查一下是否正確，然後
+
+77
+00:03:24,104 --> 00:03:26,093
+get the right depth and add 1.
+獲得正確的深度並加 1。
+
+78
+00:03:26,934 --> 00:03:29,167
+And now, of course, we depend on this depth
+當然，現在我們依賴這個深度
+
+79
+00:03:29,523 --> 00:03:32,804
+getter in both left and right depth.
+左右深的吸氣劑。
+
+80
+00:03:34,872 --> 00:03:36,100
+So how do we derive this?
+那我們要如何得出這個呢？
+
+81
+00:03:36,794 --> 00:03:38,862
+Well, here we in the end just wanna return
+好吧，我們最終只是想回來
+
+82
+00:03:38,975 --> 00:03:42,380
+the maximum So Math.max is a useful method
+最大值所以Math.max是一個有用的方法
+
+83
+00:03:42,380 --> 00:03:44,275
+we can use here from this
+我們可以從這裡使用
+
+84
+00:03:44,949 --> 00:03:45,639
+left depth
+左深度
+
+85
+00:03:46,233 --> 00:03:47,727
+and this right depth.
+和這個正確的深度。
+
+86
+00:03:48,802 --> 00:03:50,986
+So we have a recursive call here in the end.
+所以最後我們這裡有一個遞迴呼叫。
+
+87
+00:03:51,436 --> 00:03:52,576
+When we wanna get the
+當我們想要得到
+
+88
+00:03:53,138 --> 00:03:56,349
+depth for a given node, we simply look at
+對於給定節點的深度，我們只需查看
+
+89
+00:03:56,349 --> 00:03:58,324
+the left depth and right
+左深度和右深度
+
+90
+00:03:59,159 --> 00:04:02,418
+depth of that node. And for those methods,
+該節點的深度。對於這些方法，
+
+91
+00:04:02,691 --> 00:04:05,325
+we look for the depth of another nested
+我們尋找另一個嵌套的深度
+
+92
+00:04:05,325 --> 00:04:08,214
+node. Node. So ultimately, with those depth
+節點。節點。所以最終，有了這些深度
+
+93
+00:04:08,505 --> 00:04:11,589
+methods here, or with those depth getters I
+這裡的方法，或使用我的深度獲取器
+
+94
+00:04:11,637 --> 00:04:11,993
+should say,
+應該說，
+
+95
+00:04:12,590 --> 00:04:14,720
+we drill down into the node tree
+我們深入節點樹
+
+96
+00:04:15,413 --> 00:04:18,890
+until we at some point find no more left and
+直到我們在某個時刻發現不再剩下並且
+
+97
+00:04:18,890 --> 00:04:21,628
+right children, which is when we then return
+正確的孩子們，那就是我們回傳的時候
+
+98
+00:04:21,628 --> 00:04:22,095
+0.
+0。
+
+99
+00:04:23,479 --> 00:04:25,815
+And then all those calls return and we
+然後所有這些電話都回來了，我們
+
+100
+00:04:25,879 --> 00:04:27,216
+gradually add 1.
+逐漸加1。
+
+101
+00:04:30,470 --> 00:04:32,597
+With that, we can then also calculate the
+這樣，我們還可以計算
+
+102
+00:04:32,710 --> 00:04:35,206
+balance factor because that is simply
+平衡因子，因為這只是
+
+103
+00:04:37,175 --> 00:04:40,491
+this.leftDepth minus this.rightDepth.
+this.leftDepth 減 this.rightDepth。
+
+104
+00:04:42,816 --> 00:04:44,583
+And with that, we can simply have a look at
+這樣，我們就可以簡單地看一下
+
+105
+00:04:44,583 --> 00:04:47,395
+that. If we save this and reload and we
+那。如果我們儲存並重新載入，我們
+
+106
+00:04:47,411 --> 00:04:48,632
+inspect our tree,
+檢查我們的樹，
+
+107
+00:04:49,178 --> 00:04:51,813
+we have those new getters here. And we see,
+我們這裡有那些新吸氣劑。我們看到，
+
+108
+00:04:51,829 --> 00:04:54,378
+for example, the depth of the root node is
+例如，根節點的深度為
+
+109
+00:04:54,491 --> 00:04:54,621
+2,
+2、
+
+110
+00:04:55,219 --> 00:04:57,206
+which makes a lot of sense because we added
+這很有意義，因為我們添加了
+
+111
+00:04:57,400 --> 00:04:59,145
+2 child nodes below it.
+下面有2個子節點。
+
+112
+00:05:00,478 --> 00:05:03,979
+We see that its leftDepth is 0 though, Which
+我們看到它的 leftDepth 是 0，
+
+113
+00:05:04,043 --> 00:05:06,243
+also makes sense because the root node has a
+也是有道理的，因為根節點有一個
+
+114
+00:05:06,291 --> 00:05:07,222
+value of 1.
+值為 1。
+
+115
+00:05:07,800 --> 00:05:10,610
+The child nodes have bigger values, so they
+子節點的值較大，因此它們
+
+116
+00:05:10,610 --> 00:05:13,147
+are added to the right child node, to the
+新增到右子節點，到
+
+117
+00:05:13,179 --> 00:05:16,165
+right branch. So the left depth of the root
+右分支。所以根的左深度
+
+118
+00:05:16,165 --> 00:05:18,638
+node is 0, but the right depth is 2.
+節點為0，但右深度為2。
+
+119
+00:05:19,441 --> 00:05:21,400
+And therefore the overall depth of the root
+因此根的整體深度
+
+120
+00:05:21,464 --> 00:05:24,194
+node is 2 because it's the bigger of these 2
+節點是 2，因為它是這 2 個中較大的一個
+
+121
+00:05:24,194 --> 00:05:25,221
+special depths.
+特殊的深度。
+
+122
+00:05:26,201 --> 00:05:28,641
+And the balance factor therefore is -2.
+因此平衡因子為-2。
+
+123
+00:05:29,694 --> 00:05:32,663
+Because we have a left depth of 0 minus the
+因為我們的左深度為 0 減去
+
+124
+00:05:32,744 --> 00:05:33,825
+right depth of 2.
+右深度為 2。
+
+125
+00:05:37,263 --> 00:05:38,925
+And in the end, that's just what we see here
+最後，這就是我們在這裡看到的
+
+126
+00:05:39,295 --> 00:05:41,131
+for the left rotation case.
+對於左旋轉情況。
+
+127
+00:05:41,775 --> 00:05:44,351
+This is exactly the example I just showed
+這正是我剛剛展示的範例
+
+128
+00:05:44,351 --> 00:05:46,460
+you in the browser. These are exactly the
+你在瀏覽器中。這些正是
+
+129
+00:05:46,460 --> 00:05:49,283
+values I just added to the tree, and we see
+我剛剛添加到樹中的值，我們看到
+
+130
+00:05:49,283 --> 00:05:51,613
+that indeed we have the expected balance
+我們確實達到了預期的平衡
+
+131
+00:05:51,613 --> 00:05:53,539
+factor of -2 on the root node.
+根節點上的因子為-2。
+
+132
+00:05:55,104 --> 00:05:57,363
+And if we would drill into the tree, we see
+如果我們鑽入樹中，我們會看到
+
+133
+00:05:57,363 --> 00:05:59,219
+that on the right child node, we have a
+在右子節點上，我們有一個
+
+134
+00:05:59,284 --> 00:06:00,203
+balance factor of
+的平衡係數
+
+135
+00:06:00,736 --> 00:06:04,303
+-1, which is also exactly the factor I show
+-1，這也正是我所顯示的因素
+
+136
+00:06:04,303 --> 00:06:05,629
+here on the slide.
+在幻燈片上。
+
+137
+00:06:08,263 --> 00:06:10,607
+So with that, we have the depths and the
+這樣，我們就有了深度和
+
+138
+00:06:10,753 --> 00:06:13,631
+balance factors calculated with this
+由此計算的平衡係數
+
+139
+00:06:13,745 --> 00:06:14,860
+recursive approach.
+遞迴方法。
+
+140
+00:06:15,556 --> 00:06:17,739
+Now that we got this, we'll be able to
+現在我們得到了這個，我們將能夠
+
+141
+00:06:17,739 --> 00:06:19,932
+determine which kind of rotation we need,
+確定我們需要哪種型別的旋轉，
+
+142
+00:06:20,468 --> 00:06:22,497
+and then we can implement the rotation
+然後我們就可以實現旋轉
+
+143
+00:06:22,579 --> 00:06:22,903
+logic.
+邏輯。

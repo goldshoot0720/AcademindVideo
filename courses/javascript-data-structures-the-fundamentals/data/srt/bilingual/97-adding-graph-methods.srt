@@ -1,0 +1,814 @@
+1
+00:00:02,120 --> 00:00:04,400
+We got this first graph, but it has a couple
+我們得到了第一張圖，但它有幾個
+
+2
+00:00:04,432 --> 00:00:05,027
+of issues.
+的問題。
+
+3
+00:00:05,653 --> 00:00:08,351
+For example, at the moment, we could add an
+例如，目前我們可以新增一個
+
+4
+00:00:08,528 --> 00:00:08,672
+edge
+邊緣
+
+5
+00:00:09,251 --> 00:00:11,210
+for nodes that don't exist.
+對於不存在的節點。
+
+6
+00:00:11,756 --> 00:00:13,860
+So between 4 and 5, for example,
+例如，在 4 到 5 之間，
+
+7
+00:00:14,470 --> 00:00:17,410
+I could do that and I would now have this
+我可以做到這一點，我現在就會擁有這個
+
+8
+00:00:17,442 --> 00:00:17,988
+connection
+聯繫
+
+9
+00:00:18,646 --> 00:00:21,762
+even though we have no nodes 4 and 5.
+即使我們沒有節點 4 和 5。
+
+10
+00:00:22,597 --> 00:00:24,942
+So we might wanna make our graph a little
+所以我們可能想讓我們的圖表稍微
+
+11
+00:00:24,942 --> 00:00:27,934
+bit more robust. When we add an edge, we
+更堅固一點。當我們添加一邊時，我們
+
+12
+00:00:27,966 --> 00:00:30,816
+wanna check if this edge's start node
+想檢查這條邊是否為起始節點
+
+13
+00:00:32,491 --> 00:00:35,454
+does not exist. So if that is falsy, if we
+不存在。所以如果這是錯誤的 如果我們
+
+14
+00:00:35,534 --> 00:00:38,095
+don't find an entry in edges for start node,
+在邊中找不到起始節點的條目，
+
+15
+00:00:38,835 --> 00:00:42,201
+or if we don't find an entry in edges for
+或者如果我們在邊緣找不到條目
+
+16
+00:00:42,378 --> 00:00:45,213
+end node. If either of the 2 nodes does not
+結束節點。如果 2 個節點中的任何一個不
+
+17
+00:00:45,213 --> 00:00:47,409
+exist, we can throw an error
+存在，我們可以拋出一個錯誤
+
+18
+00:00:48,120 --> 00:00:49,363
+where we, for example, say
+例如，我們說
+
+19
+00:00:49,960 --> 00:00:51,559
+start or end node
+起始或結束節點
+
+20
+00:00:52,390 --> 00:00:53,789
+does not exist.
+不存在。
+
+21
+00:00:56,090 --> 00:00:58,263
+So that if we now try to add
+所以如果我們現在嘗試添加
+
+22
+00:00:59,407 --> 00:01:00,115
+an edge between
+之間的一邊
+
+23
+00:01:00,792 --> 00:01:00,985
+4
+4
+
+24
+00:01:02,064 --> 00:01:02,627
+and 5
+和 5
+
+25
+00:01:04,077 --> 00:01:06,999
+and we reload, we actually get this error.
+然後我們重新載入，我們實際上得到了這個錯誤。
+
+26
+00:01:08,698 --> 00:01:11,044
+So that's one thing that probably makes
+所以這可能是一件事
+
+27
+00:01:11,060 --> 00:01:11,416
+sense.
+感覺。
+
+28
+00:01:12,082 --> 00:01:14,345
+It's also worth noting that at the moment,
+還值得注意的是，目前，
+
+29
+00:01:14,361 --> 00:01:17,949
+if we add the same node twice, so if I add
+如果我們添加同一個節點兩次，那麼如果我添加
+
+30
+00:01:19,295 --> 00:01:21,254
+1 again, but now assign
+再 1，但現在分配
+
+31
+00:01:22,185 --> 00:01:24,144
+Michael as a value here,
+邁克爾在這裡作為一個值，
+
+32
+00:01:24,818 --> 00:01:27,901
+we would simply overwrite Max. We would keep
+我們只需涵蓋 Max.我們會保留
+
+33
+00:01:28,030 --> 00:01:30,647
+all the edges, but we would overwrite Max.
+所有的邊，但我們會覆蓋 Max。
+
+34
+00:01:31,337 --> 00:01:34,292
+Now that really depends on your graph and
+現在這真的取決於你的圖表和
+
+35
+00:01:34,388 --> 00:01:35,320
+your use case
+你的用例
+
+36
+00:01:35,898 --> 00:01:37,728
+whether you want to allow this or not.
+無論您是否允許這樣做。
+
+37
+00:01:38,402 --> 00:01:41,132
+We could add a check here and check if a
+我們可以在這裡添加一個檢查並檢查是否
+
+38
+00:01:41,132 --> 00:01:44,135
+node for the given identifier already exists
+給定標識符的節點已存在
+
+39
+00:01:44,264 --> 00:01:46,693
+And if it does, we again throw an error here
+如果是這樣，我們在這裡再次拋出一個錯誤
+
+40
+00:01:47,384 --> 00:01:47,915
+where we say
+我們說的
+
+41
+00:01:49,878 --> 00:01:52,732
+node exists already
+節點已經存在
+
+42
+00:01:53,343 --> 00:01:56,154
+so that the user is not able to override it.
+以便使用者無法覆蓋它。
+
+43
+00:01:56,460 --> 00:01:58,516
+That's something we could add but something
+這是我們可以添加的東西，但是
+
+44
+00:01:58,532 --> 00:01:59,561
+we don't have to add.
+我們不必添加。
+
+45
+00:02:00,300 --> 00:02:02,653
+An alternative is that we do override the
+另一種方法是我們重寫
+
+46
+00:02:02,653 --> 00:02:05,617
+value but we clear all edges for this node.
+值，但我們清除該節點的所有邊。
+
+47
+00:02:06,216 --> 00:02:08,371
+We could do this by calling delete
+我們可以透過呼叫delete來做到這一點
+
+48
+00:02:08,954 --> 00:02:09,245
+this
+這
+
+49
+00:02:09,896 --> 00:02:12,772
+edges for the given identifier. That would
+給定標識符的邊。那會
+
+50
+00:02:12,804 --> 00:02:16,002
+clear the entry for that identifier in the
+清除該識別符的條目
+
+51
+00:02:16,082 --> 00:02:18,139
+edges. So it would clear the list of
+邊緣。所以它會清除列表
+
+52
+00:02:18,187 --> 00:02:20,227
+connections for that given identifier.
+該給定標識符的連接。
+
+53
+00:02:20,998 --> 00:02:23,698
+These are all options we have and it really
+這些都是我們擁有的選擇，而且確實如此
+
+54
+00:02:23,714 --> 00:02:26,574
+comes down to what you are building. So here
+歸根結底取決於你正在建造什麼。所以在這裡
+
+55
+00:02:26,574 --> 00:02:29,578
+I'll go with this behavior of throwing an
+我會接受這種丟東西的行為
+
+56
+00:02:29,739 --> 00:02:32,293
+error if we try to overwrite but of course
+如果我們嘗試覆蓋會出錯，但當然
+
+57
+00:02:32,390 --> 00:02:34,703
+that does not mean that this is the only
+這並不意味著這是唯一的
+
+58
+00:02:34,720 --> 00:02:35,780
+right way of doing it.
+正確的做法。
+
+59
+00:02:37,589 --> 00:02:38,996
+Now we might wanna do more.
+現在我們可能想做更多。
+
+60
+00:02:40,080 --> 00:02:42,442
+We also might want to find out whether a
+我們也可能想知道是否
+
+61
+00:02:42,442 --> 00:02:43,931
+certain connection exists.
+存在一定的聯繫。
+
+62
+00:02:44,750 --> 00:02:46,844
+We could name the method hasEdge
+我們可以將方法命名為 hasEdge
+
+63
+00:02:47,665 --> 00:02:49,308
+and we get the start node
+我們得到了起始節點
+
+64
+00:02:50,001 --> 00:02:51,451
+and the end node here.
+和這裡的結束節點。
+
+65
+00:02:52,417 --> 00:02:55,028
+And the idea is that we return true if
+這個想法是如果我們回傳 true
+
+66
+00:02:55,640 --> 00:02:58,364
+this connection exists and false otherwise.
+此連線存在，否則為 false。
+
+67
+00:03:00,816 --> 00:03:03,485
+For this, we can reach out to our edges for
+為此，我們可以發揮我們的優勢
+
+68
+00:03:03,550 --> 00:03:04,387
+the start node.
+起始節點。
+
+69
+00:03:05,128 --> 00:03:07,865
+And in there, we now want to find again with
+在那裡，我們現在想再次找到
+
+70
+00:03:08,042 --> 00:03:08,493
+indexOf
+索引
+
+71
+00:03:10,521 --> 00:03:12,373
+if end node exists.
+如果結束節點存在。
+
+72
+00:03:14,337 --> 00:03:15,576
+Now if this is -1,
+現在如果這是-1，
+
+73
+00:03:16,204 --> 00:03:18,667
+we know the connection does not exist. So
+我們知道連結不存在。所以
+
+74
+00:03:18,699 --> 00:03:20,696
+this check here would return true
+這裡的檢查將會回傳 true
+
+75
+00:03:21,259 --> 00:03:23,980
+if the connection does not exist and false
+如果連線不存在且 false
+
+76
+00:03:24,014 --> 00:03:24,781
+if it exists.
+如果存在的話。
+
+77
+00:03:25,565 --> 00:03:28,111
+So we can simply change this to this check
+所以我們可以簡單地將其更改為此檢查
+
+78
+00:03:28,650 --> 00:03:31,502
+and now return true if the connection exists
+如果連接存在則傳回 true
+
+79
+00:03:31,711 --> 00:03:32,819
+and false otherwise.
+否則為假。
+
+80
+00:03:33,413 --> 00:03:36,030
+So we can now simply return this value and
+所以我們現在可以簡單地傳回這個值並
+
+81
+00:03:36,046 --> 00:03:38,679
+we'll get a proper response to our question
+我們會得到對我們問題的正確答复
+
+82
+00:03:39,177 --> 00:03:41,167
+of whether that edge exists or not.
+該邊緣是否存在。
+
+83
+00:03:42,083 --> 00:03:43,223
+So we can go down there
+所以我們可以去那裡
+
+84
+00:03:43,849 --> 00:03:46,674
+and on the graph, we can now check if there
+在圖表上，我們現在可以檢查是否存在
+
+85
+00:03:46,674 --> 00:03:47,975
+is an edge between let's say
+可以說是之間的一邊
+
+86
+00:03:49,131 --> 00:03:49,725
+3 and 2,
+3和2，
+
+87
+00:03:50,576 --> 00:03:52,936
+which is the case. So we should get true
+情況就是如此。所以我們應該認清事實
+
+88
+00:03:53,080 --> 00:03:53,193
+here.
+這裡。
+
+89
+00:03:54,204 --> 00:03:56,131
+Let's console.log the response.
+讓我們console.log 回應。
+
+90
+00:03:56,853 --> 00:03:58,504
+But let's also check whether there is an
+但我們也要檢查是否有
+
+91
+00:03:58,680 --> 00:04:01,486
+edge between 2 and 1, which is not, so we
+2 和 1 之間的邊，這不是，所以我們
+
+92
+00:04:01,486 --> 00:04:02,976
+should be getting false here.
+這裡應該是假的。
+
+93
+00:04:04,147 --> 00:04:05,525
+So if we now save that
+所以如果我們現在儲存它
+
+94
+00:04:06,311 --> 00:04:07,000
+and reload,
+並重新載入，
+
+95
+00:04:08,139 --> 00:04:11,249
+I get this error because of course here I
+我收到這個錯誤是因為當然我在這裡
+
+96
+00:04:11,265 --> 00:04:13,910
+have a logical error in this check. We wanna
+這次檢查有邏輯錯誤。我們想要
+
+97
+00:04:13,910 --> 00:04:15,817
+check whether those nodes exist,
+檢查這些節點是否存在，
+
+98
+00:04:17,228 --> 00:04:19,905
+so of course we should check our nodes
+所以我們當然應該檢查我們的節點
+
+99
+00:04:20,002 --> 00:04:22,954
+object here, not the edges. The nodes is
+這裡的物件，而不是邊緣。節點是
+
+100
+00:04:23,146 --> 00:04:24,014
+what we wanna check.
+我們想要檢查什麼。
+
+101
+00:04:24,576 --> 00:04:25,042
+My bad.
+我的不好。
+
+102
+00:04:25,621 --> 00:04:26,488
+So let's fix this.
+所以讓我們來解決這個問題。
+
+103
+00:04:27,324 --> 00:04:28,416
+And now if we reload,
+現在如果我們重新載入，
+
+104
+00:04:29,557 --> 00:04:32,948
+I get true here but then an error when I try
+我在這裡得到了正確的結果，但當我嘗試時出現錯誤
+
+105
+00:04:32,948 --> 00:04:33,301
+to call
+打電話
+
+106
+00:04:33,896 --> 00:04:34,281
+indexOf
+索引
+
+107
+00:04:35,422 --> 00:04:38,314
+for a node that simply has no connections at
+對於一個沒有連接的節點
+
+108
+00:04:38,314 --> 00:04:38,362
+all.
+全部。
+
+109
+00:04:39,134 --> 00:04:41,672
+And that makes a lot of sense. If we have no
+這很有意義。如果我們沒有
+
+110
+00:04:41,849 --> 00:04:44,918
+edge from a certain node, in this case node
+來自某個節點的邊，在本例中為節點
+
+111
+00:04:44,918 --> 00:04:47,874
+2 does have no edge that starts at node 2,
+2 沒有從節點 2 開始的邊，
+
+112
+00:04:48,438 --> 00:04:51,410
+there simply will be no array stored in
+根本不會儲存任何陣列
+
+113
+00:04:51,911 --> 00:04:54,302
+edges for the to identifier,
+to 識別符的邊，
+
+114
+00:04:54,916 --> 00:04:57,484
+and therefore we call indexOf on undefined.
+因此我們在 undefined 上呼叫indexOf。
+
+115
+00:04:59,832 --> 00:05:02,334
+To avoid this error, we want to check if
+為了避免這個錯誤，我們要檢查是否
+
+116
+00:05:02,480 --> 00:05:03,287
+this edge's
+這個邊緣的
+
+117
+00:05:03,868 --> 00:05:04,805
+start node
+起始節點
+
+118
+00:05:05,628 --> 00:05:07,905
+is maybe not even a thing by adding an
+透過添加一個可能甚至不是一件事
+
+119
+00:05:07,905 --> 00:05:08,891
+exclamation mark here.
+這裡感嘆號。
+
+120
+00:05:09,687 --> 00:05:12,872
+And now checking edges is correct, and if
+現在檢查邊緣是否正確，如果
+
+121
+00:05:12,937 --> 00:05:14,530
+that's the case, we can return
+是這樣的話，我們就可以回頭了
+
+122
+00:05:15,677 --> 00:05:17,601
+false here because then we know that there
+這裡是假的，因為這樣我們就知道那裡
+
+123
+00:05:17,697 --> 00:05:19,845
+will be no connection because we have
+將沒有連接，因為我們有
+
+124
+00:05:19,845 --> 00:05:22,234
+absolutely no connections in total that
+絕對沒有任何聯繫
+
+125
+00:05:22,266 --> 00:05:24,928
+would start at start node. So we know start
+將從起始節點開始。所以我們知道開始
+
+126
+00:05:24,928 --> 00:05:27,413
+node doesn't have any connections at all, so
+節點根本沒有任何連接，所以
+
+127
+00:05:27,413 --> 00:05:29,625
+it clearly won't have a connection to end
+顯然不會有連線結束
+
+128
+00:05:29,866 --> 00:05:32,511
+node, so we can just return false right
+節點，所以我們可以直接回傳 false
+
+129
+00:05:32,511 --> 00:05:32,719
+away.
+離開。
+
+130
+00:05:33,473 --> 00:05:36,198
+With that adjustment made, we get true and
+進行調整後，我們得到了真實的結果
+
+131
+00:05:36,359 --> 00:05:38,956
+false and then our graph in the end. So
+false 然後是我們的圖表。所以
+
+132
+00:05:39,020 --> 00:05:41,281
+that's now also working and now we can also
+現在也可以了，現在我們也可以
+
+133
+00:05:41,345 --> 00:05:43,798
+check whether a certain edge between 2 nodes
+檢查2個節點之間是否存在某邊
+
+134
+00:05:43,926 --> 00:05:44,503
+exists.
+存在。
+
+135
+00:05:46,854 --> 00:05:48,975
+We also could get all
+我們也可以獲得全部
+
+136
+00:05:49,891 --> 00:05:52,525
+edges for a given node.
+給定節點的邊。
+
+137
+00:05:53,586 --> 00:05:56,063
+And when I say node here, I always mean the
+當我在這裡說節點時，我總是指的是
+
+138
+00:05:56,063 --> 00:05:57,033
+node identifier.
+節點標識符。
+
+139
+00:05:59,579 --> 00:06:01,818
+For this, we could simply return this.edges
+為此，我們可以簡單地回傳 this.edges
+
+140
+00:06:02,478 --> 00:06:03,267
+for node,
+對於節點，
+
+141
+00:06:04,266 --> 00:06:06,488
+and that will then simply return a list of
+然後將簡單地傳回一個列表
+
+142
+00:06:06,585 --> 00:06:09,269
+all the connections this node has, or if it
+該節點擁有的所有連接，或如果
+
+143
+00:06:09,285 --> 00:06:10,473
+has no connections at all,
+完全沒有任何联系，
+
+144
+00:06:11,252 --> 00:06:13,071
+this will return undefined.
+這將回傳未定義。
+
+145
+00:06:14,029 --> 00:06:15,686
+So we can also use that down there
+所以我們也可以在那裡使用它
+
+146
+00:06:16,367 --> 00:06:17,693
+and console.log
+和控制台.log
+
+147
+00:06:18,485 --> 00:06:20,943
+graph.getAllEdges for
+graph.getAllEdges 為
+
+148
+00:06:21,541 --> 00:06:22,075
+node 1,
+節點 1,
+
+149
+00:06:23,514 --> 00:06:24,354
+for node 2,
+對於節點 2，
+
+150
+00:06:25,260 --> 00:06:26,522
+and for node 3, let's say.
+對於節點 3，我們可以這麼說。
+
+151
+00:06:27,137 --> 00:06:29,030
+And if we do that, if we check this for all
+如果我們這樣做，如果我們檢查所有
+
+152
+00:06:29,225 --> 00:06:29,581
+nodes
+節點
+
+153
+00:06:32,154 --> 00:06:34,355
+and we reload, we get the connections for
+然後我們重新載入，我們得到了連接
+
+154
+00:06:34,355 --> 00:06:37,590
+node 1, undefined for node 2 because we got
+節點 1，節點 2 未定義，因為我們得到
+
+155
+00:06:37,590 --> 00:06:39,968
+no edges that would start at node 2,
+沒有從節點 2 開始的邊，
+
+156
+00:06:40,657 --> 00:06:41,622
+And then also
+然後還有
+
+157
+00:06:42,506 --> 00:06:44,370
+our connections for node 3.
+我們與節點 3 的連結。
+
+158
+00:06:44,949 --> 00:06:48,598
+So that is all relatively straightforward as
+所以這一切都相對簡單
+
+159
+00:06:48,614 --> 00:06:49,064
+you can tell.
+你可以知道。
+
+160
+00:06:50,012 --> 00:06:52,874
+Now one feature is missing though and that
+現在缺少一個功能，那就是
+
+161
+00:06:52,874 --> 00:06:55,831
+is a feature that allows us to remove a node
+是一個允許我們刪除節點的功能
+
+162
+00:06:56,169 --> 00:06:57,037
+or an edge.
+或邊緣。
+
+163
+00:06:57,616 --> 00:06:58,773
+Let's work on that next.
+接下來我們就來解決這個問題。

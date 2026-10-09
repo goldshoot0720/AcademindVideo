@@ -1,0 +1,1234 @@
+1
+00:00:02,677 --> 00:00:05,772
+Now that's how we can add values to a node.
+這就是我們向節點添加值的方法。
+
+2
+00:00:06,526 --> 00:00:08,579
+Now we'll work on removing later because
+現在我們將在稍後進行刪除，因為
+
+3
+00:00:08,691 --> 00:00:10,246
+turns out that this will be a bit more
+事實證明會多一點
+
+4
+00:00:10,359 --> 00:00:10,743
+tricky.
+棘手。
+
+5
+00:00:11,401 --> 00:00:13,502
+So for the moment, let's add the find method
+現在，讓我們加入 find 方法
+
+6
+00:00:13,502 --> 00:00:16,083
+instead where we also are looking for a
+相反，我們也在尋找
+
+7
+00:00:16,083 --> 00:00:16,500
+value.
+價值。
+
+8
+00:00:17,446 --> 00:00:19,739
+So how do we now find a node?
+那我們現在要如何找到節點呢？
+
+9
+00:00:20,958 --> 00:00:23,235
+Well, first of all, let's check if maybe
+好吧，首先，讓我們檢查一下是否可能
+
+10
+00:00:23,283 --> 00:00:25,897
+this node on which we're calling find has
+我們呼叫 find 的這個節點有
+
+11
+00:00:26,009 --> 00:00:26,667
+this value.
+這個值。
+
+12
+00:00:27,196 --> 00:00:30,564
+So if this value is equal to the value we're
+所以如果這個值等於我們的值
+
+13
+00:00:30,644 --> 00:00:33,322
+looking for, then we know we already are
+尋找，然後我們知道我們已經在
+
+14
+00:00:33,450 --> 00:00:35,791
+looking on the right node. So in this case,
+查看正確的節點。所以在這種情況下，
+
+15
+00:00:35,871 --> 00:00:38,164
+we just return this. Very simple.
+我們只回這個。很簡單。
+
+16
+00:00:39,062 --> 00:00:40,826
+Now if that's not the case, we need to dig
+現在如果情況並非如此，我們需要挖掘
+
+17
+00:00:40,842 --> 00:00:41,211
+deeper.
+更深。
+
+18
+00:00:41,804 --> 00:00:43,761
+And therefore now, of course, and that's the
+因此，當然，現在就是
+
+19
+00:00:43,761 --> 00:00:46,070
+huge advantage, since we know that it's a
+巨大的優勢，因為我們知道這是一個
+
+20
+00:00:46,214 --> 00:00:48,924
+binary search tree, we can check whether the
+二元搜尋樹，我們可以檢查是否
+
+21
+00:00:49,004 --> 00:00:51,586
+value we're looking for is bigger or smaller
+我們正在尋找的值是更大還是更小
+
+22
+00:00:51,586 --> 00:00:54,392
+than this node's value. And if it's smaller,
+比該節點的值。如果它更小，
+
+23
+00:00:54,537 --> 00:00:56,894
+we know we only need to look in the left
+我們知道我們只需要看看左邊
+
+24
+00:00:56,942 --> 00:00:59,011
+child node and its children,
+子節點及其子節點，
+
+25
+00:00:59,589 --> 00:01:01,500
+or if it's bigger, we only need to look in
+或者如果它更大，我們只需要查看
+
+26
+00:01:01,532 --> 00:01:04,149
+the right child node and that child node's
+右子節點和該子節點的
+
+27
+00:01:04,245 --> 00:01:06,782
+children. So we'll never have to look in all
+孩子們。所以我們永遠不必看全部
+
+28
+00:01:06,991 --> 00:01:09,736
+nodes because of that sorting which is built
+節點，因為所建構的排序
+
+29
+00:01:09,801 --> 00:01:11,406
+into this binary search tree.
+進入這個二元搜尋樹。
+
+30
+00:01:12,129 --> 00:01:14,152
+So here, let's check if
+所以在這裡，讓我們檢查一下是否
+
+31
+00:01:14,697 --> 00:01:17,764
+this node's value is, just like before,
+這個節點的值是，就像以前一樣，
+
+32
+00:01:17,973 --> 00:01:19,787
+smaller than the incoming value.
+小於傳入值。
+
+33
+00:01:20,863 --> 00:01:24,267
+If that's the case, then we know that the
+如果是這樣的話，那我們就知道
+
+34
+00:01:24,556 --> 00:01:25,421
+incoming value
+輸入值
+
+35
+00:01:25,998 --> 00:01:28,994
+was stored in the right node, because if
+被儲存在正確的節點中，因為如果
+
+36
+00:01:29,058 --> 00:01:31,558
+this node's value is smaller, then the value
+該節點的值較小，則該值
+
+37
+00:01:31,558 --> 00:01:33,545
+is stored in the right node. So we want to
+儲存在正確的節點中。所以我們想要
+
+38
+00:01:33,545 --> 00:01:35,372
+look in the right node, but for that I will
+查看正確的節點，但為此我將
+
+39
+00:01:35,532 --> 00:01:35,836
+actually
+實際上
+
+40
+00:01:36,654 --> 00:01:37,968
+add something to this if check.
+如果檢查，請添加一些內容。
+
+41
+00:01:38,496 --> 00:01:40,756
+I also want to check if a right node exists,
+我還想檢查是否有正確的節點，
+
+42
+00:01:40,916 --> 00:01:43,175
+because maybe this node does have no right
+因為也許這個節點確實沒有權利
+
+43
+00:01:43,223 --> 00:01:45,403
+child. We might simply be looking for a
+孩子。我們可能只是在尋找一個
+
+44
+00:01:45,403 --> 00:01:47,518
+value that doesn't exist in this entire
+整個過程中不存在的值
+
+45
+00:01:47,550 --> 00:01:49,970
+tree. So we should check whether we have a
+樹。所以我們應該檢查我們是否有
+
+46
+00:01:50,034 --> 00:01:50,739
+right child.
+對的孩子。
+
+47
+00:01:51,300 --> 00:01:53,194
+But if that's the case, since the incoming
+但如果是這樣的話，既然傳入
+
+48
+00:01:53,258 --> 00:01:55,730
+value is bigger than this node's value, we
+值大於該節點的值，我們
+
+49
+00:01:55,730 --> 00:01:58,250
+know that this value we're looking for has
+知道我們正在尋找的這個值有
+
+50
+00:01:58,299 --> 00:02:00,819
+to be somewhere on the right child's branch.
+位於右孩子分支上的某個位置。
+
+51
+00:02:01,365 --> 00:02:04,431
+And therefore now we call this right.find.
+因此現在我們稱之為 right.find。
+
+52
+00:02:04,961 --> 00:02:07,626
+Keep in mind that right points at a node. So
+請記住，右點指向一個節點。所以
+
+53
+00:02:07,626 --> 00:02:10,322
+we can call find on that because every node
+我們可以呼叫 find ，因為每個節點
+
+54
+00:02:10,338 --> 00:02:11,607
+will have a find method.
+會有一個find方法。
+
+55
+00:02:12,602 --> 00:02:14,641
+And we forward the value to that and return
+我們將值轉發給它並回傳
+
+56
+00:02:14,689 --> 00:02:16,920
+the result of that. So this is again a
+其結果。所以這又是一個
+
+57
+00:02:16,920 --> 00:02:19,554
+recursive call because this code will run in
+遞迴調用，因為此程式碼將運行在
+
+58
+00:02:19,650 --> 00:02:21,466
+every node until we find the value
+每個節點直到我們找到值
+
+59
+00:02:22,061 --> 00:02:24,503
+or until we exhausted all nodes that made
+或者直到我們用完所有節點
+
+60
+00:02:24,712 --> 00:02:25,644
+sense to look into.
+感覺要調查一下。
+
+61
+00:02:26,319 --> 00:02:28,842
+And therefore, ultimately, we can return the
+因此，最終我們可以回傳
+
+62
+00:02:28,842 --> 00:02:29,790
+value here. Of course,
+值在這裡。當然，
+
+63
+00:02:30,657 --> 00:02:32,377
+of course, we also might have the case that
+當然，我們也可能有這樣的情況
+
+64
+00:02:32,377 --> 00:02:34,932
+the incoming value is smaller than this
+傳入的值小於這個值
+
+65
+00:02:34,948 --> 00:02:35,783
+node's value.
+節點的值。
+
+66
+00:02:36,442 --> 00:02:39,286
+Then we have to look in the left branch. So
+然後我們必須查看左側分支。所以
+
+67
+00:02:39,286 --> 00:02:42,388
+therefore, I check if this left exists, and
+因此，我檢查這個左邊是否存在，並且
+
+68
+00:02:42,404 --> 00:02:46,194
+if that's the case, we return this left find
+如果是這樣的話，我們回到這個左查找
+
+69
+00:02:46,243 --> 00:02:48,731
+value. And now we only look in the left
+價值。現在我們只看左邊
+
+70
+00:02:48,731 --> 00:02:50,160
+child and its children.
+孩子和它的孩子。
+
+71
+00:02:50,915 --> 00:02:53,115
+And this is called recursively, but keep in
+這被稱為遞迴調用，但保持在
+
+72
+00:02:53,147 --> 00:02:55,443
+mind that we'll never look in all
+請記住，我們永遠不會看全部
+
+73
+00:02:55,973 --> 00:02:58,831
+nodes here because of that binary search
+由於二分搜尋，這裡有節點
+
+74
+00:02:58,943 --> 00:03:01,801
+tree nature. We know that only one branch
+樹性質。我們知道只有一個分支
+
+75
+00:03:01,897 --> 00:03:04,322
+makes sense for a given value, so we'll
+對於給定的值有意義，所以我們
+
+76
+00:03:04,322 --> 00:03:06,248
+never have to evaluate all of them.
+永遠不必評估所有這些。
+
+77
+00:03:07,693 --> 00:03:10,518
+And with that, we have add and find And as I
+這樣，我們就添加並找到了，正如我
+
+78
+00:03:10,518 --> 00:03:10,999
+mentioned,
+提及，
+
+79
+00:03:11,848 --> 00:03:14,732
+for the moment, I will ignore remove and
+目前，我將忽略刪除和
+
+80
+00:03:14,748 --> 00:03:16,446
+let's instead play around with that.
+讓我們來嘗試一下。
+
+81
+00:03:17,552 --> 00:03:18,481
+Let's test this.
+讓我們測試一下。
+
+82
+00:03:19,378 --> 00:03:20,692
+I will create a new
+我將創建一個新的
+
+83
+00:03:22,022 --> 00:03:24,521
+tree here by calling newTree like that.
+透過像這樣呼叫 newTree 來建立樹。
+
+84
+00:03:25,322 --> 00:03:28,206
+And on that tree, I'll call add and I wanna
+在那棵樹上，我會呼叫 add，我想要
+
+85
+00:03:28,270 --> 00:03:29,183
+add, let's say, 10.
+添加，比方說，10。
+
+86
+00:03:30,112 --> 00:03:31,875
+And I'll add a couple of other numbers. I'll
+我會添加一些其他數字。患病的
+
+87
+00:03:31,955 --> 00:03:32,179
+add
+添加
+
+88
+00:03:32,836 --> 00:03:34,310
+5 and 2
+5 和 2
+
+89
+00:03:35,239 --> 00:03:39,437
+and 6 and I'll also add, let's say, 20
+和 6，我還要加上，比方說，20
+
+90
+00:03:40,046 --> 00:03:42,694
+and also 25, and also
+還有25，還有
+
+91
+00:03:43,336 --> 00:03:46,290
+39. Just a couple of numbers that are being
+39. 只有幾個數字正在被
+
+92
+00:03:46,466 --> 00:03:46,659
+added.
+額外。
+
+93
+00:03:47,831 --> 00:03:50,575
+And with all of that added, I'll console.log
+添加完所有這些後，我將 console.log
+
+94
+00:03:50,575 --> 00:03:53,320
+the entire tree so that we can inspect that.
+整棵樹，以便我們可以檢查它。
+
+95
+00:03:53,866 --> 00:03:56,354
+But I'll also console.log tree.find,
+但我也會console.log tree.find，
+
+96
+00:03:56,980 --> 00:03:59,179
+and I want to look for 6, and I want to look
+我想找 6 我想找
+
+97
+00:03:59,179 --> 00:04:01,811
+for 7, which does not exist, and I want to
+對於 7，它不存在，我想要
+
+98
+00:04:01,811 --> 00:04:03,063
+look for 39.
+尋找 39。
+
+99
+00:04:03,882 --> 00:04:07,060
+And I should get back nodes for 6 and 39,
+我應該回傳 6 和 39 的節點，
+
+100
+00:04:07,172 --> 00:04:08,119
+but not for 7.
+但不適合7。
+
+101
+00:04:09,017 --> 00:04:11,310
+And with that, if we go back to the browser,
+這樣，如果我們回到瀏覽器，
+
+102
+00:04:12,064 --> 00:04:15,303
+we can see the tree. And then we see that
+我們可以看到那棵樹。然後我們看到
+
+103
+00:04:15,608 --> 00:04:19,360
+the 6 node and the 39 node were found, but
+找到了6節點和39節點，但是
+
+104
+00:04:19,376 --> 00:04:22,632
+we got undefined for this 7 value, which
+我們對這個 7 值未定義，這
+
+105
+00:04:22,728 --> 00:04:25,149
+makes sense because there is no 7 in the
+這是有道理的，因為裡面沒有 7
+
+106
+00:04:25,149 --> 00:04:25,390
+tree.
+樹。
+
+107
+00:04:26,272 --> 00:04:28,389
+Now let's also inspect the entire tree. Here
+現在讓我們檢查整棵樹。這裡
+
+108
+00:04:28,902 --> 00:04:31,131
+we see the root node has a value of 10,
+我們看到根節點的值為 10，
+
+109
+00:04:31,660 --> 00:04:33,825
+so that was added when we added the value
+所以當我們添加值時添加了它
+
+110
+00:04:33,873 --> 00:04:34,659
+for the first time.
+首次。
+
+111
+00:04:35,577 --> 00:04:36,740
+And then you simply see
+然後你就會看到
+
+112
+00:04:37,580 --> 00:04:40,971
+on the left node we have a value of 6.
+在左側節點上，我們的值為 6。
+
+113
+00:04:41,698 --> 00:04:42,441
+Makes sense,
+有道理，
+
+114
+00:04:43,313 --> 00:04:43,700
+here it is.
+這裡是。
+
+115
+00:04:46,072 --> 00:04:48,557
+But you also see that the left and right
+但你也看到了左邊和右邊
+
+116
+00:04:48,557 --> 00:04:50,493
+node of that 6 node is empty.
+該 6 個節點的節點為空。
+
+117
+00:04:52,222 --> 00:04:55,092
+On the right side, you see we only have 39
+在右邊，你看我們只有 39 個
+
+118
+00:04:55,205 --> 00:04:56,205
+and no other value.
+並且沒有其他價值。
+
+119
+00:04:57,120 --> 00:04:58,085
+And therefore, it was
+因此，這是
+
+120
+00:04:58,841 --> 00:05:01,883
+basically just by chance that we found 6 and
+基本上只是偶然我們發現了 6 個
+
+121
+00:05:01,883 --> 00:05:03,685
+39. If I look for
+39.如果我尋找
+
+122
+00:05:04,254 --> 00:05:06,644
+5 here, for example, which we should also
+例如這裡的 5，我們也應該
+
+123
+00:05:06,709 --> 00:05:07,168
+find,
+尋找，
+
+124
+00:05:08,840 --> 00:05:10,857
+you see I get undefined. So something is
+你看我得到了未定義。所以有些東西是
+
+125
+00:05:10,954 --> 00:05:13,552
+wrong about our tree. Now what could be the
+我們的樹是錯的。現在可能是什麼
+
+126
+00:05:13,616 --> 00:05:15,424
+problem with the code we got here?
+我們這裡的程式碼有問題嗎？
+
+127
+00:05:16,150 --> 00:05:18,232
+Of course it has to be a problem with the
+當然，這一定是系統的問題
+
+128
+00:05:18,232 --> 00:05:19,005
+add method,
+添加方法，
+
+129
+00:05:19,665 --> 00:05:21,566
+because if we inspect the whole tree,
+因為如果我們檢查整棵樹，
+
+130
+00:05:22,179 --> 00:05:23,773
+data is missing as you just saw.
+正如您剛才看到的那樣，資料遺失了。
+
+131
+00:05:24,712 --> 00:05:26,888
+And here the problem is that we either add
+這裡的問題是我們要么添加
+
+132
+00:05:26,888 --> 00:05:28,951
+something on the right or the left side,
+右側或左側的某物，
+
+133
+00:05:29,548 --> 00:05:32,990
+but there's one important check that we're
+但有一項重要的檢查顯示我們
+
+134
+00:05:32,990 --> 00:05:33,776
+missing here.
+這裡失蹤了。
+
+135
+00:05:34,963 --> 00:05:37,625
+We always set the right or the left to a new
+我們總是將右側或左側設定為新的
+
+136
+00:05:38,010 --> 00:05:38,523
+node here,
+節點在這裡，
+
+137
+00:05:39,614 --> 00:05:42,452
+but that of course means that we can never
+但這當然意味著我們永遠無法
+
+138
+00:05:42,660 --> 00:05:43,286
+add any
+添加任何
+
+139
+00:05:44,104 --> 00:05:46,333
+other nested nodes. We can never have any
+其他巢狀節點。我們永遠不可能擁有任何
+
+140
+00:05:46,349 --> 00:05:49,957
+more nested, any deeper nested nodes. We
+更多嵌套，任何更深的嵌套節點。我們
+
+141
+00:05:50,037 --> 00:05:52,683
+always can just set left or right, but we
+總是可以只設定向左或向右，但我們
+
+142
+00:05:52,683 --> 00:05:55,057
+can never reach out to an existing left or
+永遠無法觸及現有的左翼或
+
+143
+00:05:55,169 --> 00:05:57,767
+right node and insert a child node on that.
+右節點並在其上插入子節點。
+
+144
+00:05:59,693 --> 00:06:02,053
+To explain what I mean, let's go back to
+為了解釋我的意思，讓我們回到
+
+145
+00:06:02,631 --> 00:06:04,333
+our example where we use the tree.
+我們使用樹的範例。
+
+146
+00:06:04,895 --> 00:06:08,041
+I first of all add 10. Now this is set as a
+我首先添加 10。現在這被設定為
+
+147
+00:06:08,041 --> 00:06:10,514
+value for the root node as I explained
+正如我所解釋的，根節點的值
+
+148
+00:06:10,514 --> 00:06:12,858
+before, because in the add method we check
+之前，因為在 add 方法中我們檢查
+
+149
+00:06:12,986 --> 00:06:15,169
+whether we already have a value on the given
+我們是否已經有了給定的值
+
+150
+00:06:15,169 --> 00:06:17,321
+node, which initially is the root node, and
+節點，最初是根節點，並且
+
+151
+00:06:17,353 --> 00:06:19,135
+if that's not the case, we store the value.
+如果不是這種情況，我們會儲存該值。
+
+152
+00:06:19,649 --> 00:06:22,025
+So that's how the 10 ends up here. Makes
+這就是 10 的結局。使
+
+153
+00:06:22,025 --> 00:06:22,314
+sense.
+感覺。
+
+154
+00:06:23,261 --> 00:06:26,823
+Now we add 5. Now when we add 5, we make it
+現在我們新增 5。現在當我們添加 5 時，我們就得到了
+
+155
+00:06:26,871 --> 00:06:29,053
+into the add code here. Of course,
+到這裡加入程式碼。當然，
+
+156
+00:06:29,679 --> 00:06:31,524
+obviously the value is now not null on the
+顯然該值現在不為空
+
+157
+00:06:31,540 --> 00:06:33,946
+root node, so we don't do that. But instead
+根節點，所以我們不這樣做。但相反
+
+158
+00:06:33,946 --> 00:06:37,571
+we see that 5 is smaller than 10, so we make
+我們看到 5 小於 10，所以我們做
+
+159
+00:06:37,571 --> 00:06:40,170
+it into this if check and we set the left
+它進入這個 if 檢查，我們設定左邊
+
+160
+00:06:40,202 --> 00:06:44,293
+node to this 5 value, so to a new node that
+節點到這個 5 值，所以到一個新節點
+
+161
+00:06:44,293 --> 00:06:45,577
+holds that 5 value.
+保持該 5 值。
+
+162
+00:06:46,298 --> 00:06:48,464
+But we don't see that here. Here we see 6,
+但我們在這裡看不到這一點。在這裡我們看到6，
+
+163
+00:06:48,480 --> 00:06:50,630
+not 5. Well, I'll come back to that in a
+不是 5。好吧，我稍後會再討論這個問題。
+
+164
+00:06:50,630 --> 00:06:51,047
+second.
+第二。
+
+165
+00:06:51,844 --> 00:06:54,515
+Because the problems start with the next
+因為問題從下一個開始
+
+166
+00:06:54,563 --> 00:06:56,237
+line here when we add 2.
+當我們加入 2 時，這裡就行了。
+
+167
+00:06:57,218 --> 00:06:59,246
+When we do that, we call it on the tree,
+當我們這樣做時，我們在樹上調用它，
+
+168
+00:06:59,632 --> 00:07:01,065
+right? So we first of all
+正確的？所以我們首先
+
+169
+00:07:01,660 --> 00:07:02,997
+call add on the root node.
+在根節點上呼叫add。
+
+170
+00:07:03,754 --> 00:07:05,557
+We are adding a value of 2
+我們新增值 2
+
+171
+00:07:06,153 --> 00:07:06,990
+on the root node.
+在根節點上。
+
+172
+00:07:07,683 --> 00:07:09,858
+The root node has a value by now, so this
+根節點現在已經有了值，所以這
+
+173
+00:07:09,858 --> 00:07:10,572
+code doesn't run.
+程式碼不運行。
+
+174
+00:07:11,415 --> 00:07:14,287
+But now we check if 2 is maybe smaller
+但現在我們檢查 2 是否可能更小
+
+175
+00:07:15,795 --> 00:07:18,027
+than the root node's value. Which means we
+比根節點的值。這意味著我們
+
+176
+00:07:18,027 --> 00:07:19,807
+again make it here into this if check.
+再次將其放入此 if 檢查中。
+
+177
+00:07:20,913 --> 00:07:23,703
+And therefore we now set the left node of
+因此我們現在設定左節點
+
+178
+00:07:23,735 --> 00:07:25,643
+the root node, and that's important, of the
+根節點，這一點很重要
+
+179
+00:07:25,723 --> 00:07:28,513
+root node to 2. Of course of the root node
+根節點到2.當然是根節點
+
+180
+00:07:28,545 --> 00:07:30,453
+because we never try adding it somewhere
+因為我們從來沒有嘗試將它添加到某個地方
+
+181
+00:07:30,453 --> 00:07:33,275
+else. Now we already set the left node of
+別的。現在我們已經設定了左節點
+
+182
+00:07:33,275 --> 00:07:35,664
+the root node before. We set it to 5.
+之前的根節點。我們將其設為 5。
+
+183
+00:07:36,385 --> 00:07:38,582
+And now we're overriding it with 2. So we
+現在我們用 2 覆蓋它。所以我們
+
+184
+00:07:38,710 --> 00:07:39,880
+lost the 5 now.
+現在已經輸了5了。
+
+185
+00:07:40,650 --> 00:07:42,478
+So the problem we have here is that we
+所以我們這裡遇到的問題是
+
+186
+00:07:42,718 --> 00:07:45,284
+always keep on overriding left and right on
+始終繼續覆蓋左側和右側
+
+187
+00:07:45,284 --> 00:07:47,880
+the root node and we never dig deeper.
+根節點，我們永遠不會深入挖掘。
+
+188
+00:07:48,809 --> 00:07:51,229
+What we should do instead is something else.
+相反，我們應該做的是別的事情。
+
+189
+00:07:52,014 --> 00:07:54,914
+In our if checks here, we should not just
+在我們的 if 檢查中，我們不應該只是
+
+190
+00:07:54,978 --> 00:07:57,109
+check the values and then assign the left or
+檢查值，然後分配左側或
+
+191
+00:07:57,157 --> 00:07:57,894
+the right node.
+正確的節點。
+
+192
+00:07:58,423 --> 00:08:00,586
+Instead, we should also check if we maybe
+相反，我們也應該檢查是否可以
+
+193
+00:08:00,602 --> 00:08:02,285
+already have a right node here.
+這裡已經有一個正確的節點了。
+
+194
+00:08:03,086 --> 00:08:05,554
+And if we do have a right node here, we know
+如果我們確實有一個正確的節點，我們就知道
+
+195
+00:08:05,570 --> 00:08:07,797
+we don't wanna overwrite it. Instead, we
+我們不想覆蓋它。相反，我們
+
+196
+00:08:07,813 --> 00:08:10,553
+wanna add the value inside of it as a new
+想要將其內部的值加為新的
+
+197
+00:08:10,761 --> 00:08:13,517
+child node of that existing right node.
+該現有右節點的子節點。
+
+198
+00:08:14,326 --> 00:08:16,793
+So we wanna reach out to this right and call
+所以我們想向這個權利伸出援手並打電話
+
+199
+00:08:16,970 --> 00:08:19,647
+add on that node and forward the value to
+新增該節點並將值轉送到
+
+200
+00:08:19,711 --> 00:08:22,227
+that. We wanna have that recursive step
+那。我們想要遞迴步驟
+
+201
+00:08:22,227 --> 00:08:22,340
+here.
+這裡。
+
+202
+00:08:23,502 --> 00:08:24,665
+And of course, not just here,
+當然，不只在這裡，
+
+203
+00:08:25,522 --> 00:08:27,073
+but also here for this
+但也為此
+
+204
+00:08:27,703 --> 00:08:28,269
+left.
+左邊。
+
+205
+00:08:30,242 --> 00:08:32,147
+And with that, we should now be prepared,
+有了這個，我們現在應該做好準備，
+
+206
+00:08:32,260 --> 00:08:33,955
+though there is one important thing we gotta
+雖然有一件重要的事情我們必須
+
+207
+00:08:34,020 --> 00:08:34,165
+do.
+做。
+
+208
+00:08:34,907 --> 00:08:37,409
+We also have to return here so that this
+我們也必須回到這裡，這樣
+
+209
+00:08:37,409 --> 00:08:40,109
+code doesn't execute, otherwise we again
+程式碼不執行，否則我們再次
+
+210
+00:08:40,144 --> 00:08:42,152
+overwrite it. And we don't want to overwrite
+覆蓋它。我們不想覆蓋
+
+211
+00:08:42,152 --> 00:08:42,264
+it.
+它。
+
+212
+00:08:42,954 --> 00:08:46,037
+So here we return if we added a nested node.
+所以這裡我們回傳是否新增了巢狀節點。
+
+213
+00:08:46,391 --> 00:08:48,301
+So in both if statements here, I added a
+所以在這裡的兩個 if 語句中，我加入了一個
+
+214
+00:08:48,301 --> 00:08:49,217
+return statement.
+回傳聲明。
+
+215
+00:08:49,746 --> 00:08:51,368
+And with that, if we now save that and
+有了這個，如果我們現在儲存它並且
+
+216
+00:08:51,368 --> 00:08:54,547
+reload, now you see I'm finding the 5 node,
+重新載入，現在你看到我找到了 5 個節點，
+
+217
+00:08:54,579 --> 00:08:57,020
+which is a good sign. And if we inspect our
+這是一個好兆頭。如果我們檢查我們的
+
+218
+00:08:57,068 --> 00:08:59,332
+tree, we now see left and right
+樹，我們現在看到左邊和右邊
+
+219
+00:08:59,862 --> 00:09:02,784
+got values of 5 and 20, which makes a lot of
+得到的值為 5 和 20，這使得很多
+
+220
+00:09:02,784 --> 00:09:06,188
+sense because 5 is the first smaller value
+有道理，因為 5 是第一個較小的值
+
+221
+00:09:06,510 --> 00:09:09,482
+than 10, which is our root node value, which
+大於 10，這是我們的根節點值，即
+
+222
+00:09:09,579 --> 00:09:12,455
+we add. And 20 is the first bigger value
+我們補充道。 20 是第一個更大的值
+
+223
+00:09:12,808 --> 00:09:15,138
+than 10, which we add. So it makes sense
+超過 10，我們添加。所以這是有道理的
+
+224
+00:09:15,138 --> 00:09:17,805
+that those are the direct children of the
+那些是的直系孩子
+
+225
+00:09:17,934 --> 00:09:18,368
+root node.
+根節點。
+
+226
+00:09:19,155 --> 00:09:21,646
+And then if we dig deeper, on 5 we see on
+然後如果我們深入挖掘，在 5 上我們會看到
+
+227
+00:09:21,646 --> 00:09:23,622
+the left the smaller value is 2,
+左邊較小的值為2，
+
+228
+00:09:24,297 --> 00:09:26,836
+on the right the bigger value is 6, and then
+右邊較大的值是6，然後
+
+229
+00:09:26,868 --> 00:09:28,683
+there we got no nested nodes.
+那裡我們沒有巢狀節點。
+
+230
+00:09:29,664 --> 00:09:32,218
+And for the other branch, for 20,
+對於另一個分支，20，
+
+231
+00:09:32,812 --> 00:09:34,720
+We see there is no left node, which makes
+我們看到沒有左節點，這使得
+
+232
+00:09:34,720 --> 00:09:36,949
+sense because we never add any values
+有意義，因為我們從不加任何值
+
+233
+00:09:36,981 --> 00:09:39,275
+smaller than 20 but bigger than 10.
+小於 20 但大於 10。
+
+234
+00:09:40,108 --> 00:09:42,097
+But we should have bigger nodes, we should
+但我們應該有更大的節點，我們應該
+
+235
+00:09:42,097 --> 00:09:43,011
+have right nodes,
+有正確的節點，
+
+236
+00:09:43,716 --> 00:09:44,197
+and we do.
+我們確實這麼做了。
+
+237
+00:09:44,903 --> 00:09:48,607
+Here's the 25 right node and the 39 right
+這是 25 右節點和 39 右節點
+
+238
+00:09:48,607 --> 00:09:51,542
+node. And this is now a working binary
+節點。現在這是一個可以工作的二進位檔案
+
+239
+00:09:51,750 --> 00:09:52,311
+search tree.
+搜尋樹。
+
+240
+00:09:52,857 --> 00:09:55,150
+Now of course the remove functionality is
+當然，現在刪除功能是
+
+241
+00:09:55,358 --> 00:09:58,276
+still missing, but we have a working add and
+仍然失踪，但我們有一個工作添加和
+
+242
+00:09:58,309 --> 00:10:00,523
+find functionality. And we'll work on
+找到功能。我們將努力
+
+243
+00:10:00,555 --> 00:10:02,306
+removing something as well.
+也刪除一些東西。
+
+244
+00:10:02,884 --> 00:10:03,414
+But this is
+但這是
+
+245
+00:10:04,073 --> 00:10:06,338
+the essence of a binary search tree.
+二元搜尋樹的本質。
+
+246
+00:10:06,964 --> 00:10:09,470
+And now let's also, of course, see how we
+當然，現在我們也看看我們如何
+
+247
+00:10:09,470 --> 00:10:11,510
+could implement a remove function.
+可以實現刪除功能。

@@ -1,0 +1,449 @@
+1
+00:00:02,179 --> 00:00:04,534
+Now before we write code, let's understand
+在我們編寫程式碼之前，讓我們先了解一下
+
+2
+00:00:04,582 --> 00:00:06,810
+how balancing should work in theory.
+理論上平衡應該如何進行。
+
+3
+00:00:07,483 --> 00:00:08,300
+There are 4
+有 4 個
+
+4
+00:00:08,829 --> 00:00:12,162
+ways of balancing out an AVL tree, and with
+平衡 AVL 樹的方法，以及
+
+5
+00:00:12,194 --> 00:00:14,341
+that I don't mean 4 different approaches,
+我並不是指四種不同的方法，
+
+6
+00:00:14,854 --> 00:00:19,148
+but 4 ways of fixing an unbalanced binary
+但是修復不平衡二進位檔案的 4 種方法
+
+7
+00:00:19,180 --> 00:00:23,090
+search tree to make it a valid AVL tree. And
+搜尋樹使其成為有效的 AVL 樹。和
+
+8
+00:00:23,266 --> 00:00:25,910
+which way you pick depends on how your tree
+你選擇哪一種方式取決於你的樹
+
+9
+00:00:25,910 --> 00:00:26,567
+is structured.
+是結構化的。
+
+10
+00:00:27,336 --> 00:00:30,044
+For example, you might need a left rotation.
+例如，您可能需要向左旋轉。
+
+11
+00:00:30,716 --> 00:00:32,687
+Now what is that and when do you need it?
+那是什麼？什麼時候需要它？
+
+12
+00:00:33,584 --> 00:00:36,644
+Consider this binary search tree. We have a
+考慮這個二元搜尋樹。我們有一個
+
+13
+00:00:36,644 --> 00:00:39,271
+value of 1 at the top, then we have a value
+頂部的值為 1，那麼我們就有一個值
+
+14
+00:00:39,271 --> 00:00:41,450
+of 2 on the right branch of that, and a
+2 的右側分支，以及
+
+15
+00:00:41,450 --> 00:00:43,645
+value of 3 on the right branch of 2.
+2 的右邊分支上的 3 的值。
+
+16
+00:00:44,414 --> 00:00:46,256
+Now this is an unbalanced tree, so we need
+現在這是一棵不平衡的樹，所以我們需要
+
+17
+00:00:46,256 --> 00:00:46,881
+to fix it.
+修復它。
+
+18
+00:00:47,458 --> 00:00:50,982
+And we do fix it by rotating left. And you
+我們透過向左旋轉來修復它。你呢
+
+19
+00:00:50,982 --> 00:00:53,802
+can really think of our rotation here. We
+真的可以想到我們在這裡輪換。我們
+
+20
+00:00:53,866 --> 00:00:57,230
+basically move the node with value 2 to the
+基本上將值為 2 的節點移動到
+
+21
+00:00:57,230 --> 00:01:00,132
+place where 1 is But we don't swap the 2,
+1所在的地方但我們不交換2，
+
+22
+00:01:00,437 --> 00:01:03,117
+but we simply make 1 a child of 2 now.
+但我們現在只是讓 1 成為 2 的孩子。
+
+23
+00:01:04,032 --> 00:01:06,295
+So that in the end, we end up with this. It
+所以最後我們就得到了這個結果。它
+
+24
+00:01:06,295 --> 00:01:09,826
+is as if we rotated this entire unbalanced
+就好像我們旋轉了整個不平衡的
+
+25
+00:01:09,826 --> 00:01:11,993
+tree to the left, if you think of it like
+左邊的樹，如果你想像的話
+
+26
+00:01:11,993 --> 00:01:12,121
+this.
+這。
+
+27
+00:01:12,795 --> 00:01:15,588
+It still has the same sequence, 1, 2, 3,
+它仍然具有相同的序列，1、2、3，
+
+28
+00:01:16,165 --> 00:01:18,493
+but it simply was rotated to the left.
+但它只是向左旋轉。
+
+29
+00:01:19,199 --> 00:01:22,088
+This kind of fix is needed if we have a
+如果我們有的話，就需要這種修復
+
+30
+00:01:22,088 --> 00:01:25,763
+right-heavy tree. So if our right branch is
+右重树。所以如果我們的右邊分支是
+
+31
+00:01:25,955 --> 00:01:28,974
+unbalanced to the left branch. So to say, as
+左分支不平衡。可以這麼說，作為
+
+32
+00:01:28,974 --> 00:01:29,820
+it is the case here.
+這裡就是這種情況。
+
+33
+00:01:32,350 --> 00:01:34,601
+Obviously, we therefore also have situations
+顯然，我們也有這樣的情況
+
+34
+00:01:35,019 --> 00:01:37,818
+where we need a right rotation, for example
+例如，我們需要正確旋轉的地方
+
+35
+00:01:37,915 --> 00:01:40,665
+on this binary search tree. Here it's
+在這個二元搜尋樹上。這是
+
+36
+00:01:40,665 --> 00:01:43,872
+basically the opposite. We have 3 as a first
+基本上相反。我們有 3 個作為第一個
+
+37
+00:01:43,872 --> 00:01:46,433
+value, as a root node, and therefore on the
+值，作為根節點，因此在
+
+38
+00:01:46,514 --> 00:01:50,234
+left node, the left child of 3 is 2 and the
+左節點，3 的左子節點是 2，
+
+39
+00:01:50,234 --> 00:01:51,878
+left child of 2 is 1.
+2 的左孩子是 1。
+
+40
+00:01:52,608 --> 00:01:55,031
+Again, this is unbalanced. Now just in the
+再次強調，這是不平衡的。現在就在
+
+41
+00:01:55,047 --> 00:01:55,976
+opposite direction.
+相反的方向。
+
+42
+00:01:56,569 --> 00:01:58,796
+And the fix here would be a right rotation
+這裡的解決方法是右旋轉
+
+43
+00:01:58,892 --> 00:02:01,744
+to end up with this kind of AVL tree. It's
+最後得到這種AVL樹。它是
+
+44
+00:02:01,792 --> 00:02:04,708
+the same AVL tree as before, but the fix is
+與之前相同的 AVL 樹，但修復是
+
+45
+00:02:04,837 --> 00:02:07,048
+different because the starting tree is
+不同，因為起始樹是
+
+46
+00:02:07,144 --> 00:02:09,563
+different. And I hope it's clear when we
+不同的。我希望當我們
+
+47
+00:02:09,563 --> 00:02:12,496
+need what. It should be fairly obvious with
+需要什麼。這應該是相當明顯的
+
+48
+00:02:12,608 --> 00:02:14,082
+those example trees here.
+這裡的那些範例樹。
+
+49
+00:02:15,396 --> 00:02:17,062
+Now these are the 2 easy fixes.
+現在有兩個簡單的修復方法。
+
+50
+00:02:17,655 --> 00:02:20,731
+We can also end up with trees where one
+我們也可以最終得到一棵樹
+
+51
+00:02:20,843 --> 00:02:22,125
+rotation is not enough.
+旋轉還不夠。
+
+52
+00:02:22,702 --> 00:02:25,526
+We also might need a left and then a right
+我們可能還需要先左後右
+
+53
+00:02:25,574 --> 00:02:26,103
+rotation.
+旋轉。
+
+54
+00:02:26,632 --> 00:02:27,643
+And here's an example.
+這是一個例子。
+
+55
+00:02:28,237 --> 00:02:30,691
+We start with a binary search tree which
+我們從二元搜尋樹開始
+
+56
+00:02:30,787 --> 00:02:34,268
+looks like this. Still 3 values, but now we
+看起來像這樣。仍然是 3 個值，但現在我們
+
+57
+00:02:34,316 --> 00:02:38,150
+have 3 as a topmost value, then on its left
+將 3 作為最上面的值，然後在其左側
+
+58
+00:02:38,246 --> 00:02:40,877
+branch as a left child we have 1,
+分支作為左子節點，我們有 1，
+
+59
+00:02:41,455 --> 00:02:43,572
+and as a right child to 1 we have 2.
+作為 1 的右孩子，我們有 2。
+
+60
+00:02:44,502 --> 00:02:46,973
+Now to fix this and turn this into an AVL
+現在解決這個問題並將其轉換為 AVL
+
+61
+00:02:47,085 --> 00:02:49,411
+tree, one rotation will not be enough.
+樹，旋轉一次是不夠的。
+
+62
+00:02:50,172 --> 00:02:52,389
+Instead, what we'll need to do is we'll need
+相反，我們需要做的是
+
+63
+00:02:52,421 --> 00:02:54,718
+to start with a left rotation
+從左旋轉開始
+
+64
+00:02:55,409 --> 00:02:57,578
+so that we end up with this kind of tree,
+所以我們最終得到了這種樹，
+
+65
+00:02:59,474 --> 00:03:01,831
+and then we need another right rotation to
+然後我們需要另一個右旋轉
+
+66
+00:03:01,831 --> 00:03:03,463
+turn this into an AVL tree.
+將其變成 AVL 樹。
+
+67
+00:03:04,320 --> 00:03:06,356
+And this is how we would fix this binary
+這就是我們修復這個二進位檔案的方法
+
+68
+00:03:06,356 --> 00:03:08,780
+search tree to turn it into a balanced tree.
+搜尋樹將其變成平衡樹。
+
+69
+00:03:11,232 --> 00:03:13,560
+Here, there simply is no way of fixing this
+在這裡，根本沒有辦法解決這個問題
+
+70
+00:03:13,577 --> 00:03:14,854
+with just one rotation.
+只需旋轉一圈。
+
+71
+00:03:15,818 --> 00:03:17,602
+Now obviously, we therefore also have a
+現在顯然，我們因此也有一個
+
+72
+00:03:17,602 --> 00:03:18,984
+right-left rotation.
+左右旋轉。
+
+73
+00:03:19,594 --> 00:03:21,779
+Here is the input binary search tree where
+這是輸入二元搜尋樹，其中
+
+74
+00:03:21,779 --> 00:03:23,884
+we might need one, 1, 3, 2.
+我們可能需要一、一、三、二。
+
+75
+00:03:24,495 --> 00:03:27,050
+And again, we start with a rotation to the
+再次，我們從旋轉開始
+
+76
+00:03:27,066 --> 00:03:29,476
+right in this case to end up with this tree,
+在這種情況下最終會得到這棵樹，
+
+77
+00:03:29,492 --> 00:03:32,128
+which is still unbalanced. So now we make a
+這仍然是不平衡的。所以現在我們做一個
+
+78
+00:03:32,128 --> 00:03:35,309
+left rotation and we have our balanced AVL
+左旋轉，我們就有了平衡的 AVL
+
+79
+00:03:35,438 --> 00:03:35,679
+tree.
+樹。
+
+80
+00:03:36,241 --> 00:03:38,877
+So you see, for these basic examples, we
+所以你看，對於這些基本的例子，我們
+
+81
+00:03:39,037 --> 00:03:41,366
+always end up with the same result. But we
+總是得到相同的結果。但我們
+
+82
+00:03:41,366 --> 00:03:43,450
+have different input trees and therefore
+有不同的輸入樹，因此
+
+83
+00:03:43,546 --> 00:03:44,860
+different ways of getting there.
+到達那裡的不同方式。
+
+84
+00:03:45,533 --> 00:03:48,515
+And this is what AVL trees are about. They
+這就是 AVL 樹的意義。他們
+
+85
+00:03:48,659 --> 00:03:50,246
+are binary search trees,
+是二元搜尋樹，
+
+86
+00:03:50,903 --> 00:03:53,371
+but binary search trees with a built-in
+但是二元搜尋樹有一個內建的
+
+87
+00:03:53,547 --> 00:03:56,496
+optimization step that ensures that we'll
+優化步驟確保我們將
+
+88
+00:03:56,528 --> 00:03:58,820
+never have the worst-case time complexity
+永遠不會有最壞情況的時間複雜度
+
+89
+00:03:59,173 --> 00:04:01,866
+because we balance the tree every time a new
+因為每次新的時候我們都會平衡樹
+
+90
+00:04:01,962 --> 00:04:02,875
+value is added.
+價值被增加。

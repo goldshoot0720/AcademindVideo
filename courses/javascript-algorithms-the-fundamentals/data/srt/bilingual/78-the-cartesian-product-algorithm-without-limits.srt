@@ -1,0 +1,2014 @@
+1
+00:00:02,119 --> 00:00:04,448
+So now that we derived how to build the
+現在我們已經導出如何建構
+
+2
+00:00:04,448 --> 00:00:06,584
+Cartesian product of 2 sets,
+2組笛卡兒積，
+
+3
+00:00:07,242 --> 00:00:11,017
+what about an unknown number of sets? In
+未知數量的集合怎麼辦？在
+
+4
+00:00:11,017 --> 00:00:14,710
+this example of 3 sets. But how would the
+本例共3套。但如何
+
+5
+00:00:14,791 --> 00:00:17,312
+algorithm look like if we would not just
+演算法看起來就像我們不只是
+
+6
+00:00:17,312 --> 00:00:21,969
+accept 2 arrays, 2 sets as inputs, but
+接受 2 個陣列、2 個集合作為輸入，但是
+
+7
+00:00:21,969 --> 00:00:23,334
+instead we want to be able to
+相反，我們希望能夠
+
+8
+00:00:23,945 --> 00:00:26,739
+calculate the Cartesian product of any
+計算任意的笛卡兒積
+
+9
+00:00:26,996 --> 00:00:29,341
+amount of sets? How would that look like?
+套數？那會是什麼樣子呢？
+
+10
+00:00:29,726 --> 00:00:31,781
+Well, back in our code, we have this
+好吧，回到我們的程式碼中，我們有這個
+
+11
+00:00:31,910 --> 00:00:34,848
+function card product, which does operate on
+功能卡產品，其運行於
+
+12
+00:00:34,960 --> 00:00:38,139
+2 sets. So now we need some form of
+2套。所以現在我們需要某種形式
+
+13
+00:00:38,235 --> 00:00:40,692
+generalizing this to work with any amount of
+將此推廣到適用於任何數量的
+
+14
+00:00:40,724 --> 00:00:43,758
+sets. Now you can certainly find a lot of
+套。現在你一定可以找到很多
+
+15
+00:00:43,790 --> 00:00:46,488
+different solutions, short and longer ones,
+不同的解決方案，短的和長的，
+
+16
+00:00:47,242 --> 00:00:48,077
+but I would say
+但我想說
+
+17
+00:00:48,607 --> 00:00:52,059
+since we already have a solution for 2 sets,
+因為我們已經有了 2 組的解決方案，
+
+18
+00:00:52,765 --> 00:00:55,189
+we actually only need one more building
+我們實際上只需要再建一棟大樓
+
+19
+00:00:55,270 --> 00:00:57,851
+block to be able to work with any amount of
+塊能夠與任意數量的
+
+20
+00:00:57,851 --> 00:01:00,975
+sets. We need some loop that goes through
+套。我們需要一些迴圈
+
+21
+00:01:01,264 --> 00:01:03,844
+all input sets, no matter how many we get,
+所有輸入集，無論我們得到多少個，
+
+22
+00:01:04,324 --> 00:01:06,392
+and we then, we always just have a look at 2
+然後我們總是只看 2
+
+23
+00:01:06,632 --> 00:01:07,225
+at a time
+一次
+
+24
+00:01:07,850 --> 00:01:10,959
+and build a new set on those 2 sets we had a
+並在這 2 套的基礎上建造一套新的套
+
+25
+00:01:10,959 --> 00:01:14,756
+look at and take this new result set, kind
+看看並獲得這個新的結果集，善良
+
+26
+00:01:14,756 --> 00:01:17,432
+of a temporary set we built, and combine
+我們建立了一個臨時集，並結合
+
+27
+00:01:17,529 --> 00:01:20,157
+that with the next set in line. Sounds
+與下一組一致。聲音
+
+28
+00:01:20,173 --> 00:01:21,903
+complex? Well, it actually isn't.
+複雜的？嗯，實際上並非如此。
+
+29
+00:01:22,593 --> 00:01:23,892
+Back in this example here,
+回到這個例子，
+
+30
+00:01:24,662 --> 00:01:27,484
+let's say we now also have our styles array,
+假設我們現在也有樣式陣列，
+
+31
+00:01:28,607 --> 00:01:29,793
+our styles set,
+我們的風格設定，
+
+32
+00:01:30,836 --> 00:01:34,188
+and in styles we have, let's say, the round
+在款式上，我們有，比如說，圓形
+
+33
+00:01:34,300 --> 00:01:37,572
+neck and we have the V-neck shirt.
+領，我們有 V 領襯衫。
+
+34
+00:01:38,694 --> 00:01:40,282
+And you could of course have more styles.
+當然，您還可以有更多款式。
+
+35
+00:01:40,635 --> 00:01:42,768
+And maybe also just to spice it up, we add
+也許也只是為了增加趣味性，我們加入
+
+36
+00:01:42,944 --> 00:01:44,195
+one extra size here.
+這裡多一號。
+
+37
+00:01:45,029 --> 00:01:48,221
+So we have 3 sets now, and this function
+所以我們現在有 3 組，這個函式
+
+38
+00:01:48,237 --> 00:01:49,360
+only works with 2?
+只適用於 2？
+
+39
+00:01:50,002 --> 00:01:52,506
+Well, we can add a new function which we'll
+好吧，我們可以添加一個新功能，我們將
+
+40
+00:01:52,506 --> 00:01:54,769
+then call cart product in a second,
+然後立即調用購物車產品，
+
+41
+00:01:55,395 --> 00:01:56,887
+and I'll name this Cartesian.
+我將這個命名為笛卡兒。
+
+42
+00:01:57,963 --> 00:01:58,942
+The name, of course, is up to you.
+當然，名稱由您決定。
+
+43
+00:01:59,808 --> 00:02:03,066
+Now this should take an unlimited amount of
+現在這應該需要無限量的
+
+44
+00:02:03,323 --> 00:02:05,201
+arguments, an unlimited amount of
+參數，無限量
+
+45
+00:02:05,329 --> 00:02:07,961
+parameters, where every parameter should be
+參數，其中每個參數應該是
+
+46
+00:02:07,977 --> 00:02:10,657
+a set. So we take an unlimited amount of
+一套。所以我們採取無限量
+
+47
+00:02:10,657 --> 00:02:13,996
+arrays as an input to Cartesian. So we don't
+陣列作為笛卡爾的輸入。所以我們不
+
+48
+00:02:13,996 --> 00:02:16,660
+just have set A, set B, and set C.
+只需要 A 組、B 組和 C 組即可。
+
+49
+00:02:17,222 --> 00:02:19,872
+Because that would again limit it to just 3
+因為這會再次將其限制為僅 3
+
+50
+00:02:19,872 --> 00:02:22,120
+sets. I don't want to impose any
+套。我不想強加任何
+
+51
+00:02:22,120 --> 00:02:22,731
+limitations.
+限制。
+
+52
+00:02:23,469 --> 00:02:25,798
+And in JavaScript, we can do this with the
+在 JavaScript 中，我們可以使用
+
+53
+00:02:25,878 --> 00:02:27,822
+rest parameters syntax.
+其餘參數語法。
+
+54
+00:02:28,384 --> 00:02:30,713
+For that, we add 3 dots here in the
+為此，我們在此處添加 3 個點
+
+55
+00:02:30,713 --> 00:02:33,379
+parameter list and then any name of our
+參數列表，然後是我們的任何名稱
+
+56
+00:02:33,507 --> 00:02:34,953
+choice like sets.
+像套裝一樣的選擇。
+
+57
+00:02:35,836 --> 00:02:37,587
+And what JavaScript will do
+JavaScript 會做什麼
+
+58
+00:02:38,245 --> 00:02:40,462
+is when we call this with, let's say,
+當我們這樣稱呼它時，比方說，
+
+59
+00:02:41,056 --> 00:02:43,979
+3 arguments or 4 arguments or how many
+3 個參數或 4 個參數或多少個
+
+60
+00:02:44,044 --> 00:02:46,726
+arguments you want, all those arguments will
+你想要的論據，所有這些論點都會
+
+61
+00:02:46,919 --> 00:02:49,296
+automatically be aggregated into one
+自動聚合為一
+
+62
+00:02:49,569 --> 00:02:51,882
+argument, into one parameter, which will
+參數，變成一個參數，這將
+
+63
+00:02:51,914 --> 00:02:54,532
+then be an array of those values.
+然後是這些值的陣列。
+
+64
+00:02:55,593 --> 00:02:58,082
+So just to show you how this works, if we
+所以只是為了向您展示這是如何工作的，如果我們
+
+65
+00:02:58,082 --> 00:03:01,439
+console.log sets here, so this aggregated
+console.log 在這裡設置，所以這個聚合
+
+66
+00:03:01,472 --> 00:03:02,034
+parameter,
+範圍，
+
+67
+00:03:02,596 --> 00:03:03,126
+if I would
+如果我願意
+
+68
+00:03:04,427 --> 00:03:06,242
+call Cartesian here
+在這裡調用笛卡爾
+
+69
+00:03:06,836 --> 00:03:07,254
+with my
+和我的
+
+70
+00:03:08,362 --> 00:03:09,872
+colors, sizes
+顏色、尺寸
+
+71
+00:03:10,530 --> 00:03:13,965
+and styles. So with these 3 arrays I created
+和風格。所以我創建了這 3 個陣列
+
+72
+00:03:13,998 --> 00:03:17,192
+up there, if I would call that and save that
+在那裡，如果我可以調用它並儲存它
+
+73
+00:03:17,272 --> 00:03:20,114
+and reload, you see this output here from
+並重新載入，您可以在此處看到此輸出
+
+74
+00:03:20,178 --> 00:03:21,189
+line 14.
+第 14 行。
+
+75
+00:03:22,088 --> 00:03:23,983
+This is from this console.log here.
+這是來自此處的 console.log。
+
+76
+00:03:24,512 --> 00:03:27,097
+This is now an array full of those parameter
+現在這是一個充滿這些參數的陣列
+
+77
+00:03:27,225 --> 00:03:29,938
+values, so full of those arrays I passed as
+值，充滿了我傳遞的陣列
+
+78
+00:03:30,051 --> 00:03:32,298
+arguments. So that's how this rest
+論據。所以這就是休息的方式
+
+79
+00:03:32,298 --> 00:03:34,064
+parameters syntax works.
+參數語法有效。
+
+80
+00:03:34,722 --> 00:03:36,633
+So this is good because now we have a
+這很好，因為現在我們有一個
+
+81
+00:03:36,633 --> 00:03:38,864
+function that takes as many arguments as we
+函式接受與我們一樣多的參數
+
+82
+00:03:38,944 --> 00:03:42,040
+want And we get them all summed up into one
+想要我們把它們全部總結為一個
+
+83
+00:03:42,169 --> 00:03:42,409
+array.
+大批。
+
+84
+00:03:43,195 --> 00:03:45,569
+Now we need to calculate the Cartesian
+現在我們需要計算笛卡爾
+
+85
+00:03:45,617 --> 00:03:49,114
+product of those arrays in that array, so of
+該陣列中這些陣列的乘積，所以
+
+86
+00:03:49,146 --> 00:03:51,696
+those elements in that summed up array we
+我們總結陣列中的那些元素
+
+87
+00:03:51,696 --> 00:03:52,193
+have here.
+這裡有。
+
+88
+00:03:52,915 --> 00:03:55,722
+Now we do have cartProduct, which works on 2
+現在我們有了 cartProduct，它適用於 2
+
+89
+00:03:55,818 --> 00:03:57,599
+sets, but here of course we have more.
+集，但這裡我們當然還有更多。
+
+90
+00:03:58,673 --> 00:04:00,277
+Well, the implementation is fairly
+嗯，實施還算順利
+
+91
+00:04:00,277 --> 00:04:01,176
+straightforward though.
+雖然很簡單。
+
+92
+00:04:01,817 --> 00:04:03,742
+The first step of course is that we go
+第一步當然是我們去
+
+93
+00:04:03,742 --> 00:04:05,779
+through all the sets we have here, so
+通過我們這裡的所有集合，所以
+
+94
+00:04:05,891 --> 00:04:07,319
+through all the input values.
+遍歷所有輸入值。
+
+95
+00:04:07,923 --> 00:04:10,320
+We can do this with a for loop and I can use
+我們可以用 for 迴圈來做到這一點，我可以使用
+
+96
+00:04:10,320 --> 00:04:13,215
+a for-of loop here to go through my input
+這裡有一個 for-of 記憶體來遍歷我的輸入
+
+97
+00:04:13,215 --> 00:04:15,885
+sets. So for set of sets,
+套。所以對於集合的集合，
+
+98
+00:04:16,448 --> 00:04:19,173
+we can then do something on every set we got
+然後我們可以對我們得到的每一組做一些事情
+
+99
+00:04:19,173 --> 00:04:19,357
+here.
+這裡。
+
+100
+00:04:21,312 --> 00:04:23,723
+Now what I wanna do is I wanna take a look
+現在我想做的是我想看看
+
+101
+00:04:23,723 --> 00:04:24,888
+at that set
+在那個集合
+
+102
+00:04:25,422 --> 00:04:28,351
+and calculate the Cartesian product of that
+並計算其笛卡兒積
+
+103
+00:04:28,351 --> 00:04:28,658
+set
+放
+
+104
+00:04:29,322 --> 00:04:32,155
+with our temporary Cartesian product so that
+與我們的臨時笛卡兒積
+
+105
+00:04:32,155 --> 00:04:34,907
+we slowly build up a complete Cartesian
+我們慢慢建立一個完整的笛卡爾
+
+106
+00:04:34,907 --> 00:04:35,199
+product.
+產品。
+
+107
+00:04:35,833 --> 00:04:38,354
+Put in our words, we'll follow a bottom-up
+用我們的話來說，我們將遵循自下而上的原則
+
+108
+00:04:38,418 --> 00:04:41,357
+approach where we gradually build up a
+我們逐漸建立一個
+
+109
+00:04:41,453 --> 00:04:44,022
+bigger and bigger Cartesian product array
+笛卡兒積陣列越來越大
+
+110
+00:04:44,568 --> 00:04:45,949
+in this function.
+在這個函式中。
+
+111
+00:04:47,073 --> 00:04:48,807
+For that, we can add a new variable,
+為此，我們可以添加一個新變數，
+
+112
+00:04:49,626 --> 00:04:51,938
+tempProduct, for example,
+溫度產品，例如，
+
+113
+00:04:53,094 --> 00:04:55,791
+and that initially will be the first element
+最初將是第一個元素
+
+114
+00:04:56,209 --> 00:04:58,505
+of that parameters array. So it will be the
+该参数数组的。所以這將是
+
+115
+00:04:58,698 --> 00:05:01,908
+first argument initially. Colors in my
+最初的第一個論點。我的顏色
+
+116
+00:05:01,908 --> 00:05:02,534
+example here.
+例子在這裡。
+
+117
+00:05:03,449 --> 00:05:05,215
+And then inside of that for loop,
+然後在 for 迴圈內部，
+
+118
+00:05:05,857 --> 00:05:07,782
+we can call cartProduct,
+我們可以呼叫 cartProduct，
+
+119
+00:05:08,601 --> 00:05:11,056
+so that function we wrote earlier,
+所以我們之前寫的函式，
+
+120
+00:05:11,955 --> 00:05:15,630
+and pass in as a first argument tempProduct,
+並以第一個參數 tempProduct 傳入，
+
+121
+00:05:16,128 --> 00:05:18,985
+which is an array. It's my first parameter
+這是一個陣列。這是我的第一個參數
+
+122
+00:05:19,001 --> 00:05:21,232
+here initially, and it'll soon be something
+最初在這裡，很快就會變成這樣
+
+123
+00:05:21,248 --> 00:05:23,013
+else as well, but initially it's just the
+其他也一樣，但最初只是
+
+124
+00:05:23,013 --> 00:05:25,436
+first array we're passing to Cartesian
+我們傳遞給笛卡爾的第一個陣列
+
+125
+00:05:25,661 --> 00:05:26,897
+colors in my example.
+我的例子中的顏色。
+
+126
+00:05:27,988 --> 00:05:30,011
+And that will be the first set I pass to
+這將是我傳遞給的第一組
+
+127
+00:05:30,075 --> 00:05:30,877
+cartProduct.
+購物車產品。
+
+128
+00:05:31,760 --> 00:05:33,429
+And then the second set we pass to
+然後我們傳遞給第二組
+
+129
+00:05:33,445 --> 00:05:36,479
+cartProduct, that will be the set we have
+cartProduct，這將是我們擁有的集合
+
+130
+00:05:36,511 --> 00:05:37,137
+here in the loop.
+在迴圈中。
+
+131
+00:05:38,373 --> 00:05:40,909
+So now for the very first iteration of this
+所以現在對於這個的第一次迭代
+
+132
+00:05:40,909 --> 00:05:41,246
+loop,
+環形，
+
+133
+00:05:41,792 --> 00:05:43,589
+we'll feed our first element
+我們將提供第一個元素
+
+134
+00:05:44,857 --> 00:05:45,226
+colors
+顏色
+
+135
+00:05:45,965 --> 00:05:48,790
+to cartProduct and the first element we have
+到 cartProduct 和我們擁有的第一個元素
+
+136
+00:05:48,790 --> 00:05:51,037
+a look at from all the input arguments. Now
+查看所有輸入參數。現在
+
+137
+00:05:51,101 --> 00:05:53,171
+the problem we would face with this approach
+採用這種方法我們將面臨的問題
+
+138
+00:05:53,605 --> 00:05:56,173
+is that of course here with for-of we go
+當然是用 for-of we go
+
+139
+00:05:56,237 --> 00:05:58,710
+through all the elements in sets, so through
+遍歷集合中的所有元素，因此透過
+
+140
+00:05:58,886 --> 00:06:01,199
+all the arguments we received, and therefore
+我們收到的所有論點，因此
+
+141
+00:06:01,231 --> 00:06:04,024
+of course we also again take that first set,
+當然我們也再次採取第一組，
+
+142
+00:06:04,442 --> 00:06:06,481
+which we already have stored in tempProduct
+我們已經將其儲存在 tempProduct 中
+
+143
+00:06:06,529 --> 00:06:08,504
+though, and I don't wanna multiply that
+不過，我不想增加這個
+
+144
+00:06:08,520 --> 00:06:09,965
+first argument with itself.
+第一次與自己爭論。
+
+145
+00:06:10,784 --> 00:06:13,225
+So therefore I'll switch from a for-of loop
+因此我將從 for-of 記憶體切換
+
+146
+00:06:13,738 --> 00:06:14,108
+to a
+到一個
+
+147
+00:06:14,959 --> 00:06:16,645
+regular for loop where we have i,
+常規 for 迴圈，其中有 i，
+
+148
+00:06:17,367 --> 00:06:19,808
+and I'll start with i equal to 1 so that I
+我將從 i 等於 1 開始，這樣我
+
+149
+00:06:19,856 --> 00:06:22,744
+can start with the second element in that
+可以從第二個元素開始
+
+150
+00:06:22,744 --> 00:06:25,086
+sets parameter, so in that array of
+設定參數，所以在該陣列中
+
+151
+00:06:25,214 --> 00:06:26,032
+arguments I received.
+我收到的論點。
+
+152
+00:06:27,074 --> 00:06:29,624
+And then I'll go as long as i is smaller
+然後只要我還小我就會去
+
+153
+00:06:29,624 --> 00:06:32,014
+than sets.length, and I increment it by 1
+比sets.length，我將其增加1
+
+154
+00:06:32,270 --> 00:06:34,387
+after every iteration. So that's a pretty
+每次迭代後。所以這是一個漂亮的
+
+155
+00:06:34,435 --> 00:06:36,905
+regular for loop. The special thing just is
+常規 for 迴圈。特別之處在於
+
+156
+00:06:36,937 --> 00:06:39,535
+that I start with the element with index 1,
+我從索引為 1 的元素開始，
+
+157
+00:06:39,663 --> 00:06:40,946
+which will be the second element,
+這將是第二個元素，
+
+158
+00:06:41,524 --> 00:06:44,892
+so that here I can simply access sets for
+這樣我在這裡就可以簡單地存取集合
+
+159
+00:06:45,036 --> 00:06:45,533
+index i,
+索引我，
+
+160
+00:06:46,223 --> 00:06:49,136
+and that will be, well, 1, so index 1, so it
+那將是 1，所以索引 1，所以它
+
+161
+00:06:49,168 --> 00:06:51,783
+will be the second element. So that for the
+將是第二個元素。那麼對於
+
+162
+00:06:51,847 --> 00:06:54,234
+very first execution of this function and of
+該函式的第一次執行
+
+163
+00:06:54,364 --> 00:06:57,368
+this loop, we call cardProduct with the
+在這個迴圈中，我們呼叫cardProduct
+
+164
+00:06:57,529 --> 00:07:00,260
+first element we received as an argument, so
+我們收到的第一個元素作為參數，所以
+
+165
+00:07:00,260 --> 00:07:01,257
+with the colors array,
+使用顏色陣列，
+
+166
+00:07:02,012 --> 00:07:04,261
+and with the second element we received as
+對於第二個元素，我們收到的是
+
+167
+00:07:04,261 --> 00:07:05,841
+an argument, so in this example with the
+一個參數，所以在這個例子中
+
+168
+00:07:05,889 --> 00:07:06,617
+sizes array.
+大小陣列。
+
+169
+00:07:07,167 --> 00:07:08,689
+Currently we're not doing anything with
+目前我們沒有做任何事情
+
+170
+00:07:08,705 --> 00:07:09,174
+styles.
+風格。
+
+171
+00:07:10,887 --> 00:07:13,769
+Now cardProduct will then give us back a new
+現在cardProduct將給我們一個新的
+
+172
+00:07:14,252 --> 00:07:16,225
+Array, that's what we saw earlier, right?
+陣列，這就是我們之前看到的，對吧？
+
+173
+00:07:16,562 --> 00:07:18,695
+Product, which is returned here, is an array
+這裡回傳的 Product 是一個陣列
+
+174
+00:07:18,920 --> 00:07:21,727
+full of all those combinations of those 2
+充滿了這 2 個的所有組合
+
+175
+00:07:21,872 --> 00:07:22,850
+sets we received.
+我們收到的套裝。
+
+176
+00:07:23,476 --> 00:07:25,802
+So what we get back here is an array full of
+所以我們在這裡得到的是一個充滿的陣列
+
+177
+00:07:25,802 --> 00:07:27,294
+those combination arrays.
+那些組合陣列。
+
+178
+00:07:27,968 --> 00:07:29,765
+And I'll simply store that back in
+我會把它存回
+
+179
+00:07:29,813 --> 00:07:30,856
+tempProduct.
+臨時產品。
+
+180
+00:07:31,497 --> 00:07:34,530
+So tempProduct initially is the first set we
+所以 tempProduct 最初是我們的第一組
+
+181
+00:07:34,530 --> 00:07:36,647
+received, but after the first loop
+已收到，但在第一個迴圈之後
+
+182
+00:07:36,647 --> 00:07:38,669
+iteration, it will no longer be that.
+迭代，就不再是這樣了。
+
+183
+00:07:38,957 --> 00:07:41,091
+Instead, it will be our first derived
+相反，它將是我們第一個派生的
+
+184
+00:07:41,123 --> 00:07:43,769
+Cartesian product for the first and the
+第一個和第二個的笛卡兒積
+
+185
+00:07:43,769 --> 00:07:45,693
+second set we received as inputs.
+我們收到的第二組作為輸入。
+
+186
+00:07:46,398 --> 00:07:48,675
+After the first loop iteration, it is that
+經過第一次迴圈迭代後，
+
+187
+00:07:48,739 --> 00:07:50,567
+derived Cartesian product array
+派生笛卡爾積陣列
+
+188
+00:07:51,145 --> 00:07:52,908
+and we'll then take this new derived array
+然後我們將採用這個新的派生陣列
+
+189
+00:07:53,229 --> 00:07:55,522
+and combine that with the next set in line.
+並將其與下一組結合。
+
+190
+00:07:55,730 --> 00:07:58,039
+So with the next input set we received for
+因此，對於我們收到的下一個輸入集
+
+191
+00:07:58,039 --> 00:08:00,300
+index 2 in the second iteration here.
+此處第二次迭代中的索引 2。
+
+192
+00:08:01,327 --> 00:08:03,459
+And that's that bottom-up approach where we
+這就是我們採用的自下而上的方法
+
+193
+00:08:03,475 --> 00:08:06,538
+first build a small Cartesian product for
+首先建構一個小型笛卡爾積
+
+194
+00:08:06,538 --> 00:08:07,965
+the first 2 input sets.
+前 2 個輸入集。
+
+195
+00:08:08,543 --> 00:08:10,695
+And then we take this small Cartesian
+然後我們採用這個小的笛卡爾
+
+196
+00:08:10,776 --> 00:08:13,458
+product and combine that with the next set
+產品並將其與下一組結合
+
+197
+00:08:13,458 --> 00:08:13,892
+in line.
+排隊。
+
+198
+00:08:14,486 --> 00:08:17,184
+And then if we had more input sets, we would
+然後如果我們有更多的輸入集，我們會
+
+199
+00:08:17,281 --> 00:08:19,995
+take this new Cartesian product and combine
+將這個新的笛卡兒積結合起來
+
+200
+00:08:20,027 --> 00:08:22,581
+that again with the next set in line. And
+再次與下一組對齊。和
+
+201
+00:08:22,661 --> 00:08:24,974
+with that, we use a bottom-up approach to
+這樣，我們使用由下而上的方法
+
+202
+00:08:25,007 --> 00:08:27,223
+build up that overall Cartesian product.
+建立整體笛卡爾積。
+
+203
+00:08:28,299 --> 00:08:29,889
+Well, and then in the end here, I can just
+好吧，最後我可以
+
+204
+00:08:29,889 --> 00:08:32,475
+return tempProduct because that will be my
+回傳 tempProduct 因為那會是我的
+
+205
+00:08:32,475 --> 00:08:33,873
+final result in the end here.
+最終結果在這裡結束。
+
+206
+00:08:35,588 --> 00:08:38,058
+And this actually should be all.
+這實際上應該是全部。
+
+207
+00:08:39,116 --> 00:08:42,307
+We can now console.log the result of calling
+我們現在可以 console.log 呼叫的結果
+
+208
+00:08:42,323 --> 00:08:44,472
+Cartesian with those 3 sets.
+笛卡兒與這 3 組。
+
+209
+00:08:45,370 --> 00:08:46,637
+And if we do that
+如果我們這樣做
+
+210
+00:08:47,295 --> 00:08:48,000
+and I reload,
+然後我重新載入，
+
+211
+00:08:48,818 --> 00:08:51,545
+you see we get an array full of 16 elements.
+您會看到我們得到了一個包含 16 個元素的陣列。
+
+212
+00:08:52,266 --> 00:08:54,640
+And that makes sense because we have 2
+這是有道理的，因為我們有 2
+
+213
+00:08:54,768 --> 00:08:57,302
+elements here, 4 elements here, and 2
+這裡有 4 個元素，這裡有 4 個元素，還有 2 個元素
+
+214
+00:08:57,318 --> 00:09:00,799
+elements here. So we have 2 times 4 times 2
+元素在這裡。所以我們有 2 乘以 4 乘以 2
+
+215
+00:09:00,927 --> 00:09:02,998
+combinations, and that is 16.
+組合，即 16 種。
+
+216
+00:09:03,752 --> 00:09:05,614
+And if we expand this, you see we got a
+如果我們擴充功能這個，你會發現我們得到了
+
+217
+00:09:05,678 --> 00:09:06,817
+bunch of arrays in there.
+那裡有一堆陣列。
+
+218
+00:09:07,668 --> 00:09:09,818
+However, what you see is that the arrays
+然而，你看到的是陣列
+
+219
+00:09:10,091 --> 00:09:10,942
+look a bit strange.
+看起來有點奇怪。
+
+220
+00:09:11,600 --> 00:09:14,023
+We always have round neck or V-neck as a
+我們總是有圓領或V領作為
+
+221
+00:09:14,023 --> 00:09:16,158
+last element, but the first element is
+最後一個元素，但第一個元素是
+
+222
+00:09:16,190 --> 00:09:18,741
+another nested array, and I don't want that.
+另一個嵌套陣列，我不想要那個。
+
+223
+00:09:18,838 --> 00:09:20,555
+I want a flat array in there.
+我想要一個平面陣列在那裡。
+
+224
+00:09:21,149 --> 00:09:23,091
+Put in other words, what's in the nested
+換句話說，嵌套中的內容
+
+225
+00:09:23,091 --> 00:09:25,979
+array here, blue and S, should be in the
+這裡的陣列，藍色和S，應該在
+
+226
+00:09:25,979 --> 00:09:28,321
+main array for that first element.
+第一個元素的主陣列。
+
+227
+00:09:29,186 --> 00:09:31,286
+So I don't want that extra nested array.
+所以我不想要那個額外的巢狀陣列。
+
+228
+00:09:32,056 --> 00:09:34,556
+Now we do of course get this extra nested
+現在我們當然得到了這個額外的嵌套
+
+229
+00:09:34,556 --> 00:09:36,785
+array because when we build our temporary
+陣列，因為當我們建立臨時陣列時
+
+230
+00:09:36,865 --> 00:09:38,067
+Cartesian product,
+笛卡兒積，
+
+231
+00:09:38,628 --> 00:09:41,722
+that is an array full of arrays and we feed
+這是一個充滿陣列的陣列，我們提供
+
+232
+00:09:41,770 --> 00:09:44,095
+this as an input to the cartProduct
+這是購物車產品的輸入
+
+233
+00:09:44,095 --> 00:09:44,543
+function.
+功能。
+
+234
+00:09:45,377 --> 00:09:47,381
+Now in there we therefore get this array
+現在我們得到了這個陣列
+
+235
+00:09:47,381 --> 00:09:48,230
+full of arrays
+充滿陣列
+
+236
+00:09:48,968 --> 00:09:51,036
+and we combine every element there with
+我們將其中的每個元素與
+
+237
+00:09:51,148 --> 00:09:52,767
+another element from the second set.
+第二組中的另一個元素。
+
+238
+00:09:53,712 --> 00:09:55,715
+From set— from sets i here.
+來自集合——來自我這裡的集合。
+
+239
+00:09:56,452 --> 00:09:58,487
+Now since I feed in an array full of arrays,
+現在，由於我輸入了一個充滿陣列的陣列，
+
+240
+00:09:58,856 --> 00:10:02,157
+set al will itself be an array. And that's
+set al 本身就是一個陣列。那就是
+
+241
+00:10:02,189 --> 00:10:04,047
+why we create a new array where the first
+為什麼我們創建一個新陣列，其中第一個陣列
+
+242
+00:10:04,047 --> 00:10:06,130
+element already is an array and the second
+元素已經是一個陣列，第二個
+
+243
+00:10:06,130 --> 00:10:07,332
+element is not an array.
+元素不是陣列。
+
+244
+00:10:07,893 --> 00:10:09,479
+And that's why we have an array combined
+這就是為什麼我們有一個組合陣列
+
+245
+00:10:09,479 --> 00:10:11,771
+with something like round neck and v-neck
+圓領和V領之類的
+
+246
+00:10:11,963 --> 00:10:12,027
+here.
+這裡。
+
+247
+00:10:13,165 --> 00:10:15,151
+Now to work around this, what we can do is
+現在要解決這個問題，我們能做的是
+
+248
+00:10:15,183 --> 00:10:15,937
+we can go here
+我們可以去這裡
+
+249
+00:10:16,465 --> 00:10:19,013
+and use the spread operator in front of set
+並在集合前面使用擴充運算符
+
+250
+00:10:19,414 --> 00:10:22,381
+al to make sure that we take all the
+等，以確保我們採取所有
+
+251
+00:10:22,397 --> 00:10:25,175
+elements from that array and add them as
+該陣列中的元素並將它們添加為
+
+252
+00:10:25,287 --> 00:10:27,503
+individual elements in that new array we're
+我們在新陣列中的各個元素
+
+253
+00:10:27,519 --> 00:10:30,457
+creating here. That kind of flattens this
+在這裡創作。那種扁平化這個
+
+254
+00:10:30,569 --> 00:10:32,978
+array and takes the nested elements out of
+陣列並取出嵌套元素
+
+255
+00:10:32,978 --> 00:10:35,210
+it and moves them into the main array we're
+並將它們移到我們的主陣列中
+
+256
+00:10:35,226 --> 00:10:35,852
+generating here.
+在這裡生成。
+
+257
+00:10:36,927 --> 00:10:38,485
+This approach, however, will cause us a
+然而，這種方法將使我們
+
+258
+00:10:38,613 --> 00:10:42,162
+problem with the first 2 sets, sets and sets
+前2組的問題，組和組
+
+259
+00:10:42,162 --> 00:10:45,790
+, where the first set is then just an array
+，其中第一組只是一個陣列
+
+260
+00:10:46,304 --> 00:10:48,712
+of strings or of numbers or of anything
+字串或數字或任何東西
+
+261
+00:10:48,793 --> 00:10:51,265
+else, so where it's not an array of arrays
+否則，它不是陣列的陣列
+
+262
+00:10:51,297 --> 00:10:53,658
+necessarily, then using the spread operator
+必然，然後使用擴充運算符
+
+263
+00:10:53,690 --> 00:10:54,621
+might not fail
+可能不會失敗
+
+264
+00:10:55,215 --> 00:10:57,254
+or do something unintended in the case of
+或在以下情況下做一些意想不到的事情
+
+265
+00:10:57,254 --> 00:10:57,688
+strings.
+字串。
+
+266
+00:10:58,603 --> 00:11:01,879
+To work around that, I'll add an extra if
+為了解決這個問題，我將添加一個額外的 if
+
+267
+00:11:01,959 --> 00:11:02,409
+check here
+檢查這裡
+
+268
+00:11:03,083 --> 00:11:05,219
+in the outer for-of loop
+在外部 for-of 環中
+
+269
+00:11:05,989 --> 00:11:07,306
+where I check if
+我在哪裡檢查是否
+
+270
+00:11:08,061 --> 00:11:10,967
+the element we have in the first set is an
+我們在第一組的元素是
+
+271
+00:11:11,031 --> 00:11:11,304
+array.
+大批。
+
+272
+00:11:18,005 --> 00:11:21,294
+If it is not an array, hence the exclamation
+如果它不是一個陣列，則會出現感嘆號
+
+273
+00:11:21,294 --> 00:11:24,002
+mark, then I wanna turn it in one so that
+馬克，然後我想把它合起來，這樣
+
+274
+00:11:24,002 --> 00:11:26,278
+the spread operator always works because it
+擴充功能運算符總是有效，因為它
+
+275
+00:11:26,278 --> 00:11:28,263
+needs an array. So I'll turn the first
+需要一個陣列。所以我先轉第一個
+
+276
+00:11:28,263 --> 00:11:30,265
+element into an array if it's not one
+如果元素不是一個，則將其放入陣列中
+
+277
+00:11:30,361 --> 00:11:33,390
+already. We can do this by overriding setAL
+已經。我們可以透過重寫 setAL 來做到這一點
+
+278
+00:11:35,189 --> 00:11:37,583
+with a new array which simply includes
+帶有一個新陣列，其中僅包含
+
+279
+00:11:37,776 --> 00:11:38,065
+setAL.
+設定AL。
+
+280
+00:11:38,676 --> 00:11:41,006
+So if it wasn't an array yet, it will now be
+因此，如果它還不是陣列，那麼現在它將是
+
+281
+00:11:41,135 --> 00:11:43,191
+one. And of course, in order to be able to
+一。當然，為了能夠
+
+282
+00:11:43,287 --> 00:11:44,892
+override this, we should turn this from a
+覆蓋這個，我們應該把它從
+
+283
+00:11:44,892 --> 00:11:47,844
+const to a let, so to a regular variable.
+const 到 let，同樣到常規變數。
+
+284
+00:11:48,984 --> 00:11:49,946
+And now with that,
+現在，
+
+285
+00:11:50,588 --> 00:11:52,562
+if we try this again, we still have 16
+如果我們再試一次，我們還有 16 個
+
+286
+00:11:52,658 --> 00:11:55,066
+elements. But now if we expand this, we see
+元素。但現在如果我們擴充功能這個，我們會看到
+
+287
+00:11:55,082 --> 00:11:57,585
+we have no nested arrays, but we have a flat
+我們沒有巢狀陣列，但我們有一個平面
+
+288
+00:11:57,665 --> 00:12:00,217
+structure where we have blue S round neck,
+我們有藍色 S 圓領的結構，
+
+289
+00:12:00,281 --> 00:12:03,266
+blue S V-neck, blue M round neck, and so on.
+藍色S V領、藍色M圓領等。
+
+290
+00:12:03,346 --> 00:12:05,561
+So where we have all those combinations.
+所以我們有所有這些組合。
+
+291
+00:12:06,315 --> 00:12:09,188
+And this approach would not just work for 3
+這種方法不僅適用於 3
+
+292
+00:12:09,188 --> 00:12:11,340
+sets now but for any amount of sets.
+現在設置，但可以設定任意數量的設置。
+
+293
+00:12:11,934 --> 00:12:14,022
+So this would be a more generic version of
+所以這將是一個更通用的版本
+
+294
+00:12:14,022 --> 00:12:16,673
+this Cartesian product algorithm which works
+這個笛卡爾積演算法有效
+
+295
+00:12:16,673 --> 00:12:19,162
+with multiple sets. And the only thing we
+有多套。而我們唯一的事情
+
+296
+00:12:19,243 --> 00:12:21,347
+did here is we took advantage of this
+在這裡我們利用了這一點
+
+297
+00:12:21,347 --> 00:12:22,134
+existing array,
+現有陣列，
+
+298
+00:12:22,841 --> 00:12:25,587
+fine-tuned it slightly to work with nested
+稍微微調它以與嵌套一起使用
+
+299
+00:12:25,587 --> 00:12:26,117
+arrays too,
+陣列也是如此，
+
+300
+00:12:26,792 --> 00:12:28,992
+and then made sure that we go through all
+然後確保我們完成所有
+
+301
+00:12:29,201 --> 00:12:31,643
+the input elements we might get in a for
+我們可能在 for 中得到的輸入元素
+
+302
+00:12:31,755 --> 00:12:35,197
+loop and call our original function for only
+迴圈並僅調用我們的原始函式
+
+303
+00:12:35,230 --> 00:12:36,895
+2 sets at a time.
+一次 2 組。
+
+304
+00:12:37,655 --> 00:12:39,596
+And this adjustment to work with nested
+此調整適用於嵌套
+
+305
+00:12:39,596 --> 00:12:41,520
+arrays and to flatten them was needed
+陣列並需要將它們展平
+
+306
+00:12:41,924 --> 00:12:43,930
+because we do create that temporary
+因為我們確實創造了那個暫時的
+
+307
+00:12:43,962 --> 00:12:46,048
+Cartesian product here, which will be an
+這裡的笛卡兒積將是
+
+308
+00:12:46,048 --> 00:12:47,003
+array full of arrays,
+陣列充滿陣列，
+
+309
+00:12:47,601 --> 00:12:49,834
+and that's one level of nesting too much,
+這是一層嵌套太多，
+
+310
+00:12:50,092 --> 00:12:52,502
+which is why we're using the spread operator
+這就是我們使用展開運算子的原因
+
+311
+00:12:52,535 --> 00:12:54,703
+here in our main cartProduct function.
+在我們的主購物車產品功能中。
+
+312
+00:12:56,290 --> 00:12:57,856
+Now for the time complexity.
+現在來說說時間複雜度。
+
+313
+00:12:58,606 --> 00:13:00,775
+Previously I said that we had big O of n
+之前我說過我們有 n 個大 O
+
+314
+00:13:00,808 --> 00:13:03,536
+times m, but that we could generalize this
+乘 m，但我們可以概括這一點
+
+315
+00:13:03,648 --> 00:13:06,474
+to quadratic time if we say we only wanna
+如果我們說我們只想
+
+316
+00:13:06,602 --> 00:13:08,866
+look at the length of one of the 2 input
+查看 2 個輸入之一的長度
+
+317
+00:13:08,866 --> 00:13:09,236
+sets.
+套。
+
+318
+00:13:10,231 --> 00:13:13,250
+Now I mentioned this possible generalization
+現在我提到了這種可能的概括
+
+319
+00:13:13,523 --> 00:13:16,397
+because we need that generalization here if
+因為我們需要這裡的概括如果
+
+320
+00:13:16,413 --> 00:13:18,307
+we have an unlimited amount of sets.
+我們有無限數量的套裝。
+
+321
+00:13:18,901 --> 00:13:21,197
+Because now theoretically, of course,
+當然，因為現在理論上，
+
+322
+00:13:21,872 --> 00:13:24,360
+the time complexity and the space complexity
+時間複雜度與空間複雜度
+
+323
+00:13:24,360 --> 00:13:24,649
+as well
+還有
+
+324
+00:13:25,565 --> 00:13:27,299
+would be n times m
+將是 n 乘以 m
+
+325
+00:13:27,957 --> 00:13:30,576
+times Q times, times L times whatever you
+乘 Q 乘，乘 L 乘，隨便你
+
+326
+00:13:30,624 --> 00:13:33,725
+want for as many input sets as you have.
+想要盡可能多的輸入集。
+
+327
+00:13:34,480 --> 00:13:36,649
+But this is not how you want to express this
+但這不是你想要表達的方式
+
+328
+00:13:36,649 --> 00:13:39,188
+because you don't know with how many input
+因為你不知道有多少輸入
+
+329
+00:13:39,284 --> 00:13:41,518
+values your algorithm is going to be called.
+將調用您的演算法的值。
+
+330
+00:13:42,096 --> 00:13:42,626
+For 2
+2人份
+
+331
+00:13:43,398 --> 00:13:45,679
+input values as we had it before, it was
+輸入我們之前的值，它是
+
+332
+00:13:45,727 --> 00:13:48,571
+clear that you had, well, 2 values. But now
+顯然你有兩個價值觀。但現在
+
+333
+00:13:48,619 --> 00:13:51,351
+you can't assume how many sets will be
+你無法假設會有多少組
+
+334
+00:13:51,351 --> 00:13:53,728
+passed in. So we can't express it like this
+傳入的。所以我們不能這樣表達
+
+335
+00:13:53,728 --> 00:13:56,661
+as a product of all these set lengths. We
+作為所有這些設定長度的乘積。我們
+
+336
+00:13:56,661 --> 00:13:58,648
+need a more general way of expressing it
+需要一種更通用的表達方式
+
+337
+00:13:58,648 --> 00:14:00,715
+instead. That's why we have the big O
+反而。這就是為什麼我們有大O
+
+338
+00:14:00,715 --> 00:14:01,901
+notation in the first place.
+首先是符號。
+
+339
+00:14:02,990 --> 00:14:05,378
+So it would be nice if we could express this
+所以如果我們能表達這一點就好了
+
+340
+00:14:05,378 --> 00:14:06,371
+in a more general way,
+以更一般的方式，
+
+341
+00:14:06,900 --> 00:14:09,271
+and therefore we'll take this generalization
+因此我們將採取這個概括
+
+342
+00:14:09,383 --> 00:14:10,809
+I mentioned in the last lecture.
+我在上一講中提到過。
+
+343
+00:14:11,546 --> 00:14:14,687
+We assume that the length of the longest
+我們假設最長的長度
+
+344
+00:14:14,687 --> 00:14:17,122
+array is the length of all the input arrays.
+array 是所有輸入陣列的長度。
+
+345
+00:14:17,475 --> 00:14:19,638
+That might not be the case, but this is the
+情況可能並非如此，但這就是
+
+346
+00:14:19,718 --> 00:14:21,977
+worst-case approximation we can make here.
+我們可以在這裡做出最壞情況的近似值。
+
+347
+00:14:22,459 --> 00:14:24,661
+So let's say this length is
+所以我們假設這個長度是
+
+348
+00:14:25,239 --> 00:14:25,384
+n.
+名詞
+
+349
+00:14:27,023 --> 00:14:28,759
+So we would have n, but of course that's not
+所以我們會有 n，但這當然不是
+
+350
+00:14:28,856 --> 00:14:31,010
+all. The length of the arrays is not all we
+全部。陣列的長度不是我們的全部
+
+351
+00:14:31,010 --> 00:14:31,172
+have.
+有。
+
+352
+00:14:32,016 --> 00:14:34,758
+Instead, it also matters how many arrays we
+相反，我們有多少個陣列也很重要
+
+353
+00:14:34,758 --> 00:14:37,614
+have. Because before, with the 2 sets where
+有。因為之前，有 2 套
+
+354
+00:14:37,614 --> 00:14:39,690
+we knew that it always were 2 sets, we had n
+我們知道總是有 2 組，我們有 n
+
+355
+00:14:39,802 --> 00:14:40,413
+times m
+次米
+
+356
+00:14:41,152 --> 00:14:41,747
+as the
+作為
+
+357
+00:14:42,277 --> 00:14:44,768
+Big O notation, or the more generalized form
+大 O 表示法，或更廣義的形式
+
+358
+00:14:45,250 --> 00:14:45,909
+O.
+奧。
+
+359
+00:14:47,114 --> 00:14:49,961
+Now we had squared here as this worst-case
+現在我們將這裡作為最壞情況
+
+360
+00:14:49,961 --> 00:14:50,507
+generalization.
+概括。
+
+361
+00:14:51,512 --> 00:14:54,125
+Because we knew that we had 2 sets because
+因為我們知道我們有 2 套，因為
+
+362
+00:14:54,157 --> 00:14:55,728
+it was in the end n times n,
+最後是n次n，
+
+363
+00:14:56,305 --> 00:14:58,582
+right? The length of the first set times the
+正確的？第一組的長度乘以
+
+364
+00:14:58,582 --> 00:14:59,736
+length of the second set.
+第二組的長度。
+
+365
+00:15:01,050 --> 00:15:03,519
+And if we had 3 sets and we knew that it
+如果我們有 3 組並且我們知道它
+
+366
+00:15:03,599 --> 00:15:06,084
+always were 3 sets which we got, we would
+我們總是得到 3 套，我們會
+
+367
+00:15:06,084 --> 00:15:08,489
+have n times n times n. And that of course
+有n次n次n。那當然
+
+368
+00:15:08,569 --> 00:15:11,294
+is just cubic notation, cubic time
+只是立方記數法，立方時間
+
+369
+00:15:11,294 --> 00:15:13,234
+complexity, so n at the power of 3.
+複雜度，因此 n 為 3 次方。
+
+370
+00:15:14,196 --> 00:15:16,360
+And therefore, if we don't know the number
+因此，如果我們不知道這個數字
+
+371
+00:15:16,360 --> 00:15:19,314
+of arrays in advance, we of course can know
+預先陣列，我們當然可以知道
+
+372
+00:15:19,957 --> 00:15:20,792
+that it should be
+它應該是
+
+373
+00:15:21,322 --> 00:15:23,363
+n at the power of x when it comes to the
+n 的 x 次冪
+
+374
+00:15:23,363 --> 00:15:26,367
+time complexity, where x is the number of
+時間複雜度，其中 x 是
+
+375
+00:15:26,399 --> 00:15:27,090
+input arrays.
+輸入陣列。
+
+376
+00:15:27,765 --> 00:15:28,680
+Because before,
+因為之前，
+
+377
+00:15:29,275 --> 00:15:33,259
+the power was the number of arrays. We had O
+功率是陣列的數量。我們有O
+
+378
+00:15:33,628 --> 00:15:37,243
+for 2 sets and n at the power of 3 for 3
+對於 2 組，n 為 3 的 3 次方
+
+379
+00:15:37,243 --> 00:15:37,677
+sets.
+套。
+
+380
+00:15:38,207 --> 00:15:39,942
+So the more general form is n at the power
+所以更一般的形式是n次方
+
+381
+00:15:39,990 --> 00:15:42,673
+of x, where x is the amount of input sets
+x 的數量，其中 x 是輸入集的數量
+
+382
+00:15:42,705 --> 00:15:45,388
+we're getting, in this case 3. And n is then
+在本例中我們得到 3。然後 n 是
+
+383
+00:15:45,517 --> 00:15:48,891
+our worst-case length, so the length of the
+我們最壞情況的長度，所以
+
+384
+00:15:48,891 --> 00:15:49,855
+longest set.
+最長的一組。
+
+385
+00:15:50,819 --> 00:15:52,265
+And that's the same here for the space
+這裡的空間也是一樣的
+
+386
+00:15:52,265 --> 00:15:52,907
+complexity.
+複雜。
+
+387
+00:15:53,952 --> 00:15:55,783
+So what this essentially means for the time
+那麼這對當時來說意味著什麼
+
+388
+00:15:55,783 --> 00:15:56,892
+complexity especially
+尤其是複雜性
+
+389
+00:15:57,551 --> 00:16:01,053
+is that if we now have 3 arrays as an input,
+如果我們現在有 3 個陣列作為輸入，
+
+390
+00:16:01,744 --> 00:16:04,797
+we would have 3 as a value for x, and we
+我們將 3 作為 x 的值，而我們
+
+391
+00:16:04,797 --> 00:16:06,580
+would then take the length of the longest
+然後將取最長的長度
+
+392
+00:16:06,580 --> 00:16:09,119
+array, in this case this one here, 4, and
+陣列，在本例中是這個，4，以及
+
+393
+00:16:09,135 --> 00:16:10,404
+that would be our value for n.
+這就是我們的 n 值。
+
+394
+00:16:10,982 --> 00:16:12,909
+So we would have 4 to the power of 3
+所以我們有 4 的 3 次方
+
+395
+00:16:13,776 --> 00:16:16,393
+execution steps, which we would assume. Now
+我們假設的執行步驟。現在
+
+396
+00:16:16,441 --> 00:16:19,058
+in reality, we will probably have less steps
+事實上，我們的步驟可能會更少
+
+397
+00:16:19,170 --> 00:16:21,578
+because not all arrays have a length of 4,
+因為並非所有陣列的長度都是 4，
+
+398
+00:16:21,899 --> 00:16:23,665
+but again, that's our worst-case
+但這又是我們最壞的情況
+
+399
+00:16:23,665 --> 00:16:24,596
+generalization.
+概括。
+
+400
+00:16:25,351 --> 00:16:27,261
+And therefore, the Cartesian product has a
+因此，笛卡兒積有
+
+401
+00:16:27,261 --> 00:16:29,766
+general time complexity of n to the power of
+一般時間複雜度為 n 次方
+
+402
+00:16:29,830 --> 00:16:32,864
+x for an unlimited amount of input arrays
+x 用於無限數量的輸入陣列
+
+403
+00:16:33,282 --> 00:16:34,983
+with any length of your choice.
+任意長度。

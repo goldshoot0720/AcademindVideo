@@ -1,0 +1,2199 @@
+1
+00:00:02,135 --> 00:00:04,962
+So back here in app.js, I will remove all
+所以回到 app.js 中，我將刪除所有
+
+2
+00:00:05,170 --> 00:00:07,531
+that code except for my items down there,
+除了我下面的物品之外的程式碼，
+
+3
+00:00:07,659 --> 00:00:08,398
+which I still need.
+我仍然需要。
+
+4
+00:00:09,185 --> 00:00:11,497
+And I'll write a new function, knapsack.
+我將編寫一個新函式，背包。
+
+5
+00:00:12,702 --> 00:00:15,688
+And knapsack definitely takes some items. So
+而且背包一定會帶一些物品。所以
+
+6
+00:00:15,994 --> 00:00:18,033
+I will now call knapsack down there.
+我現在將把背包叫到那裡。
+
+7
+00:00:18,402 --> 00:00:21,164
+However, knapsack does not just take items.
+然而，背包不僅僅可以裝物品。
+
+8
+00:00:21,710 --> 00:00:24,440
+Instead, the capacity of our knapsack also
+相反，我們背包的容量也
+
+9
+00:00:24,440 --> 00:00:26,608
+matters and should of course be configured
+很重要，當然應該要設定
+
+10
+00:00:26,608 --> 00:00:27,379
+from outside.
+從外面。
+
+11
+00:00:27,989 --> 00:00:30,799
+So therefore, I'll have my MAX_CAP
+因此，我將擁有 MAX_CAP
+
+12
+00:00:31,345 --> 00:00:33,497
+constant here, which is 8 to stick to the
+這裡是常數，堅持8
+
+13
+00:00:33,497 --> 00:00:34,604
+example from the slides.
+幻燈片中的範例。
+
+14
+00:00:35,696 --> 00:00:38,008
+So we have the items, we have the MAX_CAP,
+所以我們有這些專案，我們有 MAX_CAP，
+
+15
+00:00:38,153 --> 00:00:40,321
+and the knapsack function should take both.
+背包功能應該兩者兼具。
+
+16
+00:00:41,461 --> 00:00:43,628
+It should take the items, but it should also
+它應該拿走物品，但也應該
+
+17
+00:00:43,692 --> 00:00:45,154
+take our capacity.
+採取我們的能力。
+
+18
+00:00:46,053 --> 00:00:48,590
+So here I can then pass MAX_CAP as a second
+所以在這裡我可以將 MAX_CAP 作為第二個傳遞
+
+19
+00:00:48,606 --> 00:00:49,682
+argument to knapsack.
+背包的論點。
+
+20
+00:00:51,175 --> 00:00:52,508
+That's how we should be able to call it.
+這就是我們應該如何稱呼它。
+
+21
+00:00:53,968 --> 00:00:55,445
+And now inside of knapsack,
+現在在背包裡，
+
+22
+00:00:56,135 --> 00:00:58,061
+inside of that function, we can come up with
+在這個函式內部，我們可以得出
+
+23
+00:00:58,222 --> 00:01:00,613
+our algorithm. Now I mentioned that I want
+我們的演算法。現在我提到我想要
+
+24
+00:01:00,629 --> 00:01:01,063
+to go
+去
+
+25
+00:01:01,592 --> 00:01:03,727
+through all my items and through all
+通過我所有的物品和所有
+
+26
+00:01:04,000 --> 00:01:05,268
+possible scenarios.
+可能的情況。
+
+27
+00:01:05,878 --> 00:01:08,654
+And you can start at the last item and go
+你可以從最後一項開始，然後去
+
+28
+00:01:09,056 --> 00:01:10,902
+from last to first, or you start at the
+從最後到第一個，或從
+
+29
+00:01:10,902 --> 00:01:13,566
+first item and go from first to last. Both
+第一項並從第一項到最後一項。兩個都
+
+30
+00:01:13,566 --> 00:01:14,288
+is possible.
+是可能的。
+
+31
+00:01:15,347 --> 00:01:18,718
+So since we want to go through items, that
+既然我們想要瀏覽專案，那麼
+
+32
+00:01:18,718 --> 00:01:21,077
+sounds like we need a loop, right? We could
+聽起來我們需要一個迴圈，對吧？我們可以
+
+33
+00:01:21,110 --> 00:01:24,851
+go through all items here with for item of
+使用 for item of 瀏覽此處的所有專案
+
+34
+00:01:25,028 --> 00:01:27,886
+items. This would go through all items here
+專案.這將遍歷這裡的所有專案
+
+35
+00:01:28,400 --> 00:01:28,994
+in our
+在我們的
+
+36
+00:01:29,701 --> 00:01:31,724
+input array, in this items array which we
+輸入陣列，在這個 items 陣列中，我們
+
+37
+00:01:31,869 --> 00:01:34,053
+fed as an argument to knapsack.
+fed 作為背包的參數。
+
+38
+00:01:34,631 --> 00:01:36,863
+Now indeed, you can write this knapsack
+現在確實可以寫這個背包了
+
+39
+00:01:36,927 --> 00:01:38,774
+function with for loops,
+帶有 for 迴圈的函式，
+
+40
+00:01:39,320 --> 00:01:39,705
+and
+和
+
+41
+00:01:40,621 --> 00:01:42,307
+below the video you'll find a link to a
+在影片下方，您會找到一個連結
+
+42
+00:01:43,206 --> 00:01:44,941
+solution that uses loops.
+使用迴圈的解決方案。
+
+43
+00:01:45,744 --> 00:01:48,409
+I prefer the recursive solution though
+不過我更喜歡遞迴解決方案
+
+44
+00:01:48,409 --> 00:01:50,497
+because Whenever we have a case like this
+因為每當我們遇到這樣的情況時
+
+45
+00:01:50,561 --> 00:01:51,717
+where we want to go through different
+我們想要經歷不同的地方
+
+46
+00:01:51,717 --> 00:01:53,917
+scenarios where we essentially have,
+我們基本上有的場景，
+
+47
+00:01:54,575 --> 00:01:58,027
+um, an array of items and for every item we
+嗯，一系列專案，對於每個專案我們
+
+48
+00:01:58,027 --> 00:02:00,115
+want to have combinations with all other
+想要與所有其他的組合
+
+49
+00:02:00,131 --> 00:02:00,420
+items,
+專案,
+
+50
+00:02:01,158 --> 00:02:04,514
+I find recursion to be easier to write and
+我發現遞迴更容易編寫
+
+51
+00:02:04,691 --> 00:02:08,175
+easier to understand in the end. Hence,
+最後更容易理解。因此，
+
+52
+00:02:08,480 --> 00:02:09,973
+let's have a look at this from a different
+讓我們從不同的角度來看一下
+
+53
+00:02:10,150 --> 00:02:12,960
+angle without the for loop. We got items and
+沒有 for 迴圈的角度。我們得到了物品和
+
+54
+00:02:12,976 --> 00:02:16,027
+we got a max capacity. Now let's simplify
+我們得到了最大容量。現在我們來簡化一下
+
+55
+00:02:16,107 --> 00:02:18,259
+this, at least here when we think about it.
+至少當我們想到這一點時是這樣。
+
+56
+00:02:18,837 --> 00:02:21,808
+Now we of course work on an items array here
+現在我們當然在這裡處理一個專案陣列
+
+57
+00:02:21,808 --> 00:02:24,844
+which has 3 items. Now knapsack, this
+其中有 3 項。現在背包，這個
+
+58
+00:02:24,844 --> 00:02:26,642
+function takes all those items,
+函式接受所有這些專案，
+
+59
+00:02:27,188 --> 00:02:28,296
+but let's take a step back.
+但讓我們退後一步。
+
+60
+00:02:28,858 --> 00:02:31,974
+Let's say we wanna act on 1 item. How does
+假設我們要對一項進行操作。怎麼樣
+
+61
+00:02:31,990 --> 00:02:35,218
+our decision look like for 1 single item?
+我們的決定看起來像 1 個單品？
+
+62
+00:02:35,924 --> 00:02:37,675
+Well, we would have a look at the weight of
+好吧，讓我們來看看重量
+
+63
+00:02:37,707 --> 00:02:38,285
+the item
+該專案
+
+64
+00:02:38,895 --> 00:02:42,413
+and decide whether that's below our capacity
+並決定這是否低於我們的能力
+
+65
+00:02:42,686 --> 00:02:43,505
+which we can carry.
+我們可以攜帶。
+
+66
+00:02:44,357 --> 00:02:47,603
+And if it is below that, we simply add it to
+如果低於這個值，我們只需將其添加到
+
+67
+00:02:47,603 --> 00:02:50,029
+the knapsack. Now of course, we'll not
+背包。當然，現在我們不會
+
+68
+00:02:50,222 --> 00:02:52,873
+always add it to the knapsack. We will need
+始終將其添加到背包中。我們將需要
+
+69
+00:02:52,873 --> 00:02:55,379
+to add some logic that takes the other items
+加入一些接受其他專案的邏輯
+
+70
+00:02:55,444 --> 00:02:57,452
+into account as well. But again, let's
+也考慮在內。但話又說回來，讓我們
+
+71
+00:02:57,452 --> 00:02:59,493
+simplify it. Let's just look at one item.
+簡化它。我們只看一項。
+
+72
+00:02:59,557 --> 00:03:03,060
+Let's consider that we only have one item in
+讓我們考慮一下，我們只有一項
+
+73
+00:03:03,156 --> 00:03:03,847
+the array for now.
+現在的陣列。
+
+74
+00:03:04,779 --> 00:03:07,189
+Now first of all, to know at which item we
+現在首先要知道我們在哪個專案上
+
+75
+00:03:07,253 --> 00:03:09,453
+want to look we should get some extra
+想看看我們應該得到一些額外的
+
+76
+00:03:09,453 --> 00:03:11,573
+information here in the knapsack function,
+背包功能中的資訊，
+
+77
+00:03:11,926 --> 00:03:14,720
+and that's the item index. So that is the
+這就是專案索引。所以這就是
+
+78
+00:03:14,800 --> 00:03:17,514
+item we want to have a look at right now for
+我們現在想看的專案
+
+79
+00:03:17,706 --> 00:03:18,863
+this function call.
+這個函式呼叫。
+
+80
+00:03:19,457 --> 00:03:21,929
+I will soon use recursion so that we can
+我很快就會使用遞迴，這樣我們就可以
+
+81
+00:03:22,427 --> 00:03:25,221
+control which item is getting evaluated with
+控制評估哪個專案
+
+82
+00:03:25,494 --> 00:03:27,549
+this parameter. Right now, for the very
+這個參數。現在，對於非常
+
+83
+00:03:27,565 --> 00:03:30,712
+first function call here, we can simply take
+這裡的第一個函式調用，我們可以簡單地採取
+
+84
+00:03:30,777 --> 00:03:32,125
+the length of items
+物品的長度
+
+85
+00:03:33,682 --> 00:03:36,535
+and deduct 1 from that because the length
+並從中減去 1，因為長度
+
+86
+00:03:36,728 --> 00:03:40,222
+is, well, 1 for this array if I comment out
+如果我註解掉的話，這個陣列就是 1
+
+87
+00:03:40,238 --> 00:03:42,739
+these 2 items. But this has an index of 0,
+這 2 項。但它的索引為 0，
+
+88
+00:03:43,123 --> 00:03:44,935
+as you know, so we need to reduce this by 1
+如你所知，所以我們需要將其減少 1
+
+89
+00:03:45,303 --> 00:03:47,275
+so that we can use this as an index.
+這樣我們就可以用它作為索引。
+
+90
+00:03:48,028 --> 00:03:50,000
+So now we call knapsack and we're telling
+所以現在我們稱之為背包，我們告訴
+
+91
+00:03:50,016 --> 00:03:51,956
+the function, hey, you got these items, you
+功能，嘿，你得到了這些物品，你
+
+92
+00:03:51,956 --> 00:03:54,328
+got this capacity, and now have a look at
+得到了這個能力，現在看看
+
+93
+00:03:54,504 --> 00:03:55,274
+item index
+專案索引
+
+94
+00:03:55,979 --> 00:03:57,357
+0 in this case here
+在本例中為 0
+
+95
+00:03:58,031 --> 00:04:00,082
+and tell me whether it should go into the
+並告訴我它是否應該進入
+
+96
+00:04:00,115 --> 00:04:01,077
+sack or not.
+解僱與否。
+
+97
+00:04:02,137 --> 00:04:04,208
+Well, we could add an if check therefore and
+好吧，我們可以添加一個 if 檢查，因此
+
+98
+00:04:04,288 --> 00:04:05,653
+simply check if
+只需檢查是否
+
+99
+00:04:06,616 --> 00:04:07,788
+our capacity here
+我們這裡的能力
+
+100
+00:04:08,543 --> 00:04:09,635
+is smaller
+較小
+
+101
+00:04:10,229 --> 00:04:10,454
+than
+比
+
+102
+00:04:11,353 --> 00:04:14,259
+the weight of the item for this index.
+該索引項的權重。
+
+103
+00:04:14,821 --> 00:04:16,603
+Now the capacity is what we get from
+現在容量就是我們得到的
+
+104
+00:04:16,732 --> 00:04:19,638
+outside, so initially it's our max capacity,
+室外，所以最初這是我們的最大容量，
+
+105
+00:04:20,200 --> 00:04:22,624
+and if that capacity is smaller
+如果容量較小
+
+106
+00:04:23,154 --> 00:04:25,225
+than the item weight, we know the item is
+比物品重量，我們知道該物品是
+
+107
+00:04:25,338 --> 00:04:26,189
+too heavy.
+太重了。
+
+108
+00:04:26,799 --> 00:04:30,043
+So in that case, we want to return something
+所以在這種情況下，我們想要回傳一些東西
+
+109
+00:04:30,140 --> 00:04:31,971
+here, and that something
+這裡，還有那個東西
+
+110
+00:04:32,646 --> 00:04:35,938
+should in the end be our knapsack without
+最終應該是我們的背包沒有
+
+111
+00:04:35,938 --> 00:04:38,926
+this item. And that's important. I want this
+這個專案。這很重要。我想要這個
+
+112
+00:04:38,990 --> 00:04:41,608
+knapsack function as a whole to return an
+背包函式作為一個整體回傳一個
+
+113
+00:04:41,785 --> 00:04:44,114
+object that represents the sack.
+代表麻袋的物件。
+
+114
+00:04:44,676 --> 00:04:46,604
+So ultimately here at the end, we'll also
+所以最終，我們也會
+
+115
+00:04:46,604 --> 00:04:49,334
+return something— we'll return some object
+回傳一些東西——我們將回傳一些物件
+
+116
+00:04:49,334 --> 00:04:49,543
+here
+這裡
+
+117
+00:04:50,153 --> 00:04:52,161
+at the end. This is not the final code.
+在最後。這不是最終的程式碼。
+
+118
+00:04:52,709 --> 00:04:54,419
+And therefore I will also rename this here
+因此我也會在這裡重命名它
+
+119
+00:04:54,419 --> 00:04:56,613
+to sack because in the end we'll have the,
+解僱，因為最終我們將擁有，
+
+120
+00:04:56,919 --> 00:04:57,839
+well, the sack here.
+好吧，麻袋在這裡。
+
+121
+00:05:00,054 --> 00:05:00,729
+So
+所以
+
+122
+00:05:01,709 --> 00:05:04,906
+what do we return if we don't put this item
+如果我們不放置此商品，我們會回傳什麼
+
+123
+00:05:04,906 --> 00:05:05,902
+into this knapsack?
+放進這個背包裡？
+
+124
+00:05:06,593 --> 00:05:09,035
+Well, if we only receive one item, we could
+好吧，如果我們只收到一件物品，我們可以
+
+125
+00:05:09,083 --> 00:05:11,729
+return an object that represents our empty
+傳回一個代表我們空的物件
+
+126
+00:05:11,842 --> 00:05:12,504
+knapsack
+背包
+
+127
+00:05:13,037 --> 00:05:14,732
+where we, let's say, have an items array
+假設我們有一個 items 陣列
+
+128
+00:05:14,748 --> 00:05:16,460
+which is empty, where we have a value which
+它是空的，我們有一個值
+
+129
+00:05:16,525 --> 00:05:18,107
+is 0 and the weight which is
+為 0，權重為
+
+130
+00:05:18,884 --> 00:05:21,856
+0. That could be our empty knapsack here.
+0. 那可能是我們的空背包。
+
+131
+00:05:22,386 --> 00:05:24,459
+Now this object represents the knapsack and
+現在這個物件代表背包和
+
+132
+00:05:24,475 --> 00:05:26,162
+there are no items in the knapsack,
+背包裡沒有物品，
+
+133
+00:05:26,243 --> 00:05:27,914
+therefore the value and the weight of the
+因此，該物品的價值和重量
+
+134
+00:05:27,914 --> 00:05:29,585
+knapsack is 0, of course.
+當然，背包是0。
+
+135
+00:05:31,144 --> 00:05:33,781
+Now that is fine, but only if we know there
+現在很好，但前提是我們知道那裡
+
+136
+00:05:33,781 --> 00:05:36,369
+is just one item. If we know that we have at
+只是一項。如果我們知道我們有
+
+137
+00:05:36,369 --> 00:05:38,187
+least, let's say, 2 items,
+至少，比方說，2 件物品，
+
+138
+00:05:38,862 --> 00:05:41,485
+then just looking at one item is certainly
+那麼只看一件物品一定是
+
+139
+00:05:41,581 --> 00:05:45,990
+wrong because just because we didn't put
+錯了，因為只是因為我們沒有放
+
+140
+00:05:44,432 --> 00:05:46,902
+that first item we looked at into the
+我們研究的第一項
+
+141
+00:05:46,902 --> 00:05:49,291
+knapsack does not mean that we're not going
+背包並不意味著我們不去
+
+142
+00:05:49,387 --> 00:05:51,889
+to put any item into the knapsack.
+將任何物品放入背包中。
+
+143
+00:05:52,755 --> 00:05:55,625
+So therefore here we could call ourselves
+所以在這裡我們可以稱自己為
+
+144
+00:05:55,737 --> 00:05:58,720
+again rather than returning just an object
+再次而不是只回傳一個物件
+
+145
+00:05:59,169 --> 00:06:01,671
+because we evaluated the first item and we
+因為我們評估了第一個專案並且我們
+
+146
+00:06:01,671 --> 00:06:03,771
+found out that the item doesn't go into the
+發現該專案沒有進入
+
+147
+00:06:03,819 --> 00:06:04,381
+knapsack.
+背包。
+
+148
+00:06:05,022 --> 00:06:07,540
+But of course we should call ourselves to
+但我們當然應該呼籲自己
+
+149
+00:06:07,604 --> 00:06:10,362
+calculate a new knapsack for the next item
+計算下一個物品的新背包
+
+150
+00:06:10,410 --> 00:06:10,859
+in line.
+排隊。
+
+151
+00:06:11,516 --> 00:06:14,562
+So we pass our items, we pass our unchanged
+所以我們傳遞我們的專案，我們傳遞我們不變的
+
+152
+00:06:14,562 --> 00:06:16,694
+capacity because we still have the full
+容量，因為我們仍然擁有完整的
+
+153
+00:06:16,742 --> 00:06:18,874
+capacity available since we didn't add an
+由於我們沒有添加可用容量
+
+154
+00:06:18,890 --> 00:06:19,114
+item.
+物品。
+
+155
+00:06:19,851 --> 00:06:22,672
+And that's the thing that changes. We pass
+這就是變化的地方。我們透過
+
+156
+00:06:22,737 --> 00:06:26,696
+item index minus 1 to, for example, go from
+專案索引減 1 到，例如，來自
+
+157
+00:06:26,760 --> 00:06:29,453
+the last item to the first item in the list
+清單中的最後一項到第一項
+
+158
+00:06:29,501 --> 00:06:30,511
+step by step.
+步步。
+
+159
+00:06:31,168 --> 00:06:33,300
+So we have a recursive call here and we call
+所以我們這裡有一個遞迴調用，我們調用
+
+160
+00:06:33,636 --> 00:06:36,730
+ourselves because we found out that this
+我們自己因為我們發現這
+
+161
+00:06:36,762 --> 00:06:38,397
+item doesn't go into the knapsack.
+物品不會進入背包。
+
+162
+00:06:38,942 --> 00:06:41,009
+But let's derive the knapsack for the next
+但讓我們導出下一個背包
+
+163
+00:06:41,009 --> 00:06:43,541
+item in line. Maybe this item will go into
+行中的專案。也許這個專案會進入
+
+164
+00:06:43,573 --> 00:06:45,833
+the knapsack. So that's the logic here.
+背包。這就是這裡的邏輯。
+
+165
+00:06:47,099 --> 00:06:49,438
+This is for the scenario that we don't put
+這是針對我們不放的場景
+
+166
+00:06:49,438 --> 00:06:51,441
+the item into the knapsack. But of course,
+將物品放入背包中。但當然，
+
+167
+00:06:51,986 --> 00:06:54,582
+this isn't necessarily the case. Maybe
+情況不一定如此。或許
+
+168
+00:06:55,111 --> 00:06:57,755
+the item has a weight that is below our
+該物品的重量低於我們的重量
+
+169
+00:06:57,755 --> 00:07:00,480
+capacity, and therefore it should go into
+容量，因此它應該進入
+
+170
+00:07:00,480 --> 00:07:01,281
+the knapsack.
+背包。
+
+171
+00:07:02,082 --> 00:07:04,117
+How does our algorithm then look like?
+那我們的演算法是什麼樣子的呢？
+
+172
+00:07:05,049 --> 00:07:08,599
+Well, in that scenario, we in the end have a
+好吧，在這種情況下，我們最終有一個
+
+173
+00:07:08,599 --> 00:07:10,254
+sack with the item,
+與物品一起裝袋，
+
+174
+00:07:11,073 --> 00:07:11,298
+which
+哪個
+
+175
+00:07:12,037 --> 00:07:14,832
+is also a recursive call to knapsack to
+也是對背包的遞迴調用
+
+176
+00:07:14,865 --> 00:07:17,901
+calculate the knapsack for the next item in
+計算下一個物品的背包
+
+177
+00:07:17,917 --> 00:07:20,536
+line under the assumption that we're going
+假設我們要去的線
+
+178
+00:07:20,552 --> 00:07:23,315
+to add this item we're evaluating for this
+添加此專案，我們正在為此評估
+
+179
+00:07:23,524 --> 00:07:24,311
+item index.
+專案索引。
+
+180
+00:07:25,082 --> 00:07:28,038
+So here we would also call knapsack because
+所以這裡我們也稱之為背包因為
+
+181
+00:07:28,038 --> 00:07:30,191
+it's always the knapsack function that gives
+它始終是背包功能
+
+182
+00:07:30,191 --> 00:07:31,267
+us an object in the end.
+我們最終是一個物件。
+
+183
+00:07:31,813 --> 00:07:34,189
+But here we would forward items
+但在這裡我們會轉發物品
+
+184
+00:07:34,767 --> 00:07:37,754
+unchanged because this is always our entire
+不變，因為這始終是我們的全部
+
+185
+00:07:37,834 --> 00:07:38,685
+list of items,
+物品清單，
+
+186
+00:07:39,295 --> 00:07:41,174
+not the items in the knapsack, but always
+不是背包裡的物品，但總是
+
+187
+00:07:41,206 --> 00:07:42,748
+the entire list of available items.
+可用專案的完整清單。
+
+188
+00:07:44,161 --> 00:07:47,147
+But then as a second argument, I don't pass
+但作為第二個論點，我沒有通過
+
+189
+00:07:47,147 --> 00:07:49,636
+in my unchanged capacity. Instead, I wanna
+以我不變的身份。相反，我想要
+
+190
+00:07:49,636 --> 00:07:51,579
+derive this knapsack here
+在這裡導出這個背包
+
+191
+00:07:52,109 --> 00:07:54,678
+under the assumption that this item with
+假設該專案與
+
+192
+00:07:54,774 --> 00:07:56,749
+item index was added.
+新增了專案索引。
+
+193
+00:07:57,278 --> 00:07:59,074
+So here the new capacity
+所以這裡是新容量
+
+194
+00:07:59,651 --> 00:07:59,875
+is
+是
+
+195
+00:08:01,270 --> 00:08:02,520
+cap minus
+上限減去
+
+196
+00:08:03,498 --> 00:08:06,928
+items for item index dot weight. So minus
+items 為專案索引點權重。所以減去
+
+197
+00:08:06,960 --> 00:08:09,814
+the weight of the item I'm going to add.
+我要添加的物品的重量。
+
+198
+00:08:11,192 --> 00:08:13,324
+That's super important. We're deriving the
+這非常重要。我們正在推導
+
+199
+00:08:13,372 --> 00:08:15,424
+knapsack for the next item in line.
+背包用於存放佇列中的下一個物品。
+
+200
+00:08:15,953 --> 00:08:18,101
+So we're moving through that decision tree
+所以我們正在瀏覽決策樹
+
+201
+00:08:18,165 --> 00:08:19,320
+from right to left.
+從右到左。
+
+202
+00:08:20,025 --> 00:08:20,362
+But
+但
+
+203
+00:08:20,891 --> 00:08:23,920
+we have to consider the fact that we just
+我們必須考慮這樣一個事實：我們只是
+
+204
+00:08:24,177 --> 00:08:26,084
+added one item or that we're going to add
+新增了一項或我們要新增的一項
+
+205
+00:08:26,277 --> 00:08:28,633
+this item. So we have to reduce the maximum
+這個專案。所以我們必須減少最大值
+
+206
+00:08:28,633 --> 00:08:31,054
+capacity capacity which the next item has
+容量 下一項具有的容量
+
+207
+00:08:31,102 --> 00:08:32,401
+available for consideration.
+可供考慮。
+
+208
+00:08:33,010 --> 00:08:36,297
+Now we also, of course, have to reduce item
+當然，現在我們也必須減少專案
+
+209
+00:08:36,442 --> 00:08:39,136
+index by 1 here, just as we did it up there,
+這裡索引為 1，就像我們在那裡所做的那樣，
+
+210
+00:08:39,649 --> 00:08:41,701
+because we wanna move on to the next item in
+因為我們想繼續下一個專案
+
+211
+00:08:41,749 --> 00:08:44,395
+line. So it's the same logic, but with the
+線。所以這是相同的邏輯，但是
+
+212
+00:08:44,475 --> 00:08:46,640
+addition that we change the capacity.
+另外我們改變了容量。
+
+213
+00:08:47,762 --> 00:08:49,766
+Of course, we also wanna consider the
+當然，我們也想考慮
+
+214
+00:08:49,766 --> 00:08:53,101
+scenario that we don't add the item. This is
+我們不添加該專案的情況。這是
+
+215
+00:08:53,117 --> 00:08:55,587
+the sack with the item, but that's just one
+裝著物品的袋子，但這只是其中之一
+
+216
+00:08:55,635 --> 00:08:58,890
+of the 2 scenarios. We had yes and no. So
+2 個場景中的一個。我們有是也有否。所以
+
+217
+00:08:58,986 --> 00:09:01,712
+that is the yes case, we added the item.
+是的情況下，我們新增了該專案。
+
+218
+00:09:02,674 --> 00:09:05,288
+That here, of course, is the no case because
+當然，這裡的情況並非如此，因為
+
+219
+00:09:05,320 --> 00:09:06,571
+we couldn't add the item.
+我們無法新增該專案。
+
+220
+00:09:07,245 --> 00:09:09,650
+But we also need the no case if we
+但我們還需要 no 情況，如果我們
+
+221
+00:09:09,730 --> 00:09:11,719
+theoretically could add the item. For
+理論上可以加入該專案。為了
+
+222
+00:09:11,719 --> 00:09:14,365
+example, here, this branch, we have the
+例如，在這裡，這個分支，我們有
+
+223
+00:09:14,365 --> 00:09:17,043
+option that we don't add item C even though
+即使我們不新增專案 C 的選項
+
+224
+00:09:17,107 --> 00:09:18,935
+we technically could. But we need to
+我們在技術上可以。但我們需要
+
+225
+00:09:18,935 --> 00:09:21,485
+evaluate this branch too because maybe B and
+也評估這個分支，因為也許 B 和
+
+226
+00:09:21,661 --> 00:09:24,153
+A is better than just adding C. And if we
+A 比起只增加 C 更好。如果我們
+
+227
+00:09:24,234 --> 00:09:27,012
+added C, we can't add B and A. So in order
+加了C，我們不能加B和A。所以按順序
+
+228
+00:09:27,012 --> 00:09:29,432
+to have a look at all options, we need to go
+要查看所有選項，我們需要去
+
+229
+00:09:29,449 --> 00:09:30,228
+through all branches.
+透過所有分支機構。
+
+230
+00:09:30,858 --> 00:09:33,834
+So it's not enough to just say we don't add
+所以光說我們不添加是不夠的
+
+231
+00:09:33,834 --> 00:09:36,713
+an item because it's too heavy. We also have
+一件物品，因為它太重了。我們還有
+
+232
+00:09:36,746 --> 00:09:38,283
+to have a look at the option that we
+看看我們的選項
+
+233
+00:09:38,283 --> 00:09:40,875
+deliberately don't add an item because maybe
+故意不添加專案，因為也許
+
+234
+00:09:40,875 --> 00:09:43,316
+the other items are better choices.
+其他專案是更好的選擇。
+
+235
+00:09:45,022 --> 00:09:47,132
+Hence here, besides this if check, which is
+因此，除了這個 if 檢查之外，還有
+
+236
+00:09:47,132 --> 00:09:49,708
+the case that we can't add an item, we also
+如果我們無法新增專案，我們也
+
+237
+00:09:49,757 --> 00:09:52,754
+have to derive a sack without item,
+必須得到一個沒有物品的袋子，
+
+238
+00:09:54,482 --> 00:09:55,032
+which we get
+我們所得到的
+
+239
+00:09:55,694 --> 00:09:58,150
+by again executing this code from up there.
+再次從上面執行這段程式碼。
+
+240
+00:09:58,295 --> 00:10:00,590
+So by calling knapsack again with the
+因此，透過再次調用背包
+
+241
+00:10:00,590 --> 00:10:02,855
+reduced item index, but with the unchanged
+專案索引減少，但維持不變
+
+242
+00:10:02,855 --> 00:10:05,008
+capacity. Because we're not going to add
+容量。因為我們不會添加
+
+243
+00:10:05,426 --> 00:10:07,048
+this item with this index, therefore the
+該專案具有該索引，因此
+
+244
+00:10:07,048 --> 00:10:09,378
+capacity does not change, and we move on to
+容量不會改變，我們繼續
+
+245
+00:10:09,378 --> 00:10:11,838
+the next item in line. And this happens
+行中的下一個專案。這發生了
+
+246
+00:10:11,870 --> 00:10:14,428
+recursively, so gradually we'll build up
+遞迴地，所以我們會逐漸建立起來
+
+247
+00:10:14,428 --> 00:10:17,260
+this graph of decisions. That's the idea
+這個決策圖。這就是這個想法
+
+248
+00:10:17,260 --> 00:10:17,421
+here.
+這裡。
+
+249
+00:10:18,636 --> 00:10:20,434
+Now we get these recursive calls here
+現在我們在這裡得到這些遞迴調用
+
+250
+00:10:21,029 --> 00:10:22,458
+in the case that we have
+如果我們有
+
+251
+00:10:23,518 --> 00:10:25,510
+the item included or not included,
+包含或不包含的專案，
+
+252
+00:10:26,088 --> 00:10:28,642
+and this will give us different knapsacks.
+這會給我們不同的背包。
+
+253
+00:10:29,156 --> 00:10:31,292
+Now to find out what the best possible
+現在找出最好的可能
+
+254
+00:10:31,404 --> 00:10:33,380
+branch of recursive calls is,
+遞迴呼叫的分支是，
+
+255
+00:10:34,038 --> 00:10:37,154
+we need to evaluate the values of those
+我們需要評估這些的價值
+
+256
+00:10:37,186 --> 00:10:38,375
+different knapsacks.
+不同的背包。
+
+257
+00:10:39,194 --> 00:10:40,848
+So therefore, we need to derive
+因此，我們需要推導
+
+258
+00:10:42,069 --> 00:10:43,643
+value with item.
+與專案的價值。
+
+259
+00:10:45,645 --> 00:10:46,160
+So here,
+所以在這裡，
+
+260
+00:10:48,444 --> 00:10:51,565
+and a value without item. We need to derive
+和一個沒有專案的值。我們需要導出
+
+261
+00:10:51,677 --> 00:10:53,656
+these 2 values in order to be able to
+這兩個值以便能夠
+
+262
+00:10:53,672 --> 00:10:55,633
+compare them and find out which
+比較它們並找出哪些
+
+263
+00:10:56,340 --> 00:10:57,497
+knapsack is the better one.
+背包是比較好的一種。
+
+264
+00:10:58,348 --> 00:10:59,746
+Now, the knapsack here
+現在，背包在這裡
+
+265
+00:11:00,517 --> 00:11:01,128
+with item
+與專案
+
+266
+00:11:01,786 --> 00:11:03,698
+is the knapsack under the assumption that
+是假設下的背包
+
+267
+00:11:03,730 --> 00:11:06,310
+we're going to add this item. But we haven't
+我們將添加這個專案。但我們還沒有
+
+268
+00:11:06,326 --> 00:11:08,729
+added it yet, we just reduced the capacity.
+還添加了它，我們只是減少了容量。
+
+269
+00:11:09,390 --> 00:11:12,593
+So this gives us back an object. A knapsack
+所以這給了我們一個物件。一個背包
+
+270
+00:11:12,883 --> 00:11:15,573
+where all other items have been added or not
+是否已新增所有其他專案
+
+271
+00:11:15,783 --> 00:11:18,215
+based on the assumption that this item for
+基於該專案的假設
+
+272
+00:11:18,215 --> 00:11:19,472
+this index was added.
+新增了該索引。
+
+273
+00:11:20,148 --> 00:11:22,464
+So therefore, the valueWithItem is the
+因此， valueWithItem 是
+
+274
+00:11:22,464 --> 00:11:24,147
+sackWithItem.value.
+sackWithItem.value。
+
+275
+00:11:25,672 --> 00:11:28,476
+Keep in mind that knapsack should be an
+請記住，背包應該是
+
+276
+00:11:28,736 --> 00:11:31,313
+object that has a value property eventually.
+最終具有值屬性的物件。
+
+277
+00:11:31,929 --> 00:11:33,307
+So we'll have the sackWithItem.value,
+所以我們會有 sackWithItem.value，
+
+278
+00:11:34,512 --> 00:11:37,432
+but we have to add the value of the item
+但我們必須添加該專案的價值
+
+279
+00:11:37,432 --> 00:11:38,476
+we're about to add.
+我們即將添加。
+
+280
+00:11:39,299 --> 00:11:39,701
+So here
+所以在這裡
+
+281
+00:11:40,247 --> 00:11:43,153
+I also add items for the item index dot
+我還為專案索引點添加專案
+
+282
+00:11:43,602 --> 00:11:43,987
+value.
+價值。
+
+283
+00:11:44,581 --> 00:11:45,866
+We already took the
+我們已經採取了
+
+284
+00:11:46,412 --> 00:11:49,302
+weight into account here when we reduced the
+當我們減少重量時考慮到這裡
+
+285
+00:11:49,302 --> 00:11:52,111
+capacity. Now we also have to take the value
+容量。現在我們還必須取值
+
+286
+00:11:52,192 --> 00:11:53,428
+of this item into account.
+將此專案考慮在內。
+
+287
+00:11:54,391 --> 00:11:56,302
+Now the value without item, of course, is a
+當然，現在沒有 item 的值是
+
+288
+00:11:56,302 --> 00:11:58,854
+bit simpler. That's just the sack without
+簡單一點。這只是沒有的麻袋
+
+289
+00:11:58,935 --> 00:12:01,487
+item dot value, and we don't add anything to
+專案點值，我們不添加任何內容
+
+290
+00:12:01,503 --> 00:12:01,648
+it
+它
+
+291
+00:12:02,226 --> 00:12:04,827
+because we just take that unchanged value.
+因為我們只取不變的值。
+
+292
+00:12:06,093 --> 00:12:08,369
+Now with these 2 values, we can add an if
+現在有了這兩個值，我們可以加入一個 if
+
+293
+00:12:08,481 --> 00:12:11,461
+check and check if the value with item
+檢查並檢查該值是否與 item
+
+294
+00:12:12,086 --> 00:12:14,906
+is greater than the value without item. So
+大於沒有專案的值。所以
+
+295
+00:12:14,906 --> 00:12:17,438
+if the knapsack we derived without adding
+如果我們匯出的背包沒有添加
+
+296
+00:12:17,791 --> 00:12:20,947
+this specific item here is better or worse
+這裡的這個特定專案是好是壞
+
+297
+00:12:21,059 --> 00:12:22,726
+than if we did add the item.
+比我們添加該專案要好。
+
+298
+00:12:23,559 --> 00:12:25,562
+And value with item and value without item
+以及帶專案的值和不帶專案的值
+
+299
+00:12:25,562 --> 00:12:27,325
+will just be a number, so we can compare
+只是一個數字，所以我們可以比較
+
+300
+00:12:27,325 --> 00:12:27,854
+them like this.
+他們就像這樣。
+
+301
+00:12:29,071 --> 00:12:31,523
+Now if the value with item
+現在如果 item 的值
+
+302
+00:12:32,117 --> 00:12:34,045
+is greater than the value without item,
+大於沒有專案的值，
+
+303
+00:12:34,623 --> 00:12:37,226
+we know that we wanna return
+我們知道我們想回來
+
+304
+00:12:37,901 --> 00:12:40,922
+our updated knapsack. So basically our
+我們更新的背包。所以基本上是我們的
+
+305
+00:12:40,986 --> 00:12:43,717
+knapsack that was returned here, so the sack
+背包被退回這裡了，所以麻袋
+
+306
+00:12:43,926 --> 00:12:44,537
+with item,
+與專案，
+
+307
+00:12:45,147 --> 00:12:46,063
+but where we also
+但我們也在那裡
+
+308
+00:12:46,818 --> 00:12:49,067
+increment the weight and the value by this
+以此增加權重和數值
+
+309
+00:12:49,148 --> 00:12:51,429
+item's value and weight, and where we also
+物品的價值和重量，以及我們還
+
+310
+00:12:51,638 --> 00:12:53,261
+add this item to the items array.
+將此專案新增至專案陣列。
+
+311
+00:12:53,984 --> 00:12:55,398
+So we can get an updated
+這樣我們就可以獲得更新的
+
+312
+00:12:56,169 --> 00:12:58,049
+sack here, which is an object.
+這裡的sack，是一個物件。
+
+313
+00:12:59,044 --> 00:13:00,986
+And in there we'll have items, and that's
+在那裡我們會有物品，那就是
+
+314
+00:13:00,986 --> 00:13:01,868
+our sackWithItem.items.
+我們的 sackWithItem.items。
+
+315
+00:13:04,322 --> 00:13:05,338
+Again, keep in mind,
+再次請記住，
+
+316
+00:13:05,935 --> 00:13:08,807
+this sackWithItem will be an object that has
+這個 sackWithItem 將會是個具有
+
+317
+00:13:08,904 --> 00:13:11,098
+an items property, that has a value
+具有值的 items 屬性
+
+318
+00:13:11,098 --> 00:13:13,211
+property, and that has a weight property.
+屬性，並且具有權重屬性。
+
+319
+00:13:13,663 --> 00:13:15,554
+That's how our knapsack should look like in
+這就是我們的背包該有的樣子
+
+320
+00:13:15,619 --> 00:13:16,346
+this algorithm.
+這個演算法。
+
+321
+00:13:17,090 --> 00:13:18,868
+So here I can access.items,
+所以在這裡我可以訪問.items,
+
+322
+00:13:19,401 --> 00:13:21,067
+but I wanna concat something there.
+但我想在那裡連接一些東西。
+
+323
+00:13:21,762 --> 00:13:23,852
+And concat is a default method we can call
+concat 是我們可以呼叫的預設方法
+
+324
+00:13:23,852 --> 00:13:26,937
+on any array to create a new array by adding
+在任何陣列上透過新增來建立新陣列
+
+325
+00:13:27,306 --> 00:13:28,142
+an item to the array.
+陣列中的一個專案。
+
+326
+00:13:28,994 --> 00:13:31,726
+So here I then want to add items for the
+所以在這裡我想添加專案
+
+327
+00:13:31,726 --> 00:13:35,277
+given item index. So I add this item to my
+給定的專案索引。所以我將這個專案添加到我的
+
+328
+00:13:35,310 --> 00:13:35,585
+array.
+大批。
+
+329
+00:13:37,106 --> 00:13:39,727
+And next, I also want to update the value.
+接下來，我還想更新該值。
+
+330
+00:13:39,808 --> 00:13:42,833
+So I take the sack with item.value and add
+所以我用 item.value 解僱並添加
+
+331
+00:13:42,930 --> 00:13:43,286
+items.
+專案.
+
+332
+00:13:44,095 --> 00:13:45,115
+for the item index.value.
+對於專案index.value。
+
+333
+00:13:46,346 --> 00:13:47,983
+And the same for the weight of the knapsack.
+背包的重量也是如此。
+
+334
+00:13:48,064 --> 00:13:50,950
+I take my sack with item, the weight of it,
+我帶著我的袋子，裡面裝著物品，它的重量，
+
+335
+00:13:51,307 --> 00:13:54,889
+and add items for this index.weight.
+並為此index.weight 新增專案。
+
+336
+00:13:55,644 --> 00:13:56,768
+That's the idea here.
+這就是這裡的想法。
+
+337
+00:13:57,652 --> 00:13:59,499
+And then here in this case, we can return
+然後在這種情況下，我們可以回傳
+
+338
+00:13:59,563 --> 00:14:01,812
+the updated sack just like this.
+更新後的麻袋就像這樣。
+
+339
+00:14:02,615 --> 00:14:04,286
+In the else case,
+在其他情況下，
+
+340
+00:14:05,683 --> 00:14:06,454
+we return
+我們回來
+
+341
+00:14:07,032 --> 00:14:10,422
+just our sack without item. So the, oops,
+只是我們的袋子沒有任何物品。所以，哎呀，
+
+342
+00:14:10,502 --> 00:14:12,590
+without item. So the unchanged sack.
+沒有專案。所以麻袋不變。
+
+343
+00:14:14,020 --> 00:14:16,172
+These are different sacks we can derive.
+這些是我們可以衍生出來的不同麻袋。
+
+344
+00:14:16,927 --> 00:14:19,192
+Now this is almost it, but we're not
+現在差不多了，但我們還沒有
+
+345
+00:14:19,192 --> 00:14:20,429
+entirely there yet.
+還完全在那裡。
+
+346
+00:14:21,328 --> 00:14:23,625
+We of course do have one if check here,
+我們當然有一個，如果在這裡檢查的話，
+
+347
+00:14:24,235 --> 00:14:27,319
+but we always in all branches here call
+但我們總是在這裡的所有分支機構打電話
+
+348
+00:14:27,528 --> 00:14:30,307
+ourselves in the if check and outside of it.
+我們自己在 if 檢查內部和外部。
+
+349
+00:14:30,580 --> 00:14:32,347
+And therefore we would have an infinite
+因此我們會有無限的
+
+350
+00:14:32,347 --> 00:14:34,804
+loop. We always continue calling ourselves.
+環形。我們總是繼續打電話給自己。
+
+351
+00:14:35,141 --> 00:14:36,828
+So we need some exit condition. We need some
+所以我們需要一些退出條件。我們需要一些
+
+352
+00:14:36,844 --> 00:14:37,454
+base case.
+基本情況。
+
+353
+00:14:38,209 --> 00:14:40,072
+And how could the base case look like here?
+基本情況會是什麼樣子？
+
+354
+00:14:40,682 --> 00:14:42,546
+Well, I would say before we check whether
+好吧，在我們檢查是否
+
+355
+00:14:42,546 --> 00:14:44,891
+the item should go into the knapsack, so if
+該物品應該放入背包中，所以如果
+
+356
+00:14:44,955 --> 00:14:46,449
+the item weight is too heavy,
+物品重量太重，
+
+357
+00:14:47,106 --> 00:14:49,351
+we check if we have an item because, for
+我們檢查是否有一個專案，因為，對於
+
+358
+00:14:49,351 --> 00:14:51,707
+example, if the item index is smaller than
+例如，如果專案索引小於
+
+359
+00:14:51,755 --> 00:14:54,625
+0, we won't find the item for that index.
+0，我們將找不到該索引的專案。
+
+360
+00:14:55,202 --> 00:14:57,751
+And it can get smaller than 0 because we
+它可以變得小於 0 因為我們
+
+361
+00:14:57,927 --> 00:15:00,348
+always reduce the item index by 1 here.
+此處始終將專案索引減 1。
+
+362
+00:15:01,614 --> 00:15:03,891
+So if the item index is smaller than 0,
+所以如果專案索引小於0，
+
+363
+00:15:04,596 --> 00:15:06,327
+then I want to return
+然後我想回來
+
+364
+00:15:07,161 --> 00:15:10,223
+a dummy knapsack, basically my base knapsack
+一個虛擬背包，基本上就是我的基礎背包
+
+365
+00:15:10,848 --> 00:15:13,387
+where I have no items and because for item
+我沒有物品，因為對於物品
+
+366
+00:15:13,484 --> 00:15:16,326
+index smaller than 0, there is nothing to
+索引小於0，沒有什麼可做的
+
+367
+00:15:16,326 --> 00:15:18,781
+evaluate, and where I have no value and I
+評估，在我沒有價值的地方，我
+
+368
+00:15:18,894 --> 00:15:21,220
+have no weight. So this here really is my
+have no weight.所以這真的是我的
+
+369
+00:15:21,220 --> 00:15:24,005
+base knapsack, which is returned under those
+基礎背包，根據這些回傳
+
+370
+00:15:24,136 --> 00:15:25,086
+circumstances.
+情況。
+
+371
+00:15:27,442 --> 00:15:30,006
+And we have another scenario as well where I
+我們還有另一種情況，我
+
+372
+00:15:30,038 --> 00:15:32,001
+want to return that, and that would be if
+想要回傳它，那就是如果
+
+373
+00:15:32,001 --> 00:15:33,428
+the capacity is exhausted.
+容量已耗盡。
+
+374
+00:15:34,258 --> 00:15:37,514
+Then, if the capacity is 0, I also want to
+那麼，如果容量為0，我也想
+
+375
+00:15:37,562 --> 00:15:39,400
+return this base knapsack because
+歸還這個基礎背包是因為
+
+376
+00:15:39,946 --> 00:15:42,735
+There is no need for any more nested calls.
+無需再進行任何巢狀呼叫。
+
+377
+00:15:42,847 --> 00:15:45,573
+We don't need to derive any other knapsack
+我們不需要匯出任何其他背包
+
+378
+00:15:46,037 --> 00:15:47,705
+under the assumption that we're going to add
+假設我們要加入
+
+379
+00:15:47,817 --> 00:15:49,580
+any other item because if we have no
+任何其他專案，因為如果我們沒有
+
+380
+00:15:49,580 --> 00:15:50,542
+capacity left,
+剩餘容量,
+
+381
+00:15:51,103 --> 00:15:54,069
+this knapsack will be empty. Now this can be
+這個背包將會是空的。現在這可以是
+
+382
+00:15:54,069 --> 00:15:56,281
+the result of some deeply nested recursive
+一些深度嵌套遞迴的結果
+
+383
+00:15:56,297 --> 00:15:58,638
+call and therefore it's this base knapsack
+調用，因此它是這個基礎背包
+
+384
+00:15:58,878 --> 00:16:01,187
+which will ultimately be returned by one of
+最終將由其中一個回傳
+
+385
+00:16:01,187 --> 00:16:04,136
+those other knapsack calls where then an
+那些其他背包調用的地方然後
+
+386
+00:16:04,249 --> 00:16:05,579
+item is added and so on.
+新增專案等等。
+
+387
+00:16:07,870 --> 00:16:11,082
+And with that, we have a function that might
+這樣，我們就有了一個函式，可以
+
+388
+00:16:11,179 --> 00:16:13,599
+work and that might do the trick.
+工作，這可能會成功。
+
+389
+00:16:17,235 --> 00:16:19,099
+So let's comment this back in here
+所以讓我們在這裡評論一下
+
+390
+00:16:19,726 --> 00:16:20,514
+and let's save this
+讓我們儲存這個
+
+391
+00:16:21,173 --> 00:16:21,864
+and reload.
+並重新載入。
+
+392
+00:16:22,604 --> 00:16:24,468
+And I get my items here,
+我在這裡得到我的物品，
+
+393
+00:16:25,897 --> 00:16:28,430
+A and C, which were selected. I get a value
+選出A、C。我得到一個值
+
+394
+00:16:28,430 --> 00:16:30,460
+of 13 and a weight of 6. And this is the
+13，權重為 6。這是
+
+395
+00:16:30,460 --> 00:16:32,457
+best possible solution, as we found out on
+最好的解決方案，正如我們所發現的
+
+396
+00:16:32,474 --> 00:16:33,188
+the slide earlier.
+之前的幻燈片。
+
+397
+00:16:33,708 --> 00:16:36,241
+So this seems to work, and we can play
+這看起來可行，我們可以玩
+
+398
+00:16:36,241 --> 00:16:37,925
+around with this. If I reduce the max
+與此相關。如果我減少最大值
+
+399
+00:16:37,925 --> 00:16:41,020
+capacity to 5, only C should be taken now.
+容量為 5，現在只需要 C。
+
+400
+00:16:41,164 --> 00:16:41,581
+So if I
+所以如果我
+
+401
+00:16:42,110 --> 00:16:42,639
+reload,
+重新載入，
+
+402
+00:16:43,377 --> 00:16:44,740
+yeah, we have just C in there.
+是的，我們裡面只有 C。
+
+403
+00:16:45,461 --> 00:16:48,412
+If I increase it to 20, on the other hand,
+另一方面，如果我將其增加到 20，
+
+404
+00:16:48,588 --> 00:16:50,208
+all items should be in the sack,
+所有物品都應該放在袋子裡，
+
+405
+00:16:51,234 --> 00:16:53,655
+and they are. All items are included, and
+他們確實如此。所有專案都包括在內，並且
+
+406
+00:16:53,655 --> 00:16:55,691
+the total value is the total value of all
+總價值是所有的總價值
+
+407
+00:16:55,884 --> 00:16:57,872
+items, and the weight is the, well, weight
+物品，重量就是重量
+
+408
+00:16:57,984 --> 00:17:00,726
+of all items. So this seems to work, and
+所有專案。所以這似乎有效，並且
+
+409
+00:17:00,726 --> 00:17:03,197
+this is one way of solving this knapsack
+這是解決這個背包的一種方法
+
+410
+00:17:03,197 --> 00:17:03,598
+problem.
+問題。
+
+411
+00:17:04,786 --> 00:17:07,771
+So this seems to work, and that is the
+所以這似乎有效，這就是
+
+412
+00:17:07,931 --> 00:17:10,402
+knapsack algorithm, which by the way is a
+背包演算法，順便說一下，這是一個
+
+413
+00:17:10,402 --> 00:17:11,879
+common interview question.
+常見面試問題。
+
+414
+00:17:12,488 --> 00:17:13,901
+And this hopefully showed you
+希望這向您展示
+
+415
+00:17:14,494 --> 00:17:17,399
+how we can approach this problem and come up
+我們如何解決這個問題並提出
+
+416
+00:17:17,543 --> 00:17:20,640
+with it. Now again, there certainly are
+與它。現在再說一遍，肯定有
+
+417
+00:17:20,849 --> 00:17:22,678
+elements in this solution that can be
+該解決方案中的元素可以是
+
+418
+00:17:22,678 --> 00:17:25,310
+intimidating. Coming up with recursion and
+令人生畏的。提出遞迴和
+
+419
+00:17:25,647 --> 00:17:28,230
+using that as a first step instead of a for
+使用它作為第一步而不是 for
+
+420
+00:17:28,311 --> 00:17:30,895
+loop often is unintuitive because we
+迴圈通常是不直觀的，因為我們
+
+421
+00:17:31,424 --> 00:17:33,832
+consider for loops to be more intuitive, at
+考慮 for 迴圈更直觀，在
+
+422
+00:17:33,848 --> 00:17:35,100
+least a lot of developers do.
+至少很多開發商都是這麼做的。
+
+423
+00:17:35,774 --> 00:17:38,005
+But once you get the hang of recursion and
+但是一旦你掌握了遞迴的訣竅
+
+424
+00:17:38,005 --> 00:17:40,204
+you understand that this allows you to, for
+您了解這使您能夠，
+
+425
+00:17:40,204 --> 00:17:42,595
+example, build up such a decision tree and
+例如，建立這樣一個決策樹並且
+
+426
+00:17:42,595 --> 00:17:45,452
+that this allows you to combine values in an
+這允許您將值組合在一個
+
+427
+00:17:45,548 --> 00:17:47,651
+elegant way and simplify the problem by
+優雅的方式並簡化問題
+
+428
+00:17:47,651 --> 00:17:49,802
+splitting it into subproblems, once you get
+將其分解為子問題，一旦你得到
+
+429
+00:17:49,802 --> 00:17:52,193
+the hang of that, you will be much more
+掌握了這一點，你就會變得更多
+
+430
+00:17:52,305 --> 00:17:55,258
+comfortable using recursion. And that is the
+舒适地使用递归。這就是
+
+431
+00:17:55,258 --> 00:17:57,199
+practice and experience part I mentioned.
+我提到的實務和經驗部分。
+
+432
+00:17:57,520 --> 00:17:59,461
+You need to practice a lot to feel
+你需要多練習才能感覺到
+
+433
+00:17:59,589 --> 00:18:02,317
+comfortable looking into such solutions so
+很樂意研究這樣的解決方案，所以
+
+434
+00:18:02,317 --> 00:18:04,402
+that this is not intimidating, but something
+這並不令人生畏，而是某種東西
+
+435
+00:18:04,482 --> 00:18:06,825
+you always consider as one possible
+你總是考慮一種可能
+
+436
+00:18:06,825 --> 00:18:07,242
+solution.
+解決方案。
+
+437
+00:18:07,787 --> 00:18:11,076
+Now, speaking of one possible solution, this
+現在，談到一種可能的解決方案，這
+
+438
+00:18:11,076 --> 00:18:13,290
+isn't necessarily the best way of solving
+不一定是最好的解決方法
+
+439
+00:18:13,322 --> 00:18:15,856
+this. So let's derive the time complexity
+這。那我們來推導一下時間複雜度
+
+440
+00:18:16,434 --> 00:18:19,065
+and let's then see if we can improve that.
+然後讓我們看看是否可以改進它。

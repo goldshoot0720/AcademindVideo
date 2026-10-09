@@ -1,0 +1,889 @@
+1
+00:00:02,183 --> 00:00:03,933
+To turn this into a priority queue,
+要將其變成優先權佇列，
+
+2
+00:00:04,511 --> 00:00:07,016
+our node needs a bit more information.
+我們的節點需要更多資訊。
+
+3
+00:00:07,562 --> 00:00:10,163
+Our node now also needs to know its
+我們的節點現在還需要知道它的
+
+4
+00:00:10,228 --> 00:00:10,918
+priority.
+優先事項。
+
+5
+00:00:11,608 --> 00:00:13,471
+So therefore, besides getting a value
+因此，除了獲得一個值
+
+6
+00:00:14,065 --> 00:00:16,490
+when we create a node, we should also get a
+當我們創建一個節點時，我們還應該得到一個
+
+7
+00:00:16,490 --> 00:00:17,260
+priority
+優先事項
+
+8
+00:00:17,999 --> 00:00:19,829
+and then store this in a property
+然後將其儲存在屬性中
+
+9
+00:00:20,648 --> 00:00:22,848
+which we call priority, for example.
+例如，我們稱之為優先順序。
+
+10
+00:00:25,722 --> 00:00:27,950
+Now we also need to tweak the insert logic a
+現在我們還需要調整插入邏輯
+
+11
+00:00:27,950 --> 00:00:28,335
+little bit.
+一點。
+
+12
+00:00:29,088 --> 00:00:31,268
+When we insert a new element, we don't just
+當我們插入一個新元素時，我們不只是
+
+13
+00:00:31,316 --> 00:00:33,336
+need the value, but we also need to know the
+需要值，但我們還需要知道
+
+14
+00:00:33,336 --> 00:00:33,897
+priority.
+優先事項。
+
+15
+00:00:34,442 --> 00:00:36,301
+And that could simply be a number, which we
+這可能只是一個數字，我們
+
+16
+00:00:36,365 --> 00:00:36,782
+want here.
+想要這裡。
+
+17
+00:00:38,129 --> 00:00:41,126
+And we then forward that priority to the new
+然後我們將該優先事項轉發給新的
+
+18
+00:00:41,126 --> 00:00:42,280
+node we're creating.
+我們正在創建的節點。
+
+19
+00:00:43,498 --> 00:00:45,742
+That alone won't do the trick though. We
+但僅憑這一點並不能解決問題。我們
+
+20
+00:00:45,903 --> 00:00:48,500
+also need to tweak our if statement a little
+還需要稍微調整我們的 if 語句
+
+21
+00:00:48,500 --> 00:00:48,884
+bit now.
+現在有點。
+
+22
+00:00:49,670 --> 00:00:51,962
+Here, when we set the first element of our
+在這裡，當我們設定我們的第一個元素時
+
+23
+00:00:52,010 --> 00:00:54,882
+linked list, it's no longer enough to just
+鍊錶，光靠它已經不夠了
+
+24
+00:00:54,882 --> 00:00:56,921
+check if we have no first element yet.
+檢查我們是否還沒有第一個元素。
+
+25
+00:00:57,531 --> 00:01:00,245
+Because the first element, let's say, should
+因為第一個元素，比如說，應該
+
+26
+00:01:00,277 --> 00:01:03,183
+be the element with the highest priority.
+是具有最高優先權的元素。
+
+27
+00:01:03,728 --> 00:01:06,377
+That means that if we now insert a node with
+這意味著如果我們現在插入一個節點
+
+28
+00:01:06,377 --> 00:01:09,572
+a higher priority, we need to replace the
+更高的優先級，我們需要更換
+
+29
+00:01:09,572 --> 00:01:12,783
+existing first element. So the first element
+現有的第一個元素。所以第一個元素
+
+30
+00:01:12,783 --> 00:01:15,448
+needs to be set if either we have no first
+如果我們沒有第一個，則需要設置
+
+31
+00:01:15,512 --> 00:01:18,113
+element or if we have a new node with a
+元素或者如果我們有一個帶有
+
+32
+00:01:18,178 --> 00:01:21,133
+higher priority. Again, because in this
+更高優先級。再次，因為在這個
+
+33
+00:01:21,133 --> 00:01:24,122
+implementation, the first element should be
+實現，第一個元素應該是
+
+34
+00:01:24,122 --> 00:01:26,210
+the element with the highest priority.
+具有最高優先權的元素。
+
+35
+00:01:27,030 --> 00:01:29,440
+So here we have an or condition
+所以這裡我們有一個 or 條件
+
+36
+00:01:30,067 --> 00:01:32,396
+where I don't just check for whether we
+我不只是檢查我們是否
+
+37
+00:01:32,461 --> 00:01:33,810
+don't have a first element,
+沒有第一個元素，
+
+38
+00:01:35,128 --> 00:01:37,586
+but where I also check if the priority
+但我還檢查優先順序是否
+
+39
+00:01:38,245 --> 00:01:42,037
+of the to-be-inserted element is higher than
+要插入的元素的值高於
+
+40
+00:01:42,037 --> 00:01:45,009
+the current priority of the current first
+當前第一個的當前優先級
+
+41
+00:01:45,074 --> 00:01:45,379
+element.
+元素。
+
+42
+00:01:47,656 --> 00:01:49,723
+And that's why we store the priority in
+這就是為什麼我們將優先級儲存在
+
+43
+00:01:49,820 --> 00:01:50,429
+every node.
+每個節點。
+
+44
+00:01:51,326 --> 00:01:54,036
+If the new element's priority is higher than
+如果新元素的優先權高於
+
+45
+00:01:54,068 --> 00:01:56,088
+the existing first element's priority,
+現有第一個元素的優先級，
+
+46
+00:01:56,633 --> 00:01:58,877
+we want to set the first element to the new
+我們想將第一個元素設定為新的
+
+47
+00:01:58,877 --> 00:02:00,977
+node. But of course, we also want to make
+節點。但當然，我們也希望
+
+48
+00:02:00,977 --> 00:02:03,990
+sure that we don't lose the existing first
+確保我們不會失去現有的第一
+
+49
+00:02:03,990 --> 00:02:04,343
+element.
+元素。
+
+50
+00:02:04,888 --> 00:02:07,661
+Therefore, before we replace the first node
+因此，在我們替換第一個節點之前
+
+51
+00:02:07,854 --> 00:02:10,707
+with the new node, I'll set the next pointer
+對於新節點，我將設定下一個指標
+
+52
+00:02:10,884 --> 00:02:14,768
+on the new node equal to the existing first
+在新節點上等於現有的第一個節點
+
+53
+00:02:14,768 --> 00:02:17,497
+element before we overwrite it with the new
+在我們用新元素覆蓋它之前
+
+54
+00:02:17,497 --> 00:02:17,723
+node.
+節點。
+
+55
+00:02:18,320 --> 00:02:20,662
+By doing that, we save the existing first
+透過這樣做，我們首先儲存現有的
+
+56
+00:02:20,662 --> 00:02:23,470
+node, still point at it in a new node, and
+節點，仍然在新節點中指向它，並且
+
+57
+00:02:23,486 --> 00:02:26,052
+now simply insert the new node in front of
+現在只需將新節點插入到前面
+
+58
+00:02:26,052 --> 00:02:28,296
+the existing first element. That's what
+現有的第一個元素。就是這樣
+
+59
+00:02:28,392 --> 00:02:29,441
+these 2 lines do.
+這兩行可以。
+
+60
+00:02:31,602 --> 00:02:34,458
+We also should tweak our while loop now
+我們現在還應該調整 while 迴圈
+
+61
+00:02:34,894 --> 00:02:37,750
+because if we don't want to insert the new
+因為如果我們不想插入新的
+
+62
+00:02:37,750 --> 00:02:40,160
+node at the beginning because the priority
+節點在開頭，因為優先權
+
+63
+00:02:40,160 --> 00:02:42,874
+is not high enough, for example, we need to
+不夠高，例如，我們需要
+
+64
+00:02:42,906 --> 00:02:44,689
+insert it somewhere else in the linked list.
+將其插入鍊錶中的其他位置。
+
+65
+00:02:45,235 --> 00:02:47,853
+But somewhere else does not necessarily mean
+但其他地方不一定意味著
+
+66
+00:02:48,045 --> 00:02:50,503
+at the very end. It could be anywhere in
+在最後。它可能在任何地方
+
+67
+00:02:50,535 --> 00:02:53,490
+between as soon as we find a node with a
+一旦我們找到一個有 a 的節點
+
+68
+00:02:53,490 --> 00:02:54,389
+lower priority.
+優先級較低。
+
+69
+00:02:54,951 --> 00:02:56,766
+That's when we wanna insert the new node.
+這就是我們想要插入新節點的時候。
+
+70
+00:02:57,617 --> 00:03:00,669
+So here we don't just move through all our
+所以在這裡我們不只是透過我們所有的
+
+71
+00:03:00,733 --> 00:03:01,504
+current nodes.
+當前節點。
+
+72
+00:03:02,098 --> 00:03:04,025
+Instead, we're not just checking whether we
+相反，我們不只是檢查我們是否
+
+73
+00:03:04,025 --> 00:03:07,458
+have a next node in line. But here we also
+佇列中有下一個節點。但在這裡我們也
+
+74
+00:03:07,474 --> 00:03:09,044
+wanna check if the priority
+想檢查優先順序是否
+
+75
+00:03:09,621 --> 00:03:13,498
+of the to-be-inserted element is smaller
+待插入元素的值較小
+
+76
+00:03:14,283 --> 00:03:17,135
+than the priority of the next node in line
+比佇列中下一個節點的優先權
+
+77
+00:03:17,487 --> 00:03:20,099
+because we only wanna keep on going as long
+因為我們只想繼續下去
+
+78
+00:03:20,195 --> 00:03:21,060
+as that's the case.
+就是這樣。
+
+79
+00:03:21,637 --> 00:03:23,720
+That's why I'm checking for it being smaller
+這就是為什麼我要檢查它是否更小
+
+80
+00:03:23,800 --> 00:03:26,331
+here. I wanna keep on looping through the
+這裡。我想繼續迴圈
+
+81
+00:03:26,363 --> 00:03:29,247
+different nodes until this condition is no
+不同的節點，直到這個條件不成立
+
+82
+00:03:29,247 --> 00:03:31,842
+longer met, which means that we now have a
+見面時間更長，這意味著我們現在有一個
+
+83
+00:03:31,842 --> 00:03:34,358
+next node in line where the priority is
+優先權所在行的下一個節點
+
+84
+00:03:34,454 --> 00:03:36,764
+actually smaller than the toBeInserted
+實際上比 toBeInserted 小
+
+85
+00:03:36,956 --> 00:03:37,535
+priority.
+優先事項。
+
+86
+00:03:38,161 --> 00:03:40,714
+And if that's the case, we stop the loop. We
+如果是這種情況，我們就停止迴圈。我們
+
+87
+00:03:40,730 --> 00:03:43,509
+wanna add our newNode after the last current
+想在最後一個當前節點之後新增我們的新節點
+
+88
+00:03:43,541 --> 00:03:46,239
+node we looked at, which is still a node
+我們查看的節點，它仍然是一個節點
+
+89
+00:03:46,271 --> 00:03:47,716
+with a higher priority.
+具有更高的優先權。
+
+90
+00:03:48,439 --> 00:03:51,233
+But now of course, just as here, we don't
+但現在當然，就像在這裡一樣，我們不
+
+91
+00:03:51,249 --> 00:03:54,140
+wanna lose the next node in line. So we
+想要失去佇列中的下一個節點。所以我們
+
+92
+00:03:54,140 --> 00:03:57,352
+simply set newNode.next equal to current
+只需將 newNode.next 設定為等於 current
+
+93
+00:03:57,416 --> 00:03:58,572
+node.next,
+節點.下一個,
+
+94
+00:03:59,118 --> 00:04:01,656
+not just to current node because we're not
+不僅僅是當前節點，因為我們不是
+
+95
+00:04:01,832 --> 00:04:04,372
+inserting it in front of current node but
+將其插入到當前節點的前面，但是
+
+96
+00:04:04,485 --> 00:04:07,139
+after current node, so in front of the next
+在當前節點之後，因此在下一個節點之前
+
+97
+00:04:07,155 --> 00:04:09,471
+item. That's why we store a pointer at the
+物品。這就是為什麼我們將指標儲存在
+
+98
+00:04:09,471 --> 00:04:12,359
+next item in the to-be-inserted new node.
+要插入的新節點中的下一項。
+
+99
+00:04:13,199 --> 00:04:15,443
+And with that, we have a priority queue.
+這樣，我們就有了一個優先權佇列。
+
+100
+00:04:16,412 --> 00:04:17,413
+And I can show this to you.
+我可以向你展示這個。
+
+101
+00:04:19,092 --> 00:04:21,229
+Now we can insert different values with
+現在我們可以插入不同的值
+
+102
+00:04:21,261 --> 00:04:22,274
+different priorities.
+不同的優先事項。
+
+103
+00:04:22,868 --> 00:04:25,471
+And to not have too many numbers here, I'll
+為了避免這裡有太多數字，我會
+
+104
+00:04:25,519 --> 00:04:27,560
+simply work with dummy tasks here.
+只需在此處處理虛擬任務即可。
+
+105
+00:04:28,106 --> 00:04:31,246
+So clean up a room is one task I have And
+所以打掃房間是我的一項任務
+
+106
+00:04:31,246 --> 00:04:33,778
+this has a pretty low priority, let's say,
+這有一個相當低的優先級，比方說，
+
+107
+00:04:34,563 --> 00:04:36,038
+so I'll just give it a number of 1.
+所以我就給它一個數字1。
+
+108
+00:04:36,631 --> 00:04:38,153
+You can use whatever you want here,
+在這裡你可以使用任何你想要的東西
+
+109
+00:04:38,698 --> 00:04:40,957
+it just needs to be comparable with a
+它只需要與
+
+110
+00:04:40,957 --> 00:04:44,371
+greater or smaller sign, so numbers work of
+更大或更小的符號，所以數字的工作
+
+111
+00:04:44,387 --> 00:04:45,316
+course really well.
+當然真的很好。
+
+112
+00:04:46,646 --> 00:04:48,746
+We also have do taxes, which is always
+我們也有稅收，這總是
+
+113
+00:04:48,794 --> 00:04:50,781
+important, so I'll give that a priority of
+重要，所以我會優先考慮
+
+114
+00:04:50,813 --> 00:04:51,502
+99.
+99.
+
+115
+00:04:52,720 --> 00:04:54,066
+And I also have
+而且我也有
+
+116
+00:04:55,444 --> 00:04:55,813
+learn
+學習
+
+117
+00:04:56,566 --> 00:04:58,539
+to code, which is of course even more
+編碼，這當然更重要
+
+118
+00:04:58,667 --> 00:05:00,960
+important, so I'll give this 105.
+很重要，所以我會給這個105。
+
+119
+00:05:01,554 --> 00:05:04,473
+These numbers are totally arbitrary, but
+這些數字完全是任意的，但是
+
+120
+00:05:04,601 --> 00:05:07,632
+they do represent the priority. I could have
+他們確實代表了優先事項。我本來可以
+
+121
+00:05:07,632 --> 00:05:10,278
+also used 1, 2, 3. I just wanna show that
+也使用了 1, 2, 3。我只是想證明這一點
+
+122
+00:05:10,278 --> 00:05:12,523
+you can use any ordering you want.
+您可以使用任何您想要的順序。
+
+123
+00:05:13,822 --> 00:05:15,522
+If I now save that and reload,
+如果我現在儲存並重新載入，
+
+124
+00:05:16,132 --> 00:05:17,687
+we see in our priority queue,
+我們在優先權佇列中看到，
+
+125
+00:05:18,297 --> 00:05:20,366
+the first item is actually
+第一項其實是
+
+126
+00:05:21,023 --> 00:05:21,729
+learn to code.
+學習編碼。
+
+127
+00:05:22,643 --> 00:05:26,349
+With a priority of 105. So that's the first
+優先級為 105。所以這是第一個
+
+128
+00:05:26,478 --> 00:05:28,467
+item to be processed in the queue because
+佇列中要處理的專案，因為
+
+129
+00:05:28,483 --> 00:05:30,440
+that's our definition of the queue, that the
+這就是我們對佇列的定義
+
+130
+00:05:30,505 --> 00:05:32,655
+first item is the first one to be processed.
+第一項是第一個要處理的項。
+
+131
+00:05:32,991 --> 00:05:34,147
+I mentioned this before.
+我之前提到過這一點。
+
+132
+00:05:34,997 --> 00:05:37,564
+And you see that our code works because this
+你會看到我們的程式碼可以工作，因為
+
+133
+00:05:37,564 --> 00:05:40,227
+was actually the last item I inserted.
+實際上是我插入的最後一個專案。
+
+134
+00:05:40,789 --> 00:05:43,179
+So in a regular queue, this would be at the
+所以在常規佇列中，這將位於
+
+135
+00:05:43,179 --> 00:05:43,757
+very end,
+最後，
+
+136
+00:05:44,302 --> 00:05:46,853
+but in a priority queue with the logic we
+但在優先權佇列中，我們的邏輯是
+
+137
+00:05:46,853 --> 00:05:48,858
+have up there It's actually at the
+在那裡它實際上是在
+
+138
+00:05:48,874 --> 00:05:49,323
+beginning.
+開始。
+
+139
+00:05:50,542 --> 00:05:53,140
+Now, the next item in line is do taxes
+現在，下一個專案是納稅
+
+140
+00:05:53,605 --> 00:05:56,700
+because its priority is lower than learn to
+因為它的優先順序低於學會
+
+141
+00:05:56,716 --> 00:05:59,586
+code but higher than the next item, which is
+程式碼但高於下一項，即
+
+142
+00:05:59,618 --> 00:06:02,184
+clean up room, which has a priority of just
+打掃房間，其優先順序只是
+
+143
+00:06:02,184 --> 00:06:02,296
+1.
+1.
+
+144
+00:06:02,986 --> 00:06:05,167
+And that's a priority queue in the end.
+這最終就是一個優先權佇列。
+
+145
+00:06:05,792 --> 00:06:08,310
+Now, we can complete it by adding a process
+現在，我們可以透過新增一個行程來完成
+
+146
+00:06:08,582 --> 00:06:12,046
+method to process the first item in line, so
+方法來處理行中的第一個專案，所以
+
+147
+00:06:12,110 --> 00:06:15,174
+the item with highest priority. And keep in
+具有最高優先權的專案。並保持在
+
+148
+00:06:15,174 --> 00:06:17,471
+mind that this is the idea of a queue. You
+請注意，這是佇列的想法。你
+
+149
+00:06:17,567 --> 00:06:20,619
+can't remove any random value you feel like.
+無法刪除您想要的任何隨機值。
+
+150
+00:06:20,796 --> 00:06:23,575
+Instead, you process it in this approach. So
+相反，您可以用這種方法處理它。所以
+
+151
+00:06:23,607 --> 00:06:26,659
+we always remove the first item with the
+我們總是刪除第一個專案
+
+152
+00:06:26,659 --> 00:06:27,574
+process method here.
+處理方法在這裡。
+
+153
+00:06:28,345 --> 00:06:29,630
+And of course, you can name the method
+當然，您可以命名該方法
+
+154
+00:06:29,630 --> 00:06:30,530
+however you want.
+不管你想要什麼。
+
+155
+00:06:31,140 --> 00:06:33,453
+So here we get our first item.
+所以這裡我們得到了我們的第一個專案。
+
+156
+00:06:34,931 --> 00:06:37,116
+We can save it in a temporary constant here.
+我們可以將其儲存在此處的臨時常數中。
+
+157
+00:06:38,063 --> 00:06:40,633
+Then we go to the first item and set it
+然後我們轉到第一項並設定它
+
+158
+00:06:40,633 --> 00:06:43,299
+equal to the next item in line. So that
+等於行中的下一個專案。以便
+
+159
+00:06:43,299 --> 00:06:45,691
+effectively removes the first item from the
+有效地刪除第一項
+
+160
+00:06:45,691 --> 00:06:48,435
+queue because we overwrite what's stored in
+佇列，因為我們覆蓋了儲存的內容
+
+161
+00:06:48,499 --> 00:06:50,602
+first with the next item in line.
+首先是下一個專案。
+
+162
+00:06:51,549 --> 00:06:53,763
+And then we return first, which we saved
+然後我們先回傳，我們儲存了
+
+163
+00:06:53,779 --> 00:06:55,320
+here before we overwrote it.
+在我們覆蓋它之前。
+
+164
+00:06:55,882 --> 00:06:58,113
+Therefore, this first constant still points
+因此，第一個常數仍然指向
+
+165
+00:06:58,145 --> 00:07:00,697
+at the old first item before we overwrote
+在我們覆蓋之前的舊第一項
+
+166
+00:07:00,697 --> 00:07:00,745
+it.
+它。
+
+167
+00:07:01,900 --> 00:07:03,906
+And therefore, here of course we can log the
+因此，在這裡我們當然可以記錄
+
+168
+00:07:03,906 --> 00:07:04,115
+queue,
+佇列，
+
+169
+00:07:05,094 --> 00:07:07,453
+but thereafter we can also console.log queue
+但此後我們也可以console.log佇列
+
+170
+00:07:07,903 --> 00:07:08,512
+process
+過程
+
+171
+00:07:11,355 --> 00:07:12,865
+And execute this 3 times.
+並執行3次。
+
+172
+00:07:13,540 --> 00:07:15,917
+And if we now save this and reload, we see
+如果我們現在儲存並重新載入，我們會看到
+
+173
+00:07:15,933 --> 00:07:19,193
+our 3 notes being output here in the proper
+我們的 3 個音符在正確的位置輸出
+
+174
+00:07:19,322 --> 00:07:22,020
+order. So the item with the highest priority
+命令。所以優先順序最高的專案
+
+175
+00:07:22,053 --> 00:07:24,494
+was processed first, then the one with the
+先被處理，然後是帶有
+
+176
+00:07:24,526 --> 00:07:26,984
+second highest priority, and then the one
+第二個優先級，然後是第一優先級
+
+177
+00:07:27,192 --> 00:07:30,084
+with the lowest priority. That is a basic
+具有最低優先權。這是一個基本的
+
+178
+00:07:30,084 --> 00:07:30,887
+priority queue.
+優先佇列。
