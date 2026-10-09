@@ -1,0 +1,759 @@
+1
+00:00:00,048 --> 00:00:02,086
+So back in this project, there is one
+回到這個專案，有一個
+
+2
+00:00:02,182 --> 00:00:05,487
+behavior I'd like to have in Pi, not just in
+我希望在 Pi 中擁有這種行為，而不僅僅是在
+
+3
+00:00:05,487 --> 00:00:07,702
+this project, but in all my Pi sessions.
+這個專案，但在我所有的 Pi 工作階段中。
+
+4
+00:00:08,520 --> 00:00:09,451
+I would like Pi
+我想要Pi
+
+5
+00:00:10,205 --> 00:00:12,516
+to open the last message
+打開最後一條訊息
+
+6
+00:00:13,174 --> 00:00:13,254
+in
+在
+
+7
+00:00:13,896 --> 00:00:15,693
+an active conversation before we
+在我們之前進行了積極的對話
+
+8
+00:00:16,303 --> 00:00:16,848
+start a new
+開始一個新的
+
+9
+00:00:17,779 --> 00:00:21,197
+turn, so to say. I'd like it to open that
+轉，可以這麼說。我想要它打開它
+
+10
+00:00:21,197 --> 00:00:24,807
+last message in a rendered HTML file, just
+渲染的 HTML 檔案中的最後一則訊息，只需
+
+11
+00:00:24,888 --> 00:00:28,465
+as I got it to render my plans. As HTML
+當我得到它來呈現我的計劃時。作為 HTML
+
+12
+00:00:28,529 --> 00:00:30,597
+files. And I'd like to have this behavior
+檔案。我想要這種行為
+
+13
+00:00:30,597 --> 00:00:32,441
+because in that last message in a
+因為在最後一則訊息中
+
+14
+00:00:32,441 --> 00:00:33,130
+conversation,
+對話，
+
+15
+00:00:33,707 --> 00:00:35,999
+it often has a summary of what it did, and
+它通常對所做的事情進行總結，並且
+
+16
+00:00:36,512 --> 00:00:38,452
+reading that in the terminal can be a bit
+在終端機機中讀取該內容可能有點
+
+17
+00:00:38,452 --> 00:00:39,959
+annoying, especially if it's a longer
+很煩人，尤其是如果時間較長的話
+
+18
+00:00:39,959 --> 00:00:42,043
+message. This one here is fine, for example,
+資訊.這裡這個就很好，例如，
+
+19
+00:00:42,059 --> 00:00:44,062
+but yeah, it would be nice to have that in
+但是的，如果能把它放進去就好了
+
+20
+00:00:44,127 --> 00:00:45,890
+an HTML file which gets opened
+一個打開的 HTML 檔案
+
+21
+00:00:45,906 --> 00:00:46,595
+automatically.
+自動地。
+
+22
+00:00:47,573 --> 00:00:50,058
+And that is something you can implement or
+這是你可以實施或
+
+23
+00:00:50,058 --> 00:00:52,526
+you can add with help of an extension. So
+您可以在擴充功能的幫助下新增。所以
+
+24
+00:00:52,526 --> 00:00:55,252
+I'll start a new PySession with no session
+我將啟動一個沒有工作階段的新 PySession
+
+25
+00:00:55,284 --> 00:00:57,255
+because it's not a session I plan on
+因為這不是我計劃的會議
+
+26
+00:00:57,271 --> 00:00:59,291
+continuing in the future, so no need to
+未來繼續，所以不需要
+
+27
+00:00:59,291 --> 00:01:00,750
+store any information about it.
+儲存有關它的任何資訊。
+
+28
+00:01:01,759 --> 00:01:03,715
+And you see, I already got some extensions
+你看，我已經有一些擴充功能
+
+29
+00:01:03,715 --> 00:01:06,552
+installed. These are these third-party
+安裝。這些是第三方的
+
+30
+00:01:06,584 --> 00:01:08,347
+packages I installed earlier.
+我之前安裝的軟體包。
+
+31
+00:01:09,228 --> 00:01:11,568
+These are simply extensions distributed by
+這些只是由以下人員分發的擴充功能
+
+32
+00:01:11,696 --> 00:01:14,245
+other people. They are using this extensions
+別人。他們正在使用這個擴充功能
+
+33
+00:01:14,261 --> 00:01:16,777
+feature to extend the capability of Pi, like
+擴充功能 Pi 功能的功能，例如
+
+34
+00:01:16,825 --> 00:01:18,668
+this guardrails feature, the subagent
+此護欄功能，子代理
+
+35
+00:01:18,668 --> 00:01:20,832
+feature, and so on. But now I wanna build my
+功能等。但現在我想建立我的
+
+36
+00:01:20,992 --> 00:01:24,069
+own extension. And again, you can just ask
+自己的擴充功能。再說一次，你可以問
+
+37
+00:01:24,198 --> 00:01:26,329
+Pi to do that for you. It can read its own
+Pi 為你做到這一點。它可以讀取自己的
+
+38
+00:01:26,361 --> 00:01:29,504
+documentation and it's by far the easiest
+文檔，這是迄今為止最簡單的
+
+39
+00:01:29,504 --> 00:01:32,009
+and quickest way of adding an extension. You
+以及添加擴充功能的最快方法。你
+
+40
+00:01:32,153 --> 00:01:34,208
+can of course also do it manually in theory,
+當然理論上也可以手動完成，
+
+41
+00:01:34,241 --> 00:01:34,481
+but
+但
+
+42
+00:01:35,284 --> 00:01:37,933
+this self-improving capability of Pi and the
+Pi 的這種自我改進能力
+
+43
+00:01:37,933 --> 00:01:40,936
+fact that it can extend itself is really one
+它可以自我擴充功能這一事實確實是一個
+
+44
+00:01:40,968 --> 00:01:43,055
+of the key things that makes Pi amazing. The
+讓 Pi 令人驚嘆的關鍵因素。這
+
+45
+00:01:43,055 --> 00:01:46,041
+minimal core plus this feature of being able
+最小的核心加上這個功能能夠
+
+46
+00:01:46,041 --> 00:01:48,353
+to extend itself. So I'm happy to take
+來擴充功能自己。所以我很高興接受
+
+47
+00:01:48,353 --> 00:01:49,060
+advantage of this.
+利用這一點。
+
+48
+00:01:49,718 --> 00:01:52,078
+And that is already the entire prompt I'll
+這已經是整個提示了
+
+49
+00:01:52,078 --> 00:01:54,053
+send to Pi to get it to build this
+發送到 Pi 讓它來建構這個
+
+50
+00:01:54,053 --> 00:01:54,519
+extension.
+擴大。
+
+51
+00:01:55,176 --> 00:01:56,683
+I tell it that it should build an extension
+我告訴它應該要建構一個擴充功能
+
+52
+00:01:56,715 --> 00:01:59,344
+that gets it, so Pi, to open the last
+明白了，所以 Pi，打開最後一個
+
+53
+00:01:59,344 --> 00:02:01,765
+message in each conversation we have as a
+我們每次對話中的資訊
+
+54
+00:02:01,829 --> 00:02:02,983
+rendered HTML file.
+渲染的 HTML 檔案。
+
+55
+00:02:03,672 --> 00:02:05,836
+And that file or that message should be
+該檔案或該訊息應該是
+
+56
+00:02:05,836 --> 00:02:07,119
+rendered and opened in the browser
+在瀏覽器中渲染並打開
+
+57
+00:02:07,199 --> 00:02:08,289
+automatically by Pi.
+由 Pi 自動產生。
+
+58
+00:02:08,818 --> 00:02:10,742
+And in the terminal where I have the Pi
+在我有 Pi 的終端機機中
+
+59
+00:02:10,742 --> 00:02:13,226
+session, it should output the path to that
+工作階段，它應該輸出該工作階段的路徑
+
+60
+00:02:13,226 --> 00:02:14,493
+document, which it creates
+它所建立的文檔
+
+61
+00:02:15,054 --> 00:02:16,881
+not as a message in a conversation, but as
+不是作為對話中的消息，而是作為
+
+62
+00:02:16,993 --> 00:02:19,334
+an extra UI element or text.
+額外的 UI 元素或文字。
+
+63
+00:02:19,943 --> 00:02:21,866
+And I'll add a little addition that I don't
+我會添加一些我沒有添加的內容
+
+64
+00:02:21,883 --> 00:02:24,127
+want it to save that HTML file that it's
+希望它儲存 HTML 檔案
+
+65
+00:02:24,127 --> 00:02:26,451
+creating in the project folder. Instead, it
+在專案資料夾中建立。相反，它
+
+66
+00:02:26,451 --> 00:02:28,379
+should save it in some temporary system
+應該將其儲存在某個臨時系統中
+
+67
+00:02:28,379 --> 00:02:28,780
+folder.
+資料夾。
+
+68
+00:02:29,744 --> 00:02:32,122
+And now if I send this to Py, it should go
+現在，如果我將其發送給 Py，它應該會發送
+
+69
+00:02:32,138 --> 00:02:34,194
+ahead, read its own documentation, because
+繼續閱讀它自己的文檔，因為
+
+70
+00:02:34,242 --> 00:02:36,074
+again, it's aware of that, which is super
+再次，它意識到了這一點，這真是太棒了
+
+71
+00:02:36,074 --> 00:02:36,588
+convenient.
+方便的。
+
+72
+00:02:37,215 --> 00:02:39,030
+It should read its own documentation,
+它應該閱讀自己的文檔，
+
+73
+00:02:39,608 --> 00:02:41,697
+and it does its own extensions documentation
+它有自己的擴充文檔
+
+74
+00:02:41,858 --> 00:02:44,187
+and its documentation on its terminal user
+及其終端機使用者的文檔
+
+75
+00:02:44,203 --> 00:02:44,653
+interface.
+介面.
+
+76
+00:02:45,569 --> 00:02:47,898
+And with that information, it should then go
+有了這些訊息，它就應該去
+
+77
+00:02:47,898 --> 00:02:50,388
+ahead and build such an extension. And
+并构建这样一个扩展。和
+
+78
+00:02:50,388 --> 00:02:53,312
+extensions are stored in your global.py
+擴充功能名儲存在您的 global.py 中
+
+79
+00:02:53,666 --> 00:02:56,218
+agent folder in an extensions folder. I
+擴充資料夾中的代理程式資料夾。我
+
+80
+00:02:56,314 --> 00:02:58,256
+backed up my old one which already had some
+備份我的舊的，它已經有一些
+
+81
+00:02:58,272 --> 00:03:00,551
+extensions so that it can create a new one.
+擴充功能，以便它可以創建一個新的。
+
+82
+00:03:00,888 --> 00:03:03,424
+And you could also have extensions in your
+你也可以在你的
+
+83
+00:03:03,793 --> 00:03:05,237
+local project. You could have a
+本地專案。你可以有一個
+
+84
+00:03:05,542 --> 00:03:09,201
+.py/agent/extensions folder there too if you
+.py/agent/extensions 資料夾也在那裡，如果你
+
+85
+00:03:09,314 --> 00:03:11,352
+had extensions that would only apply to a
+具有僅適用於
+
+86
+00:03:11,352 --> 00:03:12,395
+specific project.
+具體專案。
+
+87
+00:03:12,941 --> 00:03:15,412
+But for global extensions, it's that global
+但對於全球擴充功能來說，這就是全球性的
+
+88
+00:03:15,444 --> 00:03:17,579
+extensions path which it will certainly add
+它肯定會添加的擴充功能路徑
+
+89
+00:03:17,659 --> 00:03:18,622
+in a second or so.
+大約一秒鐘。
+
+90
+00:03:19,184 --> 00:03:20,291
+And It's done.
+一切都完成了。
+
+91
+00:03:20,884 --> 00:03:23,128
+It added this extensions folder in my Pi
+它在我的 Pi 中添加了這個擴充功能資料夾
+
+92
+00:03:23,272 --> 00:03:26,013
+Agent folder and in there a render last
+Agent 資料夾，最後渲染
+
+93
+00:03:26,013 --> 00:03:27,857
+message folder which holds that render last
+儲存最後渲染的訊息資料夾
+
+94
+00:03:27,857 --> 00:03:30,197
+message extension. And as you see in there,
+訊息擴充功能。正如你在那裡看到的，
+
+95
+00:03:30,341 --> 00:03:32,153
+I got a JavaScript project in the end
+我最終得到了一個 JavaScript 專案
+
+96
+00:03:32,265 --> 00:03:34,397
+because that is how extensions are written
+因為擴充就是這樣寫的
+
+97
+00:03:34,509 --> 00:03:36,593
+with Pi. You write them with JavaScript or
+與 Pi.你用 JavaScript 寫它們或者
+
+98
+00:03:36,593 --> 00:03:39,703
+TypeScript. Here it shows TypeScript. And if
+打字稿。這裡顯示了 TypeScript。如果
+
+99
+00:03:39,703 --> 00:03:41,274
+we take a look at that file, you'll see some
+讓我們看一下該檔案，你會看到一些
+
+100
+00:03:41,322 --> 00:03:42,829
+errors. You can ignore them. These
+錯誤。你可以忽略它們。這些
+
+101
+00:03:42,829 --> 00:03:44,608
+dependencies will be available when that
+此時相依性將可用
+
+102
+00:03:44,608 --> 00:03:46,564
+extension runs inside of Pi when it's
+擴充功能在 Pi 內部運行
+
+103
+00:03:46,676 --> 00:03:46,949
+loaded.
+已載入。
+
+104
+00:03:47,574 --> 00:03:50,187
+But that is then the code that was generated
+但這就是生成的程式碼
+
+105
+00:03:50,219 --> 00:03:51,549
+by Pi. It's normal TypeScript.
+由 皮。這是正常的 TypeScript。
+
+106
+00:03:52,624 --> 00:03:55,882
+But what's worth noting about it is that in
+但值得注意的是，在這
+
+107
+00:03:56,058 --> 00:03:59,444
+that code, it's using the Pi extension API
+該程式碼，它使用 Pi 擴充功能 API
+
+108
+00:04:00,021 --> 00:04:02,284
+to listen to certain events here to the
+收聽此處的某些事件
+
+109
+00:04:02,396 --> 00:04:05,108
+agent end event. So when the agent is done,
+代理結束事件。所以當代理完成後，
+
+110
+00:04:05,541 --> 00:04:07,916
+to then find the last assistant message,
+然後找到最後一封助理訊息，
+
+111
+00:04:08,189 --> 00:04:10,836
+extract the markdown content, render it as
+提取 markdown 內容，渲染為
+
+112
+00:04:10,836 --> 00:04:13,853
+an HTML document, write it to a temporary
+HTML 文檔，將其寫入臨時檔案
+
+113
+00:04:14,045 --> 00:04:17,495
+folder on my system, check if there is a UI
+我的系統上的資料夾，檢查是否有 UI
+
+114
+00:04:17,495 --> 00:04:19,469
+available, which should be the case if you
+可用，如果您
+
+115
+00:04:19,501 --> 00:04:21,731
+run Pi through the terminal user interface,
+透過終端機使用者介面運行 Pi，
+
+116
+00:04:21,988 --> 00:04:24,089
+and then it tweaks the HTML that UI so it
+然後它會調整 UI 的 HTML，以便它
+
+117
+00:04:24,137 --> 00:04:26,540
+can edit its own UI, the own terminal user
+可以編輯自己的UI，自己的終端機使用者
+
+118
+00:04:26,556 --> 00:04:28,639
+interface, which is really amazing. And it
+介面，這真是太神奇了。還有它
+
+119
+00:04:28,703 --> 00:04:30,321
+also opens the file in the browser.
+也會在瀏覽器中開啟該檔案。
+
+120
+00:04:30,946 --> 00:04:32,773
+That is what it's doing. And again, this was
+這就是它正在做的事情。再說一遍，這是
+
+121
+00:04:32,949 --> 00:04:34,039
+auto-generated by Pi.
+由 Pi 自動產生。
+
+122
+00:04:34,647 --> 00:04:35,897
+Now it even tells me to run
+現在它甚至告訴我要跑
+
+123
+00:04:36,474 --> 00:04:38,941
+/reload, which we indeed must do. You have
+/reload，我們確實必須這樣做。你有
+
+124
+00:04:38,973 --> 00:04:41,056
+to do that whenever you add new skills, new
+每當你加入新技能、新技能時都這樣做
+
+125
+00:04:41,120 --> 00:04:43,476
+prompt templates, change some settings, or
+提示樣板，更改一些設置，或者
+
+126
+00:04:43,844 --> 00:04:45,863
+when you add an extension. And when I do
+當您新增擴充功能時。當我這樣做時
+
+127
+00:04:45,863 --> 00:04:47,946
+that, you see render last message is now
+那，你看到渲染最後一則訊息是現在
+
+128
+00:04:47,946 --> 00:04:50,061
+registered as an extension here. So if I now
+在這裡註冊為擴充。所以如果我現在
+
+129
+00:04:50,333 --> 00:04:51,743
+ask it, what did you do?
+問它，你做了什麼？
+
+130
+00:04:52,817 --> 00:04:53,361
+It should
+它應該
+
+131
+00:04:54,034 --> 00:04:56,486
+go ahead, generate an answer, and since that
+繼續，生成答案，從那時起
+
+132
+00:04:56,518 --> 00:04:58,121
+will be the last answer in that
+將是最後一個答案
+
+133
+00:04:58,121 --> 00:05:00,108
+conversation, it should also render it and
+對話，它也應該呈現它並且
+
+134
+00:05:00,284 --> 00:05:01,421
+open it as HTML.
+以 HTML 格式開啟它。
+
+135
+00:05:02,271 --> 00:05:04,979
+And it does so. Here is that rendered
+確實如此。這是渲染的
+
+136
+00:05:04,995 --> 00:05:07,350
+message for me, a bit nicer to read. It
+給我的消息，讀起來更好一點。它
+
+137
+00:05:07,414 --> 00:05:09,321
+opened that automatically in the browser.
+在瀏覽器中自動打開它。
+
+138
+00:05:10,042 --> 00:05:12,927
+And you also see it updated its UI and
+您還看到它更新了 UI 並
+
+139
+00:05:12,927 --> 00:05:15,907
+includes the path here so that I could also
+包括這裡的路徑，這樣我也可以
+
+140
+00:05:15,907 --> 00:05:19,337
+copy that and open that in the browser If I
+複製它並在瀏覽器中打開它如果我
+
+141
+00:05:19,337 --> 00:05:21,341
+accidentally closed it and wanted to read it
+不小心關了，想看
+
+142
+00:05:21,341 --> 00:05:23,329
+again. And that's of course really
+再次。這當然是真的
+
+143
+00:05:23,361 --> 00:05:25,685
+convenient. And your imagination is the
+方便的。而你的想像就是
+
+144
+00:05:25,685 --> 00:05:27,978
+limit here. You can add all those extensions
+限制在這裡。您可以添加所有這些擴充功能
+
+145
+00:05:28,010 --> 00:05:30,752
+you want. You can really build the pie you
+你想要的。你真的可以做你自己的餡餅
+
+146
+00:05:30,816 --> 00:05:32,579
+want. You should be creative. You can play
+想。你應該要有創意。你可以玩
+
+147
+00:05:32,579 --> 00:05:34,551
+around with it. You can just delete an
+與它一起。你可以直接刪除一個
+
+148
+00:05:34,599 --> 00:05:36,251
+extension folder if you don't want it
+擴充資料夾（如果您不需要）
+
+149
+00:05:36,251 --> 00:05:38,575
+anymore. So super easy to get rid of it. And
+不再了。所以超級容易擺脫它。和
+
+150
+00:05:38,608 --> 00:05:40,772
+it's an amazing feature. So play around with
+這是一個了不起的功能。所以玩玩
+
+151
+00:05:40,772 --> 00:05:43,786
+it and build the pie you wanna work with and
+並建立您想要使用的餡餅
+
+152
+00:05:43,802 --> 00:05:45,582
+that gets the most value for you.
+這對您來說是最大的價值。

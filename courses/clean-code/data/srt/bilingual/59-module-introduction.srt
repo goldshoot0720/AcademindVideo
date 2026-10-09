@@ -1,0 +1,314 @@
+1
+00:00:02,356 --> 00:00:05,370
+Now that we know how to name things, how to
+現在我們知道如何命名事物，如何
+
+2
+00:00:05,386 --> 00:00:08,175
+format our code, and how to write clean
+格式化我們的程式碼，以及如何寫乾淨的程式碼
+
+3
+00:00:08,207 --> 00:00:10,387
+functions, which is super important,
+功能，這是非常重要的，
+
+4
+00:00:10,916 --> 00:00:12,647
+we're going to have a look at control
+我們要看看控制
+
+5
+00:00:12,792 --> 00:00:16,655
+structures in this course section, at loops
+本課程部分的結構，at 迴圈
+
+6
+00:00:16,847 --> 00:00:19,476
+and most importantly, if statements,
+最重要的是， if 語句，
+
+7
+00:00:20,053 --> 00:00:22,842
+because it turns out that control structures
+因為事實證明控制結構
+
+8
+00:00:23,115 --> 00:00:25,135
+play an important role when it comes to
+時發揮重要作用
+
+9
+00:00:25,199 --> 00:00:28,728
+writing clean code. To be precise, you wanna
+編寫乾淨的程式碼。準確地說，你想要
+
+10
+00:00:28,728 --> 00:00:30,285
+avoid code like this.
+避免這樣的程式碼。
+
+11
+00:00:31,136 --> 00:00:33,560
+This kind of code is also sometimes called
+這種程式碼有時也稱為
+
+12
+00:00:33,769 --> 00:00:35,952
+arrow code because it looks like an arrow
+箭頭程式碼，因為它看起來像箭頭
+
+13
+00:00:36,112 --> 00:00:39,130
+from left to right and we have deeply nested
+從左到右，我們嵌套得很深
+
+14
+00:00:39,162 --> 00:00:40,398
+control structures here.
+控制結構在這裡。
+
+15
+00:00:41,313 --> 00:00:43,705
+If statements that contain for loops which
+包含 for 迴圈的 If 語句
+
+16
+00:00:43,737 --> 00:00:45,631
+then contain more if statements which then
+then 包含更多 if 語句，然後
+
+17
+00:00:45,727 --> 00:00:49,387
+yet again contain nested if statements. This
+再次包含嵌套的 if 語句。這
+
+18
+00:00:49,435 --> 00:00:52,421
+is super hard to read, super hard to
+超難讀，超難
+
+19
+00:00:52,421 --> 00:00:55,214
+maintain, error-prone, and therefore
+維護，容易出錯，因此
+
+20
+00:00:55,294 --> 00:00:57,172
+definitely not clean at all.
+絕對不乾淨。
+
+21
+00:00:58,184 --> 00:01:00,771
+In this course section, we are going to work
+在本課程部分中，我們將工作
+
+22
+00:01:00,819 --> 00:01:03,325
+on this example and learn different
+在這個例子中學習不同的
+
+23
+00:01:03,325 --> 00:01:05,510
+techniques and rules which we can apply
+我們可以應用的技術和規則
+
+24
+00:01:06,056 --> 00:01:07,871
+to turn this into cleaner code.
+將其變成更乾淨的程式碼。
+
+25
+00:01:08,851 --> 00:01:11,245
+Therefore, specifically in this module,
+因此，特別是在這個模組中，
+
+26
+00:01:11,421 --> 00:01:13,654
+we're going to have a look at how to avoid
+我們將看看如何避免
+
+27
+00:01:13,767 --> 00:01:16,321
+deeply nested control structures like the
+深層嵌套的控制結構，例如
+
+28
+00:01:16,401 --> 00:01:17,301
+one you just saw.
+你剛剛看到的一個。
+
+29
+00:01:17,928 --> 00:01:19,839
+We're going to have a look at error
+我們將查看錯誤
+
+30
+00:01:19,855 --> 00:01:22,972
+handling, try-catch, and how to utilize
+處理、try-catch 以及如何使用
+
+31
+00:01:23,165 --> 00:01:26,021
+errors in your application. Instead of using
+您的應用程式中的錯誤。而不是使用
+
+32
+00:01:26,149 --> 00:01:26,934
+if statements.
+if 語句。
+
+33
+00:01:27,479 --> 00:01:29,818
+And of course, as always, and as you just
+當然，一如既往，正如你剛剛
+
+34
+00:01:29,818 --> 00:01:32,285
+saw already, we're going to do all of that
+已經看到了，我們要做所有這些
+
+35
+00:01:32,766 --> 00:01:35,025
+at a concrete example. You're going to see
+在一個具體的例子中。你將會看到
+
+36
+00:01:35,105 --> 00:01:38,197
+demos, and I will also give you a chance to
+演示，我也會給你一個機會
+
+37
+00:01:38,213 --> 00:01:39,287
+practice what you learned.
+練習你所學到的。
+
+38
+00:01:39,815 --> 00:01:42,427
+Now I have one warning about this section.
+現在我對這一部分有一個警告。
+
+39
+00:01:43,020 --> 00:01:46,544
+This will be a very practical section. We'll
+這將會是一個非常實用的部分。出色地
+
+40
+00:01:46,560 --> 00:01:49,669
+have less slides and more refactoring on the
+幻燈片更少，重構更多
+
+41
+00:01:49,669 --> 00:01:52,536
+code. This long code which you see here will
+程式碼。您在這裡看到的這段長程式碼將
+
+42
+00:01:52,793 --> 00:01:55,181
+change a lot throughout this section. We'll
+在本節中發生了很多變化。出色地
+
+43
+00:01:55,197 --> 00:01:58,199
+refactor it a lot and we'll even refactor
+重構它很多，我們甚至會重構
+
+44
+00:01:58,408 --> 00:01:59,997
+our refactoring results
+我們的重構結果
+
+45
+00:02:00,928 --> 00:02:03,015
+because that is how you write clean code.
+因為這就是編寫乾淨程式碼的方式。
+
+46
+00:02:03,400 --> 00:02:05,342
+And I can really show everything we learned
+我真的可以展示我們學到的一切
+
+47
+00:02:05,407 --> 00:02:07,686
+up to this point, including some new
+到目前為止，包括一些新的
+
+48
+00:02:07,815 --> 00:02:10,303
+concepts you should be aware of at this
+您應該了解的概念
+
+49
+00:02:10,303 --> 00:02:12,663
+concrete example. And I wanna take you with
+具體的例子。我想帶你一起
+
+50
+00:02:12,695 --> 00:02:15,408
+me on that journey of improving this code.
+我正在經歷改進這段程式碼的旅程。
+
+51
+00:02:16,066 --> 00:02:17,896
+So if you're not a fan of refactoring
+所以如果你不喜歡重構
+
+52
+00:02:18,474 --> 00:02:21,219
+and if you're not a fan of seeing code
+如果你不喜歡看程式碼
+
+53
+00:02:21,219 --> 00:02:22,775
+change a lot, then A,
+改變很多，然後A，
+
+54
+00:02:23,449 --> 00:02:25,791
+clean code and writing clean code will be
+乾淨的程式碼和編寫乾淨的程式碼將是
+
+55
+00:02:25,935 --> 00:02:28,389
+difficult for you anyways, and B, this
+無論如何，對你來說很難，B，這個
+
+56
+00:02:28,581 --> 00:02:31,131
+section might not be so great for you.
+部分可能不太適合您。
+
+57
+00:02:31,805 --> 00:02:34,034
+Nonetheless, what I will show you is super
+儘管如此，我將向您展示的是超級
+
+58
+00:02:34,034 --> 00:02:36,424
+important and is how you do actually write
+重要的是你如何實際寫作
+
+59
+00:02:36,456 --> 00:02:39,471
+clean code. And this section is less about
+乾淨的程式碼。這部分內容較少
+
+60
+00:02:39,744 --> 00:02:42,743
+tons of new rules and concepts and more
+大量的新規則和概念等等
+
+61
+00:02:42,856 --> 00:02:44,973
+about applying what we already learned
+關於應用我們已經學到的知識
+
+62
+00:02:45,341 --> 00:02:48,212
+combined with some new rules and concepts.
+結合一些新的規則和概念。
+
+63
+00:02:48,966 --> 00:02:50,458
+So therefore, let's dive in.
+因此，讓我們深入探討一下。

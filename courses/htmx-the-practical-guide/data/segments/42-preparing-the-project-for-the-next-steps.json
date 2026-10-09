@@ -1,0 +1,657 @@
+[
+ {
+  "start": 0.673,
+  "end": 1.811,
+  "en": "So now that we"
+ },
+ {
+  "start": 2.357,
+  "end": 6.045,
+  "en": "learned a lot about more advanced HTMX"
+ },
+ {
+  "start": 6.045,
+  "end": 6.814,
+  "en": "techniques already,"
+ },
+ {
+  "start": 7.472,
+  "end": 10.278,
+  "en": "let's dive even deeper. And let's say we"
+ },
+ {
+  "start": 10.278,
+  "end": 11.127,
+  "en": "wanna add a new"
+ },
+ {
+  "start": 11.833,
+  "end": 14.559,
+  "en": "section, you could say, here above the dream"
+ },
+ {
+  "start": 14.607,
+  "end": 15.152,
+  "en": "locations."
+ },
+ {
+  "start": 15.81,
+  "end": 18.503,
+  "en": "And in that section, I wanna show some"
+ },
+ {
+  "start": 18.792,
+  "end": 22.448,
+  "en": "suggested locations, but those locations"
+ },
+ {
+  "start": 22.865,
+  "end": 26.553,
+  "en": "should actually switch every 5 seconds. They"
+ },
+ {
+  "start": 26.553,
+  "end": 29.346,
+  "en": "should be refreshed every 5 seconds."
+ },
+ {
+  "start": 30.101,
+  "end": 32.753,
+  "en": "And as you'll see, HTMX makes building a"
+ },
+ {
+  "start": 32.753,
+  "end": 35.325,
+  "en": "feature like this or implementing a feature"
+ },
+ {
+  "start": 35.325,
+  "end": 35.759,
+  "en": "like this"
+ },
+ {
+  "start": 36.289,
+  "end": 37.223,
+  "en": "a breeze as well."
+ },
+ {
+  "start": 38.934,
+  "end": 41.968,
+  "en": "Now, I'll get started in the app.js file"
+ },
+ {
+  "start": 42.645,
+  "end": 45.679,
+  "en": "and attached you'll find a JavaScript file"
+ },
+ {
+  "start": 45.97,
+  "end": 46.825,
+  "en": "with a function,"
+ },
+ {
+  "start": 47.568,
+  "end": 50.54,
+  "en": "a get suggested locations function,"
+ },
+ {
+  "start": 51.218,
+  "end": 53.834,
+  "en": "which you should simply insert into your"
+ },
+ {
+  "start": 54.028,
+  "end": 54.739,
+  "en": "app.js file."
+ },
+ {
+  "start": 56.123,
+  "end": 57.759,
+  "en": "So that function in that attached file,"
+ },
+ {
+  "start": 58.229,
+  "end": 61.096,
+  "en": "simply insert it right below these imports"
+ },
+ {
+  "start": 61.517,
+  "end": 62.797,
+  "en": "in the app.js file."
+ },
+ {
+  "start": 64.194,
+  "end": 66.349,
+  "en": "We could also put it into a separate file,"
+ },
+ {
+  "start": 66.365,
+  "end": 68.793,
+  "en": "but here I'll keep it all together to make"
+ },
+ {
+  "start": 68.793,
+  "end": 70.996,
+  "en": "it a bit easier to switch between these code"
+ },
+ {
+  "start": 71.012,
+  "end": 71.382,
+  "en": "snippets."
+ },
+ {
+  "start": 73.116,
+  "end": 76.505,
+  "en": "Now, what this function does is it in the"
+ },
+ {
+  "start": 76.505,
+  "end": 78.224,
+  "en": "end picks 2"
+ },
+ {
+  "start": 78.818,
+  "end": 81.79,
+  "en": "random locations if we have more than 2"
+ },
+ {
+  "start": 82.047,
+  "end": 83.011,
+  "en": "locations left,"
+ },
+ {
+  "start": 83.938,
+  "end": 87.631,
+  "en": "And it returns an array with these 2 random"
+ },
+ {
+  "start": 87.631,
+  "end": 88.321,
+  "en": "locations here."
+ },
+ {
+  "start": 89.558,
+  "end": 93.202,
+  "en": "And I can now use this function here in my"
+ },
+ {
+  "start": 93.732,
+  "end": 97.104,
+  "en": "root GET route so that I don't just get my"
+ },
+ {
+  "start": 97.12,
+  "end": 100.781,
+  "en": "available locations but also my suggested"
+ },
+ {
+  "start": 100.958,
+  "end": 103.96,
+  "en": "locations simply by calling this newly added"
+ },
+ {
+  "start": 104.33,
+  "end": 106.706,
+  "en": "getSuggestedLocations function here."
+ },
+ {
+  "start": 108.923,
+  "end": 112.373,
+  "en": "Next, I wanna pass these suggested locations"
+ },
+ {
+  "start": 112.795,
+  "end": 115.97,
+  "en": "to the renderLocationsPage function, let's"
+ },
+ {
+  "start": 115.97,
+  "end": 117.525,
+  "en": "say as a first argument."
+ },
+ {
+  "start": 119.73,
+  "end": 121.192,
+  "en": "Now, of course, at the moment, this"
+ },
+ {
+  "start": 121.192,
+  "end": 124.615,
+  "en": "renderLocationsPage function doesn't expect"
+ },
+ {
+  "start": 124.824,
+  "end": 127.604,
+  "en": "3 arguments yet. So I'll go to that function"
+ },
+ {
+  "start": 128.102,
+  "end": 129.663,
+  "en": "and add a new parameter here,"
+ },
+ {
+  "start": 130.066,
+  "end": 134.001,
+  "en": "suggestedLocations, so that I do expect 3."
+ },
+ {
+  "start": 134.576,
+  "end": 134.882,
+  "en": "And"
+ },
+ {
+  "start": 136.778,
+  "end": 139.575,
+  "en": "now of course I wanna output those suggested"
+ },
+ {
+  "start": 139.575,
+  "end": 140.185,
+  "en": "locations."
+ },
+ {
+  "start": 140.844,
+  "end": 144.045,
+  "en": "And for that, here in the main section above"
+ },
+ {
+  "start": 144.303,
+  "end": 145.254,
+  "en": "the section"
+ },
+ {
+  "start": 145.834,
+  "end": 148.719,
+  "en": "of interesting locations, I'll add a new"
+ },
+ {
+  "start": 148.848,
+  "end": 149.864,
+  "en": "section element."
+ },
+ {
+  "start": 151.537,
+  "end": 154.851,
+  "en": "And in that section, I'll add an unordered"
+ },
+ {
+  "start": 154.851,
+  "end": 155.659,
+  "en": "list element."
+ },
+ {
+  "start": 157.049,
+  "end": 160.073,
+  "en": "And on that unordered list, I'll add a class"
+ },
+ {
+  "start": 160.202,
+  "end": 160.865,
+  "en": "of suggestions."
+ },
+ {
+  "start": 162.18,
+  "end": 162.834,
+  "en": "Locations"
+ },
+ {
+  "start": 163.506,
+  "end": 166.928,
+  "en": "and an ID of suggested-locations."
+ },
+ {
+  "start": 169.961,
+  "end": 171.93,
+  "en": "And it's now in that unordered list where I"
+ },
+ {
+  "start": 171.996,
+  "end": 174.713,
+  "en": "wanna output these suggested locations here."
+ },
+ {
+  "start": 176.44,
+  "end": 178.324,
+  "en": "So therefore we can simply grab the code"
+ },
+ {
+  "start": 178.324,
+  "end": 180.063,
+  "en": "from down there from the interesting"
+ },
+ {
+  "start": 180.159,
+  "end": 181.576,
+  "en": "locations and output them here,"
+ },
+ {
+  "start": 182.51,
+  "end": 185.264,
+  "en": "the suggested locations like this."
+ },
+ {
+  "start": 187.123,
+  "end": 189.708,
+  "en": "The second argument here should not be set"
+ },
+ {
+  "start": 189.756,
+  "end": 192.261,
+  "en": "though so that it falls back to the default"
+ },
+ {
+  "start": 192.261,
+  "end": 193.208,
+  "en": "value of true."
+ },
+ {
+  "start": 194.043,
+  "end": 196.548,
+  "en": "Since I wanna treat the locations that are"
+ },
+ {
+  "start": 196.596,
+  "end": 199.31,
+  "en": "rendered here just like the locations that"
+ },
+ {
+  "start": 199.39,
+  "end": 201.799,
+  "en": "are rendered in the available locations"
+ },
+ {
+  "start": 201.799,
+  "end": 202.136,
+  "en": "list,"
+ },
+ {
+  "start": 203.019,
+  "end": 205.893,
+  "en": "we should be able to pick them from that"
+ },
+ {
+  "start": 205.893,
+  "end": 208.013,
+  "en": "list and add them to the dream locations."
+ },
+ {
+  "start": 209.185,
+  "end": 211.369,
+  "en": "And therefore with that done, if we save"
+ },
+ {
+  "start": 211.369,
+  "end": 211.738,
+  "en": "everything,"
+ },
+ {
+  "start": 212.654,
+  "end": 214.712,
+  "en": "and we reload, we should have these"
+ },
+ {
+  "start": 214.84,
+  "end": 216.191,
+  "en": "suggested locations here."
+ },
+ {
+  "start": 217.156,
+  "end": 219.841,
+  "en": "Now I actually also wanna add a little title"
+ },
+ {
+  "start": 219.889,
+  "end": 220.082,
+  "en": "here."
+ },
+ {
+  "start": 221.46,
+  "end": 223.598,
+  "en": "So I'll add an H2 element here where I'll"
+ },
+ {
+  "start": 223.598,
+  "end": 226.157,
+  "en": "say, Currently suggested,"
+ },
+ {
+  "start": 227.064,
+  "end": 227.372,
+  "en": "like this."
+ },
+ {
+  "start": 230.869,
+  "end": 233.017,
+  "en": "And I'll give that section an ID of"
+ },
+ {
+  "start": 234.482,
+  "end": 235.328,
+  "en": "suggested-locations-section."
+ },
+ {
+  "start": 238.253,
+  "end": 239.765,
+  "en": "For styling purposes."
+ },
+ {
+  "start": 241.76,
+  "end": 243.891,
+  "en": "With that done, if I save that and reload, I"
+ },
+ {
+  "start": 244.052,
+  "end": 245.44,
+  "en": "also got this title here."
+ },
+ {
+  "start": 246.942,
+  "end": 249.912,
+  "en": "And therefore now I have 2 randomly chosen"
+ },
+ {
+  "start": 249.961,
+  "end": 251.587,
+  "en": "suggested elements here."
+ },
+ {
+  "start": 253.002,
+  "end": 254.994,
+  "en": "Now if I click on one of them, I get that"
+ },
+ {
+  "start": 254.994,
+  "end": 255.959,
+  "en": "same dialog"
+ },
+ {
+  "start": 256.521,
+  "end": 259.044,
+  "en": "as before. And if I click yes, it is indeed"
+ },
+ {
+  "start": 259.173,
+  "end": 261.316,
+  "en": "added to the dream locations. It's also"
+ },
+ {
+  "start": 261.365,
+  "end": 263.205,
+  "en": "still available here though, so that's"
+ },
+ {
+  "start": 263.205,
+  "end": 264.318,
+  "en": "something we'll have to change."
+ },
+ {
+  "start": 265.494,
+  "end": 266.777,
+  "en": "But adding it works."
+ },
+ {
+  "start": 267.579,
+  "end": 269.216,
+  "en": "Now to make sure that it's not available"
+ },
+ {
+  "start": 269.264,
+  "end": 270.516,
+  "en": "here in the suggested"
+ },
+ {
+  "start": 271.173,
+  "end": 271.863,
+  "en": "places anymore,"
+ },
+ {
+  "start": 272.617,
+  "end": 274.783,
+  "en": "I have to go back to the app.js file."
+ },
+ {
+  "start": 275.842,
+  "end": 278.361,
+  "en": "And there in this POST route, we should now"
+ },
+ {
+  "start": 278.409,
+  "end": 282.019,
+  "en": "not just update the available locations list"
+ },
+ {
+  "start": 282.083,
+  "end": 284.65,
+  "en": "but also the suggested locations list so"
+ },
+ {
+  "start": 284.65,
+  "end": 286.64,
+  "en": "that if we picked a location, we also"
+ },
+ {
+  "start": 287.137,
+  "end": 290.009,
+  "en": "recreate the list of suggested locations."
+ },
+ {
+  "start": 290.827,
+  "end": 293.522,
+  "en": "So I'll also get my suggested locations here"
+ },
+ {
+  "start": 294.051,
+  "end": 295.142,
+  "en": "by calling that same"
+ },
+ {
+  "start": 295.736,
+  "end": 297.934,
+  "en": "getSuggestedLocations function."
+ },
+ {
+  "start": 299.329,
+  "end": 301.88,
+  "en": "And then I also wanna use out-of-band"
+ },
+ {
+  "start": 301.928,
+  "end": 304.543,
+  "en": "swapping here to update the suggested"
+ },
+ {
+  "start": 304.543,
+  "end": 305.489,
+  "en": "locations list."
+ },
+ {
+  "start": 306.163,
+  "end": 309.035,
+  "en": "So we can copy this unordered list with the"
+ },
+ {
+  "start": 309.035,
+  "end": 311.954,
+  "en": "suggested locations from the index.js file"
+ },
+ {
+  "start": 313.446,
+  "end": 315.868,
+  "en": "and also add that here to the response of"
+ },
+ {
+  "start": 315.868,
+  "end": 316.895,
+  "en": "this POST route."
+ },
+ {
+  "start": 320.502,
+  "end": 322.665,
+  "en": "And then of course, I also wanna add"
+ },
+ {
+  "start": 322.842,
+  "end": 327.668,
+  "en": "hx-swap-OOB to this unordered list so that"
+ },
+ {
+  "start": 327.845,
+  "end": 330.421,
+  "en": "this unordered list is also swapped out of"
+ },
+ {
+  "start": 330.454,
+  "end": 330.876,
+  "en": "band."
+ },
+ {
+  "start": 334.157,
+  "end": 336.928,
+  "en": "With that done, if I reload, if I add a"
+ },
+ {
+  "start": 337.041,
+  "end": 339.457,
+  "en": "place from the suggested places to the dream"
+ },
+ {
+  "start": 339.473,
+  "end": 342.644,
+  "en": "locations, you see these suggestions also"
+ },
+ {
+  "start": 342.776,
+  "end": 343.337,
+  "en": "were updated."
+ },
+ {
+  "start": 344.999,
+  "end": 347.586,
+  "en": "So that's working, but that's just the first"
+ },
+ {
+  "start": 347.586,
+  "end": 350.769,
+  "en": "step. The main goal was to make sure that"
+ },
+ {
+  "start": 351.508,
+  "end": 354.321,
+  "en": "this list here is regenerated and"
+ },
+ {
+  "start": 354.321,
+  "end": 357.938,
+  "en": "re-rendered every 5 seconds so that we see"
+ },
+ {
+  "start": 357.938,
+  "end": 361.281,
+  "en": "new suggestions every 5 seconds. And that's"
+ },
+ {
+  "start": 361.394,
+  "end": 362.358,
+  "en": "what we'll do next."
+ }
+]

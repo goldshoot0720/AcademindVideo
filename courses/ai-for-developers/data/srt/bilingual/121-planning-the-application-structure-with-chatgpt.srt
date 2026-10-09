@@ -1,0 +1,544 @@
+1
+00:00:02,038 --> 00:00:05,457
+The core features are laid out here. As
+這裡列出了核心功能。作為
+
+2
+00:00:05,553 --> 00:00:08,426
+mentioned, it'll be an API which we'll build
+提到過，這將是我們將要建立的 API
+
+3
+00:00:08,459 --> 00:00:09,614
+that allows users to
+允許使用者
+
+4
+00:00:10,288 --> 00:00:12,921
+create and share events and sign up for
+建立和分享活動並註冊
+
+5
+00:00:13,033 --> 00:00:14,205
+events shared by others.
+其他人分享的事件。
+
+6
+00:00:15,666 --> 00:00:16,902
+And as a first step,
+作為第一步，
+
+7
+00:00:17,511 --> 00:00:18,683
+I now wanna use
+我現在想用
+
+8
+00:00:19,213 --> 00:00:22,247
+ChatGPT here in my case. Of course, you
+以我為例，這裡是 ChatGPT。當然，你
+
+9
+00:00:22,247 --> 00:00:24,574
+could also use Claude or Google Gemini or
+也可以使用 Claude 或 Google Gemini 或
+
+10
+00:00:24,574 --> 00:00:27,383
+whichever AI chatbot you prefer, but I wanna
+無論你喜歡哪個人工智慧聊天機器人，但我想要
+
+11
+00:00:27,383 --> 00:00:30,000
+use such an AI chatbot external AI.
+使用這樣的人工智慧聊天機器人外部人工智慧。
+
+12
+00:02:05,032 --> 00:02:06,703
+There might be parts I don't like.
+可能有我不喜歡的部分。
+
+13
+00:02:07,442 --> 00:02:09,932
+For example, I already see that I won't like
+例如，我已經看到我不喜歡
+
+14
+00:02:09,932 --> 00:02:12,181
+this uploads folder in the source folder.
+這會上傳來源資料夾中的資料夾。
+
+15
+00:02:14,106 --> 00:02:16,047
+That should instead be some folder that's
+那應該是某個資料夾
+
+16
+00:02:16,095 --> 00:02:18,004
+publicly available when the app is running.
+應用程式運行時公開可用。
+
+17
+00:02:18,292 --> 00:02:20,763
+It's not really part of my source code, but
+它不是我原始碼的一部分，但是
+
+18
+00:02:20,827 --> 00:02:22,736
+other parts are fine like controllers,
+其他部分都很好，例如控制器，
+
+19
+00:02:22,848 --> 00:02:23,698
+models, and so on.
+模型等。
+
+20
+00:02:25,174 --> 00:02:27,323
+It also tells me that I might wanna use JSON
+它還告訴我我可能想使用 JSON
+
+21
+00:02:27,323 --> 00:02:29,858
+Web Tokens for authentication. That's what I
+用於身份驗證的 Web 令牌。這就是我
+
+22
+00:02:29,970 --> 00:02:30,756
+had in mind too.
+也想到了。
+
+23
+00:02:31,574 --> 00:02:33,836
+And it tells me that I'll need routes like
+它告訴我，我需要像這樣的路線
+
+24
+00:02:33,836 --> 00:02:34,172
+this
+這
+
+25
+00:02:35,183 --> 00:02:38,054
+and that I'll need a user model in the end,
+我最終需要一個使用者模型，
+
+26
+00:02:38,086 --> 00:02:40,397
+which could be made up of a username, email
+可以由使用者名稱、電子郵件組成
+
+27
+00:02:40,397 --> 00:02:41,184
+and password field,
+和密碼欄位，
+
+28
+00:02:42,422 --> 00:02:44,270
+that the password should be hashed, that's
+密碼應該要散列，那就是
+
+29
+00:02:44,270 --> 00:02:46,311
+very important so that we don't store the
+非常重要，這樣我們就不會存儲
+
+30
+00:02:46,439 --> 00:02:48,738
+plaintext password in the database, which
+資料庫中的明文密碼，
+
+31
+00:02:48,770 --> 00:02:50,056
+would be a security problem,
+將會是安全問題，
+
+32
+00:02:51,583 --> 00:02:53,463
+that we could have created and updated_at
+我們可以建立並更新_at
+
+33
+00:02:53,512 --> 00:02:54,042
+fields
+領域
+
+34
+00:02:55,023 --> 00:02:57,739
+and that we could use the bcrypt package for
+我們可以使用 bcrypt 套件
+
+35
+00:02:57,820 --> 00:02:58,761
+password hashing,
+密碼散列，
+
+36
+00:03:00,934 --> 00:03:03,882
+that I'll need these possible endpoints to
+我需要這些可能的端點
+
+37
+00:03:04,127 --> 00:03:05,234
+implement authentication,
+實施身份驗證，
+
+38
+00:03:06,399 --> 00:03:07,430
+And that then
+然後那個
+
+39
+00:03:08,107 --> 00:03:10,170
+thereafter I also
+此後我也
+
+40
+00:03:10,750 --> 00:03:13,361
+need an event model with all the fields I
+需要一個包含我所有欄位的事件模型
+
+41
+00:03:13,361 --> 00:03:14,038
+specified.
+指定的。
+
+42
+00:03:15,667 --> 00:03:17,567
+It also tells me, and that's important, and
+它也告訴我，這很重要，而且
+
+43
+00:03:17,615 --> 00:03:20,192
+that shows that AI is really helping me
+這顯示人工智慧確實在幫助我
+
+44
+00:03:20,192 --> 00:03:21,448
+here, that I'll need
+在這裡，我需要
+
+45
+00:03:22,044 --> 00:03:25,023
+a creator ID or user ID field in my event
+我的活動中的創建者 ID 或使用者 ID 欄位
+
+46
+00:03:25,023 --> 00:03:26,943
+model to link an event to a user.
+將事件連結到使用者的模型。
+
+47
+00:03:28,411 --> 00:03:31,477
+I did not specify this here when I described
+我在描述時沒有在這裡指定這一點
+
+48
+00:03:31,541 --> 00:03:33,655
+how an event should look like, but the AI
+事件應該是什麼樣子，但是人工智慧
+
+49
+00:03:33,655 --> 00:03:35,085
+tells me that I need this.
+告訴我我需要這個。
+
+50
+00:03:36,696 --> 00:03:39,058
+And I knew this too, but it's great to have
+我也知道這一點，但很高興能擁有
+
+51
+00:03:39,058 --> 00:03:39,317
+this
+這
+
+52
+00:03:39,932 --> 00:03:41,954
+extra confirmation here so that I don't
+在這裡進行額外確認，這樣我就不會
+
+53
+00:03:41,954 --> 00:03:44,689
+forget it when I actually use AI tools to
+當我真正使用人工智慧工具時忘記它
+
+54
+00:03:44,689 --> 00:03:45,837
+generate the code later.
+稍後產生程式碼。
+
+55
+00:03:47,320 --> 00:03:47,882
+It tells me which
+它告訴我哪個
+
+56
+00:03:48,542 --> 00:03:51,196
+endpoints, which paths I might wanna set up
+端點，我可能想要設定哪些路徑
+
+57
+00:03:51,276 --> 00:03:53,399
+to manage events, to get all events, a
+管理事件，取得所有事件，
+
+58
+00:03:53,448 --> 00:03:54,638
+single event, and so on.
+單一事件，等等。
+
+59
+00:03:56,100 --> 00:03:58,112
+And that I need some paths for
+我需要一些路徑
+
+60
+00:03:58,669 --> 00:03:59,372
+event registration.
+活動註冊。
+
+61
+00:04:01,099 --> 00:04:03,716
+Including one route which I did not specify
+包括一條我沒有指定的路線
+
+62
+00:04:03,732 --> 00:04:05,691
+in my requirements to fetch all
+按照我的要求獲取所有
+
+63
+00:04:05,819 --> 00:04:08,196
+registrations for a specific event.
+特定活動的註冊。
+
+64
+00:04:09,657 --> 00:04:11,728
+And again, that's nice to have. It is
+再說一遍，這真是太好了。這是
+
+65
+00:04:11,760 --> 00:04:13,093
+something I might have forgotten
+我可能已經忘記的事情
+
+66
+00:04:13,751 --> 00:04:15,694
+and ultimately during building the app at
+最終在建立應用程式期間
+
+67
+00:04:15,694 --> 00:04:18,151
+some point I probably would stumble across
+我可能會偶然發現某個點
+
+68
+00:04:18,263 --> 00:04:20,463
+that and add this feature, but it's nice to
+並添加此功能，但很高興
+
+69
+00:04:20,495 --> 00:04:22,229
+have it here right from the start thanks to
+從一開始就放在這裡，感謝
+
+70
+00:04:22,341 --> 00:04:24,605
+AI that it tells me that this is another
+AI 告訴我這是另一個
+
+71
+00:04:24,605 --> 00:04:25,938
+route I might consider adding.
+我可能會考慮添加路線。
+
+72
+00:04:27,928 --> 00:04:29,698
+It tells me that I can use the Multer
+它告訴我我可以使用 Multer
+
+73
+00:04:29,875 --> 00:04:32,433
+library to implement image upload. That's
+庫來實現圖片上傳。那是
+
+74
+00:04:32,433 --> 00:04:33,447
+what I planned to,
+我計劃做什麼
+
+75
+00:04:34,461 --> 00:04:37,277
+but again, nice to see this here. Or if I
+但同樣，很高興在這裡看到這個。或者如果我
+
+76
+00:04:37,277 --> 00:04:39,033
+had a different library in mind, it would be
+心裡有一個不同的圖書館，那就是
+
+77
+00:04:39,033 --> 00:04:41,788
+nice to get an alternative suggested here
+很高興在這裡得到建議的替代方案
+
+78
+00:04:42,272 --> 00:04:44,866
+where I could then do some research to find
+然後我可以做一些研究來找到
+
+79
+00:04:44,914 --> 00:04:45,306
+out which
+出其中
+
+80
+00:04:46,408 --> 00:04:47,126
+option I prefer.
+我更喜歡的選項。
+
+81
+00:04:49,336 --> 00:04:51,072
+And then it tells me about some files I
+然後它告訴我一些我的檔案
+
+82
+00:04:51,072 --> 00:04:52,946
+might wanna add to the project. Well,
+可能想新增到專案中。出色地，
+
+83
+00:04:53,460 --> 00:04:55,726
+implement or to hold the code for
+實施或儲存程式碼
+
+84
+00:04:57,366 --> 00:05:00,114
+all these things. Though we'll do that code
+所有這些事情。雖然我們會執行該程式碼
+
+85
+00:05:00,114 --> 00:05:01,753
+generation and also some of the file
+生成以及一些檔案
+
+86
+00:05:01,850 --> 00:05:04,883
+generation from inside Cursor and with help
+從 Cursor 內部生成並在幫助下
+
+87
+00:05:04,883 --> 00:05:06,645
+of GitHub Copilot later on.
+稍後會介紹 GitHub Copilot。
+
+88
+00:05:09,264 --> 00:05:11,615
+And I also won't add all these files it's
+我也不會添加所有這些檔案
+
+89
+00:05:11,615 --> 00:05:13,708
+suggesting me here because these are of
+建議我來這裡是因為這些是
+
+90
+00:05:13,756 --> 00:05:15,801
+course just some suggestions, not what you
+當然只是一些建議，不是你想要的
+
+91
+00:05:15,930 --> 00:05:18,330
+have to do. Ultimately, it's you who's in
+必須做的。最終，你是其中的一員
+
+92
+00:05:18,330 --> 00:05:20,294
+the driver's seat, and therefore you decide
+駕駛座，因此你決定
+
+93
+00:05:20,572 --> 00:05:21,865
+which structure you want to have, which file
+您想要哪個結構、哪個檔案
+
+94
+00:05:21,865 --> 00:05:22,602
+names you want to have, and where you want
+您想要的名稱以及您想要的位置
+
+95
+00:05:22,602 --> 00:05:22,717
+to
+到
+
+96
+00:05:24,422 --> 00:05:25,239
+put which code.
+放哪個程式碼。
+
+97
+00:05:26,408 --> 00:05:28,523
+And I will definitely deviate from what's
+我一定會偏離現狀
+
+98
+00:05:28,523 --> 00:05:29,260
+suggested here,
+在這裡建議，
+
+99
+00:05:30,734 --> 00:05:31,760
+but it's nice to have
+但很高興擁有
+
+100
+00:05:32,353 --> 00:05:35,060
+these extra suggestions. I also won't use
+這些額外的建議。我也不會用
+
+101
+00:05:35,076 --> 00:05:35,589
+Mongoose
+貓鼬
+
+102
+00:05:36,198 --> 00:05:36,390
+for
+為了
+
+103
+00:05:36,983 --> 00:05:38,858
+database management, also not Sequelize.
+資料庫管理，也不是Sequelize。
+
+104
+00:05:38,922 --> 00:05:40,380
+Instead, I'll use a different approach, but
+相反，我將使用不同的方法，但是
+
+105
+00:05:40,380 --> 00:05:42,335
+again, nice to have these suggestions.
+再次，很高興收到這些建議。
+
+106
+00:05:43,729 --> 00:05:47,334
+Well, and with that, we have a plan. And as
+嗯，有了这个，我们就有了一个计划。並且作為
+
+107
+00:05:47,334 --> 00:05:49,785
+a next step, I'll now switch to Cursor to
+下一步，我現在將切換到遊標
+
+108
+00:05:50,041 --> 00:05:51,724
+actually get started building this
+實際上開始建造這個
+
+109
+00:05:51,724 --> 00:05:52,268
+application.
+應用。

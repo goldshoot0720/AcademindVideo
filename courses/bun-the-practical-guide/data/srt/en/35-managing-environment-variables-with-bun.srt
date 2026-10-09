@@ -1,0 +1,307 @@
+1
+00:00:00,096 --> 00:00:02,086
+No matter what you're building with Bun,
+
+2
+00:00:02,760 --> 00:00:04,959
+chances are that your application or tool
+
+3
+00:00:05,167 --> 00:00:07,623
+needs some environment variables or uses
+
+4
+00:00:07,751 --> 00:00:09,982
+some environment variables. And turns out
+
+5
+00:00:10,383 --> 00:00:13,561
+Bun makes using such variables and loading
+
+6
+00:00:13,593 --> 00:00:17,028
+them into the program a breeze too. No extra
+
+7
+00:00:17,028 --> 00:00:19,242
+packages or dependencies are needed. It's
+
+8
+00:00:19,435 --> 00:00:22,468
+all built in. And to show this feature, I'm
+
+9
+00:00:23,126 --> 00:00:25,309
+back in a new project, which isn't that new.
+
+10
+00:00:25,454 --> 00:00:28,567
+It's that SQLite project I showed you in an
+
+11
+00:00:28,760 --> 00:00:31,164
+earlier lesson. Lecture, but now there is a
+
+12
+00:00:31,645 --> 00:00:33,696
+.env file in there, as you may have it in
+
+13
+00:00:33,872 --> 00:00:37,206
+many projects. And in that.env file, I
+
+14
+00:00:37,254 --> 00:00:40,266
+store my DB path to make that easily
+
+15
+00:00:40,298 --> 00:00:42,798
+configurable and also so that if I were to
+
+16
+00:00:42,846 --> 00:00:45,811
+deploy this application, I could set this
+
+17
+00:00:45,811 --> 00:00:48,038
+environment variable on the host I deploy it
+
+18
+00:00:48,070 --> 00:00:51,099
+to, to easily control where that database
+
+19
+00:00:51,099 --> 00:00:53,743
+file would be stored on that host where the
+
+20
+00:00:53,759 --> 00:00:56,293
+app may be deployed to. Now, this is of
+
+21
+00:00:56,309 --> 00:00:59,263
+course not Bun exclusive or specific, but in
+
+22
+00:00:59,279 --> 00:00:59,953
+the past, you
+
+23
+00:01:00,483 --> 00:01:02,715
+may have used extra packages for loading
+
+24
+00:01:02,747 --> 00:01:05,284
+that file. You also may have extra files
+
+25
+00:01:05,460 --> 00:01:07,740
+like.env.local to have different
+
+26
+00:01:07,740 --> 00:01:09,683
+environment variables locally than you may
+
+27
+00:01:09,715 --> 00:01:12,043
+have on the staging server or the production
+
+28
+00:01:12,043 --> 00:01:14,211
+server. So things like that is also
+
+29
+00:01:14,211 --> 00:01:16,073
+something you may have or want.
+
+30
+00:01:16,940 --> 00:01:20,216
+And when using Bun, those files are found
+
+31
+00:01:20,328 --> 00:01:22,656
+and loaded automatically. So if you have a
+
+32
+00:01:22,961 --> 00:01:25,658
+.env file or a.env.local file in your
+
+33
+00:01:25,771 --> 00:01:28,882
+project folder, Bun will find and load them
+
+34
+00:01:28,995 --> 00:01:29,788
+automatically
+
+35
+00:01:31,098 --> 00:01:33,103
+when you run bun run
+
+36
+00:01:33,701 --> 00:01:36,531
+and then run your program. If you don't want
+
+37
+00:01:36,531 --> 00:01:38,517
+to load those files for whatever reason, you
+
+38
+00:01:38,533 --> 00:01:39,115
+could add
+
+39
+00:01:40,180 --> 00:01:41,811
+--no-env-file
+
+40
+00:01:42,667 --> 00:01:44,992
+and then run your program. So that would
+
+41
+00:01:44,992 --> 00:01:45,315
+work.
+
+42
+00:01:45,932 --> 00:01:48,440
+And if you have specific files that aren't
+
+43
+00:01:48,440 --> 00:01:51,192
+picked up by Bun, you can run bun run
+
+44
+00:01:51,192 --> 00:01:55,184
+--env-file And you can add that flag
+
+45
+00:01:55,184 --> 00:01:56,995
+multiple times if you have multiple files
+
+46
+00:01:57,508 --> 00:01:59,560
+and then point at the file you wanna load.
+
+47
+00:01:59,993 --> 00:02:02,606
+But here I'm pointing at.env and this is
+
+48
+00:02:02,638 --> 00:02:04,353
+not needed because as mentioned, this file
+
+49
+00:02:04,545 --> 00:02:06,597
+will be found automatically. Still, you can
+
+50
+00:02:06,645 --> 00:02:08,713
+of course do it if you wanna be extra
+
+51
+00:02:08,713 --> 00:02:10,140
+explicit and clear about it.
+
+52
+00:02:11,518 --> 00:02:14,789
+Now in my program in dbts, I'm then using
+
+53
+00:02:14,965 --> 00:02:18,139
+values from that.env file. I'm getting my
+
+54
+00:02:18,251 --> 00:02:21,056
+DB_PATH and I do that with the same syntax
+
+55
+00:02:21,056 --> 00:02:24,455
+you may know from Node.js using process.env
+
+56
+00:02:24,519 --> 00:02:25,994
+and then the name of the environment
+
+57
+00:02:25,962 --> 00:02:28,092
+variable I'm interested in and that of
+
+58
+00:02:28,125 --> 00:02:31,794
+course in my case is the DB_PATH env var I'm
+
+59
+00:02:31,794 --> 00:02:32,370
+setting here.
+
+60
+00:02:33,332 --> 00:02:35,815
+Bun also offers alternative syntaxes you
+
+61
+00:02:35,815 --> 00:02:37,898
+could use. You could also load environment
+
+62
+00:02:37,898 --> 00:02:39,756
+variables through its bun.env
+
+63
+00:02:40,766 --> 00:02:43,201
+feature, its bun.env property. That is
+
+64
+00:02:43,201 --> 00:02:45,508
+simply an alternative to using process.env
+
+65
+00:02:46,053 --> 00:02:50,091
+or the more modern import.meta.env but all 3
+
+66
+00:02:50,091 --> 00:02:52,157
+approaches will yield the same result. They
+
+67
+00:02:52,157 --> 00:02:54,048
+give you that environment variable which I'm
+
+68
+00:02:54,160 --> 00:02:54,849
+then using here.
+
+69
+00:02:55,443 --> 00:02:58,268
+By the way, for SQLite, just as a side note,
+
+70
+00:02:58,332 --> 00:03:01,221
+if you don't set a value here, it will just
+
+71
+00:03:01,285 --> 00:03:04,078
+create an in-memory database by default. So
+
+72
+00:03:04,351 --> 00:03:06,341
+it won't crash if this environment variable
+
+73
+00:03:06,437 --> 00:03:08,412
+wouldn't be set or if it would be set to an
+
+74
+00:03:08,444 --> 00:03:10,819
+empty string or anything like that, but it
+
+75
+00:03:10,851 --> 00:03:13,339
+would create an in-memory database in that
+
+76
+00:03:13,339 --> 00:03:16,678
+case. But that is how you can easily load
+
+77
+00:03:16,854 --> 00:03:18,764
+and use environment variables with Bun.

@@ -1,0 +1,459 @@
+1
+00:00:00,112 --> 00:00:02,889
+Now, let's start with probably the most
+現在，讓我們從最可能的開始
+
+2
+00:00:03,066 --> 00:00:07,143
+obvious use case for using Bun, server and
+使用 Bun、伺服器和的明顯用例
+
+3
+00:00:07,400 --> 00:00:10,531
+routing, building a web server with Bun and
+路由，用 Bun 建置一個 Web 伺服器和
+
+4
+00:00:10,691 --> 00:00:13,773
+handling HTTP requests with Bun because of
+使用 Bun 處理 HTTP 請求是因為
+
+5
+00:00:13,838 --> 00:00:15,491
+course it can do that. And
+當然可以做到這一點。和
+
+6
+00:00:16,149 --> 00:00:18,830
+as mentioned, it can do that by running your
+如前所述，它可以通過運行你的
+
+7
+00:00:18,878 --> 00:00:22,458
+existing Node.js application or any Node.js
+現有 Node.js 應用程式或任何 Node.js
+
+8
+00:00:22,491 --> 00:00:25,027
+code that you may have written or that AI
+你可能寫過的程式碼或人工智慧
+
+9
+00:00:25,139 --> 00:00:28,946
+maybe generated for you. But it also has its
+也許是為你生成的。但它也有它的
+
+10
+00:00:28,994 --> 00:00:32,930
+very own built-in Bun native server and
+自己的內建 Bun 本機伺服器和
+
+11
+00:00:33,010 --> 00:00:35,018
+routing features, and that's what we'll
+路由功能，這就是我們要做的
+
+12
+00:00:35,018 --> 00:00:35,500
+explore.
+探索。
+
+13
+00:00:36,223 --> 00:00:39,501
+Now, to dive into Bun's server capabilities
+現在，深入了解 Bun 的伺服器功能
+
+14
+00:00:39,597 --> 00:00:41,911
+and routing capabilities, I'm in a brand new
+和路由功能，我處於一個全新的狀態
+
+15
+00:00:42,328 --> 00:00:45,027
+empty project and I'll run bun init in there
+空專案，我將在那裡運行bun init
+
+16
+00:00:45,220 --> 00:00:47,678
+to initialize it as a blank project here.
+在這裡將其初始化為空白專案。
+
+17
+00:00:48,224 --> 00:00:50,040
+I'll get rid of the Cloud MD file and the
+我將刪除 Cloud MD 檔案和
+
+18
+00:00:50,040 --> 00:00:52,096
+cursor folder. I don't need them here
+遊標資料夾。我這裡不需要他們
+
+19
+00:00:52,771 --> 00:00:54,634
+and I'll keep the rest But of course,
+其餘的我會保留 但當然
+
+20
+00:00:54,778 --> 00:00:57,507
+index.ts is a pretty basic empty file.
+index.ts 是一個非常基本的空白檔案。
+
+21
+00:00:58,486 --> 00:01:00,942
+Well, if we wanted to turn this into a Bun
+好吧，如果我們想把它變成一個小圓麵包
+
+22
+00:01:01,151 --> 00:01:04,747
+server, all we have to do is run bun serve
+伺服器，我們要做的就是運行bunserve
+
+23
+00:01:05,068 --> 00:01:07,475
+and the Bun object is globally available
+且 Bun 物件是全域可用的
+
+24
+00:01:07,475 --> 00:01:09,610
+here when we run this file with the Bun
+當我們用 Bun 運行這個檔案時
+
+25
+00:01:09,642 --> 00:01:10,092
+runtime.
+運行時。
+
+26
+00:01:10,766 --> 00:01:13,029
+And then we pass a configuration object to
+然後我們將設定物件傳遞給
+
+27
+00:01:13,029 --> 00:01:13,302
+serve.
+服務。
+
+28
+00:01:13,896 --> 00:01:16,464
+And in here, we configure our web server
+在這裡，我們設定我們的網路伺服器
+
+29
+00:01:16,464 --> 00:01:18,037
+that will be spun up by Bun.
+這將由 Bun 旋轉。
+
+30
+00:01:18,776 --> 00:01:21,472
+There's a broad variety of settings here.
+這裡有各種各樣的設置。
+
+31
+00:01:22,387 --> 00:01:25,209
+For example, the port to, well, guess what,
+例如，端口，好吧，你猜怎麼著，
+
+32
+00:01:25,289 --> 00:01:27,982
+decide which port this server will run on.
+決定該伺服器將在哪個連接埠上運行。
+
+33
+00:01:28,576 --> 00:01:28,848
+And then
+進而
+
+34
+00:01:29,538 --> 00:01:31,734
+Copilot already suggested for me here,
+副駕駛已經在這裡給我建議了，
+
+35
+00:01:32,343 --> 00:01:34,764
+we can add a fetch method.
+我們可以加入一個 fetch 方法。
+
+36
+00:01:35,310 --> 00:01:37,907
+And that is a method that will be invoked by
+這是一個將被呼叫的方法
+
+37
+00:01:38,196 --> 00:01:41,242
+Bun for every incoming request handled by
+用於處理每個傳入請求的 Bun
+
+38
+00:01:41,242 --> 00:01:42,156
+this server.
+這個伺服器。
+
+39
+00:01:42,781 --> 00:01:45,892
+So we'll get a request object here, but for
+所以我們會在這裡得到一個請求物件，但是對於
+
+40
+00:01:45,892 --> 00:01:47,479
+now we can ignore it, I don't need it.
+現在我們可以忽略它，我不需要它。
+
+41
+00:01:48,040 --> 00:01:50,557
+And we can and should return a response.
+我們可以而且應該做出回應。
+
+42
+00:01:51,183 --> 00:01:53,365
+Which we can simply do by returning new
+我們可以簡單地透過回傳新的來做到這一點
+
+43
+00:01:53,910 --> 00:01:57,199
+Response. And this Response thing here, by
+回覆.這裡的 Response 東西，由
+
+44
+00:01:57,199 --> 00:01:59,895
+the way, is not Bun exclusive or Bun
+順便說一下，不是Bun專屬還是Bun
+
+45
+00:01:59,943 --> 00:02:02,943
+specific. Instead, it's the Web API
+具體的。相反，它是 Web API
+
+46
+00:02:02,975 --> 00:02:04,724
+Response, which you could also use in
+回應，您也可以使用
+
+47
+00:02:04,724 --> 00:02:07,515
+client-side JavaScript totally outside of
+使用者端 JavaScript 完全在外部
+
+48
+00:02:07,627 --> 00:02:10,660
+Bun, which is simply a class in the end that
+Bun，這最終只是一個類
+
+49
+00:02:10,660 --> 00:02:13,483
+allows you to construct a response object no
+允許你建構一個回應物件 no
+
+50
+00:02:13,499 --> 00:02:15,858
+matter if you're in the browser or in Bun.
+不管你是在瀏覽器還是在 Bun 中。
+
+51
+00:02:16,532 --> 00:02:19,390
+In the browser, you will rarely construct it
+在瀏覽器中，你很少會建構它
+
+52
+00:02:19,422 --> 00:02:21,671
+though. There you will typically receive it
+儘管。您通常會在那裡收到它
+
+53
+00:02:21,671 --> 00:02:24,176
+and then extract information. Here on the
+然後提取資訊。這裡關於
+
+54
+00:02:24,176 --> 00:02:27,404
+server, we instead construct it and we can
+伺服器，我們改為建構它，我們可以
+
+55
+00:02:27,452 --> 00:02:29,428
+construct it like this, but that would be an
+像這樣構造它，但這將是一個
+
+56
+00:02:29,524 --> 00:02:32,174
+empty response. A bit more useful is if we
+空回應。更有用的是如果我們
+
+57
+00:02:32,254 --> 00:02:34,856
+add some text maybe because that response
+添加一些文字可能是因為該回應
+
+58
+00:02:34,904 --> 00:02:37,153
+constructor takes a body as the first
+建構函式將主體作為第一個
+
+59
+00:02:37,153 --> 00:02:37,907
+argument and
+論證和
+
+60
+00:02:38,534 --> 00:02:41,151
+that may look pretty complex here, but it is
+這裡看起來可能相當複雜，但它是
+
+61
+00:02:41,408 --> 00:02:43,191
+just a string in its most basic form.
+只是最基本形式的字串。
+
+62
+00:02:44,056 --> 00:02:46,380
+You can also send other things to the
+您也可以將其他東西寄至
+
+63
+00:02:46,380 --> 00:02:48,526
+frontend though, things like files, but here
+前端雖然像是檔案之類的東西，但在這裡
+
+64
+00:02:48,558 --> 00:02:49,247
+it's just
+這只是
+
+65
+00:02:50,000 --> 00:02:50,369
+text.
+文字.
+
+66
+00:02:51,026 --> 00:02:52,884
+And then you can also add a configuration
+然後你還可以加入一個設定
+
+67
+00:02:52,948 --> 00:02:55,688
+object to add some headers to the response,
+物件向回應添加一些標頭，
+
+68
+00:02:55,752 --> 00:02:58,412
+for example, and set the content type, for
+例如，並設定內容型別，例如
+
+69
+00:02:58,412 --> 00:02:59,661
+example, to text/plain.
+例如，文字/純文字。
+
+70
+00:03:00,238 --> 00:03:03,106
+Or if this were some HTML code, you could
+或者如果這是一些 HTML 程式碼，您可以
+
+71
+00:03:03,122 --> 00:03:06,006
+set it to text/html, but that is totally up
+將其設為text/html，但這完全正確
+
+72
+00:03:06,006 --> 00:03:08,873
+to you. And that in a nutshell is kind of
+給你。簡而言之就是
+
+73
+00:03:08,889 --> 00:03:11,837
+the most basic server you can create with
+您可以使用的最基本的伺服器
+
+74
+00:03:11,869 --> 00:03:14,769
+Bun, but it will be fine. Fully functional.
+麵包，但會沒事的。功能齊全。
+
+75
+00:03:14,898 --> 00:03:16,724
+You don't need to do anything else. You
+您不需要做任何其他事情。你
+
+76
+00:03:16,756 --> 00:03:18,919
+don't need to call listen or anything like
+不需要打電話聽或類似的事情
+
+77
+00:03:18,919 --> 00:03:21,339
+that. Instead, this code alone gives you a
+那。相反，這段程式碼本身就給了你一個
+
+78
+00:03:21,339 --> 00:03:21,723
+server.
+伺服器.
+
+79
+00:03:23,165 --> 00:03:26,258
+Now, very important, of course, you now have
+現在，非常重要，當然，你現在擁有
+
+80
+00:03:26,274 --> 00:03:28,821
+to run this file with Bun using the Bun
+使用 Bun 來執行此檔案
+
+81
+00:03:28,933 --> 00:03:30,824
+runtime because that is where this Bun
+運行時，因為這就是這個 Bun 的所在
+
+82
+00:03:31,160 --> 00:03:32,907
+object here is coming from.
+這裡的物件來自。
+
+83
+00:03:33,484 --> 00:03:36,031
+So it's bun run index.ts.
+所以這是bun run index.ts。
+
+84
+00:03:36,848 --> 00:03:39,284
+That starts the server. So keep that process
+這會啟動伺服器。所以保留這個過程
+
+85
+00:03:39,332 --> 00:03:41,335
+running as long as you want the server to be
+只要您希望伺服器運行就可以運行
+
+86
+00:03:41,335 --> 00:03:41,607
+running.
+跑步。
+
+87
+00:03:42,313 --> 00:03:44,929
+And then if you enter localhost:3000,
+然後如果你輸入 localhost:3000,
+
+88
+00:03:45,507 --> 00:03:48,460
+you see Hello World on the screen. Obviously
+您會在螢幕上看到 Hello World。明顯地
+
+89
+00:03:48,492 --> 00:03:51,926
+pretty ugly, but it is clearly the response
+相當醜陋，但這顯然是回應
+
+90
+00:03:51,942 --> 00:03:52,793
+we sent back here.
+我們送回這裡。
+
+91
+00:03:53,547 --> 00:03:56,275
+And that's the most basic form of creating a
+這是創建一個的最基本的形式
+
+92
+00:03:56,275 --> 00:03:58,811
+server and sending back a response.
+伺服器並行迴回應。

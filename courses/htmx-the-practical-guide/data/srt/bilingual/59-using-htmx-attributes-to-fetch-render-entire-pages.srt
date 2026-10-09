@@ -1,0 +1,249 @@
+1
+00:00:00,514 --> 00:00:03,808
+So how can we use HTMX to create such a
+那我們如何使用 HTMX 來創建這樣一個
+
+2
+00:00:03,824 --> 00:00:06,829
+single page application-like behavior and
+類似單頁應用程式的行為和
+
+3
+00:00:06,861 --> 00:00:07,311
+feeling?
+感覺？
+
+4
+00:00:08,693 --> 00:00:10,733
+Well, we could of course go to one of our
+嗯，我們當然可以去我們的一個
+
+5
+00:00:10,862 --> 00:00:12,758
+anchor elements, let's say this one here
+錨元素，我們這裡說這個
+
+6
+00:00:12,887 --> 00:00:15,377
+where we load the product details, and we
+我們在其中載入產品詳細資訊，並且我們
+
+7
+00:00:15,377 --> 00:00:15,956
+could add
+可以添加
+
+8
+00:00:16,647 --> 00:00:19,555
+hx-get here, this HTMX attribute,
+hx-get 這裡，這個 HTMX 屬性，
+
+9
+00:00:20,584 --> 00:00:24,601
+and then set this path here where I load the
+然後在這裡設定這個路徑，我載入
+
+10
+00:00:24,601 --> 00:00:28,360
+product details as a path for hx-get so that
+產品詳細資訊作為 hx-get 的路徑，以便
+
+11
+00:00:28,360 --> 00:00:30,274
+a GET request will be sent to this path.
+GET 請求將傳送到此路徑。
+
+12
+00:00:33,182 --> 00:00:36,397
+Then we can also add hx-target and target
+然後我們也可以加入hx-target和target
+
+13
+00:00:36,397 --> 00:00:39,177
+the body element so that the entire page
+body 元素使整個頁面
+
+14
+00:00:39,354 --> 00:00:42,474
+body will be replaced with the incoming
+body 將被替換為傳入的
+
+15
+00:00:42,490 --> 00:00:43,006
+content.
+內容。
+
+16
+00:00:44,184 --> 00:00:46,346
+And if we do that and we save everything
+如果我們這樣做，我們就能拯救一切
+
+17
+00:00:46,943 --> 00:00:49,104
+and I reload here, if I click on one of
+如果我點擊其中之一，我會在這裡重新載入
+
+18
+00:00:49,104 --> 00:00:49,847
+these products,
+這些產品，
+
+19
+00:00:50,492 --> 00:00:51,589
+you will see that worked.
+你會發現這有效。
+
+20
+00:00:53,036 --> 00:00:55,964
+The back button, however, does not work. It
+然而，後退按鈕不起作用。它
+
+21
+00:00:56,062 --> 00:00:58,579
+takes me back to some other page here, which
+帶我回到這裡的其他頁面，其中
+
+22
+00:00:58,693 --> 00:00:59,916
+I ran in the past.
+我跑了過去。
+
+23
+00:01:15,107 --> 00:01:17,689
+That requested and rendered an entirely new
+這要求並提供了一個全新的
+
+24
+00:01:17,802 --> 00:01:20,010
+page, but instead we're still on the same
+頁面，但我們仍然在同一個頁面上
+
+25
+00:01:20,075 --> 00:01:21,406
+page as before, and it was just HTMX that
+頁面和以前一樣，只是 HTMX
+
+26
+00:01:21,406 --> 00:01:21,828
+swapped the body.
+交換了身體。
+
+27
+00:01:26,510 --> 00:01:29,030
+And what's also great is that HTMX
+同樣很棒的是 HTMX
+
+28
+00:01:29,223 --> 00:01:33,316
+automatically takes the head data of the
+自動取得磁頭資料
+
+29
+00:01:33,332 --> 00:01:35,419
+incoming page, like the title here, for
+傳入頁面，如此處的標題，用於
+
+30
+00:01:35,419 --> 00:01:38,308
+example, and adjusts that for the current
+範例，並調整目前的
+
+31
+00:01:38,308 --> 00:01:38,597
+page.
+頁。
+
+32
+00:01:39,768 --> 00:01:41,534
+So for example, you see that
+例如，你會看到
+
+33
+00:01:42,240 --> 00:01:44,231
+product detail title here in the tab.
+分頁中的產品詳細資訊標題。
+
+34
+00:01:45,595 --> 00:01:49,062
+So HTMX is smart and does not try to render
+所以 HTMX 很聰明，不會嘗試渲染
+
+35
+00:01:49,062 --> 00:01:50,988
+the head section into the body of the
+標頭部分進入身體
+
+36
+00:01:50,988 --> 00:01:53,778
+current page, which wouldn't work, but
+當前頁面，這是行不通的，但是
+
+37
+00:01:53,778 --> 00:01:57,096
+instead it automatically grabs the body
+相反，它會自動抓住身體
+
+38
+00:01:57,096 --> 00:01:59,788
+section of the incoming page or of the
+傳入頁面或
+
+39
+00:01:59,788 --> 00:02:02,481
+incoming response content and then
+傳入回應內容，然後
+
+40
+00:02:03,346 --> 00:02:06,712
+swaps that into the target we defined. And
+將其交換到我們定義的目標。和
+
+41
+00:02:06,712 --> 00:02:09,244
+it still takes a look at the head section to
+它仍然需要查看標頭部分
+
+42
+00:02:09,324 --> 00:02:11,969
+update the title, for example. So that's a
+例如，更新標題。所以這是一個
+
+43
+00:02:11,969 --> 00:02:14,629
+pretty convenient behavior and that's how we
+非常方便的行為，這就是我們的方式
+
+44
+00:02:14,629 --> 00:02:16,937
+can use these attributes on this anchor
+可以在此錨點上使用這些屬性
+
+45
+00:02:17,017 --> 00:02:20,046
+element here to build such a single page
+元素here來建構這樣一個單頁面
+
+46
+00:02:20,222 --> 00:02:21,937
+application-like look and feel.
+類似應用程式的外觀和感覺。
+
+47
+00:02:22,966 --> 00:02:25,671
+We still have our backend routes which
+我們仍然有後端路由
+
+48
+00:02:25,784 --> 00:02:28,570
+render the actual HTML content, but we then
+渲染實際的 HTML 內容，但我們然後
+
+49
+00:02:28,666 --> 00:02:30,969
+bring them onto the screen without leaving
+無需離開即可將它們帶到螢幕上
+
+50
+00:02:31,017 --> 00:02:33,239
+the page with help of HTMX.
+使用 HTMX 的頁面。

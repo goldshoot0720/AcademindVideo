@@ -1,0 +1,942 @@
+[
+ {
+  "start": 2.121,
+  "end": 6.005,
+  "en": "So let's continue working on this REST API."
+ },
+ {
+  "start": 6.701,
+  "end": 8.74,
+  "en": "And there are different places where we"
+ },
+ {
+  "start": 8.821,
+  "end": 11.46,
+  "en": "could work on next, but I wanna start by"
+ },
+ {
+  "start": 11.46,
+  "end": 13.408,
+  "en": "making sure that we're actually using a"
+ },
+ {
+  "start": 13.424,
+  "end": 17.015,
+  "en": "database to store the submitted data when"
+ },
+ {
+  "start": 17.047,
+  "end": 19.092,
+  "en": "creating a user, for example."
+ },
+ {
+  "start": 20.751,
+  "end": 22.231,
+  "en": "And of course, therefore, we will need to"
+ },
+ {
+  "start": 22.343,
+  "end": 24.998,
+  "en": "add some code here to createUser and also to"
+ },
+ {
+  "start": 25.078,
+  "end": 27.636,
+  "en": "findUserByEmail. But first I need some code"
+ },
+ {
+  "start": 27.668,
+  "end": 30.178,
+  "en": "to add a database set up that database, to"
+ },
+ {
+  "start": 30.178,
+  "end": 31.559,
+  "en": "install the database too."
+ },
+ {
+  "start": 32.907,
+  "end": 36.103,
+  "en": "And for that, I'll now use the chat that's"
+ },
+ {
+  "start": 36.119,
+  "end": 38.463,
+  "en": "integrated in Cursor. We could also use"
+ },
+ {
+  "start": 38.608,
+  "end": 41.225,
+  "en": "Composer again, but to mix things up and"
+ },
+ {
+  "start": 41.642,
+  "end": 43.553,
+  "en": "show you these different features in action,"
+ },
+ {
+  "start": 43.681,
+  "end": 46.251,
+  "en": "I'll use the chat. I'll remove the"
+ },
+ {
+  "start": 46.315,
+  "end": 48.45,
+  "en": ".gitignore file as context here, don't need"
+ },
+ {
+  "start": 48.482,
+  "end": 48.723,
+  "en": "that."
+ },
+ {
+  "start": 49.365,
+  "end": 52.063,
+  "en": "And instead, I'll add this user.js file in"
+ },
+ {
+  "start": 52.079,
+  "end": 53.669,
+  "en": "the models folder as context."
+ },
+ {
+  "start": 54.984,
+  "end": 55.738,
+  "en": "And the open file,"
+ },
+ {
+  "start": 56.268,
+  "end": 57.696,
+  "en": "at least at the point of time when I'm"
+ },
+ {
+  "start": 57.696,
+  "end": 60.07,
+  "en": "recording this, is automatically added here"
+ },
+ {
+  "start": 60.183,
+  "end": 61.996,
+  "en": "as context, as you can tell"
+ },
+ {
+  "start": 62.83,
+  "end": 65.012,
+  "en": "by looking at this. If it were not added,"
+ },
+ {
+  "start": 65.252,
+  "end": 67.852,
+  "en": "you could do it manually here with a plus."
+ },
+ {
+  "start": 68.702,
+  "end": 70.178,
+  "en": "You could add files like this,"
+ },
+ {
+  "start": 70.772,
+  "end": 70.964,
+  "en": "or"
+ },
+ {
+  "start": 71.83,
+  "end": 75.2,
+  "en": "you can also add, add files and then pick a"
+ },
+ {
+  "start": 75.2,
+  "end": 76.948,
+  "en": "file you want to add as context."
+ },
+ {
+  "start": 78.248,
+  "end": 80.173,
+  "en": "And as shown before, you could add other"
+ },
+ {
+  "start": 80.173,
+  "end": 82.484,
+  "en": "contexts as well, like the web search, for"
+ },
+ {
+  "start": 82.5,
+  "end": 83.029,
+  "en": "example."
+ },
+ {
+  "start": 83.956,
+  "end": 87.283,
+  "en": "And I'll do that here and I'll say I want to"
+ },
+ {
+  "start": 87.283,
+  "end": 87.703,
+  "en": "store"
+ },
+ {
+  "start": 88.704,
+  "end": 91.514,
+  "en": "all data in a SQLite database."
+ },
+ {
+  "start": 92.98,
+  "end": 94.899,
+  "en": "How do I add one"
+ },
+ {
+  "start": 96.14,
+  "end": 96.817,
+  "en": "to this"
+ },
+ {
+  "start": 97.413,
+  "end": 98.042,
+  "en": "application?"
+ },
+ {
+  "start": 100.062,
+  "end": 102.413,
+  "en": "And actually I'll now confirm this by"
+ },
+ {
+  "start": 102.413,
+  "end": 102.687,
+  "en": "hitting"
+ },
+ {
+  "start": 103.443,
+  "end": 104.007,
+  "en": "this button"
+ },
+ {
+  "start": 104.796,
+  "end": 107.549,
+  "en": "or by using this shortcut here so that it"
+ },
+ {
+  "start": 107.549,
+  "end": 109.869,
+  "en": "takes my entire codebase into account and"
+ },
+ {
+  "start": 109.886,
+  "end": 111.52,
+  "en": "therefore understands that it's a Node"
+ },
+ {
+  "start": 111.52,
+  "end": 112.928,
+  "en": "Express application and so on."
+ },
+ {
+  "start": 115.137,
+  "end": 116.662,
+  "en": "So let's see what it gives me."
+ },
+ {
+  "start": 117.368,
+  "end": 118.973,
+  "en": "Of course, it starts by analyzing all the"
+ },
+ {
+  "start": 118.973,
+  "end": 120.674,
+  "en": "files and then it tells me that I could"
+ },
+ {
+  "start": 120.674,
+  "end": 122.647,
+  "en": "install the SQLite3 package,"
+ },
+ {
+  "start": 123.386,
+  "end": 124.429,
+  "en": "tells me how to do that,"
+ },
+ {
+  "start": 125.151,
+  "end": 127.189,
+  "en": "and then how I can adjust"
+ },
+ {
+  "start": 127.798,
+  "end": 128.264,
+  "en": "my code,"
+ },
+ {
+  "start": 129.58,
+  "end": 132.5,
+  "en": "that I can add a new database.js file here"
+ },
+ {
+  "start": 133.03,
+  "end": 134.667,
+  "en": "in which I initialize the database"
+ },
+ {
+  "start": 135.341,
+  "end": 137.411,
+  "en": "and where I then also in this case have"
+ },
+ {
+  "start": 138.02,
+  "end": 140.925,
+  "en": "some code to create an initial table and how"
+ },
+ {
+  "start": 140.973,
+  "end": 142.948,
+  "en": "to update the other files to call this"
+ },
+ {
+  "start": 143.061,
+  "end": 146.272,
+  "en": "database initialization code and also to use"
+ },
+ {
+  "start": 146.272,
+  "end": 148.456,
+  "en": "the database, for example, when creating"
+ },
+ {
+  "start": 148.504,
+  "end": 148.809,
+  "en": "users."
+ },
+ {
+  "start": 150.286,
+  "end": 151.458,
+  "en": "Now, that's all fine,"
+ },
+ {
+  "start": 152.052,
+  "end": 154.605,
+  "en": "but I already know that I don't wanna use"
+ },
+ {
+  "start": 154.605,
+  "end": 158.09,
+  "en": "that SQLite3 package because I'm an"
+ },
+ {
+  "start": 158.09,
+  "end": 160.53,
+  "en": "experienced Node Express developer. I have"
+ },
+ {
+  "start": 160.627,
+  "end": 162.602,
+  "en": "built applications like this before and I"
+ },
+ {
+  "start": 162.65,
+  "end": 164.207,
+  "en": "know that I prefer the better"
+ },
+ {
+  "start": 164.833,
+  "end": 165.781,
+  "en": "SQLite3 package."
+ },
+ {
+  "start": 167.991,
+  "end": 170.532,
+  "en": "Package, or BetterSQLite3 is the actual"
+ },
+ {
+  "start": 170.532,
+  "end": 170.71,
+  "en": "name."
+ },
+ {
+  "start": 171.518,
+  "end": 173.717,
+  "en": "So I'll send this as a follow-up message. I"
+ },
+ {
+  "start": 173.83,
+  "end": 174.816,
+  "en": "want to use the"
+ },
+ {
+  "start": 175.382,
+  "end": 177.623,
+  "en": "BetterSQLite3 package"
+ },
+ {
+  "start": 178.224,
+  "end": 181.391,
+  "en": "instead of the SQLite3 package."
+ },
+ {
+  "start": 182.105,
+  "end": 182.641,
+  "en": "Update"
+ },
+ {
+  "start": 183.161,
+  "end": 184.363,
+  "en": "your response"
+ },
+ {
+  "start": 185.631,
+  "end": 187.841,
+  "en": "accordingly. That sentence is probably not"
+ },
+ {
+  "start": 187.955,
+  "end": 188.507,
+  "en": "required,"
+ },
+ {
+  "start": 189.271,
+  "end": 190.197,
+  "en": "but I'll still add it here."
+ },
+ {
+  "start": 192.084,
+  "end": 193.521,
+  "en": "And with that, it hopefully gives me some"
+ },
+ {
+  "start": 193.7,
+  "end": 195.561,
+  "en": "updated instructions. For example, how to"
+ },
+ {
+  "start": 195.561,
+  "end": 195.888,
+  "en": "install this package."
+ },
+ {
+  "start": 198.723,
+  "end": 200.654,
+  "en": "Well, it's just a different name of course,"
+ },
+ {
+  "start": 201.04,
+  "end": 203.196,
+  "en": "but then also regarding initialization"
+ },
+ {
+  "start": 203.952,
+  "end": 206.06,
+  "en": "that I could add this code here"
+ },
+ {
+  "start": 208.523,
+  "end": 210.681,
+  "en": "and that I should call some of that code"
+ },
+ {
+  "start": 210.681,
+  "end": 212.372,
+  "en": "from inside user.js here in the models"
+ },
+ {
+  "start": 212.468,
+  "end": 212.903,
+  "en": "folder"
+ },
+ {
+  "start": 214.32,
+  "end": 215.983,
+  "en": "and that I also need to call"
+ },
+ {
+  "start": 216.21,
+  "end": 218.671,
+  "en": "initializeDatabase in the app.js folder."
+ },
+ {
+  "start": 220.161,
+  "end": 221.877,
+  "en": "Again, we could have used Composer for that"
+ },
+ {
+  "start": 221.877,
+  "end": 224.229,
+  "en": "as well, but here I'll go with the chat"
+ },
+ {
+  "start": 224.848,
+  "end": 226.804,
+  "en": "and I'll start by installing that package."
+ },
+ {
+  "start": 227.692,
+  "end": 229.972,
+  "en": "So I'll press Apply here,"
+ },
+ {
+  "start": 231.298,
+  "end": 233.789,
+  "en": "but no, I don't want to apply the C2user.js."
+ },
+ {
+  "start": 235.03,
+  "end": 236.176,
+  "en": "So at least right now, it's not"
+ },
+ {
+  "start": 236.176,
+  "end": 237.953,
+  "en": "understanding that this is a terminal"
+ },
+ {
+  "start": 237.969,
+  "end": 240.004,
+  "en": "command. So I'll instead copy it"
+ },
+ {
+  "start": 241.441,
+  "end": 243.67,
+  "en": "and then run it in my terminal here in the"
+ },
+ {
+  "start": 243.67,
+  "end": 244.399,
+  "en": "project folder"
+ },
+ {
+  "start": 245.405,
+  "end": 248.001,
+  "en": "to install this package. That's the first"
+ },
+ {
+  "start": 248.001,
+  "end": 248.423,
+  "en": "step"
+ },
+ {
+  "start": 249.282,
+  "end": 249.574,
+  "en": "like this."
+ },
+ {
+  "start": 251.489,
+  "end": 252.202,
+  "en": "And then let's see."
+ },
+ {
+  "start": 253.076,
+  "end": 253.092,
+  "en": "I"
+ },
+ {
+  "start": 253.974,
+  "end": 254.903,
+  "en": "then want to"
+ },
+ {
+  "start": 255.8,
+  "end": 256.473,
+  "en": "apply"
+ },
+ {
+  "start": 257.659,
+  "end": 259.117,
+  "en": "these changes here to the"
+ },
+ {
+  "start": 259.726,
+  "end": 261.777,
+  "en": "to-be-created database.js file."
+ },
+ {
+  "start": 263.188,
+  "end": 265.351,
+  "en": "But if I click Apply, it wants to apply to"
+ },
+ {
+  "start": 265.351,
+  "end": 265.928,
+  "en": "user.js."
+ },
+ {
+  "start": 267.049,
+  "end": 268.203,
+  "en": "So that's not working"
+ },
+ {
+  "start": 268.796,
+  "end": 270.799,
+  "en": "because it will essentially always apply it"
+ },
+ {
+  "start": 270.799,
+  "end": 273.139,
+  "en": "to the file I have currently open, at least"
+ },
+ {
+  "start": 273.203,
+  "end": 274.196,
+  "en": "right now when I"
+ },
+ {
+  "start": 274.805,
+  "end": 277.433,
+  "en": "record this. So what I'll do instead is I'll"
+ },
+ {
+  "start": 277.433,
+  "end": 280.428,
+  "en": "add a database.js file, Next to app.js in my"
+ },
+ {
+  "start": 280.428,
+  "end": 280.671,
+  "en": "case."
+ },
+ {
+  "start": 281.966,
+  "end": 283.632,
+  "en": "We could also store it in a subfolder,"
+ },
+ {
+  "start": 284.134,
+  "end": 284.7,
+  "en": "that's up to you."
+ },
+ {
+  "start": 285.526,
+  "end": 287.872,
+  "en": "And then with that newly added database.js"
+ },
+ {
+  "start": 287.872,
+  "end": 291.352,
+  "en": "file, with that open, I'll click Apply, now"
+ },
+ {
+  "start": 291.497,
+  "end": 292.899,
+  "en": "apply to that file"
+ },
+ {
+  "start": 295.118,
+  "end": 295.568,
+  "en": "like this,"
+ },
+ {
+  "start": 297.191,
+  "end": 300.051,
+  "en": "and I'll accept this."
+ },
+ {
+  "start": 301.064,
+  "end": 303.664,
+  "en": "And then again, I'll take a look whether I"
+ },
+ {
+  "start": 303.731,
+  "end": 304.418,
+  "en": "wanna tweak this."
+ },
+ {
+  "start": 305.74,
+  "end": 308.029,
+  "en": "But this looks almost good to me, though"
+ },
+ {
+  "start": 308.029,
+  "end": 310.415,
+  "en": "I'll remove auto-increment here. No reason"
+ },
+ {
+  "start": 310.512,
+  "end": 311.876,
+  "en": "to add this with SQLite."
+ },
+ {
+  "start": 313.14,
+  "end": 314.992,
+  "en": "This is all we need. It will automatically"
+ },
+ {
+  "start": 315.104,
+  "end": 317.891,
+  "en": "be incremented by default, so the ID will"
+ },
+ {
+  "start": 318.068,
+  "end": 320.081,
+  "en": "automatically be generated by default even"
+ },
+ {
+  "start": 320.097,
+  "end": 322.418,
+  "en": "without auto-increment. And auto-increment"
+ },
+ {
+  "start": 322.418,
+  "end": 323.11,
+  "en": "can actually"
+ },
+ {
+  "start": 323.67,
+  "end": 325.976,
+  "en": "lead to worse performance, so I'll not add"
+ },
+ {
+  "start": 325.976,
+  "end": 326.305,
+  "en": "it here."
+ },
+ {
+  "start": 328.056,
+  "end": 329.595,
+  "en": "Email should be unique, password should be"
+ },
+ {
+  "start": 329.595,
+  "end": 331.28,
+  "en": "text, and I don't need anything else here,"
+ },
+ {
+  "start": 331.572,
+  "end": 332.706,
+  "en": "so that's looking good."
+ },
+ {
+  "start": 334.268,
+  "end": 334.397,
+  "en": "Now"
+ },
+ {
+  "start": 335.072,
+  "end": 337.388,
+  "en": "then I have this getDatabase function which"
+ },
+ {
+  "start": 337.484,
+  "end": 339.896,
+  "en": "will give me access to this database object"
+ },
+ {
+  "start": 339.896,
+  "end": 341.328,
+  "en": "which is initialized when calling"
+ },
+ {
+  "start": 341.36,
+  "end": 343.499,
+  "en": "initializeDatabase. So that's looking good."
+ },
+ {
+  "start": 346.06,
+  "end": 348.653,
+  "en": "Next, I wanna update my models/user.js file."
+ },
+ {
+  "start": 349.821,
+  "end": 351.717,
+  "en": "I can click on that link to be taken there"
+ },
+ {
+  "start": 352.074,
+  "end": 353.16,
+  "en": "and then I'll click Apply"
+ },
+ {
+  "start": 353.776,
+  "end": 354.636,
+  "en": "to update this file."
+ },
+ {
+  "start": 356.145,
+  "end": 356.794,
+  "en": "And there it"
+ },
+ {
+  "start": 357.362,
+  "end": 359.497,
+  "en": "will add this import"
+ },
+ {
+  "start": 360.125,
+  "end": 362.831,
+  "en": "to the getDatabase function so that I get"
+ },
+ {
+  "start": 362.863,
+  "end": 365.086,
+  "en": "access to the database, and then it will try"
+ },
+ {
+  "start": 365.28,
+  "end": 365.57,
+  "en": "to"
+ },
+ {
+  "start": 366.166,
+  "end": 368.165,
+  "en": "insert data into the database."
+ },
+ {
+  "start": 369.571,
+  "end": 372.092,
+  "en": "And here in findUserByEmail, it does the"
+ },
+ {
+  "start": 372.092,
+  "end": 374.499,
+  "en": "same thing but tries to find a user with a"
+ },
+ {
+  "start": 374.58,
+  "end": 375.436,
+  "en": "given email address."
+ },
+ {
+  "start": 377.416,
+  "end": 380.031,
+  "en": "So I'll accept this as well. Looks good to"
+ },
+ {
+  "start": 380.031,
+  "end": 382.532,
+  "en": "me. We'll test it soon anyways, and if there"
+ },
+ {
+  "start": 382.532,
+  "end": 384.698,
+  "en": "are any problems, we'll fix them. But on"
+ },
+ {
+  "start": 384.698,
+  "end": 386.08,
+  "en": "first sight, this looks good."
+ },
+ {
+  "start": 387.706,
+  "end": 389.792,
+  "en": "And that's by the way the flow I prefer. You"
+ },
+ {
+  "start": 389.824,
+  "end": 391.813,
+  "en": "could analyze the code in greater depth"
+ },
+ {
+  "start": 392.088,
+  "end": 393.236,
+  "en": "before you accept it."
+ },
+ {
+  "start": 393.851,
+  "end": 397.15,
+  "en": "I just tend to take a brief look across it"
+ },
+ {
+  "start": 397.15,
+  "end": 398.954,
+  "en": "and then just test it and tweak it"
+ },
+ {
+  "start": 398.954,
+  "end": 399.373,
+  "en": "thereafter."
+ },
+ {
+  "start": 400.566,
+  "end": 402.967,
+  "en": "But there are definitely different ways or"
+ },
+ {
+  "start": 402.967,
+  "end": 404.449,
+  "en": "different approaches you could take"
+ },
+ {
+  "start": 404.594,
+  "end": 405.142,
+  "en": "regarding this."
+ },
+ {
+  "start": 407.17,
+  "end": 408.815,
+  "en": "Now as a last step, I'll go to App.js."
+ },
+ {
+  "start": 410.561,
+  "end": 411.917,
+  "en": "And apply the changes here as well."
+ },
+ {
+  "start": 412.514,
+  "end": 415.065,
+  "en": "And here it's the import of this initialize"
+ },
+ {
+  "start": 415.178,
+  "end": 415.695,
+  "en": "database"
+ },
+ {
+  "start": 416.309,
+  "end": 418.456,
+  "en": "function that's added. And then this is"
+ },
+ {
+  "start": 418.553,
+  "end": 419.005,
+  "en": "called here."
+ },
+ {
+  "start": 420.757,
+  "end": 423.239,
+  "en": "And if that fails, the server is shut down."
+ },
+ {
+  "start": 423.434,
+  "end": 425.851,
+  "en": "So that makes sense. And then thereafter we"
+ },
+ {
+  "start": 425.851,
+  "end": 426.565,
+  "en": "have this code."
+ },
+ {
+  "start": 428.54,
+  "end": 429.396,
+  "en": "So that here"
+ },
+ {
+  "start": 430.27,
+  "end": 430.464,
+  "en": "will"
+ },
+ {
+  "start": 431.143,
+  "end": 432.647,
+  "en": "run to initialize the database,"
+ },
+ {
+  "start": 433.261,
+  "end": 435.492,
+  "en": "though I'm not 100% happy with that,"
+ },
+ {
+  "start": 436.171,
+  "end": 438.063,
+  "en": "but I'll change that manually. So for now"
+ },
+ {
+  "start": 438.08,
+  "end": 439.695,
+  "en": "I'll accept this and then tweak it manually."
+ },
+ {
+  "start": 442.319,
+  "end": 444.874,
+  "en": "So that's the general logic added now. And"
+ },
+ {
+  "start": 445.035,
+  "end": 447.365,
+  "en": "with that, I'll now make some manual tweaks."
+ }
+]

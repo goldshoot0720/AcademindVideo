@@ -1,0 +1,379 @@
+1
+00:00:00,753 --> 00:00:03,719
+Now, this inheritance concept is one key
+現在，這個繼承概念是關鍵
+
+2
+00:00:03,719 --> 00:00:06,428
+concept you should be aware of because it
+您應該了解的概念，因為它
+
+3
+00:00:06,428 --> 00:00:07,758
+can allow you to
+可以讓你
+
+4
+00:00:08,512 --> 00:00:10,740
+avoid some code duplication.
+避免一些程式碼重複。
+
+5
+00:00:11,333 --> 00:00:13,241
+But of course, here in this specific
+但當然，在這個具體的
+
+6
+00:00:13,257 --> 00:00:16,495
+application, I'm still duplicating quite a
+應用程式，我仍然在複製相當多的
+
+7
+00:00:16,543 --> 00:00:17,201
+bit of code.
+一點程式碼。
+
+8
+00:00:17,906 --> 00:00:20,759
+I mean, I have all that list item related
+我的意思是，我有所有相關的清單項
+
+9
+00:00:20,775 --> 00:00:21,224
+code here
+程式碼在這裡
+
+10
+00:00:21,753 --> 00:00:23,949
+and then almost the same code down there.
+然後那裡有幾乎相同的程式碼。
+
+11
+00:00:25,424 --> 00:00:27,348
+And that is also something you might
+這也是你可能會做的事情
+
+12
+00:00:27,348 --> 00:00:29,977
+encounter from time to time when working
+工作中時不時會遇到
+
+13
+00:00:30,073 --> 00:00:32,480
+with HTMX. Because you might have some
+與HTMX。因為你可能有一些
+
+14
+00:00:32,480 --> 00:00:35,225
+routes that return some fragments, which you
+回傳一些片段的路由，您可以
+
+15
+00:00:35,370 --> 00:00:37,377
+also use in some other routes. And
+也用於其他一些路線。和
+
+16
+00:00:37,377 --> 00:00:39,946
+therefore, one technique you also should be
+因此，您也應該採用一種技術
+
+17
+00:00:39,946 --> 00:00:43,543
+aware of is not HTMX-specific at all, but is
+意識到根本不是 HTMX 特定的，但是
+
+18
+00:00:43,639 --> 00:00:46,064
+a general programming technique you
+通用程式設計技術
+
+19
+00:00:46,064 --> 00:00:48,617
+shouldn't forget about just because you're
+不應該因為你就忘記
+
+20
+00:00:48,697 --> 00:00:49,741
+using HTMX.
+使用 HTMX。
+
+21
+00:00:50,383 --> 00:00:53,337
+You can create an extra function to
+您可以建立一個額外的函式來
+
+22
+00:00:53,594 --> 00:00:55,344
+outsource this shared code.
+外包這個共享程式碼。
+
+23
+00:00:57,047 --> 00:00:59,750
+For example, here I'll add a new
+例如，這裡我將新增一個新的
+
+24
+00:01:00,297 --> 00:01:01,762
+function at the top of this file
+函式位於該檔案的頂部
+
+25
+00:01:02,438 --> 00:01:04,932
+and I could also store it in a separate
+我也可以將它儲存在單獨的
+
+26
+00:01:04,932 --> 00:01:05,141
+file.
+檔案。
+
+27
+00:01:05,950 --> 00:01:08,558
+I just keep it all in this one file so that
+我只是將所有內容都儲存在這個檔案中，以便
+
+28
+00:01:08,558 --> 00:01:11,554
+we can easily jump between those different
+我們可以輕鬆地在不同的之間跳轉
+
+29
+00:01:12,246 --> 00:01:14,806
+code snippets. But I'll just create a new
+程式碼片段。但我只會創建一個新的
+
+30
+00:01:14,903 --> 00:01:15,581
+function here
+在這裡發揮作用
+
+31
+00:01:16,133 --> 00:01:20,802
+which I'll name renderGoalListItem or
+我將其命名為 renderGoalListItem 或
+
+32
+00:01:20,981 --> 00:01:21,678
+anything like that.
+諸如此類的事情。
+
+33
+00:01:22,899 --> 00:01:25,941
+And the single job of this function then is
+這個函式的唯一工作就是
+
+34
+00:01:26,295 --> 00:01:28,082
+to return this
+回傳這個
+
+35
+00:01:28,629 --> 00:01:30,496
+element, this list item element.
+元素，此列表項元素。
+
+36
+00:01:31,352 --> 00:01:34,882
+So I'll copy that list item code here, that
+所以我將在此處複製該列表項程式碼，即
+
+37
+00:01:34,882 --> 00:01:35,269
+string,
+細繩，
+
+38
+00:01:36,978 --> 00:01:38,896
+and return that here as a string
+並將其作為字串回傳這裡
+
+39
+00:01:39,655 --> 00:01:42,511
+with backticks so that it can be multiline
+帶有反引號，以便它可以是多行的
+
+40
+00:01:42,785 --> 00:01:44,867
+and I can inject content into it
+我可以向其中註入內容
+
+41
+00:01:45,690 --> 00:01:48,659
+inside of this renderGoalListItem function.
+在此 renderGoalListItem 函式內部。
+
+42
+00:01:50,336 --> 00:01:51,027
+Of course, this
+當然，這個
+
+43
+00:01:51,685 --> 00:01:54,302
+renderGoalListItem function should now
+renderGoalListItem 函式現在應該
+
+44
+00:01:54,366 --> 00:01:57,578
+accept the ID and the text as an input,
+接受 ID 和文字作為輸入，
+
+45
+00:01:58,220 --> 00:01:59,408
+so as arguments,
+所以作為論據，
+
+46
+00:01:59,970 --> 00:02:03,246
+so that I can use the ID here in all the
+這樣我就可以在所有的地方使用這個ID
+
+47
+00:02:03,246 --> 00:02:04,594
+places where it's needed
+需要它的地方
+
+48
+00:02:05,494 --> 00:02:08,544
+to construct the values for these HTMX
+建構這些 HTMX 的值
+
+49
+00:02:08,625 --> 00:02:10,246
+attributes and for this ID.
+屬性和此 ID。
+
+50
+00:02:11,194 --> 00:02:12,366
+And I'll use the text here.
+我將在這裡使用文字。
+
+51
+00:02:15,402 --> 00:02:16,983
+With that, we can then call
+這樣，我們就可以調用
+
+52
+00:02:17,499 --> 00:02:21,128
+renderGoalListItem in all the places where
+renderGoalListItem 在所有地方
+
+53
+00:02:21,128 --> 00:02:23,792
+we need that list item code. So for example,
+我們需要該列表項程式碼。例如，
+
+54
+00:02:23,808 --> 00:02:24,002
+here,
+這裡，
+
+55
+00:02:25,733 --> 00:02:25,944
+there,
+那裡，
+
+56
+00:02:26,542 --> 00:02:28,225
+instead of rendering that string,
+而不是渲染該字串，
+
+57
+00:02:28,888 --> 00:02:32,508
+I can now simply call renderGoalListItem
+我現在可以簡單地呼叫 renderGoalListItem
+
+58
+00:02:33,590 --> 00:02:36,787
+and pass the goal.id and goal.text as
+並將 goal.id 和 goal.text 傳遞為
+
+59
+00:02:36,900 --> 00:02:38,482
+arguments to that function.
+該函式的參數。
+
+60
+00:02:39,843 --> 00:02:42,124
+And that therefore simplified that code.
+因此簡化了程式碼。
+
+61
+00:02:44,322 --> 00:02:46,560
+And I can do the same thing down here
+我可以在這裡做同樣的事情
+
+62
+00:02:47,176 --> 00:02:48,895
+where I return that fragment.
+我回傳該片段的地方。
+
+63
+00:02:49,690 --> 00:02:52,167
+There I now also return the result of
+我現在也回結果
+
+64
+00:02:52,232 --> 00:02:54,628
+calling renderGoalListItem
+呼叫 renderGoalListItem
+
+65
+00:02:55,292 --> 00:02:58,175
+and I pass my ID and my goal text to that
+然後我將我的 ID 和目標文字傳遞給它
+
+66
+00:02:58,223 --> 00:02:58,612
+function.
+功能。
+
+67
+00:03:00,570 --> 00:03:02,567
+And therefore now we again got rid of some
+因此現在我們再次擺脫了一些
+
+68
+00:03:02,600 --> 00:03:05,355
+code duplication and if I now save that,
+程式碼重複，如果我現在儲存它，
+
+69
+00:03:06,322 --> 00:03:06,934
+I can still
+我還可以
+
+70
+00:03:07,756 --> 00:03:09,012
+add those items here.
+在這裡添加這些專案。
+
+71
+00:03:11,467 --> 00:03:13,607
+And I can reload and I also see them and I
+我可以重新載入，我也看到它們，我
+
+72
+00:03:13,655 --> 00:03:16,873
+can still delete them. But again, now we
+仍然可以刪除它們。但話又說回來，現在我們
+
+73
+00:03:16,873 --> 00:03:19,012
+reduced the amount of code duplication.
+減少了程式碼重複量。
+
+74
+00:03:19,769 --> 00:03:23,034
+And this is not HTMX specific, but a pattern
+這不是 HTMX 特有的，而是一種模式
+
+75
+00:03:23,372 --> 00:03:25,930
+you might wanna use from time to time when
+你可能會想時不時地使用
+
+76
+00:03:25,963 --> 00:03:27,571
+working with HTMX.
+與 HTMX 一起工作。

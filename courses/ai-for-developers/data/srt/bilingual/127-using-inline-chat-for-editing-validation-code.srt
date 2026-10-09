@@ -1,0 +1,619 @@
+1
+00:00:02,115 --> 00:00:05,288
+So slowly but steadily, this application is
+如此緩慢而穩定地，這個應用程式
+
+2
+00:00:05,384 --> 00:00:07,531
+taking shape, but there are still some
+已初具規模，但仍有一些
+
+3
+00:00:07,579 --> 00:00:10,176
+tweaks I wanna make to this code we already
+我想對這段程式碼進行調整，我們已經
+
+4
+00:00:10,192 --> 00:00:10,560
+have here.
+這裡有。
+
+5
+00:00:11,794 --> 00:00:15,304
+For example, when creating a user, I want to
+例如，當創建一個使用者時，我想
+
+6
+00:00:15,816 --> 00:00:18,621
+validate the received data. I don't wanna
+驗證接收到的資料。我不想
+
+7
+00:00:18,621 --> 00:00:22,531
+store it blindly trusting the user to have
+盲目地儲存它並相信使用者擁有
+
+8
+00:00:22,531 --> 00:00:23,893
+submitted valid data.
+提交了有效資料。
+
+9
+00:00:25,031 --> 00:00:26,986
+I wanna make sure that we got a valid email,
+我想確保我們收到了有效的電子郵件，
+
+10
+00:00:27,355 --> 00:00:30,127
+that it's not an email address we already
+這不是我們已經知道的電子郵件地址
+
+11
+00:00:30,223 --> 00:00:31,008
+have in our database.
+我們的資料庫中有。
+
+12
+00:00:32,712 --> 00:00:35,160
+And that we have a valid password, which for
+我們有一個有效的密碼
+
+13
+00:00:35,160 --> 00:00:37,284
+example has a certain minimum length.
+範例有一定的最小長度。
+
+14
+00:00:39,339 --> 00:00:41,036
+Again, we could use the Composer for that.
+同樣，我們可以使用 Composer 來實現這一點。
+
+15
+00:00:41,747 --> 00:00:43,929
+We could also use the chat for that. But
+我們也可以使用聊天來實現這一點。但
+
+16
+00:00:43,945 --> 00:00:47,339
+since I'll mostly work in one file, I'll use
+因為我主要在一個檔案中工作，所以我將使用
+
+17
+00:00:47,388 --> 00:00:49,069
+the inline chat functionality.
+內嵌聊天功能。
+
+18
+00:00:50,627 --> 00:00:53,072
+Now I could add the validation here to this
+現在我可以在此處添加驗證
+
+19
+00:00:53,072 --> 00:00:55,259
+createUser function, but I'll actually go
+createUser 函式，但我實際上會去
+
+20
+00:00:55,259 --> 00:00:56,749
+for the users controller file.
+用於使用者控制器檔案。
+
+21
+00:00:58,253 --> 00:01:00,704
+Here where I'm extracting that information
+我在這裡提取該資訊
+
+22
+00:01:00,881 --> 00:01:02,146
+from the request body.
+來自請求正文。
+
+23
+00:01:03,140 --> 00:01:05,111
+Because in here I already got some very
+因為在這裡我已經得到了一些非常
+
+24
+00:01:05,223 --> 00:01:06,745
+basic validation code.
+基本驗證碼。
+
+25
+00:01:07,931 --> 00:01:10,366
+But here I just check whether I got some
+但在這裡我只是檢查我是否得到了一些
+
+26
+00:01:10,414 --> 00:01:13,282
+email and some password without performing
+電子郵件和一些密碼而不執行
+
+27
+00:01:13,458 --> 00:01:14,612
+any further checks.
+任何進一步的檢查。
+
+28
+00:01:15,621 --> 00:01:18,089
+For example, currently I would accept an
+例如，目前我會接受
+
+29
+00:01:18,185 --> 00:01:20,973
+email as valid if it were just a bunch of
+如果電子郵件只是一堆，則視為有效
+
+30
+00:01:21,390 --> 00:01:24,177
+blank spaces, which is of course not valid.
+空格，這當然是無效的。
+
+31
+00:01:24,370 --> 00:01:25,331
+And the same for the password.
+密碼也一樣。
+
+32
+00:01:27,273 --> 00:01:29,537
+So I'll highlight this entire function
+所以我將重點放在整個功能
+
+33
+00:01:30,067 --> 00:01:30,757
+and open this
+並打開這個
+
+34
+00:01:31,415 --> 00:01:33,117
+inline chat here with the appropriate
+在這裡與適當的人進行內聯聊天
+
+35
+00:01:33,117 --> 00:01:35,140
+shortcut to provide some editing
+提供一些編輯的快捷方式
+
+36
+00:01:35,140 --> 00:01:36,248
+instructions to Cursor.
+給遊標的指令。
+
+37
+00:01:37,613 --> 00:01:39,154
+And I'll tell Cursor to
+我會告訴 Cursor
+
+38
+00:01:40,181 --> 00:01:42,477
+apply better validation
+應用更好的驗證
+
+39
+00:01:43,136 --> 00:01:46,892
+for both the email and password. And I'll
+電子郵件和密碼。我會
+
+40
+00:01:46,925 --> 00:01:49,863
+then provide some details regarding how I
+然後提供一些關於我如何
+
+41
+00:01:49,959 --> 00:01:51,388
+wanna validate these 2 fields.
+想驗證這兩個欄位。
+
+42
+00:01:52,572 --> 00:01:54,104
+Data points or data fields.
+資料點或資料欄位。
+
+43
+00:01:55,889 --> 00:01:56,357
+The email
+電子郵件
+
+44
+00:01:57,228 --> 00:01:59,505
+must be a valid email address
+必須是有效的電子郵件地址
+
+45
+00:02:00,102 --> 00:02:01,200
+and it must not
+而且它一定不能
+
+46
+00:02:02,782 --> 00:02:04,009
+be taken yet,
+尚未被採取，
+
+47
+00:02:05,987 --> 00:02:06,164
+i.e.,
+IE。 ，
+
+48
+00:02:06,731 --> 00:02:09,512
+not exist in the database yet.
+資料庫中尚不存在。
+
+49
+00:02:10,596 --> 00:02:14,971
+The password must be at least 6 characters
+密碼必須至少為 6 個字符
+
+50
+00:02:14,971 --> 00:02:15,070
+long.
+長的。
+
+51
+00:02:19,193 --> 00:02:20,286
+Both fields
+兩個領域
+
+52
+00:02:22,327 --> 00:02:22,825
+must
+必須
+
+53
+00:02:24,111 --> 00:02:24,770
+not be
+不是
+
+54
+00:02:26,248 --> 00:02:26,602
+empty
+空的
+
+55
+00:02:27,325 --> 00:02:30,801
+strings or just a bunch of blanks.
+字串或只是一堆空格。
+
+56
+00:02:33,140 --> 00:02:34,554
+So let's submit this and let's see what
+那麼讓我們提交這個，看看會發生什麼
+
+57
+00:02:34,554 --> 00:02:35,101
+we'll get.
+我們會得到的。
+
+58
+00:02:36,129 --> 00:02:37,978
+So it of course starts editing the code and
+所以它當然開始編輯程式碼並且
+
+59
+00:02:37,994 --> 00:02:39,875
+for example, here for the email, it checks
+例如，對於電子郵件，它會檢查
+
+60
+00:02:40,405 --> 00:02:43,270
+whether it's empty after trimming it. Trim
+修剪後是否為空。修剪
+
+61
+00:02:43,367 --> 00:02:45,929
+is a built-in method you can call on strings
+是一個可以在字串上呼叫的內建方法
+
+62
+00:02:45,977 --> 00:02:46,848
+in JavaScript to remove excess whitespace at
+在 JavaScript 中刪除多餘的空格
+
+63
+00:02:46,848 --> 00:02:47,315
+the beginning or end.
+開始或結束。
+
+64
+00:02:51,435 --> 00:02:51,962
+And
+和
+
+65
+00:02:52,621 --> 00:02:53,774
+it does the same for the password.
+它對密碼執行相同的操作。
+
+66
+00:02:55,556 --> 00:02:57,565
+And then it also performs some extra checks
+然後它還執行一些額外的檢查
+
+67
+00:02:57,565 --> 00:02:58,996
+here using a regular expression.
+這裡使用正規表示式。
+
+68
+00:03:00,057 --> 00:03:02,887
+By the way, AI models are really great for
+順便說一句，人工智慧模型真的非常適合
+
+69
+00:03:02,887 --> 00:03:05,885
+generating regular expressions. That's one
+產生正規表示式。那是一個
+
+70
+00:03:05,885 --> 00:03:07,644
+of the best use cases in my experience.
+根據我的經驗，最好的用例。
+
+71
+00:03:08,386 --> 00:03:11,340
+So it does that here and then also uses this
+所以它在這裡這樣做，然後也使用這個
+
+72
+00:03:11,340 --> 00:03:13,117
+regular expression to check whether the
+正規表示式來檢查是否
+
+73
+00:03:13,117 --> 00:03:16,331
+email is an email. Sending back an error
+電子郵件是電子郵件。發回錯誤
+
+74
+00:03:16,397 --> 00:03:17,213
+code if it's not.
+程式碼，如果不是。
+
+75
+00:03:18,943 --> 00:03:20,644
+And then it checks the password length.
+然後它檢查密碼長度。
+
+76
+00:03:21,862 --> 00:03:24,370
+It also checks whether we have a user with
+它還檢查我們是否有一個使用者
+
+77
+00:03:24,370 --> 00:03:26,070
+that email address already, and if that's
+該電子郵件地址已經存在，如果是
+
+78
+00:03:26,070 --> 00:03:28,255
+the case, it also sends back an error status
+在這種情況下，它也會發回錯誤狀態
+
+79
+00:03:28,255 --> 00:03:28,513
+code.
+程式碼。
+
+80
+00:03:29,902 --> 00:03:31,535
+So I can accept this,
+所以我可以接受這個
+
+81
+00:03:32,084 --> 00:03:32,990
+and with that, this
+就這樣，這個
+
+82
+00:03:33,701 --> 00:03:35,609
+controller function, this signup function,
+控制器功能，這個註冊功能，
+
+83
+00:03:35,625 --> 00:03:37,613
+has been improved and we got better
+得到了改善，我們變得更好
+
+84
+00:03:37,743 --> 00:03:39,456
+validation in place here.
+驗證就在這裡。
+
+85
+00:03:40,472 --> 00:03:42,175
+Now, of course, there still would be
+當然，現在還是會有
+
+86
+00:03:42,239 --> 00:03:44,007
+different ways of performing this
+執行此操作的不同方式
+
+87
+00:03:44,007 --> 00:03:46,015
+validation. You could still tweak the code
+驗證。您仍然可以調整程式碼
+
+88
+00:03:46,015 --> 00:03:48,376
+and you can do this with or without AI.
+無論有沒有人工智慧，你都可以做到這一點。
+
+89
+00:03:49,389 --> 00:03:51,469
+If you know what you wanna do, you might be
+如果你知道自己想做什麼，你可能會
+
+90
+00:03:51,469 --> 00:03:52,406
+quicker without AI,
+沒有人工智慧更快，
+
+91
+00:03:53,020 --> 00:03:56,252
+but here I'm pretty happy with what I got
+但我對我所得到的感到非常滿意
+
+92
+00:03:56,252 --> 00:03:56,494
+here.
+這裡。
+
+93
+00:03:57,756 --> 00:04:00,323
+So that's looking good to me and I'm ready
+所以這對我來說看起來不錯，我已經準備好了
+
+94
+00:04:00,339 --> 00:04:02,003
+to test this soon enough.
+盡快測試一下。
+
+95
+00:04:03,504 --> 00:04:05,232
+I also wanna tweak the validation here
+我也想在這裡調整驗證
+
+96
+00:04:05,345 --> 00:04:08,076
+though. I don't need detailed validation
+儘管。我不需要詳細的驗證
+
+97
+00:04:08,189 --> 00:04:09,402
+when logging users in because I'll validate
+當使用者登入時，因為我會驗證
+
+98
+00:04:09,402 --> 00:04:09,935
+their credentials anyways.
+無論如何，他們的憑據。
+
+99
+00:04:12,206 --> 00:04:14,053
+At least I'll soon do that,
+至少我很快就會做到這一點
+
+100
+00:04:14,631 --> 00:04:16,478
+but I wanna make sure that email and
+但我想確保該電子郵件和
+
+101
+00:04:16,478 --> 00:04:19,498
+password are not strings full of blanks.
+密碼不是充滿空格的字串。
+
+102
+00:04:20,832 --> 00:04:23,177
+So I'll tweak this part here and say,
+所以我會在這裡調整這部分並說，
+
+103
+00:04:24,173 --> 00:04:27,530
+make sure that email and password
+確保電子郵件和密碼
+
+104
+00:04:28,510 --> 00:04:30,727
+are not just strings full
+不僅僅是字串滿了
+
+105
+00:04:31,401 --> 00:04:33,522
+of blanks. And that should make sure that
+的空白。這應該確保
+
+106
+00:04:33,522 --> 00:04:34,100
+this trim
+這個裝飾
+
+107
+00:04:34,839 --> 00:04:35,722
+method gets added.
+方法被加入。
+
+108
+00:04:37,040 --> 00:04:38,951
+Though arguably we could have also done this
+儘管可以說我們也可以這樣做
+
+109
+00:04:38,967 --> 00:04:41,209
+without AI and we, might have been faster.
+如果沒有人工智慧和我們，速度可能會更快。
+
+110
+00:04:41,532 --> 00:04:43,604
+So yeah, it's actually a good example for
+是的，這實際上是一個很好的例子
+
+111
+00:04:43,653 --> 00:04:46,728
+slowly falling into the trap of using AI for
+慢慢陷入利用AI的陷阱
+
+112
+00:04:46,793 --> 00:04:48,864
+everything. You really wanna be careful
+一切。你真的要小心一點
+
+113
+00:04:48,897 --> 00:04:49,528
+regarding that.
+關於這一點。
+
+114
+00:04:51,032 --> 00:04:53,346
+So that's that. Now I'm not fully finished
+就是這樣。現在我還沒有完全完成
+
+115
+00:04:53,346 --> 00:04:53,572
+yet.
+然而。
+
+116
+00:04:54,187 --> 00:04:56,112
+For example, here when checking the
+例如，在這裡檢查時
+
+117
+00:04:56,112 --> 00:04:56,727
+password,
+密碼，
+
+118
+00:04:57,326 --> 00:04:59,084
+right now I'm assuming that
+現在我假設
+
+119
+00:04:59,647 --> 00:05:02,514
+the password is stored as plaintext and I am
+密碼以明文形式存儲，我是
+
+120
+00:05:02,563 --> 00:05:06,090
+indeed storing it as plaintext here and
+確實將其存儲為明文在這裡並且
+
+121
+00:05:06,090 --> 00:05:08,384
+that's not the way it should work,
+這不是它應該的工作方式
+
+122
+00:05:09,418 --> 00:05:12,181
+but it's a first step and it is something we
+但這只是第一步，也是我們要做的事情
+
+123
+00:05:12,181 --> 00:05:14,991
+can test before we then refine this
+可以在我們完善之前進行測試
+
+124
+00:05:14,991 --> 00:05:15,621
+application.
+應用。

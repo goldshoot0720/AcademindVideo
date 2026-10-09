@@ -1,0 +1,459 @@
+1
+00:00:00,032 --> 00:00:03,049
+Giving AI agents ways of verifying their
+為人工智慧代理提供驗證其能力的方法
+
+2
+00:00:03,065 --> 00:00:05,440
+work on their own, like automated tests or
+獨立工作，例如自動化測試或
+
+3
+00:00:05,488 --> 00:00:07,462
+browser access, is very useful.
+瀏覽器訪問，非常有用。
+
+4
+00:00:08,441 --> 00:00:11,667
+You can kind of take that to the extreme by
+你可以將其發揮到極致
+
+5
+00:00:11,747 --> 00:00:15,181
+building a loop where you essentially don't
+建立一個你基本上不需要的迴圈
+
+6
+00:00:15,261 --> 00:00:17,877
+interact with Claude code at all anymore.
+不再與克勞德程式碼互動。
+
+7
+00:00:18,872 --> 00:00:22,547
+And that pattern is also known as the Rolf
+這種圖案也被稱為 Rolf
+
+8
+00:00:22,740 --> 00:00:22,852
+loop.
+環形。
+
+9
+00:00:23,767 --> 00:00:27,377
+It's named after Rolf Wiggum, the character
+它以角色 Rolf Wiggum 的名字命名
+
+10
+00:00:27,377 --> 00:00:31,080
+from The Simpsons for its naive persistence.
+因其天真的堅持而受到《辛普森家庭》的喜愛。
+
+11
+00:00:31,240 --> 00:00:33,532
+The ultimate idea behind that Ralph loop is
+拉爾夫迴圈背後的最終想法是
+
+12
+00:00:33,725 --> 00:00:36,915
+pretty simple. You create a shell script and
+很簡單。您建立一個 shell 腳本並
+
+13
+00:00:36,915 --> 00:00:39,416
+you find this updated starting project
+你會發現這個更新的啟動專案
+
+14
+00:00:39,416 --> 00:00:41,419
+including the shell script attached in case
+包括附加的 shell 腳本以防萬一
+
+15
+00:00:41,419 --> 00:00:42,125
+you wanna try it.
+你想嘗試一下。
+
+16
+00:00:43,022 --> 00:00:45,924
+And that shell script in the end sets up a
+該 shell 腳本最終設定了一個
+
+17
+00:00:46,052 --> 00:00:46,212
+loop,
+環形，
+
+18
+00:00:46,854 --> 00:00:49,370
+a loop that goes through a maximum amount of
+一個迴圈，經歷最大數量
+
+19
+00:00:49,370 --> 00:00:52,063
+iterations specified by you. And that
+您指定的迭代次數。還有那個
+
+20
+00:00:52,063 --> 00:00:54,147
+maximum amount of iterations is simply
+最大迭代次數就是
+
+21
+00:00:54,724 --> 00:00:57,177
+an input that's expected to ensure that the
+預期確保的輸入
+
+22
+00:00:57,273 --> 00:00:58,620
+loop doesn't keep on running
+迴圈不再繼續運行
+
+23
+00:00:59,293 --> 00:01:01,649
+but that it has some exit condition.
+但它有一些退出條件。
+
+24
+00:01:02,499 --> 00:01:05,513
+But whilst the loop is running, Claude code
+但是當迴圈運行時，克勞德程式碼
+
+25
+00:01:05,929 --> 00:01:08,142
+is invoked over and over again
+被一遍又一遍地調用
+
+26
+00:01:08,735 --> 00:01:11,348
+with all permissions allowed and therefore
+具有允許的所有權限，因此
+
+27
+00:01:11,540 --> 00:01:13,944
+you should configure it to run in sandbox
+您應該將其設定為在沙箱中運行
+
+28
+00:01:13,944 --> 00:01:15,371
+mode, more on that in a second.
+模式，稍後會詳細介紹。
+
+29
+00:01:16,429 --> 00:01:18,481
+And we're not running Claude code in the
+我們並沒有在
+
+30
+00:01:18,529 --> 00:01:20,581
+interactive mode in which we used it
+我們使用它的互動模式
+
+31
+00:01:20,773 --> 00:01:22,456
+throughout the course but instead with the
+在整個課程中，但取而代之的是
+
+32
+00:01:22,937 --> 00:01:25,759
+-p flag, we can pass in a prompt directly.
+-p標誌，我們可以直接傳入提示。
+
+33
+00:01:26,288 --> 00:01:28,516
+And the prompt we do pass in is this one
+我們傳入的提示是這個
+
+34
+00:01:28,612 --> 00:01:30,488
+here where we point at some files, which
+在這裡我們指向一些檔案，其中
+
+35
+00:01:30,488 --> 00:01:32,767
+I'll show you in a second, and where we then
+我稍後會告訴你，然後我們會去哪裡
+
+36
+00:01:32,943 --> 00:01:36,555
+ask Claude Code to pick a task from a list
+要求 Claude Code 從清單中選擇一個任務
+
+37
+00:01:36,571 --> 00:01:37,373
+of tasks
+任務數
+
+38
+00:01:38,095 --> 00:01:40,744
+where passes is set to false, and you'll see
+其中 passs 設定為 false，你會看到
+
+39
+00:01:40,744 --> 00:01:41,835
+that list in a second,
+稍後列出該列表，
+
+40
+00:01:42,413 --> 00:01:44,933
+and where we then wanted to tackle that task
+然後我們想要解決這個任務
+
+41
+00:01:45,302 --> 00:01:49,154
+and also verify its changes by running tests
+並通過運行測試來驗證其更改
+
+42
+00:01:49,234 --> 00:01:52,669
+and by also visiting the website by using
+並透過使用造訪該網站
+
+43
+00:01:52,701 --> 00:01:55,718
+the Playwright MCP. So by testing those
+劇作家 MCP。所以透過測試那些
+
+44
+00:01:55,750 --> 00:01:58,479
+changes in the browser as you saw over the
+正如您所看到的，瀏覽器中的變化
+
+45
+00:01:58,479 --> 00:02:01,574
+last lectures. Now, that list of tasks is
+最後一次講座。現在，任務清單是
+
+46
+00:02:01,606 --> 00:02:03,978
+simply a JSON document with a bunch of
+只是一個帶有一堆的 JSON 文檔
+
+47
+00:02:04,010 --> 00:02:06,222
+tasks, and the format is totally up to you.
+任務，格式完全取決於您。
+
+48
+00:02:06,639 --> 00:02:08,867
+This will be handled by an AI, so there is
+這將由人工智慧處理，所以有
+
+49
+00:02:08,963 --> 00:02:11,672
+no fixed format. This is just one convention
+無固定格式。這只是一個約定
+
+50
+00:02:11,784 --> 00:02:12,826
+you often see,
+你常看到，
+
+51
+00:02:13,451 --> 00:02:15,294
+that you have a description of the task,
+您有任務的描述，
+
+52
+00:02:15,310 --> 00:02:17,795
+some steps that make up the task, and a
+構成任務的一些步驟，以及
+
+53
+00:02:17,795 --> 00:02:20,760
+passes flag, which initially is set to false
+傳遞標誌，該標誌最初設置為 false
+
+54
+00:02:20,760 --> 00:02:23,132
+for all tasks. And the idea is that the
+對於所有任務。我們的想法是
+
+55
+00:02:23,228 --> 00:02:26,546
+agent changes it to true task by task once
+代理將其逐一任務更改為真實任務一次
+
+56
+00:02:26,546 --> 00:02:28,055
+it worked through them. Through the tasks.
+它透過他們發揮作用。透過任務。
+
+57
+00:02:28,376 --> 00:02:30,753
+The idea is also that the agent doesn't have
+這個想法也是代理沒有
+
+58
+00:02:30,786 --> 00:02:33,677
+to go in order but chooses on its own the
+按順序進行，但自行選擇
+
+59
+00:02:33,677 --> 00:02:35,733
+next task it should tackle.
+它應該解決的下一個任務。
+
+60
+00:02:36,327 --> 00:02:38,785
+Now, this task list in my case here was
+現在，我的例子中的任務清單是
+
+61
+00:02:38,881 --> 00:02:41,499
+derived from this spec document which I
+源自我的這份規範檔案
+
+62
+00:02:41,611 --> 00:02:43,410
+created early on in this course.
+在本課程的早期創建。
+
+63
+00:02:44,021 --> 00:02:47,057
+And I used AI for deriving this list of
+我使用人工智慧來得出這個列表
+
+64
+00:02:47,089 --> 00:02:49,305
+tasks here. And you can of course define any
+任務在這裡。當然可以定義任何
+
+65
+00:02:49,337 --> 00:02:52,453
+tasks you want and be as granular as you
+您想要的任務並像您一樣精細
+
+66
+00:02:52,534 --> 00:02:52,726
+want.
+想。
+
+67
+00:02:53,336 --> 00:02:56,157
+You should try to not be too granular or too
+你應該盡量不要太細粒度或太
+
+68
+00:02:56,702 --> 00:02:59,570
+general though. The tasks should typically
+不過一般。這些任務通常應該
+
+69
+00:02:59,683 --> 00:03:02,615
+be focusing on one main problem each.
+每個人都專注於一個主要問題。
+
+70
+00:03:03,689 --> 00:03:06,189
+But then the idea is really just that you
+但這個想法其實只是你
+
+71
+00:03:06,253 --> 00:03:09,619
+keep Claude Code running on its own task by
+讓克勞德程式碼在自己的任務上運行
+
+72
+00:03:09,619 --> 00:03:12,648
+task and that it verifies its work on its
+任務並驗證其工作
+
+73
+00:03:12,648 --> 00:03:15,357
+own with tests, with browser access, and you
+擁有測試、瀏覽器存取權限，並且您
+
+74
+00:03:15,469 --> 00:03:18,273
+as a human don't do anything. You keep
+作為一個人甚麼都不要做。你保留
+
+75
+00:03:18,273 --> 00:03:20,838
+Claude working and you come back once it's
+克勞德在工作，等你回來了
+
+76
+00:03:20,838 --> 00:03:23,722
+done to verify the overall result. That's
+完成以驗證整體結果。那是
+
+77
+00:03:23,722 --> 00:03:26,496
+the idea. Now, important, you have to grant
+這個想法。現在，重要的是，你必須授予
+
+78
+00:03:26,592 --> 00:03:27,586
+Claude code
+克勞德碼
+
+79
+00:03:28,131 --> 00:03:30,247
+broad permissions because otherwise it would
+廣泛的權限，因為否則它會
+
+80
+00:03:30,359 --> 00:03:32,972
+need your permission to, for example, edit a
+需要您的許可才能進行某些操作，例如編輯
+
+81
+00:03:33,020 --> 00:03:35,889
+file or to send an HTTP request. And the
+檔案或發送 HTTP 請求。還有
+
+82
+00:03:35,889 --> 00:03:38,358
+idea is that it can go on its own. So since
+想法是它可以獨立運作。所以自從
+
+83
+00:03:38,390 --> 00:03:41,259
+that's the case, you must make sure that you
+就是這樣，你必須確保你
+
+84
+00:03:41,259 --> 00:03:43,648
+got this sandbox mode enabled.
+啟用此沙箱模式。
+
+85
+00:03:44,305 --> 00:03:47,207
+You could also try running Docker sandbox
+您也可以嘗試執行 Docker 沙箱
+
+86
+00:03:47,207 --> 00:03:49,691
+here, run Claude with Docker sandbox, which
+在這裡，使用 Docker 沙箱運行 Claude，這
+
+87
+00:03:49,691 --> 00:03:51,647
+I also showed you earlier. But I
+我之前也有給大家展示過。但我
+
+88
+00:03:51,839 --> 00:03:54,452
+consistently ran into various problems there
+在那裡不斷遇到各種問題
+
+89
+00:03:54,645 --> 00:03:56,610
+when it, for example, example came to Claude
+例如，當例子出現在克勞德身上時
+
+90
+00:03:56,610 --> 00:03:58,982
+Code trying to use the browser, which is why
+程式碼嘗試使用瀏覽器，這是為什麼
+
+91
+00:03:58,998 --> 00:04:01,402
+I'm using this built-in sandbox mode
+我正在使用這個內建沙箱模式
+
+92
+00:04:01,434 --> 00:04:01,967
+instead.
+反而。

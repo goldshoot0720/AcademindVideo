@@ -1,0 +1,875 @@
+1
+00:00:00,048 --> 00:00:02,889
+So I have this deployment.md file in this
+
+2
+00:00:03,001 --> 00:00:05,858
+demo project I provided and in there I have
+
+3
+00:00:05,970 --> 00:00:07,992
+the deployment steps we need to go through.
+
+4
+00:00:08,923 --> 00:00:10,705
+What gets deployed as I mentioned is this
+
+5
+00:00:10,705 --> 00:00:13,770
+Traefik reverse proxy and our web app where
+
+6
+00:00:13,819 --> 00:00:17,317
+I was using the TanStack Start React Node.js
+
+7
+00:00:17,350 --> 00:00:19,532
+framework in case you're interested in that.
+
+8
+00:00:20,576 --> 00:00:22,726
+Now we will need to set up some environment
+
+9
+00:00:22,726 --> 00:00:23,192
+variables
+
+10
+00:00:23,850 --> 00:00:25,198
+on our VPS then
+
+11
+00:00:26,660 --> 00:00:30,161
+to make our Traefik reverse proxy aware of
+
+12
+00:00:30,194 --> 00:00:32,301
+the domain that will be pointing at that
+
+13
+00:00:32,301 --> 00:00:34,829
+server. That is important for requesting a
+
+14
+00:00:34,829 --> 00:00:37,357
+certificate because the certificate is bound
+
+15
+00:00:37,406 --> 00:00:39,499
+to a certain domain. So we need to tell
+
+16
+00:00:39,628 --> 00:00:41,915
+Traefik which domain we'll be using so that
+
+17
+00:00:41,915 --> 00:00:44,494
+it can request and handle the right
+
+18
+00:00:44,575 --> 00:00:45,529
+certificate for us.
+
+19
+00:00:46,078 --> 00:00:48,164
+And we'll also need to provide a valid
+
+20
+00:00:48,261 --> 00:00:50,185
+email, which can be from a different domain,
+
+21
+00:00:50,298 --> 00:00:52,577
+but it must be a valid email because Let's
+
+22
+00:00:52,658 --> 00:00:54,561
+Encrypt requires that for issuing a
+
+23
+00:00:54,611 --> 00:00:55,327
+certificate so that they could, for example,
+
+24
+00:00:55,393 --> 00:00:55,992
+message us
+
+25
+00:00:57,676 --> 00:00:59,824
+us if something's wrong with the certificate
+
+26
+00:01:00,240 --> 00:01:02,597
+or it's about to expire or anything like
+
+27
+00:01:02,597 --> 00:01:02,869
+that.
+
+28
+00:01:04,023 --> 00:01:06,588
+But before we do that, we actually wanna get
+
+29
+00:01:06,588 --> 00:01:09,778
+the project onto the VPS and for that, we
+
+30
+00:01:09,778 --> 00:01:11,365
+have different options.
+
+31
+00:01:12,358 --> 00:01:15,292
+We can copy files from our local machine
+
+32
+00:01:15,885 --> 00:01:17,632
+because this project right now is on my
+
+33
+00:01:17,648 --> 00:01:19,764
+local MacBook and for you, it's probably on
+
+34
+00:01:19,876 --> 00:01:21,799
+your laptop or your Windows machine or
+
+35
+00:01:21,799 --> 00:01:24,332
+whatever. We have to copy that from our
+
+36
+00:01:24,540 --> 00:01:28,456
+machine to the VPS, so onto the VPS here to
+
+37
+00:01:28,472 --> 00:01:30,847
+which we are connected via our terminal as
+
+38
+00:01:30,943 --> 00:01:32,243
+you saw before in the course.
+
+39
+00:01:32,950 --> 00:01:35,453
+And one tool we can use for this is SCP,
+
+40
+00:01:35,614 --> 00:01:37,347
+which is a command that should be available
+
+41
+00:01:37,459 --> 00:01:40,589
+by default on macOS and modern versions of
+
+42
+00:01:40,589 --> 00:01:40,958
+Windows.
+
+43
+00:01:41,536 --> 00:01:44,409
+On Windows, you could also use the WSL2
+
+44
+00:01:44,682 --> 00:01:47,121
+environment and spin up a terminal in there.
+
+45
+00:01:47,490 --> 00:01:50,588
+And SCP is simply the SSH
+
+46
+00:01:51,326 --> 00:01:53,698
+copy command in the end to copy a file
+
+47
+00:01:53,842 --> 00:01:55,396
+across SSH.
+
+48
+00:01:55,973 --> 00:01:58,040
+And SSH of course was the protocol we used
+
+49
+00:01:58,056 --> 00:02:00,444
+for connecting to our server. So that simply
+
+50
+00:02:00,492 --> 00:02:02,527
+is a command we can use for copying files
+
+51
+00:02:02,704 --> 00:02:03,729
+over SSH.
+
+52
+00:02:04,322 --> 00:02:06,213
+And if we wanted to use this here, we could
+
+53
+00:02:06,325 --> 00:02:08,745
+open a terminal in this project on our
+
+54
+00:02:08,745 --> 00:02:10,828
+machine. Here I'm using the one integrated
+
+55
+00:02:10,892 --> 00:02:12,863
+in Visual Studio Code, but you can use any
+
+56
+00:02:12,895 --> 00:02:15,443
+terminal of course. And then simply use the
+
+57
+00:02:15,523 --> 00:02:18,653
+SCP command here and then dot to point at
+
+58
+00:02:18,653 --> 00:02:20,437
+the folder in which we are, which is the
+
+59
+00:02:20,437 --> 00:02:21,963
+overall project folder here for me.
+
+60
+00:02:22,927 --> 00:02:23,441
+And then
+
+61
+00:02:24,197 --> 00:02:25,193
+as is also mentioned here,
+
+62
+00:02:25,803 --> 00:02:26,655
+point at our
+
+63
+00:02:27,571 --> 00:02:30,238
+remote host and then separated by a colon,
+
+64
+00:02:30,302 --> 00:02:33,018
+the path on that host where we wanna copy
+
+65
+00:02:33,066 --> 00:02:33,629
+the app to.
+
+66
+00:02:34,271 --> 00:02:37,131
+So of course I gave my host an alias earlier
+
+67
+00:02:37,147 --> 00:02:39,445
+in the course, it's vps-course,
+
+68
+00:02:40,120 --> 00:02:42,675
+the alias we set up in that SSH config file.
+
+69
+00:02:43,493 --> 00:02:43,862
+And then
+
+70
+00:02:44,520 --> 00:02:47,633
+the path separated by a colon could be the
+
+71
+00:02:47,729 --> 00:02:49,574
+root path of the user
+
+72
+00:02:50,376 --> 00:02:52,991
+we're connecting with, so the max user in my
+
+73
+00:02:53,039 --> 00:02:55,542
+case, and then any nested path of your
+
+74
+00:02:55,606 --> 00:02:57,997
+choice, or you copy it directly into this
+
+75
+00:02:57,997 --> 00:03:00,163
+path. And you will also need to add the
+
+76
+00:03:00,724 --> 00:03:01,735
+-r flag here
+
+77
+00:03:02,265 --> 00:03:04,190
+to make sure that this is copied
+
+78
+00:03:04,190 --> 00:03:06,340
+recursively, which you need to specify if
+
+79
+00:03:06,340 --> 00:03:09,323
+you're targeting a folder, and this is It's
+
+80
+00:03:09,323 --> 00:03:10,205
+my project folder.
+
+81
+00:03:11,231 --> 00:03:14,181
+So this now lists and copies all my files
+
+82
+00:03:14,357 --> 00:03:16,665
+over there, including all my dependencies.
+
+83
+00:03:17,178 --> 00:03:19,342
+So if you have a node_modules folder that
+
+84
+00:03:19,342 --> 00:03:21,475
+contains a lot of files in there and all of
+
+85
+00:03:21,507 --> 00:03:23,895
+them are copied and we will need them on the
+
+86
+00:03:23,895 --> 00:03:26,733
+remote server, but it would be easier if we
+
+87
+00:03:26,861 --> 00:03:27,021
+would
+
+88
+00:03:27,582 --> 00:03:30,420
+not copy them because they will actually be
+
+89
+00:03:30,788 --> 00:03:32,488
+created. All the dependencies will be
+
+90
+00:03:32,488 --> 00:03:34,379
+installed through our Dockerfile.
+
+91
+00:03:34,908 --> 00:03:36,126
+So I'll cancel this
+
+92
+00:03:37,297 --> 00:03:39,252
+and connect to my VPS. And there, if I run
+
+93
+00:03:39,445 --> 00:03:40,278
+ls, you see
+
+94
+00:03:40,839 --> 00:03:43,597
+I started copying files. So I will remove
+
+95
+00:03:43,869 --> 00:03:46,754
+the Dockerfile now with the rm command and
+
+96
+00:03:46,754 --> 00:03:47,283
+remove
+
+97
+00:03:47,957 --> 00:03:49,928
+node_modules, the folder, by also adding
+
+98
+00:03:50,602 --> 00:03:52,974
+-rf. That is the Linux command for removing
+
+99
+00:03:53,022 --> 00:03:53,503
+a folder.
+
+100
+00:03:54,705 --> 00:03:55,731
+So I'll do that here
+
+101
+00:03:56,597 --> 00:03:58,392
+and I'll copy again but without the
+
+102
+00:03:58,392 --> 00:04:00,637
+node_modules folder. So I'll delete the
+
+103
+00:04:00,637 --> 00:04:02,528
+node_modules folder on my system here. I
+
+104
+00:04:02,528 --> 00:04:04,676
+don't wanna copy these dependencies. And
+
+105
+00:04:04,676 --> 00:04:07,247
+I'll also specify VPS core here as a remote
+
+106
+00:04:07,360 --> 00:04:09,862
+path name here so that I copy these files
+
+107
+00:04:09,862 --> 00:04:11,541
+into a subfolder on my VPS.
+
+108
+00:04:13,559 --> 00:04:15,770
+Now with that, again, we copy all of that.
+
+109
+00:04:16,948 --> 00:04:19,223
+And now if I list my files here, I have my
+
+110
+00:04:19,223 --> 00:04:20,223
+VPS folder there.
+
+111
+00:04:21,707 --> 00:04:21,998
+I can
+
+112
+00:04:22,788 --> 00:04:25,256
+cd into it. And one thing I'll do here is
+
+113
+00:04:25,369 --> 00:04:26,252
+I'll remove the
+
+114
+00:04:27,200 --> 00:04:29,819
+.git folder with rm -rf because that was
+
+115
+00:04:29,996 --> 00:04:31,474
+also copied and I don't want it here.
+
+116
+00:04:32,245 --> 00:04:34,190
+But with that, I now got my project over
+
+117
+00:04:34,190 --> 00:04:35,106
+there on my VPS.
+
+118
+00:04:35,752 --> 00:04:37,563
+That's one way of getting it over there. As
+
+119
+00:04:37,595 --> 00:04:39,423
+you saw, it's maybe not the perfect way. We
+
+120
+00:04:39,423 --> 00:04:41,699
+had to do a couple of things to not copy too
+
+121
+00:04:41,699 --> 00:04:44,569
+much, but now the project is there on the
+
+122
+00:04:44,569 --> 00:04:45,210
+VPS.
+
+123
+00:04:45,835 --> 00:04:48,688
+An alternative to using this
+
+124
+00:04:49,602 --> 00:04:51,750
+SCP command, which has its issues as
+
+125
+00:04:51,846 --> 00:04:52,231
+mentioned,
+
+126
+00:04:52,808 --> 00:04:55,485
+is that you could use the rsync command.
+
+127
+00:04:55,950 --> 00:04:58,739
+This is a program that may not be installed
+
+128
+00:04:58,739 --> 00:05:00,022
+on your system though.
+
+129
+00:05:00,583 --> 00:05:01,769
+On Windows, you
+
+130
+00:05:02,346 --> 00:05:05,472
+may need to switch to your WSL2 environment
+
+131
+00:05:05,472 --> 00:05:07,299
+to have it available there or to install it.
+
+132
+00:05:08,358 --> 00:05:09,368
+But that is a more
+
+133
+00:05:09,897 --> 00:05:12,864
+versatile copy command that allows you to
+
+134
+00:05:12,864 --> 00:05:15,381
+specify which paths and folders should be
+
+135
+00:05:15,494 --> 00:05:16,841
+excluded when copying.
+
+136
+00:05:17,578 --> 00:05:20,368
+I also just noticed I, for example, copied
+
+137
+00:05:20,400 --> 00:05:23,030
+my data folder, which contained my SQLite
+
+138
+00:05:23,030 --> 00:05:25,548
+database from my development server, which I
+
+139
+00:05:25,548 --> 00:05:27,264
+of course also wouldn't want to have
+
+140
+00:05:27,921 --> 00:05:30,070
+on my remote server. I wanna have a brand
+
+141
+00:05:30,166 --> 00:05:30,856
+new database there.
+
+142
+00:05:31,449 --> 00:05:33,999
+So I will delete the data folder on the VPS.
+
+143
+00:05:34,512 --> 00:05:36,762
+Another disadvantage of SCP. You have to
+
+144
+00:05:36,762 --> 00:05:38,625
+clean up stuff you don't want to copy or
+
+145
+00:05:38,690 --> 00:05:41,324
+delete it before you start copying. rsync
+
+146
+00:05:41,324 --> 00:05:43,799
+gives you more flexibility. So if that tool
+
+147
+00:05:44,136 --> 00:05:44,827
+is available—
+
+148
+00:05:45,357 --> 00:05:47,044
+and don't worry if it's not, we'll have
+
+149
+00:05:47,044 --> 00:05:49,341
+another alternative thereafter— but if it is
+
+150
+00:05:49,550 --> 00:05:52,073
+available, you could use rsync for getting
+
+151
+00:05:52,105 --> 00:05:53,422
+your files onto the VPS.
+
+152
+00:05:54,290 --> 00:05:56,812
+So on the VPS, to show you rsync, I'll
+
+153
+00:05:57,407 --> 00:05:59,817
+get out of this folder and I'll remove this
+
+154
+00:05:59,817 --> 00:06:00,877
+VPS course folder.
+
+155
+00:06:01,985 --> 00:06:03,462
+And then use rsync here.
+
+156
+00:06:04,153 --> 00:06:04,602
+And actually,
+
+157
+00:06:05,678 --> 00:06:07,653
+we can just copy this command here, of
+
+158
+00:06:07,685 --> 00:06:09,676
+course, and then just fill in the blanks.
+
+159
+00:06:10,720 --> 00:06:11,442
+rsync
+
+160
+00:06:12,245 --> 00:06:15,039
+like this. And I wanna exclude node_modules,
+
+161
+00:06:15,135 --> 00:06:17,383
+I wanna exclude data and so on. But of
+
+162
+00:06:17,464 --> 00:06:20,884
+course, my target here is just VPS course,
+
+163
+00:06:21,012 --> 00:06:23,758
+my alias of my remote server I set up in the
+
+164
+00:06:23,758 --> 00:06:24,689
+SSH config.
+
+165
+00:06:27,651 --> 00:06:29,456
+Now with that, that was copied. It's also
+
+166
+00:06:29,472 --> 00:06:32,034
+way quicker, not just because it copies
+
+167
+00:06:32,211 --> 00:06:34,468
+less, but also because it compresses it
+
+168
+00:06:34,484 --> 00:06:36,360
+before copying, which is another advantage.
+
+169
+00:06:37,710 --> 00:06:39,532
+And now I got this folder here,
+
+170
+00:06:42,929 --> 00:06:44,847
+and if I cd into that folder,
+
+171
+00:06:45,589 --> 00:06:47,603
+you see there is no data folder in there, so
+
+172
+00:06:47,603 --> 00:06:49,554
+it's much cleaner. This is definitely better
+
+173
+00:06:49,554 --> 00:06:51,955
+than SCP if you have this command available.
+
+174
+00:06:52,834 --> 00:06:54,777
+The last and maybe best option though, the
+
+175
+00:06:54,777 --> 00:06:57,153
+most versatile one is to use Git.
+
+176
+00:06:57,956 --> 00:07:00,461
+If you're managing your project via Git, so
+
+177
+00:07:00,461 --> 00:07:04,170
+if you're using Git and you're linking it to
+
+178
+00:07:04,170 --> 00:07:05,406
+a remote repository,
+
+179
+00:07:05,985 --> 00:07:09,372
+you can clone it onto the VPS. And of course
+
+180
+00:07:09,372 --> 00:07:11,781
+the project I shared with you is in a public
+
+181
+00:07:11,781 --> 00:07:14,350
+repository. I pushed it to a public
+
+182
+00:07:14,350 --> 00:07:16,421
+repository so you can just use that.
+
+183
+00:07:17,946 --> 00:07:19,036
+And therefore I'll
+
+184
+00:07:19,564 --> 00:07:20,558
+move out of my folder here,
+
+185
+00:07:21,327 --> 00:07:22,112
+remove that
+
+186
+00:07:22,769 --> 00:07:23,490
+demo folder,
+
+187
+00:07:24,131 --> 00:07:26,791
+and now we can just use git clone. And Git
+
+188
+00:07:27,801 --> 00:07:29,548
+should be available on the VPS already. You
+
+189
+00:07:29,580 --> 00:07:31,599
+can try running Git and it should show some
+
+190
+00:07:31,663 --> 00:07:32,865
+info message like this.
+
+191
+00:07:33,746 --> 00:07:35,701
+Otherwise you need to install it with apt,
+
+192
+00:07:36,133 --> 00:07:38,425
+but it should really be available on all
+
+193
+00:07:38,617 --> 00:07:40,652
+Linux distributions. And then you can just
+
+194
+00:07:40,780 --> 00:07:41,293
+git clone.
+
+195
+00:07:41,854 --> 00:07:43,969
+So you can go to that repository I shared,
+
+196
+00:07:44,180 --> 00:07:45,582
+Again, you find it attached,
+
+197
+00:07:47,783 --> 00:07:50,053
+copy this HTTPS clone link here
+
+198
+00:07:52,130 --> 00:07:52,951
+and git clone it
+
+199
+00:07:54,142 --> 00:07:55,816
+and this will now also download it. And
+
+200
+00:07:55,913 --> 00:07:57,718
+that's of course the easiest way for getting
+
+201
+00:07:57,766 --> 00:07:59,708
+it onto your system. It's super easy in this
+
+202
+00:07:59,708 --> 00:08:01,229
+case where I already published it
+
+203
+00:08:01,828 --> 00:08:04,481
+for you. If that were your own project, you
+
+204
+00:08:04,546 --> 00:08:06,744
+would have to create your own repository and
+
+205
+00:08:07,146 --> 00:08:09,478
+clone it from there. If it's a private
+
+206
+00:08:09,478 --> 00:08:12,421
+repository, you will need a deploy key and
+
+207
+00:08:12,678 --> 00:08:13,740
+you find detailed instructions for that in
+
+208
+00:08:13,740 --> 00:08:14,029
+the next lecture.
+
+209
+00:08:16,030 --> 00:08:18,920
+How you could clone a private repository
+
+210
+00:08:19,016 --> 00:08:21,265
+onto your VPS because many of your projects
+
+211
+00:08:21,265 --> 00:08:23,127
+may of course be in such a private
+
+212
+00:08:23,127 --> 00:08:23,689
+repository.
+
+213
+00:08:24,332 --> 00:08:26,114
+But it's still worth knowing about the other
+
+214
+00:08:26,194 --> 00:08:28,073
+approaches too because if you just need to
+
+215
+00:08:28,089 --> 00:08:29,743
+quickly get some file onto
+
+216
+00:08:30,273 --> 00:08:31,044
+your VPS,
+
+217
+00:08:31,622 --> 00:08:34,465
+SCP or rsync can be great for that. And as
+
+218
+00:08:34,465 --> 00:08:36,504
+you saw, you can also use them for deploying
+
+219
+00:08:36,536 --> 00:08:37,387
+entire projects.

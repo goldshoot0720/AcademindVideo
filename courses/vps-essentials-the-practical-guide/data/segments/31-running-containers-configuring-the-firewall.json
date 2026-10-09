@@ -1,0 +1,1042 @@
+[
+ {
+  "start": 0.096,
+  "end": 3.259,
+  "en": "Okay, so now the project is on our VPS. How"
+ },
+ {
+  "start": 3.709,
+  "end": 4.399,
+  "en": "do we continue now?"
+ },
+ {
+  "start": 5.33,
+  "end": 8.092,
+  "en": "Well, as a next step, we have to make sure"
+ },
+ {
+  "start": 8.204,
+  "end": 10.195,
+  "en": "that we set up our environment variables"
+ },
+ {
+  "start": 10.388,
+  "end": 11.93,
+  "en": "because we'll need some, as I mentioned."
+ },
+ {
+  "start": 12.315,
+  "end": 15.237,
+  "en": "We'll need to make sure that we do let"
+ },
+ {
+  "start": 15.767,
+  "end": 18.304,
+  "en": "Docker and Traefik in the end know about"
+ },
+ {
+  "start": 18.336,
+  "end": 20.311,
+  "en": "which domain we're about to use so that it"
+ },
+ {
+  "start": 20.343,
+  "end": 23.233,
+  "en": "can request the right certificate and that"
+ },
+ {
+  "start": 23.233,
+  "end": 25.048,
+  "en": "we provide a valid email address."
+ },
+ {
+  "start": 26.207,
+  "end": 28.546,
+  "en": "To do that, we can follow the instructions I"
+ },
+ {
+  "start": 28.546,
+  "end": 30.384,
+  "en": "shared in this deployment.md file."
+ },
+ {
+  "start": 30.95,
+  "end": 32.126,
+  "en": "We wanna cd"
+ },
+ {
+  "start": 32.738,
+  "end": 34.365,
+  "en": "into our project"
+ },
+ {
+  "start": 35.332,
+  "end": 37.958,
+  "en": "and then we wanna copy the.env.example"
+ },
+ {
+  "start": 37.991,
+  "end": 39.07,
+  "en": "file, which you find in there."
+ },
+ {
+  "start": 41.647,
+  "end": 44.083,
+  "en": "And now you wanna edit this.env file"
+ },
+ {
+  "start": 44.083,
+  "end": 45.987,
+  "en": "because we're loading environment variables"
+ },
+ {
+  "start": 46.083,
+  "end": 46.793,
+  "en": "from that file."
+ },
+ {
+  "start": 47.471,
+  "end": 48.826,
+  "en": "We can do this with nano,"
+ },
+ {
+  "start": 49.39,
+  "end": 50.262,
+  "en": "nano.env,"
+ },
+ {
+  "start": 50.858,
+  "end": 52.912,
+  "en": "and you see It already has the environment"
+ },
+ {
+  "start": 52.912,
+  "end": 54.888,
+  "en": "variables filled in, but you need to bring"
+ },
+ {
+  "start": 55.097,
+  "end": 56.543,
+  "en": "your concrete values here."
+ },
+ {
+  "start": 57.202,
+  "end": 58.761,
+  "en": "So as mentioned, if you wanna follow along"
+ },
+ {
+  "start": 58.857,
+  "end": 59.837,
+  "en": "here, you'll need a domain."
+ },
+ {
+  "start": 60.496,
+  "end": 63.115,
+  "en": "So I'll buy a new domain here for this"
+ },
+ {
+  "start": 63.115,
+  "end": 64.995,
+  "en": "course. Obviously you don't need to do that."
+ },
+ {
+  "start": 65.301,
+  "end": 67.245,
+  "en": "You can also use one you got lying around."
+ },
+ {
+  "start": 67.711,
+  "end": 70.555,
+  "en": "vps-course is available, so I'll purchase"
+ },
+ {
+  "start": 70.603,
+  "end": 73.207,
+  "en": "that. And now that I did purchase it, I"
+ },
+ {
+  "start": 73.319,
+  "end": 76.42,
+  "en": "wanna manage its DNS entries, its DNS"
+ },
+ {
+  "start": 76.452,
+  "end": 76.999,
+  "en": "records."
+ },
+ {
+  "start": 77.592,
+  "end": 80.013,
+  "en": "To make sure that this domain actually"
+ },
+ {
+  "start": 80.141,
+  "end": 82.834,
+  "en": "routes to my VPS. Here I'm using Cloudflare."
+ },
+ {
+  "start": 83.106,
+  "end": 85.302,
+  "en": "Obviously you can use any registrar of your"
+ },
+ {
+  "start": 85.367,
+  "end": 87.931,
+  "en": "choice. Here on Cloudflare, I do this by"
+ },
+ {
+  "start": 88.476,
+  "end": 90.608,
+  "en": "going to the DNS records for the domain I"
+ },
+ {
+  "start": 90.656,
+  "end": 93.83,
+  "en": "just acquired, click Add Record, add an A"
+ },
+ {
+  "start": 93.862,
+  "end": 97.196,
+  "en": "record, and then add for root so that really"
+ },
+ {
+  "start": 97.212,
+  "end": 99.52,
+  "en": "the root domain points at a certain"
+ },
+ {
+  "start": 100.194,
+  "end": 104.201,
+  "en": "IPv4 address. I grab my server IPv4 address,"
+ },
+ {
+  "start": 105.389,
+  "end": 107.702,
+  "en": "Add that here. I am fine with proxying"
+ },
+ {
+  "start": 107.735,
+  "end": 109.582,
+  "en": "traffic through Cloudflare. This is a"
+ },
+ {
+  "start": 109.646,
+  "end": 111.365,
+  "en": "Cloudflare-specific setting. It's not too"
+ },
+ {
+  "start": 111.365,
+  "end": 113.759,
+  "en": "important, but it will actually make sure"
+ },
+ {
+  "start": 113.759,
+  "end": 116.12,
+  "en": "that the Cloudflare CDN is used for"
+ },
+ {
+  "start": 116.65,
+  "end": 119.43,
+  "en": "caching responses and potentially speeding"
+ },
+ {
+  "start": 119.606,
+  "end": 123.156,
+  "en": "up responses by my website to end users, as"
+ },
+ {
+  "start": 123.221,
+  "end": 125.727,
+  "en": "well as protecting against DDoS attacks. But"
+ },
+ {
+  "start": 125.952,
+  "end": 127.912,
+  "en": "that's not too important. The important part"
+ },
+ {
+  "start": 127.912,
+  "end": 130.257,
+  "en": "is that we have an A record for our domain"
+ },
+ {
+  "start": 130.386,
+  "end": 131.751,
+  "en": "pointing at our IP."
+ },
+ {
+  "start": 132.314,
+  "end": 132.989,
+  "en": "I save this"
+ },
+ {
+  "start": 134.742,
+  "end": 137.348,
+  "en": "and with that we know what our domain will"
+ },
+ {
+  "start": 137.38,
+  "end": 138.618,
+  "en": "be. So back here"
+ },
+ {
+  "start": 139.374,
+  "end": 141.191,
+  "en": "where I'm editing this.env file,"
+ },
+ {
+  "start": 143.208,
+  "end": 145.319,
+  "en": "I'll hook this up to vps-course"
+ },
+ {
+  "start": 146.318,
+  "end": 148.413,
+  "en": "and I'll also enter a valid email address"
+ },
+ {
+  "start": 148.429,
+  "end": 149.847,
+  "en": "which will be from another domain."
+ },
+ {
+  "start": 150.648,
+  "end": 151.812,
+  "en": "It just needs to be valid."
+ },
+ {
+  "start": 152.49,
+  "end": 155.044,
+  "en": "With that done, we can save this file and"
+ },
+ {
+  "start": 155.076,
+  "end": 158.324,
+  "en": "then as a next step, run docker-compose up"
+ },
+ {
+  "start": 158.389,
+  "end": 159.569,
+  "en": "-d --build,"
+ },
+ {
+  "start": 160.236,
+  "end": 162.303,
+  "en": "which will simply pick up our Docker Compose"
+ },
+ {
+  "start": 162.4,
+  "end": 162.544,
+  "en": "file"
+ },
+ {
+  "start": 163.121,
+  "end": 165.397,
+  "en": "and create these 2 containers, the Traefik"
+ },
+ {
+  "start": 165.525,
+  "end": 168.475,
+  "en": "container and the app container, which"
+ },
+ {
+  "start": 168.571,
+  "end": 169.869,
+  "en": "contains the actual web app."
+ },
+ {
+  "start": 170.575,
+  "end": 173.252,
+  "en": "By the way, here in those labels, in that"
+ },
+ {
+  "start": 173.252,
+  "end": 175.736,
+  "en": "metadata, which in the end configures how"
+ },
+ {
+  "start": 176.041,
+  "end": 177.804,
+  "en": "these containers are connected or how"
+ },
+ {
+  "start": 177.804,
+  "end": 178.381,
+  "en": "Traefik"
+ },
+ {
+  "start": 178.926,
+  "end": 182.613,
+  "en": "routes requests to our app server, you see"
+ },
+ {
+  "start": 182.693,
+  "end": 185.13,
+  "en": "that it's here where this app domain value"
+ },
+ {
+  "start": 185.418,
+  "end": 188.408,
+  "en": "we added to the.env file is injected and"
+ },
+ {
+  "start": 188.699,
+  "end": 192.169,
+  "en": "connects this certificate in the end to this"
+ },
+ {
+  "start": 192.331,
+  "end": 192.508,
+  "en": "app"
+ },
+ {
+  "start": 193.057,
+  "end": 195.624,
+  "en": "and where the email address is used, the"
+ },
+ {
+  "start": 195.721,
+  "end": 196.593,
+  "en": "Acme email address,"
+ },
+ {
+  "start": 198.31,
+  "end": 200.675,
+  "en": "which is also required for requesting that"
+ },
+ {
+  "start": 200.675,
+  "end": 202.116,
+  "en": "certificate. You don't need to change"
+ },
+ {
+  "start": 202.116,
+  "end": 204.125,
+  "en": "anything here. This is just how the things"
+ },
+ {
+  "start": 204.222,
+  "end": 205.161,
+  "en": "are linked up together."
+ },
+ {
+  "start": 206.515,
+  "end": 207.504,
+  "en": "So docker-compose"
+ },
+ {
+  "start": 208.168,
+  "end": 211.262,
+  "en": "up it is. We can copy this command, execute"
+ },
+ {
+  "start": 211.262,
+  "end": 213.741,
+  "en": "it inside of our project folder on the VPS."
+ },
+ {
+  "start": 213.854,
+  "end": 214.405,
+  "en": "That's important."
+ },
+ {
+  "start": 215.207,
+  "end": 217.519,
+  "en": "And you may be getting a permission denied"
+ },
+ {
+  "start": 218.017,
+  "end": 220.666,
+  "en": "error here because we're on a user"
+ },
+ {
+  "start": 221.309,
+  "end": 223.813,
+  "en": "that doesn't have root privileges by"
+ },
+ {
+  "start": 223.813,
+  "end": 226.623,
+  "en": "default. Of course, we can run sudo docker"
+ },
+ {
+  "start": 226.623,
+  "end": 229.337,
+  "en": "composer up though to overcome this. So if"
+ },
+ {
+  "start": 229.337,
+  "end": 230.477,
+  "en": "we run this command,"
+ },
+ {
+  "start": 231.119,
+  "end": 233.029,
+  "en": "you see now it works and now it's"
+ },
+ {
+  "start": 233.029,
+  "end": 234.876,
+  "en": "downloading that Traefik image, which I"
+ },
+ {
+  "start": 234.876,
+  "end": 236.787,
+  "en": "mentioned would be a prebuilt image."
+ },
+ {
+  "start": 237.477,
+  "end": 239.131,
+  "en": "It's building our own image based on the"
+ },
+ {
+  "start": 239.147,
+  "end": 241.395,
+  "en": "Dockerfile we shared, that was part of the"
+ },
+ {
+  "start": 241.395,
+  "end": 243.369,
+  "en": "project. That's what it's currently doing"
+ },
+ {
+  "start": 243.401,
+  "end": 243.626,
+  "en": "here."
+ },
+ {
+  "start": 244.284,
+  "end": 245.761,
+  "en": "And that can take a short while,"
+ },
+ {
+  "start": 246.436,
+  "end": 248.458,
+  "en": "but in the end it should be done, should"
+ },
+ {
+  "start": 248.458,
+  "end": 249.662,
+  "en": "finish without an error."
+ },
+ {
+  "start": 250.529,
+  "end": 251.878,
+  "en": "And you can thereafter"
+ },
+ {
+  "start": 252.857,
+  "end": 254.254,
+  "en": "run sudo docker"
+ },
+ {
+  "start": 255.442,
+  "end": 255.875,
+  "en": "ps"
+ },
+ {
+  "start": 256.726,
+  "end": 259.263,
+  "en": "and that will list running containers. And"
+ },
+ {
+  "start": 259.68,
+  "end": 261.912,
+  "en": "it's a bit hard to see here since I'm zoomed"
+ },
+ {
+  "start": 262.008,
+  "end": 263.726,
+  "en": "in quite a bit, but we got 2"
+ },
+ {
+  "start": 264.352,
+  "end": 266.76,
+  "en": "container IDs. We got 2 containers up and"
+ },
+ {
+  "start": 266.76,
+  "end": 268.815,
+  "en": "running, the Traefik container and our"
+ },
+ {
+  "start": 268.992,
+  "end": 270.035,
+  "en": "actual app container."
+ },
+ {
+  "start": 271.253,
+  "end": 273.449,
+  "en": "Now with those containers up and running,"
+ },
+ {
+  "start": 273.658,
+  "end": 275.517,
+  "en": "we're not entirely there yet though."
+ },
+ {
+  "start": 276.767,
+  "end": 279.091,
+  "en": "Our containers, specifically the traffic"
+ },
+ {
+  "start": 279.091,
+  "end": 281.736,
+  "en": "container, listen for traffic on certain"
+ },
+ {
+  "start": 281.736,
+  "end": 282.233,
+  "en": "ports,"
+ },
+ {
+  "start": 282.89,
+  "end": 287.554,
+  "en": "specifically on ports 80 and 443. 443 for"
+ },
+ {
+  "start": 287.762,
+  "end": 287.842,
+  "en": "the"
+ },
+ {
+  "start": 288.403,
+  "end": 290.102,
+  "en": "encrypted HTTPS traffic."
+ },
+ {
+  "start": 290.631,
+  "end": 293.292,
+  "en": "80 also must be kept open even though that"
+ },
+ {
+  "start": 293.292,
+  "end": 295.472,
+  "en": "is for unsecured traffic because whilst this"
+ },
+ {
+  "start": 295.536,
+  "end": 297.475,
+  "en": "will not be used to actually access our"
+ },
+ {
+  "start": 297.62,
+  "end": 300.906,
+  "en": "website, will do that via 443."
+ },
+ {
+  "start": 301.707,
+  "end": 303.951,
+  "en": "Whilst it will not be used for that, it must"
+ },
+ {
+  "start": 303.951,
+  "end": 306.981,
+  "en": "be open for Let's Encrypt to be able to"
+ },
+ {
+  "start": 306.997,
+  "end": 309.947,
+  "en": "verify that we own the domain we told it the"
+ },
+ {
+  "start": 309.947,
+  "end": 313.089,
+  "en": "certificate is for. They will send a request"
+ },
+ {
+  "start": 313.089,
+  "end": 313.602,
+  "en": "to this"
+ },
+ {
+  "start": 314.515,
+  "end": 316.423,
+  "en": "port here in the end and look for a certain"
+ },
+ {
+  "start": 316.439,
+  "end": 319.148,
+  "en": "file that is created by Traefik, so we don't"
+ },
+ {
+  "start": 319.148,
+  "end": 321.184,
+  "en": "need to worry about that. But the port must"
+ },
+ {
+  "start": 321.184,
+  "end": 323.508,
+  "en": "be open so that Let's Encrypt can verify"
+ },
+ {
+  "start": 323.749,
+  "end": 326.281,
+  "en": "that we own the domain, and only then will"
+ },
+ {
+  "start": 326.313,
+  "end": 328.766,
+  "en": "they issue the certificate. That's why both"
+ },
+ {
+  "start": 329.023,
+  "end": 330.85,
+  "en": "80 and 443 must be open. Open"
+ },
+ {
+  "start": 331.748,
+  "end": 334.216,
+  "en": "and our compose.yaml file, which configures"
+ },
+ {
+  "start": 334.313,
+  "end": 336.653,
+  "en": "how the Docker containers are started, takes"
+ },
+ {
+  "start": 336.653,
+  "end": 337.39,
+  "en": "care about that."
+ },
+ {
+  "start": 337.919,
+  "end": 340.308,
+  "en": "For the Traefik service, the Traefik reverse"
+ },
+ {
+  "start": 340.42,
+  "end": 343.274,
+  "en": "proxy, this entry here ensures that these"
+ },
+ {
+  "start": 343.45,
+  "end": 346.8,
+  "en": "ports are in the end open and forwarded into"
+ },
+ {
+  "start": 346.833,
+  "end": 348.211,
+  "en": "the container. But"
+ },
+ {
+  "start": 348.74,
+  "end": 350.407,
+  "en": "this has one important implication."
+ },
+ {
+  "start": 351.081,
+  "end": 353.758,
+  "en": "We also must make sure that the firewall"
+ },
+ {
+  "start": 353.79,
+  "end": 357.108,
+  "en": "that protects our VPS allows traffic through"
+ },
+ {
+  "start": 357.156,
+  "end": 359.048,
+  "en": "these ports. Otherwise, this is all"
+ },
+ {
+  "start": 359.401,
+  "end": 361.646,
+  "en": "pointless and worthless. It's nice that we"
+ },
+ {
+  "start": 361.742,
+  "end": 364.067,
+  "en": "listen for traffic on these ports. If our"
+ },
+ {
+  "start": 364.067,
+  "end": 367.114,
+  "en": "firewall blocks access to these ports,"
+ },
+ {
+  "start": 367.739,
+  "end": 370.096,
+  "en": "there is no way for traffic to reach our"
+ },
+ {
+  "start": 370.096,
+  "end": 372.854,
+  "en": "server, neither for the Let's Encrypt"
+ },
+ {
+  "start": 373.271,
+  "end": 376.51,
+  "en": "verification request nor for the regular web"
+ },
+ {
+  "start": 376.558,
+  "end": 377.792,
+  "en": "traffic we wanna handle."
+ },
+ {
+  "start": 378.979,
+  "end": 381.256,
+  "en": "And therefore, we wanna open up these ports."
+ },
+ {
+  "start": 381.544,
+  "end": 383.757,
+  "en": "Now, if you're using UFW, which I mentioned"
+ },
+ {
+  "start": 383.869,
+  "end": 384.254,
+  "en": "earlier,"
+ },
+ {
+  "start": 385.136,
+  "end": 388.089,
+  "en": "You could add rules that open up these"
+ },
+ {
+  "start": 388.202,
+  "end": 390.882,
+  "en": "ports, but there actually is an issue here."
+ },
+ {
+  "start": 391.732,
+  "end": 394.926,
+  "en": "When using Docker, they themselves mention"
+ },
+ {
+  "start": 394.926,
+  "end": 397.189,
+  "en": "in their docs that if you're using UFW"
+ },
+ {
+  "start": 398.329,
+  "end": 400.704,
+  "en": "to manage firewall settings, you must be"
+ },
+ {
+  "start": 400.72,
+  "end": 400.993,
+  "en": "aware"
+ },
+ {
+  "start": 401.603,
+  "end": 403.657,
+  "en": "that if you expose container ports using"
+ },
+ {
+  "start": 403.769,
+  "end": 406.77,
+  "en": "Docker, these ports bypass your firewall"
+ },
+ {
+  "start": 406.819,
+  "end": 410.285,
+  "en": "rules simply due to how Docker and UFW work"
+ },
+ {
+  "start": 410.333,
+  "end": 410.879,
+  "en": "internally."
+ },
+ {
+  "start": 411.649,
+  "end": 413.367,
+  "en": "So put in other words, you don't really need"
+ },
+ {
+  "start": 413.399,
+  "end": 416.897,
+  "en": "to open those ports with UFW because using"
+ },
+ {
+  "start": 416.93,
+  "end": 418.823,
+  "en": "Docker already does that."
+ },
+ {
+  "start": 419.497,
+  "end": 422.21,
+  "en": "In my case here, however, I'm using the"
+ },
+ {
+  "start": 422.21,
+  "end": 424.842,
+  "en": "Hetzner firewall though. And there I have"
+ },
+ {
+  "start": 424.874,
+  "end": 427.265,
+  "en": "not opened up these ports yet. And that"
+ },
+ {
+  "start": 427.265,
+  "end": 430.138,
+  "en": "firewall sits in front of my VPS, is not"
+ },
+ {
+  "start": 430.234,
+  "end": 432.497,
+  "en": "overwritten by Docker, and therefore must be"
+ },
+ {
+  "start": 432.497,
+  "end": 435.306,
+  "en": "adjusted. And if you are using Hetzner or"
+ },
+ {
+  "start": 435.306,
+  "end": 436.814,
+  "en": "some other provider that has a"
+ },
+ {
+  "start": 436.814,
+  "end": 440.04,
+  "en": "provider-specific firewall, you must do that"
+ },
+ {
+  "start": 440.04,
+  "end": 440.185,
+  "en": "too."
+ },
+ {
+  "start": 440.78,
+  "end": 443.807,
+  "en": "So you wanna allow traffic from any IPv4 and"
+ },
+ {
+  "start": 443.887,
+  "end": 446.222,
+  "en": "IPv6 address via TCP"
+ },
+ {
+  "start": 446.801,
+  "end": 447.494,
+  "en": "to port 80."
+ },
+ {
+  "start": 449.281,
+  "end": 452.81,
+  "en": "And you wanna do the same for port 443 for"
+ },
+ {
+  "start": 452.924,
+  "end": 453.475,
+  "en": "HTTPS."
+ },
+ {
+  "start": 454.221,
+  "end": 455.583,
+  "en": "You have to save these changes."
+ },
+ {
+  "start": 457.402,
+  "end": 460.23,
+  "en": "And on the VPS, you can actually disable UFW"
+ },
+ {
+  "start": 460.471,
+  "end": 462.897,
+  "en": "if you are using such an extra firewall."
+ },
+ {
+  "start": 463.668,
+  "end": 467.049,
+  "en": "The problem is that of course I did start my"
+ },
+ {
+  "start": 467.049,
+  "end": 468.629,
+  "en": "Docker container before I"
+ },
+ {
+  "start": 469.188,
+  "end": 470.077,
+  "en": "opened up my ports. So in case you did that"
+ },
+ {
+  "start": 470.126,
+  "end": 470.225,
+  "en": "too,"
+ },
+ {
+  "start": 472.106,
+  "end": 474.82,
+  "en": "you can restart it with sudo docker compose"
+ },
+ {
+  "start": 475.719,
+  "end": 478.24,
+  "en": "restart traffic. Traffic is the name of that"
+ },
+ {
+  "start": 478.24,
+  "end": 480.279,
+  "en": "specific service I wanna restart. And if you"
+ },
+ {
+  "start": 480.311,
+  "end": 482.158,
+  "en": "run that, it does just what the name implies"
+ },
+ {
+  "start": 482.158,
+  "end": 485.048,
+  "en": "and that should trigger a new certificate"
+ },
+ {
+  "start": 485.449,
+  "end": 488.002,
+  "en": "request and that should then work since we"
+ },
+ {
+  "start": 488.002,
+  "end": 489.046,
+  "en": "did open up that port."
+ },
+ {
+  "start": 489.688,
+  "end": 491.567,
+  "en": "And with that done, you should be able to"
+ },
+ {
+  "start": 491.567,
+  "end": 492.001,
+  "en": "visit"
+ },
+ {
+  "start": 492.579,
+  "end": 494.794,
+  "en": "your domain, in my case, vpscourse.com"
+ },
+ {
+  "start": 495.79,
+  "end": 496.898,
+  "en": "and see your site."
+ },
+ {
+  "start": 498.296,
+  "end": 500.452,
+  "en": "And I should also be able to submit an idea."
+ },
+ {
+  "start": 501.014,
+  "end": 501.722,
+  "en": "And that works."
+ },
+ {
+  "start": 503.202,
+  "end": 505.389,
+  "en": "And this is how you can deploy a web"
+ },
+ {
+  "start": 505.389,
+  "end": 508.88,
+  "en": "application with Docker with HTTPS support"
+ },
+ {
+  "start": 509.459,
+  "end": 510.761,
+  "en": "onto a VPS."
+ }
+]

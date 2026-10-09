@@ -1,0 +1,227 @@
+1
+00:00:00,048 --> 00:00:02,340
+So we had a look at Bun for adding and
+
+2
+00:00:02,340 --> 00:00:04,985
+managing dependencies, for running code and
+
+3
+00:00:04,985 --> 00:00:07,310
+for using certain Bun runtime features and
+
+4
+00:00:07,310 --> 00:00:08,689
+also as a test runner.
+
+5
+00:00:09,314 --> 00:00:11,286
+Now it's worth noting that you can also
+
+6
+00:00:11,334 --> 00:00:14,188
+configure the behavior of Bun in a given
+
+7
+00:00:14,284 --> 00:00:17,378
+project by adding a bunfig.toml file.
+
+8
+00:00:18,052 --> 00:00:22,204
+Now in that file, you can configure lots of
+
+9
+00:00:22,717 --> 00:00:24,961
+things and it's also worth pointing out that
+
+10
+00:00:24,961 --> 00:00:28,039
+you can also store a global bunfig.toml file
+
+11
+00:00:28,232 --> 00:00:30,476
+in your user's home folder. Or a
+
+12
+00:00:30,476 --> 00:00:33,377
+project-specific bunfig.toml file as I just
+
+13
+00:00:33,377 --> 00:00:33,666
+did it.
+
+14
+00:00:34,243 --> 00:00:37,272
+And as mentioned, you can configure lots of
+
+15
+00:00:37,609 --> 00:00:38,699
+things in there. Now,
+
+16
+00:00:39,228 --> 00:00:41,889
+the default settings of course typically are
+
+17
+00:00:42,097 --> 00:00:44,566
+just fine. You don't need to tweak things
+
+18
+00:00:44,662 --> 00:00:44,790
+here.
+
+19
+00:00:45,399 --> 00:00:48,252
+But one setting I, for example, do like to
+
+20
+00:00:48,268 --> 00:00:50,785
+tweak is related to package management.
+
+21
+00:00:51,105 --> 00:00:52,019
+Specifically,
+
+22
+00:00:52,676 --> 00:00:53,606
+I want to
+
+23
+00:00:54,295 --> 00:00:57,581
+ensure that ignore scripts is set to true,
+
+24
+00:00:57,870 --> 00:00:59,762
+which is the default, but if that ever
+
+25
+00:00:59,762 --> 00:01:01,654
+should change, I wanna make sure that it,
+
+26
+00:01:02,135 --> 00:01:03,562
+well, goes back to
+
+27
+00:01:04,156 --> 00:01:06,706
+disabled. So I'll set ignore scripts to
+
+28
+00:01:06,706 --> 00:01:07,058
+true.
+
+29
+00:01:07,604 --> 00:01:10,314
+And that simply ensures that any scripts
+
+30
+00:01:10,314 --> 00:01:12,543
+that come attached to dependencies I install
+
+31
+00:01:13,040 --> 00:01:15,510
+are ignored, are not executed, which as
+
+32
+00:01:15,542 --> 00:01:17,546
+mentioned earlier, can help you protect
+
+33
+00:01:17,546 --> 00:01:19,342
+against certain kinds of supply chain
+
+34
+00:01:19,390 --> 00:01:19,839
+attacks.
+
+35
+00:01:20,978 --> 00:01:25,276
+In addition, there is the minimum release
+
+36
+00:01:25,468 --> 00:01:28,499
+age setting here, which I also like to add.
+
+37
+00:01:29,076 --> 00:01:32,152
+This ensures that whenever I run bun update
+
+38
+00:01:32,360 --> 00:01:33,546
+or I add a package,
+
+39
+00:01:34,122 --> 00:01:37,070
+it actually does not install or update to
+
+40
+00:01:37,166 --> 00:01:39,505
+the very latest version, even if that is a
+
+41
+00:01:39,505 --> 00:01:43,238
+safe minor or patch release, but instead it
+
+42
+00:01:43,414 --> 00:01:46,089
+only updates to or installs a package
+
+43
+00:01:46,218 --> 00:01:50,303
+version that is at least that old. And that
+
+44
+00:01:50,383 --> 00:01:54,692
+is in seconds. This here is 3 days. So if
+
+45
+00:01:54,724 --> 00:01:57,063
+there is a supply chain attack, for example,
+
+46
+00:01:57,127 --> 00:02:00,524
+going on right now and I run bun add, I'll
+
+47
+00:02:00,893 --> 00:02:03,153
+not be hit because I'm not installing the
+
+48
+00:02:03,153 --> 00:02:04,868
+malicious version of the package, which
+
+49
+00:02:04,900 --> 00:02:06,039
+might be live right now.
+
+50
+00:02:06,728 --> 00:02:09,838
+I only install slightly older versions. And
+
+51
+00:02:09,870 --> 00:02:12,163
+since supply chain attacks are typically
+
+52
+00:02:12,195 --> 00:02:13,317
+caught pretty quickly,
+
+53
+00:02:13,862 --> 00:02:16,363
+only installing versions that are at least 3
+
+54
+00:02:16,363 --> 00:02:19,489
+days old should be another great layer that
+
+55
+00:02:19,489 --> 00:02:21,877
+protects me against supply chain attacks. So
+
+56
+00:02:21,974 --> 00:02:23,625
+that's also something worth knowing about,
+
+57
+00:02:23,897 --> 00:02:25,805
+which I like to add to my projects.

@@ -1,0 +1,457 @@
+[
+ {
+  "start": 2.215,
+  "end": 5.346,
+  "en": "So there are 2 things I'd like to add here"
+ },
+ {
+  "start": 6.117,
+  "end": 9.714,
+  "en": "to improve this event creation process, if"
+ },
+ {
+  "start": 9.73,
+  "end": 10.741,
+  "en": "you wanna call it like this."
+ },
+ {
+  "start": 12.235,
+  "end": 14.772,
+  "en": "And the first thing is that I want to"
+ },
+ {
+  "start": 14.804,
+  "end": 17.292,
+  "en": "validate the submitted data here when I"
+ },
+ {
+  "start": 17.292,
+  "end": 19.653,
+  "en": "create an event, for example, before I call"
+ },
+ {
+  "start": 19.781,
+  "end": 22.109,
+  "en": "createEvent where the data gets stored in"
+ },
+ {
+  "start": 22.109,
+  "end": 24.614,
+  "en": "the database. It should be validated first."
+ },
+ {
+  "start": 26.606,
+  "end": 28.469,
+  "en": "In a second step thereafter, I wanna make"
+ },
+ {
+  "start": 28.517,
+  "end": 31.152,
+  "en": "sure that all these event routes are only"
+ },
+ {
+  "start": 31.2,
+  "end": 32.501,
+  "en": "accessible for"
+ },
+ {
+  "start": 33.256,
+  "end": 34.204,
+  "en": "authenticated users."
+ },
+ {
+  "start": 35.441,
+  "end": 38.011,
+  "en": "So users who have such a token, if you"
+ },
+ {
+  "start": 38.011,
+  "end": 40.63,
+  "en": "remember that, this JSON Web Token, we will"
+ },
+ {
+  "start": 40.742,
+  "end": 41.545,
+  "en": "need it soon."
+ },
+ {
+  "start": 42.911,
+  "end": 45.288,
+  "en": "But first I'll start with validation."
+ },
+ {
+  "start": 46.782,
+  "end": 48.308,
+  "en": "And for that I'll highlight this code"
+ },
+ {
+  "start": 49.095,
+  "end": 52.437,
+  "en": "and I'll ask Copilot to add validation to"
+ },
+ {
+  "start": 52.453,
+  "end": 54.774,
+  "en": "ensure title, description,"
+ },
+ {
+  "start": 55.516,
+  "end": 58.648,
+  "en": "address, and date are all not empty,"
+ },
+ {
+  "start": 60.359,
+  "end": 63.602,
+  "en": "also not just a bunch of blanks,"
+ },
+ {
+  "start": 64.392,
+  "end": 65.666,
+  "en": "and valid values."
+ },
+ {
+  "start": 67.376,
+  "end": 70.07,
+  "en": "Let's see what we get by sending this to the"
+ },
+ {
+  "start": 70.2,
+  "end": 70.394,
+  "en": "AI."
+ },
+ {
+  "start": 74.429,
+  "end": 76.47,
+  "en": "That looks pretty good. We check if title,"
+ },
+ {
+  "start": 76.487,
+  "end": 78.885,
+  "en": "description, and so on are empty or just a"
+ },
+ {
+  "start": 78.885,
+  "end": 81.442,
+  "en": "bunch of blank strings, just a bunch of"
+ },
+ {
+  "start": 81.491,
+  "end": 81.834,
+  "en": "blanks."
+ },
+ {
+  "start": 82.56,
+  "end": 85.519,
+  "en": "For the date, we also try to convert this to"
+ },
+ {
+  "start": 85.519,
+  "end": 86.392,
+  "en": "a date object"
+ },
+ {
+  "start": 87.54,
+  "end": 89.772,
+  "en": "or parse it as a date and check whether that"
+ },
+ {
+  "start": 89.772,
+  "end": 91.098,
+  "en": "worked and send back"
+ },
+ {
+  "start": 91.971,
+  "end": 94.64,
+  "en": "an error response if we got invalid input"
+ },
+ {
+  "start": 94.64,
+  "end": 94.867,
+  "en": "data."
+ },
+ {
+  "start": 96.743,
+  "end": 97.52,
+  "en": "That's looking good."
+ },
+ {
+  "start": 98.684,
+  "end": 99.509,
+  "en": "We also"
+ },
+ {
+  "start": 100.302,
+  "end": 102.547,
+  "en": "trim the data before sending it to the"
+ },
+ {
+  "start": 102.547,
+  "end": 105.194,
+  "en": "database to remove excess whitespace, which"
+ },
+ {
+  "start": 105.452,
+  "end": 106.598,
+  "en": "also makes sense, I'd say."
+ },
+ {
+  "start": 108.131,
+  "end": 108.905,
+  "en": "So let's accept this"
+ },
+ {
+  "start": 109.889,
+  "end": 111.165,
+  "en": "and with that change made,"
+ },
+ {
+  "start": 112.23,
+  "end": 113.182,
+  "en": "Let's try sending"
+ },
+ {
+  "start": 114.44,
+  "end": 117.489,
+  "en": "a POST request to /events without any event"
+ },
+ {
+  "start": 117.489,
+  "end": 118.135,
+  "en": "data again."
+ },
+ {
+  "start": 120.16,
+  "end": 123.005,
+  "en": "And this time we get back invalid input data"
+ },
+ {
+  "start": 123.086,
+  "end": 123.636,
+  "en": "as we should."
+ },
+ {
+  "start": 125.188,
+  "end": 127.048,
+  "en": "The fix now is to send"
+ },
+ {
+  "start": 127.695,
+  "end": 128.049,
+  "en": "a body"
+ },
+ {
+  "start": 129.0,
+  "end": 131.302,
+  "en": "with JSON data attached to it."
+ },
+ {
+  "start": 132.446,
+  "end": 135.023,
+  "en": "And there we now should have a title"
+ },
+ {
+  "start": 136.327,
+  "end": 137.961,
+  "en": "like a test event test event,"
+ },
+ {
+  "start": 139.481,
+  "end": 139.497,
+  "en": "uh,"
+ },
+ {
+  "start": 140.047,
+  "end": 140.678,
+  "en": "description"
+ },
+ {
+  "start": 141.599,
+  "end": 141.987,
+  "en": "like"
+ },
+ {
+  "start": 142.586,
+  "end": 143.071,
+  "en": "testing."
+ },
+ {
+  "start": 144.817,
+  "end": 146.596,
+  "en": "And if I send this, I should still get an"
+ },
+ {
+  "start": 146.596,
+  "end": 148.208,
+  "en": "error because that's not all the data we"
+ },
+ {
+  "start": 148.208,
+  "end": 149.481,
+  "en": "need, because we also need"
+ },
+ {
+  "start": 150.078,
+  "end": 150.803,
+  "en": "an address."
+ },
+ {
+  "start": 151.69,
+  "end": 153.608,
+  "en": "And let's try sending a bunch of blanks"
+ },
+ {
+  "start": 153.608,
+  "end": 154.897,
+  "en": "here. That should not work."
+ },
+ {
+  "start": 156.831,
+  "end": 157.588,
+  "en": "And a date."
+ },
+ {
+  "start": 159.006,
+  "end": 159.538,
+  "en": "And here"
+ },
+ {
+  "start": 160.086,
+  "end": 162.809,
+  "en": "I'll send something like, uh,"
+ },
+ {
+  "start": 165.444,
+  "end": 168.017,
+  "en": "2025, somewhere in July, let's say,"
+ },
+ {
+  "start": 169.111,
+  "end": 169.481,
+  "en": "and then"
+ },
+ {
+  "start": 172.729,
+  "end": 173.277,
+  "en": "something like that."
+ },
+ {
+  "start": 174.432,
+  "end": 175.164,
+  "en": "Let's send this."
+ },
+ {
+  "start": 175.977,
+  "end": 177.945,
+  "en": "Invalid input data because the address is"
+ },
+ {
+  "start": 178.075,
+  "end": 180.378,
+  "en": "invalid. So let's put in a valid address,"
+ },
+ {
+  "start": 180.685,
+  "end": 183.078,
+  "en": "Test Street 5, Test"
+ },
+ {
+  "start": 183.693,
+  "end": 184.615,
+  "en": "City 5,"
+ },
+ {
+  "start": 186.571,
+  "end": 189.069,
+  "en": "and that looks better, and that data was now"
+ },
+ {
+  "start": 189.126,
+  "end": 189.465,
+  "en": "stored."
+ },
+ {
+  "start": 191.387,
+  "end": 194.165,
+  "en": "Now you might still be able to catch some"
+ },
+ {
+  "start": 194.213,
+  "end": 195.295,
+  "en": "niche cases where"
+ },
+ {
+  "start": 195.909,
+  "end": 197.766,
+  "en": "data is stored that maybe shouldn't be"
+ },
+ {
+  "start": 197.766,
+  "end": 199.753,
+  "en": "stored, that's not really"
+ },
+ {
+  "start": 200.433,
+  "end": 202.665,
+  "en": "appropriate as a title, for example."
+ },
+ {
+  "start": 204.218,
+  "end": 206.58,
+  "en": "You could enforce a maximum length for the"
+ },
+ {
+  "start": 206.645,
+  "end": 208.65,
+  "en": "title. You could definitely tweak the code,"
+ },
+ {
+  "start": 208.843,
+  "end": 211.627,
+  "en": "but this demo of course is not so much about"
+ },
+ {
+  "start": 211.643,
+  "end": 214.137,
+  "en": "the app. Instead, it is about building the"
+ },
+ {
+  "start": 214.137,
+  "end": 216.852,
+  "en": "app with help of AI. And therefore I'm happy"
+ },
+ {
+  "start": 216.952,
+  "end": 218.246,
+  "en": "with this solution here."
+ },
+ {
+  "start": 220.92,
+  "end": 223.147,
+  "en": "And hence the next step for me is to"
+ },
+ {
+  "start": 223.938,
+  "end": 226.52,
+  "en": "make sure that we also perform validation"
+ },
+ {
+  "start": 226.52,
+  "end": 229.748,
+  "en": "here when we edit an event and that then we"
+ },
+ {
+  "start": 229.813,
+  "end": 232.289,
+  "en": "also enforce that only authenticated users"
+ },
+ {
+  "start": 232.626,
+  "end": 235.68,
+  "en": "can visit these event routes or at least the"
+ },
+ {
+  "start": 235.68,
+  "end": 238.878,
+  "en": "routes where we create or change events."
+ }
+]

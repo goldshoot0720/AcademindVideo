@@ -1,0 +1,384 @@
+1
+00:00:00,096 --> 00:00:02,086
+No matter what you're building with Bun,
+無論您用 Bun 建置什麼，
+
+2
+00:00:02,760 --> 00:00:04,959
+chances are that your application or tool
+您的應用程式或工具很可能
+
+3
+00:00:05,167 --> 00:00:07,623
+needs some environment variables or uses
+需要一些環境變數或用途
+
+4
+00:00:07,751 --> 00:00:09,982
+some environment variables. And turns out
+一些環境變數。事實證明
+
+5
+00:00:10,383 --> 00:00:13,561
+Bun makes using such variables and loading
+Bun 使用此類變數並載入
+
+6
+00:00:13,593 --> 00:00:17,028
+them into the program a breeze too. No extra
+他們也輕易地進入了該計劃。沒有額外的
+
+7
+00:00:17,028 --> 00:00:19,242
+packages or dependencies are needed. It's
+需要套件或相依性。它是
+
+8
+00:00:19,435 --> 00:00:22,468
+all built in. And to show this feature, I'm
+全部內建。為了展示這個功能，我
+
+9
+00:00:23,126 --> 00:00:25,309
+back in a new project, which isn't that new.
+回到一個新專案，這並不是什麼新鮮事。
+
+10
+00:00:25,454 --> 00:00:28,567
+It's that SQLite project I showed you in an
+這是我在一篇文章中向您展示的 SQLite 專案
+
+11
+00:00:28,760 --> 00:00:31,164
+earlier lesson. Lecture, but now there is a
+前面的課。講座，但現在有一個
+
+12
+00:00:31,645 --> 00:00:33,696
+.env file in there, as you may have it in
+.env 檔案在那裡，因為你可能有它
+
+13
+00:00:33,872 --> 00:00:37,206
+many projects. And in that.env file, I
+許多專案。在那個.env 檔案中，我
+
+14
+00:00:37,254 --> 00:00:40,266
+store my DB path to make that easily
+儲存我的資料庫路徑以便輕鬆實現
+
+15
+00:00:40,298 --> 00:00:42,798
+configurable and also so that if I were to
+可設定，而且如果我要的話
+
+16
+00:00:42,846 --> 00:00:45,811
+deploy this application, I could set this
+部署這個應用程式，我可以設定這個
+
+17
+00:00:45,811 --> 00:00:48,038
+environment variable on the host I deploy it
+我部署的主機上的環境變數
+
+18
+00:00:48,070 --> 00:00:51,099
+to, to easily control where that database
+to，輕鬆控制該資料庫的位置
+
+19
+00:00:51,099 --> 00:00:53,743
+file would be stored on that host where the
+檔案將儲存在該主機上
+
+20
+00:00:53,759 --> 00:00:56,293
+app may be deployed to. Now, this is of
+應用程式可以部署到。現在，這是
+
+21
+00:00:56,309 --> 00:00:59,263
+course not Bun exclusive or specific, but in
+當然不是Bun獨有或特定的，但在
+
+22
+00:00:59,279 --> 00:00:59,953
+the past, you
+過去的你
+
+23
+00:01:00,483 --> 00:01:02,715
+may have used extra packages for loading
+可能使用了額外的套件來載入
+
+24
+00:01:02,747 --> 00:01:05,284
+that file. You also may have extra files
+那個檔案。您還可能有額外的檔案
+
+25
+00:01:05,460 --> 00:01:07,740
+like.env.local to have different
+like.env.local 有不同的
+
+26
+00:01:07,740 --> 00:01:09,683
+environment variables locally than you may
+環境變數可能比您本地的要多
+
+27
+00:01:09,715 --> 00:01:12,043
+have on the staging server or the production
+在登台伺服器或生產伺服器上
+
+28
+00:01:12,043 --> 00:01:14,211
+server. So things like that is also
+伺服器.所以類似的事情也是
+
+29
+00:01:14,211 --> 00:01:16,073
+something you may have or want.
+您可能擁有或想要的東西。
+
+30
+00:01:16,940 --> 00:01:20,216
+And when using Bun, those files are found
+使用Bun時，可以找到這些檔案
+
+31
+00:01:20,328 --> 00:01:22,656
+and loaded automatically. So if you have a
+並自動載入。所以如果你有一個
+
+32
+00:01:22,961 --> 00:01:25,658
+.env file or a.env.local file in your
+.env 檔案或 .env.local 檔案
+
+33
+00:01:25,771 --> 00:01:28,882
+project folder, Bun will find and load them
+專案資料夾，Bun會找到並載入它們
+
+34
+00:01:28,995 --> 00:01:29,788
+automatically
+自動地
+
+35
+00:01:31,098 --> 00:01:33,103
+when you run bun run
+當你跑包子跑時
+
+36
+00:01:33,701 --> 00:01:36,531
+and then run your program. If you don't want
+然後運行你的程式。如果你不想
+
+37
+00:01:36,531 --> 00:01:38,517
+to load those files for whatever reason, you
+無論出於何種原因載入這些檔案，您
+
+38
+00:01:38,533 --> 00:01:39,115
+could add
+可以添加
+
+39
+00:01:40,180 --> 00:01:41,811
+--no-env-file
+--無環境檔案
+
+40
+00:01:42,667 --> 00:01:44,992
+and then run your program. So that would
+然後運行你的程式。這樣就可以
+
+41
+00:01:44,992 --> 00:01:45,315
+work.
+工作。
+
+42
+00:01:45,932 --> 00:01:48,440
+And if you have specific files that aren't
+如果您有特定的檔案不是
+
+43
+00:01:48,440 --> 00:01:51,192
+picked up by Bun, you can run bun run
+被包子撿到，你可以跑包子跑
+
+44
+00:01:51,192 --> 00:01:55,184
+--env-file And you can add that flag
+--env-file 你可以加入該標誌
+
+45
+00:01:55,184 --> 00:01:56,995
+multiple times if you have multiple files
+如果您有多個檔案，請多次
+
+46
+00:01:57,508 --> 00:01:59,560
+and then point at the file you wanna load.
+然後指向您要載入的檔案。
+
+47
+00:01:59,993 --> 00:02:02,606
+But here I'm pointing at.env and this is
+但這裡我指的是.env，這是
+
+48
+00:02:02,638 --> 00:02:04,353
+not needed because as mentioned, this file
+不需要，因為如上所述，該檔案
+
+49
+00:02:04,545 --> 00:02:06,597
+will be found automatically. Still, you can
+會自動找到。不過，你可以
+
+50
+00:02:06,645 --> 00:02:08,713
+of course do it if you wanna be extra
+當然，如果你想額外的話就這樣做
+
+51
+00:02:08,713 --> 00:02:10,140
+explicit and clear about it.
+明確且清楚地說明這一點。
+
+52
+00:02:11,518 --> 00:02:14,789
+Now in my program in dbts, I'm then using
+現在在 dbts 的程式中，我使用
+
+53
+00:02:14,965 --> 00:02:18,139
+values from that.env file. I'm getting my
+that.env 檔案中的值。我得到我的
+
+54
+00:02:18,251 --> 00:02:21,056
+DB_PATH and I do that with the same syntax
+DB_PATH 和我使用相同的語法來做到這一點
+
+55
+00:02:21,056 --> 00:02:24,455
+you may know from Node.js using process.env
+你可能知道 Node.js 使用 process.env
+
+56
+00:02:24,519 --> 00:02:25,994
+and then the name of the environment
+然後是環境的名稱
+
+57
+00:02:25,962 --> 00:02:28,092
+variable I'm interested in and that of
+我感興趣的變數以及
+
+58
+00:02:28,125 --> 00:02:31,794
+course in my case is the DB_PATH env var I'm
+當然在我的例子中是 DB_PATH 環境變數
+
+59
+00:02:31,794 --> 00:02:32,370
+setting here.
+設定在這裡。
+
+60
+00:02:33,332 --> 00:02:35,815
+Bun also offers alternative syntaxes you
+Bun 也為您提供了替代語法
+
+61
+00:02:35,815 --> 00:02:37,898
+could use. You could also load environment
+可以使用。您也可以載入環境
+
+62
+00:02:37,898 --> 00:02:39,756
+variables through its bun.env
+透過它的bun.env變數
+
+63
+00:02:40,766 --> 00:02:43,201
+feature, its bun.env property. That is
+功能，其bun.env 屬性。那是
+
+64
+00:02:43,201 --> 00:02:45,508
+simply an alternative to using process.env
+只是使用 process.env 的替代方法
+
+65
+00:02:46,053 --> 00:02:50,091
+or the more modern import.meta.env but all 3
+或更現代的 import.meta.env 但全部 3 個
+
+66
+00:02:50,091 --> 00:02:52,157
+approaches will yield the same result. They
+方法將產生相同的結果。他們
+
+67
+00:02:52,157 --> 00:02:54,048
+give you that environment variable which I'm
+給你我的環境變數
+
+68
+00:02:54,160 --> 00:02:54,849
+then using here.
+然後在這裡使用。
+
+69
+00:02:55,443 --> 00:02:58,268
+By the way, for SQLite, just as a side note,
+順便說一下，對於 SQLite，作為旁注，
+
+70
+00:02:58,332 --> 00:03:01,221
+if you don't set a value here, it will just
+如果你沒有在這裡設定一個值，它只會
+
+71
+00:03:01,285 --> 00:03:04,078
+create an in-memory database by default. So
+預設創建記憶體資料庫。所以
+
+72
+00:03:04,351 --> 00:03:06,341
+it won't crash if this environment variable
+如果這個環境變數它不會崩潰
+
+73
+00:03:06,437 --> 00:03:08,412
+wouldn't be set or if it would be set to an
+不會被設定或如果它被設定為
+
+74
+00:03:08,444 --> 00:03:10,819
+empty string or anything like that, but it
+空字串或類似的東西，但它
+
+75
+00:03:10,851 --> 00:03:13,339
+would create an in-memory database in that
+將在其中建立一個記憶體資料庫
+
+76
+00:03:13,339 --> 00:03:16,678
+case. But that is how you can easily load
+案件。但這就是您可以輕鬆載入的方式
+
+77
+00:03:16,854 --> 00:03:18,764
+and use environment variables with Bun.
+並與 Bun 一起使用環境變數。

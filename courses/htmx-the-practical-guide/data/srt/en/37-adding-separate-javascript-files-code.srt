@@ -1,0 +1,707 @@
+1
+00:00:00,656 --> 00:00:04,246
+I wanna replace this built-in confirmation
+
+2
+00:00:04,278 --> 00:00:07,691
+dialog here with a custom confirmation
+
+3
+00:00:07,739 --> 00:00:10,751
+dialog, with my own custom modal that I
+
+4
+00:00:10,751 --> 00:00:13,636
+wanna show to the user whenever they try to
+
+5
+00:00:14,116 --> 00:00:15,703
+move one of the places around.
+
+6
+00:00:16,280 --> 00:00:17,545
+And I wanna show that modal
+
+7
+00:00:18,122 --> 00:00:20,638
+either if the user selects a place down here
+
+8
+00:00:21,183 --> 00:00:23,522
+and adds it to the dream locations, but also
+
+9
+00:00:23,586 --> 00:00:25,862
+then still if a user wants to remove an
+
+10
+00:00:25,990 --> 00:00:26,727
+element from there.
+
+11
+00:00:27,593 --> 00:00:29,888
+I wanna use my own modal for that.
+
+12
+00:00:31,028 --> 00:00:33,403
+And that in the end implies here
+
+13
+00:00:34,077 --> 00:00:38,442
+that I wanna run some custom JavaScript code
+
+14
+00:00:38,827 --> 00:00:39,453
+in the end
+
+15
+00:00:40,352 --> 00:00:42,646
+because I'm not happy with the built-in
+
+16
+00:00:42,903 --> 00:00:45,230
+dialog. So I wanna show my own and that
+
+17
+00:00:45,230 --> 00:00:47,734
+means that I need to manipulate the DOM on
+
+18
+00:00:47,734 --> 00:00:48,087
+my own,
+
+19
+00:00:48,697 --> 00:00:51,104
+which in the end means that I need to run my
+
+20
+00:00:51,248 --> 00:00:53,447
+own custom JavaScript code.
+
+21
+00:00:54,379 --> 00:00:57,367
+And that's something you can do with HTMX
+
+22
+00:00:57,367 --> 00:01:00,532
+because HTMX is there to help you, not to
+
+23
+00:01:00,660 --> 00:01:03,295
+prevent you from running your own JavaScript
+
+24
+00:01:03,295 --> 00:01:03,568
+code.
+
+25
+00:01:04,500 --> 00:01:06,878
+And indeed, we already had a look at some
+
+26
+00:01:07,327 --> 00:01:10,026
+basic example where we did listen to some
+
+27
+00:01:10,123 --> 00:01:12,758
+events and run our own JavaScript code
+
+28
+00:01:13,095 --> 00:01:14,605
+earlier in this section.
+
+29
+00:01:15,264 --> 00:01:17,449
+Now we're in the end just going to do the
+
+30
+00:01:17,449 --> 00:01:20,630
+same but with slightly more complex
+
+31
+00:01:20,582 --> 00:01:21,543
+JavaScript code.
+
+32
+00:01:22,986 --> 00:01:24,765
+And therefore I'll start by adding a new
+
+33
+00:01:25,134 --> 00:01:26,657
+file to the public folder
+
+34
+00:01:27,458 --> 00:01:29,446
+and I'll name that file main.js
+
+35
+00:01:30,200 --> 00:01:32,941
+because since I'll now write a bit more
+
+36
+00:01:33,069 --> 00:01:35,586
+JavaScript code, I actually don't wanna
+
+37
+00:01:35,714 --> 00:01:38,567
+write it inline in my HTML
+
+38
+00:01:39,177 --> 00:01:41,838
+code, but instead I wanna put that
+
+39
+00:01:41,886 --> 00:01:44,803
+JavaScript code into a separate JavaScript
+
+40
+00:01:44,851 --> 00:01:45,044
+file,
+
+41
+00:01:45,989 --> 00:01:47,945
+which is what you often would do if you
+
+42
+00:01:48,137 --> 00:01:48,698
+would write
+
+43
+00:01:49,259 --> 00:01:52,017
+at least slightly more complex or longer
+
+44
+00:01:52,081 --> 00:01:52,289
+code.
+
+45
+00:01:53,509 --> 00:01:55,581
+Now to make sure that this file is
+
+46
+00:01:56,159 --> 00:01:58,214
+executed and considered in the webpage,
+
+47
+00:01:58,824 --> 00:02:01,634
+we have to import it and add it to the site
+
+48
+00:02:01,795 --> 00:02:04,589
+in the end. And therefore with the main.js
+
+49
+00:02:04,589 --> 00:02:06,580
+file added, even though it's still empty,
+
+50
+00:02:06,628 --> 00:02:08,571
+I'll go to the index.js file.
+
+51
+00:02:09,101 --> 00:02:09,422
+And here
+
+52
+00:02:10,048 --> 00:02:13,597
+after loading the htmx.js file, I'll also
+
+53
+00:02:13,677 --> 00:02:16,423
+load my main.js file, which I just added.
+
+54
+00:02:17,354 --> 00:02:19,987
+Also with defer so that I make sure that it
+
+55
+00:02:20,164 --> 00:02:22,556
+only executes after the rest of the page has
+
+56
+00:02:22,669 --> 00:02:23,231
+been parsed.
+
+57
+00:02:24,754 --> 00:02:27,591
+So that will now execute this main.js file.
+
+58
+00:02:28,360 --> 00:02:31,614
+And in that file, I now wanna put the code
+
+59
+00:02:31,646 --> 00:02:31,838
+for
+
+60
+00:02:32,431 --> 00:02:33,505
+opening a modal.
+
+61
+00:02:34,291 --> 00:02:35,605
+So what we could do here
+
+62
+00:02:36,198 --> 00:02:37,304
+is add a function,
+
+63
+00:02:38,201 --> 00:02:41,231
+showConfirmationModal could be the name.
+
+64
+00:02:42,625 --> 00:02:44,869
+And then in there, I wanna show that modal
+
+65
+00:02:44,869 --> 00:02:46,696
+in the future. For the moment, I'll just
+
+66
+00:02:46,712 --> 00:02:49,517
+console.log showing modal so that we can
+
+67
+00:02:49,517 --> 00:02:51,761
+tell whether this code gets executed or not.
+
+68
+00:02:53,447 --> 00:02:55,855
+The goal now is to trigger that function
+
+69
+00:02:55,855 --> 00:02:59,131
+here whenever we're about to send one of our
+
+70
+00:02:59,131 --> 00:02:59,725
+requests.
+
+71
+00:03:00,528 --> 00:03:02,968
+So in location.js where I add those
+
+72
+00:03:03,145 --> 00:03:07,095
+attributes to this location button, I wanna
+
+73
+00:03:07,320 --> 00:03:10,113
+trigger this showConfirmationModal function
+
+74
+00:03:10,531 --> 00:03:12,875
+right before we're sending this POST or
+
+75
+00:03:12,875 --> 00:03:13,758
+DELETE request.
+
+76
+00:03:14,706 --> 00:03:16,616
+And you already learned how you can do that.
+
+77
+00:03:17,676 --> 00:03:20,904
+You can use hx-on to add an event listener
+
+78
+00:03:21,465 --> 00:03:23,858
+and then after a colon, specify the name of
+
+79
+00:03:23,858 --> 00:03:25,014
+the event you wanna listen to.
+
+80
+00:03:26,443 --> 00:03:28,161
+Now here, I don't wanna listen to some
+
+81
+00:03:28,755 --> 00:03:32,031
+built-in standard browser event, but instead
+
+82
+00:03:32,063 --> 00:03:34,311
+to some HTMX-specific event.
+
+83
+00:03:35,258 --> 00:03:36,992
+And you learned that for that, you can
+
+84
+00:03:37,056 --> 00:03:40,171
+specify HTMX colon and then that event name,
+
+85
+00:03:40,396 --> 00:03:42,162
+like before, -request.
+
+86
+00:03:44,465 --> 00:03:47,210
+Or use that shortcut with 2 colons and then
+
+87
+00:03:47,405 --> 00:03:47,909
+that name.
+
+88
+00:03:50,150 --> 00:03:50,696
+And then here,
+
+89
+00:03:51,226 --> 00:03:53,188
+previously in this section, we put our
+
+90
+00:03:53,220 --> 00:03:56,049
+JavaScript code and I'll still do that, but
+
+91
+00:03:56,049 --> 00:03:57,929
+instead of writing a lot of code here, I'll
+
+92
+00:03:57,994 --> 00:04:00,343
+simply call this showConfirmationModal
+
+93
+00:04:00,375 --> 00:04:00,762
+function.
+
+94
+00:04:02,178 --> 00:04:05,141
+So I'll add this code and execute this
+
+95
+00:04:05,141 --> 00:04:05,576
+function.
+
+96
+00:04:06,510 --> 00:04:08,597
+And I'll do the same down here for the
+
+97
+00:04:08,699 --> 00:04:09,702
+delete request.
+
+98
+00:04:10,349 --> 00:04:13,525
+I'll also already get rid of hx-confirm here
+
+99
+00:04:13,833 --> 00:04:15,923
+since I no longer wanna use that, but
+
+100
+00:04:15,923 --> 00:04:18,273
+instead in the future use my own modal.
+
+101
+00:04:20,132 --> 00:04:22,622
+Now with that file added, that function
+
+102
+00:04:22,703 --> 00:04:26,486
+added, and this code here added, if you save
+
+103
+00:04:26,599 --> 00:04:28,747
+everything and you open your developer tools
+
+104
+00:04:28,860 --> 00:04:30,424
+and there the JavaScript console,
+
+105
+00:04:30,956 --> 00:04:32,584
+if you reload and you click one of these
+
+106
+00:04:32,713 --> 00:04:35,932
+items, you should see showing modal here. In
+
+107
+00:04:35,964 --> 00:04:39,254
+the console. So that proves that executing
+
+108
+00:04:39,287 --> 00:04:40,421
+our code works.
+
+109
+00:04:42,510 --> 00:04:44,732
+Now, listening to events like this and
+
+110
+00:04:44,796 --> 00:04:46,374
+executing our own code like this
+
+111
+00:04:46,905 --> 00:04:49,401
+is one way, but you can actually also listen
+
+112
+00:04:49,401 --> 00:04:51,687
+to such events in a different way, which I
+
+113
+00:04:51,736 --> 00:04:53,165
+simply also wanna show to you.
+
+114
+00:04:54,290 --> 00:04:57,150
+Therefore, I'll actually remove this hx-on
+
+115
+00:04:57,504 --> 00:04:58,098
+attribute here
+
+116
+00:04:58,693 --> 00:05:01,087
+and instead I'll set up my event listener
+
+117
+00:05:01,184 --> 00:05:03,689
+right inside here in the main.js file.
+
+118
+00:05:04,606 --> 00:05:07,502
+Because those events that are emitted by
+
+119
+00:05:07,599 --> 00:05:10,883
+HTMX for some elements that are controlled
+
+120
+00:05:10,980 --> 00:05:14,587
+by HTMX cannot just be handled with hx-on.
+
+121
+00:05:15,104 --> 00:05:17,740
+Instead, they're standard custom events
+
+122
+00:05:18,015 --> 00:05:20,456
+which you can create in JavaScript. It's a
+
+123
+00:05:20,456 --> 00:05:22,332
+built-in feature and therefore you can
+
+124
+00:05:22,381 --> 00:05:24,758
+handle them also with just JavaScript.
+
+125
+00:05:26,224 --> 00:05:28,352
+Since they also bubble up, you can, for
+
+126
+00:05:28,352 --> 00:05:30,285
+example, add an event listener on the
+
+127
+00:05:30,366 --> 00:05:31,438
+document itself
+
+128
+00:05:32,133 --> 00:05:35,183
+And then specify these HTMX event names here
+
+129
+00:05:35,665 --> 00:05:38,233
+like HTMX before request.
+
+130
+00:05:39,597 --> 00:05:41,877
+And now what's important here is that here
+
+131
+00:05:41,909 --> 00:05:45,520
+you must include that HTMX part because HTMX
+
+132
+00:05:45,520 --> 00:05:48,779
+colon is actually part of the custom event
+
+133
+00:05:48,811 --> 00:05:50,914
+name that's emitted by HTMX.
+
+134
+00:05:52,182 --> 00:05:54,220
+And you must use this camelCase notation
+
+135
+00:05:54,268 --> 00:05:57,302
+here because this capUpCase notation only
+
+136
+00:05:57,399 --> 00:05:59,999
+exists to be used if you're using it with
+
+137
+00:06:00,047 --> 00:06:02,567
+hx-on as part of an attribute name.
+
+138
+00:06:03,359 --> 00:06:05,193
+When handling it like this inside of
+
+139
+00:06:05,225 --> 00:06:07,903
+JavaScript, you should use this camelCase
+
+140
+00:06:07,903 --> 00:06:08,357
+notation.
+
+141
+00:06:10,360 --> 00:06:12,169
+Well, and then here you can define the
+
+142
+00:06:12,169 --> 00:06:14,447
+function that should execute when that event
+
+143
+00:06:14,447 --> 00:06:14,722
+occurs.
+
+144
+00:06:16,273 --> 00:06:17,255
+Like for example,
+
+145
+00:06:17,801 --> 00:06:19,472
+showConfirmationModal.
+
+146
+00:06:21,031 --> 00:06:23,505
+And here I'm not executing it because that
+
+147
+00:06:23,505 --> 00:06:25,690
+would run that function right when this line
+
+148
+00:06:25,690 --> 00:06:27,989
+of code gets parsed, but instead I'll just
+
+149
+00:06:27,989 --> 00:06:30,629
+point at it So I don't have parentheses here
+
+150
+00:06:30,629 --> 00:06:32,578
+at the end, opening and closing parentheses.
+
+151
+00:06:32,707 --> 00:06:35,267
+I don't have them here so that I just point
+
+152
+00:06:35,267 --> 00:06:37,731
+at this function and the browser will call
+
+153
+00:06:38,005 --> 00:06:40,620
+and execute it for me whenever that event
+
+154
+00:06:40,620 --> 00:06:41,177
+here occurs.
+
+155
+00:06:43,030 --> 00:06:45,380
+Now, of course, that would now trigger this
+
+156
+00:06:45,380 --> 00:06:48,376
+function for any request that's about to be
+
+157
+00:06:48,376 --> 00:06:50,775
+sent from anywhere on the page. And if you
+
+158
+00:06:50,775 --> 00:06:52,830
+don't want that, you therefore might wanna
+
+159
+00:06:52,996 --> 00:06:54,734
+select a more specific element.
+
+160
+00:06:55,888 --> 00:06:57,536
+For example, with querySelector
+
+161
+00:06:59,023 --> 00:07:01,689
+li, you would select the first list item on
+
+162
+00:07:01,689 --> 00:07:02,044
+the screen.
+
+163
+00:07:02,892 --> 00:07:05,523
+But here I know that the only requests that
+
+164
+00:07:05,620 --> 00:07:09,170
+will be sent will be for those places and
+
+165
+00:07:09,267 --> 00:07:12,092
+therefore I'm fine with relying on them to
+
+166
+00:07:12,092 --> 00:07:14,106
+bubble up so that I can listen to them
+
+167
+00:07:14,221 --> 00:07:15,449
+directly on the document.
+
+168
+00:07:17,400 --> 00:07:19,108
+So therefore now with this code added
+
+169
+00:07:19,710 --> 00:07:20,947
+instead of hx-on,
+
+170
+00:07:21,663 --> 00:07:23,717
+If we save everything and reload again,
+
+171
+00:07:24,295 --> 00:07:27,265
+we still get showModal. So we still handle
+
+172
+00:07:27,265 --> 00:07:29,866
+these events, but now we do it with just
+
+173
+00:07:30,010 --> 00:07:30,732
+JavaScript.
+
+174
+00:07:31,696 --> 00:07:33,301
+And that's of course also something you
+
+175
+00:07:33,301 --> 00:07:35,950
+should know and keep in mind. But now let's
+
+176
+00:07:35,950 --> 00:07:38,181
+make sure that we actually show that
+
+177
+00:07:38,181 --> 00:07:39,224
+confirmation modal.

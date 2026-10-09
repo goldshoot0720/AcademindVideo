@@ -1,0 +1,675 @@
+1
+00:00:00,096 --> 00:00:03,564
+Now, as mentioned, in server.ts, we register
+
+2
+00:00:03,564 --> 00:00:05,941
+that Bun server and the most important part
+
+3
+00:00:05,957 --> 00:00:08,719
+for us of course is this routes part here
+
+4
+00:00:09,088 --> 00:00:11,095
+where we register routes which we import
+
+5
+00:00:11,095 --> 00:00:12,187
+from our routes file.
+
+6
+00:00:13,038 --> 00:00:15,174
+So let's explore that. Now specifically,
+
+7
+00:00:15,447 --> 00:00:17,277
+this is not a routes file, it's the routes
+
+8
+00:00:17,277 --> 00:00:20,103
+folder which has an index.ts file and by
+
+9
+00:00:20,103 --> 00:00:22,159
+default, if you have an import like this,
+
+10
+00:00:22,753 --> 00:00:24,744
+Bun will look if there is a file called
+
+11
+00:00:24,744 --> 00:00:27,683
+routes.ts in your project or routes.js
+
+12
+00:00:28,357 --> 00:00:30,364
+and if there isn't, it will look for a
+
+13
+00:00:30,364 --> 00:00:32,753
+routes folder folder and an index.ts file in
+
+14
+00:00:32,785 --> 00:00:34,515
+there. And that's the mechanism we're using
+
+15
+00:00:34,547 --> 00:00:36,647
+here to make sure this file gets loaded.
+
+16
+00:00:37,192 --> 00:00:38,666
+And in that file,
+
+17
+00:00:39,275 --> 00:00:41,246
+you see I'm importing a bunch of stuff from
+
+18
+00:00:41,502 --> 00:00:44,563
+other files, mostly from other files in this
+
+19
+00:00:44,563 --> 00:00:45,877
+routes folder here.
+
+20
+00:00:46,406 --> 00:00:48,553
+That's mostly what I'm importing here. And
+
+21
+00:00:48,569 --> 00:00:50,637
+then also something database related, I'll
+
+22
+00:00:50,653 --> 00:00:51,406
+get back to that.
+
+23
+00:00:52,880 --> 00:00:55,540
+And then index.ts just exports a routes
+
+24
+00:00:55,685 --> 00:00:57,929
+object which is therefore the thing that
+
+25
+00:00:57,929 --> 00:01:00,189
+gets registered as routes here, which makes
+
+26
+00:01:00,189 --> 00:01:02,722
+sense because the routes key in the Bun
+
+27
+00:01:02,834 --> 00:01:05,543
+server configuration wants a routes object
+
+28
+00:01:05,879 --> 00:01:08,220
+and that is what I'm giving it here, just
+
+29
+00:01:08,284 --> 00:01:10,656
+using that JavaScript shortcut notation
+
+30
+00:01:10,673 --> 00:01:10,849
+here.
+
+31
+00:01:11,650 --> 00:01:14,119
+And then in index.ts, I set up this routes
+
+32
+00:01:14,199 --> 00:01:16,107
+object and you see I'm registering a little
+
+33
+00:01:16,203 --> 00:01:18,672
+health route here, which is just there so
+
+34
+00:01:18,720 --> 00:01:20,675
+that if we were to deploy this, we could run
+
+35
+00:01:20,707 --> 00:01:22,936
+some health checks and send some automated
+
+36
+00:01:23,416 --> 00:01:26,206
+requests to our app by some health checking
+
+37
+00:01:26,254 --> 00:01:28,450
+service, for example, to see if our app is
+
+38
+00:01:28,626 --> 00:01:29,139
+still up.
+
+39
+00:01:29,684 --> 00:01:32,328
+And then I spread some stuff in there, the
+
+40
+00:01:32,328 --> 00:01:34,635
+stuff I'm importing from the other files.
+
+41
+00:01:35,453 --> 00:01:37,536
+And that seemed to be route definitions. But
+
+42
+00:01:37,600 --> 00:01:39,763
+let's take a look and let's take a look at
+
+43
+00:01:39,763 --> 00:01:41,830
+the posts route, for example.
+
+44
+00:01:42,808 --> 00:01:44,875
+For that, we have the posts.ts file because
+
+45
+00:01:44,987 --> 00:01:47,054
+that is from where I'm importing these post
+
+46
+00:01:47,054 --> 00:01:48,481
+routes, right? So that is
+
+47
+00:01:49,138 --> 00:01:51,846
+this import chain here. And in posts.ts,
+
+48
+00:01:52,519 --> 00:01:53,657
+that's a huge file.
+
+49
+00:01:54,282 --> 00:01:56,269
+But because I also have the route-specific
+
+50
+00:01:56,285 --> 00:01:58,385
+logic in there. But in that file, the core
+
+51
+00:01:58,610 --> 00:02:00,453
+thing I have in there, which you find at the
+
+52
+00:02:00,453 --> 00:02:01,912
+very end of this file,
+
+53
+00:02:02,441 --> 00:02:05,118
+is another route object where I also have
+
+54
+00:02:05,246 --> 00:02:08,292
+route identifier, so the path for which the
+
+55
+00:02:08,292 --> 00:02:10,680
+route should become active. And then this
+
+56
+00:02:11,193 --> 00:02:14,127
+advanced route notation supported by Bun
+
+57
+00:02:14,624 --> 00:02:18,166
+where you assign an object to this path as a
+
+58
+00:02:18,166 --> 00:02:20,331
+value for that key, which the path in the
+
+59
+00:02:20,331 --> 00:02:20,699
+end is.
+
+60
+00:02:21,292 --> 00:02:23,537
+And in that object you can have GET, POST,
+
+61
+00:02:23,617 --> 00:02:24,659
+PATCH, DELETE
+
+62
+00:02:25,284 --> 00:02:25,893
+as you see here.
+
+63
+00:02:26,438 --> 00:02:29,004
+So all these HTTP methods you wanna support
+
+64
+00:02:29,004 --> 00:02:30,976
+so that we, for example, support GET
+
+65
+00:02:30,976 --> 00:02:32,933
+requests to /feed to
+
+66
+00:02:33,558 --> 00:02:36,830
+load the data for the user feed or GET
+
+67
+00:02:36,830 --> 00:02:40,486
+requests to /posts to load all the posts for
+
+68
+00:02:40,678 --> 00:02:43,661
+a user, for example, or POST requests to
+
+69
+00:02:44,206 --> 00:02:46,788
+/post to create a new post.
+
+70
+00:02:47,350 --> 00:02:48,841
+Now we'll take a look at what the route does
+
+71
+00:02:48,937 --> 00:02:50,300
+here and what that stuff is in just a
+
+72
+00:02:50,300 --> 00:02:54,196
+second, but that's the object this posts.ts
+
+73
+00:02:54,228 --> 00:02:56,407
+file in the end returns. So that's the
+
+74
+00:02:56,407 --> 00:02:58,859
+object we're importing here. And then as
+
+75
+00:02:58,891 --> 00:03:02,048
+mentioned, we just spread that object down
+
+76
+00:03:02,176 --> 00:03:05,060
+there, essentially putting those key-value
+
+77
+00:03:05,060 --> 00:03:08,345
+pairs from that object. So those key-value
+
+78
+00:03:08,345 --> 00:03:08,842
+pairs here,
+
+79
+00:03:09,691 --> 00:03:10,252
+key,
+
+80
+00:03:11,053 --> 00:03:11,438
+value,
+
+81
+00:03:12,031 --> 00:03:15,059
+putting those into this mainRoutes object.
+
+82
+00:03:15,412 --> 00:03:17,799
+So in the end, all the routes defined here
+
+83
+00:03:18,184 --> 00:03:21,372
+get registered in our Bun server. That is
+
+84
+00:03:21,404 --> 00:03:23,199
+what we're doing here, just split across
+
+85
+00:03:23,311 --> 00:03:25,634
+multiple files to keep everything lean and
+
+86
+00:03:25,634 --> 00:03:26,948
+cleanly organized.
+
+87
+00:03:27,813 --> 00:03:29,767
+Now, what's the thing we're registering for
+
+88
+00:03:29,896 --> 00:03:31,289
+these HTTP methods here?
+
+89
+00:03:31,834 --> 00:03:34,013
+It's a route function to which I pass a
+
+90
+00:03:34,061 --> 00:03:36,336
+pointer at another function. So I'm not
+
+91
+00:03:36,448 --> 00:03:38,323
+calling that other function here, I'm
+
+92
+00:03:38,371 --> 00:03:39,701
+passing a pointer to it here.
+
+93
+00:03:40,406 --> 00:03:42,921
+So what's the route function doing? This is
+
+94
+00:03:43,017 --> 00:03:44,956
+a little helper function I set up in a
+
+95
+00:03:44,956 --> 00:03:46,542
+shared.ts file,
+
+96
+00:03:47,103 --> 00:03:49,025
+which is also part of that routes folder.
+
+97
+00:03:49,362 --> 00:03:51,541
+Which just includes some helper functions
+
+98
+00:03:51,589 --> 00:03:53,608
+shared between the routes. And what this
+
+99
+00:03:53,672 --> 00:03:54,938
+route function does is
+
+100
+00:03:55,515 --> 00:03:58,767
+it in the end expects to get a route handler
+
+101
+00:03:59,280 --> 00:04:01,219
+where the handler is in the end just a
+
+102
+00:04:01,219 --> 00:04:04,728
+custom type definition of a function type in
+
+103
+00:04:04,728 --> 00:04:06,266
+TypeScript. That's a function type
+
+104
+00:04:06,266 --> 00:04:08,654
+definition with information about the
+
+105
+00:04:08,734 --> 00:04:09,279
+parameters
+
+106
+00:04:09,952 --> 00:04:12,563
+and then information about the return value.
+
+107
+00:04:13,076 --> 00:04:15,688
+And I expect to get a pointer at a function
+
+108
+00:04:15,720 --> 00:04:18,172
+here in the end, a function as a value
+
+109
+00:04:18,284 --> 00:04:19,968
+passed to my route function
+
+110
+00:04:20,513 --> 00:04:23,254
+where this receive function should take a
+
+111
+00:04:23,254 --> 00:04:25,883
+request as a parameter and then return a
+
+112
+00:04:25,883 --> 00:04:28,880
+response, which is just the definition of a
+
+113
+00:04:29,009 --> 00:04:30,708
+route handler function which handles a
+
+114
+00:04:30,708 --> 00:04:32,439
+request and sends back a response.
+
+115
+00:04:33,176 --> 00:04:35,501
+So my route helper function expects to get
+
+116
+00:04:35,501 --> 00:04:38,402
+such a handler function that generates
+
+117
+00:04:38,402 --> 00:04:39,011
+responses
+
+118
+00:04:39,685 --> 00:04:43,019
+and I then just wrap that function to in the
+
+119
+00:04:43,035 --> 00:04:45,375
+end wrap it with CORS so that I don't
+
+120
+00:04:45,375 --> 00:04:47,668
+manually have to wrap that around every
+
+121
+00:04:47,924 --> 00:04:50,585
+route and about all my routing-related code,
+
+122
+00:04:50,826 --> 00:04:52,589
+but instead I set up this route helper
+
+123
+00:04:52,589 --> 00:04:55,186
+function 1, and then in there I just wrap
+
+124
+00:04:55,458 --> 00:04:57,623
+all my route functions which I pass to it
+
+125
+00:04:58,039 --> 00:05:00,813
+with this CORS wrapper to add those CORS
+
+126
+00:05:00,909 --> 00:05:02,977
+headers. And then I also have some error
+
+127
+00:05:02,993 --> 00:05:04,852
+handling in there. I guess that's the second
+
+128
+00:05:04,852 --> 00:05:06,824
+purpose if you wanna call it like this,
+
+129
+00:05:07,321 --> 00:05:09,661
+where I catch any errors that may be
+
+130
+00:05:09,661 --> 00:05:12,819
+produced by any route functions and I send
+
+131
+00:05:12,867 --> 00:05:15,480
+back a generic error message to the client.
+
+132
+00:05:16,073 --> 00:05:17,965
+That's the second purpose here, but the main
+
+133
+00:05:17,997 --> 00:05:20,979
+purpose clearly is this CORS wrapping. So
+
+134
+00:05:21,203 --> 00:05:23,399
+that's the route helper function. This
+
+135
+00:05:23,592 --> 00:05:25,740
+function which is passed to route therefore
+
+136
+00:05:25,772 --> 00:05:28,561
+is the actual route handler function. So
+
+137
+00:05:28,561 --> 00:05:31,046
+remember that function that takes a request
+
+138
+00:05:31,062 --> 00:05:32,392
+and sends back a response.
+
+139
+00:05:32,985 --> 00:05:35,165
+And for example, for getFeed, if we take a
+
+140
+00:05:35,213 --> 00:05:37,025
+look at it, it's a function defined in
+
+141
+00:05:37,073 --> 00:05:40,119
+posts.ts and it's a function that takes a
+
+142
+00:05:40,119 --> 00:05:42,764
+request and in the end, after doing a bunch
+
+143
+00:05:42,764 --> 00:05:44,751
+of stuff, sends back a response.
+
+144
+00:05:45,328 --> 00:05:48,022
+Might not look like it, but JSON here is
+
+145
+00:05:48,118 --> 00:05:50,218
+just another helper function set up in a
+
+146
+00:05:50,218 --> 00:05:53,424
+shared TS file which sends back back a JSON
+
+147
+00:05:53,424 --> 00:05:56,613
+response using the standard Web API response
+
+148
+00:05:56,693 --> 00:05:58,280
+object and its JSON method.
+
+149
+00:05:58,873 --> 00:06:01,021
+So again, just a little utility function to
+
+150
+00:06:01,021 --> 00:06:03,137
+make sending back JSON responses a bit
+
+151
+00:06:03,201 --> 00:06:05,845
+easier and I'm sending back JSON responses
+
+152
+00:06:05,845 --> 00:06:08,634
+instead of HTML responses or anything like
+
+153
+00:06:08,634 --> 00:06:11,054
+that because this is a REST API for a
+
+154
+00:06:11,054 --> 00:06:13,443
+frontend single page application. But in the
+
+155
+00:06:13,459 --> 00:06:15,847
+end, that is what getFeed does, takes a
+
+156
+00:06:15,847 --> 00:06:16,344
+request,
+
+157
+00:06:16,969 --> 00:06:18,844
+does a bunch of stuff to which I'll get back
+
+158
+00:06:19,229 --> 00:06:21,778
+and sends back a response. And that's the
+
+159
+00:06:21,778 --> 00:06:24,073
+case for all these route functions and all
+
+160
+00:06:24,426 --> 00:06:26,912
+these files in the end. No matter what you
+
+161
+00:06:26,912 --> 00:06:29,255
+look at, if it's the createPost function, we
+
+162
+00:06:29,255 --> 00:06:31,870
+take a request, do a bunch of stuff, send
+
+163
+00:06:31,902 --> 00:06:34,758
+back a response depending on the result. So
+
+164
+00:06:34,790 --> 00:06:36,780
+we handle some errors here too, but in the
+
+165
+00:06:36,860 --> 00:06:39,379
+end, if everything's successful, we also
+
+166
+00:06:39,379 --> 00:06:41,561
+send back a success response here.
+
+167
+00:06:42,235 --> 00:06:43,952
+But therefore, let's now take a closer look
+
+168
+00:06:44,080 --> 00:06:47,353
+at the kind of stuff we are doing in these
+
+169
+00:06:47,450 --> 00:06:48,236
+route functions.

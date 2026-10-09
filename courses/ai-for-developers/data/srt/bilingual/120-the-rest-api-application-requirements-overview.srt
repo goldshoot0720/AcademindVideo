@@ -1,0 +1,229 @@
+1
+00:00:02,134 --> 00:00:06,755
+So let's start by planning the REST API, the
+因此，讓我們從規劃 REST API 開始，
+
+2
+00:00:06,771 --> 00:00:09,002
+application we're going to build. Let's
+我們要建立的應用程式。讓我們
+
+3
+00:00:09,002 --> 00:00:09,451
+start by
+開始於
+
+4
+00:00:10,061 --> 00:00:13,816
+planning what exactly the API should look
+規劃 API 到底該是什麼樣子
+
+5
+00:00:13,816 --> 00:00:16,961
+like. And I plan to build a REST API
+喜歡。我計劃建立一個 REST API
+
+6
+00:00:17,603 --> 00:00:21,085
+that allows users to create and share events
+允許使用者建立和共享事件
+
+7
+00:00:21,294 --> 00:00:22,144
+with other users,
+與其他使用者一起，
+
+8
+00:00:23,380 --> 00:00:25,017
+events like meetups or
+聚會等活動或
+
+9
+00:00:25,626 --> 00:00:26,846
+going to a restaurant.
+去餐館。
+
+10
+00:00:27,537 --> 00:00:29,623
+And then users should also be able to
+然後使用者還應該能夠
+
+11
+00:00:29,720 --> 00:00:33,471
+register for events shared by others. That's
+註冊其他人共享的活動。那是
+
+12
+00:00:33,842 --> 00:00:34,651
+the idea.
+這個想法。
+
+13
+00:00:36,280 --> 00:00:38,040
+And therefore, this application should have
+因此，這個應用程式應該具有
+
+14
+00:00:38,088 --> 00:00:41,577
+a couple of core features, like for example,
+一些核心功能，例如，
+
+15
+00:00:41,952 --> 00:00:43,543
+user authentication.
+使用者認證。
+
+16
+00:00:44,844 --> 00:00:48,460
+In order to create or edit or delete events,
+為了建立、編輯或刪除事件，
+
+17
+00:00:48,846 --> 00:00:51,433
+but also in order to register for events,
+也為了報名參加活動，
+
+18
+00:00:51,851 --> 00:00:53,253
+users need to be authenticated.
+使用者需要經過身份驗證。
+
+19
+00:00:54,897 --> 00:00:56,304
+Authenticated. They need to be signed up
+已認證。他們需要註冊
+
+20
+00:00:56,449 --> 00:00:59,351
+with our application because only registered
+與我們的應用程式，因為只註冊
+
+21
+00:00:59,351 --> 00:01:02,285
+users can create, edit, or delete events or
+使用者可以建立、編輯或刪除事件或
+
+22
+00:01:02,478 --> 00:01:05,346
+register for events or unregister for events
+註冊活動或取消註冊活動
+
+23
+00:01:05,346 --> 00:01:06,739
+they did register for.
+他們確實註冊了。
+
+24
+00:01:08,422 --> 00:01:10,745
+So these are some of the core features, user
+這些是一些核心功能，使用者
+
+25
+00:01:10,761 --> 00:01:12,858
+authentication and the entire event
+身份驗證和整個事件
+
+26
+00:01:12,858 --> 00:01:13,810
+management part.
+管理部分。
+
+27
+00:01:15,003 --> 00:01:17,728
+In addition, I wanna make sure that users
+此外，我想確保使用者
+
+28
+00:01:17,825 --> 00:01:20,339
+can only edit or delete the events they
+只能編輯或刪除自己的事件
+
+29
+00:01:20,339 --> 00:01:20,728
+created.
+創建的。
+
+30
+00:01:21,914 --> 00:01:24,901
+So that I can't delete an event I did not
+這樣我就無法刪除我沒有刪除的事件
+
+31
+00:01:24,901 --> 00:01:27,969
+create. That would not be great, I'd argue.
+創造。我認為那不太好。
+
+32
+00:01:29,542 --> 00:01:32,071
+And the application will also have image
+並且該應用程式還將有圖像
+
+33
+00:01:32,280 --> 00:01:35,808
+upload. People, when creating events, should
+上傳。人們在創建事件時應該
+
+34
+00:01:35,824 --> 00:01:36,469
+be able to
+能夠
+
+35
+00:01:37,097 --> 00:01:38,612
+upload a nice image
+上傳一張漂亮的圖片
+
+36
+00:01:39,467 --> 00:01:42,356
+so that if we were to add a frontend to this
+所以如果我們要加入一個前端
+
+37
+00:01:42,356 --> 00:01:44,777
+application, which we won't do here, but if
+應用程式，我們不會在這裡執行此操作，但是如果
+
+38
+00:01:44,777 --> 00:01:47,569
+we were to do that, we could display that.
+我們要做那個，我們可以展示它。
+
+39
+00:01:49,567 --> 00:01:51,590
+And we'll build the image upload
+我們將建立圖像上傳
+
+40
+00:01:51,638 --> 00:01:54,143
+functionality into this API therefore.
+因此，將功能新增至此 API 中。
+
+41
+00:01:55,267 --> 00:01:59,264
+So a couple of features, it's not a super
+所以有幾個功能，這不是一個超級
+
+42
+00:01:59,264 --> 00:02:02,973
+complex but also not a super trivial REST
+複雜但也不是超簡單的 REST
+
+43
+00:02:02,973 --> 00:02:03,326
+API
+應用程式介面
+
+44
+00:02:03,856 --> 00:02:05,494
+and therefore I'd say it's the perfect
+因此我想說這是完美的
+
+45
+00:02:05,526 --> 00:02:08,737
+example for using all these AI tools and
+使用所有這些人工智慧工具的範例以及
+
+46
+00:02:09,299 --> 00:02:10,904
+building this as a demo project.
+將其建置為演示專案。

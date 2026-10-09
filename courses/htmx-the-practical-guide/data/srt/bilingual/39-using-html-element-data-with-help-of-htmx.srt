@@ -1,0 +1,399 @@
+1
+00:00:00,449 --> 00:00:03,288
+So let's now improve this modal by replacing
+現在讓我們透過替換來改進這個模式
+
+2
+00:00:03,320 --> 00:00:05,053
+this action placeholder here
+此操作佔位符位於此處
+
+3
+00:00:05,630 --> 00:00:07,090
+with more useful text.
+有更有用的文字。
+
+4
+00:00:07,716 --> 00:00:11,181
+To be precise, I wanna either say add or
+準確地說，我想說的是添加或
+
+5
+00:00:11,261 --> 00:00:12,015
+remove here
+刪除這裡
+
+6
+00:00:12,545 --> 00:00:15,256
+depending on where we clicked on one of
+取決於我們點擊其中一個的位置
+
+7
+00:00:15,256 --> 00:00:16,443
+these place objects.
+這些地方物體。
+
+8
+00:00:17,341 --> 00:00:19,635
+Now, as always, there definitely are
+現在，一如既往，肯定有
+
+9
+00:00:20,004 --> 00:00:21,368
+different ways of achieving this.
+實現這一目標的不同方法。
+
+10
+00:00:21,993 --> 00:00:24,544
+One pretty convenient way of achieving this
+實現這一目標的一種非常方便的方法
+
+11
+00:00:25,122 --> 00:00:27,657
+is to go to the place, where we added all
+就是去那個地方，我們把所有的東西都加進去了
+
+12
+00:00:27,705 --> 00:00:29,536
+those HTMX attributes.
+那些 HTMX 屬性。
+
+13
+00:00:30,130 --> 00:00:32,201
+So where we have the button that's in the
+所以我們的按鈕在哪裡
+
+14
+00:00:32,201 --> 00:00:33,855
+end clicked when we click one of these
+當我們點擊其中一個時點擊結束
+
+15
+00:00:33,951 --> 00:00:34,336
+places.
+地方。
+
+16
+00:00:35,813 --> 00:00:39,105
+And then I'll add some extra attribute to
+然後我將添加一些額外的屬性
+
+17
+00:00:39,121 --> 00:00:42,894
+that button, but now not an HTMX-specific
+那個按鈕，但現在不是 HTMX 特定的
+
+18
+00:00:43,022 --> 00:00:43,488
+attribute,
+屬性，
+
+19
+00:00:44,082 --> 00:00:46,618
+but instead an attribute you could always
+而是你可以隨時使用的屬性
+
+20
+00:00:46,795 --> 00:00:49,364
+add to HTML elements even if you're not
+添加到 HTML 元素，即使您不這樣做
+
+21
+00:00:49,364 --> 00:00:50,391
+using HTMX.
+使用 HTMX。
+
+22
+00:00:51,547 --> 00:00:52,591
+And that's the data-data.
+這就是資料資料。
+
+23
+00:00:54,180 --> 00:00:57,711
+Which allows you to attach extra data to DOM
+它允許你將額外的資料附加到 DOM
+
+24
+00:00:57,791 --> 00:00:58,209
+elements.
+元素。
+
+25
+00:00:59,653 --> 00:01:01,868
+And here I wanna add data-action.
+在這裡我想新增資料操作。
+
+26
+00:01:02,462 --> 00:01:05,817
+This identifier after the data-part is up
+data-part up後的這個標識符
+
+27
+00:01:05,817 --> 00:01:07,807
+to you though, can be anything you want.
+但對你來說，可以是你想要的任何東西。
+
+28
+00:01:09,123 --> 00:01:11,515
+And you can store any value you want. And
+您可以儲存任何您想要的值。和
+
+29
+00:01:11,595 --> 00:01:14,372
+here for the POST request button attributes,
+這裡為 POST 請求按鈕屬性，
+
+30
+00:01:14,805 --> 00:01:16,876
+I wanna add a text of Add.
+我想添加一個添加文字。
+
+31
+00:01:18,176 --> 00:01:20,503
+For the DELETE request, I wanna add a text
+對於 DELETE 請求，我想添加一個文本
+
+32
+00:01:20,503 --> 00:01:20,888
+of Remove.
+的刪除。
+
+33
+00:01:22,913 --> 00:01:25,214
+Therefore, this button which triggers either
+因此，該按鈕可以觸發
+
+34
+00:01:25,230 --> 00:01:28,271
+a POST or a DELETE request will always have
+POST 或 DELETE 請求總是有
+
+35
+00:01:28,303 --> 00:01:30,604
+this data-action attribute on it
+其上的資料操作屬性
+
+36
+00:01:31,183 --> 00:01:33,552
+and that attribute then holds either the
+然後該屬性包含
+
+37
+00:01:33,552 --> 00:01:35,519
+text add or the text remove.
+新增文字或刪除文字。
+
+38
+00:01:37,202 --> 00:01:39,179
+We can now use that in main.js
+我們現在可以在 main.js 中使用它
+
+39
+00:01:40,160 --> 00:01:41,494
+because as we just saw,
+因為正如我們剛才所看到的，
+
+40
+00:01:42,024 --> 00:01:44,403
+we get access to the element that triggered
+我們可以存取觸發的元素
+
+41
+00:01:44,580 --> 00:01:46,883
+the event on that detail property.
+該詳細資訊屬性上的事件。
+
+42
+00:01:48,565 --> 00:01:51,237
+We would also get access to it with help of
+我們還可以在以下人員的幫助下訪問它
+
+43
+00:01:51,286 --> 00:01:53,942
+the target here, but the detail is the safer
+目標在這裡，但細節更安全
+
+44
+00:01:53,942 --> 00:01:56,036
+way since that's guaranteed to be the
+方式，因為這保證是
+
+45
+00:01:56,036 --> 00:01:58,729
+element on which we added the HTMX
+我們加入了 HTMX 的元素
+
+46
+00:01:58,795 --> 00:01:59,370
+attributes.
+屬性。
+
+47
+00:02:01,710 --> 00:02:05,072
+So therefore, we can extract this action
+因此，我們可以提取這個動作
+
+48
+00:02:05,121 --> 00:02:07,711
+text here in show confirmation modal
+顯示確認模式中的文字
+
+49
+00:02:08,258 --> 00:02:10,334
+by accessing event.detail.elt,
+透過造訪 event.detail.elt，
+
+50
+00:02:12,831 --> 00:02:15,287
+and then there it's the dataset property
+然後是資料集屬性
+
+51
+00:02:16,136 --> 00:02:18,604
+which is a standard property that exists on
+這是存在於的標準屬性
+
+52
+00:02:18,716 --> 00:02:20,655
+DOM objects in JavaScript,
+JavaScript 中的 DOM 物件，
+
+53
+00:02:21,696 --> 00:02:23,908
+to access all these different data
+存取所有這些不同的資料
+
+54
+00:02:23,924 --> 00:02:25,670
+attributes we might have added to the
+我們可能會新增到的屬性
+
+55
+00:02:25,670 --> 00:02:26,023
+element.
+元素。
+
+56
+00:02:27,433 --> 00:02:30,381
+And here I added data-action, and it's then
+在這裡我新增了資料操作，然後就是
+
+57
+00:02:30,413 --> 00:02:33,730
+the part after the data-part, so in my case
+資料部分之後的部分，所以就我而言
+
+58
+00:02:33,922 --> 00:02:34,307
+action,
+行動，
+
+59
+00:02:34,900 --> 00:02:37,976
+that I can use as a property on that dataset
+我可以將其用作該資料集的屬性
+
+60
+00:02:38,089 --> 00:02:41,149
+object that exists on that DOM element. So
+該 DOM 元素上存在的物件。所以
+
+61
+00:02:41,149 --> 00:02:43,683
+here I can access action, since I chose
+在這裡我可以存取操作，因為我選擇了
+
+62
+00:02:43,956 --> 00:02:46,766
+data-action as a name here to get hold of
+data-action作為名字在這裡獲取
+
+63
+00:02:46,766 --> 00:02:49,495
+the text I set on that specific element.
+我在該特定元素上設定的文字。
+
+64
+00:02:50,459 --> 00:02:53,156
+So that will yield either add or remove and
+這樣就會產生新增或刪除以及
+
+65
+00:02:53,269 --> 00:02:55,597
+that's then stored in this action constant.
+然後將其儲存在該操作常數中。
+
+66
+00:02:56,625 --> 00:02:59,017
+And I can then therefore replace this action
+因此我可以替換這個動作
+
+67
+00:02:59,049 --> 00:03:02,164
+placeholder in my text down here with this
+我的文字中的佔位符在這裡
+
+68
+00:03:02,244 --> 00:03:04,926
+action constant and therefore with the text
+動作常數，因此與文本
+
+69
+00:03:05,135 --> 00:03:07,688
+add or remove depending on which button was
+新增或刪除取決於哪個按鈕
+
+70
+00:03:07,784 --> 00:03:08,057
+clicked.
+點擊。
+
+71
+00:03:10,066 --> 00:03:11,899
+So with that, if we save that,
+因此，如果我們儲存它，
+
+72
+00:03:12,623 --> 00:03:15,018
+if I reload and I click an element here, you
+如果我重新載入並單擊此處的一個元素，您
+
+73
+00:03:15,018 --> 00:03:17,205
+see, do you really want to add this place
+看看，你真的想添加這個地方嗎
+
+74
+00:03:17,205 --> 00:03:17,382
+here?
+這裡？
+
+75
+00:03:17,993 --> 00:03:20,019
+And if I had a place in the upper list and I
+如果我在上面的清單中佔有一席之地並且我
+
+76
+00:03:20,019 --> 00:03:22,028
+would click that, I would instead see the
+點擊它，我會看到
+
+77
+00:03:22,028 --> 00:03:24,488
+text remove. We'll see that in action later.
+文字刪除。我們稍後會看到它的實際效果。
+
+78
+00:03:25,710 --> 00:03:26,803
+So that works.
+這樣就可以了。
+
+79
+00:03:27,334 --> 00:03:29,922
+Now let's make sure that these buttons do
+現在讓我們確保這些按鈕可以
+
+80
+00:03:29,922 --> 00:03:30,357
+something.
+某物。

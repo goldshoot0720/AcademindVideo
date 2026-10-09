@@ -1,0 +1,594 @@
+1
+00:00:02,600 --> 00:00:02,875
+So
+所以
+
+2
+00:00:04,747 --> 00:00:07,298
+I'll log in with my second user here again.
+我將再次使用我的第二個使用者登入。
+
+3
+00:00:09,016 --> 00:00:10,968
+Technically, that's not required. I could
+從技術上講，這不是必需的。我可以
+
+4
+00:00:11,097 --> 00:00:13,550
+also sign up for my own events. You could
+也報名參加自己的活動。你可以
+
+5
+00:00:13,679 --> 00:00:15,840
+add code to prevent this, but here I'm fine
+添加程式碼來防止這種情況，但在這裡我很好
+
+6
+00:00:15,873 --> 00:00:17,728
+with it. But I'll use the second user
+與它。但我會使用第二個使用者
+
+7
+00:00:17,728 --> 00:00:18,115
+nonetheless.
+儘管如此。
+
+8
+00:00:20,536 --> 00:00:21,312
+And then here,
+然後在這裡，
+
+9
+00:00:22,007 --> 00:00:23,138
+create a new request,
+建立一個新請求，
+
+10
+00:00:24,172 --> 00:00:26,417
+a new POST request targeting /events.
+一個針對 /events 的新 POST 請求。
+
+11
+00:00:30,000 --> 00:00:31,333
+Localhost:3000/events/the event with ID
+本機:3000/events/帶有 ID 的事件
+
+12
+00:00:31,416 --> 00:00:31,833
+1/register,
+1/註冊，
+
+13
+00:00:35,348 --> 00:00:35,720
+and then
+進而
+
+14
+00:00:36,788 --> 00:00:39,345
+add my header, my authorization header,
+添加我的標頭，我的授權標頭，
+
+15
+00:00:39,879 --> 00:00:41,708
+which is bearer and then my token.
+這是承載者，然後是我的令牌。
+
+16
+00:00:43,263 --> 00:00:44,602
+And I don't need to add any
+而且我不需要添加任何
+
+17
+00:00:45,200 --> 00:00:48,136
+extra request body because the
+額外的請求正文，因為
+
+18
+00:00:48,750 --> 00:00:49,250
+event ID
+事件ID
+
+19
+00:00:49,782 --> 00:00:51,202
+is encoded in the URL,
+被編碼在 URL 中，
+
+20
+00:00:51,896 --> 00:00:53,415
+the token is attached as a header,
+令牌作為標頭附加，
+
+21
+00:00:55,048 --> 00:00:57,114
+And that's all this route and this
+這就是這條路線和這個
+
+22
+00:00:57,211 --> 00:00:58,567
+controller function needs.
+控制器功能需求。
+
+23
+00:00:59,326 --> 00:01:01,424
+The register controller function gets the
+寄存器控制器函式獲取
+
+24
+00:01:01,424 --> 00:01:03,377
+event ID from the request parameters,
+請求參數中的事件 ID，
+
+25
+00:01:04,780 --> 00:01:08,022
+so from the path the request is sent to, and
+因此從請求發送到的路徑來看，並且
+
+26
+00:01:08,103 --> 00:01:10,652
+the user ID from the request object where
+請求對像中的使用者 ID，其中
+
+27
+00:01:10,781 --> 00:01:13,636
+it's set by that authentication middleware
+它是由身份驗證中介層設定的
+
+28
+00:01:13,846 --> 00:01:15,377
+which extracts it from the token.
+它從令牌中提取它。
+
+29
+00:01:17,083 --> 00:01:18,033
+So that should work.
+所以應該可行。
+
+30
+00:01:18,838 --> 00:01:21,243
+If I send this, I get an error. We get an
+如果我發送這個，我會收到錯誤。我們得到一個
+
+31
+00:01:21,340 --> 00:01:21,941
+error though,
+雖然錯誤，
+
+32
+00:01:22,737 --> 00:01:24,491
+getDatabase is not defined.
+getDatabase 未定義。
+
+33
+00:01:27,260 --> 00:01:27,469
+So
+所以
+
+34
+00:01:29,050 --> 00:01:29,212
+yeah,
+是的，
+
+35
+00:01:30,034 --> 00:01:32,277
+that code here fails where I try to get
+這裡的程式碼在我嘗試取得的地方失敗了
+
+36
+00:01:32,277 --> 00:01:33,116
+access to the database.
+存取資料庫。
+
+37
+00:01:34,753 --> 00:01:37,950
+And this makes sense because for all the
+這是有道理的，因為對於所有
+
+38
+00:01:37,966 --> 00:01:40,469
+other controller functions, I actually don't
+其他控制器功能，我實際上沒有
+
+39
+00:01:40,469 --> 00:01:43,505
+have the database-related work here in this
+這裡有資料庫相關的工作
+
+40
+00:01:43,860 --> 00:01:47,166
+eventsController.js file, but instead in the
+eventsController.js 檔案，而是在
+
+41
+00:01:47,166 --> 00:01:48,359
+event.js file.
+event.js 檔案。
+
+42
+00:01:49,994 --> 00:01:51,703
+Here I'm reaching out to the database.
+在這裡我正在存取資料庫。
+
+43
+00:01:53,180 --> 00:01:55,435
+And now for the register and unregister
+現在進行註冊和註銷
+
+44
+00:01:55,451 --> 00:01:56,563
+functions, I changed that.
+函式，我改變了它。
+
+45
+00:01:57,401 --> 00:01:59,415
+I actually don't like that change. So
+其實我不喜歡這個改變。所以
+
+46
+00:01:59,415 --> 00:02:01,800
+instead I'll go to that event.js file in the
+相反，我將轉到該 event.js 檔案
+
+47
+00:02:01,800 --> 00:02:02,624
+models folder
+模型資料夾
+
+48
+00:02:04,644 --> 00:02:07,036
+and add my functions there. And again,
+並在那裡添加我的功能。再說一次，
+
+49
+00:02:07,166 --> 00:02:09,251
+GitHub Copilot thankfully makes some good
+值得慶幸的是，GitHub Copilot 做出了一些貢獻
+
+50
+00:02:09,251 --> 00:02:09,867
+suggestions here.
+建議在這裡。
+
+51
+00:02:11,126 --> 00:02:12,614
+registerUserForEvent,
+註冊使用者事件，
+
+52
+00:02:13,088 --> 00:02:13,857
+unregisterUserFromEvent,
+取消註冊使用者事件，
+
+53
+00:02:15,288 --> 00:02:17,519
+Got all the database-related code in there.
+裡面有所有與資料庫相關的程式碼。
+
+54
+00:02:19,470 --> 00:02:21,465
+And with those changes made, we can now
+透過這些改變，我們現在可以
+
+55
+00:02:21,594 --> 00:02:23,703
+adjust the code here in this register
+調整此暫存器中的程式碼
+
+56
+00:02:23,703 --> 00:02:24,838
+function, for example.
+函式，例如。
+
+57
+00:02:26,395 --> 00:02:28,809
+Instead of reaching out to the database
+而不是存取資料庫
+
+58
+00:02:28,809 --> 00:02:29,098
+here,
+這裡，
+
+59
+00:02:31,546 --> 00:02:32,721
+we can use
+我們可以使用
+
+60
+00:02:33,252 --> 00:02:36,504
+registerUserForEvent from this event.js file
+從此 event.js 檔案註冊UserForEvent
+
+61
+00:02:36,633 --> 00:02:37,583
+in the models folder.
+在模型資料夾中。
+
+62
+00:02:39,189 --> 00:02:41,514
+I started typing to get a good suggestion
+我開始打字以獲得好的建議
+
+63
+00:02:41,514 --> 00:02:41,630
+here.
+這裡。
+
+64
+00:02:43,009 --> 00:02:45,995
+I just wanna make sure that it's imported so
+我只是想確保它是導入的
+
+65
+00:02:46,012 --> 00:02:46,758
+that it's added
+它被添加了
+
+66
+00:02:47,586 --> 00:02:48,625
+to the imports up here.
+到這裡的進口。
+
+67
+00:02:49,682 --> 00:02:52,441
+Same with unregister user from event.
+與從事件中註銷使用者相同。
+
+68
+00:02:54,361 --> 00:02:56,362
+And then I just need the
+然後我只需要
+
+69
+00:02:57,604 --> 00:03:00,019
+success information here to send back the
+這裡發回成功訊息
+
+70
+00:03:00,019 --> 00:03:01,329
+appropriate response.
+適當的反應。
+
+71
+00:03:03,138 --> 00:03:04,554
+And I'll do the same down here.
+我也會在這裡做同樣的事情。
+
+72
+00:03:06,131 --> 00:03:09,156
+Get my success information by calling
+透過致電來獲取我的成功訊息
+
+73
+00:03:09,510 --> 00:03:11,264
+unregister user from event.
+從事件中取消註冊使用者。
+
+74
+00:03:13,298 --> 00:03:13,653
+Like this.
+像這樣。
+
+75
+00:03:14,913 --> 00:03:16,303
+Okay, that should do the trick.
+好的，這應該可以解決問題。
+
+76
+00:03:17,110 --> 00:03:20,050
+Success is this Boolean which is returned
+成功是傳回的布林值
+
+77
+00:03:20,648 --> 00:03:21,536
+for both functions.
+對於這兩個功能。
+
+78
+00:03:23,240 --> 00:03:24,615
+And with that, if we save this
+這樣，如果我們儲存這個
+
+79
+00:03:25,294 --> 00:03:28,206
+and we try this same request, this register
+我們嘗試同樣的請求，這個暫存器
+
+80
+00:03:28,206 --> 00:03:29,549
+request from before again,
+再次請求之前，
+
+81
+00:03:30,132 --> 00:03:32,219
+now we got registered successfully.
+現在我們已經註冊成功了。
+
+82
+00:03:34,336 --> 00:03:35,840
+Now if I send this again,
+現在如果我再次發送這個，
+
+83
+00:03:37,146 --> 00:03:39,601
+I, well, register again, doesn't make too
+我，好吧，再註冊一次，也不行
+
+84
+00:03:39,601 --> 00:03:41,845
+much sense. We could try to prevent this,
+很有道理。我們可以嘗試阻止這種情況發生
+
+85
+00:03:42,168 --> 00:03:44,574
+but here to keep this app simple,
+但為了讓這個應用程式保持簡單，
+
+86
+00:03:45,130 --> 00:03:47,411
+I'll just, well, set it up like this.
+我就這樣設定吧。
+
+87
+00:03:49,426 --> 00:03:51,814
+And instead I'll now add a second request
+相反，我現在將添加第二個請求
+
+88
+00:03:51,814 --> 00:03:52,059
+here,
+這裡，
+
+89
+00:03:52,942 --> 00:03:54,267
+a DELETE request,
+刪除請求，
+
+90
+00:03:56,111 --> 00:03:58,093
+which will actually target
+其實際目標是
+
+91
+00:04:00,172 --> 00:04:00,936
+this route here.
+這條路線在這裡。
+
+92
+00:04:02,855 --> 00:04:04,719
+And actually this should be a DELETE request
+實際上這應該是一個 DELETE 請求
+
+93
+00:04:04,719 --> 00:04:07,523
+here since unregistering is essentially,
+在這裡，因為註銷本質上是，
+
+94
+00:04:07,717 --> 00:04:07,847
+well,
+出色地，
+
+95
+00:04:08,447 --> 00:04:09,223
+deleting something.
+刪除一些東西。
+
+96
+00:04:12,178 --> 00:04:14,019
+So a DELETE request
+所以一個 DELETE 請求
+
+97
+00:04:14,600 --> 00:04:15,278
+sent to
+發送至
+
+98
+00:04:16,182 --> 00:04:17,700
+http://localhost:3000/events/1
+http://localhost:3000/events/1
+
+99
+00:04:22,671 --> 00:04:24,654
+because we're talking about the event with
+因為我們正在談論這個事件
+
+100
+00:04:24,654 --> 00:04:25,096
+ID 1,
+身分證字號1，
+
+101
+00:04:26,211 --> 00:04:26,588
+/unregister.
+/取消註冊。
+
+102
+00:04:28,704 --> 00:04:29,154
+And then again,
+然後再一次，
+
+103
+00:04:30,376 --> 00:04:32,610
+add some headers, the authorization header
+增加一些標頭，授權標頭
+
+104
+00:04:33,366 --> 00:04:33,816
+bearer,
+承載者,
+
+105
+00:04:35,696 --> 00:04:37,837
+and then grab that token.
+然後抓住那個令牌。
+
+106
+00:04:38,578 --> 00:04:41,093
+Let's grab it here from the login request
+讓我們從登入請求中獲取它
+
+107
+00:04:43,978 --> 00:04:46,315
+like this, send this, and we unregistered.
+像這樣，發送這個，我們就註銷了。
+
+108
+00:04:48,103 --> 00:04:51,076
+Now I can do this as often as I want as
+現在我可以隨心所欲地執行此操作
+
+109
+00:04:51,092 --> 00:04:51,221
+well.
+出色地。
+
+110
+00:04:51,754 --> 00:04:53,806
+At some point I'll just get unregistration
+在某些時候我會取消註冊
+
+111
+00:04:53,806 --> 00:04:55,817
+failed. Failed because, well, I am not
+失敗的。失敗是因為，嗯，我不是
+
+112
+00:04:55,817 --> 00:04:56,694
+registered anymore.
+不再註冊了。
+
+113
+00:04:58,400 --> 00:05:00,115
+But in general, this works the way it
+但總的來說，這是這樣運作的
+
+114
+00:05:00,115 --> 00:05:00,342
+should.
+應該。
+
+115
+00:05:01,329 --> 00:05:02,882
+And as mentioned, you could of course tweak
+如同前面提到的，當然可以調整
+
+116
+00:05:02,882 --> 00:05:03,012
+this,
+這，
+
+117
+00:05:03,611 --> 00:05:06,054
+make it more granular, add extra checks, but
+使其更細粒度，添加額外的檢查，但是
+
+118
+00:05:06,103 --> 00:05:07,656
+in general, this is working the way it
+一般來說，這是這樣運作的
+
+119
+00:05:07,656 --> 00:05:07,915
+should.
+應該。

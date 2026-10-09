@@ -1,0 +1,391 @@
+1
+00:00:00,176 --> 00:00:04,220
+Now, if you are using an AI agent on a
+
+2
+00:00:04,285 --> 00:00:07,270
+system, as I'm doing it here on a VPS,
+
+3
+00:00:07,992 --> 00:00:11,796
+sometimes permissions can be a problem. And
+
+4
+00:00:11,988 --> 00:00:14,315
+the main takeaway, just to get that out of
+
+5
+00:00:14,315 --> 00:00:15,679
+the way, is that
+
+6
+00:00:16,305 --> 00:00:20,093
+there isn't really a secure way around this
+
+7
+00:00:20,093 --> 00:00:22,805
+problem. If you want to give your agent more
+
+8
+00:00:22,821 --> 00:00:24,988
+permissions, you have to live with the fact
+
+9
+00:00:25,068 --> 00:00:27,361
+that more things can go wrong.
+
+10
+00:00:28,179 --> 00:00:29,797
+Or if you don't want to give it the
+
+11
+00:00:29,797 --> 00:00:31,960
+permissions, you have to live with the fact
+
+12
+00:00:31,960 --> 00:00:34,685
+that it can't do as much stuff. You have to
+
+13
+00:00:34,685 --> 00:00:37,297
+choose one of these 2 things essentially.
+
+14
+00:00:37,810 --> 00:00:40,341
+With that in mind though, what you can do
+
+15
+00:00:41,319 --> 00:00:42,313
+outside of the agent
+
+16
+00:00:42,921 --> 00:00:46,511
+is you can edit your VPS user, or you can
+
+17
+00:00:46,527 --> 00:00:49,171
+create a new one for the agent and edit it
+
+18
+00:00:49,171 --> 00:00:52,589
+such that it can get sudo access for all
+
+19
+00:00:52,798 --> 00:00:54,622
+commands or certain commands
+
+20
+00:00:55,380 --> 00:00:58,074
+without being asked for the password, with
+
+21
+00:00:58,268 --> 00:01:00,559
+all the negative consequences this has, of
+
+22
+00:01:00,623 --> 00:01:00,833
+course.
+
+23
+00:01:01,430 --> 00:01:01,951
+What you can do
+
+24
+00:01:02,475 --> 00:01:04,589
+is you can run a command called
+
+25
+00:01:05,179 --> 00:01:05,523
+visudo,
+
+26
+00:01:07,580 --> 00:01:10,099
+with sudo in front of it since this requires
+
+27
+00:01:10,359 --> 00:01:11,367
+elevated privilege,
+
+28
+00:01:13,086 --> 00:01:14,366
+-f /etc/sudoers,
+
+29
+00:01:20,364 --> 00:01:22,779
+This will open up a text editor again.
+
+30
+00:01:23,363 --> 00:01:25,406
+And in there, you can now enter your
+
+31
+00:01:25,406 --> 00:01:25,893
+username,
+
+32
+00:01:26,706 --> 00:01:29,127
+then all=all:all
+
+33
+00:01:30,265 --> 00:01:30,619
+like this,
+
+34
+00:01:31,634 --> 00:01:36,193
+nopassword:all.
+
+35
+00:01:37,514 --> 00:01:39,190
+What this means essentially is that for the
+
+36
+00:01:39,190 --> 00:01:41,668
+user Max, we won't ask for a password for
+
+37
+00:01:41,896 --> 00:01:42,825
+all commands.
+
+38
+00:01:44,021 --> 00:01:46,601
+If you wanted to limit this to certain
+
+39
+00:01:46,601 --> 00:01:49,148
+commands instead of typing all here,
+
+40
+00:01:49,841 --> 00:01:52,598
+you can instead just list the specific
+
+41
+00:01:52,647 --> 00:01:53,957
+commands here that
+
+42
+00:01:54,604 --> 00:01:56,787
+it should be allowed to execute without a
+
+43
+00:01:56,787 --> 00:01:57,321
+password.
+
+44
+00:01:58,001 --> 00:01:59,602
+For that, however, you need to include the
+
+45
+00:01:59,602 --> 00:02:02,333
+full path to where that tool is installed.
+
+46
+00:02:02,590 --> 00:02:03,845
+For example,
+
+47
+00:02:04,376 --> 00:02:08,432
+/usr/bin/systemctl like this,
+
+48
+00:02:09,206 --> 00:02:11,760
+And then even say something like restart. So
+
+49
+00:02:11,776 --> 00:02:14,811
+that would allow to run the restart command
+
+50
+00:02:14,843 --> 00:02:17,059
+without a password, but no other commands.
+
+51
+00:02:17,316 --> 00:02:19,051
+So you could be more restrictive here.
+
+52
+00:02:19,902 --> 00:02:22,857
+Here for demo purposes, I'll use all instead
+
+53
+00:02:23,756 --> 00:02:27,033
+and then hit Ctrl+X and Y to save and hit
+
+54
+00:02:27,113 --> 00:02:27,370
+Enter.
+
+55
+00:02:28,414 --> 00:02:29,345
+And now if I run
+
+56
+00:02:30,180 --> 00:02:32,348
+sudo ls/,
+
+57
+00:02:33,216 --> 00:02:35,448
+I can run this without entering a password.
+
+58
+00:02:35,802 --> 00:02:38,864
+Again, this has disadvantages. Obviously, if
+
+59
+00:02:38,864 --> 00:02:42,005
+someone gets access to this user, they can
+
+60
+00:02:42,118 --> 00:02:45,147
+perform tasks as a root user without being
+
+61
+00:02:45,163 --> 00:02:46,782
+the root user, without being asked for a
+
+62
+00:02:46,782 --> 00:02:48,882
+password. Now, since we locked down the
+
+63
+00:02:48,882 --> 00:02:49,635
+server quite a bit,
+
+64
+00:02:50,373 --> 00:02:54,172
+we are more secure, but of course not 100%
+
+65
+00:02:54,172 --> 00:02:55,999
+secure. So that can be an issue. In
+
+66
+00:02:55,999 --> 00:02:58,804
+addition, the AI of course now can also do
+
+67
+00:02:58,804 --> 00:03:00,888
+all kinds of stuff. Nonetheless, to show you
+
+68
+00:03:00,888 --> 00:03:03,463
+what you can do now, if I now Again, start
+
+69
+00:03:03,463 --> 00:03:04,779
+the PyCoding agent.
+
+70
+00:03:05,656 --> 00:03:06,110
+I can
+
+71
+00:03:06,630 --> 00:03:09,505
+grab that URL to this Docker article, or
+
+72
+00:03:09,895 --> 00:03:11,778
+I'll just copy the content as Markdown.
+
+73
+00:03:13,126 --> 00:03:15,628
+And then I could give this AI a task like,
+
+74
+00:03:17,174 --> 00:03:18,315
+please install Docker
+
+75
+00:03:19,729 --> 00:03:20,902
+as explained in this article.
+
+76
+00:03:21,753 --> 00:03:24,196
+And then here I like to do these XML tags.
+
+77
+00:03:24,244 --> 00:03:26,406
+That is optional though, not required. I'll
+
+78
+00:03:26,406 --> 00:03:27,941
+paste my Markdown content here.
+
+79
+00:03:29,657 --> 00:03:32,437
+And then again, I'll say follow these
+
+80
+00:03:32,790 --> 00:03:34,413
+installation instructions
+
+81
+00:03:35,216 --> 00:03:36,148
+step by step.
+
+82
+00:03:36,807 --> 00:03:39,089
+And it should now be able to install Docker
+
+83
+00:03:39,603 --> 00:03:39,828
+as
+
+84
+00:03:40,808 --> 00:03:43,282
+instructed in the official docs because it
+
+85
+00:03:43,298 --> 00:03:45,065
+has those sudo permissions. So it will be
+
+86
+00:03:45,146 --> 00:03:46,897
+able to execute sudo commands
+
+87
+00:03:47,733 --> 00:03:49,789
+without being prompted for a password, which
+
+88
+00:03:50,046 --> 00:03:51,155
+naturally would fail.
+
+89
+00:03:52,376 --> 00:03:53,131
+So now it
+
+90
+00:03:53,661 --> 00:03:54,497
+gets to work here.
+
+91
+00:03:55,188 --> 00:03:57,183
+Already executed a sudo command here
+
+92
+00:03:57,922 --> 00:03:59,113
+and it's done.
+
+93
+00:04:00,013 --> 00:04:02,072
+And that can of course be
+
+94
+00:04:02,667 --> 00:04:05,514
+convenient with all the disadvantages I
+
+95
+00:04:05,514 --> 00:04:06,335
+mentioned. But still
+
+96
+00:04:06,865 --> 00:04:10,677
+having an AI agent on a VPS can be useful.
+
+97
+00:04:11,128 --> 00:04:12,977
+If you wanna use it, of course it's your
+
+98
+00:04:13,058 --> 00:04:13,926
+personal decision.

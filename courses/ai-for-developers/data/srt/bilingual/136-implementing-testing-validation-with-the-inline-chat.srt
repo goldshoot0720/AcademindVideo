@@ -1,0 +1,454 @@
+1
+00:00:02,215 --> 00:00:05,346
+So there are 2 things I'd like to add here
+所以我想在這裡補充兩件事
+
+2
+00:00:06,117 --> 00:00:09,714
+to improve this event creation process, if
+改進此事件建立流程，如果
+
+3
+00:00:09,730 --> 00:00:10,741
+you wanna call it like this.
+你想這樣稱呼它。
+
+4
+00:00:12,235 --> 00:00:14,772
+And the first thing is that I want to
+首先我想
+
+5
+00:00:14,804 --> 00:00:17,292
+validate the submitted data here when I
+當我在此處驗證提交的資料
+
+6
+00:00:17,292 --> 00:00:19,653
+create an event, for example, before I call
+例如，在我打電話之前創建一個事件
+
+7
+00:00:19,781 --> 00:00:22,109
+createEvent where the data gets stored in
+createEvent 資料儲存在其中
+
+8
+00:00:22,109 --> 00:00:24,614
+the database. It should be validated first.
+資料庫.應先對其進行驗證。
+
+9
+00:00:26,606 --> 00:00:28,469
+In a second step thereafter, I wanna make
+此後的第二步，我想做
+
+10
+00:00:28,517 --> 00:00:31,152
+sure that all these event routes are only
+確保所有這些事件路線僅
+
+11
+00:00:31,200 --> 00:00:32,501
+accessible for
+可用於
+
+12
+00:00:33,256 --> 00:00:34,204
+authenticated users.
+經過身份驗證的使用者。
+
+13
+00:00:35,441 --> 00:00:38,011
+So users who have such a token, if you
+所以擁有這樣一個token的使用者，如果你
+
+14
+00:00:38,011 --> 00:00:40,630
+remember that, this JSON Web Token, we will
+請記住，這個 JSON Web 令牌，我們將
+
+15
+00:00:40,742 --> 00:00:41,545
+need it soon.
+很快就需要它。
+
+16
+00:00:42,911 --> 00:00:45,288
+But first I'll start with validation.
+但首先我將從驗證開始。
+
+17
+00:00:46,782 --> 00:00:48,308
+And for that I'll highlight this code
+為此我將突出顯示這段程式碼
+
+18
+00:00:49,095 --> 00:00:52,437
+and I'll ask Copilot to add validation to
+我會要求 Copilot 添加驗證
+
+19
+00:00:52,453 --> 00:00:54,774
+ensure title, description,
+確保標題、描述、
+
+20
+00:00:55,516 --> 00:00:58,648
+address, and date are all not empty,
+地址、日期均不為空，
+
+21
+00:01:00,359 --> 00:01:03,602
+also not just a bunch of blanks,
+也不只是一堆空白，
+
+22
+00:01:04,392 --> 00:01:05,666
+and valid values.
+和有效值。
+
+23
+00:01:07,376 --> 00:01:10,070
+Let's see what we get by sending this to the
+讓我們看看透過將其發送到
+
+24
+00:01:10,200 --> 00:01:10,394
+AI.
+人工智慧.
+
+25
+00:01:14,429 --> 00:01:16,470
+That looks pretty good. We check if title,
+看起來不錯。我們檢查標題是否，
+
+26
+00:01:16,487 --> 00:01:18,885
+description, and so on are empty or just a
+描述等都是空的或只是一個
+
+27
+00:01:18,885 --> 00:01:21,442
+bunch of blank strings, just a bunch of
+一堆空白字串，只是一堆
+
+28
+00:01:21,491 --> 00:01:21,834
+blanks.
+空白。
+
+29
+00:01:22,560 --> 00:01:25,519
+For the date, we also try to convert this to
+對於日期，我們也嘗試將其轉換為
+
+30
+00:01:25,519 --> 00:01:26,392
+a date object
+日期物件
+
+31
+00:01:27,540 --> 00:01:29,772
+or parse it as a date and check whether that
+或將其解析為日期並檢查是否
+
+32
+00:01:29,772 --> 00:01:31,098
+worked and send back
+工作並寄回
+
+33
+00:01:31,971 --> 00:01:34,640
+an error response if we got invalid input
+如果我們收到無效輸入，則會出現錯誤回應
+
+34
+00:01:34,640 --> 00:01:34,867
+data.
+資料。
+
+35
+00:01:36,743 --> 00:01:37,520
+That's looking good.
+看起來不錯。
+
+36
+00:01:38,684 --> 00:01:39,509
+We also
+我們也
+
+37
+00:01:40,302 --> 00:01:42,547
+trim the data before sending it to the
+在將資料發送到之前修剪資料
+
+38
+00:01:42,547 --> 00:01:45,194
+database to remove excess whitespace, which
+資料庫刪除多餘的空格，這
+
+39
+00:01:45,452 --> 00:01:46,598
+also makes sense, I'd say.
+我想說，也有道理。
+
+40
+00:01:48,131 --> 00:01:48,905
+So let's accept this
+所以讓我們接受這個
+
+41
+00:01:49,889 --> 00:01:51,165
+and with that change made,
+隨著這項改變，
+
+42
+00:01:52,230 --> 00:01:53,182
+Let's try sending
+我們嘗試發送
+
+43
+00:01:54,440 --> 00:01:57,489
+a POST request to /events without any event
+發送到 /events 的 POST 請求，沒有任何事件
+
+44
+00:01:57,489 --> 00:01:58,135
+data again.
+再次資料。
+
+45
+00:02:00,160 --> 00:02:03,005
+And this time we get back invalid input data
+這次我們回傳無效的輸入資料
+
+46
+00:02:03,086 --> 00:02:03,636
+as we should.
+正如我們應該的那樣。
+
+47
+00:02:05,188 --> 00:02:07,048
+The fix now is to send
+現在的解決方法是發送
+
+48
+00:02:07,695 --> 00:02:08,049
+a body
+一個身體
+
+49
+00:02:09,000 --> 00:02:11,302
+with JSON data attached to it.
+附有 JSON 資料。
+
+50
+00:02:12,446 --> 00:02:15,023
+And there we now should have a title
+現在我們應該有一個標題了
+
+51
+00:02:16,327 --> 00:02:17,961
+like a test event test event,
+就像測試事件測試事件一樣，
+
+52
+00:02:19,481 --> 00:02:19,497
+uh,
+呃，
+
+53
+00:02:20,047 --> 00:02:20,678
+description
+描述
+
+54
+00:02:21,599 --> 00:02:21,987
+like
+喜歡
+
+55
+00:02:22,586 --> 00:02:23,071
+testing.
+測試。
+
+56
+00:02:24,817 --> 00:02:26,596
+And if I send this, I should still get an
+如果我發送這個，我仍然應該得到一個
+
+57
+00:02:26,596 --> 00:02:28,208
+error because that's not all the data we
+錯誤，因為這不是我們的全部資料
+
+58
+00:02:28,208 --> 00:02:29,481
+need, because we also need
+需要，因為我們也需要
+
+59
+00:02:30,078 --> 00:02:30,803
+an address.
+一個地址。
+
+60
+00:02:31,690 --> 00:02:33,608
+And let's try sending a bunch of blanks
+讓我們試著發送一堆空白
+
+61
+00:02:33,608 --> 00:02:34,897
+here. That should not work.
+這裡。那不應該起作用。
+
+62
+00:02:36,831 --> 00:02:37,588
+And a date.
+還有約會。
+
+63
+00:02:39,006 --> 00:02:39,538
+And here
+還有這裡
+
+64
+00:02:40,086 --> 00:02:42,809
+I'll send something like, uh,
+我會發送類似的東西，呃，
+
+65
+00:02:45,444 --> 00:02:48,017
+2025, somewhere in July, let's say,
+2025 年，七月的某個時候，比方說，
+
+66
+00:02:49,111 --> 00:02:49,481
+and then
+進而
+
+67
+00:02:52,729 --> 00:02:53,277
+something like that.
+類似的事情。
+
+68
+00:02:54,432 --> 00:02:55,164
+Let's send this.
+讓我們發送這個。
+
+69
+00:02:55,977 --> 00:02:57,945
+Invalid input data because the address is
+輸入資料無效，因為地址是
+
+70
+00:02:58,075 --> 00:03:00,378
+invalid. So let's put in a valid address,
+無效的。所以讓我們輸入一個有效的地址，
+
+71
+00:03:00,685 --> 00:03:03,078
+Test Street 5, Test
+測試街 5，測試
+
+72
+00:03:03,693 --> 00:03:04,615
+City 5,
+城市 5,
+
+73
+00:03:06,571 --> 00:03:09,069
+and that looks better, and that data was now
+看起來好多了，現在的資料是
+
+74
+00:03:09,126 --> 00:03:09,465
+stored.
+儲存。
+
+75
+00:03:11,387 --> 00:03:14,165
+Now you might still be able to catch some
+現在你也許還能捕捉到一些
+
+76
+00:03:14,213 --> 00:03:15,295
+niche cases where
+利基案例
+
+77
+00:03:15,909 --> 00:03:17,766
+data is stored that maybe shouldn't be
+儲存了也許不應該儲存的資料
+
+78
+00:03:17,766 --> 00:03:19,753
+stored, that's not really
+存儲，這並不是真的
+
+79
+00:03:20,433 --> 00:03:22,665
+appropriate as a title, for example.
+例如，適合作為標題。
+
+80
+00:03:24,218 --> 00:03:26,580
+You could enforce a maximum length for the
+您可以強制執行最大長度
+
+81
+00:03:26,645 --> 00:03:28,650
+title. You could definitely tweak the code,
+標題。你絕對可以調整程式碼，
+
+82
+00:03:28,843 --> 00:03:31,627
+but this demo of course is not so much about
+但這個演示當然不是那麼多
+
+83
+00:03:31,643 --> 00:03:34,137
+the app. Instead, it is about building the
+該應用程式。相反，它是關於建立
+
+84
+00:03:34,137 --> 00:03:36,852
+app with help of AI. And therefore I'm happy
+在人工智慧的幫助下的應用程式。因此我很高興
+
+85
+00:03:36,952 --> 00:03:38,246
+with this solution here.
+在這裡使用這個解決方案。
+
+86
+00:03:40,920 --> 00:03:43,147
+And hence the next step for me is to
+因此我的下一步是
+
+87
+00:03:43,938 --> 00:03:46,520
+make sure that we also perform validation
+確保我們也執行驗證
+
+88
+00:03:46,520 --> 00:03:49,748
+here when we edit an event and that then we
+當我們編輯一個事件時，然後我們
+
+89
+00:03:49,813 --> 00:03:52,289
+also enforce that only authenticated users
+也強制只有經過身份驗證的使用者
+
+90
+00:03:52,626 --> 00:03:55,680
+can visit these event routes or at least the
+可以訪問這些活動路線或至少
+
+91
+00:03:55,680 --> 00:03:58,878
+routes where we create or change events.
+我們創建或更改事件的路線。

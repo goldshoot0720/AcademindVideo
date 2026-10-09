@@ -1,0 +1,215 @@
+1
+00:00:00,512 --> 00:00:02,805
+Now, this current solution has a problem.
+
+2
+00:00:03,462 --> 00:00:05,482
+As you saw before, clicking the back button
+
+3
+00:00:05,482 --> 00:00:09,329
+doesn't work because even though we navigate
+
+4
+00:00:09,329 --> 00:00:11,493
+to a different page, or at least it looks
+
+5
+00:00:11,557 --> 00:00:12,231
+like we do that,
+
+6
+00:00:12,776 --> 00:00:14,972
+you also see if you take a look at the URL
+
+7
+00:00:15,180 --> 00:00:18,274
+here that this never changes. The URL stays
+
+8
+00:00:18,306 --> 00:00:18,723
+the same.
+
+9
+00:00:19,508 --> 00:00:22,265
+So to the browser, we never left the old
+
+10
+00:00:22,394 --> 00:00:24,478
+page and that's why the back button doesn't
+
+11
+00:00:24,542 --> 00:00:24,862
+work.
+
+12
+00:00:25,600 --> 00:00:27,700
+Of course, typically you would want it to
+
+13
+00:00:27,748 --> 00:00:30,136
+work even if you are building a single page
+
+14
+00:00:30,248 --> 00:00:32,301
+application because the user Users of the
+
+15
+00:00:32,317 --> 00:00:35,355
+website should still have that feeling of
+
+16
+00:00:35,388 --> 00:00:37,365
+navigating between different pages.
+
+17
+00:00:37,943 --> 00:00:40,403
+You just technically never left that one
+
+18
+00:00:40,580 --> 00:00:40,821
+page,
+
+19
+00:00:41,417 --> 00:00:44,397
+but it still should give users all the
+
+20
+00:00:44,397 --> 00:00:46,700
+features they would expect from a multi-page
+
+21
+00:00:46,797 --> 00:00:49,052
+application, like being able to use the
+
+22
+00:00:49,052 --> 00:00:50,488
+forward and backward buttons.
+
+23
+00:00:52,140 --> 00:00:54,765
+And that's why you can add another attribute
+
+24
+00:00:54,765 --> 00:00:56,758
+here to this anchor element.
+
+25
+00:00:58,027 --> 00:01:01,534
+And that's the hx-push-url
+
+26
+00:01:02,455 --> 00:01:03,037
+attribute.
+
+27
+00:01:04,930 --> 00:01:08,200
+This attribute here can be used to update
+
+28
+00:01:08,409 --> 00:01:12,372
+the browser URL and also to save the
+
+29
+00:01:12,694 --> 00:01:16,472
+previous page snapshot so that users can use
+
+30
+00:01:16,488 --> 00:01:19,025
+the back button and HTMX will do all the
+
+31
+00:01:19,025 --> 00:01:20,374
+heavy lifting behind the scenes.
+
+32
+00:01:21,710 --> 00:01:26,487
+So here we could then navigate to /products/
+
+33
+00:01:25,902 --> 00:01:27,924
+and then maybe inject that product ID
+
+34
+00:01:28,647 --> 00:01:30,990
+so that the URL that will be displayed in
+
+35
+00:01:31,022 --> 00:01:34,376
+the browser bar will be this URL or will
+
+36
+00:01:34,424 --> 00:01:37,698
+include this path here and we'll be able to
+
+37
+00:01:37,698 --> 00:01:38,725
+use the back button.
+
+38
+00:01:40,202 --> 00:01:43,123
+So with this attribute added, if we now save
+
+39
+00:01:43,155 --> 00:01:43,379
+that
+
+40
+00:01:44,342 --> 00:01:46,509
+and we reload this page, if I click on a
+
+41
+00:01:46,509 --> 00:01:49,831
+product, you now see the URL was updated. It
+
+42
+00:01:49,879 --> 00:01:51,821
+now includes these details here.
+
+43
+00:01:52,526 --> 00:01:55,379
+And I can now use the back button and then
+
+44
+00:01:55,491 --> 00:01:57,670
+also the forward button to go back to the
+
+45
+00:01:57,670 --> 00:01:58,583
+page I was before.
+
+46
+00:01:59,128 --> 00:02:01,484
+So that now works and that's now a much
+
+47
+00:02:01,676 --> 00:02:04,288
+better single page application feeling.
+
+48
+00:02:05,201 --> 00:02:07,909
+And we could now do that on all our anchor
+
+49
+00:02:07,925 --> 00:02:11,563
+elements to make sure that we actually use
+
+50
+00:02:11,595 --> 00:02:15,537
+HTMX for loading the next page's content and
+
+51
+00:02:15,537 --> 00:02:18,389
+for replacing the current page content with
+
+52
+00:02:18,485 --> 00:02:18,597
+that.
+
+53
+00:02:19,291 --> 00:02:22,026
+But as it turns out, there is an even better
+
+54
+00:02:22,042 --> 00:02:23,110
+way of doing that.

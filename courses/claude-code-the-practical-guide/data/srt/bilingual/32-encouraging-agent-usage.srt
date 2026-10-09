@@ -1,0 +1,449 @@
+1
+00:00:00,048 --> 00:00:02,516
+So we added a sub-agent and because of the
+所以我們加入了一個子代理，因為
+
+2
+00:00:02,901 --> 00:00:05,033
+description we added there, there are high
+我們在那裡添加的描述，有高
+
+3
+00:00:05,161 --> 00:00:07,053
+chances that Claude Code will use it
+克勞德·科德可能會使用它
+
+4
+00:00:07,085 --> 00:00:08,816
+whenever it needs to look up documentation.
+每當需要查找文檔時。
+
+5
+00:00:09,233 --> 00:00:10,547
+But we can do better than hoping.
+但我們可以做得比希望更好。
+
+6
+00:00:11,397 --> 00:00:13,817
+Remember that Claude MD file? I mentioned
+還記得克勞德 MD 檔案嗎？我提到過
+
+7
+00:00:13,817 --> 00:00:16,110
+that it would be loaded into every new
+它將被載入到每個新的
+
+8
+00:00:16,623 --> 00:00:19,156
+Claude Code session and therefore we can add
+克勞德程式碼工作階段，因此我們可以添加
+
+9
+00:00:19,268 --> 00:00:21,528
+very specific instructions here. So instead
+這裡有非常具體的說明。所以相反
+
+10
+00:00:21,528 --> 00:00:23,933
+of hoping, we can add this instruction to
+希望我們可以將此指令加入到
+
+11
+00:00:23,933 --> 00:00:24,942
+the Claude MD file.
+克勞德 MD 檔案。
+
+12
+00:00:25,519 --> 00:00:27,363
+Whenever working with any third-party
+每當與任何第三方合作時
+
+13
+00:00:27,427 --> 00:00:30,152
+library or something similar, you must look
+圖書館或類似的東西，你必須看看
+
+14
+00:00:30,152 --> 00:00:32,092
+up the official documentation to ensure that
+查閱官方檔案以確保
+
+15
+00:00:32,092 --> 00:00:33,823
+you're working with up-to-date information,
+您正在使用最新資訊，
+
+16
+00:00:34,239 --> 00:00:36,964
+use the Docs Explorer subagent for efficient
+使用 Docs Explorer 子代理程式以提高效率
+
+17
+00:00:36,964 --> 00:00:39,817
+documentation lookup. By adding this here,
+文檔查找。透過在此處添加此內容，
+
+18
+00:00:40,249 --> 00:00:42,653
+we don't need to add it into our prompts and
+我們不需要將其添加到我們的提示中
+
+19
+00:00:42,653 --> 00:00:45,570
+we have almost 100% certainty that this
+我們幾乎 100% 確定這
+
+20
+00:00:45,570 --> 00:00:47,846
+subagent will be used and that Claude Code
+將使用子代理並且克勞德程式碼
+
+21
+00:00:47,942 --> 00:00:49,400
+will do documentation lookup.
+將進行文檔查找。
+
+22
+00:00:50,346 --> 00:00:52,397
+So now we can send a prompt like this
+現在我們可以發送這樣的提示
+
+23
+00:00:53,070 --> 00:00:55,667
+and it should automatically spin up that
+它應該會自動旋轉
+
+24
+00:00:55,731 --> 00:00:59,353
+subagent, that Docs Explorer subagent to
+子代理，即 Docs Explorer 子代理
+
+25
+00:00:59,721 --> 00:01:01,740
+look up the documentation of better auth and
+尋找更好的身份驗證檔案並
+
+26
+00:01:01,740 --> 00:01:04,483
+so on. So here it's spinning up the Explorer
+很快。所以這裡它正在旋轉資源管理器
+
+27
+00:01:04,643 --> 00:01:06,744
+subagent to explore the codebase, but also
+子代理程式來探索程式碼庫，而且
+
+28
+00:01:06,793 --> 00:01:08,749
+the Docs Explorer, actually multiple
+檔案資源管理器，實際上是多個
+
+29
+00:01:08,797 --> 00:01:10,305
+instances of the Docs Explorer
+檔案資源管理器的實例
+
+30
+00:01:10,963 --> 00:01:11,155
+to
+到
+
+31
+00:01:11,845 --> 00:01:14,171
+explore the BetterAuth documentation and the
+探索 BetterAuth 檔案和
+
+32
+00:01:14,171 --> 00:01:17,186
+Bun SQLite documentation, which is 100%
+Bun SQLite 文檔，這是 100%
+
+33
+00:01:17,218 --> 00:01:19,544
+correct for the kind of task I gave it. Now
+對於我給它的任務型別來說是正確的。現在
+
+34
+00:01:19,544 --> 00:01:21,469
+it's asking for permission to do web search
+它正在請求進行網路搜尋的許可
+
+35
+00:01:21,469 --> 00:01:23,618
+and so on. And yeah, I granted that. But
+等等。是的，我同意了。但
+
+36
+00:01:23,779 --> 00:01:26,586
+with that, we now have multiple agents
+這樣，我們現在就有了多個代理
+
+37
+00:01:26,586 --> 00:01:29,633
+running in parallel for efficient work and
+並行運行以實現高效工作
+
+38
+00:01:29,874 --> 00:01:32,937
+also for avoiding a pollution of the main
+也是為了避免主要的污染
+
+39
+00:01:33,017 --> 00:01:35,807
+context window. And that is a great use case
+上下文視窗。這是一個很好的用例
+
+40
+00:01:36,128 --> 00:01:38,887
+for a custom subagent that makes a lot of
+對於一個定制的子代理來說，它可以產生很多
+
+41
+00:01:38,935 --> 00:01:41,244
+sense and how to efficiently use and
+意識以及如何有效地使用和
+
+42
+00:01:41,340 --> 00:01:44,227
+leverage such a subagent. So compared to the
+利用這樣的子代理。所以相比
+
+43
+00:01:44,227 --> 00:01:46,728
+last time, you now see that it did not
+上次，你現在看到它沒有
+
+44
+00:01:46,728 --> 00:01:49,022
+perform any research tasks in the main
+執行主要的任何研究任務
+
+45
+00:01:49,118 --> 00:01:51,459
+agent, but instead outsourced all of that to
+代理，而是將所有這些外包給
+
+46
+00:01:51,459 --> 00:01:53,592
+subagents. And now it's just reading the
+子代理。現在只是閱讀
+
+47
+00:01:53,608 --> 00:01:55,934
+main files in the main agent or the
+主代理中的主檔案或
+
+48
+00:01:55,934 --> 00:01:57,986
+important files that were delivered by the
+所交付的重要檔案
+
+49
+00:01:58,018 --> 00:01:58,804
+Explore agent
+探索代理
+
+50
+00:01:59,382 --> 00:02:01,932
+in the main agent and gives me a summary,
+在主要代理中並給我一個總結，
+
+51
+00:02:02,044 --> 00:02:03,616
+which of course is the same summary as
+這當然是相同的總結
+
+52
+00:02:03,728 --> 00:02:06,054
+before, but now implemented with help of a
+以前，但現在在以下人員的幫助下實施
+
+53
+00:02:06,054 --> 00:02:08,700
+sub-agent that will automatically be used
+將自動使用的子代理
+
+54
+00:02:08,700 --> 00:02:10,913
+now whenever we work with a third-party
+現在每當我們與第三方合作時
+
+55
+00:02:10,945 --> 00:02:12,757
+library. At least that's the plan.
+圖書館。至少這是計劃。
+
+56
+00:02:13,367 --> 00:02:15,660
+Now actually here for me in this project
+現在實際上我在這個專案中
+
+57
+00:02:15,660 --> 00:02:17,906
+where I just wanted to use this as a demo,
+我只是想用它作為演示，
+
+58
+00:02:17,922 --> 00:02:20,712
+this extra review did find something that
+這個額外的評論確實發現了一些東西
+
+59
+00:02:20,712 --> 00:02:21,659
+must be improved.
+必須改進。
+
+60
+00:02:22,252 --> 00:02:24,946
+This next cookies plugin must be used in
+下一個 cookies 外掛程式必須用於
+
+61
+00:02:24,979 --> 00:02:27,912
+this auth TS file. File here because indeed
+這個驗證 TS 檔。在這裡歸檔，因為確實
+
+62
+00:02:28,024 --> 00:02:30,460
+BetterAuth, the authentication library I
+BetterAuth，身份驗證庫我
+
+63
+00:02:30,572 --> 00:02:32,591
+want to use here in this demo project,
+想在這個示範專案中使用，
+
+64
+00:02:33,152 --> 00:02:33,841
+does have
+確實有
+
+65
+00:02:34,578 --> 00:02:36,901
+an official Next.js integration guide and
+官方 Next.js 整合指南和
+
+66
+00:02:36,997 --> 00:02:39,128
+Next.js is the framework I'm using.
+Next.js 是我正在使用的框架。
+
+67
+00:02:39,801 --> 00:02:42,798
+And in there it has 2 main things you
+其中有 2 個主要內容
+
+68
+00:02:43,391 --> 00:02:44,080
+must do.
+必須做。
+
+69
+00:02:44,673 --> 00:02:46,643
+For one, when setting up those API routes,
+其一，在設定這些 API 路由時，
+
+70
+00:02:46,692 --> 00:02:49,464
+you must use toNext.js handler and that is
+您必須使用 toNext.js 處理程式，即
+
+71
+00:02:49,496 --> 00:02:52,252
+something Claude Code did set up for me here
+克勞德·科德在這裡為我設置了一些東西
+
+72
+00:02:52,604 --> 00:02:55,685
+in that file. But in order to then later
+在該檔案中。但為了以後
+
+73
+00:02:55,814 --> 00:02:59,844
+properly work with BetterAuth, we also must
+與 BetterAuth 正確合作，我們也必須
+
+74
+00:02:59,988 --> 00:03:03,441
+add this next cookies plugin here to the
+將下一個 cookies 外掛程式加入到此處
+
+75
+00:03:03,521 --> 00:03:06,748
+auth setup in the auth.ts file. And that
+auth 設定在 auth.ts 檔案中。還有那個
+
+76
+00:03:06,748 --> 00:03:07,824
+indeed is missing here
+這裡確實缺少
+
+77
+00:03:08,434 --> 00:03:11,116
+and was identified by my review here. So I
+並透過我的評論確定。所以我
+
+78
+00:03:11,148 --> 00:03:13,412
+can actually now tell Claude Code to fix
+現在實際上可以告訴 Claude Code 進行修復
+
+79
+00:03:13,412 --> 00:03:15,082
+that next cookies issue and don't do
+下一個 cookie 問題但不做
+
+80
+00:03:15,082 --> 00:03:17,587
+anything else. Of course, we could also do
+還要別的嗎。當然，我們也可以這樣做
+
+81
+00:03:17,587 --> 00:03:20,205
+that manually though. So if we wanna save
+不過手動的。所以如果我們想儲存
+
+82
+00:03:20,237 --> 00:03:20,960
+those tokens,
+那些代幣，
+
+83
+00:03:21,523 --> 00:03:22,905
+we can also just go to
+我們也可以去
+
+84
+00:03:23,532 --> 00:03:24,753
+this BetterAuth setup
+此 BetterAuth 設定
+
+85
+00:03:25,380 --> 00:03:28,321
+according to their docs and add plugins,
+根據他們的文檔並添加外掛，
+
+86
+00:03:28,739 --> 00:03:29,848
+import next cookies
+導入下一個cookie
+
+87
+00:03:30,427 --> 00:03:32,468
+and call next cookies as a function there
+並在那裡呼叫下一個cookie作為函式
+
+88
+00:03:32,837 --> 00:03:35,103
+like this. That's of course the cheaper way,
+像這樣。這當然是更便宜的方式
+
+89
+00:03:35,345 --> 00:03:37,434
+but we could have also told Claude Code to
+但我們也可以告訴克勞德·科德
+
+90
+00:03:37,434 --> 00:03:37,836
+fix that.
+解決這個問題。

@@ -1,0 +1,322 @@
+[
+ {
+  "start": 0.192,
+  "end": 2.329,
+  "en": "Now, the last core feature that's worth"
+ },
+ {
+  "start": 2.425,
+  "end": 6.119,
+  "en": "mentioning is that Bunsen's S3 client also"
+ },
+ {
+  "start": 6.119,
+  "end": 8.978,
+  "en": "supports presigned URLs. And what are"
+ },
+ {
+  "start": 9.171,
+  "end": 12.689,
+  "en": "presigned URLs? Well, that bucket here is"
+ },
+ {
+  "start": 12.801,
+  "end": 15.098,
+  "en": "private by default. For all storage"
+ },
+ {
+  "start": 15.194,
+  "end": 17.78,
+  "en": "providers I know, buckets are private by"
+ },
+ {
+  "start": 17.78,
+  "end": 19.997,
+  "en": "default. You can see public access is"
+ },
+ {
+  "start": 20.11,
+  "end": 22.423,
+  "en": "disabled. So I can view it here because I'm"
+ },
+ {
+  "start": 22.503,
+  "end": 24.992,
+  "en": "logged in. I can interact with it through"
+ },
+ {
+  "start": 25.009,
+  "end": 27.498,
+  "en": "that CLI because of those env vars I"
+ },
+ {
+  "start": 27.498,
+  "end": 27.916,
+  "en": "defined."
+ },
+ {
+  "start": 28.606,
+  "end": 30.003,
+  "en": "But if I gave you"
+ },
+ {
+  "start": 30.79,
+  "end": 32.653,
+  "en": "a link to that bucket, however that would"
+ },
+ {
+  "start": 32.701,
+  "end": 34.29,
+  "en": "look like, you wouldn't be able to do"
+ },
+ {
+  "start": 34.323,
+  "end": 34.852,
+  "en": "anything with it."
+ },
+ {
+  "start": 35.527,
+  "end": 38.016,
+  "en": "But what if I want to share that file with"
+ },
+ {
+  "start": 38.016,
+  "end": 40.264,
+  "en": "you, a file in the cloud? What if I wanted"
+ },
+ {
+  "start": 40.264,
+  "end": 41.452,
+  "en": "to share that with you?"
+ },
+ {
+  "start": 42.03,
+  "end": 44.711,
+  "en": "That is where presigned URLs come into play."
+ },
+ {
+  "start": 45.161,
+  "end": 49.095,
+  "en": "You can create a short-lived URL that points"
+ },
+ {
+  "start": 49.175,
+  "end": 51.921,
+  "en": "at a certain file in a private bucket and"
+ },
+ {
+  "start": 51.921,
+  "end": 55.389,
+  "en": "make that file if you have that URL,"
+ },
+ {
+  "start": 55.918,
+  "end": 59.178,
+  "en": "not private, as long as that URL is valid."
+ },
+ {
+  "start": 59.691,
+  "end": 61.409,
+  "en": "And that's what the share feature in this"
+ },
+ {
+  "start": 61.538,
+  "end": 64.99,
+  "en": "CLI is about. In there, in this share.ts"
+ },
+ {
+  "start": 64.99,
+  "end": 67.719,
+  "en": "file, in the share function, I'm using the"
+ },
+ {
+  "start": 67.799,
+  "end": 71.363,
+  "en": "presign method on that S3 client. So still"
+ },
+ {
+  "start": 71.476,
+  "end": 73.547,
+  "en": "the same Bun S3 client, but now using"
+ },
+ {
+  "start": 73.659,
+  "end": 74.35,
+  "en": "presign"
+ },
+ {
+  "start": 74.944,
+  "end": 78.99,
+  "en": "to point at a key, so the path of a file on"
+ },
+ {
+  "start": 79.182,
+  "end": 79.921,
+  "en": "S3."
+ },
+ {
+  "start": 80.484,
+  "end": 83.479,
+  "en": "And then configure that URL I wanna create."
+ },
+ {
+  "start": 84.091,
+  "end": 85.718,
+  "en": "For example, I say that the method will be"
+ },
+ {
+  "start": 85.798,
+  "end": 88.182,
+  "en": "GET, so it will only be valid for reading"
+ },
+ {
+  "start": 88.214,
+  "end": 90.847,
+  "en": "that file, not for overwriting it. We could"
+ },
+ {
+  "start": 90.863,
+  "end": 93.584,
+  "en": "also use the method PUT if we wanted someone"
+ },
+ {
+  "start": 93.616,
+  "end": 95.608,
+  "en": "else to have a URL they can use for"
+ },
+ {
+  "start": 96.126,
+  "end": 98.245,
+  "en": "replacing that file, but I only want GET."
+ },
+ {
+  "start": 99.599,
+  "end": 102.356,
+  "en": "I have expiresIn, which is an input I expect"
+ },
+ {
+  "start": 102.356,
+  "end": 102.872,
+  "en": "to get here,"
+ },
+ {
+  "start": 104.786,
+  "end": 106.382,
+  "en": "and that's coming from index.ts."
+ },
+ {
+  "start": 107.049,
+  "end": 109.052,
+  "en": "It's there where we have share"
+ },
+ {
+  "start": 109.776,
+  "end": 111.655,
+  "en": "And there we set a default"
+ },
+ {
+  "start": 112.265,
+  "end": 114.578,
+  "en": "of 3,600 seconds."
+ },
+ {
+  "start": 115.574,
+  "end": 117.743,
+  "en": "And then also some extra details about the"
+ },
+ {
+  "start": 117.743,
+  "end": 119.702,
+  "en": "filename that should be used for downloading"
+ },
+ {
+  "start": 119.75,
+  "end": 120.81,
+  "en": "that file, for example."
+ },
+ {
+  "start": 121.903,
+  "end": 123.766,
+  "en": "And you can see that feature in action if I"
+ },
+ {
+  "start": 123.766,
+  "end": 125.709,
+  "en": "run bun run cli share"
+ },
+ {
+  "start": 126.962,
+  "end": 130.014,
+  "en": "and then I provide that remote key, that"
+ },
+ {
+  "start": 130.014,
+  "end": 130.945,
+  "en": "remote filename."
+ },
+ {
+  "start": 131.491,
+  "end": 133.965,
+  "en": "So if I run bun run cli list, I see all the"
+ },
+ {
+  "start": 133.965,
+  "end": 136.76,
+  "en": "files I have remotely and now I can share,"
+ },
+ {
+  "start": 136.776,
+  "end": 137.932,
+  "en": "let's say this file"
+ },
+ {
+  "start": 138.622,
+  "end": 141.284,
+  "en": "Like this, and I get back a URL. And if I"
+ },
+ {
+  "start": 141.284,
+  "end": 143.93,
+  "en": "now copy that URL and I open a new"
+ },
+ {
+  "start": 144.555,
+  "end": 146.464,
+  "en": "incognito browser window where I'm not"
+ },
+ {
+  "start": 146.464,
+  "end": 149.093,
+  "en": "logged in, I can insert that URL and view"
+ },
+ {
+  "start": 149.19,
+  "end": 149.655,
+  "en": "that file,"
+ },
+ {
+  "start": 150.392,
+  "end": 153.07,
+  "en": "but only for an hour. Thereafter, this link"
+ },
+ {
+  "start": 153.118,
+  "end": 153.952,
+  "en": "will no longer work."
+ },
+ {
+  "start": 154.497,
+  "end": 156.245,
+  "en": "But that's of course also a nice useful"
+ },
+ {
+  "start": 156.325,
+  "end": 158.763,
+  "en": "feature and Bun has built-in support for it"
+ },
+ {
+  "start": 159.051,
+  "end": 159.677,
+  "en": "out of the box."
+ }
+]

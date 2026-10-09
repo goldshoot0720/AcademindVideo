@@ -1,0 +1,469 @@
+1
+00:00:00,512 --> 00:00:03,172
+So we already see the first 2
+所以我們已經看到了前 2 個
+
+2
+00:00:03,941 --> 00:00:06,761
+HTMX attributes in action and how we can use
+HTMX 屬性的實際應用以及我們如何使用
+
+3
+00:00:06,761 --> 00:00:10,029
+them to send a request declaratively without
+他們以聲明方式發送請求，無需
+
+4
+00:00:10,029 --> 00:00:12,914
+writing any JavaScript code and how we can
+編寫任何 JavaScript 程式碼以及我們如何能夠
+
+5
+00:00:12,914 --> 00:00:13,298
+control
+控制
+
+6
+00:00:13,891 --> 00:00:17,079
+where exactly in the element that sent the
+發送的元素的確切位置
+
+7
+00:00:17,079 --> 00:00:19,819
+request the response content will be
+請求的回應內容將是
+
+8
+00:00:19,819 --> 00:00:20,236
+rendered.
+呈現。
+
+9
+00:00:21,566 --> 00:00:24,626
+But what if we actually don't wanna render
+但如果我們實際上不想渲染怎麼辦
+
+10
+00:00:24,626 --> 00:00:27,462
+the content in the button or instead of the
+按鈕中的內容或代替
+
+11
+00:00:27,510 --> 00:00:28,279
+button at all?
+按鈕嗎？
+
+12
+00:00:29,273 --> 00:00:31,487
+What if we wanna render it somewhere else,
+如果我們想把它渲染到其他地方怎麼辦？
+
+13
+00:00:32,225 --> 00:00:33,925
+maybe below the button?
+也許在按鈕下方？
+
+14
+00:00:34,968 --> 00:00:38,321
+Well, you can of course also configure that
+嗯，你當然也可以設定
+
+15
+00:00:38,562 --> 00:00:42,011
+because HTMX offers all those attributes
+因為 HTMX 提供了所有這些屬性
+
+16
+00:00:42,011 --> 00:00:44,818
+here to allow you to essentially configure
+在這裡允許您進行基本設定
+
+17
+00:00:44,834 --> 00:00:46,728
+it in any way you need
+以您需要的任何方式
+
+18
+00:00:47,385 --> 00:00:49,535
+without writing JavaScript code.
+無需編寫 JavaScript 程式碼。
+
+19
+00:00:50,514 --> 00:00:54,123
+And the configuration and extra attribute we
+以及我們的設定和額外屬性
+
+20
+00:00:54,123 --> 00:00:57,813
+need here is hx-target.
+這裡需要的是hx-target。
+
+21
+00:00:58,872 --> 00:01:01,006
+And by the way, the order of these
+順便說一句，這些的順序
+
+22
+00:01:01,102 --> 00:01:03,942
+attributes here is not important.
+屬性在這裡並不重要。
+
+23
+00:01:05,273 --> 00:01:07,535
+I tend to start with the
+我傾向於從
+
+24
+00:01:08,241 --> 00:01:12,316
+request attributes, hx-get and some others,
+請求屬性，hx-get 和其他一些，
+
+25
+00:01:12,428 --> 00:01:14,739
+which I'll show you later, but it's not
+我稍後會向你展示，但事實並非如此
+
+26
+00:01:14,755 --> 00:01:15,380
+important.
+重要的。
+
+27
+00:01:16,263 --> 00:01:19,632
+hx-target is important here though if we
+hx-target 在這裡很重要，如果我們
+
+28
+00:01:19,712 --> 00:01:21,958
+wanna render the response content somewhere
+想要在某處呈現回應內容
+
+29
+00:01:21,958 --> 00:01:24,220
+else and not inside or instead of this
+else 不在裡面或取代 this
+
+30
+00:01:24,220 --> 00:01:24,573
+button.
+按鈕。
+
+31
+00:01:25,585 --> 00:01:30,437
+Because hx-target now takes a CSS selector
+因為 hx-target 現在就採用 CSS 選擇器
+
+32
+00:01:30,952 --> 00:01:34,390
+as a value and that selector selects any
+作為一個值，並且該選擇器選擇任何
+
+33
+00:01:34,422 --> 00:01:36,993
+element on the page, so any element in the
+頁面上的元素，因此 中的任何元素
+
+34
+00:01:36,993 --> 00:01:38,214
+currently rendered DOM
+當前渲染的 DOM
+
+35
+00:01:38,744 --> 00:01:40,849
+into which the response data will be
+回應資料將被寫入其中
+
+36
+00:01:40,849 --> 00:01:41,187
+rendered.
+呈現。
+
+37
+00:01:42,359 --> 00:01:45,621
+And then hx-swap will still define
+然後 hx-swap 仍然會定義
+
+38
+00:01:46,296 --> 00:01:48,529
+if the response content will be rendered
+是否渲染回應內容
+
+39
+00:01:48,642 --> 00:01:52,419
+instead of the selected element or inside of
+而不是選定的元素或內部
+
+40
+00:01:52,419 --> 00:01:55,216
+the selected element or inside in front of
+所選元素或前面的內部
+
+41
+00:01:55,264 --> 00:01:57,280
+existing elements and so on.
+現有的元素等等。
+
+42
+00:01:58,732 --> 00:02:01,464
+And here I wanna target the entire main
+在這裡我想瞄準整個主要
+
+43
+00:02:01,609 --> 00:02:04,969
+element and then render the response content
+元素，然後渲染回應內容
+
+44
+00:02:05,081 --> 00:02:08,442
+at the end of that element. So after the
+在該元素的末尾。所以之後
+
+45
+00:02:08,442 --> 00:02:11,501
+existing content, after this paragraph and
+本段之後的現有內容以及
+
+46
+00:02:11,598 --> 00:02:12,177
+this button.
+這個按鈕。
+
+47
+00:02:13,385 --> 00:02:16,347
+So therefore I now need the CSS selector for
+所以我現在需要 CSS 選擇器
+
+48
+00:02:16,411 --> 00:02:19,050
+the main element And here I can of course
+主要元素在這裡我當然可以
+
+49
+00:02:19,259 --> 00:02:22,263
+simply select that by its tag name, so I can
+只需透過其標籤名稱選擇它，這樣我就可以
+
+50
+00:02:22,312 --> 00:02:23,597
+just write main here.
+這裡直接寫main即可。
+
+51
+00:02:24,320 --> 00:02:27,292
+And this will now select the main element.
+現在將選擇主要元素。
+
+52
+00:02:28,240 --> 00:02:30,747
+By the way, if you had a target here that's
+順便說一句，如果你在這裡有一個目標，那就是
+
+53
+00:02:30,811 --> 00:02:32,916
+matched by multiple elements,
+由多個元素匹配，
+
+54
+00:02:33,494 --> 00:02:35,792
+if I would, for example, select a paragraph
+例如，如果我選擇一個段落
+
+55
+00:02:35,952 --> 00:02:38,909
+and I had multiple paragraphs on the page,
+我在頁面上有多個段落，
+
+56
+00:02:39,423 --> 00:02:42,042
+then it would target the first matching
+那麼它將針對第一個匹配
+
+57
+00:02:42,219 --> 00:02:43,825
+element, not all of them.
+元素，而不是全部。
+
+58
+00:02:45,250 --> 00:02:46,968
+But here, of course, I wanna select the main
+但在這裡，當然，我想選擇主要的
+
+59
+00:02:47,016 --> 00:02:49,755
+element and I only have one main element
+元素，我只有一個主要元素
+
+60
+00:02:49,852 --> 00:02:50,241
+anyways,
+無論如何，
+
+61
+00:02:50,824 --> 00:02:52,655
+and therefore I'll target that.
+因此我將以此為目標。
+
+62
+00:02:54,462 --> 00:02:57,467
+However, now I don't wanna swap the entire
+然而，現在我不想交換整個
+
+63
+00:02:57,740 --> 00:02:59,781
+element because if I would leave it like
+元素，因為如果我將其保留為
+
+64
+00:02:59,845 --> 00:03:01,677
+this and I would save that
+這個，我會儲存那個
+
+65
+00:03:02,481 --> 00:03:03,348
+and I would reload,
+我會重新載入，
+
+66
+00:03:04,010 --> 00:03:05,675
+you would see that clicking the Learn More
+您會看到點擊“了解更多”
+
+67
+00:03:05,739 --> 00:03:08,908
+button would now actually replace the entire
+按鈕現在實際上會取代整個
+
+68
+00:03:09,054 --> 00:03:11,609
+main element. With the rendered content.
+主要元素。隨著渲染的內容。
+
+69
+00:03:12,896 --> 00:03:15,308
+That might be what you want, but it's
+這可能是你想要的，但它是
+
+70
+00:03:15,373 --> 00:03:17,190
+actually not what I want here.
+實際上不是我想要的。
+
+71
+00:03:18,806 --> 00:03:21,958
+Instead, I wanna render this response
+相反，我想呈現這個回應
+
+72
+00:03:21,958 --> 00:03:25,353
+content inside of the main element after the
+主元素內的內容在
+
+73
+00:03:25,353 --> 00:03:26,355
+existing content.
+現有內容。
+
+74
+00:03:27,147 --> 00:03:30,299
+Now, if we take another look at the hx-swap
+現在，如果我們再看一下 hx-swap
+
+75
+00:03:30,623 --> 00:03:31,463
+documentation,
+檔案,
+
+76
+00:03:32,223 --> 00:03:33,484
+we can see that
+我們可以看到
+
+77
+00:03:34,018 --> 00:03:37,348
+before-end might be the setting we want here
+before-end 可能是我們想要的設置
+
+78
+00:03:37,574 --> 00:03:40,696
+because that will insert the response after
+因為這將在之後插入回應
+
+79
+00:03:40,696 --> 00:03:43,530
+the last child of the target element.
+目標元素的最後一個子元素。
+
+80
+00:03:44,626 --> 00:03:46,317
+And that's exactly what we want here. We
+這正是我們想要的。我們
+
+81
+00:03:46,317 --> 00:03:49,232
+wanna persist the elements, we wanna keep
+想要堅持元素，我們想要保留
+
+82
+00:03:49,232 --> 00:03:51,642
+them, but then we wanna add the response
+他們，但我們想添加回應
+
+83
+00:03:51,642 --> 00:03:53,810
+data after those elements.
+這些元素之後的資料。
+
+84
+00:03:54,651 --> 00:03:56,284
+And therefore here it's before
+因此這是之前的
+
+85
+00:03:56,818 --> 00:03:58,808
+end that I want as a setting here.
+結束我想要作為這裡的設定。
+
+86
+00:04:00,477 --> 00:04:03,086
+And I'll now split that across multiple
+現在我將把它分成多個
+
+87
+00:04:03,134 --> 00:04:05,710
+lines to make it a bit easier to read, but
+行以使其更易於閱讀，但是
+
+88
+00:04:05,808 --> 00:04:07,771
+that's just for for cosmetic reasons.
+這只是出於美觀的原因。
+
+89
+00:04:10,430 --> 00:04:12,840
+With that setting in place, if you save
+完成該設定後，如果您儲存
+
+90
+00:04:12,953 --> 00:04:15,283
+everything again and you reload, if you
+一切都重新開始，然後重新載入，如果你
+
+91
+00:04:15,283 --> 00:04:17,983
+click the button, you see now the button and
+單擊該按鈕，您現在將看到該按鈕並且
+
+92
+00:04:18,096 --> 00:04:21,696
+this text here is kept, but then the list is
+此處的文字被保留，但列表是
+
+93
+00:04:21,874 --> 00:04:24,058
+added after these elements. And that's
+添加在這些元素之後。那就是
+
+94
+00:04:24,058 --> 00:04:26,211
+exactly the behavior I wanted here.
+這正是我想要的行為。

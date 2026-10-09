@@ -1,0 +1,463 @@
+1
+00:00:00,128 --> 00:00:02,728
+So I did mention before that you can use Bun
+
+2
+00:00:02,761 --> 00:00:05,136
+for package and project management. So in
+
+3
+00:00:05,233 --> 00:00:08,732
+the same project as before, same code or
+
+4
+00:00:09,085 --> 00:00:11,846
+almost the same code, I added a package
+
+5
+00:00:11,895 --> 00:00:14,880
+here, the Sod package, which I'm using in
+
+6
+00:00:14,880 --> 00:00:18,701
+index.ts to basically verify that only valid
+
+7
+00:00:18,733 --> 00:00:20,210
+form actions are submitted.
+
+8
+00:00:20,740 --> 00:00:23,436
+Sod is a third-party library that has
+
+9
+00:00:23,613 --> 00:00:26,390
+nothing to do with Bun that can be used for
+
+10
+00:00:26,502 --> 00:00:29,360
+adding type safety at runtime and for
+
+11
+00:00:29,408 --> 00:00:31,495
+validating user input at runtime, for
+
+12
+00:00:31,495 --> 00:00:34,867
+example. Here I'm using Zod to define the
+
+13
+00:00:34,947 --> 00:00:38,046
+list of actions I wanna allow in that action
+
+14
+00:00:38,094 --> 00:00:41,064
+schema and I use that down here to parse the
+
+15
+00:00:41,064 --> 00:00:43,553
+submitted form action to make sure that it's
+
+16
+00:00:43,761 --> 00:00:45,784
+either increment or decrement and other
+
+17
+00:00:45,784 --> 00:00:47,037
+values would not be allowed.
+
+18
+00:00:47,775 --> 00:00:50,585
+Now, Zod was added as a dependency here to
+
+19
+00:00:50,585 --> 00:00:53,426
+this project and you can add dependencies to
+
+20
+00:00:53,475 --> 00:00:56,509
+a project using Bun as a package manager
+
+21
+00:00:56,686 --> 00:00:57,615
+instead of npm
+
+22
+00:00:58,208 --> 00:01:00,661
+by using bun add or bun install.
+
+23
+00:01:01,366 --> 00:01:03,178
+So you could add Svelte by running bun
+
+24
+00:01:03,178 --> 00:01:05,646
+install svelte. In that case, you really
+
+25
+00:01:05,662 --> 00:01:08,500
+just replace npm with Bun and it'll work.
+
+26
+00:01:09,029 --> 00:01:11,626
+Or you use the shorter bun add, which does
+
+27
+00:01:11,690 --> 00:01:13,854
+the same thing though. So that installs the
+
+28
+00:01:13,854 --> 00:01:17,380
+Svelte dependency. Now, unlike npm, at least
+
+29
+00:01:17,380 --> 00:01:18,951
+at the point of time where I'm recording
+
+30
+00:01:18,983 --> 00:01:21,628
+this, Bun is a bit more secure out of the
+
+31
+00:01:21,693 --> 00:01:23,953
+box because it, for example, prevents
+
+32
+00:01:23,953 --> 00:01:27,239
+packages you install from running lifecycle
+
+33
+00:01:27,239 --> 00:01:29,212
+scripts that may be attached to it, which
+
+34
+00:01:29,324 --> 00:01:31,924
+can protect against some attacks like supply
+
+35
+00:01:31,973 --> 00:01:33,979
+chain attacks or certain forms of supply
+
+36
+00:01:34,059 --> 00:01:34,749
+chain attacks.
+
+37
+00:01:35,648 --> 00:01:37,655
+Now, it's also important to point out though
+
+38
+00:01:38,056 --> 00:01:40,159
+that even if you're using the Bun runtime in
+
+39
+00:01:40,159 --> 00:01:42,551
+your project, you can of course still use
+
+40
+00:01:42,631 --> 00:01:44,734
+any package manager of your choice. You
+
+41
+00:01:44,734 --> 00:01:47,623
+don't have to use Bun. Bun is a great
+
+42
+00:01:47,623 --> 00:01:49,806
+package manager in my opinion, also because
+
+43
+00:01:49,806 --> 00:01:52,551
+it's pretty fast, but you could use npm or
+
+44
+00:01:52,663 --> 00:01:55,826
+pnpm or any other package manager and still
+
+45
+00:01:55,954 --> 00:01:58,089
+use Bun for the runtime. So you can still
+
+46
+00:01:58,282 --> 00:02:00,880
+run a file with bun run even if you use a
+
+47
+00:02:00,928 --> 00:02:03,205
+different package manager. That's important.
+
+48
+00:02:03,910 --> 00:02:06,138
+Now, when using Bun as a package manager,
+
+49
+00:02:06,154 --> 00:02:08,366
+you also got some additional features. For
+
+50
+00:02:08,382 --> 00:02:10,178
+example, you got bun why
+
+51
+00:02:10,963 --> 00:02:11,172
+to
+
+52
+00:02:11,749 --> 00:02:13,977
+ask why a certain package is in your
+
+53
+00:02:14,073 --> 00:02:16,734
+project. So if I ask for Svelte, for
+
+54
+00:02:16,734 --> 00:02:18,289
+example, with bun why,
+
+55
+00:02:18,962 --> 00:02:21,142
+I see that it's a direct dependency of my
+
+56
+00:02:21,142 --> 00:02:22,825
+project, which is correct because it's
+
+57
+00:02:22,825 --> 00:02:23,739
+directly listed here.
+
+58
+00:02:24,509 --> 00:02:28,324
+But in the npm ecosystem, which still gets
+
+59
+00:02:28,436 --> 00:02:30,456
+used by Bun if you use it as a package
+
+60
+00:02:30,520 --> 00:02:33,069
+manager, your dependencies can also have
+
+61
+00:02:33,085 --> 00:02:34,096
+their own dependencies.
+
+62
+00:02:34,673 --> 00:02:36,341
+So if I take a look at my node_modules
+
+63
+00:02:36,373 --> 00:02:38,105
+folder, which is where these dependencies
+
+64
+00:02:38,201 --> 00:02:40,559
+get installed, I, for example, see that I
+
+65
+00:02:40,559 --> 00:02:43,750
+seem to have the @undegi/types package in my
+
+66
+00:02:43,750 --> 00:02:44,215
+project.
+
+67
+00:02:44,792 --> 00:02:46,364
+And you might wonder where that's coming
+
+68
+00:02:46,460 --> 00:02:48,160
+from. So you can just ask
+
+69
+00:02:48,721 --> 00:02:49,218
+bun why
+
+70
+00:02:49,908 --> 00:02:51,688
+@undegi/types and you see, aha,
+
+71
+00:02:52,249 --> 00:02:54,976
+that is a dependency of the @node/types,
+
+72
+00:02:55,216 --> 00:02:57,285
+which are a dependency of the @bun/types.
+
+73
+00:02:57,846 --> 00:03:00,587
+The Bun types, due to that Node.js
+
+74
+00:03:00,587 --> 00:03:03,072
+compatibility which I mentioned, include the
+
+75
+00:03:03,376 --> 00:03:06,102
+Node types, and those in turn use the
+
+76
+00:03:06,182 --> 00:03:09,083
+Undici, the Undici types. And that is where
+
+77
+00:03:09,147 --> 00:03:11,023
+this package is coming from. So that's also
+
+78
+00:03:11,023 --> 00:03:11,616
+nice to have.
+
+79
+00:03:12,530 --> 00:03:14,197
+And then you also have the bun update
+
+80
+00:03:14,197 --> 00:03:16,104
+command to, for example, update your
+
+81
+00:03:16,136 --> 00:03:17,627
+packages that are installed,
+
+82
+00:03:18,365 --> 00:03:22,084
+or bun upgrade to update Bun itself.
+
+83
+00:03:22,629 --> 00:03:24,889
+And for bun update, you can also add
+
+84
+00:03:25,209 --> 00:03:28,415
+--latest to ensure that the latest versions
+
+85
+00:03:28,415 --> 00:03:29,778
+of your packages are installed. Installed
+
+86
+00:03:30,083 --> 00:03:32,439
+instead of just installing the next safe
+
+87
+00:03:32,631 --> 00:03:34,683
+version depending on how the package is
+
+88
+00:03:34,683 --> 00:03:37,665
+stored in package.json. Because when
+
+89
+00:03:38,098 --> 00:03:40,326
+installing packages, by default they get
+
+90
+00:03:40,406 --> 00:03:43,468
+added with this little circumflex here in
+
+91
+00:03:43,468 --> 00:03:46,690
+your package.json file, which means whenever
+
+92
+00:03:46,738 --> 00:03:49,110
+you update them with bun update, for
+
+93
+00:03:49,142 --> 00:03:53,054
+example, you install the next safe version,
+
+94
+00:03:53,390 --> 00:03:55,843
+the next minor or patch version
+
+95
+00:03:56,051 --> 00:03:58,344
+specifically, not the next major version.
+
+96
+00:03:58,696 --> 00:04:01,069
+The idea here is that typically packages
+
+97
+00:04:01,165 --> 00:04:03,509
+publish a new major version whenever
+
+98
+00:04:03,509 --> 00:04:05,886
+something big changes, potentially including
+
+99
+00:04:05,982 --> 00:04:06,817
+breaking changes.
+
+100
+00:04:07,347 --> 00:04:09,788
+And to be able to update and not break your
+
+101
+00:04:09,836 --> 00:04:12,374
+app, you often add packages like this in
+
+102
+00:04:12,406 --> 00:04:14,526
+your package.json file. And that is indeed
+
+103
+00:04:14,526 --> 00:04:16,083
+the default how they are added when
+
+104
+00:04:16,661 --> 00:04:19,054
+adding them with bun add or install.
+
+105
+00:04:19,873 --> 00:04:22,250
+And that circumflex simply means whenever
+
+106
+00:04:22,282 --> 00:04:25,430
+you update a package, it will ignore major
+
+107
+00:04:25,430 --> 00:04:28,127
+version updates and only update for minor
+
+108
+00:04:28,160 --> 00:04:30,809
+and patch versions. And you override that
+
+109
+00:04:30,809 --> 00:04:34,344
+behavior If you add --latest, in that case,
+
+110
+00:04:34,440 --> 00:04:34,794
+it will
+
+111
+00:04:35,372 --> 00:04:37,879
+rewrite that dependency in here and make
+
+112
+00:04:37,879 --> 00:04:40,434
+sure that it truly installs the latest
+
+113
+00:04:40,434 --> 00:04:42,988
+version right now, even if that could lead
+
+114
+00:04:43,101 --> 00:04:45,077
+to breaking changes. And that's a little
+
+115
+00:04:45,511 --> 00:04:47,921
+nice convenience if you know that you wanna
+
+116
+00:04:47,921 --> 00:04:49,657
+update to the very latest version.

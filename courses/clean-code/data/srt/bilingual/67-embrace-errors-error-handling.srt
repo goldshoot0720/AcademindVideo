@@ -1,0 +1,229 @@
+1
+00:00:02,499 --> 00:00:04,358
+Before we're going to explore how
+在我們開始探索如何進行之前
+
+2
+00:00:04,518 --> 00:00:07,002
+composition and polymorphism might be able
+組成和多態性可能能夠
+
+3
+00:00:07,002 --> 00:00:09,935
+to help us with that problem of duplicated
+幫助我們解決重複的問題
+
+4
+00:00:10,047 --> 00:00:12,034
+checks, which I outlined over the last
+檢查，我在過去概述過
+
+5
+00:00:12,034 --> 00:00:12,418
+lectures,
+講座、
+
+6
+00:00:13,091 --> 00:00:15,719
+let's see how utilizing errors can help us
+讓我們看看利用錯誤如何幫助我們
+
+7
+00:00:15,735 --> 00:00:16,825
+with our code overall.
+與我們的程式碼整體。
+
+8
+00:00:17,482 --> 00:00:20,206
+Because one mistake which quite a lot of
+因為一個錯誤相當多
+
+9
+00:00:20,206 --> 00:00:22,995
+developers make is that they don't utilize
+開發人員所做的就是他們不利用
+
+10
+00:00:23,331 --> 00:00:26,151
+errors and throwing custom errors enough.
+錯誤並拋出自定義錯誤就足夠了。
+
+11
+00:00:26,858 --> 00:00:29,667
+And errors as well as error handling is
+錯誤以及錯誤處理是
+
+12
+00:00:29,924 --> 00:00:32,558
+really your friend because throwing and
+真的是你的朋友，因為投擲和
+
+13
+00:00:32,558 --> 00:00:35,592
+handling errors in the proper places can
+在適當的地方處理錯誤可以
+
+14
+00:00:35,608 --> 00:00:38,820
+actually replace useless if statements and
+實際上替換無用的 if 語句和
+
+15
+00:00:38,996 --> 00:00:41,212
+lead to more focused functions.
+導致功能更加集中。
+
+16
+00:00:42,288 --> 00:00:43,251
+And here's a simple rule.
+這是一個簡單的規則。
+
+17
+00:00:43,878 --> 00:00:46,511
+If something is an error, if something has
+如果有錯誤，如果有錯誤
+
+18
+00:00:46,543 --> 00:00:49,674
+an error character, make it an error. Don't
+錯誤字符，使其成為錯誤。不
+
+19
+00:00:49,674 --> 00:00:51,456
+try to solve it with an if statement.
+嘗試用 if 語句解決它。
+
+20
+00:00:52,229 --> 00:00:54,552
+For example, here is a short snippet which
+例如，這是一個簡短的片段
+
+21
+00:00:54,584 --> 00:00:56,810
+we don't have in our big example but which
+我們的大例子中沒有但是
+
+22
+00:00:56,843 --> 00:00:58,585
+you could see in other programs as well.
+您也可以在其他程式中看到。
+
+23
+00:00:59,730 --> 00:01:01,536
+Here we're checking whether something is an
+在這裡我們檢查某物是否是
+
+24
+00:01:01,536 --> 00:01:03,988
+email and if we make it into this if block,
+電子郵件，如果我們將其放入此 if 區塊中，
+
+25
+00:01:04,343 --> 00:01:05,972
+I do return an object here
+我確實在這裡回傳一個物件
+
+26
+00:01:06,537 --> 00:01:09,537
+where I assign some code, probably some kind
+我在其中分配一些程式碼，可能是某種程式碼
+
+27
+00:01:09,586 --> 00:01:11,899
+of error code and a message.
+錯誤程式碼和訊息。
+
+28
+00:01:13,442 --> 00:01:16,398
+And then in other parts of our application,
+然後在我們應用程式的其他部分，
+
+29
+00:01:16,735 --> 00:01:19,246
+we could check for this object, check the
+我們可以檢查這個物件，檢查
+
+30
+00:01:19,246 --> 00:01:21,041
+code in there and then run code depending on
+程式碼在那裡，然後運行程式碼取決於
+
+31
+00:01:21,041 --> 00:01:21,873
+whether we have code 400
+我們是否有程式碼 400
+
+32
+00:01:23,742 --> 00:01:24,319
+22
+22
+
+33
+00:01:24,929 --> 00:01:26,694
+or if we maybe were successful.
+或者如果我們可能成功了。
+
+34
+00:01:27,448 --> 00:01:29,165
+So in the end, what we're doing here is
+所以最後我們要做的是
+
+35
+00:01:29,261 --> 00:01:31,218
+we're constructing an error
+我們正在建立一個錯誤
+
+36
+00:01:31,828 --> 00:01:34,828
+without really using the built-in error
+沒有真正使用內建錯誤
+
+37
+00:01:34,828 --> 00:01:37,989
+mechanisms all modern programming languages
+所有現代程式語言的機制
+
+38
+00:01:38,246 --> 00:01:38,791
+offer to us.
+向我們提供。
+
+39
+00:01:39,706 --> 00:01:42,160
+This here would be a better way of writing
+這將是更好的寫作方式
+
+40
+00:01:42,192 --> 00:01:42,321
+this.
+這。
+
+41
+00:01:43,155 --> 00:01:45,369
+We're having the same check, but now I'm
+我們有同樣的支票，但現在我
+
+42
+00:01:45,401 --> 00:01:47,214
+constructing a real error
+構造一個真實的錯誤
+
+43
+00:01:47,792 --> 00:01:50,616
+building up on the built-in error object,
+建立在內建錯誤物件的基礎上，
+
+44
+00:01:50,776 --> 00:01:53,720
+which also all modern programming languages
+這也是所有現代程式語言
+
+45
+00:01:53,834 --> 00:01:56,843
+give you in some way. I then add extra data
+以某種方式給你。然後我添加額外的資料
+
+46
+00:01:56,843 --> 00:02:00,516
+to this error object. In this
+到這個錯誤物件。在這個

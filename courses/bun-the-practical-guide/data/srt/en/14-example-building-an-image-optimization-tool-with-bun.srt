@@ -1,0 +1,1623 @@
+1
+00:00:00,112 --> 00:00:02,438
+So optimise-images.ts is the root entry
+
+2
+00:00:02,502 --> 00:00:05,278
+point. That is what we execute here with
+
+3
+00:00:05,310 --> 00:00:07,347
+that script. And in that file, we start with
+
+4
+00:00:07,347 --> 00:00:08,342
+a bunch of imports,
+
+5
+00:00:09,000 --> 00:00:11,198
+importing path from Node because as you
+
+6
+00:00:11,246 --> 00:00:13,877
+learned, Bun has that Node.js compatibility
+
+7
+00:00:14,230 --> 00:00:16,123
+and then importing a bunch of functions and
+
+8
+00:00:16,315 --> 00:00:18,305
+things from my own files. And of course
+
+9
+00:00:18,305 --> 00:00:19,716
+we'll take a look at all of them. I then
+
+10
+00:00:19,749 --> 00:00:21,032
+have a main function here
+
+11
+00:00:21,690 --> 00:00:23,904
+and a run function. The main function is
+
+12
+00:00:24,096 --> 00:00:26,791
+what's executed when the file here is
+
+13
+00:00:26,984 --> 00:00:27,352
+actually
+
+14
+00:00:28,090 --> 00:00:30,672
+run with help of bun. So the main function
+
+15
+00:00:30,672 --> 00:00:32,998
+here is the main entry point of the program,
+
+16
+00:00:33,719 --> 00:00:36,125
+and in there I start by loading the
+
+17
+00:00:36,205 --> 00:00:39,589
+configuration. So in the end, parsing the
+
+18
+00:00:39,733 --> 00:00:43,454
+user input. When I run this command here, I
+
+19
+00:00:43,502 --> 00:00:45,362
+want to get hold of that path and I want to
+
+20
+00:00:45,426 --> 00:00:47,222
+get hold of these options because they
+
+21
+00:00:47,431 --> 00:00:49,259
+influence how the program works.
+
+22
+00:00:49,981 --> 00:00:52,370
+That is what main does as a first step. It
+
+23
+00:00:52,483 --> 00:00:55,596
+parses the config with this weird code.
+
+24
+00:00:56,478 --> 00:00:58,468
+Now here we again see Bun. What are we doing
+
+25
+00:00:58,500 --> 00:01:00,554
+here though? We're using the argv
+
+26
+00:01:01,147 --> 00:01:03,281
+property on the global Bun
+
+27
+00:01:04,100 --> 00:01:06,041
+object. So that's coming from the Bun
+
+28
+00:01:06,041 --> 00:01:08,127
+runtime, and argv is something that's also
+
+29
+00:01:08,127 --> 00:01:09,940
+provided by the runtime. It's a property
+
+30
+00:01:09,972 --> 00:01:11,416
+built into Bun, so to say.
+
+31
+00:01:12,299 --> 00:01:13,679
+Now what does argv give you?
+
+32
+00:01:14,449 --> 00:01:15,267
+It gives you the
+
+33
+00:01:15,813 --> 00:01:18,268
+raw arguments passed to the process,
+
+34
+00:01:18,460 --> 00:01:20,418
+including flags passed
+
+35
+00:01:21,381 --> 00:01:23,741
+So the process is what we start with bun
+
+36
+00:01:23,757 --> 00:01:25,523
+run, and then what we have thereafter,
+
+37
+00:01:25,539 --> 00:01:27,947
+that's the raw input that's passed to the
+
+38
+00:01:27,947 --> 00:01:30,805
+process, and argv gives us access to that.
+
+39
+00:01:31,656 --> 00:01:35,830
+I then use slice 2 to skip the first 2
+
+40
+00:01:36,681 --> 00:01:39,041
+things that are passed into that program.
+
+41
+00:01:39,121 --> 00:01:41,674
+And you would think, why am I skipping the
+
+42
+00:01:41,674 --> 00:01:44,692
+first option and the path? But that would be
+
+43
+00:01:44,708 --> 00:01:49,375
+wrong because argv actually gets the path to
+
+44
+00:01:49,375 --> 00:01:51,778
+the Bun runtime as our first argument by
+
+45
+00:01:51,778 --> 00:01:54,438
+default, and then the path to the file
+
+46
+00:01:54,502 --> 00:01:56,312
+that's being executed as the second
+
+47
+00:01:56,409 --> 00:01:58,764
+argument. So if I were to use
+
+48
+00:01:59,533 --> 00:02:02,401
+argv entirely, then the first input,
+
+49
+00:02:02,817 --> 00:02:04,147
+invisible to what we entered here,
+
+50
+00:02:04,740 --> 00:02:07,304
+would be the path to the Bun runtime, and
+
+51
+00:02:07,320 --> 00:02:09,354
+the second input would be the path to the
+
+52
+00:02:09,386 --> 00:02:12,078
+root entry file, so to optimize-images.ts.
+
+53
+00:02:12,591 --> 00:02:15,331
+And both are things I don't care about in my
+
+54
+00:02:15,331 --> 00:02:17,609
+program. That's why I'm using slice 2 here
+
+55
+00:02:17,657 --> 00:02:20,788
+to skip those first 2 inputs so that I only
+
+56
+00:02:20,853 --> 00:02:23,406
+get the actual inputs I care about, which is
+
+57
+00:02:23,823 --> 00:02:26,296
+that path here and then all these options.
+
+58
+00:02:26,649 --> 00:02:29,716
+That is what argv does. It gives us access
+
+59
+00:02:30,021 --> 00:02:32,076
+to the inputs to the program, which includes
+
+60
+00:02:32,108 --> 00:02:34,099
+the.NET runtime and the path to the file
+
+61
+00:02:34,099 --> 00:02:36,090
+that's being executed, and then anything
+
+62
+00:02:36,203 --> 00:02:38,643
+that's passed after this command. So all
+
+63
+00:02:38,932 --> 00:02:40,763
+these options here, and I only care about
+
+64
+00:02:40,763 --> 00:02:41,212
+those here.
+
+65
+00:02:41,966 --> 00:02:44,962
+Now I'm passing this array of inputs to a
+
+66
+00:02:45,107 --> 00:02:48,440
+parseConfig function then. parseConfig is
+
+67
+00:02:48,536 --> 00:02:51,852
+defined in a cli.ts file, which is one of my
+
+68
+00:02:52,061 --> 00:02:54,112
+files not built into Bun, that's my own
+
+69
+00:02:54,160 --> 00:02:54,432
+file.
+
+70
+00:02:55,121 --> 00:02:57,413
+And in parseConfig, I'm getting those
+
+71
+00:02:57,525 --> 00:03:00,153
+inputs, an array of strings, that's the
+
+72
+00:03:00,153 --> 00:03:02,861
+format Bun gives me when using that argv
+
+73
+00:03:03,133 --> 00:03:03,598
+feature.
+
+74
+00:03:04,399 --> 00:03:08,629
+And then I use parseArgs, which is actually
+
+75
+00:03:09,142 --> 00:03:11,566
+feature coming from Node.js. So not from
+
+76
+00:03:11,631 --> 00:03:14,344
+Bun, not from me, but from Node.js. And
+
+77
+00:03:14,441 --> 00:03:18,792
+parseArgs is all about parsing input and
+
+78
+00:03:18,936 --> 00:03:22,373
+especially here checking that only certain
+
+79
+00:03:22,453 --> 00:03:23,448
+options are supported.
+
+80
+00:03:23,978 --> 00:03:26,868
+The way parseArgs, which again is a function
+
+81
+00:03:26,868 --> 00:03:27,912
+provided by Node.js,
+
+82
+00:03:28,474 --> 00:03:30,610
+works is that you pass a configuration
+
+83
+00:03:30,722 --> 00:03:31,284
+object to it.
+
+84
+00:03:31,942 --> 00:03:35,121
+You then give it your args array of input.
+
+85
+00:03:35,169 --> 00:03:37,766
+So that thing we parsed with help of bun,
+
+86
+00:03:37,958 --> 00:03:39,449
+that's what we're passing to parseArgs.
+
+87
+00:03:40,907 --> 00:03:42,847
+And then we define which options we wanna
+
+88
+00:03:42,847 --> 00:03:45,460
+support. And options are simply these things
+
+89
+00:03:45,492 --> 00:03:48,137
+that start with 2 dashes. So we have a
+
+90
+00:03:48,137 --> 00:03:50,205
+format option, we have a quality option, we
+
+91
+00:03:50,205 --> 00:03:52,369
+have a recursive option. And these are
+
+92
+00:03:52,369 --> 00:03:54,870
+options that are supported because I specify
+
+93
+00:03:54,870 --> 00:03:58,396
+them here as supported recursive, quality,
+
+94
+00:03:58,701 --> 00:04:00,737
+format, and a couple of others. These are
+
+95
+00:04:00,785 --> 00:04:03,318
+the options I wanna support with my program.
+
+96
+00:04:03,686 --> 00:04:05,995
+For each option, I can define which type of
+
+97
+00:04:06,011 --> 00:04:08,704
+input I expect. So Boolean, for example,
+
+98
+00:04:08,736 --> 00:04:10,451
+means that it simply is set or not.
+
+99
+00:04:11,060 --> 00:04:13,593
+String means that I want an actual value
+
+100
+00:04:13,609 --> 00:04:15,629
+which must be some text, and so on.
+
+101
+00:04:16,430 --> 00:04:18,162
+And again, that's just a feature provided by
+
+102
+00:04:18,258 --> 00:04:20,823
+Node.js that it gives you this utility
+
+103
+00:04:20,823 --> 00:04:23,147
+function parseArgs, which you can use for
+
+104
+00:04:23,163 --> 00:04:24,622
+parsing input and for
+
+105
+00:04:25,247 --> 00:04:27,972
+checking that certain options are used and
+
+106
+00:04:27,972 --> 00:04:30,200
+no other options. You can also set strict
+
+107
+00:04:30,200 --> 00:04:32,380
+here to enforce these options, so to really
+
+108
+00:04:32,380 --> 00:04:34,079
+make sure that only these options are used.
+
+109
+00:04:34,528 --> 00:04:37,013
+And allowPositionals here is important and
+
+110
+00:04:37,093 --> 00:04:39,626
+is set to true Because images here
+
+111
+00:04:40,379 --> 00:04:41,710
+is not an option in this
+
+112
+00:04:42,704 --> 00:04:45,381
+--option-name format. Instead, it's passed
+
+113
+00:04:45,445 --> 00:04:48,202
+in as a positional argument. It doesn't have
+
+114
+00:04:48,266 --> 00:04:51,472
+a name. All these other options have a name,
+
+115
+00:04:51,777 --> 00:04:54,470
+format for example, and a value. Images has
+
+116
+00:04:54,566 --> 00:04:56,265
+no name, it's just a value. That's a
+
+117
+00:04:56,329 --> 00:04:58,493
+positional input and I'm allowing those too.
+
+118
+00:04:59,151 --> 00:05:01,635
+A mixture of these flag options here with
+
+119
+00:05:01,635 --> 00:05:03,447
+names and positional inputs.
+
+120
+00:05:04,344 --> 00:05:05,819
+Okay, so that's the first step. We check
+
+121
+00:05:05,963 --> 00:05:08,192
+whether some valid input was provided and we
+
+122
+00:05:08,208 --> 00:05:10,986
+get back the parsed value basically an
+
+123
+00:05:11,164 --> 00:05:14,102
+object with the actually set options.
+
+124
+00:05:14,731 --> 00:05:16,878
+We use these parsed values
+
+125
+00:05:17,540 --> 00:05:19,703
+which were retrieved with help of parseArgs
+
+126
+00:05:20,220 --> 00:05:23,224
+to then do stuff. For example, if the help
+
+127
+00:05:23,353 --> 00:05:24,258
+option was set,
+
+128
+00:05:25,857 --> 00:05:27,714
+which you can do by just running --help,
+
+129
+00:05:30,477 --> 00:05:32,573
+then you would get this help output. You get
+
+130
+00:05:32,573 --> 00:05:34,056
+this because here I'm checking if
+
+131
+00:05:34,685 --> 00:05:35,007
+the
+
+132
+00:05:35,636 --> 00:05:38,070
+help option was set. In that case, I throw
+
+133
+00:05:38,612 --> 00:05:41,242
+an error, so to say, a help requested error,
+
+134
+00:05:41,258 --> 00:05:43,374
+which is a custom error I defined down there
+
+135
+00:05:43,583 --> 00:05:44,304
+in this class.
+
+136
+00:05:44,850 --> 00:05:47,463
+And here I simply output some help text that
+
+137
+00:05:47,527 --> 00:05:49,083
+describes the supported options.
+
+138
+00:05:50,141 --> 00:05:53,011
+If that flag was not set, we continue
+
+139
+00:05:53,605 --> 00:05:55,192
+and we first continue by getting our
+
+140
+00:05:55,192 --> 00:05:57,501
+positionals. Now I only expect one
+
+141
+00:05:57,533 --> 00:06:00,179
+positional here, which is the path to the
+
+142
+00:06:00,179 --> 00:06:02,728
+images. And actually the program also won't
+
+143
+00:06:02,809 --> 00:06:05,551
+work if that is not provided. I need that
+
+144
+00:06:05,631 --> 00:06:08,836
+path. So we check if positional length is 0,
+
+145
+00:06:08,900 --> 00:06:11,864
+which means no option was provided. In that
+
+146
+00:06:11,864 --> 00:06:14,124
+case, we throw an error. We need a path. We
+
+147
+00:06:14,124 --> 00:06:16,623
+need one positional input, that path.
+
+148
+00:06:17,248 --> 00:06:19,379
+If more than one positional input was
+
+149
+00:06:19,411 --> 00:06:21,286
+provided though, we also throw an error
+
+150
+00:06:21,334 --> 00:06:23,802
+because we want exactly one path, not
+
+151
+00:06:23,802 --> 00:06:27,151
+multiple paths. So if we have no or too many
+
+152
+00:06:27,183 --> 00:06:28,545
+positionals, we throw.
+
+153
+00:06:29,250 --> 00:06:32,278
+Otherwise, we continue and then we extract
+
+154
+00:06:32,310 --> 00:06:34,474
+the other values and perform some
+
+155
+00:06:34,474 --> 00:06:36,446
+validation. For example, for the quality
+
+156
+00:06:36,478 --> 00:06:39,732
+flag, if it is set, we check if the value is
+
+157
+00:06:39,828 --> 00:06:41,095
+between 1 and 100.
+
+158
+00:06:42,313 --> 00:06:44,525
+For raw format, we check that it's one of
+
+159
+00:06:44,718 --> 00:06:46,064
+our supported formats.
+
+160
+00:06:46,673 --> 00:06:48,853
+So I have valid formats here, and that's
+
+161
+00:06:48,901 --> 00:06:52,011
+just a set of formats I want to support. So
+
+162
+00:06:52,011 --> 00:06:54,239
+we only support conversion to these formats,
+
+163
+00:06:54,656 --> 00:06:56,916
+and I throw an error if an invalid format
+
+164
+00:06:56,916 --> 00:06:57,686
+would have been set.
+
+165
+00:06:58,343 --> 00:07:00,603
+That's the kind of work we do here. So a
+
+166
+00:07:00,603 --> 00:07:02,944
+bunch of validation in the end. Same for
+
+167
+00:07:03,072 --> 00:07:04,755
+width and height, which can also be set.
+
+168
+00:07:05,402 --> 00:07:07,251
+And then in the end, we return an object
+
+169
+00:07:07,283 --> 00:07:10,397
+with the validated and parsed configuration
+
+170
+00:07:10,511 --> 00:07:12,181
+options and we hand that back to
+
+171
+00:07:12,311 --> 00:07:13,008
+optimize-images.ts.
+
+172
+00:07:13,960 --> 00:07:16,515
+We get back that config object that has the
+
+173
+00:07:16,563 --> 00:07:18,588
+extracted and validated configuration.
+
+174
+00:07:19,521 --> 00:07:21,433
+And then we continue. Now we catch any
+
+175
+00:07:21,530 --> 00:07:22,783
+errors that we might have thrown
+
+176
+00:07:23,416 --> 00:07:25,978
+and we output them here to standard output.
+
+177
+00:07:26,207 --> 00:07:28,182
+So we write them to the console in the end.
+
+178
+00:07:30,189 --> 00:07:32,225
+But if we did not get an error, if we make
+
+179
+00:07:32,225 --> 00:07:34,065
+it past this catch block, we run the run
+
+180
+00:07:34,065 --> 00:07:34,782
+function, which is the function down here.
+
+181
+00:07:37,697 --> 00:07:40,086
+In that run function, we do the actual image
+
+182
+00:07:40,278 --> 00:07:40,839
+conversion.
+
+183
+00:07:41,641 --> 00:07:44,110
+We get the target extension, which depends
+
+184
+00:07:44,126 --> 00:07:46,755
+on the format we requested so that we simply
+
+185
+00:07:47,236 --> 00:07:50,618
+have.jpeg and so on. So.format,.jpeg,
+
+186
+00:07:50,779 --> 00:07:53,472
+.png and so on that we generate that. And
+
+187
+00:07:53,504 --> 00:07:55,316
+then we do the actual image processing
+
+188
+00:07:55,748 --> 00:07:57,881
+because of course we might be processing
+
+189
+00:07:57,913 --> 00:08:00,478
+multiple images if we got the path to a
+
+190
+00:08:00,478 --> 00:08:02,802
+folder that contains multiple images. We
+
+191
+00:08:03,027 --> 00:08:05,657
+also need to differentiate if we should
+
+192
+00:08:05,706 --> 00:08:08,320
+recursively process a folder or not. So if
+
+193
+00:08:08,320 --> 00:08:10,710
+we should dive into subfolders too, but in
+
+194
+00:08:10,726 --> 00:08:12,619
+the end here, we have a little asynchronous
+
+195
+00:08:12,731 --> 00:08:15,233
+for loop where we go through all the paths
+
+196
+00:08:15,297 --> 00:08:17,703
+of all the images we found. Now, how do we
+
+197
+00:08:17,719 --> 00:08:18,457
+find images?
+
+198
+00:08:19,003 --> 00:08:21,200
+With help of the input path and this
+
+199
+00:08:21,232 --> 00:08:23,029
+findImages function, which is in the
+
+200
+00:08:23,029 --> 00:08:24,103
+scanner.ts file.
+
+201
+00:08:24,841 --> 00:08:27,359
+Now, this is actually a generator where we
+
+202
+00:08:27,568 --> 00:08:30,102
+generate value after value.
+
+203
+00:08:30,712 --> 00:08:33,131
+You can think of it as a loop in the end.
+
+204
+00:08:33,596 --> 00:08:35,374
+And we do go through
+
+205
+00:08:35,983 --> 00:08:38,691
+a bunch of files that we get with help of
+
+206
+00:08:38,883 --> 00:08:42,520
+glob. Glob is using another Bun API here.
+
+207
+00:08:43,129 --> 00:08:45,308
+So we're importing glob from Bun. And what
+
+208
+00:08:45,308 --> 00:08:49,106
+the glob API does is it simply scans folders
+
+209
+00:08:49,202 --> 00:08:52,711
+and finds files based on a pattern we define
+
+210
+00:08:52,903 --> 00:08:53,993
+with help of buildPattern.
+
+211
+00:08:54,666 --> 00:08:57,886
+buildPattern simply builds a pattern where
+
+212
+00:08:57,886 --> 00:09:01,143
+it's looking for valid image files. So for
+
+213
+00:09:01,465 --> 00:09:03,456
+files that have valid image extensions
+
+214
+00:09:04,034 --> 00:09:06,539
+and it then is constructed differently based
+
+215
+00:09:06,539 --> 00:09:08,802
+on whether we do recursive scanning or not.
+
+216
+00:09:09,348 --> 00:09:11,452
+This is the regex pattern we use for
+
+217
+00:09:11,452 --> 00:09:13,652
+scanning for files. If we have recursive
+
+218
+00:09:13,748 --> 00:09:14,406
+option set,
+
+219
+00:09:15,049 --> 00:09:17,393
+we use 2 asterisks here, which means dive
+
+220
+00:09:17,393 --> 00:09:18,453
+into subfolders too.
+
+221
+00:09:18,982 --> 00:09:20,989
+Otherwise we just look for image files in
+
+222
+00:09:20,989 --> 00:09:21,600
+the folder
+
+223
+00:09:22,354 --> 00:09:23,815
+that was passed in as a path.
+
+224
+00:09:24,922 --> 00:09:26,814
+So that's just a regex pattern that's being
+
+225
+00:09:26,910 --> 00:09:27,680
+constructed here.
+
+226
+00:09:28,209 --> 00:09:30,806
+And that regex pattern is what the glob API
+
+227
+00:09:30,934 --> 00:09:31,206
+wants.
+
+228
+00:09:31,880 --> 00:09:34,284
+It takes one or more of such patterns and
+
+229
+00:09:34,284 --> 00:09:36,785
+then it simply finds us all the files that
+
+230
+00:09:36,785 --> 00:09:38,195
+fit those patterns
+
+231
+00:09:39,013 --> 00:09:41,498
+and returns them. And we just go through
+
+232
+00:09:41,514 --> 00:09:43,774
+those files and yield them file after file.
+
+233
+00:09:44,078 --> 00:09:45,537
+And that is in the end what we're getting
+
+234
+00:09:45,585 --> 00:09:47,413
+here and what we're then looping through. So
+
+235
+00:09:47,509 --> 00:09:50,475
+image file after image file in the path and
+
+236
+00:09:50,491 --> 00:09:52,414
+potentially any subfolders that we
+
+237
+00:09:52,414 --> 00:09:54,963
+specified. That is simply the idea, a little
+
+238
+00:09:55,203 --> 00:09:56,390
+helper function that finds
+
+239
+00:09:57,784 --> 00:09:59,099
+By the way, in case you're wondering where
+
+240
+00:09:59,211 --> 00:10:00,477
+the extensions are coming from,
+
+241
+00:10:01,054 --> 00:10:04,421
+extensions are the scanner options here. So
+
+242
+00:10:04,421 --> 00:10:07,771
+we pass our extensions to the scanner and
+
+243
+00:10:07,803 --> 00:10:09,615
+that's coming from our configuration.
+
+244
+00:10:10,192 --> 00:10:11,795
+So that's coming from the parsed
+
+245
+00:10:11,795 --> 00:10:14,520
+configuration in the end because you can set
+
+246
+00:10:14,552 --> 00:10:16,620
+an extensions flag to define which
+
+247
+00:10:16,700 --> 00:10:19,217
+extensions you wanna support or which file
+
+248
+00:10:19,265 --> 00:10:21,846
+extensions you wanna convert in the end.
+
+249
+00:10:22,535 --> 00:10:26,142
+And if extensions is not set, we use some
+
+250
+00:10:26,238 --> 00:10:28,097
+default extensions, which is what you wanna
+
+251
+00:10:28,097 --> 00:10:31,291
+do. Expect— JPEG, PNG, WebP, AVIF. So we're
+
+252
+00:10:31,291 --> 00:10:33,345
+going through the images, then we're then
+
+253
+00:10:33,377 --> 00:10:35,159
+constructing absolute paths using the
+
+254
+00:10:35,159 --> 00:10:37,967
+Node.js path API. So again, we're using a
+
+255
+00:10:37,967 --> 00:10:40,872
+mixture of Bun APIs and Node.js APIs here.
+
+256
+00:10:41,642 --> 00:10:42,750
+Then we get the
+
+257
+00:10:43,392 --> 00:10:45,911
+input format by extracting the extension. So
+
+258
+00:10:45,975 --> 00:10:48,062
+we simply trust that the extension of our
+
+259
+00:10:48,078 --> 00:10:50,758
+file describes which kind of image is in
+
+260
+00:10:50,854 --> 00:10:53,406
+there, so that a.jpeg file has an actual
+
+261
+00:10:53,502 --> 00:10:54,481
+JPEG image inside.
+
+262
+00:10:55,347 --> 00:10:57,608
+And we set the output format based on the
+
+263
+00:10:57,608 --> 00:10:58,538
+configured format.
+
+264
+00:10:59,228 --> 00:11:02,194
+If we did not set a configured format, so if
+
+265
+00:11:02,242 --> 00:11:03,797
+we did not pass
+
+266
+00:11:04,487 --> 00:11:06,652
+--format to the command, we simply use the
+
+267
+00:11:06,668 --> 00:11:09,939
+input extension to keep the input file type.
+
+268
+00:11:10,195 --> 00:11:12,665
+Then we create an encoder
+
+269
+00:11:13,242 --> 00:11:15,567
+and that simply depends on which format
+
+270
+00:11:15,567 --> 00:11:18,020
+we're targeting because that Bun API has
+
+271
+00:11:18,197 --> 00:11:20,185
+different encoders for different image
+
+272
+00:11:20,297 --> 00:11:20,618
+types.
+
+273
+00:11:21,243 --> 00:11:23,907
+So here we simply get a little helper object
+
+274
+00:11:23,907 --> 00:11:24,163
+back
+
+275
+00:11:24,773 --> 00:11:26,940
+that simply describes which kind of encoder
+
+276
+00:11:26,940 --> 00:11:30,214
+we want and what the quality will be. And in
+
+277
+00:11:30,246 --> 00:11:32,429
+case of PNG, we're actually converting a
+
+278
+00:11:32,493 --> 00:11:34,981
+quality to a compression level because PNG
+
+279
+00:11:34,981 --> 00:11:37,373
+doesn't have the notion of an image quality,
+
+280
+00:11:37,469 --> 00:11:39,010
+it just has compression level.
+
+281
+00:11:39,555 --> 00:11:41,016
+So we have a little helper function that
+
+282
+00:11:41,064 --> 00:11:44,130
+converts a quality between 1 and 100 to a
+
+283
+00:11:44,130 --> 00:11:46,826
+compression level between 0 and 9. That is
+
+284
+00:11:46,938 --> 00:11:47,869
+what PNGs want.
+
+285
+00:11:49,264 --> 00:11:52,278
+And once we have that encoder, we can use it
+
+286
+00:11:52,294 --> 00:11:52,502
+for
+
+287
+00:11:53,031 --> 00:11:54,858
+encoding down here. Now before we do that,
+
+288
+00:11:55,436 --> 00:11:57,487
+we compute the output path, which is simply
+
+289
+00:11:57,503 --> 00:11:59,780
+the path where the optimized image should be
+
+290
+00:11:59,780 --> 00:12:00,325
+stored.
+
+291
+00:12:01,351 --> 00:12:03,258
+Got a little helper function for that too,
+
+292
+00:12:03,771 --> 00:12:05,887
+where we construct the output path by
+
+293
+00:12:05,999 --> 00:12:06,464
+creating
+
+294
+00:12:07,314 --> 00:12:09,334
+a fitting file name that has the right file
+
+295
+00:12:09,382 --> 00:12:12,908
+extension and is then stored in an output
+
+296
+00:12:12,908 --> 00:12:15,361
+path that is defined with help of the output
+
+297
+00:12:15,457 --> 00:12:18,984
+dir or the out_dir flag, or if not set, it
+
+298
+00:12:19,064 --> 00:12:20,733
+is by default stored stored in
+
+299
+00:12:21,471 --> 00:12:24,891
+an optimized folder next to the input file.
+
+300
+00:12:25,662 --> 00:12:27,492
+That is what we do here. We construct the
+
+301
+00:12:27,589 --> 00:12:30,206
+path where the actual optimized images
+
+302
+00:12:30,318 --> 00:12:31,169
+should be stored.
+
+303
+00:12:31,747 --> 00:12:34,027
+Now we have a dry run option that can be set
+
+304
+00:12:34,092 --> 00:12:37,769
+with --dry-run, which would actually not
+
+305
+00:12:37,769 --> 00:12:40,001
+convert the images and instead just output
+
+306
+00:12:40,177 --> 00:12:42,104
+what would happen if we would run the
+
+307
+00:12:42,104 --> 00:12:44,850
+command without dry run being set. That can
+
+308
+00:12:44,850 --> 00:12:47,321
+be nice for previewing what will happen.
+
+309
+00:12:47,898 --> 00:12:50,353
+So in that case, we continue, we skip the
+
+310
+00:12:50,369 --> 00:12:51,540
+rest of this loop here,
+
+311
+00:12:52,133 --> 00:12:54,235
+and we just write which file we would be
+
+312
+00:12:54,235 --> 00:12:54,844
+processing.
+
+313
+00:12:55,582 --> 00:12:58,310
+If we have not set try_run, we do the actual
+
+314
+00:12:58,406 --> 00:12:59,400
+processing down there,
+
+315
+00:12:59,994 --> 00:13:02,432
+and we optimize image after image with help
+
+316
+00:13:02,432 --> 00:13:04,951
+of the optimize_one function. optimize_one
+
+317
+00:13:05,063 --> 00:13:07,999
+gets our encoder as input and also gets the
+
+318
+00:13:08,095 --> 00:13:09,587
+output and the input
+
+319
+00:13:10,181 --> 00:13:13,052
+absolute paths as inputs. So optimizeOne is
+
+320
+00:13:13,164 --> 00:13:16,178
+the main function that actually uses that
+
+321
+00:13:16,210 --> 00:13:17,508
+Bun Image API.
+
+322
+00:13:18,053 --> 00:13:20,137
+And what we're doing in here is we're
+
+323
+00:13:20,201 --> 00:13:22,365
+getting our file, we're reading it with the
+
+324
+00:13:22,462 --> 00:13:25,716
+bun.file method, another feature built into
+
+325
+00:13:25,748 --> 00:13:28,441
+the Bun API. So coming right from the Bun
+
+326
+00:13:28,633 --> 00:13:31,727
+runtime, file is there to read files very
+
+327
+00:13:31,759 --> 00:13:32,321
+efficiently.
+
+328
+00:13:33,202 --> 00:13:33,298
+We
+
+329
+00:13:33,827 --> 00:13:36,809
+get the size of that file here, the number
+
+330
+00:13:36,809 --> 00:13:37,883
+of bytes in there.
+
+331
+00:13:38,973 --> 00:13:41,442
+And then this here, that's the Bun Image
+
+332
+00:13:41,442 --> 00:13:43,830
+API. So another feature coming from the Bun
+
+333
+00:13:44,407 --> 00:13:45,401
+runtime in the end.
+
+334
+00:13:45,930 --> 00:13:48,559
+On a file that we read with bun.file and
+
+335
+00:13:48,816 --> 00:13:50,948
+only on files that we read with bun.file,
+
+336
+00:13:51,300 --> 00:13:54,026
+not on files that we read with any Node.js
+
+337
+00:13:54,218 --> 00:13:57,055
+API, for example, but on files that we read
+
+338
+00:13:57,087 --> 00:13:59,700
+with bun.file, we can call image because
+
+339
+00:13:59,796 --> 00:14:01,752
+file and image are both coming from Bun.
+
+340
+00:14:02,377 --> 00:14:05,872
+And image in the end gives us a handle to an
+
+341
+00:14:06,048 --> 00:14:09,318
+object that has various optimization and
+
+342
+00:14:09,414 --> 00:14:12,270
+conversion methods. For example, a resize
+
+343
+00:14:12,303 --> 00:14:14,485
+method for changing the file size in case
+
+344
+00:14:14,485 --> 00:14:16,894
+the user did set different width and height
+
+345
+00:14:16,894 --> 00:14:17,250
+values.
+
+346
+00:14:17,880 --> 00:14:19,570
+If not, we're not doing any resizing, of
+
+347
+00:14:19,604 --> 00:14:19,941
+course.
+
+348
+00:14:22,176 --> 00:14:25,952
+And then in the end, we also use the JPEG,
+
+349
+00:14:25,968 --> 00:14:29,646
+the PNG, WebP, or AWITH methods on that
+
+350
+00:14:29,663 --> 00:14:31,655
+image handle, again, which is coming from
+
+351
+00:14:32,154 --> 00:14:33,979
+Bun depending on which encoder was picked.
+
+352
+00:14:34,189 --> 00:14:36,354
+So if we have the JPEG encoder, we call the
+
+353
+00:14:36,354 --> 00:14:38,114
+JPEG method on that Bun Image API.
+
+354
+00:14:38,722 --> 00:14:41,561
+For the PNG encoder, we call PNG and so on.
+
+355
+00:14:41,914 --> 00:14:43,422
+So that is what then actually
+
+356
+00:14:43,999 --> 00:14:47,303
+encodes the optimized image as a JPEG, as a
+
+357
+00:14:47,303 --> 00:14:51,634
+PNG and so on after resizing it. And we set
+
+358
+00:14:51,634 --> 00:14:53,351
+the quality level of the encoding here,
+
+359
+00:14:53,399 --> 00:14:55,532
+which of course also affects the file size.
+
+360
+00:14:55,965 --> 00:14:58,436
+And then in the end on that encoded image,
+
+361
+00:14:58,452 --> 00:15:01,467
+we call write, which is another Bun feature,
+
+362
+00:15:01,900 --> 00:15:04,290
+the write method, which is there to write
+
+363
+00:15:04,290 --> 00:15:07,482
+something to a file and we write the image
+
+364
+00:15:07,674 --> 00:15:10,287
+in the end into that output path. That is
+
+365
+00:15:10,383 --> 00:15:12,307
+what actually creates and stores the
+
+366
+00:15:12,387 --> 00:15:13,124
+optimized image.
+
+367
+00:15:14,326 --> 00:15:16,795
+And that is what optimize1 does here. And we
+
+368
+00:15:16,811 --> 00:15:19,440
+do that image after image. We keep track of
+
+369
+00:15:19,440 --> 00:15:21,524
+all the images we processed so that we know
+
+370
+00:15:21,604 --> 00:15:23,448
+when to leave that loop once we processed
+
+371
+00:15:23,528 --> 00:15:25,948
+all images. And we also keep track of the
+
+372
+00:15:26,028 --> 00:15:28,481
+bytes we read in and the bytes we wrote out
+
+373
+00:15:28,673 --> 00:15:31,126
+to see by how much we optimized the images.
+
+374
+00:15:31,543 --> 00:15:33,979
+We also have verbose logging. So you can add
+
+375
+00:15:33,979 --> 00:15:37,650
+a --verbose option to log more details and
+
+376
+00:15:37,650 --> 00:15:40,040
+if that is turned on, we do, for example,
+
+377
+00:15:40,056 --> 00:15:42,622
+calculate how much we actually shrank the
+
+378
+00:15:42,622 --> 00:15:45,412
+images and we write that information to the
+
+379
+00:15:45,412 --> 00:15:46,262
+log too.
+
+380
+00:15:46,936 --> 00:15:49,069
+And that is essentially it. That is the
+
+381
+00:15:49,101 --> 00:15:52,212
+entire program. We are processing images.
+
+382
+00:15:52,565 --> 00:15:54,730
+And the main takeaway is of course that
+
+383
+00:15:54,795 --> 00:15:57,056
+we're doing this with a mixture of Node.js
+
+384
+00:15:57,056 --> 00:16:00,151
+APIs, but then most importantly also by
+
+385
+00:16:00,183 --> 00:16:03,712
+using certain Bun APIs like the File API,
+
+386
+00:16:03,792 --> 00:16:04,706
+the Image API,
+
+387
+00:16:05,235 --> 00:16:07,400
+and that you can build a program like this
+
+388
+00:16:07,400 --> 00:16:10,259
+therefore without any extra dependencies.
+
+389
+00:16:10,532 --> 00:16:13,729
+It's just the Bun runtime, nothing else, no
+
+390
+00:16:13,826 --> 00:16:16,557
+third-party dependencies, just a Bun program
+
+391
+00:16:16,718 --> 00:16:17,762
+executed with Bun.
+
+392
+00:16:18,485 --> 00:16:20,365
+And I'm not just using the Bun runtime here,
+
+393
+00:16:21,056 --> 00:16:22,743
+and I also used it for setting up the
+
+394
+00:16:22,743 --> 00:16:25,185
+package.json file and installing this one
+
+395
+00:16:25,474 --> 00:16:27,691
+type dependency, but instead we're also
+
+396
+00:16:27,707 --> 00:16:30,181
+using the test runner capabilities because
+
+397
+00:16:30,197 --> 00:16:32,639
+in there, and again, you found it attached,
+
+398
+00:16:33,089 --> 00:16:35,033
+you'll find a bunch of test files where we
+
+399
+00:16:35,033 --> 00:16:37,525
+got little testing functions that test the
+
+400
+00:16:37,525 --> 00:16:41,012
+various aspects of this program to make sure
+
+401
+00:16:41,061 --> 00:16:43,488
+that everything works correctly and that if
+
+402
+00:16:43,552 --> 00:16:46,172
+we were to change the code, we can quickly
+
+403
+00:16:46,204 --> 00:16:49,049
+validate if it still works as intended. So
+
+404
+00:16:49,081 --> 00:16:51,299
+again, no third-party package involved here,
+
+405
+00:16:51,668 --> 00:16:55,253
+just some unit tests written and executed
+
+406
+00:16:55,349 --> 00:16:56,940
+with help of the Bun test runner.

@@ -1,0 +1,1144 @@
+1
+00:00:00,112 --> 00:00:02,935
+Now, of course, the other important data
+當然，現在還有其他重要資料
+
+2
+00:00:02,935 --> 00:00:05,902
+storage feature we have in this app besides
+除此之外，我們在此應用程式中還具有儲存功能
+
+3
+00:00:05,966 --> 00:00:08,869
+the normal data in the database is that we
+資料庫中的正常資料是我們
+
+4
+00:00:08,869 --> 00:00:12,189
+support image uploads. Users can attach
+支援圖片上傳。使用者可以附加
+
+5
+00:00:12,301 --> 00:00:16,102
+images to their posts and we handle this in
+將圖像添加到他們的帖子中，我們將在
+
+6
+00:00:16,231 --> 00:00:17,305
+this project here
+這個專案在這裡
+
+7
+00:00:17,995 --> 00:00:21,892
+via Bun's S3 client. For that, I got an
+透過 Bun 的 S3 使用者端。為此，我得到了一個
+
+8
+00:00:22,069 --> 00:00:24,138
+r2-ts file in there because I'm using
+r2-ts 檔案在那裡，因為我正在使用
+
+9
+00:00:24,170 --> 00:00:27,041
+Cloudflare R2 in this project because it's
+此專案中使用 Cloudflare R2，因為它是
+
+10
+00:00:27,041 --> 00:00:29,849
+cheaper than Amazon S3. But of course you
+比亞馬遜 S3 便宜。但當然你
+
+11
+00:00:29,849 --> 00:00:33,301
+can use any S3 compatible service with the
+可以使用任何 S3 相容服務
+
+12
+00:00:33,301 --> 00:00:34,762
+Bun S3 client.
+Bun S3使用者端。
+
+13
+00:00:35,404 --> 00:00:37,941
+If you wanna use R2, what you have to do is
+如果你想使用R2，你需要做的是
+
+14
+00:00:37,989 --> 00:00:40,574
+of course create a Cloudflare account, then
+當然要建立一個Cloudflare帳戶，然後
+
+15
+00:00:40,686 --> 00:00:43,561
+create a new R2 bucket in there, any name of
+在那裡建立一個新的 R2 儲存桶，任何名稱
+
+16
+00:00:43,593 --> 00:00:46,595
+your choice, location, storage class, that's
+您的選擇、位置、儲存類別，那就是
+
+17
+00:00:46,708 --> 00:00:49,068
+all fine. Create that bucket
+一切都很好。建立該儲存桶
+
+18
+00:00:49,694 --> 00:00:53,547
+and then in there under settings, make sure
+然後在設定下，確保
+
+19
+00:00:53,547 --> 00:00:56,532
+that you do you go to CORS policy
+您執行 CORS 政策
+
+20
+00:00:57,382 --> 00:00:59,723
+and you add something there. That's
+然後你在那裡添加一些東西。那是
+
+21
+00:00:59,723 --> 00:01:00,974
+important because
+重要的是因為
+
+22
+00:01:01,567 --> 00:01:05,064
+we actually use this bucket to upload files
+我們實際上使用這個儲存桶來上傳檔案
+
+23
+00:01:05,256 --> 00:01:08,431
+into it directly from the client, not from
+直接從使用者端進入，而不是從
+
+24
+00:01:08,448 --> 00:01:11,446
+our server. And therefore, the browser will
+我們的伺服器。因此，瀏覽器將
+
+25
+00:01:11,446 --> 00:01:14,494
+send a cross-origin request and therefore,
+發送跨域請求，因此，
+
+26
+00:01:14,959 --> 00:01:17,364
+we need to configure this bucket to support
+我們需要設定這個儲存桶來支援
+
+27
+00:01:17,364 --> 00:01:19,465
+it. And I'll show you how exactly that works
+它。我會向你展示它到底是如何運作的
+
+28
+00:01:19,465 --> 00:01:20,347
+in just a second.
+只需一秒鐘。
+
+29
+00:01:21,229 --> 00:01:23,425
+So here under CORS policy,
+因此，根據 CORS 政策，
+
+30
+00:01:24,098 --> 00:01:26,390
+you wanna make sure that your frontend
+你想確保你的前端
+
+31
+00:01:26,438 --> 00:01:26,935
+origin
+起源
+
+32
+00:01:27,528 --> 00:01:29,756
+is enabled. And by default, that is port
+已啟用。預設情況下，這是端口
+
+33
+00:01:29,788 --> 00:01:33,010
+5173, not 3000.
+5173，而不是 3000。
+
+34
+00:01:33,619 --> 00:01:36,344
+You wanna support PUT methods as well, not
+你也想支援 PUT 方法，而不是
+
+35
+00:01:36,360 --> 00:01:36,921
+just GET.
+只需獲取即可。
+
+36
+00:01:37,787 --> 00:01:40,624
+And then you need to add another entry here,
+然後您需要在此處添加另一個條目，
+
+37
+00:01:40,688 --> 00:01:42,419
+which is allowed headers,
+這是允許的標頭，
+
+38
+00:01:43,413 --> 00:01:46,330
+and just set this to an array with a string
+並將其設置為帶有字串的陣列
+
+39
+00:01:46,378 --> 00:01:48,109
+in there with an asterisk inside.
+裡面有一個星號。
+
+40
+00:01:49,104 --> 00:01:51,334
+And save that. This is important. You must
+並儲存它。這很重要。你必須
+
+41
+00:01:51,334 --> 00:01:52,763
+set up these settings.
+設定這些設定。
+
+42
+00:01:54,078 --> 00:01:54,608
+And then
+進而
+
+43
+00:01:55,506 --> 00:01:58,283
+on that overview page of the R2 Object
+在 R2 物件的概述頁面上
+
+44
+00:01:58,411 --> 00:01:58,860
+Storage,
+貯存，
+
+45
+00:01:59,598 --> 00:02:01,893
+under Account Details and API Tokens, you
+在帳戶詳細資訊和 API 令牌下，您
+
+46
+00:02:01,925 --> 00:02:02,840
+must click Manage
+必須點擊“管理”
+
+47
+00:02:03,947 --> 00:02:06,354
+and then here create a new account API
+然後在這裡建立一個新帳戶API
+
+48
+00:02:06,434 --> 00:02:06,803
+token.
+令牌。
+
+49
+00:02:07,573 --> 00:02:08,745
+Social Demo App
+社交演示應用程式
+
+50
+00:02:09,483 --> 00:02:11,489
+or Social Demo App Bun or whatever you want
+或社交演示應用程式包或任何你想要的
+
+51
+00:02:11,489 --> 00:02:12,034
+could be a name.
+可能是個名字。
+
+52
+00:02:13,158 --> 00:02:16,335
+Object read/write access is important. Apply
+物件讀/寫存取很重要。申請
+
+53
+00:02:16,464 --> 00:02:17,234
+to your bucket,
+到你的桶子裡，
+
+54
+00:02:18,005 --> 00:02:19,097
+social-app-demo,
+社交應用程式演示，
+
+55
+00:02:19,980 --> 00:02:21,457
+and create that token.
+並創建該令牌。
+
+56
+00:02:22,565 --> 00:02:25,118
+And then you need to copy this access key ID
+然後你需要複製這個存取密鑰ID
+
+57
+00:02:25,214 --> 00:02:28,667
+and keep those values secret. I'll delete
+並保守這些價值觀的秘密。我會刪除
+
+58
+00:02:28,667 --> 00:02:30,995
+this bucket and key after this video so you
+這個影片之後的桶子和鑰匙，這樣你
+
+59
+00:02:30,995 --> 00:02:33,002
+don't need to bother trying mine, but you
+不需要費心嘗試我的，但是你
+
+60
+00:02:33,002 --> 00:02:35,571
+should keep them secret and add them in a
+應該對它們保密並將它們添加到
+
+61
+00:02:36,037 --> 00:02:37,369
+.env file in your project.
+專案中的 .env 檔案。
+
+62
+00:02:38,060 --> 00:02:39,842
+And in that.env file, you need to put your
+在 that.env 檔案中，您需要將您的
+
+63
+00:02:40,243 --> 00:02:43,293
+R2 account ID, You get this from this
+R2帳戶ID，你可以從這裡得到這個
+
+64
+00:02:43,437 --> 00:02:44,304
+endpoint URL,
+端點 URL，
+
+65
+00:02:44,881 --> 00:02:45,972
+this part which is
+這部分是
+
+66
+00:02:46,550 --> 00:02:48,106
+hidden here now for you, but there is a
+現在為你隱藏在這裡，但有一個
+
+67
+00:02:48,171 --> 00:02:50,561
+unique ID there which you need to copy and
+您需要複製該唯一 ID 並
+
+68
+00:02:50,577 --> 00:02:51,332
+then insert here.
+然後插入這裡。
+
+69
+00:02:52,262 --> 00:02:54,011
+And then you must insert your access and
+然後您必須插入您的存取權限並
+
+70
+00:02:54,011 --> 00:02:56,193
+secret access keys here, which you can get
+秘密訪問密鑰在這裡，您可以獲取
+
+71
+00:02:56,193 --> 00:02:56,883
+from this page,
+從這個頁面，
+
+72
+00:02:57,541 --> 00:03:00,092
+and the bucket name you chose. So that's the
+以及您選擇的儲存桶名稱。這就是
+
+73
+00:03:00,092 --> 00:03:02,210
+setup you need to go through. And then in
+您需要完成的設定。然後在
+
+74
+00:03:02,210 --> 00:03:02,483
+this
+這
+
+75
+00:03:03,029 --> 00:03:05,050
+R2TS file, what I'm doing
+R2TS 檔案，我在做什麼
+
+76
+00:03:05,644 --> 00:03:08,516
+is I'm just setting up a little storage
+我只是設定一點儲存空間
+
+77
+00:03:08,853 --> 00:03:11,531
+object or First of all, a type that defines
+物件或首先，定義的型別
+
+78
+00:03:11,531 --> 00:03:13,887
+an object where the object will have various
+一個物件，該物件將具有各種
+
+79
+00:03:14,016 --> 00:03:14,432
+methods,
+方法，
+
+80
+00:03:15,106 --> 00:03:17,542
+methods for checking if an object exists,
+檢查物件是否存在的方法，
+
+81
+00:03:17,670 --> 00:03:20,460
+for deleting an object, for optimizing an
+用於刪除物件、用於最佳化
+
+82
+00:03:20,572 --> 00:03:22,624
+image, something else I'll get back to
+圖像，其他的東西我會回來的
+
+83
+00:03:22,656 --> 00:03:24,948
+because this demo app also contains
+因為這個演示應用程式還包含
+
+84
+00:03:25,124 --> 00:03:27,577
+automatic image optimization using Bun,
+使用 Bun 自動影像優化，
+
+85
+00:03:28,491 --> 00:03:31,745
+and for pre-signing uploads. And that's the
+以及預簽名上傳。這就是
+
+86
+00:03:31,793 --> 00:03:32,787
+interesting part now.
+現在有趣的部分。
+
+87
+00:03:33,781 --> 00:03:35,512
+In this social demo app here,
+在這個社交演示應用程式中，
+
+88
+00:03:36,185 --> 00:03:38,622
+I actually configured everything such that
+我實際上設定了一切
+
+89
+00:03:38,991 --> 00:03:41,796
+if a user attaches an image to a post, the
+如果使用者將圖像附加到貼文中，
+
+90
+00:03:41,876 --> 00:03:45,612
+image is not uploaded to this bun API we
+圖像沒有上傳到這個bun API，我們
+
+91
+00:03:45,740 --> 00:03:49,749
+built and then to R2, but instead directly
+建置然後到 R2，而是直接
+
+92
+00:03:49,749 --> 00:03:53,036
+from the client to the R2 bucket. And the
+從使用者端到 R2 儲存桶。還有
+
+93
+00:03:53,036 --> 00:03:55,650
+most important reason is that we simply save
+最重要的原因是我們簡單地儲存
+
+94
+00:03:55,746 --> 00:03:58,279
+on bandwidth and power if we don't need to
+如果我們不需要的話，就可以考慮頻寬和功率
+
+95
+00:03:58,327 --> 00:04:00,797
+handle every single upload. Instead, we let
+處理每一個上傳。相反，我們讓
+
+96
+00:04:00,797 --> 00:04:03,940
+the user upload directly from the client to
+使用者直接從使用者端上傳到
+
+97
+00:04:03,940 --> 00:04:06,794
+the R2 bucket. So that's what presigning is
+R2 桶。這就是預簽名的意義
+
+98
+00:04:06,842 --> 00:04:08,814
+about. Now, how does the concrete method
+關於。那麼具體方法是怎麼樣的
+
+99
+00:04:08,814 --> 00:04:09,359
+look like?
+看起來像？
+
+100
+00:04:10,914 --> 00:04:11,042
+Well,
+出色地，
+
+101
+00:04:11,700 --> 00:04:14,296
+it is defined down here. It's super simple.
+它在這裡定義。這非常簡單。
+
+102
+00:04:14,825 --> 00:04:15,290
+I'm using
+我正在使用
+
+103
+00:04:15,963 --> 00:04:15,995
+R2,
+R2,
+
+104
+00:04:16,669 --> 00:04:18,913
+which is an object I'm creating here, which
+這是我在這裡創建的一個物件，
+
+105
+00:04:19,009 --> 00:04:21,942
+I am creating using the S3 client coming
+我正在使用 S3 使用者端進行創建
+
+106
+00:04:22,039 --> 00:04:25,421
+from Bun. So that is imported from Bun. It's
+來自包子。這是從 Bun 進口的。它是
+
+107
+00:04:25,421 --> 00:04:27,954
+the S3 client built into Bun.
+Bun 內建的 S3 使用者端。
+
+108
+00:04:28,531 --> 00:04:31,159
+I'm instantiating it here with the settings
+我在這裡用設定實例化它
+
+109
+00:04:31,192 --> 00:04:34,654
+that are read from my.env file using Bun's
+使用 Bun 的從 my.env 檔案讀取
+
+110
+00:04:34,702 --> 00:04:37,123
+built-in support for.env. Automatically
+對.env 的內建支援。自動地
+
+111
+00:04:37,187 --> 00:04:38,873
+loads it. You don't need to point at it. You
+載入它。你不需要指著它。你
+
+112
+00:04:38,873 --> 00:04:41,345
+don't need any extra packages to load.env
+不需要任何額外的套件來載入.env
+
+113
+00:04:41,362 --> 00:04:41,715
+files.
+檔案。
+
+114
+00:04:42,405 --> 00:04:45,985
+This gives us our S3 client. I named it R2
+這給了我們 S3 使用者端。我把它命名為R2
+
+115
+00:04:46,114 --> 00:04:46,964
+because I'm using
+因為我正在使用
+
+116
+00:04:47,494 --> 00:04:48,570
+R2 by Cloudflare here.
+Cloudflare 的 R2 在這裡。
+
+117
+00:04:49,405 --> 00:04:51,700
+And then my presignUpload method just uses
+然後我的 presignUpload 方法只使用
+
+118
+00:04:51,732 --> 00:04:54,108
+the built-in presign method, which the Bun
+Bun 內建的 presign 方法
+
+119
+00:04:54,365 --> 00:04:57,801
+S3 client supports out of the box to create
+S3使用者端支援開箱即用創建
+
+120
+00:04:57,897 --> 00:05:01,269
+a short-lived URL which we can send to the
+我們可以將其發送到的短暫 URL
+
+121
+00:05:01,269 --> 00:05:03,436
+client, which the client can then use to
+使用者端，然後使用者端可以使用它
+
+122
+00:05:03,676 --> 00:05:06,738
+upload a file to our bucket. So we give the
+將檔案上傳到我們的儲存桶。所以我們給出
+
+123
+00:05:06,738 --> 00:05:07,155
+client
+客戶
+
+124
+00:05:07,684 --> 00:05:10,729
+temporary, highly restricted access to a
+臨時的、嚴格限制的訪問
+
+125
+00:05:10,729 --> 00:05:13,743
+part of our bucket, specifically to one
+我們桶的一部分，特別是一個
+
+126
+00:05:13,871 --> 00:05:17,590
+single object identified by a key in our
+由我們的鍵標識的單一物件
+
+127
+00:05:17,638 --> 00:05:20,492
+bucket. That is what we're doing. And the
+桶。這就是我們正在做的事情。還有
+
+128
+00:05:20,524 --> 00:05:22,672
+key is just the file name so that the client
+key 只是檔名，以便使用者端
+
+129
+00:05:22,912 --> 00:05:25,541
+can upload one single file with a clearly
+可以上傳一個帶有明確說明的檔案
+
+130
+00:05:25,557 --> 00:05:29,356
+defined file name for a duration of 3,600
+定義檔名的持續時間為 3,600
+
+131
+00:05:29,356 --> 00:05:30,975
+seconds, which is 60 minutes.
+秒，即 60 分鐘。
+
+132
+00:05:31,504 --> 00:05:33,781
+And thereafter, this is locked down again.
+此後，這又被鎖定。
+
+133
+00:05:34,310 --> 00:05:35,320
+So it's not some general access
+所以這不是一般的訪問
+
+134
+00:05:36,395 --> 00:05:39,443
+just an access to put an object with a
+只是一個將物件與
+
+135
+00:05:39,443 --> 00:05:42,090
+clearly defined name onto our bucket for
+明確定義的名稱到我們的儲存桶中
+
+136
+00:05:42,090 --> 00:05:44,898
+this timeframe. So that gives us a URL which
+這個時間範圍。這樣我們就得到了一個 URL
+
+137
+00:05:44,898 --> 00:05:48,235
+is sent to the client. Now presigned upload
+發送給使用者端。現在預簽名上傳
+
+138
+00:05:48,331 --> 00:05:50,866
+is called from inside the uploads.ts file,
+從 uploads.ts 檔案內部調用，
+
+139
+00:05:51,058 --> 00:05:53,850
+which is just another route registration
+這只是另一個路線註冊
+
+140
+00:05:53,866 --> 00:05:54,075
+file.
+檔案。
+
+141
+00:05:54,668 --> 00:05:57,396
+So in there I have routes that handle file
+所以在那裡我有處理檔案的路由
+
+142
+00:05:57,428 --> 00:06:00,187
+uploads. I have a route for generating
+上傳。我有一條生成路線
+
+143
+00:06:00,283 --> 00:06:02,915
+presigned URLs that are sent to the client
+傳送到使用者端的預簽名 URL
+
+144
+00:06:03,332 --> 00:06:04,423
+and a second route for
+和第二條路線
+
+145
+00:06:05,032 --> 00:06:08,365
+marking uploads as done, as finalized when
+將上傳標記為完成，即完成時間
+
+146
+00:06:08,397 --> 00:06:09,327
+the client is done.
+使用者端完成了。
+
+147
+00:06:09,920 --> 00:06:12,468
+And the presignUpload function again checks
+presignUpload 函式再次檢查
+
+148
+00:06:12,468 --> 00:06:14,615
+if the user is authenticated because only
+如果使用者通過身份驗證，因為僅
+
+149
+00:06:14,631 --> 00:06:17,403
+authenticated users are allowed to upload. I
+允許經過身份驗證的使用者上傳。我
+
+150
+00:06:17,451 --> 00:06:20,112
+check the request body and then I extract
+檢查請求正文，然後提取
+
+151
+00:06:20,112 --> 00:06:22,868
+some data about the upload like the name of
+有關上傳的一些資料，例如名稱
+
+152
+00:06:22,900 --> 00:06:25,352
+the file the user wants to upload, the size
+使用者要上傳的檔案，大小
+
+153
+00:06:25,384 --> 00:06:27,611
+and the content type. That's all data the
+和內容型別。這就是所有資料
+
+154
+00:06:27,611 --> 00:06:29,871
+client has to send me and I'm extracting it
+客戶必須發給我，我正在提取它
+
+155
+00:06:29,871 --> 00:06:30,127
+here.
+這裡。
+
+156
+00:06:31,194 --> 00:06:33,268
+And then I check if we're dealing with an
+然後我檢查我們是否正在處理一個
+
+157
+00:06:33,268 --> 00:06:36,000
+allowed type, if the size is maybe too large
+允許的型別，如果尺寸可能太大
+
+158
+00:06:36,016 --> 00:06:38,572
+because I have a limit in place, a max
+因為我有一個限制，最大
+
+159
+00:06:38,588 --> 00:06:40,176
+upload size I defined
+我定義的上傳大小
+
+160
+00:06:41,416 --> 00:06:42,527
+of 4 megabytes.
+4兆位元組。
+
+161
+00:06:44,570 --> 00:06:47,031
+And if that's all fine, I get hold of my
+如果一切都好的話，我會抓住我的
+
+162
+00:06:47,080 --> 00:06:49,670
+storage helper object, which is really just
+存儲輔助物件，這實際上只是
+
+163
+00:06:50,075 --> 00:06:52,731
+this object I'm constructing in that r2ts
+我在 r2ts 中建構的這個物件
+
+164
+00:06:52,731 --> 00:06:54,173
+file, which is that object with all these
+檔案，它是包含所有這些的物件
+
+165
+00:06:54,270 --> 00:06:56,166
+methods I just showed you a second ago.
+我剛才向您展示的方法。
+
+166
+00:06:57,428 --> 00:07:00,443
+And I then create a unique upload ID, again
+然後我再次創建一個唯一的上傳 ID
+
+167
+00:07:00,556 --> 00:07:02,288
+using that Crypto Web API,
+使用 Crypto Web API，
+
+168
+00:07:02,898 --> 00:07:05,432
+and then an object key where I use an
+然後是一個物件鍵，我在其中使用
+
+169
+00:07:05,544 --> 00:07:08,271
+uploads folder, the user ID is part of the
+uploads 資料夾，使用者 ID 是
+
+170
+00:07:08,271 --> 00:07:11,383
+path, the upload ID is part of the path, and
+路徑，上傳 ID 是路徑的一部分，並且
+
+171
+00:07:11,399 --> 00:07:13,532
+then hardcoded the word original and then
+然後對原始一詞進行硬編碼，然後
+
+172
+00:07:13,645 --> 00:07:14,334
+the extension.
+擴充功能名。
+
+173
+00:07:15,008 --> 00:07:17,077
+So the user's filename is not part of it,
+所以使用者的檔案名稱不是其中的一部分，
+
+174
+00:07:17,093 --> 00:07:19,740
+but this is a unique filename clearly mapped
+但這是一個明確映射的唯一檔案名
+
+175
+00:07:19,740 --> 00:07:20,365
+to a user.
+給使用者。
+
+176
+00:07:21,183 --> 00:07:23,285
+I also create a timestamp and then I have a
+我還創建了一個時間戳，然後我有一個
+
+177
+00:07:23,285 --> 00:07:26,189
+separate table an uploads table where I
+單獨的表一個上傳表，我在其中
+
+178
+00:07:26,237 --> 00:07:28,965
+register all the uploads that are started
+註冊所有已啟動的上傳
+
+179
+00:07:29,029 --> 00:07:30,121
+and their status
+以及他們的狀態
+
+180
+00:07:30,731 --> 00:07:32,785
+and I set the status to pending initially
+我最初將狀態設為待處理
+
+181
+00:07:33,443 --> 00:07:36,075
+and then I run this to insert this entry.
+然後我運行它來插入此條目。
+
+182
+00:07:36,749 --> 00:07:39,878
+Then I generate that upload URL using that
+然後我使用它來產生上傳 URL
+
+183
+00:07:39,878 --> 00:07:42,671
+presign upload function or method I just
+預簽名上傳功能或方法我只是
+
+184
+00:07:42,671 --> 00:07:45,014
+showed you and then I send back a response
+向您展示，然後我發回回复
+
+185
+00:07:45,014 --> 00:07:47,533
+to the client which includes that upload URL
+傳送給包含該上傳 URL 的使用者端
+
+186
+00:07:47,903 --> 00:07:50,117
+and then the client can get started doing
+然後客戶就可以開始做
+
+187
+00:07:50,214 --> 00:07:50,679
+the upload.
+上傳。
+
+188
+00:07:51,353 --> 00:07:53,825
+So if we take a look at this client web app
+所以如果我們看一下這個使用者端網路應用程式
+
+189
+00:07:53,985 --> 00:07:56,264
+here in the source folder, in the new
+在來源資料夾中，在新的
+
+190
+00:07:56,489 --> 00:07:58,061
+PostPage component,
+PostPage 元件，
+
+191
+00:07:58,719 --> 00:07:59,746
+I have this
+我有這個
+
+192
+00:08:00,324 --> 00:08:02,747
+handleSubmit function where I handle the
+我處理的handleSubmit函式
+
+193
+00:08:02,747 --> 00:08:05,556
+submitted form. So that's on the client side
+提交的表格。所以這是在使用者端
+
+194
+00:08:05,556 --> 00:08:08,043
+now. And in there I also do some validation
+現在。在那裡我還做了一些驗證
+
+195
+00:08:08,043 --> 00:08:10,242
+and stuff. I check if the user did pick a
+和東西。我檢查使用者是否選擇了
+
+196
+00:08:10,290 --> 00:08:10,643
+file,
+檔案，
+
+197
+00:08:11,173 --> 00:08:14,736
+but then if everything is set up properly, I
+但如果一切都設定正確的話，我
+
+198
+00:08:14,864 --> 00:08:17,672
+send a request to the backend API to that
+向後端 API 發送請求
+
+199
+00:08:17,672 --> 00:08:20,256
+presigned URL I just showed you to get that
+我剛剛向您展示了預簽名 URL
+
+200
+00:08:20,256 --> 00:08:21,637
+presigned URL. Presigned URL
+預簽名 URL。預簽名 URL
+
+201
+00:08:22,167 --> 00:08:25,380
+and then on the client that URL is used,
+然後在使用者端上使用該 URL，
+
+202
+00:08:25,701 --> 00:08:28,833
+that upload URL my Bun server returns to the
+我的 Bun 伺服器傳回的上傳 URL
+
+203
+00:08:28,833 --> 00:08:30,873
+client is used to
+客戶習慣於
+
+204
+00:08:31,483 --> 00:08:33,780
+perform the actual upload using the Fetch
+使用 Fetch 執行實際上傳
+
+205
+00:08:33,828 --> 00:08:34,117
+API.
+API。
+
+206
+00:08:34,856 --> 00:08:36,993
+That's how uploading works in this app and
+這就是這個應用程式中上傳的工作原理
+
+207
+00:08:37,169 --> 00:08:39,434
+on the backend we use the presigned feature
+在後端我們使用預簽名功能
+
+208
+00:08:39,434 --> 00:08:42,454
+supported by Bun's S3 client for that.
+Bun 的 S3 使用者端為此提供了支援。
+
+209
+00:08:43,048 --> 00:08:44,831
+And then in finalizeUpload which is
+然後在finalizeUpload中是
+
+210
+00:08:44,879 --> 00:08:47,992
+triggered by the client If the upload
+由使用者端觸發 如果上傳
+
+211
+00:08:48,024 --> 00:08:51,118
+finished, I send a request to that finalize
+完成後，我向 Finalize 發送請求
+
+212
+00:08:51,230 --> 00:08:54,324
+upload route here on my backend if uploading
+如果上傳，請在我的後端上傳路線
+
+213
+00:08:54,356 --> 00:08:54,692
+worked.
+工作了。
+
+214
+00:08:55,237 --> 00:08:57,850
+In there, I just mark the upload as
+在那裡，我只是將上傳標記為
+
+215
+00:08:57,882 --> 00:09:00,767
+successful in my database. I perform various
+在我的資料庫中成功。我表演各種
+
+216
+00:09:00,767 --> 00:09:02,995
+checks here. I check if the file really
+檢查這裡。我檢查該檔案是否真的
+
+217
+00:09:02,995 --> 00:09:05,464
+exists. So I double-check if it really was
+存在。所以我仔細檢查是否真的如此
+
+218
+00:09:05,576 --> 00:09:07,852
+uploaded successfully and then I set the
+上傳成功然後我設定了
+
+219
+00:09:07,884 --> 00:09:10,337
+status to finalized, for example. That's how
+例如，狀態為最終確定。就是這樣
+
+220
+00:09:10,609 --> 00:09:13,158
+uploading works here. And it all in the end
+在這裡上傳作品。而這一切最終
+
+221
+00:09:13,334 --> 00:09:17,350
+is powered by Bun's S3 client using the
+由 Bun 的 S3 使用者端提供支援，使用
+
+222
+00:09:17,350 --> 00:09:19,102
+built-in methods for creating those
+用於創建這些的內建方法
+
+223
+00:09:19,199 --> 00:09:21,530
+presigned URLs, for checking if a key
+預簽 URL，用於檢查金鑰是否存在
+
+224
+00:09:21,530 --> 00:09:23,828
+exists, that's another method built into
+存在，這是內建的另一種方法
+
+225
+00:09:23,957 --> 00:09:27,236
+Bun's S3 client, for deleting a key, I do
+Bun的S3使用者端，用於刪除金鑰，我這樣做
+
+226
+00:09:27,316 --> 00:09:29,422
+that if the user deletes a post, then I
+如果使用者刪除帖子，那麼我
+
+227
+00:09:29,422 --> 00:09:31,801
+delete any images attached to the post
+刪除帖子中附加的所有圖像
+
+228
+00:09:32,637 --> 00:09:35,450
+and then also for optimizing. So what are we
+然後也進行優化。那我們是什麼
+
+229
+00:09:35,450 --> 00:09:36,093
+doing here?
+在這裡做什麼？

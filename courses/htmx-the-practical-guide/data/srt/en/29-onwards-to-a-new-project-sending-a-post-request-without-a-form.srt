@@ -1,0 +1,359 @@
+1
+00:00:00,610 --> 00:00:02,456
+So enough about that
+
+2
+00:00:03,002 --> 00:00:06,759
+goals project on which we worked over the
+
+3
+00:00:06,759 --> 00:00:07,626
+last lectures.
+
+4
+00:00:08,285 --> 00:00:12,074
+I prepared a brand new project for you and
+
+5
+00:00:12,074 --> 00:00:13,744
+you find the snapshot attached.
+
+6
+00:00:14,804 --> 00:00:16,827
+And you should therefore download that
+
+7
+00:00:16,827 --> 00:00:20,054
+attached project snapshot, run npm install
+
+8
+00:00:20,327 --> 00:00:22,832
+to install all dependencies, and then npm
+
+9
+00:00:22,832 --> 00:00:25,176
+start to start the development server.
+
+10
+00:00:26,522 --> 00:00:29,103
+And once you did that, if you visit
+
+11
+00:00:29,103 --> 00:00:29,704
+localhost:3000,
+
+12
+00:00:31,485 --> 00:00:32,066
+you should see
+
+13
+00:00:32,679 --> 00:00:33,857
+this website here.
+
+14
+00:00:35,439 --> 00:00:38,118
+And the idea behind this demo application
+
+15
+00:00:38,166 --> 00:00:39,812
+here is that we have a list of
+
+16
+00:00:40,474 --> 00:00:41,187
+locations which
+
+17
+00:00:42,062 --> 00:00:44,412
+can be clicked by the user. And when a
+
+18
+00:00:44,412 --> 00:00:46,680
+location is clicked, it should be added to
+
+19
+00:00:46,680 --> 00:00:48,268
+this list of dream locations.
+
+20
+00:00:49,383 --> 00:00:51,494
+And then in the future, I also wanna make
+
+21
+00:00:51,558 --> 00:00:54,378
+sure that we can remove locations from
+
+22
+00:00:54,378 --> 00:00:54,620
+there.
+
+23
+00:00:56,073 --> 00:00:57,996
+And that's therefore what we'll implement
+
+24
+00:00:57,996 --> 00:01:00,687
+together. And to do that, we'll need some
+
+25
+00:01:01,104 --> 00:01:04,131
+features we already learned about and we'll
+
+26
+00:01:04,244 --> 00:01:05,573
+need some new features.
+
+27
+00:01:06,887 --> 00:01:09,675
+Now in this project I attached, you'll see
+
+28
+00:01:09,675 --> 00:01:12,014
+that I already defined some routes.
+
+29
+00:01:12,558 --> 00:01:15,202
+And one thing I did here is that I
+
+30
+00:01:15,362 --> 00:01:19,079
+outsourced these HTML snippets, which are
+
+31
+00:01:19,143 --> 00:01:22,075
+still stored as strings, but I did outsource
+
+32
+00:01:22,187 --> 00:01:24,990
+them in functions in separate files in the
+
+33
+00:01:24,990 --> 00:01:25,711
+views folder.
+
+34
+00:01:26,352 --> 00:01:27,843
+That's just something to note.
+
+35
+00:01:28,996 --> 00:01:31,048
+And I will now actually start with those
+
+36
+00:01:31,080 --> 00:01:33,259
+location items, those list items,
+
+37
+00:01:34,045 --> 00:01:34,477
+which are
+
+38
+00:01:35,246 --> 00:01:37,923
+these list items here in that grid. And I
+
+39
+00:01:37,955 --> 00:01:41,545
+wanna make sure that when we click on one of
+
+40
+00:01:41,577 --> 00:01:43,852
+these list items, so when this button here
+
+41
+00:01:44,365 --> 00:01:44,878
+is clicked,
+
+42
+00:01:45,487 --> 00:01:48,484
+that I send a POST request to
+
+43
+00:01:49,269 --> 00:01:52,955
+this route here and that I then identify
+
+44
+00:01:53,195 --> 00:01:55,327
+that item and add it to this array of
+
+45
+00:01:55,503 --> 00:01:58,632
+interesting locations So that then as a next
+
+46
+00:01:58,632 --> 00:02:01,365
+step, it's that array of interesting
+
+47
+00:02:01,445 --> 00:02:03,325
+locations that's used to
+
+48
+00:02:03,952 --> 00:02:06,818
+populate this first box of dream locations
+
+49
+00:02:06,835 --> 00:02:06,964
+here.
+
+50
+00:02:08,468 --> 00:02:12,335
+So we'll need to return that new list item
+
+51
+00:02:12,674 --> 00:02:14,761
+that should be added to those dream
+
+52
+00:02:14,777 --> 00:02:17,505
+locations here, to this unordered list in
+
+53
+00:02:17,538 --> 00:02:19,926
+this post places route. That's what I wanna
+
+54
+00:02:19,975 --> 00:02:20,625
+start with.
+
+55
+00:02:22,652 --> 00:02:24,659
+Now to make sure that we can add places,
+
+56
+00:02:24,675 --> 00:02:27,099
+I'll go to that location.js file where I
+
+57
+00:02:27,147 --> 00:02:27,998
+have this button
+
+58
+00:02:28,657 --> 00:02:32,045
+and I now wanna send a POST request with
+
+59
+00:02:32,045 --> 00:02:34,742
+help of the hx-post attribute about which
+
+60
+00:02:34,774 --> 00:02:36,187
+you already learned in this course.
+
+61
+00:02:37,167 --> 00:02:40,266
+Now previously, we always used that on form
+
+62
+00:02:40,394 --> 00:02:42,706
+elements, but you're not limited to that.
+
+63
+00:02:43,365 --> 00:02:46,624
+You can use all these HTMX attributes on any
+
+64
+00:02:46,720 --> 00:02:47,427
+elements you want.
+
+65
+00:02:48,150 --> 00:02:51,691
+So I can also add this hx-post attribute on
+
+66
+00:02:51,740 --> 00:02:54,879
+a button so that this button will trigger a
+
+67
+00:02:55,008 --> 00:02:55,845
+POST request.
+
+68
+00:02:57,270 --> 00:03:00,570
+Now I still need to define the target route
+
+69
+00:03:00,781 --> 00:03:03,013
+and in my case, that's /places
+
+70
+00:03:04,599 --> 00:03:07,094
+so that due to this attribute here,
+
+71
+00:03:07,727 --> 00:03:10,375
+a POST request will be sent to this route.
+
+72
+00:03:12,662 --> 00:03:15,282
+Now here's one tricky thing about this
+
+73
+00:03:15,412 --> 00:03:16,237
+approach though.
+
+74
+00:03:17,013 --> 00:03:18,615
+This route needs the ID of the location
+
+75
+00:03:20,644 --> 00:03:22,779
+that should be added to this interesting
+
+76
+00:03:22,811 --> 00:03:23,855
+locations array.
+
+77
+00:03:25,204 --> 00:03:27,371
+And I'm trying to extract that from the
+
+78
+00:03:27,452 --> 00:03:28,800
+incoming request body.
+
+79
+00:03:29,475 --> 00:03:32,349
+Now, as mentioned, up to this point, we
+
+80
+00:03:32,429 --> 00:03:37,070
+always used HX POST on forms and these forms
+
+81
+00:03:37,182 --> 00:03:40,891
+included inputs and those input values were
+
+82
+00:03:41,100 --> 00:03:44,086
+automatically added to the HTTP request.
+
+83
+00:03:45,692 --> 00:03:48,822
+Now here, I don't have a form though. I
+
+84
+00:03:48,822 --> 00:03:52,369
+don't have inputs. So out of the box, this
+
+85
+00:03:52,433 --> 00:03:53,525
+POST request
+
+86
+00:03:54,263 --> 00:03:56,574
+wouldn't carry any value.
+
+87
+00:03:57,232 --> 00:03:59,624
+It would have an empty request body.
+
+88
+00:04:00,603 --> 00:04:02,786
+And therefore trying to extract that
+
+89
+00:04:02,786 --> 00:04:03,685
+location ID
+
+90
+00:04:04,455 --> 00:04:04,985
+would fail.

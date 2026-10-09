@@ -1,0 +1,429 @@
+1
+00:00:02,141 --> 00:00:05,251
+So of course now we got authorization added.
+當然，現在我們已經新增了授權。
+
+2
+00:00:05,769 --> 00:00:07,989
+Finally, it's now also time to make sure
+最後，現在也是時候確保
+
+3
+00:00:08,021 --> 00:00:10,710
+that we can also register for events and not
+我們還可以註冊活動而不是
+
+4
+00:00:10,710 --> 00:00:11,419
+just create them.
+只需創建它們。
+
+5
+00:00:13,029 --> 00:00:15,235
+Hence, we need more event-related routes.
+因此，我們需要更多與事件相關的路線。
+
+6
+00:00:15,299 --> 00:00:17,746
+And for that, I'll go to the events.js file
+為此，我將轉到 events.js 檔案
+
+7
+00:00:17,811 --> 00:00:18,809
+in the routes folder.
+在路線資料夾中。
+
+8
+00:00:20,454 --> 00:00:21,926
+And here I wanna add more routes
+在這裡我想添加更多路線
+
+9
+00:00:23,027 --> 00:00:25,584
+like a POST route, which can be used for
+就像 POST 路由一樣，可用於
+
+10
+00:00:25,633 --> 00:00:26,215
+signing up.
+報名。
+
+11
+00:00:27,628 --> 00:00:30,505
+And again, thankfully, GitHub Copilot is
+再次值得慶幸的是，GitHub Copilot 是
+
+12
+00:00:30,682 --> 00:00:33,655
+pretty smart here and it suggests a route
+這裡很聰明，它建議了一條路線
+
+13
+00:00:33,655 --> 00:00:35,776
+which makes a lot of sense, though I'll name
+這很有意義，儘管我會命名
+
+14
+00:00:35,776 --> 00:00:37,501
+it register, not attend.
+它註冊，而不是參加。
+
+15
+00:00:39,212 --> 00:00:41,084
+And this attend function on the events
+這參加了活動
+
+16
+00:00:41,084 --> 00:00:43,359
+controller object doesn't exist yet, but
+控制器物件尚不存在，但是
+
+17
+00:00:43,359 --> 00:00:44,198
+I'll add it soon.
+我會盡快添加。
+
+18
+00:00:45,587 --> 00:00:47,783
+I'll also add a, enter a new line so that
+我還將添加一個，輸入一個新行，以便
+
+19
+00:00:47,783 --> 00:00:50,321
+GitHub Copilot suggests the unregister
+GitHub Copilot 建議取消註冊
+
+20
+00:00:50,321 --> 00:00:51,394
+route, which looks good.
+路線，看起來不錯。
+
+21
+00:00:52,768 --> 00:00:55,370
+And now I just need to add a register and
+現在我只需要新增一個暫存器並
+
+22
+00:00:55,661 --> 00:00:59,636
+unregister controller function to the event
+取消向事件註冊控制器函式
+
+23
+00:00:59,798 --> 00:01:02,628
+controller, so to the events controller JS
+控制器，所以到事件控制器 JS
+
+24
+00:01:02,696 --> 00:01:02,983
+file.
+檔案。
+
+25
+00:01:05,020 --> 00:01:06,124
+So in there at the bottom,
+所以在底部，
+
+26
+00:01:08,368 --> 00:01:10,730
+I'll just place my cursor here,
+我就把遊標放在這裡
+
+27
+00:01:11,264 --> 00:01:12,833
+wait a couple of seconds, and again,
+等幾秒鐘，然後再一次，
+
+28
+00:01:13,383 --> 00:01:16,764
+since GitHub Copilot tries to keep your last
+由於 GitHub Copilot 試圖保留您的最後一個
+
+29
+00:01:16,829 --> 00:01:20,095
+actions in mind and keep it in its context,
+牢記行動並將其置於上下文中，
+
+30
+00:01:20,111 --> 00:01:20,612
+so to say,
+可以這麼說，
+
+31
+00:01:21,371 --> 00:01:24,295
+I get a good suggestion here, a function
+我在這裡得到一個很好的建議，一個函式
+
+32
+00:01:24,295 --> 00:01:25,798
+named register, which is exported,
+被導出的命名暫存器，
+
+33
+00:01:28,210 --> 00:01:30,630
+which seems to do the job I want it to do.
+這似乎完成了我想要的工作。
+
+34
+00:01:31,324 --> 00:01:33,326
+It extracts the ID from the request
+它從請求中提取 ID
+
+35
+00:01:33,326 --> 00:01:36,747
+parameters, finds the event with that ID. If
+參數，尋找具有該 ID 的事件。如果
+
+36
+00:01:36,795 --> 00:01:38,995
+there is no such event, it returns an error.
+沒有這樣的事件，它回傳一個錯誤。
+
+37
+00:01:40,823 --> 00:01:43,316
+Otherwise, it tries to insert an entry in
+否則，它會嘗試插入一個條目
+
+38
+00:01:43,348 --> 00:01:45,695
+the registrations table, which we have yet
+我們還沒有報名表
+
+39
+00:01:45,695 --> 00:01:46,245
+to set up.
+來設定。
+
+40
+00:01:46,962 --> 00:01:48,142
+But it tries to enter
+但它試圖進入
+
+41
+00:01:49,403 --> 00:01:51,780
+an entry there where we have basically a
+那裡的一個條目我們基本上有一個
+
+42
+00:01:51,829 --> 00:01:54,254
+combination of event ID and user ID.
+事件 ID 和使用者 ID 的組合。
+
+43
+00:01:55,920 --> 00:01:58,390
+And that is essentially a registration, a
+這本質上是一個註冊，一個
+
+44
+00:01:58,569 --> 00:02:01,593
+certain user registered for a certain event.
+特定使用者註冊了特定事件。
+
+45
+00:02:03,503 --> 00:02:05,339
+Then this is executed and then we got
+然後執行，然後我們得到
+
+46
+00:02:05,339 --> 00:02:05,973
+different responses.
+不同的反應。
+
+47
+00:02:08,076 --> 00:02:10,592
+Now we also need an unregister function.
+現在我們還需要一個註銷函式。
+
+48
+00:02:10,706 --> 00:02:12,716
+Let's see if this is suggested as well.
+讓我們看看是否也建議這樣做。
+
+49
+00:02:14,243 --> 00:02:16,148
+Yep, looks like it is for me here.
+是的，看起來這裡適合我。
+
+50
+00:02:16,988 --> 00:02:19,006
+If it's not, you can of course simply start
+如果不是，您當然可以簡單地開始
+
+51
+00:02:19,006 --> 00:02:19,442
+typing
+打字
+
+52
+00:02:20,282 --> 00:02:23,237
+unregister and at some point it should be
+取消註冊，在某個時候應該是
+
+53
+00:02:23,301 --> 00:02:23,915
+suggested.
+建議。
+
+54
+00:02:26,480 --> 00:02:26,868
+And here
+還有這裡
+
+55
+00:02:27,952 --> 00:02:29,812
+we do almost the same as before, but we
+我們做的幾乎和以前一樣，但是我們
+
+56
+00:02:29,812 --> 00:02:31,623
+delete a registration by
+刪除註冊
+
+57
+00:02:32,173 --> 00:02:34,961
+the event ID, user ID combination here.
+此處的事件 ID、使用者 ID 組合。
+
+58
+00:02:37,771 --> 00:02:39,835
+And the user ID is retrieved from the
+使用者 ID 是從
+
+59
+00:02:39,883 --> 00:02:40,273
+request.
+要求。
+
+60
+00:02:41,725 --> 00:02:44,345
+And it should be available there because in
+它應該在那裡可用，因為在
+
+61
+00:02:44,618 --> 00:02:47,447
+the routes file, the authenticate middleware
+路由檔案，驗證中介軟體
+
+62
+00:02:47,592 --> 00:02:48,685
+is added here as well.
+也被加到這裡。
+
+63
+00:02:50,082 --> 00:02:52,874
+And that does extract the user ID from the
+這確實從
+
+64
+00:02:52,890 --> 00:02:53,713
+attached token.
+附加令牌。
+
+65
+00:02:55,021 --> 00:02:57,652
+So that should work, but of course, we must
+所以這應該可行，但當然，我們必須
+
+66
+00:02:57,652 --> 00:02:59,925
+make sure that the appropriate database
+確保有適當的資料庫
+
+67
+00:02:59,925 --> 00:03:00,683
+table is set up.
+表已設定。
+
+68
+00:03:02,550 --> 00:03:05,952
+So for that, I'll go to the database.js
+為此，我將轉到database.js
+
+69
+00:03:06,329 --> 00:03:06,525
+file.
+檔案。
+
+70
+00:03:07,489 --> 00:03:09,728
+And here where I set up the other tables,
+在這裡我設置了其他桌子，
+
+71
+00:03:10,259 --> 00:03:13,754
+I'll enter a new line and see if I got some
+我將輸入一個新行，看看是否有一些
+
+72
+00:03:13,803 --> 00:03:14,479
+suggestions.
+建議。
+
+73
+00:03:15,346 --> 00:03:16,840
+If not, I'll start typing
+如果沒有的話我就開始打字
+
+74
+00:03:19,523 --> 00:03:22,159
+CREATE TABLE IF NOT EXISTS registrations.
+如果不存在註冊則建立表。
+
+75
+00:03:22,416 --> 00:03:24,940
+Sure, let's go step by step. Here we go.
+當然可以，讓我們一步一步來。開始了。
+
+76
+00:03:25,979 --> 00:03:27,910
+Let's accept this and this looks good to me.
+讓我們接受這一點，這對我來說看起來很好。
+
+77
+00:03:29,790 --> 00:03:32,616
+Event ID, user ID, both are foreign keys
+事件ID、使用者ID，都是外鍵
+
+78
+00:03:32,810 --> 00:03:33,973
+pointing to other tables.
+指向其他表。
+
+79
+00:03:34,687 --> 00:03:35,647
+That looks good.
+看起來不錯。
+
+80
+00:03:36,899 --> 00:03:37,338
+To make sure
+為了確保
+
+81
+00:03:38,200 --> 00:03:39,762
+that this is really executed,
+這真的被執行了，
+
+82
+00:03:40,490 --> 00:03:42,425
+you can restart the server, though it should
+你可以重新啟動伺服器，儘管它應該
+
+83
+00:03:42,473 --> 00:03:44,570
+be picked up automatically due to watch mode
+由於手錶模式而自動拾取
+
+84
+00:03:44,876 --> 00:03:45,247
+normally.
+通常情況下。
+
+85
+00:03:47,830 --> 00:03:49,585
+And with that done, you should be able to
+完成後，您應該能夠
+
+86
+00:03:49,585 --> 00:03:51,584
+send those registration requests.
+發送這些註冊請求。

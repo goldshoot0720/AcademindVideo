@@ -1,0 +1,351 @@
+1
+00:00:00,690 --> 00:00:04,208
+So at this point, we got started with HTMX.
+
+2
+00:00:04,288 --> 00:00:07,790
+We already see some HTMX attributes in
+
+3
+00:00:07,822 --> 00:00:10,392
+action and we'll dive way deeper throughout
+
+4
+00:00:10,392 --> 00:00:12,785
+the rest of this section and this course.
+
+5
+00:00:13,443 --> 00:00:14,745
+But before we do that,
+
+6
+00:00:15,275 --> 00:00:18,471
+I first of all, again wanna emphasize that
+
+7
+00:00:18,567 --> 00:00:23,691
+we could use HTMX in any HTML code no matter
+
+8
+00:00:23,948 --> 00:00:27,511
+how that code is generated. So no matter if
+
+9
+00:00:27,575 --> 00:00:29,963
+you're generating it with help of a template
+
+10
+00:00:30,043 --> 00:00:33,073
+engine or by simply creating a string
+
+11
+00:00:33,650 --> 00:00:36,311
+as we're doing it here in this demo project.
+
+12
+00:00:37,016 --> 00:00:40,126
+And of course, also no matter which
+
+13
+00:00:40,239 --> 00:00:43,429
+programming language or framework you might
+
+14
+00:00:43,429 --> 00:00:43,893
+be using.
+
+15
+00:00:44,567 --> 00:00:47,532
+Here it's Node with Express, but of course
+
+16
+00:00:47,532 --> 00:00:51,828
+you could also use HTMX in your HTML code if
+
+17
+00:00:51,941 --> 00:00:56,076
+you would be generating those HTML responses
+
+18
+00:00:56,333 --> 00:00:59,558
+with help of Python or PHP or Go
+
+19
+00:01:00,265 --> 00:01:00,891
+or any
+
+20
+00:01:01,469 --> 00:01:04,938
+other language. It's really important that
+
+21
+00:01:04,938 --> 00:01:08,407
+you don't need to use Node.js or Express in
+
+22
+00:01:08,552 --> 00:01:12,165
+order to use HTMX. This is just the example
+
+23
+00:01:12,165 --> 00:01:13,578
+I chose for this course.
+
+24
+00:01:14,638 --> 00:01:16,180
+Now, you could also
+
+25
+00:01:16,726 --> 00:01:20,034
+theoretically use HTMX if you would be
+
+26
+00:01:20,034 --> 00:01:20,484
+building
+
+27
+00:01:21,062 --> 00:01:24,740
+a React or Angular application, for example.
+
+28
+00:01:24,788 --> 00:01:26,233
+So if you would be building such a
+
+29
+00:01:26,233 --> 00:01:30,070
+standalone, frontend JavaScript-based web
+
+30
+00:01:30,070 --> 00:01:30,776
+application.
+
+31
+00:01:31,514 --> 00:01:34,451
+You could also use HTMX in
+
+32
+00:01:35,029 --> 00:01:37,180
+those kind of applications,
+
+33
+00:01:38,014 --> 00:01:42,059
+but you typically most likely wouldn't
+
+34
+00:01:42,091 --> 00:01:42,717
+because
+
+35
+00:01:43,471 --> 00:01:47,708
+those applications are already about using a
+
+36
+00:01:47,708 --> 00:01:51,094
+frontend JavaScript library or framework
+
+37
+00:01:51,335 --> 00:01:54,368
+like React or Angular, and you would be
+
+38
+00:01:54,368 --> 00:01:57,579
+using that library or framework for updating
+
+39
+00:01:57,659 --> 00:01:58,189
+the UI.
+
+40
+00:01:59,458 --> 00:02:02,783
+So you then would just add another library,
+
+41
+00:02:03,361 --> 00:02:04,100
+HTMX,
+
+42
+00:02:04,662 --> 00:02:08,516
+to do parts of that UI updating work. And
+
+43
+00:02:08,661 --> 00:02:10,701
+that's typically not what you should do.
+
+44
+00:02:11,247 --> 00:02:13,158
+Instead, if you're using React on the
+
+45
+00:02:13,158 --> 00:02:16,274
+frontend or Angular or any other frontend
+
+46
+00:02:16,370 --> 00:02:17,687
+JavaScript framework,
+
+47
+00:02:18,298 --> 00:02:20,610
+you should use that for sending those
+
+48
+00:02:20,642 --> 00:02:23,582
+requests, for handling the responses, and
+
+49
+00:02:23,678 --> 00:02:26,440
+for updating the UI, you should typically
+
+50
+00:02:26,440 --> 00:02:30,567
+not blend HTMX into the code there because
+
+51
+00:02:30,599 --> 00:02:32,253
+that can then just lead to
+
+52
+00:02:32,848 --> 00:02:36,766
+nasty bugs or a bloated codebase and it's
+
+53
+00:02:36,766 --> 00:02:39,335
+therefore not something you'd typically do.
+
+54
+00:02:40,299 --> 00:02:41,086
+Now, of course,
+
+55
+00:02:41,664 --> 00:02:46,257
+you might be using HTMX in HTML code that's
+
+56
+00:02:46,257 --> 00:02:48,489
+rendered on the server as we're doing it
+
+57
+00:02:48,489 --> 00:02:49,741
+here in this example.
+
+58
+00:02:50,432 --> 00:02:53,497
+And you might wanna add extra JavaScript
+
+59
+00:02:53,785 --> 00:02:56,818
+functionality to the frontend web user
+
+60
+00:02:56,834 --> 00:02:59,129
+interface that is in the end rendered by
+
+61
+00:02:59,241 --> 00:03:00,396
+that server-side code.
+
+62
+00:03:00,942 --> 00:03:03,076
+So you might wanna add some interactivity
+
+63
+00:03:03,188 --> 00:03:05,563
+beyond sending requests and handling
+
+64
+00:03:05,595 --> 00:03:08,130
+responses, which is what HTMX does.
+
+65
+00:03:09,205 --> 00:03:11,548
+And you can of course do that even without
+
+66
+00:03:11,997 --> 00:03:14,420
+adding React or Angular or anything like
+
+67
+00:03:14,484 --> 00:03:14,789
+that
+
+68
+00:03:15,383 --> 00:03:17,693
+because as you will also learn later in the
+
+69
+00:03:17,693 --> 00:03:21,317
+course, you can also bring your own vanilla
+
+70
+00:03:21,381 --> 00:03:24,283
+JavaScript code to this application to
+
+71
+00:03:24,283 --> 00:03:25,805
+perform simple tasks.
+
+72
+00:03:26,671 --> 00:03:30,326
+Or consider using a library like Alpine.js,
+
+73
+00:03:31,095 --> 00:03:34,269
+which also makes it a bit easier to add
+
+74
+00:03:34,301 --> 00:03:36,273
+interactivity to a website
+
+75
+00:03:36,850 --> 00:03:39,623
+without entirely controlling the entire
+
+76
+00:03:39,752 --> 00:03:42,669
+website as you would do it with React or
+
+77
+00:03:42,781 --> 00:03:43,198
+Angular.
+
+78
+00:03:43,984 --> 00:03:46,420
+And therefore, that's how you would
+
+79
+00:03:46,629 --> 00:03:49,306
+typically add extra interactivity if you
+
+80
+00:03:49,306 --> 00:03:50,781
+need it. Needed it
+
+81
+00:03:51,455 --> 00:03:54,216
+by bringing your own JavaScript code or by
+
+82
+00:03:54,328 --> 00:03:57,779
+using more lightweight libraries like Alpine
+
+83
+00:03:58,100 --> 00:03:59,897
+for specific tasks.
+
+84
+00:04:00,587 --> 00:04:02,867
+Nonetheless, you should of course also keep
+
+85
+00:04:02,867 --> 00:04:07,168
+in mind that in the end, you can use HTMX in
+
+86
+00:04:07,328 --> 00:04:11,180
+any HTML code no matter how it was generated
+
+87
+00:04:11,196 --> 00:04:11,806
+or rendered.
+
+88
+00:04:12,480 --> 00:04:14,888
+That's really important to keep in mind.

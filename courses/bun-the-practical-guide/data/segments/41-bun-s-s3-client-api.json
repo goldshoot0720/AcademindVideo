@@ -1,0 +1,802 @@
+[
+ {
+  "start": 0.176,
+  "end": 3.238,
+  "en": "Bun has built-in support for various types"
+ },
+ {
+  "start": 3.238,
+  "end": 5.113,
+  "en": "of databases you may wanna use in your"
+ },
+ {
+  "start": 5.241,
+  "end": 5.931,
+  "en": "applications."
+ },
+ {
+  "start": 7.005,
+  "end": 9.537,
+  "en": "Many applications also need to store files"
+ },
+ {
+  "start": 9.65,
+  "end": 12.92,
+  "en": "though, and that's why Bun has a built-in S3"
+ },
+ {
+  "start": 12.92,
+  "end": 15.004,
+  "en": "client so that you can use"
+ },
+ {
+  "start": 15.581,
+  "end": 20.518,
+  "en": "AWS S3 or any S3-compatible storage provider"
+ },
+ {
+  "start": 20.694,
+  "end": 23.163,
+  "en": "like Cloudflare R2 or many others"
+ },
+ {
+  "start": 23.9,
+  "end": 26.145,
+  "en": "right from inside Bun, again, without"
+ },
+ {
+  "start": 26.145,
+  "end": 28.405,
+  "en": "installing any extra dependencies or"
+ },
+ {
+  "start": 28.405,
+  "end": 30.521,
+  "en": "packages. It's all built in, it supports"
+ },
+ {
+  "start": 30.633,
+  "end": 33.262,
+  "en": "file uploads, downloads, pre-signed URLs,"
+ },
+ {
+  "start": 33.855,
+  "end": 35.731,
+  "en": "and we'll explore all these things in a"
+ },
+ {
+  "start": 35.779,
+  "end": 37.254,
+  "en": "little demo application now."
+ },
+ {
+  "start": 38.023,
+  "end": 39.786,
+  "en": "So again, I'm in a brand new demo"
+ },
+ {
+  "start": 39.931,
+  "end": 42.527,
+  "en": "application. You find it attached. And this"
+ },
+ {
+  "start": 42.592,
+  "end": 44.804,
+  "en": "demo application is all about a little"
+ },
+ {
+  "start": 45.237,
+  "end": 49.356,
+  "en": "backup CLI tool. So a little CLI tool we can"
+ },
+ {
+  "start": 49.469,
+  "end": 52.739,
+  "en": "run with some subcommands to back up an"
+ },
+ {
+  "start": 52.851,
+  "end": 55.816,
+  "en": "individual file, an entire folder, view the"
+ },
+ {
+  "start": 55.816,
+  "end": 58.029,
+  "en": "files we backed up to the cloud, and of"
+ },
+ {
+  "start": 58.045,
+  "end": 60.642,
+  "en": "course also restore them. Now, one word of"
+ },
+ {
+  "start": 60.642,
+  "end": 62.79,
+  "en": "caution right away. This is for demo"
+ },
+ {
+  "start": 62.79,
+  "end": 65.163,
+  "en": "purposes in this course. This is not a fully"
+ },
+ {
+  "start": 65.195,
+  "end": 67.634,
+  "en": "fledged backup tool. It will definitely miss"
+ },
+ {
+  "start": 67.827,
+  "end": 70.025,
+  "en": "some features you may want from your backup"
+ },
+ {
+  "start": 70.073,
+  "end": 72.143,
+  "en": "tool, though you could of course build up on"
+ },
+ {
+  "start": 72.239,
+  "end": 74.71,
+  "en": "it and evolve it into something more useful,"
+ },
+ {
+  "start": 75.063,
+  "end": 77.357,
+  "en": "but it gets its core job done."
+ },
+ {
+  "start": 78.111,
+  "end": 81.144,
+  "en": "And to show you how it works, I'll first set"
+ },
+ {
+  "start": 81.144,
+  "end": 83.871,
+  "en": "up a backup bucket in the cloud because"
+ },
+ {
+  "start": 83.871,
+  "end": 86.182,
+  "en": "again, this interacts with the cloud with an"
+ },
+ {
+  "start": 86.294,
+  "end": 88.925,
+  "en": "S3-compatible store. That's the entire idea."
+ },
+ {
+  "start": 89.487,
+  "end": 91.797,
+  "en": "And I'll use Cloudflare for that simply"
+ },
+ {
+  "start": 91.813,
+  "end": 94.314,
+  "en": "because that's super cheap. Indeed, you can"
+ },
+ {
+  "start": 94.314,
+  "end": 96.493,
+  "en": "get started for free if you're not uploading"
+ },
+ {
+  "start": 96.542,
+  "end": 98.625,
+  "en": "a lot. You need a credit card though,"
+ },
+ {
+  "start": 99.266,
+  "end": 101.397,
+  "en": "and it's easy to set up. So I'm in my"
+ },
+ {
+  "start": 101.525,
+  "end": 103.945,
+  "en": "Cloudflare account here, and there under"
+ },
+ {
+  "start": 103.945,
+  "end": 106.06,
+  "en": "Storage and Databases, you have the R2"
+ },
+ {
+  "start": 106.236,
+  "end": 107.006,
+  "en": "Object Storage."
+ },
+ {
+  "start": 107.855,
+  "end": 109.986,
+  "en": "And under Overview, you can create a new"
+ },
+ {
+  "start": 110.162,
+  "end": 110.435,
+  "en": "bucket."
+ },
+ {
+  "start": 110.996,
+  "end": 112.791,
+  "en": "So that's what I'll do, create a new bucket"
+ },
+ {
+  "start": 113.223,
+  "end": 116.027,
+  "en": "and name it backup-course-demo. The name is"
+ },
+ {
+  "start": 116.027,
+  "end": 118.431,
+  "en": "entirely up to you. Location, automatic."
+ },
+ {
+  "start": 118.752,
+  "end": 121.135,
+  "en": "Default storage class is standard here."
+ },
+ {
+  "start": 122.761,
+  "end": 124.853,
+  "en": "And of course, the setup steps will differ"
+ },
+ {
+  "start": 124.934,
+  "end": 127.526,
+  "en": "depending on which provider you use, but in"
+ },
+ {
+  "start": 127.526,
+  "end": 129.808,
+  "en": "the end, you just need to set up a bucket"
+ },
+ {
+  "start": 129.938,
+  "end": 132.635,
+  "en": "and then get some credentials for the app to"
+ },
+ {
+  "start": 132.635,
+  "end": 134.715,
+  "en": "connect to. But you'll see that in detail in"
+ },
+ {
+  "start": 134.812,
+  "end": 135.446,
+  "en": "just a second."
+ },
+ {
+  "start": 136.2,
+  "end": 139.366,
+  "en": "So here the bucket was created, and now, as"
+ },
+ {
+  "start": 139.43,
+  "end": 141.182,
+  "en": "I just said, you need some credentials."
+ },
+ {
+  "start": 141.857,
+  "end": 144.59,
+  "en": "You have a.env.example file in the provided"
+ },
+ {
+  "start": 144.59,
+  "end": 146.953,
+  "en": "folder. And in there you see all the env"
+ },
+ {
+  "start": 147.241,
+  "end": 150.162,
+  "en": "vars that must be set in order for this app"
+ },
+ {
+  "start": 150.162,
+  "end": 152.393,
+  "en": "to be able to connect to that bucket and"
+ },
+ {
+  "start": 152.393,
+  "end": 154.591,
+  "en": "store data there and fetch it from there."
+ },
+ {
+  "start": 155.281,
+  "end": 156.774,
+  "en": "And what we need and what all these"
+ },
+ {
+  "start": 156.95,
+  "end": 160.015,
+  "en": "S3-compatible stores give you is an access"
+ },
+ {
+  "start": 160.015,
+  "end": 162.968,
+  "en": "key ID, a secret access key, the bucket"
+ },
+ {
+  "start": 162.968,
+  "end": 164.621,
+  "en": "name, we already have that, it's"
+ },
+ {
+  "start": 164.749,
+  "end": 167.285,
+  "en": "bucket-course-demo, so I'll paste that in"
+ },
+ {
+  "start": 167.317,
+  "end": 167.429,
+  "en": "there."
+ },
+ {
+  "start": 168.263,
+  "end": 170.622,
+  "en": "And then also an endpoint and you can keep"
+ },
+ {
+  "start": 170.687,
+  "end": 172.083,
+  "en": "the region set to auto."
+ },
+ {
+  "start": 172.612,
+  "end": 174.856,
+  "en": "Unless you have more specific settings from"
+ },
+ {
+  "start": 175.017,
+  "end": 176.026,
+  "en": "AWS, for example."
+ },
+ {
+  "start": 177.1,
+  "end": 180.499,
+  "en": "So here to get the key ID and so on for"
+ },
+ {
+  "start": 181.445,
+  "end": 184.939,
+  "en": "R2, I'll go to Overview where I see all my"
+ },
+ {
+  "start": 184.955,
+  "end": 185.356,
+  "en": "buckets."
+ },
+ {
+  "start": 186.318,
+  "end": 188.915,
+  "en": "And then here on the right, there is this"
+ },
+ {
+  "start": 188.979,
+  "end": 191.383,
+  "en": "Account Details area where I click on"
+ },
+ {
+  "start": 191.512,
+  "end": 191.896,
+  "en": "Manage."
+ },
+ {
+  "start": 192.473,
+  "end": 194.846,
+  "en": "And there I can create a new account API"
+ },
+ {
+  "start": 194.974,
+  "end": 198.757,
+  "en": "token and I'll name that backup-course-demo."
+ },
+ {
+  "start": 200.024,
+  "end": 201.949,
+  "en": "Of course, the name is up to you. You wanna"
+ },
+ {
+  "start": 201.949,
+  "end": 204.884,
+  "en": "set it to object read/write permissions."
+ },
+ {
+  "start": 205.718,
+  "end": 207.723,
+  "en": "And of course you'll need to dive into the"
+ },
+ {
+  "start": 207.723,
+  "end": 209.888,
+  "en": "docs of the storage provider you may be"
+ },
+ {
+  "start": 209.888,
+  "end": 212.358,
+  "en": "using to find the right setup steps and"
+ },
+ {
+  "start": 212.374,
+  "end": 214.507,
+  "en": "permissions. Here are just the steps for"
+ },
+ {
+  "start": 214.603,
+  "end": 215.518,
+  "en": "Cloudflare R2."
+ },
+ {
+  "start": 216.624,
+  "end": 218.501,
+  "en": "And then I wanna restrict it to just this"
+ },
+ {
+  "start": 218.533,
+  "end": 218.886,
+  "en": "bucket."
+ },
+ {
+  "start": 219.511,
+  "end": 221.885,
+  "en": "So to just backup-course-demo in my case."
+ },
+ {
+  "start": 222.703,
+  "end": 224.644,
+  "en": "All the other settings are fine. I'll create"
+ },
+ {
+  "start": 224.644,
+  "end": 227.098,
+  "en": "that account API token. And now the values"
+ },
+ {
+  "start": 227.13,
+  "end": 229.794,
+  "en": "you see here, are values you must keep"
+ },
+ {
+  "start": 229.794,
+  "end": 232.427,
+  "en": "secret. I'm sharing them with you because I"
+ },
+ {
+  "start": 232.427,
+  "end": 235.14,
+  "en": "delete them right after recording this, but"
+ },
+ {
+  "start": 235.14,
+  "end": 237.018,
+  "en": "you must never share your settings with"
+ },
+ {
+  "start": 237.067,
+  "end": 239.86,
+  "en": "anybody because these keys and so on give"
+ },
+ {
+  "start": 239.956,
+  "end": 242.927,
+  "en": "anybody who has them access to your bucket,"
+ },
+ {
+  "start": 243.007,
+  "end": 243.729,
+  "en": "to your data."
+ },
+ {
+  "start": 244.388,
+  "end": 246.426,
+  "en": "So I'll copy the access key ID and store"
+ },
+ {
+  "start": 246.491,
+  "end": 248.722,
+  "en": "that as S3 access key ID,"
+ },
+ {
+  "start": 249.605,
+  "end": 251.628,
+  "en": "then copy the secret access key"
+ },
+ {
+  "start": 253.121,
+  "end": 254.165,
+  "en": "and also that"
+ },
+ {
+  "start": 254.805,
+  "end": 255.598,
+  "en": "endpoint here."
+ },
+ {
+  "start": 257.215,
+  "end": 259.738,
+  "en": "And you must rename your env.example file to"
+ },
+ {
+  "start": 260.126,
+  "end": 262.94,
+  "en": ".env then so that you have a.env file with"
+ },
+ {
+  "start": 262.972,
+  "end": 264.332,
+  "en": "those settings. You can delete the"
+ },
+ {
+  "start": 264.656,
+  "end": 266.796,
+  "en": ".env.example file thereafter, but your.env"
+ },
+ {
+  "start": 267.023,
+  "end": 269.179,
+  "en": "file must exist and must contain these"
+ },
+ {
+  "start": 269.211,
+  "end": 271.967,
+  "en": "settings. And with that, it's all set up."
+ },
+ {
+  "start": 272.763,
+  "end": 275.981,
+  "en": "Now we can dive back into that bucket and"
+ },
+ {
+  "start": 276.014,
+  "end": 277.938,
+  "en": "see that it of course currently is empty."
+ },
+ {
+  "start": 278.666,
+  "end": 281.351,
+  "en": "That's why this demo project I prepared also"
+ },
+ {
+  "start": 281.4,
+  "end": 283.962,
+  "en": "contains a test folder with some demo files."
+ },
+ {
+  "start": 284.793,
+  "end": 287.121,
+  "en": "And what we can do now is run bun install to"
+ },
+ {
+  "start": 287.121,
+  "end": 289.337,
+  "en": "install dependencies and then run bun run"
+ },
+ {
+  "start": 289.385,
+  "end": 289.883,
+  "en": "cli"
+ },
+ {
+  "start": 291.135,
+  "end": 293.158,
+  "en": "like this to see a list of supported"
+ },
+ {
+  "start": 293.206,
+  "end": 295.117,
+  "en": "commands. And we see, for example, there is"
+ },
+ {
+  "start": 295.213,
+  "end": 297.847,
+  "en": "a bucket command which wants a local path of"
+ },
+ {
+  "start": 297.879,
+  "end": 300.303,
+  "en": "the file we wanna back up and then a bunch"
+ },
+ {
+  "start": 300.303,
+  "end": 301.379,
+  "en": "of other commands as well."
+ },
+ {
+  "start": 302.31,
+  "end": 305.521,
+  "en": "So here I'll run bun run cli backup and then"
+ },
+ {
+  "start": 305.586,
+  "end": 307.079,
+  "en": "let's say I wanna back up this"
+ },
+ {
+  "start": 307.817,
+  "end": 310.001,
+  "en": "long text file here in the test folder."
+ },
+ {
+  "start": 310.628,
+  "end": 315.16,
+  "en": "I would write test/long.txt and that should"
+ },
+ {
+  "start": 315.225,
+  "end": 316.543,
+  "en": "then upload that file."
+ },
+ {
+  "start": 317.459,
+  "end": 319.295,
+  "en": "And therefore, if I reload this bucket page,"
+ },
+ {
+  "start": 319.588,
+  "end": 321.754,
+  "en": "I'll see that file there. I see the test"
+ },
+ {
+  "start": 321.77,
+  "end": 324.261,
+  "en": "folder there and in there I see the long.txt"
+ },
+ {
+  "start": 324.277,
+  "end": 324.391,
+  "en": "file."
+ },
+ {
+  "start": 325.603,
+  "end": 327.676,
+  "en": "And I can also confirm that it's there by"
+ },
+ {
+  "start": 327.676,
+  "end": 330.15,
+  "en": "running bun run CLI list, another command"
+ },
+ {
+  "start": 330.166,
+  "end": 331.934,
+  "en": "supported by this tool, which lists all the"
+ },
+ {
+  "start": 331.934,
+  "end": 333.46,
+  "en": "files that are currently backed up."
+ },
+ {
+  "start": 334.28,
+  "end": 337.477,
+  "en": "And if I delete long.txt locally, I can"
+ },
+ {
+  "start": 337.477,
+  "end": 340.334,
+  "en": "restore it by running bun run cli restore"
+ },
+ {
+  "start": 340.864,
+  "end": 343.272,
+  "en": "and then test/long.txt."
+ },
+ {
+  "start": 343.914,
+  "end": 345.663,
+  "en": "That downloads it and brings it back."
+ },
+ {
+  "start": 346.466,
+  "end": 346.931,
+  "en": "Here it is."
+ },
+ {
+  "start": 347.846,
+  "end": 349.564,
+  "en": "And then there are other commands too."
+ },
+ {
+  "start": 349.997,
+  "end": 351.827,
+  "en": "Again, you can simply play around with them"
+ },
+ {
+  "start": 351.923,
+  "end": 354.941,
+  "en": "and test how this tool works. You can also"
+ },
+ {
+  "start": 355.054,
+  "end": 357.285,
+  "en": "back up an entire folder by running bun run"
+ },
+ {
+  "start": 357.381,
+  "end": 358.071,
+  "en": "cli"
+ },
+ {
+  "start": 358.681,
+  "end": 362.116,
+  "en": "backup and then just the folder path and it"
+ },
+ {
+  "start": 362.116,
+  "end": 363.577,
+  "en": "will then give you an error that this is a"
+ },
+ {
+  "start": 363.593,
+  "end": 364.909,
+  "en": "directory and you should add"
+ },
+ {
+  "start": 365.583,
+  "end": 367.702,
+  "en": "--recursive if you meant to copy the entire"
+ },
+ {
+  "start": 367.702,
+  "end": 371.285,
+  "en": "folder. Folder with its subfolders. So I'll"
+ },
+ {
+  "start": 371.383,
+  "end": 373.851,
+  "en": "add --recursive here and now all the files"
+ },
+ {
+  "start": 373.851,
+  "end": 374.857,
+  "en": "in there are uploaded."
+ },
+ {
+  "start": 377.948,
+  "end": 379.274,
+  "en": "Also worth noting, if I run this again,"
+ },
+ {
+  "start": 379.306,
+  "end": 382.233,
+  "en": "you'll see it skips most of them because I"
+ },
+ {
+  "start": 382.298,
+  "end": 385.548,
+  "en": "do some basic size checking and if sizes are"
+ },
+ {
+  "start": 385.758,
+  "end": 388.377,
+  "en": "equal, it should skip the file. If that were"
+ },
+ {
+  "start": 388.442,
+  "end": 390.949,
+  "en": "a real backup tool, you would probably also"
+ },
+ {
+  "start": 390.949,
+  "end": 393.261,
+  "en": "set up a database where you store your own"
+ },
+ {
+  "start": 393.277,
+  "end": 396.689,
+  "en": "file hashes to detect every change and not"
+ },
+ {
+  "start": 396.689,
+  "end": 397.98,
+  "en": "rely on some file size approximation alone."
+ },
+ {
+  "start": 400.284,
+  "end": 402.239,
+  "en": "Anyways, that's how the tool works. Let's"
+ },
+ {
+  "start": 402.239,
+  "end": 403.305,
+  "en": "now dive into the code."
+ }
+]

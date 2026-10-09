@@ -1,0 +1,369 @@
+1
+00:00:00,632 --> 00:00:03,110
+Now let's assume that submitting a goal
+現在我們假設提交一個目標
+
+2
+00:00:03,224 --> 00:00:04,260
+takes a bit longer.
+需要更長的時間。
+
+3
+00:00:05,184 --> 00:00:07,209
+And we can actually simulate this by going
+我們實際上可以透過以下方式模擬這一點
+
+4
+00:00:07,209 --> 00:00:09,282
+to this postGoals handler here.
+到這裡的帖子目標處理程式。
+
+5
+00:00:10,105 --> 00:00:13,025
+And then there we can use the setTimeout
+然後我們可以使用setTimeout
+
+6
+00:00:13,025 --> 00:00:13,477
+function
+功能
+
+7
+00:00:14,074 --> 00:00:16,123
+to set a timeout of 1 second, let's say.
+比方說，將超時設定為 1 秒。
+
+8
+00:00:17,850 --> 00:00:20,290
+And then I only send the response after that
+然後我只發送回复
+
+9
+00:00:20,290 --> 00:00:21,227
+timeout expired.
+超時已過。
+
+10
+00:00:22,245 --> 00:00:24,072
+So now it will take 1 second for the
+所以現在需要 1 秒
+
+11
+00:00:24,072 --> 00:00:26,448
+response to arrive. And with that, I'm just
+回應到達。有了這個，我只是
+
+12
+00:00:26,512 --> 00:00:28,209
+simulating a slower backend.
+模擬較慢的後端。
+
+13
+00:00:29,017 --> 00:00:30,236
+If we do that,
+如果我們這樣做，
+
+14
+00:00:30,798 --> 00:00:32,594
+you will see that if we reload here
+你會看到如果我們在這裡重新載入
+
+15
+00:00:33,188 --> 00:00:35,129
+and we send a new request,
+我們發送一個新請求，
+
+16
+00:00:35,690 --> 00:00:36,925
+it'll still work like before.
+它仍然會像以前一樣工作。
+
+17
+00:00:37,535 --> 00:00:38,834
+But now you can of course see
+但現在你當然可以看到
+
+18
+00:00:39,364 --> 00:00:41,770
+that the input is only reset after the
+輸入僅在之後重設
+
+19
+00:00:41,770 --> 00:00:42,556
+response arrived.
+回覆到達。
+
+20
+00:00:43,630 --> 00:00:45,620
+And therefore there is this time window
+因此就有了這個時間窗口
+
+21
+00:00:45,780 --> 00:00:48,122
+where we could hammer this button because we
+我們可以在那裡敲擊這個按鈕，因為我們
+
+22
+00:00:48,122 --> 00:00:49,341
+don't understand
+不明白
+
+23
+00:00:49,871 --> 00:00:50,223
+that
+那
+
+24
+00:00:50,833 --> 00:00:53,785
+a request was on its way because the input
+請求正在發送中，因為輸入
+
+25
+00:00:53,817 --> 00:00:55,068
+wasn't cleared immediately.
+沒有立即清除。
+
+26
+00:00:55,806 --> 00:00:58,177
+And we therefore by accident might send an
+因此我們可能會不小心發送一個
+
+27
+00:00:58,305 --> 00:01:00,565
+extra request which we don't wanna send.
+我們不想發送的額外請求。
+
+28
+00:01:01,574 --> 00:01:03,818
+Now, of course, one solution for this
+當然，現在有一個解決方案
+
+29
+00:01:03,818 --> 00:01:04,170
+problem
+問題
+
+30
+00:01:04,795 --> 00:01:07,295
+would be to immediately clear the input
+將立即清除輸入
+
+31
+00:01:07,295 --> 00:01:09,682
+again right after a goal was submitted.
+提交進球後再次進行。
+
+32
+00:01:10,419 --> 00:01:12,471
+So back on this form here, instead of
+所以回到這裡的表格，而不是
+
+33
+00:01:12,471 --> 00:01:15,002
+listening to after request, we could again
+聽完請求後，我們可以再
+
+34
+00:01:15,115 --> 00:01:17,021
+listen to the built-in submit event again.
+再次監聽內建的提交事件。
+
+35
+00:01:17,935 --> 00:01:20,483
+But maybe we only wanna clear it after we
+但也許我們只是想在我們之後清除它
+
+36
+00:01:20,483 --> 00:01:22,149
+know that the request succeeded.
+知道請求成功了。
+
+37
+00:01:23,133 --> 00:01:26,143
+In that case, a better workaround would be
+在這種情況下，更好的解決方法是
+
+38
+00:01:26,143 --> 00:01:29,363
+to simply disable this button whilst the
+只需禁用此按鈕即可
+
+39
+00:01:29,379 --> 00:01:30,755
+request is on its way.
+請求正在處理中。
+
+40
+00:01:31,850 --> 00:01:34,017
+And since this is such a common requirement,
+由於這是一個如此普遍的要求，
+
+41
+00:01:34,470 --> 00:01:36,023
+HTMX has got us covered.
+HTMX 已經為我們提供了保障。
+
+42
+00:01:36,719 --> 00:01:41,513
+It offers an hx-disabled-elt
+它提供了一個 hx-disabled-elt
+
+43
+00:01:42,388 --> 00:01:42,972
+attribute,
+屬性，
+
+44
+00:01:43,620 --> 00:01:45,564
+and elt stands for element.
+elt 代表元素。
+
+45
+00:01:46,662 --> 00:01:48,836
+And what this attribute does is
+這個屬性的作用是
+
+46
+00:01:49,360 --> 00:01:50,193
+it allows you
+它可以讓你
+
+47
+00:01:50,776 --> 00:01:53,137
+to specify a CSS selector
+指定 CSS 選擇器
+
+48
+00:01:53,748 --> 00:01:56,269
+of an element you wanna disable here as a
+您想要在此處禁用的元素的
+
+49
+00:01:56,269 --> 00:01:57,939
+value for this attribute.
+該屬性的值。
+
+50
+00:01:58,967 --> 00:02:01,922
+And it'll then go ahead and add the disabled
+然後它會繼續添加禁用的
+
+51
+00:02:02,260 --> 00:02:04,990
+attribute and set this element to disabled,
+屬性並將該元素設為停用，
+
+52
+00:02:05,568 --> 00:02:07,993
+this element you're targeting here, whenever
+無論何時，您在這裡定位的這個元素
+
+53
+00:02:07,993 --> 00:02:10,772
+some request for this element on which you
+您對此元素的一些請求
+
+54
+00:02:10,852 --> 00:02:12,715
+added this attribute is on its way.
+添加此屬性正在路上。
+
+55
+00:02:13,839 --> 00:02:16,264
+So whenever this POST request is on its way,
+因此，每當此 POST 請求發出時，
+
+56
+00:02:16,329 --> 00:02:16,987
+for example.
+例如。
+
+57
+00:02:18,336 --> 00:02:21,035
+So here I can target this button
+所以在這裡我可以定位這個按鈕
+
+58
+00:02:21,870 --> 00:02:25,195
+by using button as a CSS selector or
+使用按鈕作為 CSS 選擇器或
+
+59
+00:02:25,500 --> 00:02:26,721
+form-button
+表單按鈕
+
+60
+00:02:27,251 --> 00:02:29,500
+to look for a button inside of a form, which
+尋找表單內的按鈕，
+
+61
+00:02:29,500 --> 00:02:31,363
+is definitely only this button.
+肯定只有這個按鈕。
+
+62
+00:02:32,552 --> 00:02:35,170
+And then this button will be disabled due to
+然後這個按鈕將被禁用，因為
+
+63
+00:02:35,202 --> 00:02:38,383
+this attribute whenever this POST request is
+每當此 POST 請求時此屬性
+
+64
+00:02:38,559 --> 00:02:39,089
+on its way.
+正在路上。
+
+65
+00:02:40,519 --> 00:02:42,511
+So with that, if we reload,
+因此，如果我們重新載入，
+
+66
+00:02:43,234 --> 00:02:45,902
+and I again learn HTMX, you see that now the
+我再次學習 HTMX，你看現在
+
+67
+00:02:45,966 --> 00:02:47,026
+button is disabled
+按鈕被禁用
+
+68
+00:02:47,718 --> 00:02:49,646
+and it's disabled for the duration of the
+並且它在持續時間內被禁用
+
+69
+00:02:49,646 --> 00:02:52,379
+request after which it is enabled again. But
+請求後再次啟用。但
+
+70
+00:02:52,379 --> 00:02:54,344
+of course then the input was cleared
+當然然後輸入被清除了
+
+71
+00:02:54,875 --> 00:02:57,097
+due to this event handler code here.
+由於這裡的事件處理程式程式碼。
+
+72
+00:02:58,857 --> 00:03:01,035
+And therefore this is another very useful
+因此這是另一個非常有用的
+
+73
+00:03:01,133 --> 00:03:03,213
+attribute and feature you should be aware
+您應該注意的屬性和功能
+
+74
+00:03:03,343 --> 00:03:03,392
+of.
+的。

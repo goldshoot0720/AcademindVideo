@@ -1,0 +1,403 @@
+1
+00:00:00,112 --> 00:00:00,931
+Now in order to
+
+2
+00:00:01,557 --> 00:00:04,592
+get this application onto the VPS and run it
+
+3
+00:00:04,592 --> 00:00:04,721
+there,
+
+4
+00:00:05,476 --> 00:00:05,508
+I
+
+5
+00:00:06,038 --> 00:00:09,249
+added a deployment.md file to this project
+
+6
+00:00:09,330 --> 00:00:11,482
+and it is part of the project which was
+
+7
+00:00:11,594 --> 00:00:13,842
+linked in the previous lecture. And in there
+
+8
+00:00:13,906 --> 00:00:16,428
+I outlined the steps we need to go through.
+
+9
+00:00:16,958 --> 00:00:19,350
+What we need is a VPS and we already have
+
+10
+00:00:19,383 --> 00:00:19,607
+that.
+
+11
+00:00:20,169 --> 00:00:23,381
+We'll need a domain pointing at that VPS. So
+
+12
+00:00:23,381 --> 00:00:25,292
+if you wanna follow along, you need a domain
+
+13
+00:00:25,324 --> 00:00:29,159
+because you will need one for HTTPS access
+
+14
+00:00:29,159 --> 00:00:32,589
+for TLS encryption for secure web requests.
+
+15
+00:00:33,567 --> 00:00:35,860
+And all the rest is already set up in this
+
+16
+00:00:35,908 --> 00:00:38,665
+project. Docker, for example, because we are
+
+17
+00:00:38,873 --> 00:00:39,867
+using Docker here.
+
+18
+00:00:40,621 --> 00:00:42,480
+Now, in case you're not sure what exactly
+
+19
+00:00:42,560 --> 00:00:43,089
+Docker is,
+
+20
+00:00:43,618 --> 00:00:45,414
+it's a tool that allows you to run
+
+21
+00:00:45,526 --> 00:00:49,004
+containerized applications where a container
+
+22
+00:00:49,133 --> 00:00:50,142
+is really just an
+
+23
+00:00:50,880 --> 00:00:53,172
+isolated environment, a box you could say,
+
+24
+00:00:53,300 --> 00:00:56,234
+that includes your app and all required
+
+25
+00:00:56,266 --> 00:00:59,135
+dependencies and tools. So the idea is that
+
+26
+00:00:59,135 --> 00:01:01,604
+you put your app, so for example, the app I
+
+27
+00:01:01,700 --> 00:01:03,975
+have here, which is a Node.js app, as I
+
+28
+00:01:03,975 --> 00:01:06,588
+mentioned, a Node.js web application, that
+
+29
+00:01:06,588 --> 00:01:08,030
+you put that app
+
+30
+00:01:08,671 --> 00:01:11,059
+into a container and you bundle it up in
+
+31
+00:01:11,091 --> 00:01:12,630
+that container together with all the
+
+32
+00:01:12,630 --> 00:01:15,178
+dependencies it needs. So the dependencies
+
+33
+00:01:15,178 --> 00:01:17,278
+we installed here, which are stored in the
+
+34
+00:01:17,342 --> 00:01:20,531
+node_modules folder, but also other
+
+35
+00:01:20,531 --> 00:01:22,823
+dependencies. And you have a Dockerfile,
+
+36
+00:01:23,352 --> 00:01:25,852
+which is part of that project already, it's
+
+37
+00:01:25,980 --> 00:01:26,429
+already here,
+
+38
+00:01:27,022 --> 00:01:28,785
+which configures this environment you wanna
+
+39
+00:01:28,785 --> 00:01:31,210
+have. And in that file, I, for example, make
+
+40
+00:01:31,210 --> 00:01:34,808
+sure that we have a Node image being used
+
+41
+00:01:34,808 --> 00:01:38,246
+there as a base so that Node.js is installed
+
+42
+00:01:38,358 --> 00:01:40,109
+in that container because that's also a
+
+43
+00:01:40,125 --> 00:01:41,972
+dependency of the web app. It's not just the
+
+44
+00:01:41,972 --> 00:01:44,703
+packages my web app uses, but it's Node
+
+45
+00:01:44,703 --> 00:01:45,185
+itself.
+
+46
+00:01:45,908 --> 00:01:48,157
+And of course, I did already install Node on
+
+47
+00:01:48,157 --> 00:01:50,776
+my VPS here, but actually I wouldn't need to
+
+48
+00:01:50,808 --> 00:01:53,121
+do that to run the app here, this app we're
+
+49
+00:01:53,137 --> 00:01:53,892
+about to deploy.
+
+50
+00:01:54,567 --> 00:01:57,553
+I did install it to install that AI agent I
+
+51
+00:01:57,553 --> 00:02:00,325
+showed you before, Pi in my case, but not
+
+52
+00:02:00,357 --> 00:02:03,337
+for this web app. That requirement of Node,
+
+53
+00:02:03,418 --> 00:02:05,773
+of a specific Node version even, that is
+
+54
+00:02:05,885 --> 00:02:07,760
+included in this Dockerfile.
+
+55
+00:02:08,369 --> 00:02:11,013
+And then in that file, I install more stuff
+
+56
+00:02:11,157 --> 00:02:14,250
+we may need. And I, for example, make sure
+
+57
+00:02:14,362 --> 00:02:16,173
+that dependencies of the web app are
+
+58
+00:02:16,221 --> 00:02:18,048
+installed. So all those packages and
+
+59
+00:02:18,048 --> 00:02:21,044
+libraries my web app uses, I build the web
+
+60
+00:02:21,044 --> 00:02:24,523
+app there. So in short, I do everything in
+
+61
+00:02:24,555 --> 00:02:26,159
+here to make sure that I have a
+
+62
+00:02:26,159 --> 00:02:29,095
+production-ready container that includes the
+
+63
+00:02:29,191 --> 00:02:32,143
+ready-to-use application. And that is the
+
+64
+00:02:32,159 --> 00:02:34,308
+idea behind Docker and Docker containers.
+
+65
+00:02:34,565 --> 00:02:37,115
+You have that package here in the end, which
+
+66
+00:02:37,211 --> 00:02:40,420
+you can put onto a host that has Docker
+
+67
+00:02:40,420 --> 00:02:43,131
+running on it. And then that host can run
+
+68
+00:02:43,243 --> 00:02:45,777
+that container as it is and doesn't need to
+
+69
+00:02:45,809 --> 00:02:48,199
+worry about making sure that it has the
+
+70
+00:02:48,199 --> 00:02:50,269
+proper software and packages installed
+
+71
+00:02:50,349 --> 00:02:52,208
+itself. That's the advantage of Docker.
+
+72
+00:02:52,465 --> 00:02:55,238
+That's what we have here. And Docker is
+
+73
+00:02:55,414 --> 00:02:58,059
+indeed the default for, I guess, most web
+
+74
+00:02:58,059 --> 00:02:59,806
+apps out there. It's a very convenient tool
+
+75
+00:02:59,918 --> 00:03:02,467
+for deployment and therefore we're using it
+
+76
+00:03:02,467 --> 00:03:03,413
+in this project too.
+
+77
+00:03:04,166 --> 00:03:06,378
+Now actually in this project, I have 2
+
+78
+00:03:06,570 --> 00:03:09,103
+Docker-related files. I have the Dockerfile
+
+79
+00:03:09,199 --> 00:03:12,341
+and I have a compose.yaml file. And by the
+
+80
+00:03:12,341 --> 00:03:14,024
+way, if you wanna learn even more about
+
+81
+00:03:14,024 --> 00:03:15,771
+Docker, attached you find a link to my
+
+82
+00:03:15,771 --> 00:03:18,368
+course which does dive in even deeper. But
+
+83
+00:03:18,368 --> 00:03:20,183
+for this course, it's just important to
+
+84
+00:03:20,183 --> 00:03:22,800
+understand the general idea behind it. Now,
+
+85
+00:03:23,009 --> 00:03:25,578
+I then actually have 2 Docker-related files
+
+86
+00:03:25,578 --> 00:03:27,199
+in this project because I don't just have
+
+87
+00:03:27,199 --> 00:03:29,897
+the Dockerfile but also this compose.yaml
+
+88
+00:03:29,897 --> 00:03:30,282
+file.
+
+89
+00:03:31,021 --> 00:03:33,670
+This compose.yaml file actually creates an
+
+90
+00:03:33,670 --> 00:03:35,436
+environment that consists of multiple
+
+91
+00:03:35,533 --> 00:03:36,063
+containers.
+
+92
+00:03:36,721 --> 00:03:39,515
+I have one container, my app container, that
+
+93
+00:03:39,691 --> 00:03:39,836
+is
+
+94
+00:03:40,414 --> 00:03:42,405
+configured by this Dockerfile that will
+
+95
+00:03:42,437 --> 00:03:44,765
+include my web app. But then I also have
+
+96
+00:03:44,765 --> 00:03:47,861
+another container defined in here for a tool
+
+97
+00:03:47,877 --> 00:03:51,183
+called Traefik, which will act as a reverse
+
+98
+00:03:51,183 --> 00:03:53,670
+proxy in front of my web app. And
+
+99
+00:03:54,296 --> 00:03:56,815
+that of course may sound very confusing. So
+
+100
+00:03:56,815 --> 00:03:59,607
+let's dive a bit deeper into what a reverse
+
+101
+00:03:59,607 --> 00:04:01,260
+proxy actually is.

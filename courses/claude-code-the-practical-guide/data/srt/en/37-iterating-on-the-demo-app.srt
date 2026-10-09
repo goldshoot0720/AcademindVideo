@@ -1,0 +1,667 @@
+1
+00:00:00,032 --> 00:00:02,933
+Now, in this lecture, I'll just walk you
+
+2
+00:00:02,933 --> 00:00:05,370
+through a couple of prompts I'm sending to
+
+3
+00:00:05,386 --> 00:00:07,582
+Claude Code and how I iterate with Claude
+
+4
+00:00:07,582 --> 00:00:09,938
+Code. I'll skip the parts where Claude Code
+
+5
+00:00:09,970 --> 00:00:12,599
+is thinking and spitting out plans. And
+
+6
+00:00:12,695 --> 00:00:14,443
+therefore, you can, of course, also skip
+
+7
+00:00:14,443 --> 00:00:16,270
+this lecture if you're not interested in
+
+8
+00:00:16,382 --> 00:00:16,639
+that.
+
+9
+00:00:17,168 --> 00:00:20,053
+At this point, this project is now actually
+
+10
+00:00:20,053 --> 00:00:20,759
+set up in a way
+
+11
+00:00:21,496 --> 00:00:23,804
+that should allow us to efficiently work on
+
+12
+00:00:23,900 --> 00:00:26,129
+it with help of Claude Code. And therefore,
+
+13
+00:00:26,145 --> 00:00:27,908
+of course, typically I would set up
+
+14
+00:00:27,908 --> 00:00:30,809
+subagents and skills and a proper Claude MD
+
+15
+00:00:30,809 --> 00:00:32,895
+file at the very beginning. Beginning before
+
+16
+00:00:32,895 --> 00:00:35,095
+starting work on the project. I did it here
+
+17
+00:00:35,207 --> 00:00:37,326
+step by step whilst actually already
+
+18
+00:00:37,326 --> 00:00:39,221
+starting with the concrete application
+
+19
+00:00:39,253 --> 00:00:39,927
+implementation
+
+20
+00:00:40,505 --> 00:00:43,155
+just to give you good examples for why we
+
+21
+00:00:43,155 --> 00:00:44,503
+would use these different features.
+
+22
+00:00:45,258 --> 00:00:47,313
+But with that now all set up, we can of
+
+23
+00:00:47,345 --> 00:00:49,978
+course continue working on this application
+
+24
+00:00:49,978 --> 00:00:53,174
+and start adding the actual main features.
+
+25
+00:00:53,446 --> 00:00:56,192
+And now that users can log in, the next
+
+26
+00:00:56,240 --> 00:00:59,532
+logical step would be to make sure that we
+
+27
+00:00:59,532 --> 00:01:02,772
+get redirected to the dashboard route after
+
+28
+00:01:02,772 --> 00:01:05,849
+successful login, that we can only go to
+
+29
+00:01:05,881 --> 00:01:08,158
+that route if we are authenticated and
+
+30
+00:01:08,350 --> 00:01:11,027
+access is blocked for users that are not
+
+31
+00:01:11,235 --> 00:01:13,672
+authenticated. And then of course, as next
+
+32
+00:01:13,672 --> 00:01:15,804
+steps thereafter, that we can also create
+
+33
+00:01:15,820 --> 00:01:18,481
+and manage notes. Therefore, that's the next
+
+34
+00:01:18,529 --> 00:01:20,389
+prompt I wanna send to Claude Code.
+
+35
+00:01:21,014 --> 00:01:24,348
+I ask it to implement redirecting the user
+
+36
+00:01:24,380 --> 00:01:26,672
+to /dashboard after successful
+
+37
+00:01:26,785 --> 00:01:29,750
+authentication and I ask it to protect the
+
+38
+00:01:29,766 --> 00:01:32,443
+dashboard route and all other note-related
+
+39
+00:01:32,443 --> 00:01:35,456
+routes except for the publicly shared note
+
+40
+00:01:35,456 --> 00:01:38,149
+route from unauthenticated access. I wanted
+
+41
+00:01:38,165 --> 00:01:39,752
+to add protection on a per-route level.
+
+42
+00:01:40,184 --> 00:01:42,188
+That's something I know because with
+
+43
+00:01:42,204 --> 00:01:44,576
+Next.js, you could try to implement route
+
+44
+00:01:44,576 --> 00:01:46,531
+protection with help of layouts, which is
+
+45
+00:01:46,659 --> 00:01:48,759
+actually discouraged. So that's some extra
+
+46
+00:01:48,759 --> 00:01:51,034
+piece of context and information I add here
+
+47
+00:01:51,243 --> 00:01:53,358
+so that I don't have to fix problems later,
+
+48
+00:01:53,486 --> 00:01:56,211
+which I already know about. And then I tell
+
+49
+00:01:56,211 --> 00:01:58,182
+it to use modern Next.js features and so on
+
+50
+00:01:58,214 --> 00:02:01,259
+to increase the likelihood of it loading the
+
+51
+00:02:01,259 --> 00:02:03,536
+appropriate skills. Not something you have
+
+52
+00:02:03,584 --> 00:02:05,780
+to do and also something you could consider
+
+53
+00:02:05,973 --> 00:02:08,635
+adding to the main Claude MD file, but
+
+54
+00:02:08,651 --> 00:02:10,671
+something I like to do from time to time.
+
+55
+00:02:11,120 --> 00:02:13,461
+And then I'll switch to plan mode and let it
+
+56
+00:02:13,509 --> 00:02:16,363
+do its thing. So here it now made another
+
+57
+00:02:16,395 --> 00:02:18,720
+plan and that looks good to me. So I'll
+
+58
+00:02:18,720 --> 00:02:20,307
+accept it with edits allowed
+
+59
+00:02:21,767 --> 00:02:23,594
+and it'll go ahead and implement that of
+
+60
+00:02:23,610 --> 00:02:23,835
+course.
+
+61
+00:02:24,508 --> 00:02:27,042
+Now with that, if I reload the dashboard
+
+62
+00:02:27,074 --> 00:02:29,607
+route, that works as it should because I did
+
+63
+00:02:29,639 --> 00:02:30,393
+authenticate before.
+
+64
+00:02:30,923 --> 00:02:33,011
+But if I open up my developer tools in the
+
+65
+00:02:33,076 --> 00:02:33,461
+browser
+
+66
+00:02:34,200 --> 00:02:37,269
+and I clear that authentication cookie and I
+
+67
+00:02:37,334 --> 00:02:37,687
+reload,
+
+68
+00:02:38,233 --> 00:02:40,049
+I'm redirected to the sign-in page, which
+
+69
+00:02:40,145 --> 00:02:42,122
+makes sense because I effectively was now
+
+70
+00:02:42,250 --> 00:02:44,644
+logged out. And if I now sign in again with
+
+71
+00:02:44,644 --> 00:02:46,910
+that user I created before, or if I create a
+
+72
+00:02:46,910 --> 00:02:49,207
+new user, I'm redirected to the dashboard
+
+73
+00:02:49,240 --> 00:02:51,377
+route. So that's working the way it should
+
+74
+00:02:51,569 --> 00:02:53,160
+and we can then continue with the next
+
+75
+00:02:53,160 --> 00:02:55,651
+steps. For the next step, I cleared my
+
+76
+00:02:55,651 --> 00:02:57,689
+context window again. Because I now want to
+
+77
+00:02:57,737 --> 00:03:00,094
+work on a different task. And I will now
+
+78
+00:03:00,238 --> 00:03:02,658
+send a more complex prompt to
+
+79
+00:03:03,364 --> 00:03:05,352
+Claude Code, or the prompt itself is not
+
+80
+00:03:05,352 --> 00:03:08,141
+super complex, but the task is. It has
+
+81
+00:03:08,253 --> 00:03:10,273
+multiple steps, multiple features it should
+
+82
+00:03:10,337 --> 00:03:10,770
+work on,
+
+83
+00:03:11,379 --> 00:03:13,335
+a header component it should add, and then
+
+84
+00:03:13,463 --> 00:03:15,515
+something it should add to the dashboard
+
+85
+00:03:15,547 --> 00:03:18,079
+route and a new note route it should add.
+
+86
+00:03:18,737 --> 00:03:21,013
+And I also want it to handle the submission
+
+87
+00:03:21,077 --> 00:03:23,289
+of the new note form and insert data into
+
+88
+00:03:23,321 --> 00:03:23,946
+the database.
+
+89
+00:03:24,668 --> 00:03:26,896
+And of course, I again rely on it loading
+
+90
+00:03:27,072 --> 00:03:28,739
+the Claude MD file and all the necessary
+
+91
+00:03:28,740 --> 00:03:31,225
+necessary context it needs due to our good
+
+92
+00:03:31,402 --> 00:03:34,000
+project setup. So I'll switch to plan mode
+
+93
+00:03:34,449 --> 00:03:37,031
+and then as always submit this to let it do
+
+94
+00:03:37,031 --> 00:03:37,560
+its thing.
+
+95
+00:03:38,137 --> 00:03:39,388
+And here's its
+
+96
+00:03:39,998 --> 00:03:40,270
+plan.
+
+97
+00:03:40,880 --> 00:03:42,692
+And I actually wanna add one more thing
+
+98
+00:03:42,804 --> 00:03:43,510
+which I forgot.
+
+99
+00:03:44,392 --> 00:03:46,621
+I wanted to add a logout button
+
+100
+00:03:47,295 --> 00:03:49,187
+to the header. Of course that should only
+
+101
+00:03:49,219 --> 00:03:51,625
+show up if the user is authenticated though.
+
+102
+00:03:52,090 --> 00:03:54,063
+And with that I'll then
+
+103
+00:03:55,154 --> 00:03:57,336
+Clear the context and start implementing.
+
+104
+00:03:57,962 --> 00:04:01,220
+So now with that, it's done. I can already
+
+105
+00:04:01,252 --> 00:04:03,804
+see that the header does not look right
+
+106
+00:04:03,804 --> 00:04:06,003
+though. That white header with the rest
+
+107
+00:04:06,067 --> 00:04:07,848
+being dark mode, that's something to fix.
+
+108
+00:04:08,538 --> 00:04:10,866
+And another issue I notice is that the
+
+109
+00:04:10,946 --> 00:04:13,145
+logout button is not initially there. If I
+
+110
+00:04:13,273 --> 00:04:15,327
+reload, it takes a short while to appear.
+
+111
+00:04:15,857 --> 00:04:17,462
+And that's happening because with the
+
+112
+00:04:17,462 --> 00:04:19,211
+current implementation, we're checking the
+
+113
+00:04:19,291 --> 00:04:21,682
+authentication state from the client side
+
+114
+00:04:21,858 --> 00:04:24,809
+after the page has loaded. I would rather do
+
+115
+00:04:24,825 --> 00:04:27,183
+that when the page is being rendered on the
+
+116
+00:04:27,183 --> 00:04:29,508
+server before it's sent to the client. So
+
+117
+00:04:29,508 --> 00:04:31,513
+I'll tell Claude Code about that too.
+
+118
+00:04:32,780 --> 00:04:35,025
+And then I'll again switch to plan mode
+
+119
+00:04:35,426 --> 00:04:38,393
+since that should be a change it's able to
+
+120
+00:04:38,393 --> 00:04:40,558
+implement like this, but I wanna be sure and
+
+121
+00:04:40,622 --> 00:04:42,706
+also clarify any things that might be
+
+122
+00:04:42,723 --> 00:04:43,059
+unclear.
+
+123
+00:04:44,070 --> 00:04:46,170
+And now that it's done, that looks way
+
+124
+00:04:46,170 --> 00:04:46,411
+better.
+
+125
+00:04:47,294 --> 00:04:48,853
+Clicking logout also works.
+
+126
+00:04:49,527 --> 00:04:51,423
+I can then sign up again, or
+
+127
+00:04:52,355 --> 00:04:53,287
+in my case, sign in
+
+128
+00:04:54,026 --> 00:04:54,347
+like this.
+
+129
+00:04:55,151 --> 00:04:57,641
+And then if I click on new note,
+
+130
+00:04:58,380 --> 00:04:59,874
+I'm taken to that new note page.
+
+131
+00:05:00,951 --> 00:05:01,690
+And now in here,
+
+132
+00:05:02,718 --> 00:05:04,341
+this is a rich text editor.
+
+133
+00:05:05,192 --> 00:05:08,887
+I can make this bold, that works. I can also
+
+134
+00:05:08,903 --> 00:05:10,896
+make it italic, but only with the shortcuts
+
+135
+00:05:10,896 --> 00:05:12,824
+right now. Of course, I'd like to have a
+
+136
+00:05:12,824 --> 00:05:13,032
+little
+
+137
+00:05:13,707 --> 00:05:16,481
+toolbar that makes it easier for me. Also
+
+138
+00:05:16,529 --> 00:05:18,855
+because right now I can't insert a heading,
+
+139
+00:05:18,919 --> 00:05:20,828
+for example. So that's something we'll have
+
+140
+00:05:20,860 --> 00:05:23,362
+to add as next steps. So in a new Claude
+
+141
+00:05:23,362 --> 00:05:25,752
+session or after clearing the context, I'll
+
+142
+00:05:25,752 --> 00:05:27,965
+say on the new note or edit note page,
+
+143
+00:05:28,542 --> 00:05:30,724
+add a toolbar that exposes the tip tap tools
+
+144
+00:05:30,724 --> 00:05:32,873
+we want in our app. I point at the spec.md
+
+145
+00:05:32,873 --> 00:05:34,830
+file here again since I know that in there
+
+146
+00:05:35,038 --> 00:05:36,899
+all the tools, all the text formats I want
+
+147
+00:05:36,899 --> 00:05:37,957
+to support are listed.
+
+148
+00:05:38,887 --> 00:05:40,796
+And again, I'll launch this in plan mode.
+
+149
+00:05:40,972 --> 00:05:44,082
+And as always, You can be more specific. You
+
+150
+00:05:44,114 --> 00:05:46,229
+can explicitly tell it to look up the TipTap
+
+151
+00:05:46,422 --> 00:05:50,011
+docs and so on. Here, I trust that my clean,
+
+152
+00:05:50,043 --> 00:05:52,671
+proper setup ensures that this will happen.
+
+153
+00:05:52,927 --> 00:05:54,994
+And now with the plan implemented and
+
+154
+00:05:55,074 --> 00:05:57,141
+actually 2 follow-up changes,
+
+155
+00:05:57,718 --> 00:06:00,234
+I can indeed work with this editor
+
+156
+00:06:00,779 --> 00:06:03,166
+and add the various features or use the
+
+157
+00:06:03,166 --> 00:06:05,778
+various features in there. And by the way,
+
+158
+00:06:05,826 --> 00:06:07,941
+of course, in case you are following along,
+
+159
+00:06:08,069 --> 00:06:10,637
+it's absolutely possible. That the results
+
+160
+00:06:10,717 --> 00:06:12,293
+look different for you, that something
+
+161
+00:06:12,309 --> 00:06:14,415
+doesn't work right away. Not necessarily
+
+162
+00:06:14,415 --> 00:06:16,874
+because your prompts are bad, but because
+
+163
+00:06:16,987 --> 00:06:19,205
+with AI, there's always a degree of
+
+164
+00:06:19,221 --> 00:06:21,198
+randomness involved still. No matter how
+
+165
+00:06:21,327 --> 00:06:23,385
+good your setup is, you can only try to
+
+166
+00:06:23,401 --> 00:06:25,555
+create a setup that increases your chances
+
+167
+00:06:25,667 --> 00:06:27,259
+of ending up with good results.

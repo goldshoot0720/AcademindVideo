@@ -1,0 +1,779 @@
+1
+00:00:00,112 --> 00:00:02,827
+Want to build a chat app with Bun? That's no
+
+2
+00:00:02,988 --> 00:00:06,056
+problem because Bun has built-in WebSocket
+
+3
+00:00:06,056 --> 00:00:08,305
+support. And obviously you can use that
+
+4
+00:00:08,305 --> 00:00:10,281
+feature for anything where you need
+
+5
+00:00:10,313 --> 00:00:12,787
+real-time synchronization across different
+
+6
+00:00:12,787 --> 00:00:15,614
+clients, not just for online chats or
+
+7
+00:00:15,630 --> 00:00:16,626
+similar features.
+
+8
+00:00:17,365 --> 00:00:20,193
+And Bun actually does not just give you the
+
+9
+00:00:20,193 --> 00:00:23,373
+server-side WebSocket setup so that you can
+
+10
+00:00:23,486 --> 00:00:24,771
+build a WebSocket server,
+
+11
+00:00:25,333 --> 00:00:28,672
+but it also gives you the client side if you
+
+12
+00:00:28,784 --> 00:00:31,927
+wanna use Bun to, for example, build a CLI
+
+13
+00:00:32,071 --> 00:00:34,796
+tool that can connect to a WebSocket server.
+
+14
+00:00:35,021 --> 00:00:37,089
+And we'll see both in action now because
+
+15
+00:00:37,121 --> 00:00:39,381
+here I'm in a brand new project. You find it
+
+16
+00:00:39,381 --> 00:00:42,251
+attached as always. And here you already see
+
+17
+00:00:42,492 --> 00:00:44,945
+I have a client and a server folder in
+
+18
+00:00:45,057 --> 00:00:47,862
+package.json. I got a script for starting my
+
+19
+00:00:47,862 --> 00:00:50,444
+server and I got a CLI script for starting
+
+20
+00:00:50,508 --> 00:00:53,554
+some CLI client as it seems. And I have that
+
+21
+00:00:53,554 --> 00:00:55,959
+exactly for the reason that as mentioned,
+
+22
+00:00:56,039 --> 00:00:57,289
+Bun has both
+
+23
+00:00:58,203 --> 00:01:00,606
+But let's start with the server. In there, I
+
+24
+00:01:00,606 --> 00:01:02,721
+got a server.ts file, which is exactly the
+
+25
+00:01:02,769 --> 00:01:05,573
+file this dev script starts. And in that
+
+26
+00:01:05,573 --> 00:01:06,487
+server.ts file,
+
+27
+00:01:07,240 --> 00:01:10,316
+I have my Bun server set up with bun serve.
+
+28
+00:01:10,364 --> 00:01:12,784
+So using the default Bun serve API,
+
+29
+00:01:13,345 --> 00:01:15,732
+configuring my port, a route to which I'll
+
+30
+00:01:15,748 --> 00:01:18,360
+get back, and then this fetch function about
+
+31
+00:01:18,456 --> 00:01:20,700
+which you already learned, which is executed
+
+32
+00:01:20,700 --> 00:01:23,119
+for incoming requests unless one of the
+
+33
+00:01:23,183 --> 00:01:25,477
+routes caught the request first. But for all
+
+34
+00:01:25,669 --> 00:01:27,757
+other requests, this fetch function will be
+
+35
+00:01:27,757 --> 00:01:28,352
+executed.
+
+36
+00:01:28,978 --> 00:01:32,159
+And in there, I'm checking if my pathname is
+
+37
+00:01:32,367 --> 00:01:32,849
+not
+
+38
+00:01:33,620 --> 00:01:36,158
+/chat. So if it's some other request to some
+
+39
+00:01:36,271 --> 00:01:39,435
+other path, in which case I send back a 404
+
+40
+00:01:39,499 --> 00:01:41,716
+response. But if the path is
+
+41
+00:01:42,696 --> 00:01:46,053
+/chat, I set up my WebSocket server or I
+
+42
+00:01:46,326 --> 00:01:49,378
+upgrade the connection to use WebSockets to
+
+43
+00:01:49,378 --> 00:01:50,069
+be precise.
+
+44
+00:01:50,646 --> 00:01:52,826
+I also extract some data which the client
+
+45
+00:01:52,826 --> 00:01:54,750
+will send because here in this example, I'm
+
+46
+00:01:54,750 --> 00:01:57,491
+building an online chat. So I expect to get
+
+47
+00:01:57,940 --> 00:02:00,697
+the name of the user as input and the room
+
+48
+00:02:00,777 --> 00:02:03,214
+to which the user wants to connect. And then
+
+49
+00:02:03,486 --> 00:02:06,259
+this is the important part, server.upgrade.
+
+50
+00:02:06,612 --> 00:02:08,840
+Server, in case you wonder, is an extra
+
+51
+00:02:08,921 --> 00:02:11,614
+argument this fetch function receives. Thus
+
+52
+00:02:11,646 --> 00:02:13,521
+far, you already learned that it receives
+
+53
+00:02:13,585 --> 00:02:15,910
+the incoming request, but it actually
+
+54
+00:02:15,910 --> 00:02:17,721
+receives a second argument as well,
+
+55
+00:02:18,298 --> 00:02:20,526
+which is information about the server that
+
+56
+00:02:20,542 --> 00:02:22,049
+was created by bun serve.
+
+57
+00:02:22,868 --> 00:02:25,341
+Often this is not too interesting, but it
+
+58
+00:02:25,373 --> 00:02:26,946
+definitely can be interesting
+
+59
+00:02:27,524 --> 00:02:30,174
+if you wanna get more details about that
+
+60
+00:02:30,174 --> 00:02:32,615
+server, like the hostname of where the
+
+61
+00:02:32,615 --> 00:02:33,369
+server is running.
+
+62
+00:02:33,947 --> 00:02:36,982
+But most importantly, it offers this upgrade
+
+63
+00:02:37,030 --> 00:02:37,785
+method to
+
+64
+00:02:38,363 --> 00:02:40,515
+upgrade this connection, which was
+
+65
+00:02:40,563 --> 00:02:43,068
+established here, to a WebSocket connection.
+
+66
+00:02:43,678 --> 00:02:45,814
+Therefore, it requires the request, which
+
+67
+00:02:46,488 --> 00:02:49,122
+identifies or establishes this connection
+
+68
+00:02:49,122 --> 00:02:51,770
+that should be upgraded. And then some extra
+
+69
+00:02:51,930 --> 00:02:53,840
+data for that upgrade,
+
+70
+00:02:54,370 --> 00:02:57,274
+some extra configuration. And that data here
+
+71
+00:02:57,483 --> 00:02:59,312
+is simply some data that will then be
+
+72
+00:02:59,392 --> 00:03:02,537
+available in that WebSocket server for this
+
+73
+00:03:02,537 --> 00:03:04,447
+connection that was upgraded. Because with
+
+74
+00:03:04,463 --> 00:03:06,678
+WebSockets, of course, instead of sending
+
+75
+00:03:06,790 --> 00:03:08,940
+back a response and being done with that
+
+76
+00:03:08,940 --> 00:03:12,069
+request, you keep the connection open, so to
+
+77
+00:03:12,069 --> 00:03:15,038
+say. That is the idea behind WebSockets. So
+
+78
+00:03:15,054 --> 00:03:17,188
+therefore, we move to a different model from
+
+79
+00:03:17,236 --> 00:03:20,074
+a request-response model to a live
+
+80
+00:03:20,170 --> 00:03:21,421
+connection model, you could say.
+
+81
+00:03:22,014 --> 00:03:24,835
+And we do that with Bun by switching to this
+
+82
+00:03:24,835 --> 00:03:26,662
+WebSocket block here. So
+
+83
+00:03:27,223 --> 00:03:30,108
+on that configuration object that you pass
+
+84
+00:03:30,108 --> 00:03:32,433
+to bun serve, on this entire object here,
+
+85
+00:03:32,753 --> 00:03:34,212
+you have your routes, you have your Avra
+
+86
+00:03:34,212 --> 00:03:36,536
+configuration, you have fetch, and then you
+
+87
+00:03:36,536 --> 00:03:37,546
+have WebSocket.
+
+88
+00:03:38,203 --> 00:03:41,153
+And this WebSocket part here will only
+
+89
+00:03:41,185 --> 00:03:43,910
+become active if you call upgrade in the
+
+90
+00:03:43,910 --> 00:03:46,332
+fetch function. So if you upgrade a
+
+91
+00:03:46,396 --> 00:03:49,061
+connection and then this data will be
+
+92
+00:03:49,189 --> 00:03:51,276
+available in that WebSocket block in there,
+
+93
+00:03:51,292 --> 00:03:54,310
+because in that WebSocket block we have an
+
+94
+00:03:54,566 --> 00:03:56,733
+open method which will be called when a
+
+95
+00:03:56,733 --> 00:03:58,884
+WebSocket connection is opened, which
+
+96
+00:03:58,900 --> 00:04:00,874
+happens when we upgrade a connection in the
+
+97
+00:04:00,923 --> 00:04:01,099
+end.
+
+98
+00:04:01,966 --> 00:04:04,968
+We have a message method here which will
+
+99
+00:04:05,016 --> 00:04:07,375
+become active whenever a new message is
+
+100
+00:04:07,504 --> 00:04:09,992
+received in that ongoing WebSocket
+
+101
+00:04:09,992 --> 00:04:11,677
+connection. And you'll see how to send
+
+102
+00:04:11,677 --> 00:04:12,977
+messages in just a second.
+
+103
+00:04:13,719 --> 00:04:15,718
+And we have a close method, which is the
+
+104
+00:04:15,735 --> 00:04:17,750
+opposite of open, of course, which will be
+
+105
+00:04:17,750 --> 00:04:20,089
+triggered whenever a client disconnects and
+
+106
+00:04:20,089 --> 00:04:22,217
+the connection is closed. And we can do some
+
+107
+00:04:22,250 --> 00:04:23,070
+cleanup work here.
+
+108
+00:04:23,595 --> 00:04:25,613
+But again, we'll dive into all of that in
+
+109
+00:04:25,646 --> 00:04:26,007
+detail.
+
+110
+00:04:27,730 --> 00:04:30,643
+So the data that we're passing into this
+
+111
+00:04:31,144 --> 00:04:34,656
+WebSocket connection, that data is available
+
+112
+00:04:34,656 --> 00:04:36,956
+in all these methods. It's available in open
+
+113
+00:04:37,379 --> 00:04:38,778
+here, I'm referring to it here.
+
+114
+00:04:39,997 --> 00:04:41,230
+It's available in message
+
+115
+00:04:42,160 --> 00:04:44,659
+and it's available in close. So that's
+
+116
+00:04:44,659 --> 00:04:47,382
+important. That is the data that is tied to
+
+117
+00:04:47,382 --> 00:04:49,609
+this connection. And the data here for this
+
+118
+00:04:49,609 --> 00:04:52,109
+chat example is the name of the user who
+
+119
+00:04:52,109 --> 00:04:54,191
+opened the connection and the room they
+
+120
+00:04:54,191 --> 00:04:56,386
+joined. And if the same user wants to join
+
+121
+00:04:56,418 --> 00:04:57,940
+different rooms, that would be different
+
+122
+00:04:57,956 --> 00:05:00,488
+connections, different upgraded connections
+
+123
+00:05:00,520 --> 00:05:01,962
+with different data.
+
+124
+00:05:02,538 --> 00:05:04,365
+Now in that WebSocket block, you see this
+
+125
+00:05:04,365 --> 00:05:07,136
+data part here that may look a bit weird.
+
+126
+00:05:07,553 --> 00:05:10,423
+This is a, a Bun feature. Or an approach
+
+127
+00:05:10,535 --> 00:05:12,975
+that is required by Bun that's documented in
+
+128
+00:05:13,024 --> 00:05:15,432
+their docs due to some TypeScript
+
+129
+00:05:15,432 --> 00:05:18,257
+limitations in order to be able to properly
+
+130
+00:05:18,867 --> 00:05:21,966
+understand and infer the type of data in all
+
+131
+00:05:22,030 --> 00:05:24,792
+these methods. So you don't actually set any
+
+132
+00:05:24,808 --> 00:05:27,842
+data here, you just set an empty object as
+
+133
+00:05:28,275 --> 00:05:31,310
+and then some type to give TypeScript in the
+
+134
+00:05:31,326 --> 00:05:33,638
+end some information about the shape of the
+
+135
+00:05:33,718 --> 00:05:35,355
+data that will be available in those
+
+136
+00:05:35,420 --> 00:05:39,275
+methods. And WebSocket data is a custom type
+
+137
+00:05:39,275 --> 00:05:41,670
+defined up there, which is just a JavaScript
+
+138
+00:05:41,670 --> 00:05:43,549
+object with a name and a room, which is
+
+139
+00:05:43,549 --> 00:05:46,409
+exactly the shape I'm passing into my data
+
+140
+00:05:46,409 --> 00:05:48,482
+here. So that's where all these things come
+
+141
+00:05:48,595 --> 00:05:48,868
+together.
+
+142
+00:05:49,478 --> 00:05:51,310
+Now in these methods, you then have a
+
+143
+00:05:51,326 --> 00:05:54,218
+WebSocket object. It's passed in as a first
+
+144
+00:05:54,283 --> 00:05:55,841
+argument to all these methods,
+
+145
+00:05:56,452 --> 00:05:58,155
+all these methods that are supported by
+
+146
+00:05:58,155 --> 00:05:59,521
+Bun's WebSocket server,
+
+147
+00:06:00,308 --> 00:06:02,059
+and that ws object
+
+148
+00:06:02,636 --> 00:06:05,745
+object which you get has various properties
+
+149
+00:06:06,001 --> 00:06:06,546
+and methods.
+
+150
+00:06:07,122 --> 00:06:09,269
+It has a send method, for example, for
+
+151
+00:06:09,318 --> 00:06:11,625
+sending a new message into that connection.
+
+152
+00:06:12,330 --> 00:06:15,294
+It has a data property for accessing the
+
+153
+00:06:15,390 --> 00:06:18,162
+data that's connected to that connection, so
+
+154
+00:06:18,178 --> 00:06:20,517
+that WebSocket data we defined before to get
+
+155
+00:06:20,533 --> 00:06:22,760
+information about the room, for example. And
+
+156
+00:06:22,760 --> 00:06:26,045
+it has a subscribe method for subscribing a
+
+157
+00:06:26,045 --> 00:06:29,137
+client, so a client is the connected user in
+
+158
+00:06:29,169 --> 00:06:29,602
+the end here,
+
+159
+00:06:30,131 --> 00:06:32,775
+to updates on a topic.
+
+160
+00:06:33,336 --> 00:06:35,228
+And a topic can be anything, any string
+
+161
+00:06:35,340 --> 00:06:37,520
+identifier of your choice. It's really just
+
+162
+00:06:37,584 --> 00:06:39,219
+a string. In our example here,
+
+163
+00:06:39,989 --> 00:06:43,131
+a room. So a room identifier in our chat,
+
+164
+00:06:43,660 --> 00:06:46,369
+in our online chat, is a topic. So every
+
+165
+00:06:46,705 --> 00:06:49,062
+room is a separate topic to which we can
+
+166
+00:06:49,062 --> 00:06:51,034
+send messages and to which we can subscribe.
+
+167
+00:06:51,450 --> 00:06:53,935
+And subscribe is needed to tell the
+
+168
+00:06:53,935 --> 00:06:56,179
+connected client, the connected browser, or
+
+169
+00:06:56,179 --> 00:06:57,798
+the connected CLI, for example,
+
+170
+00:06:58,423 --> 00:07:01,389
+when a new message is received so that the
+
+171
+00:07:01,389 --> 00:07:04,563
+frontend UI or the can update what it shows
+
+172
+00:07:04,595 --> 00:07:05,221
+to the user.
+
+173
+00:07:06,279 --> 00:07:09,662
+We also have a publish method, not on the WS
+
+174
+00:07:09,790 --> 00:07:12,291
+object though, but instead on the server. So
+
+175
+00:07:12,291 --> 00:07:14,327
+the same server we called upgrade on
+
+176
+00:07:15,097 --> 00:07:19,602
+to publish a new message to a topic. So we
+
+177
+00:07:19,602 --> 00:07:22,007
+subscribe a client to a topic and then the
+
+178
+00:07:22,007 --> 00:07:25,117
+server can publish or send messages to that
+
+179
+00:07:25,117 --> 00:07:28,388
+topic. So same identifier obviously. And
+
+180
+00:07:28,468 --> 00:07:30,969
+here I'm sending some data where I'm
+
+181
+00:07:30,969 --> 00:07:33,600
+publishing some data to this topic and the
+
+182
+00:07:33,600 --> 00:07:35,784
+shape of that data is totally up to you. It
+
+183
+00:07:35,784 --> 00:07:38,354
+can be anything you want. Here it's a
+
+184
+00:07:38,900 --> 00:07:41,582
+JSON object in the end where I have a type
+
+185
+00:07:41,630 --> 00:07:43,734
+property, again, totally up to me. This
+
+186
+00:07:43,734 --> 00:07:45,870
+shape is totally up to me, which I set to
+
+187
+00:07:45,886 --> 00:07:48,214
+system here because I wanna send some text
+
+188
+00:07:48,214 --> 00:07:50,462
+here where I simply say that a new person
+
+189
+00:07:50,462 --> 00:07:52,245
+joined a room because this is in the open
+
+190
+00:07:52,245 --> 00:07:52,582
+method
+
+191
+00:07:53,112 --> 00:07:54,252
+and I add a timestamp.
+
+192
+00:07:55,216 --> 00:07:56,629
+Now before we dive deeper into those
+
+193
+00:07:56,726 --> 00:07:58,685
+methods, let's take a look at the client
+
+194
+00:07:58,685 --> 00:08:01,302
+side to better understand the other side of
+
+195
+00:08:01,302 --> 00:08:02,491
+this WebSocket connection.

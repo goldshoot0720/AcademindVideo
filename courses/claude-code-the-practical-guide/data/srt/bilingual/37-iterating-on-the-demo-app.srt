@@ -1,0 +1,834 @@
+1
+00:00:00,032 --> 00:00:02,933
+Now, in this lecture, I'll just walk you
+現在，在本次講座中，我將引導您
+
+2
+00:00:02,933 --> 00:00:05,370
+through a couple of prompts I'm sending to
+透過我發送給的幾個提示
+
+3
+00:00:05,386 --> 00:00:07,582
+Claude Code and how I iterate with Claude
+克勞德程式碼以及我如何與克勞德進行迭代
+
+4
+00:00:07,582 --> 00:00:09,938
+Code. I'll skip the parts where Claude Code
+程式碼。我將跳過克勞德程式碼的部分
+
+5
+00:00:09,970 --> 00:00:12,599
+is thinking and spitting out plans. And
+正在思考並提出計劃。和
+
+6
+00:00:12,695 --> 00:00:14,443
+therefore, you can, of course, also skip
+因此，你當然也可以跳過
+
+7
+00:00:14,443 --> 00:00:16,270
+this lecture if you're not interested in
+如果你對這個講座不感興趣
+
+8
+00:00:16,382 --> 00:00:16,639
+that.
+那。
+
+9
+00:00:17,168 --> 00:00:20,053
+At this point, this project is now actually
+至此，這個專案其實已經
+
+10
+00:00:20,053 --> 00:00:20,759
+set up in a way
+以某種方式設置
+
+11
+00:00:21,496 --> 00:00:23,804
+that should allow us to efficiently work on
+這應該使我們能夠有效地進行工作
+
+12
+00:00:23,900 --> 00:00:26,129
+it with help of Claude Code. And therefore,
+在克勞德程式碼的幫助下。因此，
+
+13
+00:00:26,145 --> 00:00:27,908
+of course, typically I would set up
+當然，通常我會設置
+
+14
+00:00:27,908 --> 00:00:30,809
+subagents and skills and a proper Claude MD
+子代理和技能以及適當的克勞德醫學博士
+
+15
+00:00:30,809 --> 00:00:32,895
+file at the very beginning. Beginning before
+檔案在最開始處。從之前開始
+
+16
+00:00:32,895 --> 00:00:35,095
+starting work on the project. I did it here
+開始該專案的工作。我在這裡做的
+
+17
+00:00:35,207 --> 00:00:37,326
+step by step whilst actually already
+一步一步，實際上已經
+
+18
+00:00:37,326 --> 00:00:39,221
+starting with the concrete application
+從具體應用入手
+
+19
+00:00:39,253 --> 00:00:39,927
+implementation
+執行
+
+20
+00:00:40,505 --> 00:00:43,155
+just to give you good examples for why we
+只是為了給您一個很好的例子來說明為什麼我們
+
+21
+00:00:43,155 --> 00:00:44,503
+would use these different features.
+會使用這些不同的功能。
+
+22
+00:00:45,258 --> 00:00:47,313
+But with that now all set up, we can of
+但現在一切都準備好了，我們可以
+
+23
+00:00:47,345 --> 00:00:49,978
+course continue working on this application
+當然繼續開發這個應用程式
+
+24
+00:00:49,978 --> 00:00:53,174
+and start adding the actual main features.
+並開始添加實際的主要功能。
+
+25
+00:00:53,446 --> 00:00:56,192
+And now that users can log in, the next
+現在使用者可以登入了，下一步
+
+26
+00:00:56,240 --> 00:00:59,532
+logical step would be to make sure that we
+合乎邏輯的步驟是確保我們
+
+27
+00:00:59,532 --> 00:01:02,772
+get redirected to the dashboard route after
+之後重定向到儀表板路線
+
+28
+00:01:02,772 --> 00:01:05,849
+successful login, that we can only go to
+登入成功，我們只能去
+
+29
+00:01:05,881 --> 00:01:08,158
+that route if we are authenticated and
+如果我們通過身份驗證，則該路線
+
+30
+00:01:08,350 --> 00:01:11,027
+access is blocked for users that are not
+不屬於此權限的使用者的存取會被阻止
+
+31
+00:01:11,235 --> 00:01:13,672
+authenticated. And then of course, as next
+已驗證。然後當然，接下來
+
+32
+00:01:13,672 --> 00:01:15,804
+steps thereafter, that we can also create
+之後的步驟，我們也可以創建
+
+33
+00:01:15,820 --> 00:01:18,481
+and manage notes. Therefore, that's the next
+並管理筆記。因此，這就是接下來的
+
+34
+00:01:18,529 --> 00:01:20,389
+prompt I wanna send to Claude Code.
+提示我想發送給克勞德·科德。
+
+35
+00:01:21,014 --> 00:01:24,348
+I ask it to implement redirecting the user
+我要求它實現使用者重定向
+
+36
+00:01:24,380 --> 00:01:26,672
+to /dashboard after successful
+成功後到/dashboard
+
+37
+00:01:26,785 --> 00:01:29,750
+authentication and I ask it to protect the
+身份驗證，我要求它保護
+
+38
+00:01:29,766 --> 00:01:32,443
+dashboard route and all other note-related
+儀表板路線和所有其他與註釋相關的
+
+39
+00:01:32,443 --> 00:01:35,456
+routes except for the publicly shared note
+除公開分享的筆記之外的路線
+
+40
+00:01:35,456 --> 00:01:38,149
+route from unauthenticated access. I wanted
+來自未經身份驗證的存取的路由。我想要
+
+41
+00:01:38,165 --> 00:01:39,752
+to add protection on a per-route level.
+在每個路由等級上新增保護。
+
+42
+00:01:40,184 --> 00:01:42,188
+That's something I know because with
+這是我知道的，因為
+
+43
+00:01:42,204 --> 00:01:44,576
+Next.js, you could try to implement route
+Next.js，你可以嘗試實作路由
+
+44
+00:01:44,576 --> 00:01:46,531
+protection with help of layouts, which is
+借助佈局進行保護，即
+
+45
+00:01:46,659 --> 00:01:48,759
+actually discouraged. So that's some extra
+其實很洩氣。所以這是一些額外的
+
+46
+00:01:48,759 --> 00:01:51,034
+piece of context and information I add here
+我在此處添加的上下文和資訊
+
+47
+00:01:51,243 --> 00:01:53,358
+so that I don't have to fix problems later,
+這樣我以後就不用解決問題了
+
+48
+00:01:53,486 --> 00:01:56,211
+which I already know about. And then I tell
+我已經知道了。然後我告訴
+
+49
+00:01:56,211 --> 00:01:58,182
+it to use modern Next.js features and so on
+它使用現代 Next.js 功能等等
+
+50
+00:01:58,214 --> 00:02:01,259
+to increase the likelihood of it loading the
+增加它載入的可能性
+
+51
+00:02:01,259 --> 00:02:03,536
+appropriate skills. Not something you have
+適當的技能。不是你擁有的東西
+
+52
+00:02:03,584 --> 00:02:05,780
+to do and also something you could consider
+要做的事情以及你可以考慮的事情
+
+53
+00:02:05,973 --> 00:02:08,635
+adding to the main Claude MD file, but
+新增到主 Claude MD 檔案中，但是
+
+54
+00:02:08,651 --> 00:02:10,671
+something I like to do from time to time.
+我時不時喜歡做的事情。
+
+55
+00:02:11,120 --> 00:02:13,461
+And then I'll switch to plan mode and let it
+然後我會切換到計劃模式並讓它
+
+56
+00:02:13,509 --> 00:02:16,363
+do its thing. So here it now made another
+做它的事。所以現在它又做了一個
+
+57
+00:02:16,395 --> 00:02:18,720
+plan and that looks good to me. So I'll
+計劃，這對我來說看起來不錯。所以我會
+
+58
+00:02:18,720 --> 00:02:20,307
+accept it with edits allowed
+接受並允許編輯
+
+59
+00:02:21,767 --> 00:02:23,594
+and it'll go ahead and implement that of
+它將繼續實施
+
+60
+00:02:23,610 --> 00:02:23,835
+course.
+課程。
+
+61
+00:02:24,508 --> 00:02:27,042
+Now with that, if I reload the dashboard
+現在，如果我重新載入儀表板
+
+62
+00:02:27,074 --> 00:02:29,607
+route, that works as it should because I did
+路線，它應該正常工作，因為我這樣做了
+
+63
+00:02:29,639 --> 00:02:30,393
+authenticate before.
+之前驗證。
+
+64
+00:02:30,923 --> 00:02:33,011
+But if I open up my developer tools in the
+但是如果我打開我的開發者工具
+
+65
+00:02:33,076 --> 00:02:33,461
+browser
+瀏覽器
+
+66
+00:02:34,200 --> 00:02:37,269
+and I clear that authentication cookie and I
+我清除了身份驗證 cookie 並且我
+
+67
+00:02:37,334 --> 00:02:37,687
+reload,
+重新載入，
+
+68
+00:02:38,233 --> 00:02:40,049
+I'm redirected to the sign-in page, which
+我被重定向到登入頁面
+
+69
+00:02:40,145 --> 00:02:42,122
+makes sense because I effectively was now
+這是有道理的，因為我現在實際上是
+
+70
+00:02:42,250 --> 00:02:44,644
+logged out. And if I now sign in again with
+退出。如果我現在再次登入
+
+71
+00:02:44,644 --> 00:02:46,910
+that user I created before, or if I create a
+我之前創建的使用者，或者如果我創建了一個
+
+72
+00:02:46,910 --> 00:02:49,207
+new user, I'm redirected to the dashboard
+新使用者，我被重定向到儀表板
+
+73
+00:02:49,240 --> 00:02:51,377
+route. So that's working the way it should
+路線。這樣就可以正常運作了
+
+74
+00:02:51,569 --> 00:02:53,160
+and we can then continue with the next
+然後我們可以繼續下一步
+
+75
+00:02:53,160 --> 00:02:55,651
+steps. For the next step, I cleared my
+步驟。對於下一步，我清除了我的
+
+76
+00:02:55,651 --> 00:02:57,689
+context window again. Because I now want to
+再次上下文視窗。因為我現在想要
+
+77
+00:02:57,737 --> 00:03:00,094
+work on a different task. And I will now
+從事不同的任務。我現在就
+
+78
+00:03:00,238 --> 00:03:02,658
+send a more complex prompt to
+發送更複雜的提示至
+
+79
+00:03:03,364 --> 00:03:05,352
+Claude Code, or the prompt itself is not
+克勞德程式碼，或者提示本身不是
+
+80
+00:03:05,352 --> 00:03:08,141
+super complex, but the task is. It has
+超級複雜，但任務是。它有
+
+81
+00:03:08,253 --> 00:03:10,273
+multiple steps, multiple features it should
+應該有多個步驟、多個功能
+
+82
+00:03:10,337 --> 00:03:10,770
+work on,
+致力於,
+
+83
+00:03:11,379 --> 00:03:13,335
+a header component it should add, and then
+它應該添加一個標頭元件，然後
+
+84
+00:03:13,463 --> 00:03:15,515
+something it should add to the dashboard
+應該要添加到儀表板的東西
+
+85
+00:03:15,547 --> 00:03:18,079
+route and a new note route it should add.
+路線和它應該添加的新註釋路線。
+
+86
+00:03:18,737 --> 00:03:21,013
+And I also want it to handle the submission
+我也希望它能夠處理提交
+
+87
+00:03:21,077 --> 00:03:23,289
+of the new note form and insert data into
+新筆記表單並將資料插入到
+
+88
+00:03:23,321 --> 00:03:23,946
+the database.
+資料庫.
+
+89
+00:03:24,668 --> 00:03:26,896
+And of course, I again rely on it loading
+當然，我再次依賴它載入
+
+90
+00:03:27,072 --> 00:03:28,739
+the Claude MD file and all the necessary
+克勞德 MD 檔案和所有必要的
+
+91
+00:03:28,740 --> 00:03:31,225
+necessary context it needs due to our good
+由於我們的利益，它需要必要的背景
+
+92
+00:03:31,402 --> 00:03:34,000
+project setup. So I'll switch to plan mode
+專案設定。所以我會切換到排程模式
+
+93
+00:03:34,449 --> 00:03:37,031
+and then as always submit this to let it do
+然後一如既往地提交這個讓它做
+
+94
+00:03:37,031 --> 00:03:37,560
+its thing.
+它的事。
+
+95
+00:03:38,137 --> 00:03:39,388
+And here's its
+這是它的
+
+96
+00:03:39,998 --> 00:03:40,270
+plan.
+計劃。
+
+97
+00:03:40,880 --> 00:03:42,692
+And I actually wanna add one more thing
+我其實還想補充一件事
+
+98
+00:03:42,804 --> 00:03:43,510
+which I forgot.
+我忘了。
+
+99
+00:03:44,392 --> 00:03:46,621
+I wanted to add a logout button
+我想新增一個註銷按鈕
+
+100
+00:03:47,295 --> 00:03:49,187
+to the header. Of course that should only
+到標題。當然那應該只是
+
+101
+00:03:49,219 --> 00:03:51,625
+show up if the user is authenticated though.
+如果使用者已通過身份驗證，則會顯示。
+
+102
+00:03:52,090 --> 00:03:54,063
+And with that I'll then
+然後我就會
+
+103
+00:03:55,154 --> 00:03:57,336
+Clear the context and start implementing.
+明確背景並開始實施。
+
+104
+00:03:57,962 --> 00:04:01,220
+So now with that, it's done. I can already
+那麼現在就完成了。我已經可以了
+
+105
+00:04:01,252 --> 00:04:03,804
+see that the header does not look right
+看到標題看起來不正確
+
+106
+00:04:03,804 --> 00:04:06,003
+though. That white header with the rest
+儘管。那個白色的標題和其餘的
+
+107
+00:04:06,067 --> 00:04:07,848
+being dark mode, that's something to fix.
+黑暗模式，這是需要解決的問題。
+
+108
+00:04:08,538 --> 00:04:10,866
+And another issue I notice is that the
+我注意到的另一個問題是
+
+109
+00:04:10,946 --> 00:04:13,145
+logout button is not initially there. If I
+註銷按鈕最初並不存在。如果我
+
+110
+00:04:13,273 --> 00:04:15,327
+reload, it takes a short while to appear.
+重新載入，需要一段時間才能出現。
+
+111
+00:04:15,857 --> 00:04:17,462
+And that's happening because with the
+發生這種情況是因為
+
+112
+00:04:17,462 --> 00:04:19,211
+current implementation, we're checking the
+目前的實施，我們正在檢查
+
+113
+00:04:19,291 --> 00:04:21,682
+authentication state from the client side
+使用者端的認證狀態
+
+114
+00:04:21,858 --> 00:04:24,809
+after the page has loaded. I would rather do
+頁面載入後。我寧願做
+
+115
+00:04:24,825 --> 00:04:27,183
+that when the page is being rendered on the
+當頁面呈現在
+
+116
+00:04:27,183 --> 00:04:29,508
+server before it's sent to the client. So
+伺服器在發送到使用者端之前。所以
+
+117
+00:04:29,508 --> 00:04:31,513
+I'll tell Claude Code about that too.
+我也會把這件事告訴克勞德·科德。
+
+118
+00:04:32,780 --> 00:04:35,025
+And then I'll again switch to plan mode
+然後我會再次切換到計劃模式
+
+119
+00:04:35,426 --> 00:04:38,393
+since that should be a change it's able to
+因為這應該是一個改變，所以它能夠
+
+120
+00:04:38,393 --> 00:04:40,558
+implement like this, but I wanna be sure and
+像這樣實施，但我想確定並且
+
+121
+00:04:40,622 --> 00:04:42,706
+also clarify any things that might be
+也澄清任何可能的事情
+
+122
+00:04:42,723 --> 00:04:43,059
+unclear.
+不清楚。
+
+123
+00:04:44,070 --> 00:04:46,170
+And now that it's done, that looks way
+現在已經完成了，看起來不錯
+
+124
+00:04:46,170 --> 00:04:46,411
+better.
+更好的。
+
+125
+00:04:47,294 --> 00:04:48,853
+Clicking logout also works.
+點擊註銷也可以。
+
+126
+00:04:49,527 --> 00:04:51,423
+I can then sign up again, or
+然後我可以再次註冊，或者
+
+127
+00:04:52,355 --> 00:04:53,287
+in my case, sign in
+就我而言，登入
+
+128
+00:04:54,026 --> 00:04:54,347
+like this.
+像這樣。
+
+129
+00:04:55,151 --> 00:04:57,641
+And then if I click on new note,
+然後如果我點擊新筆記，
+
+130
+00:04:58,380 --> 00:04:59,874
+I'm taken to that new note page.
+我被帶到了新的筆記頁面。
+
+131
+00:05:00,951 --> 00:05:01,690
+And now in here,
+而現在在這裡，
+
+132
+00:05:02,718 --> 00:05:04,341
+this is a rich text editor.
+這是一個富文本編輯器。
+
+133
+00:05:05,192 --> 00:05:08,887
+I can make this bold, that works. I can also
+我可以把它加粗，這有效。我也可以
+
+134
+00:05:08,903 --> 00:05:10,896
+make it italic, but only with the shortcuts
+使其斜體，但只能使用快捷鍵
+
+135
+00:05:10,896 --> 00:05:12,824
+right now. Of course, I'd like to have a
+現在。當然，我希望有一個
+
+136
+00:05:12,824 --> 00:05:13,032
+little
+小的
+
+137
+00:05:13,707 --> 00:05:16,481
+toolbar that makes it easier for me. Also
+工具列讓我更輕鬆。還
+
+138
+00:05:16,529 --> 00:05:18,855
+because right now I can't insert a heading,
+因為現在我無法插入標題，
+
+139
+00:05:18,919 --> 00:05:20,828
+for example. So that's something we'll have
+例如。這就是我們將擁有的東西
+
+140
+00:05:20,860 --> 00:05:23,362
+to add as next steps. So in a new Claude
+新增為後續步驟。所以在新的克勞德
+
+141
+00:05:23,362 --> 00:05:25,752
+session or after clearing the context, I'll
+工作階段或清除上下文後，我會
+
+142
+00:05:25,752 --> 00:05:27,965
+say on the new note or edit note page,
+在新筆記或編輯筆記頁面上說，
+
+143
+00:05:28,542 --> 00:05:30,724
+add a toolbar that exposes the tip tap tools
+新增一個顯示尖端點擊工具的工具列
+
+144
+00:05:30,724 --> 00:05:32,873
+we want in our app. I point at the spec.md
+我們想要在我們的應用程式中。我指向spec.md
+
+145
+00:05:32,873 --> 00:05:34,830
+file here again since I know that in there
+再次在這裡歸檔，因為我知道在那裡
+
+146
+00:05:35,038 --> 00:05:36,899
+all the tools, all the text formats I want
+我想要的所有工具、所有文字格式
+
+147
+00:05:36,899 --> 00:05:37,957
+to support are listed.
+支援已列出。
+
+148
+00:05:38,887 --> 00:05:40,796
+And again, I'll launch this in plan mode.
+再次，我將在計劃模式下啟動它。
+
+149
+00:05:40,972 --> 00:05:44,082
+And as always, You can be more specific. You
+一如既往，您可以更具體。你
+
+150
+00:05:44,114 --> 00:05:46,229
+can explicitly tell it to look up the TipTap
+可以明確告訴它查找 TipTap
+
+151
+00:05:46,422 --> 00:05:50,011
+docs and so on. Here, I trust that my clean,
+文檔等。在這裡，我相信我的乾淨，
+
+152
+00:05:50,043 --> 00:05:52,671
+proper setup ensures that this will happen.
+正確的設定可以確保這種情況發生。
+
+153
+00:05:52,927 --> 00:05:54,994
+And now with the plan implemented and
+現在隨著計劃的實施
+
+154
+00:05:55,074 --> 00:05:57,141
+actually 2 follow-up changes,
+其實有2個後續更改，
+
+155
+00:05:57,718 --> 00:06:00,234
+I can indeed work with this editor
+我確實可以和這個編輯一起工作
+
+156
+00:06:00,779 --> 00:06:03,166
+and add the various features or use the
+並添加各種功能或使用
+
+157
+00:06:03,166 --> 00:06:05,778
+various features in there. And by the way,
+裡面有各種功能。順便說一句，
+
+158
+00:06:05,826 --> 00:06:07,941
+of course, in case you are following along,
+當然，如果你跟著的話，
+
+159
+00:06:08,069 --> 00:06:10,637
+it's absolutely possible. That the results
+這絕對有可能。那結果
+
+160
+00:06:10,717 --> 00:06:12,293
+look different for you, that something
+你看起來不一樣，那個東西
+
+161
+00:06:12,309 --> 00:06:14,415
+doesn't work right away. Not necessarily
+不會立即起作用。未必
+
+162
+00:06:14,415 --> 00:06:16,874
+because your prompts are bad, but because
+因為你的提示很糟糕，但因為
+
+163
+00:06:16,987 --> 00:06:19,205
+with AI, there's always a degree of
+對於人工智慧來說，總是有一定程度的
+
+164
+00:06:19,221 --> 00:06:21,198
+randomness involved still. No matter how
+仍然涉及隨機性。無論如何
+
+165
+00:06:21,327 --> 00:06:23,385
+good your setup is, you can only try to
+你的設定很好，你只能嘗試
+
+166
+00:06:23,401 --> 00:06:25,555
+create a setup that increases your chances
+創建一個可以增加機會的設置
+
+167
+00:06:25,667 --> 00:06:27,259
+of ending up with good results.
+最終獲得良好的結果。

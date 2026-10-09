@@ -1,0 +1,679 @@
+1
+00:00:02,199 --> 00:00:05,105
+So as you saw at this example with the
+正如您在這個範例中看到的
+
+2
+00:00:05,394 --> 00:00:06,758
+hx-redirect header,
+hx-重新導向標頭，
+
+3
+00:00:07,401 --> 00:00:10,499
+it can sometimes make sense to set special
+有時設定特殊是有意義的
+
+4
+00:00:10,612 --> 00:00:13,822
+headers on the responses in order to change
+回應中的標題以便更改
+
+5
+00:00:13,919 --> 00:00:16,632
+the client-side behavior of HTMX.
+HTMX 的使用者端行為。
+
+6
+00:00:17,997 --> 00:00:20,068
+Of course, that also implies that you need
+當然，這也意味著你需要
+
+7
+00:00:20,100 --> 00:00:22,877
+to own the backend code though. If you can't
+不過擁有後端程式碼。如果你不能
+
+8
+00:00:22,893 --> 00:00:24,900
+make changes to that code, you of course
+當然，您可以更改該程式碼
+
+9
+00:00:24,900 --> 00:00:26,409
+can't set headers like this.
+不能這樣設定標題。
+
+10
+00:00:27,725 --> 00:00:30,116
+That being said, that's not the only kind of
+話雖如此，這並不是唯一的一種
+
+11
+00:00:30,116 --> 00:00:31,368
+header you can set though.
+不過你可以設定標題。
+
+12
+00:00:32,604 --> 00:00:34,947
+Instead, you can, for example, also set
+相反，您還可以設置
+
+13
+00:00:35,107 --> 00:00:38,381
+these headers here, Reswap, Retarget, and
+這些標頭在這裡，Reswap、Retarget 和
+
+14
+00:00:38,558 --> 00:00:39,328
+Reselect
+重新選擇
+
+15
+00:00:39,906 --> 00:00:44,592
+to change how HTMX will swap the returned
+更改 HTMX 交換回傳值的方式
+
+16
+00:00:44,656 --> 00:00:47,400
+response content into the rendered DOM
+將內容回應到渲染的 DOM 中
+
+17
+00:00:48,411 --> 00:00:51,958
+or to change which element will be targeted
+或更改目標元素
+
+18
+00:00:52,038 --> 00:00:54,574
+by HTMX. So that you can essentially
+由 HTMX 提供。這樣你基本上就可以
+
+19
+00:00:54,911 --> 00:00:58,024
+override the settings that were set with
+覆蓋設定的設定
+
+20
+00:00:58,120 --> 00:00:59,885
+those HTMX attributes
+那些 HTMX 屬性
+
+21
+00:01:00,447 --> 00:01:01,538
+with these headers here.
+與這些標題在這裡。
+
+22
+00:01:03,014 --> 00:01:04,955
+And I'll show you an example for that.
+我將向您展示一個例子。
+
+23
+00:01:05,934 --> 00:01:09,480
+Here in the POST login route, we're
+在 POST 登入路徑中，我們是
+
+24
+00:01:09,480 --> 00:01:10,780
+validating the user input.
+驗證使用者輸入。
+
+25
+00:01:12,176 --> 00:01:14,439
+And if there is an error in the input, we're
+如果輸入有錯誤，我們會
+
+26
+00:01:14,503 --> 00:01:17,423
+sending back a response where we return this
+發回我們回傳的回應
+
+27
+00:01:17,632 --> 00:01:20,119
+unordered list with the error messages that
+帶有錯誤訊息的無序列表
+
+28
+00:01:20,119 --> 00:01:20,745
+we collected.
+我們收集了。
+
+29
+00:01:22,164 --> 00:01:24,635
+Now, if that would be a real application
+現在，如果那是一個真正的應用程式
+
+30
+00:01:24,652 --> 00:01:25,055
+here though,
+不過在這裡，
+
+31
+00:01:25,782 --> 00:01:28,787
+validation errors would not be the only kind
+驗證錯誤並不是唯一的一種
+
+32
+00:01:28,787 --> 00:01:31,173
+of errors that could occur when a user is
+當使用者使用時可能發生的錯誤
+
+33
+00:01:31,269 --> 00:01:31,800
+logged in.
+已登入。
+
+34
+00:01:33,359 --> 00:01:35,689
+Instead, for example, the database
+相反，例如資料庫
+
+35
+00:01:35,785 --> 00:01:38,131
+connection could fail, so some other
+連線可能會失敗，因此需要其他一些
+
+36
+00:01:38,212 --> 00:01:40,392
+server-side error could occur.
+可能會發生伺服器端錯誤。
+
+37
+00:01:42,004 --> 00:01:44,268
+And to simulate this, I'll add an if check
+為了模擬這個，我將添加一個 if 檢查
+
+38
+00:01:44,268 --> 00:01:46,335
+here after this validation error.
+在這個驗證錯誤之後。
+
+39
+00:01:47,139 --> 00:01:50,158
+And I'll calculate a random number there
+我會在那裡計算一個隨機數
+
+40
+00:01:50,288 --> 00:01:51,095
+with Math.random.
+與 Math.random。
+
+41
+00:01:52,946 --> 00:01:55,484
+And if the number which I derive here is
+如果我在這裡得出的數字是
+
+42
+00:01:55,693 --> 00:01:57,589
+greater than 0.5,
+大於0.5，
+
+43
+00:01:58,585 --> 00:02:02,410
+it will be between 0 and 1. So in 50% of all
+它將在 0 和 1 之間。所以在 50% 中
+
+44
+00:02:02,410 --> 00:02:04,222
+cases, we'll make it into this if block.
+情況下，我們會將其放入 if 區塊中。
+
+45
+00:02:04,853 --> 00:02:06,796
+If that's the case, I wanna return a
+如果是這樣的話，我想回傳一個
+
+46
+00:02:06,796 --> 00:02:09,774
+response that actually outputs some
+實際上輸出一些的回應
+
+47
+00:02:10,065 --> 00:02:11,878
+server-side error message.
+伺服器端錯誤訊息。
+
+48
+00:02:13,556 --> 00:02:15,842
+And I'll simulate that here simply by then
+到時候我會在這裡模擬一下
+
+49
+00:02:16,035 --> 00:02:17,275
+outputting a paragraph
+輸出一個段落
+
+50
+00:02:18,047 --> 00:02:20,317
+with a class of error, let's say, where I
+有一類錯誤，比方說，我在哪裡
+
+51
+00:02:20,397 --> 00:02:24,077
+say a server-side error occurred,
+說發生了伺服器端錯誤，
+
+52
+00:02:24,739 --> 00:02:27,048
+please try again, something like that.
+請再試一次，類似的事情。
+
+53
+00:02:28,914 --> 00:02:31,740
+Again, this is just a demo. In a real app,
+再次強調，這只是一個示範。在真實的應用程式中，
+
+54
+00:02:31,966 --> 00:02:34,469
+that could be a failing database connection
+這可能是資料庫連線失敗
+
+55
+00:02:34,469 --> 00:02:35,519
+or something like that.
+或類似的東西。
+
+56
+00:02:37,287 --> 00:02:39,721
+Now, the problem we'll have here
+現在，我們將遇到的問題是
+
+57
+00:02:40,256 --> 00:02:41,638
+is that if I save that
+如果我儲存那個
+
+58
+00:02:42,763 --> 00:02:45,301
+and I reload and enter some valid
+我重新載入並輸入一些有效的
+
+59
+00:02:45,333 --> 00:02:46,153
+credentials here,
+憑證在這裡，
+
+60
+00:02:47,406 --> 00:02:48,595
+you see sometimes
+你有時會看到
+
+61
+00:02:49,190 --> 00:02:50,879
+this error might occur, not always, but
+這個錯誤可能會發生，但並不總是發生，但是
+
+62
+00:02:50,879 --> 00:02:53,309
+sometimes in 50% of all cases.
+有時佔所有情況的 50%。
+
+63
+00:02:55,032 --> 00:02:56,541
+And of course, outputting the error message
+當然，輸出錯誤訊息
+
+64
+00:02:56,638 --> 00:02:58,407
+like this is not bad,
+這樣也不錯，
+
+65
+00:02:58,991 --> 00:03:01,571
+but we might wanna output it in a different
+但我們可能想以不同的方式輸出它
+
+66
+00:03:01,587 --> 00:03:01,798
+way.
+方式。
+
+67
+00:03:02,919 --> 00:03:05,963
+We might wanna output it here after the
+我們可能想在之後將其輸出到這裡
+
+68
+00:03:05,963 --> 00:03:08,816
+image, before our inputs, for example.
+例如，在我們輸入之前的圖像。
+
+69
+00:03:10,600 --> 00:03:13,494
+And that would then be a problem because the
+這就會變成一個問題，因為
+
+70
+00:03:13,494 --> 00:03:14,041
+target
+目標
+
+71
+00:03:14,604 --> 00:03:15,664
+of this form element,
+這個形式元素，
+
+72
+00:03:16,725 --> 00:03:19,199
+so for this POST request and the response of
+所以對於這個 POST 請求和回應
+
+73
+00:03:19,199 --> 00:03:20,131
+this POST request,
+這個 POST 請求，
+
+74
+00:03:21,352 --> 00:03:23,280
+is this extra information div.
+這是額外的資訊 div。
+
+75
+00:03:24,341 --> 00:03:27,189
+And that should be the target for validation
+這應該是驗證的目標
+
+76
+00:03:27,237 --> 00:03:31,399
+errors, but not for server-side errors as
+錯誤，但不適用於伺服器端錯誤，例如
+
+77
+00:03:31,626 --> 00:03:32,872
+I'm simulating it here.
+我這裡模擬一下
+
+78
+00:03:35,291 --> 00:03:38,456
+And that's where the Retarget header can
+這就是 Retarget 標頭可以發揮作用的地方
+
+79
+00:03:38,488 --> 00:03:41,927
+help because that header allows me to change
+幫助，因為該標頭允許我更改
+
+80
+00:03:41,959 --> 00:03:45,429
+the target for a specific response. So to
+特定回應的目標。所以為了
+
+81
+00:03:45,799 --> 00:03:48,370
+override the setting I defined with
+覆蓋我定義的設置
+
+82
+00:03:48,450 --> 00:03:50,121
+HX-Target on the client.
+使用者端上的 HX-Target。
+
+83
+00:03:51,439 --> 00:03:53,254
+And that's exactly what I wanna do here for
+這正是我想在這裡做的
+
+84
+00:03:53,302 --> 00:03:54,893
+this server-side error.
+這個伺服器端錯誤。
+
+85
+00:03:56,002 --> 00:03:59,022
+If we have such an error, I'll add this
+如果我們有這樣的錯誤，我會添加這個
+
+86
+00:04:01,040 --> 00:04:03,784
+hx-retarget header here and I'll change the
+hx-retarget 標頭在這裡，我將更改
+
+87
+00:04:03,784 --> 00:04:04,244
+target.
+目標。
+
+88
+00:04:06,092 --> 00:04:09,941
+And here I'll change it to the first div
+這裡我將其更改為第一個 div
+
+89
+00:04:10,281 --> 00:04:11,704
+with a class of control.
+具有一類控制能力。
+
+90
+00:04:13,289 --> 00:04:15,375
+And I then also wanna change the swapping
+然後我也想改變交換
+
+91
+00:04:15,375 --> 00:04:18,208
+strategy and make sure that I insert the
+策略並確保我插入
+
+92
+00:04:18,208 --> 00:04:21,155
+response content in front of this element,
+該元素前面的回應內容，
+
+93
+00:04:21,429 --> 00:04:24,617
+not inside of it, not instead of it, but in
+不是在它裡面，不是代替它，而是在裡面
+
+94
+00:04:24,940 --> 00:04:25,406
+front of it.
+在它的前面。
+
+95
+00:04:27,459 --> 00:04:29,089
+And I'll show you how to do that in a
+我將向您展示如何做到這一點
+
+96
+00:04:29,089 --> 00:04:32,010
+second. First, let's select this and I'll
+第二。首先，讓我們選擇這個，我會
+
+97
+00:04:32,010 --> 00:04:33,639
+select it by that class here.
+在這裡按該類別選擇它。
+
+98
+00:04:35,098 --> 00:04:38,231
+So I'll set this array target header here to
+所以我將在這裡設定這個陣列目標標頭
+
+99
+00:04:40,063 --> 00:04:42,554
+.control and that will select the first
+.control 將選擇第一個
+
+100
+00:04:42,554 --> 00:04:45,756
+element with a CSS class of control on that
+具有 CSS 控制類別的元素
+
+101
+00:04:45,836 --> 00:04:46,143
+page.
+頁。
+
+102
+00:04:47,771 --> 00:04:49,721
+Now I'll temporarily change this to greater
+現在我暫時將其更改為更大
+
+103
+00:04:49,721 --> 00:04:52,349
+than 0 so that this will always occur.
+大於 0，因此這種情況總是會發生。
+
+104
+00:04:53,181 --> 00:04:55,722
+Just so that I can show you how this will
+只是為了讓我向你展示這將如何
+
+105
+00:04:55,786 --> 00:04:58,230
+work without having to retry it multiple
+無需多次重試即可工作
+
+106
+00:04:58,230 --> 00:04:58,586
+times.
+次。
+
+107
+00:04:59,772 --> 00:05:01,436
+And therefore now if we save that and reload
+因此現在如果我們儲存並重新載入
+
+108
+00:05:02,518 --> 00:05:04,796
+and I enter some valid credentials, now you
+我輸入了一些有效的憑證，現在你
+
+109
+00:05:04,796 --> 00:05:07,429
+see it's inserted here instead of that first
+看到它被插入這裡而不是第一個
+
+110
+00:05:07,526 --> 00:05:10,096
+input element or this first control div.
+輸入元素或第一個控制 div。
+
+111
+00:05:12,238 --> 00:05:14,086
+That's not what I want though. Instead, I
+但這不是我想要的。相反，我
+
+112
+00:05:14,183 --> 00:05:17,020
+want to change the swapping strategy and
+想要改變交換策略並且
+
+113
+00:05:17,020 --> 00:05:20,233
+therefore we also need the hx-reswap header,
+因此我們還需要 hx-reswap 標頭，
+
+114
+00:05:21,277 --> 00:05:23,621
+which allows us to change the swapping
+這允許我們改變交換
+
+115
+00:05:23,621 --> 00:05:26,784
+strategy and override the setting that was
+策略並覆蓋先前的設置
+
+116
+00:05:26,816 --> 00:05:29,674
+defined with hx-swap on the frontend.
+在前端用 hx-swap 定義。
+
+117
+00:05:30,830 --> 00:05:33,624
+And we can use the same values as we can for
+我們可以使用與我們可以使用的相同的值
+
+118
+00:05:33,624 --> 00:05:36,498
+hx-swap. And therefore, if I wanna insert
+hx-交換。因此，如果我想插入
+
+119
+00:05:36,595 --> 00:05:38,778
+the response content in front of the
+前面的回應內容
+
+120
+00:05:38,778 --> 00:05:42,744
+selected element, I need the before-begin
+選定的元素，我需要開始之前
+
+121
+00:05:42,889 --> 00:05:43,917
+strategy here.
+策略在這裡。
+
+122
+00:05:45,509 --> 00:05:49,526
+Therefore, I'll also add this hx-reswap
+因此，我也會加入這個 hx-reswap
+
+123
+00:05:49,526 --> 00:05:50,048
+header here.
+標題在這裡。
+
+124
+00:05:52,010 --> 00:05:52,207
+And
+和
+
+125
+00:05:52,767 --> 00:05:55,797
+here it's before begin. That's my strategy.
+這是開始之前。這就是我的策略。
+
+126
+00:05:58,262 --> 00:05:59,981
+With that, if we save this,
+這樣，如果我們儲存這個，
+
+127
+00:06:00,817 --> 00:06:01,363
+reload,
+重新載入，
+
+128
+00:06:03,565 --> 00:06:05,718
+enter some valid credentials and click
+輸入一些有效的憑證並點擊
+
+129
+00:06:05,718 --> 00:06:08,546
+login, now you see the error message is
+登錄，現在您看到錯誤訊息是
+
+130
+00:06:08,729 --> 00:06:09,527
+inserted here.
+插入這裡。
+
+131
+00:06:12,258 --> 00:06:14,107
+And that's therefore another pretty
+因此這是另一個漂亮的
+
+132
+00:06:14,107 --> 00:06:16,406
+convenient feature because sometimes you
+方便的功能，因為有時您
+
+133
+00:06:16,422 --> 00:06:18,833
+have a situation like this where you might
+有這樣的情況你可能會
+
+134
+00:06:18,833 --> 00:06:21,309
+need different targets and strategies for
+需要不同的目標和策略
+
+135
+00:06:21,406 --> 00:06:23,801
+different responses. And by setting those
+不同的反應。透過設定那些
+
+136
+00:06:23,897 --> 00:06:26,534
+headers, you have that fine-grained control.
+標題，您可以進行細粒度的控制。

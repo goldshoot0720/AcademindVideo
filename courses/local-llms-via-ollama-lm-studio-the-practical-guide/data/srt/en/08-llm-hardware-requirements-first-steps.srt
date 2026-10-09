@@ -1,0 +1,379 @@
+1
+00:00:00,608 --> 00:00:03,412
+So let's start simple. Let's try to find out
+
+2
+00:00:03,941 --> 00:00:06,953
+which kind of hardware we need in order to
+
+3
+00:00:07,626 --> 00:00:07,835
+run
+
+4
+00:00:08,363 --> 00:00:10,959
+a large language model on our local machine,
+
+5
+00:00:11,007 --> 00:00:13,491
+on our system, or on that server you maybe
+
+6
+00:00:13,491 --> 00:00:15,157
+rented. Doesn't really matter here.
+
+7
+00:00:15,750 --> 00:00:18,089
+So we wanna use a large language model for
+
+8
+00:00:18,442 --> 00:00:20,445
+inference, as it's also called. And
+
+9
+00:00:20,685 --> 00:00:21,310
+inference is
+
+10
+00:00:21,887 --> 00:00:24,755
+simply the process of using a trained large
+
+11
+00:00:24,851 --> 00:00:26,838
+language model, no matter if it's open or
+
+12
+00:00:26,950 --> 00:00:29,514
+proprietary, to generate output. So we're
+
+13
+00:00:29,578 --> 00:00:31,534
+done with the training phase, we got our
+
+14
+00:00:31,534 --> 00:00:34,211
+model, and now we wanna use it to generate
+
+15
+00:00:34,323 --> 00:00:36,759
+output. And that's of course exactly what's
+
+16
+00:00:36,808 --> 00:00:38,106
+going on behind the scenes
+
+17
+00:00:38,715 --> 00:00:41,745
+when you send a message to ChatGPT or one of
+
+18
+00:00:41,761 --> 00:00:43,363
+those other AI chatbots.
+
+19
+00:00:44,005 --> 00:00:47,291
+That message is processed by the ChatGPT
+
+20
+00:00:47,307 --> 00:00:50,080
+application and then sent to the underlying
+
+21
+00:00:50,192 --> 00:00:54,247
+AI model to generate new output based on
+
+22
+00:00:54,279 --> 00:00:55,017
+that message.
+
+23
+00:00:55,562 --> 00:00:58,259
+That's inference. It's the trained model
+
+24
+00:00:58,372 --> 00:01:01,407
+generating output based on some input, based
+
+25
+00:01:01,423 --> 00:01:02,226
+on your prompt.
+
+26
+00:01:03,125 --> 00:01:05,951
+So in order to perform this inference, this
+
+27
+00:01:06,080 --> 00:01:06,915
+trained model
+
+28
+00:01:07,766 --> 00:01:10,624
+must be executed somewhere, must be hosted
+
+29
+00:01:10,913 --> 00:01:12,342
+somewhere, you could say.
+
+30
+00:01:12,984 --> 00:01:16,276
+So in case of ChatGPT, that would of course
+
+31
+00:01:16,276 --> 00:01:19,921
+be the servers owned or rented by OpenAI.
+
+32
+00:01:20,532 --> 00:01:23,551
+When talking about open models like the ones
+
+33
+00:01:23,647 --> 00:01:25,590
+you find on Hugging Face,
+
+34
+00:01:26,136 --> 00:01:28,940
+You could either also find some paid hosting
+
+35
+00:01:28,956 --> 00:01:31,007
+provider or, what is the focus of this
+
+36
+00:01:31,103 --> 00:01:34,036
+course, host them locally on your system or
+
+37
+00:01:34,164 --> 00:01:35,478
+on servers owned by you.
+
+38
+00:01:36,231 --> 00:01:38,539
+And therefore, this hosting system, of
+
+39
+00:01:38,571 --> 00:01:41,295
+course, needs to meet certain hardware
+
+40
+00:01:41,295 --> 00:01:42,065
+requirements.
+
+41
+00:01:42,658 --> 00:01:45,125
+For example, it would be great if the
+
+42
+00:01:45,205 --> 00:01:48,427
+underlying machine that runs the model has a
+
+43
+00:01:48,587 --> 00:01:52,064
+good GPU, but you don't need that. You can
+
+44
+00:01:52,096 --> 00:01:54,565
+also follow along with this course and run
+
+45
+00:01:54,741 --> 00:01:56,825
+large language models locally on your
+
+46
+00:01:56,825 --> 00:01:58,012
+laptop, your system.
+
+47
+00:01:58,621 --> 00:02:01,025
+If you don't have a GPU at all, leave alone
+
+48
+00:02:01,025 --> 00:02:03,109
+a good one, you can also run them on the
+
+49
+00:02:03,109 --> 00:02:05,866
+CPU. It will just be slower. Now, why is
+
+50
+00:02:05,963 --> 00:02:08,656
+that the case? Because these models, when
+
+51
+00:02:09,008 --> 00:02:10,643
+they receive some input,
+
+52
+00:02:11,188 --> 00:02:14,282
+need to perform many calculations in
+
+53
+00:02:14,394 --> 00:02:17,200
+parallel in order to produce that output.
+
+54
+00:02:17,440 --> 00:02:20,470
+And it turns out that GPUs are amazing at
+
+55
+00:02:20,470 --> 00:02:23,179
+performing many calculations in parallel.
+
+56
+00:02:24,254 --> 00:02:27,479
+A CPU, on the other hand, can switch between
+
+57
+00:02:27,479 --> 00:02:30,191
+different tasks but can only process them in
+
+58
+00:02:30,191 --> 00:02:33,738
+sequence in the end. That's why GPUs are
+
+59
+00:02:33,802 --> 00:02:36,337
+preferred to handle all these computations
+
+60
+00:02:36,434 --> 00:02:39,130
+that need to be performed in parallel when
+
+61
+00:02:39,258 --> 00:02:40,510
+performing inference.
+
+62
+00:02:41,200 --> 00:02:43,960
+So in an ideal world, we have a great GPU,
+
+63
+00:02:44,473 --> 00:02:46,255
+but a CPU will also do.
+
+64
+00:02:47,185 --> 00:02:50,202
+In addition to a GPU or CPU,
+
+65
+00:02:50,812 --> 00:02:53,267
+preferably a good GPU, as mentioned,
+
+66
+00:02:53,925 --> 00:02:57,247
+we also need enough RAM or video RAM,
+
+67
+00:02:57,471 --> 00:02:58,242
+preferably.
+
+68
+00:02:58,819 --> 00:03:02,013
+Now, video RAM is the memory that's directly
+
+69
+00:03:02,029 --> 00:03:04,933
+attached to the GPU. So if we have a GPU, we
+
+70
+00:03:04,933 --> 00:03:06,891
+typically also have VRAM, and that's
+
+71
+00:03:07,003 --> 00:03:09,811
+preferably because the GPU has more direct
+
+72
+00:03:09,827 --> 00:03:13,036
+and quicker access to the VRAM than to the
+
+73
+00:03:13,181 --> 00:03:16,005
+regular system memory. But again, if you
+
+74
+00:03:16,005 --> 00:03:19,070
+don't have a GPU, regular RAM, your regular
+
+75
+00:03:19,070 --> 00:03:21,124
+system memory will also do.
+
+76
+00:03:21,862 --> 00:03:23,705
+Why do we need that? Well, because the
+
+77
+00:03:23,721 --> 00:03:26,959
+model, all its parameters essentially, and
+
+78
+00:03:27,055 --> 00:03:29,844
+also the context window, which essentially
+
+79
+00:03:29,956 --> 00:03:32,809
+is the chat history, your input messages and
+
+80
+00:03:32,906 --> 00:03:33,739
+the output messages,
+
+81
+00:03:34,348 --> 00:03:37,297
+all that must be loaded into memory during
+
+82
+00:03:37,490 --> 00:03:40,984
+inference and it must stay in memory. So you
+
+83
+00:03:41,016 --> 00:03:44,671
+must have enough memory, preferably VRAM, to
+
+84
+00:03:44,767 --> 00:03:46,546
+load the entire model with all its
+
+85
+00:03:46,546 --> 00:03:49,014
+parameters and the entire context window
+
+86
+00:03:49,255 --> 00:03:52,091
+into memory. Now, if you don't have a lot of
+
+87
+00:03:52,091 --> 00:03:54,317
+memory, that's not necessarily a problem.
+
+88
+00:03:54,622 --> 00:03:57,666
+You just won't be able to load the bigger
+
+89
+00:03:57,842 --> 00:04:01,078
+models, but you will be able to load smaller
+
+90
+00:04:01,286 --> 00:04:03,529
+models. And we'll soon also learn about a
+
+91
+00:04:03,529 --> 00:04:06,237
+technique that reduces the hardware
+
+92
+00:04:06,237 --> 00:04:09,072
+requirements of all those models so that
+
+93
+00:04:09,120 --> 00:04:12,324
+even the bigger models can be ran and can be
+
+94
+00:04:12,324 --> 00:04:16,233
+used on normal laptops, especially high-end
+
+95
+00:04:16,426 --> 00:04:19,005
+laptops. You don't need a supercomputer.

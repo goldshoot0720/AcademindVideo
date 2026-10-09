@@ -1,0 +1,484 @@
+1
+00:00:02,115 --> 00:00:05,022
+So at this point, we had a very close look
+所以在這一點上，我們進行了非常仔細的觀察
+
+2
+00:00:05,151 --> 00:00:08,381
+at how we can configure the requests that
+我們如何設定請求
+
+3
+00:00:08,462 --> 00:00:11,057
+are sent and managed by HTMX.
+由 HTMX 發送和管理。
+
+4
+00:00:12,665 --> 00:00:15,542
+But it turns out that we can actually also
+但事實證明我們其實也可以
+
+5
+00:00:15,719 --> 00:00:19,031
+configure the responses quite a bit and with
+對回應進行相當多的設定
+
+6
+00:00:19,241 --> 00:00:19,369
+them
+他們
+
+7
+00:00:19,965 --> 00:00:23,794
+also change the behavior of HTMX. And that's
+也改變了 HTMX 的行為。那就是
+
+8
+00:00:23,826 --> 00:00:25,129
+what I'll show you next.
+接下來我將向您展示什麼。
+
+9
+00:00:26,847 --> 00:00:29,802
+And I wanna start with submitting the form.
+我想從提交表格開始。
+
+10
+00:00:31,248 --> 00:00:32,918
+When we submit the form,
+當我們提交表格時，
+
+11
+00:00:33,496 --> 00:00:36,725
+we of course send this POST request to
+我們當然會將此 POST 請求發送至
+
+12
+00:00:36,885 --> 00:00:37,720
+/login.
+/登入.
+
+13
+00:00:39,214 --> 00:00:39,439
+Now,
+現在，
+
+14
+00:00:40,001 --> 00:00:42,635
+in that login route, we're then validating
+在該登入路徑中，我們然後驗證
+
+15
+00:00:42,828 --> 00:00:45,366
+the inputs and you already saw what happens
+輸入，您已經看到會發生什麼
+
+16
+00:00:45,542 --> 00:00:47,181
+if an invalid input is entered.
+如果輸入了無效的輸入。
+
+17
+00:00:48,048 --> 00:00:51,469
+But if we succeed, I'm currently not sending
+但如果我們成功了，我目前不會發送
+
+18
+00:00:51,501 --> 00:00:53,477
+back anything. I'm sending back an empty
+回任何東西。我發回一個空的
+
+19
+00:00:53,509 --> 00:00:54,039
+response.
+回覆.
+
+20
+00:00:55,548 --> 00:00:57,190
+Now, what we might wanna do
+現在，我們可能想做的
+
+21
+00:00:57,737 --> 00:01:00,086
+if we're facing a login form like this
+如果我們面對這樣的登入表單
+
+22
+00:01:00,778 --> 00:01:03,336
+is that when the user enters valid
+是當使用者輸入有效的
+
+23
+00:01:03,368 --> 00:01:03,819
+credentials
+證書
+
+24
+00:01:04,564 --> 00:01:05,925
+and we click login,
+然後我們點擊登入，
+
+25
+00:01:06,767 --> 00:01:09,537
+we might want to redirect the user to a new
+我們可能想將使用者重新導向到一個新的
+
+26
+00:01:09,683 --> 00:01:09,975
+page.
+頁。
+
+27
+00:01:11,940 --> 00:01:14,726
+So we might want to redirect to
+所以我們可能想要重定向到
+
+28
+00:01:16,087 --> 00:01:19,376
+/authenticated here, for example, so to this
+/authenticated 這裡，例如，所以到這個
+
+29
+00:01:19,490 --> 00:01:19,797
+route.
+路線。
+
+30
+00:01:20,854 --> 00:01:23,157
+Now, of course, if you recall what you
+現在，當然，如果你還記得你所經歷的
+
+31
+00:01:23,157 --> 00:01:24,940
+learned in earlier sections,
+在前面的章節中了解到，
+
+32
+00:01:25,653 --> 00:01:28,167
+we'll have a problem if we try to do that.
+如果我們嘗試這樣做，就會遇到問題。
+
+33
+00:01:28,920 --> 00:01:29,467
+So here, if I
+所以在這裡，如果我
+
+34
+00:01:29,998 --> 00:01:32,606
+reload and I enter a valid email
+重新載入並輸入有效的電子郵件
+
+35
+00:01:33,460 --> 00:01:35,553
+and then some valid password and I click
+然後輸入一些有效的密碼，然後我單擊
+
+36
+00:01:35,617 --> 00:01:36,004
+login,
+登入,
+
+37
+00:01:37,082 --> 00:01:39,495
+you see the content of the next page is
+你看到下一頁的內容是
+
+38
+00:01:39,778 --> 00:01:40,610
+rendered here.
+此處呈現。
+
+39
+00:01:42,174 --> 00:01:44,918
+It's rendered on the existing page. And that
+它呈現在現有頁面上。還有那個
+
+40
+00:01:44,934 --> 00:01:48,248
+happens because, as you learned, HTMX by
+發生這種情況是因為，正如您所知，HTMX 透過
+
+41
+00:01:48,457 --> 00:01:52,069
+default follows redirects like this.
+預設遵循這樣的重定向。
+
+42
+00:01:53,498 --> 00:01:55,697
+And therefore, as a result, we
+因此，結果，我們
+
+43
+00:01:56,243 --> 00:01:58,908
+don't load a new page in the browser, but
+不要在瀏覽器中載入新頁面，但是
+
+44
+00:01:58,908 --> 00:02:03,259
+instead HTMX gets the response of that new
+相反，HTMX 會得到新的回應
+
+45
+00:02:03,773 --> 00:02:06,101
+page or of this GET route here to be
+頁面或此 GET 路線的此處為
+
+46
+00:02:06,101 --> 00:02:06,599
+precise.
+精確的。
+
+47
+00:02:08,028 --> 00:02:10,821
+And it then renders that into the target of
+然後它將其渲染到目標中
+
+48
+00:02:10,853 --> 00:02:13,993
+the request we sent, so into this target
+我們發送的請求，所以進入這個目標
+
+49
+00:02:13,993 --> 00:02:14,236
+here.
+這裡。
+
+50
+00:02:15,925 --> 00:02:18,540
+Now, that sometimes is the behavior you
+現在，有時這就是你的行為
+
+51
+00:02:18,540 --> 00:02:18,865
+want,
+想，
+
+52
+00:02:19,417 --> 00:02:21,574
+but sometimes you might want a real
+但有時你可能想要一個真正的
+
+53
+00:02:22,009 --> 00:02:22,573
+redirect.
+重定向。
+
+54
+00:02:24,280 --> 00:02:26,696
+And you can achieve that and change the
+你可以實現這一點並改變
+
+55
+00:02:26,696 --> 00:02:30,336
+behavior of HTMX by setting a specific
+透過設定特定的 HTMX 行為
+
+56
+00:02:30,627 --> 00:02:32,459
+header on the response.
+回應的標頭。
+
+57
+00:02:33,922 --> 00:02:37,120
+And here in Node, when using Express.js, you
+在 Node 中，當使用 Express.js 時，您
+
+58
+00:02:37,152 --> 00:02:39,505
+can do that by calling the setHeader header
+可以透過呼叫 setHeader 標頭來做到這一點
+
+59
+00:02:39,505 --> 00:02:42,189
+method on that response object before
+之前該回應對像上的方法
+
+60
+00:02:42,189 --> 00:02:42,868
+sending it.
+發送它。
+
+61
+00:02:44,502 --> 00:02:46,426
+And the header I wanna set here
+我想在這裡設定標題
+
+62
+00:02:47,089 --> 00:02:50,698
+is one of the special headers you can set on
+是您可以設定的特殊標頭之一
+
+63
+00:02:50,730 --> 00:02:53,269
+the responses that are sent back and that
+發回的回應
+
+64
+00:02:53,365 --> 00:02:55,293
+will be handled by HTMX.
+將由 HTMX 處理。
+
+65
+00:02:56,755 --> 00:02:59,890
+Specifically, you can set the hx-redirect
+具體可以設定 hx-redirect
+
+66
+00:02:59,890 --> 00:03:01,354
+response header to
+回應頭到
+
+67
+00:03:01,885 --> 00:03:04,893
+really trigger a client-side redirect to a
+真正觸發使用者端重定向到
+
+68
+00:03:04,893 --> 00:03:05,569
+new page.
+新頁面。
+
+69
+00:03:06,489 --> 00:03:10,853
+So to not have HTMX take the response and
+因此，為了不讓 HTMX 接受回應，
+
+70
+00:03:10,853 --> 00:03:13,352
+render it into the target, but to really
+將其渲染到目標中，但實際上
+
+71
+00:03:13,627 --> 00:03:15,501
+instead perform a redirect.
+而是執行重定向。
+
+72
+00:03:16,851 --> 00:03:19,148
+And you see some other response headers and
+您會看到其他一些回應標頭
+
+73
+00:03:19,181 --> 00:03:21,366
+what they do here as well, but I'll get back
+他們也在這裡做什麼，但我會回來
+
+74
+00:03:21,430 --> 00:03:23,551
+to some of them later. For the moment, let's
+稍後再給其中一些人。暫時讓我們
+
+75
+00:03:23,599 --> 00:03:25,073
+focus on that redirect header.
+專注於該重定向標頭。
+
+76
+00:03:27,079 --> 00:03:30,079
+So here it's HX-Redirect, which I wanna set,
+這是我想要設定的 HX-Redirect，
+
+77
+00:03:30,954 --> 00:03:32,738
+and I wanna set that to /authenticated.
+我想將其設定為 /authenticated。
+
+78
+00:03:35,686 --> 00:03:38,198
+And this will then ensure that we indeed do
+這將確保我們確實做到了
+
+79
+00:03:38,649 --> 00:03:41,628
+redirect the user to that page and that that
+將使用者重新導向到該頁面
+
+80
+00:03:41,628 --> 00:03:43,303
+new page is therefore loaded
+因此載入新頁面
+
+81
+00:03:43,883 --> 00:03:46,896
+and that HTMX will not just take the content
+且 HTMX 不僅僅會獲取內容
+
+82
+00:03:46,896 --> 00:03:49,000
+of that page and render it somewhere else.
+該頁面並將其呈現在其他地方。
+
+83
+00:03:50,450 --> 00:03:53,107
+Now, one thing you'll need to do though is
+現在，你需要做的一件事是
+
+84
+00:03:53,203 --> 00:03:55,619
+you should then not also send such a
+那你不應該也送這樣的
+
+85
+00:03:55,635 --> 00:03:58,308
+redirect response here, but instead just
+在這裡重定向回應，但只是
+
+86
+00:03:58,308 --> 00:03:59,725
+send an empty response.
+發送空回應。
+
+87
+00:04:01,660 --> 00:04:03,579
+But with that, if you save everything,
+但這樣一來，如果你儲存一切，
+
+88
+00:04:04,272 --> 00:04:05,223
+if you reload here
+如果你在這裡重新載入
+
+89
+00:04:05,788 --> 00:04:06,803
+and you enter some
+然後你輸入一些
+
+90
+00:04:07,626 --> 00:04:09,528
+valid credentials and you click login,
+有效的憑證，然後按一下“登入”，
+
+91
+00:04:10,205 --> 00:04:12,132
+you see now I'm really redirected to a new
+你看現在我真的被重新導向到一個新的
+
+92
+00:04:12,310 --> 00:04:15,047
+page. We completely replaced the existing
+頁。我們完全取代了現有的
+
+93
+00:04:15,079 --> 00:04:16,262
+page with this one.
+與此相關的頁面。
+
+94
+00:04:17,987 --> 00:04:19,985
+And of course I can still go back and forth
+當然我還是可以來回
+
+95
+00:04:20,033 --> 00:04:21,998
+now with the back and forward buttons.
+現在有後退和前進按鈕。
+
+96
+00:04:22,659 --> 00:04:24,898
+And that's the case because we now really
+情況就是這樣，因為我們現在真的
+
+97
+00:04:25,236 --> 00:04:26,461
+redirected the user.
+重定向使用者。

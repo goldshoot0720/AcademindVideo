@@ -1,0 +1,887 @@
+1
+00:00:00,096 --> 00:00:02,569
+Now with all those latest changes
+
+2
+00:00:02,681 --> 00:00:05,572
+implemented, I have one problem in this
+
+3
+00:00:05,572 --> 00:00:07,307
+project here though. Actually a problem
+
+4
+00:00:07,483 --> 00:00:09,282
+which existed right from the start.
+
+5
+00:00:10,294 --> 00:00:12,831
+The formatting is not what I wanna have here
+
+6
+00:00:12,943 --> 00:00:15,192
+and obviously that will differ. That might
+
+7
+00:00:15,192 --> 00:00:17,295
+be exactly the formatting you want but for
+
+8
+00:00:17,295 --> 00:00:19,479
+example, I want single quotes instead of
+
+9
+00:00:19,608 --> 00:00:20,234
+double quotes
+
+10
+00:00:20,893 --> 00:00:22,980
+and by default right now at the point of
+
+11
+00:00:22,980 --> 00:00:25,052
+time where I'm recording this, PlotCode
+
+12
+00:00:25,084 --> 00:00:27,572
+gives me double quotes in my code. Not a
+
+13
+00:00:27,572 --> 00:00:29,464
+huge issue, but not the code style I want.
+
+14
+00:00:30,041 --> 00:00:33,183
+If I were writing my code manually, I might
+
+15
+00:00:33,183 --> 00:00:34,963
+have a formatter installed that
+
+16
+00:00:35,091 --> 00:00:37,047
+automatically formats the code files as I
+
+17
+00:00:37,047 --> 00:00:39,259
+save them or when I press the appropriate
+
+18
+00:00:39,259 --> 00:00:39,772
+shortcut.
+
+19
+00:00:40,317 --> 00:00:42,497
+But since I'm using Cloud Code here to write
+
+20
+00:00:42,497 --> 00:00:44,789
+the code, that's not happening. And that's
+
+21
+00:00:44,789 --> 00:00:46,729
+therefore where another important feature
+
+22
+00:00:46,729 --> 00:00:48,076
+comes into play, hooks.
+
+23
+00:00:48,653 --> 00:00:51,699
+Let's say we have a formatter, in my case
+
+24
+00:00:51,699 --> 00:00:54,148
+here, ox-format, which is a relatively new
+
+25
+00:00:54,277 --> 00:00:57,217
+formatter for the JavaScript ecosystem. And
+
+26
+00:00:57,346 --> 00:01:00,074
+I add a script to package.json format
+
+27
+00:01:01,438 --> 00:01:04,081
+where I just run that package like this.
+
+28
+00:01:04,565 --> 00:01:07,965
+With that saved, I can also add a
+
+29
+00:01:08,191 --> 00:01:10,726
+configuration file. I can create one with
+
+30
+00:01:10,954 --> 00:01:13,004
+this command here using this formatting
+
+31
+00:01:13,069 --> 00:01:13,443
+package.
+
+32
+00:01:15,124 --> 00:01:16,681
+And in there I can add my
+
+33
+00:01:17,402 --> 00:01:18,124
+formatting rules.
+
+34
+00:01:19,430 --> 00:01:21,895
+Like for example, that I want single quotes
+
+35
+00:01:23,056 --> 00:01:25,553
+also in JSX files. Let's say that's the
+
+36
+00:01:25,553 --> 00:01:26,987
+formatting schema I wanna use.
+
+37
+00:01:27,840 --> 00:01:30,175
+Now with that package installed, I can run
+
+38
+00:01:31,237 --> 00:01:33,331
+the format command, the format script, which
+
+39
+00:01:33,331 --> 00:01:34,426
+I just added to
+
+40
+00:01:35,038 --> 00:01:36,809
+package.json, this one here.
+
+41
+00:01:38,798 --> 00:01:40,981
+And that will format all my files and for
+
+42
+00:01:40,981 --> 00:01:43,826
+example, use single quotes now here.
+
+43
+00:01:44,762 --> 00:01:46,717
+Okay, so I can do that, but right now I
+
+44
+00:01:46,765 --> 00:01:49,618
+would have to manually do that after every
+
+45
+00:01:49,714 --> 00:01:51,813
+change that's implemented by Claude Code,
+
+46
+00:01:51,893 --> 00:01:53,511
+which might not be what I want.
+
+47
+00:01:54,136 --> 00:01:56,780
+And that's where this hooks feature offered
+
+48
+00:01:56,780 --> 00:01:59,424
+by Claude Code can come in handy. The idea
+
+49
+00:01:59,424 --> 00:02:01,508
+behind Claude Code hooks is simply that you
+
+50
+00:02:01,508 --> 00:02:04,664
+can react to certain events emitted by
+
+51
+00:02:04,712 --> 00:02:07,340
+Claude Code, for example, that it edited a
+
+52
+00:02:07,340 --> 00:02:07,629
+file,
+
+53
+00:02:08,238 --> 00:02:10,737
+and you can then run any code of your choice
+
+54
+00:02:10,802 --> 00:02:14,056
+in reaction to that change. And you can add
+
+55
+00:02:14,232 --> 00:02:18,031
+hooks in the local settings JSON file that's
+
+56
+00:02:18,031 --> 00:02:20,564
+not checked into version control, into the
+
+57
+00:02:20,564 --> 00:02:21,670
+local one that is,
+
+58
+00:02:22,247 --> 00:02:24,636
+or also in the global one on your system
+
+59
+00:02:24,668 --> 00:02:26,672
+that's shared across projects. Here I'll use
+
+60
+00:02:26,672 --> 00:02:28,675
+the local one that is checked into version
+
+61
+00:02:28,675 --> 00:02:28,964
+control.
+
+62
+00:02:29,958 --> 00:02:31,689
+There in that JSON
+
+63
+00:02:32,266 --> 00:02:34,094
+object, you can add a hooks node
+
+64
+00:02:34,751 --> 00:02:37,316
+and then add as many hooks as you want. And
+
+65
+00:02:37,332 --> 00:02:39,950
+you do add a new hook by first specifying
+
+66
+00:02:39,982 --> 00:02:41,780
+the event to which you wanna react. And
+
+67
+00:02:41,812 --> 00:02:43,466
+attached, you find a link to the official
+
+68
+00:02:43,499 --> 00:02:45,843
+documentation that lists all hook events to
+
+69
+00:02:45,843 --> 00:02:46,823
+which you can react.
+
+70
+00:02:47,369 --> 00:02:50,500
+You, for example, got preToolUse, which is a
+
+71
+00:02:50,500 --> 00:02:52,556
+hook that allows you to execute code
+
+72
+00:02:52,909 --> 00:02:56,377
+whenever Claude Code is about to use a tool.
+
+73
+00:02:56,506 --> 00:02:58,947
+And a tool is something like doing web
+
+74
+00:02:58,947 --> 00:03:00,810
+search or editing a file
+
+75
+00:03:01,404 --> 00:03:01,452
+or
+
+76
+00:03:02,046 --> 00:03:04,358
+reading a file. So whenever Claude Code does
+
+77
+00:03:04,551 --> 00:03:07,040
+anything about that, you could execute some
+
+78
+00:03:07,040 --> 00:03:07,249
+code.
+
+79
+00:03:08,243 --> 00:03:10,937
+There also are a lot of other events, of
+
+80
+00:03:10,969 --> 00:03:13,663
+course, for example, also postToolUse.
+
+81
+00:03:14,400 --> 00:03:16,308
+And that sounds interesting for us here
+
+82
+00:03:16,420 --> 00:03:18,761
+because that is a hook that runs after a
+
+83
+00:03:18,825 --> 00:03:20,814
+tool has been called. And since, for
+
+84
+00:03:20,814 --> 00:03:23,972
+example, writing to a file or editing a file
+
+85
+00:03:24,117 --> 00:03:26,522
+is a tool call, that's what we need to
+
+86
+00:03:26,522 --> 00:03:29,696
+format a file after it has been edited. So
+
+87
+00:03:29,808 --> 00:03:33,272
+it's postToolUse and you must write it
+
+88
+00:03:33,272 --> 00:03:35,821
+exactly as specified in the documentation.
+
+89
+00:03:36,302 --> 00:03:38,486
+And then this takes an array because you can
+
+90
+00:03:38,534 --> 00:03:41,152
+of course register multiple hooks, multiple
+
+91
+00:03:41,585 --> 00:03:43,865
+code snippets that should execute for this
+
+92
+00:03:43,994 --> 00:03:44,267
+event.
+
+93
+00:03:45,198 --> 00:03:46,707
+In that array, you have one
+
+94
+00:03:47,285 --> 00:03:48,200
+object per
+
+95
+00:03:48,746 --> 00:03:50,352
+code snippet you wanna execute.
+
+96
+00:03:50,898 --> 00:03:52,857
+And in that code snippet, you then have a
+
+97
+00:03:52,857 --> 00:03:55,940
+matcher which allows you to specify which
+
+98
+00:03:56,052 --> 00:03:58,910
+tool was used for this hook event. And for
+
+99
+00:03:59,007 --> 00:04:01,046
+different hook events, the matcher
+
+100
+00:04:01,672 --> 00:04:03,743
+expects different things. The official
+
+101
+00:04:03,743 --> 00:04:06,150
+documentation is the way to go, of course,
+
+102
+00:04:06,471 --> 00:04:08,751
+to learn how to react to different hook
+
+103
+00:04:08,831 --> 00:04:11,014
+input and set up your matcher for different
+
+104
+00:04:11,046 --> 00:04:11,303
+hooks.
+
+105
+00:04:11,929 --> 00:04:15,171
+In case of the postToolUse hook, we simply
+
+106
+00:04:15,171 --> 00:04:18,687
+specify the kind of tools we wanna react to.
+
+107
+00:04:18,911 --> 00:04:21,255
+So after the use of which tools do we want
+
+108
+00:04:21,255 --> 00:04:23,534
+to execute some code? And in my case, that's
+
+109
+00:04:23,807 --> 00:04:26,295
+edit or write, and you would write it like
+
+110
+00:04:26,295 --> 00:04:29,072
+this. So use the pipe symbol here to
+
+111
+00:04:29,522 --> 00:04:31,256
+basically say that you have multiple
+
+112
+00:04:31,834 --> 00:04:34,531
+matching options. So whenever the edit or
+
+113
+00:04:34,660 --> 00:04:38,080
+write tool was used, I want to do something.
+
+114
+00:04:38,674 --> 00:04:41,275
+So then you can specify your hooks. Again,
+
+115
+00:04:41,404 --> 00:04:43,218
+this is an array because you could have
+
+116
+00:04:43,250 --> 00:04:45,546
+multiple actions that should happen whenever
+
+117
+00:04:45,739 --> 00:04:48,404
+the edit or write tools were used. And you
+
+118
+00:04:48,404 --> 00:04:50,845
+have one object per thing that should then
+
+119
+00:04:50,877 --> 00:04:51,246
+happen.
+
+120
+00:04:52,001 --> 00:04:54,474
+And in here you then have the type.
+
+121
+00:04:55,020 --> 00:04:57,989
+Type is command, agent, or prompt. And the 2
+
+122
+00:04:58,005 --> 00:05:00,349
+you'll typically use are command or prompt.
+
+123
+00:05:01,135 --> 00:05:03,013
+If you were to choose prompt,
+
+124
+00:05:03,543 --> 00:05:05,823
+you would have to add a prompt thereafter,
+
+125
+00:05:05,887 --> 00:05:07,877
+which will simply be injected into the
+
+126
+00:05:07,877 --> 00:05:09,996
+conversation. So if you know that after a
+
+127
+00:05:09,996 --> 00:05:12,356
+certain event, you always wanna inject an
+
+128
+00:05:12,388 --> 00:05:14,619
+extra prompt into the context, into the
+
+129
+00:05:14,619 --> 00:05:17,412
+conversation, you could use such a prompt
+
+130
+00:05:17,605 --> 00:05:18,215
+hook for that.
+
+131
+00:05:18,745 --> 00:05:20,542
+But we're looking for command here, which
+
+132
+00:05:20,719 --> 00:05:22,308
+allows us to execute a command.
+
+133
+00:05:24,489 --> 00:05:27,376
+Whenever this hook was called or when this
+
+134
+00:05:27,376 --> 00:05:28,129
+event happened.
+
+135
+00:05:28,674 --> 00:05:31,657
+And the command you specify here is a Bash
+
+136
+00:05:31,705 --> 00:05:33,613
+command, so a command you could execute in
+
+137
+00:05:33,725 --> 00:05:36,467
+your terminal. And behind the scenes, a new
+
+138
+00:05:37,013 --> 00:05:38,905
+terminal session will be opened and this
+
+139
+00:05:39,017 --> 00:05:40,155
+command will be executed.
+
+140
+00:05:40,701 --> 00:05:42,689
+So what I wanna make sure is that in that
+
+141
+00:05:42,689 --> 00:05:45,399
+session, we navigate with the cd command
+
+142
+00:05:45,575 --> 00:05:46,698
+into this project folder,
+
+143
+00:05:47,595 --> 00:05:50,001
+and I'll get back to that. And then I wanna
+
+144
+00:05:50,001 --> 00:05:52,462
+make sure I want to run the format command
+
+145
+00:05:52,495 --> 00:05:52,641
+here.
+
+146
+00:05:54,690 --> 00:05:57,826
+I'll also forward any errors into this null
+
+147
+00:05:58,182 --> 00:06:00,591
+channel here, so to say. And by adding
+
+148
+00:06:02,241 --> 00:06:04,552
+true like this, I ensure that it will always
+
+149
+00:06:04,569 --> 00:06:06,603
+return a success because even if it failed,
+
+150
+00:06:06,667 --> 00:06:08,604
+that's not horrible in case of formatting,
+
+151
+00:06:08,943 --> 00:06:11,962
+but I don't want to break Claude code or
+
+152
+00:06:12,091 --> 00:06:13,916
+have it stop its work just because
+
+153
+00:06:13,948 --> 00:06:14,627
+formatting failed.
+
+154
+00:06:15,645 --> 00:06:17,325
+Now let's get back to the cd part though.
+
+155
+00:06:17,786 --> 00:06:19,120
+What do we put in here?
+
+156
+00:06:20,117 --> 00:06:22,913
+Thankfully, Claude Code gives you a special
+
+157
+00:06:23,491 --> 00:06:25,677
+variable you can use here to give you a
+
+158
+00:06:25,677 --> 00:06:28,445
+dynamic way of resolving the project
+
+159
+00:06:28,557 --> 00:06:30,232
+directory it's currently working in.
+
+160
+00:06:31,150 --> 00:06:32,615
+And that is Claude
+
+161
+00:06:33,162 --> 00:06:35,223
+project dir, which
+
+162
+00:06:35,884 --> 00:06:38,089
+must be wrapped in quotes, which we must
+
+163
+00:06:38,154 --> 00:06:38,846
+escape like this.
+
+164
+00:06:40,488 --> 00:06:42,710
+And this is simply a value you get by Claude
+
+165
+00:06:42,742 --> 00:06:44,497
+Code. It will be passed into this hook
+
+166
+00:06:44,577 --> 00:06:46,677
+automatically. And that gives us a way of
+
+167
+00:06:46,726 --> 00:06:47,739
+navigating into the project folder
+
+168
+00:06:48,632 --> 00:06:50,174
+and running this format command there.
+
+169
+00:06:50,800 --> 00:06:53,209
+And that will now automatically happen in
+
+170
+00:06:53,209 --> 00:06:55,859
+the future whenever Claude Code finished
+
+171
+00:06:55,859 --> 00:06:56,614
+working on a file.
+
+172
+00:06:57,144 --> 00:06:59,056
+And I wanna test this right away. I'll end
+
+173
+00:06:59,152 --> 00:07:01,320
+my current Claude Code session and start a
+
+174
+00:07:01,320 --> 00:07:03,344
+new one to make sure hooks are loaded.
+
+175
+00:07:03,986 --> 00:07:06,203
+If you enter /hooks, you can also
+
+176
+00:07:06,765 --> 00:07:10,379
+view hooks and also set them up. You see,
+
+177
+00:07:10,395 --> 00:07:12,355
+here's the hook I did set up,
+
+178
+00:07:12,965 --> 00:07:15,357
+but you could also now add hooks through
+
+179
+00:07:15,839 --> 00:07:17,587
+that mode or through that
+
+180
+00:07:18,502 --> 00:07:21,149
+tool here. I just find editing it in the
+
+181
+00:07:21,213 --> 00:07:23,090
+JSON file a bit easier, but you could use
+
+182
+00:07:23,090 --> 00:07:24,614
+this interactive approach here too.
+
+183
+00:07:25,160 --> 00:07:27,326
+And therefore now with the hooks loaded, we
+
+184
+00:07:27,326 --> 00:07:29,652
+can work on the next feature and check if
+
+185
+00:07:29,652 --> 00:07:31,898
+formatting does happen. And the next feature
+
+186
+00:07:31,898 --> 00:07:33,936
+I wanna work on is the public sharing
+
+187
+00:07:34,208 --> 00:07:36,679
+feature. The idea here simply is that we as
+
+188
+00:07:36,711 --> 00:07:39,278
+the owner of a note can turn on public
+
+189
+00:07:39,278 --> 00:07:41,813
+sharing for a note. This should generate a
+
+190
+00:07:41,829 --> 00:07:44,540
+unique link which other users can follow. If
+
+191
+00:07:44,652 --> 00:07:46,575
+they follow it, and that includes users who
+
+192
+00:07:46,575 --> 00:07:48,962
+did not sign in yet, they should be able to
+
+193
+00:07:48,962 --> 00:07:50,740
+see the note, but of course they should not
+
+194
+00:07:50,740 --> 00:07:53,432
+be able to edit or delete it. And if we turn
+
+195
+00:07:53,608 --> 00:07:56,076
+off sharing, the link should not lead
+
+196
+00:07:56,108 --> 00:07:57,149
+anywhere anymore.
+
+197
+00:07:57,790 --> 00:08:00,129
+As always, I'll start in plan mode. And as
+
+198
+00:08:00,177 --> 00:08:02,196
+the agent is working on the code here, if I
+
+199
+00:08:02,276 --> 00:08:04,599
+inspect those public sharing pages, for
+
+200
+00:08:04,599 --> 00:08:07,147
+example, on which it worked, I can see that
+
+201
+00:08:07,227 --> 00:08:09,070
+in there I got those single quotes. So the
+
+202
+00:08:09,070 --> 00:08:11,217
+formatting is applied, and of course it is
+
+203
+00:08:11,313 --> 00:08:14,728
+applied because we have this postToolUse
+
+204
+00:08:14,776 --> 00:08:18,004
+hook that runs the format script. Now I can
+
+205
+00:08:18,004 --> 00:08:20,846
+see that now after creating a note, I indeed
+
+206
+00:08:20,878 --> 00:08:22,901
+have this public sharing option. And if I
+
+207
+00:08:22,965 --> 00:08:25,599
+turn this on, I got a link. If I copy that
+
+208
+00:08:25,599 --> 00:08:25,920
+link
+
+209
+00:08:27,381 --> 00:08:29,099
+and I open that in an anonymous
+
+210
+00:08:29,886 --> 00:08:32,455
+session of my browser, I can view that note
+
+211
+00:08:32,744 --> 00:08:34,799
+without editing or deleting it because here
+
+212
+00:08:34,911 --> 00:08:35,859
+I'm not authenticated.
+
+213
+00:08:36,437 --> 00:08:38,219
+If I turn sharing off,
+
+214
+00:08:39,246 --> 00:08:40,275
+and I reload this page,
+
+215
+00:08:41,031 --> 00:08:44,087
+now this gives me a 404 error, which is what
+
+216
+00:08:44,087 --> 00:08:45,904
+should happen since sharing has been
+
+217
+00:08:45,936 --> 00:08:46,467
+disabled.
+
+218
+00:08:47,721 --> 00:08:49,088
+So that is working.
+
+219
+00:08:49,860 --> 00:08:52,256
+And most importantly, that is how you can
+
+220
+00:08:52,272 --> 00:08:54,427
+use hooks, for example, to apply some
+
+221
+00:08:54,539 --> 00:08:57,144
+formatting after every file edit or
+
+222
+00:08:57,177 --> 00:08:57,675
+creation.

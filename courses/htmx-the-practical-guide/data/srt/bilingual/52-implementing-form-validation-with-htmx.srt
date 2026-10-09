@@ -1,0 +1,474 @@
+1
+00:00:02,280 --> 00:00:05,364
+Now in this demo application, which I
+現在在這個演示應用程式中，我
+
+2
+00:00:05,476 --> 00:00:07,789
+prepared for you, I don't just have these
+為你準備的，我不只有這些
+
+3
+00:00:08,143 --> 00:00:10,857
+validate POST requests on the inputs, but
+驗證輸入上的 POST 請求，但是
+
+4
+00:00:10,857 --> 00:00:13,523
+also a login POST request on the overall
+整體來說也是一個登入POST請求
+
+5
+00:00:13,523 --> 00:00:13,909
+form.
+形式。
+
+6
+00:00:15,210 --> 00:00:17,988
+And the idea simply is that all these values
+這個想法很簡單，就是所有這些價值觀
+
+7
+00:00:18,165 --> 00:00:19,048
+entered by the user
+由使用者輸入
+
+8
+00:00:19,611 --> 00:00:23,016
+are basically validated as early as possible
+基本上都是儘早驗證的
+
+9
+00:00:23,899 --> 00:00:26,741
+so that I show error messages. As early as
+這樣我就可以顯示錯誤訊息。早在
+
+10
+00:00:26,853 --> 00:00:27,285
+possible,
+可能的，
+
+11
+00:00:28,055 --> 00:00:29,962
+but at the same time, the user of course
+但同時，使用者當然
+
+12
+00:00:29,962 --> 00:00:32,606
+should also be able to log in and submit the
+也應該能夠登入並提交
+
+13
+00:00:32,606 --> 00:00:32,910
+form.
+形式。
+
+14
+00:00:34,288 --> 00:00:37,349
+And when that happens, this login POST route
+當這種情況發生時，這個登入 POST 路由
+
+15
+00:00:37,349 --> 00:00:37,878
+is triggered.
+被觸發。
+
+16
+00:00:39,016 --> 00:00:42,285
+And there I again validate those inputs to
+然後我再次驗證這些輸入
+
+17
+00:00:42,317 --> 00:00:44,977
+make sure that at the point of time where
+確保在某個時間點
+
+18
+00:00:45,025 --> 00:00:48,054
+that form is submitted, I do validate those
+該表格已提交，我會驗證這些
+
+19
+00:00:48,166 --> 00:00:50,666
+values which potentially will then be stored
+然後可能會儲存的值
+
+20
+00:00:50,666 --> 00:00:51,419
+in some database.
+在某些資料庫中。
+
+21
+00:00:53,231 --> 00:00:55,748
+Now here in that login route, I'm performing
+現在在登入路徑中，我正在執行
+
+22
+00:00:55,781 --> 00:00:58,635
+that validation on all the provided values,
+對所有提供的值進行驗證，
+
+23
+00:00:58,843 --> 00:01:00,559
+so on email and password,
+所以電子郵件和密碼，
+
+24
+00:01:01,778 --> 00:01:04,760
+and I'm collecting any validation errors in
+我正在收集任何驗證錯誤
+
+25
+00:01:04,760 --> 00:01:06,059
+that errors object.
+該錯誤物件。
+
+26
+00:01:07,166 --> 00:01:09,218
+And then I check if I got some errors, and
+然後我檢查是否有錯誤，然後
+
+27
+00:01:09,250 --> 00:01:11,768
+if that's the case, I send back a div where
+如果是這樣的話，我會發回一個 div ，其中
+
+28
+00:01:11,816 --> 00:01:14,526
+I output all these error messages in a list.
+我將所有這些錯誤訊息輸出到一個列表中。
+
+29
+00:01:15,504 --> 00:01:17,893
+And otherwise, I send back nothing. And
+否則，我什麼也不發回。和
+
+30
+00:01:17,973 --> 00:01:19,529
+actually here, there should be a return
+其實在這裡，應該有回報
+
+31
+00:01:19,529 --> 00:01:21,838
+statement to make sure that I'm not sending
+聲明以確保我不會發送
+
+32
+00:01:21,838 --> 00:01:23,329
+back duplicate responses.
+回傳重複的回應。
+
+33
+00:01:24,713 --> 00:01:27,390
+So I got back this list of error messages or
+所以我得到了這個錯誤訊息列表或者
+
+34
+00:01:27,390 --> 00:01:29,858
+nothing depending on whether there is some
+沒有什麼取決於是否有一些
+
+35
+00:01:29,987 --> 00:01:30,955
+invalid input.
+輸入無效。
+
+36
+00:01:32,870 --> 00:01:35,574
+Now at the moment, if I would submit the
+現在，如果我提交
+
+37
+00:01:35,574 --> 00:01:36,363
+invalid form,
+無效的表格，
+
+38
+00:01:37,087 --> 00:01:39,389
+the entire form would be replaced with those
+整個表格將被替換為
+
+39
+00:01:39,502 --> 00:01:42,077
+error messages and that's of course not what
+錯誤訊息，這當然不是
+
+40
+00:01:42,077 --> 00:01:42,367
+I want.
+我想。
+
+41
+00:01:43,810 --> 00:01:46,981
+Therefore, what we should do here is go to
+因此，我們在這裡應該做的是
+
+42
+00:01:46,981 --> 00:01:47,835
+that form element
+該表單元素
+
+43
+00:01:48,511 --> 00:01:51,457
+and then there make sure that we target some
+然後確保我們的目標是一些
+
+44
+00:01:51,731 --> 00:01:52,874
+other elements so that the error messages
+其他元素，以便錯誤訊息
+
+45
+00:01:52,874 --> 00:01:53,325
+are output in the right place.
+都輸出在正確的地方。
+
+46
+00:01:56,945 --> 00:01:59,163
+And for that, I'll actually add a little
+為此，我實際上會添加一點
+
+47
+00:01:59,903 --> 00:02:00,289
+div
+分割區
+
+48
+00:02:02,169 --> 00:02:03,745
+above that submit button
+提交按鈕上方
+
+49
+00:02:04,339 --> 00:02:06,334
+and give it an ID of extra-information.
+並給它一個額外資訊的ID。
+
+50
+00:02:09,230 --> 00:02:11,075
+And initially it's simply an empty div
+最初它只是一個空的 div
+
+51
+00:02:11,836 --> 00:02:13,907
+because it's in there where those errors
+因為那些錯誤就在那裡
+
+52
+00:02:14,004 --> 00:02:14,635
+should be rendered.
+應該被渲染。
+
+53
+00:02:16,719 --> 00:02:18,864
+Essentially, I wanna replace that div with
+本質上，我想用
+
+54
+00:02:18,864 --> 00:02:21,349
+this new div that includes that list.
+這個新的 div 包含該列表。
+
+55
+00:02:22,317 --> 00:02:24,400
+Alternatively, we can actually just return
+或者，我們實際上可以直接回傳
+
+56
+00:02:24,416 --> 00:02:26,114
+the list without the div here
+這裡沒有 div 的列表
+
+57
+00:02:27,140 --> 00:02:29,223
+and then make sure that the innerHTML
+然後確保innerHTML
+
+58
+00:02:29,223 --> 00:02:31,706
+content of the div is replaced with that
+div 的內容被替換為
+
+59
+00:02:31,706 --> 00:02:31,962
+list.
+列表。
+
+60
+00:02:32,587 --> 00:02:33,613
+So let's maybe do that.
+那我們也許就這樣做吧。
+
+61
+00:02:34,526 --> 00:02:36,241
+So now that that list is returned here,
+現在該清單已回傳此處，
+
+62
+00:02:36,898 --> 00:02:38,372
+I can go back to my form
+我可以回到我的表格
+
+63
+00:02:38,917 --> 00:02:41,112
+and then there I wanna target
+然後我想瞄準
+
+64
+00:02:41,881 --> 00:02:45,406
+this element with the ID extra-information.
+該元素帶有 ID 額外資訊。
+
+65
+00:02:46,447 --> 00:02:48,418
+And we could then also change the swapping
+然後我們還可以更改交換
+
+66
+00:02:48,450 --> 00:02:50,831
+strategy But now with the changes I made,
+策略 但現在隨著我所做的改變，
+
+67
+00:02:50,943 --> 00:02:53,780
+I'm actually happy with just replacing the
+我實際上很高興只更換
+
+68
+00:02:53,925 --> 00:02:55,472
+inner content of that div.
+該 div 的內部內容。
+
+69
+00:02:56,900 --> 00:02:58,964
+And therefore now with that, if I go back
+因此現在如果我回去
+
+70
+00:02:59,029 --> 00:02:59,593
+and reload,
+並重新載入，
+
+71
+00:03:00,222 --> 00:03:03,174
+if I enter some email address here,
+如果我在這裡輸入一些電子郵件地址，
+
+72
+00:03:04,594 --> 00:03:06,352
+but then an invalid password, if I click
+但如果我點擊，密碼無效
+
+73
+00:03:06,352 --> 00:03:06,739
+login,
+登入,
+
+74
+00:03:08,819 --> 00:03:10,603
+you see here is my
+你看這是我的
+
+75
+00:03:11,132 --> 00:03:11,496
+list.
+列表。
+
+76
+00:03:13,352 --> 00:03:15,606
+However, what you'll also notice is that of
+然而，您還會注意到的是
+
+77
+00:03:15,639 --> 00:03:18,073
+course now I also got that error message
+當然現在我也收到了那個錯誤訊息
+
+78
+00:03:18,073 --> 00:03:18,138
+here.
+這裡。
+
+79
+00:03:19,445 --> 00:03:21,456
+And let me show you again what the problem
+讓我再次向您展示問題所在
+
+80
+00:03:21,456 --> 00:03:23,337
+is. If I enter something here
+是。如果我在這裡輸入一些內容
+
+81
+00:03:23,868 --> 00:03:24,142
+and then
+進而
+
+82
+00:03:24,898 --> 00:03:27,021
+an invalid password and I hit Enter, for
+密碼無效，我按 Enter 鍵，因為
+
+83
+00:03:27,021 --> 00:03:29,612
+example, I get both responses here.
+例如，我在這裡得到了兩個回應。
+
+84
+00:03:30,772 --> 00:03:33,993
+And that's actually not the behavior I want.
+這其實不是我想要的行為。
+
+85
+00:03:34,976 --> 00:03:38,484
+Instead, here I'd like to make sure that if
+相反，在這裡我想確保如果
+
+86
+00:03:38,597 --> 00:03:41,393
+a user entered an invalid value in this
+使用者在此輸入了無效值
+
+87
+00:03:41,393 --> 00:03:42,164
+input field here
+此處輸入欄位
+
+88
+00:03:43,803 --> 00:03:46,277
+and the user then submits the form by
+然後使用者透過以下方式提交表單
+
+89
+00:03:46,309 --> 00:03:47,999
+hitting the Enter key, for example,
+按 Enter 鍵，例如
+
+90
+00:03:48,714 --> 00:03:51,419
+that validation request for that password
+該密碼的驗證請求
+
+91
+00:03:51,435 --> 00:03:53,512
+field should be canceled
+欄位應該被取消
+
+92
+00:03:54,751 --> 00:03:57,536
+so that it's just the overall form login
+這樣就只是整體表單登錄
+
+93
+00:03:57,569 --> 00:03:59,710
+request that's being sent and handled.
+正在發送和處理的請求。
+
+94
+00:04:00,305 --> 00:04:02,221
+And that's also something we can do with
+這也是我們可以做的
+
+95
+00:04:02,302 --> 00:04:02,946
+HTMX.
+HTMX。

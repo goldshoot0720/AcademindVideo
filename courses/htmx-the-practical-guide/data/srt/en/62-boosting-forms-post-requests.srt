@@ -1,0 +1,295 @@
+1
+00:00:00,577 --> 00:00:04,264
+hx-boost will take over all anchor elements
+
+2
+00:00:04,264 --> 00:00:06,846
+that are nested inside of this body element,
+
+3
+00:00:07,647 --> 00:00:09,475
+but it will actually do more than that.
+
+4
+00:00:10,052 --> 00:00:12,858
+And for that, I'll copy it and also bring it
+
+5
+00:00:12,858 --> 00:00:15,631
+to my second page and then there to the body
+
+6
+00:00:16,642 --> 00:00:19,175
+so that it for one will also control this
+
+7
+00:00:19,255 --> 00:00:22,013
+anchor element, but so that it will also
+
+8
+00:00:22,061 --> 00:00:23,776
+control this form
+
+9
+00:00:24,802 --> 00:00:27,640
+because hx-boost will not just change the
+
+10
+00:00:27,688 --> 00:00:29,163
+behavior of anchor
+
+11
+00:00:29,773 --> 00:00:31,345
+but also of forms.
+
+12
+00:00:32,163 --> 00:00:34,425
+And it will change it such that it takes a
+
+13
+00:00:34,425 --> 00:00:36,575
+look at the method of a form, which you
+
+14
+00:00:36,671 --> 00:00:38,436
+therefore need to specify,
+
+15
+00:00:39,302 --> 00:00:40,329
+and the action.
+
+16
+00:00:41,404 --> 00:00:43,810
+And it will then either send a GET or a POST
+
+17
+00:00:43,810 --> 00:00:46,826
+request depending on the method to that path
+
+18
+00:00:46,859 --> 00:00:47,051
+here.
+
+19
+00:00:47,837 --> 00:00:50,516
+So in the end, you can think of it replacing
+
+20
+00:00:50,693 --> 00:00:52,907
+this method-action combination we have here
+
+21
+00:00:53,356 --> 00:00:56,429
+with hx-post send to
+
+22
+00:00:57,610 --> 00:00:57,917
+/cart.
+
+23
+00:00:59,649 --> 00:01:02,367
+We don't have to add that manually because
+
+24
+00:01:02,545 --> 00:01:05,505
+hx-boost will essentially replace this
+
+25
+00:01:05,779 --> 00:01:08,074
+method-action combination with that
+
+26
+00:01:08,204 --> 00:01:09,206
+attribute, you could say.
+
+27
+00:01:10,050 --> 00:01:12,089
+And therefore, of course, the respective
+
+28
+00:01:12,332 --> 00:01:15,311
+route on the backend will be triggered and
+
+29
+00:01:15,505 --> 00:01:18,484
+HTMX will then take the response from that
+
+30
+00:01:18,484 --> 00:01:21,216
+route and again update the entire page. So
+
+31
+00:01:21,216 --> 00:01:23,077
+it will still give you that single page
+
+32
+00:01:23,077 --> 00:01:24,087
+application feeling.
+
+33
+00:01:24,761 --> 00:01:27,713
+For form submissions, it just won't update
+
+34
+00:01:27,713 --> 00:01:28,322
+the URL.
+
+35
+00:01:28,932 --> 00:01:30,873
+But we can see it in action here by adding a
+
+36
+00:01:30,873 --> 00:01:33,311
+new route to this demo application here,
+
+37
+00:01:34,531 --> 00:01:37,755
+a POST route for /cart since that is what I
+
+38
+00:01:37,755 --> 00:01:39,086
+specified in that form.
+
+39
+00:01:40,562 --> 00:01:43,193
+And then there we could store some cart data
+
+40
+00:01:43,225 --> 00:01:46,033
+if this were a real app, but here I'll just
+
+41
+00:01:46,273 --> 00:01:47,749
+send back a response.
+
+42
+00:01:48,507 --> 00:01:50,508
+And specifically here, I in the end wanna
+
+43
+00:01:50,508 --> 00:01:53,477
+redirect to the starting page. So I'll send
+
+44
+00:01:53,574 --> 00:01:55,768
+back the content of the starting page in the
+
+45
+00:01:55,768 --> 00:01:58,877
+end since HTMX will follow redirects as you
+
+46
+00:01:58,877 --> 00:01:59,259
+learned.
+
+47
+00:02:00,930 --> 00:02:03,382
+And therefore with this route added here, if
+
+48
+00:02:03,382 --> 00:02:04,463
+you save everything,
+
+49
+00:02:05,141 --> 00:02:08,223
+if you go to such a product detail page and
+
+50
+00:02:08,223 --> 00:02:09,772
+you click on Add to Cart,
+
+51
+00:02:10,305 --> 00:02:12,331
+you see we're back on the starting page.
+
+52
+00:02:13,777 --> 00:02:17,006
+Now, as you see, the URL did now change
+
+53
+00:02:17,086 --> 00:02:19,946
+because HTMX detected that we redirected.
+
+54
+00:02:20,524 --> 00:02:23,335
+And in that case, a new GET request was sent
+
+55
+00:02:23,496 --> 00:02:25,681
+after the POST request. And for GET
+
+56
+00:02:25,681 --> 00:02:27,930
+requests, like the ones triggered by
+
+57
+00:02:27,930 --> 00:02:30,050
+clicking anchor elements, but also GET
+
+58
+00:02:30,163 --> 00:02:32,444
+requests triggered due to a redirection,
+
+59
+00:02:33,135 --> 00:02:35,287
+HTMX will update the URL.
+
+60
+00:02:36,428 --> 00:02:38,693
+But as you can see here, and as you can also
+
+61
+00:02:38,757 --> 00:02:41,086
+confirm if you click this button again, the
+
+62
+00:02:41,102 --> 00:02:43,426
+URL never changes to
+
+63
+00:02:43,971 --> 00:02:46,086
+/cart and that would be the path of this
+
+64
+00:02:46,150 --> 00:02:48,682
+form. So that is what I meant when I said
+
+65
+00:02:48,795 --> 00:02:51,936
+that it will not update the URL when a form
+
+66
+00:02:51,936 --> 00:02:52,529
+is submitted.
+
+67
+00:02:53,138 --> 00:02:54,757
+It will actually update it if you then
+
+68
+00:02:54,805 --> 00:02:56,760
+navigate to a different page, but it will
+
+69
+00:02:56,872 --> 00:02:59,645
+not update it with the path defined on the
+
+70
+00:02:59,693 --> 00:03:02,241
+form. Nonetheless, it will send that
+
+71
+00:03:02,241 --> 00:03:05,030
+request, follow that redirect here, and
+
+72
+00:03:05,062 --> 00:03:07,450
+therefore do everything you want it to do
+
+73
+00:03:07,706 --> 00:03:09,597
+and still give you that single page
+
+74
+00:03:09,773 --> 00:03:10,831
+application feeling.

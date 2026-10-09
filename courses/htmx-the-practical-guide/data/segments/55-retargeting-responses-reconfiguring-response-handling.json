@@ -1,0 +1,682 @@
+[
+ {
+  "start": 2.199,
+  "end": 5.105,
+  "en": "So as you saw at this example with the"
+ },
+ {
+  "start": 5.394,
+  "end": 6.758,
+  "en": "hx-redirect header,"
+ },
+ {
+  "start": 7.401,
+  "end": 10.499,
+  "en": "it can sometimes make sense to set special"
+ },
+ {
+  "start": 10.612,
+  "end": 13.822,
+  "en": "headers on the responses in order to change"
+ },
+ {
+  "start": 13.919,
+  "end": 16.632,
+  "en": "the client-side behavior of HTMX."
+ },
+ {
+  "start": 17.997,
+  "end": 20.068,
+  "en": "Of course, that also implies that you need"
+ },
+ {
+  "start": 20.1,
+  "end": 22.877,
+  "en": "to own the backend code though. If you can't"
+ },
+ {
+  "start": 22.893,
+  "end": 24.9,
+  "en": "make changes to that code, you of course"
+ },
+ {
+  "start": 24.9,
+  "end": 26.409,
+  "en": "can't set headers like this."
+ },
+ {
+  "start": 27.725,
+  "end": 30.116,
+  "en": "That being said, that's not the only kind of"
+ },
+ {
+  "start": 30.116,
+  "end": 31.368,
+  "en": "header you can set though."
+ },
+ {
+  "start": 32.604,
+  "end": 34.947,
+  "en": "Instead, you can, for example, also set"
+ },
+ {
+  "start": 35.107,
+  "end": 38.381,
+  "en": "these headers here, Reswap, Retarget, and"
+ },
+ {
+  "start": 38.558,
+  "end": 39.328,
+  "en": "Reselect"
+ },
+ {
+  "start": 39.906,
+  "end": 44.592,
+  "en": "to change how HTMX will swap the returned"
+ },
+ {
+  "start": 44.656,
+  "end": 47.4,
+  "en": "response content into the rendered DOM"
+ },
+ {
+  "start": 48.411,
+  "end": 51.958,
+  "en": "or to change which element will be targeted"
+ },
+ {
+  "start": 52.038,
+  "end": 54.574,
+  "en": "by HTMX. So that you can essentially"
+ },
+ {
+  "start": 54.911,
+  "end": 58.024,
+  "en": "override the settings that were set with"
+ },
+ {
+  "start": 58.12,
+  "end": 59.885,
+  "en": "those HTMX attributes"
+ },
+ {
+  "start": 60.447,
+  "end": 61.538,
+  "en": "with these headers here."
+ },
+ {
+  "start": 63.014,
+  "end": 64.955,
+  "en": "And I'll show you an example for that."
+ },
+ {
+  "start": 65.934,
+  "end": 69.48,
+  "en": "Here in the POST login route, we're"
+ },
+ {
+  "start": 69.48,
+  "end": 70.78,
+  "en": "validating the user input."
+ },
+ {
+  "start": 72.176,
+  "end": 74.439,
+  "en": "And if there is an error in the input, we're"
+ },
+ {
+  "start": 74.503,
+  "end": 77.423,
+  "en": "sending back a response where we return this"
+ },
+ {
+  "start": 77.632,
+  "end": 80.119,
+  "en": "unordered list with the error messages that"
+ },
+ {
+  "start": 80.119,
+  "end": 80.745,
+  "en": "we collected."
+ },
+ {
+  "start": 82.164,
+  "end": 84.635,
+  "en": "Now, if that would be a real application"
+ },
+ {
+  "start": 84.652,
+  "end": 85.055,
+  "en": "here though,"
+ },
+ {
+  "start": 85.782,
+  "end": 88.787,
+  "en": "validation errors would not be the only kind"
+ },
+ {
+  "start": 88.787,
+  "end": 91.173,
+  "en": "of errors that could occur when a user is"
+ },
+ {
+  "start": 91.269,
+  "end": 91.8,
+  "en": "logged in."
+ },
+ {
+  "start": 93.359,
+  "end": 95.689,
+  "en": "Instead, for example, the database"
+ },
+ {
+  "start": 95.785,
+  "end": 98.131,
+  "en": "connection could fail, so some other"
+ },
+ {
+  "start": 98.212,
+  "end": 100.392,
+  "en": "server-side error could occur."
+ },
+ {
+  "start": 102.004,
+  "end": 104.268,
+  "en": "And to simulate this, I'll add an if check"
+ },
+ {
+  "start": 104.268,
+  "end": 106.335,
+  "en": "here after this validation error."
+ },
+ {
+  "start": 107.139,
+  "end": 110.158,
+  "en": "And I'll calculate a random number there"
+ },
+ {
+  "start": 110.288,
+  "end": 111.095,
+  "en": "with Math.random."
+ },
+ {
+  "start": 112.946,
+  "end": 115.484,
+  "en": "And if the number which I derive here is"
+ },
+ {
+  "start": 115.693,
+  "end": 117.589,
+  "en": "greater than 0.5,"
+ },
+ {
+  "start": 118.585,
+  "end": 122.41,
+  "en": "it will be between 0 and 1. So in 50% of all"
+ },
+ {
+  "start": 122.41,
+  "end": 124.222,
+  "en": "cases, we'll make it into this if block."
+ },
+ {
+  "start": 124.853,
+  "end": 126.796,
+  "en": "If that's the case, I wanna return a"
+ },
+ {
+  "start": 126.796,
+  "end": 129.774,
+  "en": "response that actually outputs some"
+ },
+ {
+  "start": 130.065,
+  "end": 131.878,
+  "en": "server-side error message."
+ },
+ {
+  "start": 133.556,
+  "end": 135.842,
+  "en": "And I'll simulate that here simply by then"
+ },
+ {
+  "start": 136.035,
+  "end": 137.275,
+  "en": "outputting a paragraph"
+ },
+ {
+  "start": 138.047,
+  "end": 140.317,
+  "en": "with a class of error, let's say, where I"
+ },
+ {
+  "start": 140.397,
+  "end": 144.077,
+  "en": "say a server-side error occurred,"
+ },
+ {
+  "start": 144.739,
+  "end": 147.048,
+  "en": "please try again, something like that."
+ },
+ {
+  "start": 148.914,
+  "end": 151.74,
+  "en": "Again, this is just a demo. In a real app,"
+ },
+ {
+  "start": 151.966,
+  "end": 154.469,
+  "en": "that could be a failing database connection"
+ },
+ {
+  "start": 154.469,
+  "end": 155.519,
+  "en": "or something like that."
+ },
+ {
+  "start": 157.287,
+  "end": 159.721,
+  "en": "Now, the problem we'll have here"
+ },
+ {
+  "start": 160.256,
+  "end": 161.638,
+  "en": "is that if I save that"
+ },
+ {
+  "start": 162.763,
+  "end": 165.301,
+  "en": "and I reload and enter some valid"
+ },
+ {
+  "start": 165.333,
+  "end": 166.153,
+  "en": "credentials here,"
+ },
+ {
+  "start": 167.406,
+  "end": 168.595,
+  "en": "you see sometimes"
+ },
+ {
+  "start": 169.19,
+  "end": 170.879,
+  "en": "this error might occur, not always, but"
+ },
+ {
+  "start": 170.879,
+  "end": 173.309,
+  "en": "sometimes in 50% of all cases."
+ },
+ {
+  "start": 175.032,
+  "end": 176.541,
+  "en": "And of course, outputting the error message"
+ },
+ {
+  "start": 176.638,
+  "end": 178.407,
+  "en": "like this is not bad,"
+ },
+ {
+  "start": 178.991,
+  "end": 181.571,
+  "en": "but we might wanna output it in a different"
+ },
+ {
+  "start": 181.587,
+  "end": 181.798,
+  "en": "way."
+ },
+ {
+  "start": 182.919,
+  "end": 185.963,
+  "en": "We might wanna output it here after the"
+ },
+ {
+  "start": 185.963,
+  "end": 188.816,
+  "en": "image, before our inputs, for example."
+ },
+ {
+  "start": 190.6,
+  "end": 193.494,
+  "en": "And that would then be a problem because the"
+ },
+ {
+  "start": 193.494,
+  "end": 194.041,
+  "en": "target"
+ },
+ {
+  "start": 194.604,
+  "end": 195.664,
+  "en": "of this form element,"
+ },
+ {
+  "start": 196.725,
+  "end": 199.199,
+  "en": "so for this POST request and the response of"
+ },
+ {
+  "start": 199.199,
+  "end": 200.131,
+  "en": "this POST request,"
+ },
+ {
+  "start": 201.352,
+  "end": 203.28,
+  "en": "is this extra information div."
+ },
+ {
+  "start": 204.341,
+  "end": 207.189,
+  "en": "And that should be the target for validation"
+ },
+ {
+  "start": 207.237,
+  "end": 211.399,
+  "en": "errors, but not for server-side errors as"
+ },
+ {
+  "start": 211.626,
+  "end": 212.872,
+  "en": "I'm simulating it here."
+ },
+ {
+  "start": 215.291,
+  "end": 218.456,
+  "en": "And that's where the Retarget header can"
+ },
+ {
+  "start": 218.488,
+  "end": 221.927,
+  "en": "help because that header allows me to change"
+ },
+ {
+  "start": 221.959,
+  "end": 225.429,
+  "en": "the target for a specific response. So to"
+ },
+ {
+  "start": 225.799,
+  "end": 228.37,
+  "en": "override the setting I defined with"
+ },
+ {
+  "start": 228.45,
+  "end": 230.121,
+  "en": "HX-Target on the client."
+ },
+ {
+  "start": 231.439,
+  "end": 233.254,
+  "en": "And that's exactly what I wanna do here for"
+ },
+ {
+  "start": 233.302,
+  "end": 234.893,
+  "en": "this server-side error."
+ },
+ {
+  "start": 236.002,
+  "end": 239.022,
+  "en": "If we have such an error, I'll add this"
+ },
+ {
+  "start": 241.04,
+  "end": 243.784,
+  "en": "hx-retarget header here and I'll change the"
+ },
+ {
+  "start": 243.784,
+  "end": 244.244,
+  "en": "target."
+ },
+ {
+  "start": 246.092,
+  "end": 249.941,
+  "en": "And here I'll change it to the first div"
+ },
+ {
+  "start": 250.281,
+  "end": 251.704,
+  "en": "with a class of control."
+ },
+ {
+  "start": 253.289,
+  "end": 255.375,
+  "en": "And I then also wanna change the swapping"
+ },
+ {
+  "start": 255.375,
+  "end": 258.208,
+  "en": "strategy and make sure that I insert the"
+ },
+ {
+  "start": 258.208,
+  "end": 261.155,
+  "en": "response content in front of this element,"
+ },
+ {
+  "start": 261.429,
+  "end": 264.617,
+  "en": "not inside of it, not instead of it, but in"
+ },
+ {
+  "start": 264.94,
+  "end": 265.406,
+  "en": "front of it."
+ },
+ {
+  "start": 267.459,
+  "end": 269.089,
+  "en": "And I'll show you how to do that in a"
+ },
+ {
+  "start": 269.089,
+  "end": 272.01,
+  "en": "second. First, let's select this and I'll"
+ },
+ {
+  "start": 272.01,
+  "end": 273.639,
+  "en": "select it by that class here."
+ },
+ {
+  "start": 275.098,
+  "end": 278.231,
+  "en": "So I'll set this array target header here to"
+ },
+ {
+  "start": 280.063,
+  "end": 282.554,
+  "en": ".control and that will select the first"
+ },
+ {
+  "start": 282.554,
+  "end": 285.756,
+  "en": "element with a CSS class of control on that"
+ },
+ {
+  "start": 285.836,
+  "end": 286.143,
+  "en": "page."
+ },
+ {
+  "start": 287.771,
+  "end": 289.721,
+  "en": "Now I'll temporarily change this to greater"
+ },
+ {
+  "start": 289.721,
+  "end": 292.349,
+  "en": "than 0 so that this will always occur."
+ },
+ {
+  "start": 293.181,
+  "end": 295.722,
+  "en": "Just so that I can show you how this will"
+ },
+ {
+  "start": 295.786,
+  "end": 298.23,
+  "en": "work without having to retry it multiple"
+ },
+ {
+  "start": 298.23,
+  "end": 298.586,
+  "en": "times."
+ },
+ {
+  "start": 299.772,
+  "end": 301.436,
+  "en": "And therefore now if we save that and reload"
+ },
+ {
+  "start": 302.518,
+  "end": 304.796,
+  "en": "and I enter some valid credentials, now you"
+ },
+ {
+  "start": 304.796,
+  "end": 307.429,
+  "en": "see it's inserted here instead of that first"
+ },
+ {
+  "start": 307.526,
+  "end": 310.096,
+  "en": "input element or this first control div."
+ },
+ {
+  "start": 312.238,
+  "end": 314.086,
+  "en": "That's not what I want though. Instead, I"
+ },
+ {
+  "start": 314.183,
+  "end": 317.02,
+  "en": "want to change the swapping strategy and"
+ },
+ {
+  "start": 317.02,
+  "end": 320.233,
+  "en": "therefore we also need the hx-reswap header,"
+ },
+ {
+  "start": 321.277,
+  "end": 323.621,
+  "en": "which allows us to change the swapping"
+ },
+ {
+  "start": 323.621,
+  "end": 326.784,
+  "en": "strategy and override the setting that was"
+ },
+ {
+  "start": 326.816,
+  "end": 329.674,
+  "en": "defined with hx-swap on the frontend."
+ },
+ {
+  "start": 330.83,
+  "end": 333.624,
+  "en": "And we can use the same values as we can for"
+ },
+ {
+  "start": 333.624,
+  "end": 336.498,
+  "en": "hx-swap. And therefore, if I wanna insert"
+ },
+ {
+  "start": 336.595,
+  "end": 338.778,
+  "en": "the response content in front of the"
+ },
+ {
+  "start": 338.778,
+  "end": 342.744,
+  "en": "selected element, I need the before-begin"
+ },
+ {
+  "start": 342.889,
+  "end": 343.917,
+  "en": "strategy here."
+ },
+ {
+  "start": 345.509,
+  "end": 349.526,
+  "en": "Therefore, I'll also add this hx-reswap"
+ },
+ {
+  "start": 349.526,
+  "end": 350.048,
+  "en": "header here."
+ },
+ {
+  "start": 352.01,
+  "end": 352.207,
+  "en": "And"
+ },
+ {
+  "start": 352.767,
+  "end": 355.797,
+  "en": "here it's before begin. That's my strategy."
+ },
+ {
+  "start": 358.262,
+  "end": 359.981,
+  "en": "With that, if we save this,"
+ },
+ {
+  "start": 360.817,
+  "end": 361.363,
+  "en": "reload,"
+ },
+ {
+  "start": 363.565,
+  "end": 365.718,
+  "en": "enter some valid credentials and click"
+ },
+ {
+  "start": 365.718,
+  "end": 368.546,
+  "en": "login, now you see the error message is"
+ },
+ {
+  "start": 368.729,
+  "end": 369.527,
+  "en": "inserted here."
+ },
+ {
+  "start": 372.258,
+  "end": 374.107,
+  "en": "And that's therefore another pretty"
+ },
+ {
+  "start": 374.107,
+  "end": 376.406,
+  "en": "convenient feature because sometimes you"
+ },
+ {
+  "start": 376.422,
+  "end": 378.833,
+  "en": "have a situation like this where you might"
+ },
+ {
+  "start": 378.833,
+  "end": 381.309,
+  "en": "need different targets and strategies for"
+ },
+ {
+  "start": 381.406,
+  "end": 383.801,
+  "en": "different responses. And by setting those"
+ },
+ {
+  "start": 383.897,
+  "end": 386.534,
+  "en": "headers, you have that fine-grained control."
+ }
+]

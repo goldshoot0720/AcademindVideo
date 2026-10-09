@@ -1,0 +1,389 @@
+1
+00:00:02,277 --> 00:00:03,528
+So now we added guards.
+所以現在我們增加了警衛。
+
+2
+00:00:04,105 --> 00:00:06,559
+If we leave aside the fact that we have a
+如果我們拋開我們有一個事實
+
+3
+00:00:06,607 --> 00:00:07,778
+bunch of if statements here,
+這裡有一堆 if 語句，
+
+4
+00:00:08,372 --> 00:00:11,323
+we should see another problem with this code
+我們應該會看到這段程式碼的另一個問題
+
+5
+00:00:11,323 --> 00:00:11,515
+though,
+儘管，
+
+6
+00:00:12,221 --> 00:00:14,963
+and that is the mixture of levels of
+這是不同等級的混合
+
+7
+00:00:14,963 --> 00:00:15,717
+abstraction.
+抽象。
+
+8
+00:00:16,375 --> 00:00:18,380
+What we learned about functions still
+我們學到的關於函式的知識仍然
+
+9
+00:00:18,380 --> 00:00:21,491
+applies. This is inside of a function after
+適用。這是之後的函式內部
+
+10
+00:00:21,507 --> 00:00:21,700
+all,
+全部，
+
+11
+00:00:22,630 --> 00:00:25,244
+and when it comes to simplifying control
+當談到簡化控制時
+
+12
+00:00:25,356 --> 00:00:27,906
+structures and managing deeply nested
+結構和管理深層嵌套
+
+13
+00:00:27,922 --> 00:00:31,117
+control structures, Splitting up functions
+控制結構、職能劃分
+
+14
+00:00:31,454 --> 00:00:34,057
+and extracting control structures into
+並將控制結構提取到
+
+15
+00:00:34,121 --> 00:00:36,578
+functions is another important building
+功能是另一個重要的建築
+
+16
+00:00:36,611 --> 00:00:36,932
+block.
+堵塞。
+
+17
+00:00:38,137 --> 00:00:40,739
+Now this starts with the checks here.
+現在從這裡的檢查開始。
+
+18
+00:00:41,429 --> 00:00:44,642
+We can run the checks here inline, but we
+我們可以在這裡內聯運行檢查，但是我們
+
+19
+00:00:44,706 --> 00:00:46,971
+could also outsource this into a separate
+也可以將其外包給一個單獨的
+
+20
+00:00:46,971 --> 00:00:50,087
+function, which then also would allow us to
+函式，這也讓我們能夠
+
+21
+00:00:50,087 --> 00:00:51,501
+use positive wording.
+使用正面的措辭。
+
+22
+00:00:52,738 --> 00:00:54,890
+For example, here we are interested in
+例如，這裡我們感興趣的是
+
+23
+00:00:54,986 --> 00:00:57,799
+whether we have transactions or not. So we
+我們是否有交易。所以我們
+
+24
+00:00:57,799 --> 00:01:00,053
+could grab this code, cut it,
+可以抓住這個程式碼，剪掉它，
+
+25
+00:01:00,633 --> 00:01:03,322
+and add a new function below this
+並在下面添加一個新函式
+
+26
+00:01:03,370 --> 00:01:05,044
+processTransactions function.
+處理交易函式。
+
+27
+00:01:05,849 --> 00:01:09,900
+And we could name this function isEmpty and
+我們可以將這個函式命名為 isEmpty 並且
+
+28
+00:01:09,900 --> 00:01:12,179
+then simply return the result of this check.
+然後簡單地傳回該檢查的結果。
+
+29
+00:01:12,696 --> 00:01:14,523
+Of course, ensure though that we get
+當然，確保我們得到
+
+30
+00:01:14,523 --> 00:01:16,188
+transactions as a value.
+交易作為價值。
+
+31
+00:01:18,256 --> 00:01:20,767
+So isEmpty will return true if we have no
+所以如果我們沒有的話 isEmpty 將會回傳 true
+
+32
+00:01:20,767 --> 00:01:23,230
+transactions object or if we have no
+交易對像或如果我們沒有
+
+33
+00:01:23,407 --> 00:01:24,679
+elements in transactions.
+交易中的要素。
+
+34
+00:01:26,209 --> 00:01:28,872
+And I named this isEmpty and not
+我將其命名為 isEmpty 而不是
+
+35
+00:01:29,498 --> 00:01:31,070
+hasNoElements
+沒有元素
+
+36
+00:01:31,840 --> 00:01:34,551
+because of this prefer positive checks rule
+因為這個更喜歡積極的檢查規則
+
+37
+00:01:34,648 --> 00:01:38,081
+here. It simply is easier to read if we use
+這裡。如果我們使用的話，它會更容易閱讀
+
+38
+00:01:38,097 --> 00:01:40,391
+a positive statement than a negative one.
+正面的陳述多於負面的陳述。
+
+39
+00:01:41,001 --> 00:01:43,600
+So if I name this isEmpty, I can simply
+所以如果我將其命名為 isEmpty，我可以簡單地
+
+40
+00:01:43,632 --> 00:01:44,113
+check
+查看
+
+41
+00:01:44,739 --> 00:01:46,375
+here in processTransactions
+這裡正在處理交易
+
+42
+00:01:46,985 --> 00:01:47,226
+if
+如果
+
+43
+00:01:48,349 --> 00:01:49,055
+isEmpty
+為空
+
+44
+00:01:49,713 --> 00:01:50,499
+transactions.
+交易。
+
+45
+00:01:51,816 --> 00:01:54,226
+Passing transactions to isEmpty. And this is
+將交易傳遞給 isEmpty。這是
+
+46
+00:01:54,226 --> 00:01:57,005
+super easy to read. If isEmpty transactions,
+超容易閱讀。如果是空交易，
+
+47
+00:01:57,359 --> 00:01:58,050
+then we do this.
+然後我們就這樣做。
+
+48
+00:01:59,512 --> 00:02:02,163
+Now of course, speaking of mixed levels of
+當然，現在說到混合級別
+
+49
+00:02:02,163 --> 00:02:03,818
+abstraction, we do have more
+抽象，我們確實有更多
+
+50
+00:02:04,670 --> 00:02:07,240
+violations of that rule. For example, also
+違反該規則。例如，還有
+
+51
+00:02:07,240 --> 00:02:08,462
+this console.log statement.
+這個console.log語句。
+
+52
+00:02:09,329 --> 00:02:11,129
+It's not directly related to the
+這與
+
+53
+00:02:11,659 --> 00:02:13,876
+if statement and to simplifying the if
+if 語句並簡化 if
+
+54
+00:02:13,892 --> 00:02:15,981
+statements, but of course we might also want
+聲明，但當然我們也可能想要
+
+55
+00:02:15,981 --> 00:02:18,084
+to extract that. So we can grab this
+來提取它。所以我們可以抓住這個
+
+56
+00:02:18,084 --> 00:02:20,345
+console.log statement and add another
+console.log 語句並新增另一個
+
+57
+00:02:20,409 --> 00:02:21,131
+function here.
+在這裡發揮作用。
+
+58
+00:02:21,836 --> 00:02:25,525
+showErrorMessage could be the function name
+showErrorMessage 可以是函式名稱
+
+59
+00:02:26,262 --> 00:02:28,395
+where we get the message as a parameter
+我們將訊息作為參數獲取
+
+60
+00:02:29,053 --> 00:02:31,699
+and where we then simply output the message
+然後我們簡單地輸出訊息
+
+61
+00:02:31,699 --> 00:02:32,148
+like this.
+像這樣。
+
+62
+00:02:32,837 --> 00:02:35,291
+And then we could call showErrorMessage
+然後我們可以呼叫 showErrorMessage
+
+63
+00:02:36,430 --> 00:02:36,638
+here
+這裡
+
+64
+00:02:37,648 --> 00:02:39,958
+and forward this message which we wanna show
+並轉發我們想要顯示的這則訊息
+
+65
+00:02:40,358 --> 00:02:43,181
+to again have an equal level of abstraction
+再次具有相同的抽象級別
+
+66
+00:02:43,181 --> 00:02:43,341
+here.
+這裡。
+
+67
+00:02:44,303 --> 00:02:46,514
+Now, of course, extracting these 2 functions
+現在，當然，提取這兩個函式
+
+68
+00:02:46,850 --> 00:02:49,158
+didn't remove the if statement. It also
+沒有刪除 if 語句。它還
+
+69
+00:02:49,190 --> 00:02:51,144
+didn't shorten this code here,
+這裡沒有縮短這段程式碼，
+
+70
+00:02:51,673 --> 00:02:53,900
+but it makes it a bit more readable. And
+但這使它更具可讀性。和
+
+71
+00:02:54,141 --> 00:02:56,272
+overall, that is our end goal still.
+總的來說，這仍然是我們的最終目標。
+
+72
+00:02:57,345 --> 00:02:59,652
+Nonetheless, when we talk about extracting
+儘管如此，當我們談論提取時
+
+73
+00:02:59,749 --> 00:03:02,296
+functions, it's not just about extracting
+功能，不僅僅是提取
+
+74
+00:03:02,649 --> 00:03:06,046
+Boolean checks and deriving Booleans or
+布林檢查並導出布林值或
+
+75
+00:03:06,270 --> 00:03:07,263
+showing messages.
+顯示訊息。
+
+76
+00:03:07,856 --> 00:03:10,644
+It's also about extracting entire control
+它還涉及提取整個控制權
+
+77
+00:03:10,740 --> 00:03:13,544
+structures, from our code. And that's the—
+結構，來自我們的程式碼。這就是——
+
+78
+00:03:13,577 --> 00:03:14,897
+for what we're going to do next.
+為了我們接下來要做的事情。

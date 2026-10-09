@@ -1,0 +1,449 @@
+1
+00:00:00,610 --> 00:00:02,456
+So enough about that
+已經足夠了
+
+2
+00:00:03,002 --> 00:00:06,759
+goals project on which we worked over the
+我們致力於的目標專案
+
+3
+00:00:06,759 --> 00:00:07,626
+last lectures.
+最後一次講座。
+
+4
+00:00:08,285 --> 00:00:12,074
+I prepared a brand new project for you and
+我為你準備了一個全新的專案
+
+5
+00:00:12,074 --> 00:00:13,744
+you find the snapshot attached.
+您會發現隨附的快照。
+
+6
+00:00:14,804 --> 00:00:16,827
+And you should therefore download that
+因此你應該下載它
+
+7
+00:00:16,827 --> 00:00:20,054
+attached project snapshot, run npm install
+附加專案快照，運行 npm install
+
+8
+00:00:20,327 --> 00:00:22,832
+to install all dependencies, and then npm
+安裝所有依賴項，然後 npm
+
+9
+00:00:22,832 --> 00:00:25,176
+start to start the development server.
+start 啟動開發伺服器。
+
+10
+00:00:26,522 --> 00:00:29,103
+And once you did that, if you visit
+一旦你這樣做了，如果你訪問
+
+11
+00:00:29,103 --> 00:00:29,704
+localhost:3000,
+本地主機:3000,
+
+12
+00:00:31,485 --> 00:00:32,066
+you should see
+你應該看到
+
+13
+00:00:32,679 --> 00:00:33,857
+this website here.
+這個網站在這裡。
+
+14
+00:00:35,439 --> 00:00:38,118
+And the idea behind this demo application
+以及這個演示應用程式背後的想法
+
+15
+00:00:38,166 --> 00:00:39,812
+here is that we have a list of
+這是我們的清單
+
+16
+00:00:40,474 --> 00:00:41,187
+locations which
+地點
+
+17
+00:00:42,062 --> 00:00:44,412
+can be clicked by the user. And when a
+使用者可以點擊。而當一個
+
+18
+00:00:44,412 --> 00:00:46,680
+location is clicked, it should be added to
+單擊位置後，應將其添加到
+
+19
+00:00:46,680 --> 00:00:48,268
+this list of dream locations.
+這份夢想地點清單。
+
+20
+00:00:49,383 --> 00:00:51,494
+And then in the future, I also wanna make
+然後未來，我也想做
+
+21
+00:00:51,558 --> 00:00:54,378
+sure that we can remove locations from
+確保我們可以從中刪除位置
+
+22
+00:00:54,378 --> 00:00:54,620
+there.
+那裡。
+
+23
+00:00:56,073 --> 00:00:57,996
+And that's therefore what we'll implement
+這就是我們要實現的
+
+24
+00:00:57,996 --> 00:01:00,687
+together. And to do that, we'll need some
+一起。為此，我們需要一些
+
+25
+00:01:01,104 --> 00:01:04,131
+features we already learned about and we'll
+我們已經了解的功能，我們將
+
+26
+00:01:04,244 --> 00:01:05,573
+need some new features.
+需要一些新功能。
+
+27
+00:01:06,887 --> 00:01:09,675
+Now in this project I attached, you'll see
+現在在我附加的這個專案中，你會看到
+
+28
+00:01:09,675 --> 00:01:12,014
+that I already defined some routes.
+我已經定義了一些路線。
+
+29
+00:01:12,558 --> 00:01:15,202
+And one thing I did here is that I
+我在這裡做的一件事就是我
+
+30
+00:01:15,362 --> 00:01:19,079
+outsourced these HTML snippets, which are
+外包這些 HTML 片段，它們是
+
+31
+00:01:19,143 --> 00:01:22,075
+still stored as strings, but I did outsource
+仍然存儲為字串，但我外包了
+
+32
+00:01:22,187 --> 00:01:24,990
+them in functions in separate files in the
+它們在單獨檔案中的函式中
+
+33
+00:01:24,990 --> 00:01:25,711
+views folder.
+視圖資料夾。
+
+34
+00:01:26,352 --> 00:01:27,843
+That's just something to note.
+這只是需要注意的一點。
+
+35
+00:01:28,996 --> 00:01:31,048
+And I will now actually start with those
+現在我將從這些開始
+
+36
+00:01:31,080 --> 00:01:33,259
+location items, those list items,
+位置項，那些列表項，
+
+37
+00:01:34,045 --> 00:01:34,477
+which are
+哪些是
+
+38
+00:01:35,246 --> 00:01:37,923
+these list items here in that grid. And I
+這些清單專案位於該網格中。而我
+
+39
+00:01:37,955 --> 00:01:41,545
+wanna make sure that when we click on one of
+想要確保當我們點擊其中一個時
+
+40
+00:01:41,577 --> 00:01:43,852
+these list items, so when this button here
+這些列表項，所以當這個按鈕在這裡時
+
+41
+00:01:44,365 --> 00:01:44,878
+is clicked,
+被點擊，
+
+42
+00:01:45,487 --> 00:01:48,484
+that I send a POST request to
+我向其發送 POST 請求
+
+43
+00:01:49,269 --> 00:01:52,955
+this route here and that I then identify
+這條路線在這裡，然後我確定
+
+44
+00:01:53,195 --> 00:01:55,327
+that item and add it to this array of
+該專案並將其添加到這個陣列中
+
+45
+00:01:55,503 --> 00:01:58,632
+interesting locations So that then as a next
+有趣的地點 所以作為下一個
+
+46
+00:01:58,632 --> 00:02:01,365
+step, it's that array of interesting
+步驟，這就是一系列有趣的事情
+
+47
+00:02:01,445 --> 00:02:03,325
+locations that's used to
+習慣的地點
+
+48
+00:02:03,952 --> 00:02:06,818
+populate this first box of dream locations
+填充第一個夢想地點框
+
+49
+00:02:06,835 --> 00:02:06,964
+here.
+這裡。
+
+50
+00:02:08,468 --> 00:02:12,335
+So we'll need to return that new list item
+所以我們需要回傳新的列表項
+
+51
+00:02:12,674 --> 00:02:14,761
+that should be added to those dream
+應該添加到那些夢想中
+
+52
+00:02:14,777 --> 00:02:17,505
+locations here, to this unordered list in
+位置在這裡，到這個無序列表
+
+53
+00:02:17,538 --> 00:02:19,926
+this post places route. That's what I wanna
+這篇文章放置了路線。這就是我想要的
+
+54
+00:02:19,975 --> 00:02:20,625
+start with.
+開始於。
+
+55
+00:02:22,652 --> 00:02:24,659
+Now to make sure that we can add places,
+現在為了確保我們可以添加地點，
+
+56
+00:02:24,675 --> 00:02:27,099
+I'll go to that location.js file where I
+我將轉到我所在的 location.js 檔案
+
+57
+00:02:27,147 --> 00:02:27,998
+have this button
+有這個按鈕
+
+58
+00:02:28,657 --> 00:02:32,045
+and I now wanna send a POST request with
+我現在想發送一個 POST 請求
+
+59
+00:02:32,045 --> 00:02:34,742
+help of the hx-post attribute about which
+hx-post 屬性的幫助
+
+60
+00:02:34,774 --> 00:02:36,187
+you already learned in this course.
+您已經在本課程中學到了。
+
+61
+00:02:37,167 --> 00:02:40,266
+Now previously, we always used that on form
+以前，我們總是在表單上使用它
+
+62
+00:02:40,394 --> 00:02:42,706
+elements, but you're not limited to that.
+元素，但您不僅限於此。
+
+63
+00:02:43,365 --> 00:02:46,624
+You can use all these HTMX attributes on any
+您可以在任何
+
+64
+00:02:46,720 --> 00:02:47,427
+elements you want.
+你想要的元素。
+
+65
+00:02:48,150 --> 00:02:51,691
+So I can also add this hx-post attribute on
+所以我也可以加入這個 hx-post 屬性
+
+66
+00:02:51,740 --> 00:02:54,879
+a button so that this button will trigger a
+一個按鈕，以便該按鈕將觸發
+
+67
+00:02:55,008 --> 00:02:55,845
+POST request.
+發布請求。
+
+68
+00:02:57,270 --> 00:03:00,570
+Now I still need to define the target route
+現在我仍然需要定義目標路線
+
+69
+00:03:00,781 --> 00:03:03,013
+and in my case, that's /places
+就我而言，那就是 /places
+
+70
+00:03:04,599 --> 00:03:07,094
+so that due to this attribute here,
+由於這裡的這個屬性，
+
+71
+00:03:07,727 --> 00:03:10,375
+a POST request will be sent to this route.
+POST 請求將會傳送到該路由。
+
+72
+00:03:12,662 --> 00:03:15,282
+Now here's one tricky thing about this
+現在有一件棘手的事情
+
+73
+00:03:15,412 --> 00:03:16,237
+approach though.
+儘管接近。
+
+74
+00:03:17,013 --> 00:03:18,615
+This route needs the ID of the location
+該路線需要位置 ID
+
+75
+00:03:20,644 --> 00:03:22,779
+that should be added to this interesting
+應該要添加到這個有趣的
+
+76
+00:03:22,811 --> 00:03:23,855
+locations array.
+位置陣列。
+
+77
+00:03:25,204 --> 00:03:27,371
+And I'm trying to extract that from the
+我正試圖從
+
+78
+00:03:27,452 --> 00:03:28,800
+incoming request body.
+傳入請求正文。
+
+79
+00:03:29,475 --> 00:03:32,349
+Now, as mentioned, up to this point, we
+現在，如前所述，到目前為止，我們
+
+80
+00:03:32,429 --> 00:03:37,070
+always used HX POST on forms and these forms
+總是在表單和這些表單上使用 HX POST
+
+81
+00:03:37,182 --> 00:03:40,891
+included inputs and those input values were
+包括輸入，這些輸入值是
+
+82
+00:03:41,100 --> 00:03:44,086
+automatically added to the HTTP request.
+自動加入到 HTTP 請求中。
+
+83
+00:03:45,692 --> 00:03:48,822
+Now here, I don't have a form though. I
+現在，我沒有表格。我
+
+84
+00:03:48,822 --> 00:03:52,369
+don't have inputs. So out of the box, this
+沒有輸入。所以開箱即用，這個
+
+85
+00:03:52,433 --> 00:03:53,525
+POST request
+發布請求
+
+86
+00:03:54,263 --> 00:03:56,574
+wouldn't carry any value.
+不會帶來任何價值。
+
+87
+00:03:57,232 --> 00:03:59,624
+It would have an empty request body.
+它將有一個空的請求正文。
+
+88
+00:04:00,603 --> 00:04:02,786
+And therefore trying to extract that
+因此試圖提取
+
+89
+00:04:02,786 --> 00:04:03,685
+location ID
+位置ID
+
+90
+00:04:04,455 --> 00:04:04,985
+would fail.
+會失敗的。

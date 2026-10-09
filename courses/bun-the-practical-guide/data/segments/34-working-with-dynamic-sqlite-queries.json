@@ -1,0 +1,1272 @@
+[
+ {
+  "start": 0.048,
+  "end": 2.308,
+  "en": "So that's the base config then. But then"
+ },
+ {
+  "start": 2.436,
+  "end": 5.113,
+  "en": "below that, I got a bunch of functions where"
+ },
+ {
+  "start": 5.225,
+  "end": 8.704,
+  "en": "I actually get data, manipulate data, and"
+ },
+ {
+  "start": 8.832,
+  "end": 11.541,
+  "en": "even have a transaction because SQLite has"
+ },
+ {
+  "start": 11.573,
+  "end": 15.068,
+  "en": "support for transactions where the idea is"
+ },
+ {
+  "start": 15.18,
+  "end": 18.194,
+  "en": "that multiple SQL commands, multiple SQL"
+ },
+ {
+  "start": 18.242,
+  "end": 21.817,
+  "en": "statements can be executed together or none"
+ },
+ {
+  "start": 21.817,
+  "end": 24.638,
+  "en": "at all so that if one of multiple statements"
+ },
+ {
+  "start": 24.638,
+  "end": 27.411,
+  "en": "fails, the others are rolled back as well,"
+ },
+ {
+  "start": 27.828,
+  "end": 29.784,
+  "en": "which is of course great for deleting stuff"
+ },
+ {
+  "start": 29.784,
+  "end": 32.204,
+  "en": "if you have to touch and adjust multiple"
+ },
+ {
+  "start": 32.316,
+  "end": 33.567,
+  "en": "entries across multiple"
+ },
+ {
+  "start": 34.257,
+  "end": 36.261,
+  "en": "tables, which is not the case in this"
+ },
+ {
+  "start": 36.261,
+  "end": 38.025,
+  "en": "example, but which could be the case in more"
+ },
+ {
+  "start": 38.025,
+  "end": 40.751,
+  "en": "complex applications, then you might want to"
+ },
+ {
+  "start": 40.751,
+  "end": 42.194,
+  "en": "run these different statements in a"
+ },
+ {
+  "start": 42.194,
+  "end": 44.535,
+  "en": "transaction so that if one of them fails,"
+ },
+ {
+  "start": 44.984,
+  "end": 47.903,
+  "en": "all of them fail and are rolled back. That's"
+ },
+ {
+  "start": 47.967,
+  "end": 50.468,
+  "en": "the idea behind transactions. And Bun's"
+ },
+ {
+  "start": 50.468,
+  "end": 53.499,
+  "en": "SQLite client has support for transactions."
+ },
+ {
+  "start": 53.964,
+  "end": 55.712,
+  "en": "You just create a transaction by using"
+ },
+ {
+  "start": 55.824,
+  "end": 58.278,
+  "en": "db.transaction, the transaction method"
+ },
+ {
+  "start": 58.871,
+  "end": 61.581,
+  "en": "that then takes a callback function. In that"
+ },
+ {
+  "start": 61.581,
+  "end": 63.329,
+  "en": "callback function, you have your normal"
+ },
+ {
+  "start": 63.746,
+  "end": 66.826,
+  "en": "query code, your normal DB query command."
+ },
+ {
+  "start": 67.435,
+  "end": 69.585,
+  "en": "And then whenever this transaction function,"
+ },
+ {
+  "start": 69.778,
+  "end": 71.895,
+  "en": "delete note transaction in my case here,"
+ },
+ {
+  "start": 72.264,
+  "end": 75.168,
+  "en": "whenever that is executed, that is when the"
+ },
+ {
+  "start": 75.168,
+  "end": 77.205,
+  "en": "statements inside of it are actually"
+ },
+ {
+  "start": 77.237,
+  "end": 78.826,
+  "en": "executed. That's the idea behind a"
+ },
+ {
+  "start": 78.826,
+  "end": 81.232,
+  "en": "transaction. So even that support is built"
+ },
+ {
+  "start": 81.248,
+  "end": 81.409,
+  "en": "in."
+ },
+ {
+  "start": 81.97,
+  "end": 84.344,
+  "en": "But let's take a step back. How does query"
+ },
+ {
+  "start": 84.601,
+  "end": 85.05,
+  "en": "work then?"
+ },
+ {
+  "start": 85.724,
+  "end": 88.307,
+  "en": "We can already see here that I'm using query"
+ },
+ {
+  "start": 88.387,
+  "end": 88.82,
+  "en": "here to"
+ },
+ {
+  "start": 89.35,
+  "end": 92.016,
+  "en": "delete from notes. So query is not just for"
+ },
+ {
+  "start": 92.064,
+  "end": 93.799,
+  "en": "fetching data, but as mentioned before,"
+ },
+ {
+  "start": 93.992,
+  "end": 97.125,
+  "en": "whenever you have a command that tends to be"
+ },
+ {
+  "start": 97.141,
+  "end": 99.439,
+  "en": "executed more often, because then some"
+ },
+ {
+  "start": 99.551,
+  "end": 101.881,
+  "en": "internal optimizations kick in and the"
+ },
+ {
+  "start": 101.881,
+  "end": 103.022,
+  "en": "command gets cached."
+ },
+ {
+  "start": 103.568,
+  "end": 105.705,
+  "en": "And what we see is that here in this query,"
+ },
+ {
+  "start": 106.139,
+  "end": 108.581,
+  "en": "and also in many other queries down there,"
+ },
+ {
+  "start": 109.352,
+  "end": 110.444,
+  "en": "we have some"
+ },
+ {
+  "start": 111.184,
+  "end": 114.397,
+  "en": "dynamic parts in that query. For example,"
+ },
+ {
+  "start": 114.413,
+  "end": 117.786,
+  "en": "here for creating a note, I'm using query to"
+ },
+ {
+  "start": 117.93,
+  "end": 120.371,
+  "en": "insert something into notes. I wanna insert"
+ },
+ {
+  "start": 120.371,
+  "end": 122.602,
+  "en": "the title and the content of a note. And the"
+ },
+ {
+  "start": 122.602,
+  "end": 125.781,
+  "en": "concrete values are of course unknown in"
+ },
+ {
+  "start": 125.877,
+  "end": 126.487,
+  "en": "advance"
+ },
+ {
+  "start": 127.017,
+  "end": 129.008,
+  "en": "because they depend on whatever the user"
+ },
+ {
+  "start": 129.104,
+  "end": 130.148,
+  "en": "entered into the form."
+ },
+ {
+  "start": 130.934,
+  "end": 134.161,
+  "en": "And in Bun, when using Bun's SQLite client,"
+ },
+ {
+  "start": 134.386,
+  "end": 136.377,
+  "en": "you have different ways of defining such"
+ },
+ {
+  "start": 136.553,
+  "end": 139.298,
+  "en": "placeholders in your queries in a safe way."
+ },
+ {
+  "start": 140.021,
+  "end": 142.076,
+  "en": "For example, using this dollar sign"
+ },
+ {
+  "start": 142.413,
+  "end": 143.023,
+  "en": "notation."
+ },
+ {
+  "start": 144.193,
+  "end": 146.341,
+  "en": "So here are the placeholder names, the"
+ },
+ {
+  "start": 146.357,
+  "end": 148.473,
+  "en": "variables, whatever you wanna call them."
+ },
+ {
+  "start": 148.922,
+  "end": 151.021,
+  "en": "They have any name of your choice, could be"
+ },
+ {
+  "start": 151.149,
+  "end": 153.281,
+  "en": "title, could be t, that is up to you,"
+ },
+ {
+  "start": 153.81,
+  "end": 156.182,
+  "en": "but they are prefixed with a dollar sign."
+ },
+ {
+  "start": 156.679,
+  "end": 159.34,
+  "en": "And alternatively, Bun would also allow for"
+ },
+ {
+  "start": 159.564,
+  "end": 162.914,
+  "en": "an@ symbol, for example, or a colon. You can"
+ },
+ {
+  "start": 163.01,
+  "end": 165.19,
+  "en": "use any of those. I typically use the dollar"
+ },
+ {
+  "start": 165.19,
+  "end": 168.428,
+  "en": "sign. Alternatively, you could also use the"
+ },
+ {
+  "start": 168.54,
+  "end": 170.159,
+  "en": "order and then use"
+ },
+ {
+  "start": 171.185,
+  "end": 171.329,
+  "en": "?1,"
+ },
+ {
+  "start": 172.146,
+  "end": 173.14,
+  "en": "question mark 2"
+ },
+ {
+  "start": 173.685,
+  "end": 175.753,
+  "en": "to make it clear that the first argument"
+ },
+ {
+  "start": 175.753,
+  "end": 179.119,
+  "en": "passed to get should be inserted here, the"
+ },
+ {
+  "start": 179.119,
+  "end": 181.075,
+  "en": "second argument should be inserted here."
+ },
+ {
+  "start": 181.7,
+  "end": 183.88,
+  "en": "But I like to have named arguments. But"
+ },
+ {
+  "start": 184.57,
+  "end": 186.798,
+  "en": "that takes us to the next question. How do"
+ },
+ {
+  "start": 186.814,
+  "end": 188.914,
+  "en": "we pass in the concrete values that should"
+ },
+ {
+  "start": 188.914,
+  "end": 191.302,
+  "en": "be inserted here? Well, I just mentioned it,"
+ },
+ {
+  "start": 191.318,
+  "end": 194.076,
+  "en": "you pass them to the function you call after"
+ },
+ {
+  "start": 194.268,
+  "end": 197.41,
+  "en": "query. So query, the query method is used to"
+ },
+ {
+  "start": 197.41,
+  "end": 199.878,
+  "en": "define a query, but it doesn't execute it"
+ },
+ {
+  "start": 199.878,
+  "end": 202.828,
+  "en": "yet with SQLite. Instead, if you just have"
+ },
+ {
+  "start": 202.86,
+  "end": 205.204,
+  "en": "this code here, The query is defined, it's"
+ },
+ {
+  "start": 205.413,
+  "end": 207.663,
+  "en": "optimized and cached, but it's not executed"
+ },
+ {
+  "start": 207.663,
+  "end": 207.92,
+  "en": "yet."
+ },
+ {
+  "start": 208.466,
+  "end": 211.262,
+  "en": "It gets executed when you then call get, for"
+ },
+ {
+  "start": 211.375,
+  "end": 213.913,
+  "en": "example. And I'm saying for example because"
+ },
+ {
+  "start": 213.946,
+  "end": 216.468,
+  "en": "there are other methods as well, like all."
+ },
+ {
+  "start": 216.854,
+  "end": 218.798,
+  "en": "If you had a SQL command that would return"
+ },
+ {
+  "start": 218.847,
+  "end": 221.193,
+  "en": "multiple rows, all would give you access to"
+ },
+ {
+  "start": 221.321,
+  "end": 221.627,
+  "en": "all of them."
+ },
+ {
+  "start": 222.205,
+  "end": 224.776,
+  "en": "Get would be used if you just wanna get back"
+ },
+ {
+  "start": 224.937,
+  "end": 227.026,
+  "en": "one result. And for example, the insert"
+ },
+ {
+  "start": 227.026,
+  "end": 229.211,
+  "en": "statement just returns one row."
+ },
+ {
+  "start": 229.917,
+  "end": 230.319,
+  "en": "Result."
+ },
+ {
+  "start": 230.961,
+  "end": 233.353,
+  "en": "It gives you back the ID of the entry that"
+ },
+ {
+  "start": 233.369,
+  "end": 235.199,
+  "en": "was inserted because of that returning"
+ },
+ {
+  "start": 235.231,
+  "end": 235.52,
+  "en": "clause."
+ },
+ {
+  "start": 236.435,
+  "end": 239.807,
+  "en": "So it's that method, getAll, whatever you"
+ },
+ {
+  "start": 239.871,
+  "end": 242.793,
+  "en": "use, that you chain on the query that"
+ },
+ {
+  "start": 242.921,
+  "end": 245.394,
+  "en": "actually executes the query and that"
+ },
+ {
+  "start": 245.426,
+  "end": 247.834,
+  "en": "therefore needs to provide the input for the"
+ },
+ {
+  "start": 247.834,
+  "end": 250.017,
+  "en": "query, so the concrete values for these"
+ },
+ {
+  "start": 250.081,
+  "end": 252.57,
+  "en": "placeholders. And in this example here where"
+ },
+ {
+  "start": 252.57,
+  "end": 255.267,
+  "en": "we create a note, I'm passing an input"
+ },
+ {
+  "start": 255.443,
+  "end": 257.224,
+  "en": "object to createNote."
+ },
+ {
+  "start": 257.865,
+  "end": 260.494,
+  "en": "That input object, if we take a look, is of"
+ },
+ {
+  "start": 260.494,
+  "end": 263.491,
+  "en": "type NoteInput, which is just an object with"
+ },
+ {
+  "start": 263.556,
+  "end": 265.688,
+  "en": "a title and a content where both are string."
+ },
+ {
+  "start": 266.136,
+  "end": 268.509,
+  "en": "So such a JavaScript object with title and"
+ },
+ {
+  "start": 268.589,
+  "end": 272.981,
+  "en": "content is passed to createNote. And I have"
+ },
+ {
+  "start": 273.013,
+  "end": 275.899,
+  "en": "to use title and content as names in my"
+ },
+ {
+  "start": 275.899,
+  "end": 278.816,
+  "en": "NoteInput type and object because I'm using"
+ },
+ {
+  "start": 278.864,
+  "end": 281.109,
+  "en": "title and content as names here. So the"
+ },
+ {
+  "start": 281.109,
+  "end": 284.251,
+  "en": "names have to match. If I named this here T,"
+ },
+ {
+  "start": 285.036,
+  "end": 287.825,
+  "en": "then I should expect an input where I have a"
+ },
+ {
+  "start": 287.921,
+  "end": 288.034,
+  "en": "T"
+ },
+ {
+  "start": 289.525,
+  "end": 290.103,
+  "en": "property,"
+ },
+ {
+  "start": 291.45,
+  "end": 293.375,
+  "en": "which I don't in this app. So I'll go back"
+ },
+ {
+  "start": 293.375,
+  "end": 295.957,
+  "en": "to title. That is really important"
+ },
+ {
+  "start": 296.486,
+  "end": 297.224,
+  "en": "also down here."
+ },
+ {
+  "start": 298.186,
+  "end": 302.244,
+  "en": "And that is then a SQL injection safe way of"
+ },
+ {
+  "start": 302.822,
+  "end": 305.212,
+  "en": "inserting values into a query. So that is"
+ },
+ {
+  "start": 305.228,
+  "end": 306.479,
+  "en": "how you should do it."
+ },
+ {
+  "start": 307.008,
+  "end": 309.045,
+  "en": "And I'm doing that in all those places also"
+ },
+ {
+  "start": 309.077,
+  "end": 311.852,
+  "en": "for getting a note. For example, here we see"
+ },
+ {
+  "start": 312.221,
+  "end": 315.027,
+  "en": "that I have get and I pass in an object"
+ },
+ {
+  "start": 315.027,
+  "end": 317.578,
+  "en": "where I map ID to ID. Just using the"
+ },
+ {
+  "start": 317.578,
+  "end": 319.874,
+  "en": "shortcut for it. And I'm using ID as a name"
+ },
+ {
+  "start": 319.922,
+  "end": 322.41,
+  "en": "because I'm using ID as a name here. If I"
+ },
+ {
+  "start": 322.474,
+  "end": 326.631,
+  "en": "were using i here, then I would map my ID to"
+ },
+ {
+  "start": 327.29,
+  "end": 328.14,
+  "en": "a value of i,"
+ },
+ {
+  "start": 328.67,
+  "end": 329.906,
+  "en": "to a property named i."
+ },
+ {
+  "start": 330.436,
+  "end": 332.169,
+  "en": "I also need to adjust the type here then"
+ },
+ {
+  "start": 333.164,
+  "end": 334.465,
+  "en": "to make TypeScript happy."
+ },
+ {
+  "start": 335.075,
+  "end": 337.145,
+  "en": "And so that's how passing values into"
+ },
+ {
+  "start": 337.177,
+  "end": 338.028,
+  "en": "queries works."
+ },
+ {
+  "start": 338.718,
+  "end": 341.094,
+  "en": "Now, you might remember that I mentioned"
+ },
+ {
+  "start": 341.174,
+  "end": 343.165,
+  "en": "earlier that we can configure our database"
+ },
+ {
+  "start": 343.261,
+  "end": 344.208,
+  "en": "when we create it like this."
+ },
+ {
+  "start": 344.786,
+  "end": 346.937,
+  "en": "And I mentioned this strict setting to which"
+ },
+ {
+  "start": 346.969,
+  "end": 347.739,
+  "en": "I would come back to."
+ },
+ {
+  "start": 348.279,
+  "end": 351.518,
+  "en": "Strict is related to those parameters, to"
+ },
+ {
+  "start": 351.518,
+  "end": 353.801,
+  "en": "these dynamic values you pass into your"
+ },
+ {
+  "start": 353.947,
+  "end": 354.255,
+  "en": "queries."
+ },
+ {
+  "start": 355.172,
+  "end": 357.551,
+  "en": "If you set strict to false,"
+ },
+ {
+  "start": 359.094,
+  "end": 359.319,
+  "en": "then"
+ },
+ {
+  "start": 359.898,
+  "end": 361.859,
+  "en": "you actually have to"
+ },
+ {
+  "start": 362.872,
+  "end": 364.688,
+  "en": "use the dollar signs here"
+ },
+ {
+  "start": 365.604,
+  "end": 367.693,
+  "en": "in your property names as well."
+ },
+ {
+  "start": 368.368,
+  "end": 370.376,
+  "en": "So then this would be the correct way of"
+ },
+ {
+  "start": 370.504,
+  "end": 372.095,
+  "en": "passing values into those queries."
+ },
+ {
+  "start": 372.674,
+  "end": 374.448,
+  "en": "That's of course a bit annoying, which is"
+ },
+ {
+  "start": 374.546,
+  "end": 376.475,
+  "en": "why you typically wanna set strict to true"
+ },
+ {
+  "start": 376.475,
+  "end": 377.734,
+  "en": "so that you can use that simpler form."
+ },
+ {
+  "start": 379.736,
+  "end": 381.836,
+  "en": "As weird as that might sound, that strict"
+ },
+ {
+  "start": 381.836,
+  "end": 384.08,
+  "en": "makes it simpler. But strict has another"
+ },
+ {
+  "start": 384.08,
+  "end": 386.501,
+  "en": "effect. With strict set to true,"
+ },
+ {
+  "start": 387.11,
+  "end": 388.585,
+  "en": "you'll get an error"
+ },
+ {
+  "start": 389.13,
+  "end": 389.82,
+  "en": "at runtime"
+ },
+ {
+  "start": 390.397,
+  "end": 392.818,
+  "en": "when you have an incorrect"
+ },
+ {
+  "start": 393.619,
+  "end": 394.116,
+  "en": "name here."
+ },
+ {
+  "start": 394.838,
+  "end": 396.137,
+  "en": "So if I have i,"
+ },
+ {
+  "start": 397.147,
+  "end": 399.503,
+  "en": "map this to ID and I adjust this type, then"
+ },
+ {
+  "start": 399.632,
+  "end": 401.507,
+  "en": "TypeScript is happy, but this will fail"
+ },
+ {
+  "start": 401.555,
+  "end": 404.105,
+  "en": "because in the query I'm expecting ID, not"
+ },
+ {
+  "start": 404.265,
+  "end": 404.297,
+  "en": "i."
+ },
+ {
+  "start": 405.403,
+  "end": 407.552,
+  "en": "At runtime, I would get an error with this"
+ },
+ {
+  "start": 407.552,
+  "end": 410.664,
+  "en": "code here without strict. It would just"
+ },
+ {
+  "start": 410.857,
+  "end": 413.299,
+  "en": "insert nothing as an ID. So it would not"
+ },
+ {
+  "start": 413.492,
+  "end": 415.789,
+  "en": "error, it would just insert nothing as an"
+ },
+ {
+  "start": 415.821,
+  "end": 418.456,
+  "en": "ID, which might cause an error because of"
+ },
+ {
+  "start": 418.488,
+  "end": 421.026,
+  "en": "constraints, but which could also fail for"
+ },
+ {
+  "start": 421.138,
+  "end": 424.287,
+  "en": "other SQL commands. So to get a clear error"
+ },
+ {
+  "start": 424.432,
+  "end": 426.842,
+  "en": "that tells us that we have a typo in our"
+ },
+ {
+  "start": 426.842,
+  "end": 427.452,
+  "en": "parameters,"
+ },
+ {
+  "start": 428.03,
+  "end": 431.099,
+  "en": "we should use strict mode. And that's what"
+ },
+ {
+  "start": 431.163,
+  "end": 433.814,
+  "en": "I'm doing. Now, when you're getting multiple"
+ },
+ {
+  "start": 433.894,
+  "end": 436.545,
+  "en": "entries, you can use all instead of get."
+ },
+ {
+  "start": 436.786,
+  "end": 439.193,
+  "en": "Here without any parameter because I don't"
+ },
+ {
+  "start": 439.274,
+  "end": 441.778,
+  "en": "have any dynamic values in this command. But"
+ },
+ {
+  "start": 441.778,
+  "end": 445.116,
+  "en": "if you know that you'll get a lot of rows,"
+ },
+ {
+  "start": 445.694,
+  "end": 448.519,
+  "en": "you could also consider using iterate"
+ },
+ {
+  "start": 448.984,
+  "end": 449.915,
+  "en": "instead of all."
+ },
+ {
+  "start": 450.541,
+  "end": 452.917,
+  "en": "So instead of all, you can use iterate and"
+ },
+ {
+  "start": 452.933,
+  "end": 455.164,
+  "en": "then you can loop through those rows to"
+ },
+ {
+  "start": 455.26,
+  "end": 457.588,
+  "en": "process the rows row by row instead of"
+ },
+ {
+  "start": 457.588,
+  "end": 459.61,
+  "en": "fetching them all at once, which"
+ },
+ {
+  "start": 460.236,
+  "end": 461.889,
+  "en": "would mean that they get all loaded into"
+ },
+ {
+  "start": 461.921,
+  "end": 463.751,
+  "en": "memory, which could be a problem if you're"
+ },
+ {
+  "start": 463.848,
+  "end": 466.258,
+  "en": "working on a lot of rows. Alternatively, Bun"
+ },
+ {
+  "start": 466.468,
+  "end": 468.294,
+  "en": "even allows you to loop directly on the"
+ },
+ {
+  "start": 468.294,
+  "end": 470.96,
+  "en": "query and it'll then execute it row by row"
+ },
+ {
+  "start": 470.96,
+  "end": 473.077,
+  "en": "behind the scenes. So that would be possible"
+ },
+ {
+  "start": 473.077,
+  "end": 473.206,
+  "en": "too"
+ },
+ {
+  "start": 473.788,
+  "end": 476.038,
+  "en": "if you're working with lots of rows."
+ },
+ {
+  "start": 476.637,
+  "end": 478.678,
+  "en": "You don't need to do that if you just have a"
+ },
+ {
+  "start": 478.808,
+  "end": 479.828,
+  "en": "couple of dozen or"
+ },
+ {
+  "start": 480.363,
+  "end": 481.303,
+  "en": "a few hundred rows,"
+ },
+ {
+  "start": 482.977,
+  "end": 484.969,
+  "en": "depending on what's in those rows, of"
+ },
+ {
+  "start": 484.985,
+  "end": 485.21,
+  "en": "course."
+ },
+ {
+  "start": 486.11,
+  "end": 488.825,
+  "en": "Now, one other thing you see here is this as"
+ },
+ {
+  "start": 488.921,
+  "end": 491.556,
+  "en": "method with as note. That's just a little"
+ },
+ {
+  "start": 491.589,
+  "end": 494.058,
+  "en": "convenience feature provided by Bun where"
+ },
+ {
+  "start": 494.272,
+  "end": 495.195,
+  "en": "you can tell it how it should convert"
+ },
+ {
+  "start": 497.096,
+  "end": 499.934,
+  "en": "that data when it retrieves it. So here with"
+ },
+ {
+  "start": 500.143,
+  "end": 502.692,
+  "en": "all, we'll get an array of all our notes."
+ },
+ {
+  "start": 503.029,
+  "end": 505.338,
+  "en": "But to make sure that every single element"
+ },
+ {
+  "start": 505.45,
+  "end": 509.106,
+  "en": "in that array is of type Note and is using"
+ },
+ {
+  "start": 509.203,
+  "end": 512.282,
+  "en": "our class Note, I defined a class named"
+ },
+ {
+  "start": 512.346,
+  "end": 514.815,
+  "en": "Note. So not just a type, instead a real"
+ },
+ {
+  "start": 514.831,
+  "end": 516.948,
+  "en": "class, which is a real JavaScript feature"
+ },
+ {
+  "start": 517.397,
+  "end": 519.498,
+  "en": "with all the properties a note should have"
+ },
+ {
+  "start": 519.498,
+  "end": 520.829,
+  "en": "and a little utility method."
+ },
+ {
+  "start": 521.39,
+  "end": 523.458,
+  "en": "And with this as method added,"
+ },
+ {
+  "start": 524.292,
+  "end": 527.288,
+  "en": "Bunn will create an instance of that class"
+ },
+ {
+  "start": 527.4,
+  "end": 529.948,
+  "en": "for every element, for every entry, every"
+ },
+ {
+  "start": 530.124,
+  "end": 532.848,
+  "en": "row it returned or it got out of the"
+ },
+ {
+  "start": 532.864,
+  "end": 533.585,
+  "en": "database here"
+ },
+ {
+  "start": 534.13,
+  "end": 536.245,
+  "en": "and will then therefore get back an array of"
+ },
+ {
+  "start": 536.245,
+  "end": 538.952,
+  "en": "such notes here. So getNotes returns an"
+ },
+ {
+  "start": 538.952,
+  "end": 542.125,
+  "en": "array of Note instances in my case. That is"
+ },
+ {
+  "start": 542.221,
+  "end": 544.72,
+  "en": "very useful. You have to create a class for"
+ },
+ {
+  "start": 544.72,
+  "end": 547.38,
+  "en": "that though. You can't just pass in a type"
+ },
+ {
+  "start": 547.46,
+  "end": 549.944,
+  "en": "or interface here because those don't exist"
+ },
+ {
+  "start": 549.944,
+  "end": 552.539,
+  "en": "at runtime. You need to pass in a class."
+ },
+ {
+  "start": 553.213,
+  "end": 554.8,
+  "en": "And then last but not least, it's worth"
+ },
+ {
+  "start": 554.8,
+  "end": 557.541,
+  "en": "noting that Bun also offers a close method"
+ },
+ {
+  "start": 557.541,
+  "end": 559.48,
+  "en": "on the database, which you don't necessarily"
+ },
+ {
+  "start": 559.609,
+  "end": 561.484,
+  "en": "have to call. It should do that"
+ },
+ {
+  "start": 561.548,
+  "end": 563.712,
+  "en": "automatically when the Bun process shuts"
+ },
+ {
+  "start": 563.712,
+  "end": 565.989,
+  "en": "down, but you can explicitly call it here."
+ },
+ {
+  "start": 566.518,
+  "end": 568.682,
+  "en": "And I'm doing that in the end from my"
+ },
+ {
+  "start": 568.762,
+  "end": 571.471,
+  "en": "index.ts file with that cleanShutdown method"
+ },
+ {
+  "start": 571.471,
+  "end": 573.363,
+  "en": "I mentioned before, or that cleanShutdown"
+ },
+ {
+  "start": 573.475,
+  "end": 574.709,
+  "en": "function I mentioned before."
+ },
+ {
+  "start": 575.478,
+  "end": 578.123,
+  "en": "And when you call close, that just does what"
+ },
+ {
+  "start": 578.123,
+  "end": 580.368,
+  "en": "the name implies. It cleanly closes the"
+ },
+ {
+  "start": 580.368,
+  "end": 582.516,
+  "en": "connection and does all the remaining"
+ },
+ {
+  "start": 582.532,
+  "end": 584.455,
+  "en": "cleanup work, like for example, this here,"
+ },
+ {
+  "start": 584.953,
+  "end": 586.735,
+  "en": "where it removes these redundant"
+ },
+ {
+  "start": 587.506,
+  "end": 589.625,
+  "en": "wall-related files. So if I start the"
+ },
+ {
+  "start": 589.625,
+  "end": 592.515,
+  "en": "server, those files show up. If I stop it,"
+ },
+ {
+  "start": 592.579,
+  "end": 594.843,
+  "en": "they are removed. And that happens because"
+ },
+ {
+  "start": 594.843,
+  "end": 598.279,
+  "en": "of these settings and because I call close"
+ },
+ {
+  "start": 598.279,
+  "end": 598.696,
+  "en": "in the end."
+ },
+ {
+  "start": 599.964,
+  "end": 603.818,
+  "en": "Now, I won't dive into SQL syntax or"
+ },
+ {
+  "start": 603.818,
+  "end": 605.728,
+  "en": "anything like that because this is obviously"
+ },
+ {
+  "start": 605.728,
+  "end": 606.74,
+  "en": "not a SQL course,"
+ },
+ {
+  "start": 607.27,
+  "end": 609.597,
+  "en": "but this hopefully shows you how easy and"
+ },
+ {
+  "start": 609.597,
+  "end": 611.011,
+  "en": "powerful it is to"
+ },
+ {
+  "start": 611.673,
+  "end": 614.818,
+  "en": "interact with a SQLite database through"
+ },
+ {
+  "start": 614.915,
+  "end": 618.609,
+  "en": "Bun's built-in SQLite client. So it's yet"
+ },
+ {
+  "start": 618.609,
+  "end": 620.642,
+  "en": "another feature we can use in our apps"
+ },
+ {
+  "start": 620.803,
+  "end": 623.352,
+  "en": "without installing any extra dependencies."
+ }
+]

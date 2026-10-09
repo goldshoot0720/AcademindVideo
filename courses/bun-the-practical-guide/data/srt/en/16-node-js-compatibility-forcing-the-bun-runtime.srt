@@ -1,0 +1,483 @@
+1
+00:00:00,176 --> 00:00:03,093
+Now, I mentioned earlier in the course that
+
+2
+00:00:03,157 --> 00:00:06,490
+Bun has great Node.js compatibility and
+
+3
+00:00:06,522 --> 00:00:09,455
+therefore I rebuilt this entire utility
+
+4
+00:00:09,471 --> 00:00:13,782
+project now using just Node.js, no more Bun.
+
+5
+00:00:14,680 --> 00:00:16,843
+For the image processing, I'm therefore
+
+6
+00:00:16,924 --> 00:00:19,552
+using the Sharp package, a third-party
+
+7
+00:00:19,568 --> 00:00:22,164
+package which helps with image processing.
+
+8
+00:00:22,228 --> 00:00:24,520
+Guess what? Because Node.js, unlike Bun,
+
+9
+00:00:25,033 --> 00:00:27,084
+doesn't have built-in image processing
+
+10
+00:00:27,116 --> 00:00:29,168
+capabilities, at least at the point of time
+
+11
+00:00:29,264 --> 00:00:31,444
+where I'm recording this. But the rest of
+
+12
+00:00:31,444 --> 00:00:33,544
+the code doesn't look too different because
+
+13
+00:00:33,544 --> 00:00:36,878
+modern Node.js also supports TypeScript and
+
+14
+00:00:36,878 --> 00:00:38,818
+for example, also has a built-in test
+
+15
+00:00:38,818 --> 00:00:41,126
+runner. So I still have tests, I'm still
+
+16
+00:00:41,126 --> 00:00:42,777
+using TypeScript and I still have the same
+
+17
+00:00:42,889 --> 00:00:44,060
+folder structure as before.
+
+18
+00:00:44,733 --> 00:00:46,512
+Also added some detailed comments to make it
+
+19
+00:00:46,512 --> 00:00:48,372
+a bit easier to understand what's going on
+
+20
+00:00:48,372 --> 00:00:49,125
+in the codebase.
+
+21
+00:00:49,702 --> 00:00:51,866
+And of course, you also find this project
+
+22
+00:00:51,866 --> 00:00:52,379
+attached.
+
+23
+00:00:53,004 --> 00:00:55,858
+The important thing here is this all uses
+
+24
+00:00:56,194 --> 00:01:00,266
+only Node.js, no Bun APIs and therefore of
+
+25
+00:01:00,282 --> 00:01:02,847
+course we can run this entire project with
+
+26
+00:01:02,863 --> 00:01:05,895
+just Node and we do so. In the scripts, the
+
+27
+00:01:05,976 --> 00:01:09,505
+optimize-images script uses Node to execute
+
+28
+00:01:09,585 --> 00:01:11,574
+optimize-images.ts, not Bun.
+
+29
+00:01:12,504 --> 00:01:14,381
+So I can run npm run
+
+30
+00:01:15,039 --> 00:01:18,424
+optimize-images to run that script
+
+31
+00:01:19,049 --> 00:01:21,103
+and just as before, I get an error if there
+
+32
+00:01:21,456 --> 00:01:24,215
+are some missing inputs. So therefore, just
+
+33
+00:01:24,215 --> 00:01:26,493
+as before, I should provide my images path,
+
+34
+00:01:26,942 --> 00:01:28,931
+so my path to the images folder.
+
+35
+00:01:29,573 --> 00:01:32,267
+In my case, that's this local path. I'll add
+
+36
+00:01:32,299 --> 00:01:32,957
+--recursive,
+
+37
+00:01:34,144 --> 00:01:37,480
+--format I'll set to WebP to get WebP images
+
+38
+00:01:37,528 --> 00:01:39,966
+as output, and quality I'll set to 80.
+
+39
+00:01:40,640 --> 00:01:44,938
+Now, important with npm run here to truly
+
+40
+00:01:45,114 --> 00:01:47,985
+pass in these arguments, I need to add
+
+41
+00:01:48,082 --> 00:01:50,776
+double dashes like this between the npm
+
+42
+00:01:50,840 --> 00:01:53,471
+script and then the inputs for that npm
+
+43
+00:01:53,471 --> 00:01:55,845
+script. That's simply required here when
+
+44
+00:01:55,957 --> 00:01:58,604
+using npm for executing this. But with that,
+
+45
+00:01:59,085 --> 00:02:02,006
+it'll go ahead and do its job and produce
+
+46
+00:02:02,054 --> 00:02:04,430
+these optimized versions of the images.
+
+47
+00:02:05,264 --> 00:02:06,869
+So that works just as before.
+
+48
+00:02:07,655 --> 00:02:09,806
+However, what's worth noting of course is
+
+49
+00:02:09,918 --> 00:02:10,207
+that
+
+50
+00:02:10,785 --> 00:02:14,220
+we can execute this with npm and Node
+
+51
+00:02:14,316 --> 00:02:15,824
+therefore in the end since that's what I'm
+
+52
+00:02:15,841 --> 00:02:16,354
+using here.
+
+53
+00:02:17,060 --> 00:02:19,933
+But of course, as mentioned, Bun has that
+
+54
+00:02:19,933 --> 00:02:22,886
+Node.js compatibility so we could also do it
+
+55
+00:02:22,902 --> 00:02:23,849
+with Bun instead.
+
+56
+00:02:24,632 --> 00:02:26,845
+So we could try bun run
+
+57
+00:02:27,588 --> 00:02:32,677
+optimize-images.ts like that, and we'll get
+
+58
+00:02:32,677 --> 00:02:34,559
+the same error output as before. And
+
+59
+00:02:34,559 --> 00:02:35,161
+therefore
+
+60
+00:02:35,927 --> 00:02:37,783
+here, I'll reuse this
+
+61
+00:02:38,939 --> 00:02:39,813
+and say bun run
+
+62
+00:02:41,117 --> 00:02:44,530
+optimize-images.ts like that.
+
+63
+00:02:45,061 --> 00:02:46,913
+Now we don't need the double dashes with the
+
+64
+00:02:46,929 --> 00:02:49,190
+Bun runtime used for executing a file or a
+
+65
+00:02:49,190 --> 00:02:49,856
+script like this.
+
+66
+00:02:50,506 --> 00:02:51,742
+And remove the clear at the end
+
+67
+00:02:52,271 --> 00:02:53,795
+and it'll also work.
+
+68
+00:02:54,357 --> 00:02:56,458
+However, there's one important thing to note
+
+69
+00:02:56,458 --> 00:02:58,063
+here. For this project,
+
+70
+00:02:59,025 --> 00:02:59,956
+this command here,
+
+71
+00:03:00,549 --> 00:03:03,164
+despite using Bun for running this,
+
+72
+00:03:04,143 --> 00:03:06,325
+will not actually have used Bun as a
+
+73
+00:03:06,325 --> 00:03:09,389
+runtime. Why? Because in the code I produced
+
+74
+00:03:09,389 --> 00:03:10,657
+in optimize-images.ts,
+
+75
+00:03:11,202 --> 00:03:13,961
+I have this thing here at the top of this
+
+76
+00:03:14,010 --> 00:03:17,218
+root entry file of this program. I have this
+
+77
+00:03:17,700 --> 00:03:19,273
+shebang or hashbang
+
+78
+00:03:19,947 --> 00:03:21,792
+annotation here at the root of this file.
+
+79
+00:03:21,888 --> 00:03:24,472
+Now, what does this do? This tells the
+
+80
+00:03:24,472 --> 00:03:26,943
+machine that when you run this file, it
+
+81
+00:03:26,943 --> 00:03:27,794
+should use this
+
+82
+00:03:28,693 --> 00:03:31,453
+process, this tool, this software, you could
+
+83
+00:03:31,453 --> 00:03:31,710
+say,
+
+84
+00:03:32,239 --> 00:03:33,876
+for executing the file.
+
+85
+00:03:34,470 --> 00:03:37,888
+And therefore, despite using bun run here
+
+86
+00:03:37,936 --> 00:03:40,472
+for running this, it'll fall back to using
+
+87
+00:03:40,504 --> 00:03:42,991
+Node.js due to this instruction.
+
+88
+00:03:43,553 --> 00:03:45,416
+And I'm mentioning this here because of
+
+89
+00:03:45,465 --> 00:03:47,344
+course I could remove that, it's my code,
+
+90
+00:03:47,649 --> 00:03:50,508
+but sometimes you'll work with packages,
+
+91
+00:03:50,621 --> 00:03:53,753
+with tools that may also use Node.js
+
+92
+00:03:53,753 --> 00:03:55,938
+internally that may have an annotation like
+
+93
+00:03:56,002 --> 00:03:58,556
+this inside which you can't easily change
+
+94
+00:03:58,572 --> 00:04:00,017
+because it's not your code.
+
+95
+00:04:00,740 --> 00:04:03,246
+And to override this instruction, Bun has a
+
+96
+00:04:03,246 --> 00:04:03,776
+special
+
+97
+00:04:04,354 --> 00:04:06,571
+parameter you can add to bun run.
+
+98
+00:04:07,246 --> 00:04:08,627
+You can add bun run --package-annotations.
+
+99
+00:04:10,680 --> 00:04:13,727
+Or single -b does the same, and add that in
+
+100
+00:04:13,727 --> 00:04:15,522
+front of the thing, in front of the file,
+
+101
+00:04:15,587 --> 00:04:17,703
+for example, or in front of the script name
+
+102
+00:04:18,136 --> 00:04:21,007
+you want to execute. And adding this simply
+
+103
+00:04:21,039 --> 00:04:24,005
+tells Bun that you absolutely want to use
+
+104
+00:04:24,005 --> 00:04:26,250
+the Bun runtime and you want to enforce the
+
+105
+00:04:26,314 --> 00:04:27,757
+usage of the Bun runtime.
+
+106
+00:04:28,415 --> 00:04:31,205
+So you can always add that when you wanna
+
+107
+00:04:31,205 --> 00:04:33,803
+use the Bun runtime, but you must add it if
+
+108
+00:04:33,851 --> 00:04:36,160
+you otherwise use the Node runtime. So
+
+109
+00:04:36,257 --> 00:04:38,184
+adding this is never wrong, but of course,
+
+110
+00:04:38,216 --> 00:04:40,208
+if you know that you don't have an
+
+111
+00:04:40,224 --> 00:04:42,055
+instruction like this in your code, it's
+
+112
+00:04:42,120 --> 00:04:42,858
+also redundant.
+
+113
+00:04:43,404 --> 00:04:45,203
+But here, if I add this, it'll work like
+
+114
+00:04:45,268 --> 00:04:46,344
+before, but now
+
+115
+00:04:46,874 --> 00:04:49,026
+it'll actually use the Bun runtime. And
+
+116
+00:04:49,107 --> 00:04:51,082
+that's why it's worth noting that for one,
+
+117
+00:04:51,532 --> 00:04:53,909
+Bun has that Node.js compatibility, which is
+
+118
+00:04:53,941 --> 00:04:56,559
+great. You can use your Node tools or web
+
+119
+00:04:56,576 --> 00:04:59,611
+servers and run them with Bun. But B, you
+
+120
+00:04:59,659 --> 00:05:02,101
+may need to add that to ensure that you're
+
+121
+00:05:02,278 --> 00:05:03,466
+really using Bun.

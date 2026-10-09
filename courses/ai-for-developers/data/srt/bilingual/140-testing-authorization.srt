@@ -1,0 +1,304 @@
+1
+00:00:02,152 --> 00:00:03,138
+Yeah, but with that,
+是的，但是這樣一來，
+
+2
+00:00:03,784 --> 00:00:04,205
+that's
+那是
+
+3
+00:00:04,996 --> 00:00:07,097
+looking good. Hopefully that should do the
+看起來不錯。希望這應該能做到
+
+4
+00:00:07,162 --> 00:00:07,356
+trick.
+詭計。
+
+5
+00:00:07,905 --> 00:00:10,637
+Now to test it, I'll delete this database
+現在為了測試它，我將刪除這個資料庫
+
+6
+00:00:10,637 --> 00:00:10,766
+file
+檔案
+
+7
+00:00:13,468 --> 00:00:14,034
+to clear it
+清除它
+
+8
+00:00:15,166 --> 00:00:17,981
+and I'll restart the server to reinitialize
+我將重新啟動伺服器以重新初始化
+
+9
+00:00:18,078 --> 00:00:18,693
+the database
+資料庫
+
+10
+00:00:19,550 --> 00:00:20,530
+with npm run dev.
+使用 npm run dev。
+
+11
+00:00:22,597 --> 00:00:23,627
+And then we can give this a try.
+然後我們可以嘗試一下。
+
+12
+00:00:25,100 --> 00:00:27,069
+Now, first of all, we need to create a new
+現在，首先，我們需要建立一個新的
+
+13
+00:00:27,150 --> 00:00:29,812
+user. Since I deleted the database.
+使用者。因為我刪除了資料庫。
+
+14
+00:00:30,462 --> 00:00:33,742
+So I'll resend that POST signup request here
+因此，我將在此處重新發送 POST 註冊請求
+
+15
+00:00:34,424 --> 00:00:36,143
+with my dummy user data
+與我的虛擬使用者資料
+
+16
+00:00:38,812 --> 00:00:39,216
+like this.
+像這樣。
+
+17
+00:00:39,863 --> 00:00:41,884
+Now I get back a token here as well, which I
+現在我也在這裡取回了一個令牌，我
+
+18
+00:00:41,884 --> 00:00:42,256
+can use.
+可以使用。
+
+19
+00:00:43,643 --> 00:00:44,415
+And then we can
+然後我們就可以
+
+20
+00:00:45,475 --> 00:00:46,053
+get events.
+獲取事件。
+
+21
+00:00:46,616 --> 00:00:48,688
+That doesn't yield anything, of course. So
+當然，這不會產生任何結果。所以
+
+22
+00:00:48,785 --> 00:00:50,407
+we can post a new event
+我們可以發布一個新事件
+
+23
+00:00:52,143 --> 00:00:53,613
+with the same data as before, doesn't
+使用與之前相同的資料，不會
+
+24
+00:00:53,613 --> 00:00:55,506
+matter, but with a different token.
+很重要，但具有不同的標記。
+
+25
+00:00:56,083 --> 00:00:56,535
+So I will
+所以我會
+
+26
+00:00:57,115 --> 00:00:59,453
+replace, whoops, we'll replace that token
+替換，哎呀，我們將替換該令牌
+
+27
+00:00:59,534 --> 00:01:00,227
+value here
+值在這裡
+
+28
+00:01:02,856 --> 00:01:04,982
+with my new token, send this
+使用我的新令牌，發送此訊息
+
+29
+00:01:05,900 --> 00:01:06,625
+and it's stored.
+並且它被儲存了。
+
+30
+00:01:08,171 --> 00:01:10,684
+And now create a second user with
+現在建立第二個使用者
+
+31
+00:01:10,764 --> 00:01:13,378
+test2@example.com as an email address
+test2@example.com 作為電子郵件地址
+
+32
+00:01:15,295 --> 00:01:17,812
+so that I get a different token for a
+這樣我就可以得到不同的令牌
+
+33
+00:01:17,861 --> 00:01:20,151
+different user. Might look similar, but it's
+不同的使用者。可能看起來很相似，但它是
+
+34
+00:01:20,151 --> 00:01:20,768
+a different token.
+不同的令牌。
+
+35
+00:01:22,858 --> 00:01:24,925
+And with that, I'll now try to edit this
+有了這個，我現在嘗試編輯這個
+
+36
+00:01:25,022 --> 00:01:27,380
+event. So this event with the ID 1, which I
+事件。所以這個事件的 ID 為 1，我
+
+37
+00:01:27,380 --> 00:01:30,061
+just created, I'll use that token of that
+剛剛創建，我將使用該令牌
+
+38
+00:01:30,061 --> 00:01:31,289
+second user here.
+這裡是第二個使用者。
+
+39
+00:01:33,136 --> 00:01:35,052
+And even though that's a valid token and
+即使這是一個有效的令牌並且
+
+40
+00:01:35,084 --> 00:01:37,468
+therefore the user will be authenticated,
+因此使用者將被驗證，
+
+41
+00:01:38,208 --> 00:01:41,204
+it should not be authorized to edit this
+它不應被授權編輯此內容
+
+42
+00:01:41,204 --> 00:01:43,653
+event because the event was created by a
+事件，因為該事件是由
+
+43
+00:01:43,653 --> 00:01:44,340
+different user.
+不同的使用者。
+
+44
+00:01:46,540 --> 00:01:48,889
+So indeed I get this error, forbidden, you
+所以我確實得到了這個錯誤，禁止，你
+
+45
+00:01:48,921 --> 00:01:50,509
+are not allowed to edit. The same should
+不允許編輯。同樣應該
+
+46
+00:01:50,687 --> 00:01:51,319
+happen if I try to delete it.
+如果我嘗試刪除它，就會發生這種情況。
+
+47
+00:01:53,279 --> 00:01:55,786
+If I try to delete the event with ID 1
+如果我嘗試刪除 ID 為 1 的事件
+
+48
+00:01:57,425 --> 00:01:59,354
+with that token, does not work.
+有了這個令牌，就不起作用。
+
+49
+00:02:01,202 --> 00:02:03,245
+If I now log in with my
+如果我現在用我的
+
+50
+00:02:03,970 --> 00:02:06,466
+main user who created the event
+創建事件的主要使用者
+
+51
+00:02:07,818 --> 00:02:09,895
+and I get the token of that user
+我得到了該使用者的令牌
+
+52
+00:02:11,264 --> 00:02:12,896
+and I now try to edit it,
+我現在嘗試編輯它，
+
+53
+00:02:14,368 --> 00:02:16,778
+so if I use that token now for this PUT
+所以如果我現在使用該令牌進行此 PUT
+
+54
+00:02:16,778 --> 00:02:17,311
+request
+要求
+
+55
+00:02:17,991 --> 00:02:18,799
+and I click send,
+然後我點擊發送，
+
+56
+00:02:19,373 --> 00:02:20,226
+That works.
+那行得通。
+
+57
+00:02:22,109 --> 00:02:24,039
+And if I get all events, we should now see
+如果我得到所有事件，我們現在應該看到
+
+58
+00:02:24,039 --> 00:02:25,873
+the updated event there. Yes, we do.
+那裡更新了事件。是的，我們願意。
+
+59
+00:02:27,660 --> 00:02:30,890
+So that works and that's authorization added
+這樣就可以了，並且添加了授權
+
+60
+00:02:30,986 --> 00:02:33,719
+to this app, making sure that only the user
+到此應用程式，確保只有使用者
+
+61
+00:02:33,799 --> 00:02:36,097
+who created an event can manipulate it.
+創建事件的人可以操縱它。

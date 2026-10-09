@@ -1,0 +1,494 @@
+1
+00:00:00,000 --> 00:00:02,883
+So this subagents feature is very useful,
+所以這個子代理功能非常有用，
+
+2
+00:00:03,300 --> 00:00:06,136
+but I mentioned that we have a problem here
+但我提到我們這裡有一個問題
+
+3
+00:00:06,200 --> 00:00:07,962
+when it comes to looking up documentation.
+當涉及到查找文檔時。
+
+4
+00:00:08,266 --> 00:00:10,814
+These steps are all done step after step on
+這些步驟都是一步一步完成的
+
+5
+00:00:10,910 --> 00:00:13,137
+the main agent. And as you can imagine,
+主要代理。正如你可以想像的那樣，
+
+6
+00:00:13,553 --> 00:00:16,261
+reading documentation articles, that's quite
+閱讀檔案文章，這相當
+
+7
+00:00:16,373 --> 00:00:18,584
+a lot of text that goes into the main
+正文中有很多文字
+
+8
+00:00:18,600 --> 00:00:21,420
+context window. So not only does it take
+上下文視窗。所以不僅需要
+
+9
+00:00:21,420 --> 00:00:24,624
+time, but it also pollutes the main context
+時間，但它也污染了主要上下文
+
+10
+00:00:24,624 --> 00:00:26,915
+window. That's why it could make sense to
+窗戶。這就是為什麼它可能是有意義的
+
+11
+00:00:26,947 --> 00:00:30,391
+build a dedicated documentation explorer.
+建立一個專用的文檔瀏覽器。
+
+12
+00:00:31,676 --> 00:00:33,508
+Now, it's also possible that by the point of
+現在，也有可能
+
+13
+00:00:33,508 --> 00:00:35,902
+time you're watching this, such an agent is
+當你看到這個的時候，這樣的特務就是
+
+14
+00:00:36,014 --> 00:00:38,151
+already built in. It's a great example
+已經內建了。這是一個很好的例子
+
+15
+00:00:38,167 --> 00:00:40,015
+nonetheless. And right now when I'm
+儘管如此。而現在當我
+
+16
+00:00:40,015 --> 00:00:41,461
+recording this, it's not.
+記錄這個，不是。
+
+17
+00:00:42,040 --> 00:00:44,434
+So how do you build your own agent?
+那麼如何建立自己的代理呢？
+
+18
+00:00:45,253 --> 00:00:47,824
+Well, you can add a local agent for your
+那麼，您可以為您的產品添加本地代理
+
+19
+00:00:47,904 --> 00:00:48,916
+project by going to this
+專案透過轉到此
+
+20
+00:00:49,672 --> 00:00:50,459
+.cloud folder
+.cloud資料夾
+
+21
+00:00:51,037 --> 00:00:54,395
+and adding an agents subfolder there. That
+並在那裡添加一個代理子資料夾。那
+
+22
+00:00:54,395 --> 00:00:56,404
+name is not up to you, it must be named
+名字不能由你決定，它必須被命名
+
+23
+00:00:56,404 --> 00:00:59,437
+agents. Agents. And then I already prepared
+代理。代理商。然後我就已經準備好了
+
+24
+00:00:59,469 --> 00:01:01,538
+a Docs Explorer agent which you find
+您找到的檔案資源管理器代理
+
+25
+00:01:01,554 --> 00:01:04,394
+attached. You can just paste it into this
+隨附的。您只需將其貼到此即可
+
+26
+00:01:04,506 --> 00:01:05,404
+agents folder.
+代理資料夾。
+
+27
+00:01:06,367 --> 00:01:07,281
+This name is up to you.
+這個名字由你決定。
+
+28
+00:01:07,875 --> 00:01:10,137
+It of course should kind of describe this
+它當然應該描述這一點
+
+29
+00:01:10,137 --> 00:01:12,062
+agent and it must be a markdown file.
+代理，它必須是一個 markdown 檔案。
+
+30
+00:01:12,864 --> 00:01:15,527
+And in that file you then give this agent a
+然後在該檔案中，您給該代理一個
+
+31
+00:01:15,527 --> 00:01:17,308
+name which should be the same as the file
+名稱應與檔案相同
+
+32
+00:01:17,356 --> 00:01:18,479
+name, Docs Explorer,
+名稱、檔案資源管理器、
+
+33
+00:01:19,025 --> 00:01:20,404
+and you give it a description. This
+然後你給它一個描述。這
+
+34
+00:01:20,404 --> 00:01:22,779
+description will also be important because
+描述也很重要，因為
+
+35
+00:01:22,971 --> 00:01:23,260
+it will
+它將
+
+36
+00:01:23,854 --> 00:01:26,421
+give Claude Code some hints on when to use
+給 Claude Code 一些關於何時使用的提示
+
+37
+00:01:26,421 --> 00:01:26,613
+this
+這
+
+38
+00:01:27,207 --> 00:01:30,273
+agent, so when to outsource tasks to this
+代理，那麼什麼時候將任務外包給這個代理
+
+39
+00:01:30,273 --> 00:01:32,343
+agent. So here I wanna make it clear that
+代理人。所以在這裡我想明確的是
+
+40
+00:01:32,343 --> 00:01:34,414
+this agent is there to look up documentation
+該代理是來查找文檔的
+
+41
+00:01:34,510 --> 00:01:36,838
+for libraries, frameworks, and so on. You
+用於函式庫、框架等。你
+
+42
+00:01:36,854 --> 00:01:39,743
+then can give your agent tools, and attached
+然後可以給你代理工具，並附上
+
+43
+00:01:39,743 --> 00:01:40,851
+you find a link to the official
+你找到官方的連結
+
+44
+00:01:40,851 --> 00:01:42,681
+documentation that lists all the tools
+列出所有工具的文檔
+
+45
+00:01:43,259 --> 00:01:46,292
+you can give to your Claude Code subagents.
+您可以將其交給您的 Claude Code 子代理程式。
+
+46
+00:01:46,710 --> 00:01:48,491
+Actually, there's one tool I wanna add, and
+實際上，我想添加一個工具，並且
+
+47
+00:01:48,491 --> 00:01:51,300
+that's the MCP search tool. This tool allows
+這就是 MCP 搜尋工具。這個工具允許
+
+48
+00:01:51,300 --> 00:01:51,718
+it to
+它到
+
+49
+00:01:52,344 --> 00:01:54,479
+dynamically load MCP tools.
+動態載入 MCP 工具。
+
+50
+00:01:55,137 --> 00:01:58,411
+You also define which model should be used
+您也可以定義應使用哪個模型
+
+51
+00:01:58,443 --> 00:01:59,326
+for this task.
+為了這個任務。
+
+52
+00:01:59,872 --> 00:02:02,006
+And here right now when I'm recording this,
+現在當我正在錄製這個時，
+
+53
+00:02:02,135 --> 00:02:04,334
+I could use Opus or Sonnet.
+我可以使用 Opus 或 Sonnet。
+
+54
+00:02:05,184 --> 00:02:07,175
+And Sonnet is simply a bit cheaper. And
+而 Sonnet 只是便宜一點。和
+
+55
+00:02:07,191 --> 00:02:09,807
+since exploring documentation is not a super
+因為探索檔案不是超級任務
+
+56
+00:02:09,823 --> 00:02:12,391
+hard task, I don't need the smartest model.
+艱鉅的任務，我不需要最聰明的模型。
+
+57
+00:02:12,712 --> 00:02:15,617
+I want a model that's fast and comparatively
+我想要一個快速且相對比較的模型
+
+58
+00:02:15,617 --> 00:02:17,848
+cheap. That's why I'm using Sonnet here.
+便宜的。這就是我在這裡使用十四行詩的原因。
+
+59
+00:02:18,169 --> 00:02:19,935
+Right now when I'm recording this, the
+現在，當我錄製這個時，
+
+60
+00:02:19,935 --> 00:02:22,182
+available options are Sonnet, Opus, or
+可用選項有 Sonnet、Opus 或
+
+61
+00:02:22,182 --> 00:02:24,348
+Haiku, which would be the cheapest. We could
+俳句，這是最便宜的。我們可以
+
+62
+00:02:24,348 --> 00:02:26,098
+probably use that, but I'll use the one in
+可能會使用它，但我會使用其中的一個
+
+63
+00:02:26,130 --> 00:02:29,225
+the middle. And then you just describe to
+中間。然後你只需要描述
+
+64
+00:02:29,258 --> 00:02:32,288
+Claude Code how that subagent should work.
+Claude 編寫該子代理程式如何運作的程式碼。
+
+65
+00:02:32,545 --> 00:02:34,004
+So you don't need to be technical here.
+所以你不需要在這裡懂技術。
+
+66
+00:02:34,068 --> 00:02:35,688
+Instead, I described that it's a
+相反，我描述它是一個
+
+67
+00:02:35,688 --> 00:02:36,281
+documentation
+檔案
+
+68
+00:02:36,955 --> 00:02:40,771
+specialist, that it should work in parallel,
+專家，它應該並行工作，
+
+69
+00:02:41,285 --> 00:02:43,257
+execute all lookups in parallel,
+並行執行所有查找，
+
+70
+00:02:43,834 --> 00:02:45,855
+that it should use the Context7 MCP as a
+它應該使用 Context7 MCP 作為
+
+71
+00:02:45,855 --> 00:02:48,437
+primary source, that it should fall back to
+主要來源，它應該回溯到
+
+72
+00:02:48,501 --> 00:02:51,227
+web search if Context7 doesn't work or
+如果 Context7 不起作用或
+
+73
+00:02:51,227 --> 00:02:53,199
+doesn't provide the information it needs.
+不提供它需要的資訊。
+
+74
+00:02:53,938 --> 00:02:56,186
+I then have the information about the
+然後我就得到了有關的資訊
+
+75
+00:02:56,186 --> 00:02:59,333
+concrete Context7 tools it should use, which
+它應該使用的具體 Context7 工具，其中
+
+76
+00:02:59,333 --> 00:03:01,549
+I looked up in the Context7 documentation.
+我查閱了 Context7 檔案。
+
+77
+00:03:02,046 --> 00:03:03,909
+And I give it some information on how to
+我給它一些關於如何做到這一點的資訊
+
+78
+00:03:03,909 --> 00:03:05,964
+search the web because many websites these
+搜尋網路，因為很多網站都是這樣的
+
+79
+00:03:06,077 --> 00:03:09,095
+days have LLM-friendly pages like an
+天有LLM友善的頁面，例如
+
+80
+00:03:09,111 --> 00:03:12,098
+llms.txt file, or they provide documentation
+llms.txt 檔案，或他們提供文檔
+
+81
+00:03:12,162 --> 00:03:14,619
+as Markdown files. And I tell it to
+作為 Markdown 檔案。我告訴它
+
+82
+00:03:15,149 --> 00:03:19,467
+look for these files, these URLs, first, and
+首先尋找這些檔案、這些 URL，然後
+
+83
+00:03:19,707 --> 00:03:21,727
+only if it doesn't find them should it do a
+只有當它沒有找到它們時才應該做
+
+84
+00:03:21,727 --> 00:03:23,940
+normal web search and search for the normal
+正常的網頁搜尋和正常的搜尋
+
+85
+00:03:23,972 --> 00:03:26,682
+website. So that is my Documentation
+網站。這就是我的文檔
+
+86
+00:03:26,682 --> 00:03:27,579
+Explorer agent.
+探險家代理。
+
+87
+00:03:28,205 --> 00:03:31,171
+It's stored locally here. You could also
+它存儲在本地。你也可以
+
+88
+00:03:31,171 --> 00:03:34,121
+store it globally. So in your root Claude
+將其儲存在全球範圍內。所以在你的根克勞德
+
+89
+00:03:34,249 --> 00:03:37,151
+folder, in my case here on macOS under my
+資料夾，就我而言，位於 macOS 下的
+
+90
+00:03:37,279 --> 00:03:39,845
+username, you can also add such an agents
+使用者名，也可以加入這樣的代理
+
+91
+00:03:39,845 --> 00:03:42,538
+folder and add your agent here. And then it
+資料夾並在此處新增您的代理程式。然後它
+
+92
+00:03:42,554 --> 00:03:44,879
+would be available across all projects. It's
+將適用於所有專案。它是
+
+93
+00:03:44,959 --> 00:03:47,428
+up to you what you need. With that done, in
+取決於你需要什麼。完成後，在
+
+94
+00:03:47,460 --> 00:03:47,749
+a new
+一個新的
+
+95
+00:03:48,342 --> 00:03:50,814
+Claude Code session, if I repeat this
+克勞德程式碼會議，如果我重複這個
+
+96
+00:03:50,814 --> 00:03:53,351
+instruction, it should hopefully use this
+指令，它應該希望使用這個
+
+97
+00:03:53,479 --> 00:03:56,208
+Docs Explorer agent to look for the
+Docs Explorer 代理程式來查找
+
+98
+00:03:56,208 --> 00:03:56,898
+documentation.
+檔案.
+
+99
+00:03:57,492 --> 00:03:59,531
+But we can do better than hoping.
+但我們可以做得比希望更好。

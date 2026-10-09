@@ -1,0 +1,484 @@
+1
+00:00:00,368 --> 00:00:03,208
+So to add this route for this POST request,
+因此，要為此 POST 請求新增此路由，
+
+2
+00:00:03,417 --> 00:00:04,684
+I'll go back to my
+我會回到我的
+
+3
+00:00:05,310 --> 00:00:09,176
+code here and add a new POST route here when
+此處程式碼並在此處新增新的 POST 路由
+
+4
+00:00:09,176 --> 00:00:11,920
+using Node Express by using app.POST.
+透過使用 app.POST 使用 Node Express。
+
+5
+00:00:12,866 --> 00:00:13,540
+And then it's to
+然後就是
+
+6
+00:00:14,069 --> 00:00:14,470
+/note.
+/筆記。
+
+7
+00:00:15,433 --> 00:00:18,770
+That's the path I defined here as a value
+這就是我在這裡定義為值的路徑
+
+8
+00:00:18,866 --> 00:00:20,823
+for the hx-post attribute.
+對於 hx-post 屬性。
+
+9
+00:00:21,946 --> 00:00:23,487
+So that's the route I wanna add here.
+這就是我想在這裡添加的路線。
+
+10
+00:00:24,481 --> 00:00:27,450
+And then of course, we'll have our default
+當然，我們會有預設值
+
+11
+00:00:27,450 --> 00:00:30,437
+Express request handler, which must send
+快速請求處理程式，必須發送
+
+12
+00:00:30,437 --> 00:00:33,391
+back a response at some point. But before we
+在某個時刻返迴回應。但在我們之前
+
+13
+00:00:33,488 --> 00:00:36,554
+do that, I of course wanna extract the
+這樣做，我當然想提取
+
+14
+00:00:36,554 --> 00:00:38,513
+submitted data and then
+提交資料，然後
+
+15
+00:00:39,091 --> 00:00:41,147
+for this dummy application here,
+對於這裡的這個虛擬應用程式，
+
+16
+00:00:41,741 --> 00:00:45,610
+add the submitted text to this HTMX
+將提交的文字新增至此 HTMX
+
+17
+00:00:45,610 --> 00:00:48,179
+knowledge array here. That's what I wanna
+知識陣在這裡。這就是我想要的
+
+18
+00:00:48,179 --> 00:00:50,090
+build in this basic demo app.
+建立這個基本的演示應用程式。
+
+19
+00:00:51,648 --> 00:00:55,244
+So how do we get hold of the submitted data?
+那我們要如何取得提交的資料呢？
+
+20
+00:00:56,272 --> 00:00:59,837
+Well, whenever you're triggering a non-GET
+好吧，每當你觸發非 GET
+
+21
+00:00:59,885 --> 00:01:02,261
+request, like a POST request here,
+請求，就像這裡的 POST 請求，
+
+22
+00:01:03,096 --> 00:01:05,810
+you're triggering a request that typically
+您觸發的請求通常是
+
+23
+00:01:05,922 --> 00:01:09,262
+carries data, that has a request body.
+攜帶有請求主體的資料。
+
+24
+00:01:10,241 --> 00:01:14,577
+And HTMX will automatically set that request
+HTMX 會自動設定該請求
+
+25
+00:01:14,593 --> 00:01:17,868
+body for you and it will set it based on the
+為您設定身體，它會根據
+
+26
+00:01:17,868 --> 00:01:20,501
+form for which this request is triggered,
+觸發此請求的表單，
+
+27
+00:01:20,694 --> 00:01:21,465
+for example.
+例如。
+
+28
+00:01:22,364 --> 00:01:25,174
+Now, if you would be using this attribute on
+現在，如果您要在下列位置使用此屬性
+
+29
+00:01:25,174 --> 00:01:27,775
+a paragraph, for example, and therefore it
+例如一個段落，因此它
+
+30
+00:01:27,823 --> 00:01:29,943
+would be triggered whenever this paragraph
+每當這個段落就會被觸發
+
+31
+00:01:29,943 --> 00:01:30,505
+is clicked,
+被點擊，
+
+32
+00:01:31,131 --> 00:01:34,952
+there therefore wouldn't be any value that
+因此不會有任何價值
+
+33
+00:01:35,049 --> 00:01:37,200
+would be sent along with the request.
+將與請求一起發送。
+
+34
+00:01:37,875 --> 00:01:40,235
+Though you could add one manually, but
+雖然你可以手動添加一個，但是
+
+35
+00:01:40,267 --> 00:01:41,969
+that's something we'll explore later.
+這是我們稍後將要探討的內容。
+
+36
+00:01:43,157 --> 00:01:46,353
+If you use it on a form, however, HTMX will
+但是，如果您在表單上使用它，HTMX 將
+
+37
+00:01:46,449 --> 00:01:47,316
+make sure to
+確保
+
+38
+00:01:47,910 --> 00:01:51,121
+gather all the data entered into the form by
+收集透過以下方式輸入表格的所有資料
+
+39
+00:01:51,121 --> 00:01:51,587
+the user.
+使用者。
+
+40
+00:01:52,310 --> 00:01:54,654
+In this case, this means it gathers the
+在這種情況下，這意味著它收集
+
+41
+00:01:54,654 --> 00:01:57,576
+value that has been inserted into this one
+已插入到該值中的值
+
+42
+00:01:57,705 --> 00:02:00,450
+input field here, and it will put that into
+此處輸入欄位，它會將其放入
+
+43
+00:02:00,450 --> 00:02:02,907
+the body of the request and then send that
+請求的正文然後發送
+
+44
+00:02:02,907 --> 00:02:05,653
+request with that body, with that form data
+使用該正文和該表單資料進行請求
+
+45
+00:02:06,054 --> 00:02:07,098
+to the backend.
+到後端。
+
+46
+00:02:08,382 --> 00:02:10,887
+Now for that, the inputs that should be
+現在，輸入應該是
+
+47
+00:02:11,032 --> 00:02:14,452
+collected by HTMX should have this name
+HTMX 收集的應該有這個名稱
+
+48
+00:02:14,644 --> 00:02:17,005
+attribute here because it's then by this
+屬性在這裡，因為它然後是這樣的
+
+49
+00:02:17,374 --> 00:02:20,553
+name attribute or by the value you specified
+name 屬性或您指定的值
+
+50
+00:02:20,569 --> 00:02:21,276
+here for the name
+這裡是為了名字
+
+51
+00:02:21,950 --> 00:02:24,053
+by which you'll be able to extract the
+透過它你將能夠提取
+
+52
+00:02:24,053 --> 00:02:26,494
+submitted data on the server. So you should
+向伺服器提交資料。所以你應該
+
+53
+00:02:26,510 --> 00:02:27,698
+set that when
+設定當
+
+54
+00:02:28,373 --> 00:02:32,146
+relying on HTMX to add the form data to the
+依靠 HTMX 將表單資料加入到
+
+55
+00:02:32,146 --> 00:02:32,644
+request.
+要求。
+
+56
+00:02:34,393 --> 00:02:36,800
+Now, in order to extract that form data
+現在，為了提取該表單資料
+
+57
+00:02:37,426 --> 00:02:40,233
+on the backend here, I'll start by adding a
+在後端，我首先添加一個
+
+58
+00:02:40,233 --> 00:02:41,148
+new middleware
+新的中介軟體
+
+59
+00:02:41,773 --> 00:02:44,693
+so that Express actually parses the
+這樣 Express 實際上會解析
+
+60
+00:02:44,741 --> 00:02:45,688
+submitted data
+提交的資料
+
+61
+00:02:46,330 --> 00:02:48,897
+and makes it available on this request
+並根據此請求提供
+
+62
+00:02:48,977 --> 00:02:50,982
+object that's received in the route
+路由中接收到的物件
+
+63
+00:02:50,982 --> 00:02:53,469
+handlers. And all we have to do for that
+處理程式。為此我們要做的就是
+
+64
+00:02:53,469 --> 00:02:56,694
+here in this demo app is use this Express
+在此示範應用程式中使用此 Express
+
+65
+00:02:56,758 --> 00:03:00,415
+object, call URL encoded, this method here
+物件，呼叫URL編碼，這裡的方法
+
+66
+00:03:00,848 --> 00:03:02,677
+and set extended to false.
+並將擴充設為 false。
+
+67
+00:03:03,751 --> 00:03:06,076
+And by adding this middleware, Express.js
+透過加入這個中介層，Express.js
+
+68
+00:03:06,140 --> 00:03:09,364
+will scan all incoming requests for data
+將掃描所有傳入的資料請求
+
+69
+00:03:09,604 --> 00:03:11,400
+that's attached to them, for
+附著在他們身上，因為
+
+70
+00:03:11,930 --> 00:03:15,778
+form data specifically, and then parse that
+具體形成資料，然後解析
+
+71
+00:03:15,778 --> 00:03:18,488
+data and make it available as a JavaScript
+資料並將其作為 JavaScript 提供
+
+72
+00:03:18,569 --> 00:03:20,509
+object on that request object.
+該請求物件上的物件。
+
+73
+00:03:21,792 --> 00:03:23,604
+And therefore, with this middleware added
+因此，添加了這個中介層
+
+74
+00:03:23,700 --> 00:03:25,849
+here, we can go to this POST route
+在這裡，我們可以轉到這個 POST 路線
+
+75
+00:03:26,909 --> 00:03:30,587
+And get the form data by simply accessing
+只需訪問即可獲取表單資料
+
+76
+00:03:30,619 --> 00:03:31,952
+request.body.
+請求體。
+
+77
+00:03:33,269 --> 00:03:36,031
+This body field is added by Express and will
+這個body欄位是Express新增的，將會
+
+78
+00:03:36,079 --> 00:03:39,259
+hold an object that has key-value pairs
+持有一個具有鍵值對的物件
+
+79
+00:03:39,693 --> 00:03:42,423
+where every key is the name of an input and
+其中每個鍵都是輸入的名稱，
+
+80
+00:03:42,423 --> 00:03:44,751
+the value is the value entered by the user.
+該值是使用者輸入的值。
+
+81
+00:03:46,133 --> 00:03:47,995
+So therefore here I can actually get my
+所以在這裡我實際上可以得到我的
+
+82
+00:03:48,365 --> 00:03:52,589
+entered note by accessing request.body.note.
+透過存取 request.body.note 輸入註解。
+
+83
+00:03:54,376 --> 00:03:58,465
+Because I chose a name of note here. If you
+因為我在這裡選擇了一個值得注意的名字。如果你
+
+84
+00:03:58,465 --> 00:04:00,719
+have a different name, you must access the
+有不同的名稱，您必須訪問
+
+85
+00:04:00,735 --> 00:04:01,621
+data differently.
+資料不同。
+
+86
+00:04:03,242 --> 00:04:05,342
+But that's how we should get access to the
+但這就是我們應該如何訪問
+
+87
+00:04:05,342 --> 00:04:06,214
+submitted data.
+提交的資料。
+
+88
+00:04:07,038 --> 00:04:10,463
+And then here in this demo app, we can
+然後在這個演示應用程式中，我們可以
+
+89
+00:04:10,495 --> 00:04:13,183
+simply reach out to this HTMX knowledge
+只要了解 HTMX 知識即可
+
+90
+00:04:13,264 --> 00:04:13,540
+array
+大批
+
+91
+00:04:14,384 --> 00:04:15,747
+and then push
+然後推
+
+92
+00:04:16,574 --> 00:04:18,748
+or unshift to add it at the beginning,
+或 unshift 將其添加到開頭，
+
+93
+00:04:19,492 --> 00:04:22,150
+this new value, this entered note
+這個新值，這個輸入的註釋
+
+94
+00:04:22,778 --> 00:04:23,454
+into this array.
+到這個陣列中。
+
+95
+00:04:24,726 --> 00:04:27,400
+So that will manipulate this array and now
+這樣就可以操作這個陣列了，現在
+
+96
+00:04:27,947 --> 00:04:31,378
+we just must make sure that the site is
+我們只需確保網站是
+
+97
+00:04:31,957 --> 00:04:34,115
+re-rendered and reloaded.
+重新渲染並重新載入。

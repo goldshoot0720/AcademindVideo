@@ -1,0 +1,1015 @@
+1
+00:00:00,048 --> 00:00:02,308
+So that's the base config then. But then
+
+2
+00:00:02,436 --> 00:00:05,113
+below that, I got a bunch of functions where
+
+3
+00:00:05,225 --> 00:00:08,704
+I actually get data, manipulate data, and
+
+4
+00:00:08,832 --> 00:00:11,541
+even have a transaction because SQLite has
+
+5
+00:00:11,573 --> 00:00:15,068
+support for transactions where the idea is
+
+6
+00:00:15,180 --> 00:00:18,194
+that multiple SQL commands, multiple SQL
+
+7
+00:00:18,242 --> 00:00:21,817
+statements can be executed together or none
+
+8
+00:00:21,817 --> 00:00:24,638
+at all so that if one of multiple statements
+
+9
+00:00:24,638 --> 00:00:27,411
+fails, the others are rolled back as well,
+
+10
+00:00:27,828 --> 00:00:29,784
+which is of course great for deleting stuff
+
+11
+00:00:29,784 --> 00:00:32,204
+if you have to touch and adjust multiple
+
+12
+00:00:32,316 --> 00:00:33,567
+entries across multiple
+
+13
+00:00:34,257 --> 00:00:36,261
+tables, which is not the case in this
+
+14
+00:00:36,261 --> 00:00:38,025
+example, but which could be the case in more
+
+15
+00:00:38,025 --> 00:00:40,751
+complex applications, then you might want to
+
+16
+00:00:40,751 --> 00:00:42,194
+run these different statements in a
+
+17
+00:00:42,194 --> 00:00:44,535
+transaction so that if one of them fails,
+
+18
+00:00:44,984 --> 00:00:47,903
+all of them fail and are rolled back. That's
+
+19
+00:00:47,967 --> 00:00:50,468
+the idea behind transactions. And Bun's
+
+20
+00:00:50,468 --> 00:00:53,499
+SQLite client has support for transactions.
+
+21
+00:00:53,964 --> 00:00:55,712
+You just create a transaction by using
+
+22
+00:00:55,824 --> 00:00:58,278
+db.transaction, the transaction method
+
+23
+00:00:58,871 --> 00:01:01,581
+that then takes a callback function. In that
+
+24
+00:01:01,581 --> 00:01:03,329
+callback function, you have your normal
+
+25
+00:01:03,746 --> 00:01:06,826
+query code, your normal DB query command.
+
+26
+00:01:07,435 --> 00:01:09,585
+And then whenever this transaction function,
+
+27
+00:01:09,778 --> 00:01:11,895
+delete note transaction in my case here,
+
+28
+00:01:12,264 --> 00:01:15,168
+whenever that is executed, that is when the
+
+29
+00:01:15,168 --> 00:01:17,205
+statements inside of it are actually
+
+30
+00:01:17,237 --> 00:01:18,826
+executed. That's the idea behind a
+
+31
+00:01:18,826 --> 00:01:21,232
+transaction. So even that support is built
+
+32
+00:01:21,248 --> 00:01:21,409
+in.
+
+33
+00:01:21,970 --> 00:01:24,344
+But let's take a step back. How does query
+
+34
+00:01:24,601 --> 00:01:25,050
+work then?
+
+35
+00:01:25,724 --> 00:01:28,307
+We can already see here that I'm using query
+
+36
+00:01:28,387 --> 00:01:28,820
+here to
+
+37
+00:01:29,350 --> 00:01:32,016
+delete from notes. So query is not just for
+
+38
+00:01:32,064 --> 00:01:33,799
+fetching data, but as mentioned before,
+
+39
+00:01:33,992 --> 00:01:37,125
+whenever you have a command that tends to be
+
+40
+00:01:37,141 --> 00:01:39,439
+executed more often, because then some
+
+41
+00:01:39,551 --> 00:01:41,881
+internal optimizations kick in and the
+
+42
+00:01:41,881 --> 00:01:43,022
+command gets cached.
+
+43
+00:01:43,568 --> 00:01:45,705
+And what we see is that here in this query,
+
+44
+00:01:46,139 --> 00:01:48,581
+and also in many other queries down there,
+
+45
+00:01:49,352 --> 00:01:50,444
+we have some
+
+46
+00:01:51,184 --> 00:01:54,397
+dynamic parts in that query. For example,
+
+47
+00:01:54,413 --> 00:01:57,786
+here for creating a note, I'm using query to
+
+48
+00:01:57,930 --> 00:02:00,371
+insert something into notes. I wanna insert
+
+49
+00:02:00,371 --> 00:02:02,602
+the title and the content of a note. And the
+
+50
+00:02:02,602 --> 00:02:05,781
+concrete values are of course unknown in
+
+51
+00:02:05,877 --> 00:02:06,487
+advance
+
+52
+00:02:07,017 --> 00:02:09,008
+because they depend on whatever the user
+
+53
+00:02:09,104 --> 00:02:10,148
+entered into the form.
+
+54
+00:02:10,934 --> 00:02:14,161
+And in Bun, when using Bun's SQLite client,
+
+55
+00:02:14,386 --> 00:02:16,377
+you have different ways of defining such
+
+56
+00:02:16,553 --> 00:02:19,298
+placeholders in your queries in a safe way.
+
+57
+00:02:20,021 --> 00:02:22,076
+For example, using this dollar sign
+
+58
+00:02:22,413 --> 00:02:23,023
+notation.
+
+59
+00:02:24,193 --> 00:02:26,341
+So here are the placeholder names, the
+
+60
+00:02:26,357 --> 00:02:28,473
+variables, whatever you wanna call them.
+
+61
+00:02:28,922 --> 00:02:31,021
+They have any name of your choice, could be
+
+62
+00:02:31,149 --> 00:02:33,281
+title, could be t, that is up to you,
+
+63
+00:02:33,810 --> 00:02:36,182
+but they are prefixed with a dollar sign.
+
+64
+00:02:36,679 --> 00:02:39,340
+And alternatively, Bun would also allow for
+
+65
+00:02:39,564 --> 00:02:42,914
+an@ symbol, for example, or a colon. You can
+
+66
+00:02:43,010 --> 00:02:45,190
+use any of those. I typically use the dollar
+
+67
+00:02:45,190 --> 00:02:48,428
+sign. Alternatively, you could also use the
+
+68
+00:02:48,540 --> 00:02:50,159
+order and then use
+
+69
+00:02:51,185 --> 00:02:51,329
+?1,
+
+70
+00:02:52,146 --> 00:02:53,140
+question mark 2
+
+71
+00:02:53,685 --> 00:02:55,753
+to make it clear that the first argument
+
+72
+00:02:55,753 --> 00:02:59,119
+passed to get should be inserted here, the
+
+73
+00:02:59,119 --> 00:03:01,075
+second argument should be inserted here.
+
+74
+00:03:01,700 --> 00:03:03,880
+But I like to have named arguments. But
+
+75
+00:03:04,570 --> 00:03:06,798
+that takes us to the next question. How do
+
+76
+00:03:06,814 --> 00:03:08,914
+we pass in the concrete values that should
+
+77
+00:03:08,914 --> 00:03:11,302
+be inserted here? Well, I just mentioned it,
+
+78
+00:03:11,318 --> 00:03:14,076
+you pass them to the function you call after
+
+79
+00:03:14,268 --> 00:03:17,410
+query. So query, the query method is used to
+
+80
+00:03:17,410 --> 00:03:19,878
+define a query, but it doesn't execute it
+
+81
+00:03:19,878 --> 00:03:22,828
+yet with SQLite. Instead, if you just have
+
+82
+00:03:22,860 --> 00:03:25,204
+this code here, The query is defined, it's
+
+83
+00:03:25,413 --> 00:03:27,663
+optimized and cached, but it's not executed
+
+84
+00:03:27,663 --> 00:03:27,920
+yet.
+
+85
+00:03:28,466 --> 00:03:31,262
+It gets executed when you then call get, for
+
+86
+00:03:31,375 --> 00:03:33,913
+example. And I'm saying for example because
+
+87
+00:03:33,946 --> 00:03:36,468
+there are other methods as well, like all.
+
+88
+00:03:36,854 --> 00:03:38,798
+If you had a SQL command that would return
+
+89
+00:03:38,847 --> 00:03:41,193
+multiple rows, all would give you access to
+
+90
+00:03:41,321 --> 00:03:41,627
+all of them.
+
+91
+00:03:42,205 --> 00:03:44,776
+Get would be used if you just wanna get back
+
+92
+00:03:44,937 --> 00:03:47,026
+one result. And for example, the insert
+
+93
+00:03:47,026 --> 00:03:49,211
+statement just returns one row.
+
+94
+00:03:49,917 --> 00:03:50,319
+Result.
+
+95
+00:03:50,961 --> 00:03:53,353
+It gives you back the ID of the entry that
+
+96
+00:03:53,369 --> 00:03:55,199
+was inserted because of that returning
+
+97
+00:03:55,231 --> 00:03:55,520
+clause.
+
+98
+00:03:56,435 --> 00:03:59,807
+So it's that method, getAll, whatever you
+
+99
+00:03:59,871 --> 00:04:02,793
+use, that you chain on the query that
+
+100
+00:04:02,921 --> 00:04:05,394
+actually executes the query and that
+
+101
+00:04:05,426 --> 00:04:07,834
+therefore needs to provide the input for the
+
+102
+00:04:07,834 --> 00:04:10,017
+query, so the concrete values for these
+
+103
+00:04:10,081 --> 00:04:12,570
+placeholders. And in this example here where
+
+104
+00:04:12,570 --> 00:04:15,267
+we create a note, I'm passing an input
+
+105
+00:04:15,443 --> 00:04:17,224
+object to createNote.
+
+106
+00:04:17,865 --> 00:04:20,494
+That input object, if we take a look, is of
+
+107
+00:04:20,494 --> 00:04:23,491
+type NoteInput, which is just an object with
+
+108
+00:04:23,556 --> 00:04:25,688
+a title and a content where both are string.
+
+109
+00:04:26,136 --> 00:04:28,509
+So such a JavaScript object with title and
+
+110
+00:04:28,589 --> 00:04:32,981
+content is passed to createNote. And I have
+
+111
+00:04:33,013 --> 00:04:35,899
+to use title and content as names in my
+
+112
+00:04:35,899 --> 00:04:38,816
+NoteInput type and object because I'm using
+
+113
+00:04:38,864 --> 00:04:41,109
+title and content as names here. So the
+
+114
+00:04:41,109 --> 00:04:44,251
+names have to match. If I named this here T,
+
+115
+00:04:45,036 --> 00:04:47,825
+then I should expect an input where I have a
+
+116
+00:04:47,921 --> 00:04:48,034
+T
+
+117
+00:04:49,525 --> 00:04:50,103
+property,
+
+118
+00:04:51,450 --> 00:04:53,375
+which I don't in this app. So I'll go back
+
+119
+00:04:53,375 --> 00:04:55,957
+to title. That is really important
+
+120
+00:04:56,486 --> 00:04:57,224
+also down here.
+
+121
+00:04:58,186 --> 00:05:02,244
+And that is then a SQL injection safe way of
+
+122
+00:05:02,822 --> 00:05:05,212
+inserting values into a query. So that is
+
+123
+00:05:05,228 --> 00:05:06,479
+how you should do it.
+
+124
+00:05:07,008 --> 00:05:09,045
+And I'm doing that in all those places also
+
+125
+00:05:09,077 --> 00:05:11,852
+for getting a note. For example, here we see
+
+126
+00:05:12,221 --> 00:05:15,027
+that I have get and I pass in an object
+
+127
+00:05:15,027 --> 00:05:17,578
+where I map ID to ID. Just using the
+
+128
+00:05:17,578 --> 00:05:19,874
+shortcut for it. And I'm using ID as a name
+
+129
+00:05:19,922 --> 00:05:22,410
+because I'm using ID as a name here. If I
+
+130
+00:05:22,474 --> 00:05:26,631
+were using i here, then I would map my ID to
+
+131
+00:05:27,290 --> 00:05:28,140
+a value of i,
+
+132
+00:05:28,670 --> 00:05:29,906
+to a property named i.
+
+133
+00:05:30,436 --> 00:05:32,169
+I also need to adjust the type here then
+
+134
+00:05:33,164 --> 00:05:34,465
+to make TypeScript happy.
+
+135
+00:05:35,075 --> 00:05:37,145
+And so that's how passing values into
+
+136
+00:05:37,177 --> 00:05:38,028
+queries works.
+
+137
+00:05:38,718 --> 00:05:41,094
+Now, you might remember that I mentioned
+
+138
+00:05:41,174 --> 00:05:43,165
+earlier that we can configure our database
+
+139
+00:05:43,261 --> 00:05:44,208
+when we create it like this.
+
+140
+00:05:44,786 --> 00:05:46,937
+And I mentioned this strict setting to which
+
+141
+00:05:46,969 --> 00:05:47,739
+I would come back to.
+
+142
+00:05:48,279 --> 00:05:51,518
+Strict is related to those parameters, to
+
+143
+00:05:51,518 --> 00:05:53,801
+these dynamic values you pass into your
+
+144
+00:05:53,947 --> 00:05:54,255
+queries.
+
+145
+00:05:55,172 --> 00:05:57,551
+If you set strict to false,
+
+146
+00:05:59,094 --> 00:05:59,319
+then
+
+147
+00:05:59,898 --> 00:06:01,859
+you actually have to
+
+148
+00:06:02,872 --> 00:06:04,688
+use the dollar signs here
+
+149
+00:06:05,604 --> 00:06:07,693
+in your property names as well.
+
+150
+00:06:08,368 --> 00:06:10,376
+So then this would be the correct way of
+
+151
+00:06:10,504 --> 00:06:12,095
+passing values into those queries.
+
+152
+00:06:12,674 --> 00:06:14,448
+That's of course a bit annoying, which is
+
+153
+00:06:14,546 --> 00:06:16,475
+why you typically wanna set strict to true
+
+154
+00:06:16,475 --> 00:06:17,734
+so that you can use that simpler form.
+
+155
+00:06:19,736 --> 00:06:21,836
+As weird as that might sound, that strict
+
+156
+00:06:21,836 --> 00:06:24,080
+makes it simpler. But strict has another
+
+157
+00:06:24,080 --> 00:06:26,501
+effect. With strict set to true,
+
+158
+00:06:27,110 --> 00:06:28,585
+you'll get an error
+
+159
+00:06:29,130 --> 00:06:29,820
+at runtime
+
+160
+00:06:30,397 --> 00:06:32,818
+when you have an incorrect
+
+161
+00:06:33,619 --> 00:06:34,116
+name here.
+
+162
+00:06:34,838 --> 00:06:36,137
+So if I have i,
+
+163
+00:06:37,147 --> 00:06:39,503
+map this to ID and I adjust this type, then
+
+164
+00:06:39,632 --> 00:06:41,507
+TypeScript is happy, but this will fail
+
+165
+00:06:41,555 --> 00:06:44,105
+because in the query I'm expecting ID, not
+
+166
+00:06:44,265 --> 00:06:44,297
+i.
+
+167
+00:06:45,403 --> 00:06:47,552
+At runtime, I would get an error with this
+
+168
+00:06:47,552 --> 00:06:50,664
+code here without strict. It would just
+
+169
+00:06:50,857 --> 00:06:53,299
+insert nothing as an ID. So it would not
+
+170
+00:06:53,492 --> 00:06:55,789
+error, it would just insert nothing as an
+
+171
+00:06:55,821 --> 00:06:58,456
+ID, which might cause an error because of
+
+172
+00:06:58,488 --> 00:07:01,026
+constraints, but which could also fail for
+
+173
+00:07:01,138 --> 00:07:04,287
+other SQL commands. So to get a clear error
+
+174
+00:07:04,432 --> 00:07:06,842
+that tells us that we have a typo in our
+
+175
+00:07:06,842 --> 00:07:07,452
+parameters,
+
+176
+00:07:08,030 --> 00:07:11,099
+we should use strict mode. And that's what
+
+177
+00:07:11,163 --> 00:07:13,814
+I'm doing. Now, when you're getting multiple
+
+178
+00:07:13,894 --> 00:07:16,545
+entries, you can use all instead of get.
+
+179
+00:07:16,786 --> 00:07:19,193
+Here without any parameter because I don't
+
+180
+00:07:19,274 --> 00:07:21,778
+have any dynamic values in this command. But
+
+181
+00:07:21,778 --> 00:07:25,116
+if you know that you'll get a lot of rows,
+
+182
+00:07:25,694 --> 00:07:28,519
+you could also consider using iterate
+
+183
+00:07:28,984 --> 00:07:29,915
+instead of all.
+
+184
+00:07:30,541 --> 00:07:32,917
+So instead of all, you can use iterate and
+
+185
+00:07:32,933 --> 00:07:35,164
+then you can loop through those rows to
+
+186
+00:07:35,260 --> 00:07:37,588
+process the rows row by row instead of
+
+187
+00:07:37,588 --> 00:07:39,610
+fetching them all at once, which
+
+188
+00:07:40,236 --> 00:07:41,889
+would mean that they get all loaded into
+
+189
+00:07:41,921 --> 00:07:43,751
+memory, which could be a problem if you're
+
+190
+00:07:43,848 --> 00:07:46,258
+working on a lot of rows. Alternatively, Bun
+
+191
+00:07:46,468 --> 00:07:48,294
+even allows you to loop directly on the
+
+192
+00:07:48,294 --> 00:07:50,960
+query and it'll then execute it row by row
+
+193
+00:07:50,960 --> 00:07:53,077
+behind the scenes. So that would be possible
+
+194
+00:07:53,077 --> 00:07:53,206
+too
+
+195
+00:07:53,788 --> 00:07:56,038
+if you're working with lots of rows.
+
+196
+00:07:56,637 --> 00:07:58,678
+You don't need to do that if you just have a
+
+197
+00:07:58,808 --> 00:07:59,828
+couple of dozen or
+
+198
+00:08:00,363 --> 00:08:01,303
+a few hundred rows,
+
+199
+00:08:02,977 --> 00:08:04,969
+depending on what's in those rows, of
+
+200
+00:08:04,985 --> 00:08:05,210
+course.
+
+201
+00:08:06,110 --> 00:08:08,825
+Now, one other thing you see here is this as
+
+202
+00:08:08,921 --> 00:08:11,556
+method with as note. That's just a little
+
+203
+00:08:11,589 --> 00:08:14,058
+convenience feature provided by Bun where
+
+204
+00:08:14,272 --> 00:08:15,195
+you can tell it how it should convert
+
+205
+00:08:17,096 --> 00:08:19,934
+that data when it retrieves it. So here with
+
+206
+00:08:20,143 --> 00:08:22,692
+all, we'll get an array of all our notes.
+
+207
+00:08:23,029 --> 00:08:25,338
+But to make sure that every single element
+
+208
+00:08:25,450 --> 00:08:29,106
+in that array is of type Note and is using
+
+209
+00:08:29,203 --> 00:08:32,282
+our class Note, I defined a class named
+
+210
+00:08:32,346 --> 00:08:34,815
+Note. So not just a type, instead a real
+
+211
+00:08:34,831 --> 00:08:36,948
+class, which is a real JavaScript feature
+
+212
+00:08:37,397 --> 00:08:39,498
+with all the properties a note should have
+
+213
+00:08:39,498 --> 00:08:40,829
+and a little utility method.
+
+214
+00:08:41,390 --> 00:08:43,458
+And with this as method added,
+
+215
+00:08:44,292 --> 00:08:47,288
+Bunn will create an instance of that class
+
+216
+00:08:47,400 --> 00:08:49,948
+for every element, for every entry, every
+
+217
+00:08:50,124 --> 00:08:52,848
+row it returned or it got out of the
+
+218
+00:08:52,864 --> 00:08:53,585
+database here
+
+219
+00:08:54,130 --> 00:08:56,245
+and will then therefore get back an array of
+
+220
+00:08:56,245 --> 00:08:58,952
+such notes here. So getNotes returns an
+
+221
+00:08:58,952 --> 00:09:02,125
+array of Note instances in my case. That is
+
+222
+00:09:02,221 --> 00:09:04,720
+very useful. You have to create a class for
+
+223
+00:09:04,720 --> 00:09:07,380
+that though. You can't just pass in a type
+
+224
+00:09:07,460 --> 00:09:09,944
+or interface here because those don't exist
+
+225
+00:09:09,944 --> 00:09:12,539
+at runtime. You need to pass in a class.
+
+226
+00:09:13,213 --> 00:09:14,800
+And then last but not least, it's worth
+
+227
+00:09:14,800 --> 00:09:17,541
+noting that Bun also offers a close method
+
+228
+00:09:17,541 --> 00:09:19,480
+on the database, which you don't necessarily
+
+229
+00:09:19,609 --> 00:09:21,484
+have to call. It should do that
+
+230
+00:09:21,548 --> 00:09:23,712
+automatically when the Bun process shuts
+
+231
+00:09:23,712 --> 00:09:25,989
+down, but you can explicitly call it here.
+
+232
+00:09:26,518 --> 00:09:28,682
+And I'm doing that in the end from my
+
+233
+00:09:28,762 --> 00:09:31,471
+index.ts file with that cleanShutdown method
+
+234
+00:09:31,471 --> 00:09:33,363
+I mentioned before, or that cleanShutdown
+
+235
+00:09:33,475 --> 00:09:34,709
+function I mentioned before.
+
+236
+00:09:35,478 --> 00:09:38,123
+And when you call close, that just does what
+
+237
+00:09:38,123 --> 00:09:40,368
+the name implies. It cleanly closes the
+
+238
+00:09:40,368 --> 00:09:42,516
+connection and does all the remaining
+
+239
+00:09:42,532 --> 00:09:44,455
+cleanup work, like for example, this here,
+
+240
+00:09:44,953 --> 00:09:46,735
+where it removes these redundant
+
+241
+00:09:47,506 --> 00:09:49,625
+wall-related files. So if I start the
+
+242
+00:09:49,625 --> 00:09:52,515
+server, those files show up. If I stop it,
+
+243
+00:09:52,579 --> 00:09:54,843
+they are removed. And that happens because
+
+244
+00:09:54,843 --> 00:09:58,279
+of these settings and because I call close
+
+245
+00:09:58,279 --> 00:09:58,696
+in the end.
+
+246
+00:09:59,964 --> 00:10:03,818
+Now, I won't dive into SQL syntax or
+
+247
+00:10:03,818 --> 00:10:05,728
+anything like that because this is obviously
+
+248
+00:10:05,728 --> 00:10:06,740
+not a SQL course,
+
+249
+00:10:07,270 --> 00:10:09,597
+but this hopefully shows you how easy and
+
+250
+00:10:09,597 --> 00:10:11,011
+powerful it is to
+
+251
+00:10:11,673 --> 00:10:14,818
+interact with a SQLite database through
+
+252
+00:10:14,915 --> 00:10:18,609
+Bun's built-in SQLite client. So it's yet
+
+253
+00:10:18,609 --> 00:10:20,642
+another feature we can use in our apps
+
+254
+00:10:20,803 --> 00:10:23,352
+without installing any extra dependencies.

@@ -1,0 +1,499 @@
+1
+00:00:00,128 --> 00:00:01,027
+So now it's time to
+
+2
+00:00:01,621 --> 00:00:05,248
+further harden the SSH setup. And with that,
+
+3
+00:00:05,264 --> 00:00:07,832
+I mean that we wanna go through certain
+
+4
+00:00:07,832 --> 00:00:11,058
+steps that make it even less likely that a
+
+5
+00:00:11,090 --> 00:00:14,862
+bad actor can connect to our server through
+
+6
+00:00:14,958 --> 00:00:17,462
+SSH if they're not intended to connect.
+
+7
+00:00:17,992 --> 00:00:20,977
+And the first thing I wanna do there is I
+
+8
+00:00:21,041 --> 00:00:23,866
+wanna install and enable a tool called
+
+9
+00:00:23,866 --> 00:00:24,877
+fail2ban.
+
+10
+00:00:25,696 --> 00:00:27,509
+So for that, I'll use apt and install
+
+11
+00:00:27,638 --> 00:00:28,649
+fail2ban.
+
+12
+00:00:29,387 --> 00:00:31,361
+That's some extra software you can install
+
+13
+00:00:31,473 --> 00:00:33,720
+on your system, on your Linux system. And
+
+14
+00:00:33,881 --> 00:00:36,882
+what this tool will do is it will watch for
+
+15
+00:00:37,010 --> 00:00:40,011
+connection attempts. And if a connection
+
+16
+00:00:40,220 --> 00:00:44,409
+fails repeatedly, it will block that IP
+
+17
+00:00:44,986 --> 00:00:48,324
+so that that IP can't even try future
+
+18
+00:00:48,421 --> 00:00:50,507
+connections anymore, which of course
+
+19
+00:00:50,507 --> 00:00:53,203
+protects your server against being hammered
+
+20
+00:00:53,396 --> 00:00:53,717
+by
+
+21
+00:00:54,439 --> 00:00:55,049
+failing connections.
+
+22
+00:00:55,884 --> 00:00:58,021
+Or by IPs that fail to authenticate?
+
+23
+00:00:59,017 --> 00:01:01,074
+Because one important thing to realize,
+
+24
+00:01:01,652 --> 00:01:03,243
+which you're typically not aware of,
+
+25
+00:01:03,902 --> 00:01:04,384
+is that
+
+26
+00:01:05,107 --> 00:01:08,176
+the moment you start your server, the moment
+
+27
+00:01:08,176 --> 00:01:09,670
+your server is online,
+
+28
+00:01:10,570 --> 00:01:14,088
+it's going to be picked up by hundreds of
+
+29
+00:01:14,297 --> 00:01:18,812
+scanners that scan IP ranges and look for
+
+30
+00:01:18,877 --> 00:01:22,154
+servers with vulnerabilities, that are not
+
+31
+00:01:22,154 --> 00:01:24,753
+protected because believe it or not, there
+
+32
+00:01:24,866 --> 00:01:27,690
+are many such servers to be found out there.
+
+33
+00:01:27,995 --> 00:01:30,964
+And what many bad actors will do is they
+
+34
+00:01:30,964 --> 00:01:33,804
+will just try to brute force their way into
+
+35
+00:01:33,868 --> 00:01:36,516
+servers they find out there. So it's a good
+
+36
+00:01:36,580 --> 00:01:37,736
+idea to make that
+
+37
+00:01:38,282 --> 00:01:40,865
+pretty much impossible by ensuring that
+
+38
+00:01:40,913 --> 00:01:43,834
+their IP addresses get blocked if they tried
+
+39
+00:01:43,834 --> 00:01:44,717
+it too often.
+
+40
+00:01:45,888 --> 00:01:48,103
+And Fail2Ban is just the tool for that.
+
+41
+00:01:48,700 --> 00:01:51,858
+After installing it, you wanna check its
+
+42
+00:01:51,858 --> 00:01:54,094
+configuration and you can do that by running
+
+43
+00:01:54,142 --> 00:01:56,540
+sudo because you'll need root privileges for
+
+44
+00:01:56,540 --> 00:01:57,808
+that, nano,
+
+45
+00:01:58,362 --> 00:02:00,997
+which is a text editor tool installed on
+
+46
+00:02:01,046 --> 00:02:02,087
+Linux, and then
+
+47
+00:02:02,087 --> 00:02:03,063
+/etc/fail2ban/jail.d/sshd.local.
+
+48
+00:02:11,340 --> 00:02:13,963
+If you hit enter, you'll enter this text
+
+49
+00:02:13,979 --> 00:02:14,468
+edit mode.
+
+50
+00:02:15,136 --> 00:02:17,301
+And you can get out of it with the shortcuts
+
+51
+00:02:17,301 --> 00:02:19,482
+you see here in the bottom. So for example,
+
+52
+00:02:19,562 --> 00:02:21,162
+Ctrl+X will close it.
+
+53
+00:02:22,672 --> 00:02:23,315
+In here,
+
+54
+00:02:23,958 --> 00:02:26,113
+you wanna start typing and type
+
+55
+00:02:27,014 --> 00:02:28,654
+square brackets, shd
+
+56
+00:02:29,973 --> 00:02:31,339
+enabled equals true,
+
+57
+00:02:32,785 --> 00:02:35,773
+max retry equals 5, for example. That's the
+
+58
+00:02:35,773 --> 00:02:36,705
+number of times
+
+59
+00:02:37,364 --> 00:02:39,790
+people are allowed to fail authentication
+
+60
+00:02:39,790 --> 00:02:41,031
+before they will be blocked.
+
+61
+00:02:42,420 --> 00:02:44,414
+Find time equals 10 minutes.
+
+62
+00:02:45,889 --> 00:02:47,072
+Whoops, with like that.
+
+63
+00:02:49,790 --> 00:02:52,302
+That is the timeframe in which these failed
+
+64
+00:02:52,334 --> 00:02:53,226
+attempts have to be.
+
+65
+00:02:53,793 --> 00:02:56,419
+So 5 unsuccessful attempts in 10 minutes
+
+66
+00:02:56,532 --> 00:02:57,407
+will get you blocked.
+
+67
+00:02:58,910 --> 00:02:59,394
+Ban time,
+
+68
+00:03:00,071 --> 00:03:02,686
+if you set this, you can, for example, ban
+
+69
+00:03:02,750 --> 00:03:04,816
+an IP for 1 hour so that if you were
+
+70
+00:03:04,832 --> 00:03:07,091
+accidentally to fail authentication
+
+71
+00:03:07,091 --> 00:03:10,256
+yourself, you don't ban yourself forever,
+
+72
+00:03:10,529 --> 00:03:12,502
+essentially locking yourself out of the
+
+73
+00:03:12,502 --> 00:03:14,266
+server unless you switch your IP,
+
+74
+00:03:14,843 --> 00:03:17,265
+but so that you can try again after an hour
+
+75
+00:03:17,329 --> 00:03:19,077
+or so. That's something you could consider
+
+76
+00:03:19,077 --> 00:03:19,302
+doing.
+
+77
+00:03:20,216 --> 00:03:22,942
+You can also add ignore IP and set this to
+
+78
+00:03:22,942 --> 00:03:26,390
+your public IP if your machine has a fixed
+
+79
+00:03:26,390 --> 00:03:28,282
+public IP. If your MacBook, your Windows
+
+80
+00:03:28,379 --> 00:03:30,768
+machine has a fixed public IP, you could add
+
+81
+00:03:30,800 --> 00:03:31,971
+that here so that it is
+
+82
+00:03:33,126 --> 00:03:37,472
+basically treated as an exception. But I'll
+
+83
+00:03:35,785 --> 00:03:36,572
+not do that here.
+
+84
+00:03:38,520 --> 00:03:39,246
+So with that done,
+
+85
+00:03:39,924 --> 00:03:41,410
+you wanna close this.
+
+86
+00:03:42,444 --> 00:03:44,365
+So as mentioned, that is Ctrl+X.
+
+87
+00:03:44,930 --> 00:03:46,674
+Then you're asked if you wanna save this, so
+
+88
+00:03:46,674 --> 00:03:48,261
+I'll hit Y for yes.
+
+89
+00:03:49,623 --> 00:03:51,845
+Then you're asked for the file name,
+
+90
+00:03:52,445 --> 00:03:54,293
+and I wanna keep the file name which I chose
+
+91
+00:03:54,326 --> 00:03:55,250
+when I opened the file,
+
+92
+00:03:56,389 --> 00:03:57,594
+so I'll just hit Enter.
+
+93
+00:03:58,623 --> 00:04:00,472
+And you can confirm your changes if you use
+
+94
+00:04:00,472 --> 00:04:03,173
+the cat program again for quickly reading
+
+95
+00:04:03,205 --> 00:04:04,202
+the contents of a file.
+
+96
+00:04:08,104 --> 00:04:09,987
+If you cat this file, you'll see its
+
+97
+00:04:10,004 --> 00:04:10,764
+contents here.
+
+98
+00:04:12,340 --> 00:04:14,008
+With that, we just need to start the
+
+99
+00:04:14,008 --> 00:04:16,266
+fail2ban service, and you do that by using
+
+100
+00:04:16,299 --> 00:04:17,264
+the systemctl,
+
+101
+00:04:18,400 --> 00:04:20,408
+for system control, command,
+
+102
+00:04:21,002 --> 00:04:23,733
+which is also a command installed on Linux,
+
+103
+00:04:24,215 --> 00:04:26,882
+and it allows you to run software
+
+104
+00:04:27,493 --> 00:04:29,680
+as a service, as a background service that
+
+105
+00:04:29,680 --> 00:04:31,878
+keeps on running in essentially, and that's
+
+106
+00:04:31,958 --> 00:04:34,042
+also restarted depending on the
+
+107
+00:04:34,042 --> 00:04:36,671
+configuration if your server is restarted.
+
+108
+00:04:37,264 --> 00:04:40,775
+So we want to enable our Fail2Ban server,
+
+109
+00:04:41,672 --> 00:04:42,586
+and if you enable
+
+110
+00:04:43,516 --> 00:04:45,135
+now, it will essentially do that
+
+111
+00:04:45,664 --> 00:04:46,129
+instantly.
+
+112
+00:04:46,802 --> 00:04:48,501
+So now I have to enter my password here
+
+113
+00:04:48,966 --> 00:04:51,098
+because it will require root access here.
+
+114
+00:04:51,916 --> 00:04:53,791
+I could have run this as a root to
+
+115
+00:04:54,401 --> 00:04:56,260
+avoid having to enter my password a bunch of
+
+116
+00:04:56,260 --> 00:04:56,757
+times here.
+
+117
+00:04:58,211 --> 00:04:59,832
+But either way, after entering this a couple
+
+118
+00:04:59,832 --> 00:05:01,405
+of times, this is now
+
+119
+00:05:01,956 --> 00:05:02,524
+started.
+
+120
+00:05:03,210 --> 00:05:04,449
+And you can confirm this by running
+
+121
+00:05:04,482 --> 00:05:07,809
+systemctl status fail2ban.
+
+122
+00:05:10,307 --> 00:05:10,890
+And you see
+
+123
+00:05:11,521 --> 00:05:13,527
+it is active, it's actively running.
+
+124
+00:05:15,177 --> 00:05:17,862
+And with that, you have this extra bit of
+
+125
+00:05:18,089 --> 00:05:18,833
+protection here.

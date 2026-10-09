@@ -1,0 +1,424 @@
+1
+00:00:00,503 --> 00:00:02,971
+To handle the Yes button, I'll start by
+要處理“是”按鈕，我將從
+
+2
+00:00:02,971 --> 00:00:03,686
+selecting it,
+選擇它，
+
+3
+00:00:04,400 --> 00:00:05,098
+the Yes button,
+是按鈕，
+
+4
+00:00:06,040 --> 00:00:08,736
+with document.getElementById,
+使用 document.getElementById，
+
+5
+00:00:09,608 --> 00:00:12,062
+and then this button has action-yes
+然後這個按鈕有動作-是
+
+6
+00:00:12,675 --> 00:00:13,111
+as an ID.
+作為身份證件。
+
+7
+00:00:14,726 --> 00:00:15,531
+So I'll use that
+所以我會用它
+
+8
+00:00:17,268 --> 00:00:17,590
+like this.
+像這樣。
+
+9
+00:00:19,360 --> 00:00:22,272
+And then of course I add an event listener
+然後當然我加入一個事件監聽器
+
+10
+00:00:23,604 --> 00:00:25,833
+for the click event to this button as well.
+也適用於此按鈕的點選事件。
+
+11
+00:00:26,607 --> 00:00:29,678
+But now here, I of course also wanna close
+但現在在這裡，我當然也想關閉
+
+12
+00:00:29,678 --> 00:00:30,433
+the dialog,
+對話框，
+
+13
+00:00:31,189 --> 00:00:33,890
+but in addition, I wanna make sure that I
+但除此之外，我想確保我
+
+14
+00:00:33,938 --> 00:00:35,475
+send that request
+發送該請求
+
+15
+00:00:36,045 --> 00:00:37,723
+which I canceled by calling
+我打電話取消了
+
+16
+00:00:38,163 --> 00:00:39,108
+event.preventDefault.
+event.preventDefault。
+
+17
+00:00:41,507 --> 00:00:44,254
+And that's something that's not that easy to
+這並不是那麼容易做到的
+
+18
+00:00:44,254 --> 00:00:47,371
+do if you're listening to the before-request
+如果您正在聆聽先前的請求，請執行以下操作
+
+19
+00:00:47,451 --> 00:00:48,511
+HTMX event.
+HTMX 事件。
+
+20
+00:00:49,315 --> 00:00:51,476
+Because there, if you then cancel the event,
+因為如果你取消活動，
+
+21
+00:00:51,492 --> 00:00:54,742
+you're really canceling the entire request.
+您確實取消了整個請求。
+
+22
+00:00:55,459 --> 00:00:58,133
+And you would have to manually recreate it,
+而且你必須手動重新創建它，
+
+23
+00:00:58,197 --> 00:00:58,809
+but even then,
+但即便如此，
+
+24
+00:00:59,486 --> 00:01:01,951
+HTMX wouldn't be handling it anymore.
+HTMX 將不再處理它。
+
+25
+00:01:03,780 --> 00:01:06,823
+That's why the better HTMX event to handle
+這就是為什麼要處理更好的 HTMX 事件
+
+26
+00:01:06,855 --> 00:01:07,048
+here
+這裡
+
+27
+00:01:07,595 --> 00:01:11,556
+instead of before request is HTMX confirm
+而不是之前的請求是 HTMX 確認
+
+28
+00:01:12,667 --> 00:01:15,834
+because this is an event that's triggered or
+因為這是一個被觸發的事件或
+
+29
+00:01:16,107 --> 00:01:16,541
+emitted
+發射的
+
+30
+00:01:17,152 --> 00:01:19,578
+after a trigger occurred on an element.
+在元素上發生觸發之後。
+
+31
+00:01:20,686 --> 00:01:21,908
+And as you see in the official
+正如你在官方中看到的
+
+32
+00:01:21,908 --> 00:01:24,167
+documentation, it allows us to cancel or
+檔案，它允許我們取消或
+
+33
+00:01:24,217 --> 00:01:27,341
+delay the AJAX request HTMX would be about
+延遲 AJAX 請求 HTMX 大約是
+
+34
+00:01:27,473 --> 00:01:27,938
+to send.
+發送。
+
+35
+00:01:30,340 --> 00:01:32,739
+So it's HTMX confirm to which I wanna listen
+所以我想聽的是 HTMX 確認
+
+36
+00:01:32,771 --> 00:01:35,074
+here, which will be emitted whenever
+在這裡，每當
+
+37
+00:01:36,330 --> 00:01:38,552
+some HTMX request is triggered,
+一些 HTMX 請求被觸發，
+
+38
+00:01:39,695 --> 00:01:41,581
+which of course happens here on that button.
+這當然發生在那個按鈕上。
+
+39
+00:01:43,563 --> 00:01:46,625
+And then when we prevent the default, we're
+然後當我們阻止預設情況時，我們
+
+40
+00:01:46,786 --> 00:01:49,967
+actually not entirely canceling the request.
+實際上並沒有完全取消請求。
+
+41
+00:01:50,032 --> 00:01:52,151
+Instead, we're just stopping it for the
+相反，我們只是停止它
+
+42
+00:01:52,151 --> 00:01:53,365
+moment, you could say,
+那一刻，你可以說，
+
+43
+00:01:54,253 --> 00:01:57,305
+That's how HTMX works internally with that
+這就是 HTMX 內部的工作原理
+
+44
+00:01:57,305 --> 00:01:57,723
+event.
+事件。
+
+45
+00:01:58,911 --> 00:02:00,501
+But we can then resume
+但我們可以繼續
+
+46
+00:02:01,080 --> 00:02:03,778
+the request or restart the request and
+請求或重新啟動請求並且
+
+47
+00:02:03,794 --> 00:02:07,745
+restart this HTMX process of sending the
+重新啟動此 HTMX 傳送過程
+
+48
+00:02:07,745 --> 00:02:09,624
+request and using the response
+請求並使用回應
+
+49
+00:02:10,219 --> 00:02:12,965
+by using a special method that's part of the
+透過使用一種特殊的方法，該方法是
+
+50
+00:02:13,270 --> 00:02:14,218
+event details.
+活動詳情。
+
+51
+00:02:15,471 --> 00:02:18,908
+So here in the yes button event handler, we
+所以在 yes 按鈕事件處理程式中，我們
+
+52
+00:02:18,908 --> 00:02:19,583
+can use
+可以使用
+
+53
+00:02:21,819 --> 00:02:24,474
+event.detail, and there for this specific
+event.detail，還有這個特定的
+
+54
+00:02:24,602 --> 00:02:28,415
+confirm event, we now have an issue request
+確認事件，我們現在有一個問題請求
+
+55
+00:02:28,463 --> 00:02:28,769
+method
+方法
+
+56
+00:02:29,847 --> 00:02:31,816
+made available by HTMX.
+由 HTMX 提供。
+
+57
+00:02:33,710 --> 00:02:36,219
+And I know about that because the official
+我知道這一點是因為官方
+
+58
+00:02:36,219 --> 00:02:39,391
+documentation tells us that this exists. So
+文檔告訴我們這是存在的。所以
+
+59
+00:02:39,472 --> 00:02:41,854
+definitely dive into that documentation from
+一定要深入研究該文檔
+
+60
+00:02:41,886 --> 00:02:44,429
+time to time if you're playing around with
+如果你時不時地玩弄
+
+61
+00:02:44,623 --> 00:02:46,039
+different HTMX events.
+不同的 HTMX 事件。
+
+62
+00:02:48,491 --> 00:02:50,375
+Now issueRequest will do what the name
+現在，issueRequest 將按照名稱執行操作
+
+63
+00:02:50,424 --> 00:02:53,854
+suggests. It will issue the request and HTMX
+建議。它將發出請求和 HTMX
+
+64
+00:02:53,854 --> 00:02:55,884
+will then still handle the response and so
+然後仍然會處理回應，所以
+
+65
+00:02:55,964 --> 00:02:56,158
+on
+在
+
+66
+00:02:56,834 --> 00:02:57,641
+as it always would.
+一如既往。
+
+67
+00:02:58,948 --> 00:03:00,965
+But with that, we therefore then make sure
+但這樣一來，我們就可以確保
+
+68
+00:03:00,965 --> 00:03:04,032
+that we do close the dialog but then also
+我們確實關閉了對話框，但也
+
+69
+00:03:04,032 --> 00:03:05,937
+continue with the intended action.
+繼續執行預期的操作。
+
+70
+00:03:07,560 --> 00:03:08,935
+And therefore now with this in place,
+因此現在有了這個，
+
+71
+00:03:09,631 --> 00:03:10,716
+if we reload again,
+如果我們再次重新載入，
+
+72
+00:03:11,719 --> 00:03:13,565
+if I add an item, you see I get the dialog,
+如果我新增一個專案，你會看到我收到對話框，
+
+73
+00:03:14,288 --> 00:03:16,083
+If I cancel, nothing happens.
+如果我取消，什麼事也不會發生。
+
+74
+00:03:16,676 --> 00:03:18,808
+If I click yes though, the item is added.
+如果我單擊“是”，則會新增該專案。
+
+75
+00:03:19,482 --> 00:03:21,550
+And I can do this for multiple places. And
+我可以在多個地方這樣做。和
+
+76
+00:03:21,566 --> 00:03:24,050
+if I click on an item up here, I get the
+如果我點擊這裡的一個專案，我會得到
+
+77
+00:03:24,050 --> 00:03:27,160
+same dialog now with the text remove though.
+現在，相同的對話方塊已刪除文字。
+
+78
+00:03:27,737 --> 00:03:29,180
+And I can also cancel that,
+我也可以取消，
+
+79
+00:03:29,821 --> 00:03:31,152
+but I can also confirm it.
+但我也可以確認。
+
+80
+00:03:32,370 --> 00:03:34,470
+And therefore now I got the functionality I
+因此現在我得到了我的功能
+
+81
+00:03:34,550 --> 00:03:37,548
+want with help of some custom JavaScript
+想要一些自訂 JavaScript 的幫助
+
+82
+00:03:37,580 --> 00:03:39,968
+code. And it's important to know that you
+程式碼。重要的是要知道你
+
+83
+00:03:40,145 --> 00:03:43,543
+can add your own custom JavaScript code to
+可以新增您自己的自訂 JavaScript 程式碼
+
+84
+00:03:43,687 --> 00:03:47,118
+HTMX managed or HTMX X Enhanced
+HTMX 託管或 HTMX X 增強型
+
+85
+00:03:47,215 --> 00:03:47,898
+applications.
+應用程式.

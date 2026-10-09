@@ -1,0 +1,609 @@
+1
+00:00:00,176 --> 00:00:02,583
+When building web applications, you may be
+在建立 Web 應用程式時，您可能會
+
+2
+00:00:02,599 --> 00:00:05,713
+using SQLite, and an earlier lecture showed
+使用 SQLite，之前的講座展示了
+
+3
+00:00:05,713 --> 00:00:08,040
+you how you could use Bun's built-in SQLite
+你如何使用 Bun 的內建 SQLite
+
+4
+00:00:08,040 --> 00:00:10,944
+client for that. But if you're using a MySQL
+客戶為此。但如果你使用的是 MySQL
+
+5
+00:00:10,944 --> 00:00:13,576
+or a PostgreSQL database, Bun also got you
+或是 PostgreSQL 資料庫，Bun 也有
+
+6
+00:00:13,576 --> 00:00:16,914
+covered because Bun includes a general SQL
+被覆寫是因為 Bun 包含一個通用 SQL
+
+7
+00:00:16,962 --> 00:00:19,867
+client as well, in addition to that separate
+使用者端也是如此，除了那個單獨的
+
+8
+00:00:19,867 --> 00:00:21,857
+SQLite client covered earlier.
+前面介紹過 SQLite 使用者端。
+
+9
+00:00:22,820 --> 00:00:25,484
+As a side note, you can also use this SQL
+作為旁注，您也可以使用此 SQL
+
+10
+00:00:25,708 --> 00:00:28,725
+client for SQLite, but you'll see that in
+SQLite 的使用者端，但你會在
+
+11
+00:00:28,822 --> 00:00:29,688
+just a second.
+稍等一下。
+
+12
+00:00:30,282 --> 00:00:32,611
+Either way, it's built into Bun, no extra
+無論哪種方式，它都內建在 Bun 中，無需額外
+
+13
+00:00:32,611 --> 00:00:34,907
+packages needed, and it then allows you to
+所需的軟體包，然後它允許您
+
+14
+00:00:35,004 --> 00:00:37,670
+connect to a SQL database, a MySQL,
+連接到 SQL 資料庫、MySQL、
+
+15
+00:00:37,814 --> 00:00:41,107
+PostgreSQL, or SQLite database. It supports
+PostgreSQL，或 SQLite 資料庫。它支援
+
+16
+00:00:41,107 --> 00:00:43,226
+connection pooling if the database server
+連接池如果資料庫伺服器
+
+17
+00:00:43,226 --> 00:00:45,587
+supports it, and it makes creating and
+支援它，它使創造和
+
+18
+00:00:45,619 --> 00:00:48,349
+executing SQL queries in a safe way,
+以安全的方式執行 SQL 查詢，
+
+19
+00:00:48,815 --> 00:00:51,417
+protected against SQL injection attacks, a
+防止 SQL 注入攻擊，
+
+20
+00:00:51,481 --> 00:00:51,690
+breeze.
+微風。
+
+21
+00:00:52,300 --> 00:00:54,902
+So to get started with Bun's built-in SQL
+那就開始使用Bun的內建SQL
+
+22
+00:00:55,014 --> 00:00:57,744
+client, I'm back in that same SQLite project
+客戶，我又回到了同一個 SQLite 專案
+
+23
+00:00:57,744 --> 00:00:59,399
+I covered in earlier lectures.
+我在之前的講座中介紹過。
+
+24
+00:01:00,298 --> 00:01:02,932
+In there, however, in DBTS, I'm no longer
+然而，在 DBTS 裡，我不再
+
+25
+00:01:03,029 --> 00:01:05,823
+using BUNN's SQLite client, which of course
+使用 BUNN 的 SQLite 使用者端，當然
+
+26
+00:01:05,936 --> 00:01:08,683
+you could use when working with SQLite, not
+你可以在使用 SQLite 時使用，而不是
+
+27
+00:01:08,683 --> 00:01:11,863
+a bad idea, but I'm using its SQL client
+一個壞主意，但我正在使用它的 SQL 使用者端
+
+28
+00:01:11,863 --> 00:01:14,770
+because as mentioned, that also supports
+因為如上所述，這也支援
+
+29
+00:01:14,770 --> 00:01:17,485
+SQLite as one of the supported database
+SQLite 作為受支援的資料庫之一
+
+30
+00:01:17,565 --> 00:01:17,854
+engines.
+發動機。
+
+31
+00:01:18,465 --> 00:01:20,970
+Now, in order to use this SQL client, you
+現在，為了使用這個 SQL 使用者端，您
+
+32
+00:01:20,970 --> 00:01:23,331
+start by instantiating it by creating an
+首先透過創建一個實例化它
+
+33
+00:01:23,508 --> 00:01:26,448
+object based on it, so to say, where you can
+基於它的物件，也就是說，你可以在哪裡
+
+34
+00:01:26,496 --> 00:01:29,224
+specify your adapter. Now, as a side note,
+指定您的適配器。現在，作為旁注，
+
+35
+00:01:29,609 --> 00:01:31,596
+you technically don't need to do that
+技術上你不需要這樣做
+
+36
+00:01:31,949 --> 00:01:34,802
+because Bun will take a look at the other
+因為Bun會看看另一個
+
+37
+00:01:34,979 --> 00:01:37,143
+hints it's getting, like for example, the
+暗示它正在得到，例如
+
+38
+00:01:37,143 --> 00:01:39,980
+existence of a filename, which tells it that
+檔案名稱的存在，它告訴它
+
+39
+00:01:39,980 --> 00:01:42,769
+it will be a SQLite database because for
+它將是一個 SQLite 資料庫，因為
+
+40
+00:01:42,769 --> 00:01:44,949
+MySQL and PostgreSQL, you would have a
+MySQL 和 PostgreSQL，您將擁有
+
+41
+00:01:44,949 --> 00:01:46,889
+server, you wouldn't have a filename there.
+伺服器，那裡不會有檔案名稱。
+
+42
+00:01:47,482 --> 00:01:49,662
+And for those databases, it would look at
+對於這些資料庫，它會查看
+
+43
+00:01:49,662 --> 00:01:52,419
+the connection URL to determine whether it's
+連結 URL 來判斷是否為
+
+44
+00:01:52,468 --> 00:01:55,561
+PostgreSQL or MySQL. But you can also
+PostgreSQL 或 MySQL。但你也可以
+
+45
+00:01:55,577 --> 00:01:57,822
+explicitly state the adapter here if you
+如果您在此處明確說明適配器
+
+46
+00:01:57,838 --> 00:01:59,873
+want to. And at the point of time where
+想要。而在那個時間點
+
+47
+00:01:59,890 --> 00:02:02,246
+recording this, the supported databases are
+記錄這一點，支援的資料庫是
+
+48
+00:02:02,246 --> 00:02:05,789
+SQLite, PostgreSQL, and MySQL, and also
+SQLite、PostgreSQL 和 MySQL，以及
+
+49
+00:02:05,789 --> 00:02:08,305
+MariaDB. But in this course, I'll focus on
+瑪麗亞資料庫。但在本課程中，我將重點放在
+
+50
+00:02:08,498 --> 00:02:10,550
+SQLite and then later also Postgres.
+SQLite，後來還有 Postgres。
+
+51
+00:02:11,447 --> 00:02:13,675
+So SQLite, it is here. Then we have some
+SQLite 就在這裡。然後我們有一些
+
+52
+00:02:13,772 --> 00:02:16,000
+options which you may already know from the
+您可能已經從
+
+53
+00:02:16,016 --> 00:02:18,613
+SQLite lectures, whether the database file
+SQLite講座，是否有資料庫檔案
+
+54
+00:02:18,613 --> 00:02:20,889
+should be created if it's not there, and
+如果不存在則應該創建，並且
+
+55
+00:02:21,001 --> 00:02:23,165
+strict settings which do some extra checks
+進行一些額外檢查的嚴格設置
+
+56
+00:02:23,165 --> 00:02:24,143
+regarding parameters.
+關於參數。
+
+57
+00:02:24,848 --> 00:02:28,071
+But the queries and SQL statements are then
+但查詢和 SQL 語句是
+
+58
+00:02:28,199 --> 00:02:30,475
+executed in a different way than before
+以與以前不同的方式執行
+
+59
+00:02:31,004 --> 00:02:33,633
+because instead of using that SQLite client,
+因為不使用 SQLite 使用者端，
+
+60
+00:02:33,810 --> 00:02:36,198
+we're now using the SQL client and we run
+我們現在使用 SQL 使用者端並運行
+
+61
+00:02:36,246 --> 00:02:39,806
+SQL queries through a special SQL tagged
+透過特殊SQL標記的SQL查詢
+
+62
+00:02:39,918 --> 00:02:41,120
+template literal.
+樣板文字。
+
+63
+00:02:41,762 --> 00:02:44,695
+That is simply the thing we get back from
+這就是我們從中得到的結果
+
+64
+00:02:44,808 --> 00:02:48,207
+instantiating SQL, this SQL class here.
+實例化 SQL，這裡是這個 SQL 類別。
+
+65
+00:02:48,880 --> 00:02:51,637
+And that then may look a bit weird, but that
+那麼這可能看起來有點奇怪，但是
+
+66
+00:02:51,637 --> 00:02:54,507
+is an official JavaScript and therefore also
+是官方的 JavaScript，因此也是
+
+67
+00:02:54,507 --> 00:02:55,533
+TypeScript feature.
+打字稿功能。
+
+68
+00:02:56,110 --> 00:02:58,499
+You can think of it as a function that
+您可以將其視為一個函式
+
+69
+00:02:58,595 --> 00:03:02,091
+receives a template literal as an input. And
+接收樣板文字作為輸入。和
+
+70
+00:03:02,188 --> 00:03:04,580
+the template literal content you pass in
+您傳入的範本文字內容
+
+71
+00:03:04,612 --> 00:03:07,630
+there is simply the SQL command or query you
+只需要 SQL 命令或查詢即可
+
+72
+00:03:07,727 --> 00:03:10,713
+wanna execute. So here for SQLite, a pragma
+想要執行。所以這裡是 SQLite，一個 pragma
+
+73
+00:03:10,713 --> 00:03:13,105
+statement for setting up WAL mode, so to
+設定WAL模式的語句，所以
+
+74
+00:03:13,105 --> 00:03:13,651
+configure it,
+設定它，
+
+75
+00:03:14,326 --> 00:03:16,365
+then this create table statement for
+然後這個創建表語句
+
+76
+00:03:16,493 --> 00:03:18,339
+creating a new table if it doesn't exist
+如果不存在則建立一個新表
+
+77
+00:03:18,339 --> 00:03:18,596
+yet,
+然而，
+
+78
+00:03:19,222 --> 00:03:20,812
+and then also for creating an index.
+然後也用於建立索引。
+
+79
+00:03:21,631 --> 00:03:25,484
+And then later down below, also some extra
+然後在下面，還有一些額外的
+
+80
+00:03:25,629 --> 00:03:28,423
+queries for getting notes, for example.
+例如，取得筆記的查詢。
+
+81
+00:03:29,178 --> 00:03:29,371
+Now,
+現在，
+
+82
+00:03:30,046 --> 00:03:33,628
+as mentioned, this SQL client also supports
+如前所述，該 SQL 使用者端也支援
+
+83
+00:03:34,014 --> 00:03:37,018
+SQL statements that receive parameters, SQL
+接收參數的SQL語句，SQL
+
+84
+00:03:37,131 --> 00:03:39,669
+queries that receive parameters, and it does
+接收參數的查詢，它確實
+
+85
+00:03:39,701 --> 00:03:41,951
+so in a way that automatically protects
+所以以一種自動保護的方式
+
+86
+00:03:42,031 --> 00:03:43,846
+against SQL injection attacks.
+抵禦SQL注入攻擊。
+
+87
+00:03:44,521 --> 00:03:47,236
+For example, here in getNode, we have the
+例如，在 getNode 中，我們有
+
+88
+00:03:47,236 --> 00:03:49,550
+same approach as before using the SQL tagged
+與先前使用 SQL 標記的方法相同
+
+89
+00:03:49,582 --> 00:03:51,863
+template literal approach, but now in there
+樣板文字方法，但現在在那裡
+
+90
+00:03:52,458 --> 00:03:53,968
+you see the ID is
+你看到的ID是
+
+91
+00:03:54,627 --> 00:03:57,037
+inserted into that template literal. And
+插入到該樣板文字中。和
+
+92
+00:03:57,214 --> 00:04:00,492
+that may look unsafe at first because it
+起初這可能看起來不安全，因為它
+
+93
+00:04:00,492 --> 00:04:03,159
+looks like we're just inserting whatever we
+看起來我們只是插入我們想要的東西
+
+94
+00:04:03,320 --> 00:04:05,907
+receive here as an input. So that could
+在這裡接收作為輸入。這樣就可以
+
+95
+00:04:05,955 --> 00:04:09,057
+potentially yield a SQL injection attack or
+可能會產生 SQL 注入攻擊或
+
+96
+00:04:09,330 --> 00:04:12,447
+lead to a SQL injection vulnerability. But
+導致SQL注入漏洞。但
+
+97
+00:04:12,479 --> 00:04:14,825
+that's not the case. This SQL tagged
+事實並非如此。此 SQL 標記為
+
+98
+00:04:15,050 --> 00:04:17,027
+template literal feature provided by Bun
+Bun 提供的範本文字功能
+
+99
+00:04:17,445 --> 00:04:19,742
+will automatically sanitize the
+會自動消毒
+
+100
+00:04:20,355 --> 00:04:22,810
+input you're injecting into it and will
+輸入你正在註入它並且會
+
+101
+00:04:23,004 --> 00:04:24,845
+protect against those attacks. So this is
+防止這些攻擊。所以這是
+
+102
+00:04:24,861 --> 00:04:27,849
+the safe way of inserting something dynamic
+插入動態內容的安全方法
+
+103
+00:04:28,010 --> 00:04:29,331
+into the SQL statement.
+到 SQL 語句中。
+
+104
+00:04:30,921 --> 00:04:33,428
+And you cannot just do that here for your
+你不能只是為了你的
+
+105
+00:04:33,492 --> 00:04:34,183
+parameters
+參數
+
+106
+00:04:34,842 --> 00:04:36,963
+when getting some data, but of course also,
+當獲取一些資料時，當然也，
+
+107
+00:04:37,027 --> 00:04:40,069
+for example, here for the values that you
+例如，此處為您的值
+
+108
+00:04:40,149 --> 00:04:42,726
+may be inserting into a database with that
+可能會插入資料庫
+
+109
+00:04:42,806 --> 00:04:45,496
+INSERT statement, which again is executed
+INSERT 語句，再次執行
+
+110
+00:04:45,544 --> 00:04:47,624
+with that SQL tagged template literal
+使用 SQL 標記的範本文字
+
+111
+00:04:47,673 --> 00:04:49,232
+feature. That is how you send all your
+特徵。這就是您發送所有資訊的方式
+
+112
+00:04:49,232 --> 00:04:52,332
+queries and statements to the database
+對資料庫的查詢和語句
+
+113
+00:04:52,508 --> 00:04:54,208
+except for transactions to which I'll get
+除了我將要進行的交易
+
+114
+00:04:54,208 --> 00:04:55,251
+back in just a second.
+一秒鐘後回來。
+
+115
+00:04:56,198 --> 00:04:59,374
+It's also worth noting that of course the
+當然也值得注意的是
+
+116
+00:04:59,999 --> 00:05:02,502
+statements, the queries you run can return
+語句，您執行的查詢可以回傳
+
+117
+00:05:02,630 --> 00:05:03,015
+data.
+資料。
+
+118
+00:05:03,609 --> 00:05:06,544
+So you can get back a row that was fetched
+這樣你就可以取回已取得的行
+
+119
+00:05:06,544 --> 00:05:09,191
+here, for example, which is why SQL is a
+例如，這就是為什麼 SQL 是一個
+
+120
+00:05:09,191 --> 00:05:12,864
+generic function in the end and you define
+最後定義泛型函式
+
+121
+00:05:12,897 --> 00:05:15,078
+the data you know you'll be getting back to
+您知道您將傳回的資料
+
+122
+00:05:15,078 --> 00:05:16,313
+have type safety.
+具有型別安全性。

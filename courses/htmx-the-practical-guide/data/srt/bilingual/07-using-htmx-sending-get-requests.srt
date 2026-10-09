@@ -1,0 +1,994 @@
+1
+00:00:00,452 --> 00:00:02,198
+So how can we use it?
+那我們該如何使用它呢？
+
+2
+00:00:03,087 --> 00:00:05,269
+Well, as mentioned, I wanna use it to make
+嗯，正如前面提到的，我想用它來製作
+
+3
+00:00:05,269 --> 00:00:07,871
+sure that when this button here is pressed,
+確保當按下這裡的按鈕時，
+
+4
+00:00:08,332 --> 00:00:12,883
+I load extra data and I display that extra
+我載入額外的資料並顯示該額外的資料
+
+5
+00:00:12,947 --> 00:00:13,271
+data.
+資料。
+
+6
+00:00:14,856 --> 00:00:18,086
+And one way of making this happen is to add
+實現這一點的一種方法是添加
+
+7
+00:00:18,086 --> 00:00:20,303
+a special attribute to this button.
+該按鈕的特殊屬性。
+
+8
+00:00:20,978 --> 00:00:24,079
+Now that we added this HTMX import, it
+現在我們加入了這個 HTMX 導入，它
+
+9
+00:00:24,355 --> 00:00:26,228
+wouldn't work without that import.
+如果沒有那個導入就無法運作。
+
+10
+00:00:26,938 --> 00:00:30,057
+But with the HTMX library added, we can add
+但是添加了 HTMX 庫後，我們可以添加
+
+11
+00:00:30,073 --> 00:00:35,252
+special hx-attributes onto our HTML
+特殊的 hx 屬性到我們的 HTML 上
+
+12
+00:00:35,381 --> 00:00:35,768
+elements.
+元素。
+
+13
+00:00:36,508 --> 00:00:39,085
+And the official documentation, of course,
+當然還有官方文檔，
+
+14
+00:00:39,101 --> 00:00:39,858
+lists all
+列出所有
+
+15
+00:00:40,615 --> 00:00:42,933
+the attributes you can add, but we'll, of
+您可以新增的屬性，但我們會，
+
+16
+00:00:43,046 --> 00:00:45,378
+course, also dive into all those important
+當然，也要深入研究所有那些重要的
+
+17
+00:00:45,378 --> 00:00:47,692
+attributes throughout this course and I'll
+貫穿本課程的屬性，我將
+
+18
+00:00:47,692 --> 00:00:48,672
+explain them in depth.
+深入解釋它們。
+
+19
+00:00:49,459 --> 00:00:51,564
+So you don't need to learn about them here
+所以你不需要在這裡了解它們
+
+20
+00:00:51,564 --> 00:00:53,171
+in the official docs manually.
+手動在官方檔案中。
+
+21
+00:00:53,737 --> 00:00:56,098
+Now, one attribute we can add to an element,
+現在，我們可以為元素新增一個屬性，
+
+22
+00:00:56,147 --> 00:01:00,500
+for example, is the hx-get attribute.
+例如，是 hx-get 屬性。
+
+23
+00:01:01,528 --> 00:01:03,600
+And what this attribute will do
+這個屬性會做什麼
+
+24
+00:01:04,339 --> 00:01:08,307
+is that it will send a GET request to a URL
+是它會向 URL 發送 GET 請求
+
+25
+00:01:08,532 --> 00:01:09,464
+or to a path
+或到一條路徑
+
+26
+00:01:10,042 --> 00:01:10,733
+we define
+我們定義
+
+27
+00:01:11,488 --> 00:01:13,512
+whenever it's triggered.
+每當它被觸發時。
+
+28
+00:01:14,540 --> 00:01:17,352
+And by default, this request will be
+預設情況下，該請求將是
+
+29
+00:01:17,352 --> 00:01:20,002
+triggered whenever the element on which you
+每當您在其上的元素上觸發
+
+30
+00:01:20,163 --> 00:01:22,846
+added it is clicked. So whenever this button
+添加它被點擊。所以每當這個按鈕
+
+31
+00:01:22,846 --> 00:01:25,336
+is clicked, that's the default behavior of
+被點擊，這是預設行為
+
+32
+00:01:25,545 --> 00:01:26,268
+HTMX.
+HTMX。
+
+33
+00:01:27,312 --> 00:01:30,252
+You can change that and I'll show you how
+你可以改變它，我會告訴你如何做
+
+34
+00:01:30,284 --> 00:01:32,796
+you can change it, but that is the default
+你可以改變它，但這是預設的
+
+35
+00:01:32,976 --> 00:01:33,679
+behavior here.
+這裡的行為。
+
+36
+00:01:35,610 --> 00:01:37,570
+Therefore, here in order to learn more data,
+因此，這裡為了了解更多的資料，
+
+37
+00:01:37,586 --> 00:01:39,964
+we can send a GET request and we set the
+我們可以發送 GET 請求並設置
+
+38
+00:01:40,125 --> 00:01:40,510
+path
+小路
+
+39
+00:01:41,089 --> 00:01:42,181
+on the URL
+在網址上
+
+40
+00:01:42,953 --> 00:01:45,219
+that's serving this page to which this
+正在為該頁面提供服務
+
+41
+00:01:45,219 --> 00:01:47,649
+request should be sent by adding an equal
+請求應透過添加等號來發送
+
+42
+00:01:47,649 --> 00:01:50,533
+sign here and then double quotes, just as we
+在這裡簽名，然後雙引號，就像我們一樣
+
+43
+00:01:50,821 --> 00:01:54,459
+always assign attribute values in HTML. It's
+始終在 HTML 中指派屬性值。它是
+
+44
+00:01:54,523 --> 00:01:55,116
+the same here.
+這裡也一樣。
+
+45
+00:01:56,205 --> 00:01:58,032
+And between those double quotes, we now put
+在這些雙引號之間，我們現在放
+
+46
+00:01:58,032 --> 00:01:59,971
+the path to which the request should be
+請求應該到達的路徑
+
+47
+00:01:59,971 --> 00:02:00,227
+sent.
+發送。
+
+48
+00:02:01,653 --> 00:02:03,768
+And here I wanna send the request to
+我想將請求發送至
+
+49
+00:02:04,842 --> 00:02:07,758
+/info, though you could specify any path
+/info，儘管您可以指定任何路徑
+
+50
+00:02:07,886 --> 00:02:10,514
+here because at the moment, this dummy
+在這裡，因為此時此刻，這個假人
+
+51
+00:02:10,770 --> 00:02:14,506
+Node.js application and server I provided to
+我提供給的 Node.js 應用程式和伺服器
+
+52
+00:02:14,538 --> 00:02:14,603
+you
+你
+
+53
+00:02:15,429 --> 00:02:18,083
+doesn't support GET requests to
+不支援 GET 請求
+
+54
+00:02:19,071 --> 00:02:19,508
+/info.
+/資訊.
+
+55
+00:02:20,528 --> 00:02:23,121
+I got no handler for that anywhere in this
+我在這個地方沒有任何處理程式
+
+56
+00:02:23,203 --> 00:02:26,263
+app.js file, but we'll add one soon.
+app.js 檔案，但我們很快就會添加一個。
+
+57
+00:02:28,368 --> 00:02:30,611
+So that will send such a GET request. How
+這樣就會發送這樣一個 GET 請求。如何
+
+58
+00:02:31,014 --> 00:02:33,983
+can we now handle it on the server?
+我們現在可以在伺服器上處理它嗎？
+
+59
+00:02:35,291 --> 00:02:37,760
+Well, in order to handle this GET request
+好吧，為了處理這個 GET 請求
+
+60
+00:02:37,760 --> 00:02:40,946
+here to /info, we must make sure that our
+到/info，我們必須確保我們的
+
+61
+00:02:40,946 --> 00:02:44,754
+server has an appropriate route configured.
+伺服器設定了適當的路由。
+
+62
+00:02:45,411 --> 00:02:49,144
+And of course, you cannot just use HTMX with
+當然，您不能只使用 HTMX
+
+63
+00:02:49,416 --> 00:02:50,137
+Node.js.
+Node.js。
+
+64
+00:02:50,858 --> 00:02:53,518
+You could use it on any page that's served
+您可以在提供的任何頁面上使用它
+
+65
+00:02:53,518 --> 00:02:56,867
+by any server that uses any server-side
+由任何使用任何伺服器端的伺服器
+
+66
+00:02:56,883 --> 00:02:58,037
+language of your choice.
+您選擇的語言。
+
+67
+00:02:58,709 --> 00:03:00,889
+Of course, for example, also PHP,
+當然，例如還有PHP，
+
+68
+00:03:01,946 --> 00:03:02,267
+.NET,
+。網，
+
+69
+00:03:02,891 --> 00:03:05,087
+whatever you want. Here, it's a Node.js
+任何你想要的。在這裡，它是一個 Node.js
+
+70
+00:03:05,199 --> 00:03:07,522
+application though, specifically one that
+但應用程式，特別是一個
+
+71
+00:03:07,602 --> 00:03:10,680
+also uses Express, and I can register a
+也用Express，我可以註冊一個
+
+72
+00:03:10,680 --> 00:03:13,217
+second route, for example, by using my
+第二條路線，例如，使用我的
+
+73
+00:03:13,233 --> 00:03:14,710
+express app object
+表達應用程式物件
+
+74
+00:03:15,866 --> 00:03:18,580
+and by calling GET on it to register a new
+並透過呼叫 GET 來註冊一個新的
+
+75
+00:03:18,692 --> 00:03:19,383
+GET route
+獲取路線
+
+76
+00:03:20,442 --> 00:03:23,589
+and by then specifying the path for which I
+然後指定我的路徑
+
+77
+00:03:23,589 --> 00:03:26,383
+wanna listen to GET requests, for example,
+想要監聽 GET 請求，例如，
+
+78
+00:03:26,720 --> 00:03:27,122
+/info.
+/資訊.
+
+79
+00:03:28,406 --> 00:03:32,067
+This would register a /info GET route on
+這將註冊一個 /info GET 路由
+
+80
+00:03:32,340 --> 00:03:34,652
+this backend server that's serving my site
+這個為我的網站提供服務的後端伺服器
+
+81
+00:03:34,652 --> 00:03:34,717
+here.
+這裡。
+
+82
+00:03:36,019 --> 00:03:38,242
+Now we could also, by the way, specify a
+順便說一句，現在我們還可以指定一個
+
+83
+00:03:38,290 --> 00:03:40,739
+full URL to some other page here
+此處其他頁面的完整 URL
+
+84
+00:03:41,335 --> 00:03:44,106
+if that page has that path and returns the
+如果該頁面有該路徑並回傳
+
+85
+00:03:44,106 --> 00:03:46,228
+data we need. But here I'm building an
+我們需要的資料。但在這裡我正在建造一個
+
+86
+00:03:46,421 --> 00:03:48,574
+integrated application and therefore it
+集成應用程式，因此它
+
+87
+00:03:48,574 --> 00:03:50,807
+should be the same server that's serving
+應該是正在提供服務的同一台伺服器
+
+88
+00:03:51,402 --> 00:03:52,237
+this site here
+這個網站在這裡
+
+89
+00:03:52,768 --> 00:03:55,594
+that's also returning the data we want here,
+這也回傳了我們想要的資料，
+
+90
+00:03:55,902 --> 00:03:57,667
+hence the extra route.
+因此有額外的路線。
+
+91
+00:03:59,658 --> 00:04:01,578
+Now this route isn't done though. Here in
+現在這條路線還沒完成。在此處
+
+92
+00:04:01,627 --> 00:04:03,938
+Node Express, I also need to define a
+Node Express，我還需要定義一個
+
+93
+00:04:03,938 --> 00:04:04,784
+function that will be triggered when a
+當一個函式被觸發時
+
+94
+00:04:04,784 --> 00:04:05,434
+request reaches that route.
+請求到達該路由。
+
+95
+00:04:07,516 --> 00:04:07,901
+Route
+路線
+
+96
+00:04:08,799 --> 00:04:11,158
+and that function will automatically receive
+此函式將自動接收
+
+97
+00:04:11,222 --> 00:04:13,468
+a request and the response object.
+請求和回應物件。
+
+98
+00:04:14,030 --> 00:04:17,126
+Express.js makes sure that this is happening
+Express.js 確保這一切發生
+
+99
+00:04:18,041 --> 00:04:20,094
+and we can use the response object to send
+我們可以使用回應物件來發送
+
+100
+00:04:20,126 --> 00:04:21,089
+back some data.
+傳回一些資料。
+
+101
+00:04:22,035 --> 00:04:25,758
+And that's now the really important part
+這就是現在真正重要的部分
+
+102
+00:04:25,822 --> 00:04:28,132
+when working with HTMX.
+使用 HTMX 時。
+
+103
+00:04:29,031 --> 00:04:32,849
+The data that's returned by that backend
+該後端回傳的資料
+
+104
+00:04:33,122 --> 00:04:36,717
+must be in the right format for HTMX to
+HTMX 必須採用正確的格式
+
+105
+00:04:36,797 --> 00:04:38,820
+understand and handle it.
+了解並處理它。
+
+106
+00:04:39,542 --> 00:04:43,491
+And the right format, the format HTMX
+以及正確的格式，HTMX 格式
+
+107
+00:04:43,491 --> 00:04:44,101
+expects
+期望
+
+108
+00:04:44,662 --> 00:04:47,905
+is not JSON as you would use it
+不是您使用的 JSON
+
+109
+00:04:48,675 --> 00:04:50,537
+on many other web apps. So if you're
+在許多其他網路應用程式上。所以如果你是
+
+110
+00:04:50,537 --> 00:04:53,153
+building a backend for a React single-page
+為 React 單頁面建立後端
+
+111
+00:04:53,330 --> 00:04:54,662
+application, for example,
+應用程式，例如，
+
+112
+00:04:55,256 --> 00:04:57,696
+you would typically build a server that
+您通常會建立一個伺服器
+
+113
+00:04:57,696 --> 00:05:01,355
+sends back JSON data and then in the React
+傳回 JSON 資料，然後在 React 中
+
+114
+00:05:01,355 --> 00:05:05,400
+app, you would use that JSON data to output
+應用程式，您將使用該 JSON 資料來輸出
+
+115
+00:05:05,400 --> 00:05:07,213
+some list items, for example.
+例如，一些列表項。
+
+116
+00:05:07,951 --> 00:05:11,306
+And that's not how it works when using HTMX.
+使用 HTMX 時，情況並非如此。
+
+117
+00:05:11,562 --> 00:05:12,381
+Instead, there,
+相反，在那裡，
+
+118
+00:05:12,991 --> 00:05:17,035
+HTMX expects a response that contains
+HTMX 期望回應包含
+
+119
+00:05:17,564 --> 00:05:18,559
+HTML
+超文本標記語言
+
+120
+00:05:19,185 --> 00:05:23,197
+data, HTML content, not necessarily an
+資料、HTML 內容，不一定是
+
+121
+00:05:23,197 --> 00:05:26,728
+entire page, but instead maybe also just a
+整個頁面，但也可能只是一個
+
+122
+00:05:26,728 --> 00:05:29,023
+fragment of HTML code,
+HTML 程式碼片段，
+
+123
+00:05:29,617 --> 00:05:33,661
+but it does expect And therefore here, I
+但它確實期望因此在這裡，我
+
+124
+00:05:33,774 --> 00:05:35,587
+wanna reply, so to say,
+想回覆一下，可以這麼說
+
+125
+00:05:36,261 --> 00:05:39,664
+by sending back a string that contains HTML
+透過傳回包含 HTML 的字串
+
+126
+00:05:39,809 --> 00:05:40,017
+code.
+程式碼。
+
+127
+00:05:41,189 --> 00:05:44,496
+So by sending back text that contains HTML
+因此，透過發回包含 HTML 的文本
+
+128
+00:05:44,688 --> 00:05:45,924
+code in the end.
+程式碼在最後。
+
+129
+00:05:46,695 --> 00:05:49,167
+And the Express framework, which I'm using
+還有我正在使用的 Express 框架
+
+130
+00:05:49,199 --> 00:05:52,441
+here, will then automatically detect that my
+在這裡，然後會自動檢測到我的
+
+131
+00:05:52,489 --> 00:05:55,748
+response contains text that contains valid
+回應包含包含有效文本
+
+132
+00:05:55,844 --> 00:05:58,942
+HTML code and it will set an appropriate
+HTML 程式碼，它將設定一個適當的
+
+133
+00:05:58,942 --> 00:06:01,346
+status code. A header on that response,
+狀態碼。該回應的標題，
+
+134
+00:06:01,394 --> 00:06:04,738
+which is then in turn telling HTMX that it's
+然後反過來告訴 HTMX 它是
+
+135
+00:06:04,803 --> 00:06:07,275
+getting the data in the format it wants.
+以所需的格式取得資料。
+
+136
+00:06:08,800 --> 00:06:10,283
+So therefore here, I wanna return an
+所以在這裡，我想回傳一個
+
+137
+00:06:10,465 --> 00:06:11,322
+unordered list.
+無序列表。
+
+138
+00:06:13,280 --> 00:06:15,497
+And in that unordered list, I wanna return
+在那個無序列表中，我想回傳
+
+139
+00:06:15,804 --> 00:06:17,050
+one list item
+一個列表項
+
+140
+00:06:17,649 --> 00:06:21,279
+per string element in this HTMX knowledge
+此 HTMX 知識中的每個字串元素
+
+141
+00:06:21,474 --> 00:06:21,718
+array.
+大批。
+
+142
+00:06:23,522 --> 00:06:26,302
+Now I'm already importing this array here.
+現在我已經在這裡導入這個陣列了。
+
+143
+00:06:26,847 --> 00:06:28,744
+Into the App.js file.
+進入 App.js 檔案。
+
+144
+00:06:29,339 --> 00:06:32,217
+And therefore I can now easily generate one
+因此我現在可以輕鬆生成一個
+
+145
+00:06:32,394 --> 00:06:35,129
+list item per element in that array
+列出該陣列中每個元素的專案
+
+146
+00:06:35,876 --> 00:06:39,009
+by injecting a value into this dynamically
+透過動態地向其中註入一個值
+
+147
+00:06:39,025 --> 00:06:39,983
+constructed string.
+建構的字串。
+
+148
+00:06:41,586 --> 00:06:43,813
+It's dynamically constructed by using this
+它是使用 this 動態建構的
+
+149
+00:06:43,877 --> 00:06:47,089
+special backticks syntax that's supported by
+支援的特殊反引號語法
+
+150
+00:06:47,089 --> 00:06:47,654
+JavaScript.
+JavaScript。
+
+151
+00:06:49,574 --> 00:06:51,799
+And here I'll use that array and then the
+在這裡我將使用該陣列，然後使用
+
+152
+00:06:51,799 --> 00:06:53,747
+map method And then here
+地圖方法然後在這裡
+
+153
+00:06:54,297 --> 00:06:54,830
+I get one
+我得到一個
+
+154
+00:06:56,059 --> 00:06:57,449
+info text element
+資訊文字元素
+
+155
+00:06:58,322 --> 00:07:00,763
+per function execution. That's the way the
+每個函式執行。就是這樣的
+
+156
+00:07:00,763 --> 00:07:02,430
+built-in map method works.
+內建地圖方法有效。
+
+157
+00:07:03,175 --> 00:07:07,142
+And I'll then return one list item per
+然後我將回傳一個列表項
+
+158
+00:07:07,223 --> 00:07:08,162
+element in that array.
+該陣列中的元素。
+
+159
+00:07:08,696 --> 00:07:11,788
+And here in that list item, I'll simply wrap
+在該清單專案中，我將簡單地換行
+
+160
+00:07:12,110 --> 00:07:13,557
+that info text.
+該資訊文本。
+
+161
+00:07:15,487 --> 00:07:18,108
+And that overall will generate an unordered
+總體而言將產生一個無序的
+
+162
+00:07:18,140 --> 00:07:20,725
+list with multiple list items in it,
+包含多個列表專案的列表，
+
+163
+00:07:21,382 --> 00:07:25,168
+one list item per element in this HTMX
+此 HTMX 中每個元素一個列表項
+
+164
+00:07:25,168 --> 00:07:25,809
+knowledge array.
+知識陣列。
+
+165
+00:07:26,531 --> 00:07:29,595
+And that's then overall the HTML fragment
+這就是整個 HTML 片段
+
+166
+00:07:29,739 --> 00:07:33,348
+I'm sending back from this /info GET route.
+我從這個 /info GET 路線發回。
+
+167
+00:07:34,150 --> 00:07:36,284
+And that's then data in the format that is
+這就是格式為的資料
+
+168
+00:07:36,332 --> 00:07:38,000
+expected by HTMX.
+HTMX 預期。
+
+169
+00:07:39,026 --> 00:07:41,689
+And thanks to this attribute here, this
+多虧了這裡的這個屬性，這個
+
+170
+00:07:41,834 --> 00:07:44,817
+hx-get attribute which we added, and thanks
+我們新增的 hx-get 屬性，謝謝
+
+171
+00:07:44,817 --> 00:07:48,072
+to the HTMX library, which we added,
+到我們新增的 HTMX 庫中，
+
+172
+00:07:48,729 --> 00:07:51,389
+HTMX will now make sure that when we click
+HTMX 現在將確保當我們單擊
+
+173
+00:07:51,389 --> 00:07:52,046
+on this button,
+在此按鈕上，
+
+174
+00:07:52,654 --> 00:07:55,090
+our request to this route is sent.
+我們對此路由的請求已發送。
+
+175
+00:07:55,779 --> 00:07:58,615
+And then it will also make sure that it
+然後它還將確保
+
+176
+00:07:58,663 --> 00:08:00,073
+takes the response
+接受回應
+
+177
+00:08:01,003 --> 00:08:03,743
+from that request, so that HTML code here,
+來自該請求，因此此處的 HTML 程式碼，
+
+178
+00:08:04,432 --> 00:08:07,557
+and outputs it. And by default, it outputs
+並輸出它。預設情況下，它輸出
+
+179
+00:08:07,557 --> 00:08:08,550
+it in the place
+它在那個地方
+
+180
+00:08:09,255 --> 00:08:11,947
+that triggered the request. But let's simply
+觸發了請求。但讓我們簡單地
+
+181
+00:08:11,979 --> 00:08:13,469
+take a look at that in action.
+看看實際情況。
+
+182
+00:08:14,319 --> 00:08:15,425
+So I'll save that,
+所以我會儲存它，
+
+183
+00:08:16,050 --> 00:08:18,583
+reload this page, and if I now click Learn
+重新載入此頁面，如果我現在單擊“學習”
+
+184
+00:08:18,856 --> 00:08:19,128
+More,
+更多的，
+
+185
+00:08:20,298 --> 00:08:23,232
+you see, boom, my list items are here,
+你看，繁榮，我的清單專案在這裡，
+
+186
+00:08:24,002 --> 00:08:27,625
+but there are a couple of problems with that
+但有幾個問題
+
+187
+00:08:27,673 --> 00:08:27,817
+code.
+程式碼。
+
+188
+00:08:29,051 --> 00:08:32,290
+Most importantly, the entire list was now
+最重要的是，現在整個列表
+
+189
+00:08:32,498 --> 00:08:34,261
+rendered inside of that button.
+呈現在該按鈕內部。
+
+190
+00:08:34,967 --> 00:08:37,307
+As you can also see if you inspect that in
+正如您還可以看到，如果您檢查它
+
+191
+00:08:37,307 --> 00:08:38,526
+the developer tools,
+開發者工具，
+
+192
+00:08:39,151 --> 00:08:41,443
+you can see this unordered list here was
+你可以在這裡看到這個無序列表
+
+193
+00:08:41,539 --> 00:08:44,249
+rendered between the button tags and
+在按鈕標籤和之間呈現
+
+194
+00:08:45,004 --> 00:08:47,499
+That's not really what I want.
+這並不是我真正想要的。
+
+195
+00:08:48,207 --> 00:08:50,670
+In addition, I also have this comma here
+另外我這裡也有這個逗號
+
+196
+00:08:50,798 --> 00:08:53,374
+between all those list items and that's also
+在所有這些清單專案之間，這也是
+
+197
+00:08:53,374 --> 00:08:54,340
+something I wanna fix.
+我想修復的東西。
+
+198
+00:08:54,887 --> 00:08:57,157
+But the more important problem is that this
+但更重要的問題是，這個
+
+199
+00:08:57,157 --> 00:08:59,458
+list is rendered in the wrong place.
+列表呈現在錯誤的位置。

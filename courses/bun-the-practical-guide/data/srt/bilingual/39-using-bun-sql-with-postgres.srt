@@ -1,0 +1,719 @@
+1
+00:00:00,128 --> 00:00:02,919
+So Bun has that SQL client. You can use it
+所以 Bun 有那個 SQL 使用者端。你可以使用它
+
+2
+00:00:02,919 --> 00:00:05,309
+with SQLite, but you can also use it with
+與 SQLite 一起使用，但您也可以將其與
+
+3
+00:00:05,390 --> 00:00:07,732
+MySQL, PostgreSQL, and MariaDB.
+MySQL、PostgreSQL 和 MariaDB。
+
+4
+00:00:08,277 --> 00:00:09,945
+And here I'm in a brand new project, which
+我現在正處於一個全新的專案中
+
+5
+00:00:09,977 --> 00:00:12,753
+you also find attached, which uses Postgres
+您也可以找到附件，它使用 Postgres
+
+6
+00:00:13,090 --> 00:00:14,918
+as a database as an example.
+以資料庫為例。
+
+7
+00:00:15,576 --> 00:00:16,186
+Now, I
+現在，我
+
+8
+00:00:16,779 --> 00:00:19,378
+create a Postgres server using Docker.
+使用 Docker 建立 Postgres 伺服器。
+
+9
+00:00:19,683 --> 00:00:21,576
+That's why I have a Docker Compose file in
+這就是為什麼我有一個 Docker Compose 檔案
+
+10
+00:00:21,608 --> 00:00:23,661
+there. And therefore, if you wanna run this
+那裡。因此，如果你想運行這個
+
+11
+00:00:23,757 --> 00:00:26,148
+locally, you will need Docker installed on
+在本機，您需要安裝 Docker
+
+12
+00:00:26,180 --> 00:00:29,196
+your system. And the README.md file contains
+你的系統。 README.md 檔案包含
+
+13
+00:00:29,372 --> 00:00:31,473
+all the detailed instructions you need to go
+您需要的所有詳細說明
+
+14
+00:00:31,473 --> 00:00:33,716
+through to run this project on your system
+透過在您的系統上運行該專案
+
+15
+00:00:33,860 --> 00:00:35,767
+if you want to run it. So as mentioned,
+如果你想運行它。正如所提到的，
+
+16
+00:00:35,879 --> 00:00:38,282
+Docker must be installed. You also need to
+必須安裝 Docker。您還需要
+
+17
+00:00:38,282 --> 00:00:40,814
+install all dependencies, of course, and you
+當然，安裝所有依賴項，然後您
+
+18
+00:00:40,862 --> 00:00:43,682
+need to copy that.env.example file
+需要複製 that.env.example 檔案
+
+19
+00:00:44,210 --> 00:00:46,710
+and rename it to just.env so that you have
+並將其重新命名為 just.env 這樣你就有了
+
+20
+00:00:46,710 --> 00:00:49,514
+such a.env file. And then make sure that
+這樣的.env 檔。然後確保
+
+21
+00:00:49,642 --> 00:00:51,885
+all these environment variables here are set
+這裡所有這些環境變數都已設置
+
+22
+00:00:51,965 --> 00:00:54,144
+up in that file. So you need a Postgres user
+在該檔案中。所以你需要一個 Postgres 使用者
+
+23
+00:00:54,289 --> 00:00:56,195
+written exactly like that, Postgres
+Postgres 就是這樣寫的
+
+24
+00:00:56,227 --> 00:00:58,503
+password, and so on with any values of your
+密碼等，以及您的任何值
+
+25
+00:00:58,551 --> 00:01:00,874
+choice. These are up to you, but you must
+選擇。這些都取決於你，但你必須
+
+26
+00:01:00,874 --> 00:01:04,303
+set them. The Docker container and also the
+設定它們。 Docker 容器以及
+
+27
+00:01:04,303 --> 00:01:06,130
+application need them because now we're
+應用程式需要它們，因為現在我們
+
+28
+00:01:06,146 --> 00:01:08,325
+dealing with a database server that must be
+處理必須是的資料庫伺服器
+
+29
+00:01:08,325 --> 00:01:09,415
+properly configured.
+正確設定。
+
+30
+00:01:10,088 --> 00:01:11,754
+And then once you got Docker installed and
+一旦安裝了 Docker，
+
+31
+00:01:11,754 --> 00:01:14,110
+the env file set up, you can start the
+env檔案設定好後，就可以啟動了
+
+32
+00:01:14,158 --> 00:01:16,593
+database by running this command. This uses
+透過執行此命令來資料庫。這使用
+
+33
+00:01:16,657 --> 00:01:17,955
+Docker Compose under the hood.
+Docker 在底層進行 Compose。
+
+34
+00:01:18,757 --> 00:01:21,465
+So here I run bun run db start.
+所以在這裡我運行bun run db start。
+
+35
+00:01:22,009 --> 00:01:24,669
+This runs Docker Compose up in detached
+這會以分離的方式運行 Docker Compose
+
+36
+00:01:24,669 --> 00:01:26,721
+mode, so in the background. And you can then
+模式，所以在後台。然後你就可以
+
+37
+00:01:26,817 --> 00:01:28,052
+run bun run db
+運行bun運行db
+
+38
+00:01:28,581 --> 00:01:31,083
+logs to see the logs of that server and see
+紀錄查看該伺服器的紀錄並查看
+
+39
+00:01:31,083 --> 00:01:33,761
+if it started up just fine. So these are the
+如果它啟動得很好。所以這些是
+
+40
+00:01:33,873 --> 00:01:35,782
+logs of the database server and that should
+資料庫伺服器的紀錄，應該
+
+41
+00:01:35,814 --> 00:01:36,071
+work.
+工作。
+
+42
+00:01:36,760 --> 00:01:39,005
+You can hit Ctrl+C to get out of that and
+您可以按 Ctrl+C 退出該狀態，然後
+
+43
+00:01:39,005 --> 00:01:42,052
+you can also run docker compose ps to see
+您也可以執行 docker compose ps 來查看
+
+44
+00:01:42,213 --> 00:01:44,362
+all your running Docker Compose containers
+所有正在運行的 Docker Compose 容器
+
+45
+00:01:44,474 --> 00:01:46,655
+for this project and they should all be up
+對於這個專案，他們都應該起來
+
+46
+00:01:46,655 --> 00:01:47,681
+and running and healthy.
+並跑步並保持健康。
+
+47
+00:01:49,109 --> 00:01:50,280
+So with that, we can then run
+這樣我們就可以運行
+
+48
+00:01:51,049 --> 00:01:52,894
+bun install to install the dependencies and
+Bun install 用於安裝相依性並
+
+49
+00:01:52,894 --> 00:01:54,898
+then bun run dev to start the development
+然後bun run dev開始開發
+
+50
+00:01:54,898 --> 00:01:56,149
+server of this application.
+該應用程式的伺服器。
+
+51
+00:01:57,610 --> 00:01:59,024
+And it's the same application as before.
+它與以前的應用程式相同。
+
+52
+00:01:59,538 --> 00:02:01,658
+Obviously, any notes you created before will
+顯然，您之前創建的任何註釋都會
+
+53
+00:02:01,706 --> 00:02:03,971
+be gone since we switched the database. But
+自從我們切換資料庫後就消失了。但
+
+54
+00:02:03,971 --> 00:02:05,850
+just as before, we can add our notes here,
+和以前一樣，我們可以在這裡添加註釋，
+
+55
+00:02:06,059 --> 00:02:06,572
+save them,
+拯救他們，
+
+56
+00:02:07,263 --> 00:02:07,713
+view them,
+看看它們，
+
+57
+00:02:08,307 --> 00:02:09,945
+and also of course edit them.
+當然也可以編輯它們。
+
+58
+00:02:11,182 --> 00:02:14,362
+And if we want to, of course, also then
+當然，如果我們願意的話
+
+59
+00:02:15,053 --> 00:02:17,269
+delete them. That all works, but now they'll
+刪除它們。這一切都有效，但現在他們會
+
+60
+00:02:17,301 --> 00:02:18,795
+be stored in Postgres.
+儲存在 Postgres 中。
+
+61
+00:02:19,630 --> 00:02:20,995
+And if we now take a look at the code,
+如果我們現在看一下程式碼，
+
+62
+00:02:21,011 --> 00:02:23,531
+you'll see that in DBTS We're still using
+你會在 DBTS 中看到我們仍在使用
+
+63
+00:02:23,579 --> 00:02:25,936
+the SQL client by Bun just as before for
+Bun 的 SQL 使用者端就像以前一樣
+
+64
+00:02:25,968 --> 00:02:27,988
+SQLite as an alternative there.
+SQLite 作為替代方案。
+
+65
+00:02:28,693 --> 00:02:30,488
+And just as before, we start by
+和以前一樣，我們從
+
+66
+00:02:30,536 --> 00:02:33,806
+instantiating SQL to create that client, but
+實例化 SQL 來建立該使用者端，但是
+
+67
+00:02:33,806 --> 00:02:34,015
+now
+現在
+
+68
+00:02:34,544 --> 00:02:37,397
+with the PostgreSQL adapter. Now adapter is
+使用 PostgreSQL 適配器。現在適配器是
+
+69
+00:02:37,429 --> 00:02:39,401
+not specified here because I mentioned that
+這裡未指定，因為我提到過
+
+70
+00:02:39,433 --> 00:02:41,341
+Bun would be able to infer it, but of course
+Bun 可以推論出來，但當然
+
+71
+00:02:41,341 --> 00:02:43,745
+you can still do it. You can set the adapter
+你仍然可以做到。您可以設定適配器
+
+72
+00:02:43,745 --> 00:02:45,252
+to Postgres here if you want to.
+如果你願意的話，可以到這裡的Postgres。
+
+73
+00:02:46,230 --> 00:02:48,089
+Adding this doesn't hurt, but you don't need
+添加這個不會有什麼壞處，但你不需要
+
+74
+00:02:48,089 --> 00:02:51,007
+to because due to the properties that are
+因為由於以下屬性
+
+75
+00:02:51,151 --> 00:02:54,421
+set here, Bun can infer that you're not
+設定在這裡，Bun 可以推論出你不是
+
+76
+00:02:54,421 --> 00:02:54,630
+using
+使用
+
+77
+00:02:55,326 --> 00:02:57,635
+because there is no file name in there. For
+因為裡面沒有檔名。為了
+
+78
+00:02:57,731 --> 00:02:59,846
+SQLite, there is because it's a local
+SQLite，有，因為它是本地的
+
+79
+00:02:59,846 --> 00:03:00,234
+database.
+資料庫.
+
+80
+00:03:01,250 --> 00:03:03,352
+And instead we have a URL. And looking at
+相反，我們有一個 URL。並看著
+
+81
+00:03:03,368 --> 00:03:06,701
+that URL, Bun sees that we will connect to a
+那個 URL，Bun 看到我們將連接到
+
+82
+00:03:06,701 --> 00:03:09,046
+Postgres database here. By the way, that URL
+Postgres 資料庫在這裡。順便說一句，那個網址
+
+83
+00:03:09,062 --> 00:03:11,280
+is constructed by simply putting in all
+只需將所有內容放入即可建構
+
+84
+00:03:11,413 --> 00:03:12,951
+those env var values.
+這些環境變數值。
+
+85
+00:03:15,557 --> 00:03:17,618
+Now, what else is configured in there? Well,
+現在，裡面還設定了什麼？出色地，
+
+86
+00:03:17,829 --> 00:03:20,118
+for example, this max setting, which is a
+例如，這個最大設定是
+
+87
+00:03:20,118 --> 00:03:21,781
+setting for connection pool size. Pooling,
+連接池大小的設定。匯集，
+
+88
+00:03:21,957 --> 00:03:25,250
+which is a PostgreSQL feature that allows us
+這是 PostgreSQL 的功能，可以讓我們
+
+89
+00:03:25,250 --> 00:03:27,707
+to have multiple active connections to one
+與一個有多個活動連接
+
+90
+00:03:27,835 --> 00:03:30,164
+and the same database server for more
+和更多相同的資料庫伺服器
+
+91
+00:03:30,164 --> 00:03:32,381
+efficient query execution. And this defines
+高效率的查詢執行。這定義了
+
+92
+00:03:32,413 --> 00:03:34,452
+the max number of connections that will be
+最大連線數
+
+93
+00:03:34,806 --> 00:03:37,424
+kept warm by Bun automatically. And the nice
+包子自動保溫。還有漂亮的
+
+94
+00:03:37,552 --> 00:03:40,090
+thing is Bun handles everything related to
+事情是 Bun 處理所有相關的事情
+
+95
+00:03:40,122 --> 00:03:42,483
+connection pooling. We just need to specify
+連接池。我們只需要指定
+
+96
+00:03:42,756 --> 00:03:44,715
+how many active connections we want to have
+我們想要有多少個活躍連接
+
+97
+00:03:44,715 --> 00:03:47,076
+at the same time. We can then configure an
+同時。然後我們可以設定一個
+
+98
+00:03:47,253 --> 00:03:49,578
+idle timeout which is the maximum amount of
+空閒超時，這是最大量
+
+99
+00:03:49,594 --> 00:03:51,421
+time in seconds Bun will wait for a
+時間（以秒為單位） Bun 將等待
+
+100
+00:03:51,421 --> 00:03:53,007
+connection to become available before
+連接變得可用之前
+
+101
+00:03:53,103 --> 00:03:55,186
+throwing an error when trying to send a
+嘗試發送時拋出錯誤
+
+102
+00:03:55,186 --> 00:03:57,510
+request, when trying to send a command to
+請求，當嘗試發送命令到
+
+103
+00:03:57,510 --> 00:03:58,054
+the database.
+資料庫.
+
+104
+00:03:59,368 --> 00:04:02,685
+maxLifetime specifies the max lifetime of a
+maxLifetime 指定 a 的最大生命週期
+
+105
+00:04:02,733 --> 00:04:04,977
+connection before it is closed. And
+連接關閉之前。和
+
+106
+00:04:04,977 --> 00:04:07,509
+connectionTimeout defines how long Bun will
+連線逾時定義了 Bun 將持續多長時間
+
+107
+00:04:07,541 --> 00:04:09,800
+wait for a connection to be established if a
+等待建立連接，如果
+
+108
+00:04:09,800 --> 00:04:11,979
+new connection must be established before
+新連線必須先建立
+
+109
+00:04:12,091 --> 00:04:13,822
+throwing an error. So these are some
+拋出一個錯誤。所以這些是一些
+
+110
+00:04:13,870 --> 00:04:15,538
+settings you can tweak. Obviously there are
+您可以調整的設定。顯然有
+
+111
+00:04:15,538 --> 00:04:17,720
+more and obviously the official docs are the
+更多，顯然官方檔案是
+
+112
+00:04:17,720 --> 00:04:20,030
+best place to dive in deep for your exact
+深入了解您的確切需求的最佳地點
+
+113
+00:04:20,030 --> 00:04:22,245
+use case. But the key takeaway is that you
+用例。但關鍵的一點是你
+
+114
+00:04:22,357 --> 00:04:24,266
+have all these options there that you need
+有您需要的所有這些選項
+
+115
+00:04:24,523 --> 00:04:27,122
+to configure your connection to the database
+設定與資料庫的連接
+
+116
+00:04:27,122 --> 00:04:27,507
+server.
+伺服器.
+
+117
+00:04:28,550 --> 00:04:29,914
+And once the connection has been
+一旦連接成功
+
+118
+00:04:29,914 --> 00:04:32,834
+established, we just as before run our
+成立後，我們就像以前一樣運行我們的
+
+119
+00:04:32,883 --> 00:04:35,129
+commands, our statements by using this
+命令，我們的語句透過使用這個
+
+120
+00:04:35,129 --> 00:04:37,632
+tagged template literal approach. So that is
+標記樣板文字方法。所以那就是
+
+121
+00:04:37,632 --> 00:04:40,167
+exactly the same as before. Now with some
+和以前一模一樣。現在與一些
+
+122
+00:04:40,183 --> 00:04:42,975
+Postgres-specific types like TIMESTAMP,
+Postgres 特定型別，如 TIMESTAMP、
+
+123
+00:04:44,418 --> 00:04:45,997
+But that of course simply depends on which
+但這當然只取決於哪一個
+
+124
+00:04:46,029 --> 00:04:47,786
+database server you're connecting to and
+您正在連接的資料庫伺服器以及
+
+125
+00:04:47,802 --> 00:04:49,800
+which database engine you're using. So that
+您正在使用哪個資料庫引擎。以便
+
+126
+00:04:49,881 --> 00:04:53,486
+obviously is all PostgreSQL-specific code
+顯然都是 PostgreSQL 特定的程式碼
+
+127
+00:04:53,486 --> 00:04:54,681
+here now or types now.
+現在就在這裡或現在輸入。
+
+128
+00:04:56,360 --> 00:04:58,137
+But the logic is the same as before. And
+但邏輯和以前是一樣的。和
+
+129
+00:04:58,153 --> 00:05:00,155
+just as before, you can inject dynamic
+就像以前一樣，您可以注入動態
+
+130
+00:05:00,155 --> 00:05:02,351
+values with that same approach as mentioned
+使用上述相同方法的值
+
+131
+00:05:02,351 --> 00:05:04,771
+in the last lecture. And that all therefore
+在最後一堂課中。而這一切因此
+
+132
+00:05:04,933 --> 00:05:07,418
+doesn't change. And also just as before, you
+沒有改變。而且也跟以前一樣，你
+
+133
+00:05:07,418 --> 00:05:09,451
+can close that database when the server
+可以在伺服器關閉該資料庫時
+
+134
+00:05:09,451 --> 00:05:11,920
+shuts down and it's recommended to only
+關閉，建議僅
+
+135
+00:05:11,953 --> 00:05:12,678
+close it then to close all the connections
+關閉它然後關閉所有連接
+
+136
+00:05:12,712 --> 00:05:12,965
+to the database.
+到資料庫。
+
+137
+00:05:15,020 --> 00:05:16,883
+Database when the server shuts down. And
+伺服器關閉時的資料庫。和
+
+138
+00:05:16,899 --> 00:05:19,035
+other than that, Bun does the heavy lifting
+除此之外，Bun 承擔著繁重的工作
+
+139
+00:05:19,067 --> 00:05:21,283
+for you and it works just as before for
+對你來說，它就像以前一樣工作
+
+140
+00:05:21,283 --> 00:05:23,484
+SQLite, but now here, for example, for a
+SQLite，但現在在這裡，例如，對於
+
+141
+00:05:23,548 --> 00:05:24,897
+PostgreSQL database.
+PostgreSQL 資料庫。
+
+142
+00:05:25,572 --> 00:05:28,141
+Now you can run bun run db stop if you're
+現在你可以執行 Bun run db stop 如果你是
+
+143
+00:05:28,141 --> 00:05:30,486
+done for the day and you wanna shut down
+一天的工作結束了，你想停下來
+
+144
+00:05:30,550 --> 00:05:31,803
+those Docker containers.
+那些 Docker 容器。

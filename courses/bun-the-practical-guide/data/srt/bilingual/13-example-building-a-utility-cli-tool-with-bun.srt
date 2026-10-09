@@ -1,0 +1,499 @@
+1
+00:00:00,112 --> 00:00:02,762
+Okay, so now that we have a first basic
+好的，現在我們有了第一個基本的
+
+2
+00:00:02,762 --> 00:00:05,187
+understanding of which core building blocks
+了解哪些核心建置模組
+
+3
+00:00:05,187 --> 00:00:08,511
+make up Bun, here's a little utility program
+化妝包子，這是一個小實用程式
+
+4
+00:00:08,768 --> 00:00:12,333
+I built with Bun and you find it attached.
+我用 Bun 建造的，你會發現它是附加的。
+
+5
+00:00:12,478 --> 00:00:15,176
+This program is all about optimizing images.
+這個程式是關於優化圖像的。
+
+6
+00:00:15,545 --> 00:00:17,938
+I have a package.json file, of course, with
+當然，我有一個 package.json 檔案
+
+7
+00:00:17,938 --> 00:00:20,571
+an optimize images script where I run the
+我運行的優化圖像腳本
+
+8
+00:00:20,652 --> 00:00:23,639
+optimize images TS file with Bun using the
+使用 Bun 優化映像 TS 檔案
+
+9
+00:00:23,639 --> 00:00:25,180
+Bun runtime therefore.
+因此包子運行時。
+
+10
+00:00:25,791 --> 00:00:27,413
+And I can also already say that we'll have
+我也可以說我們會有
+
+11
+00:00:27,413 --> 00:00:29,388
+some tests in here too. So I'm also using
+這裡也有一些測試。所以我也在使用
+
+12
+00:00:29,420 --> 00:00:31,652
+Bun as a test runner, but I'll get back to
+Bun 作為測試運行者，但我會回到
+
+13
+00:00:31,668 --> 00:00:33,659
+that. Let's first take a look at
+那。我們先來看看
+
+14
+00:00:33,755 --> 00:00:35,618
+optimize-images.ts. What does this do?
+優化圖像.ts。這是做什麼的？
+
+15
+00:00:36,244 --> 00:00:38,524
+And for that, I'll actually run it. So here
+為此，我將實際運行它。所以在這裡
+
+16
+00:00:38,556 --> 00:00:39,423
+in my command line,
+在我的命令列中，
+
+17
+00:00:40,001 --> 00:00:42,040
+I can use it to, guess what, optimize
+我可以用它來優化
+
+18
+00:00:42,120 --> 00:00:43,710
+images. So the idea is that you can have
+圖像。所以我們的想法是你可以擁有
+
+19
+00:00:43,790 --> 00:00:46,600
+images, and in the attached project, you
+圖像，並在隨附的專案中，您
+
+20
+00:00:46,664 --> 00:00:48,494
+also find some example images.
+還可以找到一些範例圖像。
+
+21
+00:00:49,152 --> 00:00:51,063
+These are simply some AI-generated images,
+這些只是一些人工智慧生成的圖像，
+
+22
+00:00:51,416 --> 00:00:54,772
+basically faking nature photography. And
+基本上是偽造自然攝影。和
+
+23
+00:00:54,772 --> 00:00:56,843
+let's say you want to optimize these images
+假設您想要優化這些圖像
+
+24
+00:00:56,955 --> 00:00:58,448
+because let me show you
+因為讓我告訴你
+
+25
+00:00:59,106 --> 00:01:00,663
+they are rather big,
+它們相當大，
+
+26
+00:01:01,288 --> 00:01:03,727
+more or less. So we have 134
+或多或少。所以我們有 134
+
+27
+00:01:04,336 --> 00:01:06,679
+kilobytes here, and then I even have a PNG
+這裡有千位元組，然後我甚至有一個PNG
+
+28
+00:01:06,743 --> 00:01:09,438
+which is 1.6 megabytes. Now let's say you
+即 1.6 兆位元組。現在我們說你
+
+29
+00:01:09,470 --> 00:01:12,358
+want to optimize them, or maybe even convert
+想要優化它們，或甚至轉換
+
+30
+00:01:12,358 --> 00:01:14,540
+them, convert the PNG to a JPEG.
+將 PNG 轉換為 JPEG。
+
+31
+00:01:15,069 --> 00:01:16,609
+You could of course search for a website
+當然你也可以搜尋一個網站
+
+32
+00:01:16,609 --> 00:01:18,775
+that does that for you, but you can also
+這對你有用，但你也可以
+
+33
+00:01:18,775 --> 00:01:20,219
+build your own program, and that's what I
+建立你自己的程式，這就是我的
+
+34
+00:01:20,283 --> 00:01:20,572
+did here.
+在這裡做的。
+
+35
+00:01:21,166 --> 00:01:23,315
+OptimizeImages.ts is all about taking some
+OptimizeImages.ts 就是要採取一些
+
+36
+00:01:23,347 --> 00:01:24,647
+images as input and
+影像作為輸入和
+
+37
+00:01:25,176 --> 00:01:27,244
+optimizing, resizing, converting them.
+最佳化、調整大小、轉換它們。
+
+38
+00:01:27,901 --> 00:01:30,017
+We're doing that with help of the image API
+我們在圖像 API 的幫助下做到了這一點
+
+39
+00:01:30,081 --> 00:01:32,005
+that's built into Bun. So
+這是內建在 Bun 中的。所以
+
+40
+00:01:32,550 --> 00:01:34,987
+Bun does not just have features that allow
+Bun 不僅具有允許
+
+41
+00:01:35,035 --> 00:01:36,798
+you to build a web server and so on, but
+你建立一個網頁伺服器等等，但是
+
+42
+00:01:36,798 --> 00:01:39,651
+instead it has a bunch of nice APIs in there
+相反，它有很多很好的 API
+
+43
+00:01:40,164 --> 00:01:42,841
+which, for example, allow you to work with
+例如，它允許您使用
+
+44
+00:01:43,002 --> 00:01:45,502
+images without installing any extra
+無需安裝任何額外的映像
+
+45
+00:01:45,534 --> 00:01:48,163
+packages. So the Bun runtime has features
+包。所以Bun運作時有特性
+
+46
+00:01:48,276 --> 00:01:50,279
+like this built in which allow you to
+就像這樣內建的，可以讓你
+
+47
+00:01:50,279 --> 00:01:52,684
+convert and optimize image files without
+轉換和優化圖像檔案，無需
+
+48
+00:01:52,684 --> 00:01:54,736
+installing extra packages, which of course
+安裝額外的軟體包，當然
+
+49
+00:01:54,848 --> 00:01:56,643
+is pretty nice that you don't depend on
+很好，你不依賴
+
+50
+00:01:56,740 --> 00:01:58,876
+third-party dependencies, but that you can
+第三方依賴項，但您可以
+
+51
+00:01:58,876 --> 00:02:01,463
+instead use such a built-in API. And again,
+而是使用這樣的內建 API。再說一次，
+
+52
+00:02:01,512 --> 00:02:03,890
+that's just one of many built-in features
+這只是眾多內建功能之一
+
+53
+00:02:03,986 --> 00:02:04,902
+the Bun runtime has.
+Bun 運作時有。
+
+54
+00:02:05,866 --> 00:02:07,826
+So let me show you how it works. I can bun
+那麼讓我向您展示它是如何工作的。我可以包子
+
+55
+00:02:07,858 --> 00:02:09,497
+run optimize-images here,
+在這裡運行優化圖像，
+
+56
+00:02:10,252 --> 00:02:10,959
+this command,
+這個命令，
+
+57
+00:02:11,570 --> 00:02:12,357
+this script.
+這個腳本。
+
+58
+00:02:12,903 --> 00:02:14,317
+And if I run it like this, I get a little
+如果我像這樣運行它，我會得到一點
+
+59
+00:02:14,510 --> 00:02:16,261
+output here that tells me that I didn't
+這裡的輸出告訴我我沒有
+
+60
+00:02:16,294 --> 00:02:18,993
+enter a required input path and also gives
+輸入所需的輸入路徑並給出
+
+61
+00:02:19,025 --> 00:02:20,680
+me some information about the supported
+給我一些有關支援的資訊
+
+62
+00:02:20,776 --> 00:02:22,560
+options. Because in the end, what I built
+選項。因為最終我建造的東西
+
+63
+00:02:22,560 --> 00:02:24,793
+here and we'll dive into the code soon, is a
+在這裡，我們將很快深入研究程式碼，是
+
+64
+00:02:24,793 --> 00:02:25,966
+little command line tool.
+小命令列工具。
+
+65
+00:02:26,577 --> 00:02:28,392
+So what we can instead run is bun run
+所以我們可以改為運行bun run
+
+66
+00:02:28,489 --> 00:02:30,722
+optimize-images and point it at the images
+優化圖像並將其指向圖像
+
+67
+00:02:30,818 --> 00:02:31,220
+folder
+資料夾
+
+68
+00:02:32,200 --> 00:02:34,048
+by just providing a path like this, a
+只需提供這樣的路徑，
+
+69
+00:02:34,112 --> 00:02:34,819
+relative path.
+相對路徑。
+
+70
+00:02:35,430 --> 00:02:37,936
+So pointing at this images folder here.
+所以在這裡指向這個圖像資料夾。
+
+71
+00:02:38,466 --> 00:02:40,105
+And then we can also add some flags here,
+然後我們還可以在這裡添加一些標誌，
+
+72
+00:02:40,153 --> 00:02:41,840
+some configuration, and for example, say
+一些設定，例如，說
+
+73
+00:02:41,840 --> 00:02:45,487
+format to define the output format. And I
+format 來定義輸出格式。而我
+
+74
+00:02:45,696 --> 00:02:46,966
+want to convert to JPEG.
+想要轉換為 JPEG。
+
+75
+00:02:47,608 --> 00:02:50,117
+I already have 2 JPEG files, Those will stay
+我已經有 2 個 JPEG 檔案，這些將保留
+
+76
+00:02:50,181 --> 00:02:52,132
+JPEGs of course, but I wanna convert this
+當然是 JPEG，但我想轉換它
+
+77
+00:02:52,132 --> 00:02:54,565
+PNG to a JPEG because that can give us a
+PNG 到 JPEG 因為這可以給我們
+
+78
+00:02:54,565 --> 00:02:57,579
+smaller size. I wanna set the quality to 80
+尺寸較小。我想將品質設定為 80
+
+79
+00:02:59,131 --> 00:03:01,039
+and yeah, that should do the trick. If I now
+是的，這應該可以解決問題。如果我現在
+
+80
+00:03:01,249 --> 00:03:01,750
+run this,
+運行這個，
+
+81
+00:03:02,300 --> 00:03:02,769
+you'll see
+你會看到
+
+82
+00:03:03,496 --> 00:03:04,660
+it's doing stuff.
+它正在做事。
+
+83
+00:03:05,194 --> 00:03:07,636
+I got an optimized folder here and it
+我在這裡得到了一個優化的資料夾
+
+84
+00:03:07,701 --> 00:03:09,417
+actually didn't pick up the nested folder
+實際上沒有拾取嵌套資料夾
+
+85
+00:03:09,417 --> 00:03:11,328
+because I forgot to add --recursive.
+因為我忘記加入--recursive。
+
+86
+00:03:12,652 --> 00:03:13,956
+Another option we can add,
+我們可以新增另一個選項，
+
+87
+00:03:14,852 --> 00:03:17,002
+this one here so that it will also handle
+這個在這裡，這樣它也能處理
+
+88
+00:03:17,035 --> 00:03:18,567
+subfolders. So let's do that.
+子資料夾。那麼就讓我們這樣做吧。
+
+89
+00:03:19,223 --> 00:03:21,789
+Now it also optimized this nested folder.
+現在它還優化了這個嵌套資料夾。
+
+90
+00:03:22,430 --> 00:03:24,307
+And now if I take a look at it again, the
+現在如果我再看一遍
+
+91
+00:03:24,339 --> 00:03:26,969
+optimized file here is now just 170
+這裡的優化檔案現在只有 170
+
+92
+00:03:27,322 --> 00:03:29,889
+kilobytes and it's a JPEG instead of the
+千位元組，它是 JPEG 而不是
+
+93
+00:03:29,889 --> 00:03:32,102
+original 1.6 megabytes.
+原始1.6兆位元組。
+
+94
+00:03:32,936 --> 00:03:35,566
+And that all was done with help of a tool or
+這一切都是在工具或工具的幫助下完成的
+
+95
+00:03:35,566 --> 00:03:37,475
+with help of an API that's built into Bun.
+借助 Bun 內建的 API。
+
+96
+00:03:37,828 --> 00:03:39,400
+That's what optimizeImages does.
+這就是optimizeImages 的作用。
+
+97
+00:03:40,234 --> 00:03:42,062
+And now that we saw that, let's take a
+現在我們看到了這一點，讓我們來看看
+
+98
+00:03:42,062 --> 00:03:44,131
+closer look at the code and which Bun
+仔細看看程式碼和哪個Bun
+
+99
+00:03:44,308 --> 00:03:46,441
+features we're actually using here and how
+我們在這裡實際使用的功能以及如何使用
+
+100
+00:03:46,505 --> 00:03:47,692
+this program is built.
+該程式已建置。

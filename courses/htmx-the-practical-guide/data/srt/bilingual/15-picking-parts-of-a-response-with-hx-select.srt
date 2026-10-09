@@ -1,0 +1,404 @@
+1
+00:00:00,432 --> 00:00:03,526
+So you did now see how you can also send and
+現在您已經看到如何發送和
+
+2
+00:00:03,542 --> 00:00:06,572
+handle POST requests and what's special
+處理 POST 請求和特殊之處
+
+3
+00:00:06,925 --> 00:00:08,993
+about doing that with HTMX.
+關於使用 HTMX 來實現這一點。
+
+4
+00:00:10,356 --> 00:00:12,825
+And here I'm now sending back the new
+現在我正在發回新的
+
+5
+00:00:13,338 --> 00:00:13,947
+updated
+已更新
+
+6
+00:00:14,925 --> 00:00:17,971
+HTML fragment after handling this POST
+處理此 POST 後的 HTML 片段
+
+7
+00:00:17,971 --> 00:00:18,468
+request.
+要求。
+
+8
+00:00:19,093 --> 00:00:21,529
+And I added some attributes to make sure
+我添加了一些屬性來確保
+
+9
+00:00:21,594 --> 00:00:25,249
+that this content, this HTML fragment is
+這個內容，這個 HTML 片段是
+
+10
+00:00:25,748 --> 00:00:26,998
+inserted in the right place.
+插入正確的位置。
+
+11
+00:00:28,590 --> 00:00:31,079
+Now, there also would be a different way
+現在，還有一種不同的方式
+
+12
+00:00:31,677 --> 00:00:31,984
+of
+的
+
+13
+00:00:32,566 --> 00:00:36,269
+rendering the updated list, not necessarily
+渲染更新的列表，不一定
+
+14
+00:00:36,382 --> 00:00:38,996
+a better way, but a different way you also
+更好的方式，但你也可以用不同的方式
+
+15
+00:00:39,045 --> 00:00:40,009
+should be aware of.
+應該意識到。
+
+16
+00:00:41,374 --> 00:00:42,933
+And that alternative way
+還有另一種方式
+
+17
+00:00:43,608 --> 00:00:46,612
+would actually include this redirect
+實際上會包含這個重定向
+
+18
+00:00:47,143 --> 00:00:50,338
+because let's say we can't change this
+因為假設我們無法改變這一點
+
+19
+00:00:50,370 --> 00:00:51,728
+backend code this much.
+後端程式碼就這麼多。
+
+20
+00:00:52,386 --> 00:00:55,566
+Let's say for some reason we must redirect
+假設由於某種原因我們必須重新導向
+
+21
+00:00:55,614 --> 00:00:55,791
+here.
+這裡。
+
+22
+00:00:56,979 --> 00:00:59,019
+Therefore, as a result, as you saw,
+因此，結果，正如你所看到的，
+
+23
+00:00:59,774 --> 00:01:00,658
+what we'll get back
+我們會得到什麼
+
+24
+00:01:01,236 --> 00:01:04,239
+since HTMX follows redirects
+因為 HTMX 遵循重定向
+
+25
+00:01:04,834 --> 00:01:06,167
+is the entire page again.
+又是整個頁面。
+
+26
+00:01:07,516 --> 00:01:10,294
+So even though we now wouldn't replace the
+所以即使我們現在不會更換
+
+27
+00:01:10,535 --> 00:01:12,190
+form with that content anymore,
+不再包含該內容的形式，
+
+28
+00:01:13,121 --> 00:01:15,659
+we would still get the wrong result. I would
+我們仍然會得到錯誤的結果。我會
+
+29
+00:01:16,077 --> 00:01:18,969
+reinsert the page down here and That's of
+在這裡重新插入頁面，就是這樣
+
+30
+00:01:18,985 --> 00:01:20,418
+course not what I want.
+當然不是我想要的。
+
+31
+00:01:21,642 --> 00:01:24,814
+But what we could do in cases like this, if
+但在這種情況下我們能做什麼
+
+32
+00:01:24,943 --> 00:01:28,503
+we can't change the fact that we get back
+我們無法改變我們回來的事實
+
+33
+00:01:28,552 --> 00:01:29,665
+the entire page,
+整個頁面，
+
+34
+00:01:30,649 --> 00:01:30,875
+is
+是
+
+35
+00:01:31,472 --> 00:01:33,118
+we could add another attribute here,
+我們可以在這裡添加另一個屬性，
+
+36
+00:01:33,892 --> 00:01:35,441
+hx-select.
+hx-選擇。
+
+37
+00:01:37,280 --> 00:01:40,716
+And the idea behind this select attribute is
+這個 select 屬性背後的想法是
+
+38
+00:01:40,829 --> 00:01:43,199
+that you can tell HTMX
+你可以告訴 HTMX
+
+39
+00:01:43,877 --> 00:01:47,100
+which part of the response data
+回應資料的哪一部分
+
+40
+00:01:47,634 --> 00:01:49,918
+should be inserted somewhere into the
+應該插入到某處
+
+41
+00:01:49,918 --> 00:01:50,777
+existing page.
+現有頁面。
+
+42
+00:01:52,251 --> 00:01:54,710
+Up to this point in all the examples, we
+到目前為止，在所有範例中，我們
+
+43
+00:01:54,807 --> 00:01:58,127
+always used the entire response data,
+始終使用整個回應資料，
+
+44
+00:01:59,094 --> 00:02:02,302
+which was fine when we returned just the
+當我們回傳時這很好
+
+45
+00:02:02,302 --> 00:02:03,428
+list, for example.
+列表，例如。
+
+46
+00:02:04,891 --> 00:02:07,270
+But now that we're returning the entire page
+但現在我們要回傳整個頁面
+
+47
+00:02:07,366 --> 00:02:10,018
+again, it's actually not the entire page I
+再說一次，這實際上不是我的整個頁面
+
+48
+00:02:10,018 --> 00:02:11,641
+wanna insert, but instead just a part of it.
+想要插入，但只是其中的一部分。
+
+49
+00:02:13,570 --> 00:02:16,409
+And that's exactly what hx-select allows us
+這正是 hx-select 允許我們做的
+
+50
+00:02:16,409 --> 00:02:16,778
+to do.
+去做。
+
+51
+00:02:17,901 --> 00:02:22,312
+hx-select again wants a CSS selector just
+hx-select 再次想要一個 CSS 選擇器
+
+52
+00:02:22,312 --> 00:02:23,611
+like hx-target.
+就像 hx-target 一樣。
+
+53
+00:02:24,413 --> 00:02:27,637
+And with that selector, we select an element
+透過該選擇器，我們選擇一個元素
+
+54
+00:02:28,006 --> 00:02:30,797
+in the response HTML code
+在回應 HTML 程式碼中
+
+55
+00:02:31,551 --> 00:02:34,149
+that should be inserted somewhere in our
+應該插入到我們的某個地方
+
+56
+00:02:34,197 --> 00:02:34,486
+page.
+頁。
+
+57
+00:02:35,384 --> 00:02:38,383
+And in my case here, I know that it's just
+就我而言，我知道這只是
+
+58
+00:02:38,432 --> 00:02:41,415
+that list part. This unordered list in the
+該列表部分。這個無序列表在
+
+59
+00:02:41,415 --> 00:02:42,794
+entire page I get back
+我拿回整頁
+
+60
+00:02:43,644 --> 00:02:47,268
+that I wanna select and use in my existing
+我想在現有的中選擇並使用
+
+61
+00:02:47,268 --> 00:02:49,722
+page to replace the existing list.
+頁面來取代現有清單。
+
+62
+00:02:50,652 --> 00:02:54,709
+So hx-select is actually also ul just like
+所以 hx-select 其實也是 ul 就像
+
+63
+00:02:54,790 --> 00:02:58,302
+hx-target, but I am selecting different
+hx-target，但我選擇不同
+
+64
+00:02:58,398 --> 00:02:58,895
+things here.
+這裡的東西。
+
+65
+00:03:00,002 --> 00:03:02,985
+With hx-target, I select the element on the
+使用 hx-target，我選擇了
+
+66
+00:03:02,985 --> 00:03:05,759
+existing page that's visible to the user,
+使用者可見的現有頁面，
+
+67
+00:03:06,096 --> 00:03:08,683
+that should be replaced with the response
+應替換為回應
+
+68
+00:03:08,683 --> 00:03:09,181
+content.
+內容。
+
+69
+00:03:10,354 --> 00:03:13,487
+hx-select, on the other hand, selects the
+另一方面，hx-select 選擇
+
+70
+00:03:13,487 --> 00:03:15,688
+content in the response that should be
+回應中的內容應該是
+
+71
+00:03:15,898 --> 00:03:18,872
+inserted into the element that is targeted.
+插入到目標元素中。
+
+72
+00:03:19,309 --> 00:03:20,133
+That's the idea.
+就是這個想法。
+
+73
+00:03:22,079 --> 00:03:24,740
+Well, and with those changes made, even if
+好吧，做出這些改變後，即使
+
+74
+00:03:24,772 --> 00:03:26,949
+we are redirecting and therefore getting the
+我們正在重定向，因此得到
+
+75
+00:03:26,949 --> 00:03:27,869
+entire page again,
+再次整個頁面，
+
+76
+00:03:28,465 --> 00:03:30,788
+if you save everything and you reload,
+如果你儲存所有內容並重新載入，
+
+77
+00:03:31,320 --> 00:03:34,016
+you'll see that if you now insert new data
+如果您現在插入新資料，您會看到
+
+78
+00:03:34,016 --> 00:03:36,987
+and submit that form, it's just that list
+並提交該表格，這只是該列表
+
+79
+00:03:36,987 --> 00:03:39,413
+down there that's being updated with the new
+下面正在更新新的
+
+80
+00:03:39,413 --> 00:03:43,622
+list. And that's due to hx-select being
+列表。這是因為 hx-select 是
+
+81
+00:03:43,654 --> 00:03:43,943
+used.
+用過的。

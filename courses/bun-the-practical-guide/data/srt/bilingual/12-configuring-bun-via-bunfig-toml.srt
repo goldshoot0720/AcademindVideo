@@ -1,0 +1,284 @@
+1
+00:00:00,048 --> 00:00:02,340
+So we had a look at Bun for adding and
+所以我們來看看 Bun 的添加和
+
+2
+00:00:02,340 --> 00:00:04,985
+managing dependencies, for running code and
+管理依賴關係，用於運行程式碼和
+
+3
+00:00:04,985 --> 00:00:07,310
+for using certain Bun runtime features and
+用於使用某些 Bun 運行時功能以及
+
+4
+00:00:07,310 --> 00:00:08,689
+also as a test runner.
+也作為測試跑者。
+
+5
+00:00:09,314 --> 00:00:11,286
+Now it's worth noting that you can also
+現在值得注意的是，您還可以
+
+6
+00:00:11,334 --> 00:00:14,188
+configure the behavior of Bun in a given
+在給定的情況下設定 Bun 的行為
+
+7
+00:00:14,284 --> 00:00:17,378
+project by adding a bunfig.toml file.
+透過新增 Bunfig.toml 檔案來專案。
+
+8
+00:00:18,052 --> 00:00:22,204
+Now in that file, you can configure lots of
+現在在該檔案中，您可以設定很多
+
+9
+00:00:22,717 --> 00:00:24,961
+things and it's also worth pointing out that
+事情，也值得指出的是
+
+10
+00:00:24,961 --> 00:00:28,039
+you can also store a global bunfig.toml file
+您也可以儲存全域的bunfig.toml 檔案
+
+11
+00:00:28,232 --> 00:00:30,476
+in your user's home folder. Or a
+在您使用者的主資料夾中。或者一個
+
+12
+00:00:30,476 --> 00:00:33,377
+project-specific bunfig.toml file as I just
+專案特定的bunfig.toml 檔案，就像我剛才那樣
+
+13
+00:00:33,377 --> 00:00:33,666
+did it.
+做到了。
+
+14
+00:00:34,243 --> 00:00:37,272
+And as mentioned, you can configure lots of
+如前所述，您可以設定很多
+
+15
+00:00:37,609 --> 00:00:38,699
+things in there. Now,
+裡面的東西。現在，
+
+16
+00:00:39,228 --> 00:00:41,889
+the default settings of course typically are
+當然預設設定通常是
+
+17
+00:00:42,097 --> 00:00:44,566
+just fine. You don't need to tweak things
+很好。你不需要調整事情
+
+18
+00:00:44,662 --> 00:00:44,790
+here.
+這裡。
+
+19
+00:00:45,399 --> 00:00:48,252
+But one setting I, for example, do like to
+但例如，我確實喜歡的一種設置
+
+20
+00:00:48,268 --> 00:00:50,785
+tweak is related to package management.
+Tweak 與包管理有關。
+
+21
+00:00:51,105 --> 00:00:52,019
+Specifically,
+具體來說，
+
+22
+00:00:52,676 --> 00:00:53,606
+I want to
+我想要
+
+23
+00:00:54,295 --> 00:00:57,581
+ensure that ignore scripts is set to true,
+確保忽略腳本設定為 true，
+
+24
+00:00:57,870 --> 00:00:59,762
+which is the default, but if that ever
+這是預設的，但如果有的話
+
+25
+00:00:59,762 --> 00:01:01,654
+should change, I wanna make sure that it,
+應該改變，我想確保它，
+
+26
+00:01:02,135 --> 00:01:03,562
+well, goes back to
+好吧，回到
+
+27
+00:01:04,156 --> 00:01:06,706
+disabled. So I'll set ignore scripts to
+禁用。所以我將忽略腳本設定為
+
+28
+00:01:06,706 --> 00:01:07,058
+true.
+真的。
+
+29
+00:01:07,604 --> 00:01:10,314
+And that simply ensures that any scripts
+這只是確保任何腳本
+
+30
+00:01:10,314 --> 00:01:12,543
+that come attached to dependencies I install
+附加到我安裝的依賴項
+
+31
+00:01:13,040 --> 00:01:15,510
+are ignored, are not executed, which as
+被忽略，不被執行，如下
+
+32
+00:01:15,542 --> 00:01:17,546
+mentioned earlier, can help you protect
+前面提到的，可以幫助您保護
+
+33
+00:01:17,546 --> 00:01:19,342
+against certain kinds of supply chain
+針對某些型別的供應鏈
+
+34
+00:01:19,390 --> 00:01:19,839
+attacks.
+攻擊。
+
+35
+00:01:20,978 --> 00:01:25,276
+In addition, there is the minimum release
+此外，還有最低釋放
+
+36
+00:01:25,468 --> 00:01:28,499
+age setting here, which I also like to add.
+這裡的年齡設置，我也想補充一下。
+
+37
+00:01:29,076 --> 00:01:32,152
+This ensures that whenever I run bun update
+這確保了每當我運行bun update時
+
+38
+00:01:32,360 --> 00:01:33,546
+or I add a package,
+或者我添加一個包，
+
+39
+00:01:34,122 --> 00:01:37,070
+it actually does not install or update to
+它實際上沒有安裝或更新到
+
+40
+00:01:37,166 --> 00:01:39,505
+the very latest version, even if that is a
+最新版本，即使那是
+
+41
+00:01:39,505 --> 00:01:43,238
+safe minor or patch release, but instead it
+安全的次要版本或補丁版本，但相反
+
+42
+00:01:43,414 --> 00:01:46,089
+only updates to or installs a package
+僅更新或安裝軟體包
+
+43
+00:01:46,218 --> 00:01:50,303
+version that is at least that old. And that
+版本至少那麼舊。還有那個
+
+44
+00:01:50,383 --> 00:01:54,692
+is in seconds. This here is 3 days. So if
+以秒為單位。這裡是3天。所以如果
+
+45
+00:01:54,724 --> 00:01:57,063
+there is a supply chain attack, for example,
+存在供應鏈攻擊，例如，
+
+46
+00:01:57,127 --> 00:02:00,524
+going on right now and I run bun add, I'll
+現在正在進行，我運行bun add，我會
+
+47
+00:02:00,893 --> 00:02:03,153
+not be hit because I'm not installing the
+不會被擊中，因為我沒有安裝
+
+48
+00:02:03,153 --> 00:02:04,868
+malicious version of the package, which
+軟體包的惡意版本，其中
+
+49
+00:02:04,900 --> 00:02:06,039
+might be live right now.
+可能現在正在直播。
+
+50
+00:02:06,728 --> 00:02:09,838
+I only install slightly older versions. And
+我只安裝稍舊的版本。和
+
+51
+00:02:09,870 --> 00:02:12,163
+since supply chain attacks are typically
+因為供應鏈攻擊通常是
+
+52
+00:02:12,195 --> 00:02:13,317
+caught pretty quickly,
+很快就被抓住了，
+
+53
+00:02:13,862 --> 00:02:16,363
+only installing versions that are at least 3
+僅安裝至少 3 個版本
+
+54
+00:02:16,363 --> 00:02:19,489
+days old should be another great layer that
+天舊應該是另一個偉大的層
+
+55
+00:02:19,489 --> 00:02:21,877
+protects me against supply chain attacks. So
+保護我免受供應鏈攻擊。所以
+
+56
+00:02:21,974 --> 00:02:23,625
+that's also something worth knowing about,
+這也是值得了解的事情
+
+57
+00:02:23,897 --> 00:02:25,805
+which I like to add to my projects.
+我喜歡將其添加到我的專案中。

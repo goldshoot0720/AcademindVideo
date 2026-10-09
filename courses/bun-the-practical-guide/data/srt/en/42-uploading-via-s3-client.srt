@@ -1,0 +1,599 @@
+1
+00:00:00,112 --> 00:00:03,211
+So how can you use the Bun S3 client?
+
+2
+00:00:04,286 --> 00:00:06,839
+Well, it starts in index.ts for this tool,
+
+3
+00:00:06,936 --> 00:00:11,030
+but in there I only parse the input provided
+
+4
+00:00:11,030 --> 00:00:13,406
+by the user. For that, I'm using parseArgs
+
+5
+00:00:13,438 --> 00:00:15,734
+provided by Node.js. That of course has
+
+6
+00:00:15,766 --> 00:00:18,753
+nothing to do with the S3 client. It's just
+
+7
+00:00:18,961 --> 00:00:21,755
+used here to parse the received input
+
+8
+00:00:21,868 --> 00:00:24,806
+arguments using that bun.argv property,
+
+9
+00:00:25,159 --> 00:00:27,005
+which gives us access to all these extra
+
+10
+00:00:27,005 --> 00:00:28,563
+parameters the user entered here.
+
+11
+00:00:30,229 --> 00:00:32,296
+So that's just some command parsing and then
+
+12
+00:00:32,296 --> 00:00:34,555
+a switch statement to call different
+
+13
+00:00:34,603 --> 00:00:36,445
+functions depending on which command the
+
+14
+00:00:36,445 --> 00:00:38,785
+user chose. So that's obviously not the
+
+15
+00:00:38,785 --> 00:00:39,505
+interesting part.
+
+16
+00:00:40,467 --> 00:00:43,270
+Instead, the interesting part starts in the
+
+17
+00:00:43,350 --> 00:00:44,937
+backup.ts file, for example.
+
+18
+00:00:45,497 --> 00:00:47,211
+In there, you can see I have the backup
+
+19
+00:00:47,276 --> 00:00:47,644
+function
+
+20
+00:00:48,237 --> 00:00:50,736
+and in there, I do a couple of checks to see
+
+21
+00:00:50,960 --> 00:00:52,947
+what the user is trying to back up, if it's
+
+22
+00:00:52,947 --> 00:00:55,526
+a file or a folder, if the recursive option
+
+23
+00:00:55,526 --> 00:00:55,927
+is set.
+
+24
+00:00:56,471 --> 00:00:58,794
+But then once I know which files the user
+
+25
+00:00:58,794 --> 00:00:59,371
+wants to back up,
+
+26
+00:01:00,559 --> 00:01:03,144
+I call uploadFile, which is another function
+
+27
+00:01:03,144 --> 00:01:05,826
+provided by me, which expects to get a
+
+28
+00:01:05,938 --> 00:01:08,781
+client, an S3 client as an input.
+
+29
+00:01:09,391 --> 00:01:11,800
+Where is this client coming from? Well, that
+
+30
+00:01:11,976 --> 00:01:14,305
+already is a client received by the backup
+
+31
+00:01:14,305 --> 00:01:16,296
+function. So it was a parameter there too.
+
+32
+00:01:16,890 --> 00:01:18,849
+So it's set up in index.ts.
+
+33
+00:01:19,523 --> 00:01:21,739
+There, before we have that switch statement,
+
+34
+00:01:22,157 --> 00:01:25,513
+I create that S3 client and createClient is
+
+35
+00:01:25,545 --> 00:01:27,440
+a function in the config.ts file
+
+36
+00:01:28,034 --> 00:01:30,923
+where I instantiate a new S3 client. S3
+
+37
+00:01:30,923 --> 00:01:33,248
+client and despite the name, as mentioned
+
+38
+00:01:33,248 --> 00:01:36,215
+before, this works with all S3 compatible
+
+39
+00:01:36,215 --> 00:01:37,113
+storage providers.
+
+40
+00:01:38,444 --> 00:01:41,154
+Now S3 client is coming from Bun because
+
+41
+00:01:41,507 --> 00:01:43,591
+again, it's a built-in feature, no extra
+
+42
+00:01:43,591 --> 00:01:44,377
+dependency needed.
+
+43
+00:01:45,259 --> 00:01:47,007
+So in this config.ts file, I have some
+
+44
+00:01:47,119 --> 00:01:50,021
+function to validate whether all the env
+
+45
+00:01:50,246 --> 00:01:53,645
+vars are set and then I instantiate that
+
+46
+00:01:53,758 --> 00:01:56,275
+client and return the instantiated client
+
+47
+00:01:56,644 --> 00:01:58,825
+and I set the access key ID to whatever I
+
+48
+00:01:58,825 --> 00:02:00,797
+found in the env vars and the same for all
+
+49
+00:02:00,925 --> 00:02:01,839
+these other settings.
+
+50
+00:02:02,496 --> 00:02:04,884
+Now, one very important note here, I'm doing
+
+51
+00:02:04,916 --> 00:02:07,640
+this all explicitly here to show you how you
+
+52
+00:02:07,640 --> 00:02:09,002
+can configure that client,
+
+53
+00:02:09,547 --> 00:02:11,085
+but we actually wouldn't have to do that
+
+54
+00:02:11,085 --> 00:02:14,402
+here because the env var names I chose here
+
+55
+00:02:14,915 --> 00:02:17,158
+are in line with what Bun expects.
+
+56
+00:02:17,767 --> 00:02:19,514
+So it will actually look for them
+
+57
+00:02:19,722 --> 00:02:20,524
+automatically
+
+58
+00:02:21,084 --> 00:02:23,264
+and we could therefore also create the
+
+59
+00:02:23,264 --> 00:02:24,241
+client like this
+
+60
+00:02:24,850 --> 00:02:27,158
+and that would work as well. So passing in
+
+61
+00:02:27,270 --> 00:02:28,103
+no config at all.
+
+62
+00:02:29,097 --> 00:02:32,545
+You see, if I now run this command, it works
+
+63
+00:02:32,545 --> 00:02:33,475
+just as before
+
+64
+00:02:34,004 --> 00:02:36,425
+because again, we already used the defaults.
+
+65
+00:02:36,874 --> 00:02:38,478
+I'm just providing this explicit
+
+66
+00:02:38,478 --> 00:02:40,226
+configuration here for demo purposes.
+
+67
+00:02:41,140 --> 00:02:44,331
+But that is the main thing that creates this
+
+68
+00:02:44,331 --> 00:02:46,785
+client and then this client is used in
+
+69
+00:02:46,833 --> 00:02:49,848
+backup.ts and also in the other files.
+
+70
+00:02:50,441 --> 00:02:53,263
+In backup.ts, in the uploadFile function,
+
+71
+00:02:53,712 --> 00:02:56,679
+it's used to Guess what? Upload a file.
+
+72
+00:02:57,481 --> 00:02:59,677
+To do that, I first get hold of the file
+
+73
+00:02:59,806 --> 00:03:02,516
+using the Bun file API, so of the local file
+
+74
+00:03:02,548 --> 00:03:03,478
+which I wanna upload,
+
+75
+00:03:04,151 --> 00:03:08,016
+and then I use the S3 client and its file
+
+76
+00:03:08,016 --> 00:03:10,758
+method to get hold of a remote file or
+
+77
+00:03:10,966 --> 00:03:14,077
+create such a remote file, so a file in that
+
+78
+00:03:14,237 --> 00:03:15,087
+S3 bucket
+
+79
+00:03:15,616 --> 00:03:18,134
+with the file method. That method receives a
+
+80
+00:03:18,246 --> 00:03:20,427
+key, which is in the end the file name and
+
+81
+00:03:20,491 --> 00:03:22,175
+path on that remote storage.
+
+82
+00:03:22,832 --> 00:03:24,963
+And that key is a parameter I'm getting
+
+83
+00:03:25,059 --> 00:03:27,127
+here. So this file method here is coming
+
+84
+00:03:27,143 --> 00:03:30,252
+from the S3 client and this file handle then
+
+85
+00:03:30,348 --> 00:03:32,303
+has various methods we can call. For
+
+86
+00:03:32,303 --> 00:03:34,867
+example, delete to delete the file, exists
+
+87
+00:03:35,011 --> 00:03:37,271
+to check if that file exists in the remote
+
+88
+00:03:37,271 --> 00:03:37,703
+storage
+
+89
+00:03:38,521 --> 00:03:39,498
+or also a
+
+90
+00:03:40,059 --> 00:03:40,396
+write
+
+91
+00:03:41,005 --> 00:03:43,681
+method to create the file and fill it with
+
+92
+00:03:43,745 --> 00:03:46,726
+some content or stat in this case here,
+
+93
+00:03:47,255 --> 00:03:49,081
+which gives us some statistics, some
+
+94
+00:03:49,113 --> 00:03:51,325
+information about that file, specifically
+
+95
+00:03:51,581 --> 00:03:53,568
+the size which I'm using for this basic size
+
+96
+00:03:53,745 --> 00:03:53,937
+check.
+
+97
+00:03:55,140 --> 00:03:56,970
+To determine whether something should be
+
+98
+00:03:56,970 --> 00:03:57,275
+skipped.
+
+99
+00:03:57,949 --> 00:03:59,875
+If it should not be skipped, I also check
+
+100
+00:04:00,003 --> 00:04:02,539
+the file size and I have a large file
+
+101
+00:04:02,731 --> 00:04:05,106
+threshold set up here to 10 megabytes.
+
+102
+00:04:05,780 --> 00:04:08,139
+And if the file which I'm trying to upload,
+
+103
+00:04:08,187 --> 00:04:10,097
+which I'm trying to back up is large,
+
+104
+00:04:10,675 --> 00:04:12,809
+I use a slightly different approach for
+
+105
+00:04:12,841 --> 00:04:15,618
+uploading that to take advantage of Bun's
+
+106
+00:04:15,666 --> 00:04:19,325
+built-in multipart uploading feature because
+
+107
+00:04:19,437 --> 00:04:23,436
+Bun does support uploading both small and
+
+108
+00:04:23,453 --> 00:04:26,313
+large files to S3 and compatible storage
+
+109
+00:04:26,345 --> 00:04:28,851
+providers. And for large files, it uses a
+
+110
+00:04:28,916 --> 00:04:31,213
+process called multipart uploading, which
+
+111
+00:04:31,246 --> 00:04:33,736
+simply splits those files into smaller
+
+112
+00:04:33,736 --> 00:04:36,612
+chunks and uploads them chunk by chunk and
+
+113
+00:04:36,693 --> 00:04:38,765
+gives you a stream to which you can listen
+
+114
+00:04:38,798 --> 00:04:40,983
+to see the live progress. And that's what
+
+115
+00:04:40,983 --> 00:04:43,200
+we're setting up here. Again, using the S3
+
+116
+00:04:43,200 --> 00:04:45,016
+client and that remote file handle,
+
+117
+00:04:45,546 --> 00:04:48,356
+we create a writer which is an object that
+
+118
+00:04:48,356 --> 00:04:50,827
+allows us to upload files chunk by chunk
+
+119
+00:04:51,229 --> 00:04:53,154
+where we define the chunk size of each
+
+120
+00:04:53,234 --> 00:04:55,305
+individual chunk. So the chunks into which
+
+121
+00:04:55,353 --> 00:04:57,471
+this big file will be split automatically,
+
+122
+00:04:57,968 --> 00:04:59,798
+how many parts should be uploaded in
+
+123
+00:04:59,830 --> 00:05:02,173
+parallel and how often we wanna retry if a
+
+124
+00:05:02,237 --> 00:05:04,724
+part fails. And then we have this for loop
+
+125
+00:05:04,724 --> 00:05:07,260
+to go through all these chunks and simply
+
+126
+00:05:07,436 --> 00:05:09,860
+write them to that remote storage and upload
+
+127
+00:05:09,860 --> 00:05:11,849
+them to the remote storage chunk by chunk.
+
+128
+00:05:12,347 --> 00:05:14,304
+That's what we do for large files. For small
+
+129
+00:05:14,433 --> 00:05:16,052
+files, we don't need that. Instead, we use
+
+130
+00:05:16,052 --> 00:05:18,731
+that remote file handle and just call write
+
+131
+00:05:18,779 --> 00:05:21,152
+to just create that remote file and fill it
+
+132
+00:05:21,152 --> 00:05:22,643
+with the content of the local file.
+
+133
+00:05:23,173 --> 00:05:26,428
+That is how we upload a file to S3 using
+
+134
+00:05:26,540 --> 00:05:28,000
+Bun's S3 client.
+
+135
+00:05:29,267 --> 00:05:31,207
+We can also pass some metadata to write
+
+136
+00:05:31,592 --> 00:05:34,238
+where we set the type of the file to the
+
+137
+00:05:34,238 --> 00:05:36,435
+local file type, where we also can set how
+
+138
+00:05:36,483 --> 00:05:39,017
+often this should be retried and a couple of
+
+139
+00:05:39,049 --> 00:05:39,819
+other settings.
+
+140
+00:05:40,557 --> 00:05:43,027
+And indeed, this will also support multipart
+
+141
+00:05:43,139 --> 00:05:45,273
+uploads out of the box, so you wouldn't even
+
+142
+00:05:45,385 --> 00:05:47,855
+need this more complex approach, but this
+
+143
+00:05:47,855 --> 00:05:50,165
+approach gives you more control and allows
+
+144
+00:05:50,181 --> 00:05:52,443
+you to manually go through chunk by chunk
+
+145
+00:05:52,443 --> 00:05:54,978
+and for example, add detailed logging. But
+
+146
+00:05:55,154 --> 00:05:56,806
+even just using this approach would
+
+147
+00:05:56,999 --> 00:05:59,229
+automatically handle large files as well. I
+
+148
+00:05:59,261 --> 00:06:01,106
+just have this approach in here for demo
+
+149
+00:06:01,186 --> 00:06:01,795
+purposes.
+
+150
+00:06:03,047 --> 00:06:04,923
+So that's how files are uploaded.

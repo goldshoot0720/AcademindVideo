@@ -1,0 +1,654 @@
+1
+00:00:00,673 --> 00:00:01,811
+So now that we
+所以現在我們
+
+2
+00:00:02,357 --> 00:00:06,045
+learned a lot about more advanced HTMX
+學到了很多關於更先進的 HTMX 的知識
+
+3
+00:00:06,045 --> 00:00:06,814
+techniques already,
+技術已經，
+
+4
+00:00:07,472 --> 00:00:10,278
+let's dive even deeper. And let's say we
+讓我們更深入地探討一下。假設我們
+
+5
+00:00:10,278 --> 00:00:11,127
+wanna add a new
+想新增一個新的
+
+6
+00:00:11,833 --> 00:00:14,559
+section, you could say, here above the dream
+你可以說，在夢想之上的部分
+
+7
+00:00:14,607 --> 00:00:15,152
+locations.
+地點。
+
+8
+00:00:15,810 --> 00:00:18,503
+And in that section, I wanna show some
+在那個部分，我想展示一些
+
+9
+00:00:18,792 --> 00:00:22,448
+suggested locations, but those locations
+建議的位置，但這些位置
+
+10
+00:00:22,865 --> 00:00:26,553
+should actually switch every 5 seconds. They
+實際上應該每 5 秒切換一次。他們
+
+11
+00:00:26,553 --> 00:00:29,346
+should be refreshed every 5 seconds.
+應每 5 秒刷新一次。
+
+12
+00:00:30,101 --> 00:00:32,753
+And as you'll see, HTMX makes building a
+正如您將看到的，HTMX 使建構
+
+13
+00:00:32,753 --> 00:00:35,325
+feature like this or implementing a feature
+像這樣的功能或實作一個功能
+
+14
+00:00:35,325 --> 00:00:35,759
+like this
+像這樣
+
+15
+00:00:36,289 --> 00:00:37,223
+a breeze as well.
+也輕而易舉。
+
+16
+00:00:38,934 --> 00:00:41,968
+Now, I'll get started in the app.js file
+現在，我將從 app.js 檔案開始
+
+17
+00:00:42,645 --> 00:00:45,679
+and attached you'll find a JavaScript file
+並附上一個 JavaScript 檔案
+
+18
+00:00:45,970 --> 00:00:46,825
+with a function,
+有一個函式，
+
+19
+00:00:47,568 --> 00:00:50,540
+a get suggested locations function,
+取得建議位置功能，
+
+20
+00:00:51,218 --> 00:00:53,834
+which you should simply insert into your
+您只需將其插入到您的
+
+21
+00:00:54,028 --> 00:00:54,739
+app.js file.
+app.js 檔案。
+
+22
+00:00:56,123 --> 00:00:57,759
+So that function in that attached file,
+所以該函式在附加檔案中，
+
+23
+00:00:58,229 --> 00:01:01,096
+simply insert it right below these imports
+只需將其插入到這些導入的正下方
+
+24
+00:01:01,517 --> 00:01:02,797
+in the app.js file.
+在 app.js 檔案中。
+
+25
+00:01:04,194 --> 00:01:06,349
+We could also put it into a separate file,
+我們也可以將它放入一個單獨的檔案中，
+
+26
+00:01:06,365 --> 00:01:08,793
+but here I'll keep it all together to make
+但在這裡我會把它們放在一起
+
+27
+00:01:08,793 --> 00:01:10,996
+it a bit easier to switch between these code
+在這些程式碼之間切換更容易一些
+
+28
+00:01:11,012 --> 00:01:11,382
+snippets.
+片段。
+
+29
+00:01:13,116 --> 00:01:16,505
+Now, what this function does is it in the
+現在，這個函式的作用是在
+
+30
+00:01:16,505 --> 00:01:18,224
+end picks 2
+最終選擇2
+
+31
+00:01:18,818 --> 00:01:21,790
+random locations if we have more than 2
+如果我們有超過 2 個，則為隨機位置
+
+32
+00:01:22,047 --> 00:01:23,011
+locations left,
+剩下的位置，
+
+33
+00:01:23,938 --> 00:01:27,631
+And it returns an array with these 2 random
+它會傳回一個包含這 2 個隨機數的陣列
+
+34
+00:01:27,631 --> 00:01:28,321
+locations here.
+地點在這裡。
+
+35
+00:01:29,558 --> 00:01:33,202
+And I can now use this function here in my
+現在我可以在我的
+
+36
+00:01:33,732 --> 00:01:37,104
+root GET route so that I don't just get my
+root GET 路線，這樣我不只是得到我的
+
+37
+00:01:37,120 --> 00:01:40,781
+available locations but also my suggested
+可用的位置以及我的建議
+
+38
+00:01:40,958 --> 00:01:43,960
+locations simply by calling this newly added
+只需呼叫這個新新增的位置即可
+
+39
+00:01:44,330 --> 00:01:46,706
+getSuggestedLocations function here.
+getSuggestedLocations 函式在這裡。
+
+40
+00:01:48,923 --> 00:01:52,373
+Next, I wanna pass these suggested locations
+接下來，我想通過這些建議的位置
+
+41
+00:01:52,795 --> 00:01:55,970
+to the renderLocationsPage function, let's
+到 renderLocationsPage 函式，讓我們
+
+42
+00:01:55,970 --> 00:01:57,525
+say as a first argument.
+作為第一個論點說。
+
+43
+00:01:59,730 --> 00:02:01,192
+Now, of course, at the moment, this
+現在，當然，此刻，這個
+
+44
+00:02:01,192 --> 00:02:04,615
+renderLocationsPage function doesn't expect
+renderLocationsPage 函式不期望
+
+45
+00:02:04,824 --> 00:02:07,604
+3 arguments yet. So I'll go to that function
+還剩 3 個參數。所以我會去那個功能
+
+46
+00:02:08,102 --> 00:02:09,663
+and add a new parameter here,
+並在此處新增一個參數，
+
+47
+00:02:10,066 --> 00:02:14,001
+suggestedLocations, so that I do expect 3.
+建議的地點，所以我確實期望 3。
+
+48
+00:02:14,576 --> 00:02:14,882
+And
+和
+
+49
+00:02:16,778 --> 00:02:19,575
+now of course I wanna output those suggested
+現在我當然想輸出那些建議的
+
+50
+00:02:19,575 --> 00:02:20,185
+locations.
+地點。
+
+51
+00:02:20,844 --> 00:02:24,045
+And for that, here in the main section above
+為此，在上面的主要部分中
+
+52
+00:02:24,303 --> 00:02:25,254
+the section
+該部分
+
+53
+00:02:25,834 --> 00:02:28,719
+of interesting locations, I'll add a new
+有趣的地點，我將添加一個新的
+
+54
+00:02:28,848 --> 00:02:29,864
+section element.
+節元素。
+
+55
+00:02:31,537 --> 00:02:34,851
+And in that section, I'll add an unordered
+在該部分中，我將添加一個無序的
+
+56
+00:02:34,851 --> 00:02:35,659
+list element.
+列表元素。
+
+57
+00:02:37,049 --> 00:02:40,073
+And on that unordered list, I'll add a class
+在那個無序列表上，我將新增一個類別
+
+58
+00:02:40,202 --> 00:02:40,865
+of suggestions.
+的建議。
+
+59
+00:02:42,180 --> 00:02:42,834
+Locations
+地點
+
+60
+00:02:43,506 --> 00:02:46,928
+and an ID of suggested-locations.
+以及建議位置的 ID。
+
+61
+00:02:49,961 --> 00:02:51,930
+And it's now in that unordered list where I
+現在它就在我的無序列表中
+
+62
+00:02:51,996 --> 00:02:54,713
+wanna output these suggested locations here.
+想在這裡輸出這些建議的位置。
+
+63
+00:02:56,440 --> 00:02:58,324
+So therefore we can simply grab the code
+因此我們可以簡單地取得程式碼
+
+64
+00:02:58,324 --> 00:03:00,063
+from down there from the interesting
+從下面從有趣的地方
+
+65
+00:03:00,159 --> 00:03:01,576
+locations and output them here,
+位置並在此處輸出它們，
+
+66
+00:03:02,510 --> 00:03:05,264
+the suggested locations like this.
+建議的位置是這樣的。
+
+67
+00:03:07,123 --> 00:03:09,708
+The second argument here should not be set
+不應設定此處的第二個參數
+
+68
+00:03:09,756 --> 00:03:12,261
+though so that it falls back to the default
+但這樣它就會回落到預設值
+
+69
+00:03:12,261 --> 00:03:13,208
+value of true.
+真實的價值。
+
+70
+00:03:14,043 --> 00:03:16,548
+Since I wanna treat the locations that are
+因為我想處理這些位置
+
+71
+00:03:16,596 --> 00:03:19,310
+rendered here just like the locations that
+此處呈現的位置就像
+
+72
+00:03:19,390 --> 00:03:21,799
+are rendered in the available locations
+在可用位置呈現
+
+73
+00:03:21,799 --> 00:03:22,136
+list,
+列表，
+
+74
+00:03:23,019 --> 00:03:25,893
+we should be able to pick them from that
+我們應該能夠從中挑選出它們
+
+75
+00:03:25,893 --> 00:03:28,013
+list and add them to the dream locations.
+列出並將它們添加到夢想地點。
+
+76
+00:03:29,185 --> 00:03:31,369
+And therefore with that done, if we save
+因此，完成後，如果我們儲存
+
+77
+00:03:31,369 --> 00:03:31,738
+everything,
+一切，
+
+78
+00:03:32,654 --> 00:03:34,712
+and we reload, we should have these
+然後我們重新載入，我們應該有這些
+
+79
+00:03:34,840 --> 00:03:36,191
+suggested locations here.
+此處建議位置。
+
+80
+00:03:37,156 --> 00:03:39,841
+Now I actually also wanna add a little title
+現在我其實還想加入一個小標題
+
+81
+00:03:39,889 --> 00:03:40,082
+here.
+這裡。
+
+82
+00:03:41,460 --> 00:03:43,598
+So I'll add an H2 element here where I'll
+所以我會在這裡添加一個 H2 元素
+
+83
+00:03:43,598 --> 00:03:46,157
+say, Currently suggested,
+說，目前建議，
+
+84
+00:03:47,064 --> 00:03:47,372
+like this.
+像這樣。
+
+85
+00:03:50,869 --> 00:03:53,017
+And I'll give that section an ID of
+我會給該部分一個 ID
+
+86
+00:03:54,482 --> 00:03:55,328
+suggested-locations-section.
+建議位置部分。
+
+87
+00:03:58,253 --> 00:03:59,765
+For styling purposes.
+用於造型目的。
+
+88
+00:04:01,760 --> 00:04:03,891
+With that done, if I save that and reload, I
+完成後，如果我儲存並重新載入，我
+
+89
+00:04:04,052 --> 00:04:05,440
+also got this title here.
+這裡也得到了這個稱號。
+
+90
+00:04:06,942 --> 00:04:09,912
+And therefore now I have 2 randomly chosen
+因此現在我隨機選了 2 個
+
+91
+00:04:09,961 --> 00:04:11,587
+suggested elements here.
+此處建議的元素。
+
+92
+00:04:13,002 --> 00:04:14,994
+Now if I click on one of them, I get that
+現在，如果我點擊其中一個，我就會明白
+
+93
+00:04:14,994 --> 00:04:15,959
+same dialog
+相同的對話框
+
+94
+00:04:16,521 --> 00:04:19,044
+as before. And if I click yes, it is indeed
+和以前一樣。如果我點擊“是”，它確實是
+
+95
+00:04:19,173 --> 00:04:21,316
+added to the dream locations. It's also
+添加到夢想地點。這也是
+
+96
+00:04:21,365 --> 00:04:23,205
+still available here though, so that's
+不過這裡仍然可用，所以那就是
+
+97
+00:04:23,205 --> 00:04:24,318
+something we'll have to change.
+我們必須改變一些事情。
+
+98
+00:04:25,494 --> 00:04:26,777
+But adding it works.
+但添加它就可以了。
+
+99
+00:04:27,579 --> 00:04:29,216
+Now to make sure that it's not available
+現在要確保它不可用
+
+100
+00:04:29,264 --> 00:04:30,516
+here in the suggested
+在建議的這裡
+
+101
+00:04:31,173 --> 00:04:31,863
+places anymore,
+地方不再,
+
+102
+00:04:32,617 --> 00:04:34,783
+I have to go back to the app.js file.
+我必須回傳到 app.js 檔案。
+
+103
+00:04:35,842 --> 00:04:38,361
+And there in this POST route, we should now
+在這個 POST 路由中，我們現在應該
+
+104
+00:04:38,409 --> 00:04:42,019
+not just update the available locations list
+不僅僅是更新可用位置列表
+
+105
+00:04:42,083 --> 00:04:44,650
+but also the suggested locations list so
+還有建議的位置列表
+
+106
+00:04:44,650 --> 00:04:46,640
+that if we picked a location, we also
+如果我們選擇一個位置，我們也會
+
+107
+00:04:47,137 --> 00:04:50,009
+recreate the list of suggested locations.
+重新建立建議位置清單。
+
+108
+00:04:50,827 --> 00:04:53,522
+So I'll also get my suggested locations here
+所以我也會在這裡得到我建議的位置
+
+109
+00:04:54,051 --> 00:04:55,142
+by calling that same
+透過調用相同的
+
+110
+00:04:55,736 --> 00:04:57,934
+getSuggestedLocations function.
+getSuggestedLocations 函式。
+
+111
+00:04:59,329 --> 00:05:01,880
+And then I also wanna use out-of-band
+然後我也想使用帶外
+
+112
+00:05:01,928 --> 00:05:04,543
+swapping here to update the suggested
+在這裡交換以更新建議
+
+113
+00:05:04,543 --> 00:05:05,489
+locations list.
+地點列表。
+
+114
+00:05:06,163 --> 00:05:09,035
+So we can copy this unordered list with the
+所以我們可以用以下指令複製這個無序列表
+
+115
+00:05:09,035 --> 00:05:11,954
+suggested locations from the index.js file
+index.js 檔案中的建議位置
+
+116
+00:05:13,446 --> 00:05:15,868
+and also add that here to the response of
+並將其添加到此處的回應中
+
+117
+00:05:15,868 --> 00:05:16,895
+this POST route.
+這個 POST 路線。
+
+118
+00:05:20,502 --> 00:05:22,665
+And then of course, I also wanna add
+當然，我還想補充一點
+
+119
+00:05:22,842 --> 00:05:27,668
+hx-swap-OOB to this unordered list so that
+hx-swap-OOB 到這個無序列表，以便
+
+120
+00:05:27,845 --> 00:05:30,421
+this unordered list is also swapped out of
+這個無序列表也被交換出來
+
+121
+00:05:30,454 --> 00:05:30,876
+band.
+樂隊。
+
+122
+00:05:34,157 --> 00:05:36,928
+With that done, if I reload, if I add a
+完成後，如果我重新載入，如果我添加
+
+123
+00:05:37,041 --> 00:05:39,457
+place from the suggested places to the dream
+從建議的地方到夢想的地方
+
+124
+00:05:39,473 --> 00:05:42,644
+locations, you see these suggestions also
+地點，您也會看到這些建議
+
+125
+00:05:42,776 --> 00:05:43,337
+were updated.
+已更新。
+
+126
+00:05:44,999 --> 00:05:47,586
+So that's working, but that's just the first
+這樣就可以了，但這只是第一個
+
+127
+00:05:47,586 --> 00:05:50,769
+step. The main goal was to make sure that
+步。主要目標是確保
+
+128
+00:05:51,508 --> 00:05:54,321
+this list here is regenerated and
+這裡的這個列表是重新生成的並且
+
+129
+00:05:54,321 --> 00:05:57,938
+re-rendered every 5 seconds so that we see
+每 5 秒重新渲染一次，以便我們可以看到
+
+130
+00:05:57,938 --> 00:06:01,281
+new suggestions every 5 seconds. And that's
+每 5 秒就有新建議。那就是
+
+131
+00:06:01,394 --> 00:06:02,358
+what we'll do next.
+我們接下來要做什麼。

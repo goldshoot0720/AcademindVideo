@@ -1,0 +1,679 @@
+1
+00:00:00,128 --> 00:00:03,398
+So you can set up local skills in your
+
+2
+00:00:03,462 --> 00:00:04,985
+project, and that makes a lot of sense
+
+3
+00:00:05,001 --> 00:00:07,053
+whenever you have some domain knowledge,
+
+4
+00:00:07,085 --> 00:00:09,858
+some documentation you want to include
+
+5
+00:00:10,435 --> 00:00:12,375
+in your project and you want to expose to
+
+6
+00:00:12,375 --> 00:00:13,064
+the agent. And
+
+7
+00:00:13,801 --> 00:00:15,853
+just to be clear, the advantage of using
+
+8
+00:00:15,901 --> 00:00:18,675
+such a local skill instead of just asking
+
+9
+00:00:18,787 --> 00:00:20,630
+the agent to reach out to the official
+
+10
+00:00:20,630 --> 00:00:21,320
+documentation
+
+11
+00:00:21,977 --> 00:00:23,916
+is that it's more token efficient because it
+
+12
+00:00:23,916 --> 00:00:26,000
+doesn't have to do a web search, read a
+
+13
+00:00:26,000 --> 00:00:28,693
+bunch of websites. It can be faster because
+
+14
+00:00:28,709 --> 00:00:30,168
+all that web search, of course, takes up
+
+15
+00:00:30,168 --> 00:00:31,899
+time. And if you know which knowledge
+
+16
+00:00:31,900 --> 00:00:34,003
+knowledge will matter, why not just give it
+
+17
+00:00:34,003 --> 00:00:36,106
+to the agent? Don't make the agent search
+
+18
+00:00:36,106 --> 00:00:38,578
+and guess. Give your agent and your model
+
+19
+00:00:38,675 --> 00:00:40,168
+the agent you know it will need.
+
+20
+00:00:40,762 --> 00:00:42,994
+That is really the way to think about this.
+
+21
+00:00:43,909 --> 00:00:46,221
+It's easy to become lazy when working with a
+
+22
+00:00:46,221 --> 00:00:48,757
+coding agent, but don't. Make sure you
+
+23
+00:00:48,773 --> 00:00:50,877
+construct proper context, you give it the
+
+24
+00:00:50,877 --> 00:00:53,237
+knowledge it needs, and don't make it guess
+
+25
+00:00:53,365 --> 00:00:55,468
+or anything like that. And that is the huge
+
+26
+00:00:55,468 --> 00:00:57,989
+advantage of knowledge skills like this one.
+
+27
+00:00:58,150 --> 00:00:59,929
+Which typically should be local in a
+
+28
+00:00:59,929 --> 00:01:02,190
+project, but you can also have global
+
+29
+00:01:02,190 --> 00:01:04,291
+skills, of course. So instead of a local
+
+30
+00:01:04,291 --> 00:01:06,503
+skill, you can also have global skills. And
+
+31
+00:01:06,519 --> 00:01:09,101
+again, you can create them with Pi, with
+
+32
+00:01:09,165 --> 00:01:10,977
+another coding agent, or you can create them
+
+33
+00:01:11,089 --> 00:01:11,522
+manually.
+
+34
+00:01:12,356 --> 00:01:14,825
+Global skills go into your global
+
+35
+00:01:15,803 --> 00:01:16,717
+user home folder,
+
+36
+00:01:17,326 --> 00:01:18,513
+.agents, skills.
+
+37
+00:01:19,267 --> 00:01:20,838
+And then they have exactly the same
+
+38
+00:01:20,934 --> 00:01:23,580
+structure as local skills do. So a subfolder
+
+39
+00:01:23,580 --> 00:01:25,825
+for each skill, and in there, a skill.md
+
+40
+00:01:25,825 --> 00:01:28,889
+file. But again, you can ask Pi or any other
+
+41
+00:01:28,889 --> 00:01:30,894
+coding agent to create such a skill for you
+
+42
+00:01:30,894 --> 00:01:32,643
+too. And that's what I'll do here. I'll
+
+43
+00:01:32,643 --> 00:01:35,274
+start this Pi session with the no session
+
+44
+00:01:35,290 --> 00:01:38,098
+flag because I'm running it in this project
+
+45
+00:01:38,098 --> 00:01:39,847
+here in the terminal in this project, but it
+
+46
+00:01:39,863 --> 00:01:41,660
+doesn't really belong to this project and I
+
+47
+00:01:41,884 --> 00:01:43,938
+will not come back to it anyways, very
+
+48
+00:01:43,954 --> 00:01:46,232
+likely. So I don't need to store the session
+
+49
+00:01:46,232 --> 00:01:46,810
+information.
+
+50
+00:01:47,740 --> 00:01:50,901
+And now here I want Pi to build me a global
+
+51
+00:01:50,901 --> 00:01:51,366
+skill now.
+
+52
+00:01:52,072 --> 00:01:52,666
+Which skill?
+
+53
+00:01:53,276 --> 00:01:56,134
+A skill that helps me with planning because
+
+54
+00:01:56,231 --> 00:01:59,024
+I mentioned Pi doesn't have a built-in plan
+
+55
+00:01:59,121 --> 00:02:00,309
+mode, but still
+
+56
+00:02:00,887 --> 00:02:04,564
+I like to create plans with help of a coding
+
+57
+00:02:04,660 --> 00:02:06,924
+agent when working on a new feature in a
+
+58
+00:02:06,924 --> 00:02:09,718
+project before starting to implement it. And
+
+59
+00:02:09,718 --> 00:02:11,725
+here's the prompt I'll send to Pi to make it
+
+60
+00:02:11,725 --> 00:02:13,957
+work on this global skill it should create.
+
+61
+00:02:14,454 --> 00:02:16,381
+A skill that should help with planning, with
+
+62
+00:02:16,397 --> 00:02:17,409
+creating plans.
+
+63
+00:02:18,179 --> 00:02:20,296
+So I ask it to create a global agent skill
+
+64
+00:02:20,392 --> 00:02:22,510
+according to that agent skills spec,
+
+65
+00:02:22,734 --> 00:02:25,060
+pointing it at that official website, which
+
+66
+00:02:25,060 --> 00:02:26,391
+I showed you before again.
+
+67
+00:02:27,065 --> 00:02:28,974
+And that the skill is all about helping with
+
+68
+00:02:28,990 --> 00:02:31,604
+creating plans for implementing features in
+
+69
+00:02:31,636 --> 00:02:34,042
+projects. The skill should be called create
+
+70
+00:02:34,042 --> 00:02:35,406
+plan. So that should be the name of the
+
+71
+00:02:35,406 --> 00:02:37,250
+folder in which the skill is and the name of
+
+72
+00:02:37,250 --> 00:02:39,319
+the skill itself. And it should activate
+
+73
+00:02:39,319 --> 00:02:42,030
+whenever I ask you, so Pi, to create a plan,
+
+74
+00:02:42,206 --> 00:02:44,612
+or if I have some prompt that implies that
+
+75
+00:02:44,612 --> 00:02:45,799
+it should create a plan in the end.
+
+76
+00:02:46,473 --> 00:02:48,223
+And in that skill, that's the important
+
+77
+00:02:48,223 --> 00:02:49,812
+part. It should basically
+
+78
+00:02:51,048 --> 00:02:53,825
+describe a certain flow towards planning,
+
+79
+00:02:53,937 --> 00:02:56,425
+which starts with analyzing whichever task I
+
+80
+00:02:56,425 --> 00:02:56,810
+gave it.
+
+81
+00:02:57,468 --> 00:03:00,133
+Then it should ask clarification questions
+
+82
+00:03:00,133 --> 00:03:02,252
+if needed, get back to me, ask those
+
+83
+00:03:02,284 --> 00:03:02,894
+questions,
+
+84
+00:03:03,472 --> 00:03:05,221
+only continue once it has my answers.
+
+85
+00:03:05,959 --> 00:03:09,089
+Then do necessary in-depth research, visit
+
+86
+00:03:09,089 --> 00:03:11,802
+official docs, perform web search, analyze
+
+87
+00:03:11,834 --> 00:03:14,081
+the research results, and do more research
+
+88
+00:03:14,081 --> 00:03:16,377
+if needed so that it really researches
+
+89
+00:03:16,409 --> 00:03:19,283
+information for the task I ask it to do.
+
+90
+00:03:20,327 --> 00:03:22,527
+If it then has any new questions, it should
+
+91
+00:03:22,656 --> 00:03:25,177
+ask me again, hand back control to me. So
+
+92
+00:03:25,306 --> 00:03:28,181
+really stop working, ask the questions, and
+
+93
+00:03:28,213 --> 00:03:30,172
+then continue once it has this information.
+
+94
+00:03:30,783 --> 00:03:32,598
+And then once ready, it should carefully
+
+95
+00:03:32,774 --> 00:03:35,280
+analyze the task, my responses, its research
+
+96
+00:03:35,280 --> 00:03:37,352
+results, and think about it all. It should
+
+97
+00:03:37,352 --> 00:03:39,504
+evaluate different implementation strategies
+
+98
+00:03:39,536 --> 00:03:41,511
+and possible solutions to find the best one.
+
+99
+00:03:42,427 --> 00:03:44,964
+And then it should create a detailed
+
+100
+00:03:45,061 --> 00:03:46,073
+implementation plan.
+
+101
+00:03:46,923 --> 00:03:48,494
+But then it's not done. It should then
+
+102
+00:03:48,606 --> 00:03:50,850
+review that plan with help of the reviewer
+
+103
+00:03:50,850 --> 00:03:54,248
+subagent. Remember, I did install the Pi
+
+104
+00:03:54,296 --> 00:03:55,595
+Subagents extension.
+
+105
+00:03:56,300 --> 00:03:57,567
+If you don't have that, if you don't want
+
+106
+00:03:57,567 --> 00:03:59,442
+that, this of course is not a step you have
+
+107
+00:03:59,442 --> 00:04:01,526
+to perform. But I wanted to spin up a
+
+108
+00:04:01,526 --> 00:04:04,299
+subagent which will have a fresh context to
+
+109
+00:04:04,540 --> 00:04:06,047
+analyze that plan it created.
+
+110
+00:04:06,944 --> 00:04:09,653
+And then it should share the final plan with
+
+111
+00:04:09,669 --> 00:04:10,888
+me. It should write it to a
+
+112
+00:04:11,433 --> 00:04:14,126
+.md file in a local.plans folder. So I
+
+113
+00:04:14,254 --> 00:04:16,418
+wanted to create a.plans folder in my
+
+114
+00:04:16,418 --> 00:04:18,614
+project and store the plan MD file in there.
+
+115
+00:04:19,368 --> 00:04:21,774
+And I also wanted to render it as an HTML
+
+116
+00:04:21,870 --> 00:04:24,789
+file and open that HTML file so that I have
+
+117
+00:04:24,837 --> 00:04:26,889
+an easier time analyzing that. Purely
+
+118
+00:04:26,921 --> 00:04:29,311
+optional, just something I like doing. And
+
+119
+00:04:29,327 --> 00:04:30,995
+then last but not least, I ask it to go
+
+120
+00:04:31,011 --> 00:04:32,550
+ahead, think about this task, do the
+
+121
+00:04:32,550 --> 00:04:34,619
+necessary research, ask me any questions it
+
+122
+00:04:34,619 --> 00:04:36,640
+may have, and then create that agent skill.
+
+123
+00:04:37,425 --> 00:04:39,494
+And again, you can do that manually. You
+
+124
+00:04:39,494 --> 00:04:41,884
+don't have to use AI to create those skills.
+
+125
+00:04:42,301 --> 00:04:44,305
+I just find that a bit more convenient. So
+
+126
+00:04:44,546 --> 00:04:46,313
+That's the approach I'll be using here and
+
+127
+00:04:46,346 --> 00:04:48,836
+I'll get back once it's done. Now, one thing
+
+128
+00:04:48,884 --> 00:04:51,150
+I can already see is that it's adding this
+
+129
+00:04:51,231 --> 00:04:54,975
+global skill into the.py/agent/skills
+
+130
+00:04:55,007 --> 00:04:55,858
+folder globally.
+
+131
+00:04:56,517 --> 00:04:58,992
+That is a location where Pi will be looking
+
+132
+00:04:59,088 --> 00:05:00,888
+for skills, but it's not my preferred
+
+133
+00:05:00,888 --> 00:05:03,298
+location because skills in that location
+
+134
+00:05:03,427 --> 00:05:06,544
+will really only be found by the Pi agent. I
+
+135
+00:05:06,721 --> 00:05:08,745
+rather have them in locations where other
+
+136
+00:05:08,826 --> 00:05:11,009
+agents can find them too. So now that it is
+
+137
+00:05:11,074 --> 00:05:11,506
+done here,
+
+138
+00:05:12,100 --> 00:05:15,195
+I will grab that skill folder here.
+
+139
+00:05:16,445 --> 00:05:18,787
+And then after copying it, remove it
+
+140
+00:05:20,134 --> 00:05:22,459
+and go to the global.agents folder in my
+
+141
+00:05:22,523 --> 00:05:25,409
+user home folder and then there skills and
+
+142
+00:05:25,505 --> 00:05:28,408
+paste that in here. So paste that created
+
+143
+00:05:28,408 --> 00:05:30,508
+skill folder and skill.md file in there.
+
+144
+00:05:31,262 --> 00:05:33,892
+And here is that skill.md file it created,
+
+145
+00:05:34,229 --> 00:05:36,490
+gave it a name of create plan, has this
+
+146
+00:05:36,490 --> 00:05:37,067
+description.
+
+147
+00:05:38,318 --> 00:05:39,985
+Which also includes an instruction to use it
+
+148
+00:05:40,017 --> 00:05:41,781
+when the user asks to create a plan, make
+
+149
+00:05:41,781 --> 00:05:43,320
+plan, implementation plan, something like
+
+150
+00:05:43,368 --> 00:05:44,202
+this. Sounds good.
+
+151
+00:05:44,987 --> 00:05:47,168
+Now here it again has this usage
+
+152
+00:05:47,232 --> 00:05:49,781
+instruction, which is kind of pointless. We
+
+153
+00:05:49,781 --> 00:05:52,106
+can remove that. But then it has this
+
+154
+00:05:52,106 --> 00:05:53,277
+workflow described here,
+
+155
+00:05:54,447 --> 00:05:55,489
+which seems reasonable.
+
+156
+00:05:56,291 --> 00:05:58,504
+And therefore, hopefully this skill should
+
+157
+00:05:58,520 --> 00:05:59,626
+help us with planning.
+
+158
+00:06:00,379 --> 00:06:02,528
+Now to make sure that a skill gets activated
+
+159
+00:06:02,528 --> 00:06:03,073
+immediately,
+
+160
+00:06:03,650 --> 00:06:04,436
+you should run
+
+161
+00:06:05,430 --> 00:06:07,965
+/reload. That will ensure that all newly
+
+162
+00:06:08,142 --> 00:06:10,261
+added skills are available in this session,
+
+163
+00:06:10,887 --> 00:06:13,150
+or you just quit the session and start a new
+
+164
+00:06:13,214 --> 00:06:15,959
+one. And with that, you see that under the
+
+165
+00:06:16,023 --> 00:06:17,789
+loaded skills, Create Plan is there,
+
+166
+00:06:18,029 --> 00:06:19,972
+TanStack Start is there, and also some other
+
+167
+00:06:19,972 --> 00:06:21,561
+skills which are coming from some of the
+
+168
+00:06:21,785 --> 00:06:24,081
+third-party packages I installed. But with
+
+169
+00:06:24,113 --> 00:06:26,135
+that, we can now give them a try and see
+
+170
+00:06:26,135 --> 00:06:27,708
+whether everything works the way it should.

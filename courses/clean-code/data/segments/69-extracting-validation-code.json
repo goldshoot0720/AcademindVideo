@@ -1,0 +1,517 @@
+[
+ {
+  "start": 2.18,
+  "end": 5.065,
+  "en": "So by now, we already refactored a lot. I'm"
+ },
+ {
+  "start": 5.065,
+  "end": 7.822,
+  "en": "fully aware of that, but this is how you do"
+ },
+ {
+  "start": 7.967,
+  "end": 10.548,
+  "en": "write clean code. It's a step-by-step"
+ },
+ {
+  "start": 10.612,
+  "end": 12.984,
+  "en": "process, which is why I'm showing it in"
+ },
+ {
+  "start": 13.016,
+  "end": 15.212,
+  "en": "great detail here, because that is what you"
+ },
+ {
+  "start": 15.325,
+  "end": 17.136,
+  "en": "will do ultimately when you clean up your"
+ },
+ {
+  "start": 17.248,
+  "end": 17.681,
+  "en": "own code."
+ },
+ {
+  "start": 18.483,
+  "end": 20.358,
+  "en": "It's about trying out things, being"
+ },
+ {
+  "start": 20.39,
+  "end": 22.763,
+  "en": "creative, and moving things around."
+ },
+ {
+  "start": 23.917,
+  "end": 26.757,
+  "en": "And speaking of moving things around, We now"
+ },
+ {
+  "start": 27.112,
+  "end": 29.066,
+  "en": "use errors, which is great."
+ },
+ {
+  "start": 29.632,
+  "end": 31.925,
+  "en": "But now we have all that code for creating"
+ },
+ {
+  "start": 32.054,
+  "end": 35.026,
+  "en": "errors side by side with code that, for"
+ },
+ {
+  "start": 35.026,
+  "end": 37.467,
+  "en": "example, dispatches different process"
+ },
+ {
+  "start": 37.483,
+  "end": 40.022,
+  "en": "functions for different transaction methods."
+ },
+ {
+  "start": 41.562,
+  "end": 44.263,
+  "en": "This again is mixing different levels of"
+ },
+ {
+  "start": 44.263,
+  "end": 44.967,
+  "en": "abstraction."
+ },
+ {
+  "start": 46.998,
+  "end": 48.669,
+  "en": "So we should consider splitting our"
+ },
+ {
+  "start": 48.669,
+  "end": 49.248,
+  "en": "functions."
+ },
+ {
+  "start": 50.035,
+  "end": 52.574,
+  "en": "For example, here in processTransactions"
+ },
+ {
+  "start": 53.089,
+  "end": 55.274,
+  "en": "where I check for whether my transactions"
+ },
+ {
+  "start": 55.483,
+  "end": 57.639,
+  "en": "are empty to then create an error."
+ },
+ {
+  "start": 59.051,
+  "end": 61.292,
+  "en": "We can create a new function which we could"
+ },
+ {
+  "start": 61.325,
+  "end": 61.536,
+  "en": "name"
+ },
+ {
+  "start": 63.11,
+  "end": 63.994,
+  "en": "validateTransactions"
+ },
+ {
+  "start": 65.055,
+  "end": 66.776,
+  "en": "where we get all the transactions."
+ },
+ {
+  "start": 67.789,
+  "end": 70.458,
+  "en": "And then we move this code where we generate"
+ },
+ {
+  "start": 70.458,
+  "end": 71.118,
+  "en": "this error"
+ },
+ {
+  "start": 71.648,
+  "end": 72.436,
+  "en": "into this function."
+ },
+ {
+  "start": 74.593,
+  "end": 77.326,
+  "en": "Then here in processTransactions, we can"
+ },
+ {
+  "start": 77.326,
+  "end": 80.416,
+  "en": "simply call validateTransactions before we"
+ },
+ {
+  "start": 80.497,
+  "end": 81.548,
+  "en": "go through this for loop."
+ },
+ {
+  "start": 82.448,
+  "end": 84.712,
+  "en": "The great advantage of this approach is not"
+ },
+ {
+  "start": 84.712,
+  "end": 86.993,
+  "en": "just that processTransactions is now"
+ },
+ {
+  "start": 87.459,
+  "end": 87.989,
+  "en": "slimmer,"
+ },
+ {
+  "start": 88.824,
+  "end": 91.217,
+  "en": "though we should forward transactions to the"
+ },
+ {
+  "start": 91.217,
+  "end": 92.951,
+  "en": "validateTransactions function,"
+ },
+ {
+  "start": 93.69,
+  "end": 96.982,
+  "en": "but also that because we use real errors and"
+ },
+ {
+  "start": 97.063,
+  "end": 99.729,
+  "en": "we throw this error, we use a built-in"
+ },
+ {
+  "start": 99.729,
+  "end": 102.106,
+  "en": "mechanism in the programming language which"
+ },
+ {
+  "start": 102.202,
+  "end": 104.434,
+  "en": "will ensure that this automatically bubbles"
+ },
+ {
+  "start": 104.547,
+  "end": 106.667,
+  "en": "up. So it will just bubble through"
+ },
+ {
+  "start": 107.116,
+  "end": 109.825,
+  "en": "processTransactions canceling this function"
+ },
+ {
+  "start": 109.97,
+  "end": 110.358,
+  "en": "as well"
+ },
+ {
+  "start": 111.021,
+  "end": 113.025,
+  "en": "if an error is generated inside of"
+ },
+ {
+  "start": 113.138,
+  "end": 116.127,
+  "en": "validateTransactions, moving up to the next"
+ },
+ {
+  "start": 116.127,
+  "end": 116.499,
+  "en": "function"
+ },
+ {
+  "start": 117.097,
+  "end": 119.266,
+  "en": "until it is being handled, which in this"
+ },
+ {
+  "start": 119.283,
+  "end": 119.866,
+  "en": "case it is here."
+ },
+ {
+  "start": 120.967,
+  "end": 122.797,
+  "en": "And this of course is great."
+ },
+ {
+  "start": 123.862,
+  "end": 125.897,
+  "en": "This here of course should be transactions,"
+ },
+ {
+  "start": 125.961,
+  "end": 127.77,
+  "en": "by the way, not transaction."
+ },
+ {
+  "start": 129.515,
+  "end": 131.743,
+  "en": "Now we could argue that we have mixed levels"
+ },
+ {
+  "start": 131.857,
+  "end": 134.757,
+  "en": "of abstraction here, calling isEmpty and"
+ },
+ {
+  "start": 134.757,
+  "end": 137.399,
+  "en": "then this low-level code of creating the"
+ },
+ {
+  "start": 137.479,
+  "end": 138.317,
+  "en": "error and adding a code."
+ },
+ {
+  "start": 139.202,
+  "end": 140.725,
+  "en": "And therefore we could also add another"
+ },
+ {
+  "start": 140.725,
+  "end": 141.318,
+  "en": "function here"
+ },
+ {
+  "start": 141.847,
+  "end": 143.306,
+  "en": "where we build this error."
+ },
+ {
+  "start": 143.915,
+  "end": 146.592,
+  "en": "You could absolutely do that, but I will not"
+ },
+ {
+  "start": 146.592,
+  "end": 148.948,
+  "en": "do it here. I think it's too much splitting."
+ },
+ {
+  "start": 149.381,
+  "end": 151.674,
+  "en": "And if you would want such a helper function"
+ },
+ {
+  "start": 151.706,
+  "end": 154.158,
+  "en": "which builds an error, I would recommend"
+ },
+ {
+  "start": 154.19,
+  "end": 156.755,
+  "en": "that you simply create your own error class"
+ },
+ {
+  "start": 156.755,
+  "end": 159.0,
+  "en": "which you instantiate here. So I will leave"
+ },
+ {
+  "start": 159.0,
+  "end": 159.432,
+  "en": "it like this."
+ },
+ {
+  "start": 160.506,
+  "end": 162.446,
+  "en": "Nonetheless, we have some extractions left"
+ },
+ {
+  "start": 162.446,
+  "end": 165.043,
+  "en": "to do here for processTransaction."
+ },
+ {
+  "start": 166.112,
+  "end": 168.394,
+  "en": "There we check whether it's not open or if"
+ },
+ {
+  "start": 168.394,
+  "end": 171.064,
+  "en": "it's neither a payment nor a refund. And we"
+ },
+ {
+  "start": 171.064,
+  "end": 173.362,
+  "en": "can outsource these validations as well."
+ },
+ {
+  "start": 175.54,
+  "end": 176.423,
+  "en": "So we can add a new"
+ },
+ {
+  "start": 177.682,
+  "end": 178.303,
+  "en": "function here"
+ },
+ {
+  "start": 179.252,
+  "end": 180.577,
+  "en": "which we name validateTransaction,"
+ },
+ {
+  "start": 182.02,
+  "end": 184.639,
+  "en": "for example, receiving the transaction as a"
+ },
+ {
+  "start": 184.639,
+  "end": 185.14,
+  "en": "parameter."
+ },
+ {
+  "start": 186.821,
+  "end": 188.729,
+  "en": "And now we could either create one function"
+ },
+ {
+  "start": 188.762,
+  "end": 189.764,
+  "en": "for each check here,"
+ },
+ {
+  "start": 190.362,
+  "end": 192.721,
+  "en": "or we take both checks and put them into the"
+ },
+ {
+  "start": 192.769,
+  "end": 193.527,
+  "en": "same function,"
+ },
+ {
+  "start": 194.544,
+  "end": 196.641,
+  "en": "which I will do here because we're doing the"
+ },
+ {
+  "start": 196.641,
+  "end": 198.658,
+  "en": "same kind of work. We're validating a"
+ },
+ {
+  "start": 198.658,
+  "end": 201.45,
+  "en": "transaction just with different checks, and"
+ },
+ {
+  "start": 201.45,
+  "end": 203.089,
+  "en": "therefore having this in one function makes"
+ },
+ {
+  "start": 203.089,
+  "end": 203.908,
+  "en": "a lot of sense to me."
+ },
+ {
+  "start": 205.178,
+  "end": 206.174,
+  "en": "And now we can just call"
+ },
+ {
+  "start": 207.91,
+  "end": 209.388,
+  "en": "validateTransaction here"
+ },
+ {
+  "start": 210.804,
+  "end": 213.305,
+  "en": "before we then try to process the different"
+ },
+ {
+  "start": 213.305,
+  "end": 213.999,
+  "en": "transactions."
+ },
+ {
+  "start": 214.983,
+  "end": 215.37,
+  "en": "And again,"
+ },
+ {
+  "start": 215.968,
+  "end": 218.84,
+  "en": "because validateTransaction throws an error"
+ },
+ {
+  "start": 219.098,
+  "end": 219.921,
+  "en": "if we got an error,"
+ },
+ {
+  "start": 220.587,
+  "end": 223.094,
+  "en": "This process transaction function execution"
+ },
+ {
+  "start": 223.158,
+  "end": 225.906,
+  "en": "will be canceled if an error occurs and this"
+ },
+ {
+  "start": 225.906,
+  "end": 228.461,
+  "en": "code will not be executed. Instead, we move"
+ },
+ {
+  "start": 228.461,
+  "end": 231.234,
+  "en": "up to the next function above it until this"
+ },
+ {
+  "start": 231.234,
+  "end": 232.026,
+  "en": "is being handled,"
+ },
+ {
+  "start": 232.575,
+  "end": 234.32,
+  "en": "which in this case is happening here"
+ },
+ {
+  "start": 234.918,
+  "end": 236.065,
+  "en": "in this for loop."
+ },
+ {
+  "start": 237.682,
+  "end": 240.23,
+  "en": "And that now again were more extractions"
+ },
+ {
+  "start": 240.585,
+  "end": 242.94,
+  "en": "which hopefully overall help with"
+ },
+ {
+  "start": 243.004,
+  "end": 245.698,
+  "en": "readability if you would read this entire"
+ },
+ {
+  "start": 245.908,
+  "end": 247.569,
+  "en": "code top to bottom."
+ }
+]

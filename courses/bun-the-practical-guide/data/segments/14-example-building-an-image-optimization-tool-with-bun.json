@@ -1,0 +1,2032 @@
+[
+ {
+  "start": 0.112,
+  "end": 2.438,
+  "en": "So optimise-images.ts is the root entry"
+ },
+ {
+  "start": 2.502,
+  "end": 5.278,
+  "en": "point. That is what we execute here with"
+ },
+ {
+  "start": 5.31,
+  "end": 7.347,
+  "en": "that script. And in that file, we start with"
+ },
+ {
+  "start": 7.347,
+  "end": 8.342,
+  "en": "a bunch of imports,"
+ },
+ {
+  "start": 9.0,
+  "end": 11.198,
+  "en": "importing path from Node because as you"
+ },
+ {
+  "start": 11.246,
+  "end": 13.877,
+  "en": "learned, Bun has that Node.js compatibility"
+ },
+ {
+  "start": 14.23,
+  "end": 16.123,
+  "en": "and then importing a bunch of functions and"
+ },
+ {
+  "start": 16.315,
+  "end": 18.305,
+  "en": "things from my own files. And of course"
+ },
+ {
+  "start": 18.305,
+  "end": 19.716,
+  "en": "we'll take a look at all of them. I then"
+ },
+ {
+  "start": 19.749,
+  "end": 21.032,
+  "en": "have a main function here"
+ },
+ {
+  "start": 21.69,
+  "end": 23.904,
+  "en": "and a run function. The main function is"
+ },
+ {
+  "start": 24.096,
+  "end": 26.791,
+  "en": "what's executed when the file here is"
+ },
+ {
+  "start": 26.984,
+  "end": 27.352,
+  "en": "actually"
+ },
+ {
+  "start": 28.09,
+  "end": 30.672,
+  "en": "run with help of bun. So the main function"
+ },
+ {
+  "start": 30.672,
+  "end": 32.998,
+  "en": "here is the main entry point of the program,"
+ },
+ {
+  "start": 33.719,
+  "end": 36.125,
+  "en": "and in there I start by loading the"
+ },
+ {
+  "start": 36.205,
+  "end": 39.589,
+  "en": "configuration. So in the end, parsing the"
+ },
+ {
+  "start": 39.733,
+  "end": 43.454,
+  "en": "user input. When I run this command here, I"
+ },
+ {
+  "start": 43.502,
+  "end": 45.362,
+  "en": "want to get hold of that path and I want to"
+ },
+ {
+  "start": 45.426,
+  "end": 47.222,
+  "en": "get hold of these options because they"
+ },
+ {
+  "start": 47.431,
+  "end": 49.259,
+  "en": "influence how the program works."
+ },
+ {
+  "start": 49.981,
+  "end": 52.37,
+  "en": "That is what main does as a first step. It"
+ },
+ {
+  "start": 52.483,
+  "end": 55.596,
+  "en": "parses the config with this weird code."
+ },
+ {
+  "start": 56.478,
+  "end": 58.468,
+  "en": "Now here we again see Bun. What are we doing"
+ },
+ {
+  "start": 58.5,
+  "end": 60.554,
+  "en": "here though? We're using the argv"
+ },
+ {
+  "start": 61.147,
+  "end": 63.281,
+  "en": "property on the global Bun"
+ },
+ {
+  "start": 64.1,
+  "end": 66.041,
+  "en": "object. So that's coming from the Bun"
+ },
+ {
+  "start": 66.041,
+  "end": 68.127,
+  "en": "runtime, and argv is something that's also"
+ },
+ {
+  "start": 68.127,
+  "end": 69.94,
+  "en": "provided by the runtime. It's a property"
+ },
+ {
+  "start": 69.972,
+  "end": 71.416,
+  "en": "built into Bun, so to say."
+ },
+ {
+  "start": 72.299,
+  "end": 73.679,
+  "en": "Now what does argv give you?"
+ },
+ {
+  "start": 74.449,
+  "end": 75.267,
+  "en": "It gives you the"
+ },
+ {
+  "start": 75.813,
+  "end": 78.268,
+  "en": "raw arguments passed to the process,"
+ },
+ {
+  "start": 78.46,
+  "end": 80.418,
+  "en": "including flags passed"
+ },
+ {
+  "start": 81.381,
+  "end": 83.741,
+  "en": "So the process is what we start with bun"
+ },
+ {
+  "start": 83.757,
+  "end": 85.523,
+  "en": "run, and then what we have thereafter,"
+ },
+ {
+  "start": 85.539,
+  "end": 87.947,
+  "en": "that's the raw input that's passed to the"
+ },
+ {
+  "start": 87.947,
+  "end": 90.805,
+  "en": "process, and argv gives us access to that."
+ },
+ {
+  "start": 91.656,
+  "end": 95.83,
+  "en": "I then use slice 2 to skip the first 2"
+ },
+ {
+  "start": 96.681,
+  "end": 99.041,
+  "en": "things that are passed into that program."
+ },
+ {
+  "start": 99.121,
+  "end": 101.674,
+  "en": "And you would think, why am I skipping the"
+ },
+ {
+  "start": 101.674,
+  "end": 104.692,
+  "en": "first option and the path? But that would be"
+ },
+ {
+  "start": 104.708,
+  "end": 109.375,
+  "en": "wrong because argv actually gets the path to"
+ },
+ {
+  "start": 109.375,
+  "end": 111.778,
+  "en": "the Bun runtime as our first argument by"
+ },
+ {
+  "start": 111.778,
+  "end": 114.438,
+  "en": "default, and then the path to the file"
+ },
+ {
+  "start": 114.502,
+  "end": 116.312,
+  "en": "that's being executed as the second"
+ },
+ {
+  "start": 116.409,
+  "end": 118.764,
+  "en": "argument. So if I were to use"
+ },
+ {
+  "start": 119.533,
+  "end": 122.401,
+  "en": "argv entirely, then the first input,"
+ },
+ {
+  "start": 122.817,
+  "end": 124.147,
+  "en": "invisible to what we entered here,"
+ },
+ {
+  "start": 124.74,
+  "end": 127.304,
+  "en": "would be the path to the Bun runtime, and"
+ },
+ {
+  "start": 127.32,
+  "end": 129.354,
+  "en": "the second input would be the path to the"
+ },
+ {
+  "start": 129.386,
+  "end": 132.078,
+  "en": "root entry file, so to optimize-images.ts."
+ },
+ {
+  "start": 132.591,
+  "end": 135.331,
+  "en": "And both are things I don't care about in my"
+ },
+ {
+  "start": 135.331,
+  "end": 137.609,
+  "en": "program. That's why I'm using slice 2 here"
+ },
+ {
+  "start": 137.657,
+  "end": 140.788,
+  "en": "to skip those first 2 inputs so that I only"
+ },
+ {
+  "start": 140.853,
+  "end": 143.406,
+  "en": "get the actual inputs I care about, which is"
+ },
+ {
+  "start": 143.823,
+  "end": 146.296,
+  "en": "that path here and then all these options."
+ },
+ {
+  "start": 146.649,
+  "end": 149.716,
+  "en": "That is what argv does. It gives us access"
+ },
+ {
+  "start": 150.021,
+  "end": 152.076,
+  "en": "to the inputs to the program, which includes"
+ },
+ {
+  "start": 152.108,
+  "end": 154.099,
+  "en": "the.NET runtime and the path to the file"
+ },
+ {
+  "start": 154.099,
+  "end": 156.09,
+  "en": "that's being executed, and then anything"
+ },
+ {
+  "start": 156.203,
+  "end": 158.643,
+  "en": "that's passed after this command. So all"
+ },
+ {
+  "start": 158.932,
+  "end": 160.763,
+  "en": "these options here, and I only care about"
+ },
+ {
+  "start": 160.763,
+  "end": 161.212,
+  "en": "those here."
+ },
+ {
+  "start": 161.966,
+  "end": 164.962,
+  "en": "Now I'm passing this array of inputs to a"
+ },
+ {
+  "start": 165.107,
+  "end": 168.44,
+  "en": "parseConfig function then. parseConfig is"
+ },
+ {
+  "start": 168.536,
+  "end": 171.852,
+  "en": "defined in a cli.ts file, which is one of my"
+ },
+ {
+  "start": 172.061,
+  "end": 174.112,
+  "en": "files not built into Bun, that's my own"
+ },
+ {
+  "start": 174.16,
+  "end": 174.432,
+  "en": "file."
+ },
+ {
+  "start": 175.121,
+  "end": 177.413,
+  "en": "And in parseConfig, I'm getting those"
+ },
+ {
+  "start": 177.525,
+  "end": 180.153,
+  "en": "inputs, an array of strings, that's the"
+ },
+ {
+  "start": 180.153,
+  "end": 182.861,
+  "en": "format Bun gives me when using that argv"
+ },
+ {
+  "start": 183.133,
+  "end": 183.598,
+  "en": "feature."
+ },
+ {
+  "start": 184.399,
+  "end": 188.629,
+  "en": "And then I use parseArgs, which is actually"
+ },
+ {
+  "start": 189.142,
+  "end": 191.566,
+  "en": "feature coming from Node.js. So not from"
+ },
+ {
+  "start": 191.631,
+  "end": 194.344,
+  "en": "Bun, not from me, but from Node.js. And"
+ },
+ {
+  "start": 194.441,
+  "end": 198.792,
+  "en": "parseArgs is all about parsing input and"
+ },
+ {
+  "start": 198.936,
+  "end": 202.373,
+  "en": "especially here checking that only certain"
+ },
+ {
+  "start": 202.453,
+  "end": 203.448,
+  "en": "options are supported."
+ },
+ {
+  "start": 203.978,
+  "end": 206.868,
+  "en": "The way parseArgs, which again is a function"
+ },
+ {
+  "start": 206.868,
+  "end": 207.912,
+  "en": "provided by Node.js,"
+ },
+ {
+  "start": 208.474,
+  "end": 210.61,
+  "en": "works is that you pass a configuration"
+ },
+ {
+  "start": 210.722,
+  "end": 211.284,
+  "en": "object to it."
+ },
+ {
+  "start": 211.942,
+  "end": 215.121,
+  "en": "You then give it your args array of input."
+ },
+ {
+  "start": 215.169,
+  "end": 217.766,
+  "en": "So that thing we parsed with help of bun,"
+ },
+ {
+  "start": 217.958,
+  "end": 219.449,
+  "en": "that's what we're passing to parseArgs."
+ },
+ {
+  "start": 220.907,
+  "end": 222.847,
+  "en": "And then we define which options we wanna"
+ },
+ {
+  "start": 222.847,
+  "end": 225.46,
+  "en": "support. And options are simply these things"
+ },
+ {
+  "start": 225.492,
+  "end": 228.137,
+  "en": "that start with 2 dashes. So we have a"
+ },
+ {
+  "start": 228.137,
+  "end": 230.205,
+  "en": "format option, we have a quality option, we"
+ },
+ {
+  "start": 230.205,
+  "end": 232.369,
+  "en": "have a recursive option. And these are"
+ },
+ {
+  "start": 232.369,
+  "end": 234.87,
+  "en": "options that are supported because I specify"
+ },
+ {
+  "start": 234.87,
+  "end": 238.396,
+  "en": "them here as supported recursive, quality,"
+ },
+ {
+  "start": 238.701,
+  "end": 240.737,
+  "en": "format, and a couple of others. These are"
+ },
+ {
+  "start": 240.785,
+  "end": 243.318,
+  "en": "the options I wanna support with my program."
+ },
+ {
+  "start": 243.686,
+  "end": 245.995,
+  "en": "For each option, I can define which type of"
+ },
+ {
+  "start": 246.011,
+  "end": 248.704,
+  "en": "input I expect. So Boolean, for example,"
+ },
+ {
+  "start": 248.736,
+  "end": 250.451,
+  "en": "means that it simply is set or not."
+ },
+ {
+  "start": 251.06,
+  "end": 253.593,
+  "en": "String means that I want an actual value"
+ },
+ {
+  "start": 253.609,
+  "end": 255.629,
+  "en": "which must be some text, and so on."
+ },
+ {
+  "start": 256.43,
+  "end": 258.162,
+  "en": "And again, that's just a feature provided by"
+ },
+ {
+  "start": 258.258,
+  "end": 260.823,
+  "en": "Node.js that it gives you this utility"
+ },
+ {
+  "start": 260.823,
+  "end": 263.147,
+  "en": "function parseArgs, which you can use for"
+ },
+ {
+  "start": 263.163,
+  "end": 264.622,
+  "en": "parsing input and for"
+ },
+ {
+  "start": 265.247,
+  "end": 267.972,
+  "en": "checking that certain options are used and"
+ },
+ {
+  "start": 267.972,
+  "end": 270.2,
+  "en": "no other options. You can also set strict"
+ },
+ {
+  "start": 270.2,
+  "end": 272.38,
+  "en": "here to enforce these options, so to really"
+ },
+ {
+  "start": 272.38,
+  "end": 274.079,
+  "en": "make sure that only these options are used."
+ },
+ {
+  "start": 274.528,
+  "end": 277.013,
+  "en": "And allowPositionals here is important and"
+ },
+ {
+  "start": 277.093,
+  "end": 279.626,
+  "en": "is set to true Because images here"
+ },
+ {
+  "start": 280.379,
+  "end": 281.71,
+  "en": "is not an option in this"
+ },
+ {
+  "start": 282.704,
+  "end": 285.381,
+  "en": "--option-name format. Instead, it's passed"
+ },
+ {
+  "start": 285.445,
+  "end": 288.202,
+  "en": "in as a positional argument. It doesn't have"
+ },
+ {
+  "start": 288.266,
+  "end": 291.472,
+  "en": "a name. All these other options have a name,"
+ },
+ {
+  "start": 291.777,
+  "end": 294.47,
+  "en": "format for example, and a value. Images has"
+ },
+ {
+  "start": 294.566,
+  "end": 296.265,
+  "en": "no name, it's just a value. That's a"
+ },
+ {
+  "start": 296.329,
+  "end": 298.493,
+  "en": "positional input and I'm allowing those too."
+ },
+ {
+  "start": 299.151,
+  "end": 301.635,
+  "en": "A mixture of these flag options here with"
+ },
+ {
+  "start": 301.635,
+  "end": 303.447,
+  "en": "names and positional inputs."
+ },
+ {
+  "start": 304.344,
+  "end": 305.819,
+  "en": "Okay, so that's the first step. We check"
+ },
+ {
+  "start": 305.963,
+  "end": 308.192,
+  "en": "whether some valid input was provided and we"
+ },
+ {
+  "start": 308.208,
+  "end": 310.986,
+  "en": "get back the parsed value basically an"
+ },
+ {
+  "start": 311.164,
+  "end": 314.102,
+  "en": "object with the actually set options."
+ },
+ {
+  "start": 314.731,
+  "end": 316.878,
+  "en": "We use these parsed values"
+ },
+ {
+  "start": 317.54,
+  "end": 319.703,
+  "en": "which were retrieved with help of parseArgs"
+ },
+ {
+  "start": 320.22,
+  "end": 323.224,
+  "en": "to then do stuff. For example, if the help"
+ },
+ {
+  "start": 323.353,
+  "end": 324.258,
+  "en": "option was set,"
+ },
+ {
+  "start": 325.857,
+  "end": 327.714,
+  "en": "which you can do by just running --help,"
+ },
+ {
+  "start": 330.477,
+  "end": 332.573,
+  "en": "then you would get this help output. You get"
+ },
+ {
+  "start": 332.573,
+  "end": 334.056,
+  "en": "this because here I'm checking if"
+ },
+ {
+  "start": 334.685,
+  "end": 335.007,
+  "en": "the"
+ },
+ {
+  "start": 335.636,
+  "end": 338.07,
+  "en": "help option was set. In that case, I throw"
+ },
+ {
+  "start": 338.612,
+  "end": 341.242,
+  "en": "an error, so to say, a help requested error,"
+ },
+ {
+  "start": 341.258,
+  "end": 343.374,
+  "en": "which is a custom error I defined down there"
+ },
+ {
+  "start": 343.583,
+  "end": 344.304,
+  "en": "in this class."
+ },
+ {
+  "start": 344.85,
+  "end": 347.463,
+  "en": "And here I simply output some help text that"
+ },
+ {
+  "start": 347.527,
+  "end": 349.083,
+  "en": "describes the supported options."
+ },
+ {
+  "start": 350.141,
+  "end": 353.011,
+  "en": "If that flag was not set, we continue"
+ },
+ {
+  "start": 353.605,
+  "end": 355.192,
+  "en": "and we first continue by getting our"
+ },
+ {
+  "start": 355.192,
+  "end": 357.501,
+  "en": "positionals. Now I only expect one"
+ },
+ {
+  "start": 357.533,
+  "end": 360.179,
+  "en": "positional here, which is the path to the"
+ },
+ {
+  "start": 360.179,
+  "end": 362.728,
+  "en": "images. And actually the program also won't"
+ },
+ {
+  "start": 362.809,
+  "end": 365.551,
+  "en": "work if that is not provided. I need that"
+ },
+ {
+  "start": 365.631,
+  "end": 368.836,
+  "en": "path. So we check if positional length is 0,"
+ },
+ {
+  "start": 368.9,
+  "end": 371.864,
+  "en": "which means no option was provided. In that"
+ },
+ {
+  "start": 371.864,
+  "end": 374.124,
+  "en": "case, we throw an error. We need a path. We"
+ },
+ {
+  "start": 374.124,
+  "end": 376.623,
+  "en": "need one positional input, that path."
+ },
+ {
+  "start": 377.248,
+  "end": 379.379,
+  "en": "If more than one positional input was"
+ },
+ {
+  "start": 379.411,
+  "end": 381.286,
+  "en": "provided though, we also throw an error"
+ },
+ {
+  "start": 381.334,
+  "end": 383.802,
+  "en": "because we want exactly one path, not"
+ },
+ {
+  "start": 383.802,
+  "end": 387.151,
+  "en": "multiple paths. So if we have no or too many"
+ },
+ {
+  "start": 387.183,
+  "end": 388.545,
+  "en": "positionals, we throw."
+ },
+ {
+  "start": 389.25,
+  "end": 392.278,
+  "en": "Otherwise, we continue and then we extract"
+ },
+ {
+  "start": 392.31,
+  "end": 394.474,
+  "en": "the other values and perform some"
+ },
+ {
+  "start": 394.474,
+  "end": 396.446,
+  "en": "validation. For example, for the quality"
+ },
+ {
+  "start": 396.478,
+  "end": 399.732,
+  "en": "flag, if it is set, we check if the value is"
+ },
+ {
+  "start": 399.828,
+  "end": 401.095,
+  "en": "between 1 and 100."
+ },
+ {
+  "start": 402.313,
+  "end": 404.525,
+  "en": "For raw format, we check that it's one of"
+ },
+ {
+  "start": 404.718,
+  "end": 406.064,
+  "en": "our supported formats."
+ },
+ {
+  "start": 406.673,
+  "end": 408.853,
+  "en": "So I have valid formats here, and that's"
+ },
+ {
+  "start": 408.901,
+  "end": 412.011,
+  "en": "just a set of formats I want to support. So"
+ },
+ {
+  "start": 412.011,
+  "end": 414.239,
+  "en": "we only support conversion to these formats,"
+ },
+ {
+  "start": 414.656,
+  "end": 416.916,
+  "en": "and I throw an error if an invalid format"
+ },
+ {
+  "start": 416.916,
+  "end": 417.686,
+  "en": "would have been set."
+ },
+ {
+  "start": 418.343,
+  "end": 420.603,
+  "en": "That's the kind of work we do here. So a"
+ },
+ {
+  "start": 420.603,
+  "end": 422.944,
+  "en": "bunch of validation in the end. Same for"
+ },
+ {
+  "start": 423.072,
+  "end": 424.755,
+  "en": "width and height, which can also be set."
+ },
+ {
+  "start": 425.402,
+  "end": 427.251,
+  "en": "And then in the end, we return an object"
+ },
+ {
+  "start": 427.283,
+  "end": 430.397,
+  "en": "with the validated and parsed configuration"
+ },
+ {
+  "start": 430.511,
+  "end": 432.181,
+  "en": "options and we hand that back to"
+ },
+ {
+  "start": 432.311,
+  "end": 433.008,
+  "en": "optimize-images.ts."
+ },
+ {
+  "start": 433.96,
+  "end": 436.515,
+  "en": "We get back that config object that has the"
+ },
+ {
+  "start": 436.563,
+  "end": 438.588,
+  "en": "extracted and validated configuration."
+ },
+ {
+  "start": 439.521,
+  "end": 441.433,
+  "en": "And then we continue. Now we catch any"
+ },
+ {
+  "start": 441.53,
+  "end": 442.783,
+  "en": "errors that we might have thrown"
+ },
+ {
+  "start": 443.416,
+  "end": 445.978,
+  "en": "and we output them here to standard output."
+ },
+ {
+  "start": 446.207,
+  "end": 448.182,
+  "en": "So we write them to the console in the end."
+ },
+ {
+  "start": 450.189,
+  "end": 452.225,
+  "en": "But if we did not get an error, if we make"
+ },
+ {
+  "start": 452.225,
+  "end": 454.065,
+  "en": "it past this catch block, we run the run"
+ },
+ {
+  "start": 454.065,
+  "end": 454.782,
+  "en": "function, which is the function down here."
+ },
+ {
+  "start": 457.697,
+  "end": 460.086,
+  "en": "In that run function, we do the actual image"
+ },
+ {
+  "start": 460.278,
+  "end": 460.839,
+  "en": "conversion."
+ },
+ {
+  "start": 461.641,
+  "end": 464.11,
+  "en": "We get the target extension, which depends"
+ },
+ {
+  "start": 464.126,
+  "end": 466.755,
+  "en": "on the format we requested so that we simply"
+ },
+ {
+  "start": 467.236,
+  "end": 470.618,
+  "en": "have.jpeg and so on. So.format,.jpeg,"
+ },
+ {
+  "start": 470.779,
+  "end": 473.472,
+  "en": ".png and so on that we generate that. And"
+ },
+ {
+  "start": 473.504,
+  "end": 475.316,
+  "en": "then we do the actual image processing"
+ },
+ {
+  "start": 475.748,
+  "end": 477.881,
+  "en": "because of course we might be processing"
+ },
+ {
+  "start": 477.913,
+  "end": 480.478,
+  "en": "multiple images if we got the path to a"
+ },
+ {
+  "start": 480.478,
+  "end": 482.802,
+  "en": "folder that contains multiple images. We"
+ },
+ {
+  "start": 483.027,
+  "end": 485.657,
+  "en": "also need to differentiate if we should"
+ },
+ {
+  "start": 485.706,
+  "end": 488.32,
+  "en": "recursively process a folder or not. So if"
+ },
+ {
+  "start": 488.32,
+  "end": 490.71,
+  "en": "we should dive into subfolders too, but in"
+ },
+ {
+  "start": 490.726,
+  "end": 492.619,
+  "en": "the end here, we have a little asynchronous"
+ },
+ {
+  "start": 492.731,
+  "end": 495.233,
+  "en": "for loop where we go through all the paths"
+ },
+ {
+  "start": 495.297,
+  "end": 497.703,
+  "en": "of all the images we found. Now, how do we"
+ },
+ {
+  "start": 497.719,
+  "end": 498.457,
+  "en": "find images?"
+ },
+ {
+  "start": 499.003,
+  "end": 501.2,
+  "en": "With help of the input path and this"
+ },
+ {
+  "start": 501.232,
+  "end": 503.029,
+  "en": "findImages function, which is in the"
+ },
+ {
+  "start": 503.029,
+  "end": 504.103,
+  "en": "scanner.ts file."
+ },
+ {
+  "start": 504.841,
+  "end": 507.359,
+  "en": "Now, this is actually a generator where we"
+ },
+ {
+  "start": 507.568,
+  "end": 510.102,
+  "en": "generate value after value."
+ },
+ {
+  "start": 510.712,
+  "end": 513.131,
+  "en": "You can think of it as a loop in the end."
+ },
+ {
+  "start": 513.596,
+  "end": 515.374,
+  "en": "And we do go through"
+ },
+ {
+  "start": 515.983,
+  "end": 518.691,
+  "en": "a bunch of files that we get with help of"
+ },
+ {
+  "start": 518.883,
+  "end": 522.52,
+  "en": "glob. Glob is using another Bun API here."
+ },
+ {
+  "start": 523.129,
+  "end": 525.308,
+  "en": "So we're importing glob from Bun. And what"
+ },
+ {
+  "start": 525.308,
+  "end": 529.106,
+  "en": "the glob API does is it simply scans folders"
+ },
+ {
+  "start": 529.202,
+  "end": 532.711,
+  "en": "and finds files based on a pattern we define"
+ },
+ {
+  "start": 532.903,
+  "end": 533.993,
+  "en": "with help of buildPattern."
+ },
+ {
+  "start": 534.666,
+  "end": 537.886,
+  "en": "buildPattern simply builds a pattern where"
+ },
+ {
+  "start": 537.886,
+  "end": 541.143,
+  "en": "it's looking for valid image files. So for"
+ },
+ {
+  "start": 541.465,
+  "end": 543.456,
+  "en": "files that have valid image extensions"
+ },
+ {
+  "start": 544.034,
+  "end": 546.539,
+  "en": "and it then is constructed differently based"
+ },
+ {
+  "start": 546.539,
+  "end": 548.802,
+  "en": "on whether we do recursive scanning or not."
+ },
+ {
+  "start": 549.348,
+  "end": 551.452,
+  "en": "This is the regex pattern we use for"
+ },
+ {
+  "start": 551.452,
+  "end": 553.652,
+  "en": "scanning for files. If we have recursive"
+ },
+ {
+  "start": 553.748,
+  "end": 554.406,
+  "en": "option set,"
+ },
+ {
+  "start": 555.049,
+  "end": 557.393,
+  "en": "we use 2 asterisks here, which means dive"
+ },
+ {
+  "start": 557.393,
+  "end": 558.453,
+  "en": "into subfolders too."
+ },
+ {
+  "start": 558.982,
+  "end": 560.989,
+  "en": "Otherwise we just look for image files in"
+ },
+ {
+  "start": 560.989,
+  "end": 561.6,
+  "en": "the folder"
+ },
+ {
+  "start": 562.354,
+  "end": 563.815,
+  "en": "that was passed in as a path."
+ },
+ {
+  "start": 564.922,
+  "end": 566.814,
+  "en": "So that's just a regex pattern that's being"
+ },
+ {
+  "start": 566.91,
+  "end": 567.68,
+  "en": "constructed here."
+ },
+ {
+  "start": 568.209,
+  "end": 570.806,
+  "en": "And that regex pattern is what the glob API"
+ },
+ {
+  "start": 570.934,
+  "end": 571.206,
+  "en": "wants."
+ },
+ {
+  "start": 571.88,
+  "end": 574.284,
+  "en": "It takes one or more of such patterns and"
+ },
+ {
+  "start": 574.284,
+  "end": 576.785,
+  "en": "then it simply finds us all the files that"
+ },
+ {
+  "start": 576.785,
+  "end": 578.195,
+  "en": "fit those patterns"
+ },
+ {
+  "start": 579.013,
+  "end": 581.498,
+  "en": "and returns them. And we just go through"
+ },
+ {
+  "start": 581.514,
+  "end": 583.774,
+  "en": "those files and yield them file after file."
+ },
+ {
+  "start": 584.078,
+  "end": 585.537,
+  "en": "And that is in the end what we're getting"
+ },
+ {
+  "start": 585.585,
+  "end": 587.413,
+  "en": "here and what we're then looping through. So"
+ },
+ {
+  "start": 587.509,
+  "end": 590.475,
+  "en": "image file after image file in the path and"
+ },
+ {
+  "start": 590.491,
+  "end": 592.414,
+  "en": "potentially any subfolders that we"
+ },
+ {
+  "start": 592.414,
+  "end": 594.963,
+  "en": "specified. That is simply the idea, a little"
+ },
+ {
+  "start": 595.203,
+  "end": 596.39,
+  "en": "helper function that finds"
+ },
+ {
+  "start": 597.784,
+  "end": 599.099,
+  "en": "By the way, in case you're wondering where"
+ },
+ {
+  "start": 599.211,
+  "end": 600.477,
+  "en": "the extensions are coming from,"
+ },
+ {
+  "start": 601.054,
+  "end": 604.421,
+  "en": "extensions are the scanner options here. So"
+ },
+ {
+  "start": 604.421,
+  "end": 607.771,
+  "en": "we pass our extensions to the scanner and"
+ },
+ {
+  "start": 607.803,
+  "end": 609.615,
+  "en": "that's coming from our configuration."
+ },
+ {
+  "start": 610.192,
+  "end": 611.795,
+  "en": "So that's coming from the parsed"
+ },
+ {
+  "start": 611.795,
+  "end": 614.52,
+  "en": "configuration in the end because you can set"
+ },
+ {
+  "start": 614.552,
+  "end": 616.62,
+  "en": "an extensions flag to define which"
+ },
+ {
+  "start": 616.7,
+  "end": 619.217,
+  "en": "extensions you wanna support or which file"
+ },
+ {
+  "start": 619.265,
+  "end": 621.846,
+  "en": "extensions you wanna convert in the end."
+ },
+ {
+  "start": 622.535,
+  "end": 626.142,
+  "en": "And if extensions is not set, we use some"
+ },
+ {
+  "start": 626.238,
+  "end": 628.097,
+  "en": "default extensions, which is what you wanna"
+ },
+ {
+  "start": 628.097,
+  "end": 631.291,
+  "en": "do. Expect— JPEG, PNG, WebP, AVIF. So we're"
+ },
+ {
+  "start": 631.291,
+  "end": 633.345,
+  "en": "going through the images, then we're then"
+ },
+ {
+  "start": 633.377,
+  "end": 635.159,
+  "en": "constructing absolute paths using the"
+ },
+ {
+  "start": 635.159,
+  "end": 637.967,
+  "en": "Node.js path API. So again, we're using a"
+ },
+ {
+  "start": 637.967,
+  "end": 640.872,
+  "en": "mixture of Bun APIs and Node.js APIs here."
+ },
+ {
+  "start": 641.642,
+  "end": 642.75,
+  "en": "Then we get the"
+ },
+ {
+  "start": 643.392,
+  "end": 645.911,
+  "en": "input format by extracting the extension. So"
+ },
+ {
+  "start": 645.975,
+  "end": 648.062,
+  "en": "we simply trust that the extension of our"
+ },
+ {
+  "start": 648.078,
+  "end": 650.758,
+  "en": "file describes which kind of image is in"
+ },
+ {
+  "start": 650.854,
+  "end": 653.406,
+  "en": "there, so that a.jpeg file has an actual"
+ },
+ {
+  "start": 653.502,
+  "end": 654.481,
+  "en": "JPEG image inside."
+ },
+ {
+  "start": 655.347,
+  "end": 657.608,
+  "en": "And we set the output format based on the"
+ },
+ {
+  "start": 657.608,
+  "end": 658.538,
+  "en": "configured format."
+ },
+ {
+  "start": 659.228,
+  "end": 662.194,
+  "en": "If we did not set a configured format, so if"
+ },
+ {
+  "start": 662.242,
+  "end": 663.797,
+  "en": "we did not pass"
+ },
+ {
+  "start": 664.487,
+  "end": 666.652,
+  "en": "--format to the command, we simply use the"
+ },
+ {
+  "start": 666.668,
+  "end": 669.939,
+  "en": "input extension to keep the input file type."
+ },
+ {
+  "start": 670.195,
+  "end": 672.665,
+  "en": "Then we create an encoder"
+ },
+ {
+  "start": 673.242,
+  "end": 675.567,
+  "en": "and that simply depends on which format"
+ },
+ {
+  "start": 675.567,
+  "end": 678.02,
+  "en": "we're targeting because that Bun API has"
+ },
+ {
+  "start": 678.197,
+  "end": 680.185,
+  "en": "different encoders for different image"
+ },
+ {
+  "start": 680.297,
+  "end": 680.618,
+  "en": "types."
+ },
+ {
+  "start": 681.243,
+  "end": 683.907,
+  "en": "So here we simply get a little helper object"
+ },
+ {
+  "start": 683.907,
+  "end": 684.163,
+  "en": "back"
+ },
+ {
+  "start": 684.773,
+  "end": 686.94,
+  "en": "that simply describes which kind of encoder"
+ },
+ {
+  "start": 686.94,
+  "end": 690.214,
+  "en": "we want and what the quality will be. And in"
+ },
+ {
+  "start": 690.246,
+  "end": 692.429,
+  "en": "case of PNG, we're actually converting a"
+ },
+ {
+  "start": 692.493,
+  "end": 694.981,
+  "en": "quality to a compression level because PNG"
+ },
+ {
+  "start": 694.981,
+  "end": 697.373,
+  "en": "doesn't have the notion of an image quality,"
+ },
+ {
+  "start": 697.469,
+  "end": 699.01,
+  "en": "it just has compression level."
+ },
+ {
+  "start": 699.555,
+  "end": 701.016,
+  "en": "So we have a little helper function that"
+ },
+ {
+  "start": 701.064,
+  "end": 704.13,
+  "en": "converts a quality between 1 and 100 to a"
+ },
+ {
+  "start": 704.13,
+  "end": 706.826,
+  "en": "compression level between 0 and 9. That is"
+ },
+ {
+  "start": 706.938,
+  "end": 707.869,
+  "en": "what PNGs want."
+ },
+ {
+  "start": 709.264,
+  "end": 712.278,
+  "en": "And once we have that encoder, we can use it"
+ },
+ {
+  "start": 712.294,
+  "end": 712.502,
+  "en": "for"
+ },
+ {
+  "start": 713.031,
+  "end": 714.858,
+  "en": "encoding down here. Now before we do that,"
+ },
+ {
+  "start": 715.436,
+  "end": 717.487,
+  "en": "we compute the output path, which is simply"
+ },
+ {
+  "start": 717.503,
+  "end": 719.78,
+  "en": "the path where the optimized image should be"
+ },
+ {
+  "start": 719.78,
+  "end": 720.325,
+  "en": "stored."
+ },
+ {
+  "start": 721.351,
+  "end": 723.258,
+  "en": "Got a little helper function for that too,"
+ },
+ {
+  "start": 723.771,
+  "end": 725.887,
+  "en": "where we construct the output path by"
+ },
+ {
+  "start": 725.999,
+  "end": 726.464,
+  "en": "creating"
+ },
+ {
+  "start": 727.314,
+  "end": 729.334,
+  "en": "a fitting file name that has the right file"
+ },
+ {
+  "start": 729.382,
+  "end": 732.908,
+  "en": "extension and is then stored in an output"
+ },
+ {
+  "start": 732.908,
+  "end": 735.361,
+  "en": "path that is defined with help of the output"
+ },
+ {
+  "start": 735.457,
+  "end": 738.984,
+  "en": "dir or the out_dir flag, or if not set, it"
+ },
+ {
+  "start": 739.064,
+  "end": 740.733,
+  "en": "is by default stored stored in"
+ },
+ {
+  "start": 741.471,
+  "end": 744.891,
+  "en": "an optimized folder next to the input file."
+ },
+ {
+  "start": 745.662,
+  "end": 747.492,
+  "en": "That is what we do here. We construct the"
+ },
+ {
+  "start": 747.589,
+  "end": 750.206,
+  "en": "path where the actual optimized images"
+ },
+ {
+  "start": 750.318,
+  "end": 751.169,
+  "en": "should be stored."
+ },
+ {
+  "start": 751.747,
+  "end": 754.027,
+  "en": "Now we have a dry run option that can be set"
+ },
+ {
+  "start": 754.092,
+  "end": 757.769,
+  "en": "with --dry-run, which would actually not"
+ },
+ {
+  "start": 757.769,
+  "end": 760.001,
+  "en": "convert the images and instead just output"
+ },
+ {
+  "start": 760.177,
+  "end": 762.104,
+  "en": "what would happen if we would run the"
+ },
+ {
+  "start": 762.104,
+  "end": 764.85,
+  "en": "command without dry run being set. That can"
+ },
+ {
+  "start": 764.85,
+  "end": 767.321,
+  "en": "be nice for previewing what will happen."
+ },
+ {
+  "start": 767.898,
+  "end": 770.353,
+  "en": "So in that case, we continue, we skip the"
+ },
+ {
+  "start": 770.369,
+  "end": 771.54,
+  "en": "rest of this loop here,"
+ },
+ {
+  "start": 772.133,
+  "end": 774.235,
+  "en": "and we just write which file we would be"
+ },
+ {
+  "start": 774.235,
+  "end": 774.844,
+  "en": "processing."
+ },
+ {
+  "start": 775.582,
+  "end": 778.31,
+  "en": "If we have not set try_run, we do the actual"
+ },
+ {
+  "start": 778.406,
+  "end": 779.4,
+  "en": "processing down there,"
+ },
+ {
+  "start": 779.994,
+  "end": 782.432,
+  "en": "and we optimize image after image with help"
+ },
+ {
+  "start": 782.432,
+  "end": 784.951,
+  "en": "of the optimize_one function. optimize_one"
+ },
+ {
+  "start": 785.063,
+  "end": 787.999,
+  "en": "gets our encoder as input and also gets the"
+ },
+ {
+  "start": 788.095,
+  "end": 789.587,
+  "en": "output and the input"
+ },
+ {
+  "start": 790.181,
+  "end": 793.052,
+  "en": "absolute paths as inputs. So optimizeOne is"
+ },
+ {
+  "start": 793.164,
+  "end": 796.178,
+  "en": "the main function that actually uses that"
+ },
+ {
+  "start": 796.21,
+  "end": 797.508,
+  "en": "Bun Image API."
+ },
+ {
+  "start": 798.053,
+  "end": 800.137,
+  "en": "And what we're doing in here is we're"
+ },
+ {
+  "start": 800.201,
+  "end": 802.365,
+  "en": "getting our file, we're reading it with the"
+ },
+ {
+  "start": 802.462,
+  "end": 805.716,
+  "en": "bun.file method, another feature built into"
+ },
+ {
+  "start": 805.748,
+  "end": 808.441,
+  "en": "the Bun API. So coming right from the Bun"
+ },
+ {
+  "start": 808.633,
+  "end": 811.727,
+  "en": "runtime, file is there to read files very"
+ },
+ {
+  "start": 811.759,
+  "end": 812.321,
+  "en": "efficiently."
+ },
+ {
+  "start": 813.202,
+  "end": 813.298,
+  "en": "We"
+ },
+ {
+  "start": 813.827,
+  "end": 816.809,
+  "en": "get the size of that file here, the number"
+ },
+ {
+  "start": 816.809,
+  "end": 817.883,
+  "en": "of bytes in there."
+ },
+ {
+  "start": 818.973,
+  "end": 821.442,
+  "en": "And then this here, that's the Bun Image"
+ },
+ {
+  "start": 821.442,
+  "end": 823.83,
+  "en": "API. So another feature coming from the Bun"
+ },
+ {
+  "start": 824.407,
+  "end": 825.401,
+  "en": "runtime in the end."
+ },
+ {
+  "start": 825.93,
+  "end": 828.559,
+  "en": "On a file that we read with bun.file and"
+ },
+ {
+  "start": 828.816,
+  "end": 830.948,
+  "en": "only on files that we read with bun.file,"
+ },
+ {
+  "start": 831.3,
+  "end": 834.026,
+  "en": "not on files that we read with any Node.js"
+ },
+ {
+  "start": 834.218,
+  "end": 837.055,
+  "en": "API, for example, but on files that we read"
+ },
+ {
+  "start": 837.087,
+  "end": 839.7,
+  "en": "with bun.file, we can call image because"
+ },
+ {
+  "start": 839.796,
+  "end": 841.752,
+  "en": "file and image are both coming from Bun."
+ },
+ {
+  "start": 842.377,
+  "end": 845.872,
+  "en": "And image in the end gives us a handle to an"
+ },
+ {
+  "start": 846.048,
+  "end": 849.318,
+  "en": "object that has various optimization and"
+ },
+ {
+  "start": 849.414,
+  "end": 852.27,
+  "en": "conversion methods. For example, a resize"
+ },
+ {
+  "start": 852.303,
+  "end": 854.485,
+  "en": "method for changing the file size in case"
+ },
+ {
+  "start": 854.485,
+  "end": 856.894,
+  "en": "the user did set different width and height"
+ },
+ {
+  "start": 856.894,
+  "end": 857.25,
+  "en": "values."
+ },
+ {
+  "start": 857.88,
+  "end": 859.57,
+  "en": "If not, we're not doing any resizing, of"
+ },
+ {
+  "start": 859.604,
+  "end": 859.941,
+  "en": "course."
+ },
+ {
+  "start": 862.176,
+  "end": 865.952,
+  "en": "And then in the end, we also use the JPEG,"
+ },
+ {
+  "start": 865.968,
+  "end": 869.646,
+  "en": "the PNG, WebP, or AWITH methods on that"
+ },
+ {
+  "start": 869.663,
+  "end": 871.655,
+  "en": "image handle, again, which is coming from"
+ },
+ {
+  "start": 872.154,
+  "end": 873.979,
+  "en": "Bun depending on which encoder was picked."
+ },
+ {
+  "start": 874.189,
+  "end": 876.354,
+  "en": "So if we have the JPEG encoder, we call the"
+ },
+ {
+  "start": 876.354,
+  "end": 878.114,
+  "en": "JPEG method on that Bun Image API."
+ },
+ {
+  "start": 878.722,
+  "end": 881.561,
+  "en": "For the PNG encoder, we call PNG and so on."
+ },
+ {
+  "start": 881.914,
+  "end": 883.422,
+  "en": "So that is what then actually"
+ },
+ {
+  "start": 883.999,
+  "end": 887.303,
+  "en": "encodes the optimized image as a JPEG, as a"
+ },
+ {
+  "start": 887.303,
+  "end": 891.634,
+  "en": "PNG and so on after resizing it. And we set"
+ },
+ {
+  "start": 891.634,
+  "end": 893.351,
+  "en": "the quality level of the encoding here,"
+ },
+ {
+  "start": 893.399,
+  "end": 895.532,
+  "en": "which of course also affects the file size."
+ },
+ {
+  "start": 895.965,
+  "end": 898.436,
+  "en": "And then in the end on that encoded image,"
+ },
+ {
+  "start": 898.452,
+  "end": 901.467,
+  "en": "we call write, which is another Bun feature,"
+ },
+ {
+  "start": 901.9,
+  "end": 904.29,
+  "en": "the write method, which is there to write"
+ },
+ {
+  "start": 904.29,
+  "end": 907.482,
+  "en": "something to a file and we write the image"
+ },
+ {
+  "start": 907.674,
+  "end": 910.287,
+  "en": "in the end into that output path. That is"
+ },
+ {
+  "start": 910.383,
+  "end": 912.307,
+  "en": "what actually creates and stores the"
+ },
+ {
+  "start": 912.387,
+  "end": 913.124,
+  "en": "optimized image."
+ },
+ {
+  "start": 914.326,
+  "end": 916.795,
+  "en": "And that is what optimize1 does here. And we"
+ },
+ {
+  "start": 916.811,
+  "end": 919.44,
+  "en": "do that image after image. We keep track of"
+ },
+ {
+  "start": 919.44,
+  "end": 921.524,
+  "en": "all the images we processed so that we know"
+ },
+ {
+  "start": 921.604,
+  "end": 923.448,
+  "en": "when to leave that loop once we processed"
+ },
+ {
+  "start": 923.528,
+  "end": 925.948,
+  "en": "all images. And we also keep track of the"
+ },
+ {
+  "start": 926.028,
+  "end": 928.481,
+  "en": "bytes we read in and the bytes we wrote out"
+ },
+ {
+  "start": 928.673,
+  "end": 931.126,
+  "en": "to see by how much we optimized the images."
+ },
+ {
+  "start": 931.543,
+  "end": 933.979,
+  "en": "We also have verbose logging. So you can add"
+ },
+ {
+  "start": 933.979,
+  "end": 937.65,
+  "en": "a --verbose option to log more details and"
+ },
+ {
+  "start": 937.65,
+  "end": 940.04,
+  "en": "if that is turned on, we do, for example,"
+ },
+ {
+  "start": 940.056,
+  "end": 942.622,
+  "en": "calculate how much we actually shrank the"
+ },
+ {
+  "start": 942.622,
+  "end": 945.412,
+  "en": "images and we write that information to the"
+ },
+ {
+  "start": 945.412,
+  "end": 946.262,
+  "en": "log too."
+ },
+ {
+  "start": 946.936,
+  "end": 949.069,
+  "en": "And that is essentially it. That is the"
+ },
+ {
+  "start": 949.101,
+  "end": 952.212,
+  "en": "entire program. We are processing images."
+ },
+ {
+  "start": 952.565,
+  "end": 954.73,
+  "en": "And the main takeaway is of course that"
+ },
+ {
+  "start": 954.795,
+  "end": 957.056,
+  "en": "we're doing this with a mixture of Node.js"
+ },
+ {
+  "start": 957.056,
+  "end": 960.151,
+  "en": "APIs, but then most importantly also by"
+ },
+ {
+  "start": 960.183,
+  "end": 963.712,
+  "en": "using certain Bun APIs like the File API,"
+ },
+ {
+  "start": 963.792,
+  "end": 964.706,
+  "en": "the Image API,"
+ },
+ {
+  "start": 965.235,
+  "end": 967.4,
+  "en": "and that you can build a program like this"
+ },
+ {
+  "start": 967.4,
+  "end": 970.259,
+  "en": "therefore without any extra dependencies."
+ },
+ {
+  "start": 970.532,
+  "end": 973.729,
+  "en": "It's just the Bun runtime, nothing else, no"
+ },
+ {
+  "start": 973.826,
+  "end": 976.557,
+  "en": "third-party dependencies, just a Bun program"
+ },
+ {
+  "start": 976.718,
+  "end": 977.762,
+  "en": "executed with Bun."
+ },
+ {
+  "start": 978.485,
+  "end": 980.365,
+  "en": "And I'm not just using the Bun runtime here,"
+ },
+ {
+  "start": 981.056,
+  "end": 982.743,
+  "en": "and I also used it for setting up the"
+ },
+ {
+  "start": 982.743,
+  "end": 985.185,
+  "en": "package.json file and installing this one"
+ },
+ {
+  "start": 985.474,
+  "end": 987.691,
+  "en": "type dependency, but instead we're also"
+ },
+ {
+  "start": 987.707,
+  "end": 990.181,
+  "en": "using the test runner capabilities because"
+ },
+ {
+  "start": 990.197,
+  "end": 992.639,
+  "en": "in there, and again, you found it attached,"
+ },
+ {
+  "start": 993.089,
+  "end": 995.033,
+  "en": "you'll find a bunch of test files where we"
+ },
+ {
+  "start": 995.033,
+  "end": 997.525,
+  "en": "got little testing functions that test the"
+ },
+ {
+  "start": 997.525,
+  "end": 1001.012,
+  "en": "various aspects of this program to make sure"
+ },
+ {
+  "start": 1001.061,
+  "end": 1003.488,
+  "en": "that everything works correctly and that if"
+ },
+ {
+  "start": 1003.552,
+  "end": 1006.172,
+  "en": "we were to change the code, we can quickly"
+ },
+ {
+  "start": 1006.204,
+  "end": 1009.049,
+  "en": "validate if it still works as intended. So"
+ },
+ {
+  "start": 1009.081,
+  "end": 1011.299,
+  "en": "again, no third-party package involved here,"
+ },
+ {
+  "start": 1011.668,
+  "end": 1015.253,
+  "en": "just some unit tests written and executed"
+ },
+ {
+  "start": 1015.349,
+  "end": 1016.94,
+  "en": "with help of the Bun test runner."
+ }
+]

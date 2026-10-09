@@ -1,0 +1,487 @@
+[
+ {
+  "start": 2.115,
+  "end": 5.022,
+  "en": "So at this point, we had a very close look"
+ },
+ {
+  "start": 5.151,
+  "end": 8.381,
+  "en": "at how we can configure the requests that"
+ },
+ {
+  "start": 8.462,
+  "end": 11.057,
+  "en": "are sent and managed by HTMX."
+ },
+ {
+  "start": 12.665,
+  "end": 15.542,
+  "en": "But it turns out that we can actually also"
+ },
+ {
+  "start": 15.719,
+  "end": 19.031,
+  "en": "configure the responses quite a bit and with"
+ },
+ {
+  "start": 19.241,
+  "end": 19.369,
+  "en": "them"
+ },
+ {
+  "start": 19.965,
+  "end": 23.794,
+  "en": "also change the behavior of HTMX. And that's"
+ },
+ {
+  "start": 23.826,
+  "end": 25.129,
+  "en": "what I'll show you next."
+ },
+ {
+  "start": 26.847,
+  "end": 29.802,
+  "en": "And I wanna start with submitting the form."
+ },
+ {
+  "start": 31.248,
+  "end": 32.918,
+  "en": "When we submit the form,"
+ },
+ {
+  "start": 33.496,
+  "end": 36.725,
+  "en": "we of course send this POST request to"
+ },
+ {
+  "start": 36.885,
+  "end": 37.72,
+  "en": "/login."
+ },
+ {
+  "start": 39.214,
+  "end": 39.439,
+  "en": "Now,"
+ },
+ {
+  "start": 40.001,
+  "end": 42.635,
+  "en": "in that login route, we're then validating"
+ },
+ {
+  "start": 42.828,
+  "end": 45.366,
+  "en": "the inputs and you already saw what happens"
+ },
+ {
+  "start": 45.542,
+  "end": 47.181,
+  "en": "if an invalid input is entered."
+ },
+ {
+  "start": 48.048,
+  "end": 51.469,
+  "en": "But if we succeed, I'm currently not sending"
+ },
+ {
+  "start": 51.501,
+  "end": 53.477,
+  "en": "back anything. I'm sending back an empty"
+ },
+ {
+  "start": 53.509,
+  "end": 54.039,
+  "en": "response."
+ },
+ {
+  "start": 55.548,
+  "end": 57.19,
+  "en": "Now, what we might wanna do"
+ },
+ {
+  "start": 57.737,
+  "end": 60.086,
+  "en": "if we're facing a login form like this"
+ },
+ {
+  "start": 60.778,
+  "end": 63.336,
+  "en": "is that when the user enters valid"
+ },
+ {
+  "start": 63.368,
+  "end": 63.819,
+  "en": "credentials"
+ },
+ {
+  "start": 64.564,
+  "end": 65.925,
+  "en": "and we click login,"
+ },
+ {
+  "start": 66.767,
+  "end": 69.537,
+  "en": "we might want to redirect the user to a new"
+ },
+ {
+  "start": 69.683,
+  "end": 69.975,
+  "en": "page."
+ },
+ {
+  "start": 71.94,
+  "end": 74.726,
+  "en": "So we might want to redirect to"
+ },
+ {
+  "start": 76.087,
+  "end": 79.376,
+  "en": "/authenticated here, for example, so to this"
+ },
+ {
+  "start": 79.49,
+  "end": 79.797,
+  "en": "route."
+ },
+ {
+  "start": 80.854,
+  "end": 83.157,
+  "en": "Now, of course, if you recall what you"
+ },
+ {
+  "start": 83.157,
+  "end": 84.94,
+  "en": "learned in earlier sections,"
+ },
+ {
+  "start": 85.653,
+  "end": 88.167,
+  "en": "we'll have a problem if we try to do that."
+ },
+ {
+  "start": 88.92,
+  "end": 89.467,
+  "en": "So here, if I"
+ },
+ {
+  "start": 89.998,
+  "end": 92.606,
+  "en": "reload and I enter a valid email"
+ },
+ {
+  "start": 93.46,
+  "end": 95.553,
+  "en": "and then some valid password and I click"
+ },
+ {
+  "start": 95.617,
+  "end": 96.004,
+  "en": "login,"
+ },
+ {
+  "start": 97.082,
+  "end": 99.495,
+  "en": "you see the content of the next page is"
+ },
+ {
+  "start": 99.778,
+  "end": 100.61,
+  "en": "rendered here."
+ },
+ {
+  "start": 102.174,
+  "end": 104.918,
+  "en": "It's rendered on the existing page. And that"
+ },
+ {
+  "start": 104.934,
+  "end": 108.248,
+  "en": "happens because, as you learned, HTMX by"
+ },
+ {
+  "start": 108.457,
+  "end": 112.069,
+  "en": "default follows redirects like this."
+ },
+ {
+  "start": 113.498,
+  "end": 115.697,
+  "en": "And therefore, as a result, we"
+ },
+ {
+  "start": 116.243,
+  "end": 118.908,
+  "en": "don't load a new page in the browser, but"
+ },
+ {
+  "start": 118.908,
+  "end": 123.259,
+  "en": "instead HTMX gets the response of that new"
+ },
+ {
+  "start": 123.773,
+  "end": 126.101,
+  "en": "page or of this GET route here to be"
+ },
+ {
+  "start": 126.101,
+  "end": 126.599,
+  "en": "precise."
+ },
+ {
+  "start": 128.028,
+  "end": 130.821,
+  "en": "And it then renders that into the target of"
+ },
+ {
+  "start": 130.853,
+  "end": 133.993,
+  "en": "the request we sent, so into this target"
+ },
+ {
+  "start": 133.993,
+  "end": 134.236,
+  "en": "here."
+ },
+ {
+  "start": 135.925,
+  "end": 138.54,
+  "en": "Now, that sometimes is the behavior you"
+ },
+ {
+  "start": 138.54,
+  "end": 138.865,
+  "en": "want,"
+ },
+ {
+  "start": 139.417,
+  "end": 141.574,
+  "en": "but sometimes you might want a real"
+ },
+ {
+  "start": 142.009,
+  "end": 142.573,
+  "en": "redirect."
+ },
+ {
+  "start": 144.28,
+  "end": 146.696,
+  "en": "And you can achieve that and change the"
+ },
+ {
+  "start": 146.696,
+  "end": 150.336,
+  "en": "behavior of HTMX by setting a specific"
+ },
+ {
+  "start": 150.627,
+  "end": 152.459,
+  "en": "header on the response."
+ },
+ {
+  "start": 153.922,
+  "end": 157.12,
+  "en": "And here in Node, when using Express.js, you"
+ },
+ {
+  "start": 157.152,
+  "end": 159.505,
+  "en": "can do that by calling the setHeader header"
+ },
+ {
+  "start": 159.505,
+  "end": 162.189,
+  "en": "method on that response object before"
+ },
+ {
+  "start": 162.189,
+  "end": 162.868,
+  "en": "sending it."
+ },
+ {
+  "start": 164.502,
+  "end": 166.426,
+  "en": "And the header I wanna set here"
+ },
+ {
+  "start": 167.089,
+  "end": 170.698,
+  "en": "is one of the special headers you can set on"
+ },
+ {
+  "start": 170.73,
+  "end": 173.269,
+  "en": "the responses that are sent back and that"
+ },
+ {
+  "start": 173.365,
+  "end": 175.293,
+  "en": "will be handled by HTMX."
+ },
+ {
+  "start": 176.755,
+  "end": 179.89,
+  "en": "Specifically, you can set the hx-redirect"
+ },
+ {
+  "start": 179.89,
+  "end": 181.354,
+  "en": "response header to"
+ },
+ {
+  "start": 181.885,
+  "end": 184.893,
+  "en": "really trigger a client-side redirect to a"
+ },
+ {
+  "start": 184.893,
+  "end": 185.569,
+  "en": "new page."
+ },
+ {
+  "start": 186.489,
+  "end": 190.853,
+  "en": "So to not have HTMX take the response and"
+ },
+ {
+  "start": 190.853,
+  "end": 193.352,
+  "en": "render it into the target, but to really"
+ },
+ {
+  "start": 193.627,
+  "end": 195.501,
+  "en": "instead perform a redirect."
+ },
+ {
+  "start": 196.851,
+  "end": 199.148,
+  "en": "And you see some other response headers and"
+ },
+ {
+  "start": 199.181,
+  "end": 201.366,
+  "en": "what they do here as well, but I'll get back"
+ },
+ {
+  "start": 201.43,
+  "end": 203.551,
+  "en": "to some of them later. For the moment, let's"
+ },
+ {
+  "start": 203.599,
+  "end": 205.073,
+  "en": "focus on that redirect header."
+ },
+ {
+  "start": 207.079,
+  "end": 210.079,
+  "en": "So here it's HX-Redirect, which I wanna set,"
+ },
+ {
+  "start": 210.954,
+  "end": 212.738,
+  "en": "and I wanna set that to /authenticated."
+ },
+ {
+  "start": 215.686,
+  "end": 218.198,
+  "en": "And this will then ensure that we indeed do"
+ },
+ {
+  "start": 218.649,
+  "end": 221.628,
+  "en": "redirect the user to that page and that that"
+ },
+ {
+  "start": 221.628,
+  "end": 223.303,
+  "en": "new page is therefore loaded"
+ },
+ {
+  "start": 223.883,
+  "end": 226.896,
+  "en": "and that HTMX will not just take the content"
+ },
+ {
+  "start": 226.896,
+  "end": 229.0,
+  "en": "of that page and render it somewhere else."
+ },
+ {
+  "start": 230.45,
+  "end": 233.107,
+  "en": "Now, one thing you'll need to do though is"
+ },
+ {
+  "start": 233.203,
+  "end": 235.619,
+  "en": "you should then not also send such a"
+ },
+ {
+  "start": 235.635,
+  "end": 238.308,
+  "en": "redirect response here, but instead just"
+ },
+ {
+  "start": 238.308,
+  "end": 239.725,
+  "en": "send an empty response."
+ },
+ {
+  "start": 241.66,
+  "end": 243.579,
+  "en": "But with that, if you save everything,"
+ },
+ {
+  "start": 244.272,
+  "end": 245.223,
+  "en": "if you reload here"
+ },
+ {
+  "start": 245.788,
+  "end": 246.803,
+  "en": "and you enter some"
+ },
+ {
+  "start": 247.626,
+  "end": 249.528,
+  "en": "valid credentials and you click login,"
+ },
+ {
+  "start": 250.205,
+  "end": 252.132,
+  "en": "you see now I'm really redirected to a new"
+ },
+ {
+  "start": 252.31,
+  "end": 255.047,
+  "en": "page. We completely replaced the existing"
+ },
+ {
+  "start": 255.079,
+  "end": 256.262,
+  "en": "page with this one."
+ },
+ {
+  "start": 257.987,
+  "end": 259.985,
+  "en": "And of course I can still go back and forth"
+ },
+ {
+  "start": 260.033,
+  "end": 261.998,
+  "en": "now with the back and forward buttons."
+ },
+ {
+  "start": 262.659,
+  "end": 264.898,
+  "en": "And that's the case because we now really"
+ },
+ {
+  "start": 265.236,
+  "end": 266.461,
+  "en": "redirected the user."
+ }
+]

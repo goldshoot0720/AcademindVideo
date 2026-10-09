@@ -1,0 +1,844 @@
+1
+00:00:02,131 --> 00:00:06,553
+So we got our event-related routes and we're
+所以我們得到了與活動相關的路線
+
+2
+00:00:06,553 --> 00:00:07,258
+making sure
+確保
+
+3
+00:00:07,787 --> 00:00:12,098
+that only authenticated, so logged-in users
+僅經過身份驗證，因此登入的使用者
+
+4
+00:00:12,354 --> 00:00:14,742
+can create, edit, or delete events.
+可以建立、編輯或刪除事件。
+
+5
+00:00:16,056 --> 00:00:19,196
+Now, of course, I also wanna make sure that
+當然，現在我也想確保
+
+6
+00:00:19,821 --> 00:00:23,074
+we can register for events, but before we do
+我們可以註冊參加活動，但在此之前
+
+7
+00:00:23,106 --> 00:00:26,183
+that, I wanna add an extra check to the
+那，我想添加一個額外的檢查
+
+8
+00:00:26,183 --> 00:00:26,439
+login route.
+登入路線。
+
+9
+00:00:27,034 --> 00:00:29,245
+Update and delete routes here
+在這裡更新和刪除路線
+
+10
+00:00:30,262 --> 00:00:33,410
+because I wanna make sure that only the user
+因為我想確保只有使用者
+
+11
+00:00:33,636 --> 00:00:34,911
+who created
+誰創造了
+
+12
+00:00:35,492 --> 00:00:39,447
+an event is able to actually edit or delete
+事件能夠實際編輯或刪除
+
+13
+00:00:39,447 --> 00:00:39,527
+it.
+它。
+
+14
+00:00:41,787 --> 00:00:43,853
+And there are different ways of achieving
+並且有不同的實現方式
+
+15
+00:00:43,902 --> 00:00:44,079
+this.
+這。
+
+16
+00:00:44,628 --> 00:00:47,979
+We could of course again simply ask in chat
+我們當然可以再次簡單地在聊天中詢問
+
+17
+00:00:48,156 --> 00:00:50,073
+for help if you were not sure how to do
+如果您不確定該怎麼做，請尋求協助
+
+18
+00:00:50,089 --> 00:00:50,202
+that.
+那。
+
+19
+00:00:50,814 --> 00:00:53,407
+I already know that I essentially wanna go
+我已經知道我本質上想去
+
+20
+00:00:53,407 --> 00:00:53,730
+to my
+給我的
+
+21
+00:00:54,480 --> 00:00:56,245
+controller functions here
+控制器功能在這裡
+
+22
+00:00:57,897 --> 00:01:00,910
+in the eventsController.js file and I wanna
+在 eventsController.js 檔案中，我想要
+
+23
+00:01:01,056 --> 00:01:03,178
+add the appropriate check there.
+在那裡添加適當的檢查。
+
+24
+00:01:05,940 --> 00:01:09,047
+So here after checking whether the received
+所以這裡檢查是否收到後
+
+25
+00:01:09,176 --> 00:01:13,298
+input data is valid, I wanna check whether
+輸入資料有效，我想檢查是否
+
+26
+00:01:13,298 --> 00:01:16,036
+the currently logged in user is the same
+目前登入使用者相同
+
+27
+00:01:16,116 --> 00:01:18,210
+user who created an event.
+建立事件的使用者。
+
+28
+00:01:19,756 --> 00:01:21,222
+So of course I don't wanna do that here in
+所以我當然不想在這裡這樣做
+
+29
+00:01:21,270 --> 00:01:23,284
+the create function but in the edit and
+創建功能，但在編輯和
+
+30
+00:01:23,380 --> 00:01:24,298
+delete functions.
+刪除功能。
+
+31
+00:01:25,724 --> 00:01:28,547
+There I get the ID of the event I wanna
+在那裡我得到了我想要的事件的 ID
+
+32
+00:01:29,076 --> 00:01:31,161
+delete and I then wanna extract the
+刪除，然後我想提取
+
+33
+00:01:31,161 --> 00:01:33,486
+information to which user that event
+該事件向哪個使用者發送的訊息
+
+34
+00:01:33,486 --> 00:01:35,651
+belongs. And then I wanna check whether it's
+屬於.然後我想檢查是否是
+
+35
+00:01:35,651 --> 00:01:36,646
+the same user
+同一使用者
+
+36
+00:01:37,175 --> 00:01:39,516
+as the user who created the event.
+作為創建事件的使用者。
+
+37
+00:01:40,863 --> 00:01:42,499
+Now what's important here though
+現在重要的是這裡
+
+38
+00:01:43,029 --> 00:01:45,611
+is that we take a look at the database.js
+就是我們來看看database.js
+
+39
+00:01:45,611 --> 00:01:45,899
+file
+檔案
+
+40
+00:01:46,557 --> 00:01:48,818
+and if we do so, we can see that in this app
+如果我們這樣做，我們可以在這個應用程式中看到
+
+41
+00:01:48,882 --> 00:01:51,001
+here which I built thus far, I'm actually
+到目前為止我建造的這裡，我實際上
+
+42
+00:01:51,001 --> 00:01:54,122
+not storing the information which user
+不儲存使用者的資訊
+
+43
+00:01:54,187 --> 00:01:57,147
+created an event in the events table.
+在事件表中建立了一個事件。
+
+44
+00:01:59,710 --> 00:02:02,378
+Now, you might recall that when I planned
+現在，你可能還記得，當我計劃
+
+45
+00:02:02,411 --> 00:02:03,398
+this application,
+這個應用程式，
+
+46
+00:02:04,109 --> 00:02:07,506
+ChatGPT actually told me to store that
+ChatGPT 實際上告訴我要儲存它
+
+47
+00:02:07,506 --> 00:02:10,494
+information. It suggested that I store the
+資訊.它建議我存儲
+
+48
+00:02:10,494 --> 00:02:11,478
+creator ID
+創建者ID
+
+49
+00:02:12,091 --> 00:02:13,010
+in my event,
+就我而言，
+
+50
+00:02:14,203 --> 00:02:16,429
+but I haven't implemented that here yet.
+但我還沒有在這裡實現。
+
+51
+00:02:17,563 --> 00:02:19,830
+So I'll do so now. I'll add a user
+所以我現在就這樣做。我將添加一個使用者
+
+52
+00:02:20,608 --> 00:02:21,466
+ID field here,
+ID欄位在這裡，
+
+53
+00:02:22,794 --> 00:02:25,385
+which should be an integer because the ID of
+它應該是一個整數，因為 ID
+
+54
+00:02:25,401 --> 00:02:26,860
+my user is an integer.
+我的使用者是一個整數。
+
+55
+00:02:28,713 --> 00:02:30,645
+And then I'll also add a foreign key
+然後我還要加一個外鍵
+
+56
+00:02:31,047 --> 00:02:33,205
+reference like this. And GitHub Copilot
+像這樣參考。和 GitHub 副駕駛
+
+57
+00:02:33,366 --> 00:02:35,894
+thankfully suggested this to me, that we
+謝天謝地向我建議了這個，我們
+
+58
+00:02:36,119 --> 00:02:38,781
+refer to the ID in the users table here with
+在這裡參照使用者表中的 ID
+
+59
+00:02:38,881 --> 00:02:40,094
+that user ID field.
+該使用者 ID 欄位。
+
+60
+00:02:42,072 --> 00:02:43,964
+And therefore, of course, we must make sure
+因此，當然，我們必須確保
+
+61
+00:02:43,980 --> 00:02:47,324
+that we do store such a user ID when a new
+我們確實會在新的使用者ID時儲存這樣的使用者ID
+
+62
+00:02:47,436 --> 00:02:48,527
+event is created.
+事件已建立。
+
+63
+00:02:49,537 --> 00:02:51,670
+So we should go to the event.js file in the
+所以我們應該轉到 event.js 檔案
+
+64
+00:02:51,670 --> 00:02:54,075
+models folder and when we create a new
+models 資料夾，當我們建立一個新的
+
+65
+00:02:54,075 --> 00:02:56,015
+event, we need to store the user ID.
+事件，我們需要儲存使用者 ID。
+
+66
+00:02:57,154 --> 00:03:00,296
+So I'll simply select this and say store
+所以我只需選擇這個並說 store
+
+67
+00:03:00,569 --> 00:03:01,595
+user ID in
+使用者 ID 在
+
+68
+00:03:02,333 --> 00:03:04,963
+user ID field to update this code
+用於更新此程式碼的使用者 ID 欄位
+
+69
+00:03:05,059 --> 00:03:05,845
+appropriately.
+適當地。
+
+70
+00:03:07,079 --> 00:03:08,907
+We could do it manually, but since I need to
+我們可以手動完成，但因為我需要
+
+71
+00:03:08,907 --> 00:03:12,002
+change a couple of places, I'd rather use AI
+改變幾個地方，我寧願使用AI
+
+72
+00:03:12,050 --> 00:03:12,467
+for that.
+為此。
+
+73
+00:03:13,779 --> 00:03:16,946
+I now extract a user ID property from the
+我現在從以下內容中提取使用者 ID 屬性
+
+74
+00:03:16,946 --> 00:03:18,360
+incoming object and then
+傳入物件，然後
+
+75
+00:03:19,742 --> 00:03:23,433
+I store that user ID here with those code
+我將使用者 ID 與這些程式碼儲存在這裡
+
+76
+00:03:23,547 --> 00:03:25,507
+adjustments. So I'll accept this.
+調整。所以我會接受這一點。
+
+77
+00:03:27,593 --> 00:03:29,682
+Now I just need to make sure that this user
+現在我只需要確保該使用者
+
+78
+00:03:29,682 --> 00:03:32,581
+ID is passed to the createEvent function
+ID被傳遞給createEvent函式
+
+79
+00:03:32,840 --> 00:03:34,638
+from inside the events controller.
+從事件控制器內部。
+
+80
+00:03:36,400 --> 00:03:37,278
+So there
+所以有
+
+81
+00:03:38,124 --> 00:03:39,432
+in the createEvent function, create
+在createEvent函式中，創建
+
+82
+00:03:39,432 --> 00:03:39,901
+function,
+功能，
+
+83
+00:03:40,807 --> 00:03:43,606
+when we call createEvent, we must make sure
+當我們呼叫createEvent時，我們必須確保
+
+84
+00:03:43,638 --> 00:03:46,016
+that the user ID is passed to
+使用者 ID 被傳遞到
+
+85
+00:03:46,728 --> 00:03:48,582
+this createEvent function in that object.
+該物件中的 createEvent 函式。
+
+86
+00:03:51,027 --> 00:03:51,727
+So thankfully again,
+所以再次慶幸的是，
+
+87
+00:03:52,261 --> 00:03:54,464
+GitHub Copilot is making the appropriate
+GitHub Copilot 正在製定適當的
+
+88
+00:03:54,464 --> 00:03:55,095
+suggestion,
+建議，
+
+89
+00:03:55,727 --> 00:03:57,913
+assuming that we can extract the user from
+假設我們可以從中提取使用者
+
+90
+00:03:57,929 --> 00:03:58,998
+the request object
+請求物件
+
+91
+00:04:00,357 --> 00:04:03,576
+and then the ID from that user, and that
+然後是該使用者的 ID，然後
+
+92
+00:04:03,576 --> 00:04:06,598
+should be possible. Because we have the code
+應該是可能的。因為我們有程式碼
+
+93
+00:04:06,631 --> 00:04:09,297
+that adds this user object to the request
+將此使用者物件新增至請求中
+
+94
+00:04:09,297 --> 00:04:09,669
+object.
+目的。
+
+95
+00:04:10,817 --> 00:04:14,292
+We have that code in the auth.js file.
+我們在 auth.js 檔案中有該程式碼。
+
+96
+00:04:15,793 --> 00:04:16,069
+There,
+那裡，
+
+97
+00:04:17,336 --> 00:04:19,593
+the decoded user, so the data we're
+解碼後的使用者，所以我們的資料
+
+98
+00:04:19,593 --> 00:04:22,450
+extracting from the token is stored under
+從令牌中提取的內容儲存在
+
+99
+00:04:22,450 --> 00:04:23,165
+req.user.
+請求使用者。
+
+100
+00:04:24,736 --> 00:04:26,845
+So we should be able to extract that and
+所以我們應該能夠提取它並且
+
+101
+00:04:27,009 --> 00:04:28,595
+then pass it to createEvent.
+然後將其傳遞給createEvent。
+
+102
+00:04:30,773 --> 00:04:33,113
+So that should make sure that the user ID is
+所以應該確保使用者 ID 是
+
+103
+00:04:33,291 --> 00:04:35,403
+stored along with the event.
+與事件一起儲存。
+
+104
+00:04:37,705 --> 00:04:40,347
+That then should also allow us to add an
+那我們還應該可以再增加一個
+
+105
+00:04:40,347 --> 00:04:43,568
+extra check that ensures that only the user
+額外的檢查確保只有使用者
+
+106
+00:04:43,568 --> 00:04:46,210
+who created an event can edit or delete it.
+建立事件的人可以編輯或刪除它。
+
+107
+00:04:47,386 --> 00:04:50,735
+So to check whether the user who tries to
+因此要檢查嘗試的使用者是否
+
+108
+00:04:50,816 --> 00:04:53,585
+edit or delete an event is the user who
+編輯或刪除事件的使用者
+
+109
+00:04:53,634 --> 00:04:56,158
+created it, we need to add an appropriate
+創建它後，我們需要添加一個適當的
+
+110
+00:04:56,158 --> 00:04:58,421
+check to the edit and the delete methods.
+檢查編輯和刪除方法。
+
+111
+00:04:59,110 --> 00:05:00,907
+Item functions here in the
+此處的專案功能
+
+112
+00:05:00,907 --> 00:05:02,802
+eventsController.js file.
+eventsController.js 檔案。
+
+113
+00:05:04,982 --> 00:05:05,517
+And as always,
+和往常一樣，
+
+114
+00:05:06,181 --> 00:05:08,465
+one way is to simply highlight the entire
+一種方法是簡單地突出顯示整個
+
+115
+00:05:08,465 --> 00:05:08,919
+function
+功能
+
+116
+00:05:10,247 --> 00:05:12,321
+and then ask GitHub Copilot to do it.
+然後請 GitHub Copilot 來做。
+
+117
+00:05:13,967 --> 00:05:14,209
+Check
+查看
+
+118
+00:05:15,278 --> 00:05:15,537
+that
+那
+
+119
+00:05:16,556 --> 00:05:17,981
+userId
+使用者身分
+
+120
+00:05:18,742 --> 00:05:19,179
+in req,
+在要求中，
+
+121
+00:05:19,729 --> 00:05:22,162
+whoops, in req.user
+哎呀，在 req.user 中
+
+122
+00:05:23,933 --> 00:05:24,632
+is the same
+是一樣的
+
+123
+00:05:25,217 --> 00:05:25,956
+as the ID
+作為 ID
+
+124
+00:05:27,241 --> 00:05:30,551
+or as the user ID stored for the event
+或作為為事件儲存的使用者 ID
+
+125
+00:05:30,695 --> 00:05:31,129
+that's
+那是
+
+126
+00:05:32,302 --> 00:05:34,374
+about to be edited.
+即將被編輯。
+
+127
+00:05:37,220 --> 00:05:38,890
+Let's see whether that works.
+讓我們看看這是否有效。
+
+128
+00:05:40,993 --> 00:05:43,054
+Generating some code, some changes.
+產生一些程式碼，進行一些更改。
+
+129
+00:05:44,921 --> 00:05:47,078
+And as it seems, it doesn't change anything
+看起來，它並沒有改變任何東西
+
+130
+00:05:47,110 --> 00:05:48,720
+here at the beginning of the function, but
+在函式的開頭，但是
+
+131
+00:05:48,720 --> 00:05:48,929
+then
+然後
+
+132
+00:05:49,508 --> 00:05:50,700
+it extracts the event
+它提取事件
+
+133
+00:05:51,975 --> 00:05:54,327
+With the getEventById function, checks if
+使用 getEventById 函式，檢查是否
+
+134
+00:05:54,375 --> 00:05:56,276
+maybe no event was found, in which case a
+也許沒有發現任何事件，在這種情況下
+
+135
+00:05:56,324 --> 00:05:59,433
+404 error is returned. But if an event was
+回傳404錯誤。但如果一個事件是
+
+136
+00:05:59,465 --> 00:06:02,578
+found, the user ID stored for that event is
+發現，為該事件儲存的使用者 ID 是
+
+137
+00:06:02,611 --> 00:06:04,806
+compared to the user ID in the request, and
+與請求中的使用者 ID 進行比較，以及
+
+138
+00:06:04,806 --> 00:06:05,790
+if it's not equal,
+如果不相等，
+
+139
+00:06:06,484 --> 00:06:08,147
+we also send back an error message.
+我們還會發回一條錯誤訊息。
+
+140
+00:06:10,320 --> 00:06:13,128
+Otherwise, the event is updated accordingly.
+否則，事件會隨之更新。
+
+141
+00:06:14,145 --> 00:06:16,872
+So that looks good to me and I'll accept
+所以這對我來說看起來不錯，我會接受
+
+142
+00:06:19,332 --> 00:06:20,313
+And with that, we should have the
+有了這個，我們應該有
+
+143
+00:06:20,313 --> 00:06:21,793
+appropriate protection in place.
+適當的保護到位。
+
+144
+00:06:22,469 --> 00:06:23,659
+Now, getEventById
+現在，getEventById
+
+145
+00:06:24,222 --> 00:06:24,367
+is
+是
+
+146
+00:06:25,348 --> 00:06:25,895
+a function
+一個函式
+
+147
+00:06:26,715 --> 00:06:29,289
+that is imported from the models folder from
+從 models 資料夾導入
+
+148
+00:06:29,322 --> 00:06:31,346
+the event.js file. So that should be
+event.js 檔案。所以應該是
+
+149
+00:06:31,346 --> 00:06:31,718
+available.
+可用的。
+
+150
+00:06:33,597 --> 00:06:35,833
+And we can now add a similar check here in
+我們現在可以在此處添加類似的檢查
+
+151
+00:06:35,833 --> 00:06:36,444
+deleteItem
+刪除專案
+
+152
+00:06:37,265 --> 00:06:37,570
+and say
+並說
+
+153
+00:06:38,471 --> 00:06:40,176
+also check userId.
+也要檢查使用者 ID。
+
+154
+00:06:41,704 --> 00:06:43,041
+Let's see if that's enough, if there is
+讓我們看看這是否足夠，如果有的話
+
+155
+00:06:43,090 --> 00:06:46,272
+still enough context stored by GitHub
+GitHub 儲存的上下文仍然足夠
+
+156
+00:06:46,321 --> 00:06:46,762
+Copilot.
+副駕駛。
+
+157
+00:06:48,818 --> 00:06:49,749
+And looks like it is.
+看起來確實如此。
+
+158
+00:06:51,130 --> 00:06:52,784
+It gets the event here as well,
+它也在這裡獲得事件，
+
+159
+00:06:53,314 --> 00:06:56,413
+gives us a 404 error if it's not found and
+如果沒有找到，會給我們一個 404 錯誤
+
+160
+00:06:56,509 --> 00:06:59,705
+otherwise checks the user ID. So that is
+否則檢查使用者 ID。所以那就是
+
+161
+00:07:00,042 --> 00:07:04,747
+also looking pretty good. Now maybe here
+看起來也不錯。現在也許在這裡
+
+162
+00:07:05,758 --> 00:07:06,898
+I wanna return a different
+我想回傳一個不同的
+
+163
+00:07:07,509 --> 00:07:08,584
+error message if
+錯誤訊息如果
+
+164
+00:07:09,532 --> 00:07:11,844
+we don't succeed in deleting the event. I
+我們沒有成功刪除該事件。我
+
+165
+00:07:11,860 --> 00:07:14,221
+actually wanna return a 500 error and say
+實際上想回傳 500 錯誤並說
+
+166
+00:07:14,590 --> 00:07:17,047
+event not deleted because it technically
+事件未刪除，因為從技術上講
+
+167
+00:07:17,159 --> 00:07:20,144
+wasn't deleted. Not found, it failed to be
+沒有被刪除。沒找到，失敗了
+
+168
+00:07:20,144 --> 00:07:22,082
+deleted, which is a different error. So I
+已刪除，這是一個不同的錯誤。所以我
+
+169
+00:07:22,082 --> 00:07:22,938
+guess that makes sense.
+我猜這是有道理的。

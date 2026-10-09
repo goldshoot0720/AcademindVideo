@@ -1,0 +1,627 @@
+[
+ {
+  "start": 0.128,
+  "end": 1.027,
+  "en": "So now it's time to"
+ },
+ {
+  "start": 1.621,
+  "end": 5.248,
+  "en": "further harden the SSH setup. And with that,"
+ },
+ {
+  "start": 5.264,
+  "end": 7.832,
+  "en": "I mean that we wanna go through certain"
+ },
+ {
+  "start": 7.832,
+  "end": 11.058,
+  "en": "steps that make it even less likely that a"
+ },
+ {
+  "start": 11.09,
+  "end": 14.862,
+  "en": "bad actor can connect to our server through"
+ },
+ {
+  "start": 14.958,
+  "end": 17.462,
+  "en": "SSH if they're not intended to connect."
+ },
+ {
+  "start": 17.992,
+  "end": 20.977,
+  "en": "And the first thing I wanna do there is I"
+ },
+ {
+  "start": 21.041,
+  "end": 23.866,
+  "en": "wanna install and enable a tool called"
+ },
+ {
+  "start": 23.866,
+  "end": 24.877,
+  "en": "fail2ban."
+ },
+ {
+  "start": 25.696,
+  "end": 27.509,
+  "en": "So for that, I'll use apt and install"
+ },
+ {
+  "start": 27.638,
+  "end": 28.649,
+  "en": "fail2ban."
+ },
+ {
+  "start": 29.387,
+  "end": 31.361,
+  "en": "That's some extra software you can install"
+ },
+ {
+  "start": 31.473,
+  "end": 33.72,
+  "en": "on your system, on your Linux system. And"
+ },
+ {
+  "start": 33.881,
+  "end": 36.882,
+  "en": "what this tool will do is it will watch for"
+ },
+ {
+  "start": 37.01,
+  "end": 40.011,
+  "en": "connection attempts. And if a connection"
+ },
+ {
+  "start": 40.22,
+  "end": 44.409,
+  "en": "fails repeatedly, it will block that IP"
+ },
+ {
+  "start": 44.986,
+  "end": 48.324,
+  "en": "so that that IP can't even try future"
+ },
+ {
+  "start": 48.421,
+  "end": 50.507,
+  "en": "connections anymore, which of course"
+ },
+ {
+  "start": 50.507,
+  "end": 53.203,
+  "en": "protects your server against being hammered"
+ },
+ {
+  "start": 53.396,
+  "end": 53.717,
+  "en": "by"
+ },
+ {
+  "start": 54.439,
+  "end": 55.049,
+  "en": "failing connections."
+ },
+ {
+  "start": 55.884,
+  "end": 58.021,
+  "en": "Or by IPs that fail to authenticate?"
+ },
+ {
+  "start": 59.017,
+  "end": 61.074,
+  "en": "Because one important thing to realize,"
+ },
+ {
+  "start": 61.652,
+  "end": 63.243,
+  "en": "which you're typically not aware of,"
+ },
+ {
+  "start": 63.902,
+  "end": 64.384,
+  "en": "is that"
+ },
+ {
+  "start": 65.107,
+  "end": 68.176,
+  "en": "the moment you start your server, the moment"
+ },
+ {
+  "start": 68.176,
+  "end": 69.67,
+  "en": "your server is online,"
+ },
+ {
+  "start": 70.57,
+  "end": 74.088,
+  "en": "it's going to be picked up by hundreds of"
+ },
+ {
+  "start": 74.297,
+  "end": 78.812,
+  "en": "scanners that scan IP ranges and look for"
+ },
+ {
+  "start": 78.877,
+  "end": 82.154,
+  "en": "servers with vulnerabilities, that are not"
+ },
+ {
+  "start": 82.154,
+  "end": 84.753,
+  "en": "protected because believe it or not, there"
+ },
+ {
+  "start": 84.866,
+  "end": 87.69,
+  "en": "are many such servers to be found out there."
+ },
+ {
+  "start": 87.995,
+  "end": 90.964,
+  "en": "And what many bad actors will do is they"
+ },
+ {
+  "start": 90.964,
+  "end": 93.804,
+  "en": "will just try to brute force their way into"
+ },
+ {
+  "start": 93.868,
+  "end": 96.516,
+  "en": "servers they find out there. So it's a good"
+ },
+ {
+  "start": 96.58,
+  "end": 97.736,
+  "en": "idea to make that"
+ },
+ {
+  "start": 98.282,
+  "end": 100.865,
+  "en": "pretty much impossible by ensuring that"
+ },
+ {
+  "start": 100.913,
+  "end": 103.834,
+  "en": "their IP addresses get blocked if they tried"
+ },
+ {
+  "start": 103.834,
+  "end": 104.717,
+  "en": "it too often."
+ },
+ {
+  "start": 105.888,
+  "end": 108.103,
+  "en": "And Fail2Ban is just the tool for that."
+ },
+ {
+  "start": 108.7,
+  "end": 111.858,
+  "en": "After installing it, you wanna check its"
+ },
+ {
+  "start": 111.858,
+  "end": 114.094,
+  "en": "configuration and you can do that by running"
+ },
+ {
+  "start": 114.142,
+  "end": 116.54,
+  "en": "sudo because you'll need root privileges for"
+ },
+ {
+  "start": 116.54,
+  "end": 117.808,
+  "en": "that, nano,"
+ },
+ {
+  "start": 118.362,
+  "end": 120.997,
+  "en": "which is a text editor tool installed on"
+ },
+ {
+  "start": 121.046,
+  "end": 122.087,
+  "en": "Linux, and then"
+ },
+ {
+  "start": 122.087,
+  "end": 123.063,
+  "en": "/etc/fail2ban/jail.d/sshd.local."
+ },
+ {
+  "start": 131.34,
+  "end": 133.963,
+  "en": "If you hit enter, you'll enter this text"
+ },
+ {
+  "start": 133.979,
+  "end": 134.468,
+  "en": "edit mode."
+ },
+ {
+  "start": 135.136,
+  "end": 137.301,
+  "en": "And you can get out of it with the shortcuts"
+ },
+ {
+  "start": 137.301,
+  "end": 139.482,
+  "en": "you see here in the bottom. So for example,"
+ },
+ {
+  "start": 139.562,
+  "end": 141.162,
+  "en": "Ctrl+X will close it."
+ },
+ {
+  "start": 142.672,
+  "end": 143.315,
+  "en": "In here,"
+ },
+ {
+  "start": 143.958,
+  "end": 146.113,
+  "en": "you wanna start typing and type"
+ },
+ {
+  "start": 147.014,
+  "end": 148.654,
+  "en": "square brackets, shd"
+ },
+ {
+  "start": 149.973,
+  "end": 151.339,
+  "en": "enabled equals true,"
+ },
+ {
+  "start": 152.785,
+  "end": 155.773,
+  "en": "max retry equals 5, for example. That's the"
+ },
+ {
+  "start": 155.773,
+  "end": 156.705,
+  "en": "number of times"
+ },
+ {
+  "start": 157.364,
+  "end": 159.79,
+  "en": "people are allowed to fail authentication"
+ },
+ {
+  "start": 159.79,
+  "end": 161.031,
+  "en": "before they will be blocked."
+ },
+ {
+  "start": 162.42,
+  "end": 164.414,
+  "en": "Find time equals 10 minutes."
+ },
+ {
+  "start": 165.889,
+  "end": 167.072,
+  "en": "Whoops, with like that."
+ },
+ {
+  "start": 169.79,
+  "end": 172.302,
+  "en": "That is the timeframe in which these failed"
+ },
+ {
+  "start": 172.334,
+  "end": 173.226,
+  "en": "attempts have to be."
+ },
+ {
+  "start": 173.793,
+  "end": 176.419,
+  "en": "So 5 unsuccessful attempts in 10 minutes"
+ },
+ {
+  "start": 176.532,
+  "end": 177.407,
+  "en": "will get you blocked."
+ },
+ {
+  "start": 178.91,
+  "end": 179.394,
+  "en": "Ban time,"
+ },
+ {
+  "start": 180.071,
+  "end": 182.686,
+  "en": "if you set this, you can, for example, ban"
+ },
+ {
+  "start": 182.75,
+  "end": 184.816,
+  "en": "an IP for 1 hour so that if you were"
+ },
+ {
+  "start": 184.832,
+  "end": 187.091,
+  "en": "accidentally to fail authentication"
+ },
+ {
+  "start": 187.091,
+  "end": 190.256,
+  "en": "yourself, you don't ban yourself forever,"
+ },
+ {
+  "start": 190.529,
+  "end": 192.502,
+  "en": "essentially locking yourself out of the"
+ },
+ {
+  "start": 192.502,
+  "end": 194.266,
+  "en": "server unless you switch your IP,"
+ },
+ {
+  "start": 194.843,
+  "end": 197.265,
+  "en": "but so that you can try again after an hour"
+ },
+ {
+  "start": 197.329,
+  "end": 199.077,
+  "en": "or so. That's something you could consider"
+ },
+ {
+  "start": 199.077,
+  "end": 199.302,
+  "en": "doing."
+ },
+ {
+  "start": 200.216,
+  "end": 202.942,
+  "en": "You can also add ignore IP and set this to"
+ },
+ {
+  "start": 202.942,
+  "end": 206.39,
+  "en": "your public IP if your machine has a fixed"
+ },
+ {
+  "start": 206.39,
+  "end": 208.282,
+  "en": "public IP. If your MacBook, your Windows"
+ },
+ {
+  "start": 208.379,
+  "end": 210.768,
+  "en": "machine has a fixed public IP, you could add"
+ },
+ {
+  "start": 210.8,
+  "end": 211.971,
+  "en": "that here so that it is"
+ },
+ {
+  "start": 213.126,
+  "end": 217.472,
+  "en": "basically treated as an exception. But I'll"
+ },
+ {
+  "start": 215.785,
+  "end": 216.572,
+  "en": "not do that here."
+ },
+ {
+  "start": 218.52,
+  "end": 219.246,
+  "en": "So with that done,"
+ },
+ {
+  "start": 219.924,
+  "end": 221.41,
+  "en": "you wanna close this."
+ },
+ {
+  "start": 222.444,
+  "end": 224.365,
+  "en": "So as mentioned, that is Ctrl+X."
+ },
+ {
+  "start": 224.93,
+  "end": 226.674,
+  "en": "Then you're asked if you wanna save this, so"
+ },
+ {
+  "start": 226.674,
+  "end": 228.261,
+  "en": "I'll hit Y for yes."
+ },
+ {
+  "start": 229.623,
+  "end": 231.845,
+  "en": "Then you're asked for the file name,"
+ },
+ {
+  "start": 232.445,
+  "end": 234.293,
+  "en": "and I wanna keep the file name which I chose"
+ },
+ {
+  "start": 234.326,
+  "end": 235.25,
+  "en": "when I opened the file,"
+ },
+ {
+  "start": 236.389,
+  "end": 237.594,
+  "en": "so I'll just hit Enter."
+ },
+ {
+  "start": 238.623,
+  "end": 240.472,
+  "en": "And you can confirm your changes if you use"
+ },
+ {
+  "start": 240.472,
+  "end": 243.173,
+  "en": "the cat program again for quickly reading"
+ },
+ {
+  "start": 243.205,
+  "end": 244.202,
+  "en": "the contents of a file."
+ },
+ {
+  "start": 248.104,
+  "end": 249.987,
+  "en": "If you cat this file, you'll see its"
+ },
+ {
+  "start": 250.004,
+  "end": 250.764,
+  "en": "contents here."
+ },
+ {
+  "start": 252.34,
+  "end": 254.008,
+  "en": "With that, we just need to start the"
+ },
+ {
+  "start": 254.008,
+  "end": 256.266,
+  "en": "fail2ban service, and you do that by using"
+ },
+ {
+  "start": 256.299,
+  "end": 257.264,
+  "en": "the systemctl,"
+ },
+ {
+  "start": 258.4,
+  "end": 260.408,
+  "en": "for system control, command,"
+ },
+ {
+  "start": 261.002,
+  "end": 263.733,
+  "en": "which is also a command installed on Linux,"
+ },
+ {
+  "start": 264.215,
+  "end": 266.882,
+  "en": "and it allows you to run software"
+ },
+ {
+  "start": 267.493,
+  "end": 269.68,
+  "en": "as a service, as a background service that"
+ },
+ {
+  "start": 269.68,
+  "end": 271.878,
+  "en": "keeps on running in essentially, and that's"
+ },
+ {
+  "start": 271.958,
+  "end": 274.042,
+  "en": "also restarted depending on the"
+ },
+ {
+  "start": 274.042,
+  "end": 276.671,
+  "en": "configuration if your server is restarted."
+ },
+ {
+  "start": 277.264,
+  "end": 280.775,
+  "en": "So we want to enable our Fail2Ban server,"
+ },
+ {
+  "start": 281.672,
+  "end": 282.586,
+  "en": "and if you enable"
+ },
+ {
+  "start": 283.516,
+  "end": 285.135,
+  "en": "now, it will essentially do that"
+ },
+ {
+  "start": 285.664,
+  "end": 286.129,
+  "en": "instantly."
+ },
+ {
+  "start": 286.802,
+  "end": 288.501,
+  "en": "So now I have to enter my password here"
+ },
+ {
+  "start": 288.966,
+  "end": 291.098,
+  "en": "because it will require root access here."
+ },
+ {
+  "start": 291.916,
+  "end": 293.791,
+  "en": "I could have run this as a root to"
+ },
+ {
+  "start": 294.401,
+  "end": 296.26,
+  "en": "avoid having to enter my password a bunch of"
+ },
+ {
+  "start": 296.26,
+  "end": 296.757,
+  "en": "times here."
+ },
+ {
+  "start": 298.211,
+  "end": 299.832,
+  "en": "But either way, after entering this a couple"
+ },
+ {
+  "start": 299.832,
+  "end": 301.405,
+  "en": "of times, this is now"
+ },
+ {
+  "start": 301.956,
+  "end": 302.524,
+  "en": "started."
+ },
+ {
+  "start": 303.21,
+  "end": 304.449,
+  "en": "And you can confirm this by running"
+ },
+ {
+  "start": 304.482,
+  "end": 307.809,
+  "en": "systemctl status fail2ban."
+ },
+ {
+  "start": 310.307,
+  "end": 310.89,
+  "en": "And you see"
+ },
+ {
+  "start": 311.521,
+  "end": 313.527,
+  "en": "it is active, it's actively running."
+ },
+ {
+  "start": 315.177,
+  "end": 317.862,
+  "en": "And with that, you have this extra bit of"
+ },
+ {
+  "start": 318.089,
+  "end": 318.833,
+  "en": "protection here."
+ }
+]

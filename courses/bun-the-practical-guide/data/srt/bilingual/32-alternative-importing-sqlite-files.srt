@@ -1,0 +1,229 @@
+1
+00:00:00,032 --> 00:00:02,183
+Now, if you don't need to configure
+現在，如果您不需要設定
+
+2
+00:00:02,263 --> 00:00:04,977
+anything, there also is another way of
+任何事情，還有另一種方式
+
+3
+00:00:05,009 --> 00:00:07,594
+getting hold of that database, of that db
+掌握該資料庫，該資料庫
+
+4
+00:00:07,723 --> 00:00:10,773
+handle. Instead of instantiating a database
+處理。而不是實例化資料庫
+
+5
+00:00:10,773 --> 00:00:11,159
+like this,
+像這樣，
+
+6
+00:00:11,817 --> 00:00:14,691
+you could just import db from,
+你可以只導入資料庫，
+
+7
+00:00:15,671 --> 00:00:16,056
+and then
+進而
+
+8
+00:00:16,795 --> 00:00:19,765
+you need to enter your database file name.
+您需要輸入您的資料庫檔案名稱。
+
+9
+00:00:19,958 --> 00:00:22,013
+So in my case, notes.sqlite.
+所以就我而言，notes.sqlite。
+
+10
+00:00:26,240 --> 00:00:26,368
+With
+和
+
+11
+00:00:27,237 --> 00:00:29,215
+type SQLite.
+鍵入 SQLite。
+
+12
+00:00:30,839 --> 00:00:33,188
+Now I'm getting an error in my editor here
+現在我的編輯器出現錯誤
+
+13
+00:00:33,188 --> 00:00:35,729
+for whatever reason, but this does work. As
+不管出於什麼原因，但這確實有效。作為
+
+14
+00:00:35,761 --> 00:00:36,423
+you can see,
+你可以看到，
+
+15
+00:00:36,957 --> 00:00:39,479
+if you shut down your development server and
+如果您關閉開發伺服器並且
+
+16
+00:00:39,479 --> 00:00:40,449
+you restart,
+你重新啟動，
+
+17
+00:00:41,338 --> 00:00:43,520
+it'll start without problems. And that
+它會毫無問題地啟動。還有那個
+
+18
+00:00:43,520 --> 00:00:45,412
+proves that it works because right at the
+證明它有效，因為就在
+
+19
+00:00:45,590 --> 00:00:47,767
+start, I'm executing some database commands
+開始，我正在執行一些資料庫命令
+
+20
+00:00:47,799 --> 00:00:49,380
+here. And I'll get back to what I'm doing
+這裡。我會回到我正在做的事情上
+
+21
+00:00:49,412 --> 00:00:49,751
+here, but
+在這裡，但是
+
+22
+00:00:50,283 --> 00:00:52,396
+this runs right when the app starts. It's
+這會在應用程式啟動時立即運行。它是
+
+23
+00:00:52,461 --> 00:00:54,477
+not wrapped into some function that needs to
+沒有包裝到一些需要的函式中
+
+24
+00:00:54,477 --> 00:00:55,316
+be called. It runs right when the app
+稱為。它會在應用程式運行時立即運行
+
+25
+00:00:55,316 --> 00:00:55,445
+starts.
+開始。
+
+26
+00:00:57,526 --> 00:01:00,156
+And therefore this proves that this works.
+因此這證明這是有效的。
+
+27
+00:01:00,893 --> 00:01:02,722
+However, we'll have a couple of problems.
+然而，我們會遇到一些問題。
+
+28
+00:01:02,978 --> 00:01:05,287
+For example, if I do use this import
+例如，如果我確實使用此導入
+
+29
+00:01:05,865 --> 00:01:07,725
+and I try to add a new note, I get an error
+我嘗試添加新註釋，但收到錯誤
+
+30
+00:01:07,725 --> 00:01:07,917
+here,
+這裡，
+
+31
+00:01:08,607 --> 00:01:11,076
+weird error. And if that file wouldn't
+奇怪的錯誤。如果該檔案不存在
+
+32
+00:01:11,076 --> 00:01:14,781
+exist, so if I would stop this all and I
+存在，所以如果我能阻止這一切，我
+
+33
+00:01:14,781 --> 00:01:17,635
+deleted this database file, then starting
+刪除這個資料庫檔案，然後啟動
+
+34
+00:01:17,667 --> 00:01:19,993
+would also fail. So if I now run bun run
+也會失敗。所以如果我現在跑bun run
+
+35
+00:01:19,993 --> 00:01:22,318
+dev, you see now I'm getting an error. So
+開發人員，你現在看到我遇到了一個錯誤。所以
+
+36
+00:01:22,318 --> 00:01:24,082
+that import approach only works if you
+這種導入方法只有在你
+
+37
+00:01:24,146 --> 00:01:26,664
+already have the file and even then you have
+已經有了該檔案，即使這樣你也有了
+
+38
+00:01:26,664 --> 00:01:28,460
+the problem that it's not configured, which
+沒有設定的問題，
+
+39
+00:01:28,556 --> 00:01:30,674
+caused that other error. And I'll get back
+導致了另一個錯誤。我會回來的
+
+40
+00:01:30,722 --> 00:01:32,567
+to why I got an error there in a second.
+為什麼我在一秒鐘內就出現錯誤。
+
+41
+00:01:33,160 --> 00:01:34,748
+Still, if you already have the database
+不過，如果您已經擁有資料庫
+
+42
+00:01:34,748 --> 00:01:36,657
+file, that would be an alternative to
+檔案，這將是一個替代方案
+
+43
+00:01:36,673 --> 00:01:39,769
+instantiating the database like this. But to
+像這樣實例化資料庫。但要
+
+44
+00:01:39,801 --> 00:01:41,646
+be honest, in pretty much all my apps, I
+老實說，在我幾乎所有的應用程式中，我
+
+45
+00:01:41,646 --> 00:01:43,732
+choose this approach where I instantiate,
+在我實例化的地方選擇這種方法，
+
+46
+00:01:44,117 --> 00:01:45,624
+also so that I can configure.
+也方便我進行設定。

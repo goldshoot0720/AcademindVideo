@@ -1,0 +1,302 @@
+[
+ {
+  "start": 0.048,
+  "end": 2.084,
+  "en": "So when creating a post, but also for many"
+ },
+ {
+  "start": 2.18,
+  "end": 3.975,
+  "en": "other routes, we're reaching out to the"
+ },
+ {
+  "start": 4.103,
+  "end": 6.893,
+  "en": "database here to start a transaction, which"
+ },
+ {
+  "start": 7.005,
+  "end": 9.826,
+  "en": "simply means we have multiple steps which we"
+ },
+ {
+  "start": 10.436,
+  "end": 14.267,
+  "en": "wanna perform in one go. And if one of them"
+ },
+ {
+  "start": 14.379,
+  "end": 16.335,
+  "en": "fails, we wanna roll back all of them."
+ },
+ {
+  "start": 16.928,
+  "end": 19.589,
+  "en": "Now, not all post routes or routes in"
+ },
+ {
+  "start": 19.589,
+  "end": 21.16,
+  "en": "general use transactions."
+ },
+ {
+  "start": 21.737,
+  "end": 24.222,
+  "en": "For example, for listing my posts, for"
+ },
+ {
+  "start": 24.399,
+  "end": 26.74,
+  "en": "getting a list of all posts, I don't have a"
+ },
+ {
+  "start": 26.74,
+  "end": 29.676,
+  "en": "transaction there, I just directly query my"
+ },
+ {
+  "start": 29.676,
+  "end": 32.324,
+  "en": "database. But how exactly does this work?"
+ },
+ {
+  "start": 32.725,
+  "end": 33.655,
+  "en": "Well, db"
+ },
+ {
+  "start": 34.971,
+  "end": 37.33,
+  "en": "is a database object created with the"
+ },
+ {
+  "start": 37.394,
+  "end": 41.004,
+  "en": "database class coming from Bun's SQLite"
+ },
+ {
+  "start": 41.068,
+  "end": 41.389,
+  "en": "package."
+ },
+ {
+  "start": 41.967,
+  "end": 44.502,
+  "en": "Because this project here uses a SQLite"
+ },
+ {
+  "start": 44.518,
+  "end": 47.775,
+  "en": "package stored in an app.sqlite file here,"
+ },
+ {
+  "start": 48.305,
+  "end": 50.535,
+  "en": "and that's all set up in a connection.ts"
+ },
+ {
+  "start": 50.551,
+  "end": 53.006,
+  "en": "file, which is in the source/db folder in"
+ },
+ {
+  "start": 53.118,
+  "end": 54.804,
+  "en": "that API app project. Project."
+ },
+ {
+  "start": 55.526,
+  "end": 58.272,
+  "en": "So in there, I'm really just setting up my"
+ },
+ {
+  "start": 58.561,
+  "end": 61.918,
+  "en": "SQLite database. Super simple here, enabling"
+ },
+ {
+  "start": 62.014,
+  "end": 63.909,
+  "en": "WAL mode, which gives us better performance,"
+ },
+ {
+  "start": 64.599,
+  "end": 67.409,
+  "en": "enforcing foreign key constraints so that we"
+ },
+ {
+  "start": 67.409,
+  "end": 69.947,
+  "en": "get an error if we insert invalid foreign"
+ },
+ {
+  "start": 69.963,
+  "end": 70.236,
+  "en": "keys."
+ },
+ {
+  "start": 70.766,
+  "end": 72.211,
+  "en": "And that is about it."
+ },
+ {
+  "start": 72.869,
+  "end": 75.503,
+  "en": "The database is stored in a path that's"
+ },
+ {
+  "start": 75.503,
+  "end": 78.153,
+  "en": "coming from an environment variable, or we"
+ },
+ {
+  "start": 78.169,
+  "end": 81.107,
+  "en": "use a default path if that's not set. So we"
+ },
+ {
+  "start": 81.123,
+  "end": 83.339,
+  "en": "do support environment variables here for"
+ },
+ {
+  "start": 83.452,
+  "end": 86.276,
+  "en": "the database path. And then in our actual"
+ },
+ {
+  "start": 86.501,
+  "end": 89.132,
+  "en": "app logic, we use this database object with"
+ },
+ {
+  "start": 89.164,
+  "end": 91.715,
+  "en": "the methods supported by the Bun SQLite"
+ },
+ {
+  "start": 91.715,
+  "end": 94.698,
+  "en": "client to query the database, to get data,"
+ },
+ {
+  "start": 95.324,
+  "end": 97.426,
+  "en": "or like in createPost, also to run a"
+ },
+ {
+  "start": 97.49,
+  "end": 100.73,
+  "en": "transaction where we then also try to insert"
+ },
+ {
+  "start": 100.73,
+  "end": 102.014,
+  "en": "some data, for example."
+ },
+ {
+  "start": 102.623,
+  "end": 104.532,
+  "en": "And we're using features like this query"
+ },
+ {
+  "start": 104.645,
+  "end": 108.03,
+  "en": "parameters syntax supported by Bun to safely"
+ },
+ {
+  "start": 108.254,
+  "end": 110.869,
+  "en": "insert dynamic values into our queries."
+ },
+ {
+  "start": 111.542,
+  "end": 113.466,
+  "en": "And then this query just gets executed by"
+ },
+ {
+  "start": 113.466,
+  "end": 115.31,
+  "en": "calling the run method where the concrete"
+ },
+ {
+  "start": 115.31,
+  "end": 117.842,
+  "en": "values are inserted for these placeholders."
+ },
+ {
+  "start": 118.019,
+  "end": 121.193,
+  "en": "And Bun's SQLite package does that in a way"
+ },
+ {
+  "start": 121.561,
+  "end": 124.126,
+  "en": "that protects against SQL injection attacks,"
+ },
+ {
+  "start": 124.19,
+  "end": 124.864,
+  "en": "for example."
+ },
+ {
+  "start": 125.649,
+  "end": 127.717,
+  "en": "And that's really all that's to that"
+ },
+ {
+  "start": 127.877,
+  "end": 130.747,
+  "en": "database feature. The only other thing worth"
+ },
+ {
+  "start": 130.779,
+  "end": 134.209,
+  "en": "noting is that we also import this database"
+ },
+ {
+  "start": 134.241,
+  "end": 136.021,
+  "en": "into our auth.ts file"
+ },
+ {
+  "start": 136.614,
+  "end": 139.611,
+  "en": "and there we link it to the database field"
+ },
+ {
+  "start": 139.659,
+  "end": 141.823,
+  "en": "of the Batteroff package so that the"
+ },
+ {
+  "start": 141.839,
+  "end": 145.145,
+  "en": "Batteroff package knows where to set up its"
+ },
+ {
+  "start": 145.273,
+  "end": 147.922,
+  "en": "auth-related tables like the users table,"
+ },
+ {
+  "start": 148.34,
+  "end": 151.39,
+  "en": "the sessions table, and so on. And the great"
+ },
+ {
+  "start": 151.39,
+  "end": 153.911,
+  "en": "thing is that BetterAuth natively supports"
+ },
+ {
+  "start": 153.959,
+  "end": 157.796,
+  "en": "Bun's SQLite package. So using Bun SQLite"
+ },
+ {
+  "start": 157.812,
+  "end": 159.546,
+  "en": "with BetterAuth is a breeze."
+ }
+]

@@ -1,0 +1,339 @@
+1
+00:00:02,296 --> 00:00:05,379
+So at this point, processTransactions
+
+2
+00:00:05,636 --> 00:00:07,338
+already is pretty readable and slim.
+
+3
+00:00:08,366 --> 00:00:10,678
+processTransaction, on the other hand, is
+
+4
+00:00:10,774 --> 00:00:11,112
+not.
+
+5
+00:00:12,075 --> 00:00:14,307
+We got our guard here, but then thereafter
+
+6
+00:00:14,307 --> 00:00:15,463
+we got all this code.
+
+7
+00:00:16,073 --> 00:00:18,691
+And the question is, how can we simplify
+
+8
+00:00:18,739 --> 00:00:19,028
+that?
+
+9
+00:00:19,927 --> 00:00:22,079
+It will turn out that we can do multiple
+
+10
+00:00:22,095 --> 00:00:22,400
+things,
+
+11
+00:00:22,994 --> 00:00:25,949
+but a first step could still be that we
+
+12
+00:00:25,949 --> 00:00:28,601
+extract even more functions. And therefore,
+
+13
+00:00:28,681 --> 00:00:30,742
+of course, as always throughout this
+
+14
+00:00:30,951 --> 00:00:33,817
+section, feel free to pause the video and
+
+15
+00:00:33,849 --> 00:00:36,570
+try this on your own. Try to extract more
+
+16
+00:00:36,570 --> 00:00:38,332
+functions which would make sense to you.
+
+17
+00:00:39,323 --> 00:00:41,337
+After a short break, which you can use to
+
+18
+00:00:41,353 --> 00:00:43,660
+pause the video, we're going to extract more
+
+19
+00:00:43,790 --> 00:00:44,716
+logic together.
+
+20
+00:00:46,940 --> 00:00:47,197
+So
+
+21
+00:00:47,761 --> 00:00:49,967
+did you find functions you could extract?
+
+22
+00:00:50,740 --> 00:00:53,494
+I think one kind of function we could
+
+23
+00:00:53,494 --> 00:00:56,247
+extract is a function that deals only with
+
+24
+00:00:56,490 --> 00:00:59,784
+payments and a function that deals only with
+
+25
+00:01:00,155 --> 00:01:00,527
+refunds.
+
+26
+00:01:01,689 --> 00:01:02,723
+That's something we could do.
+
+27
+00:01:03,530 --> 00:01:04,336
+So we could add a new
+
+28
+00:01:05,078 --> 00:01:05,788
+function here
+
+29
+00:01:06,546 --> 00:01:07,240
+which we name
+
+30
+00:01:08,950 --> 00:01:09,595
+processPayments,
+
+31
+00:01:11,030 --> 00:01:11,677
+for example,
+
+32
+00:01:13,068 --> 00:01:15,770
+or processPayment because we're actually
+
+33
+00:01:15,835 --> 00:01:17,453
+working on a single transaction
+
+34
+00:01:18,893 --> 00:01:21,744
+where we then get our payment transaction as
+
+35
+00:01:21,942 --> 00:01:22,487
+an argument.
+
+36
+00:01:23,391 --> 00:01:26,091
+And we could grab this code here because we
+
+37
+00:01:26,091 --> 00:01:28,630
+still need to check which method was used
+
+38
+00:01:29,455 --> 00:01:31,299
+and put that into processPayment.
+
+39
+00:01:32,906 --> 00:01:35,021
+And because I used paymentTransaction as a
+
+40
+00:01:35,021 --> 00:01:37,442
+name here, I'm going to replace the
+
+41
+00:01:37,442 --> 00:01:39,346
+transaction variable here with
+
+42
+00:01:39,459 --> 00:01:40,476
+paymentTransaction.
+
+43
+00:01:41,803 --> 00:01:43,284
+Now we got this code down there,
+
+44
+00:01:43,919 --> 00:01:44,521
+and therefore here
+
+45
+00:01:45,220 --> 00:01:46,262
+we can call processPayment.
+
+46
+00:01:48,481 --> 00:01:50,197
+And forward the transaction.
+
+47
+00:01:52,213 --> 00:01:53,547
+And obviously we can do the same here
+
+48
+00:01:54,149 --> 00:01:54,913
+for our
+
+49
+00:01:55,531 --> 00:01:58,117
+other transaction type, for the refunds.
+
+50
+00:01:58,760 --> 00:01:59,426
+We can cut this
+
+51
+00:02:00,563 --> 00:02:01,685
+and add a new function
+
+52
+00:02:02,351 --> 00:02:02,578
+processRefund.
+
+53
+00:02:04,792 --> 00:02:07,891
+Here we get our refund transaction as a
+
+54
+00:02:07,939 --> 00:02:08,552
+parameter,
+
+55
+00:02:09,150 --> 00:02:11,425
+and in the function body we have these if
+
+56
+00:02:11,474 --> 00:02:11,974
+checks
+
+57
+00:02:12,604 --> 00:02:15,881
+and we work on the refund transaction. So
+
+58
+00:02:15,881 --> 00:02:17,524
+let's make sure that naming is right.
+
+59
+00:02:19,620 --> 00:02:20,475
+Now we got processRefund,
+
+60
+00:02:21,600 --> 00:02:23,193
+and hence we can call this here
+
+61
+00:02:23,644 --> 00:02:25,866
+processRefund
+
+62
+00:02:26,687 --> 00:02:27,959
+forward the transaction.
+
+63
+00:02:29,118 --> 00:02:31,582
+Now here we're logging an error, though with
+
+64
+00:02:31,614 --> 00:02:34,653
+the addition that we also have a transaction
+
+65
+00:02:34,831 --> 00:02:36,949
+here. So we don't just have a message, but
+
+66
+00:02:36,949 --> 00:02:39,196
+we also print the transaction which was the
+
+67
+00:02:39,196 --> 00:02:39,584
+problem.
+
+68
+00:02:40,182 --> 00:02:42,093
+And here we also have an error, though here
+
+69
+00:02:42,143 --> 00:02:43,001
+it's just a message.
+
+70
+00:02:44,203 --> 00:02:46,335
+Now we already have a showErrorMessage
+
+71
+00:02:46,752 --> 00:02:47,185
+function,
+
+72
+00:02:47,890 --> 00:02:49,974
+and we could now just tweak this a little
+
+73
+00:02:49,974 --> 00:02:53,196
+bit so that it does not just print a message
+
+74
+00:02:53,661 --> 00:02:55,376
+but also information about the,
+
+75
+00:02:55,905 --> 00:02:58,438
+let's say, item which was responsible for
+
+76
+00:02:58,470 --> 00:03:00,201
+the error. And we could therefore simply
+
+77
+00:03:00,393 --> 00:03:03,247
+print the message and then check if item is
+
+78
+00:03:03,519 --> 00:03:06,116
+set, so if it's not null,
+
+79
+00:03:07,030 --> 00:03:09,434
+and then also console.log the item, for
+
+80
+00:03:09,434 --> 00:03:09,947
+example.
+
+81
+00:03:10,898 --> 00:03:13,768
+So that we console.log both the message and
+
+82
+00:03:13,962 --> 00:03:14,365
+the item.
+
+83
+00:03:15,333 --> 00:03:16,994
+And that's the JavaScript way of doing it.
+
+84
+00:03:17,575 --> 00:03:20,252
+This check is important because item might
+
+85
+00:03:20,252 --> 00:03:20,639
+not be set.

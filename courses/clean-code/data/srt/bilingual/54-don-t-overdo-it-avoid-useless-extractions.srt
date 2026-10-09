@@ -1,0 +1,784 @@
+1
+00:00:02,341 --> 00:00:04,666
+Now with all the splitting up we did and
+現在我們分手了
+
+2
+00:00:04,747 --> 00:00:07,329
+with all the reasons we have or we might
+出於我們擁有或可能的所有原因
+
+3
+00:00:07,329 --> 00:00:09,558
+have for splitting up a function and
+用於分割函式且
+
+4
+00:00:09,558 --> 00:00:10,664
+shrinking functions,
+縮小功能，
+
+5
+00:00:11,242 --> 00:00:13,246
+there's one important thing though. You
+不過有一件重要的事情。你
+
+6
+00:00:13,246 --> 00:00:16,149
+should still always use your common sense.
+仍然應該始終使用您的常識。
+
+7
+00:00:17,015 --> 00:00:19,581
+You should still always question whether
+你仍然應該始終質疑是否
+
+8
+00:00:19,581 --> 00:00:22,452
+it's now really improving readability and
+現在它確實提高了可讀性
+
+9
+00:00:22,628 --> 00:00:25,499
+maintainability if you split a function.
+如果拆分函式，則可維護性。
+
+10
+00:00:26,237 --> 00:00:28,549
+You should split your functions reasonably,
+你應該合理地劃分你的職能，
+
+11
+00:00:28,661 --> 00:00:30,235
+at least that is my opinion.
+至少我是這麼認為的。
+
+12
+00:00:30,909 --> 00:00:32,659
+You learned all these different rules and
+你學習了所有這些不同的規則並且
+
+13
+00:00:32,739 --> 00:00:35,950
+concepts like the level of abstraction and
+抽象層級等概念
+
+14
+00:00:36,046 --> 00:00:38,422
+these rules of thumb and that you should
+這些經驗法則，你應該
+
+15
+00:00:38,438 --> 00:00:39,048
+stay DRY,
+保持乾燥，
+
+16
+00:00:39,899 --> 00:00:42,917
+but just blindly following all these rules
+但只是盲目地遵循所有這些規則
+
+17
+00:00:43,350 --> 00:00:46,962
+bears the danger of becoming too granular.
+存在變得過於細化的危險。
+
+18
+00:00:47,765 --> 00:00:50,253
+And just because you are granular and you
+只因為你是細粒度的並且你
+
+19
+00:00:50,253 --> 00:00:53,705
+split your code won't automatically improve
+拆分你的程式碼不會自動改進
+
+20
+00:00:53,769 --> 00:00:56,416
+readability of your code. Indeed, the
+程式碼的可讀性。確實，
+
+21
+00:00:56,497 --> 00:00:57,922
+opposite might be the case.
+情況可能恰恰相反。
+
+22
+00:00:59,220 --> 00:01:02,376
+So make reasonable decisions and don't split
+所以做出合理的決定，不要分裂
+
+23
+00:01:02,376 --> 00:01:05,228
+your code if you are, for example, just
+你的程式碼，例如，如果你只是
+
+24
+00:01:05,244 --> 00:01:08,096
+renaming the operation which you extracted.
+重命名您提取的操作。
+
+25
+00:01:08,689 --> 00:01:11,396
+Don't split if finding the code which you
+如果找到您想要的程式碼，請不要拆分
+
+26
+00:01:11,396 --> 00:01:13,639
+extracted will then actually take longer
+提取實際上會花費更長的時間
+
+27
+00:01:13,816 --> 00:01:15,834
+than if you would've just left it in place
+比你把它留在原處更好
+
+28
+00:01:16,219 --> 00:01:18,029
+because we need to scroll to that new
+因為我們需要滾動到新的
+
+29
+00:01:18,125 --> 00:01:19,647
+function or search for it.
+功能或搜尋它。
+
+30
+00:01:20,689 --> 00:01:23,316
+And a good sign for that you shouldn't split
+這是一個好兆頭，表示你不應該分手
+
+31
+00:01:23,733 --> 00:01:26,570
+is if you have problems coming up with a
+如果你在想出一個問題時遇到問題
+
+32
+00:01:26,570 --> 00:01:29,091
+name for the new extracted function.
+新提取的函式的名稱。
+
+33
+00:01:29,926 --> 00:01:32,222
+If you feel like any name you give it is
+如果你覺得你給的任何名字都是
+
+34
+00:01:32,318 --> 00:01:34,390
+clashing with the name of the function you
+與您的函式名稱衝突
+
+35
+00:01:34,438 --> 00:01:35,915
+extracted the code from,
+從中提取程式碼，
+
+36
+00:01:36,509 --> 00:01:39,046
+then extracting the code might've been a bad
+那麼提取程式碼可能會很糟糕
+
+37
+00:01:39,078 --> 00:01:39,576
+idea.
+主意。
+
+38
+00:01:40,507 --> 00:01:42,322
+And I got an example for this as well.
+我也有一個例子。
+
+39
+00:01:43,076 --> 00:01:45,453
+Consider this saveUser function here.
+考慮這裡的 saveUser 函式。
+
+40
+00:01:46,625 --> 00:01:48,857
+You could definitely argue that we have
+你絕對可以說我們有
+
+41
+00:01:48,953 --> 00:01:50,832
+mixed levels of abstraction here.
+這裡有混合的抽象層次。
+
+42
+00:01:51,506 --> 00:01:53,705
+Having this user object, which I create like
+擁有我創建的這個使用者物件
+
+43
+00:01:53,769 --> 00:01:56,706
+this, is on a different level of abstraction
+這是不同的抽象層次
+
+44
+00:01:57,043 --> 00:02:00,093
+than calling insert on this database object.
+而不是在此資料庫物件上呼叫插入。
+
+45
+00:02:01,312 --> 00:02:03,046
+So you could split this
+所以你可以把這個分開
+
+46
+00:02:03,944 --> 00:02:06,817
+and add a new function which you could name
+並新增一個您可以命名的新函式
+
+47
+00:02:06,930 --> 00:02:07,764
+buildUser.
+建構使用者。
+
+48
+00:02:08,695 --> 00:02:10,798
+This takes an email and a password
+這需要電子郵件和密碼
+
+49
+00:02:11,825 --> 00:02:13,927
+and then returns this object here.
+然後在這裡回傳這個物件。
+
+50
+00:02:14,473 --> 00:02:17,666
+So I cut this object and return it here And
+所以我剪切了這個物件並將其回傳這裡並且
+
+51
+00:02:17,682 --> 00:02:21,176
+then here I just call buildUser and forward
+然後在這裡我只是調用 buildUser 並轉發
+
+52
+00:02:21,176 --> 00:02:22,459
+the email and the password
+電子郵件和密碼
+
+53
+00:02:23,388 --> 00:02:26,402
+so that saving a user now is a combination
+所以現在拯救使用者是一個組合
+
+54
+00:02:26,402 --> 00:02:28,950
+of building a user and inserting a user,
+建立使用者並插入使用者，
+
+55
+00:02:29,447 --> 00:02:32,380
+which is, I would argue, on the same level
+我認為，這是在同一水平上
+
+56
+00:02:32,428 --> 00:02:33,518
+of abstraction again.
+再次抽象。
+
+57
+00:02:34,736 --> 00:02:36,211
+So this is a split we could make.
+所以這是我們可以做出的分割。
+
+58
+00:02:36,836 --> 00:02:39,240
+It's not horrible, but in my personal
+這並不可怕，但就我個人而言
+
+59
+00:02:39,240 --> 00:02:41,773
+opinion, it doesn't really help with
+意見，這並沒有真正幫助
+
+60
+00:02:41,805 --> 00:02:44,337
+readability too much. It doesn't really
+可讀性太強了。事實並非如此
+
+61
+00:02:44,369 --> 00:02:45,379
+improve the code.
+改行程式碼。
+
+62
+00:02:46,358 --> 00:02:49,648
+Indeed, I would argue that we can check 2 of
+事實上，我認為我們可以檢查其中的 2 個
+
+63
+00:02:49,648 --> 00:02:52,425
+these 3 indicators at the bottom of this
+這 3 個指標位於底部
+
+64
+00:02:52,569 --> 00:02:52,922
+slide.
+滑動。
+
+65
+00:02:53,998 --> 00:02:56,710
+In the end, we just renamed the operation.
+最後，我們只是重新命名了該操作。
+
+66
+00:02:57,593 --> 00:03:00,225
+Previously, we created a new object which
+之前，我們創建了一個新物件
+
+67
+00:03:00,337 --> 00:03:03,515
+was a user object, as was clearly indicated
+是一個使用者物件，正如明確指出的那樣
+
+68
+00:03:03,772 --> 00:03:05,409
+by that name of this variable.
+透過該變數的名稱。
+
+69
+00:03:05,955 --> 00:03:08,731
+Because we used proper naming there, it was
+因為我們在那裡使用了正確的命名，所以
+
+70
+00:03:08,908 --> 00:03:10,994
+easy to understand what this object is
+很容易理解這個物件是什麼
+
+71
+00:03:10,994 --> 00:03:11,299
+about.
+關於。
+
+72
+00:03:12,359 --> 00:03:15,152
+Now I outsourced this code into a function
+現在我將此程式碼外包到一個函式中
+
+73
+00:03:15,184 --> 00:03:17,994
+called buildUser. So in the end, that's just
+稱為建置使用者。所以最後，這只是
+
+74
+00:03:18,074 --> 00:03:20,643
+renaming the operation, which was obvious
+重命名該操作，這很明顯
+
+75
+00:03:20,643 --> 00:03:23,581
+before as well, without too much thinking.
+之前也是這樣，沒有太多思考。
+
+76
+00:03:24,496 --> 00:03:27,354
+In addition, it is quite difficult to come
+另外，前來也相當困難
+
+77
+00:03:27,451 --> 00:03:29,843
+up with a good name for this new function.
+為這個新函式取一個好名字。
+
+78
+00:03:31,224 --> 00:03:32,685
+I named it buildUser.
+我將其命名為 buildUser。
+
+79
+00:03:33,327 --> 00:03:35,639
+Now you could argue that createUser would be
+現在你可能會說 createUser 會是
+
+80
+00:03:35,719 --> 00:03:38,368
+better, but this actually clashes with this
+更好，但這實際上與此衝突
+
+81
+00:03:38,368 --> 00:03:40,968
+function, which we have at the very top. Now
+函式，我們在最頂部。現在
+
+82
+00:03:41,016 --> 00:03:42,891
+you could of course argue that this function
+你當然可以說這個函式
+
+83
+00:03:42,891 --> 00:03:45,358
+should maybe be renamed and maybe you could
+也許應該重命名，也許你可以
+
+84
+00:03:45,438 --> 00:03:45,919
+do that.
+這樣做。
+
+85
+00:03:46,464 --> 00:03:46,848
+But still,
+但仍然，
+
+86
+00:03:47,425 --> 00:03:49,379
+I am struggling with coming up with a good
+我正在努力想出一個好的辦法
+
+87
+00:03:49,444 --> 00:03:52,488
+name down there. buildUser, createUser, in
+名字在下面。建構使用者，創建使用者，在
+
+88
+00:03:52,552 --> 00:03:54,026
+the end, these are just synonyms
+最後，這些只是同義詞
+
+89
+00:03:54,554 --> 00:03:56,429
+and it is difficult to come up with a good
+很難想出一個好的
+
+90
+00:03:56,429 --> 00:03:59,201
+name here because we are just renaming the
+在這裡命名，因為我們只是重命名
+
+91
+00:03:59,217 --> 00:03:59,857
+operation.
+手術。
+
+92
+00:04:00,915 --> 00:04:03,671
+So this split here is one which you can
+所以這裡的這種分割是你可以的
+
+93
+00:04:03,703 --> 00:04:06,458
+make, which is not horrible, but which I
+製作，這並不可怕，但我
+
+94
+00:04:06,587 --> 00:04:09,310
+would argue will not really improve
+會說不會真正改善
+
+95
+00:04:09,310 --> 00:04:09,999
+readability.
+可讀性。
+
+96
+00:04:10,833 --> 00:04:13,321
+And if you do this a lot, you actually might
+如果你經常這樣做，你實際上可能會
+
+97
+00:04:13,321 --> 00:04:16,948
+have less readability and less clean code
+可讀性較差且程式碼不太乾淨
+
+98
+00:04:17,317 --> 00:04:18,361
+than if you don't do it.
+如果你不這樣做的話。
+
+99
+00:04:19,019 --> 00:04:21,105
+And of course, with experience, you'll get a
+當然，隨著經驗的積累，你會得到
+
+100
+00:04:21,105 --> 00:04:23,464
+better feeling for when to split and when
+更好地判斷何時分開以及何時分開
+
+101
+00:04:23,593 --> 00:04:24,203
+not to split.
+不分裂。
+
+102
+00:04:25,021 --> 00:04:27,188
+In general, of course, all the rules and
+當然，一般而言，所有規則和
+
+103
+00:04:27,284 --> 00:04:29,612
+guidelines and ideas I covered throughout
+我貫穿始終的指導方針和想法
+
+104
+00:04:29,612 --> 00:04:32,420
+this section still apply though, as you can
+不過，本節仍然適用，您可以
+
+105
+00:04:32,420 --> 00:04:34,667
+tell by all the examples you find in the
+透過您在中找到的所有範例來說明
+
+106
+00:04:34,732 --> 00:04:35,662
+rest of this code file.
+該程式碼檔案的其餘部分。
+
+107
+00:04:36,753 --> 00:04:39,332
+Now, if you would want to split this code
+現在，如果您想拆分此程式碼
+
+108
+00:04:39,541 --> 00:04:42,313
+and not have mixed levels of abstraction in
+並且沒有混合的抽象級別
+
+109
+00:04:42,361 --> 00:04:45,165
+saveUser, you could, for example, come up
+saveUser，例如，您可以出現
+
+110
+00:04:45,165 --> 00:04:46,575
+with a better solution
+有更好的解決方案
+
+111
+00:04:47,152 --> 00:04:50,453
+where you utilize a new user class, let's
+當您使用新的使用者類別時，讓我們
+
+112
+00:04:50,453 --> 00:04:50,725
+say,
+說，
+
+113
+00:04:51,574 --> 00:04:54,266
+which takes an email and password
+需要電子郵件和密碼
+
+114
+00:04:54,298 --> 00:04:55,067
+constructor
+建構函式
+
+115
+00:04:55,901 --> 00:04:58,513
+where you then store email and password.
+然後您可以在其中儲存電子郵件和密碼。
+
+116
+00:04:59,105 --> 00:05:01,861
+And this again, of course, is a JavaScript
+當然，這又是一個 JavaScript
+
+117
+00:05:01,910 --> 00:05:05,070
+example, but You could apply this concept in
+例如，但你可以應用這個概念
+
+118
+00:05:05,198 --> 00:05:06,419
+any programming language.
+任何程式語言。
+
+119
+00:05:07,270 --> 00:05:09,164
+And then you could have a save method here
+然後你可以在這裡有一個儲存方法
+
+120
+00:05:09,775 --> 00:05:10,770
+in this User class
+在這個使用者類別中
+
+121
+00:05:11,380 --> 00:05:14,399
+in which you call database.insert,
+在其中調用database.insert，
+
+122
+00:05:15,234 --> 00:05:18,108
+or you restructure the data which should be
+或者你重構應該是的資料
+
+123
+00:05:18,108 --> 00:05:20,019
+inserted inside of this method.
+插入此方法內部。
+
+124
+00:05:20,998 --> 00:05:23,953
+And with such a class being added, you could
+添加這樣一個類別後，您可以
+
+125
+00:05:23,985 --> 00:05:26,795
+rewrite this down there to simply create a
+在那裡重寫它以簡單地創建一個
+
+126
+00:05:26,859 --> 00:05:28,577
+user by calling newUser
+透過呼叫 newUser 來取得使用者
+
+127
+00:05:29,123 --> 00:05:31,257
+and forwarding the email and the password.
+並轉發電子郵件和密碼。
+
+128
+00:05:32,011 --> 00:05:34,290
+And then on that user, you could simply call
+然後在該使用者上，您可以簡單地調用
+
+129
+00:05:34,498 --> 00:05:34,867
+save.
+節省。
+
+130
+00:05:35,846 --> 00:05:38,205
+Now this would be on the same level of
+現在這將處於同一水平
+
+131
+00:05:38,205 --> 00:05:39,280
+extraction in the end.
+最後提取。
+
+132
+00:05:39,874 --> 00:05:42,554
+It would be one level below the save user
+它將比儲存使用者低一級
+
+133
+00:05:42,762 --> 00:05:43,533
+function name.
+函式名稱。
+
+134
+00:05:44,191 --> 00:05:46,582
+And now we actually did improve the code
+現在我們確實改進了程式碼
+
+135
+00:05:46,870 --> 00:05:49,775
+because now we didn't just make a useless
+因為現在我們不只是製造一個無用的東西
+
+136
+00:05:50,128 --> 00:05:53,113
+code extraction or code replacement, but
+程式碼提取或程式碼替換，但是
+
+137
+00:05:53,113 --> 00:05:56,001
+instead we restructured the logic and we
+相反，我們重組了邏輯
+
+138
+00:05:56,065 --> 00:05:58,970
+changed the place where we managed the user
+改變了我們管理使用者的地方
+
+139
+00:05:58,970 --> 00:06:01,470
+data. And the database insertion.
+資料。以及資料庫插入。
+
+140
+00:06:02,336 --> 00:06:04,899
+That's now all being done in this User
+現在這一切都在這個 User 中完成
+
+141
+00:06:04,899 --> 00:06:05,380
+class.
+班級。
+
+142
+00:06:05,941 --> 00:06:08,825
+So if you would want to refactor saveUser,
+所以如果你想重構 saveUser，
+
+143
+00:06:09,226 --> 00:06:12,879
+this could be the better approach than using
+這可能是比使用更好的方法
+
+144
+00:06:12,991 --> 00:06:15,427
+this extra function which we created before.
+我們之前創建的這個額外函式。
+
+145
+00:06:16,677 --> 00:06:19,096
+Of course, now in theory, you could also
+當然，現在理論上，你也可以
+
+146
+00:06:19,096 --> 00:06:21,948
+move further towards an object-oriented
+進一步走向物件導向
+
+147
+00:06:21,948 --> 00:06:24,512
+approach and you could add your validation
+方法，你可以加入你的驗證
+
+148
+00:06:24,592 --> 00:06:26,403
+logic inside of this class as well.
+這個類別內部的邏輯也是如此。
+
+149
+00:06:27,076 --> 00:06:29,384
+But that would then be more a question of
+但這更多是一個問題
+
+150
+00:06:29,400 --> 00:06:32,029
+your general architecture and where you
+您的整體架構以及您所在的位置
+
+151
+00:06:32,125 --> 00:06:34,673
+wanna have which code. It's then only
+想要哪個程式碼。那就只有
+
+152
+00:06:34,770 --> 00:06:38,200
+related to clean code to a certain extent. I
+在一定程度上與乾淨的程式碼有關。我
+
+153
+00:06:38,232 --> 00:06:40,941
+just wanted to bring this up here to show
+只是想把這個帶到這裡來展示
+
+154
+00:06:41,021 --> 00:06:43,441
+you that this can also be a way of
+你認為這也可以是一種方式
+
+155
+00:06:43,441 --> 00:06:46,198
+refactoring this so that you don't have to
+重構這個，這樣你就不必
+
+156
+00:06:46,198 --> 00:06:48,698
+make a split which might not make too much
+進行分割，可能不會賺太多
+
+157
+00:06:48,811 --> 00:06:49,099
+sense.
+感覺。

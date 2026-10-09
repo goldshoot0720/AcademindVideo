@@ -1,0 +1,614 @@
+1
+00:00:00,032 --> 00:00:04,310
+Now, as a 3rd step, we now want to install
+現在，作為第三步，我們現在要安裝
+
+2
+00:00:04,663 --> 00:00:06,553
+and configure a firewall
+並設定防火牆
+
+3
+00:00:07,387 --> 00:00:10,143
+to be able to control which kind of traffic
+能夠控制哪種交通
+
+4
+00:00:10,512 --> 00:00:14,277
+can actually reach our VPS. Now, I will say
+實際上可以到達我們的VPS。現在，我要說的是
+
+5
+00:00:14,293 --> 00:00:17,210
+that many providers, including Hetzner,
+許多提供者，包括 Hetzner，
+
+6
+00:00:18,043 --> 00:00:19,998
+make it very easy for you to set up a
+讓您輕鬆設定
+
+7
+00:00:19,998 --> 00:00:20,511
+firewall.
+防火牆。
+
+8
+00:00:21,408 --> 00:00:23,235
+On Hetzner, for example, if you click on
+例如，在 Hetzner 上，如果您單擊
+
+9
+00:00:23,267 --> 00:00:25,238
+your server, you can manage it and there is
+您的伺服器，您可以管理它並且有
+
+10
+00:00:25,334 --> 00:00:26,119
+a firewalls.
+防火牆。
+
+11
+00:00:26,712 --> 00:00:27,145
+Point here.
+點這裡。
+
+12
+00:00:28,059 --> 00:00:29,935
+And it's similar for EC2.
+EC2 也類似。
+
+13
+00:00:30,704 --> 00:00:32,853
+If you launch an EC2 instance already,
+如果您已啟動 EC2 執行個體，
+
+14
+00:00:33,029 --> 00:00:35,691
+actually, you can create a so-called
+實際上，你可以創造一個所謂的
+
+15
+00:00:35,691 --> 00:00:38,111
+security group, which is in the end also a
+安全群組，歸根究底也是一個
+
+16
+00:00:38,111 --> 00:00:41,366
+kind of firewall, which as a default already
+一種防火牆，預設已經
+
+17
+00:00:41,607 --> 00:00:45,022
+only allows SSH traffic but has no other
+只允許 SSH 流量，但沒有其他流量
+
+18
+00:00:45,054 --> 00:00:47,186
+rules. You can tick some here and you can
+規則。你可以在這裡勾選一些，然後你就可以
+
+19
+00:00:47,378 --> 00:00:49,960
+add more once you finished setting it up.
+設定完成後添加更多。
+
+20
+00:00:51,402 --> 00:00:53,871
+You can also manage your security groups
+您也可以管理您的安全群組
+
+21
+00:00:53,952 --> 00:00:55,491
+after you created them.
+在你創建它們之後。
+
+22
+00:00:56,292 --> 00:00:58,216
+And in such a security group,
+而在這樣的安全群組裡，
+
+23
+00:00:58,761 --> 00:01:01,005
+you can edit your inbound rules, for
+您可以編輯您的入站規則，例如
+
+24
+00:01:01,005 --> 00:01:04,035
+example, and add new rules to control which
+範例，並新增規則來控制哪些
+
+25
+00:01:04,131 --> 00:01:06,680
+kind of traffic on which port is able to
+連接埠能夠傳輸的流量型別
+
+26
+00:01:06,712 --> 00:01:09,261
+reach the server technically. So that's a
+從技術上到達伺服器。所以這是一個
+
+27
+00:01:09,357 --> 00:01:12,050
+great security mechanism. And Hetzner, as
+很棒的安全機制。和赫茲納一樣
+
+28
+00:01:12,146 --> 00:01:14,150
+mentioned, has something similar. You could
+提到過，有類似的東西。你可以
+
+29
+00:01:14,150 --> 00:01:16,458
+create a firewall here and could control
+在這裡建立防火牆並可以控制
+
+30
+00:01:16,474 --> 00:01:19,039
+which kind of traffic can reach it. And I'll
+什麼樣的流量可以到達它。我會
+
+31
+00:01:19,039 --> 00:01:21,379
+get back to that because using that
+回到那個因為使用那個
+
+32
+00:01:21,379 --> 00:01:23,816
+provider, provided firewall
+提供者，提供防火牆
+
+33
+00:01:24,649 --> 00:01:26,989
+is actually a good idea. But I'm also
+實際上是個好主意。但我也是
+
+34
+00:01:26,989 --> 00:01:29,264
+showing you the approach that does not rely
+向您展示不依賴的方法
+
+35
+00:01:29,392 --> 00:01:31,411
+on it because you may not be using a
+因為你可能沒有使用
+
+36
+00:01:31,475 --> 00:01:33,318
+provider that offers this feature.
+提供此功能的提供者。
+
+37
+00:01:34,504 --> 00:01:38,286
+In that case, you may wanna use the UFW
+在這種情況下，你可能會想使用 UFW
+
+38
+00:01:38,671 --> 00:01:40,530
+firewall, which should already be
+防火牆，應該已經是
+
+39
+00:01:40,530 --> 00:01:42,228
+pre-installed on Ubuntu.
+預裝在 Ubuntu 上。
+
+40
+00:01:42,757 --> 00:01:44,888
+If it's not installed, you can use your
+如果未安裝，您可以使用您的
+
+41
+00:01:45,000 --> 00:01:49,151
+package manager, apt on Ubuntu, and install
+軟體套件管理器，Ubuntu 上的 apt，然後安裝
+
+42
+00:01:49,808 --> 00:01:50,400
+ufw.
+UFW。
+
+43
+00:01:51,586 --> 00:01:53,765
+Now, that will fail if you're trying to do
+現在，如果你想這樣做，那將會失敗
+
+44
+00:01:53,765 --> 00:01:56,649
+it as a user because installing tools like
+它作為使用者，因為安裝類似的工具
+
+45
+00:01:56,713 --> 00:01:59,934
+that requires root access. And for getting
+這需要 root 存取權限。並且為了得到
+
+46
+00:01:59,998 --> 00:02:02,866
+that access, you can add sudo in front of
+那個訪問，可以在前面加上sudo
+
+47
+00:02:02,866 --> 00:02:05,205
+the command you want to execute. And since
+您要執行的命令。自從
+
+48
+00:02:05,205 --> 00:02:07,817
+we added the user to the sudo group earlier,
+我們之前將使用者新增到 sudo 群組，
+
+49
+00:02:08,234 --> 00:02:11,022
+this now will prompt us for the password of
+現在將提示我們輸入密碼
+
+50
+00:02:11,054 --> 00:02:13,104
+that user. And if you enter that, it will
+那個使用者。如果你輸入它，它就會
+
+51
+00:02:13,152 --> 00:02:15,348
+now run the command with elevated
+現在使用提升的命令運行命令
+
+52
+00:02:15,460 --> 00:02:18,187
+privileges, so with root user access,
+權限，因此具有 root 使用者存取權限，
+
+53
+00:02:18,412 --> 00:02:20,726
+temporary root user access. That is
+臨時 root 使用者存取權限。那是
+
+54
+00:02:20,758 --> 00:02:22,702
+important. You still needed that password.
+重要的。您仍然需要該密碼。
+
+55
+00:02:23,071 --> 00:02:24,372
+That's the security mechanism.
+這就是安全機制。
+
+56
+00:02:25,031 --> 00:02:27,071
+So here, however, it didn't install anything
+但是，這裡並沒有安裝任何東西
+
+57
+00:02:27,103 --> 00:02:28,662
+because I already had UFW.
+因為我已經有UFW了。
+
+58
+00:02:29,433 --> 00:02:29,545
+Now
+現在
+
+59
+00:02:30,139 --> 00:02:33,288
+UFW stands for Uncomplicated Firewall, and
+UFW 代表簡單防火牆，並且
+
+60
+00:02:33,288 --> 00:02:35,344
+that is an appropriate name because it is
+這是一個合適的名字，因為它是
+
+61
+00:02:35,521 --> 00:02:36,758
+pretty straightforward to use.
+使用起來非常簡單。
+
+62
+00:02:37,609 --> 00:02:39,730
+For example, you want to use it to allow
+例如，您想用它來允許
+
+63
+00:02:40,340 --> 00:02:41,336
+OpenSSH,
+打開SSH，
+
+64
+00:02:41,883 --> 00:02:43,618
+which simply allows SSH
+它只允許 SSH
+
+65
+00:02:44,356 --> 00:02:47,467
+access to this server. Again, we need root
+訪問此伺服器。再次強調，我們需要 root
+
+66
+00:02:47,643 --> 00:02:50,289
+user access to run this command, so we wanna
+使用者有權運行此命令，所以我們想要
+
+67
+00:02:50,386 --> 00:02:51,749
+prepend it with sudo.
+在其前面加上 sudo。
+
+68
+00:02:52,951 --> 00:02:56,094
+With that done, you wanna run sudo ufw
+完成後，你想運行 sudo ufw
+
+69
+00:02:56,704 --> 00:02:58,612
+enable. By the way, instead of always using
+使能夠。順便說一句，而不是總是使用
+
+70
+00:02:58,660 --> 00:03:00,696
+sudo here, you could of course also switch
+sudo 這裡，你當然也可以切換
+
+71
+00:03:00,809 --> 00:03:03,102
+to that terminal where you are connected as
+到您連接的那個終端機
+
+72
+00:03:03,150 --> 00:03:05,106
+a root user and run the same commands
+root 使用者並執行相同的命令
+
+73
+00:03:05,138 --> 00:03:06,261
+without sudo here.
+這裡沒有 sudo 。
+
+74
+00:03:06,902 --> 00:03:09,372
+But since knowing the concept of sudo is
+但既然知道了 sudo 的概念
+
+75
+00:03:09,372 --> 00:03:10,879
+important, I'll keep on doing this.
+重要的是，我會繼續這樣做。
+
+76
+00:03:12,113 --> 00:03:14,581
+Now, if you run this, this firewall will be
+現在，如果你運行這個，這個防火牆將會
+
+77
+00:03:14,581 --> 00:03:17,529
+enabled, and now you must make sure that you
+已啟用，現在您必須確保
+
+78
+00:03:17,721 --> 00:03:21,102
+did allow that SSH connection with that
+確實允許 SSH 連接
+
+79
+00:03:21,150 --> 00:03:23,586
+command I showed you before, with ufw allow
+我之前向您展示過的命令，使用 ufw allowed
+
+80
+00:03:23,794 --> 00:03:26,774
+open ssh. If you did not add that rule and
+打開 ssh。如果您沒有新增該規則且
+
+81
+00:03:26,774 --> 00:03:29,306
+you enable the firewall now, it will not
+你現在啟用防火牆，它不會
+
+82
+00:03:29,418 --> 00:03:32,094
+allow SSH traffic and it will cut your
+允許 SSH 流量，它會削減你的
+
+83
+00:03:32,142 --> 00:03:33,712
+connection, and there is no way of
+連接，並且沒有辦法
+
+84
+00:03:33,744 --> 00:03:35,811
+connecting back. You would have to reset
+連接回來。你必須重置
+
+85
+00:03:35,811 --> 00:03:38,279
+your server or shut it down, buy a new one,
+你的伺服器或關閉它，購買一個新的，
+
+86
+00:03:38,936 --> 00:03:42,068
+You can lock yourself out here if you're not
+如果你不喜歡的話，你可以把自己關在外面
+
+87
+00:03:42,148 --> 00:03:45,585
+allowing SSH connections. Make sure you ran
+允許 SSH 連線。確保你跑了
+
+88
+00:03:45,698 --> 00:03:47,239
+this command here first.
+這個指令先放在這裡。
+
+89
+00:03:48,091 --> 00:03:49,857
+If you did that, you can now enable,
+如果您這樣做了，您現在可以啟用，
+
+90
+00:03:50,516 --> 00:03:52,459
+enter Y and hit Enter to do so.
+輸入 Y 並按 Enter 鍵即可執行此操作。
+
+91
+00:03:53,246 --> 00:03:54,948
+And now it's active and I'm still connected.
+現在它處於活動狀態並且我仍然保持連線。
+
+92
+00:03:55,253 --> 00:03:56,956
+That's all looking good. And you can check
+這一切看起來都不錯。你可以檢查
+
+93
+00:03:57,020 --> 00:03:59,831
+that everything is fine by running sudo ufw
+運行 sudo ufw 一切都很好
+
+94
+00:04:00,650 --> 00:04:01,388
+status,
+地位，
+
+95
+00:04:02,818 --> 00:04:05,243
+status verbose to get even more information.
+狀態詳細以獲取更多資訊。
+
+96
+00:04:05,291 --> 00:04:07,138
+And with that, you get a nice table, a nice
+這樣，你就得到了一張漂亮的桌子，一張漂亮的桌子
+
+97
+00:04:07,202 --> 00:04:09,322
+overview where you see that
+概述您在哪裡看到的
+
+98
+00:04:10,109 --> 00:04:13,144
+SSH traffic is allowed. That is the port 22,
+允許 SSH 流量。也就是22號端口，
+
+99
+00:04:13,224 --> 00:04:15,536
+which is the default SSH port. And so any
+這是預設的 SSH 連接埠。所以任何
+
+100
+00:04:15,793 --> 00:04:18,185
+traffic on port 22 is allowed and that is
+允許連接埠 22 上的流量，即
+
+101
+00:04:18,298 --> 00:04:21,252
+the SSH port, typically the SSH traffic,
+SSH 端口，通常是 SSH 流量，
+
+102
+00:04:21,333 --> 00:04:22,681
+that's the port reserved for that.
+這是為此保留的連接埠。
+
+103
+00:04:23,340 --> 00:04:25,010
+And we're allowing incoming traffic.
+我們允許傳入流量。
+
+104
+00:04:25,925 --> 00:04:27,852
+No other traffic is allowed though.
+但不允許其他交通工具。
+
+105
+00:04:28,414 --> 00:04:31,031
+So if I were to grab my IP and enter that in
+所以如果我要獲取我的 IP 並將其輸入
+
+106
+00:04:31,063 --> 00:04:31,609
+the browser,
+瀏覽器，
+
+107
+00:04:32,428 --> 00:04:35,222
+nothing would happen because if I try to
+什麼都不會發生，因為如果我嘗試
+
+108
+00:04:35,238 --> 00:04:36,988
+visit a webpage like this in the browser,
+在瀏覽器中造訪這樣的網頁，
+
+109
+00:04:37,084 --> 00:04:41,372
+the browser will by default use port 443 for
+瀏覽器預設使用 443 端口
+
+110
+00:04:41,966 --> 00:04:46,526
+HTTPS traffic or port 80 for HTTP unsecured
+HTTPS 流量或 HTTP 的連接埠 80 不安全
+
+111
+00:04:46,622 --> 00:04:48,999
+traffic, but both is not allowed here.
+交通，但這裡不允許兩者。
+
+112
+00:04:49,689 --> 00:04:51,905
+That of course also means that if we were to
+這當然也意味著如果我們
+
+113
+00:04:52,002 --> 00:04:54,250
+run something else on that server, like a
+在該伺服器上運行其他東西，例如
+
+114
+00:04:54,266 --> 00:04:56,466
+web server that should be reachable via the
+應可透過以下方式存取的 Web 伺服器
+
+115
+00:04:56,498 --> 00:04:58,826
+World Wide Web, we have to open up that
+萬維網，我們必須開放它
+
+116
+00:04:58,826 --> 00:05:00,592
+respective port as well. But that's
+以及對應的連接埠。但那是
+
+117
+00:05:00,592 --> 00:05:02,439
+something I'll get back to later in the
+我稍後會再講到
+
+118
+00:05:02,439 --> 00:05:04,334
+course when I show you some concrete
+當然當我向你展示一些具體的東西時
+
+119
+00:05:04,366 --> 00:05:06,839
+examples for what you can do on such a VPS.
+有關您可以在此類 VPS 上執行哪些操作的範例。
+
+120
+00:05:07,579 --> 00:05:08,998
+But for the moment, we're done setting up
+但目前我們已經完成設置
+
+121
+00:05:09,062 --> 00:05:10,336
+the UFW firewall.
+UFW 防火牆。
+
+122
+00:05:11,206 --> 00:05:13,270
+As mentioned though, you might wanna
+正如前面提到的，你可能想要
+
+123
+00:05:13,318 --> 00:05:15,495
+consider using such a provider firewall.
+考慮使用這樣的提供者防火牆。

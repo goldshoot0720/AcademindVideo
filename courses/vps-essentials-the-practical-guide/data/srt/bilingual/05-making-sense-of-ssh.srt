@@ -1,0 +1,364 @@
+1
+00:00:00,176 --> 00:00:02,410
+So we have this SSH
+所以我們有這個 SSH
+
+2
+00:00:03,068 --> 00:00:06,908
+thing here. What exactly is that? SSH is
+這裡的事。那到底是什麼？ SSH 是
+
+3
+00:00:06,957 --> 00:00:09,805
+simply a protocol that can be used for
+只是一個可用來
+
+4
+00:00:09,904 --> 00:00:13,248
+connecting from one machine to another.
+從一台機器連接到另一台機器。
+
+5
+00:00:14,860 --> 00:00:17,884
+So that could be your machine, your MacBook,
+所以這可能是你的機器，你的 MacBook，
+
+6
+00:00:17,949 --> 00:00:20,197
+your Windows machine, whatever it is,
+你的 Windows 機器，無論它是什麼，
+
+7
+00:00:20,375 --> 00:00:20,941
+doesn't matter.
+沒關係。
+
+8
+00:00:22,090 --> 00:00:24,839
+And we also have our VPS, our remote server.
+我們還有我們的 VPS，我們的遠端伺服器。
+
+9
+00:00:25,066 --> 00:00:27,813
+It doesn't matter if it's a VPS or an entire
+無論是 VPS 還是整個伺服器都沒關係
+
+10
+00:00:27,813 --> 00:00:29,575
+computer you're renting, it's some remote
+您租用的計算機是遠端計算機
+
+11
+00:00:29,608 --> 00:00:29,802
+machine.
+機器。
+
+12
+00:00:30,666 --> 00:00:32,544
+You're trying to connect to that.
+你正試圖連接到那個。
+
+13
+00:00:33,266 --> 00:00:36,058
+So you're trying to connect to that remote
+所以您正在嘗試連接到該遙控器
+
+14
+00:00:36,058 --> 00:00:37,567
+machine, and you're trying to connect
+機器，並且您正在嘗試連接
+
+15
+00:00:37,567 --> 00:00:39,926
+because you want to manage that machine. You
+因為你想管理那台機器。你
+
+16
+00:00:40,135 --> 00:00:44,340
+want to do stuff like install software or
+想做一些事情，例如安裝軟體或
+
+17
+00:00:44,629 --> 00:00:46,041
+start a service.
+啟動一個服務。
+
+18
+00:00:46,731 --> 00:00:49,107
+So start your web service, your website
+所以啟動你的網路服務，你的網站
+
+19
+00:00:49,139 --> 00:00:51,065
+there, for example, so that it can be
+例如，這樣就可以
+
+20
+00:00:51,065 --> 00:00:53,777
+reached. Or maybe you want to read some log
+達到了。或者也許你想閱讀一些紀錄
+
+21
+00:00:53,793 --> 00:00:56,185
+files or anything like that. Maybe you want
+檔案或類似的東西。也許你想要
+
+22
+00:00:56,185 --> 00:00:57,822
+to configure something.
+設定某些東西。
+
+23
+00:00:58,914 --> 00:01:00,696
+You wanna connect to that server, and since
+你要連接到該伺服器，因為
+
+24
+00:01:00,696 --> 00:01:01,772
+it's not in your house,
+它不在你家裡，
+
+25
+00:01:02,607 --> 00:01:04,791
+you just can't go there. So you need to
+你就是不能去那裡。所以你需要
+
+26
+00:01:04,791 --> 00:01:08,612
+connect to that VPS from your machine, and
+從您的電腦連接到該 VPS，並且
+
+27
+00:01:08,709 --> 00:01:11,936
+that connection is established typically via
+該連接通常是透過
+
+28
+00:01:11,936 --> 00:01:13,349
+the terminal, the command line,
+終端機機、命令列、
+
+29
+00:01:13,927 --> 00:01:18,118
+and a protocol called SSH. So that is a
+以及一個名為 SSH 的協定。所以這是一個
+
+30
+00:01:18,118 --> 00:01:21,265
+protocol, and it stands for Secure
+協議，它代表安全
+
+31
+00:01:23,576 --> 00:01:26,046
+It's simply a secure terminal connection
+這只是一個安全的終端機連接
+
+32
+00:01:26,447 --> 00:01:29,030
+from your machine to that remote machine so
+從你的機器到遠端機器
+
+33
+00:01:29,030 --> 00:01:31,373
+that you can use your terminal on your
+您可以使用您的終端機
+
+34
+00:01:31,421 --> 00:01:33,651
+machine, your terminal, your command line
+機器、你的終端機機、你的命令列
+
+35
+00:01:33,683 --> 00:01:36,538
+there to access that remote machine. That is
+在那裡訪問該遠端機器。那是
+
+36
+00:01:36,587 --> 00:01:38,544
+the idea behind SSH and we'll see it in
+SSH 背後的想法，我們將在
+
+37
+00:01:38,720 --> 00:01:39,266
+action soon.
+盡快行動。
+
+38
+00:01:39,924 --> 00:01:42,715
+Now, how do you establish that connection in
+現在，您如何建立這種連接
+
+39
+00:01:42,747 --> 00:01:44,560
+a secure way though? Because of course only
+有安全的方法嗎？因為當然只是
+
+40
+00:01:44,736 --> 00:01:47,448
+you want to connect to the VPS, not anybody
+您想要連接到 VPS，而不是任何人
+
+41
+00:01:47,480 --> 00:01:47,833
+out there.
+在那裡。
+
+42
+00:01:48,699 --> 00:01:51,155
+So there are 2 main options here. The first
+所以這裡有兩個主要選項。第一個
+
+43
+00:01:51,236 --> 00:01:54,221
+option is to use username and password. So
+選項是使用使用者名稱和密碼。所以
+
+44
+00:01:54,285 --> 00:01:56,597
+just how you would log into websites, for
+只是您如何登入網站，
+
+45
+00:01:56,629 --> 00:01:57,608
+example. That is
+例子。那是
+
+46
+00:01:58,138 --> 00:02:00,048
+one way of establishing that connection.
+建立這種連接的一種方法。
+
+47
+00:02:00,963 --> 00:02:03,178
+The problem with this approach is
+這種方法的問題是
+
+48
+00:02:04,157 --> 00:02:06,998
+that it's not super secure. It's secure,
+它不是超級安全。這是安全的，
+
+49
+00:02:07,287 --> 00:02:07,705
+sure,
+當然，
+
+50
+00:02:08,267 --> 00:02:11,332
+but just as anywhere out there where you're
+但就像你所在的任何地方一樣
+
+51
+00:02:11,381 --> 00:02:14,093
+logging in with just username and password,
+僅使用使用者名稱和密碼登錄，
+
+52
+00:02:14,511 --> 00:02:17,559
+if your username is guessed or if you're
+如果您的使用者名被猜到或您
+
+53
+00:02:17,559 --> 00:02:19,676
+using a popular username like
+使用流行的使用者名，例如
+
+54
+00:02:20,205 --> 00:02:22,274
+root, which is not super hard to guess,
+根，這並不難猜，
+
+55
+00:02:22,867 --> 00:02:25,353
+and if your password is guessed or if there
+如果您的密碼猜到或有
+
+56
+00:02:25,497 --> 00:02:28,865
+was a breach and your password was exposed
+發生違規並且您的密碼被洩露
+
+57
+00:02:28,881 --> 00:02:30,693
+or found in some dataset,
+或在某些資料集中發現，
+
+58
+00:02:31,431 --> 00:02:31,656
+then
+然後
+
+59
+00:02:32,233 --> 00:02:35,456
+other people can log into your VPS with that
+其他人可以用它登入您的 VPS
+
+60
+00:02:35,456 --> 00:02:38,215
+username password combination. So it's not
+使用者名密碼組合。所以這不是
+
+61
+00:02:38,327 --> 00:02:40,524
+the best, not the most secure way of
+最好的方法，但不是最安全的方法
+
+62
+00:02:40,524 --> 00:02:41,839
+establishing the connection.
+建立連線。
+
+63
+00:02:42,738 --> 00:02:45,387
+That's why the second option is way more
+這就是為什麼第二個選項更重要
+
+64
+00:02:45,387 --> 00:02:47,700
+common and recommended. And that option is
+常見並推薦。這個選項是
+
+65
+00:02:47,956 --> 00:02:50,943
+all about using a so-called SSH key.
+所有關於使用所謂的 SSH 金鑰的內容。
+
+66
+00:02:51,890 --> 00:02:53,127
+And an SSH key
+和 SSH 金鑰
+
+67
+00:02:53,737 --> 00:02:56,595
+is in the end a combination of 2 keys, a
+最終是 2 個鍵的組合，一個
+
+68
+00:02:56,788 --> 00:03:00,143
+private key and a public key. And a key is
+私鑰和公鑰。關鍵是
+
+69
+00:03:00,320 --> 00:03:00,898
+really just
+真的只是
+
+70
+00:03:01,524 --> 00:03:04,720
+a random looking character combination.
+隨機的字元組合。
+
+71
+00:03:05,410 --> 00:03:07,770
+So let's next take a look at how exactly
+那接下來我們就來看看具體是怎樣的
+
+72
+00:03:07,802 --> 00:03:10,002
+these private and public key pairs are
+這些私鑰和公鑰對是
+
+73
+00:03:10,131 --> 00:03:12,635
+created and how these keys look like.
+創建以及這些鍵的外觀。

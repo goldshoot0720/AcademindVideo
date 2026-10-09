@@ -1,0 +1,484 @@
+1
+00:00:00,690 --> 00:00:03,968
+So we're making good progress here with this
+所以我們在這方面取得了良好的進展
+
+2
+00:00:03,968 --> 00:00:06,522
+demo app and we'll soon switch to another
+演示應用程式，我們很快就會切換到另一個
+
+3
+00:00:06,763 --> 00:00:09,526
+demo app. But before we do that, there's one
+演示應用程式。但在我們這樣做之前，有一個
+
+4
+00:00:09,815 --> 00:00:12,627
+other HTMX feature you should know about
+您應該了解的其他 HTMX 功能
+
+5
+00:00:12,627 --> 00:00:15,438
+because it can further simplify your code
+因為它可以進一步簡化你的程式碼
+
+6
+00:00:15,438 --> 00:00:17,912
+and come in handy in certain situations.
+並在某些情況下派上用場。
+
+7
+00:00:19,406 --> 00:00:22,426
+Some of these attributes like hx-target, for
+其中一些屬性如 hx-target，用於
+
+8
+00:00:22,426 --> 00:00:24,611
+example, but also hx-swap
+例如，還有 hx-swap
+
+9
+00:00:25,157 --> 00:00:28,674
+accept extra code. Configuration settings,
+接受額外的程式碼。設定設置，
+
+10
+00:00:28,947 --> 00:00:29,460
+you could say.
+你可以說。
+
+11
+00:00:30,375 --> 00:00:32,685
+And we'll take a look at the extra settings
+我們將看看額外的設置
+
+12
+00:00:32,878 --> 00:00:36,488
+you can make to hx-swap a little bit later.
+您可以稍後進行 hx-swap 。
+
+13
+00:00:36,553 --> 00:00:39,056
+For the moment, I wanna focus on hx-target
+目前，我想關注 hx-target
+
+14
+00:00:39,056 --> 00:00:39,473
+instead.
+反而。
+
+15
+00:00:40,725 --> 00:00:43,934
+Because hx-target, as you learned, takes
+因為正如您所知， hx-target 需要
+
+16
+00:00:43,934 --> 00:00:47,801
+such a CSS selector to select the target
+這樣的 CSS 選擇器來選擇目標
+
+17
+00:00:47,865 --> 00:00:50,208
+element in the currently active page, in the
+目前活動頁面中的元素
+
+18
+00:00:50,208 --> 00:00:51,459
+currently rendered DOM
+當前渲染的 DOM
+
+19
+00:00:52,037 --> 00:00:54,364
+that should be replaced with the response
+應替換為回應
+
+20
+00:00:54,364 --> 00:00:54,701
+content.
+內容。
+
+21
+00:00:55,748 --> 00:00:57,910
+However, what's important to note here
+不過，這裡要注意的是
+
+22
+00:00:58,491 --> 00:01:00,976
+is that you're not limited to specifying
+是你不限於指定
+
+23
+00:01:01,008 --> 00:01:02,654
+such a CSS selector.
+這樣的 CSS 選擇器。
+
+24
+00:01:03,364 --> 00:01:05,813
+It might be what you do in most scenarios,
+這可能是你在大多數情況下所做的，
+
+25
+00:01:06,247 --> 00:01:08,111
+but it's not the only thing you can do.
+但這並不是您唯一可以做的事情。
+
+26
+00:01:09,621 --> 00:01:12,048
+Instead, you can, for example, also use the
+相反，例如，您也可以使用
+
+27
+00:01:12,048 --> 00:01:15,412
+special this keyword here as a value for
+此處特殊 this 關鍵字作為值
+
+28
+00:01:15,493 --> 00:01:16,269
+hx-target.
+hx-目標。
+
+29
+00:01:17,514 --> 00:01:19,099
+And this simply tells
+這只是告訴
+
+30
+00:01:19,681 --> 00:01:20,522
+HTMX
+HTMX
+
+31
+00:01:21,055 --> 00:01:22,494
+that it's the element on which this
+它是 this 所在的元素
+
+32
+00:01:22,672 --> 00:01:26,035
+attribute was placed that should be replaced
+放置了應該替換的屬性
+
+33
+00:01:26,067 --> 00:01:27,584
+with the response content.
+與回應內容。
+
+34
+00:01:28,633 --> 00:01:31,198
+And that actually is the default of
+這實際上是預設的
+
+35
+00:01:31,295 --> 00:01:33,957
+HX-Target, so you typically don't need to
+HX-Target，因此您通常不需要
+
+36
+00:01:33,957 --> 00:01:34,620
+set that.
+設定那個。
+
+37
+00:01:35,250 --> 00:01:38,418
+You could just omit HX-Target instead, but
+您可以省略 HX-Target，但是
+
+38
+00:01:38,434 --> 00:01:40,277
+nonetheless, it's worth knowing about this.
+儘管如此，這一點還是值得了解的。
+
+39
+00:01:42,560 --> 00:01:45,989
+More useful is another variation of this
+更有用的是這個的另一個變體
+
+40
+00:01:46,054 --> 00:01:47,768
+HX-Target value though,
+HX-目標值，
+
+41
+00:01:48,319 --> 00:01:50,988
+because you can actually also use some
+因為你實際上也可以使用一些
+
+42
+00:01:51,069 --> 00:01:53,323
+commands here in HX-Target. And that's a
+HX-Target 中的指令。那是一個
+
+43
+00:01:53,323 --> 00:01:54,110
+feature that will come in handy
+會派上用場的功能
+
+44
+00:01:56,754 --> 00:01:59,532
+with the hx-target usage on this remove
+與此刪除中的 hx-target 用法
+
+45
+00:01:59,628 --> 00:01:59,933
+button.
+按鈕。
+
+46
+00:02:01,250 --> 00:02:03,659
+Because here I'm targeting the list item
+因為這裡我的目標是列表項
+
+47
+00:02:03,675 --> 00:02:06,565
+that should be removed with the ID, so with
+應該與 ID 一起刪除，因此
+
+48
+00:02:06,774 --> 00:02:09,889
+this ID that was assigned to the list item.
+指派給清單專案的此 ID。
+
+49
+00:02:11,029 --> 00:02:14,176
+Now that works, but we could also use the
+現在可以了，但我們也可以使用
+
+50
+00:02:14,722 --> 00:02:19,587
+closest command and then use a simpler CSS
+最接近的命令，然後使用更簡單的 CSS
+
+51
+00:02:19,652 --> 00:02:23,329
+selector like the list item tag selector to
+選擇器，如清單專案標籤選擇器
+
+52
+00:02:23,329 --> 00:02:28,071
+target the closest list item seen relative
+定位最接近的相對列表項
+
+53
+00:02:28,330 --> 00:02:29,206
+from this button.
+從這個按鈕。
+
+54
+00:02:31,357 --> 00:02:33,680
+If we would just use list item, we would
+如果我們只使用列表項，我們會
+
+55
+00:02:33,696 --> 00:02:36,439
+select the first list item on the entire
+選擇整個清單中的第一個專案
+
+56
+00:02:36,439 --> 00:02:39,713
+page, which is not necessarily the list item
+頁面，不一定是列表項
+
+57
+00:02:39,762 --> 00:02:42,250
+we wanna delete. But if we use the closest
+我們想刪除。但如果我們使用最接近的
+
+58
+00:02:42,250 --> 00:02:45,889
+command in front of this CSS selector, we
+在此 CSS 選擇器前面的命令，我們
+
+59
+00:02:46,051 --> 00:02:48,380
+actually select the closest list item
+實際上選擇最接近的列表項
+
+60
+00:02:48,720 --> 00:02:50,095
+relative from this button.
+相對於此按鈕。
+
+61
+00:02:51,249 --> 00:02:53,271
+And this doesn't have to be a tag selector
+這不一定是標籤選擇器
+
+62
+00:02:53,271 --> 00:02:54,765
+here. This could be anything,
+這裡。這可以是任何東西，
+
+63
+00:02:55,583 --> 00:02:56,274
+also some
+還有一些
+
+64
+00:02:56,868 --> 00:02:57,606
+ID selector.
+ID選擇器。
+
+65
+00:02:58,971 --> 00:03:02,230
+But by using closest li, we now actually no
+但是透過使用最近的 li，我們現在實際上沒有
+
+66
+00:03:02,326 --> 00:03:04,750
+longer need to assign such an ID to this
+不再需要為此分配這樣的ID
+
+67
+00:03:04,750 --> 00:03:07,367
+list item and we can get rid of that code
+列表項，我們可以刪除該程式碼
+
+68
+00:03:07,399 --> 00:03:07,817
+therefore.
+所以。
+
+69
+00:03:08,748 --> 00:03:12,007
+And hence we overall simplified this HTML
+因此我們總體上簡化了這個 HTML
+
+70
+00:03:12,055 --> 00:03:12,344
+code.
+程式碼。
+
+71
+00:03:13,564 --> 00:03:16,197
+And closest isn't the only command you can
+Closest 並不是您可以執行的唯一指令
+
+72
+00:03:16,213 --> 00:03:18,269
+use here. If you take a look at the
+使用這裡。如果你看一下
+
+73
+00:03:18,398 --> 00:03:20,132
+hx-target documentation,
+hx-目標文檔，
+
+74
+00:03:20,710 --> 00:03:23,570
+you see that you could also use find in
+你會發現你也可以使用 find in
+
+75
+00:03:23,618 --> 00:03:26,525
+front of a CSS selector, for example, to
+CSS 選擇器的前面，例如
+
+76
+00:03:26,894 --> 00:03:30,171
+find a child element, the first child
+找一個子元素，第一個子元素
+
+77
+00:03:30,267 --> 00:03:33,560
+element with that CSS selector inside of the
+包含該 CSS 選擇器的元素
+
+78
+00:03:33,560 --> 00:03:36,194
+element on which the hx-target attribute was
+hx-target 屬性所在的元素
+
+79
+00:03:36,371 --> 00:03:36,628
+placed.
+放置。
+
+80
+00:03:37,576 --> 00:03:39,808
+You could also just use the next command
+您也可以只使用下一個指令
+
+81
+00:03:40,322 --> 00:03:43,629
+without any CSS selector to simply select
+無需任何 CSS 選擇器即可簡單選擇
+
+82
+00:03:43,629 --> 00:03:46,979
+the next sibling after the element on which
+其上的元素之後的下一個同級元素
+
+83
+00:03:47,123 --> 00:03:50,650
+hx-target was placed and so on. So you have
+hx-target 被放置等等。所以你有
+
+84
+00:03:50,650 --> 00:03:54,032
+these extra commands, closest, find, next,
+這些額外的命令，最接近，查找，下一個，
+
+85
+00:03:54,176 --> 00:03:57,798
+and so on to control which exact element
+等等來控制哪個確切的元素
+
+86
+00:03:57,798 --> 00:04:00,219
+should be selected. And this sometimes
+應該被選。而這有時
+
+87
+00:04:00,267 --> 00:04:02,014
+allows you to write simpler code
+允許您編寫更簡單的程式碼
+
+88
+00:04:02,607 --> 00:04:04,659
+than you would have to write without these
+比沒有這些你必須寫的
+
+89
+00:04:04,691 --> 00:04:07,945
+commands. Like here where we were able to
+命令。就像在這裡我們能夠
+
+90
+00:04:07,961 --> 00:04:10,477
+get rid of that unnecessary goal ID in the
+刪除不必要的目標 ID
+
+91
+00:04:10,525 --> 00:04:10,621
+end.
+結尾。
+
+92
+00:04:12,290 --> 00:04:14,601
+And therefore here, if we save these
+因此在這裡，如果我們儲存這些
+
+93
+00:04:14,858 --> 00:04:15,243
+changes,
+變化，
+
+94
+00:04:16,062 --> 00:04:18,549
+I can still click remove and it's still the
+我仍然可以單擊“刪除”，但它仍然是
+
+95
+00:04:18,549 --> 00:04:19,978
+right item that is removed,
+被刪除的正確專案，
+
+96
+00:04:20,571 --> 00:04:22,866
+but now we actually achieved that with
+但現在我們實際上實現了這一點
+
+97
+00:04:23,059 --> 00:04:24,712
+leaner and simpler code.
+更簡潔的程式碼。

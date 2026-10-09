@@ -1,0 +1,729 @@
+1
+00:00:02,439 --> 00:00:05,168
+So by now, we learned about the difference
+現在我們已經了解了其中的區別
+
+2
+00:00:05,168 --> 00:00:05,955
+between real
+真實之間
+
+3
+00:00:06,693 --> 00:00:09,646
+objects and data containers, and we learned
+物件和資料容器，我們了解到
+
+4
+00:00:09,646 --> 00:00:12,712
+that polymorphism is one important aspect
+多態性是一個重要方面
+
+5
+00:00:12,712 --> 00:00:15,248
+that we can keep in mind when we work with
+我們在合作時可以牢記這一點
+
+6
+00:00:15,265 --> 00:00:18,379
+classes to avoid code duplication and
+類別以避免程式碼重複和
+
+7
+00:00:18,491 --> 00:00:21,155
+therefore to stay DRY, which ultimately is a
+因此要保持乾燥，這最終是
+
+8
+00:00:21,220 --> 00:00:23,435
+part of writing clean, readable, and
+寫作的一部分乾淨，可讀，並且
+
+9
+00:00:23,531 --> 00:00:24,350
+maintainable code.
+可維護的程式碼。
+
+10
+00:00:25,072 --> 00:00:27,528
+Now I wanna have a closer look at classes in
+現在我想仔細看看課程
+
+11
+00:00:27,624 --> 00:00:30,610
+general, no matter if we use polymorphism or
+一般來說，無論我們使用多態性或
+
+12
+00:00:30,610 --> 00:00:33,304
+not. How do you write clean classes in
+不是。你如何寫乾淨的類別
+
+13
+00:00:33,400 --> 00:00:33,961
+general?
+一般的？
+
+14
+00:00:34,682 --> 00:00:37,295
+Let's say you're writing some new class for
+假設您正在編寫一些新課程
+
+15
+00:00:37,503 --> 00:00:40,261
+whichever data entity you might have and how
+無論您擁有哪種資料實體以及如何
+
+16
+00:00:40,389 --> 00:00:41,800
+should you now write this class?
+現在應該寫這門課嗎？
+
+17
+00:00:43,114 --> 00:00:45,647
+Well, clean classes should be small,
+嗯，乾淨的班級應該是小班，
+
+18
+00:00:46,224 --> 00:00:48,292
+just like functions in the end.
+就像最後的函式一樣。
+
+19
+00:00:49,029 --> 00:00:52,027
+You typically should prefer multiple smaller
+您通常應該喜歡多個較小的
+
+20
+00:00:52,235 --> 00:00:55,425
+classes over a few large classes.
+幾個大班的班級。
+
+21
+00:00:56,499 --> 00:00:58,727
+And of course, that is very similar to what
+當然，這與
+
+22
+00:00:58,727 --> 00:01:00,074
+we learned about functions.
+我們學習了函式。
+
+23
+00:01:00,651 --> 00:01:03,104
+Clean functions also should be
+乾淨的功能也應該是
+
+24
+00:01:03,937 --> 00:01:06,166
+they should be short, they should be focused
+它們應該簡短，應該集中
+
+25
+00:01:06,262 --> 00:01:09,902
+on one thing, as you learned, to ensure that
+正如您所了解到的，在一件事上，確保
+
+26
+00:01:09,902 --> 00:01:12,803
+not too many lines of code are in one
+一行程式碼不多
+
+27
+00:01:12,932 --> 00:01:15,705
+function and to ensure that they are always
+功能並確保它們始終處於
+
+28
+00:01:16,122 --> 00:01:17,790
+easy to comprehend and read.
+易於理解和閱讀。
+
+29
+00:01:18,688 --> 00:01:20,900
+And it's the same here for classes now.
+現在這裡的課程也是如此。
+
+30
+00:01:21,493 --> 00:01:23,898
+However, there is an important difference
+然而，有一個重要的區別
+
+31
+00:01:24,155 --> 00:01:27,169
+when we define what small means exactly.
+當我們定義“小”的確切含義時。
+
+32
+00:01:27,826 --> 00:01:31,001
+With functions, we had the concept of a
+有了函式，我們就有了一個概念
+
+33
+00:01:31,129 --> 00:01:32,524
+function doing one thing. Thing,
+函式做一件事。事物，
+
+34
+00:01:33,118 --> 00:01:35,718
+with classes, we have a related yet
+對於課程，我們還有一個相關的
+
+35
+00:01:35,862 --> 00:01:36,905
+different concept.
+不同的概念。
+
+36
+00:01:37,531 --> 00:01:40,484
+Classes should have a single responsibility.
+類別應該有單一的職責。
+
+37
+00:01:41,544 --> 00:01:44,561
+And there is a principle, a well-known
+還有一個原則，眾所周知
+
+38
+00:01:44,689 --> 00:01:45,331
+principle,
+原則，
+
+39
+00:01:46,118 --> 00:01:49,247
+the Single Responsibility Principle, which
+單一責任原則，
+
+40
+00:01:49,247 --> 00:01:51,285
+actually also revolves around that.
+其實也是圍繞著這個展開的。
+
+41
+00:01:51,815 --> 00:01:54,206
+And I will come back to that principle in
+我將在 2017 年回到這個原則
+
+42
+00:01:54,222 --> 00:01:55,330
+just a second again.
+再等一下。
+
+43
+00:01:55,908 --> 00:01:58,427
+The general idea simply is that a product
+總的想法很簡單，就是一個產品
+
+44
+00:01:58,427 --> 00:02:01,108
+class, for example, should be responsible
+例如，班級應該負責
+
+45
+00:02:01,140 --> 00:02:04,172
+for product-related issues, for example,
+對於與產品相關的問題，例如
+
+46
+00:02:04,252 --> 00:02:06,787
+changing the name of a product, not for
+更改產品名稱，並非為了
+
+47
+00:02:06,995 --> 00:02:09,498
+changing the name of a user, for example.
+例如，更改使用者的名稱。
+
+48
+00:02:09,963 --> 00:02:13,203
+This might sound trivial, but it is easy to
+這聽起來可能微不足道，但很容易做到
+
+49
+00:02:13,219 --> 00:02:15,898
+mix up these different concepts in reality.
+在現實中混合這些不同的概念。
+
+50
+00:02:16,781 --> 00:02:19,636
+Take this dummy online shop class, for
+參加這個虛擬網上商店課程，
+
+51
+00:02:19,668 --> 00:02:20,262
+example.
+例子。
+
+52
+00:02:21,016 --> 00:02:23,438
+All the real code is missing, but you can
+所有真正的程式碼都遺失了，但是你可以
+
+53
+00:02:23,438 --> 00:02:27,128
+see the API, the methods, the surface area
+查看 API、方法、表面積
+
+54
+00:02:27,352 --> 00:02:30,416
+of this class here. And you see I got 3
+這堂課的這裡。你看我有 3 個
+
+55
+00:02:30,481 --> 00:02:31,251
+properties here,
+這裡的屬性，
+
+56
+00:02:31,844 --> 00:02:34,395
+orders, offered products, customers,
+訂單、提供的產品、客戶、
+
+57
+00:02:34,988 --> 00:02:36,625
+whichever data would be stored in there
+無論其中儲存什麼資料
+
+58
+00:02:36,673 --> 00:02:38,822
+doesn't matter. The names give us a good
+沒關係。這些名字為我們帶來了美好的
+
+59
+00:02:38,822 --> 00:02:40,106
+idea of what is in there.
+知道裡面有什麼。
+
+60
+00:02:40,747 --> 00:02:43,346
+And then we have a bunch of methods here for
+然後我們這裡有很多方法
+
+61
+00:02:43,475 --> 00:02:45,704
+adding a product, for creating a customer,
+添加產品，用於創建客戶，
+
+62
+00:02:45,801 --> 00:02:46,394
+and so on.
+等等。
+
+63
+00:02:47,341 --> 00:02:49,827
+And all these methods kind of make sense,
+所有這些方法都有道理，
+
+64
+00:02:49,972 --> 00:02:52,506
+right? It's the online shop class after all.
+正確的？畢竟這是網上商店課程。
+
+65
+00:02:52,795 --> 00:02:54,961
+So it makes sense that we can add both a
+所以我們可以加入一個
+
+66
+00:02:54,961 --> 00:02:57,370
+product as well as add a customer.
+產品以及新增客戶。
+
+67
+00:02:58,494 --> 00:03:01,386
+But the problem here is not necessarily the
+但這裡的問題不一定是
+
+68
+00:03:01,386 --> 00:03:02,719
+number of methods.
+方法的數量。
+
+69
+00:03:03,378 --> 00:03:05,306
+It could make sense to have that many
+擁有這麼多可能是有意義的
+
+70
+00:03:05,306 --> 00:03:06,607
+methods in a class,
+類別中的方法，
+
+71
+00:03:07,249 --> 00:03:09,643
+but the focus of this class, the
+但這堂課的重點是
+
+72
+00:03:09,643 --> 00:03:11,314
+responsibility of this class,
+這個班級的責任，
+
+73
+00:03:12,133 --> 00:03:14,623
+that's the problem. Because this class
+這就是問題所在。因為這個班
+
+74
+00:03:14,639 --> 00:03:17,258
+doesn't just have one responsibility.
+不只承擔一項責任。
+
+75
+00:03:17,756 --> 00:03:20,470
+Instead, this class is dealing with orders,
+相反，這個類別正在處理命令，
+
+76
+00:03:20,744 --> 00:03:23,361
+with products, with customers, And even
+與產品，與客戶，甚至
+
+77
+00:03:23,393 --> 00:03:25,044
+there, it's actually having multiple
+在那裡，它實際上有多個
+
+78
+00:03:25,140 --> 00:03:25,685
+purposes.
+目的。
+
+79
+00:03:26,262 --> 00:03:28,826
+It is dealing with updating and adding
+它正在處理更新和添加
+
+80
+00:03:28,922 --> 00:03:31,631
+products and removing products, but then it
+產品並刪除產品，但隨後它
+
+81
+00:03:31,631 --> 00:03:33,939
+also is responsible for restocking a
+還負責補貨
+
+82
+00:03:33,971 --> 00:03:37,161
+product, which is not the same as changing a
+產品，這與更改產品不同
+
+83
+00:03:37,161 --> 00:03:38,395
+product name in the end.
+產品名稱在最後。
+
+84
+00:03:38,940 --> 00:03:40,799
+So this class has a bunch of
+所以這個類別有一堆
+
+85
+00:03:40,847 --> 00:03:43,187
+responsibilities, at least 3,
+職責，至少 3 個，
+
+86
+00:03:43,812 --> 00:03:46,217
+orders, products, and customers, but maybe
+訂單、產品和客戶，但也許
+
+87
+00:03:46,313 --> 00:03:47,210
+even more than that.
+甚至還不止於此。
+
+88
+00:03:47,739 --> 00:03:48,990
+And that would be a problem here.
+這將是一個問題。
+
+89
+00:03:49,583 --> 00:03:52,373
+Even if every method would just have one
+即使每種方法只有一個
+
+90
+00:03:52,645 --> 00:03:53,335
+line of code.
+行程式碼。
+
+91
+00:03:53,993 --> 00:03:56,496
+Then this class wouldn't be big when we
+那麼這個班級就不​​會很大了
+
+92
+00:03:56,496 --> 00:03:59,786
+count lines of code, but it would be big if
+計算程式碼行數，但如果
+
+93
+00:03:59,786 --> 00:04:01,759
+we consider its responsibilities.
+我們考慮其責任。
+
+94
+00:04:02,658 --> 00:04:05,354
+And a better way to write this code would be
+編寫這段程式碼的更好方法是
+
+95
+00:04:05,386 --> 00:04:08,804
+to split this class into multiple smaller
+將這個類別分成多個較小的類
+
+96
+00:04:08,852 --> 00:04:10,119
+classes, for example.
+例如，課程。
+
+97
+00:04:11,018 --> 00:04:13,441
+And this is just one possible split here, of
+這只是這裡可能的一種劃分
+
+98
+00:04:13,505 --> 00:04:13,810
+course.
+課程。
+
+99
+00:04:14,387 --> 00:04:17,003
+Here we could have classes which do have
+在這裡我們可以有確實有的課程
+
+100
+00:04:17,195 --> 00:04:19,089
+separate responsibilities.
+單獨的責任。
+
+101
+00:04:19,922 --> 00:04:22,390
+Again, you might even be able to split this
+同樣，您甚至可以將其拆分
+
+102
+00:04:22,470 --> 00:04:25,212
+up further, but you can already see the idea
+更進一步，但你已經可以看到這個想法
+
+103
+00:04:25,276 --> 00:04:28,225
+here. We have multiple smaller classes
+這裡。我們有多個小班
+
+104
+00:04:28,818 --> 00:04:32,121
+where small really means that we have less
+小確實意味著我們擁有的更少
+
+105
+00:04:32,329 --> 00:04:35,279
+responsibilities in our individual classes.
+我們個人班級的責任。
+
+106
+00:04:35,776 --> 00:04:39,110
+And this is considered clean code. Small
+這被認為是乾淨的程式碼。小的
+
+107
+00:04:39,543 --> 00:04:40,970
+focused classes
+重點課程
+
+108
+00:04:41,563 --> 00:04:43,855
+where I know that if I wanna change
+我知道如果我想改變
+
+109
+00:04:43,951 --> 00:04:46,454
+something on the product logic, I have to go
+關於產品邏輯的事情，我得走了
+
+110
+00:04:46,454 --> 00:04:47,545
+to the Product class
+到產品類別
+
+111
+00:04:48,283 --> 00:04:50,305
+and I don't have to scroll through the
+我不必捲動瀏覽
+
+112
+00:04:50,305 --> 00:04:53,547
+entire large class here just to find the
+整個大班都在這裡只是為了找到
+
+113
+00:04:53,675 --> 00:04:55,922
+product-specific functions I'm looking for.
+我正在尋找的產品特定功能。
+
+114
+00:04:57,109 --> 00:04:59,677
+That's the idea behind small classes and
+這就是小班制教學背後的理念
+
+115
+00:04:59,757 --> 00:05:01,763
+what you should focus on when writing
+寫作時該注意什麼
+
+116
+00:05:01,843 --> 00:05:02,357
+classes.
+類。
+
+117
+00:05:02,966 --> 00:05:03,817
+Keep them small
+保持它們很小
+
+118
+00:05:04,411 --> 00:05:06,513
+and define small by looking at their
+並透過觀察它們來定義小
+
+119
+00:05:06,513 --> 00:05:07,524
+responsibilities.
+責任。
+
+120
+00:05:08,663 --> 00:05:11,809
+I absolutely wanna highlight that small for
+我絕對想強調那個小
+
+121
+00:05:11,953 --> 00:05:15,865
+classes unlike for functions, does not mean
+類別與函式不同，並不意味著
+
+122
+00:05:16,218 --> 00:05:17,629
+do just one thing.
+只做一件事。
+
+123
+00:05:18,206 --> 00:05:20,851
+This Product class knows how to update and
+該產品類別知道如何更新和
+
+124
+00:05:20,947 --> 00:05:23,399
+remove, for example, which is definitely
+例如，刪除，這絕對是
+
+125
+00:05:23,415 --> 00:05:24,746
+more than one thing,
+不止一件事，
+
+126
+00:05:25,339 --> 00:05:27,760
+but it's the same responsibility. The
+但這是同樣的責任。這
+
+127
+00:05:27,760 --> 00:05:31,190
+responsibility is to manage the product data
+職責是管理產品資料
+
+128
+00:05:31,190 --> 00:05:33,354
+and the product existence. That's the
+以及產品的存在。這就是
+
+129
+00:05:33,354 --> 00:05:34,508
+responsibility here.
+責任在這裡。
+
+130
+00:05:35,454 --> 00:05:37,265
+And that's a core difference to functions.
+這是功能的核心區別。
+
+131
+00:05:38,003 --> 00:05:40,039
+And this difference, of course, makes sense
+當然，這種差異是有道理的
+
+132
+00:05:40,343 --> 00:05:42,411
+because if we would have the same definition
+因為如果我們有相同的定義
+
+133
+00:05:42,491 --> 00:05:45,394
+as for functions, then every class would in
+至於功能，那麼每個類別都會
+
+134
+00:05:45,394 --> 00:05:48,076
+the end only be allowed to have exactly one
+最後只允許有一個
+
+135
+00:05:48,349 --> 00:05:51,080
+method, right? And if you create one class
+方法對吧？如果你創建一個類別
+
+136
+00:05:51,080 --> 00:05:53,682
+per method, then this is definitely not
+每個方法，那麼這絕對不是
+
+137
+00:05:53,682 --> 00:05:56,412
+efficient and you would end up with dozens
+效率很高，最後你會得到幾十個
+
+138
+00:05:56,460 --> 00:05:59,721
+of super tiny classes which probably then
+可能是超小型班級
+
+139
+00:05:59,914 --> 00:06:01,424
+also would have strange names
+也會有奇怪的名字
+
+140
+00:06:02,162 --> 00:06:04,331
+just to have one method per class.
+只是每個類別有一個方法。
+
+141
+00:06:04,973 --> 00:06:07,174
+This makes no sense at all. It basically
+這完全沒有意義。基本上它
+
+142
+00:06:07,302 --> 00:06:10,000
+defeats the idea of using classes in the
+擊敗了在中使用類別的想法
+
+143
+00:06:10,032 --> 00:06:10,659
+first place.
+首位。
+
+144
+00:06:11,564 --> 00:06:14,121
+So it's not about doing just one thing, it
+所以這不僅僅是做一件事
+
+145
+00:06:14,170 --> 00:06:17,326
+is about having one responsibility per
+是關於每個人都有一個責任
+
+146
+00:06:17,326 --> 00:06:17,698
+class.
+班級。

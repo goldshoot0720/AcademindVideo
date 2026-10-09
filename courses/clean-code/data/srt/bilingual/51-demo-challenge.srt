@@ -1,0 +1,1584 @@
+1
+00:00:02,195 --> 00:00:04,886
+Now up to this point, I showed you a lot of
+到目前為止，我向您展示了很多
+
+2
+00:00:05,143 --> 00:00:07,498
+theory and I talked about different levels
+理論和我談的是不同層次的
+
+3
+00:00:07,578 --> 00:00:09,773
+of abstraction and I did show you some
+抽象，我確實向你展示了一些
+
+4
+00:00:09,821 --> 00:00:12,417
+examples on the slides, but now it's time
+投影片上的範例，但現在是時候了
+
+5
+00:00:12,449 --> 00:00:15,589
+for a real code demo to make sure that this
+進行真實的程式碼演示以確保這一點
+
+6
+00:00:15,589 --> 00:00:17,528
+is all really crystal clear.
+一切都非常清晰。
+
+7
+00:00:18,537 --> 00:00:21,389
+Here we have a function createUser which
+這裡我們有一個 createUser 函式
+
+8
+00:00:21,437 --> 00:00:23,680
+takes an email and a password and we could
+需要一個電子郵件和密碼，我們可以
+
+9
+00:00:23,728 --> 00:00:25,955
+also refactor this to take just one
+也將其重構為只取一個
+
+10
+00:00:26,131 --> 00:00:28,358
+parameter with an email and password field
+帶有電子郵件和密碼欄位的參數
+
+11
+00:00:28,390 --> 00:00:29,769
+in a map, for example,
+例如，在地圖中，
+
+12
+00:00:30,298 --> 00:00:32,367
+but I'm actually happy with the number of
+但我實際上對數量感到滿意
+
+13
+00:00:32,400 --> 00:00:32,929
+parameters.
+參數。
+
+14
+00:00:33,522 --> 00:00:35,752
+Instead, it's the function body on which I
+相反，它是我在其上的函式體
+
+15
+00:00:35,752 --> 00:00:36,650
+wanna focus here.
+想把注意力集中在這裡。
+
+16
+00:00:37,757 --> 00:00:40,724
+And we see this is obviously not a super
+我們看到這顯然不是一個超級
+
+17
+00:00:40,724 --> 00:00:43,675
+long function and reading and understanding
+長功能與閱讀理解
+
+18
+00:00:43,788 --> 00:00:46,081
+it probably won't take you too long.
+這可能不會花你太長時間。
+
+19
+00:00:46,675 --> 00:00:47,108
+Still,
+仍然，
+
+20
+00:00:47,637 --> 00:00:50,348
+it can be faster, I would argue, because we
+我認為它可以更快，因為我​​們
+
+21
+00:00:50,589 --> 00:00:52,401
+are doing a couple of different things here.
+在這裡做一些不同的事情。
+
+22
+00:00:52,690 --> 00:00:55,385
+We are doing more than one thing and we have
+我們正在做不只一件事，而且我們已經
+
+23
+00:00:55,481 --> 00:00:57,149
+different levels of abstraction.
+不同的抽象層次。
+
+24
+00:00:58,063 --> 00:01:00,934
+We have all this low-level validation code
+我們有所有這些低階驗證程式碼
+
+25
+00:01:00,934 --> 00:01:01,302
+up here.
+在這裡。
+
+26
+00:01:01,832 --> 00:01:04,446
+We have the low-level error output code,
+我們有低階錯誤輸出程式碼，
+
+27
+00:01:05,039 --> 00:01:07,990
+but then we have the higher-level insert
+但我們有更高級別的插入
+
+28
+00:01:07,990 --> 00:01:11,213
+call on some database object. We don't write
+呼叫某個資料庫物件。我們不寫
+
+29
+00:01:11,213 --> 00:01:14,036
+the SQL query on our own here, for example.
+例如，我們自己的 SQL 查詢。
+
+30
+00:01:14,501 --> 00:01:16,136
+That would be lower level and we're not
+那會是較低的水平，我們不是
+
+31
+00:01:16,249 --> 00:01:18,606
+doing that. So we definitely have mixed
+這樣做。所以我們肯定混合了
+
+32
+00:01:18,654 --> 00:01:20,258
+levels of abstraction here.
+這裡的抽象層次。
+
+33
+00:01:20,899 --> 00:01:23,561
+And in addition to these mixed levels of
+除了這些混合等級之外
+
+34
+00:01:23,561 --> 00:01:26,945
+abstraction, we also clearly have a too big
+抽象，我們也顯然有一個太大
+
+35
+00:01:27,009 --> 00:01:30,172
+distance between the name of the function,
+函式名稱之間的距離，
+
+36
+00:01:30,365 --> 00:01:33,240
+createUser, and the actual work we're doing
+createUser，以及我們正在做的實際工作
+
+37
+00:01:33,336 --> 00:01:33,625
+in there.
+在那裡。
+
+38
+00:01:34,476 --> 00:01:36,805
+This low-level validation code where we
+我們在這個低階驗證程式碼中
+
+39
+00:01:36,805 --> 00:01:37,496
+check for an@
+檢查@
+
+40
+00:01:38,107 --> 00:01:39,375
+symbol in the email,
+電子郵件中的符號，
+
+41
+00:01:40,082 --> 00:01:42,989
+that error message console.log statement
+該錯誤訊息console.log語句
+
+42
+00:01:42,989 --> 00:01:46,250
+here, that is all too far away from the name
+在這裡，這離名字太遠了
+
+43
+00:01:46,362 --> 00:01:50,249
+createUser. If we read this code, we have to
+創建使用者。如果我們閱讀這段程式碼，我們必須
+
+44
+00:01:50,683 --> 00:01:52,675
+think about the code to come up with an
+想出一個程式碼
+
+45
+00:01:52,868 --> 00:01:55,967
+interpretation. It's not obvious by the name
+解釋。從名字上看並不明顯
+
+46
+00:01:56,015 --> 00:01:59,098
+of the function that checking for an@ sign
+檢查 @ 符號的函式
+
+47
+00:01:59,355 --> 00:02:01,619
+means that we're validating. We at least
+意味著我們正在驗證。我們至少
+
+48
+00:02:01,619 --> 00:02:03,642
+have to think about that for a second.
+必須考慮一下。
+
+49
+00:02:04,348 --> 00:02:06,564
+The same for this console.log statement.
+此 console.log 語句也是如此。
+
+50
+00:02:06,837 --> 00:02:08,925
+It's not obvious that we're showing an error
+我們顯示的錯誤並不明顯
+
+51
+00:02:08,925 --> 00:02:11,494
+message here. This is only clear if we have
+在這裡留言。只有當我們有
+
+52
+00:02:11,494 --> 00:02:13,131
+a look at the surrounding code as well.
+也看看周圍的程式碼。
+
+53
+00:02:13,661 --> 00:02:15,893
+It's not enough to just have a look at the
+僅僅看一下是不夠的
+
+54
+00:02:15,893 --> 00:02:18,189
+function name. Hence, the distance is too
+函式名稱。所以距離也太遠了
+
+55
+00:02:18,462 --> 00:02:18,703
+big.
+大的。
+
+56
+00:02:19,586 --> 00:02:22,525
+And if we would consider our rules of thumb
+如果我們考慮一下我們的經驗法則
+
+57
+00:02:22,654 --> 00:02:24,999
+here, both rules would apply.
+在這裡，兩條規則都適用。
+
+58
+00:02:26,027 --> 00:02:29,110
+For one, we got multiple validation steps
+其一，我們有多個驗證步驟
+
+59
+00:02:29,319 --> 00:02:32,098
+which we could extract so that left side
+我們可以提取左側
+
+60
+00:02:32,130 --> 00:02:35,454
+applies. We have multiple lines of code or
+適用。我們有多行程式碼或者
+
+61
+00:02:35,519 --> 00:02:37,799
+multiple parts in the code which deal with
+程式碼中的多個部分處理
+
+62
+00:02:37,831 --> 00:02:38,345
+the same
+相同
+
+63
+00:02:38,875 --> 00:02:41,236
+operation or with a related operation.
+操作或相關操作。
+
+64
+00:02:41,831 --> 00:02:44,593
+Also down there for creating a user and then
+也在那裡創建一個使用者，然後
+
+65
+00:02:44,593 --> 00:02:47,034
+saving that user, That's also kind of
+儲存該使用者，這也是一種
+
+66
+00:02:47,131 --> 00:02:48,400
+related, you could argue.
+相關的，你可能會爭論。
+
+67
+00:02:49,058 --> 00:02:51,452
+And in addition, we got code that requires
+此外，我們還得到了所需的程式碼
+
+68
+00:02:51,580 --> 00:02:54,022
+more interpretation than surrounding code.
+比周圍的程式碼有更多的解釋。
+
+69
+00:02:54,520 --> 00:02:57,716
+This entire validation error handling part,
+整個驗證錯誤處理部分，
+
+70
+00:02:58,214 --> 00:03:00,254
+as I just explained, requires more
+正如我剛才所解釋的，需要更多
+
+71
+00:03:00,318 --> 00:03:02,920
+interpretation than this code down there.
+解釋比下面這段程式碼。
+
+72
+00:03:03,450 --> 00:03:06,341
+Especially calling insert on a database
+特別是在資料庫上呼叫插入
+
+73
+00:03:06,406 --> 00:03:09,393
+object requires very little interpretation
+物件需要很少的解釋
+
+74
+00:03:09,634 --> 00:03:11,770
+because it is pretty clear what it does.
+因為它的作用非常清楚。
+
+75
+00:03:12,301 --> 00:03:14,742
+It requires definitely less thinking from
+這絕對需要更少的思考
+
+76
+00:03:14,838 --> 00:03:17,728
+our side than this validation code at the
+我們這邊比這個驗證碼在
+
+77
+00:03:17,728 --> 00:03:18,916
+beginning of this function.
+這個函式的開始。
+
+78
+00:03:19,575 --> 00:03:22,240
+Hence, we got multiple strong signs that we
+因此，我們得到了多個強烈的跡象表明我們
+
+79
+00:03:22,240 --> 00:03:25,179
+should refactor and split this function to
+應該重構這個函式並將其拆分為
+
+80
+00:03:25,179 --> 00:03:26,335
+make it cleaner.
+讓它更乾淨。
+
+81
+00:03:27,394 --> 00:03:29,578
+So how could we rewrite this function now?
+那我們現在要如何重寫這個函式呢？
+
+82
+00:03:30,509 --> 00:03:33,207
+Well, let's do it together step by step. And
+好吧，讓我們一起一步一步來做吧。和
+
+83
+00:03:33,303 --> 00:03:35,599
+of course, feel free to try this on your own
+當然，您可以自己嘗試一下
+
+84
+00:03:35,712 --> 00:03:38,329
+first. You can pause the video and try
+第一的。您可以暫停影片並嘗試
+
+85
+00:03:38,441 --> 00:03:41,749
+coming up with multiple functions instead of
+想出多種功能而不是
+
+86
+00:03:41,749 --> 00:03:44,225
+this one single function which work together
+這是一個可以協同工作的單一功能
+
+87
+00:03:44,274 --> 00:03:46,669
+such that all the functions are very
+這樣所有的功能都非常
+
+88
+00:03:47,008 --> 00:03:47,348
+readable.
+可讀。
+
+89
+00:03:48,210 --> 00:03:49,853
+Here's your chance to pause the video and
+您有機會暫停影片並
+
+90
+00:03:49,853 --> 00:03:51,969
+try this on your own. Thereafter, we're
+你自己嘗試一下。此後，我們
+
+91
+00:03:51,969 --> 00:03:52,848
+going to do it together.
+一起去做。
+
+92
+00:03:54,570 --> 00:03:57,411
+So were you successful? Let's refactor this
+那你成功了嗎？讓我們重構一下這個
+
+93
+00:03:57,411 --> 00:03:57,830
+together.
+一起。
+
+94
+00:03:58,863 --> 00:04:00,591
+Now we have these different levels of
+現在我們有這些不同等級的
+
+95
+00:04:00,591 --> 00:04:02,544
+abstraction, so I think one
+抽象，所以我認為
+
+96
+00:04:03,222 --> 00:04:06,208
+obvious first step would be that we remove
+顯而易見的第一步是我們刪除
+
+97
+00:04:06,240 --> 00:04:09,372
+this validation logic from this createUser
+此驗證邏輯來自此 createUser
+
+98
+00:04:09,372 --> 00:04:12,062
+function. We can cut it and add a new
+功能。我們可以剪切它並添加新的
+
+99
+00:04:12,175 --> 00:04:14,785
+function below createUser to have this
+createUser 下面的函式有這個
+
+100
+00:04:14,994 --> 00:04:17,567
+readable top-to-bottom flow we learned about
+我們了解到的可讀的自上而下的流程
+
+101
+00:04:18,089 --> 00:04:18,872
+and name this
+並命名這個
+
+102
+00:04:19,622 --> 00:04:20,177
+inputIsValid,
+輸入有效，
+
+103
+00:04:22,250 --> 00:04:25,175
+for example. And we take the email and the
+例如。我們獲取電子郵件和
+
+104
+00:04:25,175 --> 00:04:25,930
+password here
+密碼在這裡
+
+105
+00:04:27,747 --> 00:04:29,772
+and simply return the result of the check
+並簡單地回傳檢查結果
+
+106
+00:04:29,836 --> 00:04:30,415
+which we cut.
+我們剪掉了。
+
+107
+00:04:31,544 --> 00:04:34,320
+And then here we call if inputIsValid for
+然後這裡我們呼叫 if inputIsValid for
+
+108
+00:04:34,484 --> 00:04:35,317
+email and password,
+電子郵件和密碼，
+
+109
+00:04:36,553 --> 00:04:38,220
+And therefore we have a very readable
+因此我們有一個非常可讀的
+
+110
+00:04:38,316 --> 00:04:39,679
+createUser function.
+建立使用者函式。
+
+111
+00:04:40,304 --> 00:04:41,811
+This now reads smoothly.
+現在讀起來很順利。
+
+112
+00:04:42,709 --> 00:04:44,712
+If input is not valid for the email and
+如果輸入的電子郵件無效且
+
+113
+00:04:44,728 --> 00:04:47,261
+password, then we console.log this and
+密碼，然後我們console.log這個並且
+
+114
+00:04:47,293 --> 00:04:50,419
+return. Otherwise, if we didn't return, this
+回傳。不然的話，如果我們不回來的話，這
+
+115
+00:04:50,419 --> 00:04:51,268
+code executes.
+程式碼執行。
+
+116
+00:04:52,246 --> 00:04:54,458
+So now this function is already more
+所以現在這個功能已經多了
+
+117
+00:04:54,490 --> 00:04:56,927
+readable just because we added this new
+可讀只是因為我們添加了這個新的
+
+118
+00:04:57,295 --> 00:04:57,873
+function here.
+在這裡發揮作用。
+
+119
+00:04:58,658 --> 00:05:00,405
+And if you don't like the negative wording
+如果你不喜歡負面的措辭
+
+120
+00:05:00,517 --> 00:05:02,730
+here, you could of course also name this
+在這裡，你當然也可以命名這個
+
+121
+00:05:02,762 --> 00:05:04,223
+inputIsValid
+輸入有效
+
+122
+00:05:04,833 --> 00:05:08,029
+and reverse this check. Whether email is
+並撤銷此檢查。電子郵件是否是
+
+123
+00:05:08,382 --> 00:05:08,912
+truthy
+真實的
+
+124
+00:05:09,731 --> 00:05:10,117
+and
+和
+
+125
+00:05:11,257 --> 00:05:12,751
+the email includes an@ symbol
+電子郵件包含@符號
+
+126
+00:05:14,067 --> 00:05:14,453
+and
+和
+
+127
+00:05:15,111 --> 00:05:16,380
+we do have a password
+我們有密碼
+
+128
+00:05:17,520 --> 00:05:17,906
+and
+和
+
+129
+00:05:18,564 --> 00:05:20,748
+trimming the password and checking that
+修剪密碼並檢查
+
+130
+00:05:20,748 --> 00:05:24,458
+trimmed password with that is not equal to
+修剪後的密碼不等於
+
+131
+00:05:24,458 --> 00:05:26,819
+an empty string. Then this would be valid
+一個空字串。那麼這將是有效的
+
+132
+00:05:27,252 --> 00:05:29,966
+and then here we could call inputIsValid and
+然後在這裡我們可以呼叫 inputIsValid 和
+
+133
+00:05:29,982 --> 00:05:31,440
+check for the opposite here.
+在這裡檢查相反的情況。
+
+134
+00:05:32,321 --> 00:05:34,789
+So if not input is valid for email and
+因此，如果輸入不有效，則電子郵件和
+
+135
+00:05:34,789 --> 00:05:36,119
+password, then we do this.
+密碼，然後我們就這樣做。
+
+136
+00:05:37,032 --> 00:05:39,244
+But that's just a wording thing. The main
+但這只是一個措辭問題。主要
+
+137
+00:05:39,356 --> 00:05:41,743
+thing is that we extracted our logic and
+事情是我們提取了我們的邏輯並且
+
+138
+00:05:41,919 --> 00:05:43,522
+moved it into a different function.
+將其移至不同的函式中。
+
+139
+00:05:44,323 --> 00:05:47,175
+Hence, this level of abstraction is now in
+因此，這種抽象層級現在處於
+
+140
+00:05:47,223 --> 00:05:48,409
+its own function
+它自己的功能
+
+141
+00:05:48,970 --> 00:05:51,149
+where we now have one equal level of
+我們現在擁有同等水平的
+
+142
+00:05:51,149 --> 00:05:53,793
+abstraction. This code here is all on the
+抽象。這段程式碼全部在
+
+143
+00:05:53,793 --> 00:05:56,373
+same level of abstraction and hence here,
+相同的抽象級別，因此在這裡，
+
+144
+00:05:57,046 --> 00:05:58,875
+We actually still have some mixed levels,
+我們其實還是有一些混合層次的，
+
+145
+00:05:59,148 --> 00:06:02,004
+but at least the input validation is now on
+但至少現在輸入驗證已開啟
+
+146
+00:06:02,101 --> 00:06:04,973
+a kind of similar level as this code down
+與此程式碼類似的級別
+
+147
+00:06:05,069 --> 00:06:06,978
+there. So it is an improvement.
+那裡。所以這是一種改進。
+
+148
+00:06:07,652 --> 00:06:09,754
+It's not the last improvement we can make
+這不是我們可以做的最後改進
+
+149
+00:06:09,818 --> 00:06:09,915
+though.
+儘管。
+
+150
+00:06:10,941 --> 00:06:13,188
+For one, there will be more extraction
+一方面，將會有更多的提取
+
+151
+00:06:13,188 --> 00:06:14,728
+possibilities in this code.
+這段程式碼中的可能性。
+
+152
+00:06:15,274 --> 00:06:17,231
+But even if we have a look at input is
+但即使我們看看輸入是
+
+153
+00:06:17,360 --> 00:06:20,360
+valid, we could argue that we are doing more
+有效，我們可以說我們做得更多
+
+154
+00:06:20,488 --> 00:06:23,184
+than one operation here. We could argue that
+比這裡的一項操作。我們可以說
+
+155
+00:06:23,216 --> 00:06:26,193
+we are doing 4 operations. We check whether
+我們正在進行 4 次手術。我們檢查是否
+
+156
+00:06:26,193 --> 00:06:28,473
+the email address is truthy, we check
+該電子郵件地址是真實的，我們檢查
+
+157
+00:06:28,537 --> 00:06:31,044
+whether it includes an@ symbol, whether the
+是否包含@符號，是否
+
+158
+00:06:31,044 --> 00:06:33,534
+password exists, and if it exists, whether
+密碼是否存在，如果存在，是否
+
+159
+00:06:33,534 --> 00:06:36,584
+it is not empty. So we are doing 4 things
+它不是空的。所以我們正在做四件事
+
+160
+00:06:36,617 --> 00:06:37,101
+down there,
+下面，
+
+161
+00:06:37,827 --> 00:06:41,072
+but we are doing them on the same level of
+但我們是在同一水平上做的
+
+162
+00:06:41,072 --> 00:06:44,010
+abstraction, and hence we could leave it
+抽象，因此我們可以離開它
+
+163
+00:06:44,010 --> 00:06:44,517
+like this.
+像這樣。
+
+164
+00:06:46,270 --> 00:06:48,729
+Therefore, let's focus on the rest of this
+因此，讓我們專注於剩下的部分
+
+165
+00:06:48,729 --> 00:06:50,137
+createUser function.
+建立使用者函式。
+
+166
+00:06:50,995 --> 00:06:53,439
+There we still have other levels of
+在那裡我們還有其他層次的
+
+167
+00:06:53,439 --> 00:06:54,928
+abstraction in there. For example,
+那裡有抽象。例如，
+
+168
+00:06:56,097 --> 00:06:57,841
+logging this error here.
+在此記錄此錯誤。
+
+169
+00:06:58,616 --> 00:07:01,183
+This is a low-level operation using the
+這是一個低階操作，使用
+
+170
+00:07:01,183 --> 00:07:04,074
+built-in console.log functionality which
+內建的 console.log 功能
+
+171
+00:07:04,251 --> 00:07:08,336
+JavaScript offers both in Node.js as well as
+JavaScript 在 Node.js 和
+
+172
+00:07:08,529 --> 00:07:09,221
+in the browser.
+在瀏覽器中。
+
+173
+00:07:10,201 --> 00:07:12,018
+Therefore, we could outsource this as well
+因此，我們也可以將其外包
+
+174
+00:07:12,452 --> 00:07:13,643
+and add a new function
+並新增一個新功能
+
+175
+00:07:14,950 --> 00:07:15,950
+showError
+顯示錯誤
+
+176
+00:07:16,967 --> 00:07:19,258
+or showErrorMessage, for example,
+或顯示錯誤訊息，例如，
+
+177
+00:07:21,162 --> 00:07:24,065
+where we take the message as an argument and
+我們將訊息作為參數，並且
+
+178
+00:07:24,115 --> 00:07:26,081
+where we then console.log the message
+然後我們在其中 console.log 訊息
+
+179
+00:07:26,817 --> 00:07:28,984
+An advantage of creating this separate
+創建這個單獨的優點
+
+180
+00:07:28,984 --> 00:07:31,714
+function also would be that we could use it
+功能也是我們可以使用它
+
+181
+00:07:31,794 --> 00:07:34,604
+in different places of our program if we
+在我們程式的不同地方，如果我們
+
+182
+00:07:34,604 --> 00:07:36,707
+need to show errors in different places.
+需要在不同的地方顯示錯誤。
+
+183
+00:07:37,590 --> 00:07:40,127
+And if we ever decide that console.log is
+如果我們決定 console.log 是
+
+184
+00:07:40,255 --> 00:07:42,889
+not the mechanism we wanna continue with, we
+不是我們想要繼續使用的機制，我們
+
+185
+00:07:42,889 --> 00:07:45,746
+can easily use a different error logging
+可以輕鬆使用不同的錯誤紀錄記錄
+
+186
+00:07:45,779 --> 00:07:48,235
+mechanism and we only need to change it in
+機制，我們只需要改變它
+
+187
+00:07:48,347 --> 00:07:51,125
+one place, in this function, instead of in
+在這個函式中的一個地方，而不是在
+
+188
+00:07:51,237 --> 00:07:52,169
+multiple places.
+多個地方。
+
+189
+00:07:52,842 --> 00:07:54,862
+So that's another reason why creating a
+這就是創建一個
+
+190
+00:07:54,862 --> 00:07:57,219
+separate function here might make sense.
+這裡單獨的功能可能是有意義的。
+
+191
+00:07:58,677 --> 00:08:00,569
+And now here we could simply call
+現在我們可以簡單地調用
+
+192
+00:08:01,002 --> 00:08:04,144
+showErrorMessage, which again is on a higher
+showErrorMessage，這又是一個更高的
+
+193
+00:08:04,144 --> 00:08:06,035
+level than console logging.
+等級高於控制台紀錄記錄。
+
+194
+00:08:07,109 --> 00:08:08,744
+Now what about the code down there?
+現在下面的程式碼怎麼樣？
+
+195
+00:08:09,738 --> 00:08:12,127
+This is definitely on a higher level than
+這絕對是比
+
+196
+00:08:12,623 --> 00:08:15,461
+our validation checks here or console.log,
+我們的驗證檢查在這裡或console.log，
+
+197
+00:08:16,006 --> 00:08:18,426
+but we could argue it's not on the same high
+但我們可以說它不在同一高度
+
+198
+00:08:18,491 --> 00:08:19,995
+level as this code,
+等級如這段程式碼，
+
+199
+00:08:20,515 --> 00:08:22,758
+but this is also something you can always
+但這也是你隨時可以做的事情
+
+200
+00:08:22,953 --> 00:08:23,636
+argue about.
+爭論。
+
+201
+00:08:24,580 --> 00:08:26,375
+But we could, for example, create a new
+但我們可以，例如，創建一個新的
+
+202
+00:08:26,536 --> 00:08:27,005
+function
+功能
+
+203
+00:08:28,008 --> 00:08:29,189
+which we name saveUser,
+我們將其命名為 saveUser，
+
+204
+00:08:30,720 --> 00:08:32,845
+where we take an email and password as an
+我們將電子郵件和密碼作為
+
+205
+00:08:32,845 --> 00:08:33,473
+argument,
+爭論，
+
+206
+00:08:34,359 --> 00:08:35,953
+and where we then take this code
+然後我們在哪裡取得這段程式碼
+
+207
+00:08:37,741 --> 00:08:39,770
+and move it into this function. Though we
+並將其移至該函式中。雖然我們
+
+208
+00:08:39,835 --> 00:08:42,186
+could argue whether the creation of the
+可以爭論是否創建
+
+209
+00:08:42,186 --> 00:08:44,198
+object should really be in this function.
+物件確實應該在這個函式中。
+
+210
+00:08:44,806 --> 00:08:46,889
+Alternatively, we could take the finished
+或者，我們可以將完成的
+
+211
+00:08:46,889 --> 00:08:49,100
+user as an argument here and just do the
+user 作為參數，然後執行
+
+212
+00:08:49,148 --> 00:08:50,317
+database insertion.
+資料庫插入。
+
+213
+00:08:50,974 --> 00:08:52,881
+Here I'm doing both, but again, this is
+在這裡我同時做這兩件事，但同樣，這是
+
+214
+00:08:52,913 --> 00:08:55,172
+something we could argue about. And in
+我們可以爭論的事情。並且在
+
+215
+00:08:55,220 --> 00:08:57,223
+general, when it comes to writing clean
+一般來說，當談到乾淨的書寫時
+
+216
+00:08:57,223 --> 00:08:57,447
+code,
+程式碼，
+
+217
+00:08:58,120 --> 00:09:00,155
+even though we have a couple of rules and
+即使我們有一些規則並且
+
+218
+00:09:00,203 --> 00:09:03,295
+concepts we can take into account, it always
+我們可以考慮的概念，它總是
+
+219
+00:09:03,407 --> 00:09:05,458
+will also come down to a certain amount of
+也將下降到一定數量
+
+220
+00:09:05,490 --> 00:09:08,102
+personal preference and it will leave room
+個人喜好，會留有餘地
+
+221
+00:09:08,118 --> 00:09:08,871
+for discussion.
+供討論。
+
+222
+00:09:09,992 --> 00:09:11,931
+Nonetheless, here we could now call
+儘管如此，我們現在可以在這裡調用
+
+223
+00:09:12,556 --> 00:09:15,426
+saveUser and forward the email and password
+儲存使用者並轉發電子郵件和密碼
+
+224
+00:09:15,426 --> 00:09:15,619
+here.
+這裡。
+
+225
+00:09:16,228 --> 00:09:18,619
+And therefore, this createUser function is
+因此，這個 createUser 函式是
+
+226
+00:09:18,796 --> 00:09:21,283
+definitely way more readable than before.
+絕對比以前更具可讀性。
+
+227
+00:09:22,149 --> 00:09:24,828
+Now, this function as we have it here could
+現在，我們這裡的這個函式可以
+
+228
+00:09:24,973 --> 00:09:25,887
+still be
+仍然是
+
+229
+00:09:26,433 --> 00:09:28,968
+split up even more though because you could
+分開得更多，因為你可以
+
+230
+00:09:28,984 --> 00:09:29,562
+argue that
+認為
+
+231
+00:09:30,091 --> 00:09:33,123
+all these operations, all these lines of
+所有這些操作，所有這些行
+
+232
+00:09:33,156 --> 00:09:35,963
+codes we have in createUser are still not
+我們在 createUser 中的程式碼仍然不是
+
+233
+00:09:35,963 --> 00:09:39,076
+necessarily on the same level of abstraction
+必然處於同一抽象級別
+
+234
+00:09:39,493 --> 00:09:43,103
+and also not all exactly one level below the
+而且也並非全部都低於
+
+235
+00:09:43,103 --> 00:09:46,100
+function name implied level of abstraction.
+函式名隱含了抽象層級。
+
+236
+00:09:47,110 --> 00:09:49,722
+saveUser probably is, that should be fine.
+saveUser 可能是，那應該沒問題。
+
+237
+00:09:50,059 --> 00:09:52,655
+It makes sense that as part of creating a
+作為創建的一部分，這是有道理的
+
+238
+00:09:52,784 --> 00:09:55,444
+user, we save a user. But this entire
+user，我們儲存一個使用者。但這整個
+
+239
+00:09:55,444 --> 00:09:56,214
+validation
+驗證
+
+240
+00:09:56,791 --> 00:09:59,275
+overall makes sense, but the individual
+整體有道理，但個人
+
+241
+00:09:59,275 --> 00:10:01,871
+steps which are involved are actually on a
+所涉及的步驟實際上是在
+
+242
+00:10:02,016 --> 00:10:05,366
+lower level. Checking the input validity and
+較低的水平。檢查輸入的有效性並
+
+243
+00:10:05,446 --> 00:10:08,090
+showing an error message, that is not
+顯示錯誤訊息，這不是
+
+244
+00:10:08,090 --> 00:10:11,282
+necessarily the same level of abstraction as
+必須具有相同的抽象級別
+
+245
+00:10:11,394 --> 00:10:13,088
+just calling saveUser.
+只需調用 saveUser.
+
+246
+00:10:14,282 --> 00:10:16,831
+Therefore, we could argue that we want one
+因此，我們可以說我們想要一個
+
+247
+00:10:17,025 --> 00:10:20,348
+extra function which we extract, the, let's
+我們提取的額外函式，讓我們
+
+248
+00:10:20,348 --> 00:10:20,671
+say,
+說，
+
+249
+00:10:21,810 --> 00:10:22,263
+validateInput
+驗證輸入
+
+250
+00:10:22,895 --> 00:10:23,397
+function
+功能
+
+251
+00:10:23,947 --> 00:10:26,506
+where we take the email and the password as
+我們將電子郵件和密碼作為
+
+252
+00:10:26,701 --> 00:10:27,397
+a parameter
+一個參數
+
+253
+00:10:28,304 --> 00:10:31,203
+and where we then in the end run this code
+然後我們最終運行這段程式碼
+
+254
+00:10:31,235 --> 00:10:31,397
+here
+這裡
+
+255
+00:10:33,435 --> 00:10:35,975
+so that we can call validateInput here
+這樣我們就可以在這裡呼叫 validateInput
+
+256
+00:10:37,724 --> 00:10:40,258
+and forward email and password instead of
+並轉發電子郵件和密碼而不是
+
+257
+00:10:40,306 --> 00:10:42,615
+doing these steps in createUser.
+在 createUser 中執行這些步驟。
+
+258
+00:10:43,417 --> 00:10:45,406
+Of course, we can't just replace it like
+當然，我們不能像這樣簡單地替換它
+
+259
+00:10:45,406 --> 00:10:47,876
+this though, because returning here in
+不過，因為回到這裡
+
+260
+00:10:47,908 --> 00:10:51,404
+validateInput will not return in createUser
+validateInput 不會在 createUser 中傳回
+
+261
+00:10:51,516 --> 00:10:54,306
+and will therefore not cancel the rest of
+因此不會取消其餘的
+
+262
+00:10:54,306 --> 00:10:55,253
+this function.
+這個功能。
+
+263
+00:10:56,183 --> 00:10:58,941
+So therefore, we could, for example, switch
+因此，例如，我們可以切換
+
+264
+00:10:59,599 --> 00:11:01,844
+and not show the error message here and
+並且不在這裡顯示錯誤訊息
+
+265
+00:11:01,844 --> 00:11:04,504
+return. Because we could also argue that
+回傳。因為我們也可以說
+
+266
+00:11:04,504 --> 00:11:07,437
+showing the error message is not necessarily
+顯示錯誤訊息不一定
+
+267
+00:11:07,469 --> 00:11:09,183
+something we wanna do directly in
+我們想直接做的事情
+
+268
+00:11:09,231 --> 00:11:11,474
+validateInput because there we should really
+validateInput 因為我們真的應該
+
+269
+00:11:11,474 --> 00:11:12,212
+just validate.
+只是驗證。
+
+270
+00:11:12,836 --> 00:11:14,535
+But instead we could throw an error here.
+但我們可以在這裡拋出一個錯誤。
+
+271
+00:11:15,064 --> 00:11:15,448
+We could
+我們可以
+
+272
+00:11:16,265 --> 00:11:17,820
+throw a new Error
+拋出一個新的錯誤
+
+273
+00:11:18,605 --> 00:11:21,858
+where we have our invalid input message as
+我們的無效輸入訊息為
+
+274
+00:11:21,890 --> 00:11:22,627
+an error message.
+錯誤訊息。
+
+275
+00:11:23,172 --> 00:11:25,303
+This is how we could do this in JavaScript.
+這就是我們如何在 JavaScript 中做到這一點。
+
+276
+00:11:25,655 --> 00:11:27,898
+There is a built-in Error object which we
+有一個內建的 Error 物件，我們可以使用它
+
+277
+00:11:27,898 --> 00:11:30,382
+can instantiate and then throw with the
+可以實例化然後拋出
+
+278
+00:11:30,446 --> 00:11:31,232
+throw keyword.
+拋出關鍵字。
+
+279
+00:11:32,145 --> 00:11:35,015
+And if we do that, this error would bubble
+如果我們這樣做，這個錯誤就會冒泡
+
+280
+00:11:35,095 --> 00:11:35,271
+up,
+向上，
+
+281
+00:11:35,816 --> 00:11:37,804
+would therefore also reach this function,
+因此也會達到這個功能，
+
+282
+00:11:38,157 --> 00:11:40,064
+and if it's not handled here, it would
+如果不在這裡處理，就會
+
+283
+00:11:40,064 --> 00:11:42,950
+cancel this function and bubble up even
+取消這個功能，甚至冒泡
+
+284
+00:11:43,110 --> 00:11:43,495
+further.
+更遠。
+
+285
+00:11:44,553 --> 00:11:46,717
+And now it would be somewhere above this
+現在它會在這個之上的某個地方
+
+286
+00:11:46,733 --> 00:11:49,891
+function, so where we call createUser, where
+函式，所以我們在哪裡呼叫createUser，哪裡
+
+287
+00:11:50,083 --> 00:11:52,504
+we should handle this error and where we
+我們應該處理這個錯誤以及我們在哪裡
+
+288
+00:11:52,584 --> 00:11:54,556
+then should call showErrorMessage.
+然後應該會呼叫showErrorMessage。
+
+289
+00:11:55,293 --> 00:11:57,842
+And that indeed is a code structure that
+這確實是一個程式碼結構
+
+290
+00:11:57,858 --> 00:12:00,262
+might make sense and that would be the
+可能有道理，那就是
+
+291
+00:12:00,262 --> 00:12:01,929
+cleanest possible code
+最乾淨的程式碼
+
+292
+00:12:03,662 --> 00:12:06,143
+here. So for example, depending on which
+這裡。例如，取決於哪一個
+
+293
+00:12:06,256 --> 00:12:08,928
+kind of application we are building, we
+我們正在建立的應用程式型別，我們
+
+294
+00:12:08,993 --> 00:12:11,357
+could have a handleCreateUserRequest
+可以有一個handleCreateUserRequest
+
+295
+00:12:11,357 --> 00:12:14,430
+function somewhere in our project code where
+在我們的專案程式碼中的某個地方運行
+
+296
+00:12:14,478 --> 00:12:17,644
+we do call createUser and we therefore here
+我們確實調用了createUser，因此我們在這裡
+
+297
+00:12:17,853 --> 00:12:19,862
+handle this error and show this error
+處理這個錯誤並顯示這個錯誤
+
+298
+00:12:19,862 --> 00:12:20,199
+message.
+訊息.
+
+299
+00:12:21,167 --> 00:12:23,179
+And this might be the cleanest way of
+這可能是最乾淨的方式
+
+300
+00:12:23,179 --> 00:12:23,807
+writing this all
+寫下這一切
+
+301
+00:12:24,419 --> 00:12:26,528
+because now if we go back to the original
+因為現在如果我們回到原來的狀態
+
+302
+00:12:26,657 --> 00:12:29,378
+createUser function, we see that we only
+createUser 函式，我們看到我們只
+
+303
+00:12:29,378 --> 00:12:31,473
+have 2 operations in there which are on the
+那裡有 2 個操作，分別是
+
+304
+00:12:31,473 --> 00:12:34,631
+same level of abstraction and which both
+相同的抽象層級並且兩者
+
+305
+00:12:34,663 --> 00:12:38,284
+belong to createUser and are one level below
+屬於createUser並且比其低一級
+
+306
+00:12:38,669 --> 00:12:41,152
+the level of abstraction implied by
+隱含的抽象級別
+
+307
+00:12:41,152 --> 00:12:44,325
+createUser. It makes sense that as part of
+創建使用者。這是有道理的，作為
+
+308
+00:12:44,357 --> 00:12:47,386
+creating a user, we validate the input and
+建立使用者，我們驗證輸入並
+
+309
+00:12:47,482 --> 00:12:48,604
+we then save the user.
+然後我們儲存該使用者。
+
+310
+00:12:49,229 --> 00:12:51,712
+And hence, this is the final form of this
+因此，這就是這個的最終形式
+
+311
+00:12:51,728 --> 00:12:54,020
+function, which I would call clean.
+函式，我稱之為 clean。
+
+312
+00:12:54,837 --> 00:12:55,270
+Obviously,
+明顯地，
+
+313
+00:12:55,798 --> 00:12:58,875
+these were a lot of refactorings and we did
+這些是大量的重構，我們做到了
+
+314
+00:12:58,875 --> 00:13:02,045
+extract quite a lot of functions as part of
+提取相當多的函式作為
+
+315
+00:13:02,078 --> 00:13:02,304
+that,
+那，
+
+316
+00:13:02,967 --> 00:13:05,992
+but that is what writing clean code is all
+但這就是編寫乾淨的程式碼的全部
+
+317
+00:13:06,187 --> 00:13:07,190
+about in the end.
+大約到底。

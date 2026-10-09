@@ -1,0 +1,475 @@
+1
+00:00:02,600 --> 00:00:02,875
+So
+
+2
+00:00:04,747 --> 00:00:07,298
+I'll log in with my second user here again.
+
+3
+00:00:09,016 --> 00:00:10,968
+Technically, that's not required. I could
+
+4
+00:00:11,097 --> 00:00:13,550
+also sign up for my own events. You could
+
+5
+00:00:13,679 --> 00:00:15,840
+add code to prevent this, but here I'm fine
+
+6
+00:00:15,873 --> 00:00:17,728
+with it. But I'll use the second user
+
+7
+00:00:17,728 --> 00:00:18,115
+nonetheless.
+
+8
+00:00:20,536 --> 00:00:21,312
+And then here,
+
+9
+00:00:22,007 --> 00:00:23,138
+create a new request,
+
+10
+00:00:24,172 --> 00:00:26,417
+a new POST request targeting /events.
+
+11
+00:00:30,000 --> 00:00:31,333
+Localhost:3000/events/the event with ID
+
+12
+00:00:31,416 --> 00:00:31,833
+1/register,
+
+13
+00:00:35,348 --> 00:00:35,720
+and then
+
+14
+00:00:36,788 --> 00:00:39,345
+add my header, my authorization header,
+
+15
+00:00:39,879 --> 00:00:41,708
+which is bearer and then my token.
+
+16
+00:00:43,263 --> 00:00:44,602
+And I don't need to add any
+
+17
+00:00:45,200 --> 00:00:48,136
+extra request body because the
+
+18
+00:00:48,750 --> 00:00:49,250
+event ID
+
+19
+00:00:49,782 --> 00:00:51,202
+is encoded in the URL,
+
+20
+00:00:51,896 --> 00:00:53,415
+the token is attached as a header,
+
+21
+00:00:55,048 --> 00:00:57,114
+And that's all this route and this
+
+22
+00:00:57,211 --> 00:00:58,567
+controller function needs.
+
+23
+00:00:59,326 --> 00:01:01,424
+The register controller function gets the
+
+24
+00:01:01,424 --> 00:01:03,377
+event ID from the request parameters,
+
+25
+00:01:04,780 --> 00:01:08,022
+so from the path the request is sent to, and
+
+26
+00:01:08,103 --> 00:01:10,652
+the user ID from the request object where
+
+27
+00:01:10,781 --> 00:01:13,636
+it's set by that authentication middleware
+
+28
+00:01:13,846 --> 00:01:15,377
+which extracts it from the token.
+
+29
+00:01:17,083 --> 00:01:18,033
+So that should work.
+
+30
+00:01:18,838 --> 00:01:21,243
+If I send this, I get an error. We get an
+
+31
+00:01:21,340 --> 00:01:21,941
+error though,
+
+32
+00:01:22,737 --> 00:01:24,491
+getDatabase is not defined.
+
+33
+00:01:27,260 --> 00:01:27,469
+So
+
+34
+00:01:29,050 --> 00:01:29,212
+yeah,
+
+35
+00:01:30,034 --> 00:01:32,277
+that code here fails where I try to get
+
+36
+00:01:32,277 --> 00:01:33,116
+access to the database.
+
+37
+00:01:34,753 --> 00:01:37,950
+And this makes sense because for all the
+
+38
+00:01:37,966 --> 00:01:40,469
+other controller functions, I actually don't
+
+39
+00:01:40,469 --> 00:01:43,505
+have the database-related work here in this
+
+40
+00:01:43,860 --> 00:01:47,166
+eventsController.js file, but instead in the
+
+41
+00:01:47,166 --> 00:01:48,359
+event.js file.
+
+42
+00:01:49,994 --> 00:01:51,703
+Here I'm reaching out to the database.
+
+43
+00:01:53,180 --> 00:01:55,435
+And now for the register and unregister
+
+44
+00:01:55,451 --> 00:01:56,563
+functions, I changed that.
+
+45
+00:01:57,401 --> 00:01:59,415
+I actually don't like that change. So
+
+46
+00:01:59,415 --> 00:02:01,800
+instead I'll go to that event.js file in the
+
+47
+00:02:01,800 --> 00:02:02,624
+models folder
+
+48
+00:02:04,644 --> 00:02:07,036
+and add my functions there. And again,
+
+49
+00:02:07,166 --> 00:02:09,251
+GitHub Copilot thankfully makes some good
+
+50
+00:02:09,251 --> 00:02:09,867
+suggestions here.
+
+51
+00:02:11,126 --> 00:02:12,614
+registerUserForEvent,
+
+52
+00:02:13,088 --> 00:02:13,857
+unregisterUserFromEvent,
+
+53
+00:02:15,288 --> 00:02:17,519
+Got all the database-related code in there.
+
+54
+00:02:19,470 --> 00:02:21,465
+And with those changes made, we can now
+
+55
+00:02:21,594 --> 00:02:23,703
+adjust the code here in this register
+
+56
+00:02:23,703 --> 00:02:24,838
+function, for example.
+
+57
+00:02:26,395 --> 00:02:28,809
+Instead of reaching out to the database
+
+58
+00:02:28,809 --> 00:02:29,098
+here,
+
+59
+00:02:31,546 --> 00:02:32,721
+we can use
+
+60
+00:02:33,252 --> 00:02:36,504
+registerUserForEvent from this event.js file
+
+61
+00:02:36,633 --> 00:02:37,583
+in the models folder.
+
+62
+00:02:39,189 --> 00:02:41,514
+I started typing to get a good suggestion
+
+63
+00:02:41,514 --> 00:02:41,630
+here.
+
+64
+00:02:43,009 --> 00:02:45,995
+I just wanna make sure that it's imported so
+
+65
+00:02:46,012 --> 00:02:46,758
+that it's added
+
+66
+00:02:47,586 --> 00:02:48,625
+to the imports up here.
+
+67
+00:02:49,682 --> 00:02:52,441
+Same with unregister user from event.
+
+68
+00:02:54,361 --> 00:02:56,362
+And then I just need the
+
+69
+00:02:57,604 --> 00:03:00,019
+success information here to send back the
+
+70
+00:03:00,019 --> 00:03:01,329
+appropriate response.
+
+71
+00:03:03,138 --> 00:03:04,554
+And I'll do the same down here.
+
+72
+00:03:06,131 --> 00:03:09,156
+Get my success information by calling
+
+73
+00:03:09,510 --> 00:03:11,264
+unregister user from event.
+
+74
+00:03:13,298 --> 00:03:13,653
+Like this.
+
+75
+00:03:14,913 --> 00:03:16,303
+Okay, that should do the trick.
+
+76
+00:03:17,110 --> 00:03:20,050
+Success is this Boolean which is returned
+
+77
+00:03:20,648 --> 00:03:21,536
+for both functions.
+
+78
+00:03:23,240 --> 00:03:24,615
+And with that, if we save this
+
+79
+00:03:25,294 --> 00:03:28,206
+and we try this same request, this register
+
+80
+00:03:28,206 --> 00:03:29,549
+request from before again,
+
+81
+00:03:30,132 --> 00:03:32,219
+now we got registered successfully.
+
+82
+00:03:34,336 --> 00:03:35,840
+Now if I send this again,
+
+83
+00:03:37,146 --> 00:03:39,601
+I, well, register again, doesn't make too
+
+84
+00:03:39,601 --> 00:03:41,845
+much sense. We could try to prevent this,
+
+85
+00:03:42,168 --> 00:03:44,574
+but here to keep this app simple,
+
+86
+00:03:45,130 --> 00:03:47,411
+I'll just, well, set it up like this.
+
+87
+00:03:49,426 --> 00:03:51,814
+And instead I'll now add a second request
+
+88
+00:03:51,814 --> 00:03:52,059
+here,
+
+89
+00:03:52,942 --> 00:03:54,267
+a DELETE request,
+
+90
+00:03:56,111 --> 00:03:58,093
+which will actually target
+
+91
+00:04:00,172 --> 00:04:00,936
+this route here.
+
+92
+00:04:02,855 --> 00:04:04,719
+And actually this should be a DELETE request
+
+93
+00:04:04,719 --> 00:04:07,523
+here since unregistering is essentially,
+
+94
+00:04:07,717 --> 00:04:07,847
+well,
+
+95
+00:04:08,447 --> 00:04:09,223
+deleting something.
+
+96
+00:04:12,178 --> 00:04:14,019
+So a DELETE request
+
+97
+00:04:14,600 --> 00:04:15,278
+sent to
+
+98
+00:04:16,182 --> 00:04:17,700
+http://localhost:3000/events/1
+
+99
+00:04:22,671 --> 00:04:24,654
+because we're talking about the event with
+
+100
+00:04:24,654 --> 00:04:25,096
+ID 1,
+
+101
+00:04:26,211 --> 00:04:26,588
+/unregister.
+
+102
+00:04:28,704 --> 00:04:29,154
+And then again,
+
+103
+00:04:30,376 --> 00:04:32,610
+add some headers, the authorization header
+
+104
+00:04:33,366 --> 00:04:33,816
+bearer,
+
+105
+00:04:35,696 --> 00:04:37,837
+and then grab that token.
+
+106
+00:04:38,578 --> 00:04:41,093
+Let's grab it here from the login request
+
+107
+00:04:43,978 --> 00:04:46,315
+like this, send this, and we unregistered.
+
+108
+00:04:48,103 --> 00:04:51,076
+Now I can do this as often as I want as
+
+109
+00:04:51,092 --> 00:04:51,221
+well.
+
+110
+00:04:51,754 --> 00:04:53,806
+At some point I'll just get unregistration
+
+111
+00:04:53,806 --> 00:04:55,817
+failed. Failed because, well, I am not
+
+112
+00:04:55,817 --> 00:04:56,694
+registered anymore.
+
+113
+00:04:58,400 --> 00:05:00,115
+But in general, this works the way it
+
+114
+00:05:00,115 --> 00:05:00,342
+should.
+
+115
+00:05:01,329 --> 00:05:02,882
+And as mentioned, you could of course tweak
+
+116
+00:05:02,882 --> 00:05:03,012
+this,
+
+117
+00:05:03,611 --> 00:05:06,054
+make it more granular, add extra checks, but
+
+118
+00:05:06,103 --> 00:05:07,656
+in general, this is working the way it
+
+119
+00:05:07,656 --> 00:05:07,915
+should.

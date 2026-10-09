@@ -1,0 +1,243 @@
+1
+00:00:00,112 --> 00:00:02,758
+So with Bun, you can import
+
+2
+00:00:03,480 --> 00:00:05,517
+TOML, JSON, HTML,
+
+3
+00:00:06,191 --> 00:00:08,870
+and many other kinds of files, as I
+
+4
+00:00:08,870 --> 00:00:10,875
+mentioned. And I also mentioned that this
+
+5
+00:00:10,875 --> 00:00:11,228
+simply
+
+6
+00:00:11,837 --> 00:00:14,773
+simplifies the process of pulling in that
+
+7
+00:00:14,773 --> 00:00:17,275
+information from these files into your code
+
+8
+00:00:17,275 --> 00:00:18,302
+and working with it.
+
+9
+00:00:19,120 --> 00:00:23,178
+But Bun also has a file API. It has
+
+10
+00:00:23,370 --> 00:00:24,606
+bun.file,
+
+11
+00:00:25,215 --> 00:00:27,461
+and you can use that for reading a file too.
+
+12
+00:00:27,942 --> 00:00:29,913
+So naturally, the question is,
+
+13
+00:00:30,490 --> 00:00:32,316
+when would you use which approach?
+
+14
+00:00:33,214 --> 00:00:34,400
+And the answer is
+
+15
+00:00:34,977 --> 00:00:38,197
+you would use these imports when you know
+
+16
+00:00:39,063 --> 00:00:40,809
+which files you need. So when you can
+
+17
+00:00:40,825 --> 00:00:43,501
+hardcode the exact file names you need.
+
+18
+00:00:44,207 --> 00:00:46,690
+But in this invoice generation application
+
+19
+00:00:46,754 --> 00:00:49,895
+here, I actually have a customers folder. My
+
+20
+00:00:50,136 --> 00:00:51,385
+script index.ts
+
+21
+00:00:51,962 --> 00:00:54,305
+looks for that customers folder. Here,
+
+22
+00:00:54,839 --> 00:00:56,766
+and I'll get back to that glob thing later
+
+23
+00:00:56,766 --> 00:00:56,911
+too,
+
+24
+00:00:57,818 --> 00:01:00,667
+and searches for all the JSON files it can
+
+25
+00:01:00,667 --> 00:01:01,428
+find in there
+
+26
+00:01:02,383 --> 00:01:04,278
+so that when we want to generate a new
+
+27
+00:01:04,473 --> 00:01:05,836
+invoice for a new customer,
+
+28
+00:01:06,501 --> 00:01:07,734
+I could simply add
+
+29
+00:01:08,512 --> 00:01:09,324
+customer2.json,
+
+30
+00:01:10,426 --> 00:01:12,898
+fill in the right data. So copy that in
+
+31
+00:01:12,946 --> 00:01:13,059
+there,
+
+32
+00:01:13,835 --> 00:01:14,594
+customer2,
+
+33
+00:01:17,065 --> 00:01:18,648
+customer2, and leave all the rest.
+
+34
+00:01:20,313 --> 00:01:22,798
+And if I now would run my generate script
+
+35
+00:01:22,798 --> 00:01:25,636
+again, you see it produces that customer 2
+
+36
+00:01:25,684 --> 00:01:26,262
+invoice too.
+
+37
+00:01:26,951 --> 00:01:29,180
+So put in other words, I don't know in
+
+38
+00:01:29,212 --> 00:01:32,146
+advance which specific customers I'll have
+
+39
+00:01:32,178 --> 00:01:34,519
+here. I want to build a flexible dynamic
+
+40
+00:01:34,968 --> 00:01:37,598
+application and utility tool where I can
+
+41
+00:01:37,614 --> 00:01:39,939
+generate as many invoices for as many
+
+42
+00:01:39,939 --> 00:01:41,334
+customers with any names
+
+43
+00:01:41,863 --> 00:01:44,252
+I want. And that's the kind of scenario
+
+44
+00:01:44,348 --> 00:01:46,833
+where you would load those files dynamically
+
+45
+00:01:46,929 --> 00:01:47,875
+using Bunsen's
+
+46
+00:01:48,935 --> 00:01:51,103
+instead of adding those imports because you
+
+47
+00:01:51,103 --> 00:01:52,934
+can't add those imports. I don't know all
+
+48
+00:01:53,031 --> 00:01:55,600
+the customers I'll work with or I want to
+
+49
+00:01:55,600 --> 00:01:57,431
+use and I don't want to update the source
+
+50
+00:01:57,431 --> 00:01:59,503
+code whenever I add a new customer here.
+
+51
+00:02:00,161 --> 00:02:01,045
+I don't wanna have a bunch of
+
+52
+00:02:01,061 --> 00:02:02,859
+customer-specific import statements up
+
+53
+00:02:02,988 --> 00:02:03,165
+there.
+
+54
+00:02:03,968 --> 00:02:06,200
+So that's the difference. If you have
+
+55
+00:02:06,200 --> 00:02:07,967
+certain files which will never change where
+
+56
+00:02:07,967 --> 00:02:10,263
+you know you'll need them, typically
+
+57
+00:02:10,360 --> 00:02:13,299
+configuration or template files, then using
+
+58
+00:02:13,347 --> 00:02:15,499
+this import feature is great. In other
+
+59
+00:02:15,595 --> 00:02:17,558
+cases, you can use Bunsen for that. File
+
+60
+00:02:17,672 --> 00:02:18,110
+API.
+
+61
+00:02:18,906 --> 00:02:21,098
+And how does that File API work now?

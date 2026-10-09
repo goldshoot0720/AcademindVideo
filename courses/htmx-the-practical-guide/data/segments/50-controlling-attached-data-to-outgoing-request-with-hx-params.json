@@ -1,0 +1,467 @@
+[
+ {
+  "start": 2.133,
+  "end": 4.829,
+  "en": "So these requests here don't seem to work"
+ },
+ {
+  "start": 4.909,
+  "end": 6.642,
+  "en": "correctly. Specifically here for the"
+ },
+ {
+  "start": 6.754,
+  "end": 9.498,
+  "en": "password, I get some email-specific error"
+ },
+ {
+  "start": 9.498,
+  "end": 11.616,
+  "en": "message if I'm entering an incorrect"
+ },
+ {
+  "start": 11.664,
+  "end": 12.113,
+  "en": "password."
+ },
+ {
+  "start": 13.284,
+  "end": 15.803,
+  "en": "Now, as I explained in the last lecture, in"
+ },
+ {
+  "start": 15.996,
+  "end": 19.044,
+  "en": "theory, this validation code here in this"
+ },
+ {
+  "start": 19.108,
+  "end": 22.814,
+  "en": "POST route should output a password-specific"
+ },
+ {
+  "start": 22.879,
+  "end": 25.943,
+  "en": "error message if I have password data in the"
+ },
+ {
+  "start": 25.943,
+  "end": 28.526,
+  "en": "request body and the password is too short."
+ },
+ {
+  "start": 29.154,
+  "end": 30.869,
+  "en": "But clearly that doesn't work."
+ },
+ {
+  "start": 32.7,
+  "end": 36.019,
+  "en": "And the only reason why that might not work"
+ },
+ {
+  "start": 36.099,
+  "end": 39.354,
+  "en": "is that maybe here when we entered a"
+ },
+ {
+  "start": 39.402,
+  "end": 40.321,
+  "en": "password value,"
+ },
+ {
+  "start": 41.029,
+  "end": 44.752,
+  "en": "this email value is part of that POST"
+ },
+ {
+  "start": 44.8,
+  "end": 45.541,
+  "en": "request"
+ },
+ {
+  "start": 46.492,
+  "end": 48.7,
+  "en": "because if that would be the case, this if"
+ },
+ {
+  "start": 48.829,
+  "end": 50.266,
+  "en": "check here would become active"
+ },
+ {
+  "start": 51.271,
+  "end": 53.913,
+  "en": "because I'm checking if I got an email field"
+ },
+ {
+  "start": 53.946,
+  "end": 54.967,
+  "en": "in the request body"
+ },
+ {
+  "start": 55.631,
+  "end": 58.031,
+  "en": "and I then validate that email address and I"
+ },
+ {
+  "start": 58.16,
+  "end": 60.454,
+  "en": "don't even run my other checks here if"
+ },
+ {
+  "start": 60.454,
+  "end": 61.229,
+  "en": "that's the case."
+ },
+ {
+  "start": 62.633,
+  "end": 64.958,
+  "en": "So it seems like we don't even get to this"
+ },
+ {
+  "start": 64.958,
+  "end": 67.444,
+  "en": "check and that can only happen if there is"
+ },
+ {
+  "start": 67.638,
+  "end": 70.743,
+  "en": "some email data in the request body. So that"
+ },
+ {
+  "start": 70.743,
+  "end": 71.904,
+  "en": "seems to be the problem here."
+ },
+ {
+  "start": 73.652,
+  "end": 75.525,
+  "en": "Now, of course, the POST request for that"
+ },
+ {
+  "start": 75.573,
+  "end": 77.817,
+  "en": "password is sent whenever that password"
+ },
+ {
+  "start": 77.914,
+  "end": 81.611,
+  "en": "input changes. So why is there email data"
+ },
+ {
+  "start": 81.643,
+  "end": 83.015,
+  "en": "attached to that request?"
+ },
+ {
+  "start": 84.305,
+  "end": 87.353,
+  "en": "Well, because when HTMX sends a POST"
+ },
+ {
+  "start": 87.353,
+  "end": 89.256,
+  "en": "request, it tries to attach any meaningful"
+ },
+ {
+  "start": 89.256,
+  "end": 89.934,
+  "en": "data it can get."
+ },
+ {
+  "start": 92.953,
+  "end": 96.096,
+  "en": "And if that POST request is sent because"
+ },
+ {
+  "start": 96.129,
+  "end": 99.062,
+  "en": "some input changes and that input is in a"
+ },
+ {
+  "start": 99.062,
+  "end": 99.499,
+  "en": "form,"
+ },
+ {
+  "start": 100.163,
+  "end": 103.54,
+  "en": "it turns out that HTMX gathers all the form"
+ },
+ {
+  "start": 103.572,
+  "end": 105.138,
+  "en": "data of the entire form."
+ },
+ {
+  "start": 106.235,
+  "end": 109.075,
+  "en": "And that's of course not what I want here."
+ },
+ {
+  "start": 109.607,
+  "end": 112.262,
+  "en": "I wanna attach just the data of this input,"
+ },
+ {
+  "start": 112.7,
+  "end": 114.241,
+  "en": "not the entire form data."
+ },
+ {
+  "start": 115.96,
+  "end": 117.89,
+  "en": "So what can we do about that?"
+ },
+ {
+  "start": 119.445,
+  "end": 123.644,
+  "en": "Now, you might recall the hx-vals attribute"
+ },
+ {
+  "start": 123.66,
+  "end": 126.293,
+  "en": "from earlier in the course, which could be"
+ },
+ {
+  "start": 126.293,
+  "end": 129.71,
+  "en": "used to add new data to an outgoing request."
+ },
+ {
+  "start": 131.376,
+  "end": 134.231,
+  "en": "Now, I essentially wanna filter the data"
+ },
+ {
+  "start": 134.312,
+  "end": 136.859,
+  "en": "that's added automatically so that not all"
+ },
+ {
+  "start": 136.989,
+  "end": 138.173,
+  "en": "the values are added."
+ },
+ {
+  "start": 139.518,
+  "end": 141.552,
+  "en": "And this can be achieved with help of"
+ },
+ {
+  "start": 141.552,
+  "end": 146.166,
+  "en": "another HTMX attribute. The hx-params"
+ },
+ {
+  "start": 146.426,
+  "end": 146.897,
+  "en": "attribute."
+ },
+ {
+  "start": 148.635,
+  "end": 151.558,
+  "en": "This attribute allows you to filter the"
+ },
+ {
+  "start": 151.883,
+  "end": 153.887,
+  "en": "parameters, the values"
+ },
+ {
+  "start": 154.474,
+  "end": 156.853,
+  "en": "that will be attached to the outgoing"
+ },
+ {
+  "start": 156.853,
+  "end": 157.359,
+  "en": "request."
+ },
+ {
+  "start": 158.986,
+  "end": 161.831,
+  "en": "To be precise, here with hx-params,"
+ },
+ {
+  "start": 162.361,
+  "end": 165.479,
+  "en": "you can specify a comma-separated list of"
+ },
+ {
+  "start": 165.592,
+  "end": 167.923,
+  "en": "the values that should be added to the"
+ },
+ {
+  "start": 167.923,
+  "end": 168.327,
+  "en": "request."
+ },
+ {
+  "start": 169.297,
+  "end": 171.948,
+  "en": "And any other values which you don't specify"
+ },
+ {
+  "start": 172.028,
+  "end": 173.305,
+  "en": "here will be dropped and will not be part of"
+ },
+ {
+  "start": 173.305,
+  "end": 173.58,
+  "en": "the request."
+ },
+ {
+  "start": 176.671,
+  "end": 178.908,
+  "en": "So here on that password input, I for"
+ },
+ {
+  "start": 178.908,
+  "end": 181.305,
+  "en": "example wanna make sure that I only send"
+ },
+ {
+  "start": 181.305,
+  "end": 182.769,
+  "en": "along the password value."
+ },
+ {
+  "start": 183.91,
+  "end": 186.063,
+  "en": "So the value that's stored under a name"
+ },
+ {
+  "start": 186.127,
+  "end": 188.41,
+  "en": "password in the outgoing request. And that's"
+ },
+ {
+  "start": 188.41,
+  "end": 190.757,
+  "en": "achieved by simply adding that value name"
+ },
+ {
+  "start": 191.146,
+  "end": 193.848,
+  "en": "password in this case to Ajax params."
+ },
+ {
+  "start": 195.946,
+  "end": 198.124,
+  "en": "Now if I would also want to include the"
+ },
+ {
+  "start": 198.124,
+  "end": 200.253,
+  "en": "email, I could add it comma separated like"
+ },
+ {
+  "start": 200.302,
+  "end": 200.56,
+  "en": "this,"
+ },
+ {
+  "start": 201.205,
+  "end": 203.722,
+  "en": "though that of course is absolutely not what"
+ },
+ {
+  "start": 203.722,
+  "end": 205.351,
+  "en": "I want here. So instead it's just Ajax"
+ },
+ {
+  "start": 205.351,
+  "end": 205.545,
+  "en": "params password."
+ },
+ {
+  "start": 208.389,
+  "end": 211.182,
+  "en": "And we can achieve the opposite effect here"
+ },
+ {
+  "start": 211.359,
+  "end": 211.824,
+  "en": "on the email"
+ },
+ {
+  "start": 212.563,
+  "end": 215.179,
+  "en": "input by setting hx-params to email."
+ },
+ {
+  "start": 216.351,
+  "end": 218.887,
+  "en": "That makes sure that here it's really only"
+ },
+ {
+  "start": 219.064,
+  "end": 221.295,
+  "en": "the email value that's part of the outgoing"
+ },
+ {
+  "start": 221.327,
+  "end": 221.825,
+  "en": "request."
+ },
+ {
+  "start": 222.932,
+  "end": 225.1,
+  "en": "Well, and with that done, if you go back to"
+ },
+ {
+  "start": 225.1,
+  "end": 227.7,
+  "en": "the application and reload after saving all"
+ },
+ {
+  "start": 227.812,
+  "end": 228.358,
+  "en": "your files,"
+ },
+ {
+  "start": 228.952,
+  "end": 231.151,
+  "en": "if I enter an invalid email, that's still"
+ },
+ {
+  "start": 231.264,
+  "end": 231.825,
+  "en": "validated."
+ },
+ {
+  "start": 232.869,
+  "end": 235.133,
+  "en": "But if I then enter an invalid password, and"
+ },
+ {
+  "start": 235.133,
+  "end": 237.598,
+  "en": "then tab out of this field, now you see I'm"
+ },
+ {
+  "start": 237.695,
+  "end": 239.71,
+  "en": "getting that password error message."
+ },
+ {
+  "start": 241.095,
+  "end": 243.158,
+  "en": "And that's therefore how you can control"
+ },
+ {
+  "start": 243.593,
+  "end": 246.139,
+  "en": "which data is attached to the outgoing"
+ },
+ {
+  "start": 246.172,
+  "end": 246.655,
+  "en": "request."
+ }
+]

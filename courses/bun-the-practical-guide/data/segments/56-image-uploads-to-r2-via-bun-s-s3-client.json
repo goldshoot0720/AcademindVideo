@@ -1,0 +1,1147 @@
+[
+ {
+  "start": 0.112,
+  "end": 2.935,
+  "en": "Now, of course, the other important data"
+ },
+ {
+  "start": 2.935,
+  "end": 5.902,
+  "en": "storage feature we have in this app besides"
+ },
+ {
+  "start": 5.966,
+  "end": 8.869,
+  "en": "the normal data in the database is that we"
+ },
+ {
+  "start": 8.869,
+  "end": 12.189,
+  "en": "support image uploads. Users can attach"
+ },
+ {
+  "start": 12.301,
+  "end": 16.102,
+  "en": "images to their posts and we handle this in"
+ },
+ {
+  "start": 16.231,
+  "end": 17.305,
+  "en": "this project here"
+ },
+ {
+  "start": 17.995,
+  "end": 21.892,
+  "en": "via Bun's S3 client. For that, I got an"
+ },
+ {
+  "start": 22.069,
+  "end": 24.138,
+  "en": "r2-ts file in there because I'm using"
+ },
+ {
+  "start": 24.17,
+  "end": 27.041,
+  "en": "Cloudflare R2 in this project because it's"
+ },
+ {
+  "start": 27.041,
+  "end": 29.849,
+  "en": "cheaper than Amazon S3. But of course you"
+ },
+ {
+  "start": 29.849,
+  "end": 33.301,
+  "en": "can use any S3 compatible service with the"
+ },
+ {
+  "start": 33.301,
+  "end": 34.762,
+  "en": "Bun S3 client."
+ },
+ {
+  "start": 35.404,
+  "end": 37.941,
+  "en": "If you wanna use R2, what you have to do is"
+ },
+ {
+  "start": 37.989,
+  "end": 40.574,
+  "en": "of course create a Cloudflare account, then"
+ },
+ {
+  "start": 40.686,
+  "end": 43.561,
+  "en": "create a new R2 bucket in there, any name of"
+ },
+ {
+  "start": 43.593,
+  "end": 46.595,
+  "en": "your choice, location, storage class, that's"
+ },
+ {
+  "start": 46.708,
+  "end": 49.068,
+  "en": "all fine. Create that bucket"
+ },
+ {
+  "start": 49.694,
+  "end": 53.547,
+  "en": "and then in there under settings, make sure"
+ },
+ {
+  "start": 53.547,
+  "end": 56.532,
+  "en": "that you do you go to CORS policy"
+ },
+ {
+  "start": 57.382,
+  "end": 59.723,
+  "en": "and you add something there. That's"
+ },
+ {
+  "start": 59.723,
+  "end": 60.974,
+  "en": "important because"
+ },
+ {
+  "start": 61.567,
+  "end": 65.064,
+  "en": "we actually use this bucket to upload files"
+ },
+ {
+  "start": 65.256,
+  "end": 68.431,
+  "en": "into it directly from the client, not from"
+ },
+ {
+  "start": 68.448,
+  "end": 71.446,
+  "en": "our server. And therefore, the browser will"
+ },
+ {
+  "start": 71.446,
+  "end": 74.494,
+  "en": "send a cross-origin request and therefore,"
+ },
+ {
+  "start": 74.959,
+  "end": 77.364,
+  "en": "we need to configure this bucket to support"
+ },
+ {
+  "start": 77.364,
+  "end": 79.465,
+  "en": "it. And I'll show you how exactly that works"
+ },
+ {
+  "start": 79.465,
+  "end": 80.347,
+  "en": "in just a second."
+ },
+ {
+  "start": 81.229,
+  "end": 83.425,
+  "en": "So here under CORS policy,"
+ },
+ {
+  "start": 84.098,
+  "end": 86.39,
+  "en": "you wanna make sure that your frontend"
+ },
+ {
+  "start": 86.438,
+  "end": 86.935,
+  "en": "origin"
+ },
+ {
+  "start": 87.528,
+  "end": 89.756,
+  "en": "is enabled. And by default, that is port"
+ },
+ {
+  "start": 89.788,
+  "end": 93.01,
+  "en": "5173, not 3000."
+ },
+ {
+  "start": 93.619,
+  "end": 96.344,
+  "en": "You wanna support PUT methods as well, not"
+ },
+ {
+  "start": 96.36,
+  "end": 96.921,
+  "en": "just GET."
+ },
+ {
+  "start": 97.787,
+  "end": 100.624,
+  "en": "And then you need to add another entry here,"
+ },
+ {
+  "start": 100.688,
+  "end": 102.419,
+  "en": "which is allowed headers,"
+ },
+ {
+  "start": 103.413,
+  "end": 106.33,
+  "en": "and just set this to an array with a string"
+ },
+ {
+  "start": 106.378,
+  "end": 108.109,
+  "en": "in there with an asterisk inside."
+ },
+ {
+  "start": 109.104,
+  "end": 111.334,
+  "en": "And save that. This is important. You must"
+ },
+ {
+  "start": 111.334,
+  "end": 112.763,
+  "en": "set up these settings."
+ },
+ {
+  "start": 114.078,
+  "end": 114.608,
+  "en": "And then"
+ },
+ {
+  "start": 115.506,
+  "end": 118.283,
+  "en": "on that overview page of the R2 Object"
+ },
+ {
+  "start": 118.411,
+  "end": 118.86,
+  "en": "Storage,"
+ },
+ {
+  "start": 119.598,
+  "end": 121.893,
+  "en": "under Account Details and API Tokens, you"
+ },
+ {
+  "start": 121.925,
+  "end": 122.84,
+  "en": "must click Manage"
+ },
+ {
+  "start": 123.947,
+  "end": 126.354,
+  "en": "and then here create a new account API"
+ },
+ {
+  "start": 126.434,
+  "end": 126.803,
+  "en": "token."
+ },
+ {
+  "start": 127.573,
+  "end": 128.745,
+  "en": "Social Demo App"
+ },
+ {
+  "start": 129.483,
+  "end": 131.489,
+  "en": "or Social Demo App Bun or whatever you want"
+ },
+ {
+  "start": 131.489,
+  "end": 132.034,
+  "en": "could be a name."
+ },
+ {
+  "start": 133.158,
+  "end": 136.335,
+  "en": "Object read/write access is important. Apply"
+ },
+ {
+  "start": 136.464,
+  "end": 137.234,
+  "en": "to your bucket,"
+ },
+ {
+  "start": 138.005,
+  "end": 139.097,
+  "en": "social-app-demo,"
+ },
+ {
+  "start": 139.98,
+  "end": 141.457,
+  "en": "and create that token."
+ },
+ {
+  "start": 142.565,
+  "end": 145.118,
+  "en": "And then you need to copy this access key ID"
+ },
+ {
+  "start": 145.214,
+  "end": 148.667,
+  "en": "and keep those values secret. I'll delete"
+ },
+ {
+  "start": 148.667,
+  "end": 150.995,
+  "en": "this bucket and key after this video so you"
+ },
+ {
+  "start": 150.995,
+  "end": 153.002,
+  "en": "don't need to bother trying mine, but you"
+ },
+ {
+  "start": 153.002,
+  "end": 155.571,
+  "en": "should keep them secret and add them in a"
+ },
+ {
+  "start": 156.037,
+  "end": 157.369,
+  "en": ".env file in your project."
+ },
+ {
+  "start": 158.06,
+  "end": 159.842,
+  "en": "And in that.env file, you need to put your"
+ },
+ {
+  "start": 160.243,
+  "end": 163.293,
+  "en": "R2 account ID, You get this from this"
+ },
+ {
+  "start": 163.437,
+  "end": 164.304,
+  "en": "endpoint URL,"
+ },
+ {
+  "start": 164.881,
+  "end": 165.972,
+  "en": "this part which is"
+ },
+ {
+  "start": 166.55,
+  "end": 168.106,
+  "en": "hidden here now for you, but there is a"
+ },
+ {
+  "start": 168.171,
+  "end": 170.561,
+  "en": "unique ID there which you need to copy and"
+ },
+ {
+  "start": 170.577,
+  "end": 171.332,
+  "en": "then insert here."
+ },
+ {
+  "start": 172.262,
+  "end": 174.011,
+  "en": "And then you must insert your access and"
+ },
+ {
+  "start": 174.011,
+  "end": 176.193,
+  "en": "secret access keys here, which you can get"
+ },
+ {
+  "start": 176.193,
+  "end": 176.883,
+  "en": "from this page,"
+ },
+ {
+  "start": 177.541,
+  "end": 180.092,
+  "en": "and the bucket name you chose. So that's the"
+ },
+ {
+  "start": 180.092,
+  "end": 182.21,
+  "en": "setup you need to go through. And then in"
+ },
+ {
+  "start": 182.21,
+  "end": 182.483,
+  "en": "this"
+ },
+ {
+  "start": 183.029,
+  "end": 185.05,
+  "en": "R2TS file, what I'm doing"
+ },
+ {
+  "start": 185.644,
+  "end": 188.516,
+  "en": "is I'm just setting up a little storage"
+ },
+ {
+  "start": 188.853,
+  "end": 191.531,
+  "en": "object or First of all, a type that defines"
+ },
+ {
+  "start": 191.531,
+  "end": 193.887,
+  "en": "an object where the object will have various"
+ },
+ {
+  "start": 194.016,
+  "end": 194.432,
+  "en": "methods,"
+ },
+ {
+  "start": 195.106,
+  "end": 197.542,
+  "en": "methods for checking if an object exists,"
+ },
+ {
+  "start": 197.67,
+  "end": 200.46,
+  "en": "for deleting an object, for optimizing an"
+ },
+ {
+  "start": 200.572,
+  "end": 202.624,
+  "en": "image, something else I'll get back to"
+ },
+ {
+  "start": 202.656,
+  "end": 204.948,
+  "en": "because this demo app also contains"
+ },
+ {
+  "start": 205.124,
+  "end": 207.577,
+  "en": "automatic image optimization using Bun,"
+ },
+ {
+  "start": 208.491,
+  "end": 211.745,
+  "en": "and for pre-signing uploads. And that's the"
+ },
+ {
+  "start": 211.793,
+  "end": 212.787,
+  "en": "interesting part now."
+ },
+ {
+  "start": 213.781,
+  "end": 215.512,
+  "en": "In this social demo app here,"
+ },
+ {
+  "start": 216.185,
+  "end": 218.622,
+  "en": "I actually configured everything such that"
+ },
+ {
+  "start": 218.991,
+  "end": 221.796,
+  "en": "if a user attaches an image to a post, the"
+ },
+ {
+  "start": 221.876,
+  "end": 225.612,
+  "en": "image is not uploaded to this bun API we"
+ },
+ {
+  "start": 225.74,
+  "end": 229.749,
+  "en": "built and then to R2, but instead directly"
+ },
+ {
+  "start": 229.749,
+  "end": 233.036,
+  "en": "from the client to the R2 bucket. And the"
+ },
+ {
+  "start": 233.036,
+  "end": 235.65,
+  "en": "most important reason is that we simply save"
+ },
+ {
+  "start": 235.746,
+  "end": 238.279,
+  "en": "on bandwidth and power if we don't need to"
+ },
+ {
+  "start": 238.327,
+  "end": 240.797,
+  "en": "handle every single upload. Instead, we let"
+ },
+ {
+  "start": 240.797,
+  "end": 243.94,
+  "en": "the user upload directly from the client to"
+ },
+ {
+  "start": 243.94,
+  "end": 246.794,
+  "en": "the R2 bucket. So that's what presigning is"
+ },
+ {
+  "start": 246.842,
+  "end": 248.814,
+  "en": "about. Now, how does the concrete method"
+ },
+ {
+  "start": 248.814,
+  "end": 249.359,
+  "en": "look like?"
+ },
+ {
+  "start": 250.914,
+  "end": 251.042,
+  "en": "Well,"
+ },
+ {
+  "start": 251.7,
+  "end": 254.296,
+  "en": "it is defined down here. It's super simple."
+ },
+ {
+  "start": 254.825,
+  "end": 255.29,
+  "en": "I'm using"
+ },
+ {
+  "start": 255.963,
+  "end": 255.995,
+  "en": "R2,"
+ },
+ {
+  "start": 256.669,
+  "end": 258.913,
+  "en": "which is an object I'm creating here, which"
+ },
+ {
+  "start": 259.009,
+  "end": 261.942,
+  "en": "I am creating using the S3 client coming"
+ },
+ {
+  "start": 262.039,
+  "end": 265.421,
+  "en": "from Bun. So that is imported from Bun. It's"
+ },
+ {
+  "start": 265.421,
+  "end": 267.954,
+  "en": "the S3 client built into Bun."
+ },
+ {
+  "start": 268.531,
+  "end": 271.159,
+  "en": "I'm instantiating it here with the settings"
+ },
+ {
+  "start": 271.192,
+  "end": 274.654,
+  "en": "that are read from my.env file using Bun's"
+ },
+ {
+  "start": 274.702,
+  "end": 277.123,
+  "en": "built-in support for.env. Automatically"
+ },
+ {
+  "start": 277.187,
+  "end": 278.873,
+  "en": "loads it. You don't need to point at it. You"
+ },
+ {
+  "start": 278.873,
+  "end": 281.345,
+  "en": "don't need any extra packages to load.env"
+ },
+ {
+  "start": 281.362,
+  "end": 281.715,
+  "en": "files."
+ },
+ {
+  "start": 282.405,
+  "end": 285.985,
+  "en": "This gives us our S3 client. I named it R2"
+ },
+ {
+  "start": 286.114,
+  "end": 286.964,
+  "en": "because I'm using"
+ },
+ {
+  "start": 287.494,
+  "end": 288.57,
+  "en": "R2 by Cloudflare here."
+ },
+ {
+  "start": 289.405,
+  "end": 291.7,
+  "en": "And then my presignUpload method just uses"
+ },
+ {
+  "start": 291.732,
+  "end": 294.108,
+  "en": "the built-in presign method, which the Bun"
+ },
+ {
+  "start": 294.365,
+  "end": 297.801,
+  "en": "S3 client supports out of the box to create"
+ },
+ {
+  "start": 297.897,
+  "end": 301.269,
+  "en": "a short-lived URL which we can send to the"
+ },
+ {
+  "start": 301.269,
+  "end": 303.436,
+  "en": "client, which the client can then use to"
+ },
+ {
+  "start": 303.676,
+  "end": 306.738,
+  "en": "upload a file to our bucket. So we give the"
+ },
+ {
+  "start": 306.738,
+  "end": 307.155,
+  "en": "client"
+ },
+ {
+  "start": 307.684,
+  "end": 310.729,
+  "en": "temporary, highly restricted access to a"
+ },
+ {
+  "start": 310.729,
+  "end": 313.743,
+  "en": "part of our bucket, specifically to one"
+ },
+ {
+  "start": 313.871,
+  "end": 317.59,
+  "en": "single object identified by a key in our"
+ },
+ {
+  "start": 317.638,
+  "end": 320.492,
+  "en": "bucket. That is what we're doing. And the"
+ },
+ {
+  "start": 320.524,
+  "end": 322.672,
+  "en": "key is just the file name so that the client"
+ },
+ {
+  "start": 322.912,
+  "end": 325.541,
+  "en": "can upload one single file with a clearly"
+ },
+ {
+  "start": 325.557,
+  "end": 329.356,
+  "en": "defined file name for a duration of 3,600"
+ },
+ {
+  "start": 329.356,
+  "end": 330.975,
+  "en": "seconds, which is 60 minutes."
+ },
+ {
+  "start": 331.504,
+  "end": 333.781,
+  "en": "And thereafter, this is locked down again."
+ },
+ {
+  "start": 334.31,
+  "end": 335.32,
+  "en": "So it's not some general access"
+ },
+ {
+  "start": 336.395,
+  "end": 339.443,
+  "en": "just an access to put an object with a"
+ },
+ {
+  "start": 339.443,
+  "end": 342.09,
+  "en": "clearly defined name onto our bucket for"
+ },
+ {
+  "start": 342.09,
+  "end": 344.898,
+  "en": "this timeframe. So that gives us a URL which"
+ },
+ {
+  "start": 344.898,
+  "end": 348.235,
+  "en": "is sent to the client. Now presigned upload"
+ },
+ {
+  "start": 348.331,
+  "end": 350.866,
+  "en": "is called from inside the uploads.ts file,"
+ },
+ {
+  "start": 351.058,
+  "end": 353.85,
+  "en": "which is just another route registration"
+ },
+ {
+  "start": 353.866,
+  "end": 354.075,
+  "en": "file."
+ },
+ {
+  "start": 354.668,
+  "end": 357.396,
+  "en": "So in there I have routes that handle file"
+ },
+ {
+  "start": 357.428,
+  "end": 360.187,
+  "en": "uploads. I have a route for generating"
+ },
+ {
+  "start": 360.283,
+  "end": 362.915,
+  "en": "presigned URLs that are sent to the client"
+ },
+ {
+  "start": 363.332,
+  "end": 364.423,
+  "en": "and a second route for"
+ },
+ {
+  "start": 365.032,
+  "end": 368.365,
+  "en": "marking uploads as done, as finalized when"
+ },
+ {
+  "start": 368.397,
+  "end": 369.327,
+  "en": "the client is done."
+ },
+ {
+  "start": 369.92,
+  "end": 372.468,
+  "en": "And the presignUpload function again checks"
+ },
+ {
+  "start": 372.468,
+  "end": 374.615,
+  "en": "if the user is authenticated because only"
+ },
+ {
+  "start": 374.631,
+  "end": 377.403,
+  "en": "authenticated users are allowed to upload. I"
+ },
+ {
+  "start": 377.451,
+  "end": 380.112,
+  "en": "check the request body and then I extract"
+ },
+ {
+  "start": 380.112,
+  "end": 382.868,
+  "en": "some data about the upload like the name of"
+ },
+ {
+  "start": 382.9,
+  "end": 385.352,
+  "en": "the file the user wants to upload, the size"
+ },
+ {
+  "start": 385.384,
+  "end": 387.611,
+  "en": "and the content type. That's all data the"
+ },
+ {
+  "start": 387.611,
+  "end": 389.871,
+  "en": "client has to send me and I'm extracting it"
+ },
+ {
+  "start": 389.871,
+  "end": 390.127,
+  "en": "here."
+ },
+ {
+  "start": 391.194,
+  "end": 393.268,
+  "en": "And then I check if we're dealing with an"
+ },
+ {
+  "start": 393.268,
+  "end": 396.0,
+  "en": "allowed type, if the size is maybe too large"
+ },
+ {
+  "start": 396.016,
+  "end": 398.572,
+  "en": "because I have a limit in place, a max"
+ },
+ {
+  "start": 398.588,
+  "end": 400.176,
+  "en": "upload size I defined"
+ },
+ {
+  "start": 401.416,
+  "end": 402.527,
+  "en": "of 4 megabytes."
+ },
+ {
+  "start": 404.57,
+  "end": 407.031,
+  "en": "And if that's all fine, I get hold of my"
+ },
+ {
+  "start": 407.08,
+  "end": 409.67,
+  "en": "storage helper object, which is really just"
+ },
+ {
+  "start": 410.075,
+  "end": 412.731,
+  "en": "this object I'm constructing in that r2ts"
+ },
+ {
+  "start": 412.731,
+  "end": 414.173,
+  "en": "file, which is that object with all these"
+ },
+ {
+  "start": 414.27,
+  "end": 416.166,
+  "en": "methods I just showed you a second ago."
+ },
+ {
+  "start": 417.428,
+  "end": 420.443,
+  "en": "And I then create a unique upload ID, again"
+ },
+ {
+  "start": 420.556,
+  "end": 422.288,
+  "en": "using that Crypto Web API,"
+ },
+ {
+  "start": 422.898,
+  "end": 425.432,
+  "en": "and then an object key where I use an"
+ },
+ {
+  "start": 425.544,
+  "end": 428.271,
+  "en": "uploads folder, the user ID is part of the"
+ },
+ {
+  "start": 428.271,
+  "end": 431.383,
+  "en": "path, the upload ID is part of the path, and"
+ },
+ {
+  "start": 431.399,
+  "end": 433.532,
+  "en": "then hardcoded the word original and then"
+ },
+ {
+  "start": 433.645,
+  "end": 434.334,
+  "en": "the extension."
+ },
+ {
+  "start": 435.008,
+  "end": 437.077,
+  "en": "So the user's filename is not part of it,"
+ },
+ {
+  "start": 437.093,
+  "end": 439.74,
+  "en": "but this is a unique filename clearly mapped"
+ },
+ {
+  "start": 439.74,
+  "end": 440.365,
+  "en": "to a user."
+ },
+ {
+  "start": 441.183,
+  "end": 443.285,
+  "en": "I also create a timestamp and then I have a"
+ },
+ {
+  "start": 443.285,
+  "end": 446.189,
+  "en": "separate table an uploads table where I"
+ },
+ {
+  "start": 446.237,
+  "end": 448.965,
+  "en": "register all the uploads that are started"
+ },
+ {
+  "start": 449.029,
+  "end": 450.121,
+  "en": "and their status"
+ },
+ {
+  "start": 450.731,
+  "end": 452.785,
+  "en": "and I set the status to pending initially"
+ },
+ {
+  "start": 453.443,
+  "end": 456.075,
+  "en": "and then I run this to insert this entry."
+ },
+ {
+  "start": 456.749,
+  "end": 459.878,
+  "en": "Then I generate that upload URL using that"
+ },
+ {
+  "start": 459.878,
+  "end": 462.671,
+  "en": "presign upload function or method I just"
+ },
+ {
+  "start": 462.671,
+  "end": 465.014,
+  "en": "showed you and then I send back a response"
+ },
+ {
+  "start": 465.014,
+  "end": 467.533,
+  "en": "to the client which includes that upload URL"
+ },
+ {
+  "start": 467.903,
+  "end": 470.117,
+  "en": "and then the client can get started doing"
+ },
+ {
+  "start": 470.214,
+  "end": 470.679,
+  "en": "the upload."
+ },
+ {
+  "start": 471.353,
+  "end": 473.825,
+  "en": "So if we take a look at this client web app"
+ },
+ {
+  "start": 473.985,
+  "end": 476.264,
+  "en": "here in the source folder, in the new"
+ },
+ {
+  "start": 476.489,
+  "end": 478.061,
+  "en": "PostPage component,"
+ },
+ {
+  "start": 478.719,
+  "end": 479.746,
+  "en": "I have this"
+ },
+ {
+  "start": 480.324,
+  "end": 482.747,
+  "en": "handleSubmit function where I handle the"
+ },
+ {
+  "start": 482.747,
+  "end": 485.556,
+  "en": "submitted form. So that's on the client side"
+ },
+ {
+  "start": 485.556,
+  "end": 488.043,
+  "en": "now. And in there I also do some validation"
+ },
+ {
+  "start": 488.043,
+  "end": 490.242,
+  "en": "and stuff. I check if the user did pick a"
+ },
+ {
+  "start": 490.29,
+  "end": 490.643,
+  "en": "file,"
+ },
+ {
+  "start": 491.173,
+  "end": 494.736,
+  "en": "but then if everything is set up properly, I"
+ },
+ {
+  "start": 494.864,
+  "end": 497.672,
+  "en": "send a request to the backend API to that"
+ },
+ {
+  "start": 497.672,
+  "end": 500.256,
+  "en": "presigned URL I just showed you to get that"
+ },
+ {
+  "start": 500.256,
+  "end": 501.637,
+  "en": "presigned URL. Presigned URL"
+ },
+ {
+  "start": 502.167,
+  "end": 505.38,
+  "en": "and then on the client that URL is used,"
+ },
+ {
+  "start": 505.701,
+  "end": 508.833,
+  "en": "that upload URL my Bun server returns to the"
+ },
+ {
+  "start": 508.833,
+  "end": 510.873,
+  "en": "client is used to"
+ },
+ {
+  "start": 511.483,
+  "end": 513.78,
+  "en": "perform the actual upload using the Fetch"
+ },
+ {
+  "start": 513.828,
+  "end": 514.117,
+  "en": "API."
+ },
+ {
+  "start": 514.856,
+  "end": 516.993,
+  "en": "That's how uploading works in this app and"
+ },
+ {
+  "start": 517.169,
+  "end": 519.434,
+  "en": "on the backend we use the presigned feature"
+ },
+ {
+  "start": 519.434,
+  "end": 522.454,
+  "en": "supported by Bun's S3 client for that."
+ },
+ {
+  "start": 523.048,
+  "end": 524.831,
+  "en": "And then in finalizeUpload which is"
+ },
+ {
+  "start": 524.879,
+  "end": 527.992,
+  "en": "triggered by the client If the upload"
+ },
+ {
+  "start": 528.024,
+  "end": 531.118,
+  "en": "finished, I send a request to that finalize"
+ },
+ {
+  "start": 531.23,
+  "end": 534.324,
+  "en": "upload route here on my backend if uploading"
+ },
+ {
+  "start": 534.356,
+  "end": 534.692,
+  "en": "worked."
+ },
+ {
+  "start": 535.237,
+  "end": 537.85,
+  "en": "In there, I just mark the upload as"
+ },
+ {
+  "start": 537.882,
+  "end": 540.767,
+  "en": "successful in my database. I perform various"
+ },
+ {
+  "start": 540.767,
+  "end": 542.995,
+  "en": "checks here. I check if the file really"
+ },
+ {
+  "start": 542.995,
+  "end": 545.464,
+  "en": "exists. So I double-check if it really was"
+ },
+ {
+  "start": 545.576,
+  "end": 547.852,
+  "en": "uploaded successfully and then I set the"
+ },
+ {
+  "start": 547.884,
+  "end": 550.337,
+  "en": "status to finalized, for example. That's how"
+ },
+ {
+  "start": 550.609,
+  "end": 553.158,
+  "en": "uploading works here. And it all in the end"
+ },
+ {
+  "start": 553.334,
+  "end": 557.35,
+  "en": "is powered by Bun's S3 client using the"
+ },
+ {
+  "start": 557.35,
+  "end": 559.102,
+  "en": "built-in methods for creating those"
+ },
+ {
+  "start": 559.199,
+  "end": 561.53,
+  "en": "presigned URLs, for checking if a key"
+ },
+ {
+  "start": 561.53,
+  "end": 563.828,
+  "en": "exists, that's another method built into"
+ },
+ {
+  "start": 563.957,
+  "end": 567.236,
+  "en": "Bun's S3 client, for deleting a key, I do"
+ },
+ {
+  "start": 567.316,
+  "end": 569.422,
+  "en": "that if the user deletes a post, then I"
+ },
+ {
+  "start": 569.422,
+  "end": 571.801,
+  "en": "delete any images attached to the post"
+ },
+ {
+  "start": 572.637,
+  "end": 575.45,
+  "en": "and then also for optimizing. So what are we"
+ },
+ {
+  "start": 575.45,
+  "end": 576.093,
+  "en": "doing here?"
+ }
+]

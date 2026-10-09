@@ -1,0 +1,695 @@
+1
+00:00:02,055 --> 00:00:05,089
+So we got some routes for accepting and
+
+2
+00:00:05,106 --> 00:00:06,904
+deleting reservations, but of course there's
+
+3
+00:00:06,952 --> 00:00:08,253
+no business logic in there.
+
+4
+00:00:09,007 --> 00:00:10,099
+Now it would make sense to
+
+5
+00:00:10,693 --> 00:00:12,813
+validate any submitted data
+
+6
+00:00:13,664 --> 00:00:15,944
+to make sure that a valid time and date was
+
+7
+00:00:15,944 --> 00:00:18,127
+submitted, a valid number of people,
+
+8
+00:00:18,722 --> 00:00:20,841
+and to then maybe store that data in a
+
+9
+00:00:20,841 --> 00:00:21,275
+database.
+
+10
+00:00:22,671 --> 00:00:24,839
+So what we could do is write another prompt
+
+11
+00:00:24,839 --> 00:00:24,951
+here
+
+12
+00:00:26,589 --> 00:00:28,852
+refer to that file to be safe, though it
+
+13
+00:00:28,852 --> 00:00:31,484
+should normally consider the open file, but
+
+14
+00:00:31,484 --> 00:00:31,789
+anyways.
+
+15
+00:00:32,624 --> 00:00:34,742
+And then after adding this context here, say
+
+16
+00:00:35,577 --> 00:00:39,413
+validate the received input and store it in
+
+17
+00:00:39,525 --> 00:00:39,766
+the
+
+18
+00:00:40,312 --> 00:00:40,858
+database.
+
+19
+00:00:42,334 --> 00:00:44,341
+Now again, if I write it like this, that's
+
+20
+00:00:44,341 --> 00:00:47,390
+very unspecific. So I'll get a reply, but
+
+21
+00:00:47,695 --> 00:00:49,605
+chances are that the reply is
+
+22
+00:00:50,504 --> 00:00:52,976
+not really that great, that it's not really
+
+23
+00:00:53,313 --> 00:00:53,939
+what I want.
+
+24
+00:00:56,008 --> 00:00:58,378
+And there also is another problem with this
+
+25
+00:00:58,732 --> 00:01:01,505
+prompt here. It's not just not very
+
+26
+00:01:01,505 --> 00:01:02,311
+specific,
+
+27
+00:01:02,860 --> 00:01:04,779
+it also asks for a lot.
+
+28
+00:01:06,717 --> 00:01:09,220
+I want to validate the received input and
+
+29
+00:01:09,220 --> 00:01:11,756
+store it in a database, and both problems
+
+30
+00:01:11,885 --> 00:01:13,321
+are more or less
+
+31
+00:01:14,048 --> 00:01:14,725
+complex.
+
+32
+00:01:16,300 --> 00:01:18,510
+For example, validating the input, I could
+
+33
+00:01:18,510 --> 00:01:21,196
+add way more information here. Which input
+
+34
+00:01:21,325 --> 00:01:21,921
+to validate,
+
+35
+00:01:23,146 --> 00:01:25,145
+what to validate it for, so what my
+
+36
+00:01:25,177 --> 00:01:26,822
+conditions, my criteria are.
+
+37
+00:01:28,175 --> 00:01:30,140
+And the same for a database, which database,
+
+38
+00:01:30,559 --> 00:01:31,976
+which data should get stored there,
+
+39
+00:01:32,733 --> 00:01:33,779
+and so on. So
+
+40
+00:01:34,440 --> 00:01:37,515
+this is a short prompt for a complex problem
+
+41
+00:01:37,515 --> 00:01:39,541
+and you wanna avoid prompts like this.
+
+42
+00:01:41,276 --> 00:01:43,349
+You wanna split them up into multiple
+
+43
+00:01:43,606 --> 00:01:46,402
+problems and into multiple prompts instead
+
+44
+00:01:46,579 --> 00:01:47,077
+typically.
+
+45
+00:01:48,431 --> 00:01:50,513
+Because here I'm getting back some code,
+
+46
+00:01:51,239 --> 00:01:53,514
+but I'm not sure if it's really the code I
+
+47
+00:01:53,723 --> 00:01:55,385
+want. And indeed, here,
+
+48
+00:01:55,998 --> 00:01:57,804
+if you take a closer look at the code it
+
+49
+00:01:57,855 --> 00:01:58,665
+generated here,
+
+50
+00:02:00,480 --> 00:02:03,041
+you can see that regarding that database
+
+51
+00:02:03,090 --> 00:02:04,137
+storage part,
+
+52
+00:02:04,798 --> 00:02:07,440
+it did not generate any code for that. It
+
+53
+00:02:07,440 --> 00:02:09,648
+just assumes that there is a reservation
+
+54
+00:02:09,697 --> 00:02:10,213
+model
+
+55
+00:02:11,084 --> 00:02:13,279
+in a models folder in a reservation file,
+
+56
+00:02:13,650 --> 00:02:16,402
+but That's a file you would have to create
+
+57
+00:02:16,808 --> 00:02:18,615
+and that's a model you would have to create
+
+58
+00:02:18,615 --> 00:02:18,875
+as well.
+
+59
+00:02:20,692 --> 00:02:23,440
+It does not exist here in this project. So
+
+60
+00:02:23,440 --> 00:02:25,348
+it assumes that this is there
+
+61
+00:02:26,350 --> 00:02:28,225
+and that this then will store the data in
+
+62
+00:02:28,225 --> 00:02:28,759
+the database.
+
+63
+00:02:30,364 --> 00:02:32,682
+So if you just apply this code and run it,
+
+64
+00:02:32,778 --> 00:02:35,837
+it simply won't work. It also assumes that
+
+65
+00:02:35,837 --> 00:02:38,542
+the Express Validator package is installed,
+
+66
+00:02:38,735 --> 00:02:39,701
+which is also not the case.
+
+67
+00:02:41,695 --> 00:02:41,969
+So
+
+68
+00:02:42,644 --> 00:02:45,281
+as you can tell here, it generated some code
+
+69
+00:02:45,635 --> 00:02:47,951
+which wouldn't work, which would require a
+
+70
+00:02:47,951 --> 00:02:50,540
+couple of extra steps that are not mentioned
+
+71
+00:02:50,540 --> 00:02:51,651
+here in the response.
+
+72
+00:02:52,259 --> 00:02:53,951
+And that's why you wanna avoid
+
+73
+00:02:54,707 --> 00:02:54,970
+unspecific,
+
+74
+00:02:56,370 --> 00:02:59,668
+complex, multi-problem prompts like this
+
+75
+00:02:59,813 --> 00:03:00,331
+typically.
+
+76
+00:03:02,465 --> 00:03:02,998
+Instead,
+
+77
+00:03:03,904 --> 00:03:03,969
+you
+
+78
+00:03:04,809 --> 00:03:05,003
+can
+
+79
+00:03:05,854 --> 00:03:07,099
+Open a new chat or
+
+80
+00:03:07,633 --> 00:03:09,055
+use the inline chat here actually
+
+81
+00:03:10,203 --> 00:03:10,510
+and
+
+82
+00:03:11,270 --> 00:03:13,825
+select this code here because ultimately
+
+83
+00:03:13,857 --> 00:03:14,924
+that's what I wanna validate.
+
+84
+00:03:16,636 --> 00:03:17,089
+And then just say
+
+85
+00:03:17,687 --> 00:03:20,708
+add code to validate this input.
+
+86
+00:03:22,614 --> 00:03:24,602
+Don't use an external
+
+87
+00:03:25,216 --> 00:03:25,668
+library.
+
+88
+00:03:27,833 --> 00:03:31,296
+Number of people should be between 1 and 10.
+
+89
+00:03:32,060 --> 00:03:34,578
+1 and 6, let's say.
+
+90
+00:03:35,546 --> 00:03:37,532
+Time should be between
+
+91
+00:03:38,936 --> 00:03:42,119
+5 PM and let's say 11 PM,
+
+92
+00:03:43,364 --> 00:03:43,752
+only
+
+93
+00:03:44,657 --> 00:03:46,274
+every 30 minutes.
+
+94
+00:03:47,988 --> 00:03:51,427
+Date should be today or in the future.
+
+95
+00:03:53,231 --> 00:03:55,646
+And now I'll actually add some extra
+
+96
+00:03:55,646 --> 00:03:57,932
+examples regarding the time because what I
+
+97
+00:03:57,981 --> 00:04:01,015
+wanna allow is that people can book 5:00 PM
+
+98
+00:04:01,096 --> 00:04:02,337
+or 5:30,
+
+99
+00:04:03,078 --> 00:04:06,979
+6:00 PM or 6:30, but not quarter past 5 or
+
+100
+00:04:07,028 --> 00:04:08,688
+5:10 or anything like that.
+
+101
+00:04:10,510 --> 00:04:12,472
+So I'll add some extra examples regarding
+
+102
+00:04:12,488 --> 00:04:12,861
+the time.
+
+103
+00:04:13,948 --> 00:04:15,180
+People should be
+
+104
+00:04:17,094 --> 00:04:18,308
+allowed to book
+
+105
+00:04:19,194 --> 00:04:27,071
+5:00, 5:30, 6:00, 6:30, and so on, but not
+
+106
+00:04:27,603 --> 00:04:29,004
+5, 10, 5,
+
+107
+00:04:29,696 --> 00:04:30,614
+15, et cetera.
+
+108
+00:04:32,354 --> 00:04:34,399
+So I'm adding some examples here to
+
+109
+00:04:35,333 --> 00:04:37,254
+add more context in the end to the prompt to
+
+110
+00:04:37,286 --> 00:04:37,819
+hopefully
+
+111
+00:04:38,481 --> 00:04:40,790
+get exactly the code I'm looking for.
+
+112
+00:04:42,900 --> 00:04:45,631
+So let's hit enter. And this is a rather
+
+113
+00:04:45,859 --> 00:04:48,038
+complex task now. So let's see what it
+
+114
+00:04:48,038 --> 00:04:48,428
+generates.
+
+115
+00:04:49,632 --> 00:04:50,835
+Generates a bunch of code.
+
+116
+00:04:53,217 --> 00:04:53,686
+And
+
+117
+00:04:54,366 --> 00:04:55,142
+looks like it's done.
+
+118
+00:04:56,727 --> 00:04:57,002
+So
+
+119
+00:04:57,681 --> 00:04:58,506
+what it's doing here
+
+120
+00:04:59,072 --> 00:05:00,237
+is still extracting
+
+121
+00:05:00,835 --> 00:05:02,317
+the data from the body. Then
+
+122
+00:05:03,169 --> 00:05:04,342
+it's checking the number of people.
+
+123
+00:05:04,872 --> 00:05:06,881
+If it's not a number, or if it's a number
+
+124
+00:05:06,881 --> 00:05:09,243
+smaller than 1 or greater than 6, in which
+
+125
+00:05:09,355 --> 00:05:12,039
+case it returns an error response.
+
+126
+00:05:14,463 --> 00:05:14,593
+Then
+
+127
+00:05:15,291 --> 00:05:16,996
+it validates the time, and here it simply
+
+128
+00:05:17,061 --> 00:05:17,288
+hardcodes
+
+129
+00:05:18,216 --> 00:05:19,928
+the available time slots, which I guess
+
+130
+00:05:19,928 --> 00:05:21,026
+makes sense because
+
+131
+00:05:21,866 --> 00:05:24,384
+it really isn't that many, 5:00 PM till
+
+132
+00:05:24,384 --> 00:05:27,954
+11:00 PM. So it does that in the 24-hour
+
+133
+00:05:28,148 --> 00:05:29,700
+format, which is fine by me.
+
+134
+00:05:30,508 --> 00:05:31,963
+And then it checks whether the
+
+135
+00:05:32,513 --> 00:05:34,921
+validTimes array includes the time that was
+
+136
+00:05:35,115 --> 00:05:37,061
+submitted with the request. And if that's
+
+137
+00:05:37,077 --> 00:05:39,591
+not the case, it will return an error
+
+138
+00:05:39,591 --> 00:05:40,067
+response.
+
+139
+00:05:41,638 --> 00:05:42,375
+And for the date,
+
+140
+00:05:43,424 --> 00:05:46,266
+it gets the current date and converts the
+
+141
+00:05:46,266 --> 00:05:47,849
+received date to a date object.
+
+142
+00:05:48,705 --> 00:05:49,642
+And then it
+
+143
+00:05:50,175 --> 00:05:53,050
+sets the hours of today to the start of the
+
+144
+00:05:53,050 --> 00:05:53,180
+day
+
+145
+00:05:54,913 --> 00:05:56,468
+and then checks if the
+
+146
+00:05:57,489 --> 00:05:59,886
+timestamp in milliseconds of the input date
+
+147
+00:06:00,421 --> 00:06:02,154
+is maybe not a number or
+
+148
+00:06:02,851 --> 00:06:03,615
+if it's smaller
+
+149
+00:06:04,460 --> 00:06:06,020
+than today, if the input date is smaller
+
+150
+00:06:06,020 --> 00:06:08,262
+than today. And in either case, it sends
+
+151
+00:06:08,295 --> 00:06:09,156
+back a response.
+
+152
+00:06:10,650 --> 00:06:10,826
+Now
+
+153
+00:06:11,483 --> 00:06:13,743
+we should definitely test this code to make
+
+154
+00:06:13,791 --> 00:06:15,666
+sure it really works the way it should, but
+
+155
+00:06:15,666 --> 00:06:18,102
+it looks good to me so I'll accept this.
+
+156
+00:06:18,936 --> 00:06:21,340
+And this shows you how now we got a vastly
+
+157
+00:06:21,340 --> 00:06:23,536
+different code than what I had before
+
+158
+00:06:24,609 --> 00:06:24,657
+in
+
+159
+00:06:25,266 --> 00:06:25,731
+the chat.
+
+160
+00:06:26,965 --> 00:06:29,065
+So this is what it generated before.
+
+161
+00:06:29,594 --> 00:06:31,245
+It just assumed that there was some
+
+162
+00:06:31,357 --> 00:06:33,889
+validation library and it also ran different
+
+163
+00:06:33,985 --> 00:06:36,325
+kinds of validation. Now we got a much
+
+164
+00:06:36,406 --> 00:06:39,130
+better result because we were more specific,
+
+165
+00:06:39,194 --> 00:06:42,531
+we added specific, useful context, and we
+
+166
+00:06:42,613 --> 00:06:43,463
+added examples.
+
+167
+00:06:45,160 --> 00:06:47,096
+And that's why prompt engineering matters.
+
+168
+00:06:47,838 --> 00:06:49,339
+Once you know it, it's obvious,
+
+169
+00:06:49,871 --> 00:06:50,807
+but it's easy
+
+170
+00:06:51,566 --> 00:06:53,922
+to forget or to not even be aware
+
+171
+00:06:54,454 --> 00:06:56,656
+of the importance of being specific, of
+
+172
+00:06:56,704 --> 00:06:58,889
+providing examples, and of really
+
+173
+00:06:58,954 --> 00:07:01,396
+controlling which kinds of results
+
+174
+00:07:01,958 --> 00:07:03,725
+the AI will generate for you.

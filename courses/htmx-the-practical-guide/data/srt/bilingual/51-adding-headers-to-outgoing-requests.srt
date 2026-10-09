@@ -1,0 +1,284 @@
+1
+00:00:02,261 --> 00:00:05,276
+Now, it's not just the outgoing data you
+現在，這不僅僅是您傳出的資料
+
+2
+00:00:05,308 --> 00:00:08,340
+might wanna control with your requests.
+可能想控制你的要求。
+
+3
+00:00:09,174 --> 00:00:12,205
+Instead, it's also sometimes extra metadata
+相反，有時它也是額外的元資料
+
+4
+00:00:12,446 --> 00:00:15,108
+you might wanna add to outgoing requests.
+您可能想要新增到傳出請求中。
+
+5
+00:00:16,070 --> 00:00:17,931
+For example, let's say you
+例如，假設你
+
+6
+00:00:18,476 --> 00:00:21,732
+have an application where you also added
+有一個應用程式，您還添加了
+
+7
+00:00:21,860 --> 00:00:24,763
+CSRF protection and as part of that
+CSRF 保護及其一部分
+
+8
+00:00:24,876 --> 00:00:29,275
+protection, some CSRF token must be added to
+保護，必須添加一些CSRF令牌
+
+9
+00:00:29,308 --> 00:00:31,099
+the headers of the outgoing request?
+傳出請求的標頭？
+
+10
+00:00:32,902 --> 00:00:35,071
+That's something you could do with help of
+這是你可以在以下人員的幫助下完成的事情
+
+11
+00:00:35,071 --> 00:00:37,257
+the hx-headers
+hx 標頭
+
+12
+00:00:37,787 --> 00:00:38,462
+attribute
+屬性
+
+13
+00:00:40,037 --> 00:00:42,592
+because this attribute, as the name kind of
+因為這個屬性，就像名字一樣
+
+14
+00:00:42,624 --> 00:00:45,728
+suggests, allows you to add extra headers,
+建議，允許您添加額外的標頭，
+
+15
+00:00:46,082 --> 00:00:48,864
+extra metadata to the outgoing request.
+傳出請求的額外元資料。
+
+16
+00:00:50,738 --> 00:00:53,932
+Now here in this basic demo app, in order to
+現在在這個基本的演示應用程式中，為了
+
+17
+00:00:53,932 --> 00:00:56,759
+keep it lean and simple, I don't have any
+保持精簡簡單，我沒有
+
+18
+00:00:56,839 --> 00:00:59,645
+CSRF protection, but I'm still going to
+CSRF 保護，但我仍然會
+
+19
+00:00:59,693 --> 00:01:02,562
+simulate that that's the case here by adding
+透過添加來模擬這種情況
+
+20
+00:01:02,658 --> 00:01:04,117
+a CSRF token header.
+CSRF 令牌標頭。
+
+21
+00:01:05,479 --> 00:01:07,563
+And with help of hx-headers, that would be
+在 hx-headers 的幫助下，那就是
+
+22
+00:01:07,563 --> 00:01:08,461
+simple enough to do.
+很簡單就能做到。
+
+23
+00:01:09,327 --> 00:01:11,298
+You just have to specify the headers you
+您只需要指定您想要的標題
+
+24
+00:01:11,394 --> 00:01:14,104
+wanna add in JSON format here, so wrapped by
+想在這裡新增 JSON 格式，所以用
+
+25
+00:01:14,136 --> 00:01:14,905
+curly braces,
+大括號，
+
+26
+00:01:16,123 --> 00:01:18,287
+and then the key names wrapped with double
+然後用雙引號包裹鍵名
+
+27
+00:01:18,303 --> 00:01:18,688
+quotes.
+引號。
+
+28
+00:01:19,345 --> 00:01:21,269
+And therefore I'll use single quotes here to
+因此我將在這裡使用單引號
+
+29
+00:01:21,269 --> 00:01:22,423
+wrap the overall value.
+包裹整體價值。
+
+30
+00:01:23,634 --> 00:01:25,542
+And then here I could add a header that
+然後我可以在這裡添加一個標頭
+
+31
+00:01:25,691 --> 00:01:28,768
+could be named X-CSRF-Token
+可以命名為X-CSRF-Token
+
+32
+00:01:29,500 --> 00:01:32,366
+or whatever you need for your CSRF token
+或任何您需要的 CSRF 令牌
+
+33
+00:01:33,059 --> 00:01:34,154
+validation approach.
+驗證方法。
+
+34
+00:01:35,716 --> 00:01:37,487
+And then the value like ABC.
+然後是像ABC這樣的值。
+
+35
+00:01:38,115 --> 00:01:40,174
+And again, that's just a demo, but that's
+再說一遍，這只是一個演示，但這就是
+
+36
+00:01:40,222 --> 00:01:42,492
+how you could add an extra header to the
+如何添加額外的標頭
+
+37
+00:01:42,492 --> 00:01:43,319
+outgoing request.
+傳出請求。
+
+38
+00:01:44,674 --> 00:01:46,567
+And of course we can do the same here for
+當然我們也可以在這裡做同樣的事情
+
+39
+00:01:47,166 --> 00:01:49,739
+the overall form login request, for example.
+例如，整個表單登入請求。
+
+40
+00:01:50,500 --> 00:01:52,505
+Which we will take a closer look at later,
+我們稍後會仔細研究，
+
+41
+00:01:53,492 --> 00:01:55,901
+and also for the validation request on that
+以及對此的驗證請求
+
+42
+00:01:56,079 --> 00:01:57,195
+other input field.
+其他輸入欄位。
+
+43
+00:01:59,010 --> 00:02:01,249
+And if you then do that, you'll notice that
+如果你這樣做，你會注意到
+
+44
+00:02:01,249 --> 00:02:02,001
+if you reload,
+如果你重新載入，
+
+45
+00:02:03,366 --> 00:02:05,471
+if you open your developer tools and you go
+如果你打開你的開發者工具然後你就可以了
+
+46
+00:02:05,471 --> 00:02:08,061
+to the network tab so that you can see
+到網路分頁，以便您可以看到
+
+47
+00:02:08,142 --> 00:02:09,065
+outgoing requests,
+傳出請求，
+
+48
+00:02:10,550 --> 00:02:12,571
+if I enter something here and tab out of
+如果我在這裡輸入一些內容並按 Tab 鍵退出
+
+49
+00:02:12,668 --> 00:02:12,878
+email,
+電子郵件，
+
+50
+00:02:13,978 --> 00:02:17,035
+that's the request. And here, Under Headers,
+這就是要求。在這裡，在標題下，
+
+51
+00:02:17,937 --> 00:02:19,291
+under Request Headers,
+在請求標頭下，
+
+52
+00:02:20,113 --> 00:02:23,190
+you will see that extra header that I added
+你會看到我添加的額外標題
+
+53
+00:02:24,221 --> 00:02:27,442
+here at the very bottom, this X-CSRF-Token
+在最底部，這個 X-CSRF-Token
+
+54
+00:02:27,442 --> 00:02:27,715
+header.
+標頭。
+
+55
+00:02:29,309 --> 00:02:31,419
+And that is a feature you sometimes need.
+這是您有時需要的功能。
+
+56
+00:02:31,547 --> 00:02:34,676
+And as you see, it's pretty easy to add
+正如您所看到的，添加起來非常容易
+
+57
+00:02:34,775 --> 00:02:37,668
+headers to outgoing requests with HTMX.
+使用 HTMX 發送請求的標頭。

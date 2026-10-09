@@ -1,0 +1,339 @@
+1
+00:00:00,176 --> 00:00:03,851
+In this app here, we allow users to attach
+在此應用程式中，我們允許使用者附加
+
+2
+00:00:04,060 --> 00:00:06,130
+images to posts. And of course, on the
+圖片到貼文。當然，關於
+
+3
+00:00:06,130 --> 00:00:08,104
+frontend, we show those images.
+前端，我們顯示這些圖像。
+
+4
+00:00:08,698 --> 00:00:11,795
+And I wanna show optimized versions of these
+我想展示這些的最佳化版本
+
+5
+00:00:11,924 --> 00:00:13,817
+images. So what I'm doing here on the
+圖像。所以我在這裡做什麼
+
+6
+00:00:13,914 --> 00:00:18,279
+backend is I'm using the Bun Image API to
+後端是我使用 Bun Image API 來
+
+7
+00:00:18,712 --> 00:00:22,548
+get a file from R2 using the file method
+使用 file 方法從 R2 取得檔案
+
+8
+00:00:22,564 --> 00:00:25,645
+supported by Bun's S3 client to get hold of
+Bun的S3使用者端支援獲取
+
+9
+00:00:25,645 --> 00:00:26,062
+a file.
+一個檔案。
+
+10
+00:00:27,057 --> 00:00:27,442
+And then
+進而
+
+11
+00:00:28,020 --> 00:00:30,957
+thankfully Bun automatically supports using
+值得慶幸的是 Bun 自動支援使用
+
+12
+00:00:31,005 --> 00:00:32,802
+such a remote stored file,
+這樣一個遠端儲存的檔案，
+
+13
+00:00:33,797 --> 00:00:37,664
+S3 stored file as input for its image API.
+S3 儲存檔案作為其圖像 API 的輸入。
+
+14
+00:00:38,001 --> 00:00:40,728
+So we can call image on that and I set up
+所以我們可以調用 image 並設置
+
+15
+00:00:40,728 --> 00:00:43,167
+some maximum dimensions I expect that image
+我期望該圖像的一些最大尺寸
+
+16
+00:00:43,280 --> 00:00:43,649
+to have.
+擁有。
+
+17
+00:00:44,307 --> 00:00:47,066
+Then I call the resize method supported by
+然後我調用支援的調整大小方法
+
+18
+00:00:47,115 --> 00:00:48,206
+Bun's image API
+Bun的圖片API
+
+19
+00:00:48,735 --> 00:00:50,388
+to set a specific width
+設定特定寬度
+
+20
+00:00:51,046 --> 00:00:52,618
+and height, which is the same because I
+和高度，這是相同的，因為我
+
+21
+00:00:52,731 --> 00:00:53,838
+wanna get a square image.
+想要得到一個方形圖像。
+
+22
+00:00:54,576 --> 00:00:57,673
+The fit I set to inside to avoid stretching.
+我將貼合度設定為內側以避免拉伸。
+
+23
+00:00:58,202 --> 00:01:00,626
+And then I convert everything to a WebP
+然後我將所有內容轉換為 WebP
+
+24
+00:01:00,754 --> 00:01:03,001
+format image. So no matter what the user
+格式化影像。所以無論使用者如何
+
+25
+00:01:03,017 --> 00:01:05,825
+uploaded, if it was a PNG or a JPEG, I
+上傳了，如果是PNG或JPEG，我
+
+26
+00:01:05,825 --> 00:01:07,205
+convert it to a WebP
+將其轉換為 WebP
+
+27
+00:01:07,735 --> 00:01:08,344
+and then I
+然後我
+
+28
+00:01:08,874 --> 00:01:11,458
+return this as a blob using the standard
+使用標準將其作為 blob 回傳
+
+29
+00:01:11,522 --> 00:01:14,074
+blob API. That is what optimizeImage on the
+斑點 API。這就是optimizeImage上的
+
+30
+00:01:14,074 --> 00:01:14,860
+backend does.
+後端確實如此。
+
+31
+00:01:15,694 --> 00:01:17,588
+Now where is this being called? It's called
+現在這在哪裡被稱為？它被稱為
+
+32
+00:01:17,620 --> 00:01:18,952
+in images.ts
+在 images.ts 中
+
+33
+00:01:19,690 --> 00:01:22,001
+and images.ts is just another route
+images.ts 只是另一條路線
+
+34
+00:01:22,017 --> 00:01:24,954
+registration file where I register one route
+我在其中註冊一條路線的註冊檔案
+
+35
+00:01:25,082 --> 00:01:25,755
+a route for
+一條路線
+
+36
+00:01:26,381 --> 00:01:28,577
+serving an image, for returning an image,
+提供圖像，回傳圖像，
+
+37
+00:01:28,769 --> 00:01:30,581
+and that route is called from the frontend
+路線是從前端調用的
+
+38
+00:01:30,597 --> 00:01:32,521
+whenever the image should be displayed.
+每當應該顯示圖像時。
+
+39
+00:01:33,178 --> 00:01:35,326
+And in that image route or in that route
+在那條圖像路線或在那條路線中
+
+40
+00:01:35,486 --> 00:01:36,047
+handler,
+處理程式,
+
+41
+00:01:36,689 --> 00:01:39,350
+I get hold of my storage object here,
+我在這裡找到了我的儲存物件，
+
+42
+00:01:40,071 --> 00:01:41,883
+which is just that object I'm constructing
+這就是我正在建構的那個物件
+
+43
+00:01:41,915 --> 00:01:43,791
+here in the r2.ts file.
+在 r2.ts 檔案中。
+
+44
+00:01:44,544 --> 00:01:47,013
+Then I'm getting my image data here from
+然後我從這裡獲取圖像資料
+
+45
+00:01:47,125 --> 00:01:48,568
+that uploads folder.
+上傳資料夾。
+
+46
+00:01:49,209 --> 00:01:52,383
+Then I see which width was requested because
+然後我看到請求的寬度是因為
+
+47
+00:01:52,640 --> 00:01:55,189
+actually the client can request different
+實際上客戶可以要求不同的
+
+48
+00:01:55,221 --> 00:01:57,381
+widths for example, for mobile and
+例如，對於行動裝置和
+
+49
+00:01:58,042 --> 00:01:59,059
+desktop screens.
+桌面螢幕。
+
+50
+00:02:00,624 --> 00:02:03,706
+And then I get that image blob here, as you
+然後我在這裡得到那個圖像斑點，就像你一樣
+
+51
+00:02:03,706 --> 00:02:06,945
+see, by calling that optimizeImage method I
+看，透過呼叫 optimizeImage 方法我
+
+52
+00:02:07,074 --> 00:02:09,312
+just showed you. That is what's happening
+剛剛給你看了。這就是正在發生的事情
+
+53
+00:02:09,312 --> 00:02:11,807
+here. And then that blob is returned as a
+這裡。然後該 blob 作為一個回傳
+
+54
+00:02:11,807 --> 00:02:14,496
+response with some caching headers to make
+帶有一些快取標頭的回應
+
+55
+00:02:14,545 --> 00:02:16,385
+sure it can be cached efficiently.
+確保它可以被有效地快取。
+
+56
+00:02:17,063 --> 00:02:19,129
+And that response therefore then contains
+因此該回應包含
+
+57
+00:02:19,242 --> 00:02:21,163
+the optimized image, which is then the
+優化後的影像，即
+
+58
+00:02:21,324 --> 00:02:23,778
+actual image that will be rendered and shown
+將渲染和顯示的實際影像
+
+59
+00:02:24,146 --> 00:02:27,498
+on the client. Therefore, my R2 bucket is
+在使用者端上。因此，我的R2桶是
+
+60
+00:02:27,690 --> 00:02:30,176
+still private. Nobody has access to it
+仍然是私人的。沒有人可以訪問它
+
+61
+00:02:30,417 --> 00:02:33,127
+except for these temporary upload presigned
+除了這些預先指定的暫時上傳
+
+62
+00:02:33,127 --> 00:02:33,673
+URLs.
+網址。
+
+63
+00:02:34,346 --> 00:02:37,057
+But the images can still be served since the
+但圖像仍然可以提供，因為
+
+64
+00:02:37,057 --> 00:02:40,200
+serving logic goes through my Bun backend
+服務邏輯透過我的 Bun 後端
+
+65
+00:02:40,200 --> 00:02:43,472
+API where I then also optimize them. And
+然後我還會對 API 進行最佳化。和
+
+66
+00:02:43,568 --> 00:02:45,861
+that optimization happens using the Bun
+使用 Bun 進行最佳化
+
+67
+00:02:46,134 --> 00:02:48,604
+Image API, another amazing feature built
+圖像 API，另一個令人驚嘆的功能
+
+68
+00:02:48,684 --> 00:02:49,229
+into Bun.
+進入包子。

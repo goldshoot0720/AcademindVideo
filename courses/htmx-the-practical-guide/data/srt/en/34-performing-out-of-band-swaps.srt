@@ -1,0 +1,543 @@
+1
+00:00:00,577 --> 00:00:01,828
+Now, I mentioned before
+
+2
+00:00:02,357 --> 00:00:04,650
+that I don't just wanna make sure that I can
+
+3
+00:00:04,682 --> 00:00:07,152
+remove items from there, but instead, if I
+
+4
+00:00:07,392 --> 00:00:09,942
+add an item to that dreams location list,
+
+5
+00:00:10,520 --> 00:00:12,620
+I wanna update the list down there in the
+
+6
+00:00:12,620 --> 00:00:15,331
+available locations and I wanna remove the
+
+7
+00:00:15,411 --> 00:00:17,143
+item which I just added here
+
+8
+00:00:17,736 --> 00:00:19,195
+from that list down here.
+
+9
+00:00:20,462 --> 00:00:22,948
+And vice versa, if I then delete it from up
+
+10
+00:00:22,948 --> 00:00:25,530
+here, it should be re-added to that list at
+
+11
+00:00:25,530 --> 00:00:27,685
+the bottom. So how can we achieve this
+
+12
+00:00:27,685 --> 00:00:28,104
+behavior?
+
+13
+00:00:28,973 --> 00:00:31,373
+Well, you could definitely come up with
+
+14
+00:00:31,631 --> 00:00:32,661
+different solutions,
+
+15
+00:00:33,257 --> 00:00:35,480
+but one way of implementing this
+
+16
+00:00:35,480 --> 00:00:36,175
+functionality
+
+17
+00:00:36,806 --> 00:00:40,041
+would be to perform an out-of-band swap.
+
+18
+00:00:40,753 --> 00:00:42,662
+And what's that now?
+
+19
+00:00:44,312 --> 00:00:47,349
+An out-of-band swap is a technique you can
+
+20
+00:00:47,413 --> 00:00:49,125
+apply with HTMX
+
+21
+00:00:49,658 --> 00:00:54,260
+that allows you to return multiple HTML
+
+22
+00:00:54,324 --> 00:00:57,983
+fragments in your response that are marked
+
+23
+00:00:58,111 --> 00:01:00,823
+to target different places in the DOM.
+
+24
+00:01:01,786 --> 00:01:04,787
+So instead of returning just one fragment or
+
+25
+00:01:05,140 --> 00:01:07,932
+one HTML structure, which then is
+
+26
+00:01:08,509 --> 00:01:12,280
+used to swap some part of the website that
+
+27
+00:01:12,280 --> 00:01:15,008
+is defined with help of hx-target and
+
+28
+00:01:15,008 --> 00:01:15,907
+hx-swap,
+
+29
+00:01:16,533 --> 00:01:19,165
+instead of just doing that, you can use this
+
+30
+00:01:19,421 --> 00:01:22,662
+out-of-band swap functionality to return
+
+31
+00:01:22,790 --> 00:01:25,437
+multiple fragments for multiple targets.
+
+32
+00:01:26,480 --> 00:01:27,956
+And here's how that works.
+
+33
+00:01:28,886 --> 00:01:31,004
+Let's start in that POST route here.
+
+34
+00:01:32,191 --> 00:01:35,110
+Here I first of all wanna determine the
+
+35
+00:01:35,319 --> 00:01:38,415
+available locations after adding a location
+
+36
+00:01:38,527 --> 00:01:39,939
+to the interesting locations.
+
+37
+00:01:41,238 --> 00:01:44,013
+And I can do that with help of this logic I
+
+38
+00:01:44,061 --> 00:01:47,173
+have up here in the root route. I can indeed
+
+39
+00:01:47,173 --> 00:01:50,315
+just copy this availableLocations constant
+
+40
+00:01:50,755 --> 00:01:52,430
+down here into this POST route.
+
+41
+00:01:54,919 --> 00:01:57,940
+With that done, I'll cut this code here,
+
+42
+00:01:58,101 --> 00:02:00,911
+this renderLocation code, and I'll instead
+
+43
+00:02:00,911 --> 00:02:03,545
+return a string in here in my response
+
+44
+00:02:04,857 --> 00:02:07,837
+where I inject this renderedLocation. So
+
+45
+00:02:07,935 --> 00:02:10,477
+this list item, that's the part with which I
+
+46
+00:02:10,477 --> 00:02:12,302
+start my response content.
+
+47
+00:02:13,645 --> 00:02:18,443
+But thereafter, I'll add some extra content
+
+48
+00:02:16,830 --> 00:02:19,760
+which is then not meant to be used
+
+49
+00:02:20,710 --> 00:02:23,480
+to replace this target here where the POST
+
+50
+00:02:23,529 --> 00:02:26,153
+request was sent, but which instead should
+
+51
+00:02:26,202 --> 00:02:28,400
+perform such an out-of-band swap.
+
+52
+00:02:29,193 --> 00:02:30,939
+And in my case here, I wanna return an
+
+53
+00:02:31,197 --> 00:02:32,119
+unordered list.
+
+54
+00:02:34,521 --> 00:02:37,691
+To be precise, I wanna return this available
+
+55
+00:02:37,885 --> 00:02:39,422
+locations unordered list.
+
+56
+00:02:41,226 --> 00:02:43,498
+And therefore indeed we can copy that. And
+
+57
+00:02:43,514 --> 00:02:45,900
+it's important that you copy the available
+
+58
+00:02:45,900 --> 00:02:46,485
+locations list, not the interesting
+
+59
+00:02:46,485 --> 00:02:46,745
+locations list.
+
+60
+00:02:49,640 --> 00:02:52,010
+Because it's the available locations list I
+
+61
+00:02:52,074 --> 00:02:56,137
+wanna update here. I'll copy that and return
+
+62
+00:02:56,266 --> 00:02:59,235
+that here as that second piece of content in
+
+63
+00:02:59,235 --> 00:03:01,114
+my response in this POST route.
+
+64
+00:03:02,636 --> 00:03:03,413
+Now, right now,
+
+65
+00:03:03,948 --> 00:03:05,777
+this would still all be treated as
+
+66
+00:03:06,441 --> 00:03:06,668
+one
+
+67
+00:03:07,251 --> 00:03:10,291
+response, so to say, one piece of content,
+
+68
+00:03:10,534 --> 00:03:12,122
+and it would be this entire piece of
+
+69
+00:03:12,154 --> 00:03:15,522
+content, so this list item, and this list
+
+70
+00:03:16,195 --> 00:03:19,448
+that would be swapped in for this targeted
+
+71
+00:03:19,480 --> 00:03:22,253
+location. So for this interesting locations
+
+72
+00:03:22,285 --> 00:03:22,621
+list.
+
+73
+00:03:23,711 --> 00:03:25,811
+And that's of course not what I want here. I
+
+74
+00:03:25,971 --> 00:03:29,609
+only wanna swap in this first element into
+
+75
+00:03:29,657 --> 00:03:31,276
+this interesting locations list.
+
+76
+00:03:31,805 --> 00:03:35,090
+And this second element here, this available
+
+77
+00:03:35,267 --> 00:03:38,713
+locations list, should instead replace the
+
+78
+00:03:38,713 --> 00:03:41,998
+existing available locations list that's
+
+79
+00:03:42,078 --> 00:03:43,649
+already on the screen, on the page.
+
+80
+00:03:45,455 --> 00:03:47,514
+And we can achieve this by adding a special
+
+81
+00:03:47,691 --> 00:03:50,907
+attribute to this unordered list in this
+
+82
+00:03:50,907 --> 00:03:51,599
+response here.
+
+83
+00:03:53,023 --> 00:03:57,697
+And that's the hx-swap-oob
+
+84
+00:03:58,263 --> 00:04:00,463
+for out-of-band attribute.
+
+85
+00:04:01,676 --> 00:04:04,884
+And you can set this to true to tell HTMX
+
+86
+00:04:05,383 --> 00:04:08,170
+that this part of the response body
+
+87
+00:04:09,395 --> 00:04:11,983
+should actually not be swapped be used to
+
+88
+00:04:12,016 --> 00:04:14,891
+replace this target in the place where the
+
+89
+00:04:14,891 --> 00:04:18,587
+request was sent, but that instead, HTMX
+
+90
+00:04:18,747 --> 00:04:21,093
+should look for an element with that ID
+
+91
+00:04:21,575 --> 00:04:23,021
+because it's that ID
+
+92
+00:04:23,664 --> 00:04:24,114
+by which
+
+93
+00:04:24,772 --> 00:04:28,066
+HTMX identifies these out-of-band swap
+
+94
+00:04:28,066 --> 00:04:28,532
+targets.
+
+95
+00:04:29,431 --> 00:04:32,934
+And if HTMX finds an element with that ID on
+
+96
+00:04:32,982 --> 00:04:36,244
+the page, it will replace that element with
+
+97
+00:04:36,581 --> 00:04:37,529
+this element here.
+
+98
+00:04:38,926 --> 00:04:42,605
+Now, if for some reason you can't or don't
+
+99
+00:04:42,701 --> 00:04:45,834
+want to use an ID for this out-of-band swap,
+
+100
+00:04:46,300 --> 00:04:48,661
+you can also instead of true
+
+101
+00:04:49,223 --> 00:04:52,051
+specify a CSS selector here.
+
+102
+00:04:52,886 --> 00:04:56,018
+And you can also add swap settings like
+
+103
+00:04:56,018 --> 00:04:57,127
+before end.
+
+104
+00:04:57,802 --> 00:05:00,565
+The default here indeed is outerHTML.
+
+105
+00:05:01,111 --> 00:05:03,681
+So the existing element will entirely be
+
+106
+00:05:03,729 --> 00:05:05,207
+replaced with this element.
+
+107
+00:05:06,020 --> 00:05:08,562
+But you could change this to before-end or
+
+108
+00:05:08,594 --> 00:05:11,897
+any other swap value. So any other value you
+
+109
+00:05:11,914 --> 00:05:13,646
+could also set on hx-swap.
+
+110
+00:05:15,612 --> 00:05:17,846
+And then separated by a colon, you could
+
+111
+00:05:17,846 --> 00:05:21,383
+specify a CSS selector that identifies the
+
+112
+00:05:21,463 --> 00:05:23,488
+element that should be replaced with this
+
+113
+00:05:23,488 --> 00:05:25,026
+part of the response body.
+
+114
+00:05:26,248 --> 00:05:27,095
+So for example,
+
+115
+00:05:27,616 --> 00:05:29,717
+the first unordered list that is found.
+
+116
+00:05:31,465 --> 00:05:33,205
+But I don't need that here. Instead, here
+
+117
+00:05:33,205 --> 00:05:35,331
+I'll just set this to true, which means I
+
+118
+00:05:35,411 --> 00:05:37,730
+want the default behavior, which means that
+
+119
+00:05:37,811 --> 00:05:40,404
+HTMX will look for an element with this ID
+
+120
+00:05:40,629 --> 00:05:42,625
+and will then entirely replace it.
+
+121
+00:05:43,527 --> 00:05:46,376
+And that allows me to now return 2
+
+122
+00:05:46,988 --> 00:05:49,789
+elements in this response content that will
+
+123
+00:05:49,886 --> 00:05:52,631
+be rendered in different parts of the page
+
+124
+00:05:52,745 --> 00:05:53,119
+DOM.
+
+125
+00:05:55,182 --> 00:05:56,173
+And therefore with this,
+
+126
+00:05:57,988 --> 00:05:59,414
+If I now save that
+
+127
+00:06:00,071 --> 00:06:02,683
+and I reload, you'll see that if I add this
+
+128
+00:06:02,876 --> 00:06:03,292
+item here,
+
+129
+00:06:04,478 --> 00:06:06,706
+it disappears from this list at the bottom.
+
+130
+00:06:07,539 --> 00:06:09,702
+And that happens for every item I add here
+
+131
+00:06:09,702 --> 00:06:10,712
+to the top list.
+
+132
+00:06:12,202 --> 00:06:14,750
+Now, of course, if I delete items, they are
+
+133
+00:06:14,750 --> 00:06:17,170
+not re-added though. This list down here is
+
+134
+00:06:17,170 --> 00:06:17,939
+not updated.
+
+135
+00:06:18,500 --> 00:06:21,305
+And that's of course not how it should work.
+
+136
+00:06:21,417 --> 00:06:23,228
+So that's something we'll have to implement.

@@ -1,0 +1,243 @@
+1
+00:00:02,152 --> 00:00:03,138
+Yeah, but with that,
+
+2
+00:00:03,784 --> 00:00:04,205
+that's
+
+3
+00:00:04,996 --> 00:00:07,097
+looking good. Hopefully that should do the
+
+4
+00:00:07,162 --> 00:00:07,356
+trick.
+
+5
+00:00:07,905 --> 00:00:10,637
+Now to test it, I'll delete this database
+
+6
+00:00:10,637 --> 00:00:10,766
+file
+
+7
+00:00:13,468 --> 00:00:14,034
+to clear it
+
+8
+00:00:15,166 --> 00:00:17,981
+and I'll restart the server to reinitialize
+
+9
+00:00:18,078 --> 00:00:18,693
+the database
+
+10
+00:00:19,550 --> 00:00:20,530
+with npm run dev.
+
+11
+00:00:22,597 --> 00:00:23,627
+And then we can give this a try.
+
+12
+00:00:25,100 --> 00:00:27,069
+Now, first of all, we need to create a new
+
+13
+00:00:27,150 --> 00:00:29,812
+user. Since I deleted the database.
+
+14
+00:00:30,462 --> 00:00:33,742
+So I'll resend that POST signup request here
+
+15
+00:00:34,424 --> 00:00:36,143
+with my dummy user data
+
+16
+00:00:38,812 --> 00:00:39,216
+like this.
+
+17
+00:00:39,863 --> 00:00:41,884
+Now I get back a token here as well, which I
+
+18
+00:00:41,884 --> 00:00:42,256
+can use.
+
+19
+00:00:43,643 --> 00:00:44,415
+And then we can
+
+20
+00:00:45,475 --> 00:00:46,053
+get events.
+
+21
+00:00:46,616 --> 00:00:48,688
+That doesn't yield anything, of course. So
+
+22
+00:00:48,785 --> 00:00:50,407
+we can post a new event
+
+23
+00:00:52,143 --> 00:00:53,613
+with the same data as before, doesn't
+
+24
+00:00:53,613 --> 00:00:55,506
+matter, but with a different token.
+
+25
+00:00:56,083 --> 00:00:56,535
+So I will
+
+26
+00:00:57,115 --> 00:00:59,453
+replace, whoops, we'll replace that token
+
+27
+00:00:59,534 --> 00:01:00,227
+value here
+
+28
+00:01:02,856 --> 00:01:04,982
+with my new token, send this
+
+29
+00:01:05,900 --> 00:01:06,625
+and it's stored.
+
+30
+00:01:08,171 --> 00:01:10,684
+And now create a second user with
+
+31
+00:01:10,764 --> 00:01:13,378
+test2@example.com as an email address
+
+32
+00:01:15,295 --> 00:01:17,812
+so that I get a different token for a
+
+33
+00:01:17,861 --> 00:01:20,151
+different user. Might look similar, but it's
+
+34
+00:01:20,151 --> 00:01:20,768
+a different token.
+
+35
+00:01:22,858 --> 00:01:24,925
+And with that, I'll now try to edit this
+
+36
+00:01:25,022 --> 00:01:27,380
+event. So this event with the ID 1, which I
+
+37
+00:01:27,380 --> 00:01:30,061
+just created, I'll use that token of that
+
+38
+00:01:30,061 --> 00:01:31,289
+second user here.
+
+39
+00:01:33,136 --> 00:01:35,052
+And even though that's a valid token and
+
+40
+00:01:35,084 --> 00:01:37,468
+therefore the user will be authenticated,
+
+41
+00:01:38,208 --> 00:01:41,204
+it should not be authorized to edit this
+
+42
+00:01:41,204 --> 00:01:43,653
+event because the event was created by a
+
+43
+00:01:43,653 --> 00:01:44,340
+different user.
+
+44
+00:01:46,540 --> 00:01:48,889
+So indeed I get this error, forbidden, you
+
+45
+00:01:48,921 --> 00:01:50,509
+are not allowed to edit. The same should
+
+46
+00:01:50,687 --> 00:01:51,319
+happen if I try to delete it.
+
+47
+00:01:53,279 --> 00:01:55,786
+If I try to delete the event with ID 1
+
+48
+00:01:57,425 --> 00:01:59,354
+with that token, does not work.
+
+49
+00:02:01,202 --> 00:02:03,245
+If I now log in with my
+
+50
+00:02:03,970 --> 00:02:06,466
+main user who created the event
+
+51
+00:02:07,818 --> 00:02:09,895
+and I get the token of that user
+
+52
+00:02:11,264 --> 00:02:12,896
+and I now try to edit it,
+
+53
+00:02:14,368 --> 00:02:16,778
+so if I use that token now for this PUT
+
+54
+00:02:16,778 --> 00:02:17,311
+request
+
+55
+00:02:17,991 --> 00:02:18,799
+and I click send,
+
+56
+00:02:19,373 --> 00:02:20,226
+That works.
+
+57
+00:02:22,109 --> 00:02:24,039
+And if I get all events, we should now see
+
+58
+00:02:24,039 --> 00:02:25,873
+the updated event there. Yes, we do.
+
+59
+00:02:27,660 --> 00:02:30,890
+So that works and that's authorization added
+
+60
+00:02:30,986 --> 00:02:33,719
+to this app, making sure that only the user
+
+61
+00:02:33,799 --> 00:02:36,097
+who created an event can manipulate it.

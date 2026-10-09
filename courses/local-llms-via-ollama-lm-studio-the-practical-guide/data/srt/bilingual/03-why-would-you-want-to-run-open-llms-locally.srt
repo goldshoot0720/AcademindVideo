@@ -1,0 +1,844 @@
+1
+00:00:00,528 --> 00:00:04,328
+So there are open large language models
+所以有開放的大語言模型
+
+2
+00:00:04,520 --> 00:00:06,556
+which you can download and run on your
+您可以下載並在您的電腦上運行
+
+3
+00:00:06,604 --> 00:00:08,576
+system. And in this course, you will learn
+系統。在本課程中，您將學到
+
+4
+00:00:08,672 --> 00:00:10,836
+how exactly that works and you will learn
+它到底是如何運作的，你將學到
+
+5
+00:00:10,836 --> 00:00:13,898
+about hardware requirements and that indeed
+關於硬體需求，確實
+
+6
+00:00:13,898 --> 00:00:17,456
+you can run many of these models on consumer
+您可以在消費者上運行其中許多模型
+
+7
+00:00:17,649 --> 00:00:20,710
+hardware, even on low-end hardware. But the
+硬體，甚至在低端硬體上。但是
+
+8
+00:00:20,710 --> 00:00:22,458
+question is, why would you want to do that?
+問題是，為什麼要這麼做？
+
+9
+00:00:22,955 --> 00:00:26,289
+Why not just use proprietary large language
+為什麼不直接使用專有的大語言
+
+10
+00:00:26,401 --> 00:00:29,351
+models? Why not stick to ChatGPT, Google
+型號？為什麼不堅持使用 ChatGPT、Google
+
+11
+00:00:29,351 --> 00:00:29,800
+Gemini,
+雙子座,
+
+12
+00:00:30,569 --> 00:00:34,900
+the xAI Grok AI or anything like that?
+xAI Grok AI 或類似的東西？
+
+13
+00:00:35,766 --> 00:00:38,397
+What's the advantage of using open large
+使用開大有什麼好處
+
+14
+00:00:38,494 --> 00:00:40,964
+language models compared to proprietary
+與專有語言模式相比
+
+15
+00:00:41,061 --> 00:00:41,285
+ones?
+那些？
+
+16
+00:00:42,264 --> 00:00:45,729
+Well, for example, because they're free to
+嗯，例如，因為他們可以自由地
+
+17
+00:00:45,729 --> 00:00:46,050
+use.
+使用。
+
+18
+00:00:46,756 --> 00:00:48,746
+They're open. You can download them and run
+他們是開放的。您可以下載它們並運行
+
+19
+00:00:48,778 --> 00:00:50,526
+them on your system. And that's exactly what
+它們在您的系統上。這正是
+
+20
+00:00:50,526 --> 00:00:51,986
+we'll do in this course. Now, you must
+我們將在本課程中做。現在，你必須
+
+21
+00:00:51,986 --> 00:00:54,842
+respect their license, but private use is
+尊重他們的許可，但私人使用是
+
+22
+00:00:55,099 --> 00:00:56,751
+pretty much always allowed. Commercial use
+幾乎總是允許的。商業用途
+
+23
+00:00:56,880 --> 00:00:59,383
+is also typically allowed. And I'll get back
+通常也是允許的。我會回來的
+
+24
+00:00:59,447 --> 00:01:02,078
+to that license part later. So you can use
+稍後再到該許可證部分。所以你可以使用
+
+25
+00:01:02,078 --> 00:01:04,405
+them for free, whereas for proprietary
+它們是免費的，而專有的
+
+26
+00:01:04,405 --> 00:01:05,624
+models, you of course have to pay
+模型，你當然要付費
+
+27
+00:01:06,331 --> 00:01:09,219
+either based on your usage or a subscription
+根據您的使用情況或訂閱
+
+28
+00:01:09,235 --> 00:01:11,851
+fee, like it's the case with ChatGPT and
+費用，就像 ChatGPT 的情況一樣
+
+29
+00:01:12,124 --> 00:01:14,418
+basically all these other AI chatbots.
+基本上所有這些其他人工智慧聊天機器人。
+
+30
+00:01:15,493 --> 00:01:17,467
+But of course, you happily pay for these
+但當然，你很高興為這些付出代價
+
+31
+00:01:17,563 --> 00:01:19,152
+models because the open models
+模型因為開放模型
+
+32
+00:01:19,890 --> 00:01:22,442
+are way worse than the proprietary ones,
+比專有的差很多，
+
+33
+00:01:22,618 --> 00:01:25,138
+right? The performance is worse, the results
+正確的？性能更差，結果
+
+34
+00:01:25,186 --> 00:01:25,571
+are worse.
+更糟。
+
+35
+00:01:26,566 --> 00:01:29,825
+Well, not really. If you take a look at
+嗯，不是真的。如果你看一下
+
+36
+00:01:30,018 --> 00:01:32,331
+benchmarks, and of course you should take
+基準，當然你應該採取
+
+37
+00:01:32,347 --> 00:01:34,645
+those with a grain of salt because models
+那些持保留態度的人因為模型
+
+38
+00:01:34,677 --> 00:01:36,701
+can be optimized for benchmarks, and of
+可以針對基準進行最佳化，且
+
+39
+00:01:36,750 --> 00:01:38,662
+course the providers of these models only
+當然僅限於這些模型的提供者
+
+40
+00:01:38,774 --> 00:01:40,204
+publish the results they like,
+發布他們喜歡的結果，
+
+41
+00:01:40,927 --> 00:01:42,951
+but still, if you take a look at benchmark
+但如果你看基準測試
+
+42
+00:01:42,951 --> 00:01:45,088
+comparisons like this one here, which was
+像這裡這樣的比較，這是
+
+43
+00:01:45,201 --> 00:01:46,068
+published by Google,
+由Google發布，
+
+44
+00:01:47,032 --> 00:01:49,507
+you can see that their Gemma 3 models, which
+你可以看到他們的 Gemma 3 型號，
+
+45
+00:01:49,764 --> 00:01:52,318
+are their open large language models,
+是他們開放的大語言模型，
+
+46
+00:01:52,977 --> 00:01:56,556
+are not much worse than their best-in-class
+並不比同類中最好的差多少
+
+47
+00:01:56,588 --> 00:01:57,613
+proprietary models.
+專有模型。
+
+48
+00:01:58,687 --> 00:02:00,273
+Now, this is of course a bit older by the
+現在，這當然有點老了
+
+49
+00:02:00,273 --> 00:02:01,939
+time you are watching this, and actually
+當你看這個的時候，實際上
+
+50
+00:02:02,596 --> 00:02:04,070
+even by the time I'm recording this, there
+即使在我錄製這個的時候，
+
+51
+00:02:04,118 --> 00:02:06,233
+are newer models available, but this is just
+有更新的型號可用，但這只是
+
+52
+00:02:06,297 --> 00:02:08,908
+an example. The trend of course continues.
+一個例子。這種趨勢當然還在持續。
+
+53
+00:02:09,020 --> 00:02:12,257
+These open models are not much worse than
+這些開放模型並不比
+
+54
+00:02:12,305 --> 00:02:13,474
+the proprietary ones.
+專有的。
+
+55
+00:02:14,147 --> 00:02:16,663
+If you ignore the benchmarks and you instead
+如果你忽略基準，而是
+
+56
+00:02:16,711 --> 00:02:18,954
+take something like the Chatbot Arena
+以聊天機器人競技場為例
+
+57
+00:02:19,418 --> 00:02:21,694
+leaderboard, which is a leaderboard where
+排行榜，這是一個排行榜，其中
+
+58
+00:02:21,838 --> 00:02:24,497
+users like you and me vote models up and
+像你我這樣的使用者對模型進行投票
+
+59
+00:02:24,610 --> 00:02:24,914
+down,
+向下，
+
+60
+00:02:25,764 --> 00:02:26,918
+you will see that there
+你會看到那裡
+
+61
+00:02:27,511 --> 00:02:29,450
+open models like DeepSeek,
+像 DeepSeek 這樣的開放式模型，
+
+62
+00:02:30,171 --> 00:02:32,544
+but also Google's Gemma 3 model, which is
+還有 Google 的 Gemma 3 型號，
+
+63
+00:02:32,576 --> 00:02:34,179
+another open model, just to make that really
+另一個開放模型，只是為了真正做到這一點
+
+64
+00:02:34,179 --> 00:02:34,435
+clear,
+清除，
+
+65
+00:02:35,044 --> 00:02:38,009
+rank amongst the top ranks of that
+躋身其中頂尖行列
+
+66
+00:02:38,009 --> 00:02:38,618
+leaderboard.
+排行榜。
+
+67
+00:02:39,404 --> 00:02:41,536
+So clearly they're not far behind the
+很明顯他們並不落後
+
+68
+00:02:41,536 --> 00:02:44,966
+proprietary models and they're free because
+專有模型並且它們是免費的，因為
+
+69
+00:02:45,142 --> 00:02:47,627
+unlike those proprietary models, these open
+與那些專有模型不同，這些開放
+
+70
+00:02:47,643 --> 00:02:50,608
+models or their weights specifically can be
+模型或其重量具體可以是
+
+71
+00:02:50,608 --> 00:02:53,768
+downloaded and can be ran locally on your
+下載並可在您的本地運行
+
+72
+00:02:53,816 --> 00:02:55,261
+machine or on your server.
+機器或您的伺服器上。
+
+73
+00:02:55,823 --> 00:02:58,633
+And therefore you don't just get the free
+因此你不僅僅獲得免費的
+
+74
+00:02:58,778 --> 00:03:01,331
+usage, if you ignore hardware cost, of
+如果您忽略硬體成本，請使用
+
+75
+00:03:01,347 --> 00:03:01,572
+course,
+課程，
+
+76
+00:03:02,231 --> 00:03:04,672
+but you also get 100% privacy.
+但您也可以獲得 100% 的隱私。
+
+77
+00:03:05,378 --> 00:03:07,755
+The data you send to that model, your
+您發送到該模型的資料，您的
+
+78
+00:03:07,867 --> 00:03:10,405
+prompts, the output it generates, any
+提示、它產生的輸出、任何
+
+79
+00:03:10,501 --> 00:03:12,460
+documents or images you might be using in
+您可能使用的檔案或影像
+
+80
+00:03:12,460 --> 00:03:12,765
+the prompt,
+提示，
+
+81
+00:03:13,311 --> 00:03:15,865
+all that stays on your machine. It never
+所有內容都保留在您的機器上。它從來沒有
+
+82
+00:03:16,121 --> 00:03:16,507
+leaves it.
+離開它。
+
+83
+00:03:17,422 --> 00:03:19,397
+And that, of course, is a huge advantage
+當然，這是一個巨大的優勢
+
+84
+00:03:19,654 --> 00:03:22,192
+compared to using proprietary large language
+與使用專有的大語言相比
+
+85
+00:03:22,304 --> 00:03:22,529
+models.
+模型。
+
+86
+00:03:23,123 --> 00:03:25,965
+There, your prompts or the generated output
+在那裡，您的提示或產生的輸出
+
+87
+00:03:26,238 --> 00:03:28,148
+might be used for further training.
+可能會用於進一步的培訓。
+
+88
+00:03:28,742 --> 00:03:30,974
+Even if it's not, it might be logged. And
+即使不是，也可能會被記錄。和
+
+89
+00:03:31,070 --> 00:03:33,205
+even if that's not the case, you still have
+即使情況並非如此，你仍然有
+
+90
+00:03:33,237 --> 00:03:36,769
+to send your data to the servers of OpenAI
+將您的資料傳送到 OpenAI 的伺服器
+
+91
+00:03:36,914 --> 00:03:37,395
+or Google.
+或谷歌。
+
+92
+00:03:38,214 --> 00:03:40,269
+So if you are using a large language model
+所以如果你使用的是大型語言模型
+
+93
+00:03:40,366 --> 00:03:43,255
+to analyze sensitive data, to analyze a
+分析敏感資料
+
+94
+00:03:43,255 --> 00:03:45,760
+confidential document, you might not wanna
+機密檔案，你可能不要
+
+95
+00:03:45,760 --> 00:03:48,345
+do that when using a proprietary model. You
+使用專有模型時可以這樣做。你
+
+96
+00:03:48,345 --> 00:03:50,753
+might not even be allowed to do that if
+甚至可能不被允許這樣做，如果
+
+97
+00:03:50,881 --> 00:03:52,021
+you're working in a company.
+你在一家公司工作。
+
+98
+00:03:52,583 --> 00:03:55,311
+So that's a huge advantage of running open
+所以這是開放運作的巨大優勢
+
+99
+00:03:55,311 --> 00:03:57,413
+models locally. It stays on your machine.
+本地模型。它保留在您的機器上。
+
+100
+00:03:57,702 --> 00:03:59,291
+You have guaranteed privacy.
+您的隱私得到了保證。
+
+101
+00:04:00,286 --> 00:04:02,677
+In addition, you got no vendor lock-in. You
+此外，您沒有供應商鎖定。你
+
+102
+00:04:02,677 --> 00:04:05,325
+have full control over that model that's
+完全控制該模型
+
+103
+00:04:05,325 --> 00:04:06,031
+running locally.
+本地運行。
+
+104
+00:04:06,865 --> 00:04:09,914
+For the proprietary models, if OpenAI or
+對於專有模型，如果 OpenAI 或
+
+105
+00:04:09,914 --> 00:04:12,771
+Google or X, doesn't matter, if they decide
+Google 或 X，沒關係，只要他們決定
+
+106
+00:04:12,947 --> 00:04:15,114
+that they wanna roll out a new version of a
+他們想推出一個新版本
+
+107
+00:04:15,114 --> 00:04:18,211
+model, that they wanna change some quotas or
+模型，他們想改變一些配額或
+
+108
+00:04:18,339 --> 00:04:20,346
+rate limits, There's nothing you can do
+速率限制，你無能為力
+
+109
+00:04:20,346 --> 00:04:22,675
+about that. If the model suddenly performs
+關於那個。如果模型突然表現
+
+110
+00:04:22,675 --> 00:04:23,993
+worse than it did yesterday,
+比昨天更糟糕
+
+111
+00:04:24,828 --> 00:04:26,997
+you're out of luck. Of course, if you run it
+你運氣不好。當然，如果你運行它
+
+112
+00:04:27,013 --> 00:04:28,925
+locally on your machine, however, that can't
+但是，不能在您的本機電腦上
+
+113
+00:04:28,925 --> 00:04:31,383
+happen. You control which version of which
+發生。您可以控制哪個版本
+
+114
+00:04:31,512 --> 00:04:33,761
+model is running there. So you have full
+模型正在那裡運行。所以你有完整的
+
+115
+00:04:33,761 --> 00:04:35,978
+control, you got no vendor lock-in.
+控制，你沒有供應商鎖定。
+
+116
+00:04:36,877 --> 00:04:40,396
+Kind of related to that point, these locally
+與這一點有關，這些是本地的
+
+117
+00:04:40,492 --> 00:04:42,790
+running open models, of course, are offline
+運行開放模型，當然是離線的
+
+118
+00:04:42,902 --> 00:04:45,135
+first. They are running on your machine
+第一的。它們正在您的機器上運行
+
+119
+00:04:45,328 --> 00:04:48,456
+after all. So you got low or almost no
+畢竟。所以你的成績很低或幾乎沒有
+
+120
+00:04:48,697 --> 00:04:50,572
+latency when interacting with them,
+與他們互動時的延遲，
+
+121
+00:04:51,582 --> 00:04:53,746
+which is of course particularly interesting
+這當然特別有趣
+
+122
+00:04:53,811 --> 00:04:56,199
+if you maybe build your own internal tools
+如果您可以建立自己的內部工具
+
+123
+00:04:56,311 --> 00:04:59,726
+that leverage AI. You can also use an open
+利用人工智慧。您也可以使用開放式
+
+124
+00:04:59,822 --> 00:05:02,451
+model in your own AI-powered applications.
+在您自己的人工智慧應用程式中建立模型。
+
+125
+00:05:02,563 --> 00:05:05,337
+And that is one example use case, one of
+這是一個範例用例，其中之一
+
+126
+00:05:05,369 --> 00:05:07,180
+many we'll take a look at throughout this
+我們將在整個過程中關注許多內容
+
+127
+00:05:07,276 --> 00:05:10,146
+course, how you can use such locally running
+當然，如何使用這樣的本地運行
+
+128
+00:05:10,338 --> 00:05:11,861
+open models programmatically.
+以程式方式開啟模型。
+
+129
+00:05:12,599 --> 00:05:15,182
+Of course, with proprietary large language
+當然，使用專有的大語言
+
+130
+00:05:15,294 --> 00:05:17,957
+models, for example, ChatGPT, an internet
+模型，例如 ChatGPT、互聯網
+
+131
+00:05:17,957 --> 00:05:20,235
+connection is required. You can't use them
+需要連接。你不能使用它們
+
+132
+00:05:20,347 --> 00:05:22,962
+from inside an airplane or when servers are
+從飛機內部或伺服器運行時
+
+133
+00:05:23,090 --> 00:05:23,347
+down.
+向下。
+
+134
+00:05:24,213 --> 00:05:26,619
+And that's why open large language models,
+這就是為什麼要開放大型語言模型，
+
+135
+00:05:26,683 --> 00:05:28,801
+when being used locally or on your own
+在本地或單獨使用時
+
+136
+00:05:28,801 --> 00:05:32,346
+servers, are great for many use cases. You
+伺服器，非常適合許多用例。你
+
+137
+00:05:32,378 --> 00:05:35,410
+can use them as regular chatbots because, as
+可以將它們用作常規聊天機器人，因為
+
+138
+00:05:35,506 --> 00:05:38,281
+I showed you, they do perform really well
+我向你展示過，他們的表現確實非常好
+
+139
+00:05:38,410 --> 00:05:40,963
+for that. So you can just use them as a
+為此。所以你可以將它們用作
+
+140
+00:05:40,963 --> 00:05:43,404
+replacement for ChatGPT or any of these
+ChatGPT 或其中任何一個的替代品
+
+141
+00:05:43,533 --> 00:05:44,400
+other chatbots.
+其他聊天機器人。
+
+142
+00:05:45,300 --> 00:05:47,083
+And therefore you can, for example, also use
+因此，例如，您也可以使用
+
+143
+00:05:47,083 --> 00:05:49,557
+them to generate code or do anything else
+他們產生程式碼或做其他事情
+
+144
+00:05:49,557 --> 00:05:49,990
+like that.
+像那樣。
+
+145
+00:05:50,681 --> 00:05:53,958
+But they especially shine when using them in
+但當它們用於
+
+146
+00:05:54,135 --> 00:05:56,528
+tools you might be building, when using them
+您可能正在建立的工具，在使用它們時
+
+147
+00:05:56,625 --> 00:05:59,500
+for tasks like text summarization, data
+用於文字摘要、資料等任務
+
+148
+00:05:59,516 --> 00:06:02,391
+analysis, or content generation with
+分析或內容生成
+
+149
+00:06:02,648 --> 00:06:06,006
+few-shot prompting. And these are examples
+幾次提示。這些都是例子
+
+150
+00:06:06,038 --> 00:06:07,852
+we will explore, throughout this course, and
+我們將在整個課程中探索，並且
+
+151
+00:06:07,852 --> 00:06:10,018
+I'll show you how to use these open models
+我將向您展示如何使用這些開放模型
+
+152
+00:06:10,050 --> 00:06:10,451
+for that.
+為此。
+
+153
+00:06:11,333 --> 00:06:13,338
+And therefore, it's really just the cases
+因此，這只是個案
+
+154
+00:06:13,403 --> 00:06:15,841
+where you need cutting-edge performance,
+當您需要尖端性能時，
+
+155
+00:06:15,889 --> 00:06:17,461
+where you need the best-in-class
+您需要一流的產品
+
+156
+00:06:17,574 --> 00:06:18,119
+performance,
+表現，
+
+157
+00:06:18,777 --> 00:06:21,408
+where you have to reach for a proprietary
+你必須尋求專有的
+
+158
+00:06:21,504 --> 00:06:23,975
+large language model. So this course is
+大語言模型。所以這個課程是
+
+159
+00:06:24,151 --> 00:06:27,071
+actually also not about replacing ChatGPT
+實際上也不是要取代ChatGPT
+
+160
+00:06:27,280 --> 00:06:29,269
+with such a locally running open model,
+有了這樣一個本地運行的開放模型，
+
+161
+00:06:29,445 --> 00:06:31,354
+though you could probably do that for many
+雖然你可能可以為很多人做到這一點
+
+162
+00:06:31,370 --> 00:06:33,119
+use cases, maybe for all use cases.
+用例，也許適用於所有用例。
+
+163
+00:06:33,777 --> 00:06:36,007
+It's about getting the best of both worlds.
+這是為了兩全其美。
+
+164
+00:06:36,343 --> 00:06:38,493
+And it's about leveraging and using such an
+這是關於利用和使用這樣的
+
+165
+00:06:38,589 --> 00:06:41,781
+open, locally running AI model for all those
+開放的、本地運行的人工智慧模型適用於所有這些
+
+166
+00:06:41,813 --> 00:06:44,621
+use cases where it really shines and where
+它真正發揮作用的用例以及在哪裡
+
+167
+00:06:44,637 --> 00:06:47,075
+it can offer a huge advantage. And we'll
+它可以提供巨大的優勢。我們會
+
+168
+00:06:47,075 --> 00:06:49,513
+explore all that step by step in this
+一步步探索這一切
+
+169
+00:06:49,513 --> 00:06:49,834
+course.
+課程。

@@ -1,0 +1,571 @@
+1
+00:00:00,208 --> 00:00:03,606
+So how can you access locally running large
+
+2
+00:00:03,718 --> 00:00:06,459
+language models programmatically with help
+
+3
+00:00:06,587 --> 00:00:07,645
+of LM Studio?
+
+4
+00:00:08,927 --> 00:00:12,454
+Well, as a first step in LM Studio, you
+
+5
+00:00:12,454 --> 00:00:15,467
+should go to power user or developer since
+
+6
+00:00:15,659 --> 00:00:17,518
+now it is all about development.
+
+7
+00:00:18,528 --> 00:00:21,381
+And then there to this developer view, this
+
+8
+00:00:21,429 --> 00:00:22,728
+developer area here.
+
+9
+00:00:24,218 --> 00:00:27,648
+And there you must switch this status of the
+
+10
+00:00:27,648 --> 00:00:30,730
+LM Studio LM Studio server, which is the
+
+11
+00:00:30,827 --> 00:00:32,428
+thing you will be able to access
+
+12
+00:00:32,444 --> 00:00:34,804
+programmatically, from stopped
+
+13
+00:00:35,418 --> 00:00:35,887
+to running.
+
+14
+00:00:37,439 --> 00:00:40,188
+As a result of doing that, you'll get a log
+
+15
+00:00:40,285 --> 00:00:42,160
+output down there which shows you log
+
+16
+00:00:42,289 --> 00:00:45,054
+messages from requests that were sent to
+
+17
+00:00:45,054 --> 00:00:45,668
+that server.
+
+18
+00:00:46,331 --> 00:00:48,094
+You can clear that and you'll see any new
+
+19
+00:00:48,127 --> 00:00:48,661
+messages
+
+20
+00:00:49,325 --> 00:00:52,353
+as they arrive or as new requests hit the
+
+21
+00:00:52,353 --> 00:00:52,628
+server.
+
+22
+00:00:53,932 --> 00:00:57,442
+You see the API endpoints, so the URLs you
+
+23
+00:00:57,474 --> 00:00:59,825
+could say, to which you can send requests
+
+24
+00:00:59,874 --> 00:01:00,018
+to,
+
+25
+00:01:00,657 --> 00:01:01,274
+for example,
+
+26
+00:01:01,875 --> 00:01:04,716
+get a list of available models or to
+
+27
+00:01:04,716 --> 00:01:07,135
+generate a new response from a model.
+
+28
+00:01:09,018 --> 00:01:12,096
+And you see the domain to which you have to
+
+29
+00:01:12,096 --> 00:01:14,352
+send these requests. So you send them to a
+
+30
+00:01:14,352 --> 00:01:17,027
+combination of that domain and then this
+
+31
+00:01:17,174 --> 00:01:17,616
+endpoint.
+
+32
+00:01:18,484 --> 00:01:20,663
+Now, if you don't know anything about
+
+33
+00:01:20,843 --> 00:01:22,010
+writing code, then
+
+34
+00:01:22,684 --> 00:01:25,508
+this lecture and this part of this section
+
+35
+00:01:25,637 --> 00:01:27,418
+won't be for you because, of course,
+
+36
+00:01:27,498 --> 00:01:30,114
+programmatically using large language models
+
+37
+00:01:30,772 --> 00:01:34,318
+only is interesting if you know how to write
+
+38
+00:01:34,318 --> 00:01:36,484
+code or if you at least have a basic
+
+39
+00:01:36,484 --> 00:01:38,714
+understanding of how programming works.
+
+40
+00:01:39,308 --> 00:01:41,073
+Of course, you can use a large language
+
+41
+00:01:41,202 --> 00:01:43,159
+model to generate code for you, but you
+
+42
+00:01:43,159 --> 00:01:45,438
+still need to have a general understanding
+
+43
+00:01:45,791 --> 00:01:48,823
+of what an API is and what it means to send
+
+44
+00:01:48,823 --> 00:01:50,139
+a request to an API.
+
+45
+00:01:51,247 --> 00:01:53,991
+But if you got that, then LM Studio has you
+
+46
+00:01:54,040 --> 00:01:56,752
+covered because now we got a running server
+
+47
+00:01:57,089 --> 00:01:59,352
+running locally on our system, only
+
+48
+00:01:59,448 --> 00:02:03,172
+accessible by us here on our machine. So not
+
+49
+00:02:03,268 --> 00:02:05,579
+available to the World Wide Web unless you
+
+50
+00:02:05,596 --> 00:02:08,067
+configured your machine to be reachable from
+
+51
+00:02:08,420 --> 00:02:10,427
+everyone else out there, of course, which by
+
+52
+00:02:10,427 --> 00:02:11,518
+default won't be the case.
+
+53
+00:02:12,417 --> 00:02:14,359
+And you then also get some settings you can
+
+54
+00:02:14,359 --> 00:02:16,684
+tweak here. About that server. Now, for
+
+55
+00:02:16,684 --> 00:02:17,646
+example, the port,
+
+56
+00:02:18,287 --> 00:02:20,115
+which is also reflected here, to which the
+
+57
+00:02:20,115 --> 00:02:21,413
+requests have to be sent.
+
+58
+00:02:22,600 --> 00:02:24,844
+You can configure just-in-time model
+
+59
+00:02:24,844 --> 00:02:25,630
+loading, which means
+
+60
+00:02:26,207 --> 00:02:28,836
+if a request would be sent for a model
+
+61
+00:02:28,868 --> 00:02:31,802
+that's not currently loaded in LM Studio, it
+
+62
+00:02:31,898 --> 00:02:33,934
+would then be loaded on demand.
+
+63
+00:02:34,639 --> 00:02:36,258
+You can turn this off if you don't want
+
+64
+00:02:36,258 --> 00:02:38,551
+this, but if you turn it on, the advantage
+
+65
+00:02:38,551 --> 00:02:40,490
+is that you don't have to load models in
+
+66
+00:02:40,490 --> 00:02:43,667
+advance. Of course, requests for models that
+
+67
+00:02:43,843 --> 00:02:45,705
+aren't loaded yet will take a bit longer
+
+68
+00:02:45,705 --> 00:02:47,710
+because the model has to be loaded first.
+
+69
+00:02:49,139 --> 00:02:50,839
+And you can also control that a model should
+
+70
+00:02:50,839 --> 00:02:53,760
+be auto-unloaded if it hasn't been used for
+
+71
+00:02:54,129 --> 00:02:56,536
+a while, for 60 minutes, for example, as a
+
+72
+00:02:56,536 --> 00:02:57,033
+default.
+
+73
+00:02:58,477 --> 00:03:00,965
+So these are some settings you can tweak,
+
+74
+00:03:01,029 --> 00:03:03,404
+but with that, the server is up and running.
+
+75
+00:03:03,917 --> 00:03:05,409
+And the question then, of course, is
+
+76
+00:03:06,147 --> 00:03:08,731
+how can you use that server?
+
+77
+00:03:09,295 --> 00:03:10,006
+And the answer,
+
+78
+00:03:10,571 --> 00:03:13,220
+as you also find in the official docs, is,
+
+79
+00:03:13,560 --> 00:03:14,335
+for example,
+
+80
+00:03:14,949 --> 00:03:16,823
+by using the OpenAI
+
+81
+00:03:17,840 --> 00:03:18,244
+SDK,
+
+82
+00:03:19,853 --> 00:03:20,451
+this one here.
+
+83
+00:03:21,468 --> 00:03:23,777
+And that might be a bit weird because the
+
+84
+00:03:23,794 --> 00:03:26,733
+idea behind this SDK, as the name kind of
+
+85
+00:03:26,733 --> 00:03:27,217
+implies,
+
+86
+00:03:27,776 --> 00:03:30,735
+is to use it in conjunction with the OpenAI
+
+87
+00:03:31,009 --> 00:03:34,808
+API, so the proprietary models provided by
+
+88
+00:03:34,889 --> 00:03:35,439
+OpenAI.
+
+89
+00:03:36,032 --> 00:03:37,107
+Which is why
+
+90
+00:03:37,860 --> 00:03:40,811
+when visiting the OpenAI documentation, you
+
+91
+00:03:40,923 --> 00:03:44,099
+find comparable instructions about using the
+
+92
+00:03:44,131 --> 00:03:45,253
+OpenAI SDK,
+
+93
+00:03:46,119 --> 00:03:48,445
+just that here it of course makes sense.
+
+94
+00:03:49,166 --> 00:03:52,598
+But indeed, this SDK, this OpenAI SDK, has
+
+95
+00:03:52,711 --> 00:03:55,245
+become pretty much the de facto standard for
+
+96
+00:03:55,373 --> 00:03:56,127
+interacting
+
+97
+00:03:56,720 --> 00:04:00,857
+with LLM APIs. Many other providers also
+
+98
+00:04:00,874 --> 00:04:03,936
+adopted it. For example, Google also allows
+
+99
+00:04:03,936 --> 00:04:06,597
+you to interact with Gemini, which is their
+
+100
+00:04:06,741 --> 00:04:09,097
+paid models, not the free ones, but Gemini
+
+101
+00:04:09,306 --> 00:04:10,123
+is the paid
+
+102
+00:04:10,893 --> 00:04:12,079
+LLM provided by Google
+
+103
+00:04:12,736 --> 00:04:14,435
+through the OpenAI SDK.
+
+104
+00:04:15,782 --> 00:04:18,796
+And it's the same for LM Studio. The API
+
+105
+00:04:19,164 --> 00:04:22,146
+that is provided by that LM Studio server
+
+106
+00:04:22,370 --> 00:04:25,544
+that's spun up by setting it to running.
+
+107
+00:04:26,394 --> 00:04:28,654
+So the API provided by that server here
+
+108
+00:04:29,408 --> 00:04:32,133
+is essentially in line with the structure of
+
+109
+00:04:32,133 --> 00:04:33,575
+the OpenAI API.
+
+110
+00:04:34,297 --> 00:04:37,775
+And can therefore be used through the OpenAI
+
+111
+00:04:37,839 --> 00:04:38,240
+SDK.
+
+112
+00:04:38,785 --> 00:04:40,965
+The only thing you need to do when aiming to
+
+113
+00:04:40,965 --> 00:04:41,430
+do so
+
+114
+00:04:42,071 --> 00:04:44,973
+is when initializing that OpenAI SDK,
+
+115
+00:04:45,534 --> 00:04:48,211
+you have to set the base URL parameter here
+
+116
+00:04:48,804 --> 00:04:52,026
+to this value, which is the domain or the
+
+117
+00:04:52,170 --> 00:04:55,328
+URL of this locally running LM Studio
+
+118
+00:04:55,857 --> 00:04:56,194
+API.
+
+119
+00:04:57,540 --> 00:05:00,089
+Because otherwise, without setting this, it
+
+120
+00:05:00,121 --> 00:05:02,478
+would try to send requests to the actual
+
+121
+00:05:02,590 --> 00:05:05,315
+OpenAI API, which is of course not what we
+
+122
+00:05:05,331 --> 00:05:05,475
+want.
+
+123
+00:05:06,533 --> 00:05:08,616
+Instead, we wanna send requests to our
+
+124
+00:05:08,680 --> 00:05:10,203
+locally running model,
+
+125
+00:05:10,940 --> 00:05:13,135
+and that can be done through that base URL.
+
+126
+00:05:14,609 --> 00:05:17,349
+Now, of course, it's also worth pointing out
+
+127
+00:05:17,349 --> 00:05:19,897
+that you could also communicate with that
+
+128
+00:05:20,138 --> 00:05:23,599
+OpenAI-compatible API that is exposed by LM
+
+129
+00:05:23,599 --> 00:05:24,064
+Studio
+
+130
+00:05:24,625 --> 00:05:28,214
+without using the OpenAI SDK. You can just
+
+131
+00:05:28,246 --> 00:05:32,060
+send a regular HTTP request with help of any
+
+132
+00:05:32,172 --> 00:05:35,121
+programming language you want. It is just an
+
+133
+00:05:35,121 --> 00:05:37,590
+API endpoint you have to send a request to
+
+134
+00:05:37,766 --> 00:05:38,215
+after all.
+
+135
+00:05:39,385 --> 00:05:41,998
+But it will be an API endpoint that's in
+
+136
+00:05:42,014 --> 00:05:44,915
+line with the OpenAI API and therefore you
+
+137
+00:05:44,915 --> 00:05:47,448
+can use many of the features provided by the
+
+138
+00:05:47,464 --> 00:05:48,602
+OpenAI API
+
+139
+00:05:49,147 --> 00:05:51,839
+just here with our locally running API
+
+140
+00:05:52,032 --> 00:05:54,148
+that's provided by LM Studio. So that's
+
+141
+00:05:54,212 --> 00:05:54,949
+quite convenient.
+
+142
+00:05:55,734 --> 00:05:57,465
+And therefore we can now take a look at some
+
+143
+00:05:57,658 --> 00:05:58,427
+code examples.

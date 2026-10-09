@@ -1,0 +1,599 @@
+1
+00:00:00,433 --> 00:00:02,454
+And what you typically would do when
+
+2
+00:00:02,518 --> 00:00:05,246
+building a backend application where you're
+
+3
+00:00:05,310 --> 00:00:07,829
+handling a POST request that might be
+
+4
+00:00:07,893 --> 00:00:10,509
+received because a form was submitted
+
+5
+00:00:11,407 --> 00:00:14,247
+is you would use the response object to
+
+6
+00:00:14,552 --> 00:00:18,772
+issue a redirect, to send the user along to
+
+7
+00:00:18,964 --> 00:00:20,119
+a different route.
+
+8
+00:00:20,970 --> 00:00:23,312
+And then the browser would load that route
+
+9
+00:00:23,312 --> 00:00:25,671
+and the page of that route, and that page
+
+10
+00:00:25,783 --> 00:00:28,559
+then might include that latest data that was
+
+11
+00:00:28,607 --> 00:00:28,703
+sent.
+
+12
+00:00:30,139 --> 00:00:33,075
+So here we might redirect to just /nothing,
+
+13
+00:00:33,285 --> 00:00:36,948
+so to the root page of this site, which is
+
+14
+00:00:37,545 --> 00:00:40,580
+in the end this route here so that this page
+
+15
+00:00:40,677 --> 00:00:43,082
+is re-rendered. And since we're outputting
+
+16
+00:00:43,179 --> 00:00:44,164
+all the list items here,
+
+17
+00:00:44,713 --> 00:00:47,426
+our new list item should be included there
+
+18
+00:00:48,105 --> 00:00:49,157
+after we stored it.
+
+19
+00:00:50,775 --> 00:00:52,490
+That's the theory at least.
+
+20
+00:00:53,218 --> 00:00:56,152
+And therefore now if we save everything, and
+
+21
+00:00:56,185 --> 00:00:57,471
+I reload this, if I
+
+22
+00:00:58,018 --> 00:01:00,928
+enter test here and I click Save Note,
+
+23
+00:01:02,521 --> 00:01:02,730
+okay,
+
+24
+00:01:03,727 --> 00:01:05,029
+I get this weird result.
+
+25
+00:01:06,570 --> 00:01:06,715
+My
+
+26
+00:01:07,409 --> 00:01:10,103
+look here changed quite a bit. Suddenly all
+
+27
+00:01:10,152 --> 00:01:12,588
+the content is very much in the middle, but
+
+28
+00:01:13,040 --> 00:01:16,122
+this item has actually been added. I can see
+
+29
+00:01:16,122 --> 00:01:16,448
+it here,
+
+30
+00:01:17,248 --> 00:01:19,141
+but of course all that content is now
+
+31
+00:01:19,320 --> 00:01:21,115
+suddenly rendered in the wrong place.
+
+32
+00:01:22,655 --> 00:01:24,837
+And actually, if you take a closer look,
+
+33
+00:01:25,383 --> 00:01:28,159
+it looks like the page that was served
+
+34
+00:01:28,191 --> 00:01:28,769
+before
+
+35
+00:01:29,459 --> 00:01:29,812
+is now
+
+36
+00:01:30,341 --> 00:01:33,133
+rendered again, just in a different place.
+
+37
+00:01:34,208 --> 00:01:37,835
+For example, this sentence here is also
+
+38
+00:01:37,963 --> 00:01:38,669
+rendered again.
+
+39
+00:01:39,824 --> 00:01:41,830
+And if I scroll down quite a bit,
+
+40
+00:01:42,536 --> 00:01:44,446
+I have the header here again, and then I
+
+41
+00:01:44,462 --> 00:01:46,259
+have the list again, but now
+
+42
+00:01:47,029 --> 00:01:48,939
+without that new item I added.
+
+43
+00:01:50,432 --> 00:01:52,744
+So what's happening here?
+
+44
+00:01:53,290 --> 00:01:57,191
+Now, what's happening here is that HTMX
+
+45
+00:01:57,560 --> 00:01:59,872
+sends that request, that
+
+46
+00:02:00,531 --> 00:02:01,815
+POST request here,
+
+47
+00:02:02,843 --> 00:02:03,630
+but it then
+
+48
+00:02:04,288 --> 00:02:07,531
+actually also renders the response
+
+49
+00:02:08,061 --> 00:02:10,646
+in the element that sent the request.
+
+50
+00:02:11,449 --> 00:02:14,820
+That's what you learned before with hx-get,
+
+51
+00:02:15,206 --> 00:02:18,929
+and it's the same for hx-post. And that's
+
+52
+00:02:19,538 --> 00:02:22,055
+really important to understand and keep in
+
+53
+00:02:22,055 --> 00:02:24,540
+mind. With HTMX, you
+
+54
+00:02:25,165 --> 00:02:28,211
+do not send requests and then it's the
+
+55
+00:02:28,211 --> 00:02:30,776
+backend that redirects the user or anything
+
+56
+00:02:30,776 --> 00:02:33,549
+like that. But instead, the idea is that you
+
+57
+00:02:33,597 --> 00:02:35,825
+send behind-the-scenes requests
+
+58
+00:02:36,450 --> 00:02:39,191
+where you then also handle the response that
+
+59
+00:02:39,191 --> 00:02:40,233
+is sent back
+
+60
+00:02:40,875 --> 00:02:42,269
+behind the scenes, so to say.
+
+61
+00:02:43,503 --> 00:02:45,764
+That is what we did with hx-get.
+
+62
+00:02:46,469 --> 00:02:50,172
+We used HTMX to send a GET request and The
+
+63
+00:02:50,317 --> 00:02:53,352
+data that was sent back, that list,
+
+64
+00:02:53,946 --> 00:02:57,655
+was then rendered in a place of our choice
+
+65
+00:02:57,864 --> 00:02:59,212
+on the existing page.
+
+66
+00:03:00,047 --> 00:03:01,862
+And it's now the same thing here with this
+
+67
+00:03:01,974 --> 00:03:04,543
+POST request for this form. We send a POST
+
+68
+00:03:04,543 --> 00:03:07,385
+request and the data that's sent back is
+
+69
+00:03:07,514 --> 00:03:09,569
+then rendered inside of that form because
+
+70
+00:03:09,665 --> 00:03:12,106
+that's the default behavior of HTMX.
+
+71
+00:03:12,652 --> 00:03:16,295
+If you did not specify hx-swap, and/or
+
+72
+00:03:16,488 --> 00:03:19,695
+hx-target to change where and how the
+
+73
+00:03:19,695 --> 00:03:21,924
+response is rendered, it will be rendered
+
+74
+00:03:22,100 --> 00:03:24,217
+inside the element that sent the request.
+
+75
+00:03:25,083 --> 00:03:27,216
+And that's why the form was actually
+
+76
+00:03:27,232 --> 00:03:29,701
+replaced with the page content again, with
+
+77
+00:03:29,733 --> 00:03:31,128
+the entire page content.
+
+78
+00:03:32,059 --> 00:03:33,213
+That's what we see here.
+
+79
+00:03:34,143 --> 00:03:35,218
+Now you might say,
+
+80
+00:03:36,067 --> 00:03:37,463
+but we did redirect here.
+
+81
+00:03:38,377 --> 00:03:38,505
+Why
+
+82
+00:03:39,114 --> 00:03:41,888
+does HTMX render some response?
+
+83
+00:03:42,626 --> 00:03:46,655
+Well, because HTMX follows that redirect.
+
+84
+00:03:47,682 --> 00:03:48,854
+If I redirect here,
+
+85
+00:03:49,609 --> 00:03:50,235
+what happens?
+
+86
+00:03:51,294 --> 00:03:54,520
+This first route here is triggered and that
+
+87
+00:03:54,520 --> 00:03:57,329
+route returns some HTML code and that's
+
+88
+00:03:57,474 --> 00:04:02,016
+ultimately therefore the final response HTMX
+
+89
+00:04:02,064 --> 00:04:03,316
+receives and renders.
+
+90
+00:04:04,231 --> 00:04:07,169
+That's why this page was now rendered again
+
+91
+00:04:07,747 --> 00:04:10,090
+into the element that sent the request.
+
+92
+00:04:11,598 --> 00:04:14,789
+That's how HTMX works. And therefore, when
+
+93
+00:04:14,902 --> 00:04:18,799
+using HTMX, you have to think differently
+
+94
+00:04:18,831 --> 00:04:20,563
+about returning responses.
+
+95
+00:04:21,220 --> 00:04:23,850
+And that's why it makes a lot of sense to
+
+96
+00:04:23,866 --> 00:04:27,058
+also own the backend code so that you can
+
+97
+00:04:27,090 --> 00:04:30,506
+make sure that you are sending responses
+
+98
+00:04:31,259 --> 00:04:35,237
+that are useful to HTMX and that can be used
+
+99
+00:04:35,349 --> 00:04:36,295
+by HTMX.
+
+100
+00:04:36,969 --> 00:04:38,816
+For example, what we could do here
+
+101
+00:04:39,345 --> 00:04:40,935
+is instead of redirecting,
+
+102
+00:04:41,529 --> 00:04:44,227
+which we typically would do in a traditional
+
+103
+00:04:44,484 --> 00:04:45,640
+full-stack application,
+
+104
+00:04:46,330 --> 00:04:47,711
+we can send back the
+
+105
+00:04:48,578 --> 00:04:51,532
+HTML code of the updated list, for example.
+
+106
+00:04:51,902 --> 00:04:53,523
+So I could grab this code here
+
+107
+00:04:55,017 --> 00:04:58,437
+and then send back an HTML fragment in the
+
+108
+00:04:58,453 --> 00:04:58,678
+end
+
+109
+00:04:59,336 --> 00:05:01,407
+that includes that updated list.
+
+110
+00:05:02,905 --> 00:05:05,632
+So I'm not sending back the entire page, I'm
+
+111
+00:05:05,632 --> 00:05:08,163
+not redirecting, I'm just sending back the
+
+112
+00:05:08,163 --> 00:05:09,997
+content that needs to be updated.
+
+113
+00:05:11,630 --> 00:05:13,405
+Now, just like that, it of course still
+
+114
+00:05:13,437 --> 00:05:16,149
+wouldn't work. If I reload and I add a brand
+
+115
+00:05:16,166 --> 00:05:16,714
+new note,
+
+116
+00:05:17,247 --> 00:05:19,798
+now it would be that list fragment that
+
+117
+00:05:19,798 --> 00:05:22,397
+replaces the form and the old list would
+
+118
+00:05:22,479 --> 00:05:25,478
+then still be there below that form that was
+
+119
+00:05:25,576 --> 00:05:26,408
+now replaced.
+
+120
+00:05:27,149 --> 00:05:29,614
+And this behavior of course makes sense
+
+121
+00:05:29,614 --> 00:05:31,377
+because as I mentioned, the content that is
+
+122
+00:05:31,377 --> 00:05:34,064
+received is rendered into the element that
+
+123
+00:05:34,064 --> 00:05:36,622
+is responsible for sending the request, so
+
+124
+00:05:36,655 --> 00:05:37,568
+into the form here.
+
+125
+00:05:38,930 --> 00:05:40,443
+Therefore, what we should do now
+
+126
+00:05:41,200 --> 00:05:43,148
+is set a different target,
+
+127
+00:05:43,937 --> 00:05:46,433
+the unordered list specifically, so that we
+
+128
+00:05:46,433 --> 00:05:50,131
+target this unordered list with hx-target.
+
+129
+00:05:51,885 --> 00:05:54,393
+And then we also add hx-swap
+
+130
+00:05:54,942 --> 00:05:55,137
+to
+
+131
+00:05:55,767 --> 00:05:59,601
+replace the entire list because I know that
+
+132
+00:05:59,601 --> 00:06:02,546
+I'll be getting back an entirely new list
+
+133
+00:06:02,982 --> 00:06:05,000
+due to the way I wrote this code here.
+
+134
+00:06:05,969 --> 00:06:08,343
+And therefore it's the entire old list that
+
+135
+00:06:08,375 --> 00:06:09,425
+should be replaced.
+
+136
+00:06:10,363 --> 00:06:13,452
+And that can be achieved by setting hx-swap
+
+137
+00:06:13,452 --> 00:06:14,589
+to outerHTML.
+
+138
+00:06:16,503 --> 00:06:18,616
+That will replace not just the content
+
+139
+00:06:18,745 --> 00:06:21,858
+inside the target, but instead the entire
+
+140
+00:06:21,987 --> 00:06:24,390
+target with the response content.
+
+141
+00:06:26,410 --> 00:06:28,491
+And with that, if I save this,
+
+142
+00:06:29,178 --> 00:06:31,744
+So now that we added these 3
+
+143
+00:06:32,434 --> 00:06:33,765
+attributes, if we save this,
+
+144
+00:06:34,438 --> 00:06:36,715
+and now that we sent back that fragment,
+
+145
+00:06:37,565 --> 00:06:39,618
+if I reload and I enter test again,
+
+146
+00:06:40,147 --> 00:06:43,658
+now it's just the list that was updated and
+
+147
+00:06:43,658 --> 00:06:45,887
+it is now updated every time I send a new
+
+148
+00:06:46,080 --> 00:06:46,641
+request.
+
+149
+00:06:47,523 --> 00:06:50,554
+And that's now, for example, the behavior we
+
+150
+00:06:50,554 --> 00:06:51,051
+want here.

@@ -1,0 +1,884 @@
+1
+00:00:00,656 --> 00:00:04,246
+I wanna replace this built-in confirmation
+我想替換這個內建的確​​認
+
+2
+00:00:04,278 --> 00:00:07,691
+dialog here with a custom confirmation
+此處附有自訂確認對話框
+
+3
+00:00:07,739 --> 00:00:10,751
+dialog, with my own custom modal that I
+對話框，帶有我自己的自訂模式
+
+4
+00:00:10,751 --> 00:00:13,636
+wanna show to the user whenever they try to
+每當使用者嘗試時想要向他們展示
+
+5
+00:00:14,116 --> 00:00:15,703
+move one of the places around.
+移動周圍的一個地方。
+
+6
+00:00:16,280 --> 00:00:17,545
+And I wanna show that modal
+我想展示那個模態
+
+7
+00:00:18,122 --> 00:00:20,638
+either if the user selects a place down here
+如果使用者在此處選擇一個地方
+
+8
+00:00:21,183 --> 00:00:23,522
+and adds it to the dream locations, but also
+並將其添加到夢想地點，而且
+
+9
+00:00:23,586 --> 00:00:25,862
+then still if a user wants to remove an
+那如果使用者想要刪除一個
+
+10
+00:00:25,990 --> 00:00:26,727
+element from there.
+來自那裡的元素。
+
+11
+00:00:27,593 --> 00:00:29,888
+I wanna use my own modal for that.
+我想使用我自己的模式。
+
+12
+00:00:31,028 --> 00:00:33,403
+And that in the end implies here
+這最終意味著這裡
+
+13
+00:00:34,077 --> 00:00:38,442
+that I wanna run some custom JavaScript code
+我想運行一些自訂 JavaScript 程式碼
+
+14
+00:00:38,827 --> 00:00:39,453
+in the end
+到底
+
+15
+00:00:40,352 --> 00:00:42,646
+because I'm not happy with the built-in
+因為我對內置不滿意
+
+16
+00:00:42,903 --> 00:00:45,230
+dialog. So I wanna show my own and that
+對話。所以我想展示我自己的
+
+17
+00:00:45,230 --> 00:00:47,734
+means that I need to manipulate the DOM on
+意味著我需要操作 DOM
+
+18
+00:00:47,734 --> 00:00:48,087
+my own,
+我自己的，
+
+19
+00:00:48,697 --> 00:00:51,104
+which in the end means that I need to run my
+這最終意味著我需要運行我的
+
+20
+00:00:51,248 --> 00:00:53,447
+own custom JavaScript code.
+自己的自訂 JavaScript 程式碼。
+
+21
+00:00:54,379 --> 00:00:57,367
+And that's something you can do with HTMX
+這就是您可以使用 HTMX 完成的事情
+
+22
+00:00:57,367 --> 00:01:00,532
+because HTMX is there to help you, not to
+因為 HTMX 是為了幫助您，而不是為了
+
+23
+00:01:00,660 --> 00:01:03,295
+prevent you from running your own JavaScript
+阻止你運行自己的 JavaScript
+
+24
+00:01:03,295 --> 00:01:03,568
+code.
+程式碼。
+
+25
+00:01:04,500 --> 00:01:06,878
+And indeed, we already had a look at some
+事實上，我們已經看過一些
+
+26
+00:01:07,327 --> 00:01:10,026
+basic example where we did listen to some
+我們確實聽過一些基本的例子
+
+27
+00:01:10,123 --> 00:01:12,758
+events and run our own JavaScript code
+事件並運行我們自己的 JavaScript 程式碼
+
+28
+00:01:13,095 --> 00:01:14,605
+earlier in this section.
+本節前面的內容。
+
+29
+00:01:15,264 --> 00:01:17,449
+Now we're in the end just going to do the
+現在我們最終要做的是
+
+30
+00:01:17,449 --> 00:01:20,630
+same but with slightly more complex
+相同但稍微複雜一些
+
+31
+00:01:20,582 --> 00:01:21,543
+JavaScript code.
+JavaScript 程式碼。
+
+32
+00:01:22,986 --> 00:01:24,765
+And therefore I'll start by adding a new
+因此我將首先添加一個新的
+
+33
+00:01:25,134 --> 00:01:26,657
+file to the public folder
+檔案到公用資料夾
+
+34
+00:01:27,458 --> 00:01:29,446
+and I'll name that file main.js
+我將該檔案命名為 main.js
+
+35
+00:01:30,200 --> 00:01:32,941
+because since I'll now write a bit more
+因為我現在要多寫一點
+
+36
+00:01:33,069 --> 00:01:35,586
+JavaScript code, I actually don't wanna
+JavaScript 程式碼，我其實不想
+
+37
+00:01:35,714 --> 00:01:38,567
+write it inline in my HTML
+將其內嵌寫入我的 HTML 中
+
+38
+00:01:39,177 --> 00:01:41,838
+code, but instead I wanna put that
+程式碼，但我想把它
+
+39
+00:01:41,886 --> 00:01:44,803
+JavaScript code into a separate JavaScript
+JavaScript 程式碼轉換為單獨的 JavaScript
+
+40
+00:01:44,851 --> 00:01:45,044
+file,
+檔案，
+
+41
+00:01:45,989 --> 00:01:47,945
+which is what you often would do if you
+這是你常會做的，如果你
+
+42
+00:01:48,137 --> 00:01:48,698
+would write
+會寫
+
+43
+00:01:49,259 --> 00:01:52,017
+at least slightly more complex or longer
+至少稍微複雜一點或更長一些
+
+44
+00:01:52,081 --> 00:01:52,289
+code.
+程式碼。
+
+45
+00:01:53,509 --> 00:01:55,581
+Now to make sure that this file is
+現在要確保該檔案是
+
+46
+00:01:56,159 --> 00:01:58,214
+executed and considered in the webpage,
+在網頁中執行和考慮，
+
+47
+00:01:58,824 --> 00:02:01,634
+we have to import it and add it to the site
+我們必須導入它並將其添加到網站
+
+48
+00:02:01,795 --> 00:02:04,589
+in the end. And therefore with the main.js
+到底。因此使用 main.js
+
+49
+00:02:04,589 --> 00:02:06,580
+file added, even though it's still empty,
+檔案已添加，即使它仍然是空的，
+
+50
+00:02:06,628 --> 00:02:08,571
+I'll go to the index.js file.
+我將轉到index.js 檔案。
+
+51
+00:02:09,101 --> 00:02:09,422
+And here
+還有這裡
+
+52
+00:02:10,048 --> 00:02:13,597
+after loading the htmx.js file, I'll also
+載入 htmx.js 檔案後，我還將
+
+53
+00:02:13,677 --> 00:02:16,423
+load my main.js file, which I just added.
+載入我剛剛新增的 main.js 檔案。
+
+54
+00:02:17,354 --> 00:02:19,987
+Also with defer so that I make sure that it
+還帶有延遲，以便我確保它
+
+55
+00:02:20,164 --> 00:02:22,556
+only executes after the rest of the page has
+僅在頁面的其餘部分完成後執行
+
+56
+00:02:22,669 --> 00:02:23,231
+been parsed.
+被解析了。
+
+57
+00:02:24,754 --> 00:02:27,591
+So that will now execute this main.js file.
+現在將執行這個 main.js 檔案。
+
+58
+00:02:28,360 --> 00:02:31,614
+And in that file, I now wanna put the code
+在該檔案中，我現在想放入程式碼
+
+59
+00:02:31,646 --> 00:02:31,838
+for
+為了
+
+60
+00:02:32,431 --> 00:02:33,505
+opening a modal.
+開啟模式。
+
+61
+00:02:34,291 --> 00:02:35,605
+So what we could do here
+那我們在這裡可以做什麼
+
+62
+00:02:36,198 --> 00:02:37,304
+is add a function,
+就是增加一個功能，
+
+63
+00:02:38,201 --> 00:02:41,231
+showConfirmationModal could be the name.
+showConfirmationModal 可以是名稱。
+
+64
+00:02:42,625 --> 00:02:44,869
+And then in there, I wanna show that modal
+然後在那裡，我想展示那個模態
+
+65
+00:02:44,869 --> 00:02:46,696
+in the future. For the moment, I'll just
+將來。暫時我只會
+
+66
+00:02:46,712 --> 00:02:49,517
+console.log showing modal so that we can
+console.log 顯示模式，以便我們可以
+
+67
+00:02:49,517 --> 00:02:51,761
+tell whether this code gets executed or not.
+判斷這段程式碼是否被執行。
+
+68
+00:02:53,447 --> 00:02:55,855
+The goal now is to trigger that function
+現在的目標是觸發該功能
+
+69
+00:02:55,855 --> 00:02:59,131
+here whenever we're about to send one of our
+每當我們要發送我們的一個
+
+70
+00:02:59,131 --> 00:02:59,725
+requests.
+請求。
+
+71
+00:03:00,528 --> 00:03:02,968
+So in location.js where I add those
+所以在 location.js 中我加入了這些
+
+72
+00:03:03,145 --> 00:03:07,095
+attributes to this location button, I wanna
+這個位置按鈕的屬性，我想要
+
+73
+00:03:07,320 --> 00:03:10,113
+trigger this showConfirmationModal function
+觸發此 showConfirmationModal 函式
+
+74
+00:03:10,531 --> 00:03:12,875
+right before we're sending this POST or
+在我們發送此帖子之前或
+
+75
+00:03:12,875 --> 00:03:13,758
+DELETE request.
+刪除請求。
+
+76
+00:03:14,706 --> 00:03:16,616
+And you already learned how you can do that.
+而且您已經了解瞭如何做到這一點。
+
+77
+00:03:17,676 --> 00:03:20,904
+You can use hx-on to add an event listener
+您可以使用 hx-on 新增事件監聽器
+
+78
+00:03:21,465 --> 00:03:23,858
+and then after a colon, specify the name of
+然後在冒號後指定名稱
+
+79
+00:03:23,858 --> 00:03:25,014
+the event you wanna listen to.
+您想收聽的活動。
+
+80
+00:03:26,443 --> 00:03:28,161
+Now here, I don't wanna listen to some
+現在在這裡，我不想聽一些
+
+81
+00:03:28,755 --> 00:03:32,031
+built-in standard browser event, but instead
+內建標準瀏覽器事件，而是
+
+82
+00:03:32,063 --> 00:03:34,311
+to some HTMX-specific event.
+一些 HTMX 特定的事件。
+
+83
+00:03:35,258 --> 00:03:36,992
+And you learned that for that, you can
+你了解為此你可以
+
+84
+00:03:37,056 --> 00:03:40,171
+specify HTMX colon and then that event name,
+指定 HTMX 冒號，然後指定事件名稱，
+
+85
+00:03:40,396 --> 00:03:42,162
+like before, -request.
+像以前一樣，-請求。
+
+86
+00:03:44,465 --> 00:03:47,210
+Or use that shortcut with 2 colons and then
+或使用帶有 2 個冒號的快捷方式，然後
+
+87
+00:03:47,405 --> 00:03:47,909
+that name.
+那個名字。
+
+88
+00:03:50,150 --> 00:03:50,696
+And then here,
+然後在這裡，
+
+89
+00:03:51,226 --> 00:03:53,188
+previously in this section, we put our
+在本節之前，我們將
+
+90
+00:03:53,220 --> 00:03:56,049
+JavaScript code and I'll still do that, but
+JavaScript 程式碼，我仍然會這樣做，但是
+
+91
+00:03:56,049 --> 00:03:57,929
+instead of writing a lot of code here, I'll
+我不會在這裡編寫大量程式碼，而是
+
+92
+00:03:57,994 --> 00:04:00,343
+simply call this showConfirmationModal
+只需呼叫此 showConfirmationModal
+
+93
+00:04:00,375 --> 00:04:00,762
+function.
+功能。
+
+94
+00:04:02,178 --> 00:04:05,141
+So I'll add this code and execute this
+所以我將添加這段程式碼並執行它
+
+95
+00:04:05,141 --> 00:04:05,576
+function.
+功能。
+
+96
+00:04:06,510 --> 00:04:08,597
+And I'll do the same down here for the
+我也會在這裡做同樣的事情
+
+97
+00:04:08,699 --> 00:04:09,702
+delete request.
+刪除請求。
+
+98
+00:04:10,349 --> 00:04:13,525
+I'll also already get rid of hx-confirm here
+我也將在這裡擺脫 hx-confirm
+
+99
+00:04:13,833 --> 00:04:15,923
+since I no longer wanna use that, but
+因為我不想再用它了，但是
+
+100
+00:04:15,923 --> 00:04:18,273
+instead in the future use my own modal.
+相反，將來使用我自己的模式。
+
+101
+00:04:20,132 --> 00:04:22,622
+Now with that file added, that function
+現在添加該檔案後，該函式
+
+102
+00:04:22,703 --> 00:04:26,486
+added, and this code here added, if you save
+添加，並在此處添加此程式碼，如果您儲存
+
+103
+00:04:26,599 --> 00:04:28,747
+everything and you open your developer tools
+一切，你打開你的開發者工具
+
+104
+00:04:28,860 --> 00:04:30,424
+and there the JavaScript console,
+還有 JavaScript 控制台，
+
+105
+00:04:30,956 --> 00:04:32,584
+if you reload and you click one of these
+如果您重新載入並單擊其中之一
+
+106
+00:04:32,713 --> 00:04:35,932
+items, you should see showing modal here. In
+專案，您應該會看到這裡顯示模式。在
+
+107
+00:04:35,964 --> 00:04:39,254
+the console. So that proves that executing
+控制台。這樣就證明執行
+
+108
+00:04:39,287 --> 00:04:40,421
+our code works.
+我們的程式碼有效。
+
+109
+00:04:42,510 --> 00:04:44,732
+Now, listening to events like this and
+現在，聽這樣的事件和
+
+110
+00:04:44,796 --> 00:04:46,374
+executing our own code like this
+像這樣執行我們自己的程式碼
+
+111
+00:04:46,905 --> 00:04:49,401
+is one way, but you can actually also listen
+是一種方式，但實際上你也可以聽
+
+112
+00:04:49,401 --> 00:04:51,687
+to such events in a different way, which I
+我以不同的方式來應對此類事件
+
+113
+00:04:51,736 --> 00:04:53,165
+simply also wanna show to you.
+只是也想展示給你看。
+
+114
+00:04:54,290 --> 00:04:57,150
+Therefore, I'll actually remove this hx-on
+因此，我實際上會刪除這個 hx-on
+
+115
+00:04:57,504 --> 00:04:58,098
+attribute here
+屬性在這裡
+
+116
+00:04:58,693 --> 00:05:01,087
+and instead I'll set up my event listener
+相反，我將設定我的事件監聽器
+
+117
+00:05:01,184 --> 00:05:03,689
+right inside here in the main.js file.
+就在 main.js 檔案中。
+
+118
+00:05:04,606 --> 00:05:07,502
+Because those events that are emitted by
+因為那些事件是由
+
+119
+00:05:07,599 --> 00:05:10,883
+HTMX for some elements that are controlled
+HTMX 用於某些受控制的元素
+
+120
+00:05:10,980 --> 00:05:14,587
+by HTMX cannot just be handled with hx-on.
+by HTMX 不能只用 hx-on 處理。
+
+121
+00:05:15,104 --> 00:05:17,740
+Instead, they're standard custom events
+相反，它們是標準自訂事件
+
+122
+00:05:18,015 --> 00:05:20,456
+which you can create in JavaScript. It's a
+您可以在 JavaScript 中建立它。這是一個
+
+123
+00:05:20,456 --> 00:05:22,332
+built-in feature and therefore you can
+內建功能，因此您可以
+
+124
+00:05:22,381 --> 00:05:24,758
+handle them also with just JavaScript.
+也可以只用 JavaScript 來處理它們。
+
+125
+00:05:26,224 --> 00:05:28,352
+Since they also bubble up, you can, for
+因為它們也會冒泡，所以你可以，
+
+126
+00:05:28,352 --> 00:05:30,285
+example, add an event listener on the
+例如，新增一個事件監聽器
+
+127
+00:05:30,366 --> 00:05:31,438
+document itself
+檔案本身
+
+128
+00:05:32,133 --> 00:05:35,183
+And then specify these HTMX event names here
+然後在此處指定這些 HTMX 事件名稱
+
+129
+00:05:35,665 --> 00:05:38,233
+like HTMX before request.
+就像請求之前的 HTMX 一樣。
+
+130
+00:05:39,597 --> 00:05:41,877
+And now what's important here is that here
+現在重要的是這裡
+
+131
+00:05:41,909 --> 00:05:45,520
+you must include that HTMX part because HTMX
+您必須包含 HTMX 部分，因為 HTMX
+
+132
+00:05:45,520 --> 00:05:48,779
+colon is actually part of the custom event
+冒號實際上是自訂事件的一部分
+
+133
+00:05:48,811 --> 00:05:50,914
+name that's emitted by HTMX.
+HTMX 發出的名稱。
+
+134
+00:05:52,182 --> 00:05:54,220
+And you must use this camelCase notation
+並且您必須使用駝峰命名法
+
+135
+00:05:54,268 --> 00:05:57,302
+here because this capUpCase notation only
+這裡因為只有這個 capUpCase 表示法
+
+136
+00:05:57,399 --> 00:05:59,999
+exists to be used if you're using it with
+如果您使用它，則可以使用它
+
+137
+00:06:00,047 --> 00:06:02,567
+hx-on as part of an attribute name.
+hx-on 作為屬性名稱的一部分。
+
+138
+00:06:03,359 --> 00:06:05,193
+When handling it like this inside of
+裡面像這樣處理時
+
+139
+00:06:05,225 --> 00:06:07,903
+JavaScript, you should use this camelCase
+JavaScript，你應該使用駝峰命名法
+
+140
+00:06:07,903 --> 00:06:08,357
+notation.
+符號。
+
+141
+00:06:10,360 --> 00:06:12,169
+Well, and then here you can define the
+好吧，然後你可以在這裡定義
+
+142
+00:06:12,169 --> 00:06:14,447
+function that should execute when that event
+該事件發生時應執行的函式
+
+143
+00:06:14,447 --> 00:06:14,722
+occurs.
+發生。
+
+144
+00:06:16,273 --> 00:06:17,255
+Like for example,
+例如，
+
+145
+00:06:17,801 --> 00:06:19,472
+showConfirmationModal.
+顯示確認模式。
+
+146
+00:06:21,031 --> 00:06:23,505
+And here I'm not executing it because that
+在這裡我沒有執行它，因為
+
+147
+00:06:23,505 --> 00:06:25,690
+would run that function right when this line
+將在該行時運行該函式
+
+148
+00:06:25,690 --> 00:06:27,989
+of code gets parsed, but instead I'll just
+程式碼被解析，但我只是
+
+149
+00:06:27,989 --> 00:06:30,629
+point at it So I don't have parentheses here
+指向它所以我這裡沒有括號
+
+150
+00:06:30,629 --> 00:06:32,578
+at the end, opening and closing parentheses.
+最後，左括號和右括號。
+
+151
+00:06:32,707 --> 00:06:35,267
+I don't have them here so that I just point
+我這裡沒有，所以我只是指出
+
+152
+00:06:35,267 --> 00:06:37,731
+at this function and the browser will call
+在這個函式中，瀏覽器將會調用
+
+153
+00:06:38,005 --> 00:06:40,620
+and execute it for me whenever that event
+並在該事件發生時為我執行它
+
+154
+00:06:40,620 --> 00:06:41,177
+here occurs.
+這裡發生。
+
+155
+00:06:43,030 --> 00:06:45,380
+Now, of course, that would now trigger this
+現在，當然，現在會觸發這個
+
+156
+00:06:45,380 --> 00:06:48,376
+function for any request that's about to be
+滿足任何即將發生的請求的函式
+
+157
+00:06:48,376 --> 00:06:50,775
+sent from anywhere on the page. And if you
+從頁面上的任何位置發送。如果你
+
+158
+00:06:50,775 --> 00:06:52,830
+don't want that, you therefore might wanna
+不想要那樣，因此你可能想要
+
+159
+00:06:52,996 --> 00:06:54,734
+select a more specific element.
+選擇更具體的元素。
+
+160
+00:06:55,888 --> 00:06:57,536
+For example, with querySelector
+例如，使用 querySelector
+
+161
+00:06:59,023 --> 00:07:01,689
+li, you would select the first list item on
+li，您將選擇第一個清單項
+
+162
+00:07:01,689 --> 00:07:02,044
+the screen.
+螢幕.
+
+163
+00:07:02,892 --> 00:07:05,523
+But here I know that the only requests that
+但在這裡我知道唯一的要求是
+
+164
+00:07:05,620 --> 00:07:09,170
+will be sent will be for those places and
+將被發送到那些地方並且
+
+165
+00:07:09,267 --> 00:07:12,092
+therefore I'm fine with relying on them to
+因此我很樂意依靠他們
+
+166
+00:07:12,092 --> 00:07:14,106
+bubble up so that I can listen to them
+冒泡，這樣我就可以聽到他們的聲音
+
+167
+00:07:14,221 --> 00:07:15,449
+directly on the document.
+直接在檔案上。
+
+168
+00:07:17,400 --> 00:07:19,108
+So therefore now with this code added
+所以現在加入了這段程式碼
+
+169
+00:07:19,710 --> 00:07:20,947
+instead of hx-on,
+而不是 hx-on，
+
+170
+00:07:21,663 --> 00:07:23,717
+If we save everything and reload again,
+如果我們儲存所有內容並再次重新載入，
+
+171
+00:07:24,295 --> 00:07:27,265
+we still get showModal. So we still handle
+我們仍然得到 showModal。所以我們還是處理
+
+172
+00:07:27,265 --> 00:07:29,866
+these events, but now we do it with just
+這些事件，但現在我們只需要做
+
+173
+00:07:30,010 --> 00:07:30,732
+JavaScript.
+JavaScript。
+
+174
+00:07:31,696 --> 00:07:33,301
+And that's of course also something you
+這當然也是你的事情
+
+175
+00:07:33,301 --> 00:07:35,950
+should know and keep in mind. But now let's
+應該知道並牢記在心。但現在讓我們
+
+176
+00:07:35,950 --> 00:07:38,181
+make sure that we actually show that
+確保我們確實證明了這一點
+
+177
+00:07:38,181 --> 00:07:39,224
+confirmation modal.
+確認模式。

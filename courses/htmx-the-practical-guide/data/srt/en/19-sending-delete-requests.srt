@@ -1,0 +1,783 @@
+1
+00:00:00,646 --> 00:00:04,701
+So how can we make sure that we can clear
+
+2
+00:00:04,927 --> 00:00:06,590
+these list items, that we can make these
+
+3
+00:00:06,687 --> 00:00:08,222
+remove buttons here work?
+
+4
+00:00:09,860 --> 00:00:09,957
+Well,
+
+5
+00:00:10,685 --> 00:00:11,946
+back in our code here,
+
+6
+00:00:12,642 --> 00:00:15,360
+we can simply go to these buttons
+
+7
+00:00:16,428 --> 00:00:21,430
+and then add the hx-delete attribute on that
+
+8
+00:00:21,462 --> 00:00:21,850
+button.
+
+9
+00:00:23,000 --> 00:00:27,597
+And that will then send a delete request
+
+10
+00:00:25,836 --> 00:00:28,323
+HTTP request whenever that button is
+
+11
+00:00:28,483 --> 00:00:28,820
+clicked.
+
+12
+00:00:29,623 --> 00:00:31,725
+Now, just to make sure that we're all on the
+
+13
+00:00:31,725 --> 00:00:32,399
+same page,
+
+14
+00:00:32,993 --> 00:00:37,502
+DELETE requests are standard HTTP requests
+
+15
+00:00:37,710 --> 00:00:40,759
+just like GET or POST requests. They're just
+
+16
+00:00:40,759 --> 00:00:42,749
+using a different HTTP verb.
+
+17
+00:00:44,225 --> 00:00:47,306
+Now, just by sending a DELETE request alone,
+
+18
+00:00:47,980 --> 00:00:50,483
+you're not going to delete anything though.
+
+19
+00:00:51,125 --> 00:00:53,949
+It's instead the backend code you write that
+
+20
+00:00:54,399 --> 00:00:56,613
+in the end decides what's going to happen.
+
+21
+00:00:57,288 --> 00:00:59,617
+When you send a POST request, you also don't
+
+22
+00:00:59,713 --> 00:01:02,846
+magically add data somewhere. Instead, you
+
+23
+00:01:02,846 --> 00:01:05,577
+just decide to handle a POST request and you
+
+24
+00:01:05,577 --> 00:01:08,164
+then write the code that controls what
+
+25
+00:01:08,212 --> 00:01:10,605
+happens upon such a POST request.
+
+26
+00:01:12,067 --> 00:01:14,092
+And it's the same now with a DELETE request.
+
+27
+00:01:14,397 --> 00:01:18,188
+We can send a DELETE request or we can get
+
+28
+00:01:18,413 --> 00:01:22,285
+HTMX to send one by adding the hx-delete
+
+29
+00:01:22,349 --> 00:01:25,402
+attribute on an element. And therefore HTMX
+
+30
+00:01:25,402 --> 00:01:27,748
+will send such a request whenever the
+
+31
+00:01:28,390 --> 00:01:29,322
+most obvious
+
+32
+00:01:29,852 --> 00:01:32,713
+event for an element occurs, which in case
+
+33
+00:01:32,713 --> 00:01:33,870
+of a button is a click event.
+
+34
+00:01:35,126 --> 00:01:37,493
+But we then have to decide to which path
+
+35
+00:01:37,799 --> 00:01:40,182
+that request should be sent and we then have
+
+36
+00:01:40,214 --> 00:01:42,903
+to write the code on the backend to handle
+
+37
+00:01:43,032 --> 00:01:45,583
+that incoming request and to then actually
+
+38
+00:01:45,841 --> 00:01:46,680
+delete something.
+
+39
+00:01:48,279 --> 00:01:51,265
+Now let's start with the path. Here, I guess
+
+40
+00:01:51,265 --> 00:01:53,218
+it makes sense to again send this to /goals.
+
+41
+00:01:54,362 --> 00:01:56,433
+But then I actually also
+
+42
+00:01:57,076 --> 00:01:58,618
+wanna incorporate the
+
+43
+00:01:59,244 --> 00:02:03,339
+ID or in this case here, the index of the
+
+44
+00:02:03,355 --> 00:02:05,090
+element that should be deleted
+
+45
+00:02:05,829 --> 00:02:07,692
+into this path here.
+
+46
+00:02:08,720 --> 00:02:11,273
+Therefore, I'll actually adjust this string
+
+47
+00:02:11,386 --> 00:02:15,160
+here to dynamically inject the index so that
+
+48
+00:02:15,160 --> 00:02:16,493
+the DELETE request is sent to
+
+49
+00:02:17,071 --> 00:02:20,781
+/goals/0 for the first element in the list,
+
+50
+00:02:21,573 --> 00:02:24,393
+/1 for the second element and so on.
+
+51
+00:02:26,210 --> 00:02:28,414
+And that of course now means that we need to
+
+52
+00:02:28,478 --> 00:02:31,325
+add an appropriate route here in this
+
+53
+00:02:31,325 --> 00:02:32,966
+Express demo application.
+
+54
+00:02:34,222 --> 00:02:37,039
+And there we can set up a route for DELETE
+
+55
+00:02:37,039 --> 00:02:39,422
+requests by using the DELETE method on this
+
+56
+00:02:39,679 --> 00:02:40,516
+app object
+
+57
+00:02:41,370 --> 00:02:42,883
+and by then defining the path
+
+58
+00:02:43,463 --> 00:02:45,781
+for which we wanna listen to DELETE
+
+59
+00:02:45,781 --> 00:02:46,294
+requests.
+
+60
+00:02:47,274 --> 00:02:49,490
+And in my case here, that's /goals
+
+61
+00:02:50,149 --> 00:02:53,938
+and then this dynamic segment, which is 0
+
+62
+00:02:54,098 --> 00:02:56,089
+for the first element, 1 for the second
+
+63
+00:02:56,170 --> 00:02:57,197
+element, and so on.
+
+64
+00:02:58,257 --> 00:03:00,778
+And when using Express, that can be
+
+65
+00:03:00,826 --> 00:03:04,102
+represented by using a colon and then any
+
+66
+00:03:04,214 --> 00:03:06,526
+identifier of your choice, like for example,
+
+67
+00:03:06,639 --> 00:03:08,421
+idx for index.
+
+68
+00:03:09,673 --> 00:03:12,307
+This simply tells Express that this will be
+
+69
+00:03:12,307 --> 00:03:14,571
+a dynamic segment which is not known in
+
+70
+00:03:14,571 --> 00:03:15,004
+advance,
+
+71
+00:03:15,534 --> 00:03:17,976
+but which we will be able to extract for
+
+72
+00:03:18,169 --> 00:03:19,394
+every incoming request.
+
+73
+00:03:21,103 --> 00:03:23,037
+So therefore here we have that request
+
+74
+00:03:23,086 --> 00:03:25,600
+handler and we can now get the index by
+
+75
+00:03:25,600 --> 00:03:26,793
+accessing req.params.idx.
+
+76
+00:03:31,089 --> 00:03:34,455
+This is how we extract the actual concrete
+
+77
+00:03:34,650 --> 00:03:38,178
+index that was submitted in that path as
+
+78
+00:03:38,356 --> 00:03:39,748
+part of the incoming request.
+
+79
+00:03:40,703 --> 00:03:44,087
+And I'm accessing.idx here because I have
+
+80
+00:03:44,184 --> 00:03:47,698
+chosen idx as an identifier after the colon
+
+81
+00:03:47,943 --> 00:03:49,234
+here in this route path.
+
+82
+00:03:51,410 --> 00:03:53,761
+So that then gives me the index of the item
+
+83
+00:03:53,777 --> 00:03:54,808
+that should be deleted
+
+84
+00:03:55,452 --> 00:03:57,289
+and we can then therefore go ahead
+
+85
+00:03:57,885 --> 00:04:00,542
+and access the courseGoals and then use the
+
+86
+00:04:00,542 --> 00:04:04,091
+splice method, which is a standard array
+
+87
+00:04:04,091 --> 00:04:05,414
+method in JavaScript
+
+88
+00:04:05,946 --> 00:04:08,398
+to remove an element from the array.
+
+89
+00:04:09,753 --> 00:04:12,009
+And for that, we just need to pass the index
+
+90
+00:04:12,075 --> 00:04:14,241
+of the element that should be removed to
+
+91
+00:04:14,289 --> 00:04:17,184
+splice and then a 1 thereafter as a second
+
+92
+00:04:17,233 --> 00:04:19,724
+argument to make it clear that it's just
+
+93
+00:04:19,724 --> 00:04:21,875
+this one element that should be removed.
+
+94
+00:04:23,482 --> 00:04:25,580
+That will therefore then remove it from the
+
+95
+00:04:25,580 --> 00:04:25,951
+list
+
+96
+00:04:26,855 --> 00:04:28,485
+and then what?
+
+97
+00:04:29,114 --> 00:04:30,986
+How do we proceed here?
+
+98
+00:04:32,802 --> 00:04:35,793
+Well, then as a next step, we wanna make
+
+99
+00:04:35,857 --> 00:04:38,816
+sure that this list item is also removed
+
+100
+00:04:38,816 --> 00:04:41,935
+here from that rendered list of goals.
+
+101
+00:04:44,443 --> 00:04:46,917
+And that is something that's fairly easy to
+
+102
+00:04:46,934 --> 00:04:50,184
+achieve with HTMX. Because if you're
+
+103
+00:04:50,249 --> 00:04:52,772
+handling a DELETE request and you then wanna
+
+104
+00:04:52,772 --> 00:04:56,281
+make sure that the element or some element
+
+105
+00:04:56,699 --> 00:04:59,736
+in the DOM that was responsible for sending
+
+106
+00:04:59,768 --> 00:05:01,664
+the request is deleted,
+
+107
+00:05:02,242 --> 00:05:02,999
+all you have to do
+
+108
+00:05:03,622 --> 00:05:06,228
+is send back an empty response.
+
+109
+00:05:07,280 --> 00:05:09,545
+So a response with an empty body.
+
+110
+00:05:11,566 --> 00:05:15,518
+If you do that, HTMX will take that response
+
+111
+00:05:15,534 --> 00:05:16,938
+content, which is
+
+112
+00:05:17,535 --> 00:05:17,890
+empty,
+
+113
+00:05:18,745 --> 00:05:21,747
+and it will then do what it always does with
+
+114
+00:05:21,812 --> 00:05:22,443
+responses.
+
+115
+00:05:23,025 --> 00:05:25,760
+It will render it into the element that
+
+116
+00:05:25,873 --> 00:05:28,785
+triggered that request. So in this case, it
+
+117
+00:05:28,785 --> 00:05:30,566
+would render it into this button.
+
+118
+00:05:31,688 --> 00:05:33,932
+It would essentially delete this text here,
+
+119
+00:05:34,224 --> 00:05:34,680
+remove,
+
+120
+00:05:35,265 --> 00:05:36,484
+and replace it with the empty response.
+
+121
+00:05:37,818 --> 00:05:40,110
+So with nothing, so we would have an empty
+
+122
+00:05:40,142 --> 00:05:40,513
+button.
+
+123
+00:05:41,433 --> 00:05:43,048
+That's of course not what I want here
+
+124
+00:05:43,048 --> 00:05:43,274
+though.
+
+125
+00:05:44,030 --> 00:05:46,096
+Therefore, what I'll do instead
+
+126
+00:05:46,628 --> 00:05:50,616
+is I will add the hx-target element
+
+127
+00:05:51,633 --> 00:05:54,827
+and target the entire list item here so that
+
+128
+00:05:54,891 --> 00:05:57,938
+the content of that list item is replaced
+
+129
+00:05:57,938 --> 00:05:58,632
+with nothing
+
+130
+00:05:59,293 --> 00:06:01,542
+and it's therefore essentially deleted.
+
+131
+00:06:03,292 --> 00:06:07,175
+Now, the CSS selector for targeting this
+
+132
+00:06:07,528 --> 00:06:10,357
+list item here can be the ID of that list
+
+133
+00:06:10,357 --> 00:06:10,598
+item.
+
+134
+00:06:11,579 --> 00:06:14,086
+So therefore here I can use #goal-
+
+135
+00:06:15,259 --> 00:06:18,064
+and then of course dynamically construct
+
+136
+00:06:18,096 --> 00:06:20,970
+that ID by again using the index, which I am
+
+137
+00:06:21,084 --> 00:06:22,756
+using for setting the ID as well.
+
+138
+00:06:24,450 --> 00:06:27,553
+So with that, I'm then targeting this entire
+
+139
+00:06:27,553 --> 00:06:28,167
+list item.
+
+140
+00:06:29,897 --> 00:06:32,095
+Now out of the box, as you learned,
+
+141
+00:06:32,646 --> 00:06:36,577
+HTMLX would then swap the content inside of
+
+142
+00:06:36,593 --> 00:06:39,867
+that list item with the response body. So it
+
+143
+00:06:39,867 --> 00:06:42,530
+would delete the content inside the list
+
+144
+00:06:42,595 --> 00:06:44,857
+item in this case here since the response
+
+145
+00:06:44,857 --> 00:06:45,900
+body will be empty.
+
+146
+00:06:46,622 --> 00:06:48,468
+But that's not exactly what I want here.
+
+147
+00:06:48,708 --> 00:06:51,356
+Instead, I wanna replace the entire element
+
+148
+00:06:51,420 --> 00:06:52,688
+and therefore delete it.
+
+149
+00:06:53,907 --> 00:06:57,117
+Hence, we should also set hx-swap here to
+
+150
+00:06:57,357 --> 00:07:00,791
+outerHTML so that the entire list item is
+
+151
+00:07:00,888 --> 00:07:03,214
+replaced with the response body, so with
+
+152
+00:07:03,311 --> 00:07:04,255
+that HTML. Empty body
+
+153
+00:07:05,024 --> 00:07:07,153
+and therefore the entire list item will be
+
+154
+00:07:07,153 --> 00:07:07,612
+deleted.
+
+155
+00:07:10,100 --> 00:07:12,274
+Now of course, we should add these same
+
+156
+00:07:12,451 --> 00:07:13,144
+attributes
+
+157
+00:07:13,756 --> 00:07:16,623
+down here where I'm also rendering such list
+
+158
+00:07:16,719 --> 00:07:18,813
+items. And of course repeating it like this
+
+159
+00:07:18,813 --> 00:07:21,144
+is not ideal, but for the moment we'll do it
+
+160
+00:07:21,144 --> 00:07:21,465
+like this.
+
+161
+00:07:22,027 --> 00:07:24,823
+I will soon show you an alternative approach
+
+162
+00:07:24,935 --> 00:07:27,763
+though, but for the moment this is how we'll
+
+163
+00:07:27,827 --> 00:07:28,132
+do it.
+
+164
+00:07:28,936 --> 00:07:31,437
+Of course down here though, I don't have the
+
+165
+00:07:31,518 --> 00:07:34,649
+index variable, instead I calculated the
+
+166
+00:07:34,649 --> 00:07:36,990
+index like this. And since I now need this
+
+167
+00:07:36,990 --> 00:07:39,573
+in multiple places, I will for convenience
+
+168
+00:07:39,573 --> 00:07:42,156
+create that index variable and store the
+
+169
+00:07:42,156 --> 00:07:42,995
+result of this
+
+170
+00:07:43,525 --> 00:07:45,793
+calculation, if you wanna call it like this,
+
+171
+00:07:46,324 --> 00:07:46,597
+in it.
+
+172
+00:07:47,224 --> 00:07:49,894
+And then use index here and in those other
+
+173
+00:07:49,942 --> 00:07:50,328
+places.
+
+174
+00:07:52,967 --> 00:07:55,374
+With that, if we save that and we reload,
+
+175
+00:07:56,441 --> 00:07:58,896
+if I enter Learn HTMX, that's added.
+
+176
+00:07:59,452 --> 00:08:02,034
+If I learn advanced concepts,
+
+177
+00:08:02,744 --> 00:08:03,454
+that's added.
+
+178
+00:08:04,276 --> 00:08:05,712
+And now if I click on
+
+179
+00:08:06,470 --> 00:08:07,987
+learn advanced concepts,
+
+180
+00:08:08,810 --> 00:08:10,504
+that is removed as you see.
+
+181
+00:08:11,133 --> 00:08:13,667
+And the same happens with learn HTMX.
+
+182
+00:08:15,813 --> 00:08:19,538
+However, we'll face a problem here if we do
+
+183
+00:08:19,554 --> 00:08:20,993
+it the other way around.
+
+184
+00:08:23,431 --> 00:08:26,454
+If I now start by deleting learn HTMX,
+
+185
+00:08:26,996 --> 00:08:29,676
+and I then click Learn Advanced Concepts, it
+
+186
+00:08:29,804 --> 00:08:32,677
+looks like it worked, but if I reload,
+
+187
+00:08:33,334 --> 00:08:34,875
+the advanced concepts are back.
+
+188
+00:08:35,597 --> 00:08:37,988
+They weren't actually deleted even though it
+
+189
+00:08:38,004 --> 00:08:39,288
+looked like this on the UI.
+
+190
+00:08:40,315 --> 00:08:41,984
+But it only looked like that because of
+
+191
+00:08:42,016 --> 00:08:45,209
+course we always return this empty response
+
+192
+00:08:45,225 --> 00:08:47,375
+and therefore we always in the end delete
+
+193
+00:08:47,375 --> 00:08:49,076
+the element that sent the request,
+
+194
+00:08:49,798 --> 00:08:51,997
+but we didn't actually delete it here.
+
+195
+00:08:52,767 --> 00:08:53,617
+And why is
+
+196
+00:08:54,195 --> 00:08:56,217
+that and how can we solve it?

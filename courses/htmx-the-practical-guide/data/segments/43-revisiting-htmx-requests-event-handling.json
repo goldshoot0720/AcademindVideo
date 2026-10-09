@@ -1,0 +1,732 @@
+[
+ {
+  "start": 0.451,
+  "end": 2.755,
+  "en": "So how can we make sure that we"
+ },
+ {
+  "start": 3.399,
+  "end": 7.653,
+  "en": "update the suggested places every 5 seconds?"
+ },
+ {
+  "start": 9.232,
+  "end": 9.346,
+  "en": "Well,"
+ },
+ {
+  "start": 9.881,
+  "end": 13.256,
+  "en": "by going to that list where I wanna update"
+ },
+ {
+  "start": 13.289,
+  "end": 16.275,
+  "en": "the data and by adding some HTMX attributes"
+ },
+ {
+  "start": 16.275,
+  "end": 16.468,
+  "en": "on it."
+ },
+ {
+  "start": 17.644,
+  "end": 21.218,
+  "en": "Specifically, the hx-get attribute to send a"
+ },
+ {
+  "start": 21.362,
+  "end": 22.135,
+  "en": "GET request"
+ },
+ {
+  "start": 22.892,
+  "end": 25.838,
+  "en": "so that I can send a request to some route"
+ },
+ {
+  "start": 25.951,
+  "end": 27.723,
+  "en": "that gives me an updated list of"
+ },
+ {
+  "start": 27.773,
+  "end": 28.142,
+  "en": "suggestions."
+ },
+ {
+  "start": 29.677,
+  "end": 31.827,
+  "en": "We don't have such a route yet, but of"
+ },
+ {
+  "start": 31.859,
+  "end": 32.942,
+  "en": "course we can add one."
+ },
+ {
+  "start": 34.299,
+  "end": 35.447,
+  "en": "So that's not a new"
+ },
+ {
+  "start": 36.287,
+  "end": 38.146,
+  "en": "attribute or anything like that. Instead, it"
+ },
+ {
+  "start": 38.146,
+  "end": 39.051,
+  "en": "is one we already know."
+ },
+ {
+  "start": 39.86,
+  "end": 41.849,
+  "en": "For example, we could assume that we have"
+ },
+ {
+  "start": 41.865,
+  "end": 45.358,
+  "en": "some route that accepts GET requests with a"
+ },
+ {
+  "start": 45.358,
+  "end": 47.509,
+  "en": "path of suggested-locations,"
+ },
+ {
+  "start": 49.291,
+  "end": 51.415,
+  "en": "but that's up to you because we'll create"
+ },
+ {
+  "start": 51.48,
+  "end": 52.395,
+  "en": "that route together."
+ },
+ {
+  "start": 53.942,
+  "end": 56.301,
+  "en": "Now I'll split that across multiple lines to"
+ },
+ {
+  "start": 56.301,
+  "end": 57.439,
+  "en": "make it a bit easier to read."
+ },
+ {
+  "start": 58.463,
+  "end": 60.741,
+  "en": "So this would send a GET request to that"
+ },
+ {
+  "start": 60.854,
+  "end": 61.193,
+  "en": "route."
+ },
+ {
+  "start": 61.985,
+  "end": 63.6,
+  "en": "That's not all we need, but it's a start."
+ },
+ {
+  "start": 64.181,
+  "end": 66.814,
+  "en": "Of course, we should add that same attribute"
+ },
+ {
+  "start": 66.992,
+  "end": 68.342,
+  "en": "in the app.js file here"
+ },
+ {
+  "start": 68.945,
+  "end": 71.783,
+  "en": "when we out-of-band swap that unordered"
+ },
+ {
+  "start": 71.799,
+  "end": 72.06,
+  "en": "list."
+ },
+ {
+  "start": 73.593,
+  "end": 75.466,
+  "en": "We should add it here as well to make sure"
+ },
+ {
+  "start": 75.53,
+  "end": 77.726,
+  "en": "that this request is still being sent."
+ },
+ {
+  "start": 78.824,
+  "end": 80.1,
+  "en": "Or alternatively,"
+ },
+ {
+  "start": 80.681,
+  "end": 83.969,
+  "en": "we change the out-of-band swap behavior here"
+ },
+ {
+  "start": 84.099,
+  "end": 86.925,
+  "en": "to innerHTML so that the unordered list"
+ },
+ {
+  "start": 86.925,
+  "end": 87.737,
+  "en": "element will actually not be replaced"
+ },
+ {
+  "start": 89.9,
+  "end": 92.442,
+  "en": "and instead it's just the content that will"
+ },
+ {
+  "start": 92.506,
+  "end": 94.854,
+  "en": "replace the content of the existing list."
+ },
+ {
+  "start": 95.957,
+  "end": 98.679,
+  "en": "That would save us the hassle of having to"
+ },
+ {
+  "start": 98.775,
+  "end": 101.82,
+  "en": "re-add all the HTMX attributes here and"
+ },
+ {
+  "start": 101.932,
+  "end": 103.897,
+  "en": "therefore that's the approach I'll use here."
+ },
+ {
+  "start": 105.617,
+  "end": 107.71,
+  "en": "Either way, we're not there yet. Instead,"
+ },
+ {
+  "start": 107.807,
+  "end": 109.191,
+  "en": "now we should add a new"
+ },
+ {
+  "start": 109.723,
+  "end": 113.33,
+  "en": "GET route by using app.get, maybe here above"
+ },
+ {
+  "start": 113.442,
+  "end": 115.947,
+  "en": "the delete route but the exact place doesn't"
+ },
+ {
+  "start": 115.947,
+  "end": 116.177,
+  "en": "matter."
+ },
+ {
+  "start": 117.331,
+  "end": 119.174,
+  "en": "And the path I wanna set up here"
+ },
+ {
+  "start": 119.696,
+  "end": 121.23,
+  "en": "is suggested-locations"
+ },
+ {
+  "start": 123.623,
+  "end": 126.754,
+  "en": "or whichever path you chose here in your"
+ },
+ {
+  "start": 127.03,
+  "end": 127.825,
+  "en": "HTML code."
+ },
+ {
+  "start": 129.659,
+  "end": 130.925,
+  "en": "So for me, it's suggested-locations."
+ },
+ {
+  "start": 132.874,
+  "end": 135.51,
+  "en": "And then I got my route handler function"
+ },
+ {
+  "start": 135.543,
+  "end": 135.672,
+  "en": "here"
+ },
+ {
+  "start": 136.335,
+  "end": 139.635,
+  "en": "where I wanna derive some new suggested"
+ },
+ {
+  "start": 139.748,
+  "end": 141.689,
+  "en": "locations and where I wanna return them."
+ },
+ {
+  "start": 142.302,
+  "end": 144.225,
+  "en": "So here we should get these suggested"
+ },
+ {
+  "start": 144.225,
+  "end": 146.66,
+  "en": "locations by again calling this"
+ },
+ {
+  "start": 146.868,
+  "end": 149.047,
+  "en": "getSuggestedLocations function."
+ },
+ {
+  "start": 150.313,
+  "end": 152.908,
+  "en": "And then I wanna send back a response where"
+ },
+ {
+  "start": 152.956,
+  "end": 155.648,
+  "en": "I take those suggested locations"
+ },
+ {
+  "start": 156.946,
+  "end": 159.493,
+  "en": "and where I then map them into those list"
+ },
+ {
+  "start": 159.59,
+  "end": 160.295,
+  "en": "item elements."
+ },
+ {
+  "start": 161.544,
+  "end": 162.442,
+  "en": "So in the end, it's"
+ },
+ {
+  "start": 163.435,
+  "end": 164.284,
+  "en": "this code here"
+ },
+ {
+  "start": 165.197,
+  "end": 168.466,
+  "en": "I want, but now not injected into a string."
+ },
+ {
+  "start": 168.882,
+  "end": 171.432,
+  "en": "Instead, I'm just returning a string with"
+ },
+ {
+  "start": 171.528,
+  "end": 174.675,
+  "en": "just these list items that are generated"
+ },
+ {
+  "start": 174.675,
+  "end": 174.998,
+  "en": "like this."
+ },
+ {
+  "start": 176.45,
+  "end": 178.661,
+  "en": "I'm not wrapping them in some other HTML"
+ },
+ {
+  "start": 178.79,
+  "end": 181.034,
+  "en": "element. Instead, I'm just returning these"
+ },
+ {
+  "start": 181.067,
+  "end": 182.443,
+  "en": "list item elements here."
+ },
+ {
+  "start": 183.333,
+  "end": 185.68,
+  "en": "That's what renderLocation will give us"
+ },
+ {
+  "start": 185.68,
+  "end": 186.036,
+  "en": "after all."
+ },
+ {
+  "start": 186.57,
+  "end": 188.254,
+  "en": "It will give us a list item."
+ },
+ {
+  "start": 191.04,
+  "end": 192.757,
+  "en": "So that's what I sent back here."
+ },
+ {
+  "start": 193.68,
+  "end": 196.726,
+  "en": "And this is almost all we need because now"
+ },
+ {
+  "start": 196.79,
+  "end": 199.447,
+  "en": "we have this GET route which sends back list"
+ },
+ {
+  "start": 199.527,
+  "end": 199.833,
+  "en": "items."
+ },
+ {
+  "start": 200.973,
+  "end": 203.608,
+  "en": "And in index.js, I have this hx-get"
+ },
+ {
+  "start": 203.784,
+  "end": 206.355,
+  "en": "attribute, which will send a GET request to"
+ },
+ {
+  "start": 206.355,
+  "end": 207.672,
+  "en": "this newly added route."
+ },
+ {
+  "start": 209.021,
+  "end": 211.399,
+  "en": "Now remember what the default behavior of"
+ },
+ {
+  "start": 211.511,
+  "end": 212.363,
+  "en": "HTMX is."
+ },
+ {
+  "start": 213.182,
+  "end": 217.118,
+  "en": "If you send a request with help of HTMX to a"
+ },
+ {
+  "start": 217.118,
+  "end": 219.816,
+  "en": "route and that route responds with HTML"
+ },
+ {
+  "start": 219.945,
+  "end": 224.411,
+  "en": "code, HTMX will take that response HTML code"
+ },
+ {
+  "start": 224.748,
+  "end": 228.521,
+  "en": "and will replace the the innerHTML content"
+ },
+ {
+  "start": 228.681,
+  "end": 231.665,
+  "en": "of the element that sent the request, so the"
+ },
+ {
+  "start": 231.665,
+  "end": 233.318,
+  "en": "content inside of that list"
+ },
+ {
+  "start": 233.911,
+  "end": 236.414,
+  "en": "with that response body. That's the default"
+ },
+ {
+  "start": 236.462,
+  "end": 236.928,
+  "en": "behavior"
+ },
+ {
+  "start": 237.505,
+  "end": 239.222,
+  "en": "and that's exactly what we need here."
+ },
+ {
+  "start": 239.992,
+  "end": 242.35,
+  "en": "Whenever this request is sent, I wanna take"
+ },
+ {
+  "start": 242.575,
+  "end": 245.511,
+  "en": "the response body, the response HTML code"
+ },
+ {
+  "start": 245.784,
+  "end": 248.158,
+  "en": "which contains those suggested locations"
+ },
+ {
+  "start": 248.255,
+  "end": 248.88,
+  "en": "list items"
+ },
+ {
+  "start": 249.538,
+  "end": 252.089,
+  "en": "and I wanna replace the currently rendered"
+ },
+ {
+  "start": 252.282,
+  "end": 255.003,
+  "en": "list items with those list items. So we"
+ },
+ {
+  "start": 255.099,
+  "end": 257.756,
+  "en": "don't need to add any new attribute here at"
+ },
+ {
+  "start": 257.756,
+  "end": 258.255,
+  "en": "the moment."
+ },
+ {
+  "start": 259.85,
+  "end": 261.628,
+  "en": "And therefore, if I save that and reload,"
+ },
+ {
+  "start": 262.129,
+  "end": 264.846,
+  "en": "we'll be able to click, for example, here"
+ },
+ {
+  "start": 265.202,
+  "end": 268.468,
+  "en": "between these 2 items on this unordered list"
+ },
+ {
+  "start": 269.001,
+  "end": 271.062,
+  "en": "and a new request will be sent as you can"
+ },
+ {
+  "start": 271.11,
+  "end": 272.718,
+  "en": "tell by that modal that opens up."
+ },
+ {
+  "start": 273.828,
+  "end": 276.659,
+  "en": "Now, I don't want that modal here, I'll fix"
+ },
+ {
+  "start": 276.659,
+  "end": 278.99,
+  "en": "it soon. But for the moment, if I click yes,"
+ },
+ {
+  "start": 279.444,
+  "end": 282.587,
+  "en": "2 new places were fetched and rendered. And"
+ },
+ {
+  "start": 282.684,
+  "end": 286.638,
+  "en": "that is in the end a huge step forward. So"
+ },
+ {
+  "start": 286.638,
+  "end": 287.576,
+  "en": "we're almost there."
+ },
+ {
+  "start": 289.17,
+  "end": 291.828,
+  "en": "Now, I don't want to show this modal though."
+ },
+ {
+  "start": 292.537,
+  "end": 295.259,
+  "en": "Now, the good thing is that I'm logging this"
+ },
+ {
+  "start": 295.259,
+  "end": 297.339,
+  "en": "event to which we're listening, which is"
+ },
+ {
+  "start": 297.436,
+  "end": 299.437,
+  "en": "fired whenever we're about to send a new"
+ },
+ {
+  "start": 299.533,
+  "end": 300.05,
+  "en": "request."
+ },
+ {
+  "start": 300.598,
+  "end": 302.664,
+  "en": "And there we can see that in the details"
+ },
+ {
+  "start": 302.841,
+  "end": 305.778,
+  "en": "added by HTMX, we get access to the"
+ },
+ {
+  "start": 307.082,
+  "end": 311.187,
+  "en": "of the request, so the path HTMX is about to"
+ },
+ {
+  "start": 311.187,
+  "end": 312.359,
+  "en": "send a request to."
+ },
+ {
+  "start": 314.208,
+  "end": 316.13,
+  "en": "And this is some useful information because"
+ },
+ {
+  "start": 316.323,
+  "end": 317.179,
+  "en": "this allows us"
+ },
+ {
+  "start": 317.76,
+  "end": 320.134,
+  "en": "to go to our custom JavaScript code."
+ },
+ {
+  "start": 320.909,
+  "end": 322.943,
+  "en": "And if I don't wanna show the modal, if I'm"
+ },
+ {
+  "start": 322.943,
+  "end": 326.309,
+  "en": "requesting some new suggested locations, we"
+ },
+ {
+  "start": 326.309,
+  "end": 327.807,
+  "en": "can simply go into this"
+ },
+ {
+  "start": 327.84,
+  "end": 329.595,
+  "en": "showConfirmationModal function"
+ },
+ {
+  "start": 330.191,
+  "end": 334.215,
+  "en": "and check if event.detail.path is equal to"
+ },
+ {
+  "start": 335.05,
+  "end": 336.623,
+  "en": "/suggested-locations."
+ },
+ {
+  "start": 337.635,
+  "end": 339.786,
+  "en": "So if we're sending a request to get some"
+ },
+ {
+  "start": 339.786,
+  "end": 342.42,
+  "en": "new suggested locations, and in that case,"
+ },
+ {
+  "start": 342.532,
+  "end": 343.592,
+  "en": "I'll just return here"
+ },
+ {
+  "start": 345.069,
+  "end": 347.798,
+  "en": "so that all this code thereafter will not be"
+ },
+ {
+  "start": 347.879,
+  "end": 351.026,
+  "en": "executed and I'll therefore not pause the"
+ },
+ {
+  "start": 351.026,
+  "end": 354.317,
+  "en": "event and show the modal. Instead, I'll just"
+ },
+ {
+  "start": 354.317,
+  "end": 357.561,
+  "en": "let HTMX continue and I'll execute none of"
+ },
+ {
+  "start": 357.609,
+  "end": 358.059,
+  "en": "that code."
+ },
+ {
+  "start": 358.966,
+  "end": 361.992,
+  "en": "If we have a request that targets suggested"
+ },
+ {
+  "start": 361.992,
+  "end": 362.448,
+  "en": "locations."
+ },
+ {
+  "start": 364.829,
+  "end": 367.217,
+  "en": "So by making this adjustment, when saving"
+ },
+ {
+  "start": 367.297,
+  "end": 370.008,
+  "en": "it, I make sure that if I click here, I"
+ },
+ {
+  "start": 370.218,
+  "end": 373.735,
+  "en": "immediately fetch 2 new suggested locations,"
+ },
+ {
+  "start": 374.155,
+  "end": 374.67,
+  "en": "which is great."
+ },
+ {
+  "start": 376.184,
+  "end": 379.454,
+  "en": "But of course, the original idea was to"
+ },
+ {
+  "start": 379.953,
+  "end": 382.514,
+  "en": "refetch these suggested locations"
+ },
+ {
+  "start": 382.691,
+  "end": 386.144,
+  "en": "automatically every 5 seconds. And that's"
+ },
+ {
+  "start": 386.355,
+  "end": 387.377,
+  "en": "what we'll do next."
+ }
+]

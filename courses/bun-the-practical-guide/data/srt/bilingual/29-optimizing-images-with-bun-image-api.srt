@@ -1,0 +1,1029 @@
+1
+00:00:00,192 --> 00:00:03,453
+One core API built into Bun that makes Bun
+Bun 內建了一個核心 API，使得 Bun
+
+2
+00:00:03,629 --> 00:00:06,504
+very helpful and useful for building both
+對於建構兩者都非常有幫助和有用
+
+3
+00:00:06,841 --> 00:00:08,062
+web apps, websites,
+網路應用程式、網站、
+
+4
+00:00:08,688 --> 00:00:11,082
+and utility tools, CLI tools,
+和實用工具、CLI 工具、
+
+5
+00:00:11,660 --> 00:00:13,330
+is its built-in image
+是它的內建影像
+
+6
+00:00:13,908 --> 00:00:15,418
+API. Because Bun
+API。因為包子
+
+7
+00:00:15,996 --> 00:00:19,530
+has a built-in feature, a built-in API which
+有一個內建功能，內建 API
+
+8
+00:00:19,546 --> 00:00:22,164
+works without adding any extra packages
+無需添加任何額外的包即可工作
+
+9
+00:00:22,983 --> 00:00:26,099
+that allows you to analyze and transform
+讓您分析和轉換
+
+10
+00:00:26,452 --> 00:00:29,787
+image files, for example, to optimize image
+圖像檔案，例如，優化圖像
+
+11
+00:00:29,900 --> 00:00:32,369
+files served by your website, something
+您的網站提供的檔案等
+
+12
+00:00:32,385 --> 00:00:34,085
+we'll dive in in the next lecture.
+我們將在下一堂課中深入探討。
+
+13
+00:00:34,791 --> 00:00:36,555
+But in this lecture, we'll take a look at
+但在本次講座中，我們將看看
+
+14
+00:00:36,619 --> 00:00:39,987
+how the API in general works. And therefore
+API 一般如何運作。因此
+
+15
+00:00:39,987 --> 00:00:41,992
+I have a brand new project which you find
+我有一個全新的專案，你可以找到
+
+16
+00:00:41,992 --> 00:00:43,948
+attached. And in that project, I have some
+隨附的。在那個專案中，我有一些
+
+17
+00:00:44,012 --> 00:00:47,011
+dummy images in an input folder. These are
+輸入資料夾中的虛擬影像。這些都是
+
+18
+00:00:47,284 --> 00:00:50,764
+AI-generated nature photos and these images
+AI 產生的自然照片和這些影像
+
+19
+00:00:50,972 --> 00:00:53,330
+aren't large to be honest, but still you
+說實話不大，但還是你
+
+20
+00:00:53,330 --> 00:00:55,591
+might wanna optimize them and maybe you also
+可能想優化它們，也許你也想
+
+21
+00:00:55,639 --> 00:00:57,884
+wanna transform them. For example, turn this
+想要改造他們。例如，將這個
+
+22
+00:00:57,884 --> 00:01:01,446
+PNG file into a JPEG file to be smaller for
+將 PNG 檔案轉換為較小的 JPEG 檔案
+
+23
+00:01:01,494 --> 00:01:03,323
+the purposes you wanna use it for.
+您想要使用它的目的。
+
+24
+00:01:03,884 --> 00:01:06,675
+And to achieve this, this demo program has
+為了實現這一點，這個演示程式有
+
+25
+00:01:06,852 --> 00:01:09,081
+one source code file, the index.ts file.
+一個原始碼檔案，index.ts 檔案。
+
+26
+00:01:09,675 --> 00:01:12,851
+Now, in this file, I first find the images
+現在，在這個檔案中，我首先找到圖像
+
+27
+00:01:12,948 --> 00:01:15,049
+by reading the input directory, which is
+透過讀取輸入目錄，即
+
+28
+00:01:15,049 --> 00:01:17,744
+hardcoded to input here. I then filter to
+硬編碼到此輸入。然後我過濾到
+
+29
+00:01:17,920 --> 00:01:18,145
+only
+僅有的
+
+30
+00:01:18,722 --> 00:01:22,268
+handle image files that end with.jpeg, with
+處理以 .jpeg 結尾的圖像檔案，
+
+31
+00:01:22,444 --> 00:01:23,567
+E or without E, and
+E 或沒有 E，且
+
+32
+00:01:25,920 --> 00:01:28,620
+e_or.png. And then we go through all these
+e_or.png。然後我們經歷所有這些
+
+33
+00:01:28,620 --> 00:01:30,400
+identified image files and call
+識別圖像檔案並調用
+
+34
+00:01:30,400 --> 00:01:32,520
+optimizeImage on each of them. And
+對每個影像進行優化。和
+
+35
+00:01:32,520 --> 00:01:34,760
+optimizeImage is this function where we now
+OptimizeImage 就是我們現在使用的這個函式
+
+36
+00:01:34,760 --> 00:01:37,600
+use the Bun Image API. Well, first I
+使用 Bun 影像 API。嗯，首先我
+
+37
+00:01:37,600 --> 00:01:39,940
+construct an absolute path to the image, I
+建構圖像的絕對路徑，我
+
+38
+00:01:39,940 --> 00:01:41,920
+get the base name, so the part in front of
+取得基本名稱，因此前面的部分
+
+39
+00:01:41,920 --> 00:01:44,340
+the extension, and I then define my output
+擴充功能名，然後定義我的輸出
+
+40
+00:01:44,340 --> 00:01:46,600
+path, which is basically the input file name
+路徑，基本上是輸入檔名
+
+41
+00:01:46,600 --> 00:01:49,460
+with.optimized and then always.jpeg
+with.optimized 然後always.jpeg
+
+42
+00:01:49,460 --> 00:01:52,360
+because I'll convert all images to JPEG here
+因為我將在這裡將所有圖像轉換為 JPEG
+
+43
+00:01:52,360 --> 00:01:54,444
+in this example. We also then have a
+在這個例子中。然後我們還有一個
+
+44
+00:01:54,444 --> 00:01:58,950
+placeholder.txt file and an HTML file. I'll
+placeholder.txt 檔案和 HTML 檔案。患病的
+
+45
+00:01:58,950 --> 00:02:01,130
+get back to the placeholder. The HTML file
+回到佔位符。 HTML 檔案
+
+46
+00:02:01,259 --> 00:02:04,033
+will just be some demo HTML file that shows
+只是一些演示 HTML 檔案，顯示
+
+47
+00:02:04,305 --> 00:02:05,588
+the optimized image later.
+稍後優化圖像。
+
+48
+00:02:06,534 --> 00:02:09,469
+But then we use the actual Bun Image API.
+但隨後我們使用實際的 Bun Image API。
+
+49
+00:02:10,062 --> 00:02:12,435
+And there are 2 ways of getting started with
+有兩種開始方法
+
+50
+00:02:12,467 --> 00:02:13,205
+it, so to say.
+它，可以這麼說。
+
+51
+00:02:13,830 --> 00:02:16,652
+Here is the first approach, which is based
+這是第一種方法，它是基於
+
+52
+00:02:16,652 --> 00:02:18,096
+on the Bun File API.
+在 Bun 檔案 API 上。
+
+53
+00:02:18,721 --> 00:02:20,469
+When you load a file with Bun,
+當你用 Bun 載入檔案時，
+
+54
+00:02:21,304 --> 00:02:23,826
+you can call the image method on that file
+您可以在該檔案上呼叫圖像方法
+
+55
+00:02:24,034 --> 00:02:27,135
+to get an image object on which you can then
+取得一個影像物件，然後您可以
+
+56
+00:02:27,167 --> 00:02:30,026
+perform resize and transformation
+執行調整大小和轉換
+
+57
+00:02:30,283 --> 00:02:32,516
+operations. And of course, that will only
+營運.當然，這只會
+
+58
+00:02:32,613 --> 00:02:34,829
+work if you loaded a file with the Bun File
+如果您使用 Bun 檔案載入檔案，則可以工作
+
+59
+00:02:34,958 --> 00:02:35,231
+API.
+API。
+
+60
+00:02:35,761 --> 00:02:38,363
+If you loaded a file with the Node.js API
+如果您使用 Node.js API 載入檔案
+
+61
+00:02:38,476 --> 00:02:40,484
+with readFile, for example, it will not
+例如，使用 readFile 時，它不會
+
+62
+00:02:40,484 --> 00:02:42,122
+work, of course, because this is a Bun
+當然是工作，因為這是一個包子
+
+63
+00:02:42,122 --> 00:02:42,588
+feature.
+特徵。
+
+64
+00:02:43,552 --> 00:02:46,299
+Alternatively, you can create such an image
+或者，您可以建立這樣的圖像
+
+65
+00:02:46,508 --> 00:02:49,319
+object by instantiating BunImage like this.
+像這樣實例化 BunImage 物件。
+
+66
+00:02:50,041 --> 00:02:52,547
+And then to that constructor function, you
+然後對於那個建構子，你
+
+67
+00:02:52,547 --> 00:02:55,887
+can pass your image input path. So the path
+可以傳遞你的影像輸入路徑。所以路徑
+
+68
+00:02:56,080 --> 00:02:57,975
+to the image file you wanna operate on.
+到你想要操作的圖像檔案。
+
+69
+00:02:58,408 --> 00:03:01,813
+Alternatively, the BunImage constructor also
+或者，BunImage 建構子也
+
+70
+00:03:01,861 --> 00:03:05,346
+takes raw bytes or a blob object. So if you
+接受原始位元組或 blob 物件。所以如果你
+
+71
+00:03:05,780 --> 00:03:08,381
+get an image from an incoming HTTP request,
+從傳入的 HTTP 請求取得映像，
+
+72
+00:03:08,510 --> 00:03:09,104
+for example.
+例如。
+
+73
+00:03:09,650 --> 00:03:11,063
+Now on this image
+現在在這張圖片上
+
+74
+00:03:11,641 --> 00:03:13,488
+object, you can then perform various
+物件，然後你可以執行各種
+
+75
+00:03:13,568 --> 00:03:15,287
+operations as you see here.
+如您在此處看到的操作。
+
+76
+00:03:15,913 --> 00:03:18,065
+For example, you can call the metadata
+例如，您可以呼叫元資料
+
+77
+00:03:18,305 --> 00:03:20,858
+method to extract some metadata information.
+方法來提取一些元資料資訊。
+
+78
+00:03:21,597 --> 00:03:23,604
+This gives you an object which at the point
+這給了你一個物件
+
+79
+00:03:23,604 --> 00:03:26,141
+of time where I'm recording this has 3
+我錄製這篇的時間有 3
+
+80
+00:03:26,270 --> 00:03:28,887
+properties, width, height, and format.
+屬性、寬度、高度和格式。
+
+81
+00:03:29,497 --> 00:03:31,954
+So here you can analyze an image. But the
+所以在這裡你可以分析圖像。但是
+
+82
+00:03:32,034 --> 00:03:33,848
+interesting part starts down here.
+有趣的部分從這裡開始。
+
+83
+00:03:34,603 --> 00:03:36,995
+Here we use this image object to, for
+這裡我們使用這個圖像物件來，
+
+84
+00:03:37,027 --> 00:03:39,773
+example, resize it, convert it to a JPEG,
+例如，調整其大小，將其轉換為 JPEG，
+
+85
+00:03:39,837 --> 00:03:40,608
+and then save it.
+然後儲存。
+
+86
+00:03:41,442 --> 00:03:45,114
+Now resize takes a width and a height. These
+現在調整大小需要寬度和高度。這些
+
+87
+00:03:45,130 --> 00:03:47,599
+are these 2 values, first width, then the
+是這兩個值，第一個是寬度，然後是
+
+88
+00:03:47,599 --> 00:03:47,952
+height,
+高度，
+
+89
+00:03:48,802 --> 00:03:51,848
+and an optional configuration object in
+和一個可選的設定物件
+
+90
+00:03:51,944 --> 00:03:53,692
+there. For example, I'm setting without
+那裡。例如，我設定沒有
+
+91
+00:03:53,692 --> 00:03:56,353
+enlargement to make sure that if I have a
+擴大以確保如果我有
+
+92
+00:03:56,353 --> 00:03:59,143
+higher width and/or height than the input
+比輸入更高的寬度和/或高度
+
+93
+00:03:59,143 --> 00:04:01,997
+image, we don't increase the size or the
+圖像，我們不會增加尺寸或
+
+94
+00:04:02,045 --> 00:04:03,825
+width and height of the image. Because of
+影像的寬度和高度。由於
+
+95
+00:04:03,873 --> 00:04:05,653
+course, if you're transforming an image to
+當然，如果您要將圖像轉換為
+
+96
+00:04:05,653 --> 00:04:07,865
+be wider or taller than the input image,
+比輸入影像更寬或更高，
+
+97
+00:04:08,362 --> 00:04:09,805
+that will typically lead to quality loss.
+這通常會導致品質損失。
+
+98
+00:04:09,870 --> 00:04:12,421
+Quality loss because this is not some AI
+品質損失，因為這不是人工智慧
+
+99
+00:04:12,470 --> 00:04:15,439
+feature that generates a new image. Instead,
+產生新圖像的功能。反而，
+
+100
+00:04:15,455 --> 00:04:17,252
+it operates on the existing image and
+它對現有圖像進行操作，並且
+
+101
+00:04:17,509 --> 00:04:19,820
+enlarging images will pretty much always
+放大影像幾乎總是
+
+102
+00:04:19,997 --> 00:04:22,677
+give you quality loss. So that's why I like
+給你帶來品質損失。所以這就是我喜歡的原因
+
+103
+00:04:22,677 --> 00:04:23,624
+to set this to true.
+將其設為 true。
+
+104
+00:04:24,652 --> 00:04:27,958
+You can also set fit to control whether the
+您也可以設定 fit 來控制是否
+
+105
+00:04:27,958 --> 00:04:30,606
+image will be stretched if the aspect ratio
+如果寬高比，影像將被拉伸
+
+106
+00:04:30,751 --> 00:04:31,521
+you define here
+你在這裡定義
+
+107
+00:04:32,131 --> 00:04:34,859
+deviates from the input image aspect ratio.
+偏離輸入影像的長寬比。
+
+108
+00:04:35,180 --> 00:04:38,167
+With fit set to inside, the image will not
+將“適合”設定為“內部”時，圖像將不會
+
+109
+00:04:38,167 --> 00:04:40,945
+stretch. So if you have a different aspect
+拉緊。所以如果你有不同的方面
+
+110
+00:04:40,945 --> 00:04:43,594
+ratio here than the input image has, the
+這裡比輸入影像的比率，
+
+111
+00:04:43,610 --> 00:04:45,906
+original aspect ratio will be maintained,
+原始縱橫比將保持不變，
+
+112
+00:04:46,099 --> 00:04:48,025
+which means your width and height will not
+這意味著你的寬度和高度不會
+
+113
+00:04:48,025 --> 00:04:48,989
+be hit perfectly.
+被完美擊中。
+
+114
+00:04:49,711 --> 00:04:51,349
+If you set fit to fill,
+如果你設定 fit 來 fill，
+
+115
+00:04:51,943 --> 00:04:54,817
+then the image will be stretched to meet
+然後圖像將被拉伸以滿足
+
+116
+00:04:54,914 --> 00:04:57,403
+this aspect ratio. Simply depends on what
+這個長寬比。簡單取決於什麼
+
+117
+00:04:57,403 --> 00:04:59,827
+you want. Typically, you probably want
+你想要的。通常，您可能想要
+
+118
+00:04:59,827 --> 00:05:00,710
+inside though.
+不過在裡面。
+
+119
+00:05:01,899 --> 00:05:04,918
+Now this will resize the image, but I also
+現在這將調整圖像的大小，但我也
+
+120
+00:05:04,966 --> 00:05:07,231
+wanna convert it to a JPEG. Even if the
+想將其轉換為 JPEG。即使
+
+121
+00:05:07,231 --> 00:05:09,511
+input image was a PNG, I wanna get a JPEG as
+輸入圖像是 PNG，我想要 JPEG 作為
+
+122
+00:05:09,543 --> 00:05:11,952
+an output. That's why we can call the JPEG
+一個輸出。這就是為什麼我們可以稱 JPEG
+
+123
+00:05:11,952 --> 00:05:14,378
+method. And there are other image format
+方法。還有其他圖像格式
+
+124
+00:05:14,426 --> 00:05:15,951
+methods too, like AWIF
+方法，如 AWIF
+
+125
+00:05:16,594 --> 00:05:20,063
+or PNG if you want a PNG or WebP if you want
+或 PNG（如果需要 PNG）或 WebP（如果需要）
+
+126
+00:05:20,063 --> 00:05:22,938
+a WebP image as an output. But I want JPEG.
+WebP 影像作為輸出。但我想要 JPEG。
+
+127
+00:05:23,516 --> 00:05:24,801
+And depending on which format you're
+取決於你的格式
+
+128
+00:05:24,801 --> 00:05:26,712
+targeting, you can pass a configuration
+定位，您可以傳遞設定
+
+129
+00:05:26,792 --> 00:05:29,600
+object with format-specific options. For
+具有特定於格式選項的物件。為了
+
+130
+00:05:29,600 --> 00:05:32,198
+example, for a JPEG file, you can set the
+例如，對於 JPEG 檔案，您可以設定
+
+131
+00:05:32,246 --> 00:05:35,229
+quality level so that we can shrink the file
+品質級別，以便我們可以縮小檔案
+
+132
+00:05:35,229 --> 00:05:35,726
+size a bit.
+尺寸有點。
+
+133
+00:05:36,656 --> 00:05:39,447
+But up to this point, nothing will have
+但到目前為止，一切都不會發生
+
+134
+00:05:39,463 --> 00:05:41,628
+happened yet. Instead, what we're doing here
+還沒有發生。相反，我們在這裡所做的
+
+135
+00:05:41,900 --> 00:05:44,418
+is we're setting up an image transformation
+我們正在設定圖像轉換
+
+136
+00:05:44,530 --> 00:05:46,599
+pipeline. That's how Bun works. We're
+管道。這就是包子的工作原理。是
+
+137
+00:05:46,840 --> 00:05:48,668
+operating on the image, we're resizing it,
+對圖像進行操作，我們正在調整它的大小，
+
+138
+00:05:49,005 --> 00:05:50,705
+we're converting it to a JPEG, but we're
+我們正在將其轉換為 JPEG，但我們
+
+139
+00:05:50,705 --> 00:05:53,431
+just planning these steps, so to say.
+可以這麼說，只是規劃這些步驟。
+
+140
+00:05:54,218 --> 00:05:56,867
+Only when you call a so-called terminal
+僅當您呼叫所謂的終端機時
+
+141
+00:05:56,867 --> 00:05:59,918
+method like write, only then will the
+像write這樣的方法，只有這樣才會
+
+142
+00:05:59,918 --> 00:06:00,656
+pipeline run.
+管道運行。
+
+143
+00:06:01,523 --> 00:06:03,723
+Other terminal methods are blob, for
+其他終端機方法是blob，用於
+
+144
+00:06:03,771 --> 00:06:06,003
+example, to get a blob which you could send
+例如，取得可以發送的 blob
+
+145
+00:06:06,035 --> 00:06:10,178
+with an HTTP response or to base64 to get
+使用 HTTP 回應或使用 base64 來獲取
+
+146
+00:06:10,210 --> 00:06:12,105
+the image as a base64 string.
+圖像作為 base64 字串。
+
+147
+00:06:12,763 --> 00:06:13,823
+But I want write
+但我想寫
+
+148
+00:06:14,609 --> 00:06:17,034
+and write then simply takes a path where the
+並且 write then 只採取一條路徑
+
+149
+00:06:17,034 --> 00:06:19,426
+transformed image will be saved to. And
+轉換後的影像將被儲存到。和
+
+150
+00:06:19,523 --> 00:06:21,336
+that's when that image pipeline will run.
+那就是影像管道運作的時間。
+
+151
+00:06:21,834 --> 00:06:23,904
+write then returns a promise because it's an
+write then 回傳一個承諾，因為它是一個
+
+152
+00:06:24,097 --> 00:06:26,215
+asynchronous operation. Running this entire
+非同步操作。運行整個
+
+153
+00:06:26,264 --> 00:06:28,992
+pipeline is an asynchronous operation, so we
+pipeline 是一個非同步操作，所以我們
+
+154
+00:06:28,992 --> 00:06:29,795
+should await it.
+應該等待它。
+
+155
+00:06:30,677 --> 00:06:32,363
+But I then have another step here in the
+但接下來我又跨出了一步
+
+156
+00:06:32,363 --> 00:06:35,155
+next line. I call placeholder on the same
+下一行。我同樣呼叫佔位符
+
+157
+00:06:35,252 --> 00:06:38,028
+image as before. Now, very important, resize
+圖像如前。現在，非常重要的是，調整大小
+
+158
+00:06:38,141 --> 00:06:38,863
+and JPEG,
+和 JPEG，
+
+159
+00:06:39,409 --> 00:06:42,426
+they change the original image object or
+他們改變原始圖像物件或
+
+160
+00:06:42,474 --> 00:06:44,448
+they set up the pipeline, but we're always
+他們建立了管道，但我們總是
+
+161
+00:06:44,625 --> 00:06:46,776
+operating on the same shared image object.
+對同一個共享影像物件進行操作。
+
+162
+00:06:47,048 --> 00:06:49,840
+So down here, I also operate on an image
+所以在這裡，我也對圖像進行操作
+
+163
+00:06:49,840 --> 00:06:52,150
+object which has these changes already
+已經有這些變化的物件
+
+164
+00:06:52,262 --> 00:06:52,567
+planned.
+計劃。
+
+165
+00:06:53,609 --> 00:06:56,352
+And placeholder is then another terminal
+佔位符是另一個終端機
+
+166
+00:06:56,352 --> 00:06:58,357
+method that kicks off the pipeline. In this
+啟動管道的方法。在這個
+
+167
+00:06:58,357 --> 00:07:00,763
+case, again, since we already ran it, but
+再次案例，因為我們已經運行了它，但是
+
+168
+00:07:00,763 --> 00:07:02,575
+that's no problem. You can run a pipeline
+那沒問題。您可以運行管道
+
+169
+00:07:02,607 --> 00:07:05,222
+multiple times. Here I'm running it again to
+多次。在這裡我再次運行它
+
+170
+00:07:05,238 --> 00:07:06,986
+generate a placeholder image.
+產生佔位符圖像。
+
+171
+00:07:07,579 --> 00:07:09,681
+And that's a specific version of the image
+這是圖像的特定版本
+
+172
+00:07:09,825 --> 00:07:12,103
+that's optimized to be super, super small.
+經過優化，變得超級非常小。
+
+173
+00:07:12,552 --> 00:07:15,615
+It's an extremely low quality version of the
+這是一個極低品質的版本
+
+174
+00:07:15,615 --> 00:07:17,705
+image which is super small therefore,
+因此圖像非常小，
+
+175
+00:07:18,413 --> 00:07:20,989
+which you might wanna show, for example, on
+例如，您可能想在
+
+176
+00:07:20,989 --> 00:07:23,952
+a webpage as a placeholder until the real
+一個網頁作為佔位符，直到真正的
+
+177
+00:07:24,032 --> 00:07:24,902
+image is ready.
+圖像已準備好。
+
+178
+00:07:25,643 --> 00:07:27,929
+That is the idea. I also saved that to a
+這就是我們的想法。我也將其儲存到
+
+179
+00:07:27,929 --> 00:07:30,424
+text file here. That is that text file I
+文字檔在這裡。這就是我的文字檔案
+
+180
+00:07:30,424 --> 00:07:31,181
+mentioned above,
+上面提到的，
+
+181
+00:07:31,857 --> 00:07:32,421
+this one here.
+這裡這個。
+
+182
+00:07:33,049 --> 00:07:35,415
+And then I have some dummy HTML file being
+然後我有一些虛擬的 HTML 檔案
+
+183
+00:07:35,415 --> 00:07:37,637
+set up here that shows the placeholder and
+在這裡設定顯示佔位符和
+
+184
+00:07:37,734 --> 00:07:38,611
+the optimized image.
+優化後的影像。
+
+185
+00:07:40,349 --> 00:07:43,271
+So now if I run this entire program, with
+所以現在如果我運行整個程式
+
+186
+00:07:43,303 --> 00:07:44,572
+bun run index.ts.
+麵包運行指數.ts。
+
+187
+00:07:45,150 --> 00:07:47,254
+It works, it finds these images, optimizes
+它有效，它找到這些圖像，優化
+
+188
+00:07:47,254 --> 00:07:47,511
+them all,
+商場，
+
+189
+00:07:48,683 --> 00:07:50,401
+and therefore in the output folder I now
+因此在輸出資料夾中我現在
+
+190
+00:07:50,514 --> 00:07:51,862
+have a bunch of JPEG files.
+有一堆 JPEG 檔案。
+
+191
+00:07:52,457 --> 00:07:54,528
+And especially this one here, the wildflower
+尤其是這裡的野花
+
+192
+00:07:54,528 --> 00:07:57,804
+one, is now 160 kilobytes. The input image
+一，現在是 160 KB。輸入影像
+
+193
+00:07:57,997 --> 00:07:58,366
+was
+曾是
+
+194
+00:07:59,266 --> 00:08:02,638
+over a megabyte, but thanks to resizing it
+超過一兆位元組，但由於調整了它的大小
+
+195
+00:08:02,718 --> 00:08:05,063
+and switching it from PNG to JPEG, it's now
+並將其從 PNG 切換為 JPEG，現在是
+
+196
+00:08:05,079 --> 00:08:05,850
+much smaller.
+小得多。
+
+197
+00:08:06,653 --> 00:08:09,045
+The text files contain that Base64 image
+文字檔案包含該 Base64 影像
+
+198
+00:08:09,222 --> 00:08:10,956
+which you could load on a web page. And if
+您可以將其載入到網頁上。如果
+
+199
+00:08:10,989 --> 00:08:12,643
+you open such an HTML file
+你打開這樣一個 HTML 檔案
+
+200
+00:08:13,237 --> 00:08:14,923
+you'll see that is the placeholder,
+你會看到這是一個佔位符，
+
+201
+00:08:15,902 --> 00:08:17,748
+but then the optimized image, as you see,
+但正如你所看到的，優化後的圖像
+
+202
+00:08:17,989 --> 00:08:20,317
+looks crisp. And that's therefore how you
+看起來清脆。這就是你如何
+
+203
+00:08:20,317 --> 00:08:22,453
+can use the Bun Image API to load and
+可以使用Bun Image API來載入和
+
+204
+00:08:22,485 --> 00:08:23,657
+transform images,
+變換影像，
+
+205
+00:08:24,235 --> 00:08:27,222
+all without installing or using any extra
+全部無需安裝或使用任何額外的
+
+206
+00:08:27,222 --> 00:08:28,313
+third-party packages.
+第三方軟體包。

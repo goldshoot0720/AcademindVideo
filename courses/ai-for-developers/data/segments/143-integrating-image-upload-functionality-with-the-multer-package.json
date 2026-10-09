@@ -1,0 +1,997 @@
+[
+ {
+  "start": 2.235,
+  "end": 4.957,
+  "en": "At this point, we can sign up and log in and"
+ },
+ {
+  "start": 4.973,
+  "end": 7.147,
+  "en": "we can create events, edit events, delete"
+ },
+ {
+  "start": 7.147,
+  "end": 9.884,
+  "en": "events, and register for events. You could"
+ },
+ {
+  "start": 9.948,
+  "end": 12.046,
+  "en": "add more functionality related to that,"
+ },
+ {
+  "start": 13.033,
+  "end": 14.731,
+  "en": "but that's all I want for this app."
+ },
+ {
+  "start": 16.268,
+  "end": 16.64,
+  "en": "At least"
+ },
+ {
+  "start": 17.303,
+  "end": 18.322,
+  "en": "almost all."
+ },
+ {
+  "start": 19.244,
+  "end": 22.21,
+  "en": "One last piece is missing here and that's"
+ },
+ {
+  "start": 22.34,
+  "end": 24.692,
+  "en": "image upload. I wanna make sure that when we"
+ },
+ {
+  "start": 24.692,
+  "end": 25.909,
+  "en": "create an event,"
+ },
+ {
+  "start": 26.486,
+  "end": 28.186,
+  "en": "or when we edit an event,"
+ },
+ {
+  "start": 28.731,
+  "end": 32.917,
+  "en": "we actually accept and we expect an image to"
+ },
+ {
+  "start": 32.917,
+  "end": 36.557,
+  "en": "be attached to the request so that we store"
+ },
+ {
+  "start": 36.766,
+  "end": 38.69,
+  "en": "that image here. And of course, so that we"
+ },
+ {
+  "start": 38.69,
+  "end": 41.817,
+  "en": "can then also later request and serve that"
+ },
+ {
+  "start": 41.817,
+  "end": 43.966,
+  "en": "image if we needed it in our frontend."
+ },
+ {
+  "start": 45.442,
+  "end": 47.19,
+  "en": "So how can we do that?"
+ },
+ {
+  "start": 48.056,
+  "end": 51.6,
+  "en": "Well, ChatGPT already had an answer for me"
+ },
+ {
+  "start": 51.68,
+  "end": 52.145,
+  "en": "earlier."
+ },
+ {
+  "start": 52.715,
+  "end": 54.775,
+  "en": "That we can use a library like Malter."
+ },
+ {
+  "start": 56.29,
+  "end": 57.905,
+  "en": "We could also use some cloud storage, but"
+ },
+ {
+  "start": 57.922,
+  "end": 60.071,
+  "en": "here I wanna use local storage and I wanna"
+ },
+ {
+  "start": 60.103,
+  "end": 61.315,
+  "en": "use this Malter package."
+ },
+ {
+  "start": 63.285,
+  "end": 66.116,
+  "en": "Now I happen to already know how the Malter"
+ },
+ {
+  "start": 66.116,
+  "end": 68.655,
+  "en": "package is used and I'll use a bit of AI"
+ },
+ {
+  "start": 68.768,
+  "end": 71.162,
+  "en": "help to write the code more quickly. Of"
+ },
+ {
+  "start": 71.211,
+  "end": 73.231,
+  "en": "course, if you would not know that, you"
+ },
+ {
+  "start": 73.231,
+  "end": 75.136,
+  "en": "could visit the official docs, but you could"
+ },
+ {
+  "start": 75.314,
+  "end": 75.62,
+  "en": "also"
+ },
+ {
+  "start": 76.202,
+  "end": 77.655,
+  "en": "ask your chatbot."
+ },
+ {
+  "start": 78.964,
+  "end": 81.066,
+  "en": "In Cursor, you could also bring in the"
+ },
+ {
+  "start": 81.082,
+  "end": 83.669,
+  "en": "Multer documentation as you learned it"
+ },
+ {
+  "start": 83.734,
+  "end": 86.208,
+  "en": "earlier in the course. So plenty of options."
+ },
+ {
+  "start": 88.297,
+  "end": 90.012,
+  "en": "Now, as mentioned, I already know what I"
+ },
+ {
+  "start": 90.012,
+  "end": 90.351,
+  "en": "wanna do."
+ },
+ {
+  "start": 90.917,
+  "end": 92.599,
+  "en": "So I'll start by quitting my development"
+ },
+ {
+  "start": 92.599,
+  "end": 95.284,
+  "en": "server and by running npm install multer to"
+ },
+ {
+  "start": 95.332,
+  "end": 98.132,
+  "en": "install this Multer package as a dependency."
+ },
+ {
+  "start": 100.035,
+  "end": 103.469,
+  "en": "With it installed, I'll add a new folder or"
+ },
+ {
+  "start": 103.518,
+  "end": 105.634,
+  "en": "a new file, I mean, to the util folder."
+ },
+ {
+  "start": 106.182,
+  "end": 108.014,
+  "en": "The upload.js file"
+ },
+ {
+  "start": 108.592,
+  "end": 109.733,
+  "en": "where I wanna"
+ },
+ {
+  "start": 110.36,
+  "end": 113.027,
+  "en": "set up some settings for Multer."
+ },
+ {
+  "start": 115.341,
+  "end": 118.218,
+  "en": "Because in there, I wanna import Multer from"
+ },
+ {
+  "start": 118.477,
+  "end": 118.881,
+  "en": "Multer,"
+ },
+ {
+  "start": 119.463,
+  "end": 120.806,
+  "en": "accept this suggestion,"
+ },
+ {
+  "start": 121.889,
+  "end": 124.089,
+  "en": "and set up some storage setting as it's"
+ },
+ {
+  "start": 124.234,
+  "end": 125.283,
+  "en": "suggested here for me."
+ },
+ {
+  "start": 126.65,
+  "end": 128.707,
+  "en": "Because the Multer package can be configured"
+ },
+ {
+  "start": 128.723,
+  "end": 129.254,
+  "en": "to control"
+ },
+ {
+  "start": 129.785,
+  "end": 130.604,
+  "en": "where and how"
+ },
+ {
+  "start": 131.135,
+  "end": 133.08,
+  "en": "incoming files are going to be stored."
+ },
+ {
+  "start": 134.935,
+  "end": 137.097,
+  "en": "The Multer package itself will simply take a"
+ },
+ {
+  "start": 137.097,
+  "end": 139.242,
+  "en": "look at incoming requests and evaluate"
+ },
+ {
+  "start": 139.291,
+  "end": 141.501,
+  "en": "whether there is a file attached to them or"
+ },
+ {
+  "start": 141.549,
+  "end": 143.792,
+  "en": "not. And then it's the settings I'm about to"
+ },
+ {
+  "start": 143.872,
+  "end": 146.505,
+  "en": "add here that control how such a file would"
+ },
+ {
+  "start": 146.604,
+  "end": 147.199,
+  "en": "be stored."
+ },
+ {
+  "start": 149.24,
+  "end": 151.655,
+  "en": "So I'll configure some Multer disk storage"
+ },
+ {
+  "start": 152.717,
+  "end": 154.956,
+  "en": "and I do wanna set up such a destination"
+ },
+ {
+  "start": 155.133,
+  "end": 157.532,
+  "en": "function which controls where the files are"
+ },
+ {
+  "start": 157.58,
+  "end": 160.292,
+  "en": "stored, but I'll tweak the path and store"
+ },
+ {
+  "start": 160.342,
+  "end": 161.613,
+  "en": "them in the public"
+ },
+ {
+  "start": 162.779,
+  "end": 166.801,
+  "en": "/images folder so that it's this folder in"
+ },
+ {
+  "start": 166.834,
+  "end": 168.255,
+  "en": "which my images will be stored."
+ },
+ {
+  "start": 170.46,
+  "end": 171.155,
+  "en": "That's one thing."
+ },
+ {
+  "start": 172.512,
+  "end": 174.501,
+  "en": "In addition, I'll add this filename"
+ },
+ {
+  "start": 174.614,
+  "end": 176.635,
+  "en": "function, which is suggested for me here,"
+ },
+ {
+  "start": 176.942,
+  "end": 179.512,
+  "en": "which can be used to rename the received"
+ },
+ {
+  "start": 179.69,
+  "end": 179.916,
+  "en": "file."
+ },
+ {
+  "start": 182.113,
+  "end": 184.978,
+  "en": "And here I'm using the current timestamp in"
+ },
+ {
+  "start": 185.415,
+  "end": 188.215,
+  "en": "milliseconds and I append the original"
+ },
+ {
+  "start": 188.329,
+  "end": 190.061,
+  "en": "filename, which also includes the file"
+ },
+ {
+  "start": 190.061,
+  "end": 190.579,
+  "en": "extension."
+ },
+ {
+  "start": 192.844,
+  "end": 194.692,
+  "en": "And then I'll close this and also"
+ },
+ {
+  "start": 195.64,
+  "end": 197.761,
+  "en": "export this upload"
+ },
+ {
+  "start": 198.307,
+  "end": 200.588,
+  "en": "constant here, which turns out to hold a"
+ },
+ {
+  "start": 200.588,
+  "end": 202.443,
+  "en": "middleware that will be configured with"
+ },
+ {
+  "start": 202.655,
+  "end": 205.889,
+  "en": "these settings, which I can add to any route"
+ },
+ {
+  "start": 205.889,
+  "end": 208.148,
+  "en": "that should possibly accept images."
+ },
+ {
+  "start": 209.51,
+  "end": 212.366,
+  "en": "So what I can do here is I can go to my"
+ },
+ {
+  "start": 213.254,
+  "end": 214.497,
+  "en": "event routes"
+ },
+ {
+  "start": 216.482,
+  "end": 218.596,
+  "en": "and here it's the POST and PUT routes where"
+ },
+ {
+  "start": 219.131,
+  "end": 220.895,
+  "en": "I do expect to get some images."
+ },
+ {
+  "start": 222.85,
+  "end": 225.196,
+  "en": "So after checking for authentication, I'll"
+ },
+ {
+  "start": 225.356,
+  "end": 227.671,
+  "en": "add another middleware function here. That's"
+ },
+ {
+  "start": 227.703,
+  "end": 229.824,
+  "en": "how this Express library which I'm using"
+ },
+ {
+  "start": 230.756,
+  "end": 233.143,
+  "en": "works. You can add multiple middlewares to"
+ },
+ {
+  "start": 233.159,
+  "end": 235.814,
+  "en": "one route to execute them step by step, one"
+ },
+ {
+  "start": 235.992,
+  "end": 236.575,
+  "en": "after another."
+ },
+ {
+  "start": 238.463,
+  "end": 240.904,
+  "en": "And here it's this upload function which is"
+ },
+ {
+  "start": 241.05,
+  "end": 243.038,
+  "en": "imported from my util folder and the"
+ },
+ {
+  "start": 243.07,
+  "end": 243.992,
+  "en": "upload.js file."
+ },
+ {
+  "start": 245.909,
+  "end": 248.335,
+  "en": "And there specifically, technically upload"
+ },
+ {
+  "start": 248.335,
+  "end": 250.695,
+  "en": "is not a middleware itself. It is an object"
+ },
+ {
+  "start": 250.695,
+  "end": 253.153,
+  "en": "instead which provides multiple middlewares."
+ },
+ {
+  "start": 253.589,
+  "end": 255.061,
+  "en": "And here it's the single middleware"
+ },
+ {
+  "start": 255.611,
+  "end": 257.859,
+  "en": "which must be called like this to enable it."
+ },
+ {
+  "start": 259.411,
+  "end": 262.694,
+  "en": "And then you simply specify what the name of"
+ },
+ {
+  "start": 262.727,
+  "end": 265.67,
+  "en": "the field that carries the image will be in"
+ },
+ {
+  "start": 265.767,
+  "end": 267.213,
+  "en": "the incoming request body."
+ },
+ {
+  "start": 268.675,
+  "end": 269.945,
+  "en": "And here I expect to get"
+ },
+ {
+  "start": 270.507,
+  "end": 273.153,
+  "en": "a request body field named image which"
+ },
+ {
+  "start": 273.349,
+  "end": 274.442,
+  "en": "should contain the image file."
+ },
+ {
+  "start": 275.564,
+  "end": 277.923,
+  "en": "And you'll see how it's submitted soon once"
+ },
+ {
+  "start": 277.923,
+  "end": 279.136,
+  "en": "we test this route."
+ },
+ {
+  "start": 281.12,
+  "end": 283.357,
+  "en": "So that's how we can use this configured"
+ },
+ {
+  "start": 283.568,
+  "end": 287.102,
+  "en": "Multer middleware to extract images or one"
+ },
+ {
+  "start": 287.232,
+  "end": 289.448,
+  "en": "image for this create route."
+ },
+ {
+  "start": 291.187,
+  "end": 293.071,
+  "en": "And it's the same code I'll use down here"
+ },
+ {
+  "start": 293.425,
+  "end": 294.584,
+  "en": "for the PUT route."
+ },
+ {
+  "start": 295.534,
+  "end": 298.239,
+  "en": "And that will ensure that we do extract an"
+ },
+ {
+  "start": 298.32,
+  "end": 301.429,
+  "en": "image stored under the key image from the"
+ },
+ {
+  "start": 301.429,
+  "end": 302.878,
+  "en": "incoming request body here."
+ },
+ {
+  "start": 304.754,
+  "end": 306.368,
+  "en": "Now for this to work, the"
+ },
+ {
+  "start": 307.578,
+  "end": 308.03,
+  "en": "code"
+ },
+ {
+  "start": 308.853,
+  "end": 311.434,
+  "en": "in the eventsController.js file also must be"
+ },
+ {
+  "start": 311.434,
+  "end": 311.821,
+  "en": "tweaked"
+ },
+ {
+  "start": 313.451,
+  "end": 315.867,
+  "en": "for both the create function and the edit"
+ },
+ {
+  "start": 315.867,
+  "end": 319.071,
+  "en": "function because I'm no longer just getting"
+ },
+ {
+  "start": 319.184,
+  "end": 322.017,
+  "en": "title, description, and so on from this"
+ },
+ {
+  "start": 322.082,
+  "end": 324.856,
+  "en": "request. Instead, I also get that file"
+ },
+ {
+  "start": 327.555,
+  "end": 331.239,
+  "en": "and that file is made available on req.file."
+ },
+ {
+  "start": 332.015,
+  "end": 334.345,
+  "en": "This file property is a property that's"
+ },
+ {
+  "start": 334.426,
+  "end": 337.225,
+  "en": "added to this request object by the Multer"
+ },
+ {
+  "start": 337.273,
+  "end": 337.694,
+  "en": "package."
+ },
+ {
+  "start": 338.244,
+  "end": 339.182,
+  "en": "So I can get my image"
+ },
+ {
+  "start": 341.231,
+  "end": 344.426,
+  "en": "by accessing req.file. That will be this one"
+ },
+ {
+  "start": 344.539,
+  "end": 347.412,
+  "en": "single file which I expect to get and which"
+ },
+ {
+  "start": 347.509,
+  "end": 348.235,
+  "en": "I extracted."
+ },
+ {
+  "start": 350.054,
+  "end": 352.994,
+  "en": "Now, of course, I also want to verify"
+ },
+ {
+  "start": 353.285,
+  "end": 355.903,
+  "en": "whether we got an image file."
+ },
+ {
+  "start": 356.735,
+  "end": 359.037,
+  "en": "So we need an extra check here in this long"
+ },
+ {
+  "start": 359.15,
+  "end": 360.615,
+  "en": "validation if statement"
+ },
+ {
+  "start": 362.193,
+  "end": 365.026,
+  "en": "and check if this is maybe not truthy, if"
+ },
+ {
+  "start": 365.026,
+  "end": 367.457,
+  "en": "it's null, if it's not set, in which case I"
+ },
+ {
+  "start": 367.522,
+  "end": 369.96,
+  "en": "would return this invalid input data"
+ },
+ {
+  "start": 370.383,
+  "end": 370.854,
+  "en": "response."
+ },
+ {
+  "start": 373.941,
+  "end": 375.694,
+  "en": "And it's the same approach down here"
+ },
+ {
+  "start": 376.294,
+  "end": 377.219,
+  "en": "in this edit route."
+ },
+ {
+  "start": 378.014,
+  "end": 380.546,
+  "en": "Extract the image file just as before."
+ },
+ {
+  "start": 382.639,
+  "end": 384.643,
+  "en": "And then also add this extra check here."
+ },
+ {
+  "start": 387.99,
+  "end": 390.044,
+  "en": "Here GitHub Copilot actually"
+ },
+ {
+  "start": 390.626,
+  "end": 393.052,
+  "en": "suggests a more sophisticated check"
+ },
+ {
+  "start": 394.653,
+  "end": 396.675,
+  "en": "whether it's really an image, but here to"
+ },
+ {
+  "start": 396.675,
+  "end": 399.306,
+  "en": "keep things simple, I'll just check if I"
+ },
+ {
+  "start": 399.306,
+  "end": 400.435,
+  "en": "maybe don't have an image"
+ },
+ {
+  "start": 401.758,
+  "end": 404.469,
+  "en": "just as when creating the event."
+ },
+ {
+  "start": 406.33,
+  "end": 408.25,
+  "en": "So that will extract the image"
+ },
+ {
+  "start": 409.236,
+  "end": 412.555,
+  "en": "It will also be stored thanks to this Multer"
+ },
+ {
+  "start": 412.555,
+  "end": 413.348,
+  "en": "configuration."
+ },
+ {
+  "start": 414.93,
+  "end": 417.159,
+  "en": "This will automatically ensure that images"
+ },
+ {
+  "start": 417.223,
+  "end": 420.018,
+  "en": "that are attached to requests where this"
+ },
+ {
+  "start": 420.196,
+  "end": 422.764,
+  "en": "Multer middleware is enabled will be stored"
+ },
+ {
+  "start": 422.942,
+  "end": 423.653,
+  "en": "in this path"
+ },
+ {
+  "start": 425.707,
+  "end": 427.115,
+  "en": "by using this name."
+ },
+ {
+  "start": 428.069,
+  "end": 430.689,
+  "en": "So the storage will be taken care of. But of"
+ },
+ {
+  "start": 430.706,
+  "end": 434.119,
+  "en": "course, I do need to make sure that I also"
+ },
+ {
+  "start": 434.119,
+  "end": 437.12,
+  "en": "store that image file name in the database"
+ },
+ {
+  "start": 437.383,
+  "end": 439.013,
+  "en": "when I create a new event."
+ },
+ {
+  "start": 441.484,
+  "end": 442.987,
+  "en": "Because at the moment, that's not happening."
+ },
+ {
+  "start": 443.488,
+  "end": 444.167,
+  "en": "I'm getting hold"
+ },
+ {
+  "start": 445.185,
+  "end": 447.786,
+  "en": "of that image that was uploaded here, but"
+ },
+ {
+  "start": 447.786,
+  "end": 449.628,
+  "en": "technically that's just an object with"
+ },
+ {
+  "start": 449.661,
+  "end": 452.438,
+  "en": "information about that image file that has"
+ },
+ {
+  "start": 452.551,
+  "end": 453.697,
+  "en": "been stored by Multer."
+ },
+ {
+  "start": 455.456,
+  "end": 457.603,
+  "en": "For example, this image object here will"
+ },
+ {
+  "start": 457.7,
+  "end": 459.945,
+  "en": "contain the name of the image file."
+ },
+ {
+  "start": 461.504,
+  "end": 463.469,
+  "en": "And it's that name which I wanna store"
+ },
+ {
+  "start": 463.469,
+  "end": 465.418,
+  "en": "together with all the other event data in"
+ },
+ {
+  "start": 465.418,
+  "end": 466.473,
+  "en": "the database so that when I later"
+ },
+ {
+  "start": 468.256,
+  "end": 471.141,
+  "en": "query for all the events, I know which image"
+ },
+ {
+  "start": 471.207,
+  "end": 472.305,
+  "en": "belongs to which event."
+ },
+ {
+  "start": 474.312,
+  "end": 476.444,
+  "en": "Therefore, of course, I wanna pass that"
+ },
+ {
+  "start": 476.493,
+  "end": 478.218,
+  "en": "image to createEvent."
+ },
+ {
+  "start": 479.54,
+  "end": 481.945,
+  "en": "So that image object, or to be precise,"
+ },
+ {
+  "start": 482.542,
+  "end": 484.285,
+  "en": "image.filename."
+ },
+ {
+  "start": 486.335,
+  "end": 489.222,
+  "en": "This image thing here will be an object that"
+ },
+ {
+  "start": 489.238,
+  "end": 492.051,
+  "en": "has a filename property which includes or"
+ },
+ {
+  "start": 492.051,
+  "end": 495.41,
+  "en": "which contains the filename of the image as"
+ },
+ {
+  "start": 495.587,
+  "end": 497.146,
+  "en": "it has been stored by Malter."
+ },
+ {
+  "start": 500.704,
+  "end": 502.682,
+  "en": "The same is of course also true for the edit"
+ },
+ {
+  "start": 502.714,
+  "end": 503.229,
+  "en": "function."
+ },
+ {
+  "start": 503.985,
+  "end": 505.85,
+  "en": "When I call editEvent,"
+ },
+ {
+  "start": 506.397,
+  "end": 509.417,
+  "en": "I also wanna pass the image filename here"
+ },
+ {
+  "start": 511.171,
+  "end": 511.382,
+  "en": "to"
+ },
+ {
+  "start": 511.999,
+  "end": 514.338,
+  "en": "this object, which is passed as a second"
+ },
+ {
+  "start": 514.354,
+  "end": 515.458,
+  "en": "argument to editEvent."
+ },
+ {
+  "start": 517.743,
+  "end": 519.563,
+  "en": "And with that, of course, I now need to"
+ },
+ {
+  "start": 519.579,
+  "end": 520.142,
+  "en": "tweak"
+ },
+ {
+  "start": 522.091,
+  "end": 524.475,
+  "en": "createEvent and editEvent in the models"
+ },
+ {
+  "start": 524.571,
+  "end": 526.52,
+  "en": "folder in the events function there."
+ },
+ {
+  "start": 528.32,
+  "end": 530.885,
+  "en": "And here when I call createEvent, I actually"
+ },
+ {
+  "start": 530.983,
+  "end": 533.564,
+  "en": "also must give this a key name, which will"
+ },
+ {
+  "start": 533.597,
+  "end": 534.279,
+  "en": "be image here."
+ },
+ {
+  "start": 536.18,
+  "end": 538.979,
+  "en": "But still I need to tweak createEvent and"
+ },
+ {
+  "start": 539.108,
+  "end": 541.017,
+  "en": "editEvent to make sure that they"
+ },
+ {
+  "start": 541.616,
+  "end": 544.189,
+  "en": "use this received image name and that they"
+ },
+ {
+  "start": 544.302,
+  "end": 545.888,
+  "en": "really store it in the database."
+ }
+]

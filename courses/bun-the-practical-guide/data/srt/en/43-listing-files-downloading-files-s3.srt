@@ -1,0 +1,347 @@
+1
+00:00:00,176 --> 00:00:02,343
+We then, for example, also have the list.ts
+
+2
+00:00:02,343 --> 00:00:04,493
+file, which we use for listing files because
+
+3
+00:00:04,589 --> 00:00:07,077
+Bun's S3 client can of course not just be
+
+4
+00:00:07,077 --> 00:00:08,810
+used for uploading files, but also for
+
+5
+00:00:08,938 --> 00:00:10,431
+downloading and listing files.
+
+6
+00:00:11,249 --> 00:00:14,058
+Listing is done by using the S3 client and
+
+7
+00:00:14,138 --> 00:00:16,706
+then its list method. So before we had the
+
+8
+00:00:16,706 --> 00:00:19,274
+file method to get hold of a remote file on
+
+9
+00:00:19,290 --> 00:00:21,344
+which we wanna operate, but we can also
+
+10
+00:00:21,376 --> 00:00:24,698
+directly on the client call list to list all
+
+11
+00:00:24,810 --> 00:00:25,966
+files in a bucket.
+
+12
+00:00:26,511 --> 00:00:28,983
+And list takes some settings like a prefix
+
+13
+00:00:28,983 --> 00:00:32,079
+for filtering, so that you can only list all
+
+14
+00:00:32,127 --> 00:00:34,532
+the files in a certain path on that remote
+
+15
+00:00:34,532 --> 00:00:37,467
+bucket, how many files it should return in
+
+16
+00:00:37,659 --> 00:00:41,155
+one list attempt. The default is 1,000 keys,
+
+17
+00:00:41,267 --> 00:00:42,342
+but you can limit that,
+
+18
+00:00:42,871 --> 00:00:44,843
+and therefore you need pagination if you
+
+19
+00:00:44,859 --> 00:00:45,789
+have potentially more
+
+20
+00:00:46,479 --> 00:00:48,916
+keys, more files on that remote host than
+
+21
+00:00:48,964 --> 00:00:49,157
+that.
+
+22
+00:00:50,087 --> 00:00:52,268
+And the continuation token is needed for
+
+23
+00:00:52,268 --> 00:00:54,545
+that pagination where you may have more than
+
+24
+00:00:54,721 --> 00:00:58,040
+1,000 or max keys objects on that remote
+
+25
+00:00:58,040 --> 00:01:01,182
+host. That simply is used to know after
+
+26
+00:01:01,230 --> 00:01:03,555
+which file to continue with listing. But
+
+27
+00:01:03,619 --> 00:01:05,350
+that list function then contains the entire
+
+28
+00:01:05,462 --> 00:01:07,274
+logic for listing and for,
+
+29
+00:01:07,867 --> 00:01:10,560
+if needed, paginating and going through all
+
+30
+00:01:10,688 --> 00:01:12,179
+the files on that remote host.
+
+31
+00:01:13,253 --> 00:01:14,632
+And of course, we also might want to
+
+32
+00:01:14,760 --> 00:01:17,244
+restore. So we want to download files. And
+
+33
+00:01:17,244 --> 00:01:19,825
+again, we do this through the client there.
+
+34
+00:01:19,970 --> 00:01:22,967
+If we wanna restore a file, we get hold of
+
+35
+00:01:22,967 --> 00:01:24,923
+it, get hold of the remote file with the
+
+36
+00:01:24,955 --> 00:01:27,424
+file method as before, but then we first
+
+37
+00:01:27,424 --> 00:01:29,846
+check whether it exists because obviously we
+
+38
+00:01:29,846 --> 00:01:31,996
+can only restore what exists on the remote
+
+39
+00:01:31,996 --> 00:01:35,222
+host. And if it does, we create the folder
+
+40
+00:01:35,222 --> 00:01:36,393
+that may be needed locally
+
+41
+00:01:37,051 --> 00:01:39,475
+and write that local file with the Bun.write
+
+42
+00:01:39,475 --> 00:01:42,123
+API, which is now the local Bun file API.
+
+43
+00:01:42,588 --> 00:01:44,193
+And that's how we write that file. And the
+
+44
+00:01:44,193 --> 00:01:46,199
+convenient thing about the Bun.write
+
+45
+00:01:46,841 --> 00:01:50,034
+API or the Bun local file API in general is
+
+46
+00:01:50,066 --> 00:01:53,886
+that you can pass that remote file handle as
+
+47
+00:01:54,062 --> 00:01:54,881
+a value here.
+
+48
+00:01:55,458 --> 00:01:57,189
+So you may remember from earlier in the
+
+49
+00:01:57,189 --> 00:01:59,337
+course that the values you pass to Write as
+
+50
+00:01:59,386 --> 00:02:01,453
+a second argument are the content of the
+
+51
+00:02:01,453 --> 00:02:03,602
+file and that could be a blob, that could be
+
+52
+00:02:03,602 --> 00:02:05,814
+a string if you're writing a text file, but
+
+53
+00:02:05,846 --> 00:02:10,655
+it can also be an S3 file handle, a remote
+
+54
+00:02:10,671 --> 00:02:13,396
+file handle, and Bun will then automatically
+
+55
+00:02:13,540 --> 00:02:16,281
+download that file and put its content into
+
+56
+00:02:16,297 --> 00:02:18,494
+that local file. That's super convenient, of
+
+57
+00:02:18,510 --> 00:02:18,734
+course.
+
+58
+00:02:19,632 --> 00:02:20,818
+Now, if we chose to
+
+59
+00:02:21,395 --> 00:02:24,489
+restore an entire folder, we do that by
+
+60
+00:02:24,521 --> 00:02:26,877
+again listing and paginating if needed.
+
+61
+00:02:26,990 --> 00:02:28,993
+Since that folder may of course contain
+
+62
+00:02:29,490 --> 00:02:31,461
+multiple files, potentially more than are
+
+63
+00:02:31,509 --> 00:02:33,449
+returned by one list statement.
+
+64
+00:02:34,058 --> 00:02:36,398
+And then we just go through all these files
+
+65
+00:02:36,398 --> 00:02:38,353
+and download them step by step, same
+
+66
+00:02:38,401 --> 00:02:40,677
+approach as before, now just with multiple
+
+67
+00:02:40,725 --> 00:02:41,639
+files instead of one.
+
+68
+00:02:42,168 --> 00:02:44,075
+By the way, if you have such a remote file
+
+69
+00:02:44,155 --> 00:02:46,255
+and you don't wanna write it to a file like
+
+70
+00:02:46,255 --> 00:02:46,527
+this,
+
+71
+00:02:47,120 --> 00:02:49,444
+you could also get the text of that remote
+
+72
+00:02:49,444 --> 00:02:50,310
+file if it is
+
+73
+00:02:51,143 --> 00:02:53,692
+a file that contains text by calling the
+
+74
+00:02:53,788 --> 00:02:56,176
+text method on that remote file handle and
+
+75
+00:02:56,192 --> 00:02:58,259
+awaiting that promise and that gives you the
+
+76
+00:02:58,259 --> 00:03:00,807
+file content as a string. But again, only if
+
+77
+00:03:00,839 --> 00:03:02,634
+that remote file contains something that
+
+78
+00:03:02,907 --> 00:03:04,574
+makes sense as a string, of course.
+
+79
+00:03:05,151 --> 00:03:06,881
+But then you can use that string here
+
+80
+00:03:06,929 --> 00:03:08,756
+however you want. You can write it to a
+
+81
+00:03:08,756 --> 00:03:11,321
+local file, you can console.log it, whatever
+
+82
+00:03:11,321 --> 00:03:13,164
+you want. That's worth knowing too. But if
+
+83
+00:03:13,164 --> 00:03:15,151
+you wanna store a remote file locally,
+
+84
+00:03:15,568 --> 00:03:18,308
+that's the way to go, using Bun's localWrite
+
+85
+00:03:18,629 --> 00:03:18,981
+API,
+
+86
+00:03:19,590 --> 00:03:22,074
+the target file, the local file, and then a
+
+87
+00:03:22,074 --> 00:03:23,324
+pointer at the remote file.

@@ -1,0 +1,434 @@
+1
+00:00:00,048 --> 00:00:03,110
+So let's start configuring our VPS and let's
+那麼讓我們開始設定我們的 VPS
+
+2
+00:00:03,110 --> 00:00:05,211
+start with updating the system. As an
+從更新系統開始。作為一個
+
+3
+00:00:05,243 --> 00:00:08,738
+important side note, for all these steps and
+重要的旁注，對於所有這些步驟和
+
+4
+00:00:08,770 --> 00:00:09,780
+other parts of this course,
+本課程的其他部分，
+
+5
+00:00:10,373 --> 00:00:13,372
+we'll work with important core Linux
+我們將使用重要的 Linux 核心
+
+6
+00:00:13,420 --> 00:00:16,065
+commands and you could create an entire
+命令，你可以創建一個完整的
+
+7
+00:00:16,065 --> 00:00:19,561
+course about just Linux, a 40-hour course,
+僅關於 Linux 的課程，40 小時的課程，
+
+8
+00:00:19,673 --> 00:00:21,790
+and that's not what this course is about.
+這不是本課程的主題。
+
+9
+00:00:22,800 --> 00:00:25,253
+Nonetheless, in the next lecture, you'll
+儘管如此，在下一堂課中，您將
+
+10
+00:00:25,269 --> 00:00:27,834
+find more details and a cheat sheet that
+尋找更多詳細資訊和備忘單
+
+11
+00:00:27,834 --> 00:00:30,495
+lists all the crucial commands you should
+列出您應該執行的所有關鍵命令
+
+12
+00:00:30,559 --> 00:00:33,363
+know and how they work and what they do so
+了解他們如何工作以及他們做什麼
+
+13
+00:00:33,459 --> 00:00:35,142
+that you can always take a look at that
+你可以隨時查看
+
+14
+00:00:35,142 --> 00:00:37,369
+resource if you're stuck or if you're not
+如果您遇到困難或沒有遇到困難，可以使用資源
+
+15
+00:00:37,369 --> 00:00:39,469
+sure what a certain command does. Of course,
+確定某個指令的作用。當然，
+
+16
+00:00:39,485 --> 00:00:41,712
+I'll also explain those commands when we use
+當我們使用時我也會解釋這些指令
+
+17
+00:00:41,712 --> 00:00:42,930
+them for the first time though.
+不過他們還是第一次。
+
+18
+00:00:43,731 --> 00:00:45,991
+So let's start configuring our new VPS.
+那麼讓我們開始設定我們的新 VPS。
+
+19
+00:00:46,119 --> 00:00:48,042
+Let's start making it a bit more secure and
+讓我們開始讓它更安全一點
+
+20
+00:00:48,042 --> 00:00:50,061
+let's start by updating the system. So by
+讓我們從更新系統開始。所以透過
+
+21
+00:00:50,061 --> 00:00:52,417
+making sure that the software installed on
+確保軟體安裝在
+
+22
+00:00:52,449 --> 00:00:54,983
+this brand new VPS is fully up to date.
+這款全新的 VPS 是完全最新的。
+
+23
+00:00:55,657 --> 00:00:58,002
+And I'll do that still as my root user here.
+我仍然會以 root 使用者身分執行此操作。
+
+24
+00:00:58,549 --> 00:01:02,516
+And as that root user on a Ubuntu system, I
+作為 Ubuntu 系統上的 root 使用者，我
+
+25
+00:01:02,645 --> 00:01:06,532
+can use the apt command for managing my
+可以使用 apt 指令來管理我的
+
+26
+00:01:06,580 --> 00:01:09,295
+packages, my software on that server.
+軟體包，我在該伺服器上的軟體。
+
+27
+00:01:09,873 --> 00:01:13,150
+That stands for Advanced Package Tool, and
+這代表高級封裝工具，並且
+
+28
+00:01:13,150 --> 00:01:15,720
+it's very common on Debian-based
+這在基於 Debian 的系統中很常見
+
+29
+00:01:15,720 --> 00:01:17,519
+distributions like Ubuntu.
+像 Ubuntu 這樣的發行版。
+
+30
+00:01:18,450 --> 00:01:22,065
+On other distributions, you might have dnf,
+在其他發行版上，您可能有 dnf，
+
+31
+00:01:22,466 --> 00:01:25,564
+as a package manager with commands like dnf
+作為具有 dnf 等命令的套件管理器
+
+32
+00:01:25,788 --> 00:01:29,737
+install or dnf upgrade for installing or
+安裝或dnf升級用於安裝或
+
+33
+00:01:29,769 --> 00:01:32,048
+upgrading packages. But in general, you
+升級包。但一般來說，你
+
+34
+00:01:32,048 --> 00:01:34,087
+should of course look up the documentation
+當然應該查找文檔
+
+35
+00:01:34,183 --> 00:01:36,735
+of your Linux distribution to find out which
+您的 Linux 發行版，以找出哪一個
+
+36
+00:01:37,008 --> 00:01:38,934
+package manager should be used there. For
+應該在那裡使用套件管理器。為了
+
+37
+00:01:39,078 --> 00:01:40,780
+Ubuntu, as mentioned, it's apt.
+Ubuntu，正如前面所提到的，它是合適的。
+
+38
+00:01:41,486 --> 00:01:44,182
+And there you can run apt install to install
+然後你可以執行 apt install 來安裝
+
+39
+00:01:44,391 --> 00:01:47,489
+a new package or like in our case, upgrade
+一個新的包或像我們這樣的包，升級
+
+40
+00:01:47,665 --> 00:01:50,490
+to upgrade a package to install its latest
+升級軟體包以安裝最新版本
+
+41
+00:01:50,490 --> 00:01:50,795
+version.
+版本。
+
+42
+00:01:51,517 --> 00:01:53,843
+And in order to run that, you first need to
+為了運行它，你首先需要
+
+43
+00:01:53,843 --> 00:01:58,270
+run apt update. So not upgrade, but update.
+運行 apt 更新。所以不是升級，而是更新。
+
+44
+00:01:58,896 --> 00:02:02,569
+And update will first update the registry of
+並且更新會先更新註冊表
+
+45
+00:02:02,681 --> 00:02:03,211
+packages
+包包
+
+46
+00:02:03,788 --> 00:02:06,740
+this server is aware of. So there is an
+該伺服器知道。所以有一個
+
+47
+00:02:06,836 --> 00:02:08,745
+official package registry
+官方包註冊表
+
+48
+00:02:09,322 --> 00:02:11,809
+which registers all the packages you could
+它註冊了您可以註冊的所有軟體包
+
+49
+00:02:11,809 --> 00:02:14,728
+install with apt. And in order to make sure
+使用 apt 安裝。並且為了確保
+
+50
+00:02:14,728 --> 00:02:16,541
+that we have the latest version of that
+我們有最新版本
+
+51
+00:02:16,541 --> 00:02:20,836
+registry on this new VPS here, we run apt
+在這個新的 VPS 上註冊，我們運行 apt
+
+52
+00:02:21,046 --> 00:02:22,674
+update as a first step.
+更新作為第一步。
+
+53
+00:02:24,678 --> 00:02:26,799
+So that gets us the latest information about
+這樣我們就可以獲得有關的最新資訊
+
+54
+00:02:26,831 --> 00:02:29,275
+which packages are available and what their
+哪些軟體包可用以及它們的內容
+
+55
+00:02:29,564 --> 00:02:30,641
+latest versions are.
+最新版本是。
+
+56
+00:02:31,557 --> 00:02:33,891
+And after running this, you can run apt
+運行後，你可以運行 apt
+
+57
+00:02:33,972 --> 00:02:37,767
+upgrade to pull those latest versions that
+升級以提取那些最新版本
+
+58
+00:02:37,865 --> 00:02:40,265
+were now identified and install them. Now,
+現在已識別並安裝它們。現在，
+
+59
+00:02:40,314 --> 00:02:42,390
+that will not install all packages that are
+這不會安裝所有的軟體包
+
+60
+00:02:42,390 --> 00:02:44,715
+available, just the latest versions of the
+可用，只是最新版本
+
+61
+00:02:44,781 --> 00:02:46,664
+packages you already have on your system.
+系統上已有的軟體包。
+
+62
+00:02:47,416 --> 00:02:50,621
+If you add -y here, you will not be asked
+如果這裡加-y就不會詢問
+
+63
+00:02:50,621 --> 00:02:52,801
+for confirmation and instead it will just
+進行確認，相反，它只會
+
+64
+00:02:52,801 --> 00:02:54,980
+download and install all these updates in
+下載並安裝所有這些更新
+
+65
+00:02:55,108 --> 00:02:57,752
+one go without asking you for permission for
+無需徵得您的許可即可進行
+
+66
+00:02:57,832 --> 00:02:58,489
+every package.
+每個包裹。
+
+67
+00:02:59,451 --> 00:03:01,390
+Now that can of course take a while until
+當然，這可能需要一段時間才能完成
+
+68
+00:03:01,518 --> 00:03:03,777
+all these latest versions are installed,
+所有這些最新版本均已安裝，
+
+69
+00:03:04,563 --> 00:03:04,851
+but then
+但後來
+
+70
+00:03:05,604 --> 00:03:06,293
+in the end here,
+最後在這裡，
+
+71
+00:03:06,822 --> 00:03:07,896
+it is done.
+已經完成了。
+
+72
+00:03:08,441 --> 00:03:09,963
+Now here it's telling me that
+現在它告訴我
+
+73
+00:03:10,492 --> 00:03:12,639
+I should consider rebooting
+我應該考慮重新啟動
+
+74
+00:03:13,296 --> 00:03:15,396
+And I'll do that by running reboot, which is
+我將透過運行重新啟動來做到這一點，即
+
+75
+00:03:15,396 --> 00:03:17,961
+another handy command, of course. Now that
+當然，還有另一個方便的指令。現在那
+
+76
+00:03:18,041 --> 00:03:20,894
+terminates my connection naturally because
+自然終止我的連接，因為
+
+77
+00:03:20,926 --> 00:03:23,203
+that remote server is restarting.
+該遠端伺服器正在重新啟動。
+
+78
+00:03:24,116 --> 00:03:26,136
+And therefore I'm back on my Mac here and I
+因此我又回到了我的 Mac 上
+
+79
+00:03:26,200 --> 00:03:28,909
+can reestablish my connection by rerunning
+可以透過重新運行來重新建立我的連接
+
+80
+00:03:28,942 --> 00:03:30,496
+that SSH command from before.
+之前的 SSH 命令。
+
+81
+00:03:31,426 --> 00:03:33,013
+And you can simply wait a couple of seconds
+您只需等待幾秒鐘即可
+
+82
+00:03:33,013 --> 00:03:35,113
+and then try again and it should be up
+然後再試一次，應該就可以了
+
+83
+00:03:35,113 --> 00:03:37,999
+again. So with that, we made sure that the
+再次。因此，我們確保
+
+84
+00:03:37,999 --> 00:03:39,922
+software installed on that server is up to
+該伺服器上安裝的軟體最多
+
+85
+00:03:39,922 --> 00:03:41,974
+date, which is always a good idea to patch
+日期，修補總是一個好主意
+
+86
+00:03:42,231 --> 00:03:44,010
+any security holes that might have been
+任何可能存在的安全漏洞
+
+87
+00:03:44,010 --> 00:03:45,534
+found in the meantime. And so on.
+其間發現。等等。

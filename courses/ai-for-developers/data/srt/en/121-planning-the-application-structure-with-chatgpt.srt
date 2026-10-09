@@ -1,0 +1,435 @@
+1
+00:00:02,038 --> 00:00:05,457
+The core features are laid out here. As
+
+2
+00:00:05,553 --> 00:00:08,426
+mentioned, it'll be an API which we'll build
+
+3
+00:00:08,459 --> 00:00:09,614
+that allows users to
+
+4
+00:00:10,288 --> 00:00:12,921
+create and share events and sign up for
+
+5
+00:00:13,033 --> 00:00:14,205
+events shared by others.
+
+6
+00:00:15,666 --> 00:00:16,902
+And as a first step,
+
+7
+00:00:17,511 --> 00:00:18,683
+I now wanna use
+
+8
+00:00:19,213 --> 00:00:22,247
+ChatGPT here in my case. Of course, you
+
+9
+00:00:22,247 --> 00:00:24,574
+could also use Claude or Google Gemini or
+
+10
+00:00:24,574 --> 00:00:27,383
+whichever AI chatbot you prefer, but I wanna
+
+11
+00:00:27,383 --> 00:00:30,000
+use such an AI chatbot external AI.
+
+12
+00:02:05,032 --> 00:02:06,703
+There might be parts I don't like.
+
+13
+00:02:07,442 --> 00:02:09,932
+For example, I already see that I won't like
+
+14
+00:02:09,932 --> 00:02:12,181
+this uploads folder in the source folder.
+
+15
+00:02:14,106 --> 00:02:16,047
+That should instead be some folder that's
+
+16
+00:02:16,095 --> 00:02:18,004
+publicly available when the app is running.
+
+17
+00:02:18,292 --> 00:02:20,763
+It's not really part of my source code, but
+
+18
+00:02:20,827 --> 00:02:22,736
+other parts are fine like controllers,
+
+19
+00:02:22,848 --> 00:02:23,698
+models, and so on.
+
+20
+00:02:25,174 --> 00:02:27,323
+It also tells me that I might wanna use JSON
+
+21
+00:02:27,323 --> 00:02:29,858
+Web Tokens for authentication. That's what I
+
+22
+00:02:29,970 --> 00:02:30,756
+had in mind too.
+
+23
+00:02:31,574 --> 00:02:33,836
+And it tells me that I'll need routes like
+
+24
+00:02:33,836 --> 00:02:34,172
+this
+
+25
+00:02:35,183 --> 00:02:38,054
+and that I'll need a user model in the end,
+
+26
+00:02:38,086 --> 00:02:40,397
+which could be made up of a username, email
+
+27
+00:02:40,397 --> 00:02:41,184
+and password field,
+
+28
+00:02:42,422 --> 00:02:44,270
+that the password should be hashed, that's
+
+29
+00:02:44,270 --> 00:02:46,311
+very important so that we don't store the
+
+30
+00:02:46,439 --> 00:02:48,738
+plaintext password in the database, which
+
+31
+00:02:48,770 --> 00:02:50,056
+would be a security problem,
+
+32
+00:02:51,583 --> 00:02:53,463
+that we could have created and updated_at
+
+33
+00:02:53,512 --> 00:02:54,042
+fields
+
+34
+00:02:55,023 --> 00:02:57,739
+and that we could use the bcrypt package for
+
+35
+00:02:57,820 --> 00:02:58,761
+password hashing,
+
+36
+00:03:00,934 --> 00:03:03,882
+that I'll need these possible endpoints to
+
+37
+00:03:04,127 --> 00:03:05,234
+implement authentication,
+
+38
+00:03:06,399 --> 00:03:07,430
+And that then
+
+39
+00:03:08,107 --> 00:03:10,170
+thereafter I also
+
+40
+00:03:10,750 --> 00:03:13,361
+need an event model with all the fields I
+
+41
+00:03:13,361 --> 00:03:14,038
+specified.
+
+42
+00:03:15,667 --> 00:03:17,567
+It also tells me, and that's important, and
+
+43
+00:03:17,615 --> 00:03:20,192
+that shows that AI is really helping me
+
+44
+00:03:20,192 --> 00:03:21,448
+here, that I'll need
+
+45
+00:03:22,044 --> 00:03:25,023
+a creator ID or user ID field in my event
+
+46
+00:03:25,023 --> 00:03:26,943
+model to link an event to a user.
+
+47
+00:03:28,411 --> 00:03:31,477
+I did not specify this here when I described
+
+48
+00:03:31,541 --> 00:03:33,655
+how an event should look like, but the AI
+
+49
+00:03:33,655 --> 00:03:35,085
+tells me that I need this.
+
+50
+00:03:36,696 --> 00:03:39,058
+And I knew this too, but it's great to have
+
+51
+00:03:39,058 --> 00:03:39,317
+this
+
+52
+00:03:39,932 --> 00:03:41,954
+extra confirmation here so that I don't
+
+53
+00:03:41,954 --> 00:03:44,689
+forget it when I actually use AI tools to
+
+54
+00:03:44,689 --> 00:03:45,837
+generate the code later.
+
+55
+00:03:47,320 --> 00:03:47,882
+It tells me which
+
+56
+00:03:48,542 --> 00:03:51,196
+endpoints, which paths I might wanna set up
+
+57
+00:03:51,276 --> 00:03:53,399
+to manage events, to get all events, a
+
+58
+00:03:53,448 --> 00:03:54,638
+single event, and so on.
+
+59
+00:03:56,100 --> 00:03:58,112
+And that I need some paths for
+
+60
+00:03:58,669 --> 00:03:59,372
+event registration.
+
+61
+00:04:01,099 --> 00:04:03,716
+Including one route which I did not specify
+
+62
+00:04:03,732 --> 00:04:05,691
+in my requirements to fetch all
+
+63
+00:04:05,819 --> 00:04:08,196
+registrations for a specific event.
+
+64
+00:04:09,657 --> 00:04:11,728
+And again, that's nice to have. It is
+
+65
+00:04:11,760 --> 00:04:13,093
+something I might have forgotten
+
+66
+00:04:13,751 --> 00:04:15,694
+and ultimately during building the app at
+
+67
+00:04:15,694 --> 00:04:18,151
+some point I probably would stumble across
+
+68
+00:04:18,263 --> 00:04:20,463
+that and add this feature, but it's nice to
+
+69
+00:04:20,495 --> 00:04:22,229
+have it here right from the start thanks to
+
+70
+00:04:22,341 --> 00:04:24,605
+AI that it tells me that this is another
+
+71
+00:04:24,605 --> 00:04:25,938
+route I might consider adding.
+
+72
+00:04:27,928 --> 00:04:29,698
+It tells me that I can use the Multer
+
+73
+00:04:29,875 --> 00:04:32,433
+library to implement image upload. That's
+
+74
+00:04:32,433 --> 00:04:33,447
+what I planned to,
+
+75
+00:04:34,461 --> 00:04:37,277
+but again, nice to see this here. Or if I
+
+76
+00:04:37,277 --> 00:04:39,033
+had a different library in mind, it would be
+
+77
+00:04:39,033 --> 00:04:41,788
+nice to get an alternative suggested here
+
+78
+00:04:42,272 --> 00:04:44,866
+where I could then do some research to find
+
+79
+00:04:44,914 --> 00:04:45,306
+out which
+
+80
+00:04:46,408 --> 00:04:47,126
+option I prefer.
+
+81
+00:04:49,336 --> 00:04:51,072
+And then it tells me about some files I
+
+82
+00:04:51,072 --> 00:04:52,946
+might wanna add to the project. Well,
+
+83
+00:04:53,460 --> 00:04:55,726
+implement or to hold the code for
+
+84
+00:04:57,366 --> 00:05:00,114
+all these things. Though we'll do that code
+
+85
+00:05:00,114 --> 00:05:01,753
+generation and also some of the file
+
+86
+00:05:01,850 --> 00:05:04,883
+generation from inside Cursor and with help
+
+87
+00:05:04,883 --> 00:05:06,645
+of GitHub Copilot later on.
+
+88
+00:05:09,264 --> 00:05:11,615
+And I also won't add all these files it's
+
+89
+00:05:11,615 --> 00:05:13,708
+suggesting me here because these are of
+
+90
+00:05:13,756 --> 00:05:15,801
+course just some suggestions, not what you
+
+91
+00:05:15,930 --> 00:05:18,330
+have to do. Ultimately, it's you who's in
+
+92
+00:05:18,330 --> 00:05:20,294
+the driver's seat, and therefore you decide
+
+93
+00:05:20,572 --> 00:05:21,865
+which structure you want to have, which file
+
+94
+00:05:21,865 --> 00:05:22,602
+names you want to have, and where you want
+
+95
+00:05:22,602 --> 00:05:22,717
+to
+
+96
+00:05:24,422 --> 00:05:25,239
+put which code.
+
+97
+00:05:26,408 --> 00:05:28,523
+And I will definitely deviate from what's
+
+98
+00:05:28,523 --> 00:05:29,260
+suggested here,
+
+99
+00:05:30,734 --> 00:05:31,760
+but it's nice to have
+
+100
+00:05:32,353 --> 00:05:35,060
+these extra suggestions. I also won't use
+
+101
+00:05:35,076 --> 00:05:35,589
+Mongoose
+
+102
+00:05:36,198 --> 00:05:36,390
+for
+
+103
+00:05:36,983 --> 00:05:38,858
+database management, also not Sequelize.
+
+104
+00:05:38,922 --> 00:05:40,380
+Instead, I'll use a different approach, but
+
+105
+00:05:40,380 --> 00:05:42,335
+again, nice to have these suggestions.
+
+106
+00:05:43,729 --> 00:05:47,334
+Well, and with that, we have a plan. And as
+
+107
+00:05:47,334 --> 00:05:49,785
+a next step, I'll now switch to Cursor to
+
+108
+00:05:50,041 --> 00:05:51,724
+actually get started building this
+
+109
+00:05:51,724 --> 00:05:52,268
+application.

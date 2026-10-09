@@ -1,0 +1,247 @@
+1
+00:00:00,496 --> 00:00:03,172
+All we now have to do is make sure that we
+
+2
+00:00:03,941 --> 00:00:08,202
+return a response with that new list item
+
+3
+00:00:08,667 --> 00:00:10,638
+that should be added to this list here.
+
+4
+00:00:11,871 --> 00:00:14,707
+And to create such a list item, we can use
+
+5
+00:00:14,755 --> 00:00:17,863
+this renderLocation function, which is
+
+6
+00:00:17,976 --> 00:00:20,347
+provided by that location.js file, which
+
+7
+00:00:20,459 --> 00:00:22,269
+produces such a list item.
+
+8
+00:00:23,086 --> 00:00:24,592
+And we'll have to make sure that we then
+
+9
+00:00:24,705 --> 00:00:27,044
+send different requests depending on where
+
+10
+00:00:27,108 --> 00:00:29,014
+the item is rendered, but for the moment, we
+
+11
+00:00:29,014 --> 00:00:29,719
+can ignore that.
+
+12
+00:00:30,889 --> 00:00:31,915
+So in App.js,
+
+13
+00:00:32,476 --> 00:00:35,329
+down here in the POST route where I send
+
+14
+00:00:35,361 --> 00:00:38,887
+back a response, I can send back a list item
+
+15
+00:00:40,089 --> 00:00:42,285
+by calling renderLocation.
+
+16
+00:00:43,615 --> 00:00:46,163
+And then renderLocation needs such a
+
+17
+00:00:46,163 --> 00:00:48,648
+location object, which I conveniently have
+
+18
+00:00:48,648 --> 00:00:48,984
+here though.
+
+19
+00:00:49,609 --> 00:00:52,158
+I extracted it by its ID from the
+
+20
+00:00:52,190 --> 00:00:53,552
+availableLocations array.
+
+21
+00:00:54,433 --> 00:00:56,437
+So therefore it's this location which I can
+
+22
+00:00:56,437 --> 00:00:59,521
+pass to renderLocation and with that, this
+
+23
+00:00:59,553 --> 00:01:02,260
+POST route will return such a list item.
+
+24
+00:01:03,970 --> 00:01:06,831
+And with that back in our HTML code, we can
+
+25
+00:01:06,831 --> 00:01:09,256
+make sure that the response of this request
+
+26
+00:01:09,482 --> 00:01:12,004
+is then rendered in the right place on this
+
+27
+00:01:12,004 --> 00:01:12,214
+page.
+
+28
+00:01:13,669 --> 00:01:16,477
+And the right place to render it is of
+
+29
+00:01:16,574 --> 00:01:19,269
+course this interesting places list here,
+
+30
+00:01:19,495 --> 00:01:21,981
+this interesting locations list, I should
+
+31
+00:01:21,981 --> 00:01:22,239
+say.
+
+32
+00:01:23,900 --> 00:01:26,312
+Conveniently, this list has an ID of
+
+33
+00:01:26,490 --> 00:01:27,818
+interesting locations.
+
+34
+00:01:28,466 --> 00:01:31,267
+So we can use that to target this list.
+
+35
+00:01:32,319 --> 00:01:33,599
+And therefore here in location.js,
+
+36
+00:01:34,450 --> 00:01:36,552
+we can set the hx-target to
+
+37
+00:01:37,393 --> 00:01:38,622
+#interesting-locations
+
+38
+00:01:40,207 --> 00:01:43,053
+and then make sure that the list item that's
+
+39
+00:01:43,053 --> 00:01:45,326
+received in the response of this POST
+
+40
+00:01:45,326 --> 00:01:47,994
+request is added to the end of this list
+
+41
+00:01:48,579 --> 00:01:49,864
+by adding hx-swap.
+
+42
+00:01:51,882 --> 00:01:53,242
+And setting this to before
+
+43
+00:01:53,773 --> 00:01:53,839
+end.
+
+44
+00:01:56,540 --> 00:01:59,427
+We could actually also set it to after begin
+
+45
+00:01:59,540 --> 00:02:02,767
+here as an alternative and to mix things up
+
+46
+00:02:03,025 --> 00:02:04,719
+to make sure that it's added at the
+
+47
+00:02:04,719 --> 00:02:07,079
+beginning of this list. But here I'll use
+
+48
+00:02:07,079 --> 00:02:07,443
+before
+
+49
+00:02:07,972 --> 00:02:09,279
+end to add it at the end.
+
+50
+00:02:11,440 --> 00:02:14,280
+Well, and with all that done, if you save
+
+51
+00:02:14,312 --> 00:02:16,162
+everything and you have that development
+
+52
+00:02:16,162 --> 00:02:17,087
+server up and running,
+
+53
+00:02:17,678 --> 00:02:18,743
+If you reload your
+
+54
+00:02:19,372 --> 00:02:21,549
+app and you click on an item, it should be
+
+55
+00:02:21,629 --> 00:02:22,065
+added here.
+
+56
+00:02:23,680 --> 00:02:25,087
+Now at the moment, if you then click it
+
+57
+00:02:25,087 --> 00:02:28,177
+again, it's added again because we have the
+
+58
+00:02:28,177 --> 00:02:31,219
+same attributes on that button in that list
+
+59
+00:02:31,219 --> 00:02:33,808
+item no matter where it's being rendered. So
+
+60
+00:02:33,808 --> 00:02:34,845
+we'll have to fix that.
+
+61
+00:02:35,428 --> 00:02:38,651
+But the general functionality is there as
+
+62
+00:02:38,683 --> 00:02:39,963
+you can tell, and that's great.

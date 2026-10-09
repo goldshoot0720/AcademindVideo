@@ -1,0 +1,303 @@
+1
+00:00:00,176 --> 00:00:02,212
+Now, before I'll continue working on this
+
+2
+00:00:02,276 --> 00:00:03,975
+project, there is something important you
+
+3
+00:00:03,975 --> 00:00:06,251
+have to understand about the way Claude
+
+4
+00:00:06,363 --> 00:00:08,848
+works and what we can do to optimize it.
+
+5
+00:00:09,489 --> 00:00:12,231
+Let's say you wanna use Claude code to check
+
+6
+00:00:12,375 --> 00:00:14,908
+whether your current implementation is in
+
+7
+00:00:15,020 --> 00:00:17,745
+line with your expectations and the usage
+
+8
+00:00:17,745 --> 00:00:19,556
+instructions by the libraries you're using.
+
+9
+00:00:20,149 --> 00:00:22,794
+For this project where we just implemented
+
+10
+00:00:22,794 --> 00:00:25,359
+it and verified it ourselves, this doesn't
+
+11
+00:00:25,359 --> 00:00:27,187
+make too much sense. But of course, for
+
+12
+00:00:27,203 --> 00:00:29,896
+bigger projects or existing codebases, you
+
+13
+00:00:30,152 --> 00:00:32,815
+absolutely might wanna do such a So I'm
+
+14
+00:00:32,959 --> 00:00:35,175
+asking Claude Code to do that. And I again
+
+15
+00:00:35,287 --> 00:00:37,375
+tell it to use web search or the Context 7
+
+16
+00:00:37,391 --> 00:00:38,804
+MCP to look up the docs.
+
+17
+00:00:39,462 --> 00:00:41,806
+And I'll send it to it like this, not in
+
+18
+00:00:41,951 --> 00:00:44,552
+edit mode, not in plan mode, because I just
+
+19
+00:00:44,616 --> 00:00:47,266
+want to get a reply. I just want it to
+
+20
+00:00:47,330 --> 00:00:47,796
+analyze.
+
+21
+00:00:48,695 --> 00:00:51,456
+Now, the important thing to understand here
+
+22
+00:00:51,826 --> 00:00:55,117
+is that when Claude Code goes to work,
+
+23
+00:00:55,760 --> 00:00:58,504
+it will often use several subagents.
+
+24
+00:00:59,081 --> 00:01:01,566
+In this case, for example, the Explore
+
+25
+00:01:01,774 --> 00:01:05,028
+agent, which is one of the agents built into
+
+26
+00:01:05,060 --> 00:01:06,728
+Claude Code. You can tell that it's using
+
+27
+00:01:06,760 --> 00:01:09,437
+that because there are tasks happening here
+
+28
+00:01:09,886 --> 00:01:12,194
+whilst we have another task running here in
+
+29
+00:01:12,194 --> 00:01:13,733
+the background, so to say,
+
+30
+00:01:14,294 --> 00:01:17,501
+because Claude Code can spin up subagents
+
+31
+00:01:17,501 --> 00:01:20,563
+that do work whilst it continues with other
+
+32
+00:01:20,707 --> 00:01:23,144
+agents or the main agent that is running on
+
+33
+00:01:23,353 --> 00:01:26,581
+other work. So it simultaneously looked up
+
+34
+00:01:26,806 --> 00:01:29,215
+some documentation with the context 7 MCP
+
+35
+00:01:29,537 --> 00:01:32,637
+whilst the Explore agent is still exploring
+
+36
+00:01:32,733 --> 00:01:35,287
+folders and files in this project because
+
+37
+00:01:35,400 --> 00:01:37,970
+that's the task of this Explore agent that's
+
+38
+00:01:37,970 --> 00:01:39,463
+built into Claude Code.
+
+39
+00:01:40,058 --> 00:01:42,419
+It's simply an agent that's optimized for
+
+40
+00:01:42,869 --> 00:01:45,487
+reading and understanding files and folders.
+
+41
+00:01:46,017 --> 00:01:47,174
+So Claude Code will
+
+42
+00:01:47,752 --> 00:01:50,482
+out of the box delegate certain tasks to
+
+43
+00:01:50,578 --> 00:01:53,517
+built-in subagents and do certain work in
+
+44
+00:01:53,694 --> 00:01:56,295
+parallel to speed it up and to have
+
+45
+00:01:56,359 --> 00:01:59,860
+dedicated experts for certain tasks. You'll
+
+46
+00:01:59,908 --> 00:02:02,301
+see that it still does quite a lot of work,
+
+47
+00:02:02,317 --> 00:02:04,469
+especially all that documentation lookup
+
+48
+00:02:04,469 --> 00:02:07,616
+here, step by step on the main agent. So
+
+49
+00:02:08,066 --> 00:02:10,828
+every node you see here, every bullet,
+
+50
+00:02:11,053 --> 00:02:13,028
+that's essentially work done in the main
+
+51
+00:02:13,124 --> 00:02:15,902
+agent. And this explore task here is then
+
+52
+00:02:16,031 --> 00:02:18,343
+done with help of a subagent, as you saw
+
+53
+00:02:18,359 --> 00:02:19,691
+when that was still running.
+
+54
+00:02:20,510 --> 00:02:22,403
+You can also tell that it was a sub-agent
+
+55
+00:02:22,451 --> 00:02:24,296
+because it tells you how many tokens were
+
+56
+00:02:24,360 --> 00:02:26,670
+consumed and how long it took. And the
+
+57
+00:02:26,686 --> 00:02:28,916
+important thing about sub-agents is
+
+58
+00:02:29,493 --> 00:02:31,916
+that they don't consume or pollute the
+
+59
+00:02:31,980 --> 00:02:34,338
+context window of the main agent. They have
+
+60
+00:02:34,338 --> 00:02:37,049
+their own context window, which of course is
+
+61
+00:02:37,049 --> 00:02:39,744
+another reason why this feature exists. It
+
+62
+00:02:39,921 --> 00:02:42,905
+allows Claude Code to split up complex work
+
+63
+00:02:42,969 --> 00:02:45,664
+into smaller building blocks and outsource
+
+64
+00:02:45,776 --> 00:02:48,022
+them without putting everything into the
+
+65
+00:02:48,022 --> 00:02:50,268
+main context window. Instead, it will just
+
+66
+00:02:50,268 --> 00:02:53,025
+get the result of this sub-agent, so a
+
+67
+00:02:53,025 --> 00:02:55,702
+summary of its exploration work, and load
+
+68
+00:02:55,958 --> 00:02:57,802
+that into the main context window.
+
+69
+00:02:58,459 --> 00:03:00,768
+That's why this sub-agent feature, which you
+
+70
+00:03:00,848 --> 00:03:03,493
+get for free out of the box, is very useful.
+
+71
+00:03:03,749 --> 00:03:05,994
+And here, of course, I can see that a lot of
+
+72
+00:03:05,994 --> 00:03:08,398
+things are great. What's not great is that
+
+73
+00:03:08,398 --> 00:03:10,161
+we got some missing components, which makes
+
+74
+00:03:10,161 --> 00:03:12,021
+sense because we haven't worked on that yet.
+
+75
+00:03:12,229 --> 00:03:15,099
+But before we do that, let's build our own
+
+76
+00:03:15,115 --> 00:03:16,654
+custom sub-agent.

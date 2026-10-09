@@ -1,0 +1,615 @@
+1
+00:00:02,360 --> 00:00:04,866
+I introduced this concept of levels of
+
+2
+00:00:04,866 --> 00:00:07,227
+abstraction in the last lecture because
+
+3
+00:00:07,403 --> 00:00:09,877
+levels of abstraction allow us to decide
+
+4
+00:00:10,214 --> 00:00:12,559
+whether a function does one thing or if it
+
+5
+00:00:12,559 --> 00:00:13,651
+does multiple things.
+
+6
+00:00:14,888 --> 00:00:17,489
+Because functions should only do work that's
+
+7
+00:00:17,602 --> 00:00:20,669
+one level of abstraction below the level of
+
+8
+00:00:20,669 --> 00:00:23,239
+abstraction implied by their function name.
+
+9
+00:00:24,684 --> 00:00:26,932
+Okay, that's a complex sentence. What does
+
+10
+00:00:26,948 --> 00:00:27,189
+it mean?
+
+11
+00:00:28,119 --> 00:00:29,306
+Consider this example.
+
+12
+00:00:29,916 --> 00:00:31,761
+If you have a function which is called
+
+13
+00:00:31,825 --> 00:00:34,776
+emailIsValid and it takes an email as a
+
+14
+00:00:34,776 --> 00:00:35,322
+parameter,
+
+15
+00:00:36,076 --> 00:00:38,049
+then you might have some low-level code in
+
+16
+00:00:38,081 --> 00:00:39,990
+there as you can tell in this example.
+
+17
+00:00:40,567 --> 00:00:43,294
+But this operation is one level below the
+
+18
+00:00:43,294 --> 00:00:44,850
+function name implied level.
+
+19
+00:00:45,620 --> 00:00:47,529
+emailIsValid, if we would call this
+
+20
+00:00:47,529 --> 00:00:49,823
+function, is pretty high level, but it's
+
+21
+00:00:49,871 --> 00:00:52,100
+clear that as a result, we want to know
+
+22
+00:00:52,261 --> 00:00:54,988
+whether an email is valid or not. So inside
+
+23
+00:00:54,988 --> 00:00:57,716
+of that emailIsValid function, we perform an
+
+24
+00:00:57,716 --> 00:00:59,978
+operation on a lower level of abstraction.
+
+25
+00:01:00,380 --> 00:01:01,760
+In this case, email includes@.
+
+26
+00:01:02,450 --> 00:01:04,584
+But writing this low-level code here is no
+
+27
+00:01:04,696 --> 00:01:07,087
+problem because understanding it is quite
+
+28
+00:01:07,183 --> 00:01:09,349
+easy because of the function name of the
+
+29
+00:01:09,349 --> 00:01:11,516
+function in which we write it. The function
+
+30
+00:01:11,516 --> 00:01:13,923
+is named emailIsValid, so it's clear that
+
+31
+00:01:13,923 --> 00:01:15,768
+we're doing this low-level work to get an
+
+32
+00:01:15,928 --> 00:01:16,955
+answer to this question.
+
+33
+00:01:17,485 --> 00:01:20,758
+So because the operation we do inside of the
+
+34
+00:01:20,758 --> 00:01:22,764
+function is close to the level of
+
+35
+00:01:22,764 --> 00:01:25,123
+abstraction implied by the function name,
+
+36
+00:01:25,492 --> 00:01:28,762
+because it answers the question posed by the
+
+37
+00:01:28,762 --> 00:01:30,013
+function name, we could say.
+
+38
+00:01:30,542 --> 00:01:32,466
+Because of that, it's easy to understand
+
+39
+00:01:32,690 --> 00:01:34,437
+even though it's low-level code.
+
+40
+00:01:35,111 --> 00:01:37,019
+So low-level code is not bad, it's
+
+41
+00:01:37,035 --> 00:01:39,119
+necessary. You need to write it somewhere,
+
+42
+00:01:39,600 --> 00:01:41,988
+but you should write it in places where
+
+43
+00:01:41,988 --> 00:01:45,050
+interpretation is added by the name of the
+
+44
+00:01:45,050 --> 00:01:47,824
+function in which that low-level code runs.
+
+45
+00:01:48,962 --> 00:01:50,405
+Now, on the other hand, if you have a look
+
+46
+00:01:50,405 --> 00:01:53,756
+at this example here, then you see that this
+
+47
+00:01:53,852 --> 00:01:55,519
+could be harder to interpret.
+
+48
+00:01:56,176 --> 00:01:59,286
+This function is called saveUser. And having
+
+49
+00:01:59,318 --> 00:02:02,476
+this low-level code in there is a bit more
+
+50
+00:02:02,588 --> 00:02:05,394
+difficult because here the function name
+
+51
+00:02:05,650 --> 00:02:09,257
+saveUser does not add any interpretation to
+
+52
+00:02:09,257 --> 00:02:11,966
+the low-level code. We have to figure out as
+
+53
+00:02:11,998 --> 00:02:14,178
+a developer that this low-level code is
+
+54
+00:02:14,371 --> 00:02:17,144
+probably executed to validate some input.
+
+55
+00:02:17,753 --> 00:02:19,677
+It makes sense that we have a validation
+
+56
+00:02:19,677 --> 00:02:22,706
+step as part of saving a user. But the
+
+57
+00:02:22,786 --> 00:02:25,191
+actual low-level code is a bit harder to
+
+58
+00:02:25,207 --> 00:02:27,788
+interpret than if it's close to the level of
+
+59
+00:02:27,788 --> 00:02:30,545
+abstraction implied by the function name as
+
+60
+00:02:30,561 --> 00:02:31,956
+we have it on the left side here.
+
+61
+00:02:32,982 --> 00:02:35,306
+If a function is called saveUser, it should
+
+62
+00:02:35,306 --> 00:02:37,181
+just orchestrate all the steps that are
+
+63
+00:02:37,230 --> 00:02:39,554
+required to save a user. So here we got a
+
+64
+00:02:39,554 --> 00:02:42,503
+too big gap between the level of abstraction
+
+65
+00:02:42,503 --> 00:02:43,946
+implied by the function name
+
+66
+00:02:44,507 --> 00:02:47,088
+and the level of abstraction of the actual
+
+67
+00:02:47,088 --> 00:02:48,771
+operation we do in this function.
+
+68
+00:02:49,815 --> 00:02:51,951
+And I know that this can sound super
+
+69
+00:02:52,048 --> 00:02:54,361
+overwhelming and confusing. It is something
+
+70
+00:02:54,393 --> 00:02:56,979
+that comes with experience and where just
+
+71
+00:02:57,188 --> 00:02:59,388
+thinking about it is already worth a lot.
+
+72
+00:03:00,561 --> 00:03:02,745
+Now, levels of abstraction also matter
+
+73
+00:03:02,745 --> 00:03:05,058
+because of one other concept. And I will
+
+74
+00:03:05,139 --> 00:03:06,857
+also come back to that example I showed you
+
+75
+00:03:06,857 --> 00:03:08,496
+in the last lecture again, no worries.
+
+76
+00:03:09,170 --> 00:03:11,467
+But here's that other concept where levels
+
+77
+00:03:11,563 --> 00:03:12,945
+of abstraction also matter.
+
+78
+00:03:13,507 --> 00:03:16,398
+You should try not to mix multiple levels of
+
+79
+00:03:16,398 --> 00:03:18,743
+abstraction in one and the same function.
+
+80
+00:03:19,370 --> 00:03:20,109
+Here's an example.
+
+81
+00:03:20,799 --> 00:03:23,626
+In this code here, we're mixing different
+
+82
+00:03:23,626 --> 00:03:24,734
+levels of abstraction.
+
+83
+00:03:25,313 --> 00:03:27,577
+We got this quite low-level email includes
+
+84
+00:03:27,626 --> 00:03:30,340
+code and the higher-level user save code.
+
+85
+00:03:31,272 --> 00:03:33,553
+If we read this snippet, we need to add
+
+86
+00:03:33,649 --> 00:03:36,604
+quite a lot of interpretation to it to fully
+
+87
+00:03:36,701 --> 00:03:37,889
+understand what's going on.
+
+88
+00:03:38,644 --> 00:03:40,893
+If this would be written like this, all the
+
+89
+00:03:40,893 --> 00:03:43,302
+operations would be on the same level of
+
+90
+00:03:43,302 --> 00:03:45,568
+abstraction and it would be easier to
+
+91
+00:03:45,616 --> 00:03:47,897
+understand this. If you read that, you
+
+92
+00:03:48,026 --> 00:03:50,179
+really just need to read the names of these
+
+93
+00:03:50,211 --> 00:03:52,750
+functions, assuming that they are properly
+
+94
+00:03:52,782 --> 00:03:55,352
+named, and you fully understand what this
+
+95
+00:03:55,352 --> 00:03:55,883
+code does.
+
+96
+00:03:56,943 --> 00:03:59,594
+This is why levels of abstraction matter and
+
+97
+00:03:59,674 --> 00:04:02,358
+why mixing different levels or having a too
+
+98
+00:04:02,486 --> 00:04:04,912
+big gap between a function name and the
+
+99
+00:04:04,912 --> 00:04:05,748
+operations done,
+
+100
+00:04:06,278 --> 00:04:09,057
+why that can cause problems and lead to bad
+
+101
+00:04:09,090 --> 00:04:09,379
+code.
+
+102
+00:04:10,680 --> 00:04:12,301
+And if we come back to the example from
+
+103
+00:04:12,301 --> 00:04:12,654
+before,
+
+104
+00:04:13,265 --> 00:04:15,689
+then the original function suffered from
+
+105
+00:04:15,753 --> 00:04:16,685
+multiple problems.
+
+106
+00:04:17,343 --> 00:04:20,634
+Most importantly, the gap between the level
+
+107
+00:04:20,634 --> 00:04:22,866
+of abstraction implied by the function name,
+
+108
+00:04:23,444 --> 00:04:24,360
+renderContent,
+
+109
+00:04:24,889 --> 00:04:27,314
+and the levels of abstraction of the actual
+
+110
+00:04:27,314 --> 00:04:29,738
+operations we're doing here was too big.
+
+111
+00:04:30,589 --> 00:04:32,725
+We got a bunch of low-level operations in
+
+112
+00:04:32,773 --> 00:04:35,053
+there like comparing the element or
+
+113
+00:04:35,246 --> 00:04:37,783
+concatenating our opening tags down there.
+
+114
+00:04:38,858 --> 00:04:40,991
+In the clean function example, that's not
+
+115
+00:04:41,039 --> 00:04:41,408
+the case.
+
+116
+00:04:42,082 --> 00:04:44,809
+We got operations which are one level below
+
+117
+00:04:44,809 --> 00:04:46,733
+the level of abstraction implied by
+
+118
+00:04:46,733 --> 00:04:47,616
+renderContent here.
+
+119
+00:04:48,241 --> 00:04:50,487
+Validate element type, create renderable
+
+120
+00:04:50,583 --> 00:04:53,551
+content, render on root. It makes sense that
+
+121
+00:04:53,551 --> 00:04:55,941
+these are the steps we need to go through to
+
+122
+00:04:56,101 --> 00:04:57,785
+render some content to the screen.
+
+123
+00:04:58,619 --> 00:05:00,913
+So if we call renderContent, it makes sense
+
+124
+00:05:00,913 --> 00:05:02,357
+that these are steps that need to be
+
+125
+00:05:02,437 --> 00:05:05,260
+executed. The actual work which needs to be
+
+126
+00:05:05,324 --> 00:05:07,186
+done, the lower-level operations
+
+127
+00:05:07,732 --> 00:05:09,852
+are then outsourced into other functions.
+
+128
+00:05:10,462 --> 00:05:12,533
+And in the functions to which we outsource
+
+129
+00:05:12,630 --> 00:05:14,300
+them, they then again make sense.
+
+130
+00:05:14,958 --> 00:05:17,848
+In validateElementType, it makes sense that
+
+131
+00:05:17,848 --> 00:05:20,385
+we do comparisons like this. Here, this
+
+132
+00:05:20,417 --> 00:05:22,697
+low-level code is absolutely okay.
+
+133
+00:05:23,885 --> 00:05:25,973
+And that's why levels of abstraction matter
+
+134
+00:05:26,053 --> 00:05:28,590
+and how you can ensure that you write clean
+
+135
+00:05:28,702 --> 00:05:29,120
+functions.
+
+136
+00:05:29,730 --> 00:05:31,912
+Now, as I mentioned before, This is a
+
+137
+00:05:31,912 --> 00:05:34,524
+challenging and difficult concept. It is
+
+138
+00:05:34,637 --> 00:05:36,800
+something which comes with experience and
+
+139
+00:05:36,800 --> 00:05:38,851
+even after years of development, you will
+
+140
+00:05:38,963 --> 00:05:40,838
+still sometimes write functions which are
+
+141
+00:05:40,838 --> 00:05:41,495
+not clean.
+
+142
+00:05:42,312 --> 00:05:45,277
+As always, it's also not a hard rule. If you
+
+143
+00:05:45,277 --> 00:05:47,504
+have a very short function with mixed levels
+
+144
+00:05:47,520 --> 00:05:49,860
+of abstraction, that could be fine if it's
+
+145
+00:05:49,860 --> 00:05:50,629
+easy to understand.
+
+146
+00:05:51,382 --> 00:05:54,283
+Nonetheless, it is important to always think
+
+147
+00:05:54,283 --> 00:05:56,270
+about that and to at least consider
+
+148
+00:05:56,270 --> 00:05:57,199
+splitting a function.
+
+149
+00:05:58,116 --> 00:05:59,644
+And we're going to have a demo and a
+
+150
+00:05:59,644 --> 00:06:02,058
+challenge in the next lecture where we
+
+151
+00:06:02,058 --> 00:06:04,617
+practice this at a simpler example. And
+
+152
+00:06:04,633 --> 00:06:06,129
+we're also going to learn about a couple of
+
+153
+00:06:06,306 --> 00:06:08,430
+other related concepts throughout the rest
+
+154
+00:06:08,430 --> 00:06:09,090
+of this module.

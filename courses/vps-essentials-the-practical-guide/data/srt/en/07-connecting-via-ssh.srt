@@ -1,0 +1,271 @@
+1
+00:00:00,048 --> 00:00:02,227
+So now that I got a server up and running, I
+
+2
+00:00:02,275 --> 00:00:04,502
+can use the public IP and you should have
+
+3
+00:00:04,502 --> 00:00:06,794
+such an IP no matter which provider you were
+
+4
+00:00:06,826 --> 00:00:09,198
+using. And I'll go back to my terminal
+
+5
+00:00:09,807 --> 00:00:12,178
+and then use the SSH command, which also is
+
+6
+00:00:12,274 --> 00:00:14,742
+available on macOS and also modern Windows.
+
+7
+00:00:15,656 --> 00:00:18,572
+And I will connect to root, which is the
+
+8
+00:00:18,700 --> 00:00:21,104
+default username on Hetzner and it should be
+
+9
+00:00:21,104 --> 00:00:23,107
+the default username for most server
+
+10
+00:00:23,107 --> 00:00:26,376
+providers, but that of course could differ
+
+11
+00:00:27,017 --> 00:00:29,229
+and you should check the official docs for
+
+12
+00:00:29,342 --> 00:00:31,474
+different providers to find out how their
+
+13
+00:00:31,586 --> 00:00:35,481
+default user is named. For AWS, for example,
+
+14
+00:00:35,674 --> 00:00:37,838
+their docs tell us that the default
+
+15
+00:00:37,838 --> 00:00:40,146
+usernames for different operating systems
+
+16
+00:00:40,403 --> 00:00:42,294
+are different. For example, if you chose the
+
+17
+00:00:42,406 --> 00:00:45,163
+Amazon Linux operating system, the default
+
+18
+00:00:45,212 --> 00:00:46,750
+username is ec2-user.
+
+19
+00:00:47,392 --> 00:00:49,620
+For Ubuntu there, it would be ubuntu.
+
+20
+00:00:50,357 --> 00:00:53,211
+But for Hetzner, it's root and then you add
+
+21
+00:00:53,467 --> 00:00:55,359
+an@ symbol after the username and then your
+
+22
+00:00:55,391 --> 00:00:58,137
+IP. So the username may be different, It may
+
+23
+00:00:58,137 --> 00:01:00,440
+be EC2-user if you were using Amazon,
+
+24
+00:01:02,035 --> 00:01:04,048
+but thereafter you add the IP.
+
+25
+00:01:04,772 --> 00:01:06,479
+Now, if I just hit Enter like this,
+
+26
+00:01:07,010 --> 00:01:09,394
+typically you'll be asked if you want to
+
+27
+00:01:11,053 --> 00:01:13,369
+essentially continue connecting even though
+
+28
+00:01:13,385 --> 00:01:15,344
+that's an unknown host because I never
+
+29
+00:01:15,344 --> 00:01:16,478
+connected to it before.
+
+30
+00:01:17,653 --> 00:01:18,816
+But if I choose yes here,
+
+31
+00:01:19,736 --> 00:01:21,609
+you'll see I'll be asked for a password
+
+32
+00:01:21,609 --> 00:01:22,077
+thereafter,
+
+33
+00:01:22,885 --> 00:01:25,920
+which I shouldn't be because I wanna use my
+
+34
+00:01:25,953 --> 00:01:28,624
+key. And I didn't even set any password when
+
+35
+00:01:28,720 --> 00:01:30,740
+I initially set up that server. So I don't
+
+36
+00:01:30,740 --> 00:01:32,102
+know what the password is here.
+
+37
+00:01:32,840 --> 00:01:35,421
+So I'll cancel that. And instead, what I
+
+38
+00:01:35,533 --> 00:01:35,934
+wanna do
+
+39
+00:01:36,655 --> 00:01:39,364
+is I wanna connect but using my key. And you
+
+40
+00:01:39,380 --> 00:01:39,749
+do that
+
+41
+00:01:40,422 --> 00:01:41,095
+by adding the
+
+42
+00:01:41,785 --> 00:01:43,532
+-i flag for identity,
+
+43
+00:01:44,269 --> 00:01:46,369
+and then you point at your key file. So here
+
+44
+00:01:46,369 --> 00:01:49,271
+on macOS, that's in the.ssh folder and then
+
+45
+00:01:49,319 --> 00:01:50,185
+VPS course,
+
+46
+00:01:50,858 --> 00:01:53,246
+my private key. I'm pointing at my private
+
+47
+00:01:53,246 --> 00:01:55,266
+key here because I'm using my private key to
+
+48
+00:01:55,266 --> 00:01:57,158
+connect to that server, and that will then
+
+49
+00:01:57,270 --> 00:02:00,382
+be matched with a certain algorithm to the
+
+50
+00:02:00,478 --> 00:02:02,965
+public key. So it will check if my private
+
+51
+00:02:02,965 --> 00:02:05,227
+key belongs to that public key, and if
+
+52
+00:02:05,291 --> 00:02:07,200
+that's the case, the connection will be
+
+53
+00:02:07,200 --> 00:02:09,190
+established. On Windows, you would choose
+
+54
+00:02:09,286 --> 00:02:10,986
+your Windows path here, which I showed you
+
+55
+00:02:10,986 --> 00:02:11,323
+before.
+
+56
+00:02:12,270 --> 00:02:14,676
+And with this command, you see that works.
+
+57
+00:02:14,981 --> 00:02:17,308
+Now I'm in, I see some overview here, the
+
+58
+00:02:17,308 --> 00:02:18,784
+current load of the machine here,
+
+59
+00:02:19,393 --> 00:02:21,976
+and now I'm connected here still in the
+
+60
+00:02:21,976 --> 00:02:22,522
+terminal,
+
+61
+00:02:23,099 --> 00:02:23,532
+but now
+
+62
+00:02:24,126 --> 00:02:26,503
+to my VPS. So now any commands I run here
+
+63
+00:02:26,936 --> 00:02:29,746
+are no longer executed on my Mac or on your
+
+64
+00:02:29,746 --> 00:02:32,909
+Windows machine, but instead on that remote
+
+65
+00:02:32,958 --> 00:02:35,109
+device, on that remote VPS.
+
+66
+00:02:35,864 --> 00:02:38,192
+And that's where we'll now continue in the
+
+67
+00:02:38,192 --> 00:02:41,291
+next section where we'll configure this VPS
+
+68
+00:02:41,484 --> 00:02:42,014
+properly.

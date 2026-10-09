@@ -1,0 +1,584 @@
+1
+00:00:00,769 --> 00:00:04,249
+So we had a look at out-of-band swaps, which
+所以我們研究了帶外交換
+
+2
+00:00:04,506 --> 00:00:05,869
+can be a useful feature.
+可能是一個有用的功能。
+
+3
+00:00:06,446 --> 00:00:09,830
+Now, there is another swap-related feature,
+現在，還有另一個與交換相關的功能，
+
+4
+00:00:10,311 --> 00:00:13,214
+not out-of-band swap, but swap in general,
+不是帶外交換，而是一般交換，
+
+5
+00:00:13,984 --> 00:00:16,245
+that also might come in handy in certain
+這在某些方面也可能派上用場
+
+6
+00:00:16,245 --> 00:00:16,919
+situations.
+情況。
+
+7
+00:00:17,833 --> 00:00:20,944
+Let's say here in my list of places, I'm
+假設在我的地點列表中，我是
+
+8
+00:00:20,944 --> 00:00:23,927
+selecting one of the last places here, maybe
+也許選擇這裡最後的地方之一
+
+9
+00:00:24,103 --> 00:00:25,178
+the last place.
+最後一個地方。
+
+10
+00:00:26,188 --> 00:00:29,061
+If I do that, it gets added to this list up
+如果我這樣做，它就會添加到這個清單中
+
+11
+00:00:29,061 --> 00:00:31,726
+here, of course. Now maybe we wanna make
+當然是在這裡。現在也許我們想做
+
+12
+00:00:31,774 --> 00:00:34,888
+sure that the browser automatically
+確保瀏覽器自動
+
+13
+00:00:35,819 --> 00:00:38,900
+scrolls up to that upper list therefore and
+因此向上捲動到上面的列表
+
+14
+00:00:39,013 --> 00:00:42,271
+focuses this list when we add an item.
+當我們新增一個專案時，焦點會集中在這個清單上。
+
+15
+00:00:43,266 --> 00:00:45,289
+And that's something which we can also
+這也是我們可以做的
+
+16
+00:00:45,353 --> 00:00:47,680
+implement with help of HTMX.
+在 HTMX 的幫助下實施。
+
+17
+00:00:48,948 --> 00:00:50,778
+All we have to do for that is
+為此我們要做的就是
+
+18
+00:00:51,372 --> 00:00:55,096
+go to the place where we define the swapping
+轉到我們定義交換的地方
+
+19
+00:00:55,304 --> 00:00:58,289
+mechanism or the swapping script. Strategy,
+機製或交換腳本。戰略，
+
+20
+00:00:58,770 --> 00:01:00,917
+if you wanna call it like this, for the
+如果你想這樣稱呼它，為了
+
+21
+00:01:00,981 --> 00:01:01,799
+loaded content.
+載入的內容。
+
+22
+00:01:02,761 --> 00:01:05,646
+And then we can add some extra settings to
+然後我們可以添加一些額外的設置
+
+23
+00:01:06,030 --> 00:01:07,088
+hx-swap.
+hx-交換。
+
+24
+00:01:07,970 --> 00:01:11,785
+Thus far, we focused on these settings here,
+到目前為止，我們在這裡重點關注這些設置，
+
+25
+00:01:12,073 --> 00:01:15,070
+so on the swapping strategy when using
+那麼使用時的交換策略
+
+26
+00:01:15,327 --> 00:01:16,385
+hx-swap.
+hx-交換。
+
+27
+00:01:17,010 --> 00:01:19,061
+And that of course makes a lot of sense
+這當然很有意義
+
+28
+00:01:19,174 --> 00:01:21,770
+because it is indeed the strategy
+因為這確實是策略
+
+29
+00:01:22,395 --> 00:01:25,729
+that you'll probably adjust in most cases.
+在大多數情況下你可能會進行調整。
+
+30
+00:01:26,403 --> 00:01:28,633
+Sometimes you might wanna swap just the
+有時您可能只想交換
+
+31
+00:01:28,633 --> 00:01:30,735
+content inside of the target element.
+目標元素內部的內容。
+
+32
+00:01:31,297 --> 00:01:33,239
+Sometimes you might wanna replace the entire
+有時您可能想更換整個
+
+33
+00:01:33,367 --> 00:01:36,496
+target element or add an element to the end
+目標元素或在末尾添加一個元素
+
+34
+00:01:36,496 --> 00:01:37,491
+of the target element.
+的目標元素。
+
+35
+00:01:38,036 --> 00:01:40,893
+So it makes sense to know these values.
+因此了解這些值是有意義的。
+
+36
+00:01:41,711 --> 00:01:43,813
+And the official documentation is a great
+而且官方檔案很棒
+
+37
+00:01:43,813 --> 00:01:46,910
+place to look up these values in case you
+尋找這些值的地方，以防萬一
+
+38
+00:01:46,926 --> 00:01:47,696
+forgot about one.
+忘了一個。
+
+39
+00:01:49,028 --> 00:01:51,884
+But there are actually more things you can
+但其實你還可以做更多的事情
+
+40
+00:01:51,980 --> 00:01:53,569
+configure with hx-select.
+使用 hx-select 設定。
+
+41
+00:01:54,627 --> 00:01:58,010
+You can, for example, add some delays so
+例如，您可以添加一些延遲，以便
+
+42
+00:01:58,250 --> 00:01:59,212
+that HTMX
+那個HTMX
+
+43
+00:01:59,757 --> 00:02:02,947
+waits until the received response content is
+等待直到收到回應內容
+
+44
+00:02:03,155 --> 00:02:04,582
+swapped into the DOM.
+交換到 DOM 中。
+
+45
+00:02:05,448 --> 00:02:08,269
+And that can be useful for playing some
+這對於玩一些遊戲很有用
+
+46
+00:02:08,349 --> 00:02:11,475
+animation, but you can, for example, also
+動畫，但你也可以，例如，
+
+47
+00:02:11,475 --> 00:02:15,146
+control the scrolling behavior of the target
+控制目標的滾動行為
+
+48
+00:02:15,146 --> 00:02:15,466
+element.
+元素。
+
+49
+00:02:16,588 --> 00:02:19,185
+If you're swapping content into a list
+如果您要將內容交換到清單中
+
+50
+00:02:19,233 --> 00:02:21,750
+that's scrollable, you could, for example,
+這是可滾動的，例如，您可以，
+
+51
+00:02:21,959 --> 00:02:25,501
+add the scroll setting to tell HTMX to
+添加滾動設定以告訴 HTMX
+
+52
+00:02:25,501 --> 00:02:29,193
+scroll to the top or bottom of that list,
+捲動到該清單的頂部或底部，
+
+53
+00:02:30,300 --> 00:02:32,114
+or if you wanna scroll to the entire
+或者如果你想滾動到整個
+
+54
+00:02:32,306 --> 00:02:34,344
+element. So if you wanna scroll the entire
+元素。所以如果你想滾動整個
+
+55
+00:02:34,553 --> 00:02:37,346
+element into view and make it visible, you
+元素進入視圖並使其可見，您
+
+56
+00:02:37,378 --> 00:02:39,528
+could use the show modifier.
+可以使用 show 修飾符。
+
+57
+00:02:40,507 --> 00:02:43,284
+And you add those modifiers by simply adding
+您只需添加這些修飾符即可添加
+
+58
+00:02:43,316 --> 00:02:45,258
+them after your strategy
+他們遵循你的策略
+
+59
+00:02:45,964 --> 00:02:47,296
+separated by a whitespace.
+用空格分隔。
+
+60
+00:02:47,826 --> 00:02:50,025
+So you have your strategy and then you add
+所以你有你的策略，然後你加入
+
+61
+00:02:50,057 --> 00:02:50,827
+your modifiers
+你的修飾符
+
+62
+00:02:51,485 --> 00:02:53,572
+and you can therefore then add this extra
+因此你可以添加這個額外的
+
+63
+00:02:53,572 --> 00:02:56,477
+configuration to your element.
+設定到您的元素。
+
+64
+00:02:57,776 --> 00:03:00,119
+So in our case here, if I wanna make sure
+所以在我們這裡的例子中，如果我想確定
+
+65
+00:03:00,633 --> 00:03:05,046
+that I show this target element whenever it
+每當它出現時我都會顯示這個目標元素
+
+66
+00:03:05,046 --> 00:03:08,368
+is edited, so whenever I added a new place
+已編輯，所以每當我新增地點時
+
+67
+00:03:08,416 --> 00:03:09,924
+to my interesting locations,
+到我感興趣的地點，
+
+68
+00:03:10,823 --> 00:03:13,647
+I can achieve this by adding the show
+我可以透過添加節目來實現這一點
+
+69
+00:03:14,032 --> 00:03:14,819
+modifier here
+此處修改
+
+70
+00:03:15,428 --> 00:03:18,269
+separated by a whitespace from the strategy.
+與策略之間以空格分隔。
+
+71
+00:03:19,665 --> 00:03:22,200
+And then I can add a colon after show to
+然後我可以在顯示後添加一個冒號
+
+72
+00:03:22,216 --> 00:03:22,585
+control
+控制
+
+73
+00:03:23,356 --> 00:03:25,137
+what exactly I wanna show here.
+我到底想在這裡展示什麼。
+
+74
+00:03:26,152 --> 00:03:29,168
+So if I wanna move the browser to the top of
+所以如果我想將瀏覽器移到頂部
+
+75
+00:03:29,378 --> 00:03:31,667
+the target element or to the bottom, and
+目標元素或底部，以及
+
+76
+00:03:31,684 --> 00:03:33,006
+here I wanna move it to the top.
+在這裡我想把它移到頂部。
+
+77
+00:03:35,146 --> 00:03:38,584
+And now by adding this here to hx-swap, when
+現在將其新增至 hx-swap 中，當
+
+78
+00:03:38,696 --> 00:03:41,990
+we send that POST request, I'll achieve the
+我們發送 POST 請求，我將實現
+
+79
+00:03:41,990 --> 00:03:43,195
+desired behavior.
+期望的行為。
+
+80
+00:03:44,143 --> 00:03:46,920
+Now if I reload the page and I click on one
+現在，如果我重新載入頁面並單擊一個
+
+81
+00:03:46,920 --> 00:03:48,149
+of the last elements here,
+這裡的最後一個元素，
+
+82
+00:03:48,747 --> 00:03:52,304
+you see the browser scrolls that entire list
+您會看到瀏覽器滾動整個列表
+
+83
+00:03:52,304 --> 00:03:54,908
+here into view, that list into which the
+在這裡可以看到，該列表其中
+
+84
+00:03:54,908 --> 00:03:55,226
+element is rendered.
+元素被渲染。
+
+85
+00:03:57,310 --> 00:03:59,479
+Now maybe I don't just wanna scroll that
+現在也許我不只是想滾動它
+
+86
+00:03:59,479 --> 00:04:00,331
+list into view,
+清單進入視圖，
+
+87
+00:04:00,861 --> 00:04:04,091
+but instead that section in which that list
+而是該清單所在的部分
+
+88
+00:04:04,091 --> 00:04:04,605
+is rendered.
+被渲染。
+
+89
+00:04:05,585 --> 00:04:07,867
+And that's also something we can achieve
+這也是我們可以實現的目標
+
+90
+00:04:07,931 --> 00:04:10,903
+with show because as you also see in the
+與表演因為正如你也看到
+
+91
+00:04:10,903 --> 00:04:12,125
+official documentation,
+官方文檔，
+
+92
+00:04:12,751 --> 00:04:16,318
+you can specify a CSS selector with scroll
+你可以指定一個有滾動的 CSS 選擇器
+
+93
+00:04:16,607 --> 00:04:20,046
+or show so that you actually show another
+或顯示以便您實際顯示另一個
+
+94
+00:04:20,126 --> 00:04:23,387
+element than the target element, with this
+元素比目標元素，這樣
+
+95
+00:04:23,677 --> 00:04:24,383
+modifier.
+修飾符。
+
+96
+00:04:25,218 --> 00:04:29,170
+So here in my case, it is that section here
+所以在我的例子中，就是這個部分
+
+97
+00:04:29,298 --> 00:04:31,402
+that I wanna scroll into view,
+我想滾動到視圖中，
+
+98
+00:04:32,109 --> 00:04:34,550
+that section that has this interesting
+那個有趣的部分
+
+99
+00:04:34,582 --> 00:04:36,060
+locations list inside of it.
+其中包含位置列表。
+
+100
+00:04:37,008 --> 00:04:39,417
+And therefore I'll simply assign an ID to
+因此我將簡單地分配一個 ID 給
+
+101
+00:04:39,417 --> 00:04:42,115
+that section to have a quick and easy way of
+該部分有一個快速而簡單的方法
+
+102
+00:04:42,163 --> 00:04:42,726
+selecting it.
+選擇它。
+
+103
+00:04:43,432 --> 00:04:44,155
+And I'll name it
+我會給它命名
+
+104
+00:04:44,701 --> 00:04:46,853
+int locations section,
+int 位置部分，
+
+105
+00:04:47,528 --> 00:04:48,315
+something like that.
+類似的事情。
+
+106
+00:04:49,925 --> 00:04:51,810
+And if I now use that ID here
+如果我現在在這裡使用該 ID
+
+107
+00:04:52,784 --> 00:04:54,262
+with my show modifier
+用我的顯示修改器
+
+108
+00:04:54,879 --> 00:04:57,525
+after a colon by selecting it like this,
+在冒號之後通過這樣選擇它，
+
+109
+00:04:59,346 --> 00:05:01,958
+then I'll make sure that I actually scroll
+然後我會確保我確實滾動
+
+110
+00:05:02,022 --> 00:05:04,391
+the browser to the top of this section
+瀏覽器到此部分的頂部
+
+111
+00:05:04,972 --> 00:05:07,106
+after this POST request here succeeded.
+在此 POST 請求成功後。
+
+112
+00:05:08,816 --> 00:05:10,413
+So with those changes made,
+因此，透過這些改變，
+
+113
+00:05:11,349 --> 00:05:13,657
+if we reload this page and again add one of
+如果我們重新載入此頁面並再次添加其中之一
+
+114
+00:05:13,657 --> 00:05:16,278
+the last elements, You see, we scroll up to
+最後一個元素，你看，我們向上捲到
+
+115
+00:05:16,310 --> 00:05:18,290
+the top of this section.
+本節的頂部。
+
+116
+00:05:19,674 --> 00:05:21,927
+And that's therefore another useful feature
+因此這是另一個有用的功能
+
+117
+00:05:21,943 --> 00:05:23,891
+and behavior you should be aware of.
+以及您應該注意的行為。

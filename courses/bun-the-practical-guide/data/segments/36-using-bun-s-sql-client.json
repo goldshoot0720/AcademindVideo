@@ -1,0 +1,612 @@
+[
+ {
+  "start": 0.176,
+  "end": 2.583,
+  "en": "When building web applications, you may be"
+ },
+ {
+  "start": 2.599,
+  "end": 5.713,
+  "en": "using SQLite, and an earlier lecture showed"
+ },
+ {
+  "start": 5.713,
+  "end": 8.04,
+  "en": "you how you could use Bun's built-in SQLite"
+ },
+ {
+  "start": 8.04,
+  "end": 10.944,
+  "en": "client for that. But if you're using a MySQL"
+ },
+ {
+  "start": 10.944,
+  "end": 13.576,
+  "en": "or a PostgreSQL database, Bun also got you"
+ },
+ {
+  "start": 13.576,
+  "end": 16.914,
+  "en": "covered because Bun includes a general SQL"
+ },
+ {
+  "start": 16.962,
+  "end": 19.867,
+  "en": "client as well, in addition to that separate"
+ },
+ {
+  "start": 19.867,
+  "end": 21.857,
+  "en": "SQLite client covered earlier."
+ },
+ {
+  "start": 22.82,
+  "end": 25.484,
+  "en": "As a side note, you can also use this SQL"
+ },
+ {
+  "start": 25.708,
+  "end": 28.725,
+  "en": "client for SQLite, but you'll see that in"
+ },
+ {
+  "start": 28.822,
+  "end": 29.688,
+  "en": "just a second."
+ },
+ {
+  "start": 30.282,
+  "end": 32.611,
+  "en": "Either way, it's built into Bun, no extra"
+ },
+ {
+  "start": 32.611,
+  "end": 34.907,
+  "en": "packages needed, and it then allows you to"
+ },
+ {
+  "start": 35.004,
+  "end": 37.67,
+  "en": "connect to a SQL database, a MySQL,"
+ },
+ {
+  "start": 37.814,
+  "end": 41.107,
+  "en": "PostgreSQL, or SQLite database. It supports"
+ },
+ {
+  "start": 41.107,
+  "end": 43.226,
+  "en": "connection pooling if the database server"
+ },
+ {
+  "start": 43.226,
+  "end": 45.587,
+  "en": "supports it, and it makes creating and"
+ },
+ {
+  "start": 45.619,
+  "end": 48.349,
+  "en": "executing SQL queries in a safe way,"
+ },
+ {
+  "start": 48.815,
+  "end": 51.417,
+  "en": "protected against SQL injection attacks, a"
+ },
+ {
+  "start": 51.481,
+  "end": 51.69,
+  "en": "breeze."
+ },
+ {
+  "start": 52.3,
+  "end": 54.902,
+  "en": "So to get started with Bun's built-in SQL"
+ },
+ {
+  "start": 55.014,
+  "end": 57.744,
+  "en": "client, I'm back in that same SQLite project"
+ },
+ {
+  "start": 57.744,
+  "end": 59.399,
+  "en": "I covered in earlier lectures."
+ },
+ {
+  "start": 60.298,
+  "end": 62.932,
+  "en": "In there, however, in DBTS, I'm no longer"
+ },
+ {
+  "start": 63.029,
+  "end": 65.823,
+  "en": "using BUNN's SQLite client, which of course"
+ },
+ {
+  "start": 65.936,
+  "end": 68.683,
+  "en": "you could use when working with SQLite, not"
+ },
+ {
+  "start": 68.683,
+  "end": 71.863,
+  "en": "a bad idea, but I'm using its SQL client"
+ },
+ {
+  "start": 71.863,
+  "end": 74.77,
+  "en": "because as mentioned, that also supports"
+ },
+ {
+  "start": 74.77,
+  "end": 77.485,
+  "en": "SQLite as one of the supported database"
+ },
+ {
+  "start": 77.565,
+  "end": 77.854,
+  "en": "engines."
+ },
+ {
+  "start": 78.465,
+  "end": 80.97,
+  "en": "Now, in order to use this SQL client, you"
+ },
+ {
+  "start": 80.97,
+  "end": 83.331,
+  "en": "start by instantiating it by creating an"
+ },
+ {
+  "start": 83.508,
+  "end": 86.448,
+  "en": "object based on it, so to say, where you can"
+ },
+ {
+  "start": 86.496,
+  "end": 89.224,
+  "en": "specify your adapter. Now, as a side note,"
+ },
+ {
+  "start": 89.609,
+  "end": 91.596,
+  "en": "you technically don't need to do that"
+ },
+ {
+  "start": 91.949,
+  "end": 94.802,
+  "en": "because Bun will take a look at the other"
+ },
+ {
+  "start": 94.979,
+  "end": 97.143,
+  "en": "hints it's getting, like for example, the"
+ },
+ {
+  "start": 97.143,
+  "end": 99.98,
+  "en": "existence of a filename, which tells it that"
+ },
+ {
+  "start": 99.98,
+  "end": 102.769,
+  "en": "it will be a SQLite database because for"
+ },
+ {
+  "start": 102.769,
+  "end": 104.949,
+  "en": "MySQL and PostgreSQL, you would have a"
+ },
+ {
+  "start": 104.949,
+  "end": 106.889,
+  "en": "server, you wouldn't have a filename there."
+ },
+ {
+  "start": 107.482,
+  "end": 109.662,
+  "en": "And for those databases, it would look at"
+ },
+ {
+  "start": 109.662,
+  "end": 112.419,
+  "en": "the connection URL to determine whether it's"
+ },
+ {
+  "start": 112.468,
+  "end": 115.561,
+  "en": "PostgreSQL or MySQL. But you can also"
+ },
+ {
+  "start": 115.577,
+  "end": 117.822,
+  "en": "explicitly state the adapter here if you"
+ },
+ {
+  "start": 117.838,
+  "end": 119.873,
+  "en": "want to. And at the point of time where"
+ },
+ {
+  "start": 119.89,
+  "end": 122.246,
+  "en": "recording this, the supported databases are"
+ },
+ {
+  "start": 122.246,
+  "end": 125.789,
+  "en": "SQLite, PostgreSQL, and MySQL, and also"
+ },
+ {
+  "start": 125.789,
+  "end": 128.305,
+  "en": "MariaDB. But in this course, I'll focus on"
+ },
+ {
+  "start": 128.498,
+  "end": 130.55,
+  "en": "SQLite and then later also Postgres."
+ },
+ {
+  "start": 131.447,
+  "end": 133.675,
+  "en": "So SQLite, it is here. Then we have some"
+ },
+ {
+  "start": 133.772,
+  "end": 136.0,
+  "en": "options which you may already know from the"
+ },
+ {
+  "start": 136.016,
+  "end": 138.613,
+  "en": "SQLite lectures, whether the database file"
+ },
+ {
+  "start": 138.613,
+  "end": 140.889,
+  "en": "should be created if it's not there, and"
+ },
+ {
+  "start": 141.001,
+  "end": 143.165,
+  "en": "strict settings which do some extra checks"
+ },
+ {
+  "start": 143.165,
+  "end": 144.143,
+  "en": "regarding parameters."
+ },
+ {
+  "start": 144.848,
+  "end": 148.071,
+  "en": "But the queries and SQL statements are then"
+ },
+ {
+  "start": 148.199,
+  "end": 150.475,
+  "en": "executed in a different way than before"
+ },
+ {
+  "start": 151.004,
+  "end": 153.633,
+  "en": "because instead of using that SQLite client,"
+ },
+ {
+  "start": 153.81,
+  "end": 156.198,
+  "en": "we're now using the SQL client and we run"
+ },
+ {
+  "start": 156.246,
+  "end": 159.806,
+  "en": "SQL queries through a special SQL tagged"
+ },
+ {
+  "start": 159.918,
+  "end": 161.12,
+  "en": "template literal."
+ },
+ {
+  "start": 161.762,
+  "end": 164.695,
+  "en": "That is simply the thing we get back from"
+ },
+ {
+  "start": 164.808,
+  "end": 168.207,
+  "en": "instantiating SQL, this SQL class here."
+ },
+ {
+  "start": 168.88,
+  "end": 171.637,
+  "en": "And that then may look a bit weird, but that"
+ },
+ {
+  "start": 171.637,
+  "end": 174.507,
+  "en": "is an official JavaScript and therefore also"
+ },
+ {
+  "start": 174.507,
+  "end": 175.533,
+  "en": "TypeScript feature."
+ },
+ {
+  "start": 176.11,
+  "end": 178.499,
+  "en": "You can think of it as a function that"
+ },
+ {
+  "start": 178.595,
+  "end": 182.091,
+  "en": "receives a template literal as an input. And"
+ },
+ {
+  "start": 182.188,
+  "end": 184.58,
+  "en": "the template literal content you pass in"
+ },
+ {
+  "start": 184.612,
+  "end": 187.63,
+  "en": "there is simply the SQL command or query you"
+ },
+ {
+  "start": 187.727,
+  "end": 190.713,
+  "en": "wanna execute. So here for SQLite, a pragma"
+ },
+ {
+  "start": 190.713,
+  "end": 193.105,
+  "en": "statement for setting up WAL mode, so to"
+ },
+ {
+  "start": 193.105,
+  "end": 193.651,
+  "en": "configure it,"
+ },
+ {
+  "start": 194.326,
+  "end": 196.365,
+  "en": "then this create table statement for"
+ },
+ {
+  "start": 196.493,
+  "end": 198.339,
+  "en": "creating a new table if it doesn't exist"
+ },
+ {
+  "start": 198.339,
+  "end": 198.596,
+  "en": "yet,"
+ },
+ {
+  "start": 199.222,
+  "end": 200.812,
+  "en": "and then also for creating an index."
+ },
+ {
+  "start": 201.631,
+  "end": 205.484,
+  "en": "And then later down below, also some extra"
+ },
+ {
+  "start": 205.629,
+  "end": 208.423,
+  "en": "queries for getting notes, for example."
+ },
+ {
+  "start": 209.178,
+  "end": 209.371,
+  "en": "Now,"
+ },
+ {
+  "start": 210.046,
+  "end": 213.628,
+  "en": "as mentioned, this SQL client also supports"
+ },
+ {
+  "start": 214.014,
+  "end": 217.018,
+  "en": "SQL statements that receive parameters, SQL"
+ },
+ {
+  "start": 217.131,
+  "end": 219.669,
+  "en": "queries that receive parameters, and it does"
+ },
+ {
+  "start": 219.701,
+  "end": 221.951,
+  "en": "so in a way that automatically protects"
+ },
+ {
+  "start": 222.031,
+  "end": 223.846,
+  "en": "against SQL injection attacks."
+ },
+ {
+  "start": 224.521,
+  "end": 227.236,
+  "en": "For example, here in getNode, we have the"
+ },
+ {
+  "start": 227.236,
+  "end": 229.55,
+  "en": "same approach as before using the SQL tagged"
+ },
+ {
+  "start": 229.582,
+  "end": 231.863,
+  "en": "template literal approach, but now in there"
+ },
+ {
+  "start": 232.458,
+  "end": 233.968,
+  "en": "you see the ID is"
+ },
+ {
+  "start": 234.627,
+  "end": 237.037,
+  "en": "inserted into that template literal. And"
+ },
+ {
+  "start": 237.214,
+  "end": 240.492,
+  "en": "that may look unsafe at first because it"
+ },
+ {
+  "start": 240.492,
+  "end": 243.159,
+  "en": "looks like we're just inserting whatever we"
+ },
+ {
+  "start": 243.32,
+  "end": 245.907,
+  "en": "receive here as an input. So that could"
+ },
+ {
+  "start": 245.955,
+  "end": 249.057,
+  "en": "potentially yield a SQL injection attack or"
+ },
+ {
+  "start": 249.33,
+  "end": 252.447,
+  "en": "lead to a SQL injection vulnerability. But"
+ },
+ {
+  "start": 252.479,
+  "end": 254.825,
+  "en": "that's not the case. This SQL tagged"
+ },
+ {
+  "start": 255.05,
+  "end": 257.027,
+  "en": "template literal feature provided by Bun"
+ },
+ {
+  "start": 257.445,
+  "end": 259.742,
+  "en": "will automatically sanitize the"
+ },
+ {
+  "start": 260.355,
+  "end": 262.81,
+  "en": "input you're injecting into it and will"
+ },
+ {
+  "start": 263.004,
+  "end": 264.845,
+  "en": "protect against those attacks. So this is"
+ },
+ {
+  "start": 264.861,
+  "end": 267.849,
+  "en": "the safe way of inserting something dynamic"
+ },
+ {
+  "start": 268.01,
+  "end": 269.331,
+  "en": "into the SQL statement."
+ },
+ {
+  "start": 270.921,
+  "end": 273.428,
+  "en": "And you cannot just do that here for your"
+ },
+ {
+  "start": 273.492,
+  "end": 274.183,
+  "en": "parameters"
+ },
+ {
+  "start": 274.842,
+  "end": 276.963,
+  "en": "when getting some data, but of course also,"
+ },
+ {
+  "start": 277.027,
+  "end": 280.069,
+  "en": "for example, here for the values that you"
+ },
+ {
+  "start": 280.149,
+  "end": 282.726,
+  "en": "may be inserting into a database with that"
+ },
+ {
+  "start": 282.806,
+  "end": 285.496,
+  "en": "INSERT statement, which again is executed"
+ },
+ {
+  "start": 285.544,
+  "end": 287.624,
+  "en": "with that SQL tagged template literal"
+ },
+ {
+  "start": 287.673,
+  "end": 289.232,
+  "en": "feature. That is how you send all your"
+ },
+ {
+  "start": 289.232,
+  "end": 292.332,
+  "en": "queries and statements to the database"
+ },
+ {
+  "start": 292.508,
+  "end": 294.208,
+  "en": "except for transactions to which I'll get"
+ },
+ {
+  "start": 294.208,
+  "end": 295.251,
+  "en": "back in just a second."
+ },
+ {
+  "start": 296.198,
+  "end": 299.374,
+  "en": "It's also worth noting that of course the"
+ },
+ {
+  "start": 299.999,
+  "end": 302.502,
+  "en": "statements, the queries you run can return"
+ },
+ {
+  "start": 302.63,
+  "end": 303.015,
+  "en": "data."
+ },
+ {
+  "start": 303.609,
+  "end": 306.544,
+  "en": "So you can get back a row that was fetched"
+ },
+ {
+  "start": 306.544,
+  "end": 309.191,
+  "en": "here, for example, which is why SQL is a"
+ },
+ {
+  "start": 309.191,
+  "end": 312.864,
+  "en": "generic function in the end and you define"
+ },
+ {
+  "start": 312.897,
+  "end": 315.078,
+  "en": "the data you know you'll be getting back to"
+ },
+ {
+  "start": 315.078,
+  "end": 316.313,
+  "en": "have type safety."
+ }
+]

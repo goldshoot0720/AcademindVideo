@@ -1,0 +1,737 @@
+[
+ {
+  "start": 0.112,
+  "end": 3.623,
+  "en": "Now, SSH hardening is about more than just"
+ },
+ {
+  "start": 3.623,
+  "end": 5.9,
+  "en": "using Fail2Ban. It's also about, for"
+ },
+ {
+  "start": 5.9,
+  "end": 8.834,
+  "en": "example, not even allowing root user access"
+ },
+ {
+  "start": 8.914,
+  "end": 11.864,
+  "en": "or password-based access. Because at the"
+ },
+ {
+  "start": 11.864,
+  "end": 14.221,
+  "en": "moment, and that's really important to"
+ },
+ {
+  "start": 14.221,
+  "end": 16.69,
+  "en": "understand, if I were to open a new terminal"
+ },
+ {
+  "start": 17.091,
+  "end": 18.999,
+  "en": "on my Mac or on your Windows machine,"
+ },
+ {
+  "start": 19.656,
+  "end": 22.125,
+  "en": "you could also connect to that VPS by using"
+ },
+ {
+  "start": 22.237,
+  "end": 24.931,
+  "en": "SSH as we did before, and then your username"
+ },
+ {
+  "start": 25.588,
+  "end": 28.394,
+  "en": "root, or in my case, Max, and then add the"
+ },
+ {
+  "start": 28.41,
+  "end": 28.875,
+  "en": "IP."
+ },
+ {
+  "start": 29.516,
+  "end": 32.724,
+  "en": "And not use that SSH key. So I'm not adding"
+ },
+ {
+  "start": 33.525,
+  "end": 34.76,
+  "en": "-i as we did before."
+ },
+ {
+  "start": 35.386,
+  "end": 36.909,
+  "en": "And if I hit Enter, I'm asked for my"
+ },
+ {
+  "start": 36.989,
+  "end": 38.994,
+  "en": "password. Now in the past, I didn't know"
+ },
+ {
+  "start": 39.074,
+  "end": 40.902,
+  "en": "what my root user password is, but I know"
+ },
+ {
+  "start": 40.918,
+  "end": 42.842,
+  "en": "the password for my Max user."
+ },
+ {
+  "start": 43.788,
+  "end": 44.959,
+  "en": "And if I enter that, boom,"
+ },
+ {
+  "start": 45.552,
+  "end": 46.065,
+  "en": "I'm connected."
+ },
+ {
+  "start": 46.835,
+  "end": 48.567,
+  "en": "And that is a little security issue here"
+ },
+ {
+  "start": 48.775,
+  "end": 50.475,
+  "en": "because that means that of course,"
+ },
+ {
+  "start": 50.844,
+  "end": 53.073,
+  "en": "theoretically, people could try to brute"
+ },
+ {
+  "start": 53.185,
+  "end": 55.543,
+  "en": "force their way into that or guess your"
+ },
+ {
+  "start": 55.591,
+  "end": 58.461,
+  "en": "password. And sure, Fail2Ban makes it a bit"
+ },
+ {
+  "start": 58.461,
+  "end": 60.289,
+  "en": "harder, but it's not impossible."
+ },
+ {
+  "start": 61.204,
+  "end": 63.435,
+  "en": "And for that reason, you typically wanna"
+ },
+ {
+  "start": 63.531,
+  "end": 66.388,
+  "en": "disable password authentication entirely,"
+ },
+ {
+  "start": 66.902,
+  "end": 70.096,
+  "en": "forcing people to log in with that SSH key."
+ },
+ {
+  "start": 70.577,
+  "end": 72.968,
+  "en": "And you typically also wanna disable root"
+ },
+ {
+  "start": 73.466,
+  "end": 75.809,
+  "en": "login so that people have to go through a"
+ },
+ {
+  "start": 75.954,
+  "end": 79.421,
+  "en": "user who does not have full root access by"
+ },
+ {
+  "start": 79.421,
+  "end": 79.742,
+  "en": "default."
+ },
+ {
+  "start": 80.303,
+  "end": 82.278,
+  "en": "So installing and running Fail2Ban is one"
+ },
+ {
+  "start": 82.55,
+  "end": 84.492,
+  "en": "important step, but not the only one. We"
+ },
+ {
+  "start": 84.781,
+  "end": 87.654,
+  "en": "also wanna go through further SSH hardening"
+ },
+ {
+  "start": 87.75,
+  "end": 90.174,
+  "en": "to make connecting via SSH more difficult."
+ },
+ {
+  "start": 91.377,
+  "end": 93.592,
+  "en": "And for that, we wanna tweak the SSH"
+ },
+ {
+  "start": 93.624,
+  "end": 96.497,
+  "en": "configuration on our VPS because that"
+ },
+ {
+  "start": 96.497,
+  "end": 99.289,
+  "en": "controls how other people, other machines"
+ },
+ {
+  "start": 99.402,
+  "end": 101.632,
+  "en": "like our MacBook, our Windows machine can"
+ },
+ {
+  "start": 101.729,
+  "end": 102.579,
+  "en": "connect to it."
+ },
+ {
+  "start": 103.494,
+  "end": 104.65,
+  "en": "And to do that, we use"
+ },
+ {
+  "start": 105.34,
+  "end": 108.582,
+  "en": "again the nano text editor and we could now"
+ },
+ {
+  "start": 108.774,
+  "end": 112.305,
+  "en": "access /etc/ssh/"
+ },
+ {
+  "start": 115.31,
+  "end": 117.3,
+  "en": "/sshd_config, and that gives us access to"
+ },
+ {
+  "start": 117.3,
+  "end": 120.989,
+  "en": "the configuration file for SSH on that VPS."
+ },
+ {
+  "start": 121.798,
+  "end": 123.627,
+  "en": "Now you can edit this file, you can"
+ },
+ {
+  "start": 123.74,
+  "end": 124.371,
+  "en": "absolutely do that,"
+ },
+ {
+  "start": 125.13,
+  "end": 128.212,
+  "en": "but a better pattern is to create a"
+ },
+ {
+  "start": 128.438,
+  "end": 129.842,
+  "en": "dedicated config file"
+ },
+ {
+  "start": 130.698,
+  "end": 133.313,
+  "en": "that will be merged with this config file"
+ },
+ {
+  "start": 133.523,
+  "end": 136.026,
+  "en": "and override parts of it. So that's what"
+ },
+ {
+  "start": 136.026,
+  "end": 138.204,
+  "en": "we'll do here. So I'll hit Ctrl+X to close"
+ },
+ {
+  "start": 138.237,
+  "end": 138.481,
+  "en": "this,"
+ },
+ {
+  "start": 139.348,
+  "end": 140.439,
+  "en": "And I'll then"
+ },
+ {
+  "start": 140.969,
+  "end": 144.115,
+  "en": "again use sudo nano, same path, but add"
+ },
+ {
+  "start": 144.805,
+  "end": 144.997,
+  "en": ".d"
+ },
+ {
+  "start": 145.688,
+  "end": 147.646,
+  "en": "after the config file name. That's important"
+ },
+ {
+  "start": 147.871,
+  "end": 149.941,
+  "en": "because that is now a directory with that"
+ },
+ {
+  "start": 149.941,
+  "end": 151.771,
+  "en": "name next to this config file,"
+ },
+ {
+  "start": 152.589,
+  "end": 153.36,
+  "en": "forward slash,"
+ },
+ {
+  "start": 154.05,
+  "end": 155.479,
+  "en": "and then any name of your choice, but a"
+ },
+ {
+  "start": 155.479,
+  "end": 159.299,
+  "en": "common choice is 99-hardening.conf. Now what"
+ },
+ {
+  "start": 159.411,
+  "end": 159.941,
+  "en": "will that do?"
+ },
+ {
+  "start": 161.177,
+  "end": 163.006,
+  "en": "That will add a new file with that name"
+ },
+ {
+  "start": 163.584,
+  "end": 166.939,
+  "en": "in that path. And I chose this name because"
+ },
+ {
+  "start": 167.196,
+  "end": 169.908,
+  "en": "in that sshd_config.d folder,"
+ },
+ {
+  "start": 170.503,
+  "end": 172.759,
+  "en": "Files will be ordered alphabetically. So"
+ },
+ {
+  "start": 172.759,
+  "end": 175.304,
+  "en": "this naturally will come last. At the"
+ },
+ {
+  "start": 175.304,
+  "end": 176.98,
+  "en": "moment, it should be the only file, but if"
+ },
+ {
+  "start": 177.028,
+  "end": 178.801,
+  "en": "we had more files, it will come last."
+ },
+ {
+  "start": 179.622,
+  "end": 183.472,
+  "en": "And the files in that folder will override"
+ },
+ {
+  "start": 183.505,
+  "end": 186.287,
+  "en": "the base configuration and the topmost file"
+ },
+ {
+  "start": 186.482,
+  "end": 189.31,
+  "en": "will have the highest priority. So 99 will"
+ },
+ {
+  "start": 189.391,
+  "end": 192.518,
+  "en": "have a pretty low priority. So using 99"
+ },
+ {
+  "start": 192.55,
+  "end": 194.452,
+  "en": "hardening.conf here simply allows us to have"
+ },
+ {
+  "start": 194.468,
+  "end": 196.418,
+  "en": "some config which we could override by in"
+ },
+ {
+  "start": 196.418,
+  "end": 197.571,
+  "en": "the future adding a"
+ },
+ {
+  "start": 198.155,
+  "end": 198.706,
+  "en": "99"
+ },
+ {
+  "start": 199.327,
+  "end": 200.963,
+  "en": "8-something file in front of it."
+ },
+ {
+  "start": 201.509,
+  "end": 203.162,
+  "en": "But in general, the file name is up to you."
+ },
+ {
+  "start": 203.66,
+  "end": 206.42,
+  "en": "All.conf files in that folder will be"
+ },
+ {
+  "start": 206.42,
+  "end": 208.217,
+  "en": "merged with the base config and will"
+ },
+ {
+  "start": 208.554,
+  "end": 210.737,
+  "en": "overwrite the base config regarding the"
+ },
+ {
+  "start": 210.737,
+  "end": 211.556,
+  "en": "settings they touch."
+ },
+ {
+  "start": 212.727,
+  "end": 215.52,
+  "en": "So if I hit Enter, I enter a brand new empty"
+ },
+ {
+  "start": 215.552,
+  "end": 217.638,
+  "en": "file because this file is literally just"
+ },
+ {
+  "start": 217.638,
+  "end": 219.403,
+  "en": "created in this moment. It didn't exist"
+ },
+ {
+  "start": 219.403,
+  "end": 219.676,
+  "en": "before."
+ },
+ {
+  "start": 220.447,
+  "end": 222.276,
+  "en": "And we can paste some settings in there and"
+ },
+ {
+  "start": 222.372,
+  "end": 224.828,
+  "en": "you'll find those settings attached, of"
+ },
+ {
+  "start": 224.86,
+  "end": 225.149,
+  "en": "course."
+ },
+ {
+  "start": 226.541,
+  "end": 228.641,
+  "en": "Now, what do these settings do?"
+ },
+ {
+  "start": 230.285,
+  "end": 231.197,
+  "en": "Pub key authentication,"
+ },
+ {
+  "start": 231.988,
+  "end": 232.278,
+  "en": "yes,"
+ },
+ {
+  "start": 233.198,
+  "end": 236.601,
+  "en": "ensures that we can connect via SSH to this"
+ },
+ {
+  "start": 236.601,
+  "end": 239.552,
+  "en": "VPS using an SSH key, which is the method"
+ },
+ {
+  "start": 239.568,
+  "end": 240.197,
+  "en": "we've been using."
+ },
+ {
+  "start": 241.53,
+  "end": 243.944,
+  "en": "Password authentication, no, disables"
+ },
+ {
+  "start": 244.218,
+  "end": 246.134,
+  "en": "password-based authentication though. And"
+ },
+ {
+  "start": 246.311,
+  "end": 249.611,
+  "en": "that's big and important because in the past"
+ },
+ {
+  "start": 249.611,
+  "end": 251.398,
+  "en": "we could connect via passwords"
+ },
+ {
+  "start": 252.026,
+  "end": 254.065,
+  "en": "And as mentioned, that's not perfectly"
+ },
+ {
+  "start": 254.065,
+  "end": 256.216,
+  "en": "secure. So we typically wanna disable this,"
+ },
+ {
+  "start": 256.538,
+  "end": 257.918,
+  "en": "which is just what this setting does."
+ },
+ {
+  "start": 259.026,
+  "end": 261.515,
+  "en": "KBD interactive authentication is a"
+ },
+ {
+  "start": 261.515,
+  "end": 264.372,
+  "en": "different authentication mechanism approach"
+ },
+ {
+  "start": 264.469,
+  "end": 266.106,
+  "en": "we're not using here, so we disable it."
+ },
+ {
+  "start": 266.893,
+  "end": 269.141,
+  "en": "Permit empty passwords, we disable so that"
+ },
+ {
+  "start": 269.141,
+  "end": 271.372,
+  "en": "users can't even try to connect without a"
+ },
+ {
+  "start": 271.372,
+  "end": 271.918,
+  "en": "password."
+ },
+ {
+  "start": 272.528,
+  "end": 272.833,
+  "en": "So"
+ },
+ {
+  "start": 273.941,
+  "end": 276.093,
+  "en": "that kind of goes together with disabling"
+ },
+ {
+  "start": 276.205,
+  "end": 277.859,
+  "en": "password authentication overall."
+ },
+ {
+  "start": 278.773,
+  "end": 281.145,
+  "en": "Permit_root_login is another important one."
+ },
+ {
+  "start": 281.257,
+  "end": 283.037,
+  "en": "This ensures that we won't be able to"
+ },
+ {
+  "start": 283.085,
+  "end": 285.313,
+  "en": "connect as the root user anymore. If you"
+ },
+ {
+  "start": 285.345,
+  "end": 287.557,
+  "en": "have an ongoing connection as the root user,"
+ },
+ {
+  "start": 288.07,
+  "end": 289.914,
+  "en": "that will keep on going, it will not be"
+ },
+ {
+  "start": 289.914,
+  "end": 291.837,
+  "en": "terminated, but you won't be able to"
+ },
+ {
+  "start": 291.837,
+  "end": 293.921,
+  "en": "establish a new one. You can only connect"
+ },
+ {
+  "start": 294.306,
+  "end": 297.528,
+  "en": "via your user instead, the max user in my"
+ },
+ {
+  "start": 297.528,
+  "end": 297.736,
+  "en": "case."
+ },
+ {
+  "start": 298.346,
+  "end": 300.782,
+  "en": "So permit_root_login set to no is a very"
+ },
+ {
+  "start": 300.814,
+  "end": 303.187,
+  "en": "important setting because it ensures that"
+ },
+ {
+  "start": 303.203,
+  "end": 305.816,
+  "en": "there isn't even a theoretical way of"
+ },
+ {
+  "start": 305.864,
+  "end": 308.14,
+  "en": "connecting as a root user to your VPS,"
+ },
+ {
+  "start": 308.813,
+  "end": 310.883,
+  "en": "which is good because root users have"
+ },
+ {
+  "start": 311.301,
+  "end": 313.597,
+  "en": "unlimited power on the VPS."
+ },
+ {
+  "start": 314.208,
+  "end": 317.26,
+  "en": "Max auth tries is self-explanatory, I guess."
+ },
+ {
+  "start": 317.742,
+  "end": 321.131,
+  "en": "And X11 forwarding is another interface"
+ },
+ {
+  "start": 321.179,
+  "end": 322.11,
+  "en": "we're disabling here,"
+ },
+ {
+  "start": 322.705,
+  "end": 324.15,
+  "en": "which could be used for connecting some"
+ },
+ {
+  "start": 324.231,
+  "end": 326.736,
+  "en": "graphical user interfaces to the VPS, which"
+ },
+ {
+  "start": 326.736,
+  "end": 328.423,
+  "en": "is something we're not using. If you want to"
+ },
+ {
+  "start": 328.423,
+  "end": 330.431,
+  "en": "connect a monitor or something like that."
+ },
+ {
+  "start": 330.993,
+  "end": 334.013,
+  "en": "Allow users, here you simply list the users"
+ },
+ {
+  "start": 334.27,
+  "end": 336.567,
+  "en": "that should be able to connect. And in my"
+ },
+ {
+  "start": 336.615,
+  "end": 338.237,
+  "en": "case, I only want to allow Max."
+ },
+ {
+  "start": 339.106,
+  "end": 342.78,
+  "en": "So now I'll quit this with Ctrl+X and hit Y"
+ },
+ {
+  "start": 342.894,
+  "end": 344.974,
+  "en": "to save and hit Enter to confirm the file"
+ },
+ {
+  "start": 345.039,
+  "end": 345.218,
+  "en": "name."
+ },
+ {
+  "start": 348.99,
+  "end": 350.922,
+  "en": "And with that done, nothing will happen"
+ },
+ {
+  "start": 351.116,
+  "end": 353.403,
+  "en": "because we changed the config, but it will"
+ },
+ {
+  "start": 353.468,
+  "end": 355.256,
+  "en": "not have been applied yet."
+ },
+ {
+  "start": 355.852,
+  "end": 356.754,
+  "en": "To apply it,"
+ },
+ {
+  "start": 357.301,
+  "end": 359.637,
+  "en": "you wanna run sudo sshd -t."
+ }
+]

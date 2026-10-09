@@ -1,0 +1,184 @@
+1
+00:00:00,112 --> 00:00:02,070
+And then there also is support for
+然後還有支援
+
+2
+00:00:02,183 --> 00:00:04,430
+transactions. So again, if you have multiple
+交易。再說一次，如果你有多個
+
+3
+00:00:04,446 --> 00:00:06,517
+statements that should be executed together,
+應一起執行的語句，
+
+4
+00:00:06,758 --> 00:00:08,781
+and if one of them fails, all should be
+如果其中一個失敗了，那麼所有的都應該是
+
+5
+00:00:08,845 --> 00:00:09,359
+rolled back,
+復原,
+
+6
+00:00:09,969 --> 00:00:11,735
+that can be done with a transaction, and
+這可以透過交易來完成，並且
+
+7
+00:00:11,896 --> 00:00:14,641
+Bun's SQL client supports it. You start a
+Bun的SQL使用者端支援它。你開始一個
+
+8
+00:00:14,657 --> 00:00:16,888
+transaction by calling begin on it. So
+交易透過呼叫開始就可以了。所以
+
+9
+00:00:16,888 --> 00:00:19,120
+instead of creating a tagged template
+而不是創建標記樣板
+
+10
+00:00:19,120 --> 00:00:21,416
+literal like we did before, we instead call
+就像我們之前所做的那樣，我們改為調用
+
+11
+00:00:21,480 --> 00:00:23,535
+a method on SQL, the begin method.
+SQL 上的一個方法，即 begin 方法。
+
+12
+00:00:24,257 --> 00:00:26,392
+That method takes an async callback
+此方法需要一個非同步回呼
+
+13
+00:00:26,505 --> 00:00:28,849
+function, and in that callback function, you
+函式，在該回呼函式中，您
+
+14
+00:00:28,929 --> 00:00:30,582
+use the transaction
+使用交易
+
+15
+00:00:31,176 --> 00:00:33,070
+parameter, which you get automatically
+參數，自動取得
+
+16
+00:00:33,182 --> 00:00:35,990
+provided by Bun. You use that to create a
+包子提供。你用它來創造一個
+
+17
+00:00:36,071 --> 00:00:38,334
+tagged template literal instead of SQL
+標記樣板文字而不是 SQL
+
+18
+00:00:38,863 --> 00:00:40,965
+inside of that callback, which you pass to
+在您傳遞給的回呼內部
+
+19
+00:00:40,965 --> 00:00:41,238
+begin.
+開始。
+
+20
+00:00:42,715 --> 00:00:45,892
+And that then is your SQL statement, your
+這就是你的 SQL 語句，你的
+
+21
+00:00:46,005 --> 00:00:48,717
+command, your query you wanna execute as
+命令，您想要執行的查詢
+
+22
+00:00:48,829 --> 00:00:49,487
+part of a
+的一部分
+
+23
+00:00:50,017 --> 00:00:52,488
+transaction. And of course, here you could
+交易。當然，在這裡你可以
+
+24
+00:00:52,504 --> 00:00:53,580
+have multiple
+有多個
+
+25
+00:00:54,109 --> 00:00:56,356
+queries, right? And they would all be
+查詢，對嗎？他們都會是
+
+26
+00:00:56,356 --> 00:00:58,490
+executed in one transaction. And again, if
+在一筆交易中執行。再說一次，如果
+
+27
+00:00:58,619 --> 00:01:01,216
+one of them fails, all of them fail and are
+其中一個失敗了，所有的都失敗了
+
+28
+00:01:01,489 --> 00:01:03,060
+rolled back. That's the idea.
+回滾了。就是這個想法。
+
+29
+00:01:03,588 --> 00:01:05,800
+And just as before, you have to await each
+和以前一樣，你必須等待每個
+
+30
+00:01:05,832 --> 00:01:08,317
+statement in there to actually then execute
+那裡的語句實際上然後執行
+
+31
+00:01:08,317 --> 00:01:10,352
+it, and you have to await the overall
+它，你必須等待整體
+
+32
+00:01:10,400 --> 00:01:13,061
+transaction to actually execute it. And that
+交易來實際執行它。還有那個
+
+33
+00:01:13,061 --> 00:01:15,273
+is all. That's how transactions are set up
+就是全部。這就是交易的設定方式
+
+34
+00:01:15,353 --> 00:01:18,526
+and executed. And Bun's SQL client supports
+並被處決。而且Bun的SQL使用者端支援
+
+35
+00:01:18,574 --> 00:01:20,946
+them out of the way. And just as the SQLite
+他們讓開。就像 SQLite 一樣
+
+36
+00:01:20,978 --> 00:01:23,703
+client, the SQL client also has a close
+使用者端，SQL使用者端也有一個關閉
+
+37
+00:01:23,703 --> 00:01:25,594
+method to close the database.
+方法關閉資料庫。

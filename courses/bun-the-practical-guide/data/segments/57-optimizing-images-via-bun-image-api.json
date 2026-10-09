@@ -1,0 +1,342 @@
+[
+ {
+  "start": 0.176,
+  "end": 3.851,
+  "en": "In this app here, we allow users to attach"
+ },
+ {
+  "start": 4.06,
+  "end": 6.13,
+  "en": "images to posts. And of course, on the"
+ },
+ {
+  "start": 6.13,
+  "end": 8.104,
+  "en": "frontend, we show those images."
+ },
+ {
+  "start": 8.698,
+  "end": 11.795,
+  "en": "And I wanna show optimized versions of these"
+ },
+ {
+  "start": 11.924,
+  "end": 13.817,
+  "en": "images. So what I'm doing here on the"
+ },
+ {
+  "start": 13.914,
+  "end": 18.279,
+  "en": "backend is I'm using the Bun Image API to"
+ },
+ {
+  "start": 18.712,
+  "end": 22.548,
+  "en": "get a file from R2 using the file method"
+ },
+ {
+  "start": 22.564,
+  "end": 25.645,
+  "en": "supported by Bun's S3 client to get hold of"
+ },
+ {
+  "start": 25.645,
+  "end": 26.062,
+  "en": "a file."
+ },
+ {
+  "start": 27.057,
+  "end": 27.442,
+  "en": "And then"
+ },
+ {
+  "start": 28.02,
+  "end": 30.957,
+  "en": "thankfully Bun automatically supports using"
+ },
+ {
+  "start": 31.005,
+  "end": 32.802,
+  "en": "such a remote stored file,"
+ },
+ {
+  "start": 33.797,
+  "end": 37.664,
+  "en": "S3 stored file as input for its image API."
+ },
+ {
+  "start": 38.001,
+  "end": 40.728,
+  "en": "So we can call image on that and I set up"
+ },
+ {
+  "start": 40.728,
+  "end": 43.167,
+  "en": "some maximum dimensions I expect that image"
+ },
+ {
+  "start": 43.28,
+  "end": 43.649,
+  "en": "to have."
+ },
+ {
+  "start": 44.307,
+  "end": 47.066,
+  "en": "Then I call the resize method supported by"
+ },
+ {
+  "start": 47.115,
+  "end": 48.206,
+  "en": "Bun's image API"
+ },
+ {
+  "start": 48.735,
+  "end": 50.388,
+  "en": "to set a specific width"
+ },
+ {
+  "start": 51.046,
+  "end": 52.618,
+  "en": "and height, which is the same because I"
+ },
+ {
+  "start": 52.731,
+  "end": 53.838,
+  "en": "wanna get a square image."
+ },
+ {
+  "start": 54.576,
+  "end": 57.673,
+  "en": "The fit I set to inside to avoid stretching."
+ },
+ {
+  "start": 58.202,
+  "end": 60.626,
+  "en": "And then I convert everything to a WebP"
+ },
+ {
+  "start": 60.754,
+  "end": 63.001,
+  "en": "format image. So no matter what the user"
+ },
+ {
+  "start": 63.017,
+  "end": 65.825,
+  "en": "uploaded, if it was a PNG or a JPEG, I"
+ },
+ {
+  "start": 65.825,
+  "end": 67.205,
+  "en": "convert it to a WebP"
+ },
+ {
+  "start": 67.735,
+  "end": 68.344,
+  "en": "and then I"
+ },
+ {
+  "start": 68.874,
+  "end": 71.458,
+  "en": "return this as a blob using the standard"
+ },
+ {
+  "start": 71.522,
+  "end": 74.074,
+  "en": "blob API. That is what optimizeImage on the"
+ },
+ {
+  "start": 74.074,
+  "end": 74.86,
+  "en": "backend does."
+ },
+ {
+  "start": 75.694,
+  "end": 77.588,
+  "en": "Now where is this being called? It's called"
+ },
+ {
+  "start": 77.62,
+  "end": 78.952,
+  "en": "in images.ts"
+ },
+ {
+  "start": 79.69,
+  "end": 82.001,
+  "en": "and images.ts is just another route"
+ },
+ {
+  "start": 82.017,
+  "end": 84.954,
+  "en": "registration file where I register one route"
+ },
+ {
+  "start": 85.082,
+  "end": 85.755,
+  "en": "a route for"
+ },
+ {
+  "start": 86.381,
+  "end": 88.577,
+  "en": "serving an image, for returning an image,"
+ },
+ {
+  "start": 88.769,
+  "end": 90.581,
+  "en": "and that route is called from the frontend"
+ },
+ {
+  "start": 90.597,
+  "end": 92.521,
+  "en": "whenever the image should be displayed."
+ },
+ {
+  "start": 93.178,
+  "end": 95.326,
+  "en": "And in that image route or in that route"
+ },
+ {
+  "start": 95.486,
+  "end": 96.047,
+  "en": "handler,"
+ },
+ {
+  "start": 96.689,
+  "end": 99.35,
+  "en": "I get hold of my storage object here,"
+ },
+ {
+  "start": 100.071,
+  "end": 101.883,
+  "en": "which is just that object I'm constructing"
+ },
+ {
+  "start": 101.915,
+  "end": 103.791,
+  "en": "here in the r2.ts file."
+ },
+ {
+  "start": 104.544,
+  "end": 107.013,
+  "en": "Then I'm getting my image data here from"
+ },
+ {
+  "start": 107.125,
+  "end": 108.568,
+  "en": "that uploads folder."
+ },
+ {
+  "start": 109.209,
+  "end": 112.383,
+  "en": "Then I see which width was requested because"
+ },
+ {
+  "start": 112.64,
+  "end": 115.189,
+  "en": "actually the client can request different"
+ },
+ {
+  "start": 115.221,
+  "end": 117.381,
+  "en": "widths for example, for mobile and"
+ },
+ {
+  "start": 118.042,
+  "end": 119.059,
+  "en": "desktop screens."
+ },
+ {
+  "start": 120.624,
+  "end": 123.706,
+  "en": "And then I get that image blob here, as you"
+ },
+ {
+  "start": 123.706,
+  "end": 126.945,
+  "en": "see, by calling that optimizeImage method I"
+ },
+ {
+  "start": 127.074,
+  "end": 129.312,
+  "en": "just showed you. That is what's happening"
+ },
+ {
+  "start": 129.312,
+  "end": 131.807,
+  "en": "here. And then that blob is returned as a"
+ },
+ {
+  "start": 131.807,
+  "end": 134.496,
+  "en": "response with some caching headers to make"
+ },
+ {
+  "start": 134.545,
+  "end": 136.385,
+  "en": "sure it can be cached efficiently."
+ },
+ {
+  "start": 137.063,
+  "end": 139.129,
+  "en": "And that response therefore then contains"
+ },
+ {
+  "start": 139.242,
+  "end": 141.163,
+  "en": "the optimized image, which is then the"
+ },
+ {
+  "start": 141.324,
+  "end": 143.778,
+  "en": "actual image that will be rendered and shown"
+ },
+ {
+  "start": 144.146,
+  "end": 147.498,
+  "en": "on the client. Therefore, my R2 bucket is"
+ },
+ {
+  "start": 147.69,
+  "end": 150.176,
+  "en": "still private. Nobody has access to it"
+ },
+ {
+  "start": 150.417,
+  "end": 153.127,
+  "en": "except for these temporary upload presigned"
+ },
+ {
+  "start": 153.127,
+  "end": 153.673,
+  "en": "URLs."
+ },
+ {
+  "start": 154.346,
+  "end": 157.057,
+  "en": "But the images can still be served since the"
+ },
+ {
+  "start": 157.057,
+  "end": 160.2,
+  "en": "serving logic goes through my Bun backend"
+ },
+ {
+  "start": 160.2,
+  "end": 163.472,
+  "en": "API where I then also optimize them. And"
+ },
+ {
+  "start": 163.568,
+  "end": 165.861,
+  "en": "that optimization happens using the Bun"
+ },
+ {
+  "start": 166.134,
+  "end": 168.604,
+  "en": "Image API, another amazing feature built"
+ },
+ {
+  "start": 168.684,
+  "end": 169.229,
+  "en": "into Bun."
+ }
+]

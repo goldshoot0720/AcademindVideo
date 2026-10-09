@@ -1,0 +1,334 @@
+1
+00:00:02,340 --> 00:00:04,937
+When you have deeply nested code like this,
+當你有這樣的深度嵌套程式碼時，
+
+2
+00:00:05,466 --> 00:00:07,614
+it can be overwhelming if you look at this
+如果你看到這個，你可能會感到不知所措
+
+3
+00:00:07,711 --> 00:00:08,015
+code.
+程式碼。
+
+4
+00:00:08,753 --> 00:00:09,875
+Where should you start?
+你該從哪裡開始？
+
+5
+00:00:10,516 --> 00:00:12,744
+Well, you're going to see various ways of
+好吧，你會看到各種方法
+
+6
+00:00:13,033 --> 00:00:15,101
+slimming this down and making it cleaner
+精簡並使其更乾淨
+
+7
+00:00:15,101 --> 00:00:17,393
+throughout this module, but one very
+在整個模組中，但有一個非常
+
+8
+00:00:17,506 --> 00:00:20,215
+efficient tweak which you can make in a lot
+您可以進行很多有效的調整
+
+9
+00:00:20,215 --> 00:00:23,485
+of cases is that you use so-called guards
+大多數情況是你使用所謂的警衛
+
+10
+00:00:23,822 --> 00:00:25,537
+and that you fail fast.
+而你很快就會失敗。
+
+11
+00:00:26,146 --> 00:00:27,012
+Now what does this mean?
+現在這意味著什麼？
+
+12
+00:00:27,910 --> 00:00:29,866
+Take a look at this simple snippet.
+看看這個簡單的片段。
+
+13
+00:00:30,411 --> 00:00:31,645
+We have an if check here
+我們在這裡有一個 if 檢查
+
+14
+00:00:32,238 --> 00:00:34,354
+where we check whether an email includes an@
+我們檢查電子郵件是否包含@
+
+15
+00:00:34,434 --> 00:00:36,903
+sign, and if that's the case, we do a bunch
+簽名，如果是這樣的話，我們會做很多
+
+16
+00:00:36,903 --> 00:00:38,907
+of work inside of that if statement.
+if 語句中的工作內容。
+
+17
+00:00:39,773 --> 00:00:41,921
+And that bunch of work could be multiple
+而這堆工作可能是多重的
+
+18
+00:00:41,937 --> 00:00:44,550
+lines of code. It could be as much as all
+程式碼行。它可能和所有的一樣多
+
+19
+00:00:44,678 --> 00:00:47,003
+the code you have here in the outermost if
+最外層 if 中的程式碼
+
+20
+00:00:47,003 --> 00:00:50,097
+statement. So all this code here ultimately
+陳述。所以所有這些程式碼最終都在這裡
+
+21
+00:00:50,193 --> 00:00:52,164
+is in this one if check here.
+如果在這裡檢查的話，就在這個裡面。
+
+22
+00:00:53,574 --> 00:00:55,209
+Now, if you have a case like this,
+現在，如果你有這樣的案例，
+
+23
+00:00:56,042 --> 00:00:57,901
+you often can use a guard,
+你常可以使用守衛，
+
+24
+00:00:58,446 --> 00:01:01,362
+which means you simply invert the if check.
+這意味著您只需反轉 if 檢查即可。
+
+25
+00:01:01,826 --> 00:01:03,861
+For example, in this case, by checking for
+例如，在本例中，透過檢查
+
+26
+00:01:03,893 --> 00:01:06,185
+the opposite with an exclamation mark. So
+相反，帶有感嘆號。所以
+
+27
+00:01:06,233 --> 00:01:08,973
+for the email not including the@ sign,
+對於不包含@符號的電子郵件，
+
+28
+00:01:09,742 --> 00:01:11,745
+and this is JavaScript, but of course you
+這是 JavaScript，但當然你
+
+29
+00:01:11,745 --> 00:01:14,405
+can do this in any programming language. The
+可以用任何程式語言來做到這一點。這
+
+30
+00:01:14,405 --> 00:01:16,392
+exact syntax might just matter.
+確切的語法可能很重要。
+
+31
+00:01:17,049 --> 00:01:18,699
+And then you do one important other thing.
+然後你做另一件重要的事情。
+
+32
+00:01:19,437 --> 00:01:22,103
+You just return inside of that if statement.
+您只需傳回該 if 語句即可。
+
+33
+00:01:22,825 --> 00:01:25,170
+And that means that you now use this if
+這意味著你現在使用這個 if
+
+34
+00:01:25,218 --> 00:01:29,217
+check as a guard. It runs before your main
+作為警衛進行檢查。它在你的主程式之前運行
+
+35
+00:01:29,313 --> 00:01:30,019
+code runs.
+程式碼運行。
+
+36
+00:01:30,598 --> 00:01:33,087
+And if you make it into this if check, so if
+如果你把它放入這個 if 檢查中，那麼如果
+
+37
+00:01:33,087 --> 00:01:35,720
+some condition is not met, in this case, if
+某些條件不滿足，在這種情況下，如果
+
+38
+00:01:35,752 --> 00:01:38,289
+the email does not include an@ sign, then
+電子郵件不包含@符號，那麼
+
+39
+00:01:38,562 --> 00:01:39,927
+you fail fast,
+你失敗得很快，
+
+40
+00:01:40,875 --> 00:01:43,749
+which means you return, which in the context
+這意味著你回傳，在上下文中
+
+41
+00:01:43,781 --> 00:01:46,303
+of a function means that the code thereafter
+函式的意思是後面的程式碼
+
+42
+00:01:46,736 --> 00:01:49,220
+all the code after the if statement won't
+if 語句之後的所有程式碼都不會
+
+43
+00:01:49,300 --> 00:01:49,796
+execute.
+執行。
+
+44
+00:01:51,062 --> 00:01:52,745
+This is what makes this if statement a
+這就是讓 if 語句成為
+
+45
+00:01:52,745 --> 00:01:55,934
+guard. It guards the rest of the code. If
+警衛。它保護程式碼的其餘部分。如果
+
+46
+00:01:55,966 --> 00:01:58,642
+this condition is not met, because we fail
+這個條件不滿足，因為我們失敗了
+
+47
+00:01:58,770 --> 00:02:01,670
+fast, we avoid that the other code will run
+快，我們避免其他程式碼運行
+
+48
+00:02:01,670 --> 00:02:01,847
+at all.
+根本不。
+
+49
+00:02:02,840 --> 00:02:05,196
+And we had the same behavior on the left
+我們左邊也有同樣的行為
+
+50
+00:02:05,196 --> 00:02:08,753
+side, but there the to-be-executed code was
+一側，但要執行的程式碼是
+
+51
+00:02:09,009 --> 00:02:11,076
+inside of the if statement and therefore it
+在 if 語句內部，因此它
+
+52
+00:02:11,093 --> 00:02:14,074
+was nested inside of it making it harder to
+嵌套在其內部，使其更難
+
+53
+00:02:14,138 --> 00:02:14,331
+read.
+讀。
+
+54
+00:02:15,181 --> 00:02:17,828
+A guard is typically way easier to read and
+守衛通常更容易閱讀和
+
+55
+00:02:17,844 --> 00:02:18,614
+to understand.
+去理解。
+
+56
+00:02:19,529 --> 00:02:21,663
+And you cannot just use that if you have one
+如果你有的話你不能只使用它
+
+57
+00:02:21,855 --> 00:02:23,732
+if statement which wraps all your other
+if 語句包裝了所有其他語句
+
+58
+00:02:23,844 --> 00:02:26,508
+code. You can also use a guard if you have a
+程式碼。如果您有守衛，您也可以使用守衛
+
+59
+00:02:26,508 --> 00:02:29,251
+nested if statement in another if statement.
+將 if 語句嵌套在另一個 if 語句中。
+
+60
+00:02:29,877 --> 00:02:32,331
+For example, let's say here, hasPurchases.
+例如，我們在這裡說 hasPurchases。
+
+61
+00:02:33,005 --> 00:02:35,331
+We could also outsource this and turn this
+我們也可以將其外包並轉變為
+
+62
+00:02:35,412 --> 00:02:38,524
+into a guard where we fail fast so that we
+進入一個我們快速失敗的守衛，這樣我們
+
+63
+00:02:38,540 --> 00:02:40,690
+then have 2 consecutive if statements
+然後有 2 個連續的 if 語句
+
+64
+00:02:40,866 --> 00:02:42,663
+instead of one deeply nested one.
+而不是一個深層嵌套的。
+
+65
+00:02:43,761 --> 00:02:46,056
+And this is a super efficient technique for
+這是一種超級有效的技術
+
+66
+00:02:46,735 --> 00:02:48,965
+removing unnecessary nesting.
+刪除不必要的嵌套。
+
+67
+00:02:49,498 --> 00:02:51,196
+Now let's apply it to our example.
+現在讓我們將其應用到我們的範例中。

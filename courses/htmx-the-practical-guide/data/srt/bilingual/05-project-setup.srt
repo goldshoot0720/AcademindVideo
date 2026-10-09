@@ -1,0 +1,529 @@
+1
+00:00:00,352 --> 00:00:03,798
+Now, for this section here, I prepared a
+現在，對於這一部分，我準備了一個
+
+2
+00:00:03,862 --> 00:00:04,583
+basic
+基本的
+
+3
+00:00:05,144 --> 00:00:06,971
+demo application, a dummy
+演示應用程式，一個虛擬的
+
+4
+00:00:07,548 --> 00:00:10,160
+app which we'll use to dive into those
+我們將用它來深入研究這些應用程式
+
+5
+00:00:10,448 --> 00:00:11,618
+essential features.
+基本特徵。
+
+6
+00:00:12,516 --> 00:00:15,384
+And it's a Node.js application, specifically
+它是一個 Node.js 應用程式，特別是
+
+7
+00:00:15,497 --> 00:00:17,436
+a Node.js Express
+Node.js Express
+
+8
+00:00:18,045 --> 00:00:20,961
+application. So an application that uses the
+應用。所以一個應用程式使用
+
+9
+00:00:20,961 --> 00:00:23,766
+Node.js Express framework.
+Node.js Express 框架。
+
+10
+00:00:24,615 --> 00:00:24,888
+And
+和
+
+11
+00:00:25,497 --> 00:00:28,317
+you might be wondering, why is that the
+你可能想知道，為什麼
+
+12
+00:00:28,317 --> 00:00:30,689
+case? Isn't this course about Angular?
+案件？這門課程不是關於 Angular 的嗎？
+
+13
+00:00:32,629 --> 00:00:34,055
+Well, yes, it is,
+嗯，是的，確實如此，
+
+14
+00:00:34,809 --> 00:00:39,778
+but HTMX is a library that aims to simplify
+但 HTMX 是一個旨在簡化
+
+15
+00:00:39,778 --> 00:00:41,189
+the process of sending
+發送的過程
+
+16
+00:00:41,766 --> 00:00:44,155
+AJAX requests mostly.
+主要是 AJAX 請求。
+
+17
+00:00:45,085 --> 00:00:48,467
+So that aims to simplify the process of
+這樣的目的是簡化流程
+
+18
+00:00:48,515 --> 00:00:51,753
+sending behind-the-scenes requests from
+發送後台請求
+
+19
+00:00:51,962 --> 00:00:52,892
+inside a website
+在網站內
+
+20
+00:00:53,549 --> 00:00:56,338
+and of handling the responses to those
+以及處理對這些問題的回應
+
+21
+00:00:56,370 --> 00:00:56,947
+requests.
+請求。
+
+22
+00:00:58,359 --> 00:01:00,188
+So therefore, in order to
+因此，為了
+
+23
+00:01:00,766 --> 00:01:04,375
+use HTMX and in order for me to show you the
+使用 HTMX，以便我向您展示
+
+24
+00:01:04,375 --> 00:01:07,199
+core features that make up HTMX,
+構成 HTMX 的核心功能，
+
+25
+00:01:07,841 --> 00:01:11,515
+we need a backend server. We need a server
+我們需要一個後端伺服器。我們需要一台伺服器
+
+26
+00:01:11,515 --> 00:01:14,788
+to which those requests can be sent, and
+這些請求可以發送到的目標，以及
+
+27
+00:01:14,900 --> 00:01:17,627
+that will be this Node.js Express server.
+這就是 Node.js Express 伺服器。
+
+28
+00:01:18,109 --> 00:01:22,553
+Now, I also use this server to then render
+現在，我也使用這個伺服器來渲染
+
+29
+00:01:22,585 --> 00:01:25,136
+the page which we'll see on the screen and
+我們將在螢幕上看到的頁面以及
+
+30
+00:01:25,328 --> 00:01:27,975
+where we'll use HTMX though.
+不過我們將在其中使用 HTMX。
+
+31
+00:01:28,937 --> 00:01:33,090
+Because whilst that could be a decoupled web
+因為雖然這可能是個解耦的網路
+
+32
+00:01:33,090 --> 00:01:35,929
+application, a decoupled frontend,
+應用程式，解耦的前端，
+
+33
+00:01:36,538 --> 00:01:41,205
+it's quite common when working with HTMX
+使用 HTMX 時很常見
+
+34
+00:01:41,766 --> 00:01:44,556
+to use it in the context of a full-stack
+在全端上下文中使用它
+
+35
+00:01:44,717 --> 00:01:48,197
+application where you as a developer work on
+您作為開發人員所從事的應用程式
+
+36
+00:01:48,421 --> 00:01:52,125
+both the backend and the frontend and where
+後端和前端以及在哪裡
+
+37
+00:01:52,334 --> 00:01:56,311
+HTMX is used on pages that are rendered by
+HTMX 用於渲染的頁面
+
+38
+00:01:56,439 --> 00:01:59,726
+the backend. Because as you'll also see
+後端。因為正如您也會看到的
+
+39
+00:01:59,726 --> 00:02:02,002
+throughout this section and this course,
+在本節和本課程中，
+
+40
+00:02:02,852 --> 00:02:06,379
+those requests which HTMX will send to the
+HTMX 將會發送到的那些請求
+
+41
+00:02:06,379 --> 00:02:06,956
+backend
+後端
+
+42
+00:02:07,485 --> 00:02:11,909
+actually require responses that send back
+實際上需要發回的回應
+
+43
+00:02:11,909 --> 00:02:15,885
+HTML code. So you'll need to make sure that
+HTML 程式碼。所以你需要確保
+
+44
+00:02:15,901 --> 00:02:19,075
+your backend does that anyways, and that's
+無論如何你的後端都會這麼做，那就是
+
+45
+00:02:19,428 --> 00:02:21,576
+why it is quite common to have one
+為什麼擁有一個很常見
+
+46
+00:02:21,848 --> 00:02:23,339
+integrated application.
+綜合應用。
+
+47
+00:02:24,719 --> 00:02:26,951
+And that is exactly what we have here in
+這正是我們在這裡所擁有的
+
+48
+00:02:27,063 --> 00:02:29,696
+this starting project. It's a very simple
+這個起始專案。這是一個非常簡單的
+
+49
+00:02:29,728 --> 00:02:33,532
+Node.js application which offers a GET route
+提供 GET 路由的 Node.js 應用程式
+
+50
+00:02:33,645 --> 00:02:36,213
+to which we can send requests where I send
+我們可以將請求發送到我發送的地方
+
+51
+00:02:36,294 --> 00:02:37,465
+back a document,
+回傳文檔，
+
+52
+00:02:38,445 --> 00:02:41,527
+a document where I have some dummy content.
+我有一些虛擬內容的文檔。
+
+53
+00:02:42,378 --> 00:02:44,930
+And that's all I have for now. And we'll add
+這就是我現在所擁有的一切。我們將添加
+
+54
+00:02:45,026 --> 00:02:47,739
+more to this app. And most importantly,
+有關此應用程式的更多資訊。最重要的是，
+
+55
+00:02:47,852 --> 00:02:50,484
+we'll add a lot of HTMX code to this app
+我們將向此應用程式添加大量 HTMX 程式碼
+
+56
+00:02:50,790 --> 00:02:51,913
+throughout this section.
+貫穿本節。
+
+57
+00:02:52,828 --> 00:02:56,007
+Now, what's worth noting is that here in
+現在，值得注意的是，在
+
+58
+00:02:56,184 --> 00:02:59,363
+this example project, and actually in all
+這個範例專案，實際上在所有
+
+59
+00:02:59,796 --> 00:03:01,369
+the example projects I'll
+我將的範例專案
+
+60
+00:03:02,060 --> 00:03:03,457
+give you throughout this course,
+在整個課程中為您提供，
+
+61
+00:03:04,291 --> 00:03:06,603
+I put this HTML code
+我把這個 HTML 程式碼
+
+62
+00:03:07,261 --> 00:03:09,589
+into a string and I'm sending back that
+放入一個字串中，然後我將其發回
+
+63
+00:03:09,589 --> 00:03:12,447
+string which contains the HTML code as a
+包含 HTML 程式碼的字串
+
+64
+00:03:12,495 --> 00:03:14,791
+response from that server to the frontend.
+從該伺服器到前端的回應。
+
+65
+00:03:15,722 --> 00:03:16,718
+Of course, in
+當然，在
+
+66
+00:03:17,312 --> 00:03:21,328
+bigger Node.js projects, you might instead
+更大的 Node.js 專案，你可以改成
+
+67
+00:03:21,328 --> 00:03:24,445
+use a template engine like EJS or
+使用 EJS 等樣板引擎或
+
+68
+00:03:24,445 --> 00:03:25,232
+Handlebars.
+車把。
+
+69
+00:03:25,826 --> 00:03:28,204
+And I just wanna emphasize that you would of
+我只是想強調你會的
+
+70
+00:03:28,236 --> 00:03:32,221
+course use HTMX in exactly the same way as
+當然使用 HTMX 的方式與
+
+71
+00:03:32,317 --> 00:03:35,241
+you'll learn it in this course if you were
+如果您是，您將在本課程中學到
+
+72
+00:03:35,530 --> 00:03:36,896
+using such a setup.
+使用這樣的設定。
+
+73
+00:03:37,538 --> 00:03:41,555
+I just use this string-based solution so
+我只是使用這個基於字串的解決方案所以
+
+74
+00:03:41,555 --> 00:03:44,045
+that all the code is essentially in one
+所有程式碼本質上都在一個中
+
+75
+00:03:44,045 --> 00:03:46,530
+place and we don't have to deal with a lot
+地方，我們不需要處理很多事情
+
+76
+00:03:46,530 --> 00:03:48,438
+of subfolders and files.
+子資料夾和檔案。
+
+77
+00:03:49,176 --> 00:03:51,260
+But in the end, the result will be the same.
+但最終的結果都會是一樣的。
+
+78
+00:03:51,613 --> 00:03:55,333
+Some HTML code, some HTML document, you
+一些 HTML 程式碼，一些 HTML 文檔，你
+
+79
+00:03:55,365 --> 00:03:55,717
+could say,
+可以說，
+
+80
+00:03:56,391 --> 00:03:59,373
+is sent back from the server to the client,
+從伺服器發送回使用者端，
+
+81
+00:03:59,453 --> 00:04:00,672
+to the browser therefore.
+因此到瀏覽器。
+
+82
+00:04:01,201 --> 00:04:05,754
+And that HTML code can contain HTMX and can
+HTML 程式碼可以包含 HTMX 並且可以
+
+83
+00:04:05,851 --> 00:04:10,484
+use HTMX, no matter how that HTML code is
+使用 HTMX，無論 HTML 程式碼為何
+
+84
+00:04:10,580 --> 00:04:12,841
+generated or stored on the server.
+產生或儲存在伺服器上。
+
+85
+00:04:13,546 --> 00:04:15,549
+Now, in order to use this attached project,
+現在，為了使用這個附加專案，
+
+86
+00:04:15,710 --> 00:04:17,697
+you should therefore download it and then
+因此你應該下載它然後
+
+87
+00:04:17,793 --> 00:04:20,677
+run npm install to make sure that all the
+運行 npm install 以確保所有
+
+88
+00:04:20,677 --> 00:04:22,568
+dependencies that are required are
+所需的依賴項是
+
+89
+00:04:22,697 --> 00:04:23,273
+installed.
+安裝。
+
+90
+00:04:24,700 --> 00:04:28,049
+And then you can start this Node.js server
+然後你就可以啟動這個 Node.js 伺服器了
+
+91
+00:04:28,065 --> 00:04:29,555
+by running npm start.
+透過運行 npm start 。
+
+92
+00:04:30,773 --> 00:04:33,273
+And this will start in watch mode so that
+這將以觀看模式啟動，以便
+
+93
+00:04:33,273 --> 00:04:35,308
+whenever you make changes to the Node.js
+每當你對 Node.js 進行更改時
+
+94
+00:04:35,437 --> 00:04:37,680
+code and you save them and you then reload
+程式碼並儲存它們然後重新載入
+
+95
+00:04:37,680 --> 00:04:38,145
+the page,
+頁面，
+
+96
+00:04:38,722 --> 00:04:41,018
+those changes are reflected instantly
+這些變化會立即反映出來
+
+97
+00:04:41,275 --> 00:04:43,620
+without you needing to restart the server.
+無需重新啟動伺服器。
+
+98
+00:04:44,985 --> 00:04:46,848
+And you should of course keep that server up
+你當然應該保持伺服器正常運行
+
+99
+00:04:46,848 --> 00:04:48,807
+and running as long as you are working on
+只要你在工作，就跑步
+
+100
+00:04:48,839 --> 00:04:52,517
+the project so that you can send requests to
+專案，以便您可以將請求發送到
+
+101
+00:04:52,533 --> 00:04:52,742
+it.
+它。
+
+102
+00:04:53,737 --> 00:04:57,880
+With it started, it's then localhost:3000 to
+啟動後，它是 localhost:3000
+
+103
+00:04:57,897 --> 00:04:59,984
+which you can send a request in your browser
+您可以在瀏覽器中發送請求
+
+104
+00:05:00,257 --> 00:05:03,116
+to load this dummy starting website. And
+載入這個虛擬起始網站。和
+
+105
+00:05:03,132 --> 00:05:05,476
+that's now where we'll get started with
+這就是我們現在開始的地方
+
+106
+00:05:05,541 --> 00:05:06,392
+HTMX.
+HTMX。

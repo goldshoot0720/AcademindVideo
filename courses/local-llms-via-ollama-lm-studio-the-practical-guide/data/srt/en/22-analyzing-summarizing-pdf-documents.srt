@@ -1,0 +1,327 @@
+1
+00:00:00,753 --> 00:00:01,843
+Now, besides
+
+2
+00:00:02,500 --> 00:00:05,514
+uploading and handling images, which again
+
+3
+00:00:05,883 --> 00:00:08,816
+must be supported by the model you're using
+
+4
+00:00:09,089 --> 00:00:11,541
+to be an option, besides doing that, you can
+
+5
+00:00:11,637 --> 00:00:14,363
+also attach other files like for example,
+
+6
+00:00:14,459 --> 00:00:17,392
+PDF, plain text, or Word documents.
+
+7
+00:00:18,049 --> 00:00:19,877
+Now, at least at the point of time where I'm
+
+8
+00:00:19,909 --> 00:00:22,634
+recording this, an info popup opens if I
+
+9
+00:00:22,634 --> 00:00:24,526
+choose that option to attach a file.
+
+10
+00:00:25,503 --> 00:00:28,549
+And in this info popup, I get informed about
+
+11
+00:00:28,549 --> 00:00:31,531
+the file types I can add and that at least
+
+12
+00:00:31,531 --> 00:00:33,342
+right now, when I'm recording this, I can
+
+13
+00:00:33,518 --> 00:00:37,636
+upload up to 5 files with a maximum combined
+
+14
+00:00:37,636 --> 00:00:41,033
+size of 30 megabytes. Now, of course, when
+
+15
+00:00:41,129 --> 00:00:43,068
+you're viewing this video, you might no
+
+16
+00:00:43,148 --> 00:00:45,231
+longer get this message. The limits also
+
+17
+00:00:45,247 --> 00:00:47,330
+might have changed. But in general, when
+
+18
+00:00:47,458 --> 00:00:50,054
+working with those local models, just
+
+19
+00:00:50,054 --> 00:00:53,563
+slamming dozens of large files all into this
+
+20
+00:00:53,563 --> 00:00:56,687
+one chat session typically won't be a good
+
+21
+00:00:56,687 --> 00:00:59,219
+idea. If you wanna process multiple files,
+
+22
+00:00:59,716 --> 00:01:02,378
+you should do it in chunk. The context
+
+23
+00:01:02,378 --> 00:01:04,463
+window size will also matter, but that's
+
+24
+00:01:04,463 --> 00:01:05,843
+something I'll get back to later.
+
+25
+00:01:06,693 --> 00:01:09,548
+In general, what LM Studio will try to do
+
+26
+00:01:09,836 --> 00:01:12,948
+with any files you give it is it will try to
+
+27
+00:01:13,525 --> 00:01:16,958
+load the content of this file into the chat
+
+28
+00:01:16,958 --> 00:01:17,311
+history
+
+29
+00:01:18,000 --> 00:01:20,871
+invisibly behind the scenes, as if you would
+
+30
+00:01:20,903 --> 00:01:23,710
+have copy and pasted that content into the
+
+31
+00:01:23,710 --> 00:01:24,159
+history.
+
+32
+00:01:24,913 --> 00:01:27,784
+If that's not possible because the context
+
+33
+00:01:27,784 --> 00:01:30,253
+window and again, I'll get back to this, is
+
+34
+00:01:30,365 --> 00:01:32,609
+not sufficient. So if the model as it's
+
+35
+00:01:32,609 --> 00:01:34,581
+currently configured would not be able to
+
+36
+00:01:34,597 --> 00:01:37,418
+handle that amount of input, if that's not
+
+37
+00:01:37,418 --> 00:01:37,851
+possible,
+
+38
+00:01:38,444 --> 00:01:41,089
+LM Studio will actually try to split the
+
+39
+00:01:41,089 --> 00:01:44,551
+content into smaller chunks for you and try
+
+40
+00:01:44,551 --> 00:01:47,997
+to retrieve the relevant chunks based on the
+
+41
+00:01:47,997 --> 00:01:49,568
+prompt you sent to the model.
+
+42
+00:01:50,482 --> 00:01:52,229
+That's a technique called retrieval
+
+43
+00:01:52,389 --> 00:01:54,970
+augmented generation, and LM Studio will do
+
+44
+00:01:54,970 --> 00:01:57,264
+it for you. When uploading files.
+
+45
+00:01:57,858 --> 00:01:59,752
+And again, the context window part is
+
+46
+00:01:59,784 --> 00:02:02,096
+something we'll explore later. Now here for
+
+47
+00:02:02,096 --> 00:02:02,513
+this demo,
+
+48
+00:02:03,139 --> 00:02:04,199
+I will upload a
+
+49
+00:02:04,745 --> 00:02:06,751
+pretty small PDF document.
+
+50
+00:02:07,955 --> 00:02:11,134
+It's just a very simple made-up financial
+
+51
+00:02:11,246 --> 00:02:13,638
+report PDF that includes a bunch of
+
+52
+00:02:14,072 --> 00:02:16,688
+information about made-up financials and
+
+53
+00:02:16,785 --> 00:02:17,218
+numbers.
+
+54
+00:02:18,326 --> 00:02:20,461
+But of course, we can also use locally
+
+55
+00:02:20,477 --> 00:02:22,548
+running large language models like this one
+
+56
+00:02:22,644 --> 00:02:25,115
+here for summarizing documents like this.
+
+57
+00:02:25,371 --> 00:02:27,681
+And indeed, that is a task they're really,
+
+58
+00:02:27,938 --> 00:02:30,039
+really good at. I will also say that the
+
+59
+00:02:30,103 --> 00:02:32,750
+Gemma models, for example, do support quite
+
+60
+00:02:32,750 --> 00:02:35,124
+large context windows if you configure them
+
+61
+00:02:35,172 --> 00:02:37,659
+appropriately. So they can handle quite a
+
+62
+00:02:37,819 --> 00:02:40,065
+lot of information and, for example,
+
+63
+00:02:40,081 --> 00:02:41,107
+summarize it for you.
+
+64
+00:02:41,829 --> 00:02:44,556
+So for example, here I'll ask Gemma 3, the
+
+65
+00:02:44,733 --> 00:02:46,738
+12 billion parameters model again, to
+
+66
+00:02:46,738 --> 00:02:48,807
+summarize this document and extract the key
+
+67
+00:02:48,807 --> 00:02:50,427
+insights and financials for me.
+
+68
+00:02:51,212 --> 00:02:53,263
+And that, again, as I just mentioned, is one
+
+69
+00:02:53,600 --> 00:02:56,532
+core use case for using large language
+
+70
+00:02:56,661 --> 00:02:58,359
+models that are running locally on your
+
+71
+00:02:58,359 --> 00:03:00,715
+system. They're really good at that. And of
+
+72
+00:03:00,747 --> 00:03:02,942
+course, the huge advantage is that you don't
+
+73
+00:03:02,942 --> 00:03:04,801
+need to share information like this, which
+
+74
+00:03:04,913 --> 00:03:06,499
+potentially might, of course, be
+
+75
+00:03:06,499 --> 00:03:08,807
+confidential, or which you simply don't want
+
+76
+00:03:08,823 --> 00:03:11,531
+to share with everyone, with OpenAI or any
+
+77
+00:03:11,563 --> 00:03:14,832
+other provider. Instead, you can perform
+
+78
+00:03:14,848 --> 00:03:17,573
+tasks like this locally on your system, by
+
+79
+00:03:17,573 --> 00:03:20,011
+simply uploading documents to LM Studio and
+
+80
+00:03:20,060 --> 00:03:22,805
+then working on them with your favorite
+
+81
+00:03:22,805 --> 00:03:24,355
+large language model, in this case, the
+
+82
+00:03:24,355 --> 00:03:25,356
+Gemma 3 model.

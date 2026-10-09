@@ -1,0 +1,489 @@
+1
+00:00:00,176 --> 00:00:04,220
+Now, if you are using an AI agent on a
+現在，如果您正在使用人工智慧代理
+
+2
+00:00:04,285 --> 00:00:07,270
+system, as I'm doing it here on a VPS,
+系統，就像我在 VPS 上所做的那樣，
+
+3
+00:00:07,992 --> 00:00:11,796
+sometimes permissions can be a problem. And
+有時權限可能是一個問題。和
+
+4
+00:00:11,988 --> 00:00:14,315
+the main takeaway, just to get that out of
+主要的收穫，只是為了從中得到
+
+5
+00:00:14,315 --> 00:00:15,679
+the way, is that
+方式，就是這樣
+
+6
+00:00:16,305 --> 00:00:20,093
+there isn't really a secure way around this
+沒有真正安全的方法來解決這個問題
+
+7
+00:00:20,093 --> 00:00:22,805
+problem. If you want to give your agent more
+問題。如果你想給你的經紀人更多
+
+8
+00:00:22,821 --> 00:00:24,988
+permissions, you have to live with the fact
+權限，你必須接受事實
+
+9
+00:00:25,068 --> 00:00:27,361
+that more things can go wrong.
+更多的事情可能會出錯。
+
+10
+00:00:28,179 --> 00:00:29,797
+Or if you don't want to give it the
+或者如果你不想給它
+
+11
+00:00:29,797 --> 00:00:31,960
+permissions, you have to live with the fact
+權限，你必須接受事實
+
+12
+00:00:31,960 --> 00:00:34,685
+that it can't do as much stuff. You have to
+它不能做那麼多事情。你必須
+
+13
+00:00:34,685 --> 00:00:37,297
+choose one of these 2 things essentially.
+本質上選擇這兩件事之一。
+
+14
+00:00:37,810 --> 00:00:40,341
+With that in mind though, what you can do
+考慮到這一點，你可以做什麼
+
+15
+00:00:41,319 --> 00:00:42,313
+outside of the agent
+代理之外
+
+16
+00:00:42,921 --> 00:00:46,511
+is you can edit your VPS user, or you can
+您可以編輯您的 VPS 使用者，或者您可以
+
+17
+00:00:46,527 --> 00:00:49,171
+create a new one for the agent and edit it
+為代理程式建立一個新代理並對其進行編輯
+
+18
+00:00:49,171 --> 00:00:52,589
+such that it can get sudo access for all
+這樣它就可以獲得所有人的 sudo 存取權限
+
+19
+00:00:52,798 --> 00:00:54,622
+commands or certain commands
+命令或某些命令
+
+20
+00:00:55,380 --> 00:00:58,074
+without being asked for the password, with
+無需輸入密碼，
+
+21
+00:00:58,268 --> 00:01:00,559
+all the negative consequences this has, of
+這所帶來的所有負面後果
+
+22
+00:01:00,623 --> 00:01:00,833
+course.
+課程。
+
+23
+00:01:01,430 --> 00:01:01,951
+What you can do
+你能做什麼
+
+24
+00:01:02,475 --> 00:01:04,589
+is you can run a command called
+你可以運行一個名為
+
+25
+00:01:05,179 --> 00:01:05,523
+visudo,
+維蘇多，
+
+26
+00:01:07,580 --> 00:01:10,099
+with sudo in front of it since this requires
+前面有 sudo 因為這需要
+
+27
+00:01:10,359 --> 00:01:11,367
+elevated privilege,
+提升特權，
+
+28
+00:01:13,086 --> 00:01:14,366
+-f /etc/sudoers,
+-f /etc/sudoers,
+
+29
+00:01:20,364 --> 00:01:22,779
+This will open up a text editor again.
+這將再次開啟文字編輯器。
+
+30
+00:01:23,363 --> 00:01:25,406
+And in there, you can now enter your
+在那裡，您現在可以輸入您的
+
+31
+00:01:25,406 --> 00:01:25,893
+username,
+使用者名稱,
+
+32
+00:01:26,706 --> 00:01:29,127
+then all=all:all
+那麼全部=全部：全部
+
+33
+00:01:30,265 --> 00:01:30,619
+like this,
+像這樣，
+
+34
+00:01:31,634 --> 00:01:36,193
+nopassword:all.
+無密碼：全部。
+
+35
+00:01:37,514 --> 00:01:39,190
+What this means essentially is that for the
+這本質上意味著對於
+
+36
+00:01:39,190 --> 00:01:41,668
+user Max, we won't ask for a password for
+使用者 Max，我們不會要求輸入密碼
+
+37
+00:01:41,896 --> 00:01:42,825
+all commands.
+所有命令。
+
+38
+00:01:44,021 --> 00:01:46,601
+If you wanted to limit this to certain
+如果你想將其限制為某些
+
+39
+00:01:46,601 --> 00:01:49,148
+commands instead of typing all here,
+命令而不是在這裡全部輸入，
+
+40
+00:01:49,841 --> 00:01:52,598
+you can instead just list the specific
+您可以只列出具體的
+
+41
+00:01:52,647 --> 00:01:53,957
+commands here that
+在這裡命令
+
+42
+00:01:54,604 --> 00:01:56,787
+it should be allowed to execute without a
+應該允許它在沒有
+
+43
+00:01:56,787 --> 00:01:57,321
+password.
+密碼。
+
+44
+00:01:58,001 --> 00:01:59,602
+For that, however, you need to include the
+但是，為此，您需要包括
+
+45
+00:01:59,602 --> 00:02:02,333
+full path to where that tool is installed.
+該工具安裝位置的完整路徑。
+
+46
+00:02:02,590 --> 00:02:03,845
+For example,
+例如，
+
+47
+00:02:04,376 --> 00:02:08,432
+/usr/bin/systemctl like this,
+/usr/bin/systemctl 像這樣，
+
+48
+00:02:09,206 --> 00:02:11,760
+And then even say something like restart. So
+然後甚至說重啟之類的話。所以
+
+49
+00:02:11,776 --> 00:02:14,811
+that would allow to run the restart command
+這將允許運行重新啟動命令
+
+50
+00:02:14,843 --> 00:02:17,059
+without a password, but no other commands.
+沒有密碼，但沒有其他命令。
+
+51
+00:02:17,316 --> 00:02:19,051
+So you could be more restrictive here.
+所以你可以在這裡更加嚴格。
+
+52
+00:02:19,902 --> 00:02:22,857
+Here for demo purposes, I'll use all instead
+出於演示目的，我將使用 all 代替
+
+53
+00:02:23,756 --> 00:02:27,033
+and then hit Ctrl+X and Y to save and hit
+然後按 Ctrl+X 和 Y 儲存並點擊
+
+54
+00:02:27,113 --> 00:02:27,370
+Enter.
+進入。
+
+55
+00:02:28,414 --> 00:02:29,345
+And now if I run
+現在如果我跑
+
+56
+00:02:30,180 --> 00:02:32,348
+sudo ls/,
+須藤LS /，
+
+57
+00:02:33,216 --> 00:02:35,448
+I can run this without entering a password.
+我可以在不輸入密碼的情況下運行它。
+
+58
+00:02:35,802 --> 00:02:38,864
+Again, this has disadvantages. Obviously, if
+同樣，這也有缺點。顯然，如果
+
+59
+00:02:38,864 --> 00:02:42,005
+someone gets access to this user, they can
+有人可以存取該使用者，他們可以
+
+60
+00:02:42,118 --> 00:02:45,147
+perform tasks as a root user without being
+以 root 使用者身分執行任務，而無需
+
+61
+00:02:45,163 --> 00:02:46,782
+the root user, without being asked for a
+root 使用者，無需詢問
+
+62
+00:02:46,782 --> 00:02:48,882
+password. Now, since we locked down the
+密碼。現在，自從我們鎖定了
+
+63
+00:02:48,882 --> 00:02:49,635
+server quite a bit,
+伺服器相當多，
+
+64
+00:02:50,373 --> 00:02:54,172
+we are more secure, but of course not 100%
+我們比較安全，但當然不是100%
+
+65
+00:02:54,172 --> 00:02:55,999
+secure. So that can be an issue. In
+安全的。所以這可能是一個問題。在
+
+66
+00:02:55,999 --> 00:02:58,804
+addition, the AI of course now can also do
+另外，AI現在當然也可以做到
+
+67
+00:02:58,804 --> 00:03:00,888
+all kinds of stuff. Nonetheless, to show you
+各種各樣的東西。儘管如此，還是要向你展示
+
+68
+00:03:00,888 --> 00:03:03,463
+what you can do now, if I now Again, start
+你現在可以做什麼，如果我現在再次開始
+
+69
+00:03:03,463 --> 00:03:04,779
+the PyCoding agent.
+PyCoding 代理程式。
+
+70
+00:03:05,656 --> 00:03:06,110
+I can
+我可以
+
+71
+00:03:06,630 --> 00:03:09,505
+grab that URL to this Docker article, or
+取得這篇 Docker 文章的 URL，或者
+
+72
+00:03:09,895 --> 00:03:11,778
+I'll just copy the content as Markdown.
+我將把內容複製為 Markdown。
+
+73
+00:03:13,126 --> 00:03:15,628
+And then I could give this AI a task like,
+然後我可以給這個人工智慧一個任務，例如
+
+74
+00:03:17,174 --> 00:03:18,315
+please install Docker
+請安裝 Docker
+
+75
+00:03:19,729 --> 00:03:20,902
+as explained in this article.
+正如本文所解釋的。
+
+76
+00:03:21,753 --> 00:03:24,196
+And then here I like to do these XML tags.
+然後在這裡我喜歡做這些 XML 標籤。
+
+77
+00:03:24,244 --> 00:03:26,406
+That is optional though, not required. I'll
+但這是可選的，不是必需的。患病的
+
+78
+00:03:26,406 --> 00:03:27,941
+paste my Markdown content here.
+將我的 Markdown 內容貼到此處。
+
+79
+00:03:29,657 --> 00:03:32,437
+And then again, I'll say follow these
+然後我會說遵循這些
+
+80
+00:03:32,790 --> 00:03:34,413
+installation instructions
+安裝說明
+
+81
+00:03:35,216 --> 00:03:36,148
+step by step.
+步步。
+
+82
+00:03:36,807 --> 00:03:39,089
+And it should now be able to install Docker
+現在應該能夠安裝 Docker
+
+83
+00:03:39,603 --> 00:03:39,828
+as
+作為
+
+84
+00:03:40,808 --> 00:03:43,282
+instructed in the official docs because it
+官方檔案中有說明，因為它
+
+85
+00:03:43,298 --> 00:03:45,065
+has those sudo permissions. So it will be
+具有這些 sudo 權限。所以它會是
+
+86
+00:03:45,146 --> 00:03:46,897
+able to execute sudo commands
+能夠執行 sudo 命令
+
+87
+00:03:47,733 --> 00:03:49,789
+without being prompted for a password, which
+不會提示輸入密碼，這
+
+88
+00:03:50,046 --> 00:03:51,155
+naturally would fail.
+自然會失敗。
+
+89
+00:03:52,376 --> 00:03:53,131
+So now it
+所以現在它
+
+90
+00:03:53,661 --> 00:03:54,497
+gets to work here.
+來這裡工作。
+
+91
+00:03:55,188 --> 00:03:57,183
+Already executed a sudo command here
+這裡已經執行了 sudo 指令
+
+92
+00:03:57,922 --> 00:03:59,113
+and it's done.
+一切都完成了。
+
+93
+00:04:00,013 --> 00:04:02,072
+And that can of course be
+這當然可以是
+
+94
+00:04:02,667 --> 00:04:05,514
+convenient with all the disadvantages I
+方便，有我所有的缺點
+
+95
+00:04:05,514 --> 00:04:06,335
+mentioned. But still
+提及。但仍
+
+96
+00:04:06,865 --> 00:04:10,677
+having an AI agent on a VPS can be useful.
+在 VPS 上安裝 AI 代理程式會很有用。
+
+97
+00:04:11,128 --> 00:04:12,977
+If you wanna use it, of course it's your
+如果你想使用它，那當然是你的
+
+98
+00:04:13,058 --> 00:04:13,926
+personal decision.
+個人決定。

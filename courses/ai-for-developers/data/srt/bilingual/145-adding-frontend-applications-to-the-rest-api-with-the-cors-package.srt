@@ -1,0 +1,414 @@
+1
+00:00:02,134 --> 00:00:05,360
+So now at this point, we're pretty much done
+現在，我們已經完成了
+
+2
+00:00:05,873 --> 00:00:06,852
+with this
+與這個
+
+3
+00:00:07,559 --> 00:00:10,576
+demo REST API. Now you could add more
+示範 REST API。現在您可以添加更多
+
+4
+00:00:10,624 --> 00:00:12,759
+features, you could add global error
+功能，您可以新增全域錯誤
+
+5
+00:00:12,775 --> 00:00:14,684
+handling, you could clean up the code, you
+處理，你可以清理程式碼，你
+
+6
+00:00:14,700 --> 00:00:16,867
+could add more features in general to this
+可以為此添加更多功能
+
+7
+00:00:16,867 --> 00:00:17,766
+API, of course,
+API，當然，
+
+8
+00:00:18,568 --> 00:00:20,526
+but I actually just wanna do
+但我其實只是想做
+
+9
+00:00:21,200 --> 00:00:24,378
+one additional thing here. I wanna make sure
+這裡還有一件事。我想確定一下
+
+10
+00:00:24,747 --> 00:00:27,930
+that we can really interact with that API
+我們真的可以與該 API 進行交互
+
+11
+00:00:28,125 --> 00:00:30,138
+from inside a frontend application.
+從前端應用程式內部。
+
+12
+00:00:31,772 --> 00:00:35,377
+And to do that, at least 2 important things
+為此，至少需要做兩件重要的事情
+
+13
+00:00:35,490 --> 00:00:36,234
+are missing here.
+在這裡失踪了。
+
+14
+00:00:37,269 --> 00:00:40,082
+Because whilst we could interact with the
+因為雖然我們可以與
+
+15
+00:00:40,082 --> 00:00:43,304
+API with tools like Postman for testing it,
+API 使用 Postman 等工具進行測試，
+
+16
+00:00:43,947 --> 00:00:46,760
+if we had a decoupled frontend web
+如果我們有一個解耦的前端網路
+
+17
+00:00:46,760 --> 00:00:47,467
+application
+應用
+
+18
+00:00:49,171 --> 00:00:50,927
+or a mobile application,
+或行動應用程式，
+
+19
+00:00:51,590 --> 00:00:54,929
+we would most likely run into errors if we
+如果我們很可能會遇到錯誤
+
+20
+00:00:55,137 --> 00:00:57,641
+were to send requests to that API.
+向該 API 發送請求。
+
+21
+00:00:59,085 --> 00:01:02,230
+Because we must set appropriate headers on
+因為我們必須設定適當的標頭
+
+22
+00:01:02,359 --> 00:01:05,055
+all the responses sent back by that API
+該 API 發回的所有回應
+
+23
+00:01:05,809 --> 00:01:08,425
+to ensure that decoupled frontends are
+確保解耦的前端
+
+24
+00:01:08,858 --> 00:01:10,832
+really allowed to send requests.
+確實允許發送請求。
+
+25
+00:01:12,067 --> 00:01:15,453
+We must set so-called CORS headers. We must
+我們必須設定所謂的 CORS 標頭。我們必須
+
+26
+00:01:15,453 --> 00:01:18,470
+enable Cross-Origin Resource Sharing.
+啟用跨來源資源共享。
+
+27
+00:01:19,931 --> 00:01:22,115
+Now we could do that manually, Also with
+現在我們可以手動執行此操作，也可以使用
+
+28
+00:01:22,115 --> 00:01:24,724
+help of the documentation here on MDN, for
+MDN 上文檔的幫助，用於
+
+29
+00:01:24,756 --> 00:01:25,287
+example.
+例子。
+
+30
+00:01:26,302 --> 00:01:28,685
+But we can also just install a package that
+但我們也可以只安裝一個套件
+
+31
+00:01:28,701 --> 00:01:31,371
+will set those headers for us, the CORS
+將為我們設定這些標頭，CORS
+
+32
+00:01:31,388 --> 00:01:33,514
+package with npm install cors.
+使用 npm install cors 進行打包。
+
+33
+00:01:35,373 --> 00:01:38,058
+And then of course we could ask AI to help
+當然我們可以請人工智慧來幫忙
+
+34
+00:01:38,058 --> 00:01:39,815
+us here, but we can also do it manually
+我們在這裡，但我們也可以手動完成
+
+35
+00:01:40,563 --> 00:01:41,799
+or use a combination,
+或使用組合，
+
+36
+00:01:43,040 --> 00:01:45,045
+start typing and let AI,
+開始打字並讓AI，
+
+37
+00:01:45,659 --> 00:01:48,004
+GitHub Copilot help us as we did it many
+GitHub Copilot 為我們提供了許多幫助
+
+38
+00:01:48,004 --> 00:01:48,619
+times before.
+以前有過幾次。
+
+39
+00:01:50,420 --> 00:01:52,632
+And then also make sure to register this
+然後還要確保註冊這個
+
+40
+00:01:52,632 --> 00:01:54,534
+middleware, which is what we need to do when
+中介層，這就是我們需要做的
+
+41
+00:01:54,567 --> 00:01:56,648
+building such a Node Express application.
+建立這樣的 Node Express 應用程式。
+
+42
+00:01:58,190 --> 00:02:00,143
+This middleware here will ensure that the
+這裡的中介層將確保
+
+43
+00:02:00,143 --> 00:02:02,500
+appropriate headers are set for all the
+為所有的設定適當的標題
+
+44
+00:02:02,500 --> 00:02:05,616
+responses that are being sent to possible
+正在發送給可能的回复
+
+45
+00:02:05,649 --> 00:02:07,456
+frontends that might want to reach out.
+可能想要接觸的前端。
+
+46
+00:02:09,117 --> 00:02:10,036
+But that's not all.
+但這還不是全部。
+
+47
+00:02:10,794 --> 00:02:13,035
+In addition, I also wanna make sure that any
+此外，我還想確保任何
+
+48
+00:02:13,067 --> 00:02:16,097
+images that were uploaded here can actually
+此處上傳的圖像實際上可以
+
+49
+00:02:16,210 --> 00:02:19,727
+be requested from outside this application
+從本應用程式外部請求
+
+50
+00:02:19,824 --> 00:02:20,356
+here as well
+也在這裡
+
+51
+00:02:21,696 --> 00:02:24,003
+so that requests can be sent to those
+以便可以將請求發送給那些
+
+52
+00:02:24,116 --> 00:02:24,406
+images.
+圖像。
+
+53
+00:02:26,330 --> 00:02:28,212
+And for that, I want to statically serve
+為此，我想靜態服務
+
+54
+00:02:28,245 --> 00:02:28,425
+them.
+他們。
+
+55
+00:02:29,129 --> 00:02:31,142
+And we can again do that with help of some
+我們可以在一些人的幫助下再次做到這一點
+
+56
+00:02:31,191 --> 00:02:31,584
+middleware.
+中介軟體.
+
+57
+00:02:33,006 --> 00:02:34,775
+So here I'll start typing
+所以在這裡我將開始打字
+
+58
+00:02:35,700 --> 00:02:37,339
+and I'll see if I get an appropriate
+我會看看是否能找到合適的
+
+59
+00:02:37,339 --> 00:02:39,936
+suggestion. No, that's not it.
+建議。不，不是這樣。
+
+60
+00:02:41,569 --> 00:02:42,490
+But I know that I
+但我知道我
+
+61
+00:02:43,184 --> 00:02:45,543
+want the static middleware. So with some
+想要靜態中介層。所以與一些
+
+62
+00:02:45,688 --> 00:02:48,645
+extra characters added, this gets completed
+添加了額外的字符，這就完成了
+
+63
+00:02:49,000 --> 00:02:50,841
+and this code will simply ensure that
+這段程式碼將簡單地確保
+
+64
+00:02:50,841 --> 00:02:53,165
+whatever is in this public folder can
+此公用資料夾中的任何內容都可以
+
+65
+00:02:53,262 --> 00:02:56,587
+directly be requested without us setting up
+無需我們設定即可直接請求
+
+66
+00:02:56,587 --> 00:02:58,976
+a dedicated route in this application.
+此應用程式中的專用路線。
+
+67
+00:03:00,580 --> 00:03:03,373
+So that's something else we wanna do here to
+這就是我們想做的其他事情
+
+68
+00:03:03,389 --> 00:03:05,667
+make sure that these images can be visited.
+確保可以存取這些圖像。
+
+69
+00:03:07,894 --> 00:03:09,935
+With that, if I ensure that my development
+這樣，如果我確保我的發展
+
+70
+00:03:09,935 --> 00:03:12,704
+server is up and running and I grab this
+伺服器已啟動並正在運行，我抓住了這個
+
+71
+00:03:12,915 --> 00:03:13,693
+image name here,
+這裡的圖片名稱，
+
+72
+00:03:14,713 --> 00:03:15,975
+including the extension,
+包括擴充功能，
+
+73
+00:03:17,767 --> 00:03:19,446
+I can open up the browser,
+我可以打開瀏覽器，
+
+74
+00:03:20,189 --> 00:03:20,641
+enter
+進入
+
+75
+00:03:21,900 --> 00:03:24,450
+localhost:3000, and then
+本機：3000，然後
+
+76
+00:03:25,352 --> 00:03:25,738
+/images/
+/圖片/
+
+77
+00:03:26,495 --> 00:03:27,187
+the image name,
+圖像名稱，
+
+78
+00:03:28,652 --> 00:03:30,085
+and the image will be loaded.
+並且圖像將被載入。
+
+79
+00:03:30,761 --> 00:03:32,935
+And that's only possible due to this
+這也是唯一可能的原因
+
+80
+00:03:32,935 --> 00:03:35,197
+middleware being added. If I were to remove
+正在添加中介層。如果我要刪除
+
+81
+00:03:35,197 --> 00:03:36,217
+it and save this,
+並儲存它，
+
+82
+00:03:37,333 --> 00:03:38,963
+Reloading would give us an error.
+重新載入會給我們一個錯誤。
+
+83
+00:03:40,029 --> 00:03:41,643
+So that's also important here.
+所以這裡也很重要。

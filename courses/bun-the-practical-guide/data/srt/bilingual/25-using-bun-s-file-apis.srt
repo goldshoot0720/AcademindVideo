@@ -1,0 +1,714 @@
+1
+00:00:00,112 --> 00:00:01,429
+Bun's file API
+Bun的檔案API
+
+2
+00:00:02,103 --> 00:00:04,560
+is essentially an alternative to the Node.js
+基本上就是 Node.js 的替代品
+
+3
+00:00:04,769 --> 00:00:07,017
+file API, which Bun also supports.
+檔案 API，Bun 也支援。
+
+4
+00:00:07,595 --> 00:00:11,578
+So you can import the node-fs package, the
+所以你可以導入node-fs包，
+
+5
+00:00:11,578 --> 00:00:13,505
+Node file system package, and it's built
+Node檔案系統包，並建置完成
+
+6
+00:00:13,505 --> 00:00:14,870
+into Bun. You don't need to install
+進入包子。你不需要安裝
+
+7
+00:00:14,950 --> 00:00:16,813
+anything. Here I'm importing the
+任何事物。這裡我導入的是
+
+8
+00:00:16,813 --> 00:00:17,905
+promise-based version.
+基於承諾的版本。
+
+9
+00:00:18,580 --> 00:00:20,908
+And in there you'll find things like
+在那裡你會發現類似的東西
+
+10
+00:00:21,294 --> 00:00:23,429
+readFile. And that does what the name
+讀取檔案。這就是它的名字
+
+11
+00:00:23,477 --> 00:00:26,336
+implies, it reads a file. So why would you
+意味著，它讀取一個檔案。那你為什麼要
+
+12
+00:00:26,336 --> 00:00:27,059
+not do that?
+不這樣做嗎？
+
+13
+00:00:27,732 --> 00:00:30,682
+Well, you can, but Bun's native built-in
+好吧，你可以，但是 Bun 的原生內置
+
+14
+00:00:30,778 --> 00:00:33,696
+file API claims to be faster and more
+file API 聲稱更快、更多
+
+15
+00:00:34,048 --> 00:00:36,308
+optimized when executed with Bun. And I
+使用 Bun 執行時進行最佳化。而我
+
+16
+00:00:36,308 --> 00:00:38,040
+mean, you need Bun to execute it because
+意思是，你需要 Bun 來執行它，因為
+
+17
+00:00:38,072 --> 00:00:39,707
+it's not supported by Node, for example.
+例如，Node 不支援它。
+
+18
+00:00:40,236 --> 00:00:42,464
+So when you're building a Bun application
+所以當你建立一個 Bun 應用程式時
+
+19
+00:00:42,480 --> 00:00:44,804
+where you know that you will execute it with
+你知道你將執行它
+
+20
+00:00:44,804 --> 00:00:47,289
+Bun, obviously, then if you wanna read a
+顯然，如果你想讀一本
+
+21
+00:00:47,289 --> 00:00:49,261
+file, you should strongly consider doing
+檔案，你應該強烈考慮這樣做
+
+22
+00:00:49,293 --> 00:00:52,098
+that with Bun file, even though Node's
+與 Bun 檔案一樣，即使 Node 的
+
+23
+00:00:52,242 --> 00:00:55,593
+readFile function would work too because Bun
+readFile 函式也可以工作，因為 Bun
+
+24
+00:00:55,625 --> 00:00:58,045
+has that Node.js compatibility. But there's
+具有 Node.js 相容性。但有
+
+25
+00:00:58,045 --> 00:01:00,595
+no reason to fall back to Node.js if you
+如果你沒有理由回退到 Node.js
+
+26
+00:01:00,595 --> 00:01:02,200
+wanna read a file because Bun has the
+想要讀取一個檔案，因為 Bun 有
+
+27
+00:01:02,200 --> 00:01:05,329
+built-in support for it. Now, Bun file takes
+對其的內建支援。現在，Bun 檔案需要
+
+28
+00:01:05,393 --> 00:01:07,479
+one main input and that's the path to the
+一個主要輸入，這是通往
+
+29
+00:01:07,479 --> 00:01:08,345
+file you wanna open
+你想打開的檔案
+
+30
+00:01:09,019 --> 00:01:11,202
+and then it gives you back an object with
+然後它給你回傳一個物件
+
+31
+00:01:11,266 --> 00:01:13,833
+various properties and methods. For example,
+各種屬性和方法。例如，
+
+32
+00:01:13,897 --> 00:01:16,208
+a name property, a size property which
+名稱屬性，大小屬性
+
+33
+00:01:16,320 --> 00:01:18,037
+contains the file size in bytes
+包含檔案大小（以位元組為單位）
+
+34
+00:01:18,647 --> 00:01:20,909
+but also a bunch of methods. For example, if
+而且還有一堆方法。例如，如果
+
+35
+00:01:20,957 --> 00:01:22,899
+you wanna get the raw bytes, there is a
+你想獲得原始位元組，有一個
+
+36
+00:01:22,899 --> 00:01:25,626
+bytes method and that simply returns a
+bytes 方法，它只會回傳一個
+
+37
+00:01:25,931 --> 00:01:28,258
+promise so you have to await it and then a
+承諾所以你必須等待它然後
+
+38
+00:01:28,274 --> 00:01:30,600
+Uint8ArrayBuffer which contains the raw
+Uint8ArrayBuffer 其中包含原始資料
+
+39
+00:01:30,600 --> 00:01:33,457
+bytes. There also is a text method if you
+位元組.還有一種文字方法，如果您
+
+40
+00:01:33,489 --> 00:01:36,363
+wanna read the input as raw text and get
+想要將輸入讀取為原始文字並獲取
+
+41
+00:01:36,379 --> 00:01:38,899
+back a string or a promise that resolves to
+傳回一個字串或一個承諾
+
+42
+00:01:38,947 --> 00:01:39,236
+a string.
+一個字串。
+
+43
+00:01:40,070 --> 00:01:41,964
+And then also other utility methods, for
+然後還有其他實用方法，例如
+
+44
+00:01:41,980 --> 00:01:43,874
+example, for creating a stream if you wanna
+例如，如果你想建立一個串流
+
+45
+00:01:43,923 --> 00:01:47,036
+stream in the file in chunks instead of
+以區塊的形式流到檔案中，而不是
+
+46
+00:01:47,036 --> 00:01:48,625
+reading it as a whole into memory.
+將其作為一個整體讀入記憶體。
+
+47
+00:01:49,444 --> 00:01:51,964
+And also what we're using here, a JSON
+還有我們在這裡使用的 JSON
+
+48
+00:01:52,429 --> 00:01:54,580
+method, and that gives us a promise that
+方法，這給了我們一個承諾
+
+49
+00:01:54,580 --> 00:01:57,245
+will resolve to any, so to an object of any
+將解析為任何，因此解析為任何物件
+
+50
+00:01:57,245 --> 00:01:59,460
+shape. We don't know the shape in advance or
+形狀。我們事先不知道形狀或
+
+51
+00:01:59,380 --> 00:02:00,998
+TypeScript doesn't know the shape in
+TypeScript 不知道其中的形狀
+
+52
+00:02:00,998 --> 00:02:02,697
+advance, which is why I'm doing that
+提前，這就是我這樣做的原因
+
+53
+00:02:02,697 --> 00:02:05,294
+typecasting here to make it clear that once
+在這裡打字是為了清楚地表明，一旦
+
+54
+00:02:05,406 --> 00:02:07,442
+we awaited this, we'll have an object of
+我們等待這個，我們將有一個物件
+
+55
+00:02:07,442 --> 00:02:08,628
+this customer input shape.
+這個客戶輸入形狀。
+
+56
+00:02:09,189 --> 00:02:11,641
+Because what I'm reading in here are these
+因為我在這裡讀到的是這些
+
+57
+00:02:11,737 --> 00:02:12,923
+customer input files,
+客戶輸入檔案，
+
+58
+00:02:13,500 --> 00:02:15,985
+these JSON files here, which have JSON
+這裡的這些 JSON 檔案，其中有 JSON
+
+59
+00:02:16,065 --> 00:02:18,918
+objects in this format with ID, name, email,
+這種格式的物件，包含 ID、姓名、電子郵件、
+
+60
+00:02:19,046 --> 00:02:19,784
+and then items.
+然後是物品。
+
+61
+00:02:20,409 --> 00:02:22,508
+That's exactly the shape I'm describing here
+這正是我在這裡描述的形狀
+
+62
+00:02:22,717 --> 00:02:23,791
+with customer input.
+與客戶輸入。
+
+63
+00:02:24,576 --> 00:02:27,445
+So here I'm using Bunfile for reading that.
+所以在這裡我使用 Bunfile 來讀取它。
+
+64
+00:02:27,782 --> 00:02:29,738
+And of course, Bun does not just have a file
+當然，Bun 不僅僅有一個檔案
+
+65
+00:02:29,802 --> 00:02:32,287
+method for reading files, it also has a
+讀取檔案的方法，它還有一個
+
+66
+00:02:32,287 --> 00:02:35,045
+method for writing files, the Bun.write
+寫入檔案的方法，Bun.write
+
+67
+00:02:35,061 --> 00:02:35,366
+method.
+方法。
+
+68
+00:02:35,959 --> 00:02:39,711
+And Bun.write may look complex here, but in
+Bun.write 在這裡可能看起來很複雜，但在
+
+69
+00:02:39,711 --> 00:02:41,924
+its simplest form, it also takes a path, a
+它最簡單的形式，它也需要一條路徑，一個
+
+70
+00:02:41,956 --> 00:02:44,121
+string, and then the content that should be
+字串，然後是應該是的內容
+
+71
+00:02:44,137 --> 00:02:44,618
+written there.
+寫在那裡。
+
+72
+00:02:45,259 --> 00:02:47,648
+But if we hover over it, we see it is a bit
+但如果我們將滑鼠懸停在它上面，我們會發現它有點
+
+73
+00:02:47,648 --> 00:02:50,759
+more complex than that. The destination can
+比那更複雜。目的地可以
+
+74
+00:02:50,791 --> 00:02:51,031
+be
+是
+
+75
+00:02:51,576 --> 00:02:52,731
+a path in the end.
+終究有一條路。
+
+76
+00:02:53,276 --> 00:02:55,665
+It could also be a remote file on S3,
+它也可能是 S3 上的遠端檔案，
+
+77
+00:02:56,147 --> 00:02:59,148
+because Bun has a built-in S3 client and
+因為Bun有一個內建的S3使用者端並且
+
+78
+00:02:59,148 --> 00:03:01,218
+I'll get back to that in a separate lecture.
+我將在單獨的講座中回顧這一點。
+
+79
+00:03:01,764 --> 00:03:04,251
+And it could also be a handle to a file. So
+它也可以是檔案的句柄。所以
+
+80
+00:03:04,588 --> 00:03:07,188
+we could open a file with bun file here
+我們可以在這裡打開一個帶有bun檔案的檔案
+
+81
+00:03:07,878 --> 00:03:08,890
+and then some path.
+然後是一些路徑。
+
+82
+00:03:10,222 --> 00:03:12,035
+Of course, there should be a real path and
+當然，應該有一條真實的路徑
+
+83
+00:03:12,051 --> 00:03:15,502
+that file handle here could also be passed
+此處的檔案句柄也可以傳遞
+
+84
+00:03:15,502 --> 00:03:17,460
+here as an input so that you open a file,
+此處作為輸入，以便您開啟檔案，
+
+85
+00:03:17,749 --> 00:03:19,883
+you maybe read it and then you overwrite it
+你可能會讀它然後覆蓋它
+
+86
+00:03:19,915 --> 00:03:22,085
+with bun write. That would work too. It's
+用髮髻寫。那也行。它是
+
+87
+00:03:22,085 --> 00:03:23,532
+not what I'm doing here, but you could do
+不是我在這裡做的，但你可以做
+
+88
+00:03:23,549 --> 00:03:24,026
+that as well.
+那也是如此。
+
+89
+00:03:25,850 --> 00:03:28,892
+And then the input to the file can also be a
+然後檔案的輸入也可以是
+
+90
+00:03:28,892 --> 00:03:31,466
+variety of things. It can be a string, which
+各種各樣的事情。它可以是一個字串，其中
+
+91
+00:03:31,466 --> 00:03:34,557
+is what HTML here in the end is. HTML is the
+這裡的 HTML 到底是什麼。 HTML 是
+
+92
+00:03:34,590 --> 00:03:36,106
+loaded invoice HTML
+已載入發票 HTML
+
+93
+00:03:36,881 --> 00:03:39,882
+text in the end because HTML is just text
+最後是文本，因為 HTML 只是文本
+
+94
+00:03:40,269 --> 00:03:42,673
+with those concrete values filled in. And
+填寫這些具體值。並且
+
+95
+00:03:42,689 --> 00:03:44,852
+that string is then saved here with write
+然後用 write 將該字串儲存在這裡
+
+96
+00:03:44,852 --> 00:03:46,695
+because a string is one of the supported
+因為字串是受支援的字串之一
+
+97
+00:03:47,358 --> 00:03:49,282
+input values that are written into a file.
+寫入檔案的輸入值。
+
+98
+00:03:49,799 --> 00:03:51,869
+But you could also pass in raw bytes,
+但你也可以傳遞原始位元組，
+
+99
+00:03:53,052 --> 00:03:54,767
+that are written to that file.
+寫入該檔案。
+
+100
+00:03:55,360 --> 00:03:58,614
+And you can also pass a 3rd object here
+你還可以在這裡傳遞第三個物件
+
+101
+00:03:59,303 --> 00:04:02,878
+where you can also define whether a path
+您也可以在其中定義路徑是否
+
+102
+00:04:03,070 --> 00:04:04,160
+should be created.
+應該被創建。
+
+103
+00:04:05,010 --> 00:04:07,863
+So if you specify a path where the parent
+因此，如果您指定父級所在的路徑
+
+104
+00:04:07,863 --> 00:04:09,738
+directory is missing, if it should create
+目錄遺失，如果應該建立的話
+
+105
+00:04:09,738 --> 00:04:11,758
+it, and by default this is true. So you
+它，並且預設情況下這是正確的。所以你
+
+106
+00:04:11,870 --> 00:04:13,618
+actually only need to set it if you don't
+實際上只需要在不設定的情況下設定它
+
+107
+00:04:13,714 --> 00:04:16,679
+want Bun to create that path. So in case
+希望 Bun 創建那條路徑。所以萬一
+
+108
+00:04:16,775 --> 00:04:19,356
+that HTML path is not existing yet with
+該 HTML 路徑尚不存在
+
+109
+00:04:19,404 --> 00:04:21,827
+createPath false, you'd get an error instead
+createPath false，你會得到一個錯誤
+
+110
+00:04:21,827 --> 00:04:23,353
+of bun creating it automatically.
+自動創建它的麵包。
+
+111
+00:04:24,220 --> 00:04:27,784
+And mode is simply the permission mode you
+模式只是你的權限模式
+
+112
+00:04:27,784 --> 00:04:30,690
+set on that file using that Linux octal
+使用 Linux 八進位設定該檔案
+
+113
+00:04:30,898 --> 00:04:31,444
+notation.
+符號。
+
+114
+00:04:32,263 --> 00:04:34,238
+But here I don't need that because I'm fine
+但在這裡我不需要這個，因為我很好
+
+115
+00:04:34,334 --> 00:04:35,121
+with the defaults.
+使用預設值。
+
+116
+00:04:35,699 --> 00:04:38,765
+And actually, even though bun would create
+事實上，即使髮髻會創造
+
+117
+00:04:38,765 --> 00:04:41,752
+the path by default with bun write, I'm
+預設用bun寫的路徑，我是
+
+118
+00:04:41,752 --> 00:04:44,626
+ensuring the path exists here manually by
+確保路徑存在於此處手動
+
+119
+00:04:44,626 --> 00:04:45,942
+using mkdir.
+使用 mkdir.
+
+120
+00:04:47,194 --> 00:04:50,004
+So that creates the invoices output path if
+這樣就創建了發票輸出路徑，如果
+
+121
+00:04:50,004 --> 00:04:52,268
+it doesn't exist yet, and otherwise it just
+它還不存在，否則它只是
+
+122
+00:04:52,268 --> 00:04:54,210
+ignores the existing file and does nothing.
+忽略現有檔案並且不執行任何操作。
+
+123
+00:04:55,141 --> 00:04:57,421
+Now mkdir, and that's why I'm adding it here
+現在 mkdir，這就是我將其添加到此處的原因
+
+124
+00:04:57,533 --> 00:04:59,604
+or why I have it here, is not coming from
+或為什麼我把它放在這裡，不是來自
+
+125
+00:04:59,701 --> 00:05:02,093
+Bun though, because Bun has those built-in
+不過 Bun，因為 Bun 有那些內建的
+
+126
+00:05:02,189 --> 00:05:05,352
+file APIs for writing and for reading, but
+用於寫入和讀取的檔案 API，但是
+
+127
+00:05:05,352 --> 00:05:07,792
+it does not have native built-in
+它沒有內建的
+
+128
+00:05:08,611 --> 00:05:11,677
+folder operation APIs, if you wanna put it
+資料夾操作API，如果你想放的話
+
+129
+00:05:11,677 --> 00:05:14,262
+like this. So an API for creating a
+像這樣。所以一個用於創建
+
+130
+00:05:14,326 --> 00:05:17,105
+directory, for example, If you have an
+目錄，例如，如果您有一個
+
+131
+00:05:17,121 --> 00:05:19,000
+application that needs to create a
+需要創建一個應用程式
+
+132
+00:05:19,064 --> 00:05:21,618
+directory, you could either rely on the
+目錄，您可以依賴
+
+133
+00:05:21,859 --> 00:05:24,863
+auto-creation functionality of Bun write if
+Bun write if 的自動建立功能
+
+134
+00:05:25,072 --> 00:05:27,257
+it's coupled to writing a file, but if it's
+它與寫入檔案有關，但如果是
+
+135
+00:05:27,257 --> 00:05:29,345
+not coupled to it, if you just wanna create
+不耦合它，如果你只是想創造
+
+136
+00:05:29,345 --> 00:05:31,979
+the directory, then you will need to use
+目錄，那麼您將需要使用
+
+137
+00:05:31,995 --> 00:05:34,614
+Bun's Node.js compatibility and use the
+Bun 的 Node.js 相容性和使用
+
+138
+00:05:34,614 --> 00:05:38,067
+Node.js mkdir function here because the Bun
+Node.js mkdir 函式在這裡，因為 Bun
+
+139
+00:05:38,244 --> 00:05:40,927
+file API is really only about reading with
+檔案 API 實際上只是用於讀取
+
+140
+00:05:41,055 --> 00:05:43,851
+Bun file and writing with Bun write. Those
+Bun 檔案並用 Bun write 進行寫入。那些
+
+141
+00:05:43,948 --> 00:05:46,841
+APIs are flexible and pretty fast. And as
+API 非常靈活且速度相當快。並且作為
+
+142
+00:05:46,938 --> 00:05:48,796
+you see here, they're also super easy to
+你看這裡，它們也非常容易
+
+143
+00:05:48,796 --> 00:05:49,023
+use.
+使用。

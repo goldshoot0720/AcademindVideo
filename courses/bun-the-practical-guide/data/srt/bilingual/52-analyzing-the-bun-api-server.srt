@@ -1,0 +1,539 @@
+1
+00:00:00,096 --> 00:00:03,322
+Now in this API folder, this API web app
+現在在此 API 資料夾中，此 API Web 應用程式
+
+2
+00:00:03,322 --> 00:00:03,515
+here,
+這裡，
+
+3
+00:00:04,189 --> 00:00:07,673
+I have the actual Bun backend for this
+我有實際的 Bun 後端
+
+4
+00:00:07,721 --> 00:00:10,241
+project, for this social network. And that's
+專案，針對這個社交網路。那就是
+
+5
+00:00:10,241 --> 00:00:13,435
+of course the core focus of this section.
+當然是本節的核心焦點。
+
+6
+00:00:14,158 --> 00:00:16,453
+There we're also using Bun for package
+在那裡我們也使用 Bun 進行打包
+
+7
+00:00:16,549 --> 00:00:18,331
+management. So for installing the
+管理。所以為了安裝
+
+8
+00:00:18,347 --> 00:00:20,193
+dependencies of this project, though that's
+該專案的依賴項，儘管如此
+
+9
+00:00:20,402 --> 00:00:22,184
+mostly just one dependency, the
+大多只是一個依賴項，
+
+10
+00:00:22,890 --> 00:00:25,683
+awesome BetterAuth library, which we use for
+很棒的 BetterAuth 庫，我們用它來
+
+11
+00:00:25,715 --> 00:00:28,091
+authentication so that I don't have to build
+身份驗證，這樣我就不必建構
+
+12
+00:00:28,268 --> 00:00:30,306
+all the authentication logic myself.
+所有的身份驗證邏輯都是我自己做的。
+
+13
+00:00:30,836 --> 00:00:33,256
+But other than that, there are no external
+但除此之外，沒有任何外在因素
+
+14
+00:00:33,256 --> 00:00:35,356
+dependencies in there. Most importantly,
+那裡有依賴關係。最重要的是，
+
+15
+00:00:35,485 --> 00:00:38,883
+there is no other framework or anything in
+沒有其他框架或任何東西
+
+16
+00:00:38,947 --> 00:00:41,576
+there because Bun can really handle it all
+因為 Bun 真的可以處理這一切
+
+17
+00:00:41,833 --> 00:00:42,426
+on its own.
+靠它自己。
+
+18
+00:00:43,339 --> 00:00:46,209
+Because what we're building here is a REST
+因為我們在這裡建構的是 REST
+
+19
+00:00:46,305 --> 00:00:48,742
+API in the end, and you find all the code
+API在最後，你找到所有的程式碼
+
+20
+00:00:48,790 --> 00:00:51,306
+for that in the source folder. In that
+在來源資料夾中。在那
+
+21
+00:00:51,306 --> 00:00:54,368
+source folder, we got an index.ts file
+在來源資料夾中，我們得到了一個index.ts檔案
+
+22
+00:00:54,961 --> 00:00:57,093
+and we got a server.ts file, and these 2 are
+我們得到了一個 server.ts 檔案，這兩個是
+
+23
+00:00:57,366 --> 00:01:00,075
+our root entry points, so to say, because
+我們的根入口點，可以這麼說，因為
+
+24
+00:01:00,171 --> 00:01:02,640
+index.ts indeed is the file that gets
+index.ts 確實是取得的檔案
+
+25
+00:01:03,698 --> 00:01:05,639
+when we start the dev server or the
+當我們啟動開發伺服器或
+
+26
+00:01:06,184 --> 00:01:08,204
+production server with these commands as you
+生產伺服器使用這些命令
+
+27
+00:01:08,204 --> 00:01:08,365
+see.
+看。
+
+28
+00:01:08,990 --> 00:01:11,732
+And in index.ts, I am importing from the
+在index.ts中，我從
+
+29
+00:01:11,732 --> 00:01:12,887
+server file
+伺服器檔案
+
+30
+00:01:13,480 --> 00:01:15,501
+and I in the end create my web server.
+我最終創建了我的網頁伺服器。
+
+31
+00:01:16,287 --> 00:01:18,324
+Other than that, I also run my database
+除此之外，我還運行我的資料庫
+
+32
+00:01:18,324 --> 00:01:20,152
+migrations here in case you didn't do that
+遷移到這裡以防萬一你沒有這樣做
+
+33
+00:01:20,152 --> 00:01:23,263
+yet. There is a separate script for that.
+然而。為此有一個單獨的腳本。
+
+34
+00:01:24,001 --> 00:01:26,647
+We had this db migrate script there and I'll
+我們那裡有這個資料庫遷移腳本，我會
+
+35
+00:01:26,647 --> 00:01:29,261
+get back to the database migrations. But in
+回到資料庫遷移。但在
+
+36
+00:01:29,277 --> 00:01:31,618
+that index.ts file, I also invoke them again
+該index.ts檔案，我也再次調用它們
+
+37
+00:01:31,618 --> 00:01:34,553
+to make sure that the database is up to date
+確保資料庫是最新的
+
+38
+00:01:33,286 --> 00:01:36,114
+is set up properly and then I check this to
+設定正確，然後我檢查一下
+
+39
+00:01:36,114 --> 00:01:38,716
+throw an error early if something goes wrong
+如果出現問題，儘早拋出錯誤
+
+40
+00:01:38,765 --> 00:01:41,271
+with the database before we start the server
+在啟動伺服器之前使用資料庫
+
+41
+00:01:41,271 --> 00:01:43,171
+so that we only start the server if the
+這樣我們只在以下情況啟動伺服器
+
+42
+00:01:43,187 --> 00:01:45,058
+database is set up correctly.
+資料庫設定正確。
+
+43
+00:01:46,810 --> 00:01:49,375
+And then in server.ts, we do the actual
+然後在 server.ts 中，我們執行實際的操作
+
+44
+00:01:49,423 --> 00:01:52,778
+interesting stuff. We use Bun serve in
+有趣的東西。我們用小圓麵包服務
+
+45
+00:01:52,891 --> 00:01:55,150
+createServer, which is that function we call
+createServer，這就是我們呼叫的函式
+
+46
+00:01:55,150 --> 00:01:57,720
+from index.ts. So we run Bun serve and
+來自index.ts。所以我們運行小圓麵包服務
+
+47
+00:01:57,801 --> 00:02:00,864
+return the result to spin up a Bun-powered
+傳回結果以旋轉 Bun 供電的
+
+48
+00:02:00,881 --> 00:02:01,205
+server.
+伺服器.
+
+49
+00:02:01,846 --> 00:02:04,314
+That is how you do create a server with Bun
+這就是你如何使用 Bun 創建伺服器
+
+50
+00:02:04,426 --> 00:02:05,628
+using bun serve.
+使用小圓麵包服務。
+
+51
+00:02:06,413 --> 00:02:08,752
+I configure my port in there. That is one of
+我在那裡設定我的連接埠。這是其中之一
+
+52
+00:02:08,752 --> 00:02:11,428
+the options I take here or the only option
+我在這裡採取的選擇或唯一的選擇
+
+53
+00:02:11,460 --> 00:02:13,751
+actually and the default is set to 3000 here
+實際上，這裡預設為 3000
+
+54
+00:02:13,800 --> 00:02:14,921
+but we could override this.
+但我們可以覆蓋這個。
+
+55
+00:02:15,626 --> 00:02:17,517
+And then I register some routes
+然後我註冊一些路線
+
+56
+00:02:18,190 --> 00:02:21,347
+using this routes feature the Bun server
+使用此路由功能 Bun 伺服器
+
+57
+00:02:21,347 --> 00:02:21,891
+supports.
+支援。
+
+58
+00:02:22,532 --> 00:02:25,064
+That's just a shortcut for that and these
+這只是一個捷徑
+
+59
+00:02:25,160 --> 00:02:27,227
+are imported from our routes file and of
+從我們的路線檔案導入
+
+60
+00:02:27,243 --> 00:02:28,493
+course we'll explore those too.
+當然我們也會探索這些。
+
+61
+00:02:29,022 --> 00:02:31,094
+And then I'm also using the fetch method in
+然後我也在用 fetch 方法
+
+62
+00:02:31,094 --> 00:02:32,892
+addition to the routes, which you can of
+除了路線之外，您還可以
+
+63
+00:02:32,940 --> 00:02:33,470
+course do
+當然做
+
+64
+00:02:34,000 --> 00:02:36,746
+to have my main routes, but then this here,
+有我的主要路線，但這裡是，
+
+65
+00:02:36,810 --> 00:02:39,909
+this fetch method as a fallback for all the
+這個 fetch 方法作為所有的後備
+
+66
+00:02:40,085 --> 00:02:42,109
+other requests that are not handled by
+其他未處理的請求
+
+67
+00:02:42,109 --> 00:02:42,414
+routes.
+路線。
+
+68
+00:02:42,992 --> 00:02:46,251
+And I'm using that here for NotFound errors
+我在這裡用它來處理 NotFound 錯誤
+
+69
+00:02:46,444 --> 00:02:49,109
+because if we reach this point here, we know
+因為如果我們到達這裡，我們就知道
+
+70
+00:02:49,318 --> 00:02:50,747
+that the user tried to
+使用者試圖
+
+71
+00:02:51,807 --> 00:02:53,718
+access a route that just doesn't exist
+訪問不存在的路由
+
+72
+00:02:53,750 --> 00:02:56,258
+because the registered routes are handled
+因為註冊的路線已處理
+
+73
+00:02:56,306 --> 00:02:58,574
+first. So if you make it here, we clearly
+第一的。所以如果你能做到這裡，我們很清楚
+
+74
+00:02:58,574 --> 00:03:01,293
+tried to visit a non-registered route and
+嘗試訪問未註冊的路線並且
+
+75
+00:03:01,309 --> 00:03:03,192
+that's why I return a NotFound error here.
+這就是為什麼我在這裡回傳 NotFound 錯誤。
+
+76
+00:03:04,432 --> 00:03:06,428
+And I also handle the special options
+我還處理特殊選項
+
+77
+00:03:06,444 --> 00:03:08,070
+request and that's just there for the
+請求，這只是為了
+
+78
+00:03:08,070 --> 00:03:09,985
+browser to handle preflight requests,
+瀏覽器處理預檢請求，
+
+79
+00:03:10,519 --> 00:03:12,423
+CORS-related preflight requests. And
+與 CORS 相關的預檢請求。和
+
+80
+00:03:12,729 --> 00:03:14,714
+attached you find a resource where you can
+附件中你可以找到一個資源
+
+81
+00:03:14,730 --> 00:03:16,925
+learn more about CORS if that's brand new to
+如果這是全新的，請了解有關 CORS 的更多資訊
+
+82
+00:03:16,925 --> 00:03:17,022
+you.
+你。
+
+83
+00:03:18,548 --> 00:03:20,985
+Speaking of CORS, I also have a middleware
+說到CORS，我還有一個中介軟體
+
+84
+00:03:21,049 --> 00:03:23,099
+setup, so to say, a helper function
+設置，可以說是一個輔助函式
+
+85
+00:03:23,732 --> 00:03:27,073
+which I wrap around all my responses here as
+我在這裡將我所有的回應概括為
+
+86
+00:03:27,089 --> 00:03:29,514
+you see, and that's coming from the HTTP
+你看，那是來自 HTTP
+
+87
+00:03:29,514 --> 00:03:32,485
+CORS file in my project. So this file here,
+我的專案中的 CORS 檔案。所以這個檔案在這裡，
+
+88
+00:03:32,967 --> 00:03:34,830
+and in there I simply set up a function
+在那裡我簡單地設定了一個函式
+
+89
+00:03:35,199 --> 00:03:38,107
+where I take a response which I'm about to
+我將要做出的回應
+
+90
+00:03:38,107 --> 00:03:38,958
+send in the end,
+最後發送，
+
+91
+00:03:39,697 --> 00:03:43,551
+I take it as an input and I augment it to
+我將其作為輸入並將其增強為
+
+92
+00:03:43,792 --> 00:03:46,265
+add certain headers, CORS headers, because
+添加某些標頭，CORS 標頭，因為
+
+93
+00:03:46,314 --> 00:03:48,530
+since this is a REST API that will be
+因為這是一個 REST API
+
+94
+00:03:48,610 --> 00:03:50,955
+accessed by a frontend single-page
+由前端單頁訪問
+
+95
+00:03:50,955 --> 00:03:52,929
+application running on a different domain
+在不同域上運行的應用程式
+
+96
+00:03:53,026 --> 00:03:56,557
+potentially will be having CORS problems if
+若出現以下情況，可能會出現 CORS 問題：
+
+97
+00:03:56,573 --> 00:03:59,093
+we don't add those headers on the REST API.
+我們不會在 REST API 上新增這些標頭。
+
+98
+00:03:59,302 --> 00:04:01,549
+Again, attached is that resource with more
+再次強調，附件是包含更多內容的資源
+
+99
+00:04:01,549 --> 00:04:03,957
+details about CORS if that's brand new to
+有關 CORS 的詳細資訊（如果這是全新的）
+
+100
+00:04:03,957 --> 00:04:04,054
+you.
+你。
+
+101
+00:04:04,599 --> 00:04:06,333
+But that's just a little helper function
+但這只是一個小輔助使用
+
+102
+00:04:06,430 --> 00:04:08,837
+which makes sure that whenever I wrap it
+這確保了每當我包裹它時
+
+103
+00:04:08,837 --> 00:04:10,988
+around a response, it adds those headers.
+圍繞回應，它添加這些標頭。
+
+104
+00:04:11,165 --> 00:04:13,236
+You can think of it as a middleware kind of,
+你可以把它想像成一種中介層，
+
+105
+00:04:13,364 --> 00:04:13,910
+so to say.
+這麼說吧。
+
+106
+00:04:14,937 --> 00:04:17,121
+And that's how the server is generally set
+伺服器一般是這樣設定的
+
+107
+00:04:17,121 --> 00:04:20,001
+up. But of course, there is a lot to dive
+向上。但當然，還有很多值得潛水的地方
+
+108
+00:04:20,341 --> 00:04:22,382
+deeper, and we'll do that therefore.
+更深，因此我們會這樣做。

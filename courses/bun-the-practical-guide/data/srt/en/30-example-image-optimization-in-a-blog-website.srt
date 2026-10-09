@@ -1,0 +1,515 @@
+1
+00:00:00,112 --> 00:00:02,664
+So over the last lectures, you learned about
+
+2
+00:00:02,664 --> 00:00:06,099
+Bun's image API and you also saw that Bun
+
+3
+00:00:06,196 --> 00:00:08,908
+has a Markdown API. If you didn't go through
+
+4
+00:00:08,941 --> 00:00:11,172
+those lectures yet, it's now a good time to
+
+5
+00:00:11,172 --> 00:00:13,644
+do so because in this example here, I'm
+
+6
+00:00:13,676 --> 00:00:17,448
+combining both. I'm back in a basic website
+
+7
+00:00:17,448 --> 00:00:19,455
+demo project and of course you find it
+
+8
+00:00:19,455 --> 00:00:23,436
+attached. And in index.ts, I set up a Bun
+
+9
+00:00:23,644 --> 00:00:27,063
+server using Bun's serve feature and its
+
+10
+00:00:27,080 --> 00:00:27,529
+router feature.
+
+11
+00:00:28,683 --> 00:00:30,655
+And the server we have here has a starting
+
+12
+00:00:30,687 --> 00:00:33,300
+page, has an articles page and an article
+
+13
+00:00:33,412 --> 00:00:35,560
+detail page for showing a single article.
+
+14
+00:00:35,961 --> 00:00:38,301
+And I walk you through the details of what's
+
+15
+00:00:38,301 --> 00:00:40,498
+happening here in that earlier Markdown
+
+16
+00:00:40,610 --> 00:00:42,325
+lecture, so I'll not repeat it here.
+
+17
+00:00:43,351 --> 00:00:45,563
+But if you run the dev server with bun run
+
+18
+00:00:45,675 --> 00:00:47,583
+dev, you'll open up a server at
+
+19
+00:00:47,583 --> 00:00:49,090
+localhost:3000.
+
+20
+00:00:49,763 --> 00:00:51,366
+And if you load that, you'll end up on this
+
+21
+00:00:51,366 --> 00:00:53,658
+site. And here you can read the articles,
+
+22
+00:00:53,690 --> 00:00:55,726
+you'll see a list of articles and each
+
+23
+00:00:55,935 --> 00:00:57,970
+article has an image here that is new
+
+24
+00:00:58,179 --> 00:00:59,525
+compared to the example from before.
+
+25
+00:01:00,264 --> 00:01:02,223
+And you also see that image on the article
+
+26
+00:01:02,271 --> 00:01:02,882
+detail page
+
+27
+00:01:03,540 --> 00:01:07,057
+along with the rendered Markdown. Now those
+
+28
+00:01:07,089 --> 00:01:09,627
+images are stored here in the articles
+
+29
+00:01:09,739 --> 00:01:12,518
+folder next to the article Markdown files
+
+30
+00:01:12,710 --> 00:01:15,312
+and they were generated with AI again. And
+
+31
+00:01:15,360 --> 00:01:17,641
+for loading these images, I'm using the Bun
+
+32
+00:01:17,930 --> 00:01:21,013
+Image API, that's new in this example here.
+
+33
+00:01:21,704 --> 00:01:24,000
+So what you'll see in this index.ts file is
+
+34
+00:01:24,097 --> 00:01:26,859
+that we got all the server-related code, we
+
+35
+00:01:26,859 --> 00:01:29,268
+got code for finding the article files, the
+
+36
+00:01:29,268 --> 00:01:30,325
+Markdown files here,
+
+37
+00:01:30,918 --> 00:01:32,905
+and for then extracting the front matter,
+
+38
+00:01:33,097 --> 00:01:35,228
+the metadata at top of the Markdown files,
+
+39
+00:01:35,436 --> 00:01:38,064
+so this part here, and then also the raw
+
+40
+00:01:38,240 --> 00:01:39,650
+Markdown content below.
+
+41
+00:01:40,211 --> 00:01:41,925
+In that front matter, you also find
+
+42
+00:01:42,150 --> 00:01:44,905
+thumbnail data, so the name of the image
+
+43
+00:01:45,178 --> 00:01:49,007
+file and some alt text. And in index.ts,
+
+44
+00:01:49,744 --> 00:01:52,692
+we're then loading and transforming those
+
+45
+00:01:52,708 --> 00:01:55,432
+images with help of Bun's image API. And
+
+46
+00:01:55,592 --> 00:01:57,579
+that is happening here in this render
+
+47
+00:01:57,852 --> 00:02:01,121
+thumbnail function. renderThumbnail, in case
+
+48
+00:02:01,121 --> 00:02:04,647
+you're wondering, is called for this route,
+
+49
+00:02:04,663 --> 00:02:07,019
+which was also added, which is the route for
+
+50
+00:02:07,452 --> 00:02:09,920
+loading an image. So they are generated on
+
+51
+00:02:09,952 --> 00:02:12,004
+the fly. And if your website would then be
+
+52
+00:02:12,020 --> 00:02:14,776
+hosted behind some cache, behind Cloudflare,
+
+53
+00:02:14,841 --> 00:02:17,325
+for example, those images would of course be
+
+54
+00:02:17,325 --> 00:02:19,937
+cached and not be regenerated for every
+
+55
+00:02:19,969 --> 00:02:21,925
+request. So that we have a route that will
+
+56
+00:02:21,973 --> 00:02:24,633
+trigger the image generation. Now, what do I
+
+57
+00:02:24,633 --> 00:02:25,916
+mean with generation?
+
+58
+00:02:26,444 --> 00:02:29,800
+I mean the transformation and optimization
+
+59
+00:02:29,977 --> 00:02:32,129
+of these images, the generation of some new
+
+60
+00:02:32,386 --> 00:02:34,234
+improved images therefore.
+
+61
+00:02:35,695 --> 00:02:37,912
+Now, first we check whether a valid image
+
+62
+00:02:38,008 --> 00:02:41,044
+file path is requested, then we try loading
+
+63
+00:02:41,141 --> 00:02:44,048
+that input file and we return a NotFound
+
+64
+00:02:44,128 --> 00:02:46,265
+error if we don't find it. But then
+
+65
+00:02:46,377 --> 00:02:49,300
+thereafter, we're using the Bun Image API,
+
+66
+00:02:49,606 --> 00:02:50,971
+so the image method here
+
+67
+00:02:51,501 --> 00:02:53,493
+on the loaded file, that is what we're doing
+
+68
+00:02:53,589 --> 00:02:53,782
+here,
+
+69
+00:02:54,312 --> 00:02:56,621
+we're using it to resize the image
+
+70
+00:02:57,438 --> 00:03:01,187
+and target these predefined thumbnail width
+
+71
+00:03:01,379 --> 00:03:03,927
+and height settings so that even if the
+
+72
+00:03:03,927 --> 00:03:06,618
+original images were much bigger, we get
+
+73
+00:03:06,650 --> 00:03:09,422
+those smaller images and we don't load all
+
+74
+00:03:09,534 --> 00:03:11,697
+that unnecessary data for every request.
+
+75
+00:03:12,738 --> 00:03:16,471
+And I then also ensure that we always render
+
+76
+00:03:16,503 --> 00:03:19,210
+out WebP files, which is an image format
+
+77
+00:03:19,307 --> 00:03:20,540
+optimized for web
+
+78
+00:03:21,101 --> 00:03:23,552
+so that no matter if it's a JPEG or PNG or
+
+79
+00:03:23,552 --> 00:03:26,195
+whatever input image, we return a WebP file.
+
+80
+00:03:27,414 --> 00:03:29,946
+And I then get the raw blob here instead of
+
+81
+00:03:30,042 --> 00:03:32,366
+writing it to a file. So in the past
+
+82
+00:03:32,366 --> 00:03:34,674
+lecture, we used write to store the
+
+83
+00:03:34,690 --> 00:03:36,998
+optimized image somewhere. Here I'm getting
+
+84
+00:03:37,030 --> 00:03:40,701
+the blob instead because that blob is in the
+
+85
+00:03:40,701 --> 00:03:44,307
+end what I wanna return in my response. The
+
+86
+00:03:44,467 --> 00:03:47,673
+optimized thumbnail is that blob which I'm
+
+87
+00:03:47,673 --> 00:03:49,901
+returning because that is a valid response
+
+88
+00:03:50,077 --> 00:03:53,299
+value when using the standard response API
+
+89
+00:03:53,379 --> 00:03:54,613
+which Bun is using.
+
+90
+00:03:55,303 --> 00:03:57,759
+And I even have my own basic cache setting
+
+91
+00:03:57,791 --> 00:04:00,760
+here where I cache the file by filename, but
+
+92
+00:04:00,760 --> 00:04:02,911
+we could disable that in development if we
+
+93
+00:04:02,991 --> 00:04:05,190
+would want to turn it off or if we were
+
+94
+00:04:05,238 --> 00:04:06,908
+hosting this page behind a real
+
+95
+00:04:07,806 --> 00:04:10,551
+cache provider like Cloudflare, as mentioned
+
+96
+00:04:10,551 --> 00:04:10,904
+before.
+
+97
+00:04:11,578 --> 00:04:14,435
+I also have the getThumbnailPlaceholder
+
+98
+00:04:14,548 --> 00:04:15,286
+function here,
+
+99
+00:04:15,928 --> 00:04:18,945
+which is called when rendering an article
+
+100
+00:04:19,058 --> 00:04:23,038
+page so that we do indeed show a placeholder
+
+101
+00:04:23,134 --> 00:04:25,028
+right away whilst we're waiting for the
+
+102
+00:04:25,077 --> 00:04:27,227
+original image to load. Though if you're
+
+103
+00:04:27,307 --> 00:04:29,054
+running this development server locally on
+
+104
+00:04:29,086 --> 00:04:31,459
+your machine, the image will load so quickly
+
+105
+00:04:31,491 --> 00:04:33,895
+that you probably won't see the placeholder.
+
+106
+00:04:34,039 --> 00:04:36,556
+But the placeholder is created with the
+
+107
+00:04:36,684 --> 00:04:39,458
+placeholder API provided by Bun and then
+
+108
+00:04:39,987 --> 00:04:42,920
+embedded into those returned responses, into
+
+109
+00:04:42,952 --> 00:04:45,725
+those returned HTML pages in that thumb
+
+110
+00:04:46,543 --> 00:04:48,931
+via that thumbnail placeholder property
+
+111
+00:04:48,963 --> 00:04:49,140
+here.
+
+112
+00:04:49,669 --> 00:04:51,753
+So if you take a look at the templates, at
+
+113
+00:04:51,945 --> 00:04:53,388
+article.html for example,
+
+114
+00:04:53,917 --> 00:04:56,578
+you see that in there I have this
+
+115
+00:04:56,578 --> 00:04:59,385
+placeholder as a background image. And that
+
+116
+00:04:59,385 --> 00:05:01,408
+in the end is then overwritten once that
+
+117
+00:05:01,408 --> 00:05:03,849
+image loaded in, once the real image is
+
+118
+00:05:03,946 --> 00:05:06,548
+available. But we use this approach to have
+
+119
+00:05:06,548 --> 00:05:08,844
+a nice placeholder whilst we're waiting for
+
+120
+00:05:08,860 --> 00:05:10,081
+the raw image to be loaded.
+
+121
+00:05:11,028 --> 00:05:12,859
+And that is therefore how you could use the
+
+122
+00:05:12,875 --> 00:05:14,241
+Bun Image API in a
+
+123
+00:05:14,947 --> 00:05:17,950
+real example on a real webpage so that
+
+124
+00:05:17,950 --> 00:05:20,392
+again, you could build a basic personal
+
+125
+00:05:20,488 --> 00:05:22,801
+website like this, a personal blog like this
+
+126
+00:05:23,379 --> 00:05:26,128
+without any other dependencies Nothing else,
+
+127
+00:05:26,450 --> 00:05:29,236
+nothing other than Bun, just Bun's Markdown
+
+128
+00:05:29,333 --> 00:05:31,925
+rendering and its image optimization
+
+129
+00:05:31,925 --> 00:05:32,344
+feature.

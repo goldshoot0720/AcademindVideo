@@ -1,0 +1,644 @@
+1
+00:00:00,689 --> 00:00:03,670
+So what's the problem we're facing here? Why
+那我們這裡面臨的問題是什麼？為什麼
+
+2
+00:00:03,783 --> 00:00:06,924
+didn't we actually delete Learn Advanced
+我們不是真的刪除了「學習高級」嗎
+
+3
+00:00:06,924 --> 00:00:09,617
+Concepts here when we started with deleting
+當我們開始刪除時的概念
+
+4
+00:00:09,649 --> 00:00:10,499
+the first item
+第一項
+
+5
+00:00:11,413 --> 00:00:11,765
+before?
+前？
+
+6
+00:00:12,920 --> 00:00:15,613
+Well, because we're using the index for
+嗯，因為我們使用索引
+
+7
+00:00:15,805 --> 00:00:17,232
+deleting items.
+刪除專案。
+
+8
+00:00:18,386 --> 00:00:20,005
+And if I add some items here,
+如果我在這裡添加一些專案，
+
+9
+00:00:20,710 --> 00:00:23,836
+these indexes of course always start at 0.
+這些索引當然總是從 0 開始。
+
+10
+00:00:24,477 --> 00:00:26,545
+So the Learn Advanced Concepts
+所以學習先進的概念
+
+11
+00:00:27,907 --> 00:00:29,926
+has an ID of goal/0
+ID 為 goal/0
+
+12
+00:00:30,471 --> 00:00:32,330
+and therefore when I click this delete
+因此，當我單擊此刪除時
+
+13
+00:00:32,330 --> 00:00:35,279
+button, I will also send a request, a delete
+按鈕，我也會發送一個請求，一個刪除
+
+14
+00:00:35,279 --> 00:00:37,539
+request to goals/0.
+請求目標/0。
+
+15
+00:00:38,821 --> 00:00:41,273
+And for the second list item, I send one to
+對於第二個列表項，我將其發送至
+
+16
+00:00:41,305 --> 00:00:42,298
+goals/1.
+目標/1。
+
+17
+00:00:43,004 --> 00:00:45,952
+Now the problem is if I delete this first
+現在的問題是如果我先刪除它
+
+18
+00:00:45,952 --> 00:00:47,972
+item here, that item will be deleted.
+此處的專案，該專案將被刪除。
+
+19
+00:00:48,837 --> 00:00:49,174
+But now
+但現在
+
+20
+00:00:49,799 --> 00:00:53,148
+in my UI here, the second item still has the
+在我的使用者介面中，第二個專案仍然有
+
+21
+00:00:53,148 --> 00:00:56,578
+ID goal-1 and I'm sending a delete request
+ID goal-1，我正在發送刪除請求
+
+22
+00:00:56,674 --> 00:00:57,491
+to /goals/0.
+到/目標/0。
+
+23
+00:00:58,701 --> 00:01:01,499
+So I'm trying to delete the item with the
+所以我試圖用以下命令刪除該專案
+
+24
+00:01:01,499 --> 00:01:02,915
+index 1 therefore.
+因此索引為 1。
+
+25
+00:01:04,378 --> 00:01:07,048
+But since I already deleted that other item,
+但由於我已經刪除了其他專案，
+
+26
+00:01:07,289 --> 00:01:10,148
+this item is the only item left in the array
+該專案是陣列中剩下的唯一專案
+
+27
+00:01:10,520 --> 00:01:12,621
+and therefore it will actually have an index
+因此它實際上會有一個索引
+
+28
+00:01:12,621 --> 00:01:15,014
+of 0 there, not 1.
+那裡有 0，而不是 1。
+
+29
+00:01:16,663 --> 00:01:18,441
+So the problem in the end is that we're
+所以最終的問題是我們
+
+30
+00:01:18,441 --> 00:01:21,269
+using the index for deletion but the index
+使用索引進行刪除但是索引
+
+31
+00:01:21,269 --> 00:01:23,499
+of course changes whenever we delete items.
+當然，每當我們刪除專案時就會發生變化。
+
+32
+00:01:23,842 --> 00:01:26,229
+At least if we don't start at the end of the
+至少如果我們不從最後開始
+
+33
+00:01:26,229 --> 00:01:26,502
+list.
+列表。
+
+34
+00:01:27,928 --> 00:01:30,924
+Therefore, the workaround here has nothing
+因此，這裡的解決方法沒有什麼
+
+35
+00:01:30,972 --> 00:01:34,017
+to do with HTMX but instead is something we
+與 HTMX 相關，但我們卻這樣做
+
+36
+00:01:34,017 --> 00:01:36,453
+should do in general to make sure that we're
+一般來說應該要做的是確保我們
+
+37
+00:01:36,453 --> 00:01:38,007
+not deleting the wrong item.
+沒有刪除錯誤的專案。
+
+38
+00:01:38,728 --> 00:01:41,276
+And that workaround is that we should assign
+解決方法是我們應該分配
+
+39
+00:01:41,372 --> 00:01:45,554
+IDs, unique IDs to these items when we
+ID，當我們
+
+40
+00:01:45,554 --> 00:01:46,179
+create them.
+創建它們。
+
+41
+00:01:47,493 --> 00:01:50,442
+So when we push our goal text here, we
+因此，當我們將目標文字推到此處時，我們
+
+42
+00:01:50,442 --> 00:01:53,490
+should actually not push just that text, but
+實際上不應該只推送該文本，但是
+
+43
+00:01:53,490 --> 00:01:56,458
+instead maybe an object that has a text
+相反，可能是有文本的物件
+
+44
+00:01:56,458 --> 00:01:59,394
+property that stores that text, but that
+儲存該文字的屬性，但是
+
+45
+00:01:59,571 --> 00:02:02,202
+also has an ID property which we can then
+還有一個 ID 屬性，我們可以使用它
+
+46
+00:02:02,378 --> 00:02:05,362
+later use for deleting that item.
+稍後用於刪除該專案。
+
+47
+00:02:06,806 --> 00:02:07,849
+And here to get a
+在這裡得到一個
+
+48
+00:02:08,635 --> 00:02:10,159
+unique ID or at least
+唯一 ID 或至少
+
+49
+00:02:10,737 --> 00:02:13,368
+an ID that's unique enough for this demo,
+對於這個演示來說足夠唯一的 ID，
+
+50
+00:02:13,641 --> 00:02:16,563
+I'll construct a new Date object and call
+我將建構一個新的 Date 物件並調用
+
+51
+00:02:16,756 --> 00:02:19,091
+getTime. And this will give me the current
+獲取時間。這會給我當前的
+
+52
+00:02:19,091 --> 00:02:21,829
+time in milliseconds, which for this demo
+時間以毫秒為單位，對於本演示
+
+53
+00:02:21,974 --> 00:02:23,262
+app is unique enough.
+應用程式足夠獨特。
+
+54
+00:02:24,237 --> 00:02:27,014
+In theory, you could submit 2 items at
+理論上，您可以在以下位置提交 2 項內容：
+
+55
+00:02:27,079 --> 00:02:29,662
+exactly the same point of time, but for this
+完全相同的時間點，但為此
+
+56
+00:02:29,662 --> 00:02:32,068
+demo app, this is good enough. And
+演示應用程式，這已經足夠好了。和
+
+57
+00:02:32,084 --> 00:02:33,702
+therefore, this will then give us a
+因此，這將為我們提供
+
+58
+00:02:34,350 --> 00:02:36,180
+unique ID in the end.
+最後唯一的ID。
+
+59
+00:02:38,640 --> 00:02:40,634
+So with that, we of course now need to
+因此，我們現在當然需要
+
+60
+00:02:40,634 --> 00:02:43,218
+change the way we render these list items.
+改變我們呈現這些清單專案的方式。
+
+61
+00:02:43,562 --> 00:02:46,742
+Because now courseGoals no longer includes
+因為現在 courseGoals 不再包括
+
+62
+00:02:46,919 --> 00:02:50,051
+just strings. Instead, it includes objects
+只是字串。相反，它包括物件
+
+63
+00:02:50,292 --> 00:02:53,119
+with a text property and an ID property.
+具有文字屬性和 ID 屬性。
+
+64
+00:02:54,484 --> 00:02:55,528
+And therefore, the
+因此，
+
+65
+00:02:56,074 --> 00:02:58,548
+ID we set here should be goal-
+我們在這裡設定的ID應該是目標-
+
+66
+00:02:59,624 --> 00:03:02,532
+and then this ID. Therefore, I'll actually
+然後這個ID。因此，我實際上會
+
+67
+00:03:02,532 --> 00:03:04,491
+store it in an extra constant
+將其儲存在一個額外的常數中
+
+68
+00:03:05,021 --> 00:03:06,467
+so that I can use it
+這樣我就可以使用它
+
+69
+00:03:07,077 --> 00:03:07,447
+here
+這裡
+
+70
+00:03:08,202 --> 00:03:09,005
+and also here.
+還有這裡。
+
+71
+00:03:09,826 --> 00:03:12,409
+So that I can use that ID that we generated
+這樣我就可以使用我們產生的 ID
+
+72
+00:03:12,409 --> 00:03:14,927
+here to assign that ID to that list item.
+此處將該 ID 指派給該清單專案。
+
+73
+00:03:16,790 --> 00:03:19,720
+The text, of course, is still the goal text,
+當然，文本仍然是目標文本，
+
+74
+00:03:20,123 --> 00:03:22,023
+but then the request should be sent to
+但隨後請求應發送至
+
+75
+00:03:22,055 --> 00:03:24,551
+goals/id
+目標/ID
+
+76
+00:03:25,582 --> 00:03:27,962
+and the target also uses that ID
+並且目標也使用該 ID
+
+77
+00:03:29,325 --> 00:03:31,354
+and we no longer need that index.
+我們不再需要該索引。
+
+78
+00:03:34,024 --> 00:03:37,400
+And then here, when we delete an item, I'll
+然後在這裡，當我們刪除一個專案時，我會
+
+79
+00:03:37,531 --> 00:03:39,276
+rename this dynamic path parameter to ID
+將此動態路徑參數重新命名為 ID
+
+80
+00:03:42,011 --> 00:03:43,191
+And extract it here
+並在這裡提取它
+
+81
+00:03:45,001 --> 00:03:47,313
+and rename this to ID here as well.
+並將其也重新命名為 ID。
+
+82
+00:03:48,720 --> 00:03:50,657
+And then to delete the course goal, I will
+然後刪除課程目標，我會
+
+83
+00:03:50,835 --> 00:03:53,579
+actually find the index of the item that
+實際上找到該專案的索引
+
+84
+00:03:53,579 --> 00:03:54,500
+should be deleted
+應該刪除
+
+85
+00:03:55,032 --> 00:03:57,519
+by accessing my course goals and by then
+透過訪問我的課程目標然後
+
+86
+00:03:57,600 --> 00:03:58,897
+calling findIndex.
+呼叫 findIndex.
+
+87
+00:03:59,902 --> 00:04:01,249
+And this is a built-in method
+這是一個內建方法
+
+88
+00:04:01,914 --> 00:04:04,022
+which takes a function as an argument, which
+它接受一個函式作為參數，其中
+
+89
+00:04:04,038 --> 00:04:06,309
+will be executed for every item in course
+將為課程中的每個專案執行
+
+90
+00:04:06,309 --> 00:04:08,976
+goals and which should return true if it's
+目標，如果是的話應該回傳 true
+
+91
+00:04:08,976 --> 00:04:10,852
+the item we're looking for. And then
+我們正在尋找的物品。進而
+
+92
+00:04:11,510 --> 00:04:14,080
+findIndex will give me the index of that
+findIndex 會給我它的索引
+
+93
+00:04:14,080 --> 00:04:14,401
+item.
+物品。
+
+94
+00:04:15,622 --> 00:04:17,919
+And I'm looking for the item where the ID is
+我正在尋找 ID 所在的專案
+
+95
+00:04:18,111 --> 00:04:22,689
+equal to the ID I got here from my request.
+等於我根據請求獲得的 ID。
+
+96
+00:04:24,118 --> 00:04:26,206
+Now, what's important to note is that this
+現在，值得注意的是，這
+
+97
+00:04:26,223 --> 00:04:27,331
+ID here will be
+這裡的 ID 將會是
+
+98
+00:04:27,973 --> 00:04:30,013
+a string because we're extracting it from
+一個字串，因為我們要從中提取它
+
+99
+00:04:30,077 --> 00:04:30,832
+the URL,
+網址，
+
+100
+00:04:31,362 --> 00:04:34,462
+whereas this ID will be a number because I'm
+而這個 ID 將會是一個數字，因為我是
+
+101
+00:04:34,558 --> 00:04:36,213
+constructing it as a number here.
+在這裡將其建構為數字。
+
+102
+00:04:37,941 --> 00:04:40,428
+Therefore, I'll actually call toString here
+因此，我實際上會在這裡調用 toString
+
+103
+00:04:40,493 --> 00:04:42,264
+so that we have the same data type.
+這樣我們就有相同的資料型態。
+
+104
+00:04:46,150 --> 00:04:48,585
+So with that, I have the index and I can
+這樣，我就有了索引，我可以
+
+105
+00:04:48,634 --> 00:04:50,236
+then still use splice.
+然後還是用拼接。
+
+106
+00:04:52,563 --> 00:04:54,914
+Of course, we also need to update this code
+當然，我們還需要更新這段程式碼
+
+107
+00:04:54,914 --> 00:04:57,860
+here now though, because now a goal is no
+不過現在就在這裡，因為現在沒有目標
+
+108
+00:04:57,877 --> 00:05:00,839
+longer just a string. Instead, it's such an
+更長只是一個字串。相反，它是這樣一個
+
+109
+00:05:00,920 --> 00:05:03,638
+object with a text property and an ID
+具有文字屬性和 ID 的物件
+
+110
+00:05:03,703 --> 00:05:04,325
+property.
+財產。
+
+111
+00:05:04,848 --> 00:05:08,300
+And therefore, I'll use the ID property here
+因此，我將在這裡使用 ID 屬性
+
+112
+00:05:07,352 --> 00:05:09,142
+for constructing this listItemId.
+用於構造此 listItemId。
+
+113
+00:05:10,238 --> 00:05:12,319
+And I'll use the text property here for
+我將在這裡使用文字屬性
+
+114
+00:05:12,496 --> 00:05:13,238
+outputting the text.
+輸出文字。
+
+115
+00:05:15,632 --> 00:05:18,830
+And then here it's again goal.id in these
+然後這裡又是 goal.id
+
+116
+00:05:18,927 --> 00:05:20,300
+places down here.
+下面的地方。
+
+117
+00:05:22,475 --> 00:05:25,084
+Therefore, I no longer need this index.
+因此，我不再需要這個索引。
+
+118
+00:05:26,816 --> 00:05:27,073
+Okay,
+好的，
+
+119
+00:05:27,879 --> 00:05:31,167
+if we now save that and we reload, we should
+如果我們現在儲存並重新載入，我們應該
+
+120
+00:05:31,167 --> 00:05:32,327
+therefore now be able
+因此現在能夠
+
+121
+00:05:33,684 --> 00:05:34,854
+to add these items.
+添加這些專案。
+
+122
+00:05:35,769 --> 00:05:38,110
+And if I now start with deleting the first
+如果我現在開始刪除第一個
+
+123
+00:05:38,174 --> 00:05:38,415
+item
+物品
+
+124
+00:05:39,040 --> 00:05:41,061
+and I then also delete the second item
+然後我也刪除第二項
+
+125
+00:05:41,927 --> 00:05:44,317
+and I then reload, they're both gone.
+然後我重新載入，它們都消失了。
+
+126
+00:05:45,456 --> 00:05:48,615
+And they are both gone now because now we're
+他們現在都走了，因為現在我們
+
+127
+00:05:48,615 --> 00:05:51,535
+managing these items in a better way because
+以更好的方式管理這些專案，因為
+
+128
+00:05:51,567 --> 00:05:55,031
+we're now assigning and using unique IDs
+我們現在正在分配和使用唯一的 ID
+
+129
+00:05:55,560 --> 00:05:56,346
+for these items.
+對於這些專案。

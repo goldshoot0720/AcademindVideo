@@ -1,0 +1,543 @@
+1
+00:00:00,256 --> 00:00:02,997
+Most web applications you'll be building, no
+
+2
+00:00:02,997 --> 00:00:04,921
+matter if you're using Bun or not,
+
+3
+00:00:05,466 --> 00:00:08,608
+will need some form of data persistence,
+
+4
+00:00:08,688 --> 00:00:11,942
+data storage, for example, a database. And
+
+5
+00:00:12,038 --> 00:00:13,801
+when building an application with Bun,
+
+6
+00:00:14,379 --> 00:00:16,430
+that can be particularly easy
+
+7
+00:00:17,007 --> 00:00:19,701
+because you may just wanna use SQLite. And
+
+8
+00:00:19,749 --> 00:00:22,730
+guess what? Bun has a built-in SQLite
+
+9
+00:00:22,778 --> 00:00:25,423
+client. And SQLite, in case you don't know,
+
+10
+00:00:25,904 --> 00:00:28,501
+is an amazing database solution that's often
+
+11
+00:00:28,501 --> 00:00:30,377
+enough for many applications.
+
+12
+00:00:31,034 --> 00:00:31,691
+And you don't need a
+
+13
+00:00:32,413 --> 00:00:35,190
+or any external service for that. Instead,
+
+14
+00:00:35,302 --> 00:00:38,561
+it'll just be a file on your system, on your
+
+15
+00:00:38,657 --> 00:00:41,048
+VPS, wherever you're hosting the website.
+
+16
+00:00:41,787 --> 00:00:43,697
+And Bun has a built-in client for
+
+17
+00:00:43,729 --> 00:00:45,751
+interacting with it. It's high performance
+
+18
+00:00:46,040 --> 00:00:48,464
+and it's easy to use with Bun as you'll see.
+
+19
+00:00:49,668 --> 00:00:51,819
+And to show you, I'm in a brand new project
+
+20
+00:00:51,819 --> 00:00:54,258
+which you as always find attached.
+
+21
+00:00:54,868 --> 00:00:58,223
+And in there I have an index.ts file which
+
+22
+00:00:58,255 --> 00:01:00,807
+has a couple of dummy routes set up. I'm
+
+23
+00:01:00,823 --> 00:01:03,567
+building a basic notes app here, not super
+
+24
+00:01:03,567 --> 00:01:06,102
+exciting but useful for this example. And
+
+25
+00:01:06,134 --> 00:01:09,103
+it's best to just see it so I can run a dev
+
+26
+00:01:09,311 --> 00:01:12,264
+script which was added here. And if I then
+
+27
+00:01:12,360 --> 00:01:15,745
+visit localhost:3000, I can create notes
+
+28
+00:01:15,745 --> 00:01:19,163
+here like a test note. I then see those
+
+29
+00:01:19,259 --> 00:01:22,437
+notes also down here. I can view them, I can
+
+30
+00:01:22,629 --> 00:01:23,094
+edit them,
+
+31
+00:01:23,865 --> 00:01:27,507
+update the note. Here we go. And I can also
+
+32
+00:01:27,523 --> 00:01:27,988
+delete it.
+
+33
+00:01:28,646 --> 00:01:31,406
+Obviously nothing fancy but gets the job
+
+34
+00:01:31,614 --> 00:01:34,486
+done. Now this is all implemented with a
+
+35
+00:01:34,518 --> 00:01:37,759
+bunch of routes using Bun's serve feature,
+
+36
+00:01:37,807 --> 00:01:39,411
+which was covered in a separate lecture,
+
+37
+00:01:39,475 --> 00:01:42,315
+just like the router, using GET and POST
+
+38
+00:01:42,363 --> 00:01:44,721
+routes here because of course I also have
+
+39
+00:01:44,930 --> 00:01:47,994
+form submissions for handling the notes data
+
+40
+00:01:48,010 --> 00:01:49,037
+submitted by the user.
+
+41
+00:01:49,823 --> 00:01:52,117
+And I got a bunch of views, a bunch of HTML
+
+42
+00:01:52,181 --> 00:01:56,383
+files, bunch of HTML templates which have
+
+43
+00:01:56,399 --> 00:01:58,819
+some basic HTML and CSS code and
+
+44
+00:01:58,819 --> 00:02:01,848
+placeholders like this in the HTML code, and
+
+45
+00:02:01,864 --> 00:02:05,022
+then a views.ts file which registers all
+
+46
+00:02:05,150 --> 00:02:08,131
+these HTML files and then contains the logic
+
+47
+00:02:08,131 --> 00:02:11,193
+for replacing the double curly brace
+
+48
+00:02:11,401 --> 00:02:14,687
+placeholders with the actual values that
+
+49
+00:02:14,687 --> 00:02:17,427
+should be injected in there, the actual note
+
+50
+00:02:17,492 --> 00:02:20,200
+text, for example. You've seen similar
+
+51
+00:02:20,216 --> 00:02:22,604
+examples in earlier lectures if you went
+
+52
+00:02:22,604 --> 00:02:23,101
+through them.
+
+53
+00:02:23,903 --> 00:02:27,706
+In index.ts, I have those routes registered.
+
+54
+00:02:28,155 --> 00:02:30,064
+Then I got some utility functions for
+
+55
+00:02:30,144 --> 00:02:33,080
+returning HTML responses, for redirecting,
+
+56
+00:02:33,192 --> 00:02:36,465
+for parsing an ID because some of these
+
+57
+00:02:36,561 --> 00:02:40,331
+routes have dynamic segments where I expect
+
+58
+00:02:40,331 --> 00:02:43,684
+to get the ID of a note, the ID of the note
+
+59
+00:02:43,781 --> 00:02:46,444
+that should be deleted or the ID of the note
+
+60
+00:02:46,444 --> 00:02:48,914
+which I wanna edit or where I wanna submit.
+
+61
+00:02:49,332 --> 00:02:51,864
+The updated version and therefore I parse
+
+62
+00:02:52,137 --> 00:02:55,022
+that ID and convert it from a string, which
+
+63
+00:02:55,022 --> 00:02:58,886
+it is in the URL, to a number because I am
+
+64
+00:02:59,110 --> 00:03:02,236
+using numeric IDs in my database as you'll
+
+65
+00:03:02,236 --> 00:03:03,246
+just see in a second.
+
+66
+00:03:03,919 --> 00:03:05,971
+Other than that, there's really nothing
+
+67
+00:03:06,003 --> 00:03:08,969
+fancy in the index.ts file. Maybe this part
+
+68
+00:03:08,969 --> 00:03:11,518
+here is interesting. I got some logic in
+
+69
+00:03:11,518 --> 00:03:12,527
+there to listen for
+
+70
+00:03:13,217 --> 00:03:15,830
+events where the server is shut down to
+
+71
+00:03:15,862 --> 00:03:18,491
+perform a clean shutdown. And here,
+
+72
+00:03:18,507 --> 00:03:20,879
+important, I am closing my database.
+
+73
+00:03:21,312 --> 00:03:23,366
+Speaking of the database, that is of course
+
+74
+00:03:23,478 --> 00:03:25,371
+the interesting part in DBTS
+
+75
+00:03:25,965 --> 00:03:28,724
+because in there we're using Bun's built-in
+
+76
+00:03:28,772 --> 00:03:31,644
+SQLite client. And again, in case you don't
+
+77
+00:03:31,644 --> 00:03:31,804
+know,
+
+78
+00:03:32,382 --> 00:03:35,766
+SQLite is a SQL database which unlike
+
+79
+00:03:35,831 --> 00:03:39,777
+PostgreSQL or MySQL does not require a
+
+80
+00:03:39,777 --> 00:03:42,665
+separate database server that needs to be
+
+81
+00:03:42,793 --> 00:03:45,793
+running somewhere. Instead, it's just a file
+
+82
+00:03:46,162 --> 00:03:49,707
+that in this case will be managed by Bun, by
+
+83
+00:03:49,707 --> 00:03:52,002
+that SQLite client that's built into Bun.
+
+84
+00:03:52,596 --> 00:03:56,126
+It's this notes.sqlite file that was created
+
+85
+00:03:56,126 --> 00:03:56,784
+for me here,
+
+86
+00:03:57,394 --> 00:03:59,866
+and the file name is entirely up to you. You
+
+87
+00:03:59,898 --> 00:04:01,760
+can set it in your code, and I'll get back
+
+88
+00:04:01,808 --> 00:04:02,097
+to that.
+
+89
+00:04:02,706 --> 00:04:05,018
+But this is really just your entire
+
+90
+00:04:05,018 --> 00:04:06,976
+database. It lives on your system, and that
+
+91
+00:04:06,976 --> 00:04:09,784
+makes it so easy to use during development,
+
+92
+00:04:09,912 --> 00:04:12,047
+but it's also perfectly viable for
+
+93
+00:04:12,175 --> 00:04:14,246
+production. I'm using it in many of my
+
+94
+00:04:14,246 --> 00:04:16,846
+production apps out there because it's easy
+
+95
+00:04:16,846 --> 00:04:18,994
+to use. You can just back it up by copying
+
+96
+00:04:18,994 --> 00:04:22,167
+the file in the end and you don't pay for an
+
+97
+00:04:22,199 --> 00:04:24,587
+extra database server. But that is of course
+
+98
+00:04:24,587 --> 00:04:26,894
+up to you. How can you use it with Bun
+
+99
+00:04:26,990 --> 00:04:29,939
+though? Well, Bun has that SQLite package
+
+100
+00:04:29,971 --> 00:04:32,535
+here and from there you can import a
+
+101
+00:04:33,256 --> 00:04:34,987
+database class.
+
+102
+00:04:35,644 --> 00:04:38,705
+You can then instantiate that to register a
+
+103
+00:04:38,705 --> 00:04:41,782
+new database and here you enter your file
+
+104
+00:04:41,894 --> 00:04:43,897
+name and that can be anything you want.
+
+105
+00:04:44,137 --> 00:04:47,583
+Could also be app.db, whatever you want. The
+
+106
+00:04:47,583 --> 00:04:49,955
+file extension doesn't matter. The file name
+
+107
+00:04:50,003 --> 00:04:51,864
+doesn't matter, it's entirely up to you.
+
+108
+00:04:52,490 --> 00:04:54,864
+You can also use the special:memory:
+
+109
+00:04:56,019 --> 00:04:58,954
+name, which is a reserved name, to create it
+
+110
+00:04:59,130 --> 00:05:01,585
+in memory only, which of course means the
+
+111
+00:05:01,633 --> 00:05:04,023
+data will actually be lost when you shut
+
+112
+00:05:04,023 --> 00:05:06,349
+down the server, which is typically not what
+
+113
+00:05:06,349 --> 00:05:08,338
+you want from your database. But for
+
+114
+00:05:08,370 --> 00:05:10,471
+example, if you need a database for your
+
+115
+00:05:10,600 --> 00:05:13,615
+unit tests, which you want to erase after
+
+116
+00:05:13,744 --> 00:05:16,278
+every test run, memory could be a good
+
+117
+00:05:16,455 --> 00:05:18,636
+option. Here, I'm going for a filename to
+
+118
+00:05:18,636 --> 00:05:20,609
+have an actual file that's persisted.
+
+119
+00:05:21,283 --> 00:05:23,913
+This constructor then also takes an optional
+
+120
+00:05:23,929 --> 00:05:26,255
+configuration object where you could, for
+
+121
+00:05:26,255 --> 00:05:28,725
+example, set up a read-only database if you
+
+122
+00:05:28,725 --> 00:05:30,923
+only want to use it as a data source and not
+
+123
+00:05:30,923 --> 00:05:34,339
+store anything in there. You can set create
+
+124
+00:05:34,339 --> 00:05:36,697
+to true and you don't need to technically.
+
+125
+00:05:37,018 --> 00:05:40,017
+If you would set this to false and that file
+
+126
+00:05:40,050 --> 00:05:42,423
+wouldn't exist yet, then it would actually
+
+127
+00:05:42,440 --> 00:05:44,926
+fail and it would not create it for you. If
+
+128
+00:05:44,926 --> 00:05:47,176
+you set it to true or omit it, which is the
+
+129
+00:05:47,192 --> 00:05:47,642
+default,
+
+130
+00:05:48,333 --> 00:05:51,290
+so true is the default, I mean, then that
+
+131
+00:05:51,290 --> 00:05:54,296
+database file notes.sqlite in my case will
+
+132
+00:05:54,408 --> 00:05:56,497
+be created for you if it doesn't exist yet.
+
+133
+00:05:57,381 --> 00:06:00,339
+strict=true has something to do with
+
+134
+00:06:00,371 --> 00:06:02,605
+parameters you pass into your queries, and
+
+135
+00:06:02,637 --> 00:06:04,549
+I'll get back to that and what strict is all
+
+136
+00:06:04,549 --> 00:06:04,887
+about.

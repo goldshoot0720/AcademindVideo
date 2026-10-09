@@ -1,0 +1,437 @@
+[
+ {
+  "start": 0.176,
+  "end": 2.343,
+  "en": "We then, for example, also have the list.ts"
+ },
+ {
+  "start": 2.343,
+  "end": 4.493,
+  "en": "file, which we use for listing files because"
+ },
+ {
+  "start": 4.589,
+  "end": 7.077,
+  "en": "Bun's S3 client can of course not just be"
+ },
+ {
+  "start": 7.077,
+  "end": 8.81,
+  "en": "used for uploading files, but also for"
+ },
+ {
+  "start": 8.938,
+  "end": 10.431,
+  "en": "downloading and listing files."
+ },
+ {
+  "start": 11.249,
+  "end": 14.058,
+  "en": "Listing is done by using the S3 client and"
+ },
+ {
+  "start": 14.138,
+  "end": 16.706,
+  "en": "then its list method. So before we had the"
+ },
+ {
+  "start": 16.706,
+  "end": 19.274,
+  "en": "file method to get hold of a remote file on"
+ },
+ {
+  "start": 19.29,
+  "end": 21.344,
+  "en": "which we wanna operate, but we can also"
+ },
+ {
+  "start": 21.376,
+  "end": 24.698,
+  "en": "directly on the client call list to list all"
+ },
+ {
+  "start": 24.81,
+  "end": 25.966,
+  "en": "files in a bucket."
+ },
+ {
+  "start": 26.511,
+  "end": 28.983,
+  "en": "And list takes some settings like a prefix"
+ },
+ {
+  "start": 28.983,
+  "end": 32.079,
+  "en": "for filtering, so that you can only list all"
+ },
+ {
+  "start": 32.127,
+  "end": 34.532,
+  "en": "the files in a certain path on that remote"
+ },
+ {
+  "start": 34.532,
+  "end": 37.467,
+  "en": "bucket, how many files it should return in"
+ },
+ {
+  "start": 37.659,
+  "end": 41.155,
+  "en": "one list attempt. The default is 1,000 keys,"
+ },
+ {
+  "start": 41.267,
+  "end": 42.342,
+  "en": "but you can limit that,"
+ },
+ {
+  "start": 42.871,
+  "end": 44.843,
+  "en": "and therefore you need pagination if you"
+ },
+ {
+  "start": 44.859,
+  "end": 45.789,
+  "en": "have potentially more"
+ },
+ {
+  "start": 46.479,
+  "end": 48.916,
+  "en": "keys, more files on that remote host than"
+ },
+ {
+  "start": 48.964,
+  "end": 49.157,
+  "en": "that."
+ },
+ {
+  "start": 50.087,
+  "end": 52.268,
+  "en": "And the continuation token is needed for"
+ },
+ {
+  "start": 52.268,
+  "end": 54.545,
+  "en": "that pagination where you may have more than"
+ },
+ {
+  "start": 54.721,
+  "end": 58.04,
+  "en": "1,000 or max keys objects on that remote"
+ },
+ {
+  "start": 58.04,
+  "end": 61.182,
+  "en": "host. That simply is used to know after"
+ },
+ {
+  "start": 61.23,
+  "end": 63.555,
+  "en": "which file to continue with listing. But"
+ },
+ {
+  "start": 63.619,
+  "end": 65.35,
+  "en": "that list function then contains the entire"
+ },
+ {
+  "start": 65.462,
+  "end": 67.274,
+  "en": "logic for listing and for,"
+ },
+ {
+  "start": 67.867,
+  "end": 70.56,
+  "en": "if needed, paginating and going through all"
+ },
+ {
+  "start": 70.688,
+  "end": 72.179,
+  "en": "the files on that remote host."
+ },
+ {
+  "start": 73.253,
+  "end": 74.632,
+  "en": "And of course, we also might want to"
+ },
+ {
+  "start": 74.76,
+  "end": 77.244,
+  "en": "restore. So we want to download files. And"
+ },
+ {
+  "start": 77.244,
+  "end": 79.825,
+  "en": "again, we do this through the client there."
+ },
+ {
+  "start": 79.97,
+  "end": 82.967,
+  "en": "If we wanna restore a file, we get hold of"
+ },
+ {
+  "start": 82.967,
+  "end": 84.923,
+  "en": "it, get hold of the remote file with the"
+ },
+ {
+  "start": 84.955,
+  "end": 87.424,
+  "en": "file method as before, but then we first"
+ },
+ {
+  "start": 87.424,
+  "end": 89.846,
+  "en": "check whether it exists because obviously we"
+ },
+ {
+  "start": 89.846,
+  "end": 91.996,
+  "en": "can only restore what exists on the remote"
+ },
+ {
+  "start": 91.996,
+  "end": 95.222,
+  "en": "host. And if it does, we create the folder"
+ },
+ {
+  "start": 95.222,
+  "end": 96.393,
+  "en": "that may be needed locally"
+ },
+ {
+  "start": 97.051,
+  "end": 99.475,
+  "en": "and write that local file with the Bun.write"
+ },
+ {
+  "start": 99.475,
+  "end": 102.123,
+  "en": "API, which is now the local Bun file API."
+ },
+ {
+  "start": 102.588,
+  "end": 104.193,
+  "en": "And that's how we write that file. And the"
+ },
+ {
+  "start": 104.193,
+  "end": 106.199,
+  "en": "convenient thing about the Bun.write"
+ },
+ {
+  "start": 106.841,
+  "end": 110.034,
+  "en": "API or the Bun local file API in general is"
+ },
+ {
+  "start": 110.066,
+  "end": 113.886,
+  "en": "that you can pass that remote file handle as"
+ },
+ {
+  "start": 114.062,
+  "end": 114.881,
+  "en": "a value here."
+ },
+ {
+  "start": 115.458,
+  "end": 117.189,
+  "en": "So you may remember from earlier in the"
+ },
+ {
+  "start": 117.189,
+  "end": 119.337,
+  "en": "course that the values you pass to Write as"
+ },
+ {
+  "start": 119.386,
+  "end": 121.453,
+  "en": "a second argument are the content of the"
+ },
+ {
+  "start": 121.453,
+  "end": 123.602,
+  "en": "file and that could be a blob, that could be"
+ },
+ {
+  "start": 123.602,
+  "end": 125.814,
+  "en": "a string if you're writing a text file, but"
+ },
+ {
+  "start": 125.846,
+  "end": 130.655,
+  "en": "it can also be an S3 file handle, a remote"
+ },
+ {
+  "start": 130.671,
+  "end": 133.396,
+  "en": "file handle, and Bun will then automatically"
+ },
+ {
+  "start": 133.54,
+  "end": 136.281,
+  "en": "download that file and put its content into"
+ },
+ {
+  "start": 136.297,
+  "end": 138.494,
+  "en": "that local file. That's super convenient, of"
+ },
+ {
+  "start": 138.51,
+  "end": 138.734,
+  "en": "course."
+ },
+ {
+  "start": 139.632,
+  "end": 140.818,
+  "en": "Now, if we chose to"
+ },
+ {
+  "start": 141.395,
+  "end": 144.489,
+  "en": "restore an entire folder, we do that by"
+ },
+ {
+  "start": 144.521,
+  "end": 146.877,
+  "en": "again listing and paginating if needed."
+ },
+ {
+  "start": 146.99,
+  "end": 148.993,
+  "en": "Since that folder may of course contain"
+ },
+ {
+  "start": 149.49,
+  "end": 151.461,
+  "en": "multiple files, potentially more than are"
+ },
+ {
+  "start": 151.509,
+  "end": 153.449,
+  "en": "returned by one list statement."
+ },
+ {
+  "start": 154.058,
+  "end": 156.398,
+  "en": "And then we just go through all these files"
+ },
+ {
+  "start": 156.398,
+  "end": 158.353,
+  "en": "and download them step by step, same"
+ },
+ {
+  "start": 158.401,
+  "end": 160.677,
+  "en": "approach as before, now just with multiple"
+ },
+ {
+  "start": 160.725,
+  "end": 161.639,
+  "en": "files instead of one."
+ },
+ {
+  "start": 162.168,
+  "end": 164.075,
+  "en": "By the way, if you have such a remote file"
+ },
+ {
+  "start": 164.155,
+  "end": 166.255,
+  "en": "and you don't wanna write it to a file like"
+ },
+ {
+  "start": 166.255,
+  "end": 166.527,
+  "en": "this,"
+ },
+ {
+  "start": 167.12,
+  "end": 169.444,
+  "en": "you could also get the text of that remote"
+ },
+ {
+  "start": 169.444,
+  "end": 170.31,
+  "en": "file if it is"
+ },
+ {
+  "start": 171.143,
+  "end": 173.692,
+  "en": "a file that contains text by calling the"
+ },
+ {
+  "start": 173.788,
+  "end": 176.176,
+  "en": "text method on that remote file handle and"
+ },
+ {
+  "start": 176.192,
+  "end": 178.259,
+  "en": "awaiting that promise and that gives you the"
+ },
+ {
+  "start": 178.259,
+  "end": 180.807,
+  "en": "file content as a string. But again, only if"
+ },
+ {
+  "start": 180.839,
+  "end": 182.634,
+  "en": "that remote file contains something that"
+ },
+ {
+  "start": 182.907,
+  "end": 184.574,
+  "en": "makes sense as a string, of course."
+ },
+ {
+  "start": 185.151,
+  "end": 186.881,
+  "en": "But then you can use that string here"
+ },
+ {
+  "start": 186.929,
+  "end": 188.756,
+  "en": "however you want. You can write it to a"
+ },
+ {
+  "start": 188.756,
+  "end": 191.321,
+  "en": "local file, you can console.log it, whatever"
+ },
+ {
+  "start": 191.321,
+  "end": 193.164,
+  "en": "you want. That's worth knowing too. But if"
+ },
+ {
+  "start": 193.164,
+  "end": 195.151,
+  "en": "you wanna store a remote file locally,"
+ },
+ {
+  "start": 195.568,
+  "end": 198.308,
+  "en": "that's the way to go, using Bun's localWrite"
+ },
+ {
+  "start": 198.629,
+  "end": 198.981,
+  "en": "API,"
+ },
+ {
+  "start": 199.59,
+  "end": 202.074,
+  "en": "the target file, the local file, and then a"
+ },
+ {
+  "start": 202.074,
+  "end": 203.324,
+  "en": "pointer at the remote file."
+ }
+]

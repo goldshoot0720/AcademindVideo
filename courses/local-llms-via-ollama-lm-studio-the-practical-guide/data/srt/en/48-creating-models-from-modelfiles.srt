@@ -1,0 +1,331 @@
+1
+00:00:00,272 --> 00:00:02,743
+So we got a model file. How can we now build
+
+2
+00:00:02,759 --> 00:00:04,812
+an actual model based on that file?
+
+3
+00:00:05,550 --> 00:00:08,358
+Well, for that, Ollama gives us the create
+
+4
+00:00:08,358 --> 00:00:08,743
+command
+
+5
+00:00:09,657 --> 00:00:11,518
+because as we learn here, this creates a
+
+6
+00:00:11,518 --> 00:00:13,299
+model from a model file.
+
+7
+00:00:14,470 --> 00:00:16,828
+Now for that, you must make sure that in
+
+8
+00:00:16,876 --> 00:00:18,737
+your command line, in your terminal, you
+
+9
+00:00:18,737 --> 00:00:21,031
+navigate into the folder where you got that
+
+10
+00:00:21,031 --> 00:00:23,358
+model file, which in my case is the case.
+
+11
+00:00:24,256 --> 00:00:26,101
+And then you can run ollama create
+
+12
+00:00:26,964 --> 00:00:28,690
+Then any name of your choice
+
+13
+00:00:29,626 --> 00:00:32,304
+like service agent, but that is entirely up
+
+14
+00:00:32,304 --> 00:00:34,546
+to you. That will be the name of the model
+
+15
+00:00:34,546 --> 00:00:35,159
+you're creating.
+
+16
+00:00:36,298 --> 00:00:37,202
+And then -f
+
+17
+00:00:38,059 --> 00:00:38,349
+and then
+
+18
+00:00:40,320 --> 00:00:42,581
+./model_file. And here you simply specify
+
+19
+00:00:42,581 --> 00:00:44,310
+the path to that model file.
+
+20
+00:00:45,406 --> 00:00:47,179
+And since here for me it sits in the same
+
+21
+00:00:47,195 --> 00:00:49,581
+directory, it's a very simple path. If you
+
+22
+00:00:49,613 --> 00:00:51,402
+had it in some other directory, you could
+
+23
+00:00:51,402 --> 00:00:54,239
+specify the full absolute path to that model
+
+24
+00:00:54,239 --> 00:00:54,698
+file here.
+
+25
+00:00:56,610 --> 00:00:59,252
+So now if you save that, it will build a new
+
+26
+00:00:59,300 --> 00:01:00,905
+model based on that model file.
+
+27
+00:01:02,630 --> 00:01:04,603
+And therefore, if thereafter you run ollama
+
+28
+00:01:04,603 --> 00:01:06,899
+list, you should see that model here.
+
+29
+00:01:08,630 --> 00:01:11,040
+Now again, this size is kind of wrong
+
+30
+00:01:11,153 --> 00:01:13,574
+because of course this service agent model,
+
+31
+00:01:14,057 --> 00:01:16,136
+thanks to this command we just executed,
+
+32
+00:01:16,700 --> 00:01:19,328
+is based on this model file, which builds a
+
+33
+00:01:19,360 --> 00:01:21,083
+model based on this Gemma model. And
+
+34
+00:01:21,083 --> 00:01:22,852
+therefore, Ollama will not technically copy
+
+35
+00:01:22,852 --> 00:01:23,458
+that model. It will not copy the weights.
+
+36
+00:01:25,510 --> 00:01:27,823
+Weights or parameters of that model. It will
+
+37
+00:01:27,936 --> 00:01:29,318
+also not change them, by the way.
+
+38
+00:01:29,880 --> 00:01:32,387
+Instead, it will use that as a base and just
+
+39
+00:01:33,014 --> 00:01:36,043
+adjust that metadata, so to say, so that
+
+40
+00:01:36,383 --> 00:01:39,085
+these settings are always set when we now
+
+41
+00:01:39,376 --> 00:01:41,900
+run our customized model. But under the
+
+42
+00:01:41,900 --> 00:01:44,510
+hood, we're still using the unchanged Gemma
+
+43
+00:01:44,576 --> 00:01:45,193
+3 model.
+
+44
+00:01:46,850 --> 00:01:49,246
+But of course, therefore, here I can ollama
+
+45
+00:01:49,246 --> 00:01:50,724
+run service agent.
+
+46
+00:01:52,119 --> 00:01:52,492
+Like this,
+
+47
+00:01:53,902 --> 00:01:55,767
+and this will now load my own model.
+
+48
+00:01:57,343 --> 00:01:59,865
+And here we also see that chat history we
+
+49
+00:01:59,994 --> 00:02:01,239
+added to that model.
+
+50
+00:02:02,015 --> 00:02:04,391
+And if I type show system, I, for example,
+
+51
+00:02:04,456 --> 00:02:06,962
+also see that system message which I added
+
+52
+00:02:06,962 --> 00:02:07,994
+to that model file.
+
+53
+00:02:09,220 --> 00:02:11,381
+And that's therefore another, maybe more
+
+54
+00:02:11,397 --> 00:02:14,107
+convenient way of building customized models
+
+55
+00:02:14,300 --> 00:02:15,720
+based on existing models,
+
+56
+00:02:16,559 --> 00:02:18,516
+not by using set
+
+57
+00:02:19,142 --> 00:02:21,453
+and save, which you can also do, which has
+
+58
+00:02:21,485 --> 00:02:22,304
+the same effect,
+
+59
+00:02:22,833 --> 00:02:25,482
+but instead by using such a model file. And
+
+60
+00:02:25,498 --> 00:02:27,119
+of course, the great thing about such a
+
+61
+00:02:27,119 --> 00:02:29,639
+model file is that you can also share it
+
+62
+00:02:29,655 --> 00:02:31,405
+with other people. You can upload it to
+
+63
+00:02:31,517 --> 00:02:33,748
+GitHub, share it through your website, and
+
+64
+00:02:33,909 --> 00:02:36,365
+therefore allow other people that are also
+
+65
+00:02:36,477 --> 00:02:40,345
+using Ollama to easily copy your customized
+
+66
+00:02:40,490 --> 00:02:41,212
+model version.
+
+67
+00:02:42,015 --> 00:02:44,599
+Now, for completeness sake, I also wanna
+
+68
+00:02:44,599 --> 00:02:46,413
+mention that when it comes to sharing
+
+69
+00:02:46,589 --> 00:02:49,334
+customized versions of models, you can also
+
+70
+00:02:49,398 --> 00:02:52,672
+use the Ollama push command. And this pushes
+
+71
+00:02:52,785 --> 00:02:56,316
+a model to a registry, a registry like the
+
+72
+00:02:56,316 --> 00:02:58,691
+official Ollama models registry, for
+
+73
+00:02:58,723 --> 00:02:59,253
+example.
+
+74
+00:03:00,248 --> 00:03:02,142
+But that's not something I'll do in this
+
+75
+00:03:02,254 --> 00:03:04,020
+course here, not something you have to do.
+
+76
+00:03:04,726 --> 00:03:06,588
+As I just explained, if you wanna share a
+
+77
+00:03:06,588 --> 00:03:08,610
+customized version of a model, you could
+
+78
+00:03:08,738 --> 00:03:10,889
+also just share the model file and have
+
+79
+00:03:11,001 --> 00:03:13,810
+people create that model based on that model
+
+80
+00:03:13,810 --> 00:03:16,495
+file. Locally on their systems, but it's
+
+81
+00:03:16,543 --> 00:03:19,309
+worth noting that Ollama Push exists and can
+
+82
+00:03:19,357 --> 00:03:21,480
+therefore be an interesting way of sharing
+
+83
+00:03:21,609 --> 00:03:23,860
+an adjusted model with other people.

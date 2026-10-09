@@ -1,0 +1,774 @@
+1
+00:00:00,529 --> 00:00:04,201
+So we are able to add elements to this list,
+所以我們可以為這個清單加入元素，
+
+2
+00:00:04,425 --> 00:00:06,334
+but at the moment, if I then click an
+但目前，如果我點擊
+
+3
+00:00:06,446 --> 00:00:07,649
+element on that list,
+該列表中的元素，
+
+4
+00:00:08,274 --> 00:00:11,353
+I add it again, I duplicate it basically.
+我再次添加它，我基本上複製了它。
+
+5
+00:00:12,620 --> 00:00:14,159
+And that's not what I want.
+這不是我想要的。
+
+6
+00:00:14,769 --> 00:00:16,901
+Instead, if I click an item here in that
+相反，如果我點擊其中的一個專案
+
+7
+00:00:17,110 --> 00:00:19,996
+dream locations list, I wanna remove it from
+夢想地點列表，我想將其從中刪除
+
+8
+00:00:19,996 --> 00:00:23,107
+that list. And I also wanna make sure that
+那個清單。我也想確保
+
+9
+00:00:23,268 --> 00:00:26,042
+items I selected down there disappear from
+我在那裡選擇的專案消失了
+
+10
+00:00:26,154 --> 00:00:28,592
+here. And are added up here. And if I then
+這裡。並在這裡添加。如果我那麼
+
+11
+00:00:28,657 --> 00:00:31,159
+remove them up here, they should be re-added
+在這裡刪除它們，應該重新添加它們
+
+12
+00:00:31,223 --> 00:00:33,758
+down there so that items basically switch
+在那裡，專案基本上會切換
+
+13
+00:00:34,175 --> 00:00:35,266
+between these 2 lists.
+在這兩個列表之間。
+
+14
+00:00:36,036 --> 00:00:37,127
+That's my next goal.
+這是我的下一個目標。
+
+15
+00:00:38,506 --> 00:00:40,335
+Now let's start with making sure that
+現在讓我們先確保
+
+16
+00:00:40,591 --> 00:00:43,270
+clicking an item in that upper list sends a
+點擊上方列表中的專案會發送
+
+17
+00:00:43,270 --> 00:00:44,153
+DELETE request.
+刪除請求。
+
+18
+00:00:45,099 --> 00:00:48,147
+At the moment, we always send a POST request
+目前，我們總是發送 POST 請求
+
+19
+00:00:48,147 --> 00:00:51,323
+because we added hx-post on that location
+因為我們在該位置添加了 hx-post
+
+20
+00:00:51,339 --> 00:00:53,457
+item and we're using that same item in both
+專案並且我們在兩個專案中都使用相同的專案
+
+21
+00:00:53,457 --> 00:00:53,585
+lists.
+列表。
+
+22
+00:00:54,965 --> 00:00:58,431
+Now, one way of sending a DELETE request
+現在，發送 DELETE 請求的一種方法
+
+23
+00:00:58,479 --> 00:01:00,630
+here in that upper list
+在上面的列表中
+
+24
+00:01:01,207 --> 00:01:04,529
+would be to accept a second argument in this
+就是接受這個中的第二個論點
+
+25
+00:01:04,577 --> 00:01:07,498
+renderLocation function that could be named
+可以命名的 renderLocation 函式
+
+26
+00:01:07,706 --> 00:01:09,616
+isAvailableLocation
+可用位置
+
+27
+00:01:10,370 --> 00:01:11,189
+or anything like that.
+或類似的東西。
+
+28
+00:01:11,895 --> 00:01:14,141
+And we can assign a default value of true,
+我們可以指定預設值 true，
+
+29
+00:01:14,382 --> 00:01:15,088
+for example.
+例如。
+
+30
+00:01:16,452 --> 00:01:18,586
+And I'll use this argument to determine
+我將用這個論點來確定
+
+31
+00:01:18,699 --> 00:01:20,560
+which attributes should be added to the
+應該要添加哪些屬性
+
+32
+00:01:20,624 --> 00:01:20,881
+button.
+按鈕。
+
+33
+00:01:21,506 --> 00:01:23,864
+So that I can basically tell this function
+這樣我基本上就能說出這個函式
+
+34
+00:01:24,233 --> 00:01:27,071
+in which kind of list I'm using this item,
+我在哪種清單中使用該專案，
+
+35
+00:01:27,712 --> 00:01:30,006
+if it's the available locations list or the
+如果是可用位置清單或
+
+36
+00:01:30,086 --> 00:01:31,625
+interesting locations list.
+有趣的地點列表。
+
+37
+00:01:32,603 --> 00:01:34,079
+So therefore we could then add an
+因此我們可以添加一個
+
+38
+00:01:34,656 --> 00:01:35,506
+attributes
+屬性
+
+39
+00:01:36,260 --> 00:01:36,869
+variable here
+此處變數
+
+40
+00:01:38,184 --> 00:01:40,493
+and check if is available location,
+並檢查是否有可用位置，
+
+41
+00:01:41,102 --> 00:01:41,872
+if that is true.
+如果這是真的。
+
+42
+00:01:42,770 --> 00:01:45,769
+And in that case, I wanna set attributes to
+在這種情況下，我想將屬性設為
+
+43
+00:01:46,362 --> 00:01:48,962
+a list of attributes or to a string that
+屬性列表或字串
+
+44
+00:01:48,962 --> 00:01:51,645
+includes multiple attributes to be precise,
+準確地說，包括多個屬性，
+
+45
+00:01:52,384 --> 00:01:54,778
+where I have this post and this vals
+我在哪裡有這個帖子和這個值
+
+46
+00:01:54,955 --> 00:01:55,662
+attribute
+屬性
+
+47
+00:01:56,561 --> 00:01:59,091
+and where I also have the target and swap
+我也有目標和交換
+
+48
+00:01:59,301 --> 00:01:59,769
+attributes.
+屬性。
+
+49
+00:02:00,786 --> 00:02:03,063
+So I'll cut them from the button down there
+所以我會從下面的按鈕上剪掉它們
+
+50
+00:02:03,337 --> 00:02:06,147
+and instead add them here in this string, in
+並將它們添加到此字串中
+
+51
+00:02:06,179 --> 00:02:07,496
+this attributes string.
+這個屬性字串。
+
+52
+00:02:09,547 --> 00:02:11,240
+And then of course, down there at the
+當然，在下面的
+
+53
+00:02:11,320 --> 00:02:14,448
+button, I'll inject this attributes string
+按鈕，我將注入這個屬性字串
+
+54
+00:02:14,739 --> 00:02:16,770
+so that in the end on the rendered button
+這樣最終在渲染的按鈕上
+
+55
+00:02:16,899 --> 00:02:19,227
+element, these attributes will be present
+元素，這些屬性將會出現
+
+56
+00:02:19,227 --> 00:02:19,437
+again.
+再次。
+
+57
+00:02:21,089 --> 00:02:23,680
+But now we can also define an else case. So
+但現在我們還可以定義一個 else 情況。所以
+
+58
+00:02:23,680 --> 00:02:25,866
+if that location is rendered in the
+如果該位置呈現在
+
+59
+00:02:25,866 --> 00:02:28,790
+interesting locations list instead of the
+有趣的地點列表而不是
+
+60
+00:02:29,096 --> 00:02:32,631
+available locations list, and in that else
+可用位置列表，以及其他位置
+
+61
+00:02:32,631 --> 00:02:32,920
+case,
+案件，
+
+62
+00:02:33,660 --> 00:02:36,466
+the attributes should be different because
+屬性應該不同，因為
+
+63
+00:02:36,499 --> 00:02:38,830
+in that else case, we wanna send a DELETE
+在這種情況下，我們想要發送一個 DELETE
+
+64
+00:02:38,830 --> 00:02:40,966
+request with hx-delete
+使用 hx-delete 進行請求
+
+65
+00:02:42,067 --> 00:02:45,230
+and that DELETE request should be sent to
+且該 DELETE 請求應發送至
+
+66
+00:02:45,230 --> 00:02:46,352
+this delete route here.
+這裡刪除路由。
+
+67
+00:02:47,393 --> 00:02:47,922
+So to
+所以為了
+
+68
+00:02:48,483 --> 00:02:49,653
+/places and then
+/地方然後
+
+69
+00:02:50,759 --> 00:02:53,388
+/some ID, the ID of the place that should be
+/some ID，應該是的地方的ID
+
+70
+00:02:53,388 --> 00:02:53,805
+deleted.
+已刪除。
+
+71
+00:02:54,510 --> 00:02:57,443
+So to /places and then I'll dynamically
+所以到 /places 然後我會動態地
+
+72
+00:02:57,475 --> 00:03:00,408
+inject the ID of the place for which I'm
+注入我所在地點的 ID
+
+73
+00:03:00,504 --> 00:03:01,995
+rendering this location item,
+渲染這個位置項，
+
+74
+00:03:02,829 --> 00:03:04,976
+which I can get from this location argument
+我可以從這個位置參數得到
+
+75
+00:03:05,249 --> 00:03:07,573
+because there it's location.id.
+因為那裡有location.id。
+
+76
+00:03:08,695 --> 00:03:10,618
+That will give me the ID of the place that
+這會給我那個地方的 ID
+
+77
+00:03:10,618 --> 00:03:12,397
+should be removed from this list.
+應從該清單中刪除。
+
+78
+00:03:13,473 --> 00:03:15,693
+So that will then send this delete request.
+這樣就會發送這個刪除請求。
+
+79
+00:03:17,370 --> 00:03:19,892
+In addition, here I wanna make sure that I
+另外，在這裡我想確保我
+
+80
+00:03:20,037 --> 00:03:22,142
+ask the user whether they really wanna
+詢問使用者是否真的想要
+
+81
+00:03:22,142 --> 00:03:22,640
+continue.
+繼續。
+
+82
+00:03:23,186 --> 00:03:25,821
+And we can do that with hx-confirm as you
+我們可以像您一樣使用 hx-confirm 來做到這一點
+
+83
+00:03:25,821 --> 00:03:26,079
+learned.
+學到了。
+
+84
+00:03:26,641 --> 00:03:29,252
+And here I'll simply ask, are you sure?
+這裡我只想問一句，你確定嗎？
+
+85
+00:03:32,147 --> 00:03:34,252
+That should make sure that we send that
+這應該確保我們發送該
+
+86
+00:03:34,252 --> 00:03:35,078
+delete request.
+刪除請求。
+
+87
+00:03:36,195 --> 00:03:39,596
+Now in app.js, in this delete route, I am
+現在在 app.js 中，在這個刪除路線中，我是
+
+88
+00:03:39,661 --> 00:03:42,296
+then removing that place, which I
+然後刪除那個地方，我
+
+89
+00:03:42,825 --> 00:03:45,074
+identify by its ID from the
+透過其 ID 來識別
+
+90
+00:03:45,090 --> 00:03:47,209
+interestingLocations array,
+有趣的位置陣列，
+
+91
+00:03:48,044 --> 00:03:50,277
+and I send back an empty response.
+我發回一個空回覆。
+
+92
+00:03:50,855 --> 00:03:51,047
+And
+和
+
+93
+00:03:51,577 --> 00:03:53,890
+as you learned, if you send back an empty
+正如您所知，如果您發回一個空的
+
+94
+00:03:53,922 --> 00:03:54,644
+response,
+回覆,
+
+95
+00:03:55,190 --> 00:03:59,398
+you can use that empty response to replace
+您可以使用該空回應來替換
+
+96
+00:03:59,558 --> 00:04:02,160
+some element with it and therefore to
+一些元素與它，因此
+
+97
+00:04:02,272 --> 00:04:04,665
+effectively delete it from the DOM.
+有效地將其從 DOM 中刪除。
+
+98
+00:04:05,484 --> 00:04:08,744
+Back in location.js, I wanna tweak those
+回到 location.js，我想調整那些
+
+99
+00:04:08,921 --> 00:04:11,347
+attributes in case I'm sending that DELETE
+屬性，以防我發送 DELETE
+
+100
+00:04:11,347 --> 00:04:11,700
+request
+要求
+
+101
+00:04:12,455 --> 00:04:14,158
+and I wanna target
+我想瞄準
+
+102
+00:04:14,721 --> 00:04:17,388
+the element that should be removed from the
+應從中刪除的元素
+
+103
+00:04:17,453 --> 00:04:17,744
+DOM.
+DOM。
+
+104
+00:04:18,277 --> 00:04:20,702
+So I wanna target this list item.
+所以我想瞄準這個清單專案。
+
+105
+00:04:22,384 --> 00:04:25,407
+We can target that with closest li.
+我們可以用最接近的 li 來定位它。
+
+106
+00:04:26,344 --> 00:04:28,077
+Keep in mind that the attributes are
+請記住，屬性是
+
+107
+00:04:28,191 --> 00:04:31,516
+rendered here and the closest list item seen
+此處呈現以及看到的最接近的列表項
+
+108
+00:04:31,516 --> 00:04:34,272
+relative from that button is that list item
+相對於該按鈕的是該列表項
+
+109
+00:04:34,272 --> 00:04:34,386
+here.
+這裡。
+
+110
+00:04:35,367 --> 00:04:37,535
+So that will make sure that this list item
+這樣就可以確保這個清單項
+
+111
+00:04:37,568 --> 00:04:38,735
+as a whole is targeted.
+整體是有針對性的。
+
+112
+00:04:40,557 --> 00:04:44,196
+To then remove it and not just its contents,
+然後刪除它而不僅僅是其內容，
+
+113
+00:04:44,598 --> 00:04:48,253
+we also should set hx-swap to outerHTML.
+我們也應該將 hx-swap 設定為outerHTML。
+
+114
+00:04:48,623 --> 00:04:51,120
+That will then entirely get rid of that list
+這將完全擺脫該列表
+
+115
+00:04:51,120 --> 00:04:51,330
+item.
+物品。
+
+116
+00:04:52,797 --> 00:04:55,055
+And that should therefore be all the code we
+因此，這應該是我們的所有程式碼
+
+117
+00:04:55,055 --> 00:04:57,086
+need to delete an item.
+需要刪除一個專案。
+
+118
+00:04:59,515 --> 00:05:02,654
+Now with those changes made, if I save
+現在進行這些更改後，如果我儲存
+
+119
+00:05:02,750 --> 00:05:04,420
+everything and I reload,
+一切，我重新載入，
+
+120
+00:05:05,094 --> 00:05:07,310
+I am able to add places,
+我可以添加地點，
+
+121
+00:05:07,968 --> 00:05:09,863
+but when I then click a place, I
+但是當我點擊一個地方時，我
+
+122
+00:05:10,489 --> 00:05:11,983
+still duplicate it.
+仍然複製它。
+
+123
+00:05:12,866 --> 00:05:15,740
+Now strangely, if I reload and then click an
+現在奇怪的是，如果我重新載入然後單擊
+
+124
+00:05:15,772 --> 00:05:18,759
+item, I instead get the intended behavior. I
+專案，我反而得到了預期的行為。我
+
+125
+00:05:18,887 --> 00:05:21,665
+get this prompt and I can click OK to then
+收到此提示，我可以單擊“確定”
+
+126
+00:05:21,714 --> 00:05:22,179
+delete it.
+刪除它。
+
+127
+00:05:23,303 --> 00:05:26,017
+But why does this not happen if I just added
+但如果我只是添加，為什麼不會發生這種情況
+
+128
+00:05:26,049 --> 00:05:28,265
+it and I then click on it? Why is it then
+然後我點擊它？為什麼會這樣
+
+129
+00:05:28,313 --> 00:05:29,469
+still duplicated?
+仍然重複？
+
+130
+00:05:30,142 --> 00:05:32,995
+Well, it's then still duplicated because of
+好吧，它仍然是重複的，因為
+
+131
+00:05:33,091 --> 00:05:35,510
+course we must utilize this
+當然我們必須利用這個
+
+132
+00:05:35,654 --> 00:05:38,186
+isAvailableLocation parameter here.
+isAvailableLocation 參數位於此處。
+
+133
+00:05:39,340 --> 00:05:41,904
+We must pass a value for it if it should be
+如果應該的話，我們必須為其傳遞一個值
+
+134
+00:05:42,064 --> 00:05:44,067
+other than true, so if it should be false.
+除了 true，所以如果它應該是 false。
+
+135
+00:05:45,429 --> 00:05:47,624
+And currently I'm not really doing that. I
+目前我並沒有真正這樣做。我
+
+136
+00:05:47,624 --> 00:05:50,316
+mean, I am indeed doing it in index.js.
+意思是，我確實是在index.js 做的。
+
+137
+00:05:50,797 --> 00:05:53,489
+There it was part of the starting code, this
+這是起始程式碼的一部分，這個
+
+138
+00:05:53,537 --> 00:05:55,203
+false argument here in the
+這裡的錯誤論點
+
+139
+00:05:55,235 --> 00:05:56,501
+interestingLocations list.
+有趣的地點列表。
+
+140
+00:05:57,687 --> 00:06:00,364
+But if I add a new location with this route
+但是如果我用這條路線新增一個新位置
+
+141
+00:06:00,732 --> 00:06:03,617
+and I return that rendered list item, I do
+然後我回傳渲染的列表項，我這樣做
+
+142
+00:06:03,617 --> 00:06:05,636
+not set the second argument here.
+此處不設定第二個參數。
+
+143
+00:06:06,438 --> 00:06:09,194
+And we should do that. We should pass false
+我們應該這樣做。我們應該傳遞 false
+
+144
+00:06:09,242 --> 00:06:11,759
+as a second argument to renderLocation here
+作為此處 renderLocation 的第二個參數
+
+145
+00:06:12,191 --> 00:06:15,028
+to make sure that these newly created items
+以確保這些新建立的專案
+
+146
+00:06:15,172 --> 00:06:17,801
+which are injected into the DOM and into the
+它們被注入到 DOM 和
+
+147
+00:06:17,801 --> 00:06:21,679
+page after this POST request was sent are
+發送此 POST 請求後的頁面是
+
+148
+00:06:21,888 --> 00:06:24,837
+also marked as items that are in that
+也標記為其中的專案
+
+149
+00:06:24,933 --> 00:06:26,391
+interesting places list.
+有趣的地方列表。
+
+150
+00:06:27,901 --> 00:06:30,550
+And with that change made, indeed now if we
+隨著所做的改變，現在確實如果我們
+
+151
+00:06:30,550 --> 00:06:30,968
+reload,
+重新載入，
+
+152
+00:06:32,108 --> 00:06:34,549
+if I add items and I then click on them, I
+如果我添加專案然後單擊它們，我
+
+153
+00:06:34,725 --> 00:06:36,653
+also get that intended behavior.
+也得到預期的行為。
+
+154
+00:06:37,231 --> 00:06:38,901
+And that's therefore another step in the
+因此，這是
+
+155
+00:06:38,901 --> 00:06:39,688
+right direction.
+正確的方向。

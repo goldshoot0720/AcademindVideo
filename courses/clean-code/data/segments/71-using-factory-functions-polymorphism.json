@@ -1,0 +1,767 @@
+[
+ {
+  "start": 2.34,
+  "end": 4.889,
+  "en": "Now let's come back to this problem of"
+ },
+ {
+  "start": 4.921,
+  "end": 7.357,
+  "en": "having some duplicated code and having all"
+ },
+ {
+  "start": 7.486,
+  "end": 9.618,
+  "en": "these extra checks for whether something is"
+ },
+ {
+  "start": 9.65,
+  "end": 11.189,
+  "en": "a payment or a refund."
+ },
+ {
+  "start": 11.814,
+  "end": 14.346,
+  "en": "We can solve this problem by utilizing"
+ },
+ {
+  "start": 14.603,
+  "end": 17.152,
+  "en": "factory functions and polymorphism."
+ },
+ {
+  "start": 17.729,
+  "end": 19.588,
+  "en": "And for that, of course, we need to"
+ },
+ {
+  "start": 19.588,
+  "end": 21.817,
+  "en": "understand what a factory function is and"
+ },
+ {
+  "start": 21.897,
+  "end": 23.003,
+  "en": "what polymorphism is."
+ },
+ {
+  "start": 23.981,
+  "end": 26.77,
+  "en": "A factory function is simply a function"
+ },
+ {
+  "start": 26.786,
+  "end": 29.511,
+  "en": "which is used to produce something. For"
+ },
+ {
+  "start": 29.511,
+  "end": 33.069,
+  "en": "example, to produce objects or produce maps,"
+ },
+ {
+  "start": 33.277,
+  "end": 33.662,
+  "en": "arrays,"
+ },
+ {
+  "start": 34.239,
+  "end": 36.45,
+  "en": "anything like that. We provide a certain"
+ },
+ {
+  "start": 36.482,
+  "end": 39.622,
+  "en": "input and it then produces a certain object"
+ },
+ {
+  "start": 39.622,
+  "end": 39.991,
+  "en": "for us."
+ },
+ {
+  "start": 41.144,
+  "end": 43.628,
+  "en": "Polymorphism is a concept to which I will"
+ },
+ {
+  "start": 43.628,
+  "end": 46.608,
+  "en": "come back to in the next course section,"
+ },
+ {
+  "start": 46.656,
+  "end": 48.579,
+  "en": "which is about classes and objects."
+ },
+ {
+  "start": 49.219,
+  "end": 51.238,
+  "en": "In the end, it means that we can have an"
+ },
+ {
+  "start": 51.302,
+  "end": 55.468,
+  "en": "object or a function which we can always use"
+ },
+ {
+  "start": 55.468,
+  "end": 58.176,
+  "en": "in the same way. For example, an object on"
+ },
+ {
+  "start": 58.208,
+  "end": 60.579,
+  "en": "which we always can use the same method,"
+ },
+ {
+  "start": 61.253,
+  "end": 63.613,
+  "en": "But what this method does in detail"
+ },
+ {
+  "start": 64.303,
+  "end": 67.433,
+  "en": "then depends on some other factors. And we"
+ },
+ {
+  "start": 67.433,
+  "end": 70.451,
+  "en": "can combine this to write a factory function"
+ },
+ {
+  "start": 70.964,
+  "end": 74.447,
+  "en": "which produces different other functions or"
+ },
+ {
+  "start": 74.64,
+  "end": 77.433,
+  "en": "objects with functions that we can always"
+ },
+ {
+  "start": 77.529,
+  "end": 79.68,
+  "en": "call in the same way, but that then"
+ },
+ {
+  "start": 79.728,
+  "end": 82.618,
+  "en": "sometimes handle credit card payments and"
+ },
+ {
+  "start": 82.618,
+  "end": 85.009,
+  "en": "sometimes handle PayPal refunds, for"
+ },
+ {
+  "start": 85.009,
+  "end": 87.465,
+  "en": "example. And that is exactly what we're"
+ },
+ {
+  "start": 87.481,
+  "end": 90.07,
+  "en": "going to work on now. We're going to write a"
+ },
+ {
+  "start": 90.07,
+  "end": 92.921,
+  "en": "factory function which creates an object"
+ },
+ {
+  "start": 93.13,
+  "end": 95.079,
+  "en": "which always will have the same structure"
+ },
+ {
+  "start": 95.385,
+  "end": 98.026,
+  "en": "but then different code that executes under"
+ },
+ {
+  "start": 98.046,
+  "end": 99.341,
+  "en": "different circumstances."
+ },
+ {
+  "start": 101.17,
+  "end": 103.599,
+  "en": "Let's go up to the processTransaction"
+ },
+ {
+  "start": 103.697,
+  "end": 107.423,
+  "en": "function again. Here I call processByMethod"
+ },
+ {
+  "start": 107.941,
+  "end": 109.546,
+  "en": "to then trigger this function."
+ },
+ {
+  "start": 111.24,
+  "end": 114.123,
+  "en": "Now I will replace this function, so we'll"
+ },
+ {
+  "start": 114.253,
+  "end": 116.789,
+  "en": "add a new one. And soon delete the old one."
+ },
+ {
+  "start": 117.404,
+  "end": 118.551,
+  "en": "And I will name this function"
+ },
+ {
+  "start": 118.697,
+  "end": 118.988,
+  "en": "getTransactionProcessor."
+ },
+ {
+  "start": 123.986,
+  "end": 127.285,
+  "en": "And this function will be a factory"
+ },
+ {
+  "start": 127.382,
+  "end": 129.856,
+  "en": "function. This function will return an"
+ },
+ {
+  "start": 129.969,
+  "end": 132.072,
+  "en": "object and it will actually return a"
+ },
+ {
+  "start": 132.072,
+  "end": 134.956,
+  "en": "polymorphic object full of functions which"
+ },
+ {
+  "start": 135.133,
+  "end": 137.317,
+  "en": "always have the same name but will do"
+ },
+ {
+  "start": 137.317,
+  "end": 138.169,
+  "en": "different things."
+ },
+ {
+  "start": 138.763,
+  "end": 140.739,
+  "en": "That's the plan here. And for that, we will"
+ },
+ {
+  "start": 140.916,
+  "end": 143.921,
+  "en": "utilize the fact that in most programming"
+ },
+ {
+  "start": 143.969,
+  "end": 147.47,
+  "en": "languages, you can indeed use functions like"
+ },
+ {
+  "start": 147.55,
+  "end": 150.585,
+  "en": "regular values. So you can assign functions"
+ },
+ {
+  "start": 150.617,
+  "end": 154.085,
+  "en": "to variables, to properties, you can pass"
+ },
+ {
+  "start": 154.133,
+  "end": 156.236,
+  "en": "functions around. And we're going to do that"
+ },
+ {
+  "start": 156.236,
+  "end": 158.452,
+  "en": "because we are going to return an object"
+ },
+ {
+  "start": 158.789,
+  "end": 161.936,
+  "en": "full of functions which already exist but"
+ },
+ {
+  "start": 161.936,
+  "end": 163.927,
+  "en": "which we won't call in here but which we"
+ },
+ {
+  "start": 163.927,
+  "end": 166.464,
+  "en": "will just swap dynamically depending on"
+ },
+ {
+  "start": 166.512,
+  "end": 168.648,
+  "en": "which function we need. But it will become"
+ },
+ {
+  "start": 168.76,
+  "end": 171.378,
+  "en": "clearer as we start working on this factory"
+ },
+ {
+  "start": 171.394,
+  "end": 173.913,
+  "en": "function. And for this, I wanna utilize the"
+ },
+ {
+  "start": 173.977,
+  "end": 177.235,
+  "en": "fact that functions in JavaScript, but also"
+ },
+ {
+  "start": 177.251,
+  "end": 179.161,
+  "en": "in many other programming languages,"
+ },
+ {
+  "start": 179.899,
+  "end": 180.107,
+  "en": "are"
+ },
+ {
+  "start": 180.701,
+  "end": 183.012,
+  "en": "callable but don't have to be called."
+ },
+ {
+  "start": 183.59,
+  "end": 185.756,
+  "en": "And if you don't add the brackets after the"
+ },
+ {
+  "start": 185.756,
+  "end": 188.035,
+  "en": "function name, you can use them just like"
+ },
+ {
+  "start": 188.163,
+  "end": 191.18,
+  "en": "any other value, like a string, a number, or"
+ },
+ {
+  "start": 191.372,
+  "end": 191.886,
+  "en": "an object."
+ },
+ {
+  "start": 192.849,
+  "end": 195.817,
+  "en": "So now with that, we can grab this code here"
+ },
+ {
+  "start": 195.962,
+  "end": 199.091,
+  "en": "and move that into getTransactionProcessor."
+ },
+ {
+  "start": 200.213,
+  "end": 201.799,
+  "en": "And then add a new variable"
+ },
+ {
+  "start": 202.36,
+  "end": 202.568,
+  "en": "here"
+ },
+ {
+  "start": 204.043,
+  "end": 206.51,
+  "en": "in this getTransactionProcessor function,"
+ },
+ {
+  "start": 206.847,
+  "end": 208.529,
+  "en": "which in JavaScript we do with the let"
+ },
+ {
+  "start": 208.529,
+  "end": 208.914,
+  "en": "keyword,"
+ },
+ {
+  "start": 209.571,
+  "end": 210.116,
+  "en": "which I'll name"
+ },
+ {
+  "start": 210.949,
+  "end": 213.561,
+  "en": "processors because we have 2 possible"
+ },
+ {
+  "start": 213.593,
+  "end": 216.926,
+  "en": "processors for every transaction, a payment"
+ },
+ {
+  "start": 217.102,
+  "end": 219.955,
+  "en": "and a refund processor, at least after going"
+ },
+ {
+  "start": 220.003,
+  "end": 220.772,
+  "en": "through these checks."
+ },
+ {
+  "start": 221.829,
+  "end": 224.409,
+  "en": "Now in here, in this object which I create"
+ },
+ {
+  "start": 224.409,
+  "end": 227.365,
+  "en": "like this in JavaScript, or a map in other"
+ },
+ {
+  "start": 227.382,
+  "end": 228.423,
+  "en": "programming languages."
+ },
+ {
+  "start": 229.416,
+  "end": 230.864,
+  "en": "I will add 2 keys,"
+ },
+ {
+  "start": 232.54,
+  "end": 233.156,
+  "en": "payment"
+ },
+ {
+  "start": 233.935,
+  "end": 237.44,
+  "en": "with a value of null initially, so no value,"
+ },
+ {
+  "start": 237.846,
+  "end": 240.784,
+  "en": "and refund with a value of null initially."
+ },
+ {
+  "start": 243.157,
+  "end": 245.264,
+  "en": "Now the idea is that we populate"
+ },
+ {
+  "start": 245.847,
+  "end": 249.3,
+  "en": "payment and refund with functions as values"
+ },
+ {
+  "start": 249.802,
+  "end": 250.775,
+  "en": "inside of these checks."
+ },
+ {
+  "start": 251.892,
+  "end": 254.521,
+  "en": "So here, if we use a credit card as a"
+ },
+ {
+  "start": 254.521,
+  "end": 255.231,
+  "en": "payment method,"
+ },
+ {
+  "start": 256.135,
+  "end": 260.691,
+  "en": "I will set processors.payment equal to"
+ },
+ {
+  "start": 260.758,
+  "end": 261.457,
+  "en": "processCreditCardPayment."
+ },
+ {
+  "start": 263.565,
+  "end": 266.12,
+  "en": "But I'm not calling this function, I'm not"
+ },
+ {
+  "start": 266.218,
+  "end": 268.628,
+  "en": "adding parentheses, I'm just pointing at it."
+ },
+ {
+  "start": 269.793,
+  "end": 272.106,
+  "en": "So this processCreditCard function, which is"
+ },
+ {
+  "start": 272.122,
+  "end": 274.876,
+  "en": "defined down there, I'm pointing at it, I'm"
+ },
+ {
+  "start": 274.974,
+  "end": 277.648,
+  "en": "using it as a value, I'm not executing it."
+ },
+ {
+  "start": 278.023,
+  "end": 279.828,
+  "en": "And I'm storing this pointer at this"
+ },
+ {
+  "start": 279.941,
+  "end": 283.003,
+  "en": "function in this key in this object or map."
+ },
+ {
+  "start": 285.01,
+  "end": 287.396,
+  "en": "So here I'll then do the same for refund and"
+ },
+ {
+  "start": 287.412,
+  "end": 287.69,
+  "en": "store"
+ },
+ {
+  "start": 289.89,
+  "end": 292.542,
+  "en": "processCreditCardRefund in the refund field"
+ },
+ {
+  "start": 292.815,
+  "end": 295.163,
+  "en": "of this map. Again, just pointing at it."
+ },
+ {
+  "start": 296.192,
+  "end": 297.43,
+  "en": "And we can now do this here"
+ },
+ {
+  "start": 299.409,
+  "end": 302.228,
+  "en": "in all these cases and just point at the"
+ },
+ {
+  "start": 302.308,
+  "end": 304.289,
+  "en": "different processor functions."
+ },
+ {
+  "start": 304.848,
+  "end": 307.371,
+  "en": "So here it's processPayPalPayment at which"
+ },
+ {
+  "start": 307.419,
+  "end": 311.629,
+  "en": "I'm pointing. Here it's processPayPalRefund,"
+ },
+ {
+  "start": 312.384,
+  "end": 315.244,
+  "en": "and here it's processPlanPayment"
+ },
+ {
+  "start": 315.822,
+  "end": 318.377,
+  "en": "and processPlanRefund."
+ },
+ {
+  "start": 319.55,
+  "end": 321.59,
+  "en": "So now we're populating this object,"
+ },
+ {
+  "start": 322.249,
+  "end": 324.065,
+  "en": "and I am simply returning"
+ },
+ {
+  "start": 324.595,
+  "end": 325.784,
+  "en": "this object thereafter."
+ },
+ {
+  "start": 326.459,
+  "end": 329.142,
+  "en": "So in this getTransactionProcessor function,"
+ },
+ {
+  "start": 329.656,
+  "end": 331.825,
+  "en": "I'm creating this object populating the"
+ },
+ {
+  "start": 331.905,
+  "end": 333.832,
+  "en": "different processors depending on the"
+ },
+ {
+  "start": 333.832,
+  "end": 336.112,
+  "en": "payment method which was chosen, and then I"
+ },
+ {
+  "start": 336.16,
+  "end": 336.786,
+  "en": "return this."
+ },
+ {
+  "start": 338.231,
+  "end": 340.254,
+  "en": "Now with that, we can get rid of the"
+ },
+ {
+  "start": 340.334,
+  "end": 341.426,
+  "en": "processByMethod"
+ },
+ {
+  "start": 342.02,
+  "end": 342.438,
+  "en": "function."
+ },
+ {
+  "start": 343.208,
+  "end": 345.44,
+  "en": "We should keep the isPayment and isRefund"
+ },
+ {
+  "start": 345.456,
+  "end": 346.243,
+  "en": "helper functions,"
+ },
+ {
+  "start": 346.837,
+  "end": 347.961,
+  "en": "but we can get rid of the"
+ },
+ {
+  "start": 348.122,
+  "end": 349.856,
+  "en": "processCreditCardTransaction,"
+ },
+ {
+  "start": 350.129,
+  "end": 352.039,
+  "en": "processPayPalTransaction, and"
+ },
+ {
+  "start": 352.12,
+  "end": 354.046,
+  "en": "processPlanTransaction functions."
+ },
+ {
+  "start": 354.785,
+  "end": 356.423,
+  "en": "So we remove a lot of code here."
+ },
+ {
+  "start": 357.614,
+  "end": 360.26,
+  "en": "In getTransactionProcessor, we should now"
+ },
+ {
+  "start": 360.325,
+  "end": 362.484,
+  "en": "accept the transaction as a parameter"
+ },
+ {
+  "start": 362.89,
+  "end": 364.756,
+  "en": "because we're using it here to derive the"
+ },
+ {
+  "start": 364.756,
+  "end": 365.113,
+  "en": "method."
+ },
+ {
+  "start": 365.896,
+  "end": 367.383,
+  "en": "And now we're creating this object here,"
+ },
+ {
+  "start": 368.093,
+  "end": 370.242,
+  "en": "which we can now utilize by calling"
+ },
+ {
+  "start": 370.516,
+  "end": 371.227,
+  "en": "getTransactionProcessor"
+ },
+ {
+  "start": 374.778,
+  "end": 377.335,
+  "en": "here in the processTransaction function."
+ },
+ {
+  "start": 378.492,
+  "end": 381.017,
+  "en": "Instead of calling processByMethod, we now"
+ },
+ {
+  "start": 381.146,
+  "end": 383.352,
+  "en": "get our processors by calling"
+ },
+ {
+  "start": 383.625,
+  "end": 386.258,
+  "en": "getTransactionProcessor and passing the"
+ },
+ {
+  "start": 386.258,
+  "end": 387.141,
+  "en": "transaction to it."
+ },
+ {
+  "start": 388.121,
+  "end": 390.385,
+  "en": "And now we can simply check"
+ },
+ {
+  "start": 391.396,
+  "end": 393.74,
+  "en": "if we have a payment for the given"
+ },
+ {
+  "start": 393.74,
+  "end": 394.463,
+  "en": "transaction,"
+ },
+ {
+  "start": 395.346,
+  "end": 396.502,
+  "en": "in which case we want to call"
+ },
+ {
+  "start": 396.711,
+  "end": 399.007,
+  "en": "processors.payment"
+ },
+ {
+  "start": 399.842,
+  "end": 402.636,
+  "en": "and execute this as a function and pass the"
+ },
+ {
+  "start": 402.636,
+  "end": 403.438,
+  "en": "transaction to it."
+ },
+ {
+  "start": 404.803,
+  "end": 407.998,
+  "en": "Else we can call processors.refund."
+ }
+]

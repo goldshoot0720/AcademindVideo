@@ -1,0 +1,554 @@
+1
+00:00:00,449 --> 00:00:04,176
+So when using HTMX, we can use hx-on to
+所以使用HTMX時，我們可以使用hx-on來
+
+2
+00:00:04,272 --> 00:00:06,585
+listen to events and execute our own
+監聽事件並執行我們自己的事件
+
+3
+00:00:06,681 --> 00:00:07,790
+JavaScript code.
+JavaScript 程式碼。
+
+4
+00:00:08,850 --> 00:00:11,645
+And here I wrote that code inline because as
+在這裡我內聯編寫了該程式碼，因為
+
+5
+00:00:11,677 --> 00:00:14,712
+mentioned, that's indeed recommended, but we
+提到過，這確實是推薦的，但我們
+
+6
+00:00:14,712 --> 00:00:16,929
+could also put this into a separate file,
+也可以放入單獨的檔案中，
+
+7
+00:00:17,523 --> 00:00:19,981
+into a function, and then we could just call
+到一個函式中，然後我們可以調用
+
+8
+00:00:20,190 --> 00:00:22,551
+that function here. That would work as well.
+那個函式在這裡。那也行。
+
+9
+00:00:23,402 --> 00:00:25,410
+But that's not the only thing we can change
+但這並不是我們唯一可以改變的事情
+
+10
+00:00:25,410 --> 00:00:25,651
+here.
+這裡。
+
+11
+00:00:26,357 --> 00:00:28,587
+Instead, when using hx-on
+相反，當使用 hx-on
+
+12
+00:00:29,245 --> 00:00:31,571
+or in general, when it comes to listening to
+或者一般來說，當談到聆聽時
+
+13
+00:00:31,571 --> 00:00:32,068
+events,
+事件，
+
+14
+00:00:32,694 --> 00:00:36,287
+we're not limited to built-in standard
+我們不限於內建標準
+
+15
+00:00:36,319 --> 00:00:38,084
+events like that submit event here.
+類似的事件在這裡提交事件。
+
+16
+00:00:38,966 --> 00:00:42,945
+Instead, HTMX actually has a long list of
+相反，HTMX 實際上有一長串
+
+17
+00:00:43,041 --> 00:00:45,544
+custom events, which you can find in the
+自訂事件，您可以在
+
+18
+00:00:45,544 --> 00:00:46,555
+official documentation
+官方文檔
+
+19
+00:00:47,228 --> 00:00:51,752
+that are emitted by HTMX when certain things
+當某些事情發生 HTMX 會發出
+
+20
+00:00:51,752 --> 00:00:53,355
+happen. Occur or happen.
+發生。發生或發生。
+
+21
+00:00:54,509 --> 00:00:58,691
+For example, HTMX emits the before_request
+例如，HTMX 發出 before_request
+
+22
+00:00:58,691 --> 00:00:59,107
+event
+事件
+
+23
+00:00:59,796 --> 00:01:02,792
+whenever it's about to send an AJAX request.
+每當它要發送 AJAX 請求時。
+
+24
+00:01:03,674 --> 00:01:06,461
+So a GET or a POST or a DELETE or some other
+所以 GET 或 POST 或 DELETE 或其他一些
+
+25
+00:01:06,461 --> 00:01:07,038
+request.
+要求。
+
+26
+00:01:08,240 --> 00:01:11,076
+It also emits an after_request event
+它也發出 after_request 事件
+
+27
+00:01:11,108 --> 00:01:12,838
+whenever such a request is done.
+每當這樣的請求完成時。
+
+28
+00:01:14,232 --> 00:01:16,636
+And you can listen to all these events to
+您可以收聽所有這些事件
+
+29
+00:01:16,636 --> 00:01:19,327
+then run your own code upon the occurrence
+然後在發生時運行您自己的程式碼
+
+30
+00:01:19,584 --> 00:01:20,769
+of one of those events.
+這些事件之一。
+
+31
+00:01:21,444 --> 00:01:23,563
+So for example, here we could also clear
+例如，在這裡我們還可以清除
+
+32
+00:01:23,611 --> 00:01:26,421
+that form, not when it's submitted, but
+該表格，不是在提交時，而是
+
+33
+00:01:26,421 --> 00:01:30,034
+maybe after the request is done. So once we
+也許在請求完成後。所以一旦我們
+
+34
+00:01:30,034 --> 00:01:31,222
+know that it succeeded,
+知道它成功了，
+
+35
+00:01:32,442 --> 00:01:34,963
+and we can achieve this by adding the after
+我們可以透過添加之後來實現這一點
+
+36
+00:01:35,397 --> 00:01:38,287
+request event here. So by listening to that
+在此請求活動。所以透過聽
+
+37
+00:01:38,287 --> 00:01:38,704
+event,
+事件，
+
+38
+00:01:39,266 --> 00:01:41,579
+and that's now not a standard built-in event
+現在這不是標準的內建事件
+
+39
+00:01:41,579 --> 00:01:43,489
+in the browser, but instead one of those
+在瀏覽器中，而是其中之一
+
+40
+00:01:43,602 --> 00:01:46,010
+custom events emitted by HTMX.
+HTMX 發出的自訂事件。
+
+41
+00:01:47,533 --> 00:01:49,616
+Now, what's important here about that event
+現在，關於該事件最重要的是什麼
+
+42
+00:01:49,760 --> 00:01:54,374
+name is that it must not use this camelCase
+名字是它不能使用這個camelCase
+
+43
+00:01:54,406 --> 00:01:54,935
+notation,
+符號，
+
+44
+00:01:55,688 --> 00:01:57,771
+which you do find in the docs.
+您確實可以在檔案中找到它。
+
+45
+00:01:58,428 --> 00:01:59,165
+There it's
+就在那裡
+
+46
+00:01:59,774 --> 00:02:01,600
+after-request written like this.
+請求後這樣寫。
+
+47
+00:02:02,994 --> 00:02:05,333
+But since HTML attributes are
+但由於 HTML 屬性是
+
+48
+00:02:05,477 --> 00:02:08,522
+case-insensitive, this won't work. And
+不區分大小寫，這不起作用。和
+
+49
+00:02:08,522 --> 00:02:10,653
+instead, you should use this cap-up case,
+相反，你應該使用這個上限案例，
+
+50
+00:02:11,005 --> 00:02:14,081
+this dash-separated notation here when
+這裡用破折號分隔的符號
+
+51
+00:02:14,370 --> 00:02:15,539
+listening to those events.
+聆聽這些事件。
+
+52
+00:02:18,136 --> 00:02:20,156
+Now, if you want to listen to
+現在，如果你想聽
+
+53
+00:02:20,765 --> 00:02:23,362
+HTMX events like after-request,
+HTMX 事件，例如請求後、
+
+54
+00:02:23,907 --> 00:02:25,173
+you also have to add
+你還必須添加
+
+55
+00:02:25,735 --> 00:02:27,386
+HTMX colon here
+HTMX 冒號在這裡
+
+56
+00:02:28,059 --> 00:02:30,832
+as an extra element in that overall
+作為整體中的一個額外元素
+
+57
+00:02:31,185 --> 00:02:32,259
+attribute name
+屬性名稱
+
+58
+00:02:32,884 --> 00:02:35,962
+because these HTMX events are actually not
+因為這些 HTMX 事件其實不是
+
+59
+00:02:36,154 --> 00:02:38,719
+just named after-request and so on, but
+只是在請求後命名等等，但是
+
+60
+00:02:38,719 --> 00:02:41,637
+instead HTMX colon after-request.
+而不是請求後的 HTMX 冒號。
+
+61
+00:02:42,411 --> 00:02:45,342
+And this HTMX colon part is part of the
+這個 HTMX 冒號部分是
+
+62
+00:02:45,342 --> 00:02:45,924
+event name.
+事件名稱。
+
+63
+00:02:47,462 --> 00:02:49,615
+So therefore the overall event to which we
+因此，我們的整個活動
+
+64
+00:02:49,615 --> 00:02:51,872
+wanna listen here is HTMX colon
+想聽的是 HTMX 冒號
+
+65
+00:02:52,133 --> 00:02:55,386
+after-request because after-request written
+請求後因為請求後寫入
+
+66
+00:02:55,386 --> 00:02:56,785
+like this would not work.
+這樣不行。
+
+67
+00:02:58,522 --> 00:03:00,915
+But with that, we now have the code we need
+但這樣，我們現在就有了我們需要的程式碼
+
+68
+00:03:01,255 --> 00:03:03,875
+to clear this form whenever the
+每當
+
+69
+00:03:04,085 --> 00:03:07,853
+after-request event is emitted by HTMX for
+HTMX 發出請求後事件
+
+70
+00:03:07,870 --> 00:03:08,511
+this form.
+這種形式。
+
+71
+00:03:09,086 --> 00:03:11,523
+Which will happen whenever this POST request
+每當此 POST 請求時都會發生這種情況
+
+72
+00:03:11,587 --> 00:03:12,293
+here is done.
+到這裡就完成了。
+
+73
+00:03:13,672 --> 00:03:16,798
+With that, if you go back and reload, you'll
+這樣，如果您回傳並重新載入，您將
+
+74
+00:03:16,798 --> 00:03:18,433
+see that if you add a new goal,
+看看如果你增加一個新目標，
+
+75
+00:03:19,107 --> 00:03:21,704
+this input is still cleared and it looks
+該輸入仍然被清除，看起來
+
+76
+00:03:21,912 --> 00:03:24,445
+almost like before or it's almost as quick
+幾乎和以前一樣或幾乎一樣快
+
+77
+00:03:24,574 --> 00:03:26,930
+as before because I'm all running this
+和以前一樣，因為我都在運行這個
+
+78
+00:03:26,962 --> 00:03:30,249
+locally so sending that request is super
+在本地發送該請求非常好
+
+79
+00:03:30,249 --> 00:03:33,648
+fast but actually the input is only cleared
+速度很快，但實際上輸入只是被清除
+
+80
+00:03:33,856 --> 00:03:37,688
+after the goal was sent and the response was
+發送目標並得到回應後
+
+81
+00:03:37,800 --> 00:03:38,297
+received.
+已收到。
+
+82
+00:03:39,068 --> 00:03:42,504
+Now listening to HTMX events like this is
+現在監聽 HTMX 事件是這樣的
+
+83
+00:03:42,777 --> 00:03:45,859
+possible, but we can actually write less
+可能，但實際上我們可以少寫一些
+
+84
+00:03:45,972 --> 00:03:46,421
+code here.
+程式碼在這裡。
+
+85
+00:03:47,658 --> 00:03:49,890
+Because for example, whenever you're using
+因為例如，每當您使用
+
+86
+00:03:50,066 --> 00:03:53,053
+hx:on to listen to HTMX events,
+hx:on 監聽 HTMX 事件，
+
+87
+00:03:53,679 --> 00:03:54,803
+you can omit this
+你可以省略這個
+
+88
+00:03:55,381 --> 00:03:59,122
+HTMX colon part, which is part of all those
+HTMX 冒號部分，是所有這些的一部分
+
+89
+00:03:59,299 --> 00:04:00,487
+HTMX event names,
+HTMX 事件名稱，
+
+90
+00:04:01,467 --> 00:04:03,458
+and you can instead write a double colon
+你可以寫一個雙冒號
+
+91
+00:04:03,474 --> 00:04:03,586
+here.
+這裡。
+
+92
+00:04:04,850 --> 00:04:07,266
+This is simply a shortcut, a shorter
+這只是一個捷徑，更短
+
+93
+00:04:07,266 --> 00:04:10,815
+notation that's understood by HTMX that
+HTMX 可以理解的符號
+
+94
+00:04:10,848 --> 00:04:14,435
+tells HTMX that the event name thereafter is
+告訴 HTMX 此後的事件名稱是
+
+95
+00:04:14,709 --> 00:04:17,995
+an HTMX event and should be preceded with
+HTMX 事件，應該在
+
+96
+00:04:18,188 --> 00:04:19,202
+HTMX colon.
+HTMX 冒號。
+
+97
+00:04:19,959 --> 00:04:21,925
+It simply allows you to omit that though
+它只是允許你忽略它
+
+98
+00:04:22,363 --> 00:04:24,616
+when using this double colon notation.
+當使用這個雙冒號表示法時。
+
+99
+00:04:26,940 --> 00:04:28,896
+One other thing that could be improved here
+這裡還有另一件事可以改進
+
+100
+00:04:29,340 --> 00:04:30,557
+is how we select the form.
+這就是我們選擇表格的方式。
+
+101
+00:04:31,082 --> 00:04:33,178
+Sure, we can select it like this,
+當然，我們可以這樣選擇，
+
+102
+00:04:33,807 --> 00:04:36,112
+but we can also instead use the special this
+但我們也可以使用特殊的 this
+
+103
+00:04:36,241 --> 00:04:39,223
+keyword here and HTMX will make sure that
+此處的關鍵字和 HTMX 將確保
+
+104
+00:04:39,223 --> 00:04:40,757
+this will refer to this form.
+這將參考此表格。
+
+105
+00:04:42,860 --> 00:04:45,109
+And therefore now we have a way more concise
+因此現在我們有一個更簡潔的方法
+
+106
+00:04:45,141 --> 00:04:47,504
+way of writing this code and will of course
+寫這段程式碼的方式當然會
+
+107
+00:04:47,504 --> 00:04:49,640
+still achieve the same result as before.
+仍然達到與以前相同的結果。
+
+108
+00:04:51,140 --> 00:04:52,571
+So with that, if we save that,
+因此，如果我們儲存它，
+
+109
+00:04:55,374 --> 00:04:58,049
+if I learn HTMX, you see the input still is
+如果我學習 HTMX，你會看到輸入仍然是
+
+110
+00:04:58,148 --> 00:04:59,614
+cleared. After every goal,
+已清除。每次進球後，
+
+111
+00:05:00,311 --> 00:05:02,709
+but now we achieved this with less code.
+但現在我們用更少的程式碼實現了這一點。

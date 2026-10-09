@@ -1,0 +1,387 @@
+1
+00:00:00,368 --> 00:00:03,208
+So to add this route for this POST request,
+
+2
+00:00:03,417 --> 00:00:04,684
+I'll go back to my
+
+3
+00:00:05,310 --> 00:00:09,176
+code here and add a new POST route here when
+
+4
+00:00:09,176 --> 00:00:11,920
+using Node Express by using app.POST.
+
+5
+00:00:12,866 --> 00:00:13,540
+And then it's to
+
+6
+00:00:14,069 --> 00:00:14,470
+/note.
+
+7
+00:00:15,433 --> 00:00:18,770
+That's the path I defined here as a value
+
+8
+00:00:18,866 --> 00:00:20,823
+for the hx-post attribute.
+
+9
+00:00:21,946 --> 00:00:23,487
+So that's the route I wanna add here.
+
+10
+00:00:24,481 --> 00:00:27,450
+And then of course, we'll have our default
+
+11
+00:00:27,450 --> 00:00:30,437
+Express request handler, which must send
+
+12
+00:00:30,437 --> 00:00:33,391
+back a response at some point. But before we
+
+13
+00:00:33,488 --> 00:00:36,554
+do that, I of course wanna extract the
+
+14
+00:00:36,554 --> 00:00:38,513
+submitted data and then
+
+15
+00:00:39,091 --> 00:00:41,147
+for this dummy application here,
+
+16
+00:00:41,741 --> 00:00:45,610
+add the submitted text to this HTMX
+
+17
+00:00:45,610 --> 00:00:48,179
+knowledge array here. That's what I wanna
+
+18
+00:00:48,179 --> 00:00:50,090
+build in this basic demo app.
+
+19
+00:00:51,648 --> 00:00:55,244
+So how do we get hold of the submitted data?
+
+20
+00:00:56,272 --> 00:00:59,837
+Well, whenever you're triggering a non-GET
+
+21
+00:00:59,885 --> 00:01:02,261
+request, like a POST request here,
+
+22
+00:01:03,096 --> 00:01:05,810
+you're triggering a request that typically
+
+23
+00:01:05,922 --> 00:01:09,262
+carries data, that has a request body.
+
+24
+00:01:10,241 --> 00:01:14,577
+And HTMX will automatically set that request
+
+25
+00:01:14,593 --> 00:01:17,868
+body for you and it will set it based on the
+
+26
+00:01:17,868 --> 00:01:20,501
+form for which this request is triggered,
+
+27
+00:01:20,694 --> 00:01:21,465
+for example.
+
+28
+00:01:22,364 --> 00:01:25,174
+Now, if you would be using this attribute on
+
+29
+00:01:25,174 --> 00:01:27,775
+a paragraph, for example, and therefore it
+
+30
+00:01:27,823 --> 00:01:29,943
+would be triggered whenever this paragraph
+
+31
+00:01:29,943 --> 00:01:30,505
+is clicked,
+
+32
+00:01:31,131 --> 00:01:34,952
+there therefore wouldn't be any value that
+
+33
+00:01:35,049 --> 00:01:37,200
+would be sent along with the request.
+
+34
+00:01:37,875 --> 00:01:40,235
+Though you could add one manually, but
+
+35
+00:01:40,267 --> 00:01:41,969
+that's something we'll explore later.
+
+36
+00:01:43,157 --> 00:01:46,353
+If you use it on a form, however, HTMX will
+
+37
+00:01:46,449 --> 00:01:47,316
+make sure to
+
+38
+00:01:47,910 --> 00:01:51,121
+gather all the data entered into the form by
+
+39
+00:01:51,121 --> 00:01:51,587
+the user.
+
+40
+00:01:52,310 --> 00:01:54,654
+In this case, this means it gathers the
+
+41
+00:01:54,654 --> 00:01:57,576
+value that has been inserted into this one
+
+42
+00:01:57,705 --> 00:02:00,450
+input field here, and it will put that into
+
+43
+00:02:00,450 --> 00:02:02,907
+the body of the request and then send that
+
+44
+00:02:02,907 --> 00:02:05,653
+request with that body, with that form data
+
+45
+00:02:06,054 --> 00:02:07,098
+to the backend.
+
+46
+00:02:08,382 --> 00:02:10,887
+Now for that, the inputs that should be
+
+47
+00:02:11,032 --> 00:02:14,452
+collected by HTMX should have this name
+
+48
+00:02:14,644 --> 00:02:17,005
+attribute here because it's then by this
+
+49
+00:02:17,374 --> 00:02:20,553
+name attribute or by the value you specified
+
+50
+00:02:20,569 --> 00:02:21,276
+here for the name
+
+51
+00:02:21,950 --> 00:02:24,053
+by which you'll be able to extract the
+
+52
+00:02:24,053 --> 00:02:26,494
+submitted data on the server. So you should
+
+53
+00:02:26,510 --> 00:02:27,698
+set that when
+
+54
+00:02:28,373 --> 00:02:32,146
+relying on HTMX to add the form data to the
+
+55
+00:02:32,146 --> 00:02:32,644
+request.
+
+56
+00:02:34,393 --> 00:02:36,800
+Now, in order to extract that form data
+
+57
+00:02:37,426 --> 00:02:40,233
+on the backend here, I'll start by adding a
+
+58
+00:02:40,233 --> 00:02:41,148
+new middleware
+
+59
+00:02:41,773 --> 00:02:44,693
+so that Express actually parses the
+
+60
+00:02:44,741 --> 00:02:45,688
+submitted data
+
+61
+00:02:46,330 --> 00:02:48,897
+and makes it available on this request
+
+62
+00:02:48,977 --> 00:02:50,982
+object that's received in the route
+
+63
+00:02:50,982 --> 00:02:53,469
+handlers. And all we have to do for that
+
+64
+00:02:53,469 --> 00:02:56,694
+here in this demo app is use this Express
+
+65
+00:02:56,758 --> 00:03:00,415
+object, call URL encoded, this method here
+
+66
+00:03:00,848 --> 00:03:02,677
+and set extended to false.
+
+67
+00:03:03,751 --> 00:03:06,076
+And by adding this middleware, Express.js
+
+68
+00:03:06,140 --> 00:03:09,364
+will scan all incoming requests for data
+
+69
+00:03:09,604 --> 00:03:11,400
+that's attached to them, for
+
+70
+00:03:11,930 --> 00:03:15,778
+form data specifically, and then parse that
+
+71
+00:03:15,778 --> 00:03:18,488
+data and make it available as a JavaScript
+
+72
+00:03:18,569 --> 00:03:20,509
+object on that request object.
+
+73
+00:03:21,792 --> 00:03:23,604
+And therefore, with this middleware added
+
+74
+00:03:23,700 --> 00:03:25,849
+here, we can go to this POST route
+
+75
+00:03:26,909 --> 00:03:30,587
+And get the form data by simply accessing
+
+76
+00:03:30,619 --> 00:03:31,952
+request.body.
+
+77
+00:03:33,269 --> 00:03:36,031
+This body field is added by Express and will
+
+78
+00:03:36,079 --> 00:03:39,259
+hold an object that has key-value pairs
+
+79
+00:03:39,693 --> 00:03:42,423
+where every key is the name of an input and
+
+80
+00:03:42,423 --> 00:03:44,751
+the value is the value entered by the user.
+
+81
+00:03:46,133 --> 00:03:47,995
+So therefore here I can actually get my
+
+82
+00:03:48,365 --> 00:03:52,589
+entered note by accessing request.body.note.
+
+83
+00:03:54,376 --> 00:03:58,465
+Because I chose a name of note here. If you
+
+84
+00:03:58,465 --> 00:04:00,719
+have a different name, you must access the
+
+85
+00:04:00,735 --> 00:04:01,621
+data differently.
+
+86
+00:04:03,242 --> 00:04:05,342
+But that's how we should get access to the
+
+87
+00:04:05,342 --> 00:04:06,214
+submitted data.
+
+88
+00:04:07,038 --> 00:04:10,463
+And then here in this demo app, we can
+
+89
+00:04:10,495 --> 00:04:13,183
+simply reach out to this HTMX knowledge
+
+90
+00:04:13,264 --> 00:04:13,540
+array
+
+91
+00:04:14,384 --> 00:04:15,747
+and then push
+
+92
+00:04:16,574 --> 00:04:18,748
+or unshift to add it at the beginning,
+
+93
+00:04:19,492 --> 00:04:22,150
+this new value, this entered note
+
+94
+00:04:22,778 --> 00:04:23,454
+into this array.
+
+95
+00:04:24,726 --> 00:04:27,400
+So that will manipulate this array and now
+
+96
+00:04:27,947 --> 00:04:31,378
+we just must make sure that the site is
+
+97
+00:04:31,957 --> 00:04:34,115
+re-rendered and reloaded.

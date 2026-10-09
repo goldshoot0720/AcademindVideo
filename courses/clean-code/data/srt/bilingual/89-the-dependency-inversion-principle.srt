@@ -1,0 +1,789 @@
+1
+00:00:02,212 --> 00:00:05,049
+Now let's conclude the SOLID principles by
+現在讓我們來總結一下 SOLID 原則：
+
+2
+00:00:05,065 --> 00:00:07,646
+having a look at the last principle in this
+看看這個的最後一個原則
+
+3
+00:00:07,646 --> 00:00:08,079
+list here,
+在此列出，
+
+4
+00:00:09,153 --> 00:00:12,663
+the Dependency Inversion Principle. What is
+依賴倒置原則。什麼是
+
+5
+00:00:12,759 --> 00:00:13,801
+this principle about?
+這個原理大約是什麼？
+
+6
+00:00:14,539 --> 00:00:17,569
+The Dependency Inversion Principle says that
+依賴倒置原則指出
+
+7
+00:00:17,569 --> 00:00:20,438
+you should depend upon abstractions, not
+你應該依賴抽象，而不是
+
+8
+00:00:20,694 --> 00:00:21,416
+concretions.
+結核。
+
+9
+00:00:22,634 --> 00:00:24,846
+And that's a super fancy term which
+這是一個超級奇特的術語
+
+10
+00:00:25,503 --> 00:00:27,748
+I don't know about you, but which might be
+我不了解你，但這可能是
+
+11
+00:00:27,748 --> 00:00:29,062
+totally unclear.
+完全不清楚。
+
+12
+00:00:29,671 --> 00:00:31,980
+At least this sentence was totally unclear
+至少這句話完全不清楚
+
+13
+00:00:32,893 --> 00:00:34,063
+when I first read it.
+當我第一次讀到它。
+
+14
+00:00:35,137 --> 00:00:37,862
+It is, however, not even close as complex
+然而，它甚至沒有那麼複雜
+
+15
+00:00:37,862 --> 00:00:40,619
+and complicated as it sounds. And if you are
+聽起來很複雜。如果你是
+
+16
+00:00:40,811 --> 00:00:42,879
+following the other principles already,
+遵循其他原則，
+
+17
+00:00:43,552 --> 00:00:45,684
+then chances are pretty high that you're
+那你很有可能
+
+18
+00:00:45,860 --> 00:00:47,511
+already following this one as well,
+也已經關注這個了，
+
+19
+00:00:48,104 --> 00:00:50,492
+or at least that it's very easy to follow
+或至少它很容易遵循
+
+20
+00:00:50,589 --> 00:00:51,278
+this one as well.
+這個也是。
+
+21
+00:00:52,031 --> 00:00:54,676
+Now here I got another example which
+現在我得到另一個例子
+
+22
+00:00:54,756 --> 00:00:57,032
+actually is very close to the interface
+其實和介面很接近
+
+23
+00:00:57,112 --> 00:00:59,725
+segregation principle we covered in the last
+我們在上一篇介紹了隔離原則
+
+24
+00:00:59,725 --> 00:01:00,061
+lecture.
+演講。
+
+25
+00:01:00,847 --> 00:01:03,238
+Following the interface segregation
+遵循介面隔離
+
+26
+00:01:03,270 --> 00:01:05,998
+principle, I got 2 interfaces here, a
+原則上，我這裡有2個介面，一個
+
+27
+00:01:06,239 --> 00:01:08,999
+database and remote database interface,
+資料庫和遠端資料庫介面，
+
+28
+00:01:09,608 --> 00:01:13,058
+and then I got 2 classes, the SQL database
+然後我得到了 2 個類，SQL 資料庫
+
+29
+00:01:13,058 --> 00:01:15,625
+class and the in-memory database class,
+類別和記憶體資料庫類，
+
+30
+00:01:16,251 --> 00:01:18,562
+which actually use these interfaces.
+實際上使用這些介面。
+
+31
+00:01:20,022 --> 00:01:22,637
+Now, I also got an app class down there
+現在，我在那裡也有一個應用程式類
+
+32
+00:01:23,151 --> 00:01:26,424
+where I actually need a database as an
+我實際上需要一個資料庫作為
+
+33
+00:01:26,521 --> 00:01:27,997
+argument in the constructor.
+建構函式中的參數。
+
+34
+00:01:28,610 --> 00:01:31,997
+And that database either has to be an SQL
+該資料庫要么必須是 SQL
+
+35
+00:01:32,111 --> 00:01:34,688
+database or an in-memory database.
+資料庫或記憶體資料庫。
+
+36
+00:01:35,271 --> 00:01:36,535
+This app works with both.
+這個應用程式適用於兩者。
+
+37
+00:01:37,170 --> 00:01:38,545
+But depending on what it is,
+但也要看是什麼狀況
+
+38
+00:01:39,144 --> 00:01:42,024
+I have to run the connect method as part of
+我必須運行 connect 方法作為
+
+39
+00:01:42,040 --> 00:01:45,018
+my constructor. That's why I have this if
+我的建構子。這就是為什麼我有這個如果
+
+40
+00:01:45,115 --> 00:01:45,616
+check here.
+檢查這裡。
+
+41
+00:01:47,110 --> 00:01:49,468
+The problem with this example is that we
+這個例子的問題是我們
+
+42
+00:01:49,468 --> 00:01:51,066
+depend on concretions.
+取決於結核。
+
+43
+00:01:51,890 --> 00:01:55,056
+I depend on the concrete implementation of
+我取決於具體實施
+
+44
+00:01:55,056 --> 00:01:55,589
+my database.
+我的資料庫。
+
+45
+00:01:56,467 --> 00:01:59,211
+I accept both types here and therefore I
+我在這裡接受這兩種型別，因此我
+
+46
+00:01:59,211 --> 00:02:02,261
+have to check which type I'm getting so that
+必須檢查我得到的是哪種型別
+
+47
+00:02:02,325 --> 00:02:05,471
+I can execute this extra code which I might
+我可以執行這個額外的程式碼
+
+48
+00:02:05,471 --> 00:02:06,353
+need to execute.
+需要執行。
+
+49
+00:02:06,995 --> 00:02:08,825
+Now, it should be needless to say that code
+現在，程式碼應該不用多說了
+
+50
+00:02:08,825 --> 00:02:11,778
+like this can be hard to maintain because
+這樣可能很難維護，因為
+
+51
+00:02:11,810 --> 00:02:14,844
+the more types of databases we add, the more
+我們新增的資料庫型別越多，就越多
+
+52
+00:02:14,924 --> 00:02:17,636
+if checks we might need to add here. And
+如果檢查我們可能需要在此處新增。和
+
+53
+00:02:17,668 --> 00:02:20,011
+whenever the connect method changes, we also
+每當連接方法改變時，我們也會
+
+54
+00:02:20,011 --> 00:02:22,805
+need to change it in all the places where we
+需要在我們遇到的所有地方進行更改
+
+55
+00:02:22,805 --> 00:02:25,390
+do have a check like this and where we do
+有這樣的支票嗎？我們在哪裡做
+
+56
+00:02:25,454 --> 00:02:26,386
+call connect.
+呼叫連線。
+
+57
+00:02:27,686 --> 00:02:30,159
+So therefore, this could become a problem in
+因此，這可能會成為一個問題
+
+58
+00:02:30,433 --> 00:02:33,371
+bigger applications where you maybe also
+更大的應用程式，您也許還可以
+
+59
+00:02:33,387 --> 00:02:35,186
+have different kinds of databases.
+有不同型別的資料庫。
+
+60
+00:02:36,198 --> 00:02:38,366
+Now, we can change the code to follow the
+現在，我們可以更改程式碼以遵循
+
+61
+00:02:38,382 --> 00:02:40,164
+Dependency Inversion Principle though.
+不過，依賴倒置原則。
+
+62
+00:02:40,774 --> 00:02:43,264
+And changing it will be very simple because
+改變它會非常簡單，因為
+
+63
+00:02:43,264 --> 00:02:45,014
+I'm already following the Interface
+我已經在關注介面了
+
+64
+00:02:45,223 --> 00:02:47,808
+Segregation Principle here by having my
+這裡的隔離原則是我的
+
+65
+00:02:47,856 --> 00:02:49,109
+different interfaces.
+不同的介面。
+
+66
+00:02:50,364 --> 00:02:52,249
+These interfaces in the end are
+最終這些介面是
+
+67
+00:02:52,443 --> 00:02:53,280
+abstractions.
+抽象。
+
+68
+00:02:53,973 --> 00:02:55,875
+I can use these interfaces to
+我可以使用這些介面
+
+69
+00:02:56,471 --> 00:02:59,097
+buy certain functionalities, to ensure
+購買某些功能，以確保
+
+70
+00:02:59,242 --> 00:03:00,483
+certain functionalities
+某些功能
+
+71
+00:03:01,079 --> 00:03:03,658
+without knowing how exactly they work under
+不知道他們到底是如何運作的
+
+72
+00:03:03,658 --> 00:03:06,784
+the hood. But I can rely on the fact that,
+引擎蓋。但我可以相信，
+
+73
+00:03:06,945 --> 00:03:09,359
+for example, a connect method or a store
+例如，連接方法或存儲
+
+74
+00:03:09,473 --> 00:03:10,582
+data method is there.
+資料方法是有的。
+
+75
+00:03:12,424 --> 00:03:15,021
+And then here in this app, we could say that
+然後在這個應用程式中，我們可以說
+
+76
+00:03:15,021 --> 00:03:17,764
+in the end, all we want is a database.
+最後，我們想要的只是一個資料庫。
+
+77
+00:03:18,743 --> 00:03:21,040
+I don't wanna deal with connecting here.
+我不想在這裡處理連接問題。
+
+78
+00:03:21,875 --> 00:03:23,947
+I just want to ensure that the type of
+我只是想確保型別
+
+79
+00:03:24,044 --> 00:03:26,164
+database I have here, the type of this
+我這裡有資料庫，這個型別
+
+80
+00:03:26,373 --> 00:03:27,320
+argument is
+論點是
+
+81
+00:03:27,915 --> 00:03:30,918
+of type Database. So it should be a class
+型別為資料庫。所以應該是一個類別
+
+82
+00:03:31,288 --> 00:03:34,067
+which implements the Database interface.
+它實作了資料庫介面。
+
+83
+00:03:35,528 --> 00:03:38,018
+And the Database interface in the end just
+最後的資料庫介面只是
+
+84
+00:03:38,018 --> 00:03:40,331
+ensures that there is a storeData method,
+確保有一個 storeData 方法，
+
+85
+00:03:40,684 --> 00:03:42,949
+not that there is a connect method. Method.
+並不是說有一個連接方法。方法。
+
+86
+00:03:44,072 --> 00:03:45,868
+So therefore, of course, we should remove
+因此，我們當然應該刪除
+
+87
+00:03:45,901 --> 00:03:48,307
+this if check because we know we get a
+這個 if 檢查，因為我們知道我們得到了
+
+88
+00:03:48,307 --> 00:03:50,730
+database which only has a storeData method
+只有 storeData 方法的資料庫
+
+89
+00:03:51,179 --> 00:03:53,136
+and we don't have a connect method here.
+而且我們這裡沒有連接方法。
+
+90
+00:03:54,227 --> 00:03:57,195
+Instead, it's now the place where we create
+相反，它現在是我們創造的地方
+
+91
+00:03:57,276 --> 00:04:00,902
+our app where we have to provide a database
+我們的應用程式必須提供資料庫
+
+92
+00:04:00,966 --> 00:04:02,634
+as expected by this class.
+正如這個班級所期望的那樣。
+
+93
+00:04:03,469 --> 00:04:05,763
+And that's why it's called the Dependency
+這就是為什麼它被稱為依賴關係
+
+94
+00:04:05,875 --> 00:04:07,030
+Inversion Principle.
+反轉原理。
+
+95
+00:04:07,865 --> 00:04:10,993
+We no longer care about the data here in the
+我們不再關心這裡的資料
+
+96
+00:04:11,073 --> 00:04:13,981
+App class So in the consuming class, we
+App類所以在消費性類別中，我們
+
+97
+00:04:13,981 --> 00:04:16,134
+don't wanna check which kind of data we got
+不想檢查我們得到了哪種資料
+
+98
+00:04:16,134 --> 00:04:16,246
+here.
+這裡。
+
+99
+00:04:16,793 --> 00:04:20,087
+Instead, we invert the dependency and we
+相反，我們反轉依賴關係並且我們
+
+100
+00:04:20,167 --> 00:04:22,465
+don't depend on the type of database,
+不依賴資料庫的型別，
+
+101
+00:04:23,140 --> 00:04:25,598
+but instead we force whoever is
+但我們卻強迫任何人
+
+102
+00:04:25,630 --> 00:04:29,005
+instantiating that class to provide us a
+實例化該類別為我們提供
+
+103
+00:04:29,166 --> 00:04:32,604
+database which fulfills this contract and
+履行本合約的資料庫以及
+
+104
+00:04:32,604 --> 00:04:36,027
+just this contract. So wherever we are
+只是這份合約。所以無論我們在哪裡
+
+105
+00:04:36,220 --> 00:04:39,368
+instantiating the App class, we now need to
+實例化 App 類，我們現在需要
+
+106
+00:04:39,432 --> 00:04:42,146
+pass in a new database. And therefore, it's
+傳入一個新的資料庫。因此，它是
+
+107
+00:04:42,243 --> 00:04:43,801
+now here in this place
+現在在這個地方
+
+108
+00:04:44,330 --> 00:04:46,707
+where I, for example, need to create a new
+例如，我需要建立一個新的
+
+109
+00:04:46,820 --> 00:04:48,088
+SQL database
+SQL資料庫
+
+110
+00:04:48,683 --> 00:04:50,481
+and also call connect here
+也可以在這裡呼叫 connect
+
+111
+00:04:51,172 --> 00:04:54,512
+because that's now my responsibility here in
+因為現在這是我的責任
+
+112
+00:04:54,705 --> 00:04:55,395
+this place.
+這個地方。
+
+113
+00:04:56,391 --> 00:04:58,944
+The app doesn't care about it because it
+該應用程式不關心它，因為它
+
+114
+00:04:58,944 --> 00:05:02,751
+inverted the dependencies. It tells me to
+顛倒了依賴關係。它告訴我
+
+115
+00:05:02,799 --> 00:05:05,671
+provide a proper value It doesn't want to
+提供一個適當的值它不想
+
+116
+00:05:05,703 --> 00:05:06,713
+check it internally.
+內部檢查一下。
+
+117
+00:05:07,930 --> 00:05:10,174
+And this tends to be more maintainable
+這往往更容易維護
+
+118
+00:05:10,510 --> 00:05:12,417
+because you can even use dependency
+因為你甚至可以使用依賴項
+
+119
+00:05:12,433 --> 00:05:16,103
+injection frameworks and approaches to have
+注入框架和方法
+
+120
+00:05:16,183 --> 00:05:18,859
+only a few places in your application where
+您的應用程式中只有幾個地方
+
+121
+00:05:19,404 --> 00:05:22,112
+things are created. So where, for example,
+事物被創造。那麼，例如，
+
+122
+00:05:22,208 --> 00:05:24,499
+this database is created and connected
+該資料庫已建立並連接
+
+123
+00:05:25,076 --> 00:05:27,912
+and to have many places in your app where
+並且在你的應用程式中有很多地方
+
+124
+00:05:28,040 --> 00:05:31,309
+you then depend on this abstract database.
+然後你就依賴這個抽象資料庫。
+
+125
+00:05:32,465 --> 00:05:34,920
+That's the idea of the Dependency Inversion
+這就是依賴倒置的想法
+
+126
+00:05:35,032 --> 00:05:37,407
+Principle and that's how you write code that
+原則，這就是你寫程式的方式
+
+127
+00:05:37,519 --> 00:05:38,643
+follows this principle.
+遵循這個原則。
+
+128
+00:05:39,766 --> 00:05:41,820
+Now, of course, like all these principles,
+當然，就像所有這些原則一樣，
+
+129
+00:05:42,173 --> 00:05:44,420
+there also is a connection to clean code
+還有一個與乾淨程式碼的聯繫
+
+130
+00:05:44,420 --> 00:05:47,196
+here. By inverting the dependency, of
+這裡。透過反轉依賴關係，
+
+131
+00:05:47,228 --> 00:05:49,490
+course, we reduce the amount of code we have
+當然，我們減少了程式碼量
+
+132
+00:05:49,490 --> 00:05:51,689
+in here and that, of course, automatically
+在這裡，在那裡，當然，自動地
+
+133
+00:05:51,705 --> 00:05:54,529
+makes this smaller, more readable, and
+使這個更小，更具可讀性，並且
+
+134
+00:05:54,529 --> 00:05:56,102
+avoids code duplication.
+避免程式碼重複。
+
+135
+00:05:57,097 --> 00:05:58,429
+So it certainly matters.
+所以這當然很重要。
+
+136
+00:05:59,183 --> 00:06:01,396
+But the Dependency Inversion Principle is
+但依賴倒置原則是
+
+137
+00:06:01,573 --> 00:06:04,797
+also kind of a result or at least strongly
+也是一種結果，或至少是強烈的結果
+
+138
+00:06:04,941 --> 00:06:06,690
+related to the other principles.
+與其他原則相關。
+
+139
+00:06:07,428 --> 00:06:10,379
+And in addition, the key benefit definitely
+此外，關鍵的好處絕對是
+
+140
+00:06:10,636 --> 00:06:12,978
+is maintainability and extensibility.
+是可維護性和可擴充性。
+
+141
+00:06:13,700 --> 00:06:15,753
+So of course it matters, all these
+所以當然重要的是，所有這些
+
+142
+00:06:15,785 --> 00:06:18,111
+principles matter, but I would argue it's
+原則很重要，但我認為
+
+143
+00:06:18,111 --> 00:06:21,528
+not as important as the first 2 principles
+不像前兩個原則那麼重要
+
+144
+00:06:21,720 --> 00:06:23,228
+which were covered, the Single
+所涵蓋的，單
+
+145
+00:06:23,244 --> 00:06:25,458
+Responsibility and the Open-Closed
+責任與開放-封閉
+
+146
+00:06:25,490 --> 00:06:25,875
+Principle.
+原則。
+
+147
+00:06:27,013 --> 00:06:29,065
+Nonetheless, we now had a look at all these
+儘管如此，我們現在看看所有這些
+
+148
+00:06:29,242 --> 00:06:32,399
+SOLID principles which are popular for a
+流行的堅實原則
+
+149
+00:06:32,464 --> 00:06:32,993
+good reason.
+很好的理由。
+
+150
+00:06:33,970 --> 00:06:36,776
+And if you are working with classes and
+如果您正在處理課程並且
+
+151
+00:06:36,792 --> 00:06:38,876
+especially if you are following a
+特別是如果您正在關注
+
+152
+00:06:38,956 --> 00:06:41,601
+project-oriented approach, if you are
+面向專案的方法，如果您是
+
+153
+00:06:41,601 --> 00:06:43,845
+writing code in an object-oriented way,
+以物件導向的方式編寫程式碼，
+
+154
+00:06:44,390 --> 00:06:47,179
+you should also consider and respect these
+您還應該考慮並尊重這些
+
+155
+00:06:47,292 --> 00:06:50,065
+principles because ultimately they will lead
+原則，因為最終它們將引導
+
+156
+00:06:50,097 --> 00:06:53,479
+to more maintainable and extensible code and
+更易於維護和擴充功能的程式碼以及
+
+157
+00:06:53,688 --> 00:06:56,829
+as a great side effect, they also tend to
+作為一個很大的副作用，它們也傾向於
+
+158
+00:06:56,910 --> 00:06:57,839
+give you cleaner code.
+給你更乾淨的程式碼。

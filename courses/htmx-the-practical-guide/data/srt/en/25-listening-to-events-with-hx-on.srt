@@ -1,0 +1,307 @@
+1
+00:00:00,352 --> 00:00:02,981
+Now, as you're building websites and web
+
+2
+00:00:03,061 --> 00:00:04,921
+applications with HTMX,
+
+3
+00:00:05,546 --> 00:00:07,662
+you sometimes might want to
+
+4
+00:00:08,447 --> 00:00:11,926
+run your own JavaScript code whenever some
+
+5
+00:00:12,150 --> 00:00:12,904
+event occurs.
+
+6
+00:00:13,577 --> 00:00:16,142
+For example, here in this application where
+
+7
+00:00:16,142 --> 00:00:18,578
+we have this form, we might want to
+
+8
+00:00:19,107 --> 00:00:21,720
+clear this form and clear this input in this
+
+9
+00:00:21,833 --> 00:00:24,445
+form whenever it's being submitted.
+
+10
+00:00:25,295 --> 00:00:27,443
+So we wanna listen to the submit event
+
+11
+00:00:27,443 --> 00:00:29,351
+that's triggered by this form, and then we
+
+12
+00:00:29,351 --> 00:00:31,996
+wanna run some custom JavaScript code to
+
+13
+00:00:32,076 --> 00:00:33,103
+clear this input.
+
+14
+00:00:34,002 --> 00:00:36,634
+And that's something where HTMX supports you
+
+15
+00:00:36,987 --> 00:00:40,245
+because HTMX has this hx-on
+
+16
+00:00:40,822 --> 00:00:44,241
+attribute, which you can add on elements to
+
+17
+00:00:44,754 --> 00:00:47,515
+listen to events that occur on those
+
+18
+00:00:47,643 --> 00:00:48,494
+elements or
+
+19
+00:00:49,087 --> 00:00:52,008
+on child elements if those events bubble up.
+
+20
+00:00:53,212 --> 00:00:55,940
+So you can use hx-on to listen to events
+
+21
+00:00:56,646 --> 00:00:59,599
+and you use hx-on such that you add it to
+
+22
+00:00:59,599 --> 00:01:01,300
+the element on which you wanna listen to
+
+23
+00:01:01,300 --> 00:01:01,637
+events.
+
+24
+00:01:02,408 --> 00:01:05,606
+And then you define the event to which you
+
+25
+00:01:05,702 --> 00:01:09,060
+wanna listen by adding a colon after hx-one
+
+26
+00:01:09,494 --> 00:01:10,554
+and then the event name.
+
+27
+00:01:11,084 --> 00:01:13,286
+For example, click if you wanna listen to
+
+28
+00:01:13,350 --> 00:01:14,394
+clicks on that form.
+
+29
+00:01:15,599 --> 00:01:18,250
+Of course, when listening to events, you
+
+30
+00:01:18,250 --> 00:01:20,403
+then typically also wanna control
+
+31
+00:01:20,982 --> 00:01:22,958
+what happens when that event occurs.
+
+32
+00:01:23,858 --> 00:01:26,573
+And you do that with help of the value you
+
+33
+00:01:26,589 --> 00:01:27,922
+assign to hx-on.
+
+34
+00:01:29,013 --> 00:01:31,417
+Because that value is then actually the
+
+35
+00:01:31,481 --> 00:01:34,430
+JavaScript code that should execute when an
+
+36
+00:01:34,462 --> 00:01:35,071
+event occurs.
+
+37
+00:01:36,450 --> 00:01:38,181
+Now here you could call
+
+38
+00:01:38,966 --> 00:01:42,059
+some function that might be defined in some
+
+39
+00:01:42,075 --> 00:01:44,271
+other file you're importing into this file,
+
+40
+00:01:45,121 --> 00:01:46,964
+but it can also be some inline code.
+
+41
+00:01:47,525 --> 00:01:49,769
+For example, here, if I wanna clear the
+
+42
+00:01:49,833 --> 00:01:52,814
+form, if I wanna clear this input, I can
+
+43
+00:01:52,814 --> 00:01:55,122
+achieve this by selecting this form and
+
+44
+00:01:55,218 --> 00:01:57,912
+calling the reset method on it. Because it
+
+45
+00:01:57,944 --> 00:02:00,642
+turns out that form elements and the
+
+46
+00:02:00,738 --> 00:02:02,745
+underlying objects to which you can get
+
+47
+00:02:02,745 --> 00:02:06,615
+access in JavaScript have a reset method,
+
+48
+00:02:07,257 --> 00:02:09,698
+this method here, which you can call to
+
+49
+00:02:10,211 --> 00:02:12,475
+reset all the inputs of that form.
+
+50
+00:02:13,278 --> 00:02:15,542
+Therefore, here for this event listener, we
+
+51
+00:02:15,687 --> 00:02:17,614
+just have to get access to the form and then
+
+52
+00:02:17,614 --> 00:02:19,026
+we can call reset on it.
+
+53
+00:02:19,765 --> 00:02:21,676
+Now we could get access by using
+
+54
+00:02:21,788 --> 00:02:22,607
+document.getElementById,
+
+55
+00:02:23,378 --> 00:02:24,887
+querySelector
+
+56
+00:02:25,802 --> 00:02:27,456
+and then select the form like this.
+
+57
+00:02:28,773 --> 00:02:30,876
+And this is now just some standard
+
+58
+00:02:31,005 --> 00:02:33,269
+JavaScript code which I'm writing inline
+
+59
+00:02:33,333 --> 00:02:35,324
+here as a value for this event listener,
+
+60
+00:02:36,223 --> 00:02:38,294
+which might look strange at first but which
+
+61
+00:02:38,471 --> 00:02:41,040
+is perfectly valid and indeed the
+
+62
+00:02:41,040 --> 00:02:43,818
+recommended way of using the hx-on
+
+63
+00:02:43,946 --> 00:02:44,444
+attribute.
+
+64
+00:02:45,295 --> 00:02:47,029
+And then on that form here, I could call
+
+65
+00:02:47,077 --> 00:02:47,415
+reset.
+
+66
+00:02:49,260 --> 00:02:51,073
+Now at the moment I'm listening to the click
+
+67
+00:02:51,073 --> 00:02:53,728
+event here and that might not be what I
+
+68
+00:02:53,874 --> 00:02:56,189
+want. So maybe here we wanna listen to the
+
+69
+00:02:56,221 --> 00:02:57,419
+submit event instead
+
+70
+00:02:58,034 --> 00:03:00,373
+so that whenever the form is submitted, we
+
+71
+00:03:00,760 --> 00:03:01,227
+clear it.
+
+72
+00:03:02,050 --> 00:03:04,532
+With this code added here and with this
+
+73
+00:03:04,532 --> 00:03:06,290
+change in place, if we reload
+
+74
+00:03:07,926 --> 00:03:10,032
+and I enter my text here, if I click add
+
+75
+00:03:10,129 --> 00:03:12,462
+goal, you see the form is cleared and the
+
+76
+00:03:12,478 --> 00:03:15,621
+rest still works as before. But now we also
+
+77
+00:03:15,621 --> 00:03:17,506
+listen to that event in addition.

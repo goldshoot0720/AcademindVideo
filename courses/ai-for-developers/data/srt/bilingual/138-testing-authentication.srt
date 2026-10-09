@@ -1,0 +1,714 @@
+1
+00:00:01,704 --> 00:00:03,892
+Now, I don't wanna protect all event routes,
+現在，我不想保護所有活動路線，
+
+2
+00:00:03,908 --> 00:00:05,221
+instead just some of them,
+而只是其中的一些，
+
+3
+00:00:05,772 --> 00:00:08,413
+just the ones where we create something.
+只是那些我們創造一些東西的地方。
+
+4
+00:00:09,972 --> 00:00:12,361
+And you can do this in Express.js by calling
+你可以在 Express.js 中透過呼叫來做到這一點
+
+5
+00:00:12,539 --> 00:00:13,879
+authenticate here
+在這裡進行身份驗證
+
+6
+00:00:15,235 --> 00:00:17,398
+or by pointing at authenticate here as a
+或透過指向此處進行驗證作為
+
+7
+00:00:17,398 --> 00:00:20,146
+second argument after this path before the
+該路徑之後的第二個參數之前
+
+8
+00:00:20,146 --> 00:00:22,463
+function that should actually be invoked for
+實際應該呼叫的函式
+
+9
+00:00:22,576 --> 00:00:24,699
+incoming requests that are sent to this
+發送到此的傳入請求
+
+10
+00:00:24,764 --> 00:00:24,958
+path.
+小路。
+
+11
+00:00:27,215 --> 00:00:29,287
+For that, authenticate is imported here.
+為此，此處導入了驗證。
+
+12
+00:00:30,452 --> 00:00:32,087
+And then we can add this here for the
+然後我們可以在這裡添加這個
+
+13
+00:00:34,098 --> 00:00:35,207
+PUT route
+放置路線
+
+14
+00:00:35,876 --> 00:00:37,458
+and for the DELETE route.
+以及 DELETE 路線。
+
+15
+00:00:38,970 --> 00:00:41,269
+And the GET routes are not using this
+且 GET 路由沒有使用這個
+
+16
+00:00:41,269 --> 00:00:43,601
+middleware because they should be accessible
+中介層，因為它們應該是可訪問的
+
+17
+00:00:44,167 --> 00:00:45,609
+even if you're not authenticated.
+即使您沒有經過身份驗證。
+
+18
+00:00:48,162 --> 00:00:50,032
+So now as a result,
+所以現在的結果是，
+
+19
+00:00:50,991 --> 00:00:51,804
+we should be able
+我們應該能夠
+
+20
+00:00:52,695 --> 00:00:54,842
+to send a GET request
+發送 GET 請求
+
+21
+00:00:55,746 --> 00:00:59,668
+to localhost:3000/events
+到本地主機：3000/事件
+
+22
+00:01:01,234 --> 00:01:01,816
+and that should work.
+這應該有效。
+
+23
+00:01:02,544 --> 00:01:04,484
+Indeed, I get back an array of events that
+事實上，我收到了一系列事件
+
+24
+00:01:04,484 --> 00:01:06,020
+have been created before.
+之前已經創建過。
+
+25
+00:01:07,272 --> 00:01:09,339
+The first event has a bunch of nulls here
+第一個事件這裡有一堆空值
+
+26
+00:01:09,469 --> 00:01:11,797
+because I didn't have validation back then,
+因為當時我還沒得到驗證，
+
+27
+00:01:12,009 --> 00:01:12,448
+if you recall.
+如果你還記得的話。
+
+28
+00:01:14,000 --> 00:01:15,399
+But sending that request works.
+但發送該請求是有效的。
+
+29
+00:01:16,050 --> 00:01:18,785
+Also, we can send a GET request to /events/
+另外，我們可以向 /events/ 發送 GET 請求
+
+30
+00:01:19,650 --> 00:01:22,137
+and then some specific ID like 1
+然後是一些特定的 ID，例如 1
+
+31
+00:01:22,917 --> 00:01:23,112
+or
+或者
+
+32
+00:01:23,649 --> 00:01:25,242
+of course also 2 here.
+當然這裡也有2個。
+
+33
+00:01:26,690 --> 00:01:28,429
+These are the 2 events I have and we should
+這是我有的兩個活動，我們應該
+
+34
+00:01:28,429 --> 00:01:30,926
+get that specific event data. So that works
+取得特定事件資料。這樣就可以了
+
+35
+00:01:31,216 --> 00:01:32,327
+without authentication.
+無需身份驗證。
+
+36
+00:01:34,344 --> 00:01:36,931
+But trying to create an event, so sending a
+但試圖創建一個事件，所以發送一個
+
+37
+00:01:36,931 --> 00:01:40,490
+POST request to /events with valid data
+使用有效資料向 /events 發出 POST 請求
+
+38
+00:01:40,959 --> 00:01:41,978
+should now fail
+現在應該失敗
+
+39
+00:01:42,997 --> 00:01:45,040
+if we don't have the token attached.
+如果我們沒有附加令牌。
+
+40
+00:01:46,036 --> 00:01:48,258
+And to attach it, you can go to headers
+要附加它，您可以轉到標題
+
+41
+00:01:50,046 --> 00:01:50,770
+and then add
+然後添加
+
+42
+00:01:51,431 --> 00:01:52,848
+an authorization
+授權
+
+43
+00:01:53,749 --> 00:01:56,084
+token here or authorization header.
+此處的令牌或授權標頭。
+
+44
+00:01:58,031 --> 00:02:01,444
+And then the value is bearer blank and then
+然後該值是不記名空白然後
+
+45
+00:02:01,556 --> 00:02:02,345
+a valid token.
+一個有效的令牌。
+
+46
+00:02:04,142 --> 00:02:06,948
+Now how do you get a valid token? Well, by
+現在如何獲得有效的令牌？好吧，由
+
+47
+00:02:06,948 --> 00:02:09,287
+creating a user or by logging in.
+建立使用者或透過登入。
+
+48
+00:02:10,094 --> 00:02:12,320
+So here I'll log in with those credentials
+所以在這裡我將使用這些憑證登入
+
+49
+00:02:12,502 --> 00:02:14,557
+which I used before for creating a user.
+我之前用它來創建使用者。
+
+50
+00:02:16,879 --> 00:02:19,435
+And it's then this token here, this long
+然後就是這個令牌，這麼長
+
+51
+00:02:19,483 --> 00:02:21,052
+string which you wanna copy
+你想要複製的字串
+
+52
+00:02:22,459 --> 00:02:24,853
+and which you then should paste as a value
+然後您應該將其貼上為值
+
+53
+00:02:25,112 --> 00:02:27,224
+after this blank after bearer
+在此空白之後，在承載者之後
+
+54
+00:02:27,853 --> 00:02:27,982
+here.
+這裡。
+
+55
+00:02:29,803 --> 00:02:32,043
+And that attaches the token to the request.
+並將令牌附加到請求中。
+
+56
+00:02:33,994 --> 00:02:36,480
+If you now click send, you see I got back a
+如果您現在單擊“發送”，您會看到我收到了
+
+57
+00:02:36,480 --> 00:02:37,578
+success response again,
+再次成功回應，
+
+58
+00:02:38,110 --> 00:02:38,191
+the
+這
+
+59
+00:02:38,918 --> 00:02:42,165
+POST, the event, I mean was created.
+POST，我的意思是事件被創建了。
+
+60
+00:02:44,626 --> 00:02:46,691
+If I change the token and I remove the E,
+如果我更改令牌並刪除 E，
+
+61
+00:02:47,634 --> 00:02:50,560
+I make it invalid and hence I get an invalid
+我使它無效，因此我得到一個無效的
+
+62
+00:02:50,560 --> 00:02:51,357
+token response.
+令牌回應。
+
+63
+00:02:53,470 --> 00:02:56,326
+So that seems to work the way it should. We
+所以這似乎按照它應該的方式工作。我們
+
+64
+00:02:56,326 --> 00:02:58,554
+can now create events but only
+現在可以建立事件，但只能
+
+65
+00:02:59,151 --> 00:03:00,265
+if we're authenticated.
+如果我們通過身份驗證。
+
+66
+00:03:02,166 --> 00:03:04,746
+Now let's of course also test whether we can
+現在我們當然也測試一下我們是否可以
+
+67
+00:03:04,827 --> 00:03:06,108
+edit or delete events.
+編輯或刪除事件。
+
+68
+00:03:06,806 --> 00:03:09,109
+And for that, I'll actually
+為此，我實際上會
+
+69
+00:03:11,381 --> 00:03:12,525
+create a new request here
+在這裡建立一個新請求
+
+70
+00:03:13,572 --> 00:03:14,490
+where I want to
+我想去的地方
+
+71
+00:03:15,168 --> 00:03:15,443
+PUT
+放
+
+72
+00:03:16,400 --> 00:03:18,604
+or where I want to send a PUT request
+或者我想發送 PUT 請求的地方
+
+73
+00:03:20,128 --> 00:03:22,721
+because I'm expecting a PUT request to
+因為我期待一個 PUT 請求
+
+74
+00:03:23,126 --> 00:03:24,684
+/events/some ID.
+/事件/一些ID。
+
+75
+00:03:26,128 --> 00:03:28,579
+That's a placeholder for any specific ID.
+這是任何特定 ID 的佔位符。
+
+76
+00:03:29,779 --> 00:03:31,353
+I can send requests here
+我可以在這裡發送請求
+
+77
+00:03:32,462 --> 00:03:34,876
+And I can attach the data with which I wanna
+我可以附加我想要的資料
+
+78
+00:03:34,909 --> 00:03:37,177
+update the event for a specific ID.
+更新特定 ID 的事件。
+
+79
+00:03:39,624 --> 00:03:41,026
+So a PUT request to
+所以一個 PUT 請求
+
+80
+00:03:41,026 --> 00:03:41,903
+http://localhost:3000/events/3,
+http://localhost:3000/events/3,
+
+81
+00:03:46,392 --> 00:03:46,826
+let's say,
+比方說，
+
+82
+00:03:48,481 --> 00:03:48,754
+and then
+進而
+
+83
+00:03:49,349 --> 00:03:49,895
+add a body,
+添加一個身體，
+
+84
+00:03:50,956 --> 00:03:51,084
+raw
+生的
+
+85
+00:03:52,338 --> 00:03:52,788
+JSON,
+JSON，
+
+86
+00:03:55,455 --> 00:03:57,157
+and I'll now copy the body
+現在我要複製正文
+
+87
+00:03:57,873 --> 00:03:59,632
+from before, which I used before for
+從以前開始，我以前用過
+
+88
+00:03:59,763 --> 00:04:01,913
+creating an event, and I'll paste it here
+創建一個事件，我將其貼到此處
+
+89
+00:04:02,027 --> 00:04:03,004
+for the PUT request.
+對於 PUT 請求。
+
+90
+00:04:04,986 --> 00:04:06,946
+But I'll now change it a little bit and say
+但我現在稍微改變一下並說
+
+91
+00:04:07,659 --> 00:04:08,436
+a test event
+測試事件
+
+92
+00:04:09,182 --> 00:04:11,514
+updated so that we can tell that this works.
+已更新，以便我們可以知道這是有效的。
+
+93
+00:04:13,030 --> 00:04:14,800
+And I'll also say updated here
+我也會在這裡說更新
+
+94
+00:04:15,743 --> 00:04:17,855
+and have my updated test street and a
+並有我更新的測試街和
+
+95
+00:04:17,855 --> 00:04:18,667
+different time.
+不同的時間。
+
+96
+00:04:20,422 --> 00:04:21,314
+Now this would fail
+現在這會失敗
+
+97
+00:04:22,190 --> 00:04:23,131
+because I haven't added
+因為我還沒有添加
+
+98
+00:04:24,269 --> 00:04:26,784
+That's why I get missing authorization
+這就是為什麼我缺少授權
+
+99
+00:04:26,784 --> 00:04:27,076
+header
+標頭
+
+100
+00:04:27,823 --> 00:04:29,397
+as an error message down here.
+作為這裡的錯誤訊息。
+
+101
+00:04:31,540 --> 00:04:33,891
+So again, just as before, we need to add the
+再次，就像以前一樣，我們需要添加
+
+102
+00:04:34,052 --> 00:04:35,099
+authorization header,
+授權標頭，
+
+103
+00:04:35,920 --> 00:04:36,967
+bearer blank,
+持票人空白，
+
+104
+00:04:37,611 --> 00:04:40,043
+and use that same header we used before for
+並使用我們之前使用過的相同標頭
+
+105
+00:04:40,268 --> 00:04:41,333
+creating the event.
+建立事件。
+
+106
+00:04:42,820 --> 00:04:43,839
+So copy that
+所以複製那個
+
+107
+00:04:47,058 --> 00:04:49,338
+or copy it here from the response of the
+或從回覆複製到這裡
+
+108
+00:04:49,387 --> 00:04:50,099
+login request.
+登入請求。
+
+109
+00:04:50,642 --> 00:04:51,489
+Copy that
+複製那個
+
+110
+00:04:53,558 --> 00:04:56,246
+and put it here after the blank after Berra.
+並將其放在 Berra 之後的空白處之後。
+
+111
+00:04:58,007 --> 00:04:58,748
+That seems to work.
+這似乎有效。
+
+112
+00:05:00,610 --> 00:05:03,408
+To verify whether it works, we can grab this
+為了驗證它是否有效，我們可以抓住這個
+
+113
+00:05:03,553 --> 00:05:06,095
+specific event with ID 3, which I just
+ID 為 3 的特定事件，我剛剛
+
+114
+00:05:06,095 --> 00:05:06,529
+updated,
+更新了，
+
+115
+00:05:07,558 --> 00:05:09,810
+and send a GET request to events/3.
+並向 events/3 發送 GET 請求。
+
+116
+00:05:11,122 --> 00:05:13,867
+And you see all the updated data was stored
+你會看到所有更新的資料都被儲存了
+
+117
+00:05:13,867 --> 00:05:14,030
+here.
+這裡。
+
+118
+00:05:15,884 --> 00:05:17,893
+Last but not least, let's try deleting
+最後但並非最不重要的一點是，讓我們嘗試刪除
+
+119
+00:05:19,844 --> 00:05:21,293
+send a DELETE request
+發送刪除請求
+
+120
+00:05:22,098 --> 00:05:22,291
+to
+到
+
+121
+00:05:23,546 --> 00:05:26,267
+localhost:3000/events
+本地主機:3000/事件
+
+122
+00:05:26,927 --> 00:05:27,813
+and then slash
+然後斜線
+
+123
+00:05:28,376 --> 00:05:30,212
+the ID of the event we wanna delete. And
+我們要刪除的事件的 ID。和
+
+124
+00:05:30,228 --> 00:05:30,904
+let's say it's the
+假設這是
+
+125
+00:05:31,435 --> 00:05:32,434
+event with ID 4
+ID 為 4 的事件
+
+126
+00:05:34,172 --> 00:05:35,750
+without anything else, that fails.
+如果沒有其他東西，那就失敗了。
+
+127
+00:05:36,507 --> 00:05:38,568
+We don't need to add a body, but we do need
+我們不需要添加主體，但我們確實需要
+
+128
+00:05:38,681 --> 00:05:41,905
+to add this authorization header, bearer
+新增此授權標頭、承載
+
+129
+00:05:42,329 --> 00:05:44,186
+blank and a valid token.
+空白和有效令牌。
+
+130
+00:05:45,326 --> 00:05:46,466
+And now it was deleted.
+現在它被刪除了。
+
+131
+00:05:48,350 --> 00:05:51,225
+And we can confirm that it was deleted by
+我們可以確認它已被刪除
+
+132
+00:05:51,225 --> 00:05:52,873
+sending a GET request to
+發送 GET 請求至
+
+133
+00:05:53,713 --> 00:05:56,523
+/events without a specific ID. This will get
+/沒有特定 ID 的事件。這將得到
+
+134
+00:05:56,523 --> 00:05:59,793
+us all events and we see 1, 2, 3 are there,
+我們所有的事件，我們看到 1、2、3 都在那裡，
+
+135
+00:05:59,922 --> 00:06:02,868
+but the 4th event, the event with ID 4 was
+但第 4 個事件，ID 為 4 的事件是
+
+136
+00:06:02,981 --> 00:06:05,444
+deleted because that's exactly what I did
+刪除了，因為這正是我所做的
+
+137
+00:06:05,702 --> 00:06:06,807
+with help of this request.
+在此請求的幫助下。
+
+138
+00:06:08,738 --> 00:06:11,118
+So that's not working the way it should. We
+所以這並沒有照應有的方式運作。我們
+
+139
+00:06:11,263 --> 00:06:13,002
+don't have image upload, of course. We'll
+當然，沒有圖像上傳。出色地
+
+140
+00:06:13,098 --> 00:06:15,272
+add this later, but that's not working. And
+稍後添加，但這不起作用。和
+
+141
+00:06:15,289 --> 00:06:17,913
+we added all that functionality with help of
+我們在以下的幫助下添加了所有這些功能
+
+142
+00:06:17,946 --> 00:06:20,554
+GitHub Copilot and of course some manual
+GitHub Copilot，當然還有一些手冊
+
+143
+00:06:20,683 --> 00:06:21,698
+programming work here.
+在這裡進行程式設計工作。

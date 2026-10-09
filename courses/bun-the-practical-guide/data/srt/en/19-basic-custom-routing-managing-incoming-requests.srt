@@ -1,0 +1,323 @@
+1
+00:00:00,176 --> 00:00:01,923
+Now, obviously, when building web servers,
+
+2
+00:00:02,035 --> 00:00:04,776
+you often wanna do more than just send back
+
+3
+00:00:04,921 --> 00:00:07,309
+this basic text here. You may, for example,
+
+4
+00:00:07,405 --> 00:00:09,377
+be interested in the request that was
+
+5
+00:00:09,473 --> 00:00:10,147
+received to
+
+6
+00:00:10,692 --> 00:00:13,673
+do different things based on which request
+
+7
+00:00:13,721 --> 00:00:15,933
+you received. So it's quite handy that this
+
+8
+00:00:16,046 --> 00:00:18,306
+fetch method automatically receives a
+
+9
+00:00:18,306 --> 00:00:21,400
+request object and that request object is of
+
+10
+00:00:21,432 --> 00:00:25,119
+type Request, which just like Response is a
+
+11
+00:00:25,119 --> 00:00:28,565
+standard web API, which again could be used
+
+12
+00:00:28,565 --> 00:00:30,777
+in the browser. And here you would typically
+
+13
+00:00:30,793 --> 00:00:33,200
+construct it in the browser On the server,
+
+14
+00:00:33,361 --> 00:00:35,866
+we instead get it and Bun gives it to us
+
+15
+00:00:35,866 --> 00:00:39,350
+automatically. So this native Bun serve API
+
+16
+00:00:39,783 --> 00:00:42,706
+uses these official web APIs like response
+
+17
+00:00:42,834 --> 00:00:45,146
+and request for the data exchange, for
+
+18
+00:00:45,323 --> 00:00:47,266
+handling the request and constructing the
+
+19
+00:00:47,266 --> 00:00:49,530
+response. That's pretty neat about Bun.
+
+20
+00:00:50,317 --> 00:00:52,195
+Now, what can we use the request for? For
+
+21
+00:00:52,243 --> 00:00:54,861
+example, to extract data like the URL.
+
+22
+00:00:55,535 --> 00:00:58,425
+That URL will be a string, but we can
+
+23
+00:00:58,425 --> 00:01:01,220
+extract useful information out of it by
+
+24
+00:01:01,220 --> 00:01:04,015
+constructing a URL object by wrapping it
+
+25
+00:01:04,288 --> 00:01:07,693
+with this URL constructor or class here,
+
+26
+00:01:08,143 --> 00:01:11,244
+which again is a web standard. URL is
+
+27
+00:01:11,276 --> 00:01:13,685
+another web API that can be used to
+
+28
+00:01:13,685 --> 00:01:16,625
+construct URL objects, for example, based on
+
+29
+00:01:16,641 --> 00:01:19,340
+URL strings. And why would we do that? Well,
+
+30
+00:01:19,452 --> 00:01:21,621
+because now we can extract some useful
+
+31
+00:01:21,637 --> 00:01:23,195
+information from that URL
+
+32
+00:01:23,790 --> 00:01:26,456
+in an easier way. Stuff like the host or the
+
+33
+00:01:26,456 --> 00:01:29,927
+protocol that was used, HTTP versus HTTPS,
+
+34
+00:01:29,943 --> 00:01:30,635
+for example,
+
+35
+00:01:31,214 --> 00:01:34,126
+or the pathname. So the part after the
+
+36
+00:01:34,142 --> 00:01:34,480
+domain.
+
+37
+00:01:36,330 --> 00:01:37,415
+So in academind.com/courses,
+
+38
+00:01:39,196 --> 00:01:41,804
+/courses would be the pathname. Now, why
+
+39
+00:01:41,868 --> 00:01:43,816
+would we do that? Well, because now we can
+
+40
+00:01:43,865 --> 00:01:46,440
+check if path is equal to slash, for
+
+41
+00:01:46,456 --> 00:01:49,414
+example, which is the root path for just the
+
+42
+00:01:49,414 --> 00:01:51,937
+domain slash nothing, no matter if the slash
+
+43
+00:01:52,001 --> 00:01:53,898
+is entered or not for this specific case.
+
+44
+00:01:54,492 --> 00:01:56,163
+And then we could send back different
+
+45
+00:01:56,163 --> 00:01:58,853
+responses for different paths. So for a
+
+46
+00:01:58,853 --> 00:02:01,309
+courses path, we could send back a different
+
+47
+00:02:01,342 --> 00:02:04,168
+response than for this standard path here.
+
+48
+00:02:04,730 --> 00:02:06,769
+So we can grab this
+
+49
+00:02:07,459 --> 00:02:09,563
+response, copy it, paste it in there
+
+50
+00:02:10,575 --> 00:02:11,185
+and say
+
+51
+00:02:11,939 --> 00:02:13,192
+hello world, what we did before.
+
+52
+00:02:14,107 --> 00:02:16,403
+Then for courses, I could say
+
+53
+00:02:17,238 --> 00:02:18,667
+join my courses.
+
+54
+00:02:19,502 --> 00:02:22,056
+And then here, if we make it past these if
+
+55
+00:02:22,136 --> 00:02:25,459
+checks, we could send back a fallback. Like
+
+56
+00:02:26,710 --> 00:02:29,933
+NotFound and maybe here we also want to set
+
+57
+00:02:30,189 --> 00:02:33,300
+a status code of 404 to send back a proper
+
+58
+00:02:33,300 --> 00:02:36,443
+404 response. The default if you don't set
+
+59
+00:02:36,443 --> 00:02:37,357
+it is 200.
+
+60
+00:02:38,367 --> 00:02:40,660
+So with that, we now have our own basic
+
+61
+00:02:40,740 --> 00:02:42,857
+routing implemented in this fetch method.
+
+62
+00:02:43,659 --> 00:02:46,529
+So with that, if I restart that server and
+
+63
+00:02:46,529 --> 00:02:47,972
+we have to do that since we made some
+
+64
+00:02:47,972 --> 00:02:50,281
+changes, to make sure we don't have to do
+
+65
+00:02:50,281 --> 00:02:51,788
+that again and again, we can
+
+66
+00:02:52,446 --> 00:02:53,937
+add the watch flag here.
+
+67
+00:02:54,530 --> 00:02:56,630
+This will watch the code and restart the
+
+68
+00:02:56,630 --> 00:02:58,441
+server automatically if we change the code.
+
+69
+00:02:58,938 --> 00:03:00,862
+But with that added and the server
+
+70
+00:03:00,862 --> 00:03:03,234
+restarted, if I reload, I still see Hello
+
+71
+00:03:03,346 --> 00:03:03,651
+World.
+
+72
+00:03:04,484 --> 00:03:07,851
+If I enter /courses here, I see Join My
+
+73
+00:03:07,851 --> 00:03:09,758
+Courses, which indeed is a good idea.
+
+74
+00:03:10,480 --> 00:03:14,343
+And if I enter something else, I get Not
+
+75
+00:03:14,343 --> 00:03:14,760
+Found.
+
+76
+00:03:15,529 --> 00:03:18,030
+And in that case, if I open the developer
+
+77
+00:03:18,030 --> 00:03:20,354
+tools and go to the Network tab, you'll see
+
+78
+00:03:20,354 --> 00:03:23,336
+that if I reload, I do indeed get the 404
+
+79
+00:03:23,336 --> 00:03:24,089
+status code.
+
+80
+00:03:25,078 --> 00:03:27,657
+So that's basic routing implemented with
+
+81
+00:03:27,689 --> 00:03:30,852
+Bun, with the default standard Bun server.

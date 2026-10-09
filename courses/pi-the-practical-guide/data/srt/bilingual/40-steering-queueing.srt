@@ -1,0 +1,594 @@
+1
+00:00:00,257 --> 00:00:03,245
+It's time to dive deeper into Pi, into more
+是時候更深入研究 Pi 了
+
+2
+00:00:03,245 --> 00:00:05,929
+advanced usage patterns or
+進階使用模式或
+
+3
+00:00:06,925 --> 00:00:08,918
+tips and tricks you should be aware of when
+您應該注意的提示和技巧
+
+4
+00:00:09,030 --> 00:00:09,994
+working with Pi.
+與 Pi 一起工作。
+
+5
+00:00:11,521 --> 00:00:13,882
+And that starts with controlling how
+首先是控制如何
+
+6
+00:00:13,995 --> 00:00:17,128
+messages are processed by Pi. Let's say
+訊息由 Pi 處理。比方說
+
+7
+00:00:17,288 --> 00:00:19,266
+you're in a session, a new one or an
+您正在參加一個工作階段、一個新工作階段或一個工作階段
+
+8
+00:00:19,314 --> 00:00:21,754
+existing one, doesn't matter. Here I'm in an
+現有的，沒關係。我在這裡
+
+9
+00:00:21,803 --> 00:00:22,449
+existing one.
+現有的一個。
+
+10
+00:00:23,014 --> 00:00:24,824
+And just as a demo here,
+就像這裡的演示一樣，
+
+11
+00:00:25,357 --> 00:00:27,167
+I want to ask Pi to
+我想請Pi
+
+12
+00:00:27,812 --> 00:00:29,945
+summarize what it did.
+總結一下它做了什麼。
+
+13
+00:00:31,003 --> 00:00:32,494
+Now if I send a message like this
+現在如果我發送這樣的訊息
+
+14
+00:00:33,023 --> 00:00:36,086
+and I then notice that, oh, I forgot
+然後我注意到，哦，我忘了
+
+15
+00:00:36,086 --> 00:00:38,251
+something, I want to edit it, you can just
+有些東西，我想編輯它，你可以
+
+16
+00:00:38,299 --> 00:00:40,431
+hit Escape and that will stop Pi
+按 Esc 鍵即可停止 Pi
+
+17
+00:00:40,479 --> 00:00:42,195
+immediately. And you can send up your
+立即地。你可以發送你的
+
+18
+00:00:42,227 --> 00:00:44,408
+follow-up message. You can also hit the up
+後續訊息。你也可以點擊向上
+
+19
+00:00:44,552 --> 00:00:47,679
+arrow to repopulate your past message and
+箭頭重新填充您過去的訊息和
+
+20
+00:00:47,695 --> 00:00:50,982
+then tweak it. And for example, add give me
+然後調整它。例如，添加給我
+
+21
+00:00:50,982 --> 00:00:53,163
+a concise list only including file names of
+僅包含檔案名稱的簡潔列表
+
+22
+00:00:53,163 --> 00:00:55,680
+files edited, and that does the trick. So
+編輯檔案，就可以了。所以
+
+23
+00:00:55,712 --> 00:00:58,195
+you can hit Escape and then send a follow-up
+您可以按 Esc 鍵，然後發送後續訊息
+
+24
+00:00:58,195 --> 00:01:00,166
+message, which can also be your old message
+訊息，也可以是您的舊訊息
+
+25
+00:01:00,359 --> 00:01:01,096
+extended, of course.
+當然，可以延長。
+
+26
+00:01:01,720 --> 00:01:03,964
+Alternatively, let me copy that because I'll
+或者，讓我複製它，因為我會
+
+27
+00:01:03,964 --> 00:01:05,213
+need it in a second. You
+稍後需要它。你
+
+28
+00:01:05,967 --> 00:01:08,098
+could also paste in your new message and hit
+也可以貼上您的新訊息並點擊
+
+29
+00:01:08,194 --> 00:01:10,549
+Enter. And you see by default that will be
+進入。預設情況下你會看到
+
+30
+00:01:10,998 --> 00:01:13,946
+added as a steering message, which means it
+添加為轉向訊息，這意味著
+
+31
+00:01:14,042 --> 00:01:16,237
+will be injected into the session
+將會被注入到工作階段中
+
+32
+00:01:16,862 --> 00:01:17,583
+right away
+馬上
+
+33
+00:01:18,144 --> 00:01:20,531
+once the agent is ready again. So once the
+一旦代理再次準備好。所以一旦
+
+34
+00:01:20,531 --> 00:01:23,047
+current tool call finished or anything like
+當前工具呼叫完成或類似的事情
+
+35
+00:01:23,047 --> 00:01:23,239
+this.
+這。
+
+36
+00:01:23,977 --> 00:01:26,077
+That is what steering means. It will be
+這就是轉向的意義。這將是
+
+37
+00:01:26,077 --> 00:01:29,234
+injected into the current conversation once
+注入當前對話一次
+
+38
+00:01:29,507 --> 00:01:31,206
+the agent is ready for it. So it will not
+代理已經準備好了。所以不會
+
+39
+00:01:31,206 --> 00:01:33,979
+interrupt the agent, but it will also not
+中斷代理，但也不會
+
+40
+00:01:34,092 --> 00:01:36,047
+wait until it's done with all its work.
+等到它完成所有工作。
+
+41
+00:01:36,721 --> 00:01:38,724
+That is what steering is. Now, the
+這就是轉向。現在，
+
+42
+00:01:38,724 --> 00:01:41,802
+alternative to that is to queue a message.
+替代方法是將訊息排隊。
+
+43
+00:01:42,588 --> 00:01:44,078
+And to show this to you, I'll start a new
+為了向你展示這一點，我將開始一個新的
+
+44
+00:01:44,126 --> 00:01:45,361
+session here with
+在這裡與
+
+45
+00:01:45,970 --> 00:01:46,178
+/new.
+/新的。
+
+46
+00:01:46,820 --> 00:01:49,208
+And here I'll ask Pi to perform an in-depth
+在這裡我會請 Pi 進行深入的
+
+47
+00:01:49,320 --> 00:01:51,228
+code audit and code review of the current
+目前的程式碼審計和程式碼審查
+
+48
+00:01:51,228 --> 00:01:52,975
+codebase, looking for anti-patterns, bad
+程式碼庫，尋找反模式，不好
+
+49
+00:01:53,007 --> 00:01:53,937
+practices, and bugs
+實踐和錯誤
+
+50
+00:01:54,514 --> 00:01:56,102
+that it should analyze all files in there,
+它應該分析其中的所有檔案，
+
+51
+00:01:56,134 --> 00:01:58,060
+file by file, step by step, no rushing, and
+逐檔案，一步一步，不急，
+
+52
+00:01:58,060 --> 00:01:59,183
+that it should take its time.
+這需要時間。
+
+53
+00:01:59,745 --> 00:02:00,981
+So I can send this to Pi.
+所以我可以將其發送給 Pi。
+
+54
+00:02:01,510 --> 00:02:03,853
+And again, if I had a follow-up like also
+再說一次，如果我也有後續行動
+
+55
+00:02:03,901 --> 00:02:05,603
+look for security issues, I might want to
+尋找安全問題，我可能想要
+
+56
+00:02:05,603 --> 00:02:07,978
+inject that. So I can hit enter and now it
+注入那個。所以我可以按 Enter 鍵，現在就可以了
+
+57
+00:02:08,074 --> 00:02:11,075
+will be steered. It will be added as a
+將被引導。它將被添加為
+
+58
+00:02:11,075 --> 00:02:12,872
+steering message. So it will be injected
+轉向訊息。所以會被注入
+
+59
+00:02:12,889 --> 00:02:15,296
+once the agent is ready for it. And that
+一旦代理人準備好。還有那個
+
+60
+00:02:15,296 --> 00:02:17,334
+already happened. So now this is considered.
+已經發生了。所以現在考慮這個。
+
+61
+00:02:17,960 --> 00:02:20,126
+But if I had a follow-up like give me a
+但如果我有後續行動，例如給我一個
+
+62
+00:02:20,126 --> 00:02:22,822
+concise actionable report that's as short as
+簡明可行的報告，最短為
+
+63
+00:02:22,919 --> 00:02:24,604
+possible without leaving out important
+可能不遺漏重要的
+
+64
+00:02:24,604 --> 00:02:24,893
+detail,
+細節，
+
+65
+00:02:25,567 --> 00:02:27,155
+I could send that by hitting
+我可以點擊發送
+
+66
+00:02:27,893 --> 00:02:30,861
+Alt or Option+Enter. And now this is queued
+Alt 或 Option+Enter。現在這已排隊
+
+67
+00:02:30,877 --> 00:02:33,315
+as a follow-up message, not as a steering
+作為後續消息，而不是指導
+
+68
+00:02:33,428 --> 00:02:33,700
+message.
+訊息.
+
+69
+00:02:34,326 --> 00:02:36,861
+And this message will now only be processed
+現在只會處理此訊息
+
+70
+00:02:36,957 --> 00:02:39,652
+once this entire task is done. So once this
+一旦整個任務完成。所以一旦這個
+
+71
+00:02:40,182 --> 00:02:42,315
+conversation here ended, once the agent is
+談話到此結束，一旦代理
+
+72
+00:02:42,428 --> 00:02:44,369
+really done with its code review. And of
+程式碼審查確實完成了。和的
+
+73
+00:02:44,417 --> 00:02:47,289
+course, as part of that task, it will also
+當然，作為該任務的一部分，它還將
+
+74
+00:02:47,465 --> 00:02:49,887
+output a final message. But right after
+輸出最終訊息。但就在之後
+
+75
+00:02:49,952 --> 00:02:52,518
+that, this message will become active and
+該訊息將變為活動狀態並且
+
+76
+00:02:52,535 --> 00:02:54,973
+will start a new conversation, so to say.
+可以這麼說，將開始新的對話​​。
+
+77
+00:02:55,502 --> 00:02:57,570
+And what you wanna use simply depends on
+你想使用什麼只取決於
+
+78
+00:02:57,570 --> 00:02:58,949
+your goal. If you know that you have a
+你的目標。如果你知道你有一個
+
+79
+00:02:58,949 --> 00:03:00,792
+follow-up task, but you don't wanna
+後續任務，但你不想
+
+80
+00:03:00,872 --> 00:03:03,405
+interrupt the current task or inject it into
+中斷當前任務或將其註入
+
+81
+00:03:03,437 --> 00:03:06,274
+the current task, queue it with Alt or
+當前任務，按 Alt 或將其排隊
+
+82
+00:03:06,387 --> 00:03:07,364
+Option+Enter.
+選項+輸入。
+
+83
+00:03:07,990 --> 00:03:10,218
+If you know that the current task needs to
+如果您知道目前任務需要
+
+84
+00:03:10,250 --> 00:03:13,280
+be tweaked, add a steering message by just
+進行調整，只需新增一則轉向訊息
+
+85
+00:03:13,280 --> 00:03:15,011
+hitting Enter. If you need to edit a
+按 Enter 鍵。如果您需要編輯
+
+86
+00:03:15,043 --> 00:03:17,608
+message, you can also press the Option and
+訊息，您也可以按 Option 和
+
+87
+00:03:17,784 --> 00:03:20,221
+Up keys to edit that message.
+向上鍵編輯該訊息。
+
+88
+00:03:20,894 --> 00:03:23,314
+However, that is not really working for me
+然而，這對我來說並不真正有用
+
+89
+00:03:23,395 --> 00:03:25,735
+in my terminal here in VS Code, and I also
+在我的終端機機中的 VS Code 中，我也
+
+90
+00:03:25,783 --> 00:03:27,644
+had issues in other terminals. And in
+其他終端機出現問題。並且在
+
+91
+00:03:27,644 --> 00:03:29,731
+general, if any of these shortcuts are not
+一般情況下，如果這些快捷方式中的任何一個不存在
+
+92
+00:03:29,731 --> 00:03:31,593
+working for you, you might wanna try out a
+為你工作，你可能想嘗試一下
+
+93
+00:03:31,722 --> 00:03:33,745
+different terminal emulator, a different
+不同的終端機模擬器，不同的
+
+94
+00:03:33,745 --> 00:03:35,944
+tool for accessing the command line, or
+用於存取命令列的工具，或
+
+95
+00:03:36,073 --> 00:03:38,385
+tweak those key bindings that are set up
+調整那些設定的鍵綁定
+
+96
+00:03:38,481 --> 00:03:41,820
+with Pi. But queuing and steering with Enter
+與 Pi.但按 Enter 進行排隊和轉向
+
+97
+00:03:41,853 --> 00:03:43,843
+or Alt+Enter should work just fine.
+或 Alt+Enter 應該可以正常運作。
+
+98
+00:03:44,438 --> 00:03:47,408
+So here it's done with its first task
+這樣第一個任務就完成了
+
+99
+00:03:47,408 --> 00:03:49,206
+essentially, and it's outputting that final
+本質上，它輸出的是最終的
+
+100
+00:03:49,222 --> 00:03:51,165
+message, but I still got that follow-up
+訊息，但我仍然收到了後續訊息
+
+101
+00:03:51,165 --> 00:03:52,851
+message queued and that will now become
+訊息已排隊，現在將變成
+
+102
+00:03:52,995 --> 00:03:55,211
+active once it's done outputting that final
+一旦完成輸出，即處於活動狀態
+
+103
+00:03:55,323 --> 00:03:55,901
+message here.
+在這裡留言。
+
+104
+00:03:57,954 --> 00:04:00,519
+So here we go, it's now active, and now it's
+所以我們開始吧，它現在處於活動狀態，現在它是
+
+105
+00:04:00,519 --> 00:04:02,759
+generating that more concise, more
+生成更簡潔、更
+
+106
+00:04:02,954 --> 00:04:04,042
+actionable report here.
+此處可操作的報告。
+
+107
+00:04:08,270 --> 00:04:10,008
+And thanks to that Render Last Message
+感謝 Render Last Message
+
+108
+00:04:10,008 --> 00:04:11,715
+extension I added earlier in the course, I
+我在課程前面添加的擴充功能，我
+
+109
+00:04:11,764 --> 00:04:13,873
+can also read through that final report here
+也可以在這裡閱讀最終報告
+
+110
+00:04:13,937 --> 00:04:14,501
+in the browser.
+在瀏覽器中。
+
+111
+00:04:15,145 --> 00:04:17,447
+And actually, pretty much all these findings
+事實上，幾乎所有這些發現
+
+112
+00:04:17,560 --> 00:04:19,556
+aren't really issues I care about for this
+這並不是我真正關心的問題
+
+113
+00:04:19,653 --> 00:04:22,664
+demo app. This first one is also plain out
+演示應用程式。這第一個也很明顯
+
+114
+00:04:22,728 --> 00:04:25,073
+wrong. This is not something Tanzu Stack
+錯誤的。這不是 Tanzu Stack 的東西
+
+115
+00:04:25,073 --> 00:04:26,229
+Start respects here,
+在此開始敬意，
+
+116
+00:04:26,920 --> 00:04:29,152
+and therefore I don't actually need to take
+因此我實際上不需要採取
+
+117
+00:04:29,232 --> 00:04:31,304
+any action here. I'm fine. But of course,
+在這裡進行任何操作。我很好。但當然，
+
+118
+00:04:31,336 --> 00:04:33,649
+the core idea was to show you steering and
+核心思想是向你展示轉向和
+
+119
+00:04:33,729 --> 00:04:35,158
+queuing messages anyways.
+無論如何排隊訊息。

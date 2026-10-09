@@ -1,0 +1,263 @@
+1
+00:00:00,112 --> 00:00:03,302
+Now for the final setup step in this project
+
+2
+00:00:03,302 --> 00:00:05,947
+before we then can get to work with the
+
+3
+00:00:06,027 --> 00:00:08,207
+actual application logic, I wanna
+
+4
+00:00:08,752 --> 00:00:11,012
+add the BetterAuth package and make sure
+
+5
+00:00:11,012 --> 00:00:13,481
+that authentication is set up correctly. And
+
+6
+00:00:13,497 --> 00:00:15,869
+therefore I wanna send this prompt to Pynow
+
+7
+00:00:15,982 --> 00:00:18,546
+where I ask it to set up BetterAuth in this
+
+8
+00:00:18,546 --> 00:00:20,550
+project. I again make it aware of the fact
+
+9
+00:00:20,550 --> 00:00:22,474
+that it should implement it according to the
+
+10
+00:00:22,474 --> 00:00:24,814
+official docs for BetterAuth and TanStack
+
+11
+00:00:25,023 --> 00:00:27,764
+and BetterAuth with Bun and Bun SQLite and
+
+12
+00:00:27,764 --> 00:00:29,639
+that I don't want it to add an
+
+13
+00:00:29,751 --> 00:00:31,851
+authentication page yet. It should just set
+
+14
+00:00:31,851 --> 00:00:34,342
+up up the backend. And that's important. You
+
+15
+00:00:34,342 --> 00:00:36,960
+should really steer this agent and stay in
+
+16
+00:00:37,057 --> 00:00:40,077
+control and not let it roam freely unless
+
+17
+00:00:40,125 --> 00:00:41,459
+that is of course what you want to do, which
+
+18
+00:00:41,491 --> 00:00:44,015
+can also be fine. But I like to have this
+
+19
+00:00:44,096 --> 00:00:45,423
+step-by-step approach.
+
+20
+00:00:47,400 --> 00:00:48,757
+So now it's reaching out to more
+
+21
+00:00:48,871 --> 00:00:50,229
+documentation here, to
+
+22
+00:00:50,892 --> 00:00:53,300
+documentation here because I told it to in
+
+23
+00:00:53,397 --> 00:00:55,370
+my prompt. And that's the important part
+
+24
+00:00:55,370 --> 00:00:57,722
+about crafting good prompts and giving it
+
+25
+00:00:57,771 --> 00:00:59,246
+the right information and the right
+
+26
+00:00:59,246 --> 00:00:59,558
+steering.
+
+27
+00:01:00,817 --> 00:01:03,847
+And it now goes ahead and sets up BetterAuth
+
+28
+00:01:04,023 --> 00:01:04,761
+in this project.
+
+29
+00:01:06,219 --> 00:01:08,896
+So here it's now done giving me the summary.
+
+30
+00:01:09,153 --> 00:01:11,862
+It added a.env.example file so that I know
+
+31
+00:01:11,974 --> 00:01:14,026
+which environment variables I'll need to add
+
+32
+00:01:14,058 --> 00:01:14,170
+here,
+
+33
+00:01:15,020 --> 00:01:17,376
+allowing me to change the database path via
+
+34
+00:01:17,408 --> 00:01:18,611
+environment variables too.
+
+35
+00:01:19,332 --> 00:01:20,374
+And in the source folder,
+
+36
+00:01:20,935 --> 00:01:24,782
+it added this API subfolder and routes with
+
+37
+00:01:24,782 --> 00:01:26,305
+the auth subfolder and the
+
+38
+00:01:26,962 --> 00:01:29,142
+$.ts file. And these are essentially just
+
+39
+00:01:29,207 --> 00:01:31,707
+TanStack Start conventions, so conventions
+
+40
+00:01:31,820 --> 00:01:32,157
+by that
+
+41
+00:01:32,719 --> 00:01:34,935
+library, by that framework I'm using for
+
+42
+00:01:35,080 --> 00:01:37,649
+setting up routes. Again, the course is not
+
+43
+00:01:37,697 --> 00:01:39,994
+about this framework, but this is just how
+
+44
+00:01:40,042 --> 00:01:42,660
+you register routes in this framework I'm
+
+45
+00:01:42,756 --> 00:01:45,422
+using for this web server, for this website.
+
+46
+00:01:45,888 --> 00:01:48,634
+You do use this file-based approach and that
+
+47
+00:01:48,634 --> 00:01:50,834
+is just a catch-all route that catches all
+
+48
+00:01:50,979 --> 00:01:51,798
+segments after
+
+49
+00:01:52,424 --> 00:01:55,203
+/api/auth in the end. And that is simply in
+
+50
+00:01:55,219 --> 00:01:57,242
+line with the BetterAuth docs because that
+
+51
+00:01:57,242 --> 00:01:59,073
+is how you should set up the auth routes
+
+52
+00:01:59,073 --> 00:02:01,016
+when using the library. So that's looking
+
+53
+00:02:01,064 --> 00:02:01,257
+good.
+
+54
+00:02:01,787 --> 00:02:04,081
+We get a lib folder with an auth folder with
+
+55
+00:02:04,145 --> 00:02:07,114
+index.ts. And in there we got the BetterAuth
+
+56
+00:02:07,178 --> 00:02:09,745
+configuration, also the connection to the
+
+57
+00:02:09,745 --> 00:02:12,521
+database, email and password authentication
+
+58
+00:02:12,553 --> 00:02:14,206
+enabled. And then these
+
+59
+00:02:14,960 --> 00:02:17,335
+adjustments here to change the default table
+
+60
+00:02:17,367 --> 00:02:20,062
+names BetterAuth would assume to the table
+
+61
+00:02:20,094 --> 00:02:21,779
+names and column names I want.
+
+62
+00:02:22,742 --> 00:02:25,678
+And with that, that is all looking good. So
+
+63
+00:02:25,694 --> 00:02:28,069
+one last time we can ask it to git commit or
+
+64
+00:02:28,294 --> 00:02:30,791
+do it ourselves. Before we then dive in
+
+65
+00:02:30,920 --> 00:02:33,009
+deeper and start working on the actual
+
+66
+00:02:33,107 --> 00:02:34,159
+application logic.

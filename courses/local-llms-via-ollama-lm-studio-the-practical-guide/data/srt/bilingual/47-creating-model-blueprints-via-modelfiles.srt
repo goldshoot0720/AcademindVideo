@@ -1,0 +1,784 @@
+1
+00:00:00,432 --> 00:00:03,124
+Creating customized versions,
+建立客製化版本，
+
+2
+00:00:03,717 --> 00:00:05,688
+adjusted versions of
+調整後的版本
+
+3
+00:00:06,425 --> 00:00:09,085
+open large language models, as you learned
+正如您所學，打開大型語言模型
+
+4
+00:00:09,085 --> 00:00:11,728
+it in the previous lectures, is one of the
+在之前的講座中，它是其中之一
+
+5
+00:00:12,129 --> 00:00:15,686
+big advantages or core features offered by
+提供的重大優勢或核心功能
+
+6
+00:00:15,718 --> 00:00:16,327
+Ollama.
+奧拉馬。
+
+7
+00:00:17,080 --> 00:00:19,307
+And you saw how you can set the system
+您看到如何設定係統
+
+8
+00:00:19,307 --> 00:00:22,368
+message or parameters or even a chat history
+訊息或參數甚至聊天記錄
+
+9
+00:00:22,384 --> 00:00:25,909
+and then save that as a new model to reuse
+然後將其另存為新模型以供重複使用
+
+10
+00:00:25,909 --> 00:00:27,479
+it for future use.
+以供將來使用。
+
+11
+00:00:28,377 --> 00:00:32,915
+Now besides using set and save to configure
+現在除了使用設定和儲存來設定
+
+12
+00:00:32,964 --> 00:00:33,829
+and save a model,
+並儲存模型，
+
+13
+00:00:34,471 --> 00:00:36,812
+you can also use another approach.
+您也可以使用另一種方​​法。
+
+14
+00:00:37,694 --> 00:00:40,533
+You can create a so-called model file.
+您可以建立一個所謂的模型檔案。
+
+15
+00:00:41,222 --> 00:00:43,387
+And here I'm doing this in Visual Studio
+我在 Visual Studio 中執行此操作
+
+16
+00:00:43,387 --> 00:00:45,889
+Code, which is simply a text editor. You can
+程式碼，它只是一個文字編輯器。你可以
+
+17
+00:00:45,937 --> 00:00:48,118
+also use a regular text editor. You don't
+也可以使用常規文字編輯器。你不
+
+18
+00:00:48,118 --> 00:00:49,642
+need a code editor for this.
+為此需要一個程式碼編輯器。
+
+19
+00:00:50,299 --> 00:00:52,256
+And you can do this anywhere on your system
+您可以在系統上的任何位置執行此操作
+
+20
+00:00:52,304 --> 00:00:53,763
+in any folder of your choice.
+在您選擇的任何資料夾中。
+
+21
+00:00:54,436 --> 00:00:56,151
+This is also a file without a file
+這也是一個沒有檔案的檔案
+
+22
+00:00:56,151 --> 00:00:58,634
+extension. It's just a file called model
+擴大。這只是一個名為 model 的檔案
+
+23
+00:00:58,634 --> 00:00:58,987
+file
+檔案
+
+24
+00:01:00,220 --> 00:01:03,169
+because Ollama has this concept of model
+因為Ollama有這個模型的概念
+
+25
+00:01:03,345 --> 00:01:05,171
+files, which in the end is inspired by
+檔案，最終的靈感來自
+
+26
+00:01:05,268 --> 00:01:06,117
+Dockerfiles.
+Dockerfiles。
+
+27
+00:01:06,886 --> 00:01:08,440
+Now, you don't need to know Docker. If
+現在，您不需要了解 Docker。如果
+
+28
+00:01:08,472 --> 00:01:10,427
+Dockerfiles don't tell you anything, that's
+Dockerfiles 不會告訴你任何事情，那就是
+
+29
+00:01:10,555 --> 00:01:11,196
+no problem.
+沒問題。
+
+30
+00:01:11,821 --> 00:01:13,904
+The idea behind these model files is
+這些模型檔案背後的想法是
+
+31
+00:01:13,904 --> 00:01:17,333
+essentially that you can configure models,
+本質上你可以設定模型，
+
+32
+00:01:17,765 --> 00:01:20,185
+adjust models just as we did it with
+像我們一樣調整模型
+
+33
+00:01:21,130 --> 00:01:21,627
+/set,
+/放，
+
+34
+00:01:22,172 --> 00:01:24,474
+but without doing it in the command line,
+但如果不在命令列中執行此操作，
+
+35
+00:01:24,667 --> 00:01:26,970
+and then you can load models based on that
+然後你可以根據它載入模型
+
+36
+00:01:27,163 --> 00:01:27,920
+model file.
+模型檔。
+
+37
+00:01:28,451 --> 00:01:30,802
+So you can simply configure a model in a
+所以你可以簡單地設定一個模型
+
+38
+00:01:30,802 --> 00:01:33,268
+more convenient way here, so to say.
+可以這麼說，這裡有更方便的方法。
+
+39
+00:01:34,820 --> 00:01:37,370
+Therefore, every model file starts with a
+因此，每個模型檔案都以
+
+40
+00:01:37,370 --> 00:01:39,921
+FROM instruction, which defines the base
+FROM指令，定義基數
+
+41
+00:01:40,051 --> 00:01:41,481
+model you wanna build up on.
+您想要建立的模型。
+
+42
+00:01:42,376 --> 00:01:46,097
+In my case here, Gemma 3, and then 12b,
+就我而言，是 Gemma 3，然後是 12b，
+
+43
+00:01:46,903 --> 00:01:47,467
+and then -i.
+然後是-i。
+
+44
+00:01:48,516 --> 00:01:49,815
+It-qat,
+它-卡特，
+
+45
+00:01:50,953 --> 00:01:53,486
+so using that same identifier I used all the
+所以使用相同的標識符我使用了所有
+
+46
+00:01:53,486 --> 00:01:53,822
+time.
+時間。
+
+47
+00:01:54,848 --> 00:01:57,381
+That will tell Ollama that this is the
+這會告訴奧拉瑪這是
+
+48
+00:01:57,413 --> 00:01:59,240
+general AI model I wanna use.
+我想使用通用人工智慧模型。
+
+49
+00:02:00,315 --> 00:02:03,312
+But now I can override or adjust certain
+但現在我可以覆蓋或調整某些
+
+50
+00:02:03,344 --> 00:02:04,819
+settings about this model.
+有關此模型的設定。
+
+51
+00:02:05,348 --> 00:02:07,656
+For example, as you also see in the official
+例如，正如您在官方中也看到的那樣
+
+52
+00:02:07,688 --> 00:02:10,253
+docs, which unfortunately are only available
+文檔，遺憾的是僅可用
+
+53
+00:02:10,253 --> 00:02:12,882
+on GitHub, you'll find a link to that model
+在 GitHub 上，您會找到該模型的連結
+
+54
+00:02:12,914 --> 00:02:15,320
+file documentation attached. For example,
+附加檔案文檔。例如，
+
+55
+00:02:15,368 --> 00:02:17,567
+you can set parameters with the parameter
+您可以使用參數設定參數
+
+56
+00:02:17,567 --> 00:02:18,193
+instruction.
+操作說明。
+
+57
+00:02:19,237 --> 00:02:21,612
+You can set a system message with the system
+您可以透過系統設定係統訊息
+
+58
+00:02:21,644 --> 00:02:22,206
+instruction.
+操作說明。
+
+59
+00:02:23,233 --> 00:02:25,834
+You can also set more advanced things, but
+你也可以設定更高級的東西，但是
+
+60
+00:02:25,834 --> 00:02:26,973
+I'll get back to
+我會回到
+
+61
+00:02:27,567 --> 00:02:30,713
+one advanced concept, the template, a little
+一個先進的概念，樣板，一點點
+
+62
+00:02:30,713 --> 00:02:31,115
+bit later.
+稍後。
+
+63
+00:02:31,837 --> 00:02:34,052
+For now, I'll focus on parameters, system,
+現在，我將重點放在參數、系統、
+
+64
+00:02:34,550 --> 00:02:35,417
+and also message.
+還有留言。
+
+65
+00:02:36,508 --> 00:02:39,590
+So let's do that here. Let's set a parameter
+那麼就讓我們在這裡這樣做吧。我們設定一個參數
+
+66
+00:02:40,088 --> 00:02:43,282
+and I'll set the num_ctx parameter, which
+我將設定 num_ctx 參數，該參數
+
+67
+00:02:43,394 --> 00:02:46,138
+defines the available context window length,
+定義可用的上下文視窗長度，
+
+68
+00:02:47,565 --> 00:02:49,537
+and I'll set that to 10,000 tokens.
+我會將其設定為 10,000 個令牌。
+
+69
+00:02:50,291 --> 00:02:52,599
+We can also set another parameter, for
+我們也可以設定另一個參數，例如
+
+70
+00:02:52,599 --> 00:02:53,994
+example, the temperature
+例如，溫度
+
+71
+00:02:54,523 --> 00:02:56,351
+to let's say 0.5.
+假設為 0.5。
+
+72
+00:02:57,265 --> 00:02:58,996
+The default for the Gemma model at this
+Gemma 模型的預設值
+
+73
+00:02:59,109 --> 00:03:02,058
+point of time is 1 actually. Here I'm
+時間點實際上是1。我在這裡
+
+74
+00:03:02,058 --> 00:03:04,271
+setting it to 0.5 to make it a bit less
+將其設為 0.5 以使其稍微小一些
+
+75
+00:03:04,319 --> 00:03:04,848
+creative.
+有創造力的。
+
+76
+00:03:05,906 --> 00:03:08,006
+And don't forget, you find the default
+並且不要忘記，您會找到預設值
+
+77
+00:03:08,006 --> 00:03:10,636
+params for the model you're using in the
+您在中使用的模型的參數
+
+78
+00:03:10,636 --> 00:03:13,153
+Ollama models catalog on the detail page of
+Ollama 詳細頁面上的型號目錄
+
+79
+00:03:13,153 --> 00:03:16,231
+a given model. There under params, you find
+給定的模型。在 params 下，你會發現
+
+80
+00:03:16,328 --> 00:03:17,434
+the default parameters.
+預設參數。
+
+81
+00:03:18,268 --> 00:03:20,450
+So here for Gemma 3, the default temperature
+所以這裡對於 Gemma 3，預設溫度
+
+82
+00:03:20,450 --> 00:03:20,786
+is 1.
+是 1。
+
+83
+00:03:21,316 --> 00:03:23,561
+Now I'm setting it to 0.5 here.
+現在我在這裡將其設定為 0.5。
+
+84
+00:03:24,443 --> 00:03:26,545
+And I'm doing that through that parameter
+我透過該參數來做到這一點
+
+85
+00:03:26,545 --> 00:03:28,983
+instruction in that model file. And that is
+該模型檔案中的指令。那就是
+
+86
+00:03:29,079 --> 00:03:30,779
+one of the officially supported
+官方支援之一
+
+87
+00:03:30,779 --> 00:03:31,389
+instructions.
+指示。
+
+88
+00:03:32,062 --> 00:03:33,746
+Of course, you can only include the
+當然，您只能包含
+
+89
+00:03:33,746 --> 00:03:35,896
+instructions you find here because these are
+您可以在這裡找到說明，因為這些是
+
+90
+00:03:35,896 --> 00:03:37,901
+the only instructions Ollama will
+奧拉瑪唯一的指示
+
+91
+00:03:37,917 --> 00:03:41,285
+understand. I'll also add a system message
+理解。我還要添加一條系統訊息
+
+92
+00:03:41,285 --> 00:03:43,627
+and that can of course be anything you want.
+當然，這可以是你想要的任何東西。
+
+93
+00:03:44,109 --> 00:03:46,238
+It can be a short one, it can be a long one,
+可以是短的，也可以是長的，
+
+94
+00:03:46,415 --> 00:03:47,932
+like, you are a friendly
+就像，你是個友善的人
+
+95
+00:03:48,528 --> 00:03:48,819
+assistant.
+助手。
+
+96
+00:03:50,441 --> 00:03:54,090
+You will not answer any questions related to
+您不會回答任何相關問題
+
+97
+00:03:54,253 --> 00:03:55,328
+LM Studio.
+LM工作室。
+
+98
+00:03:57,272 --> 00:03:59,172
+Now, you should make sure that it's all in
+現在，你應該確保一切都在
+
+99
+00:03:59,188 --> 00:04:01,377
+one line. Here, it's getting wrapped by my
+一行。在這裡，它被我的包裹著
+
+100
+00:04:01,377 --> 00:04:03,937
+code editor, but that's just a visual wrap.
+程式碼編輯器，但這只是一個視覺包裝。
+
+101
+00:04:04,259 --> 00:04:06,207
+Technically, it's all in one line. And you
+從技術上講，這一切都在一條線上。你呢
+
+102
+00:04:06,207 --> 00:04:07,934
+should ensure that this is the case because
+應該確保情況如此，因為
+
+103
+00:04:07,982 --> 00:04:09,808
+if you would split it across multiple lines,
+如果你想把它分成多行，
+
+104
+00:04:10,228 --> 00:04:12,313
+this would be interpreted as a new
+這將被解釋為一個新的
+
+105
+00:04:12,410 --> 00:04:14,991
+instruction, but an unknown instruction
+指令，但未知指令
+
+106
+00:04:15,055 --> 00:04:17,187
+because Ollama only understands from,
+因為奧拉馬只能理解，
+
+107
+00:04:17,539 --> 00:04:18,934
+parameter, system,
+參數、系統、
+
+108
+00:04:19,527 --> 00:04:21,338
+and whatever else is specified here.
+以及此處指定的任何其他內容。
+
+109
+00:04:22,124 --> 00:04:23,518
+So that's why that should all be in one
+這就是為什麼這一切都應該合而為一
+
+110
+00:04:23,615 --> 00:04:25,570
+line. Again, here it looks like it's in a
+線。再說一遍，這裡看起來像是在一個
+
+111
+00:04:25,570 --> 00:04:28,023
+new line because my code editor breaks it
+新行，因為我的程式碼編輯器破壞了它
+
+112
+00:04:28,023 --> 00:04:30,331
+across multiple lines visually, but it is in
+視覺上跨越多條線，但它是在
+
+113
+00:04:30,427 --> 00:04:32,431
+one line as you can also tell by the line
+一條線，你也可以透過線來判斷
+
+114
+00:04:32,463 --> 00:04:32,896
+numbers.
+數字。
+
+115
+00:04:33,954 --> 00:04:35,781
+What's also an interesting setting is the
+還有一個有趣的設定是
+
+116
+00:04:35,781 --> 00:04:36,823
+message setting.
+訊息設定。
+
+117
+00:04:37,400 --> 00:04:40,783
+This allows you to add messages to this
+這允許您向此添加訊息
+
+118
+00:04:40,783 --> 00:04:42,900
+model file and therefore to the model you'll
+模型檔案，因此您將
+
+119
+00:04:43,028 --> 00:04:44,440
+build based on that file.
+基於該檔案建構。
+
+120
+00:04:45,434 --> 00:04:47,327
+And for that, remember that a couple of
+為此，請記住一些
+
+121
+00:04:47,359 --> 00:04:50,022
+lectures ago when I first showed you the
+講座前，我第一次向你們展示
+
+122
+00:04:50,022 --> 00:04:53,551
+/save command, I did that to save a chat
+/save 指令，我這樣做是為了儲存聊天記錄
+
+123
+00:04:53,679 --> 00:04:56,149
+history and to reuse that chat history.
+歷史記錄並重複使用該聊天記錄。
+
+124
+00:04:57,048 --> 00:05:00,111
+Here we can bake a chat history into this
+在這裡我們可以將聊天記錄寫入其中
+
+125
+00:05:00,111 --> 00:05:00,705
+model file
+模型檔案
+
+126
+00:05:01,395 --> 00:05:03,608
+and that history will then be used by any
+然後該歷史記錄將被任何人使用
+
+127
+00:05:03,656 --> 00:05:06,415
+models we build based on that file, which is
+我們基於該檔案建構的模型，即
+
+128
+00:05:06,447 --> 00:05:07,907
+something I'll show you in a second.
+我稍後會向你展示一些東西。
+
+129
+00:05:08,517 --> 00:05:10,779
+Now after message, you should specify who
+現在，在訊息發送後，您應該指定誰
+
+130
+00:05:10,779 --> 00:05:13,089
+sent the message and that can either be user
+已發送訊息，並且可以是使用者
+
+131
+00:05:13,506 --> 00:05:16,330
+if it's you, if you wanna simulate that you
+如果是你，如果你想模擬你
+
+132
+00:05:16,570 --> 00:05:18,030
+sent the message to the AI
+將訊息發送給AI
+
+133
+00:05:19,105 --> 00:05:21,159
+or assistant if you wanna simulate or
+或助手，如果你想模擬或
+
+134
+00:05:21,929 --> 00:05:25,266
+kind of fake that the AI assistant sent the
+人工智慧助理發送的訊息有點假
+
+135
+00:05:25,266 --> 00:05:25,602
+message.
+訊息.
+
+136
+00:05:26,597 --> 00:05:29,212
+So here we could for example send a user
+所以在這裡我們可以發送一個使用者
+
+137
+00:05:29,212 --> 00:05:29,565
+message
+訊息
+
+138
+00:05:30,431 --> 00:05:31,506
+and say something like, hi,
+並說一些諸如“嗨”之類的話
+
+139
+00:05:32,196 --> 00:05:33,752
+this is a question
+這是一個問題
+
+140
+00:05:34,908 --> 00:05:38,357
+Submitted via the contact form on the
+透過聯絡表單提交
+
+141
+00:05:38,438 --> 00:05:38,970
+website.
+網站。
+
+142
+00:05:39,953 --> 00:05:42,210
+Again, there is no real line break here and
+再說一遍，這裡沒有真正的換行符
+
+143
+00:05:42,291 --> 00:05:44,290
+there shouldn't be one. It's just a visual
+不應該有一個。這只是一個視覺效果
+
+144
+00:05:44,323 --> 00:05:45,906
+line break by my editor.
+我的編輯器換行。
+
+145
+00:05:47,066 --> 00:05:48,659
+And then I'll add another message here.
+然後我會在這裡添加另一條訊息。
+
+146
+00:05:49,094 --> 00:05:49,818
+Assistant,
+助手，
+
+147
+00:05:51,670 --> 00:05:54,857
+hi, thanks for contacting us.
+您好，感謝您與我們聯絡。
+
+148
+00:05:56,258 --> 00:05:58,622
+And now that would be some made-up chat
+現在這將是一些虛構的聊天
+
+149
+00:05:58,687 --> 00:06:01,881
+history with which we always start when we
+我們總是從歷史開始
+
+150
+00:06:01,977 --> 00:06:02,730
+run this
+運行這個
+
+151
+00:06:03,355 --> 00:06:05,407
+adjusted model version, which we're building
+我們正在建立的調整後的模型版本
+
+152
+00:06:05,439 --> 00:06:06,946
+here with that model file.
+這裡有那個模型檔。
+
+153
+00:06:08,148 --> 00:06:10,072
+And that could therefore be one example
+因此，這可能是一個例子
+
+154
+00:06:10,168 --> 00:06:12,589
+model file you wanna build. The question now
+您想要建立的模型檔案。現在的問題
+
+155
+00:06:12,733 --> 00:06:13,951
+is, how do we now
+是，我們現在該怎麼辦
+
+156
+00:06:14,496 --> 00:06:17,638
+translate this model file into an actual
+將此模型檔案轉換為實際的
+
+157
+00:06:17,638 --> 00:06:20,395
+model we can run with the Ollama command?
+我們可以使用 Ollama 指令來運行模型嗎？

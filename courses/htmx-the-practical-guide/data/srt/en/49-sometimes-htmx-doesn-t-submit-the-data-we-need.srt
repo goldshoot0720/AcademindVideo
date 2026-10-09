@@ -1,0 +1,255 @@
+1
+00:00:02,275 --> 00:00:05,527
+Now in this starting application I prepared
+
+2
+00:00:05,543 --> 00:00:05,992
+for you,
+
+3
+00:00:06,521 --> 00:00:09,517
+we start on that authentication screen here.
+
+4
+00:00:10,991 --> 00:00:13,939
+And that screen shows a form which already
+
+5
+00:00:14,355 --> 00:00:16,422
+got an HTMX attribute on it.
+
+6
+00:00:17,800 --> 00:00:20,428
+And in there I got some inputs which also
+
+7
+00:00:20,444 --> 00:00:22,591
+have HTMX attributes on them.
+
+8
+00:00:24,049 --> 00:00:26,853
+And I'm only using attributes here which you
+
+9
+00:00:26,933 --> 00:00:29,419
+already saw earlier in the course. To be
+
+10
+00:00:29,419 --> 00:00:32,799
+precise, I added those attributes so that a
+
+11
+00:00:32,799 --> 00:00:36,309
+POST request to /login is sent if the form
+
+12
+00:00:36,357 --> 00:00:36,888
+is submitted.
+
+13
+00:00:38,457 --> 00:00:40,968
+And in addition, I'm sending POST requests
+
+14
+00:00:40,968 --> 00:00:44,436
+to /validate if one of those input fields
+
+15
+00:00:44,712 --> 00:00:45,295
+changes.
+
+16
+00:00:46,757 --> 00:00:49,935
+And that's important. The POST request on
+
+17
+00:00:49,935 --> 00:00:52,226
+the input field will be sent when the input
+
+18
+00:00:52,323 --> 00:00:54,888
+changes because that's the default event to
+
+19
+00:00:54,920 --> 00:00:56,243
+which HTMX listens.
+
+20
+00:00:57,329 --> 00:01:00,268
+And an input field is treated as changed if
+
+21
+00:01:00,268 --> 00:01:02,610
+the user entered a value and then does
+
+22
+00:01:02,820 --> 00:01:04,564
+something different, for example,
+
+23
+00:01:05,808 --> 00:01:08,002
+moves the focus to a different input field.
+
+24
+00:01:09,596 --> 00:01:12,874
+In that case, this POST request to /validate
+
+25
+00:01:12,906 --> 00:01:13,469
+would be sent.
+
+26
+00:01:15,542 --> 00:01:18,612
+I then also make sure that I target this
+
+27
+00:01:18,612 --> 00:01:20,877
+paragraph here, which comes after the input.
+
+28
+00:01:22,158 --> 00:01:25,283
+So the next paragraph in line for the
+
+29
+00:01:25,283 --> 00:01:27,216
+response of this POST request
+
+30
+00:01:27,764 --> 00:01:30,760
+because this POST request, which is handled
+
+31
+00:01:30,760 --> 00:01:34,189
+by this route, will lead to a response that
+
+32
+00:01:34,447 --> 00:01:36,362
+either includes an error message
+
+33
+00:01:37,505 --> 00:01:40,145
+or nothing if the input is valid.
+
+34
+00:01:41,998 --> 00:01:43,938
+And therefore, I wanna make sure that I
+
+35
+00:01:44,148 --> 00:01:46,639
+either show the error message between those
+
+36
+00:01:46,671 --> 00:01:49,926
+paragraph tags here or nothing if there is
+
+37
+00:01:50,039 --> 00:01:50,620
+no error.
+
+38
+00:01:51,249 --> 00:01:53,912
+That's how this application works at the
+
+39
+00:01:53,912 --> 00:01:54,315
+moment.
+
+40
+00:01:55,886 --> 00:01:58,447
+As a result, if you reload here and you
+
+41
+00:01:58,544 --> 00:02:01,105
+enter an invalid email, for example, just
+
+42
+00:02:01,218 --> 00:02:03,795
+test, then you should see that an error
+
+43
+00:02:03,795 --> 00:02:04,810
+message is showing up here.
+
+44
+00:02:06,111 --> 00:02:09,068
+However, what you'll also see is that if you
+
+45
+00:02:09,164 --> 00:02:10,610
+enter some invalid password,
+
+46
+00:02:11,253 --> 00:02:12,699
+which basically means that you enter a
+
+47
+00:02:12,699 --> 00:02:14,177
+password that's too short,
+
+48
+00:02:15,089 --> 00:02:18,204
+you also get email address is invalid here
+
+49
+00:02:18,560 --> 00:02:20,835
+and that of course doesn't make a lot of
+
+50
+00:02:20,835 --> 00:02:21,223
+sense.
+
+51
+00:02:23,410 --> 00:02:24,865
+Now, in theory,
+
+52
+00:02:25,447 --> 00:02:28,503
+I prepared this validation code such
+
+53
+00:02:29,166 --> 00:02:31,688
+that I wanna return a password-specific
+
+54
+00:02:31,753 --> 00:02:33,755
+error message if the password is wrong.
+
+55
+00:02:35,302 --> 00:02:37,881
+But for some reason, that doesn't seem to
+
+56
+00:02:37,961 --> 00:02:40,185
+work and that's therefore the first thing
+
+57
+00:02:40,379 --> 00:02:41,152
+we'll work on.
+
+58
+00:02:42,299 --> 00:02:45,255
+We'll tweak the request that's being sent to
+
+59
+00:02:45,287 --> 00:02:48,805
+validate to make sure that we attach the
+
+60
+00:02:48,805 --> 00:02:51,230
+right data because as you'll see in the next
+
+61
+00:02:51,230 --> 00:02:53,624
+lecture, the problem we currently have,
+
+62
+00:02:54,909 --> 00:02:56,595
+the problem that leads to this incorrect
+
+63
+00:02:56,675 --> 00:03:00,595
+output is that the wrong data is sent with
+
+64
+00:03:00,691 --> 00:03:01,559
+those requests.

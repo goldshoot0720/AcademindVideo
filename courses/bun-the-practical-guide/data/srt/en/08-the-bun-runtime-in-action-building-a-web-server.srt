@@ -1,0 +1,707 @@
+1
+00:00:00,176 --> 00:00:03,514
+Now I tweaked this essential demo here,
+
+2
+00:00:03,883 --> 00:00:04,878
+which I showed you a bit more,
+
+3
+00:00:05,407 --> 00:00:07,863
+and now I have a source folder with 2 files
+
+4
+00:00:07,895 --> 00:00:10,735
+inside instead of just one demo.ts file.
+
+5
+00:00:11,265 --> 00:00:13,383
+I got an index.ts file and an index.html
+
+6
+00:00:13,431 --> 00:00:17,186
+file because Bun can of course be used to
+
+7
+00:00:17,363 --> 00:00:19,994
+build web servers, to build web applications
+
+8
+00:00:19,994 --> 00:00:22,963
+and serve websites. That's one of the main
+
+9
+00:00:22,979 --> 00:00:25,386
+use cases, though you can of course also use
+
+10
+00:00:25,386 --> 00:00:28,129
+Bun to build utility tools, CLIs and you'll
+
+11
+00:00:28,129 --> 00:00:31,704
+see that in later lectures too. But here I
+
+12
+00:00:31,704 --> 00:00:34,397
+have a basic index.html file, just a basic
+
+13
+00:00:34,429 --> 00:00:37,988
+skeleton, some styles and in there I got a
+
+14
+00:00:38,052 --> 00:00:38,773
+counter.
+
+15
+00:00:39,399 --> 00:00:41,739
+I got a placeholder here for the actual
+
+16
+00:00:41,739 --> 00:00:45,314
+counter value and then I got a form with 2
+
+17
+00:00:45,346 --> 00:00:47,718
+buttons for incrementing and decrementing
+
+18
+00:00:47,734 --> 00:00:50,716
+the counter and those buttons simply submit
+
+19
+00:00:50,716 --> 00:00:53,409
+the form. So no JavaScript, no client-side
+
+20
+00:00:53,505 --> 00:00:56,535
+JavaScript involved, just a good old website
+
+21
+00:00:56,647 --> 00:00:59,068
+with a form inside and that
+
+22
+00:01:00,895 --> 00:01:03,668
+And then in index.ts, we got a lot going on,
+
+23
+00:01:04,005 --> 00:01:06,938
+but most importantly, we got bun.serve. And
+
+24
+00:01:06,970 --> 00:01:11,283
+that is one of the new APIs Bun offers.
+
+25
+00:01:11,860 --> 00:01:13,847
+As mentioned, it has that Node.js
+
+26
+00:01:13,944 --> 00:01:16,140
+compatibility and you can just run your
+
+27
+00:01:16,188 --> 00:01:18,769
+Node.js app with Bun. You can build your
+
+28
+00:01:18,833 --> 00:01:20,853
+Node and Express app or whatever you're
+
+29
+00:01:20,853 --> 00:01:23,273
+doing and run it with Bun. But
+
+30
+00:01:23,802 --> 00:01:27,072
+you can also switch to the Bun native APIs
+
+31
+00:01:27,569 --> 00:01:30,278
+to have better ergonomics, potentially
+
+32
+00:01:30,374 --> 00:01:30,855
+better performance.
+
+33
+00:01:31,513 --> 00:01:34,529
+And Bun serve is one of those native APIs.
+
+34
+00:01:35,283 --> 00:01:37,770
+By just calling bun.serve
+
+35
+00:01:38,331 --> 00:01:40,096
+and then configuring your server with a
+
+36
+00:01:40,096 --> 00:01:43,015
+JavaScript object you pass to it, but by
+
+37
+00:01:43,047 --> 00:01:46,513
+just running bun serve, you start a web
+
+38
+00:01:46,529 --> 00:01:50,186
+server that listens on port 3000 by default,
+
+39
+00:01:50,267 --> 00:01:51,983
+though you can change that with the port
+
+40
+00:01:51,983 --> 00:01:53,234
+setting here if you want to,
+
+41
+00:01:53,796 --> 00:01:55,159
+if you run that file.
+
+42
+00:01:55,753 --> 00:01:57,052
+So if I bun run,
+
+43
+00:01:57,582 --> 00:01:59,361
+source index.ts here,
+
+44
+00:01:59,890 --> 00:02:02,230
+you see my server is now up and running on
+
+45
+00:02:02,230 --> 00:02:05,308
+port 3000. And as long as this process here
+
+46
+00:02:05,436 --> 00:02:07,184
+is running, that server will be up and
+
+47
+00:02:07,184 --> 00:02:09,652
+running. We can quit it with Ctrl+C, of
+
+48
+00:02:09,684 --> 00:02:10,694
+course, to stop it.
+
+49
+00:02:11,287 --> 00:02:12,297
+But if it is running,
+
+50
+00:02:12,874 --> 00:02:15,776
+we can visit localhost:3000 to see this
+
+51
+00:02:15,776 --> 00:02:17,748
+application. And there I can press these
+
+52
+00:02:17,860 --> 00:02:19,303
+buttons to change the counter.
+
+53
+00:02:20,024 --> 00:02:22,284
+Now, how is that counter change handled?
+
+54
+00:02:22,573 --> 00:02:24,849
+Well, not in the index.html file. As I
+
+55
+00:02:24,849 --> 00:02:27,622
+mentioned, I got no client-side JavaScript
+
+56
+00:02:27,622 --> 00:02:29,882
+code in there. Instead, I got that form
+
+57
+00:02:29,882 --> 00:02:31,693
+that's submitted when I hit those buttons.
+
+58
+00:02:32,205 --> 00:02:33,919
+And we're handling this form submission here
+
+59
+00:02:33,967 --> 00:02:36,611
+in index.ts. So here in index.ts, we're
+
+60
+00:02:36,611 --> 00:02:38,726
+doing a couple of things. We got Bun serve
+
+61
+00:02:38,774 --> 00:02:41,049
+as mentioned, bringing up that server, but
+
+62
+00:02:41,081 --> 00:02:43,500
+we, for example, also got this import. This
+
+63
+00:02:43,500 --> 00:02:46,544
+is not something you could do in just
+
+64
+00:02:46,544 --> 00:02:50,421
+Node.js because here I'm importing an HTML
+
+65
+00:02:50,485 --> 00:02:52,295
+file, not a TypeScript, not a JavaScript
+
+66
+00:02:52,295 --> 00:02:53,785
+file, an HTML file.
+
+67
+00:02:54,538 --> 00:02:57,390
+This is a Bun feature. You can import HTML
+
+68
+00:02:57,502 --> 00:02:59,953
+files into your TypeScript files as well.
+
+69
+00:03:00,627 --> 00:03:04,059
+And I'm doing this to use this HTML file as
+
+70
+00:03:04,155 --> 00:03:06,786
+a template which I wanna dynamically render
+
+71
+00:03:06,882 --> 00:03:09,384
+and then serve through that Bun server.
+
+72
+00:03:10,042 --> 00:03:11,598
+So in that serve
+
+73
+00:03:12,416 --> 00:03:14,581
+configuration object here, we're not just
+
+74
+00:03:14,581 --> 00:03:16,843
+setting up a port, but instead we have a
+
+75
+00:03:16,843 --> 00:03:17,709
+fetch method,
+
+76
+00:03:18,351 --> 00:03:20,067
+an async fetch method.
+
+77
+00:03:20,773 --> 00:03:22,746
+And that is simply one method, a very
+
+78
+00:03:22,762 --> 00:03:24,623
+important method you can add to this
+
+79
+00:03:24,623 --> 00:03:26,916
+configuration object that you pass to serve
+
+80
+00:03:27,349 --> 00:03:29,083
+because it's this fetch method fetch method,
+
+81
+00:03:29,356 --> 00:03:32,617
+and it must be named fetch, that tells Bun
+
+82
+00:03:33,196 --> 00:03:35,236
+what to do for incoming requests,
+
+83
+00:03:35,846 --> 00:03:38,481
+which is why fetch also receives such an
+
+84
+00:03:38,658 --> 00:03:39,879
+incoming request.
+
+85
+00:03:40,586 --> 00:03:42,899
+This is the request received by that Bun
+
+86
+00:03:42,947 --> 00:03:45,630
+server you spun up. So fetch is the method
+
+87
+00:03:45,646 --> 00:03:48,522
+you add to control what happens for those
+
+88
+00:03:48,618 --> 00:03:49,679
+incoming requests.
+
+89
+00:03:50,401 --> 00:03:53,004
+In this case here, I'm extracting the URL
+
+90
+00:03:53,598 --> 00:03:57,147
+using the URL class here, which you may know
+
+91
+00:03:57,532 --> 00:04:00,517
+from browser-side, client-side JavaScript,
+
+92
+00:04:00,758 --> 00:04:03,438
+because Bun does not just have that built-in
+
+93
+00:04:03,551 --> 00:04:06,921
+Node.js compatibility and its own extra
+
+94
+00:04:06,921 --> 00:04:10,516
+APIs, but it also has broad support for many
+
+95
+00:04:10,934 --> 00:04:14,127
+general web standards and APIs you may know
+
+96
+00:04:14,240 --> 00:04:17,337
+from the browser, like this URL class, which
+
+97
+00:04:17,369 --> 00:04:20,050
+you can just use without problems in your
+
+98
+00:04:20,098 --> 00:04:21,029
+Bun code as well.
+
+99
+00:04:21,943 --> 00:04:24,735
+And here I'm using it to access the request
+
+100
+00:04:24,735 --> 00:04:27,207
+URL. So the request we're getting here is an
+
+101
+00:04:27,303 --> 00:04:29,742
+object of type request, which by the way is
+
+102
+00:04:30,031 --> 00:04:31,973
+also an API you could also use in the
+
+103
+00:04:31,973 --> 00:04:32,390
+browser.
+
+104
+00:04:33,337 --> 00:04:36,226
+And that request object has a URL property.
+
+105
+00:04:36,868 --> 00:04:39,789
+We now wrap that or convert that into a URL
+
+106
+00:04:40,062 --> 00:04:40,527
+object.
+
+107
+00:04:41,121 --> 00:04:43,897
+And that URL object then has utility
+
+108
+00:04:43,929 --> 00:04:46,738
+properties and methods, for example, the
+
+109
+00:04:46,738 --> 00:04:49,867
+pathname property, which allows us to find
+
+110
+00:04:49,867 --> 00:04:52,388
+out which path was in that URL.
+
+111
+00:04:53,158 --> 00:04:55,165
+The path, of course, is the part after the
+
+112
+00:04:55,165 --> 00:04:57,155
+domain. So in this case, if there's nothing,
+
+113
+00:04:57,235 --> 00:04:58,358
+it's just slash.
+
+114
+00:04:59,257 --> 00:05:01,552
+Typing a slash here is the equivalent to
+
+115
+00:05:01,584 --> 00:05:02,339
+typing nothing.
+
+116
+00:05:03,590 --> 00:05:05,805
+So in this check here, we check if the path
+
+117
+00:05:05,901 --> 00:05:08,469
+is just slash. So if we entered just the
+
+118
+00:05:08,469 --> 00:05:10,090
+domain and then nothing, essentially.
+
+119
+00:05:10,636 --> 00:05:12,947
+And we check the request method, if it's a
+
+120
+00:05:13,043 --> 00:05:15,306
+GET request. And in that case, we know that
+
+121
+00:05:15,306 --> 00:05:17,713
+we wanna return the HTML file which we
+
+122
+00:05:17,713 --> 00:05:18,755
+imported, but
+
+123
+00:05:19,300 --> 00:05:22,201
+not just that HTML file. Keep in mind that
+
+124
+00:05:22,201 --> 00:05:24,268
+has that weird placeholder in there to
+
+125
+00:05:24,349 --> 00:05:26,833
+render the actual counter value. And that
+
+126
+00:05:26,833 --> 00:05:29,734
+counter value is managed here on our server.
+
+127
+00:05:30,359 --> 00:05:32,106
+I got a counter variable
+
+128
+00:05:32,683 --> 00:05:35,088
+and I changed that variable down here. I'll
+
+129
+00:05:35,088 --> 00:05:38,149
+get back to that code. But then I return a
+
+130
+00:05:38,149 --> 00:05:40,794
+new response here for this GET route where
+
+131
+00:05:40,794 --> 00:05:42,044
+we wanna serve the site.
+
+132
+00:05:42,717 --> 00:05:45,041
+And I take the HTML template
+
+133
+00:05:46,404 --> 00:05:48,761
+which is just the imported HTML here.
+
+134
+00:05:49,531 --> 00:05:52,753
+And I replace this count placeholder, I look
+
+135
+00:05:52,753 --> 00:05:55,864
+for it programmatically in the imported HTML
+
+136
+00:05:55,864 --> 00:05:58,974
+code and I replace it with the current
+
+137
+00:05:58,974 --> 00:06:00,001
+counter value
+
+138
+00:06:00,738 --> 00:06:01,925
+converted to a string.
+
+139
+00:06:02,758 --> 00:06:04,987
+And that is then sent back as an HTML
+
+140
+00:06:05,083 --> 00:06:05,612
+response.
+
+141
+00:06:06,366 --> 00:06:08,418
+But this app does not just support
+
+142
+00:06:09,011 --> 00:06:11,865
+GET requests. We got a form and this form
+
+143
+00:06:11,897 --> 00:06:13,853
+uses a POST request for submission.
+
+144
+00:06:14,398 --> 00:06:16,482
+So therefore in index.ts, we also have that
+
+145
+00:06:16,611 --> 00:06:18,999
+other route where we also check for being on
+
+146
+00:06:19,031 --> 00:06:21,083
+the root route. But if the request method
+
+147
+00:06:21,115 --> 00:06:24,449
+then is POST, we use the formData method on
+
+148
+00:06:24,481 --> 00:06:26,677
+that incoming request. And even though it's
+
+149
+00:06:26,726 --> 00:06:29,579
+shown as deprecated here in my IDE, this is
+
+150
+00:06:29,691 --> 00:06:32,176
+the official way of extracting the formData
+
+151
+00:06:32,176 --> 00:06:34,228
+of an incoming request according to the Bun
+
+152
+00:06:34,340 --> 00:06:34,628
+docs.
+
+153
+00:06:35,366 --> 00:06:38,796
+And this formData then holds the submitted
+
+154
+00:06:38,989 --> 00:06:41,377
+value of that form. Now this form has no
+
+155
+00:06:41,409 --> 00:06:43,685
+input fields, but it has 2 buttons and each
+
+156
+00:06:43,798 --> 00:06:46,572
+button has its own value attached. The name
+
+157
+00:06:46,620 --> 00:06:48,739
+of each button is action, but the value is
+
+158
+00:06:48,771 --> 00:06:51,886
+different. It's decrement or increment. And
+
+159
+00:06:51,902 --> 00:06:54,920
+therefore in index.ts, we get hold of that
+
+160
+00:06:55,097 --> 00:06:56,028
+action value.
+
+161
+00:06:56,638 --> 00:06:59,142
+Again, action is the name of these buttons.
+
+162
+00:06:59,383 --> 00:07:01,438
+So we get hold of the submitted value and
+
+163
+00:07:01,534 --> 00:07:03,172
+the value then is either increment or
+
+164
+00:07:03,300 --> 00:07:05,853
+decrement as mentioned, and we update the
+
+165
+00:07:05,853 --> 00:07:07,442
+counter variable accordingly.
+
+166
+00:07:08,197 --> 00:07:10,653
+And then we redirect here with
+
+167
+00:07:10,669 --> 00:07:13,430
+response.redirect. We redirect to the root
+
+168
+00:07:13,479 --> 00:07:15,950
+route so that this route gets triggered and
+
+169
+00:07:16,063 --> 00:07:18,098
+we output the updated counter.
+
+170
+00:07:18,772 --> 00:07:20,760
+That's what's happening here. And most of
+
+171
+00:07:20,776 --> 00:07:23,966
+that code is not very Bun-specific. We're
+
+172
+00:07:23,998 --> 00:07:27,252
+using standard web APIs here and standard
+
+173
+00:07:27,349 --> 00:07:29,561
+JavaScript logic, but we're doing all that
+
+174
+00:07:29,689 --> 00:07:32,302
+in that special async fetch method here in
+
+175
+00:07:32,334 --> 00:07:35,733
+that Bun serve object. And that is how you
+
+176
+00:07:35,925 --> 00:07:39,067
+can use Bun native features to build a basic
+
+177
+00:07:39,067 --> 00:07:39,613
+web server.

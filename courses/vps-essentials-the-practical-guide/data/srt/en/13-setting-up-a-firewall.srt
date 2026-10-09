@@ -1,0 +1,491 @@
+1
+00:00:00,032 --> 00:00:04,310
+Now, as a 3rd step, we now want to install
+
+2
+00:00:04,663 --> 00:00:06,553
+and configure a firewall
+
+3
+00:00:07,387 --> 00:00:10,143
+to be able to control which kind of traffic
+
+4
+00:00:10,512 --> 00:00:14,277
+can actually reach our VPS. Now, I will say
+
+5
+00:00:14,293 --> 00:00:17,210
+that many providers, including Hetzner,
+
+6
+00:00:18,043 --> 00:00:19,998
+make it very easy for you to set up a
+
+7
+00:00:19,998 --> 00:00:20,511
+firewall.
+
+8
+00:00:21,408 --> 00:00:23,235
+On Hetzner, for example, if you click on
+
+9
+00:00:23,267 --> 00:00:25,238
+your server, you can manage it and there is
+
+10
+00:00:25,334 --> 00:00:26,119
+a firewalls.
+
+11
+00:00:26,712 --> 00:00:27,145
+Point here.
+
+12
+00:00:28,059 --> 00:00:29,935
+And it's similar for EC2.
+
+13
+00:00:30,704 --> 00:00:32,853
+If you launch an EC2 instance already,
+
+14
+00:00:33,029 --> 00:00:35,691
+actually, you can create a so-called
+
+15
+00:00:35,691 --> 00:00:38,111
+security group, which is in the end also a
+
+16
+00:00:38,111 --> 00:00:41,366
+kind of firewall, which as a default already
+
+17
+00:00:41,607 --> 00:00:45,022
+only allows SSH traffic but has no other
+
+18
+00:00:45,054 --> 00:00:47,186
+rules. You can tick some here and you can
+
+19
+00:00:47,378 --> 00:00:49,960
+add more once you finished setting it up.
+
+20
+00:00:51,402 --> 00:00:53,871
+You can also manage your security groups
+
+21
+00:00:53,952 --> 00:00:55,491
+after you created them.
+
+22
+00:00:56,292 --> 00:00:58,216
+And in such a security group,
+
+23
+00:00:58,761 --> 00:01:01,005
+you can edit your inbound rules, for
+
+24
+00:01:01,005 --> 00:01:04,035
+example, and add new rules to control which
+
+25
+00:01:04,131 --> 00:01:06,680
+kind of traffic on which port is able to
+
+26
+00:01:06,712 --> 00:01:09,261
+reach the server technically. So that's a
+
+27
+00:01:09,357 --> 00:01:12,050
+great security mechanism. And Hetzner, as
+
+28
+00:01:12,146 --> 00:01:14,150
+mentioned, has something similar. You could
+
+29
+00:01:14,150 --> 00:01:16,458
+create a firewall here and could control
+
+30
+00:01:16,474 --> 00:01:19,039
+which kind of traffic can reach it. And I'll
+
+31
+00:01:19,039 --> 00:01:21,379
+get back to that because using that
+
+32
+00:01:21,379 --> 00:01:23,816
+provider, provided firewall
+
+33
+00:01:24,649 --> 00:01:26,989
+is actually a good idea. But I'm also
+
+34
+00:01:26,989 --> 00:01:29,264
+showing you the approach that does not rely
+
+35
+00:01:29,392 --> 00:01:31,411
+on it because you may not be using a
+
+36
+00:01:31,475 --> 00:01:33,318
+provider that offers this feature.
+
+37
+00:01:34,504 --> 00:01:38,286
+In that case, you may wanna use the UFW
+
+38
+00:01:38,671 --> 00:01:40,530
+firewall, which should already be
+
+39
+00:01:40,530 --> 00:01:42,228
+pre-installed on Ubuntu.
+
+40
+00:01:42,757 --> 00:01:44,888
+If it's not installed, you can use your
+
+41
+00:01:45,000 --> 00:01:49,151
+package manager, apt on Ubuntu, and install
+
+42
+00:01:49,808 --> 00:01:50,400
+ufw.
+
+43
+00:01:51,586 --> 00:01:53,765
+Now, that will fail if you're trying to do
+
+44
+00:01:53,765 --> 00:01:56,649
+it as a user because installing tools like
+
+45
+00:01:56,713 --> 00:01:59,934
+that requires root access. And for getting
+
+46
+00:01:59,998 --> 00:02:02,866
+that access, you can add sudo in front of
+
+47
+00:02:02,866 --> 00:02:05,205
+the command you want to execute. And since
+
+48
+00:02:05,205 --> 00:02:07,817
+we added the user to the sudo group earlier,
+
+49
+00:02:08,234 --> 00:02:11,022
+this now will prompt us for the password of
+
+50
+00:02:11,054 --> 00:02:13,104
+that user. And if you enter that, it will
+
+51
+00:02:13,152 --> 00:02:15,348
+now run the command with elevated
+
+52
+00:02:15,460 --> 00:02:18,187
+privileges, so with root user access,
+
+53
+00:02:18,412 --> 00:02:20,726
+temporary root user access. That is
+
+54
+00:02:20,758 --> 00:02:22,702
+important. You still needed that password.
+
+55
+00:02:23,071 --> 00:02:24,372
+That's the security mechanism.
+
+56
+00:02:25,031 --> 00:02:27,071
+So here, however, it didn't install anything
+
+57
+00:02:27,103 --> 00:02:28,662
+because I already had UFW.
+
+58
+00:02:29,433 --> 00:02:29,545
+Now
+
+59
+00:02:30,139 --> 00:02:33,288
+UFW stands for Uncomplicated Firewall, and
+
+60
+00:02:33,288 --> 00:02:35,344
+that is an appropriate name because it is
+
+61
+00:02:35,521 --> 00:02:36,758
+pretty straightforward to use.
+
+62
+00:02:37,609 --> 00:02:39,730
+For example, you want to use it to allow
+
+63
+00:02:40,340 --> 00:02:41,336
+OpenSSH,
+
+64
+00:02:41,883 --> 00:02:43,618
+which simply allows SSH
+
+65
+00:02:44,356 --> 00:02:47,467
+access to this server. Again, we need root
+
+66
+00:02:47,643 --> 00:02:50,289
+user access to run this command, so we wanna
+
+67
+00:02:50,386 --> 00:02:51,749
+prepend it with sudo.
+
+68
+00:02:52,951 --> 00:02:56,094
+With that done, you wanna run sudo ufw
+
+69
+00:02:56,704 --> 00:02:58,612
+enable. By the way, instead of always using
+
+70
+00:02:58,660 --> 00:03:00,696
+sudo here, you could of course also switch
+
+71
+00:03:00,809 --> 00:03:03,102
+to that terminal where you are connected as
+
+72
+00:03:03,150 --> 00:03:05,106
+a root user and run the same commands
+
+73
+00:03:05,138 --> 00:03:06,261
+without sudo here.
+
+74
+00:03:06,902 --> 00:03:09,372
+But since knowing the concept of sudo is
+
+75
+00:03:09,372 --> 00:03:10,879
+important, I'll keep on doing this.
+
+76
+00:03:12,113 --> 00:03:14,581
+Now, if you run this, this firewall will be
+
+77
+00:03:14,581 --> 00:03:17,529
+enabled, and now you must make sure that you
+
+78
+00:03:17,721 --> 00:03:21,102
+did allow that SSH connection with that
+
+79
+00:03:21,150 --> 00:03:23,586
+command I showed you before, with ufw allow
+
+80
+00:03:23,794 --> 00:03:26,774
+open ssh. If you did not add that rule and
+
+81
+00:03:26,774 --> 00:03:29,306
+you enable the firewall now, it will not
+
+82
+00:03:29,418 --> 00:03:32,094
+allow SSH traffic and it will cut your
+
+83
+00:03:32,142 --> 00:03:33,712
+connection, and there is no way of
+
+84
+00:03:33,744 --> 00:03:35,811
+connecting back. You would have to reset
+
+85
+00:03:35,811 --> 00:03:38,279
+your server or shut it down, buy a new one,
+
+86
+00:03:38,936 --> 00:03:42,068
+You can lock yourself out here if you're not
+
+87
+00:03:42,148 --> 00:03:45,585
+allowing SSH connections. Make sure you ran
+
+88
+00:03:45,698 --> 00:03:47,239
+this command here first.
+
+89
+00:03:48,091 --> 00:03:49,857
+If you did that, you can now enable,
+
+90
+00:03:50,516 --> 00:03:52,459
+enter Y and hit Enter to do so.
+
+91
+00:03:53,246 --> 00:03:54,948
+And now it's active and I'm still connected.
+
+92
+00:03:55,253 --> 00:03:56,956
+That's all looking good. And you can check
+
+93
+00:03:57,020 --> 00:03:59,831
+that everything is fine by running sudo ufw
+
+94
+00:04:00,650 --> 00:04:01,388
+status,
+
+95
+00:04:02,818 --> 00:04:05,243
+status verbose to get even more information.
+
+96
+00:04:05,291 --> 00:04:07,138
+And with that, you get a nice table, a nice
+
+97
+00:04:07,202 --> 00:04:09,322
+overview where you see that
+
+98
+00:04:10,109 --> 00:04:13,144
+SSH traffic is allowed. That is the port 22,
+
+99
+00:04:13,224 --> 00:04:15,536
+which is the default SSH port. And so any
+
+100
+00:04:15,793 --> 00:04:18,185
+traffic on port 22 is allowed and that is
+
+101
+00:04:18,298 --> 00:04:21,252
+the SSH port, typically the SSH traffic,
+
+102
+00:04:21,333 --> 00:04:22,681
+that's the port reserved for that.
+
+103
+00:04:23,340 --> 00:04:25,010
+And we're allowing incoming traffic.
+
+104
+00:04:25,925 --> 00:04:27,852
+No other traffic is allowed though.
+
+105
+00:04:28,414 --> 00:04:31,031
+So if I were to grab my IP and enter that in
+
+106
+00:04:31,063 --> 00:04:31,609
+the browser,
+
+107
+00:04:32,428 --> 00:04:35,222
+nothing would happen because if I try to
+
+108
+00:04:35,238 --> 00:04:36,988
+visit a webpage like this in the browser,
+
+109
+00:04:37,084 --> 00:04:41,372
+the browser will by default use port 443 for
+
+110
+00:04:41,966 --> 00:04:46,526
+HTTPS traffic or port 80 for HTTP unsecured
+
+111
+00:04:46,622 --> 00:04:48,999
+traffic, but both is not allowed here.
+
+112
+00:04:49,689 --> 00:04:51,905
+That of course also means that if we were to
+
+113
+00:04:52,002 --> 00:04:54,250
+run something else on that server, like a
+
+114
+00:04:54,266 --> 00:04:56,466
+web server that should be reachable via the
+
+115
+00:04:56,498 --> 00:04:58,826
+World Wide Web, we have to open up that
+
+116
+00:04:58,826 --> 00:05:00,592
+respective port as well. But that's
+
+117
+00:05:00,592 --> 00:05:02,439
+something I'll get back to later in the
+
+118
+00:05:02,439 --> 00:05:04,334
+course when I show you some concrete
+
+119
+00:05:04,366 --> 00:05:06,839
+examples for what you can do on such a VPS.
+
+120
+00:05:07,579 --> 00:05:08,998
+But for the moment, we're done setting up
+
+121
+00:05:09,062 --> 00:05:10,336
+the UFW firewall.
+
+122
+00:05:11,206 --> 00:05:13,270
+As mentioned though, you might wanna
+
+123
+00:05:13,318 --> 00:05:15,495
+consider using such a provider firewall.

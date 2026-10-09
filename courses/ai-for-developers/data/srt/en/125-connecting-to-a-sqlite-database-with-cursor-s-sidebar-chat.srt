@@ -1,0 +1,751 @@
+1
+00:00:02,121 --> 00:00:06,005
+So let's continue working on this REST API.
+
+2
+00:00:06,701 --> 00:00:08,740
+And there are different places where we
+
+3
+00:00:08,821 --> 00:00:11,460
+could work on next, but I wanna start by
+
+4
+00:00:11,460 --> 00:00:13,408
+making sure that we're actually using a
+
+5
+00:00:13,424 --> 00:00:17,015
+database to store the submitted data when
+
+6
+00:00:17,047 --> 00:00:19,092
+creating a user, for example.
+
+7
+00:00:20,751 --> 00:00:22,231
+And of course, therefore, we will need to
+
+8
+00:00:22,343 --> 00:00:24,998
+add some code here to createUser and also to
+
+9
+00:00:25,078 --> 00:00:27,636
+findUserByEmail. But first I need some code
+
+10
+00:00:27,668 --> 00:00:30,178
+to add a database set up that database, to
+
+11
+00:00:30,178 --> 00:00:31,559
+install the database too.
+
+12
+00:00:32,907 --> 00:00:36,103
+And for that, I'll now use the chat that's
+
+13
+00:00:36,119 --> 00:00:38,463
+integrated in Cursor. We could also use
+
+14
+00:00:38,608 --> 00:00:41,225
+Composer again, but to mix things up and
+
+15
+00:00:41,642 --> 00:00:43,553
+show you these different features in action,
+
+16
+00:00:43,681 --> 00:00:46,251
+I'll use the chat. I'll remove the
+
+17
+00:00:46,315 --> 00:00:48,450
+.gitignore file as context here, don't need
+
+18
+00:00:48,482 --> 00:00:48,723
+that.
+
+19
+00:00:49,365 --> 00:00:52,063
+And instead, I'll add this user.js file in
+
+20
+00:00:52,079 --> 00:00:53,669
+the models folder as context.
+
+21
+00:00:54,984 --> 00:00:55,738
+And the open file,
+
+22
+00:00:56,268 --> 00:00:57,696
+at least at the point of time when I'm
+
+23
+00:00:57,696 --> 00:01:00,070
+recording this, is automatically added here
+
+24
+00:01:00,183 --> 00:01:01,996
+as context, as you can tell
+
+25
+00:01:02,830 --> 00:01:05,012
+by looking at this. If it were not added,
+
+26
+00:01:05,252 --> 00:01:07,852
+you could do it manually here with a plus.
+
+27
+00:01:08,702 --> 00:01:10,178
+You could add files like this,
+
+28
+00:01:10,772 --> 00:01:10,964
+or
+
+29
+00:01:11,830 --> 00:01:15,200
+you can also add, add files and then pick a
+
+30
+00:01:15,200 --> 00:01:16,948
+file you want to add as context.
+
+31
+00:01:18,248 --> 00:01:20,173
+And as shown before, you could add other
+
+32
+00:01:20,173 --> 00:01:22,484
+contexts as well, like the web search, for
+
+33
+00:01:22,500 --> 00:01:23,029
+example.
+
+34
+00:01:23,956 --> 00:01:27,283
+And I'll do that here and I'll say I want to
+
+35
+00:01:27,283 --> 00:01:27,703
+store
+
+36
+00:01:28,704 --> 00:01:31,514
+all data in a SQLite database.
+
+37
+00:01:32,980 --> 00:01:34,899
+How do I add one
+
+38
+00:01:36,140 --> 00:01:36,817
+to this
+
+39
+00:01:37,413 --> 00:01:38,042
+application?
+
+40
+00:01:40,062 --> 00:01:42,413
+And actually I'll now confirm this by
+
+41
+00:01:42,413 --> 00:01:42,687
+hitting
+
+42
+00:01:43,443 --> 00:01:44,007
+this button
+
+43
+00:01:44,796 --> 00:01:47,549
+or by using this shortcut here so that it
+
+44
+00:01:47,549 --> 00:01:49,869
+takes my entire codebase into account and
+
+45
+00:01:49,886 --> 00:01:51,520
+therefore understands that it's a Node
+
+46
+00:01:51,520 --> 00:01:52,928
+Express application and so on.
+
+47
+00:01:55,137 --> 00:01:56,662
+So let's see what it gives me.
+
+48
+00:01:57,368 --> 00:01:58,973
+Of course, it starts by analyzing all the
+
+49
+00:01:58,973 --> 00:02:00,674
+files and then it tells me that I could
+
+50
+00:02:00,674 --> 00:02:02,647
+install the SQLite3 package,
+
+51
+00:02:03,386 --> 00:02:04,429
+tells me how to do that,
+
+52
+00:02:05,151 --> 00:02:07,189
+and then how I can adjust
+
+53
+00:02:07,798 --> 00:02:08,264
+my code,
+
+54
+00:02:09,580 --> 00:02:12,500
+that I can add a new database.js file here
+
+55
+00:02:13,030 --> 00:02:14,667
+in which I initialize the database
+
+56
+00:02:15,341 --> 00:02:17,411
+and where I then also in this case have
+
+57
+00:02:18,020 --> 00:02:20,925
+some code to create an initial table and how
+
+58
+00:02:20,973 --> 00:02:22,948
+to update the other files to call this
+
+59
+00:02:23,061 --> 00:02:26,272
+database initialization code and also to use
+
+60
+00:02:26,272 --> 00:02:28,456
+the database, for example, when creating
+
+61
+00:02:28,504 --> 00:02:28,809
+users.
+
+62
+00:02:30,286 --> 00:02:31,458
+Now, that's all fine,
+
+63
+00:02:32,052 --> 00:02:34,605
+but I already know that I don't wanna use
+
+64
+00:02:34,605 --> 00:02:38,090
+that SQLite3 package because I'm an
+
+65
+00:02:38,090 --> 00:02:40,530
+experienced Node Express developer. I have
+
+66
+00:02:40,627 --> 00:02:42,602
+built applications like this before and I
+
+67
+00:02:42,650 --> 00:02:44,207
+know that I prefer the better
+
+68
+00:02:44,833 --> 00:02:45,781
+SQLite3 package.
+
+69
+00:02:47,991 --> 00:02:50,532
+Package, or BetterSQLite3 is the actual
+
+70
+00:02:50,532 --> 00:02:50,710
+name.
+
+71
+00:02:51,518 --> 00:02:53,717
+So I'll send this as a follow-up message. I
+
+72
+00:02:53,830 --> 00:02:54,816
+want to use the
+
+73
+00:02:55,382 --> 00:02:57,623
+BetterSQLite3 package
+
+74
+00:02:58,224 --> 00:03:01,391
+instead of the SQLite3 package.
+
+75
+00:03:02,105 --> 00:03:02,641
+Update
+
+76
+00:03:03,161 --> 00:03:04,363
+your response
+
+77
+00:03:05,631 --> 00:03:07,841
+accordingly. That sentence is probably not
+
+78
+00:03:07,955 --> 00:03:08,507
+required,
+
+79
+00:03:09,271 --> 00:03:10,197
+but I'll still add it here.
+
+80
+00:03:12,084 --> 00:03:13,521
+And with that, it hopefully gives me some
+
+81
+00:03:13,700 --> 00:03:15,561
+updated instructions. For example, how to
+
+82
+00:03:15,561 --> 00:03:15,888
+install this package.
+
+83
+00:03:18,723 --> 00:03:20,654
+Well, it's just a different name of course,
+
+84
+00:03:21,040 --> 00:03:23,196
+but then also regarding initialization
+
+85
+00:03:23,952 --> 00:03:26,060
+that I could add this code here
+
+86
+00:03:28,523 --> 00:03:30,681
+and that I should call some of that code
+
+87
+00:03:30,681 --> 00:03:32,372
+from inside user.js here in the models
+
+88
+00:03:32,468 --> 00:03:32,903
+folder
+
+89
+00:03:34,320 --> 00:03:35,983
+and that I also need to call
+
+90
+00:03:36,210 --> 00:03:38,671
+initializeDatabase in the app.js folder.
+
+91
+00:03:40,161 --> 00:03:41,877
+Again, we could have used Composer for that
+
+92
+00:03:41,877 --> 00:03:44,229
+as well, but here I'll go with the chat
+
+93
+00:03:44,848 --> 00:03:46,804
+and I'll start by installing that package.
+
+94
+00:03:47,692 --> 00:03:49,972
+So I'll press Apply here,
+
+95
+00:03:51,298 --> 00:03:53,789
+but no, I don't want to apply the C2user.js.
+
+96
+00:03:55,030 --> 00:03:56,176
+So at least right now, it's not
+
+97
+00:03:56,176 --> 00:03:57,953
+understanding that this is a terminal
+
+98
+00:03:57,969 --> 00:04:00,004
+command. So I'll instead copy it
+
+99
+00:04:01,441 --> 00:04:03,670
+and then run it in my terminal here in the
+
+100
+00:04:03,670 --> 00:04:04,399
+project folder
+
+101
+00:04:05,405 --> 00:04:08,001
+to install this package. That's the first
+
+102
+00:04:08,001 --> 00:04:08,423
+step
+
+103
+00:04:09,282 --> 00:04:09,574
+like this.
+
+104
+00:04:11,489 --> 00:04:12,202
+And then let's see.
+
+105
+00:04:13,076 --> 00:04:13,092
+I
+
+106
+00:04:13,974 --> 00:04:14,903
+then want to
+
+107
+00:04:15,800 --> 00:04:16,473
+apply
+
+108
+00:04:17,659 --> 00:04:19,117
+these changes here to the
+
+109
+00:04:19,726 --> 00:04:21,777
+to-be-created database.js file.
+
+110
+00:04:23,188 --> 00:04:25,351
+But if I click Apply, it wants to apply to
+
+111
+00:04:25,351 --> 00:04:25,928
+user.js.
+
+112
+00:04:27,049 --> 00:04:28,203
+So that's not working
+
+113
+00:04:28,796 --> 00:04:30,799
+because it will essentially always apply it
+
+114
+00:04:30,799 --> 00:04:33,139
+to the file I have currently open, at least
+
+115
+00:04:33,203 --> 00:04:34,196
+right now when I
+
+116
+00:04:34,805 --> 00:04:37,433
+record this. So what I'll do instead is I'll
+
+117
+00:04:37,433 --> 00:04:40,428
+add a database.js file, Next to app.js in my
+
+118
+00:04:40,428 --> 00:04:40,671
+case.
+
+119
+00:04:41,966 --> 00:04:43,632
+We could also store it in a subfolder,
+
+120
+00:04:44,134 --> 00:04:44,700
+that's up to you.
+
+121
+00:04:45,526 --> 00:04:47,872
+And then with that newly added database.js
+
+122
+00:04:47,872 --> 00:04:51,352
+file, with that open, I'll click Apply, now
+
+123
+00:04:51,497 --> 00:04:52,899
+apply to that file
+
+124
+00:04:55,118 --> 00:04:55,568
+like this,
+
+125
+00:04:57,191 --> 00:05:00,051
+and I'll accept this.
+
+126
+00:05:01,064 --> 00:05:03,664
+And then again, I'll take a look whether I
+
+127
+00:05:03,731 --> 00:05:04,418
+wanna tweak this.
+
+128
+00:05:05,740 --> 00:05:08,029
+But this looks almost good to me, though
+
+129
+00:05:08,029 --> 00:05:10,415
+I'll remove auto-increment here. No reason
+
+130
+00:05:10,512 --> 00:05:11,876
+to add this with SQLite.
+
+131
+00:05:13,140 --> 00:05:14,992
+This is all we need. It will automatically
+
+132
+00:05:15,104 --> 00:05:17,891
+be incremented by default, so the ID will
+
+133
+00:05:18,068 --> 00:05:20,081
+automatically be generated by default even
+
+134
+00:05:20,097 --> 00:05:22,418
+without auto-increment. And auto-increment
+
+135
+00:05:22,418 --> 00:05:23,110
+can actually
+
+136
+00:05:23,670 --> 00:05:25,976
+lead to worse performance, so I'll not add
+
+137
+00:05:25,976 --> 00:05:26,305
+it here.
+
+138
+00:05:28,056 --> 00:05:29,595
+Email should be unique, password should be
+
+139
+00:05:29,595 --> 00:05:31,280
+text, and I don't need anything else here,
+
+140
+00:05:31,572 --> 00:05:32,706
+so that's looking good.
+
+141
+00:05:34,268 --> 00:05:34,397
+Now
+
+142
+00:05:35,072 --> 00:05:37,388
+then I have this getDatabase function which
+
+143
+00:05:37,484 --> 00:05:39,896
+will give me access to this database object
+
+144
+00:05:39,896 --> 00:05:41,328
+which is initialized when calling
+
+145
+00:05:41,360 --> 00:05:43,499
+initializeDatabase. So that's looking good.
+
+146
+00:05:46,060 --> 00:05:48,653
+Next, I wanna update my models/user.js file.
+
+147
+00:05:49,821 --> 00:05:51,717
+I can click on that link to be taken there
+
+148
+00:05:52,074 --> 00:05:53,160
+and then I'll click Apply
+
+149
+00:05:53,776 --> 00:05:54,636
+to update this file.
+
+150
+00:05:56,145 --> 00:05:56,794
+And there it
+
+151
+00:05:57,362 --> 00:05:59,497
+will add this import
+
+152
+00:06:00,125 --> 00:06:02,831
+to the getDatabase function so that I get
+
+153
+00:06:02,863 --> 00:06:05,086
+access to the database, and then it will try
+
+154
+00:06:05,280 --> 00:06:05,570
+to
+
+155
+00:06:06,166 --> 00:06:08,165
+insert data into the database.
+
+156
+00:06:09,571 --> 00:06:12,092
+And here in findUserByEmail, it does the
+
+157
+00:06:12,092 --> 00:06:14,499
+same thing but tries to find a user with a
+
+158
+00:06:14,580 --> 00:06:15,436
+given email address.
+
+159
+00:06:17,416 --> 00:06:20,031
+So I'll accept this as well. Looks good to
+
+160
+00:06:20,031 --> 00:06:22,532
+me. We'll test it soon anyways, and if there
+
+161
+00:06:22,532 --> 00:06:24,698
+are any problems, we'll fix them. But on
+
+162
+00:06:24,698 --> 00:06:26,080
+first sight, this looks good.
+
+163
+00:06:27,706 --> 00:06:29,792
+And that's by the way the flow I prefer. You
+
+164
+00:06:29,824 --> 00:06:31,813
+could analyze the code in greater depth
+
+165
+00:06:32,088 --> 00:06:33,236
+before you accept it.
+
+166
+00:06:33,851 --> 00:06:37,150
+I just tend to take a brief look across it
+
+167
+00:06:37,150 --> 00:06:38,954
+and then just test it and tweak it
+
+168
+00:06:38,954 --> 00:06:39,373
+thereafter.
+
+169
+00:06:40,566 --> 00:06:42,967
+But there are definitely different ways or
+
+170
+00:06:42,967 --> 00:06:44,449
+different approaches you could take
+
+171
+00:06:44,594 --> 00:06:45,142
+regarding this.
+
+172
+00:06:47,170 --> 00:06:48,815
+Now as a last step, I'll go to App.js.
+
+173
+00:06:50,561 --> 00:06:51,917
+And apply the changes here as well.
+
+174
+00:06:52,514 --> 00:06:55,065
+And here it's the import of this initialize
+
+175
+00:06:55,178 --> 00:06:55,695
+database
+
+176
+00:06:56,309 --> 00:06:58,456
+function that's added. And then this is
+
+177
+00:06:58,553 --> 00:06:59,005
+called here.
+
+178
+00:07:00,757 --> 00:07:03,239
+And if that fails, the server is shut down.
+
+179
+00:07:03,434 --> 00:07:05,851
+So that makes sense. And then thereafter we
+
+180
+00:07:05,851 --> 00:07:06,565
+have this code.
+
+181
+00:07:08,540 --> 00:07:09,396
+So that here
+
+182
+00:07:10,270 --> 00:07:10,464
+will
+
+183
+00:07:11,143 --> 00:07:12,647
+run to initialize the database,
+
+184
+00:07:13,261 --> 00:07:15,492
+though I'm not 100% happy with that,
+
+185
+00:07:16,171 --> 00:07:18,063
+but I'll change that manually. So for now
+
+186
+00:07:18,080 --> 00:07:19,695
+I'll accept this and then tweak it manually.
+
+187
+00:07:22,319 --> 00:07:24,874
+So that's the general logic added now. And
+
+188
+00:07:25,035 --> 00:07:27,365
+with that, I'll now make some manual tweaks.

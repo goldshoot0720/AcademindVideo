@@ -1,0 +1,647 @@
+[
+ {
+  "start": 0.689,
+  "end": 3.67,
+  "en": "So what's the problem we're facing here? Why"
+ },
+ {
+  "start": 3.783,
+  "end": 6.924,
+  "en": "didn't we actually delete Learn Advanced"
+ },
+ {
+  "start": 6.924,
+  "end": 9.617,
+  "en": "Concepts here when we started with deleting"
+ },
+ {
+  "start": 9.649,
+  "end": 10.499,
+  "en": "the first item"
+ },
+ {
+  "start": 11.413,
+  "end": 11.765,
+  "en": "before?"
+ },
+ {
+  "start": 12.92,
+  "end": 15.613,
+  "en": "Well, because we're using the index for"
+ },
+ {
+  "start": 15.805,
+  "end": 17.232,
+  "en": "deleting items."
+ },
+ {
+  "start": 18.386,
+  "end": 20.005,
+  "en": "And if I add some items here,"
+ },
+ {
+  "start": 20.71,
+  "end": 23.836,
+  "en": "these indexes of course always start at 0."
+ },
+ {
+  "start": 24.477,
+  "end": 26.545,
+  "en": "So the Learn Advanced Concepts"
+ },
+ {
+  "start": 27.907,
+  "end": 29.926,
+  "en": "has an ID of goal/0"
+ },
+ {
+  "start": 30.471,
+  "end": 32.33,
+  "en": "and therefore when I click this delete"
+ },
+ {
+  "start": 32.33,
+  "end": 35.279,
+  "en": "button, I will also send a request, a delete"
+ },
+ {
+  "start": 35.279,
+  "end": 37.539,
+  "en": "request to goals/0."
+ },
+ {
+  "start": 38.821,
+  "end": 41.273,
+  "en": "And for the second list item, I send one to"
+ },
+ {
+  "start": 41.305,
+  "end": 42.298,
+  "en": "goals/1."
+ },
+ {
+  "start": 43.004,
+  "end": 45.952,
+  "en": "Now the problem is if I delete this first"
+ },
+ {
+  "start": 45.952,
+  "end": 47.972,
+  "en": "item here, that item will be deleted."
+ },
+ {
+  "start": 48.837,
+  "end": 49.174,
+  "en": "But now"
+ },
+ {
+  "start": 49.799,
+  "end": 53.148,
+  "en": "in my UI here, the second item still has the"
+ },
+ {
+  "start": 53.148,
+  "end": 56.578,
+  "en": "ID goal-1 and I'm sending a delete request"
+ },
+ {
+  "start": 56.674,
+  "end": 57.491,
+  "en": "to /goals/0."
+ },
+ {
+  "start": 58.701,
+  "end": 61.499,
+  "en": "So I'm trying to delete the item with the"
+ },
+ {
+  "start": 61.499,
+  "end": 62.915,
+  "en": "index 1 therefore."
+ },
+ {
+  "start": 64.378,
+  "end": 67.048,
+  "en": "But since I already deleted that other item,"
+ },
+ {
+  "start": 67.289,
+  "end": 70.148,
+  "en": "this item is the only item left in the array"
+ },
+ {
+  "start": 70.52,
+  "end": 72.621,
+  "en": "and therefore it will actually have an index"
+ },
+ {
+  "start": 72.621,
+  "end": 75.014,
+  "en": "of 0 there, not 1."
+ },
+ {
+  "start": 76.663,
+  "end": 78.441,
+  "en": "So the problem in the end is that we're"
+ },
+ {
+  "start": 78.441,
+  "end": 81.269,
+  "en": "using the index for deletion but the index"
+ },
+ {
+  "start": 81.269,
+  "end": 83.499,
+  "en": "of course changes whenever we delete items."
+ },
+ {
+  "start": 83.842,
+  "end": 86.229,
+  "en": "At least if we don't start at the end of the"
+ },
+ {
+  "start": 86.229,
+  "end": 86.502,
+  "en": "list."
+ },
+ {
+  "start": 87.928,
+  "end": 90.924,
+  "en": "Therefore, the workaround here has nothing"
+ },
+ {
+  "start": 90.972,
+  "end": 94.017,
+  "en": "to do with HTMX but instead is something we"
+ },
+ {
+  "start": 94.017,
+  "end": 96.453,
+  "en": "should do in general to make sure that we're"
+ },
+ {
+  "start": 96.453,
+  "end": 98.007,
+  "en": "not deleting the wrong item."
+ },
+ {
+  "start": 98.728,
+  "end": 101.276,
+  "en": "And that workaround is that we should assign"
+ },
+ {
+  "start": 101.372,
+  "end": 105.554,
+  "en": "IDs, unique IDs to these items when we"
+ },
+ {
+  "start": 105.554,
+  "end": 106.179,
+  "en": "create them."
+ },
+ {
+  "start": 107.493,
+  "end": 110.442,
+  "en": "So when we push our goal text here, we"
+ },
+ {
+  "start": 110.442,
+  "end": 113.49,
+  "en": "should actually not push just that text, but"
+ },
+ {
+  "start": 113.49,
+  "end": 116.458,
+  "en": "instead maybe an object that has a text"
+ },
+ {
+  "start": 116.458,
+  "end": 119.394,
+  "en": "property that stores that text, but that"
+ },
+ {
+  "start": 119.571,
+  "end": 122.202,
+  "en": "also has an ID property which we can then"
+ },
+ {
+  "start": 122.378,
+  "end": 125.362,
+  "en": "later use for deleting that item."
+ },
+ {
+  "start": 126.806,
+  "end": 127.849,
+  "en": "And here to get a"
+ },
+ {
+  "start": 128.635,
+  "end": 130.159,
+  "en": "unique ID or at least"
+ },
+ {
+  "start": 130.737,
+  "end": 133.368,
+  "en": "an ID that's unique enough for this demo,"
+ },
+ {
+  "start": 133.641,
+  "end": 136.563,
+  "en": "I'll construct a new Date object and call"
+ },
+ {
+  "start": 136.756,
+  "end": 139.091,
+  "en": "getTime. And this will give me the current"
+ },
+ {
+  "start": 139.091,
+  "end": 141.829,
+  "en": "time in milliseconds, which for this demo"
+ },
+ {
+  "start": 141.974,
+  "end": 143.262,
+  "en": "app is unique enough."
+ },
+ {
+  "start": 144.237,
+  "end": 147.014,
+  "en": "In theory, you could submit 2 items at"
+ },
+ {
+  "start": 147.079,
+  "end": 149.662,
+  "en": "exactly the same point of time, but for this"
+ },
+ {
+  "start": 149.662,
+  "end": 152.068,
+  "en": "demo app, this is good enough. And"
+ },
+ {
+  "start": 152.084,
+  "end": 153.702,
+  "en": "therefore, this will then give us a"
+ },
+ {
+  "start": 154.35,
+  "end": 156.18,
+  "en": "unique ID in the end."
+ },
+ {
+  "start": 158.64,
+  "end": 160.634,
+  "en": "So with that, we of course now need to"
+ },
+ {
+  "start": 160.634,
+  "end": 163.218,
+  "en": "change the way we render these list items."
+ },
+ {
+  "start": 163.562,
+  "end": 166.742,
+  "en": "Because now courseGoals no longer includes"
+ },
+ {
+  "start": 166.919,
+  "end": 170.051,
+  "en": "just strings. Instead, it includes objects"
+ },
+ {
+  "start": 170.292,
+  "end": 173.119,
+  "en": "with a text property and an ID property."
+ },
+ {
+  "start": 174.484,
+  "end": 175.528,
+  "en": "And therefore, the"
+ },
+ {
+  "start": 176.074,
+  "end": 178.548,
+  "en": "ID we set here should be goal-"
+ },
+ {
+  "start": 179.624,
+  "end": 182.532,
+  "en": "and then this ID. Therefore, I'll actually"
+ },
+ {
+  "start": 182.532,
+  "end": 184.491,
+  "en": "store it in an extra constant"
+ },
+ {
+  "start": 185.021,
+  "end": 186.467,
+  "en": "so that I can use it"
+ },
+ {
+  "start": 187.077,
+  "end": 187.447,
+  "en": "here"
+ },
+ {
+  "start": 188.202,
+  "end": 189.005,
+  "en": "and also here."
+ },
+ {
+  "start": 189.826,
+  "end": 192.409,
+  "en": "So that I can use that ID that we generated"
+ },
+ {
+  "start": 192.409,
+  "end": 194.927,
+  "en": "here to assign that ID to that list item."
+ },
+ {
+  "start": 196.79,
+  "end": 199.72,
+  "en": "The text, of course, is still the goal text,"
+ },
+ {
+  "start": 200.123,
+  "end": 202.023,
+  "en": "but then the request should be sent to"
+ },
+ {
+  "start": 202.055,
+  "end": 204.551,
+  "en": "goals/id"
+ },
+ {
+  "start": 205.582,
+  "end": 207.962,
+  "en": "and the target also uses that ID"
+ },
+ {
+  "start": 209.325,
+  "end": 211.354,
+  "en": "and we no longer need that index."
+ },
+ {
+  "start": 214.024,
+  "end": 217.4,
+  "en": "And then here, when we delete an item, I'll"
+ },
+ {
+  "start": 217.531,
+  "end": 219.276,
+  "en": "rename this dynamic path parameter to ID"
+ },
+ {
+  "start": 222.011,
+  "end": 223.191,
+  "en": "And extract it here"
+ },
+ {
+  "start": 225.001,
+  "end": 227.313,
+  "en": "and rename this to ID here as well."
+ },
+ {
+  "start": 228.72,
+  "end": 230.657,
+  "en": "And then to delete the course goal, I will"
+ },
+ {
+  "start": 230.835,
+  "end": 233.579,
+  "en": "actually find the index of the item that"
+ },
+ {
+  "start": 233.579,
+  "end": 234.5,
+  "en": "should be deleted"
+ },
+ {
+  "start": 235.032,
+  "end": 237.519,
+  "en": "by accessing my course goals and by then"
+ },
+ {
+  "start": 237.6,
+  "end": 238.897,
+  "en": "calling findIndex."
+ },
+ {
+  "start": 239.902,
+  "end": 241.249,
+  "en": "And this is a built-in method"
+ },
+ {
+  "start": 241.914,
+  "end": 244.022,
+  "en": "which takes a function as an argument, which"
+ },
+ {
+  "start": 244.038,
+  "end": 246.309,
+  "en": "will be executed for every item in course"
+ },
+ {
+  "start": 246.309,
+  "end": 248.976,
+  "en": "goals and which should return true if it's"
+ },
+ {
+  "start": 248.976,
+  "end": 250.852,
+  "en": "the item we're looking for. And then"
+ },
+ {
+  "start": 251.51,
+  "end": 254.08,
+  "en": "findIndex will give me the index of that"
+ },
+ {
+  "start": 254.08,
+  "end": 254.401,
+  "en": "item."
+ },
+ {
+  "start": 255.622,
+  "end": 257.919,
+  "en": "And I'm looking for the item where the ID is"
+ },
+ {
+  "start": 258.111,
+  "end": 262.689,
+  "en": "equal to the ID I got here from my request."
+ },
+ {
+  "start": 264.118,
+  "end": 266.206,
+  "en": "Now, what's important to note is that this"
+ },
+ {
+  "start": 266.223,
+  "end": 267.331,
+  "en": "ID here will be"
+ },
+ {
+  "start": 267.973,
+  "end": 270.013,
+  "en": "a string because we're extracting it from"
+ },
+ {
+  "start": 270.077,
+  "end": 270.832,
+  "en": "the URL,"
+ },
+ {
+  "start": 271.362,
+  "end": 274.462,
+  "en": "whereas this ID will be a number because I'm"
+ },
+ {
+  "start": 274.558,
+  "end": 276.213,
+  "en": "constructing it as a number here."
+ },
+ {
+  "start": 277.941,
+  "end": 280.428,
+  "en": "Therefore, I'll actually call toString here"
+ },
+ {
+  "start": 280.493,
+  "end": 282.264,
+  "en": "so that we have the same data type."
+ },
+ {
+  "start": 286.15,
+  "end": 288.585,
+  "en": "So with that, I have the index and I can"
+ },
+ {
+  "start": 288.634,
+  "end": 290.236,
+  "en": "then still use splice."
+ },
+ {
+  "start": 292.563,
+  "end": 294.914,
+  "en": "Of course, we also need to update this code"
+ },
+ {
+  "start": 294.914,
+  "end": 297.86,
+  "en": "here now though, because now a goal is no"
+ },
+ {
+  "start": 297.877,
+  "end": 300.839,
+  "en": "longer just a string. Instead, it's such an"
+ },
+ {
+  "start": 300.92,
+  "end": 303.638,
+  "en": "object with a text property and an ID"
+ },
+ {
+  "start": 303.703,
+  "end": 304.325,
+  "en": "property."
+ },
+ {
+  "start": 304.848,
+  "end": 308.3,
+  "en": "And therefore, I'll use the ID property here"
+ },
+ {
+  "start": 307.352,
+  "end": 309.142,
+  "en": "for constructing this listItemId."
+ },
+ {
+  "start": 310.238,
+  "end": 312.319,
+  "en": "And I'll use the text property here for"
+ },
+ {
+  "start": 312.496,
+  "end": 313.238,
+  "en": "outputting the text."
+ },
+ {
+  "start": 315.632,
+  "end": 318.83,
+  "en": "And then here it's again goal.id in these"
+ },
+ {
+  "start": 318.927,
+  "end": 320.3,
+  "en": "places down here."
+ },
+ {
+  "start": 322.475,
+  "end": 325.084,
+  "en": "Therefore, I no longer need this index."
+ },
+ {
+  "start": 326.816,
+  "end": 327.073,
+  "en": "Okay,"
+ },
+ {
+  "start": 327.879,
+  "end": 331.167,
+  "en": "if we now save that and we reload, we should"
+ },
+ {
+  "start": 331.167,
+  "end": 332.327,
+  "en": "therefore now be able"
+ },
+ {
+  "start": 333.684,
+  "end": 334.854,
+  "en": "to add these items."
+ },
+ {
+  "start": 335.769,
+  "end": 338.11,
+  "en": "And if I now start with deleting the first"
+ },
+ {
+  "start": 338.174,
+  "end": 338.415,
+  "en": "item"
+ },
+ {
+  "start": 339.04,
+  "end": 341.061,
+  "en": "and I then also delete the second item"
+ },
+ {
+  "start": 341.927,
+  "end": 344.317,
+  "en": "and I then reload, they're both gone."
+ },
+ {
+  "start": 345.456,
+  "end": 348.615,
+  "en": "And they are both gone now because now we're"
+ },
+ {
+  "start": 348.615,
+  "end": 351.535,
+  "en": "managing these items in a better way because"
+ },
+ {
+  "start": 351.567,
+  "end": 355.031,
+  "en": "we're now assigning and using unique IDs"
+ },
+ {
+  "start": 355.56,
+  "end": 356.346,
+  "en": "for these items."
+ }
+]

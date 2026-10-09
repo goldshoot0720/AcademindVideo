@@ -1,0 +1,535 @@
+1
+00:00:02,373 --> 00:00:06,254
+So what exactly is clean code?
+
+2
+00:00:07,072 --> 00:00:09,702
+Have a look at this example. Is this clean
+
+3
+00:00:09,734 --> 00:00:10,103
+code?
+
+4
+00:00:10,841 --> 00:00:13,711
+Probably not. We can probably all agree that
+
+5
+00:00:13,808 --> 00:00:16,486
+this is not clean code. It's a lot of code,
+
+6
+00:00:16,534 --> 00:00:19,581
+hard to read, a lot of deeply nested control
+
+7
+00:00:19,677 --> 00:00:20,287
+structures.
+
+8
+00:00:20,960 --> 00:00:22,211
+This doesn't look very clean.
+
+9
+00:00:23,125 --> 00:00:25,515
+Now consider this example.
+
+10
+00:00:26,166 --> 00:00:27,624
+Is this clean code?
+
+11
+00:00:29,720 --> 00:00:32,895
+Well, it's just one line of code and it
+
+12
+00:00:32,895 --> 00:00:35,876
+looks like we're calling a function create
+
+13
+00:00:36,152 --> 00:00:39,784
+which creates a user named Max with an age
+
+14
+00:00:39,784 --> 00:00:41,781
+of 31, something like this.
+
+15
+00:00:43,150 --> 00:00:46,193
+Well, let's have a look at the entire code.
+
+16
+00:00:46,853 --> 00:00:49,480
+This is a Python example and in case you
+
+17
+00:00:49,480 --> 00:00:52,207
+don't know Python, I'm defining a function
+
+18
+00:00:52,207 --> 00:00:55,403
+here and in that function, The lambda
+
+19
+00:00:55,403 --> 00:00:58,588
+keyword here actually is used to create more
+
+20
+00:00:59,024 --> 00:01:01,740
+functions which are then returned from that
+
+21
+00:01:01,870 --> 00:01:02,354
+function.
+
+22
+00:01:02,936 --> 00:01:06,489
+So take a pause now, pause the video and try
+
+23
+00:01:06,635 --> 00:01:08,523
+to understand this code now.
+
+24
+00:01:09,056 --> 00:01:10,719
+What is this code doing?
+
+25
+00:01:12,800 --> 00:01:15,102
+So did you pause the video? Did you try to
+
+26
+00:01:15,102 --> 00:01:17,696
+understand it? And did you understand it?
+
+27
+00:01:18,750 --> 00:01:21,462
+What we actually have here is a function,
+
+28
+00:01:21,896 --> 00:01:25,027
+the create function, which does not create
+
+29
+00:01:25,091 --> 00:01:28,093
+users or anything like that. Instead, it's a
+
+30
+00:01:28,157 --> 00:01:30,903
+function which creates other functions. So
+
+31
+00:01:30,903 --> 00:01:34,210
+it's a factory function or a higher-order
+
+32
+00:01:34,258 --> 00:01:34,756
+function.
+
+33
+00:01:35,366 --> 00:01:38,079
+And these other functions which are being
+
+34
+00:01:38,175 --> 00:01:41,852
+created turn out to be validation functions.
+
+35
+00:01:42,590 --> 00:01:45,079
+We preconfigure them with a certain value,
+
+36
+00:01:45,320 --> 00:01:46,732
+for example, 31,
+
+37
+00:01:47,262 --> 00:01:49,222
+And then we get a function which we can call
+
+38
+00:01:49,270 --> 00:01:52,932
+thereafter to compare another value against
+
+39
+00:01:52,948 --> 00:01:55,871
+that created value. And we either check for
+
+40
+00:01:55,935 --> 00:01:58,713
+that value being smaller or bigger depending
+
+41
+00:01:58,810 --> 00:02:00,881
+on whether we chose max or min
+
+42
+00:02:01,460 --> 00:02:04,479
+as a parameter for creating our validation
+
+43
+00:02:04,527 --> 00:02:04,977
+function.
+
+44
+00:02:06,117 --> 00:02:09,490
+This is absolutely not clean code because it
+
+45
+00:02:09,490 --> 00:02:12,525
+was very confusing. And understanding what
+
+46
+00:02:12,557 --> 00:02:15,287
+this code does will certainly take a couple
+
+47
+00:02:15,287 --> 00:02:15,832
+of moments.
+
+48
+00:02:16,394 --> 00:02:19,267
+And that always is a good sign for bad code
+
+49
+00:02:19,604 --> 00:02:22,027
+if you have to think about it a lot to
+
+50
+00:02:22,027 --> 00:02:23,359
+understand what it does.
+
+51
+00:02:24,274 --> 00:02:26,650
+Because there's one thing which clean code
+
+52
+00:02:26,746 --> 00:02:27,677
+certainly is not.
+
+53
+00:02:28,431 --> 00:02:30,678
+It's not code that just works.
+
+54
+00:02:31,336 --> 00:02:34,498
+The example I showed you will work, but it's
+
+55
+00:02:34,498 --> 00:02:37,082
+still not clean code because clean code is
+
+56
+00:02:37,210 --> 00:02:39,457
+not about whether code works or not.
+
+57
+00:02:39,986 --> 00:02:42,921
+Instead, it's about whether code is easy to
+
+58
+00:02:42,953 --> 00:02:44,060
+read and understand
+
+59
+00:02:44,798 --> 00:02:47,797
+because it turns out that as a developer, we
+
+60
+00:02:47,797 --> 00:02:50,475
+spend quite a lot of time reading code,
+
+61
+00:02:50,972 --> 00:02:52,127
+understanding code.
+
+62
+00:02:52,736 --> 00:02:55,045
+For example, because we have to go back to
+
+63
+00:02:55,061 --> 00:02:57,964
+code we wrote in the past to fix a bug or
+
+64
+00:02:57,964 --> 00:03:01,252
+add a feature, or because maybe we need to
+
+65
+00:03:01,252 --> 00:03:03,914
+dive into some code written by a colleague
+
+66
+00:03:04,202 --> 00:03:05,421
+or by some other developer.
+
+67
+00:03:05,967 --> 00:03:07,956
+So we need to read a lot of code.
+
+68
+00:03:08,534 --> 00:03:11,005
+And therefore reading code and understanding
+
+69
+00:03:11,037 --> 00:03:12,208
+code should be easy
+
+70
+00:03:12,802 --> 00:03:15,417
+because if it's hard, we lose a lot of time
+
+71
+00:03:15,449 --> 00:03:18,947
+and productivity. And ultimately entire code
+
+72
+00:03:18,979 --> 00:03:19,942
+bases can die
+
+73
+00:03:20,664 --> 00:03:23,279
+because no one's able to fully understand
+
+74
+00:03:23,391 --> 00:03:23,680
+the code.
+
+75
+00:03:24,531 --> 00:03:26,841
+So for example, here's the same example from
+
+76
+00:03:26,841 --> 00:03:27,258
+before,
+
+77
+00:03:27,788 --> 00:03:29,505
+now slightly rewritten.
+
+78
+00:03:30,227 --> 00:03:32,826
+To be precise, I basically only chose
+
+79
+00:03:32,938 --> 00:03:33,789
+different names.
+
+80
+00:03:34,545 --> 00:03:38,270
+And now automatically it becomes cleaner. It
+
+81
+00:03:38,318 --> 00:03:41,073
+becomes easier to read and understand. It
+
+82
+00:03:41,105 --> 00:03:44,023
+won't take you as long to understand what's
+
+83
+00:03:44,023 --> 00:03:44,724
+going on here
+
+84
+00:03:45,327 --> 00:03:46,273
+as it did before.
+
+85
+00:03:47,970 --> 00:03:50,879
+And we could of course also refactor this in
+
+86
+00:03:51,154 --> 00:03:53,482
+other ways. We could, for example, also
+
+87
+00:03:53,482 --> 00:03:56,780
+consider creating a class with good names
+
+88
+00:03:57,216 --> 00:03:59,407
+and with all the validation logic baked into
+
+89
+00:03:59,457 --> 00:04:00,936
+the class. Something like this.
+
+90
+00:04:01,691 --> 00:04:04,116
+And of course, just to make this clear right
+
+91
+00:04:04,116 --> 00:04:07,360
+away, there will not be a single right way
+
+92
+00:04:07,649 --> 00:04:10,491
+of writing clean code. Instead, this is one
+
+93
+00:04:10,604 --> 00:04:13,575
+possible solution. Using a factory function
+
+94
+00:04:13,575 --> 00:04:15,293
+with better names would've been another
+
+95
+00:04:15,293 --> 00:04:17,670
+solution. And in this course, we're going to
+
+96
+00:04:17,686 --> 00:04:21,427
+dive into many possible solutions and many
+
+97
+00:04:21,604 --> 00:04:24,029
+different concepts and rules which might
+
+98
+00:04:24,029 --> 00:04:27,209
+apply to your specific code and situations.
+
+99
+00:04:28,621 --> 00:04:29,856
+So what is clean code?
+
+100
+00:04:30,514 --> 00:04:32,840
+Ultimately, it's code which is readable and
+
+101
+00:04:32,920 --> 00:04:35,150
+understandable and therefore code which is
+
+102
+00:04:35,262 --> 00:04:38,069
+readable and meaningful, which reduces the
+
+103
+00:04:38,069 --> 00:04:40,652
+cognitive load you have to go through so
+
+104
+00:04:40,652 --> 00:04:42,930
+that you have less cognitive load and
+
+105
+00:04:42,962 --> 00:04:44,213
+understanding is easy.
+
+106
+00:04:45,192 --> 00:04:47,454
+Clean code should be concise and to the
+
+107
+00:04:47,454 --> 00:04:48,272
+point therefore
+
+108
+00:04:48,882 --> 00:04:51,721
+and you for example wanna avoid unintuitive
+
+109
+00:04:51,801 --> 00:04:55,555
+names, complex nestings, or big code blocks.
+
+110
+00:04:56,743 --> 00:04:58,893
+You, of course, typically wanna follow
+
+111
+00:04:58,909 --> 00:05:02,054
+common best practices and patterns and also
+
+112
+00:05:02,134 --> 00:05:04,188
+a bunch of concepts and rules which I'm
+
+113
+00:05:04,300 --> 00:05:06,081
+going to teach throughout this course
+
+114
+00:05:06,787 --> 00:05:09,082
+because ultimately, it should be fun to
+
+115
+00:05:09,258 --> 00:05:12,532
+write and to maintain code. And with clean
+
+116
+00:05:12,564 --> 00:05:15,340
+code, you ensure that maintaining can be fun
+
+117
+00:05:15,853 --> 00:05:18,083
+because your code can be understood by
+
+118
+00:05:18,083 --> 00:05:18,308
+others.
+
+119
+00:05:19,319 --> 00:05:21,453
+So clean code is code which is easy to
+
+120
+00:05:21,453 --> 00:05:24,629
+understand. Dirty code is not easy to
+
+121
+00:05:24,677 --> 00:05:25,206
+understand.
+
+122
+00:05:25,943 --> 00:05:28,285
+And as a developer, you should therefore
+
+123
+00:05:28,285 --> 00:05:31,267
+treat your code like a good story, like an
+
+124
+00:05:31,395 --> 00:05:31,796
+essay.
+
+125
+00:05:32,438 --> 00:05:33,897
+You are an author.
+
+126
+00:05:34,602 --> 00:05:37,521
+As a developer, you are the author of your
+
+127
+00:05:37,745 --> 00:05:38,114
+code.
+
+128
+00:05:38,707 --> 00:05:41,321
+And you wanna write it such that it's fun
+
+129
+00:05:41,433 --> 00:05:44,416
+and easy to read and understand your code.
+
+130
+00:05:45,522 --> 00:05:47,767
+That should be your goal. And with this
+
+131
+00:05:47,767 --> 00:05:50,095
+course, you'll be able to achieve it Because
+
+132
+00:05:50,095 --> 00:05:51,761
+I'm going to teach you a couple of
+
+133
+00:05:51,793 --> 00:05:54,525
+techniques and rules that help you write
+
+134
+00:05:54,784 --> 00:05:55,479
+cleaner code.

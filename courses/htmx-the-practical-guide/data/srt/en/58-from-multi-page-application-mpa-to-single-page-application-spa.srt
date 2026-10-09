@@ -1,0 +1,311 @@
+1
+00:00:00,657 --> 00:00:04,392
+You can build single-page applications with
+
+2
+00:00:04,585 --> 00:00:05,402
+Next.js,
+
+3
+00:00:06,027 --> 00:00:08,192
+even though you're technically building a
+
+4
+00:00:08,192 --> 00:00:08,865
+full-stack
+
+5
+00:00:09,394 --> 00:00:10,468
+application. And
+
+6
+00:00:11,157 --> 00:00:13,915
+that might sound confusing, and it's also
+
+7
+00:00:13,979 --> 00:00:17,169
+not what we've built thus far, essentially,
+
+8
+00:00:17,265 --> 00:00:17,778
+you could say.
+
+9
+00:00:18,628 --> 00:00:21,882
+Because thus far, we used server-side
+
+10
+00:00:22,075 --> 00:00:22,941
+routing to
+
+11
+00:00:23,518 --> 00:00:26,387
+load different pages and load different
+
+12
+00:00:26,387 --> 00:00:29,481
+content, and we used HTMX to
+
+13
+00:00:30,315 --> 00:00:32,949
+update update those loaded pages upon
+
+14
+00:00:32,997 --> 00:00:34,957
+certain user actions.
+
+15
+00:00:35,792 --> 00:00:40,129
+And whilst this is one way of using HTMX and
+
+16
+00:00:40,129 --> 00:00:43,759
+a pretty popular way, I should say, it's not
+
+17
+00:00:43,823 --> 00:00:45,927
+the only one. And for that, I prepared a
+
+18
+00:00:45,991 --> 00:00:48,690
+brand new project which you find attached
+
+19
+00:00:49,204 --> 00:00:51,228
+and therefore you should download it and run
+
+20
+00:00:51,356 --> 00:00:53,862
+npm install in that downloaded project
+
+21
+00:00:53,862 --> 00:00:55,693
+snapshot so that you have all the
+
+22
+00:00:55,693 --> 00:00:58,245
+dependencies. And then npm start to start
+
+23
+00:00:58,357 --> 00:00:59,319
+the development server.
+
+24
+00:01:00,747 --> 00:01:03,379
+And what you'll have here in this project is
+
+25
+00:01:03,491 --> 00:01:06,475
+essentially a basic shop website
+
+26
+00:01:07,181 --> 00:01:09,267
+where you can click on products to be taken
+
+27
+00:01:09,267 --> 00:01:10,358
+to the detail pages.
+
+28
+00:01:10,967 --> 00:01:13,984
+Not too fancy, but pretty easy to
+
+29
+00:01:13,984 --> 00:01:14,882
+understand, I'd say.
+
+30
+00:01:15,748 --> 00:01:19,503
+Now, this site is still a full-stack website
+
+31
+00:01:19,679 --> 00:01:22,343
+where the routing happens on the server. I
+
+32
+00:01:22,343 --> 00:01:24,511
+got 2 main routes here on my server,
+
+33
+00:01:25,138 --> 00:01:28,061
+one for loading all the products or the page
+
+34
+00:01:28,205 --> 00:01:29,924
+with all the products and one for loading a
+
+35
+00:01:29,972 --> 00:01:31,466
+page with the product details.
+
+36
+00:01:32,686 --> 00:01:35,240
+And both of these routes return a complete
+
+37
+00:01:35,417 --> 00:01:37,906
+HTML document as you can tell.
+
+38
+00:01:39,207 --> 00:01:40,862
+Now, as you can also see, I'm already
+
+39
+00:01:40,958 --> 00:01:45,568
+loading HTMX into my pages here because HTMX
+
+40
+00:01:45,712 --> 00:01:49,371
+can actually also be used to navigate
+
+41
+00:01:49,708 --> 00:01:51,455
+between these 2 pages
+
+42
+00:01:52,112 --> 00:01:55,701
+without forcing a full page reload. Because
+
+43
+00:01:55,733 --> 00:01:59,146
+at the moment where I load HTMX but I'm not
+
+44
+00:01:59,178 --> 00:02:02,047
+using it, since I don't have any HTMX
+
+45
+00:02:02,127 --> 00:02:03,793
+attributes anywhere in my code here,
+
+46
+00:02:04,450 --> 00:02:07,319
+at the moment without HTMX, if you watch
+
+47
+00:02:07,431 --> 00:02:10,059
+that refresh icon here, if I click a
+
+48
+00:02:10,059 --> 00:02:12,142
+product, you see it briefly changes to a
+
+49
+00:02:12,142 --> 00:02:12,447
+cross.
+
+50
+00:02:13,023 --> 00:02:14,241
+Also, if I go back,
+
+51
+00:02:14,802 --> 00:02:18,215
+And that is always a sign that a brand new
+
+52
+00:02:18,407 --> 00:02:21,339
+page was requested from the server and was
+
+53
+00:02:21,515 --> 00:02:22,941
+loaded onto the screen.
+
+54
+00:02:23,871 --> 00:02:26,626
+So the browser navigated from the old page
+
+55
+00:02:26,915 --> 00:02:29,030
+to the new page. And there's nothing wrong
+
+56
+00:02:29,142 --> 00:02:32,154
+with that, but that's now not a single page
+
+57
+00:02:32,250 --> 00:02:34,525
+application, it's a multi-page application
+
+58
+00:02:34,525 --> 00:02:35,038
+instead.
+
+59
+00:02:36,352 --> 00:02:38,803
+And we do navigate around here because these
+
+60
+00:02:38,979 --> 00:02:41,495
+products are wrapped in anchor tags, for
+
+61
+00:02:41,495 --> 00:02:43,273
+example. So we got these links here.
+
+62
+00:02:44,365 --> 00:02:47,562
+And whilst that works, we can now also use
+
+63
+00:02:47,643 --> 00:02:49,715
+HTMX for that navigation,
+
+64
+00:02:50,310 --> 00:02:52,817
+which basically means that we use HTMX to
+
+65
+00:02:52,817 --> 00:02:56,255
+send this request to the next page behind
+
+66
+00:02:56,255 --> 00:02:56,753
+the scenes
+
+67
+00:02:57,605 --> 00:02:59,950
+and that it should then take the response.
+
+68
+00:03:00,272 --> 00:03:02,039
+So here, this entire response for the
+
+69
+00:03:02,039 --> 00:03:03,742
+product details page, for example,
+
+70
+00:03:04,433 --> 00:03:08,145
+and replace the currently loaded page's DOM
+
+71
+00:03:08,772 --> 00:03:10,697
+with the new page's DOM. DOM that should be
+
+72
+00:03:10,714 --> 00:03:12,830
+rendered for that next page so that we
+
+73
+00:03:12,862 --> 00:03:15,187
+technically never leave the current page.
+
+74
+00:03:15,764 --> 00:03:18,217
+We just replace all the rendered content
+
+75
+00:03:18,249 --> 00:03:20,589
+with the content of the next page. That's
+
+76
+00:03:20,654 --> 00:03:22,978
+how single-page applications work and that
+
+77
+00:03:22,978 --> 00:03:25,223
+can also be implemented with HTMX.
+
+78
+00:03:25,944 --> 00:03:27,387
+But how would you do that?

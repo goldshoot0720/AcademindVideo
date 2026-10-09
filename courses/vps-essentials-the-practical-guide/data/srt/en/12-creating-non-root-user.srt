@@ -1,0 +1,647 @@
+1
+00:00:00,192 --> 00:00:04,285
+The next step is to create a new non-root
+
+2
+00:00:04,509 --> 00:00:06,660
+user. Again, the reason here is
+
+3
+00:00:07,318 --> 00:00:09,212
+that you could of course always use your
+
+4
+00:00:09,340 --> 00:00:12,598
+root user, but if anybody ever gets access
+
+5
+00:00:12,775 --> 00:00:16,129
+to that VPS through that connection, so if
+
+6
+00:00:16,145 --> 00:00:18,408
+somebody gets access to your MacBook, for
+
+7
+00:00:18,408 --> 00:00:20,912
+example, or your Windows machine where
+
+8
+00:00:21,040 --> 00:00:23,785
+you're storing your private key and they
+
+9
+00:00:23,785 --> 00:00:26,193
+then connect to that remote server, they
+
+10
+00:00:26,337 --> 00:00:28,682
+would be connected as a root user and they
+
+11
+00:00:28,682 --> 00:00:31,075
+could wreak havoc there because they would
+
+12
+00:00:31,075 --> 00:00:32,971
+have full access to everything. That is why
+
+13
+00:00:33,003 --> 00:00:36,488
+you typically wanna create a new non-root
+
+14
+00:00:36,777 --> 00:00:37,098
+user.
+
+15
+00:00:37,677 --> 00:00:40,937
+You still want to give that user a way of
+
+16
+00:00:41,290 --> 00:00:44,422
+performing root tasks on that remote machine
+
+17
+00:00:44,422 --> 00:00:46,543
+though, for example, if it needs to install
+
+18
+00:00:47,169 --> 00:00:50,237
+software that needs root access like Docker,
+
+19
+00:00:50,686 --> 00:00:51,827
+but we'll get back to that.
+
+20
+00:00:52,870 --> 00:00:55,230
+So in order to create a new user, there is
+
+21
+00:00:55,262 --> 00:00:57,509
+the adduser command, which does what the
+
+22
+00:00:57,509 --> 00:00:58,264
+name suggests.
+
+23
+00:00:58,874 --> 00:01:00,880
+And then you can give that user any name of
+
+24
+00:01:00,880 --> 00:01:04,364
+your choice, admin or Max, because my name
+
+25
+00:01:04,412 --> 00:01:06,836
+is Max, I'll go with Max here.
+
+26
+00:01:07,863 --> 00:01:10,158
+Now that adds a new user and you're then
+
+27
+00:01:10,415 --> 00:01:11,924
+asked to choose a password.
+
+28
+00:01:12,823 --> 00:01:14,990
+You don't have to choose one, but you might
+
+29
+00:01:14,990 --> 00:01:16,403
+wanna do that to make sure
+
+30
+00:01:17,013 --> 00:01:20,485
+that again, if somebody gets access, to that
+
+31
+00:01:20,614 --> 00:01:23,215
+user or to that connection which will use
+
+32
+00:01:23,215 --> 00:01:24,378
+that user in the future,
+
+33
+00:01:25,073 --> 00:01:27,270
+they would still need a password there to do
+
+34
+00:01:27,415 --> 00:01:28,707
+anything as that user.
+
+35
+00:01:29,510 --> 00:01:31,672
+So I'll choose a password here
+
+36
+00:01:32,673 --> 00:01:34,642
+and you could then enter more details like
+
+37
+00:01:34,691 --> 00:01:36,853
+your name and so on, but I'll leave all of
+
+38
+00:01:36,886 --> 00:01:38,970
+that blank, confirm that by hitting Enter
+
+39
+00:01:38,970 --> 00:01:42,093
+again, and with that, a new user was added.
+
+40
+00:01:43,629 --> 00:01:44,455
+Now, as mentioned,
+
+41
+00:01:45,022 --> 00:01:48,312
+we want to make sure that this new user can
+
+42
+00:01:48,409 --> 00:01:49,690
+perform tasks as
+
+43
+00:01:50,336 --> 00:01:52,069
+a root user though with full
+
+44
+00:01:52,823 --> 00:01:55,534
+access to everything because when managing
+
+45
+00:01:55,647 --> 00:01:57,764
+such a remote server, there sometimes are
+
+46
+00:01:57,909 --> 00:02:00,123
+such tasks. And of course, you could argue
+
+47
+00:02:00,123 --> 00:02:02,369
+that you can always log in as the root user
+
+48
+00:02:02,401 --> 00:02:04,679
+if you wanna perform such tasks, but we'll
+
+49
+00:02:04,711 --> 00:02:07,888
+disable that root user login soon for
+
+50
+00:02:07,936 --> 00:02:09,765
+security reasons. And therefore, I wanna
+
+51
+00:02:09,765 --> 00:02:10,936
+give my Max user
+
+52
+00:02:11,755 --> 00:02:14,739
+optional root access. And to do that in a
+
+53
+00:02:14,739 --> 00:02:17,363
+secure way, you would run the usermod
+
+54
+00:02:17,460 --> 00:02:18,783
+command with
+
+55
+00:02:21,188 --> 00:02:21,365
+-aG
+
+56
+00:02:22,495 --> 00:02:25,060
+sudo and then your username. So max in my
+
+57
+00:02:25,190 --> 00:02:27,130
+case, whatever you chose in your case.
+
+58
+00:02:28,682 --> 00:02:29,507
+Now what does this do?
+
+59
+00:02:30,138 --> 00:02:33,485
+This modifies my user and adds it to a group
+
+60
+00:02:33,615 --> 00:02:35,488
+by appending that group.
+
+61
+00:02:36,134 --> 00:02:39,698
+-a does append. If I had just -G, it would
+
+62
+00:02:39,908 --> 00:02:41,989
+overwrite the groups that user is part of.
+
+63
+00:02:42,270 --> 00:02:43,811
+But I don't wanna overwrite the groups. I
+
+64
+00:02:43,811 --> 00:02:45,850
+just wanna add a new group and that's the
+
+65
+00:02:45,850 --> 00:02:46,541
+sudo group.
+
+66
+00:02:47,199 --> 00:02:49,736
+And that's simply a group of users that can
+
+67
+00:02:49,848 --> 00:02:50,105
+get
+
+68
+00:02:50,812 --> 00:02:54,216
+sudo access, which is in the end root access
+
+69
+00:02:54,489 --> 00:02:56,383
+on your VPS here.
+
+70
+00:02:57,379 --> 00:02:59,579
+So I'll run that and that's all I need to
+
+71
+00:02:59,579 --> 00:02:59,787
+do.
+
+72
+00:03:00,751 --> 00:03:03,513
+And with that done, as a next step, I wanna
+
+73
+00:03:03,513 --> 00:03:05,584
+make sure that this new user which we
+
+74
+00:03:05,584 --> 00:03:09,534
+created also can connect to that VPS via
+
+75
+00:03:09,534 --> 00:03:12,390
+that SSH key. So I still have my connection
+
+76
+00:03:12,406 --> 00:03:14,380
+here with my root user, but I opened a new
+
+77
+00:03:14,492 --> 00:03:17,364
+terminal window on my Mac. So not on the
+
+78
+00:03:17,380 --> 00:03:19,385
+remote machine in any way, but instead on my
+
+79
+00:03:19,385 --> 00:03:21,021
+Mac, I opened a new terminal.
+
+80
+00:03:22,032 --> 00:03:24,791
+And in there, I now wanna make sure that I
+
+81
+00:03:25,144 --> 00:03:29,251
+copy the SSH key, which we created earlier
+
+82
+00:03:29,251 --> 00:03:31,080
+in the course, which is stored on my Mac.
+
+83
+00:03:31,754 --> 00:03:33,840
+I have the private and the public key stored
+
+84
+00:03:33,840 --> 00:03:34,401
+on my Mac.
+
+85
+00:03:34,946 --> 00:03:36,390
+Remember, I have the,
+
+86
+00:03:37,833 --> 00:03:41,071
+vpscore's private key file and the.pub file
+
+87
+00:03:41,120 --> 00:03:43,011
+with the public key. I have them here. I
+
+88
+00:03:43,027 --> 00:03:46,153
+wanna copy that public key to that remote
+
+89
+00:03:46,153 --> 00:03:49,231
+machine for that new user. We didn't have to
+
+90
+00:03:49,231 --> 00:03:50,481
+do that for the root user
+
+91
+00:03:51,283 --> 00:03:53,431
+because Hetzner, like many providers,
+
+92
+00:03:53,767 --> 00:03:54,954
+offered us a way of
+
+93
+00:03:55,691 --> 00:03:57,615
+providing that key when we set up the
+
+94
+00:03:57,615 --> 00:04:00,676
+server. And there it then copied that public
+
+95
+00:04:00,676 --> 00:04:03,161
+key for the root user it was about to set
+
+96
+00:04:03,161 --> 00:04:03,305
+up.
+
+97
+00:04:04,199 --> 00:04:07,032
+If we now manually added a new user, the Max
+
+98
+00:04:07,032 --> 00:04:09,282
+user in my case, I have to manually give it
+
+99
+00:04:09,282 --> 00:04:10,026
+that public key.
+
+100
+00:04:11,010 --> 00:04:14,266
+And that is done by using the ssh-copy-id
+
+101
+00:04:16,146 --> 00:04:18,219
+command on my Mac or on your Windows
+
+102
+00:04:18,235 --> 00:04:19,649
+machine, wherever you are.
+
+103
+00:04:20,661 --> 00:04:20,951
+And then
+
+104
+00:04:21,690 --> 00:04:21,754
+you
+
+105
+00:04:22,590 --> 00:04:23,040
+choose
+
+106
+00:04:23,795 --> 00:04:26,246
+the username which you created, Max in my
+
+107
+00:04:26,295 --> 00:04:26,538
+case,@,
+
+108
+00:04:28,079 --> 00:04:30,236
+then I need the IP again.
+
+109
+00:04:31,968 --> 00:04:34,243
+And I want to let it know which key to copy.
+
+110
+00:04:35,044 --> 00:04:35,413
+So
+
+111
+00:04:35,974 --> 00:04:39,211
+I add -i and I'll point at my
+
+112
+00:04:40,637 --> 00:04:41,967
+.pub file like this.
+
+113
+00:04:42,624 --> 00:04:44,210
+And of course you choose the Windows
+
+114
+00:04:44,242 --> 00:04:46,854
+equivalent path here with backward slashes
+
+115
+00:04:47,351 --> 00:04:49,498
+as I showed you earlier in the course if you
+
+116
+00:04:49,594 --> 00:04:50,460
+are on Windows.
+
+117
+00:04:51,117 --> 00:04:54,738
+If you hit Enter, this should ask for that
+
+118
+00:04:54,802 --> 00:04:57,608
+password of that user you created. So I'll
+
+119
+00:04:57,688 --> 00:04:58,298
+enter that here
+
+120
+00:04:59,535 --> 00:05:01,398
+and it should then copy that key
+
+121
+00:05:01,944 --> 00:05:04,305
+onto that machine to that user. And you can
+
+122
+00:05:04,305 --> 00:05:06,923
+indeed see that key which was just copied by
+
+123
+00:05:06,939 --> 00:05:08,946
+going to that other terminal where you're
+
+124
+00:05:08,946 --> 00:05:11,885
+still connected to the VPS through your root
+
+125
+00:05:12,078 --> 00:05:12,464
+user.
+
+126
+00:05:13,443 --> 00:05:16,463
+And there you can use the cat command, which
+
+127
+00:05:16,559 --> 00:05:19,546
+stands for concatenate and which despite its
+
+128
+00:05:19,546 --> 00:05:22,100
+name is quite handy for simply reading the
+
+129
+00:05:22,100 --> 00:05:23,031
+contents of a file.
+
+130
+00:05:23,866 --> 00:05:24,780
+Often used for that.
+
+131
+00:05:25,485 --> 00:05:30,342
+And you can cat /home/your username, max in
+
+132
+00:05:30,374 --> 00:05:30,855
+my case,
+
+133
+00:05:31,641 --> 00:05:32,106
+.ssh,
+
+134
+00:05:32,939 --> 00:05:34,125
+and then there you'll have an
+
+135
+00:05:34,366 --> 00:05:37,524
+authorized_keys file. By the way, for this
+
+136
+00:05:37,668 --> 00:05:39,816
+autocompletion here, you could just type the
+
+137
+00:05:39,816 --> 00:05:41,948
+starting character and hit Tab and it will
+
+138
+00:05:42,141 --> 00:05:42,654
+autocomplete.
+
+139
+00:05:43,599 --> 00:05:46,148
+If you hit Enter, you'll see the contents of
+
+140
+00:05:46,148 --> 00:05:47,944
+that file there, and that is that public key
+
+141
+00:05:48,008 --> 00:05:50,060
+which we just copied from our Mac or from
+
+142
+00:05:50,092 --> 00:05:51,900
+your Windows machine to that VPS.
+
+143
+00:05:52,852 --> 00:05:55,628
+So that public key is now on the VPS for
+
+144
+00:05:55,676 --> 00:05:58,387
+that Max user, and therefore this Max user
+
+145
+00:05:58,387 --> 00:06:01,209
+should now also be able to connect to that
+
+146
+00:06:01,307 --> 00:06:04,786
+remote server, to that VPS with that SSH
+
+147
+00:06:04,818 --> 00:06:06,899
+key. And to give that a try, we can simply
+
+148
+00:06:06,900 --> 00:06:09,992
+try SSH Max instead of root,
+
+149
+00:06:10,540 --> 00:06:10,991
+Max
+
+150
+00:06:11,523 --> 00:06:12,537
+or whatever you chose,@
+
+151
+00:06:14,164 --> 00:06:15,566
+then the IP here,
+
+152
+00:06:18,126 --> 00:06:19,852
+And then of course, just as before,
+
+153
+00:06:21,432 --> 00:06:23,464
+point at the key it should use for that.
+
+154
+00:06:24,210 --> 00:06:27,475
+So in my case,.ssh and then vps-course. And
+
+155
+00:06:27,475 --> 00:06:28,239
+if I hit Enter,
+
+156
+00:06:29,100 --> 00:06:29,912
+this now works.
+
+157
+00:06:30,682 --> 00:06:32,481
+And you can see I'm connected to my
+
+158
+00:06:32,530 --> 00:06:35,149
+vps-course VPS again, but this time using
+
+159
+00:06:35,181 --> 00:06:38,058
+the max user. So now both the root and the
+
+160
+00:06:38,058 --> 00:06:40,664
+max user can connect with that SSH key.
+
+161
+00:06:41,277 --> 00:06:43,440
+And that completes that second step here
+
+162
+00:06:43,633 --> 00:06:45,650
+where we create a new non-root user.

@@ -1,0 +1,214 @@
+1
+00:00:00,529 --> 00:00:02,276
+So when we're talking about inference,
+所以當我們談論推理時
+
+2
+00:00:02,821 --> 00:00:05,851
+there is an approach called quantization
+有一種方法叫做量化
+
+3
+00:00:06,123 --> 00:00:07,614
+that can make running
+可以讓跑步
+
+4
+00:00:08,191 --> 00:00:10,403
+models, large models, a bit more
+模型，大模型，多一點
+
+5
+00:00:10,852 --> 00:00:13,866
+approachable and efficient. Because these
+平易近人且高效。因為這些
+
+6
+00:00:14,138 --> 00:00:17,409
+weights in these models, these weights that
+這些模型中的權重，這些權重
+
+7
+00:00:17,409 --> 00:00:19,156
+connect the different parameters,
+連接不同的參數，
+
+8
+00:00:20,054 --> 00:00:20,182
+they
+他們
+
+9
+00:00:20,935 --> 00:00:24,206
+are quite long numbers, to put it bluntly.
+坦白說，這是相當長的數字。
+
+10
+00:00:24,783 --> 00:00:27,524
+They are so-called 16-bit floating point
+它們是所謂的 16 位元浮點
+
+11
+00:00:27,588 --> 00:00:29,175
+numbers very often, which means
+數字經常出現，這意味著
+
+12
+00:00:29,752 --> 00:00:33,344
+long numbers with decimal places with a lot
+帶有很多小數位的長數字
+
+13
+00:00:33,344 --> 00:00:34,111
+of precision.
+的精度。
+
+14
+00:00:35,980 --> 00:00:39,121
+Now, all these numbers take up memory. It
+現在，所有這些數字都佔用記憶體。它
+
+15
+00:00:39,137 --> 00:00:41,585
+may just look like an innocent number, but
+可能看起來只是一個無辜的數字，但是
+
+16
+00:00:41,585 --> 00:00:43,760
+it takes up space and memory, and there are
+它佔用空間和記憶體，並且有
+
+17
+00:00:43,824 --> 00:00:46,183
+lots of those numbers in complex models. We
+複雜模型中有很多這樣的數字。我們
+
+18
+00:00:46,183 --> 00:00:49,002
+have trillions of parameters that need to be
+有數萬億個參數需要
+
+19
+00:00:49,002 --> 00:00:49,941
+connected after all.
+畢竟連接了。
+
+20
+00:00:50,980 --> 00:00:54,532
+Now, if we would reduce the precision of
+現在，如果我們降低精度
+
+21
+00:00:54,628 --> 00:00:57,212
+these weights, if we would cut them off, so
+這些重量，如果我們把它們切掉，那麼
+
+22
+00:00:57,212 --> 00:00:57,583
+to say,
+說，
+
+23
+00:00:58,197 --> 00:01:00,891
+we could therefore save space in memory
+因此我們可以節省記憶體空間
+
+24
+00:01:00,987 --> 00:01:03,039
+because the longer a number is, the more
+因為數字越長，
+
+25
+00:01:03,231 --> 00:01:06,069
+precisely a number is stored, the more space
+儲存的數字越精確，空間越大
+
+26
+00:01:06,069 --> 00:01:08,826
+it takes up in memory. And the idea behind
+它佔據了記憶體。以及背後的想法
+
+27
+00:01:08,842 --> 00:01:12,272
+quantization is all about truncating those
+量化就是截斷那些
+
+28
+00:01:12,304 --> 00:01:13,827
+numbers, cutting them off,
+數字，切斷它們，
+
+29
+00:01:14,420 --> 00:01:17,114
+losing some precision, and therefore saving
+失去一些精度，從而節省
+
+30
+00:01:17,194 --> 00:01:20,368
+some memory. Now, with less precision, you
+一些記憶。現在，精度較低，您
+
+31
+00:01:20,464 --> 00:01:23,798
+also lose some quality. The responses can
+也會失去一些品質。回應可以
+
+32
+00:01:23,926 --> 00:01:27,453
+get worse, but research has shown that it's
+變得更糟，但研究表明
+
+33
+00:01:27,453 --> 00:01:28,543
+quite a small
+相當小
+
+34
+00:01:29,120 --> 00:01:32,712
+loss in quality for quite a large gain in
+質量損失卻獲得相當大的收益
+
+35
+00:01:32,825 --> 00:01:33,917
+memory savings.
+節省記憶體。
+
+36
+00:01:34,527 --> 00:01:36,647
+So especially when we're talking about
+所以特別是當我們談論
+
+37
+00:01:36,904 --> 00:01:40,342
+serving models locally, running models
+本地服務模型、運行模型
+
+38
+00:01:40,454 --> 00:01:43,168
+locally on your machine, it's quite common
+在你的機器本地，這很常見
+
+39
+00:01:43,168 --> 00:01:46,284
+to use so-called quantized versions of these
+使用這些的所謂量化版本
+
+40
+00:01:46,333 --> 00:01:49,770
+models, which are a bit worse but require
+模型，這有點差，但需要
+
+41
+00:01:49,770 --> 00:01:53,865
+far less memory. And therefore quantization
+記憶體少得多。因此量化
+
+42
+00:01:54,010 --> 00:01:56,724
+is something that makes serving models much
+是讓服務模式變得更重要的東西
+
+43
+00:01:56,901 --> 00:01:57,849
+more approachable.
+更平易近人。

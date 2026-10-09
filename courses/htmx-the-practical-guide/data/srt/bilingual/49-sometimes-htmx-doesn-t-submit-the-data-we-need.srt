@@ -1,0 +1,319 @@
+1
+00:00:02,275 --> 00:00:05,527
+Now in this starting application I prepared
+現在在這個起始應用程式中我已經準備好了
+
+2
+00:00:05,543 --> 00:00:05,992
+for you,
+為你，
+
+3
+00:00:06,521 --> 00:00:09,517
+we start on that authentication screen here.
+我們從這裡開始驗證螢幕。
+
+4
+00:00:10,991 --> 00:00:13,939
+And that screen shows a form which already
+該螢幕顯示了一個表格，該表格已經
+
+5
+00:00:14,355 --> 00:00:16,422
+got an HTMX attribute on it.
+上面有一個 HTMX 屬性。
+
+6
+00:00:17,800 --> 00:00:20,428
+And in there I got some inputs which also
+在那裡我得到了一些輸入
+
+7
+00:00:20,444 --> 00:00:22,591
+have HTMX attributes on them.
+它們具有 HTMX 屬性。
+
+8
+00:00:24,049 --> 00:00:26,853
+And I'm only using attributes here which you
+我在這裡只使用您可以使用的屬性
+
+9
+00:00:26,933 --> 00:00:29,419
+already saw earlier in the course. To be
+已經在課程的前面看過。成為
+
+10
+00:00:29,419 --> 00:00:32,799
+precise, I added those attributes so that a
+準確地說，我添加了這些屬性，以便
+
+11
+00:00:32,799 --> 00:00:36,309
+POST request to /login is sent if the form
+如果表單為 /login，則傳送 POST 請求
+
+12
+00:00:36,357 --> 00:00:36,888
+is submitted.
+已提交。
+
+13
+00:00:38,457 --> 00:00:40,968
+And in addition, I'm sending POST requests
+此外，我正在發送 POST 請求
+
+14
+00:00:40,968 --> 00:00:44,436
+to /validate if one of those input fields
+/validate 是否是這些輸入欄位之一
+
+15
+00:00:44,712 --> 00:00:45,295
+changes.
+變化。
+
+16
+00:00:46,757 --> 00:00:49,935
+And that's important. The POST request on
+這很重要。 POST 請求於
+
+17
+00:00:49,935 --> 00:00:52,226
+the input field will be sent when the input
+輸入欄位將在輸入時發送
+
+18
+00:00:52,323 --> 00:00:54,888
+changes because that's the default event to
+更改，因為這是預設事件
+
+19
+00:00:54,920 --> 00:00:56,243
+which HTMX listens.
+HTMX 監聽哪個。
+
+20
+00:00:57,329 --> 00:01:00,268
+And an input field is treated as changed if
+如果滿足以下條件，輸入欄位將被視為已更改
+
+21
+00:01:00,268 --> 00:01:02,610
+the user entered a value and then does
+使用者輸入一個值，然後執行
+
+22
+00:01:02,820 --> 00:01:04,564
+something different, for example,
+一些不同的東西，例如
+
+23
+00:01:05,808 --> 00:01:08,002
+moves the focus to a different input field.
+將焦點移動到不同的輸入欄位。
+
+24
+00:01:09,596 --> 00:01:12,874
+In that case, this POST request to /validate
+在這種情況下，此 POST 請求 /validate
+
+25
+00:01:12,906 --> 00:01:13,469
+would be sent.
+將被發送。
+
+26
+00:01:15,542 --> 00:01:18,612
+I then also make sure that I target this
+然後我也確保我的目標是這個
+
+27
+00:01:18,612 --> 00:01:20,877
+paragraph here, which comes after the input.
+這裡的段落，位於輸入之後。
+
+28
+00:01:22,158 --> 00:01:25,283
+So the next paragraph in line for the
+所以下一段是
+
+29
+00:01:25,283 --> 00:01:27,216
+response of this POST request
+此 POST 請求的回應
+
+30
+00:01:27,764 --> 00:01:30,760
+because this POST request, which is handled
+因為這個 POST 請求是被處理的
+
+31
+00:01:30,760 --> 00:01:34,189
+by this route, will lead to a response that
+通過這條路線，將導致一個回應
+
+32
+00:01:34,447 --> 00:01:36,362
+either includes an error message
+要么包含錯誤訊息
+
+33
+00:01:37,505 --> 00:01:40,145
+or nothing if the input is valid.
+如果輸入有效則什麼也不做。
+
+34
+00:01:41,998 --> 00:01:43,938
+And therefore, I wanna make sure that I
+因此，我想確保我
+
+35
+00:01:44,148 --> 00:01:46,639
+either show the error message between those
+要么顯示這些之間的錯誤訊息
+
+36
+00:01:46,671 --> 00:01:49,926
+paragraph tags here or nothing if there is
+這裡有段落標籤，如果有的話什麼都沒有
+
+37
+00:01:50,039 --> 00:01:50,620
+no error.
+沒有錯誤。
+
+38
+00:01:51,249 --> 00:01:53,912
+That's how this application works at the
+這就是這個應用程式的工作方式
+
+39
+00:01:53,912 --> 00:01:54,315
+moment.
+片刻。
+
+40
+00:01:55,886 --> 00:01:58,447
+As a result, if you reload here and you
+因此，如果您在此處重新載入，並且您
+
+41
+00:01:58,544 --> 00:02:01,105
+enter an invalid email, for example, just
+輸入無效的電子郵件，例如，只需
+
+42
+00:02:01,218 --> 00:02:03,795
+test, then you should see that an error
+測試，然後你應該會看到一個錯誤
+
+43
+00:02:03,795 --> 00:02:04,810
+message is showing up here.
+訊息顯示在這裡。
+
+44
+00:02:06,111 --> 00:02:09,068
+However, what you'll also see is that if you
+但是，您也會看到，如果您
+
+45
+00:02:09,164 --> 00:02:10,610
+enter some invalid password,
+輸入一些無效的密碼，
+
+46
+00:02:11,253 --> 00:02:12,699
+which basically means that you enter a
+這基本上意味著您輸入
+
+47
+00:02:12,699 --> 00:02:14,177
+password that's too short,
+密碼太短，
+
+48
+00:02:15,089 --> 00:02:18,204
+you also get email address is invalid here
+您也會收到電子郵件地址無效的訊息
+
+49
+00:02:18,560 --> 00:02:20,835
+and that of course doesn't make a lot of
+這當然不會造成很多
+
+50
+00:02:20,835 --> 00:02:21,223
+sense.
+感覺。
+
+51
+00:02:23,410 --> 00:02:24,865
+Now, in theory,
+現在，理論上，
+
+52
+00:02:25,447 --> 00:02:28,503
+I prepared this validation code such
+我準備了這個驗證碼
+
+53
+00:02:29,166 --> 00:02:31,688
+that I wanna return a password-specific
+我想回傳一個特定於密碼的
+
+54
+00:02:31,753 --> 00:02:33,755
+error message if the password is wrong.
+如果密碼錯誤，會出現錯誤訊息。
+
+55
+00:02:35,302 --> 00:02:37,881
+But for some reason, that doesn't seem to
+但由於某種原因，這似乎並不
+
+56
+00:02:37,961 --> 00:02:40,185
+work and that's therefore the first thing
+工作，因此這是第一件事
+
+57
+00:02:40,379 --> 00:02:41,152
+we'll work on.
+我們會繼續努力。
+
+58
+00:02:42,299 --> 00:02:45,255
+We'll tweak the request that's being sent to
+我們將調整發送到的請求
+
+59
+00:02:45,287 --> 00:02:48,805
+validate to make sure that we attach the
+驗證以確保我們附加
+
+60
+00:02:48,805 --> 00:02:51,230
+right data because as you'll see in the next
+正確的資料，因為正如您將在接下來看到的
+
+61
+00:02:51,230 --> 00:02:53,624
+lecture, the problem we currently have,
+演講，我們目前遇到的問題，
+
+62
+00:02:54,909 --> 00:02:56,595
+the problem that leads to this incorrect
+導致這個錯誤的問題
+
+63
+00:02:56,675 --> 00:03:00,595
+output is that the wrong data is sent with
+輸出是發送了錯誤的資料
+
+64
+00:03:00,691 --> 00:03:01,559
+those requests.
+那些請求。

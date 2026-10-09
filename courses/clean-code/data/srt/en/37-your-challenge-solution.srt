@@ -1,0 +1,611 @@
+1
+00:00:02,372 --> 00:00:05,931
+So here's my approach to refactoring and to
+
+2
+00:00:06,123 --> 00:00:07,229
+improving this file.
+
+3
+00:00:08,207 --> 00:00:10,131
+And I wanna start with the comments.
+
+4
+00:00:10,772 --> 00:00:12,856
+We got a legal comment right here at the
+
+5
+00:00:12,856 --> 00:00:13,273
+start.
+
+6
+00:00:13,802 --> 00:00:16,431
+And as you learned, legal comments are all
+
+7
+00:00:16,463 --> 00:00:18,515
+right if we need to add them. Obviously
+
+8
+00:00:18,611 --> 00:00:21,448
+here, I personally don't need to add it, but
+
+9
+00:00:21,496 --> 00:00:24,542
+let's assume I am in an organization where I
+
+10
+00:00:24,622 --> 00:00:27,347
+am required to do that. Then it's of course
+
+11
+00:00:27,347 --> 00:00:28,421
+fine to keep this around.
+
+12
+00:00:29,351 --> 00:00:32,813
+Not fine, however, are these markers here,
+
+13
+00:00:33,054 --> 00:00:34,064
+these dividers.
+
+14
+00:00:34,801 --> 00:00:37,318
+Yes, these are the imports, but guess what?
+
+15
+00:00:37,622 --> 00:00:40,091
+I can tell that they are by the fact that we
+
+16
+00:00:40,091 --> 00:00:41,501
+have the import keyword here.
+
+17
+00:00:42,335 --> 00:00:44,531
+And that this here is the main code,
+
+18
+00:00:45,220 --> 00:00:47,288
+well, obviously it is. It is the only
+
+19
+00:00:47,384 --> 00:00:48,635
+remaining code in the file.
+
+20
+00:00:49,404 --> 00:00:52,257
+So we should remove these dividers or these
+
+21
+00:00:52,530 --> 00:00:53,203
+markers here.
+
+22
+00:00:54,454 --> 00:00:57,099
+Now regarding this comment, this is not a
+
+23
+00:00:57,099 --> 00:00:59,392
+documentation comment, not a valid
+
+24
+00:00:59,505 --> 00:01:01,493
+documentation comment as it should be
+
+25
+00:01:01,493 --> 00:01:02,327
+written in Python.
+
+26
+00:01:02,952 --> 00:01:05,566
+There you would use a special syntax with
+
+27
+00:01:05,982 --> 00:01:06,351
+triple
+
+28
+00:01:06,945 --> 00:01:09,077
+quotes, but that's just a Python thing.
+
+29
+00:01:09,767 --> 00:01:11,482
+But we actually don't even need it here
+
+30
+00:01:11,611 --> 00:01:13,679
+because this comment doesn't make any sense.
+
+31
+00:01:14,160 --> 00:01:17,287
+It's a class which allows us to create an
+
+32
+00:01:17,287 --> 00:01:18,297
+instance of this class.
+
+33
+00:01:19,131 --> 00:01:21,632
+Well, that is what classes typically do. So
+
+34
+00:01:21,713 --> 00:01:24,571
+this is a redundant comment and hence I will
+
+35
+00:01:24,747 --> 00:01:25,374
+also remove it.
+
+36
+00:01:26,690 --> 00:01:29,147
+Now further down, I got 3 other comments.
+
+37
+00:01:29,580 --> 00:01:32,471
+For example, that create directory must be
+
+38
+00:01:32,535 --> 00:01:35,008
+called before a file is inserted.
+
+39
+00:01:35,602 --> 00:01:37,801
+This by the way is the reason why executing
+
+40
+00:01:37,850 --> 00:01:40,531
+this file would fail. You need to call
+
+41
+00:01:41,302 --> 00:01:45,348
+log storage create directory before you call
+
+42
+00:01:45,541 --> 00:01:46,151
+insert file.
+
+43
+00:01:47,322 --> 00:01:48,395
+But I will remove this for now.
+
+44
+00:01:49,389 --> 00:01:51,696
+We got a warning here and we learned that
+
+45
+00:01:51,872 --> 00:01:53,490
+warnings can make sense.
+
+46
+00:01:54,275 --> 00:01:54,804
+However,
+
+47
+00:01:55,412 --> 00:01:57,928
+we actually got this warning twice, here
+
+48
+00:01:58,616 --> 00:01:59,209
+and then here.
+
+49
+00:02:00,523 --> 00:02:03,583
+And if we add this warning, I would argue it
+
+50
+00:02:03,583 --> 00:02:06,114
+makes sense in the place where things can
+
+51
+00:02:06,146 --> 00:02:08,501
+fail. So in this case, insertFile.
+
+52
+00:02:09,366 --> 00:02:11,144
+It's good to know that we should call
+
+53
+00:02:11,273 --> 00:02:13,996
+createDirectory before we insert a file, but
+
+54
+00:02:14,060 --> 00:02:16,688
+what does this annotation add if it is next
+
+55
+00:02:16,720 --> 00:02:19,396
+to createDirectory? This is not what will
+
+56
+00:02:19,444 --> 00:02:20,230
+fail after all.
+
+57
+00:02:20,952 --> 00:02:23,342
+Hence, I will remove this comment and leave
+
+58
+00:02:23,438 --> 00:02:24,016
+this warning,
+
+59
+00:02:24,641 --> 00:02:27,368
+though of course I wanna emphasize that the
+
+60
+00:02:27,464 --> 00:02:30,303
+better way of dealing with this would be to
+
+61
+00:02:30,832 --> 00:02:33,494
+properly handle the scenario that a
+
+62
+00:02:33,559 --> 00:02:35,772
+directory does not exist yet. So for
+
+63
+00:02:35,788 --> 00:02:38,434
+example, to check for its existence and
+
+64
+00:02:38,434 --> 00:02:40,920
+create it if it's missing and only continue
+
+65
+00:02:40,920 --> 00:02:41,498
+if it exists.
+
+66
+00:02:42,637 --> 00:02:44,802
+Nonetheless, if that's not the case, we may
+
+67
+00:02:45,026 --> 00:02:47,560
+keep such a warning comment around Though of
+
+68
+00:02:47,656 --> 00:02:50,221
+course, it is also worth knowing that this
+
+69
+00:02:50,221 --> 00:02:52,497
+comment can only be seen if we dive into
+
+70
+00:02:52,497 --> 00:02:54,838
+this codebase, not if we just call
+
+71
+00:02:54,950 --> 00:02:55,607
+insertFile.
+
+72
+00:02:56,345 --> 00:02:58,781
+Nonetheless, if we call that and it fails
+
+73
+00:02:58,957 --> 00:03:01,330
+and we then dive into the codebase, this
+
+74
+00:03:01,378 --> 00:03:03,157
+warning comment might help us with
+
+75
+00:03:03,302 --> 00:03:05,145
+identifying the problem a bit quicker.
+
+76
+00:03:05,866 --> 00:03:07,598
+Now, this last comment here is a TODO
+
+77
+00:03:07,710 --> 00:03:11,252
+comment and as I said, adding proper error
+
+78
+00:03:11,300 --> 00:03:13,272
+handling definitely is a good idea here.
+
+79
+00:03:14,010 --> 00:03:16,253
+You should just do it instead of mentioning
+
+80
+00:03:16,445 --> 00:03:19,249
+that you should do it, but mentioning it at
+
+81
+00:03:19,249 --> 00:03:21,445
+least is a good step in the right direction,
+
+82
+00:03:21,749 --> 00:03:22,727
+so I will leave it here.
+
+83
+00:03:23,881 --> 00:03:26,460
+And that's it for comments. Now let's talk
+
+84
+00:03:26,460 --> 00:03:27,230
+about formatting.
+
+85
+00:03:28,143 --> 00:03:30,258
+The good thing is we got some vertical
+
+86
+00:03:30,290 --> 00:03:33,591
+spacing here. So we got the imports, then we
+
+87
+00:03:33,591 --> 00:03:35,963
+got this class, we got spacing between all
+
+88
+00:03:36,059 --> 00:03:37,822
+these methods, and that's all good.
+
+89
+00:03:38,639 --> 00:03:40,081
+And we also have spacing down there.
+
+90
+00:03:40,739 --> 00:03:43,597
+So that all doesn't look too bad, though we
+
+91
+00:03:43,693 --> 00:03:46,647
+could also remove the spacing down there and
+
+92
+00:03:46,888 --> 00:03:49,810
+argue that the log storage here is created
+
+93
+00:03:50,340 --> 00:03:52,924
+and then we operate on this created log
+
+94
+00:03:52,924 --> 00:03:55,541
+storage. So we could also keep these 2 lines
+
+95
+00:03:55,573 --> 00:03:55,959
+together.
+
+96
+00:03:57,083 --> 00:03:59,651
+In the JavaScript example from before, that
+
+97
+00:03:59,651 --> 00:04:00,598
+was not the case.
+
+98
+00:04:01,193 --> 00:04:03,633
+There we had some spacing between the
+
+99
+00:04:03,681 --> 00:04:05,880
+creation of the storages and the file
+
+100
+00:04:05,945 --> 00:04:09,012
+insertion. But I primarily added this
+
+101
+00:04:09,446 --> 00:04:12,209
+because I also have this setTimeout function
+
+102
+00:04:12,209 --> 00:04:14,731
+in between. If that would not be there, an
+
+103
+00:04:14,828 --> 00:04:17,173
+argument could be made that these lines
+
+104
+00:04:17,398 --> 00:04:18,748
+should be right after these lines.
+
+105
+00:04:19,904 --> 00:04:21,864
+Ultimately, that also comes down to your own
+
+106
+00:04:21,977 --> 00:04:24,788
+preference and to what you think is easier
+
+107
+00:04:24,788 --> 00:04:25,061
+to read.
+
+108
+00:04:26,491 --> 00:04:28,242
+Here you can go for either of the 2
+
+109
+00:04:28,338 --> 00:04:30,186
+approaches and hence I will remove the
+
+110
+00:04:30,186 --> 00:04:32,627
+vertical spacing, though keeping it also
+
+111
+00:04:32,740 --> 00:04:33,977
+would be absolutely fine.
+
+112
+00:04:35,325 --> 00:04:37,026
+If we have a look at the methods, all the
+
+113
+00:04:37,026 --> 00:04:39,129
+spacing looks good to me, at least the
+
+114
+00:04:39,161 --> 00:04:39,771
+vertical one.
+
+115
+00:04:40,381 --> 00:04:42,275
+But what about horizontal spacing?
+
+116
+00:04:43,109 --> 00:04:46,191
+We got no super long lines here and yet I
+
+117
+00:04:46,239 --> 00:04:49,433
+see some small improvement potentials. For
+
+118
+00:04:49,433 --> 00:04:50,524
+example, here.
+
+119
+00:04:51,215 --> 00:04:54,344
+This is not too long but it could grow over
+
+120
+00:04:54,344 --> 00:04:54,633
+time.
+
+121
+00:04:55,211 --> 00:04:57,779
+Here we are constructing a file path in the
+
+122
+00:04:57,859 --> 00:05:00,415
+end and hence what we could do is we could
+
+123
+00:05:00,512 --> 00:05:01,773
+extract it from here
+
+124
+00:05:02,371 --> 00:05:03,454
+and simply add a new
+
+125
+00:05:04,085 --> 00:05:05,669
+filePath variable
+
+126
+00:05:06,413 --> 00:05:08,999
+in which we then store this derived filePath
+
+127
+00:05:09,500 --> 00:05:11,280
+and then we use this variable here. This
+
+128
+00:05:11,280 --> 00:05:13,788
+would make this line even shorter and even a
+
+129
+00:05:13,869 --> 00:05:16,879
+bit easier to read. So I personally am a fan
+
+130
+00:05:16,928 --> 00:05:17,526
+of doing that.
+
+131
+00:05:19,068 --> 00:05:21,081
+We could do something similar here for this
+
+132
+00:05:21,081 --> 00:05:23,931
+if statement and extract this, for example,
+
+133
+00:05:23,995 --> 00:05:26,201
+into a separate variable. But I think here
+
+134
+00:05:26,330 --> 00:05:28,600
+it is still fine to leave it like this. But
+
+135
+00:05:28,632 --> 00:05:31,150
+if you extracted it, that is definitely also
+
+136
+00:05:31,198 --> 00:05:31,422
+fine.
+
+137
+00:05:32,786 --> 00:05:35,031
+Now last but not least, to fix this file, we
+
+138
+00:05:35,031 --> 00:05:38,302
+can also call log storage create directory
+
+139
+00:05:38,335 --> 00:05:39,409
+before we insert a file.
+
+140
+00:05:40,099 --> 00:05:43,114
+And if we do that, then I am indeed a fan of
+
+141
+00:05:43,130 --> 00:05:45,263
+reintroducing the vertical spacing here
+
+142
+00:05:45,712 --> 00:05:48,342
+because now we first create the storage and
+
+143
+00:05:48,438 --> 00:05:51,020
+then we have operations on that created
+
+144
+00:05:51,020 --> 00:05:53,458
+storage. So you could argue that these are 2
+
+145
+00:05:53,490 --> 00:05:56,156
+different kinds of code, 2 different
+
+146
+00:05:56,461 --> 00:05:59,257
+operations. So re-adding a vertical space
+
+147
+00:05:59,257 --> 00:06:00,527
+here could be fine then.
+
+148
+00:06:01,909 --> 00:06:04,705
+And that is it. There wasn't too much to
+
+149
+00:06:04,737 --> 00:06:06,922
+fix, but I hope it's clear to
+
+150
+00:06:07,533 --> 00:06:10,168
+which aspects you should pay close attention
+
+151
+00:06:10,586 --> 00:06:13,157
+and how proper formatting and good comments
+
+152
+00:06:13,398 --> 00:06:16,435
+can help with keeping your code readable and
+
+153
+00:06:16,483 --> 00:06:17,078
+maintainable.

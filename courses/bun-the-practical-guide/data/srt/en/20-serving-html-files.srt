@@ -1,0 +1,279 @@
+1
+00:00:00,096 --> 00:00:02,405
+Now, obviously, when you are working on a
+
+2
+00:00:02,437 --> 00:00:04,184
+real project, you probably don't wanna
+
+3
+00:00:04,200 --> 00:00:06,349
+encode HTML code like this.
+
+4
+00:00:07,167 --> 00:00:09,459
+Instead, you might want separate files. You
+
+5
+00:00:09,476 --> 00:00:10,742
+might want pages
+
+6
+00:00:11,319 --> 00:00:13,500
+where you have your index.html file for the
+
+7
+00:00:13,500 --> 00:00:16,210
+main page, your courses.html file for the
+
+8
+00:00:16,210 --> 00:00:19,144
+courses page, and your 404.html file for,
+
+9
+00:00:19,433 --> 00:00:21,084
+well, the 404 errors.
+
+10
+00:00:21,918 --> 00:00:24,387
+And then maybe you also want some assets
+
+11
+00:00:24,387 --> 00:00:27,177
+here like your style.css file and maybe some
+
+12
+00:00:27,273 --> 00:00:30,994
+frontend script. So therefore, I did now use
+
+13
+00:00:31,122 --> 00:00:34,073
+AI to generate some dummy content and styles
+
+14
+00:00:34,105 --> 00:00:36,719
+here. So in all these HTML files
+
+15
+00:00:37,537 --> 00:00:40,167
+and in the CSS file, I got some styles and
+
+16
+00:00:40,199 --> 00:00:42,941
+some dummy content. And you find these files
+
+17
+00:00:42,941 --> 00:00:45,170
+attached so that you can use them if you
+
+18
+00:00:45,234 --> 00:00:46,181
+wanna follow along.
+
+19
+00:00:47,239 --> 00:00:50,912
+index.ts has now also been changed slightly.
+
+20
+00:00:51,729 --> 00:00:54,295
+In there, I'm now importing these styles
+
+21
+00:00:54,536 --> 00:00:58,495
+HTML files. So the 3 HTML files I added
+
+22
+00:00:58,495 --> 00:01:00,772
+here, I'm importing them because Bun
+
+23
+00:01:00,948 --> 00:01:04,571
+natively supports HTML imports. That's not a
+
+24
+00:01:04,571 --> 00:01:06,896
+standard JavaScript or TypeScript feature,
+
+25
+00:01:06,960 --> 00:01:09,220
+but it's a Bun feature. Now, what's the
+
+26
+00:01:09,220 --> 00:01:11,849
+purpose of adding those imports? Well, I'm
+
+27
+00:01:11,929 --> 00:01:14,125
+in the end passing those imported
+
+28
+00:01:14,654 --> 00:01:17,684
+objects, which these things here turn out to
+
+29
+00:01:17,716 --> 00:01:17,796
+be,
+
+30
+00:01:18,342 --> 00:01:20,345
+to a servePage helper function, which I
+
+31
+00:01:20,345 --> 00:01:22,061
+added, this function here. It's a very
+
+32
+00:01:22,061 --> 00:01:24,129
+simple helper function. It's just there to
+
+33
+00:01:24,129 --> 00:01:26,341
+construct the response. So that I don't have
+
+34
+00:01:26,357 --> 00:01:28,521
+to repeat that new response code over and
+
+35
+00:01:28,521 --> 00:01:28,970
+over again.
+
+36
+00:01:29,723 --> 00:01:33,362
+And in there I get that page thing which is
+
+37
+00:01:33,362 --> 00:01:36,071
+of type BunHtmlBundle. That's what these
+
+38
+00:01:36,071 --> 00:01:38,716
+imported things are. And in there we have a
+
+39
+00:01:38,716 --> 00:01:41,650
+couple of properties, specifically a files
+
+40
+00:01:41,682 --> 00:01:43,445
+and an index property. And the index
+
+41
+00:01:43,445 --> 00:01:47,485
+property simply is a path to that file, to
+
+42
+00:01:47,517 --> 00:01:48,591
+the HTML file.
+
+43
+00:01:49,120 --> 00:01:50,899
+So if I would move that around, the import
+
+44
+00:01:50,899 --> 00:01:53,672
+path would update and page index, this code
+
+45
+00:01:53,688 --> 00:01:55,516
+would stay the same. That's the advantage of
+
+46
+00:01:55,548 --> 00:01:56,365
+using this approach.
+
+47
+00:01:57,215 --> 00:01:59,530
+We're then using bun.file here, which is
+
+48
+00:01:59,562 --> 00:02:02,408
+another native Bun API for reading a file,
+
+49
+00:02:02,923 --> 00:02:06,207
+to read the file content of that HTML file.
+
+50
+00:02:07,129 --> 00:02:08,212
+And then I set the
+
+51
+00:02:08,908 --> 00:02:10,816
+appropriate header. So that's how I'm
+
+52
+00:02:10,913 --> 00:02:13,565
+returning these HTML files as responses.
+
+53
+00:02:14,018 --> 00:02:16,198
+Now, there also is one other new route I
+
+54
+00:02:16,407 --> 00:02:18,843
+added here, which is simply there to handle
+
+55
+00:02:18,843 --> 00:02:19,730
+requests to
+
+56
+00:02:21,436 --> 00:02:24,844
+/assets/styles.css because in those pages, I
+
+57
+00:02:25,123 --> 00:02:27,801
+make that request or The browser will make
+
+58
+00:02:27,929 --> 00:02:29,630
+that request because I'm linking the
+
+59
+00:02:29,630 --> 00:02:30,304
+stylesheet here.
+
+60
+00:02:30,834 --> 00:02:32,422
+And that's simply needed to make sure that
+
+61
+00:02:32,422 --> 00:02:34,733
+the styles are served correctly.
+
+62
+00:02:35,873 --> 00:02:38,344
+And with that out of the way, if I reload,
+
+63
+00:02:38,761 --> 00:02:41,136
+that's what the page looks like right now.
+
+64
+00:02:41,345 --> 00:02:45,421
+And for invalid paths, I got a proper 404
+
+65
+00:02:45,437 --> 00:02:45,967
+page too.
+
+66
+00:02:47,122 --> 00:02:48,727
+And that's of course therefore another
+
+67
+00:02:48,727 --> 00:02:51,664
+convenient feature, but we can still do
+
+68
+00:02:51,760 --> 00:02:53,702
+better when it comes to setting up a web
+
+69
+00:02:53,702 --> 00:02:56,382
+server and using Bun for making our life
+
+70
+00:02:56,574 --> 00:02:56,911
+easier.

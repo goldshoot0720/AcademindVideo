@@ -1,0 +1,424 @@
+1
+00:00:02,296 --> 00:00:05,379
+So at this point, processTransactions
+所以此時，processTransactions
+
+2
+00:00:05,636 --> 00:00:07,338
+already is pretty readable and slim.
+已經是相當可讀和苗條了。
+
+3
+00:00:08,366 --> 00:00:10,678
+processTransaction, on the other hand, is
+另一方面，processTransaction 是
+
+4
+00:00:10,774 --> 00:00:11,112
+not.
+不是。
+
+5
+00:00:12,075 --> 00:00:14,307
+We got our guard here, but then thereafter
+我們在這裡有警衛，但此後
+
+6
+00:00:14,307 --> 00:00:15,463
+we got all this code.
+我們得到了所有這些程式碼。
+
+7
+00:00:16,073 --> 00:00:18,691
+And the question is, how can we simplify
+問題是，我們要怎麼簡化
+
+8
+00:00:18,739 --> 00:00:19,028
+that?
+那？
+
+9
+00:00:19,927 --> 00:00:22,079
+It will turn out that we can do multiple
+事實證明我們可以做多個
+
+10
+00:00:22,095 --> 00:00:22,400
+things,
+事物，
+
+11
+00:00:22,994 --> 00:00:25,949
+but a first step could still be that we
+但第一步仍然是我們
+
+12
+00:00:25,949 --> 00:00:28,601
+extract even more functions. And therefore,
+提取更多功能。因此，
+
+13
+00:00:28,681 --> 00:00:30,742
+of course, as always throughout this
+當然，一如既往
+
+14
+00:00:30,951 --> 00:00:33,817
+section, feel free to pause the video and
+部分，請隨意暫停影片並
+
+15
+00:00:33,849 --> 00:00:36,570
+try this on your own. Try to extract more
+你自己嘗試一下。嘗試提取更多
+
+16
+00:00:36,570 --> 00:00:38,332
+functions which would make sense to you.
+對您有意義的功能。
+
+17
+00:00:39,323 --> 00:00:41,337
+After a short break, which you can use to
+短暫休息後，您可以利用
+
+18
+00:00:41,353 --> 00:00:43,660
+pause the video, we're going to extract more
+暫停影片，我們將提取更多內容
+
+19
+00:00:43,790 --> 00:00:44,716
+logic together.
+邏輯在一起。
+
+20
+00:00:46,940 --> 00:00:47,197
+So
+所以
+
+21
+00:00:47,761 --> 00:00:49,967
+did you find functions you could extract?
+你找到可以提取的函式了嗎？
+
+22
+00:00:50,740 --> 00:00:53,494
+I think one kind of function we could
+我認為我們可以實現一種功能
+
+23
+00:00:53,494 --> 00:00:56,247
+extract is a function that deals only with
+extract 是一個只處理
+
+24
+00:00:56,490 --> 00:00:59,784
+payments and a function that deals only with
+付款和僅處理的功能
+
+25
+00:01:00,155 --> 00:01:00,527
+refunds.
+退款。
+
+26
+00:01:01,689 --> 00:01:02,723
+That's something we could do.
+這是我們可以做的事情。
+
+27
+00:01:03,530 --> 00:01:04,336
+So we could add a new
+所以我們可以加入一個新的
+
+28
+00:01:05,078 --> 00:01:05,788
+function here
+在這裡發揮作用
+
+29
+00:01:06,546 --> 00:01:07,240
+which we name
+我們稱之為
+
+30
+00:01:08,950 --> 00:01:09,595
+processPayments,
+處理付款，
+
+31
+00:01:11,030 --> 00:01:11,677
+for example,
+例如，
+
+32
+00:01:13,068 --> 00:01:15,770
+or processPayment because we're actually
+或 processPayment 因為我們實際上是
+
+33
+00:01:15,835 --> 00:01:17,453
+working on a single transaction
+處理單一交易
+
+34
+00:01:18,893 --> 00:01:21,744
+where we then get our payment transaction as
+然後我們得到我們的支付交易
+
+35
+00:01:21,942 --> 00:01:22,487
+an argument.
+一個論點。
+
+36
+00:01:23,391 --> 00:01:26,091
+And we could grab this code here because we
+我們可以在這裡取得這段程式碼，因為我們
+
+37
+00:01:26,091 --> 00:01:28,630
+still need to check which method was used
+仍然需要檢查使用了哪種方法
+
+38
+00:01:29,455 --> 00:01:31,299
+and put that into processPayment.
+並將其放入 processPayment 中。
+
+39
+00:01:32,906 --> 00:01:35,021
+And because I used paymentTransaction as a
+因為我使用 paymentTransaction 作為
+
+40
+00:01:35,021 --> 00:01:37,442
+name here, I'm going to replace the
+這裡的名字，我要替換
+
+41
+00:01:37,442 --> 00:01:39,346
+transaction variable here with
+這裡的交易變數是
+
+42
+00:01:39,459 --> 00:01:40,476
+paymentTransaction.
+付款交易。
+
+43
+00:01:41,803 --> 00:01:43,284
+Now we got this code down there,
+現在我們得到了這段程式碼，
+
+44
+00:01:43,919 --> 00:01:44,521
+and therefore here
+因此在這裡
+
+45
+00:01:45,220 --> 00:01:46,262
+we can call processPayment.
+我們可以呼叫processPayment。
+
+46
+00:01:48,481 --> 00:01:50,197
+And forward the transaction.
+並轉發交易。
+
+47
+00:01:52,213 --> 00:01:53,547
+And obviously we can do the same here
+顯然我們也可以在這裡做同樣的事情
+
+48
+00:01:54,149 --> 00:01:54,913
+for our
+為了我們的
+
+49
+00:01:55,531 --> 00:01:58,117
+other transaction type, for the refunds.
+其他交易型別，用於退款。
+
+50
+00:01:58,760 --> 00:01:59,426
+We can cut this
+我們可以剪掉這個
+
+51
+00:02:00,563 --> 00:02:01,685
+and add a new function
+並新增一個新功能
+
+52
+00:02:02,351 --> 00:02:02,578
+processRefund.
+處理退款。
+
+53
+00:02:04,792 --> 00:02:07,891
+Here we get our refund transaction as a
+在這裡我們得到退款交易
+
+54
+00:02:07,939 --> 00:02:08,552
+parameter,
+範圍，
+
+55
+00:02:09,150 --> 00:02:11,425
+and in the function body we have these if
+在函式體中我們有這些 if
+
+56
+00:02:11,474 --> 00:02:11,974
+checks
+檢查
+
+57
+00:02:12,604 --> 00:02:15,881
+and we work on the refund transaction. So
+我們正在處理退款交易。所以
+
+58
+00:02:15,881 --> 00:02:17,524
+let's make sure that naming is right.
+讓我們確保命名正確。
+
+59
+00:02:19,620 --> 00:02:20,475
+Now we got processRefund,
+現在我們得到了退款，
+
+60
+00:02:21,600 --> 00:02:23,193
+and hence we can call this here
+因此我們可以在這裡稱之為
+
+61
+00:02:23,644 --> 00:02:25,866
+processRefund
+流程退款
+
+62
+00:02:26,687 --> 00:02:27,959
+forward the transaction.
+轉發交易。
+
+63
+00:02:29,118 --> 00:02:31,582
+Now here we're logging an error, though with
+現在我們在這裡記錄一個錯誤，儘管
+
+64
+00:02:31,614 --> 00:02:34,653
+the addition that we also have a transaction
+另外我們還有一筆交易
+
+65
+00:02:34,831 --> 00:02:36,949
+here. So we don't just have a message, but
+這裡。所以我們不僅收到一則訊息，
+
+66
+00:02:36,949 --> 00:02:39,196
+we also print the transaction which was the
+我們也印製了交易
+
+67
+00:02:39,196 --> 00:02:39,584
+problem.
+問題。
+
+68
+00:02:40,182 --> 00:02:42,093
+And here we also have an error, though here
+這裡我們也有一個錯誤，儘管這裡
+
+69
+00:02:42,143 --> 00:02:43,001
+it's just a message.
+這只是一條訊息。
+
+70
+00:02:44,203 --> 00:02:46,335
+Now we already have a showErrorMessage
+現在我們已經有一個 showErrorMessage
+
+71
+00:02:46,752 --> 00:02:47,185
+function,
+功能，
+
+72
+00:02:47,890 --> 00:02:49,974
+and we could now just tweak this a little
+現在我們可以稍微調整一下
+
+73
+00:02:49,974 --> 00:02:53,196
+bit so that it does not just print a message
+位元以便它不只是列印一條訊息
+
+74
+00:02:53,661 --> 00:02:55,376
+but also information about the,
+還有關於的資訊，
+
+75
+00:02:55,905 --> 00:02:58,438
+let's say, item which was responsible for
+比方說，負責的專案
+
+76
+00:02:58,470 --> 00:03:00,201
+the error. And we could therefore simply
+錯誤。因此我們可以簡單地
+
+77
+00:03:00,393 --> 00:03:03,247
+print the message and then check if item is
+列印訊息，然後檢查專案是否為
+
+78
+00:03:03,519 --> 00:03:06,116
+set, so if it's not null,
+設置，所以如果它不為空，
+
+79
+00:03:07,030 --> 00:03:09,434
+and then also console.log the item, for
+然後也 console.log 該專案，例如
+
+80
+00:03:09,434 --> 00:03:09,947
+example.
+例子。
+
+81
+00:03:10,898 --> 00:03:13,768
+So that we console.log both the message and
+這樣我們就可以 console.log 訊息和
+
+82
+00:03:13,962 --> 00:03:14,365
+the item.
+該專案。
+
+83
+00:03:15,333 --> 00:03:16,994
+And that's the JavaScript way of doing it.
+這就是 JavaScript 的實作方式。
+
+84
+00:03:17,575 --> 00:03:20,252
+This check is important because item might
+這項檢查很重要，因為專案可能
+
+85
+00:03:20,252 --> 00:03:20,639
+not be set.
+不被設定。

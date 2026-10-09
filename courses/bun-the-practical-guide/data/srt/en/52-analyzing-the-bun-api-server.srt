@@ -1,0 +1,431 @@
+1
+00:00:00,096 --> 00:00:03,322
+Now in this API folder, this API web app
+
+2
+00:00:03,322 --> 00:00:03,515
+here,
+
+3
+00:00:04,189 --> 00:00:07,673
+I have the actual Bun backend for this
+
+4
+00:00:07,721 --> 00:00:10,241
+project, for this social network. And that's
+
+5
+00:00:10,241 --> 00:00:13,435
+of course the core focus of this section.
+
+6
+00:00:14,158 --> 00:00:16,453
+There we're also using Bun for package
+
+7
+00:00:16,549 --> 00:00:18,331
+management. So for installing the
+
+8
+00:00:18,347 --> 00:00:20,193
+dependencies of this project, though that's
+
+9
+00:00:20,402 --> 00:00:22,184
+mostly just one dependency, the
+
+10
+00:00:22,890 --> 00:00:25,683
+awesome BetterAuth library, which we use for
+
+11
+00:00:25,715 --> 00:00:28,091
+authentication so that I don't have to build
+
+12
+00:00:28,268 --> 00:00:30,306
+all the authentication logic myself.
+
+13
+00:00:30,836 --> 00:00:33,256
+But other than that, there are no external
+
+14
+00:00:33,256 --> 00:00:35,356
+dependencies in there. Most importantly,
+
+15
+00:00:35,485 --> 00:00:38,883
+there is no other framework or anything in
+
+16
+00:00:38,947 --> 00:00:41,576
+there because Bun can really handle it all
+
+17
+00:00:41,833 --> 00:00:42,426
+on its own.
+
+18
+00:00:43,339 --> 00:00:46,209
+Because what we're building here is a REST
+
+19
+00:00:46,305 --> 00:00:48,742
+API in the end, and you find all the code
+
+20
+00:00:48,790 --> 00:00:51,306
+for that in the source folder. In that
+
+21
+00:00:51,306 --> 00:00:54,368
+source folder, we got an index.ts file
+
+22
+00:00:54,961 --> 00:00:57,093
+and we got a server.ts file, and these 2 are
+
+23
+00:00:57,366 --> 00:01:00,075
+our root entry points, so to say, because
+
+24
+00:01:00,171 --> 00:01:02,640
+index.ts indeed is the file that gets
+
+25
+00:01:03,698 --> 00:01:05,639
+when we start the dev server or the
+
+26
+00:01:06,184 --> 00:01:08,204
+production server with these commands as you
+
+27
+00:01:08,204 --> 00:01:08,365
+see.
+
+28
+00:01:08,990 --> 00:01:11,732
+And in index.ts, I am importing from the
+
+29
+00:01:11,732 --> 00:01:12,887
+server file
+
+30
+00:01:13,480 --> 00:01:15,501
+and I in the end create my web server.
+
+31
+00:01:16,287 --> 00:01:18,324
+Other than that, I also run my database
+
+32
+00:01:18,324 --> 00:01:20,152
+migrations here in case you didn't do that
+
+33
+00:01:20,152 --> 00:01:23,263
+yet. There is a separate script for that.
+
+34
+00:01:24,001 --> 00:01:26,647
+We had this db migrate script there and I'll
+
+35
+00:01:26,647 --> 00:01:29,261
+get back to the database migrations. But in
+
+36
+00:01:29,277 --> 00:01:31,618
+that index.ts file, I also invoke them again
+
+37
+00:01:31,618 --> 00:01:34,553
+to make sure that the database is up to date
+
+38
+00:01:33,286 --> 00:01:36,114
+is set up properly and then I check this to
+
+39
+00:01:36,114 --> 00:01:38,716
+throw an error early if something goes wrong
+
+40
+00:01:38,765 --> 00:01:41,271
+with the database before we start the server
+
+41
+00:01:41,271 --> 00:01:43,171
+so that we only start the server if the
+
+42
+00:01:43,187 --> 00:01:45,058
+database is set up correctly.
+
+43
+00:01:46,810 --> 00:01:49,375
+And then in server.ts, we do the actual
+
+44
+00:01:49,423 --> 00:01:52,778
+interesting stuff. We use Bun serve in
+
+45
+00:01:52,891 --> 00:01:55,150
+createServer, which is that function we call
+
+46
+00:01:55,150 --> 00:01:57,720
+from index.ts. So we run Bun serve and
+
+47
+00:01:57,801 --> 00:02:00,864
+return the result to spin up a Bun-powered
+
+48
+00:02:00,881 --> 00:02:01,205
+server.
+
+49
+00:02:01,846 --> 00:02:04,314
+That is how you do create a server with Bun
+
+50
+00:02:04,426 --> 00:02:05,628
+using bun serve.
+
+51
+00:02:06,413 --> 00:02:08,752
+I configure my port in there. That is one of
+
+52
+00:02:08,752 --> 00:02:11,428
+the options I take here or the only option
+
+53
+00:02:11,460 --> 00:02:13,751
+actually and the default is set to 3000 here
+
+54
+00:02:13,800 --> 00:02:14,921
+but we could override this.
+
+55
+00:02:15,626 --> 00:02:17,517
+And then I register some routes
+
+56
+00:02:18,190 --> 00:02:21,347
+using this routes feature the Bun server
+
+57
+00:02:21,347 --> 00:02:21,891
+supports.
+
+58
+00:02:22,532 --> 00:02:25,064
+That's just a shortcut for that and these
+
+59
+00:02:25,160 --> 00:02:27,227
+are imported from our routes file and of
+
+60
+00:02:27,243 --> 00:02:28,493
+course we'll explore those too.
+
+61
+00:02:29,022 --> 00:02:31,094
+And then I'm also using the fetch method in
+
+62
+00:02:31,094 --> 00:02:32,892
+addition to the routes, which you can of
+
+63
+00:02:32,940 --> 00:02:33,470
+course do
+
+64
+00:02:34,000 --> 00:02:36,746
+to have my main routes, but then this here,
+
+65
+00:02:36,810 --> 00:02:39,909
+this fetch method as a fallback for all the
+
+66
+00:02:40,085 --> 00:02:42,109
+other requests that are not handled by
+
+67
+00:02:42,109 --> 00:02:42,414
+routes.
+
+68
+00:02:42,992 --> 00:02:46,251
+And I'm using that here for NotFound errors
+
+69
+00:02:46,444 --> 00:02:49,109
+because if we reach this point here, we know
+
+70
+00:02:49,318 --> 00:02:50,747
+that the user tried to
+
+71
+00:02:51,807 --> 00:02:53,718
+access a route that just doesn't exist
+
+72
+00:02:53,750 --> 00:02:56,258
+because the registered routes are handled
+
+73
+00:02:56,306 --> 00:02:58,574
+first. So if you make it here, we clearly
+
+74
+00:02:58,574 --> 00:03:01,293
+tried to visit a non-registered route and
+
+75
+00:03:01,309 --> 00:03:03,192
+that's why I return a NotFound error here.
+
+76
+00:03:04,432 --> 00:03:06,428
+And I also handle the special options
+
+77
+00:03:06,444 --> 00:03:08,070
+request and that's just there for the
+
+78
+00:03:08,070 --> 00:03:09,985
+browser to handle preflight requests,
+
+79
+00:03:10,519 --> 00:03:12,423
+CORS-related preflight requests. And
+
+80
+00:03:12,729 --> 00:03:14,714
+attached you find a resource where you can
+
+81
+00:03:14,730 --> 00:03:16,925
+learn more about CORS if that's brand new to
+
+82
+00:03:16,925 --> 00:03:17,022
+you.
+
+83
+00:03:18,548 --> 00:03:20,985
+Speaking of CORS, I also have a middleware
+
+84
+00:03:21,049 --> 00:03:23,099
+setup, so to say, a helper function
+
+85
+00:03:23,732 --> 00:03:27,073
+which I wrap around all my responses here as
+
+86
+00:03:27,089 --> 00:03:29,514
+you see, and that's coming from the HTTP
+
+87
+00:03:29,514 --> 00:03:32,485
+CORS file in my project. So this file here,
+
+88
+00:03:32,967 --> 00:03:34,830
+and in there I simply set up a function
+
+89
+00:03:35,199 --> 00:03:38,107
+where I take a response which I'm about to
+
+90
+00:03:38,107 --> 00:03:38,958
+send in the end,
+
+91
+00:03:39,697 --> 00:03:43,551
+I take it as an input and I augment it to
+
+92
+00:03:43,792 --> 00:03:46,265
+add certain headers, CORS headers, because
+
+93
+00:03:46,314 --> 00:03:48,530
+since this is a REST API that will be
+
+94
+00:03:48,610 --> 00:03:50,955
+accessed by a frontend single-page
+
+95
+00:03:50,955 --> 00:03:52,929
+application running on a different domain
+
+96
+00:03:53,026 --> 00:03:56,557
+potentially will be having CORS problems if
+
+97
+00:03:56,573 --> 00:03:59,093
+we don't add those headers on the REST API.
+
+98
+00:03:59,302 --> 00:04:01,549
+Again, attached is that resource with more
+
+99
+00:04:01,549 --> 00:04:03,957
+details about CORS if that's brand new to
+
+100
+00:04:03,957 --> 00:04:04,054
+you.
+
+101
+00:04:04,599 --> 00:04:06,333
+But that's just a little helper function
+
+102
+00:04:06,430 --> 00:04:08,837
+which makes sure that whenever I wrap it
+
+103
+00:04:08,837 --> 00:04:10,988
+around a response, it adds those headers.
+
+104
+00:04:11,165 --> 00:04:13,236
+You can think of it as a middleware kind of,
+
+105
+00:04:13,364 --> 00:04:13,910
+so to say.
+
+106
+00:04:14,937 --> 00:04:17,121
+And that's how the server is generally set
+
+107
+00:04:17,121 --> 00:04:20,001
+up. But of course, there is a lot to dive
+
+108
+00:04:20,341 --> 00:04:22,382
+deeper, and we'll do that therefore.

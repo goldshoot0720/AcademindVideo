@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pi: The Practical Guide · 中英雙語動態字幕播放器</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#171a1f; --muted:#6b7280;
+    --line:#e6e8ec; --line2:#eef0f3; --accent:#5b4bff; --accent-soft:#ece9ff;
+    --stage:#0a0c11; --stage2:#12151d;
+    --en:#f2f4f8; --zh:#ffffff; --cur:#ffd451; --past:#b9b2ff; --future:rgba(255,255,255,.42);
+    --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+  }
+  html[data-theme="dark"]{
+    --bg:#0e1116; --panel:#151922; --ink:#eef1f6; --muted:#98a2b3;
+    --line:#242a36; --line2:#1c212b; --accent:#8b7bff; --accent-soft:#241f45;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
+    font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  button{font-family:inherit}
+
+  /* ---------- layout ---------- */
+  /* Fluid sidebar: 290px at 100% zoom, narrower as the effective viewport
+     shrinks (e.g. 150% browser zoom), then a slide-in drawer. */
+  .app{display:grid;grid-template-columns:clamp(232px,20vw,290px) minmax(0,1fr);min-height:100vh}
+  .app>*{min-width:0}
+  @media (max-width:1200px){.app{grid-template-columns:240px minmax(0,1fr)}}
+  @media (max-width:1080px){
+    .app{grid-template-columns:minmax(0,1fr)}
+    .side-toggle{display:grid}
+  }
+
+  /* ---------- sidebar ---------- */
+  .side{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;min-width:0}
+  @media (max-width:1080px){
+    .side{position:fixed;top:0;left:0;bottom:0;height:100dvh;width:min(86vw,330px);z-index:60;
+      border-right:1px solid var(--line);box-shadow:0 18px 48px rgba(16,24,40,.22);
+      transform:translateX(-102%);transition:transform .22s ease}
+    .side.open{transform:none}
+  }
+  .side-toggle{display:none;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
+    background:var(--panel);color:var(--muted);cursor:pointer;place-items:center;flex:0 0 auto}
+  .side-toggle:hover{color:var(--ink);border-color:var(--muted)}
+  .side-scrim{position:fixed;inset:0;background:rgba(16,24,40,.38);z-index:55;opacity:0;
+    pointer-events:none;transition:opacity .2s ease}
+  @media (max-width:1080px){.side-scrim.on{opacity:1;pointer-events:auto}}
+  .brand{padding:16px 16px 12px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line2)}
+  .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6b5bff,#9d7bff);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.5px;flex:0 0 auto}
+  .brand h1{margin:0;font-size:14px;font-weight:700;letter-spacing:-.2px}
+  .brand p{margin:2px 0 0;font-size:11.5px;color:var(--muted)}
+  .side-tools{padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line2)}
+  .search{flex:1;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
+  .search input{border:0;background:transparent;outline:0;color:var(--ink);width:100%;font-size:12.5px}
+  .iconbtn{width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer;display:grid;place-items:center;flex:0 0 auto}
+  .iconbtn:hover{color:var(--ink);border-color:var(--muted)}
+  .iconbtn.on{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .lessons{overflow:auto;flex:1;padding:8px 8px 24px}
+  .module{margin:10px 6px 5px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .lesson{display:flex;gap:10px;padding:8px 9px;border-radius:10px;cursor:pointer;border:1px solid transparent;align-items:flex-start}
+  .lesson:hover{background:var(--bg)}
+  .lesson.on{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+  .lesson .num{font-variant-numeric:tabular-nums;font-size:11px;font-weight:700;color:var(--muted);min-width:30px;padding-top:2px}
+  .lesson.on .num{color:var(--accent)}
+  .lesson .ttl{font-size:12.7px;font-weight:600;letter-spacing:-.1px}
+  .lesson .meta{font-size:11px;color:var(--muted);margin-top:2px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .pill{font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:5px;letter-spacing:.02em}
+  .pill.zh{background:#e6f7ee;color:#087a45}
+  .pill.en{background:#f1f2f5;color:#6b7280}
+  html[data-theme="dark"] .pill.zh{background:#12301f;color:#5fd39a}
+  html[data-theme="dark"] .pill.en{background:#232833;color:#98a2b3}
+
+  /* ---------- main ---------- */
+  .main{display:flex;flex-direction:column;min-width:0}
+  .topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20;flex-wrap:wrap}
+  .topbar .t{font-weight:700;font-size:14px;letter-spacing:-.2px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topbar .sub{font-size:11.5px;color:var(--muted)}
+  .spacer{flex:1}
+  .btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+  .btn:hover{border-color:var(--muted)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.06)}
+  .btn.ghost{background:transparent}
+
+  .wrap{padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start}
+  @media (max-width:1280px){.wrap{grid-template-columns:minmax(0,1fr)}}
+
+  /* ---------- responsive: 100% and 150% browser zoom ---------- */
+  @media (max-width:1080px){
+    .wrap{padding:14px;gap:14px}
+    .topbar{padding:10px 12px;gap:8px}
+  }
+  @media (max-width:860px){
+    .topbar .t{font-size:13px}
+    .topbar .sub{display:none}
+    .btn{padding:6px 10px;font-size:12px}
+    .stage{max-height:68dvh}
+  }
+  @media (max-width:640px){
+    .wrap{padding:10px;gap:10px}
+    .poster .pc h3{font-size:16px}
+    .side-tools{gap:6px}
+  }
+  @media (max-height:620px){
+    .stage{max-height:60dvh}
+  }
+
+  /* ---------- stage ---------- */
+  .stage{position:relative;background:var(--stage);border-radius:var(--radius);overflow:hidden;aspect-ratio:16/9;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .stage video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+  .poster{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(120% 120% at 30% 0%,#1b2030 0%,#0a0c11 60%)}
+  .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
+  .poster .pc{position:relative;text-align:center;color:#e8ecf5;padding:24px;max-width:560px}
+  .poster .pc h3{margin:0 0 6px;font-size:19px}
+  .poster .pc p{margin:0;font-size:12.5px;color:#9aa4b8;line-height:1.7}
+  .drop{border:1.5px dashed #38405a;border-radius:12px;padding:14px 18px;margin-top:14px;font-size:12.5px;color:#b6c0d6;cursor:pointer;transition:.15s}
+  .drop:hover,.drop.over{border-color:var(--accent);background:rgba(91,75,255,.12);color:#fff}
+
+  /* ---------- subtitle overlay ---------- */
+  .subs{position:absolute;left:0;right:0;bottom:0;padding:0 5% 4.2%;display:flex;flex-direction:column;align-items:center;gap:.4em;pointer-events:none;z-index:5}
+  .subs.hide{display:none}
+  .line{max-width:92%;text-align:center;text-wrap:balance}
+  .line .word{display:inline-block;white-space:pre;transition:color .12s linear,opacity .12s linear,transform .12s cubic-bezier(.2,.7,.3,1),text-shadow .12s linear}
+  .line-en{font-weight:600;letter-spacing:.005em;color:var(--en)}
+  .line-zh{font-weight:800;color:var(--zh);letter-spacing:.01em}
+
+  /* dynamic states */
+  .fx-karaoke .w-future{color:var(--future)}
+  .fx-karaoke .w-past{color:var(--past)}
+  .fx-karaoke .w-current{color:var(--cur);text-shadow:0 0 18px rgba(255,212,81,.55)}
+  .fx-karaoke .line-zh .w-past{color:#ffe9a8}
+  .fx-karaoke .line-zh .w-current{color:#fff;text-shadow:0 0 22px rgba(255,212,81,.9)}
+
+  .fx-pop .w-future{color:var(--future);opacity:.55}
+  .fx-pop .w-past{color:var(--past)}
+  .fx-pop .w-current{color:var(--cur);transform:scale(1.16);text-shadow:0 0 20px rgba(255,212,81,.6)}
+
+  .fx-fade .w-future{opacity:.18}
+  .fx-fade .w-past{opacity:1;color:var(--past)}
+  .fx-fade .w-current{opacity:1;color:var(--cur);text-shadow:0 0 16px rgba(255,212,81,.5)}
+
+  .fx-type .w-future{opacity:0}
+  .fx-type .w-past{color:var(--past);opacity:1}
+  .fx-type .w-current{color:var(--cur)}
+
+  .fx-glow .w-future{color:var(--future)}
+  .fx-glow .w-past{color:var(--past)}
+  .fx-glow .w-current{color:#fff;transform:scale(1.06);text-shadow:0 0 8px #fff,0 0 26px var(--cur),0 0 48px var(--cur)}
+
+  .subs .line{animation:subIn .22s cubic-bezier(.2,.7,.3,1) both}
+  @keyframes subIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .subs.pos-top{top:5%;bottom:auto;padding:5% 5% 0}
+  .subs.pos-mid{top:50%;bottom:auto;transform:translateY(-50%);padding:0 5%}
+
+  /* ---------- transport ---------- */
+  .transport{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+  .bar{position:relative;height:22px;cursor:pointer;touch-action:none}
+  .bar:before{content:"";position:absolute;left:0;right:0;top:50%;height:8px;transform:translateY(-50%);border-radius:6px;background:var(--line2)}
+  .bar:hover:before{background:color-mix(in srgb,var(--accent) 22%,var(--line2))}
+  .bar .fill{position:absolute;left:0;top:50%;height:8px;transform:translateY(-50%);background:var(--accent);width:0;border-radius:6px}
+  .bar.dragging .fill{background:var(--accent)}
+  .bar .chap{position:absolute;top:50%;height:8px;transform:translateY(-50%);width:1px;background:color-mix(in srgb,var(--ink) 22%,transparent)}
+  .trow{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+  .time{font-variant-numeric:tabular-nums;font-size:12px;color:var(--muted);min-width:92px}
+  .rng{-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;background:var(--line2);outline:0;width:110px}
+  .rng::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--panel)}
+  select{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;padding:6px 8px;font-size:12.5px}
+
+  /* ---------- side panel ---------- */
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .tabs{display:flex;border-bottom:1px solid var(--line2)}
+  .tab{flex:1;padding:11px;text-align:center;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent}
+  .tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+  .tabbody{padding:14px;max-height:560px;overflow:auto}
+  .tabbody.hidden{display:none}
+
+  .fld{margin-bottom:13px}
+  .fld label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:.02em}
+  .fld .row{display:flex;gap:8px;align-items:center}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{border:0;background:var(--panel);color:var(--muted);padding:6px 10px;font-size:12px;cursor:pointer}
+  .seg button.on{background:var(--accent);color:#fff}
+  .chk{display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;padding:5px 0}
+  .chk input{accent-color:var(--accent);width:15px;height:15px}
+  .hint{font-size:11.5px;color:var(--muted);line-height:1.65}
+  code.k{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:11px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+  /* transcript */
+  .cue{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:7px 8px;border-radius:9px;cursor:pointer;border:1px solid transparent}
+  .cue:hover{background:var(--bg)}
+  .cue.on{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+  .cue .tc{font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--muted);padding-top:3px}
+  .cue .en{font-size:12.5px;color:var(--muted);line-height:1.45}
+  .cue .zh{font-size:13.5px;font-weight:600;line-height:1.5;margin-top:2px}
+  .cue.on .zh{color:var(--ink)}
+
+  /* chapters */
+  .chap-item{display:flex;gap:10px;padding:8px;border-radius:9px;cursor:pointer;align-items:baseline}
+  .chap-item:hover{background:var(--bg)}
+  .chap-item.on{background:var(--accent-soft)}
+  .chap-item .ct{font-variant-numeric:tabular-nums;font-size:11px;color:var(--accent);font-weight:700;min-width:44px}
+  .chap-item .cn{font-size:12.7px;font-weight:600}
+
+  .badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#12b76a;box-shadow:0 0 0 3px rgba(18,183,106,.18)}
+  .foot{padding:14px 18px 30px;color:var(--muted);font-size:11.5px;line-height:1.7}
+  .foot a{color:var(--accent);text-decoration:none}
+  .kbd{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 5px;background:var(--panel)}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:#171a1f;color:#fff;padding:10px 16px;border-radius:10px;font-size:12.5px;opacity:0;transition:.25s;z-index:99;pointer-events:none}
+  .toast.on{opacity:1;transform:translateX(-50%)}
+
+  /* ---------- connect modal ---------- */
+  .modal{position:fixed;inset:0;background:rgba(10,12,18,.55);backdrop-filter:blur(3px);display:none;place-items:center;z-index:80;padding:20px}
+  .modal.on{display:grid}
+  .mbox{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px rgba(16,24,40,.28);width:min(660px,100%);max-height:88vh;overflow:auto;padding:22px}
+  .mbox h3{margin:0 0 4px;font-size:17px;letter-spacing:-.2px}
+  .mbox .sub{font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.7}
+  .mbox textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);padding:11px;font-size:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical;outline:0}
+  .mbox textarea:focus{border-color:var(--accent)}
+  .steps{counter-reset:s;margin:0 0 16px;padding:0;list-style:none}
+  .steps li{position:relative;padding:0 0 10px 30px;font-size:12.7px;line-height:1.65;color:var(--ink)}
+  .steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:1px;width:19px;height:19px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:800;display:grid;place-items:center}
+  .bm{display:block;background:var(--bg);border:1px dashed var(--line);border-radius:9px;padding:9px 11px;font-size:11px;font-family:ui-monospace,Menlo,monospace;color:var(--muted);word-break:break-all;margin:8px 0 16px;cursor:pointer}
+  .bm:hover{border-color:var(--accent);color:var(--ink)}
+  .stat{font-size:12.5px;padding:9px 11px;border-radius:9px;margin-top:12px}
+  .stat.ok{background:#e7f7ee;color:#0a7a45}
+  .stat.bad{background:#fdeaea;color:#b42318}
+  .stat.info{background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+  html[data-theme="dark"] .stat.ok{background:#12301f;color:#5fd39a}
+  html[data-theme="dark"] .stat.bad{background:#3a1a1a;color:#ff9b9b}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="side">
+    <a href="../../index.html?stay=1" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;padding:2px 2px 12px">← 課程列表</a>
+    <div class="brand">
+      <div class="logo">Pi</div>
+      <div>
+        <h1>Pi: The Practical Guide</h1>
+        <p>中英雙語動態字幕</p>
+      </div>
+    </div>
+    <div class="side-tools">
+      <div class="search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" placeholder="搜尋課程…">
+      </div>
+      <button class="iconbtn on" id="autoNextBtn" title="播完自動播放下一課（點擊切換）">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4l10 8-10 8V4z"/><path d="M19 5v14"/></svg>
+      </button>
+      <button class="iconbtn" id="themeBtn" title="切換主題">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+    <div class="lessons" id="lessonList"></div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="topbar">
+      <button class="side-toggle" id="sideBtn" title="課程清單" aria-label="課程清單">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <div style="min-width:0">
+        <div class="t" id="curTitle">載入中…</div>
+        <div class="sub" id="curSub"></div>
+      </div>
+      <div class="spacer"></div>
+      <span class="badge"><span class="dot" id="modeDot"></span><span id="modeBadge">示範模式</span></span>
+      <button class="btn" id="connectBtn">影片來源</button>
+      <button class="btn" id="openFile">載入影片檔</button>
+      <button class="btn ghost" id="openUrl">輸入影片網址</button>
+      <input type="file" id="fileInput" accept="video/*" hidden>
+    </div>
+
+    <div class="wrap">
+      <div>
+        <!-- stage -->
+        <div class="stage" id="stage">
+          <video id="video" playsinline></video>
+          <div class="poster" id="poster">
+            <img id="posterImg" alt="">
+            <div class="pc">
+              <h3 id="posterTitle"></h3>
+              <p id="posterDesc"></p>
+              <div class="drop" id="drop">拖放影片到這裡，或點此選擇檔案 · 也可按右上角「輸入影片網址」</div>
+              <p style="margin-top:12px;font-size:11.5px;color:#7c8798">沒有影片？按下方 ▶ 播放，字幕會以「示範模式」依時間軸動態演示。</p>
+            </div>
+          </div>
+          <!-- subtitle overlay -->
+          <div class="subs fx-karaoke" id="subs">
+            <div class="line line-en" id="lineEn"></div>
+            <div class="line line-zh" id="lineZh"></div>
+          </div>
+        </div>
+
+        <!-- transport -->
+        <div class="transport">
+          <div class="bar" id="bar"><div class="fill" id="fill"></div><div id="chapMarks"></div></div>
+          <div class="trow">
+            <button class="btn primary" id="playBtn" style="width:44px;justify-content:center">▶</button>
+            <span class="time" id="time">00:00 / 00:00</span>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span style="font-size:11.5px;color:var(--muted)">速度</span>
+              <select id="rate"><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option></select>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span style="font-size:11.5px;color:var(--muted)">字幕位移</span>
+              <input type="range" class="rng" id="offset" min="-2000" max="2000" step="50" value="0">
+              <span class="time" id="offsetV" style="min-width:44px">0ms</span>
+            </div>
+            <div class="spacer"></div>
+            <button class="btn" id="copyCue">複製當前字幕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- right panel -->
+      <div class="panel">
+        <div class="tabs">
+          <div class="tab on" data-tab="style">字幕設定</div>
+          <div class="tab" data-tab="trans">逐字稿</div>
+          <div class="tab" data-tab="chap">章節</div>
+        </div>
+
+        <div class="tabbody" id="tab-style">
+          <div class="fld">
+            <label>動態效果</label>
+            <div class="seg" id="fxSeg">
+              <button data-fx="karaoke" class="on">卡拉OK</button>
+              <button data-fx="pop">彈跳</button>
+              <button data-fx="fade">淡入</button>
+              <button data-fx="type">打字機</button>
+              <button data-fx="glow">霓虹</button>
+            </div>
+          </div>
+          <div class="fld">
+            <label>顯示語言</label>
+            <label class="chk"><input type="checkbox" id="showEn" checked> 英文（原字幕）</label>
+            <label class="chk"><input type="checkbox" id="showZh" checked> 中文（雙語翻譯）</label>
+          </div>
+          <div class="fld">
+            <label>字幕大小</label>
+            <input type="range" class="rng" id="size" min="70" max="150" value="100" style="width:100%">
+          </div>
+          <div class="fld">
+            <label>字幕位置</label>
+            <div class="seg" id="posSeg">
+              <button data-pos="bottom" class="on">底部</button>
+              <button data-pos="mid">置中</button>
+              <button data-pos="top">頂部</button>
+            </div>
+          </div>
+          <div class="fld">
+            <label>背景遮罩</label>
+            <input type="range" class="rng" id="scrim" min="0" max="100" value="45" style="width:100%">
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line2);margin:14px 0">
+          <div class="fld">
+            <label>匯出字幕檔</label>
+            <div class="row" id="dlRow">
+              <a class="btn" id="dlSrt" download>雙語 SRT</a>
+              <a class="btn" id="dlAss" download>動態 ASS</a>
+              <button class="btn" id="dlCopy">複製本課雙語</button>
+            </div>
+            <div class="hint" id="dlHint" style="margin-top:6px"></div>
+          </div>
+          <hr style="border:0;border-top:1px solid var(--line2);margin:14px 0">
+          <div class="hint">
+            雙語字幕由 <b>原始英文 SRT</b> 加上 <b>繁體中文翻譯</b> 合成，並依詞級時間軸做動態高亮。<br><br>
+            鍵盤：<span class="kbd">空白</span> 播放/暫停 · <span class="kbd">←</span><span class="kbd">→</span> 前後 5 秒 · <span class="kbd">↑</span><span class="kbd">↓</span> 上下句 · <span class="kbd">E</span>/<span class="kbd">C</span> 切換英/中
+          </div>
+        </div>
+
+        <div class="tabbody hidden" id="tab-trans"></div>
+        <div class="tabbody hidden" id="tab-chap"></div>
+      </div>
+    </div>
+
+    <div class="foot" id="foot"></div>
+  </main>
+</div>
+<div class="side-scrim" id="sideScrim"></div>
+<div class="modal" id="authModal">
+  <div class="mbox">
+    <h3>影片來源與字幕</h3>
+    <div class="sub">本網站使用 <b>Bilibili 鏡像</b>的課程影片（本機下載後由
+      <code class='k'>scripts/serve.py</code> 提供），英文字幕由 <b>AssemblyAI</b> 轉錄、
+      再翻譯成繁體中文，並以詞級時間軸驅動卡拉OK／彈跳／淡入等動態效果。</div>
+
+    <div style="margin-top:16px;font-size:12.7px;font-weight:700">也可以自己指定影片</div>
+    <textarea id="authInput" placeholder='貼上影片網址（.mp4 或 .m3u8），或改用右上角「載入影片檔」' style="margin-top:8px"></textarea>
+    <button class="btn" id="authSave" style="margin-top:10px">載入這個網址</button>
+
+    <div class="row" style="display:flex;gap:8px;margin-top:16px">
+      <button class="btn" id="authClose">關閉</button>
+      <span class="spacer"></span>
+      <button class="btn ghost" id="authClear">重新整理狀態</button>
+    </div>
+    <div id="authStatus" class="stat info">檢查影片來源中…</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="vendor/hls.min.js"></script>
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var DATA = window.SERIES_DATA || {lessons:[]};
+  var lessons = DATA.lessons || [];
+
+  // ---------- course header: title, logo, lesson count + total duration ----------
+  // The sidebar header is driven by SERIES_DATA so every course shows its own
+  // name and totals instead of the scaffolded Pi defaults. Exposes
+  // window.COURSE_TOTALS for anything else that needs it.
+  window.COURSE_TOTALS = (function(){
+    var LOGOS={"pi-the-practical-guide":"Pi","htmx-the-practical-guide":"HX",
+      "ai-key-concepts-terms-the-missing-guide":"AK","clean-code":"CC",
+      "ai-agents-workflows-the-practical-guide":"AG","ai-for-developers":"AI",
+      "chatgpt-the-advanced-guide":"GPT","claude-code-the-practical-guide":"CC",
+      "claude-cowork-the-practical-guide":"CW","vps-essentials-the-practical-guide":"VPS",
+      "bun-the-practical-guide":"Bun",
+      "local-llms-via-ollama-lm-studio-the-practical-guide":"LLM",
+      "codex-the-practical-guide":"CDX","javascript-algorithms-the-fundamentals":"JS",
+      "javascript-data-structures-the-fundamentals":"DS"};
+    var slug=String(DATA.seriesUrl||"").replace(/\/+$/,"").split("/").pop()||"";
+    function toSec(t){
+      var p=String(t==null?"":t).split(":").map(Number);
+      if(p.length===3&&!isNaN(p[0])) return p[0]*3600+p[1]*60+p[2];
+      if(p.length===2&&!isNaN(p[0])) return p[0]*60+p[1];
+      return 0;
+    }
+    function logo(){
+      if(LOGOS[slug]) return LOGOS[slug];
+      for(var k in LOGOS){
+        if(k.indexOf(slug)===0||slug.indexOf(k)===0) return LOGOS[k];
+      }
+      return (DATA.series||"•").replace(/[^A-Za-z0-9]/g,"").slice(0,3)||"•";
+    }
+    var sec=0;
+    lessons.forEach(function(l){ sec+=toSec(l.duration); });
+    // truncate to whole minutes so the player agrees with the totals shown
+    // on the course list (which come from the platform's declared duration)
+    var h=Math.floor(sec/3600), m=Math.floor((sec%3600)/60);
+    var label=(h?h+"h ":"")+m+"m";
+    if(DATA.series){
+      var t=document.querySelector(".brand h1"); if(t) t.textContent=DATA.series;
+      document.title=DATA.series+" · 中英雙語動態字幕播放器";
+    }
+    var g=document.querySelector(".brand .logo"); if(g) g.textContent=logo();
+    var s=document.querySelector(".brand p");
+    if(s) s.textContent="中英雙語動態字幕 · "+lessons.length+" 課 · "+label;
+    return {slug:slug, lessons:lessons.length, seconds:sec, label:label};
+  })();
+
+  // ---------- element refs ----------
+  var $ = function(id){ return document.getElementById(id); };
+  var video=$("video"), poster=$("poster"), posterImg=$("posterImg"),
+      posterTitle=$("posterTitle"), posterDesc=$("posterDesc"),
+      subs=$("subs"), lineEn=$("lineEn"), lineZh=$("lineZh"),
+      bar=$("bar"), fill=$("fill"), chapMarks=$("chapMarks"), timeEl=$("time"),
+      playBtn=$("playBtn"), rateSel=$("rate"), offsetEl=$("offset"), offsetV=$("offsetV"),
+      curTitle=$("curTitle"), curSub=$("curSub"), modeBadge=$("modeBadge"),
+      lessonList=$("lessonList"), transEl=$("tab-trans"), chapEl=$("tab-chap"),
+      toastEl=$("toast");
+
+  // ---------- state ----------
+  var S = {
+    lesson: null, segs: [], chapters: [],
+    showEn:true, showZh:true, fx:"karaoke", pos:"bottom",
+    size:1, scrim:45, offset:0,
+    demo:true, vtime:0, playing:false, raf:null, lastTs:0,
+    activeIdx:-1, builtIdx:-1, vDuration:0, filter:"", videoRetry:0
+  };
+
+  // ---------- last-played memory ----------
+  // One shared key (av:last) so a reload lands back on the same lecture and
+  // second, and the course list can offer "continue where you left off".
+  var LS_KEY="av:last", COURSE_SLUG=(window.COURSE_TOTALS||{}).slug||"";
+  var RESUME_SLUG="", RESUME_T=0, _lastSave=0;
+  function readLast(){
+    try{
+      var j=JSON.parse(localStorage.getItem(LS_KEY)||"null");
+      if(j && j.course===COURSE_SLUG && j.lesson) return j;
+    }catch(e){}
+    return null;
+  }
+  function writeLast(t){
+    if(!S.lesson) return;
+    try{
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        course:COURSE_SLUG, courseTitle:DATA.series||"",
+        lesson:S.lesson.slug, lessonNumber:S.lesson.number||0,
+        title:S.lesson.title||"", t:Math.max(0,t||0), at:Date.now()
+      }));
+    }catch(e){}
+  }
+  function hashLesson(){ var h=(location.hash||"").replace(/^#/,""); return h?decodeURIComponent(h):""; }
+  function scrollActiveIntoView(){
+    var el=lessonList.querySelector(".lesson.on");
+    if(el && el.scrollIntoView){ try{ el.scrollIntoView({block:"nearest"}); }catch(e){} }
+  }
+
+  // ---------- auto-play the next lecture ----------
+  var AUTONEXT_KEY="av:autonext";
+  function autoNextOn(){
+    try{ return localStorage.getItem(AUTONEXT_KEY)!=="0"; }catch(e){ return true; }  // default on
+  }
+  function setAutoNext(v){
+    try{ localStorage.setItem(AUTONEXT_KEY, v?"1":"0"); }catch(e){}
+    var b=$("autoNextBtn"); if(b) b.classList.toggle("on", !!v);
+  }
+  function indexOfLesson(slug){
+    for(var i=0;i<lessons.length;i++){ if(lessons[i].slug===slug) return i; }
+    return -1;
+  }
+  function autoNext(){
+    if(!autoNextOn()) return;
+    var i=S.lesson?indexOfLesson(S.lesson.slug):-1; if(i<0) return;
+    for(var j=i+1;j<lessons.length;j++){
+      // skip lectures the mirror never gave us a video for
+      if(lessons[j].videoFile){
+        toast("自動播放下一課："+(lessons[j].number?lessons[j].number+" · ":"")+(lessons[j].title||lessons[j].slug));
+        selectLesson(j);   // loadLessonVideo() starts playback
+        return;
+      }
+    }
+    toast("已是本課程最後一課");
+  }
+
+  function toast(m){ toastEl.textContent=m; toastEl.classList.add("on"); clearTimeout(toastEl._t); toastEl._t=setTimeout(function(){toastEl.classList.remove("on")},1900); }
+  // jsdom and some embedded browsers return undefined from play(), so guard it
+  function safePlay(onErr){
+    try{ var p=video.play(); if(p&&p.catch) p.catch(function(){ if(onErr) onErr(); }); }
+    catch(e){ if(onErr) onErr(); }
+  }
+  function fmt(s){ s=Math.max(0,s||0); var m=Math.floor(s/60), x=Math.floor(s%60); return (m<10?"0":"")+m+":"+(x<10?"0":"")+x; }
+
+  // ---------- sidebar ----------
+  function renderList(){
+    var q=S.filter.trim().toLowerCase(), html="", lastSec=null;
+    lessons.forEach(function(l,i){
+      var t=(l.title||"").toLowerCase(), n=String(l.number||"");
+      if(q && t.indexOf(q)<0 && n.indexOf(q)<0) return;
+      var sec=l.sectionTitle||("Section "+(l.section||"?"));
+      if(sec!==lastSec){ html+='<div class="module">'+esc(sec)+'</div>'; lastSec=sec; }
+      html+='<div class="lesson'+(S.lesson&&S.lesson.slug===l.slug?" on":"")+'" data-i="'+i+'">'
+        +'<div class="num">'+p2(l.number||0)+'</div><div style="min-width:0">'
+        +'<div class="ttl">'+esc(l.title||l.slug)+'</div>'
+        +'<div class="meta"><span>'+(l.duration||"")+'</span>'
+        +(l.hasZh?'<span class="pill zh">中英雙語</span>':(l.hasEn?'<span class="pill en">僅英文</span>':'<span class="pill no">無影片</span>'))
+        +'</div></div></div>';
+    });
+    lessonList.innerHTML=html;
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+
+  lessonList.addEventListener("click",function(e){
+    var el=e.target.closest(".lesson"); if(!el) return;
+    selectLesson(parseInt(el.dataset.i,10));
+  });
+
+  // ---------- lesson selection ----------
+  function selectLesson(i){
+    var l=lessons[i]; if(!l) return;
+    S.lesson=l; S.segs=l.segments||[]; S.chapters=l.chapters||[];
+    S.activeIdx=-1; S.builtIdx=-1; S.vtime=0; S.videoRetry=0;
+    clearTimeout(S._retryT);
+    renderList();
+    curTitle.textContent=(l.number?l.number+" · ":"")+(l.title||l.slug);
+    curSub.textContent=(l.duration||"")+" · "+(S.segs.length)+" 句字幕"
+      +(l.sectionTitle?(" · "+l.sectionTitle):"");
+    posterTitle.textContent=(l.number?l.number+"  ":"")+(l.title||"");
+    posterDesc.textContent=l.description||"";
+    posterImg.src=l.poster||"";
+    if(l.hasZh){ posterDesc.textContent=(l.description||"")+"  — 已含中英雙語動態字幕。"; }
+    else { posterDesc.textContent=(l.description||"")+"  — 此課目前僅有英文字幕（可執行翻譯腳本補上中文）。"; }
+    // duration estimate from segments
+    S.vDuration = S.segs.length? S.segs[S.segs.length-1].end : 0;
+    buildTranscript(); buildChapters(); updateExports();
+    if(video.dataset.local==="1"){ /* user-loaded file keeps playing */ }
+    else { loadLessonVideo(l); }
+    render(true);
+    updateTransport();
+    // remember this lecture (keeping the resume point when we are restoring it)
+    writeLast(l.slug===RESUME_SLUG?RESUME_T:0);
+    try{ if(history.replaceState) history.replaceState(null,"","#"+l.slug); }catch(e){}
+    scrollActiveIntoView();
+  }
+
+  // ---------- lecture video (served locally by scripts/serve.py) ----------
+  var MAX_VIDEO_RETRY=3;
+  function loadLessonVideo(l, isRetry){
+    if(hls){ try{hls.destroy();}catch(e){} hls=null; }
+    if(!l || !l.videoFile){ setDemo(true); return false; }
+    if(!isRetry) S.videoRetry=0;
+    clearTimeout(S._retryT);
+    // on a retry, bust the cache so we do not replay the failed response
+    var url="../"+l.videoFile+(S.videoRetry?("?r="+S.videoRetry+"&t="+Date.now()):"");
+    video.dataset.local="0";
+    video.src=url;
+    video.load();
+    setDemo(false);
+    modeBadge.textContent = S.videoRetry
+      ? ("重新載入 "+S.videoRetry+"/"+MAX_VIDEO_RETRY) : "本機影片";
+    poster.style.display="none";
+    safePlay();
+    return true;
+  }
+
+  // ---------- subtitle export ----------
+  function tsSrt(s){
+    s=Math.max(0,s||0); var ms=Math.round(s*1000);
+    var h=Math.floor(ms/3600000); ms-=h*3600000;
+    var m=Math.floor(ms/60000); ms-=m*60000;
+    var sec=Math.floor(ms/1000); ms-=sec*1000;
+    return p2(h)+":"+p2(m)+":"+p2(sec)+","+String(ms).padStart(3,"0");
+  }
+  function p2(n){ return (n<10?"0":"")+n; }
+  function updateExports(){
+    var l=S.lesson; if(!l) return;
+    var srt=$("dlSrt"), ass=$("dlAss"), hint=$("dlHint");
+    if(l.hasZh){
+      srt.href="../data/srt/bilingual/"+l.slug+".srt"; srt.style.display="";
+      ass.href="../data/ass/"+l.slug+".ass"; ass.style.display="";
+      hint.textContent="檔案位於 data/srt/bilingual/ 與 data/ass/；從專案根目錄提供服務即可直接下載。";
+    } else {
+      srt.style.display="none"; ass.style.display="none";
+      hint.textContent="本課尚無中文翻譯（僅有英文字幕）。";
+    }
+  }
+  $("dlCopy").addEventListener("click",function(){
+    var l=S.lesson; if(!l||!l.hasZh){ toast("本課尚無雙語字幕"); return; }
+    var txt=S.segs.map(function(s,i){
+      return (i+1)+"\n"+tsSrt(s.start)+" --> "+tsSrt(s.end)+"\n"+s.en+(s.zh?"\n"+s.zh:"")+"\n";
+    }).join("\n");
+    navigator.clipboard.writeText(txt).then(function(){ toast("已複製本課雙語字幕"); },function(){ toast("複製失敗"); });
+  });
+
+  // ---------- transcript ----------
+  function buildTranscript(){
+    if(!S.segs.length){ transEl.innerHTML='<div class="hint">此課程尚無字幕資料。</div>'; return; }
+    var h="";
+    S.segs.forEach(function(s,i){
+      h+='<div class="cue" data-i="'+i+'"><div class="tc">'+fmt(s.start)+'</div><div>'
+        +'<div class="en">'+esc(s.en||"")+'</div>'
+        +(s.zh?'<div class="zh">'+esc(s.zh)+'</div>':'')
+        +'</div></div>';
+    });
+    transEl.innerHTML=h;
+  }
+  transEl.addEventListener("click",function(e){
+    var el=e.target.closest(".cue"); if(!el) return;
+    seek(S.segs[parseInt(el.dataset.i,10)].start);
+  });
+
+  // ---------- chapters ----------
+  function buildChapters(){
+    if(!S.chapters.length){ chapEl.innerHTML='<div class="hint">此課程尚無章節資料。</div>'; chapMarks.innerHTML=""; return; }
+    var h="", total=S.vDuration||S.chapters[S.chapters.length-1].endSeconds||1;
+    S.chapters.forEach(function(c,i){
+      h+='<div class="chap-item" data-i="'+i+'"><div class="ct">'+fmt(c.startSeconds)+'</div>'
+        +'<div class="cn">'+esc(c.text)+'</div></div>';
+      chapMarks.innerHTML+='<div class="chap" style="left:'+(100*c.startSeconds/total)+'%"></div>';
+    });
+    chapEl.innerHTML=h;
+  }
+  chapEl.addEventListener("click",function(e){
+    var el=e.target.closest(".chap-item"); if(!el) return;
+    seek(S.chapters[parseInt(el.dataset.i,10)].startSeconds);
+  });
+
+  // ---------- playback (video or demo) ----------
+  function setDemo(on){
+    S.demo=on;
+    modeBadge.textContent = on ? "示範模式（無影片）" : "影片模式";
+    if(on){ try{video.pause();}catch(e){} video.removeAttribute("src"); video.style.display="none"; poster.style.display="grid"; }
+    else { video.style.display="block"; poster.style.display="none"; }
+  }
+  function playhead(){ return S.demo ? S.vtime : (video.currentTime||0); }
+  function totalTime(){ return S.demo ? S.vDuration : ((video.duration&&isFinite(video.duration))?video.duration:0); }
+  function seek(subT){
+    var ph=Math.max(0, (subT||0) - S.offset/1000);
+    if(S.demo){ S.vtime=ph; render(true); updateTransport(); }
+    else {
+      // move the media AND refresh the transport immediately: relying on the
+      // timeupdate event alone leaves the bar frozen until playback resumes,
+      // which makes clicking the timeline look broken.
+      try{ video.currentTime=ph; }catch(e){}
+      updateTransport(); render(true);
+    }
+  }
+  // playing state must be read from the real media element in video mode,
+  // otherwise the toggle always thinks it is paused (regression fix)
+  function isPlaying(){
+    if(S.demo) return !!S.playing;
+    try{ return !video.paused && !video.ended && video.readyState > 0; }catch(e){ return false; }
+  }
+  function play(){
+    if(S.demo){ S.playing=true; S.lastTs=0; loop(); }
+    else { try{ var p=video.play(); if(p&&p.catch) p.catch(function(){}); }catch(e){} }
+    S.playing=true;
+    playBtn.textContent="❚❚";
+  }
+  function pause(){
+    if(S.demo){ S.playing=false; cancelAnimationFrame(S.raf); }
+    else { try{ video.pause(); }catch(e){} }
+    S.playing=false;
+    playBtn.textContent="▶";
+  }
+  function toggle(){ isPlaying()? pause() : play(); }
+
+  function loop(ts){
+    if(!S.playing) return;
+    if(!S.lastTs) S.lastTs=ts;
+    var dt=(ts-S.lastTs)/1000; S.lastTs=ts;
+    var rate=parseFloat(rateSel.value)||1;
+    S.vtime+=dt*rate;
+    if(S.vtime>=(S.vDuration||0)){ S.vtime=S.vDuration; render(false); updateTransport(); pause(); return; }
+    render(false); updateTransport();
+    S.raf=requestAnimationFrame(loop);
+  }
+
+  // ---------- subtitle rendering ----------
+  function findIdx(t){
+    var a=S.segs, lo=0, hi=a.length-1, r=-1;
+    while(lo<=hi){ var m=(lo+hi)>>1;
+      if(t < a[m].start) hi=m-1;
+      else if(t > a[m].end) lo=m+1;
+      else return m;
+    }
+    // nearest previous
+    for(var i=a.length-1;i>=0;i--){ if(a[i].start<=t) return i; }
+    return -1;
+  }
+  // ---- word-level timing (derived client-side) ----
+  var CJKRE=/[\u3400-\u9fff\u3000-\u303f\uff00-\uffef]/;
+  function chunkZh(text){
+    var parts=text.match(/[A-Za-z0-9.+#\-]+|[\u3400-\u9fff\u3000-\u303f\uff00-\uffef]+|[^\s]/g)||[text];
+    var out=[];
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i];
+      if(/^[\u3400-\u9fff\u3000-\u303f\uff00-\uffef]+$/.test(p)){
+        for(var j=0;j<p.length;j+=2) out.push(p.slice(j,j+2));
+      } else out.push(p);
+    }
+    return out.length?out:[text];
+  }
+  function computeWords(text,start,end,lang){
+    var toks = lang==="en" ? text.split(/\s+/).filter(Boolean) : chunkZh(text);
+    if(!toks.length) return [];
+    var w=[],sum=0,i;
+    for(i=0;i<toks.length;i++){ var v=(lang==="en"?toks[i].length+1:toks[i].length+0.6); w.push(v); sum+=v; }
+    var t=start, out=[];
+    for(i=0;i<toks.length;i++){ var d=(end-start)*w[i]/(sum||1); out.push({w:toks[i],start:+t.toFixed(3),end:+(t+d).toFixed(3)}); t+=d; }
+    if(out.length) out[out.length-1].end=end;
+    return out;
+  }
+  function wordsHTML(words){
+    var h="";
+    for(var i=0;i<words.length;i++){
+      var w=words[i];
+      h+='<span class="word" data-s="'+w.start+'" data-e="'+w.end+'">'+esc(w.w)+'</span> ';
+    }
+    return h;
+  }
+  function render(force){
+    var t = playhead() + S.offset/1000;   // subtitle timeline
+    var idx=findIdx(t);
+    var seg=idx>=0?S.segs[idx]:null;
+
+    if(idx!==S.builtIdx || force){
+      S.builtIdx=idx;
+      if(!seg){ lineEn.innerHTML=""; lineZh.innerHTML=""; }
+      else{
+        if(seg.en && !seg._enW) seg._enW=computeWords(seg.en,seg.start,seg.end,"en");
+        if(seg.zh && !seg._zhW) seg._zhW=computeWords(seg.zh,seg.start,seg.end,"zh");
+        lineEn.innerHTML = (S.showEn && seg._enW)? wordsHTML(seg._enW):esc(seg.en||"");
+        lineZh.innerHTML = (S.showZh && seg._zhW)? wordsHTML(seg._zhW):esc(seg.zh||"");
+        // retrigger enter animation
+        lineEn.style.animation="none"; lineZh.style.animation="none";
+        void lineEn.offsetWidth;
+        lineEn.style.animation=""; lineZh.style.animation="";
+      }
+    }
+    if(seg){ highlight(lineEn, t); highlight(lineZh, t); }
+    if(idx!==S.activeIdx){
+      S.activeIdx=idx;
+      var prev=transEl.querySelector(".cue.on"); if(prev) prev.classList.remove("on");
+      if(idx>=0){ var c=transEl.querySelector('.cue[data-i="'+idx+'"]'); if(c){ c.classList.add("on"); if(c.scrollIntoView) c.scrollIntoView({block:"nearest",behavior:"smooth"}); } }
+      var cp=chapEl.querySelector(".chap-item.on"); if(cp) cp.classList.remove("on");
+      var ci=chapterAt(t); if(ci>=0){ var ce=chapEl.querySelector('.chap-item[data-i="'+ci+'"]'); if(ce){ ce.classList.add("on"); } }
+    }
+  }
+  function highlight(line, t){
+    var ws=line.querySelectorAll(".word"); if(!ws.length) return;
+    for(var i=0;i<ws.length;i++){
+      var w=ws[i], s=parseFloat(w.dataset.s), e=parseFloat(w.dataset.e);
+      var st = t< s ? "w-future" : (t> e ? "w-past" : "w-current");
+      if(w._st!==st){ w.className="word "+st; w._st=st; }
+    }
+  }
+  function chapterAt(t){
+    for(var i=S.chapters.length-1;i>=0;i--){ if(t>=S.chapters[i].startSeconds) return i; }
+    return -1;
+  }
+
+  // ---------- transport UI ----------
+  function updateTransport(){
+    var cur=playhead(), tot=totalTime()||S.vDuration||0;
+    fill.style.width=(tot?(100*cur/tot):0)+"%";
+    timeEl.textContent=fmt(cur)+" / "+fmt(tot);
+  }
+  function barSeek(x){
+    var r=bar.getBoundingClientRect();
+    var p=Math.min(1,Math.max(0,(x-r.left)/(r.width||1)));
+    seek(p*(totalTime()||S.vDuration));
+  }
+  bar.addEventListener("click",function(e){ barSeek(e.clientX); });
+  // drag / swipe to scrub - click-only felt dead on a hairline track
+  (function(){
+    var dragging=false;
+    function xOf(e){
+      if(e.clientX!==undefined&&e.clientX!==null) return e.clientX;
+      if(e.touches&&e.touches[0]) return e.touches[0].clientX;
+      return null;
+    }
+    function start(e){ var x=xOf(e); if(x===null) return;
+      dragging=true; bar.classList.add("dragging"); barSeek(x); e.preventDefault(); }
+    function move(e){ if(!dragging) return; var x=xOf(e); if(x!==null) barSeek(x); }
+    function end(){ if(!dragging) return; dragging=false; bar.classList.remove("dragging"); }
+    bar.addEventListener("mousedown",start);
+    window.addEventListener("mousemove",move);
+    window.addEventListener("mouseup",end);
+    bar.addEventListener("touchstart",start,{passive:false});
+    bar.addEventListener("touchmove",move,{passive:false});
+    window.addEventListener("touchend",end);
+  })();
+  playBtn.addEventListener("click",toggle);
+  rateSel.addEventListener("change",function(){ if(!S.demo) video.playbackRate=parseFloat(rateSel.value); });
+  offsetEl.addEventListener("input",function(){ S.offset=parseInt(offsetEl.value,10); offsetV.textContent=S.offset+"ms"; render(true); });
+  $("copyCue").addEventListener("click",function(){
+    var s=S.segs[S.activeIdx]; if(!s){ toast("目前沒有字幕"); return; }
+    var txt=(s.en||"")+(s.zh?"\n"+s.zh:"");
+    navigator.clipboard.writeText(txt).then(function(){ toast("已複製當前字幕"); },function(){ toast("複製失敗"); });
+  });
+
+  // video events
+  video.addEventListener("timeupdate",function(){
+    if(S.demo) return;
+    render(false); updateTransport();
+    var now=Date.now();
+    if(now-_lastSave>4000){ _lastSave=now; writeLast(video.currentTime); }
+  });
+  video.addEventListener("seeking",function(){ if(S.demo) return; updateTransport(); });
+  video.addEventListener("seeked",function(){ if(S.demo) return; render(true); updateTransport(); });
+  video.addEventListener("play",function(){ S.playing=true; playBtn.textContent="❚❚"; });
+  video.addEventListener("pause",function(){ S.playing=false; playBtn.textContent="▶"; writeLast(video.currentTime); });
+  video.addEventListener("loadedmetadata",function(){
+    if(S.demo) setDemo(false);
+    // resume where the user stopped, but only for the lecture we restored
+    if(RESUME_T>1 && S.lesson && S.lesson.slug===RESUME_SLUG
+       && video.duration && RESUME_T<video.duration-2){
+      try{ video.currentTime=RESUME_T; }catch(e){}
+      toast("已回到上次播放 "+fmt(RESUME_T));
+    }
+    RESUME_T=0;
+    updateTransport();
+  });
+  video.addEventListener("ended",function(){
+    S.playing=false; playBtn.textContent="▶";
+    writeLast(video.currentTime);
+    autoNext();
+  });
+  // last chance to persist the position when the tab goes away
+  window.addEventListener("pagehide",function(){ writeLast(S.demo?S.vtime:video.currentTime); });
+
+  // click the video (or the stage once a video is loaded) to toggle playback
+  function stageToggle(e){
+    if(poster.style.display!=="none") return;   // poster is showing -> not a video click
+    if(e.target.closest("button")||e.target.closest("a")) return;
+    toggle();
+  }
+  video.addEventListener("click",stageToggle);
+  $("stage").addEventListener("click",stageToggle);
+
+  // A lecture's video can fail transiently (the server is busy writing a file,
+  // the request was aborted, the machine just woke up). Retry a few times with
+  // a short backoff before giving up, so a hiccup does not dump us into demo
+  // mode while the file is actually sitting right there on disk.
+  video.addEventListener("error",function(){
+    if(S.demo) return;
+    var l=S.lesson;
+    if(l && l.videoFile && S.videoRetry < MAX_VIDEO_RETRY){
+      S.videoRetry++;
+      modeBadge.textContent="重新載入 "+S.videoRetry+"/"+MAX_VIDEO_RETRY;
+      toast("影片載入失敗，正在重試（"+S.videoRetry+"/"+MAX_VIDEO_RETRY+"）");
+      clearTimeout(S._retryT);
+      S._retryT=setTimeout(function(){ if(S.lesson===l) loadLessonVideo(l,true); },
+                           500*S.videoRetry);
+      return;
+    }
+    setDemo(true);
+    modeBadge.textContent="示範模式";
+    toast("影片無法載入，改用示範模式播放字幕");
+  });
+
+  // ---------- load video ----------
+  function loadFile(file){
+    if(!file) return;
+    if(hls){ try{hls.destroy();}catch(e){} hls=null; }
+    var url=URL.createObjectURL(file);
+    video.dataset.local="1";
+    video.src=url; video.playbackRate=parseFloat(rateSel.value);
+    setDemo(false); poster.style.display="none"; modeBadge.textContent="本機影片";
+    safePlay();
+    toast("已載入影片："+file.name);
+  }
+  $("openFile").addEventListener("click",function(){ $("fileInput").click(); });
+  $("fileInput").addEventListener("change",function(e){ loadFile(e.target.files[0]); });
+  var drop=$("drop"), stage=$("stage");
+  drop.addEventListener("click",function(){ $("fileInput").click(); });
+  ["dragenter","dragover"].forEach(function(ev){ stage.addEventListener(ev,function(e){ e.preventDefault(); drop.classList.add("over"); }); });
+  ["dragleave","drop"].forEach(function(ev){ stage.addEventListener(ev,function(e){ e.preventDefault(); drop.classList.remove("over"); }); });
+  stage.addEventListener("drop",function(e){ var f=e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) loadFile(f); });
+
+  $("openUrl").addEventListener("click",function(){
+    var u=prompt("貼上影片網址（mp4 或 m3u8）：","");
+    if(!u) return;
+    if(hls){ try{hls.destroy();}catch(e){} hls=null; }
+    video.dataset.local="1";
+    if(/\.m3u8(\?|$)/i.test(u) && window.Hls && Hls.isSupported()){
+      hls=new Hls({maxBufferLength:30});
+      hls.loadSource(u); hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED,function(){
+        setDemo(false); poster.style.display="none"; modeBadge.textContent="外部串流";
+        safePlay();
+      });
+      hls.on(Hls.Events.ERROR,function(ev,d){ if(d&&d.fatal) toast("串流錯誤："+d.details); });
+      return;
+    }
+    video.src=u; setDemo(false); poster.style.display="none"; modeBadge.textContent="外部影片";
+    safePlay(function(){ toast("無法播放，請確認網址可直接存取"); });
+  });
+
+  // ---------- settings ----------
+  $("fxSeg").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b) return;
+    S.fx=b.dataset.fx;
+    [].forEach.call(this.children,function(x){x.classList.toggle("on",x===b)});
+    subs.className="subs fx-"+S.fx+" pos-"+S.pos;
+    S.builtIdx=-1; render(true);
+  });
+  $("posSeg").addEventListener("click",function(e){
+    var b=e.target.closest("button"); if(!b) return;
+    S.pos=b.dataset.pos;
+    [].forEach.call(this.children,function(x){x.classList.toggle("on",x===b)});
+    subs.className="subs fx-"+S.fx+" pos-"+S.pos;
+  });
+  $("showEn").addEventListener("change",function(){ S.showEn=this.checked; lineEn.style.display=this.checked?"":"none"; S.builtIdx=-1; render(true); });
+  $("showZh").addEventListener("change",function(){ S.showZh=this.checked; lineZh.style.display=this.checked?"":"none"; S.builtIdx=-1; render(true); });
+  $("size").addEventListener("input",function(){
+    S.size=parseInt(this.value,10)/100;
+    lineEn.style.fontSize=(1.55*S.size)+"vw";
+    lineZh.style.fontSize=(2.15*S.size)+"vw";
+  });
+  $("scrim").addEventListener("input",function(){
+    S.scrim=parseInt(this.value,10);
+    subs.style.background="linear-gradient(to top, rgba(0,0,0,"+(S.scrim/140)+") 0%, rgba(0,0,0,0) 100%)";
+    subs.style.paddingBottom = S.pos==="bottom" ? (2.6+S.scrim/28)+"%":"";
+  });
+
+  // tabs
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.addEventListener("click",function(){
+      document.querySelectorAll(".tab").forEach(function(x){x.classList.toggle("on",x===t)});
+      ["style","trans","chap"].forEach(function(k){ $("tab-"+k).classList.toggle("hidden",k!==t.dataset.tab); });
+    });
+  });
+
+  // theme
+  $("themeBtn").addEventListener("click",function(){
+    var d=document.documentElement.getAttribute("data-theme")==="dark";
+    document.documentElement.setAttribute("data-theme",d?"light":"dark");
+  });
+
+  // auto-play-next toggle
+  (function(){
+    var b=$("autoNextBtn"); if(!b) return;
+    b.classList.toggle("on", autoNextOn());
+    b.addEventListener("click",function(){
+      var v=!autoNextOn(); setAutoNext(v);
+      toast(v?"已開啟：播完自動播放下一課":"已關閉自動播放");
+    });
+  })();
+
+  // sidebar drawer for narrow / zoomed viewports (150% browser zoom, phones)
+  (function(){
+    var b=$("sideBtn"), side=document.querySelector(".side"), scrim=$("sideScrim");
+    if(!b||!side) return;
+    var narrow=function(){ return window.matchMedia("(max-width:1080px)").matches; };
+    function close(){ side.classList.remove("open"); if(scrim) scrim.classList.remove("on"); }
+    b.addEventListener("click",function(){
+      var open=side.classList.toggle("open");
+      if(scrim) scrim.classList.toggle("on",open);
+    });
+    if(scrim) scrim.addEventListener("click",close);
+    lessonList.addEventListener("click",function(e){ if(e.target.closest(".lesson")&&narrow()) close(); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&narrow()) close(); });
+  })();
+
+  // search
+  $("q").addEventListener("input",function(){ S.filter=this.value; renderList(); });
+
+  // keyboard
+  document.addEventListener("keydown",function(e){
+    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
+    if(e.code==="Space"){ e.preventDefault(); toggle(); }
+    else if(e.key==="ArrowRight"){ seek(playhead()+5); }
+    else if(e.key==="ArrowLeft"){ seek(playhead()-5); }
+    else if(e.key==="ArrowDown"){ var n=Math.min(S.segs.length-1,S.activeIdx+1); if(S.segs[n]) seek(S.segs[n].start+0.01); }
+    else if(e.key==="ArrowUp"){ var p=Math.max(0,S.activeIdx-1); if(S.segs[p]) seek(S.segs[p].start+0.01); }
+    else if(e.key==="e"||e.key==="E"){ $("showEn").checked=!$("showEn").checked; $("showEn").dispatchEvent(new Event("change")); }
+    else if(e.key==="c"||e.key==="C"){ $("showZh").checked=!$("showZh").checked; $("showZh").dispatchEvent(new Event("change")); }
+  });
+
+  // ---------- video source ----------
+  var SERVER=null, hls=null;
+
+  function loadVideoUrl(u){
+    if(hls){ try{hls.destroy();}catch(e){} hls=null; }
+    if(/\.m3u8(\?|$)/.test(u) && window.Hls && Hls.isSupported()){
+      hls=new Hls({maxBufferLength:30, enableWorker:true});
+      hls.loadSource(u); hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED,function(){
+        setDemo(false); modeBadge.textContent="外部串流"; poster.style.display="none";
+        safePlay();
+      });
+      hls.on(Hls.Events.ERROR,function(ev,d){ if(d&&d.fatal) toast("串流錯誤："+d.details); });
+      return;
+    }
+    video.dataset.local="1";
+    video.src=u; video.load();
+    setDemo(false); modeBadge.textContent="外部影片"; poster.style.display="none";
+    safePlay();
+  }
+
+  function detectServer(){
+    if(location.protocol==="file:" || typeof fetch!=="function"){
+      SERVER=null; updateSourceUI(); return;
+    }
+    try{
+      fetch("data.js",{method:"HEAD"}).then(function(r){
+        SERVER={configured:r.ok, lessons:lessons.length};
+        updateSourceUI();
+      }).catch(function(){ SERVER=null; updateSourceUI(); });
+    }catch(e){ SERVER=null; updateSourceUI(); }
+  }
+  function updateSourceUI(){
+    var btn=$("connectBtn"), dot=$("modeDot");
+    if(!btn) return;
+    var withVideo=lessons.filter(function(l){return l.videoFile;}).length;
+    btn.textContent="本機影片 "+withVideo+"/"+lessons.length;
+    btn.title="影片來源：Bilibili 鏡像下載後由 scripts/serve.py 提供";
+    if(dot) dot.style.background = withVideo? "#12b76a" : "#f79009";
+  }
+
+  $("connectBtn").addEventListener("click",function(){
+    $("authModal").classList.add("on");
+    var withVideo=lessons.filter(function(l){return l.videoFile;}).length;
+    var withZh=lessons.filter(function(l){return l.hasZh;}).length;
+    $("authStatus").className="stat "+(withVideo?"ok":"info");
+    $("authStatus").innerHTML="本機已有 <b>"+withVideo+"</b> / "+lessons.length+" 課影片、<b>"
+      +withZh+"</b> 課中英雙語字幕。<br>影片由 Bilibili 鏡像下載，字幕由 AssemblyAI 轉錄後翻譯；"
+      +"執行 <code class='k'>python3 scripts/serve.py</code> 即可播放。";
+  });
+  $("authClose").addEventListener("click",function(){ $("authModal").classList.remove("on"); });
+  $("authModal").addEventListener("click",function(e){ if(e.target===this) this.classList.remove("on"); });
+  $("authClear").addEventListener("click",function(){ detectServer(); toast("已重新整理來源狀態"); });
+  $("authSave").addEventListener("click",function(){
+    var u=$("authInput").value.trim();
+    if(!u){ toast("請貼上影片網址"); return; }
+    loadVideoUrl(u);
+    $("authModal").classList.remove("on");
+  });
+
+  // ---------- boot ----------
+  function boot(){
+    $("size").dispatchEvent(new Event("input"));
+    $("scrim").dispatchEvent(new Event("input"));
+    var zhCount=lessons.filter(function(l){return l.hasZh;}).length;
+    var vidCount=lessons.filter(function(l){return l.videoFile;}).length;
+    $("foot").innerHTML='資料來源：<a href="'+(DATA.seriesUrl||"#")+'" target="_blank" rel="noopener">'+(DATA.series||"Pi - The Practical Guide")+'</a>'
+      +'（講師 '+esc(DATA.instructor||"")+'，'+(DATA.platform||"")+'）。影片取自 Bilibili 鏡像，'
+      +'英文字幕由 AssemblyAI 轉錄、繁體中文為雙語翻譯，動態效果由詞級時間軸驅動。'
+      +'共 '+lessons.length+' 課，'+vidCount+' 課已有影片、'+zhCount+' 課已具備中英雙語字幕。';
+    if(!lessons.length){ curTitle.textContent="找不到資料"; return; }
+    // pick the lecture to open with: explicit #hash > last played > first bilingual
+    var want=hashLesson(), saved=readLast(), idx=-1;
+    if(want){ idx=indexOfLesson(want); }
+    if(idx<0 && saved){ idx=indexOfLesson(saved.lesson); }
+    if(idx<0){ idx=0; for(var i=0;i<lessons.length;i++){ if(lessons[i].hasZh){ idx=i; break; } } }
+    if(saved && lessons[idx] && lessons[idx].slug===saved.lesson && saved.t>1){
+      RESUME_SLUG=saved.lesson; RESUME_T=saved.t;   // seeked in loadedmetadata
+    }
+    selectLesson(idx);
+    if(RESUME_T>1) toast("回到上次播放："+fmt(RESUME_T));
+    detectServer();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>

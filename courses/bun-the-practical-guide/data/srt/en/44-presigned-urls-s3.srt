@@ -1,0 +1,255 @@
+1
+00:00:00,192 --> 00:00:02,329
+Now, the last core feature that's worth
+
+2
+00:00:02,425 --> 00:00:06,119
+mentioning is that Bunsen's S3 client also
+
+3
+00:00:06,119 --> 00:00:08,978
+supports presigned URLs. And what are
+
+4
+00:00:09,171 --> 00:00:12,689
+presigned URLs? Well, that bucket here is
+
+5
+00:00:12,801 --> 00:00:15,098
+private by default. For all storage
+
+6
+00:00:15,194 --> 00:00:17,780
+providers I know, buckets are private by
+
+7
+00:00:17,780 --> 00:00:19,997
+default. You can see public access is
+
+8
+00:00:20,110 --> 00:00:22,423
+disabled. So I can view it here because I'm
+
+9
+00:00:22,503 --> 00:00:24,992
+logged in. I can interact with it through
+
+10
+00:00:25,009 --> 00:00:27,498
+that CLI because of those env vars I
+
+11
+00:00:27,498 --> 00:00:27,916
+defined.
+
+12
+00:00:28,606 --> 00:00:30,003
+But if I gave you
+
+13
+00:00:30,790 --> 00:00:32,653
+a link to that bucket, however that would
+
+14
+00:00:32,701 --> 00:00:34,290
+look like, you wouldn't be able to do
+
+15
+00:00:34,323 --> 00:00:34,852
+anything with it.
+
+16
+00:00:35,527 --> 00:00:38,016
+But what if I want to share that file with
+
+17
+00:00:38,016 --> 00:00:40,264
+you, a file in the cloud? What if I wanted
+
+18
+00:00:40,264 --> 00:00:41,452
+to share that with you?
+
+19
+00:00:42,030 --> 00:00:44,711
+That is where presigned URLs come into play.
+
+20
+00:00:45,161 --> 00:00:49,095
+You can create a short-lived URL that points
+
+21
+00:00:49,175 --> 00:00:51,921
+at a certain file in a private bucket and
+
+22
+00:00:51,921 --> 00:00:55,389
+make that file if you have that URL,
+
+23
+00:00:55,918 --> 00:00:59,178
+not private, as long as that URL is valid.
+
+24
+00:00:59,691 --> 00:01:01,409
+And that's what the share feature in this
+
+25
+00:01:01,538 --> 00:01:04,990
+CLI is about. In there, in this share.ts
+
+26
+00:01:04,990 --> 00:01:07,719
+file, in the share function, I'm using the
+
+27
+00:01:07,799 --> 00:01:11,363
+presign method on that S3 client. So still
+
+28
+00:01:11,476 --> 00:01:13,547
+the same Bun S3 client, but now using
+
+29
+00:01:13,659 --> 00:01:14,350
+presign
+
+30
+00:01:14,944 --> 00:01:18,990
+to point at a key, so the path of a file on
+
+31
+00:01:19,182 --> 00:01:19,921
+S3.
+
+32
+00:01:20,484 --> 00:01:23,479
+And then configure that URL I wanna create.
+
+33
+00:01:24,091 --> 00:01:25,718
+For example, I say that the method will be
+
+34
+00:01:25,798 --> 00:01:28,182
+GET, so it will only be valid for reading
+
+35
+00:01:28,214 --> 00:01:30,847
+that file, not for overwriting it. We could
+
+36
+00:01:30,863 --> 00:01:33,584
+also use the method PUT if we wanted someone
+
+37
+00:01:33,616 --> 00:01:35,608
+else to have a URL they can use for
+
+38
+00:01:36,126 --> 00:01:38,245
+replacing that file, but I only want GET.
+
+39
+00:01:39,599 --> 00:01:42,356
+I have expiresIn, which is an input I expect
+
+40
+00:01:42,356 --> 00:01:42,872
+to get here,
+
+41
+00:01:44,786 --> 00:01:46,382
+and that's coming from index.ts.
+
+42
+00:01:47,049 --> 00:01:49,052
+It's there where we have share
+
+43
+00:01:49,776 --> 00:01:51,655
+And there we set a default
+
+44
+00:01:52,265 --> 00:01:54,578
+of 3,600 seconds.
+
+45
+00:01:55,574 --> 00:01:57,743
+And then also some extra details about the
+
+46
+00:01:57,743 --> 00:01:59,702
+filename that should be used for downloading
+
+47
+00:01:59,750 --> 00:02:00,810
+that file, for example.
+
+48
+00:02:01,903 --> 00:02:03,766
+And you can see that feature in action if I
+
+49
+00:02:03,766 --> 00:02:05,709
+run bun run cli share
+
+50
+00:02:06,962 --> 00:02:10,014
+and then I provide that remote key, that
+
+51
+00:02:10,014 --> 00:02:10,945
+remote filename.
+
+52
+00:02:11,491 --> 00:02:13,965
+So if I run bun run cli list, I see all the
+
+53
+00:02:13,965 --> 00:02:16,760
+files I have remotely and now I can share,
+
+54
+00:02:16,776 --> 00:02:17,932
+let's say this file
+
+55
+00:02:18,622 --> 00:02:21,284
+Like this, and I get back a URL. And if I
+
+56
+00:02:21,284 --> 00:02:23,930
+now copy that URL and I open a new
+
+57
+00:02:24,555 --> 00:02:26,464
+incognito browser window where I'm not
+
+58
+00:02:26,464 --> 00:02:29,093
+logged in, I can insert that URL and view
+
+59
+00:02:29,190 --> 00:02:29,655
+that file,
+
+60
+00:02:30,392 --> 00:02:33,070
+but only for an hour. Thereafter, this link
+
+61
+00:02:33,118 --> 00:02:33,952
+will no longer work.
+
+62
+00:02:34,497 --> 00:02:36,245
+But that's of course also a nice useful
+
+63
+00:02:36,325 --> 00:02:38,763
+feature and Bun has built-in support for it
+
+64
+00:02:39,051 --> 00:02:39,677
+out of the box.

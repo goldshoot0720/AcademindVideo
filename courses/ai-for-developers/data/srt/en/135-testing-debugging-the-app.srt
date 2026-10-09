@@ -1,0 +1,275 @@
+1
+00:00:02,487 --> 00:00:03,986
+And with that, we got all these event
+
+2
+00:00:04,018 --> 00:00:06,581
+controller functions linked to the routes.
+
+3
+00:00:07,161 --> 00:00:09,273
+Now what we can also do is get rid of these
+
+4
+00:00:09,402 --> 00:00:12,139
+prefixes here, /events, because that prefix
+
+5
+00:00:12,139 --> 00:00:14,807
+will actually be added one level above in
+
+6
+00:00:14,807 --> 00:00:17,507
+the app.js file. In this routes file, I only
+
+7
+00:00:17,684 --> 00:00:20,014
+have events routes and this prefix doesn't
+
+8
+00:00:20,014 --> 00:00:21,224
+need to be repeated here.
+
+9
+00:00:23,096 --> 00:00:25,472
+So I'll actually select all, all of these,
+
+10
+00:00:25,756 --> 00:00:27,467
+of that and just delete it
+
+11
+00:00:28,500 --> 00:00:29,679
+and add a slash here
+
+12
+00:00:30,760 --> 00:00:31,810
+and also here.
+
+13
+00:00:34,700 --> 00:00:37,062
+Okay, now we can go to App.js and make sure
+
+14
+00:00:37,062 --> 00:00:39,215
+that the event routes are added here. And
+
+15
+00:00:39,295 --> 00:00:39,424
+here
+
+16
+00:00:40,019 --> 00:00:42,268
+I'm probably quickest if I just do that
+
+17
+00:00:42,268 --> 00:00:42,734
+manually
+
+18
+00:00:43,409 --> 00:00:44,782
+and import my events
+
+19
+00:00:47,034 --> 00:00:49,609
+routes from routes/events.js. Thanks for
+
+20
+00:00:49,869 --> 00:00:50,646
+autocompleting this.
+
+21
+00:00:51,246 --> 00:00:51,780
+And then here,
+
+22
+00:00:52,363 --> 00:00:58,029
+I can app.use /events and point at the
+
+23
+00:00:58,029 --> 00:01:00,273
+events routes. And that's this /events
+
+24
+00:01:00,273 --> 00:01:01,844
+prefix I mentioned a second ago.
+
+25
+00:01:04,250 --> 00:01:06,452
+Okay, so that was a lot of talking about
+
+26
+00:01:06,452 --> 00:01:09,124
+this, but let's see whether this now works.
+
+27
+00:01:11,104 --> 00:01:13,325
+For that, I'll now run npm run dev to start
+
+28
+00:01:13,325 --> 00:01:15,530
+that development server and I got an error.
+
+29
+00:01:17,350 --> 00:01:19,192
+Cannot find module database.js.
+
+30
+00:01:20,116 --> 00:01:22,196
+Import it in the event.js file.
+
+31
+00:01:24,754 --> 00:01:25,543
+Let's see.
+
+32
+00:01:27,316 --> 00:01:29,718
+Yeah, the import path is wrong. We need to
+
+33
+00:01:29,750 --> 00:01:30,895
+go up one level.
+
+34
+00:01:32,093 --> 00:01:32,708
+So that was
+
+35
+00:01:33,291 --> 00:01:34,408
+generated incorrectly.
+
+36
+00:01:35,412 --> 00:01:36,950
+And now if I run that,
+
+37
+00:01:40,027 --> 00:01:41,047
+looks better.
+
+38
+00:01:43,129 --> 00:01:45,506
+Let's see whether it works by sending a
+
+39
+00:01:45,571 --> 00:01:47,818
+request where we try to create an event.
+
+40
+00:01:49,148 --> 00:01:51,253
+Or actually first we can send a GET request
+
+41
+00:01:51,253 --> 00:01:53,600
+to get all events. We don't have any yet,
+
+42
+00:01:53,681 --> 00:01:55,980
+but the request should work nonetheless. It
+
+43
+00:01:56,028 --> 00:01:57,501
+just shouldn't return anything.
+
+44
+00:01:59,290 --> 00:02:01,712
+So if I send a request, a GET request to
+
+45
+00:02:01,712 --> 00:02:02,427
+localhost:3000/events,
+
+46
+00:02:05,247 --> 00:02:07,533
+I get back an empty array, which makes sense
+
+47
+00:02:07,533 --> 00:02:07,778
+to me.
+
+48
+00:02:10,490 --> 00:02:12,865
+Now let's send a POST request to
+
+49
+00:02:12,931 --> 00:02:14,860
+localhost:3000/events. 3,000 events
+
+50
+00:02:16,351 --> 00:02:16,623
+and
+
+51
+00:02:17,184 --> 00:02:18,851
+I get back an object with an event ID.
+
+52
+00:02:20,294 --> 00:02:22,587
+I don't get back an error even though I did
+
+53
+00:02:22,635 --> 00:02:25,152
+not attach any data because I haven't added
+
+54
+00:02:25,248 --> 00:02:26,210
+any validation yet.
+
+55
+00:02:26,787 --> 00:02:28,454
+That's something we have yet to do.
+
+56
+00:02:29,897 --> 00:02:30,282
+Currently,
+
+57
+00:02:30,891 --> 00:02:33,584
+I don't validate anything. I create an event
+
+58
+00:02:33,616 --> 00:02:35,604
+either way and that at least seems to work
+
+59
+00:02:35,829 --> 00:02:37,864
+because that event object was then also
+
+60
+00:02:37,913 --> 00:02:40,006
+returned. Thing here.
+
+61
+00:02:42,042 --> 00:02:44,648
+Now I won't test the other routes just yet,
+
+62
+00:02:44,665 --> 00:02:47,103
+we'll do that later, but initially it looks
+
+63
+00:02:47,103 --> 00:02:48,720
+like everything's working and we can
+
+64
+00:02:48,720 --> 00:02:51,194
+therefore now fine-tune and tweak those
+
+65
+00:02:51,226 --> 00:02:53,780
+controllers and make sure that we do really
+
+66
+00:02:53,813 --> 00:02:56,094
+create the events the way we want them to
+
+67
+00:02:56,143 --> 00:02:56,436
+create.
+
+68
+00:02:57,543 --> 00:02:59,139
+And for example, we should also add
+
+69
+00:02:59,253 --> 00:02:59,627
+validation.

@@ -1,0 +1,551 @@
+1
+00:00:00,192 --> 00:00:03,484
+Especially now, thanks to AI, Markdown, the
+
+2
+00:00:03,484 --> 00:00:05,572
+Markdown format, which you see here, for
+
+3
+00:00:05,572 --> 00:00:08,028
+example, is more important than ever. But
+
+4
+00:00:08,285 --> 00:00:11,160
+even before AI, it was popular for, for
+
+5
+00:00:11,192 --> 00:00:14,082
+example, authoring content for websites like
+
+6
+00:00:14,082 --> 00:00:16,876
+blog posts. For example, on my personal
+
+7
+00:00:16,876 --> 00:00:19,510
+page, all these articles here are in the end
+
+8
+00:00:19,606 --> 00:00:22,079
+under the hood Markdown files, Markdown
+
+9
+00:00:22,191 --> 00:00:24,536
+text, which is then rendered as HTML.
+
+10
+00:00:25,387 --> 00:00:27,699
+And that rendering can be done with
+
+11
+00:00:28,453 --> 00:00:31,130
+And that rendering can be done with Bun
+
+12
+00:00:31,178 --> 00:00:35,089
+because Bun has a built-in Markdown renderer
+
+13
+00:00:35,089 --> 00:00:37,718
+feature which you can use without installing
+
+14
+00:00:37,814 --> 00:00:40,572
+any third-party packages or libraries. And
+
+15
+00:00:40,620 --> 00:00:42,704
+it is that feature that I'm using on my
+
+16
+00:00:42,704 --> 00:00:45,012
+personal site for rendering these articles,
+
+17
+00:00:45,108 --> 00:00:47,176
+for example. And it's also that feature
+
+18
+00:00:47,288 --> 00:00:49,516
+which we'll now take a closer look at. So
+
+19
+00:00:49,693 --> 00:00:53,139
+I'm here in a brand new project. You find it
+
+20
+00:00:53,139 --> 00:00:55,079
+attached, of course. And in there, I got an
+
+21
+00:00:55,079 --> 00:00:58,189
+example Markdown file, a standard Markdown
+
+22
+00:00:58,189 --> 00:00:59,551
+file using the standard Markdown syntax.
+
+23
+00:01:00,915 --> 00:01:03,563
+With all the Markdown-specific syntax like
+
+24
+00:01:03,563 --> 00:01:03,643
+the
+
+25
+00:01:04,188 --> 00:01:07,013
+hashes here for setting up headings, a
+
+26
+00:01:07,013 --> 00:01:09,243
+little table using the Markdown table
+
+27
+00:01:09,243 --> 00:01:11,634
+format, some code snippets, some inline
+
+28
+00:01:11,666 --> 00:01:13,543
+code, some multiline code snippets or
+
+29
+00:01:14,298 --> 00:01:16,640
+code block snippets to be precise,
+
+30
+00:01:17,186 --> 00:01:20,219
+and so on. So a bunch of standard Markdown
+
+31
+00:01:20,315 --> 00:01:23,107
+features in there or GitHub-flavored
+
+32
+00:01:23,380 --> 00:01:25,546
+Markdown features in there to be precise
+
+33
+00:01:25,867 --> 00:01:28,370
+because Bun supports these Markdown
+
+34
+00:01:28,434 --> 00:01:30,633
+features. It does support that GitHub
+
+35
+00:01:30,713 --> 00:01:33,231
+flavor. Flavored Markdown as it's also
+
+36
+00:01:33,231 --> 00:01:33,583
+called.
+
+37
+00:01:34,433 --> 00:01:36,903
+And Bun has a built-in API which you can
+
+38
+00:01:36,999 --> 00:01:39,469
+use, as mentioned, without installing any
+
+39
+00:01:39,581 --> 00:01:42,436
+extra packages to render that Markdown.
+
+40
+00:01:43,334 --> 00:01:48,000
+All you have to do is call bun.markdown. So
+
+41
+00:01:48,000 --> 00:01:51,881
+here in this example, I'm using bun.file for
+
+42
+00:01:52,154 --> 00:01:54,832
+loading a file and I extract its content as
+
+43
+00:01:54,976 --> 00:01:57,382
+text. So I'm loading this file It's a
+
+44
+00:01:57,382 --> 00:01:59,375
+Markdown file, but I'm loading its content
+
+45
+00:01:59,375 --> 00:02:02,043
+as raw text because of course this is just
+
+46
+00:02:02,043 --> 00:02:04,309
+text in there, right? All of this is text.
+
+47
+00:02:04,631 --> 00:02:07,786
+So that is what I'm extracting here in this
+
+48
+00:02:07,980 --> 00:02:11,221
+line. And then I got the Markdown as it is
+
+49
+00:02:11,221 --> 00:02:12,334
+stored in that file.
+
+50
+00:02:13,806 --> 00:02:15,910
+And then in the next line, we're using the
+
+51
+00:02:15,991 --> 00:02:18,644
+Bun Markdown API, which again is that
+
+52
+00:02:18,822 --> 00:02:20,634
+built-in core API
+
+53
+00:02:21,233 --> 00:02:24,160
+for converting that Markdown text which was
+
+54
+00:02:24,193 --> 00:02:26,159
+loaded. So the text in that Markdown file
+
+55
+00:02:26,769 --> 00:02:27,828
+to HTML.
+
+56
+00:02:28,358 --> 00:02:31,152
+Now, as an alternative to HTML, you could
+
+57
+00:02:31,168 --> 00:02:33,561
+use React, for example, if you were building
+
+58
+00:02:33,673 --> 00:02:37,398
+a React application to convert that Markdown
+
+59
+00:02:37,591 --> 00:02:40,385
+to React elements, to JSX elements.
+
+60
+00:02:40,979 --> 00:02:43,757
+But here I'm fine with HTML. And the way
+
+61
+00:02:43,949 --> 00:02:46,502
+this works is then that you pass in the text
+
+62
+00:02:46,502 --> 00:02:49,007
+that contains your Markdown content as a
+
+63
+00:02:49,007 --> 00:02:51,366
+first argument. And then you have an
+
+64
+00:02:51,719 --> 00:02:53,788
+optional second argument. So you don't need
+
+65
+00:02:53,900 --> 00:02:56,146
+that, you could omit it, but you can add a
+
+66
+00:02:56,146 --> 00:02:58,584
+configuration object as a second argument.
+
+67
+00:02:58,953 --> 00:03:01,487
+And here you control which Markdown features
+
+68
+00:03:01,519 --> 00:03:04,214
+you wanna support, which of the features Bun
+
+69
+00:03:04,326 --> 00:03:07,389
+supports in theory you want to activate. For
+
+70
+00:03:07,389 --> 00:03:10,068
+example, whether you wanna render tables.
+
+71
+00:03:10,661 --> 00:03:11,014
+And again,
+
+72
+00:03:11,543 --> 00:03:13,356
+this here is an example for a table in
+
+73
+00:03:13,452 --> 00:03:14,735
+Markdown, if that should be
+
+74
+00:03:15,313 --> 00:03:16,451
+rendered to HTML.
+
+75
+00:03:17,077 --> 00:03:18,729
+If you want auto-linking,
+
+76
+00:03:19,307 --> 00:03:21,667
+which is a bun feature that will ensure that
+
+77
+00:03:21,667 --> 00:03:24,910
+if any links are found in the text, like for
+
+78
+00:03:24,927 --> 00:03:27,624
+example here, it will turn them into
+
+79
+00:03:27,752 --> 00:03:30,145
+clickable links automatically if you wanna
+
+80
+00:03:30,145 --> 00:03:30,691
+enable this.
+
+81
+00:03:31,911 --> 00:03:33,308
+If you wanna
+
+82
+00:03:33,918 --> 00:03:37,627
+automatically create IDs for the headings so
+
+83
+00:03:37,708 --> 00:03:39,939
+that they could be added as fragments in the
+
+84
+00:03:40,020 --> 00:03:43,456
+URL so that all these headings automatically
+
+85
+00:03:43,568 --> 00:03:44,227
+get IDs.
+
+86
+00:03:44,997 --> 00:03:47,709
+And so on. There are more settings here, as
+
+87
+00:03:47,806 --> 00:03:50,421
+you see if I open up my autocompletion here.
+
+88
+00:03:50,855 --> 00:03:53,342
+And of course, as always, for the full list
+
+89
+00:03:53,342 --> 00:03:55,493
+of all supported features at the point of
+
+90
+00:03:55,525 --> 00:03:57,563
+time you are viewing this, the official docs
+
+91
+00:03:57,675 --> 00:03:58,895
+are the way to go.
+
+92
+00:03:59,842 --> 00:04:00,372
+Either way,
+
+93
+00:04:00,965 --> 00:04:03,581
+using this HTML method will then return some
+
+94
+00:04:04,031 --> 00:04:06,358
+text, so a string, but a string that
+
+95
+00:04:06,358 --> 00:04:07,000
+contains the
+
+96
+00:04:07,545 --> 00:04:09,776
+rendered HTML code. And you can then
+
+97
+00:04:09,808 --> 00:04:12,198
+therefore, of course, send that back with a
+
+98
+00:04:12,198 --> 00:04:14,330
+response, for example, if you wanted to, or
+
+99
+00:04:14,619 --> 00:04:17,312
+like in this case here, simply write it to
+
+100
+00:04:17,344 --> 00:04:20,919
+an HTML file, to the dist/index.html file in
+
+101
+00:04:20,935 --> 00:04:23,436
+my case here. So this file will be created
+
+102
+00:04:23,436 --> 00:04:25,664
+when I run this program. Here we call
+
+103
+00:04:25,825 --> 00:04:28,774
+create_html_page to create a well-formatted
+
+104
+00:04:28,871 --> 00:04:31,772
+HTML document which contains the rendered
+
+105
+00:04:31,772 --> 00:04:33,808
+Markdown then. That's what's happening here.
+
+106
+00:04:34,401 --> 00:04:37,753
+And therefore, if you run index.ts with bun
+
+107
+00:04:37,865 --> 00:04:38,876
+run index.ts,
+
+108
+00:04:39,550 --> 00:04:42,214
+it'll generate that index.html file in the
+
+109
+00:04:42,279 --> 00:04:43,001
+dist folder.
+
+110
+00:04:43,562 --> 00:04:45,536
+And if you open that with the browser here,
+
+111
+00:04:45,552 --> 00:04:47,462
+I'm using the one integrated in VS Code,
+
+112
+00:04:48,120 --> 00:04:50,656
+you will see an HTML page there,
+
+113
+00:04:51,266 --> 00:04:53,881
+a website in the end rendered based on that
+
+114
+00:04:54,058 --> 00:04:56,561
+Markdown file we have in this project. So
+
+115
+00:04:56,561 --> 00:04:59,418
+based on this bun-markdown-md file, that is
+
+116
+00:04:59,514 --> 00:05:00,365
+what's being rendered here.
+
+117
+00:05:01,279 --> 00:05:03,815
+And what you'll notice that various Markdown
+
+118
+00:05:03,927 --> 00:05:06,479
+features work like that table for example.
+
+119
+00:05:06,816 --> 00:05:08,870
+The styling is coming from that style.css
+
+120
+00:05:08,983 --> 00:05:11,053
+file, by the way. So that's not coming from
+
+121
+00:05:11,085 --> 00:05:12,337
+Bun, that's my styling.
+
+122
+00:05:13,091 --> 00:05:15,868
+But for example, in there we have features
+
+123
+00:05:16,045 --> 00:05:18,998
+like IDs for the headings. So if I add
+
+124
+00:05:19,993 --> 00:05:23,106
+#basic-html-conversion, because that is the
+
+125
+00:05:23,106 --> 00:05:25,257
+ID format that will be generated, these
+
+126
+00:05:25,450 --> 00:05:28,708
+slugs for these headings, that's generated
+
+127
+00:05:28,804 --> 00:05:29,510
+automatically
+
+128
+00:05:30,168 --> 00:05:33,666
+if you have the headings feature turned on.
+
+129
+00:05:34,676 --> 00:05:37,064
+So if you do that and I add this hash
+
+130
+00:05:37,064 --> 00:05:39,869
+fragment and hit enter, you see it reloads
+
+131
+00:05:39,869 --> 00:05:41,553
+this page and automatically scrolls me to
+
+132
+00:05:41,569 --> 00:05:44,214
+that section. That is what this feature
+
+133
+00:05:44,214 --> 00:05:46,105
+does. And then we got other features in
+
+134
+00:05:46,137 --> 00:05:47,804
+there as well, like the autolink feature,
+
+135
+00:05:47,965 --> 00:05:49,856
+which I mentioned, so that these links are
+
+136
+00:05:49,985 --> 00:05:51,988
+turned into clickable links automatically.
+
+137
+00:05:52,325 --> 00:05:54,553
+So that's all working, and that is Bun's
+
+138
+00:05:54,794 --> 00:05:57,006
+very useful Markdown feature in action.

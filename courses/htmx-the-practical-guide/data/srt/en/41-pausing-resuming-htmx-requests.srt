@@ -1,0 +1,339 @@
+1
+00:00:00,503 --> 00:00:02,971
+To handle the Yes button, I'll start by
+
+2
+00:00:02,971 --> 00:00:03,686
+selecting it,
+
+3
+00:00:04,400 --> 00:00:05,098
+the Yes button,
+
+4
+00:00:06,040 --> 00:00:08,736
+with document.getElementById,
+
+5
+00:00:09,608 --> 00:00:12,062
+and then this button has action-yes
+
+6
+00:00:12,675 --> 00:00:13,111
+as an ID.
+
+7
+00:00:14,726 --> 00:00:15,531
+So I'll use that
+
+8
+00:00:17,268 --> 00:00:17,590
+like this.
+
+9
+00:00:19,360 --> 00:00:22,272
+And then of course I add an event listener
+
+10
+00:00:23,604 --> 00:00:25,833
+for the click event to this button as well.
+
+11
+00:00:26,607 --> 00:00:29,678
+But now here, I of course also wanna close
+
+12
+00:00:29,678 --> 00:00:30,433
+the dialog,
+
+13
+00:00:31,189 --> 00:00:33,890
+but in addition, I wanna make sure that I
+
+14
+00:00:33,938 --> 00:00:35,475
+send that request
+
+15
+00:00:36,045 --> 00:00:37,723
+which I canceled by calling
+
+16
+00:00:38,163 --> 00:00:39,108
+event.preventDefault.
+
+17
+00:00:41,507 --> 00:00:44,254
+And that's something that's not that easy to
+
+18
+00:00:44,254 --> 00:00:47,371
+do if you're listening to the before-request
+
+19
+00:00:47,451 --> 00:00:48,511
+HTMX event.
+
+20
+00:00:49,315 --> 00:00:51,476
+Because there, if you then cancel the event,
+
+21
+00:00:51,492 --> 00:00:54,742
+you're really canceling the entire request.
+
+22
+00:00:55,459 --> 00:00:58,133
+And you would have to manually recreate it,
+
+23
+00:00:58,197 --> 00:00:58,809
+but even then,
+
+24
+00:00:59,486 --> 00:01:01,951
+HTMX wouldn't be handling it anymore.
+
+25
+00:01:03,780 --> 00:01:06,823
+That's why the better HTMX event to handle
+
+26
+00:01:06,855 --> 00:01:07,048
+here
+
+27
+00:01:07,595 --> 00:01:11,556
+instead of before request is HTMX confirm
+
+28
+00:01:12,667 --> 00:01:15,834
+because this is an event that's triggered or
+
+29
+00:01:16,107 --> 00:01:16,541
+emitted
+
+30
+00:01:17,152 --> 00:01:19,578
+after a trigger occurred on an element.
+
+31
+00:01:20,686 --> 00:01:21,908
+And as you see in the official
+
+32
+00:01:21,908 --> 00:01:24,167
+documentation, it allows us to cancel or
+
+33
+00:01:24,217 --> 00:01:27,341
+delay the AJAX request HTMX would be about
+
+34
+00:01:27,473 --> 00:01:27,938
+to send.
+
+35
+00:01:30,340 --> 00:01:32,739
+So it's HTMX confirm to which I wanna listen
+
+36
+00:01:32,771 --> 00:01:35,074
+here, which will be emitted whenever
+
+37
+00:01:36,330 --> 00:01:38,552
+some HTMX request is triggered,
+
+38
+00:01:39,695 --> 00:01:41,581
+which of course happens here on that button.
+
+39
+00:01:43,563 --> 00:01:46,625
+And then when we prevent the default, we're
+
+40
+00:01:46,786 --> 00:01:49,967
+actually not entirely canceling the request.
+
+41
+00:01:50,032 --> 00:01:52,151
+Instead, we're just stopping it for the
+
+42
+00:01:52,151 --> 00:01:53,365
+moment, you could say,
+
+43
+00:01:54,253 --> 00:01:57,305
+That's how HTMX works internally with that
+
+44
+00:01:57,305 --> 00:01:57,723
+event.
+
+45
+00:01:58,911 --> 00:02:00,501
+But we can then resume
+
+46
+00:02:01,080 --> 00:02:03,778
+the request or restart the request and
+
+47
+00:02:03,794 --> 00:02:07,745
+restart this HTMX process of sending the
+
+48
+00:02:07,745 --> 00:02:09,624
+request and using the response
+
+49
+00:02:10,219 --> 00:02:12,965
+by using a special method that's part of the
+
+50
+00:02:13,270 --> 00:02:14,218
+event details.
+
+51
+00:02:15,471 --> 00:02:18,908
+So here in the yes button event handler, we
+
+52
+00:02:18,908 --> 00:02:19,583
+can use
+
+53
+00:02:21,819 --> 00:02:24,474
+event.detail, and there for this specific
+
+54
+00:02:24,602 --> 00:02:28,415
+confirm event, we now have an issue request
+
+55
+00:02:28,463 --> 00:02:28,769
+method
+
+56
+00:02:29,847 --> 00:02:31,816
+made available by HTMX.
+
+57
+00:02:33,710 --> 00:02:36,219
+And I know about that because the official
+
+58
+00:02:36,219 --> 00:02:39,391
+documentation tells us that this exists. So
+
+59
+00:02:39,472 --> 00:02:41,854
+definitely dive into that documentation from
+
+60
+00:02:41,886 --> 00:02:44,429
+time to time if you're playing around with
+
+61
+00:02:44,623 --> 00:02:46,039
+different HTMX events.
+
+62
+00:02:48,491 --> 00:02:50,375
+Now issueRequest will do what the name
+
+63
+00:02:50,424 --> 00:02:53,854
+suggests. It will issue the request and HTMX
+
+64
+00:02:53,854 --> 00:02:55,884
+will then still handle the response and so
+
+65
+00:02:55,964 --> 00:02:56,158
+on
+
+66
+00:02:56,834 --> 00:02:57,641
+as it always would.
+
+67
+00:02:58,948 --> 00:03:00,965
+But with that, we therefore then make sure
+
+68
+00:03:00,965 --> 00:03:04,032
+that we do close the dialog but then also
+
+69
+00:03:04,032 --> 00:03:05,937
+continue with the intended action.
+
+70
+00:03:07,560 --> 00:03:08,935
+And therefore now with this in place,
+
+71
+00:03:09,631 --> 00:03:10,716
+if we reload again,
+
+72
+00:03:11,719 --> 00:03:13,565
+if I add an item, you see I get the dialog,
+
+73
+00:03:14,288 --> 00:03:16,083
+If I cancel, nothing happens.
+
+74
+00:03:16,676 --> 00:03:18,808
+If I click yes though, the item is added.
+
+75
+00:03:19,482 --> 00:03:21,550
+And I can do this for multiple places. And
+
+76
+00:03:21,566 --> 00:03:24,050
+if I click on an item up here, I get the
+
+77
+00:03:24,050 --> 00:03:27,160
+same dialog now with the text remove though.
+
+78
+00:03:27,737 --> 00:03:29,180
+And I can also cancel that,
+
+79
+00:03:29,821 --> 00:03:31,152
+but I can also confirm it.
+
+80
+00:03:32,370 --> 00:03:34,470
+And therefore now I got the functionality I
+
+81
+00:03:34,550 --> 00:03:37,548
+want with help of some custom JavaScript
+
+82
+00:03:37,580 --> 00:03:39,968
+code. And it's important to know that you
+
+83
+00:03:40,145 --> 00:03:43,543
+can add your own custom JavaScript code to
+
+84
+00:03:43,687 --> 00:03:47,118
+HTMX managed or HTMX X Enhanced
+
+85
+00:03:47,215 --> 00:03:47,898
+applications.

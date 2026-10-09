@@ -1,0 +1,289 @@
+1
+00:00:00,673 --> 00:00:03,494
+When working with large language models, no
+當使用大型語言模型時，沒有
+
+2
+00:00:03,494 --> 00:00:05,626
+matter how, no matter if you're building
+無論如何，無論你是否在建造
+
+3
+00:00:05,706 --> 00:00:07,950
+applications on top of them or if you're
+在它們之上的應用程式或如果您是
+
+4
+00:00:07,966 --> 00:00:10,932
+working with AI agents, there are certain
+與人工智慧代理合作，有一定的
+
+5
+00:00:11,076 --> 00:00:12,295
+risks to be aware of.
+需要注意的風險。
+
+6
+00:00:12,840 --> 00:00:15,324
+I already mentioned hallucinations earlier,
+我之前已經提到過幻覺，
+
+7
+00:00:15,581 --> 00:00:18,306
+but another risk to be aware of are prompt
+但另一個需要注意的風險是迅速的
+
+8
+00:00:18,306 --> 00:00:18,995
+injections.
+注射。
+
+9
+00:00:19,813 --> 00:00:23,628
+And the idea here is that there may be
+這裡的想法是可能有
+
+10
+00:00:23,740 --> 00:00:27,026
+prompts that find the way into the context
+找到進入上下文的提示
+
+11
+00:00:27,026 --> 00:00:29,623
+window which you never wrote, which may
+你從未寫過的窗口，這可能
+
+12
+00:00:29,848 --> 00:00:32,060
+instruct the model to do something you don't
+指示模型做一些你不做的事情
+
+13
+00:00:32,156 --> 00:00:34,434
+want it to do. Now, how could that happen?
+想要它做。現在，怎麼會發生這種事呢？
+
+14
+00:00:34,819 --> 00:00:36,712
+Let's say you're building a system which
+假設您正在建立一個系統
+
+15
+00:00:36,968 --> 00:00:39,358
+automatically handles customer emails.
+自動處理客戶電子郵件。
+
+16
+00:00:40,112 --> 00:00:42,214
+Well, you don't know what those customers
+好吧，你不知道那些顧客是什麼
+
+17
+00:00:42,342 --> 00:00:44,411
+are going to write you, but whatever is in
+我們會寫信給你，但無論裡面有什麼
+
+18
+00:00:44,443 --> 00:00:47,090
+that email acts as a prompt in the end
+該電子郵件最終充當提示
+
+19
+00:00:47,090 --> 00:00:48,903
+because it's sent to the model.
+因為它被送到模型。
+
+20
+00:00:49,641 --> 00:00:52,464
+It may be sent to the model as the customer
+它可以作為客戶發送給模型
+
+21
+00:00:52,560 --> 00:00:54,549
+email on which it should do something, but
+它應該對其執行某些操作的電子郵件，但是
+
+22
+00:00:54,549 --> 00:00:57,757
+it's still some text that's evaluated by the
+它仍然是一些由
+
+23
+00:00:57,773 --> 00:01:00,452
+model, just like the prompt you give the
+模型，就像您給出的提示一樣
+
+24
+00:01:00,468 --> 00:01:02,425
+model in addition to that customer email,
+除了客戶電子郵件之外的模型，
+
+25
+00:01:02,489 --> 00:01:05,441
+for example. And that is extremely important
+例如。這非常重要
+
+26
+00:01:05,441 --> 00:01:05,987
+to understand.
+去理解。
+
+27
+00:01:06,645 --> 00:01:09,148
+Any piece of text that reaches a large
+任何達到大範圍的文本
+
+28
+00:01:09,148 --> 00:01:09,774
+language model
+語言模型
+
+29
+00:01:10,335 --> 00:01:13,994
+acts as a prompt. The content of a PDF file
+充當提示。 PDF 檔案的內容
+
+30
+00:01:14,122 --> 00:01:16,625
+that's being read, just like the results of
+正在讀取，就像結果一樣
+
+31
+00:01:16,625 --> 00:01:19,160
+a web search, just like that customer email,
+網路搜尋，就像客戶電子郵件一樣，
+
+32
+00:01:19,192 --> 00:01:20,043
+for example.
+例如。
+
+33
+00:01:20,684 --> 00:01:21,503
+And therefore,
+因此，
+
+34
+00:01:22,048 --> 00:01:25,161
+you have to carefully think about which
+你必須仔細考慮哪一個
+
+35
+00:01:25,177 --> 00:01:28,370
+sources you're pulling in when working with
+您在工作時使用的資源
+
+36
+00:01:28,483 --> 00:01:31,499
+an AI agent or a large language model and
+人工智慧代理或大型語言模型以及
+
+37
+00:01:31,852 --> 00:01:34,321
+what to expose to the model and what not to
+向模型展示什麼以及不展示什麼
+
+38
+00:01:34,321 --> 00:01:34,866
+expose.
+暴露。
+
+39
+00:01:35,443 --> 00:01:39,242
+You may want some system that prescreens or
+您可能需要一些預先篩選或
+
+40
+00:01:39,610 --> 00:01:41,919
+cleans up those customer emails, for
+清理這些客戶電子郵件，以便
+
+41
+00:01:41,951 --> 00:01:42,608
+example.
+例子。
+
+42
+00:01:43,137 --> 00:01:45,926
+You must be aware of that prompt injection
+您必須注意提示注入
+
+43
+00:01:45,958 --> 00:01:49,068
+risk. And whilst modern models definitely
+風險。雖然現代模型絕對
+
+44
+00:01:49,084 --> 00:01:52,467
+got better at self-detecting prompt
+更好地進行自我檢測提示
+
+45
+00:01:52,467 --> 00:01:55,544
+injections and defending against them,
+注射並防禦它們，
+
+46
+00:01:56,138 --> 00:01:58,318
+you still can't trust them to
+你仍然不能相信他們
+
+47
+00:01:59,007 --> 00:02:02,261
+fully understand what an intended or
+充分理解意圖或
+
+48
+00:02:02,534 --> 00:02:03,447
+unintended use
+意外使用
+
+49
+00:02:04,234 --> 00:02:06,207
+And therefore prompt injections are a very
+因此，及時注射是一種非常有效的方法。
+
+50
+00:02:06,239 --> 00:02:09,786
+serious security risk, which occurs whenever
+嚴重的安全風險，無論何時都會發生
+
+51
+00:02:10,251 --> 00:02:13,188
+you send something to the model which you
+你向模型發送了一些東西
+
+52
+00:02:13,220 --> 00:02:15,868
+don't fully control or own. Which, if you
+不完全控製或擁有。哪個，如果你
+
+53
+00:02:15,868 --> 00:02:18,805
+think about it, is more often the case than
+想一想，這種情況更多的是
+
+54
+00:02:18,998 --> 00:02:21,180
+you would maybe at first think. Because
+你可能一開始會這麼想。因為
+
+55
+00:02:21,180 --> 00:02:23,651
+again, any web search result, any PDF
+再次強調，任何網路搜尋結果、任何 PDF
+
+56
+00:02:23,651 --> 00:02:26,010
+document, any customer email, that is all
+檔案、任何客戶電子郵件，僅此而已
+
+57
+00:02:26,203 --> 00:02:28,658
+content you don't fully control. And
+您無法完全控制的內容。和
+
+58
+00:02:28,706 --> 00:02:30,777
+therefore that is a risk to be aware of.
+因此，這是一個需要注意的風險。

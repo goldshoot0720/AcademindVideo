@@ -1,0 +1,394 @@
+1
+00:00:00,096 --> 00:00:03,686
+Using the UFW firewall is good. It works on
+使用UFW防火牆很好。它適用於
+
+2
+00:00:03,862 --> 00:00:06,122
+any Linux system in the end. It's therefore
+到底是什麼Linux系統。故此
+
+3
+00:00:06,122 --> 00:00:07,067
+a great choice.
+一個很好的選擇。
+
+4
+00:00:07,724 --> 00:00:10,209
+But if you're using a provider that has a
+但如果您使用的提供者俱有
+
+5
+00:00:10,209 --> 00:00:12,132
+built-in firewall solution, which many
+內建防火牆解決方案，其中許多
+
+6
+00:00:12,132 --> 00:00:12,805
+providers do,
+提供者這樣做，
+
+7
+00:00:13,414 --> 00:00:15,401
+you might wanna use that instead for a
+你可能會想用它來代替
+
+8
+00:00:15,401 --> 00:00:17,485
+couple of reasons. One big reason is that
+有幾個原因。很大的原因是
+
+9
+00:00:17,485 --> 00:00:19,745
+you can configure it from outside the VPS.
+您可以從 VPS 外部對其進行設定。
+
+10
+00:00:20,161 --> 00:00:22,918
+So if you had logged out yourself, you could
+因此，如果您自己註銷了，您可以
+
+11
+00:00:22,934 --> 00:00:25,274
+change it from outside so you would not
+從外部改變它，這樣你就不會
+
+12
+00:00:25,274 --> 00:00:27,646
+really be locked out. That would be one big
+真的會被拒於門外。那將是一大
+
+13
+00:00:27,678 --> 00:00:29,569
+reason for using that firewall instead.
+使用該防火牆的原因。
+
+14
+00:00:30,162 --> 00:00:32,854
+It's probably also a bit easier to quickly
+可能也更容易快速
+
+15
+00:00:32,886 --> 00:00:35,097
+change something here. It has a nice visual
+在這裡改變一些東西。它有一個很好的視覺效果
+
+16
+00:00:35,129 --> 00:00:35,914
+user interface
+使用者介面
+
+17
+00:00:36,795 --> 00:00:39,182
+and it's also not something that runs on
+而且它也不是運作的東西
+
+18
+00:00:39,278 --> 00:00:41,825
+your VPS. It doesn't consume resources
+你的 VPS。它不消耗資源
+
+19
+00:00:41,857 --> 00:00:42,050
+there.
+那裡。
+
+20
+00:00:42,578 --> 00:00:45,766
+It can't be hacked if your VPS were to be
+如果你的 VPS 是這樣的話，它就不會被駭客攻擊
+
+21
+00:00:45,766 --> 00:00:46,856
+hacked in some way.
+以某種方式被駭客入侵。
+
+22
+00:00:47,689 --> 00:00:50,813
+It's simply an extra layer of security to
+這只是一個額外的安全層
+
+23
+00:00:50,813 --> 00:00:54,626
+use that provider-provided firewall. So if
+使用提供者提供的防火牆。所以如果
+
+24
+00:00:54,674 --> 00:00:56,805
+you have it, you may wanna consider using
+你有它，你可能想考慮使用
+
+25
+00:00:56,901 --> 00:00:59,176
+it. So here on Hetzner, I'll create a new
+它。所以在 Hetzner 上，我將創建一個新的
+
+26
+00:00:59,240 --> 00:00:59,769
+firewall.
+防火牆。
+
+27
+00:01:00,442 --> 00:01:00,683
+Free,
+自由的，
+
+28
+00:01:01,229 --> 00:01:02,995
+and as mentioned, other providers have
+如前所述，其他提供者已經
+
+29
+00:01:02,995 --> 00:01:03,862
+similar features.
+類似的特徵。
+
+30
+00:01:04,521 --> 00:01:05,693
+And here I wanna allow
+在這裡我想允許
+
+31
+00:01:06,367 --> 00:01:09,996
+access to port 22, which is the SSH port via
+訪問端口 22，這是 SSH 端口
+
+32
+00:01:09,996 --> 00:01:12,293
+TCP. That is fine, that is the underlying
+TCP。很好，這就是底層
+
+33
+00:01:12,389 --> 00:01:14,187
+protocol we're using with SSH.
+我們與 SSH 一起使用的協定。
+
+34
+00:01:14,894 --> 00:01:17,287
+And I want to allow that access from any IP
+我想允許從任何 IP 進行訪問
+
+35
+00:01:17,367 --> 00:01:19,535
+address for now. We'll change that later to
+暫時地址。我們稍後會將其更改為
+
+36
+00:01:19,535 --> 00:01:21,767
+make it even more secure, but for now, any
+使其更加安全，但就目前而言，任何
+
+37
+00:01:21,783 --> 00:01:24,320
+IP, so any computer on the entire world
+IP，所以全世界的任何計算機
+
+38
+00:01:24,689 --> 00:01:27,515
+could connect to our server via port 22.
+可以透過連接埠 22 連接到我們的伺服器。
+
+39
+00:01:28,303 --> 00:01:30,864
+Which sounds insecure, but keep in mind they
+這聽起來不安全，但請記住它們
+
+40
+00:01:30,864 --> 00:01:33,474
+will still need the SSH key, which only we
+仍然需要 SSH 金鑰，只有我們才能使用
+
+41
+00:01:33,602 --> 00:01:36,196
+have on our system. So it's still very
+我們的系統上有。所以還是很
+
+42
+00:01:36,196 --> 00:01:36,550
+secure.
+安全的。
+
+43
+00:01:37,450 --> 00:01:39,051
+But again, we'll lock that down even more
+但同樣，我們會進一步鎖定它
+
+44
+00:01:39,181 --> 00:01:39,488
+later.
+之後。
+
+45
+00:01:40,297 --> 00:01:42,125
+You could add more here.
+您可以在這裡添加更多內容。
+
+46
+00:01:43,902 --> 00:01:45,226
+So you could add another rule
+所以你可以再增加一個規則
+
+47
+00:01:46,453 --> 00:01:50,183
+and for example, grant access to port 443 if
+例如，如果滿足以下條件，則授予對連接埠 443 的存取權限：
+
+48
+00:01:50,183 --> 00:01:52,412
+you had a web server that is able to
+你有一個網頁伺服器能夠
+
+49
+00:01:53,255 --> 00:01:55,835
+resolve TLS, so that is able to handle
+解析 TLS，以便能夠處理
+
+50
+00:01:55,851 --> 00:01:58,025
+secured connections running on that machine.
+該機器上運行的安全連接。
+
+51
+00:01:58,686 --> 00:01:59,456
+You could open that.
+你可以打開那個。
+
+52
+00:02:00,049 --> 00:02:02,886
+But here I'll keep it focused on port 22.
+但在這裡我將重點放在連接埠 22。
+
+53
+00:02:03,912 --> 00:02:06,845
+You can add outbound rules, but by default,
+您可以新增出站規則，但預設情況下，
+
+54
+00:02:07,102 --> 00:02:09,779
+all outbound traffic is allowed. So if you
+允許所有出站流量。所以如果你
+
+55
+00:02:09,843 --> 00:02:12,135
+run something on your VPS and you're sending
+在你的 VPS 上運行一些東西並且你正在發送
+
+56
+00:02:12,167 --> 00:02:15,117
+a request to the World Wide Web, like we did
+向萬維網發出請求，就像我們所做的那樣
+
+57
+00:02:15,117 --> 00:02:17,842
+when we ran apt install, for example, we
+例如，當我們運行 apt install 時，我們
+
+58
+00:02:17,858 --> 00:02:19,413
+were installing something
+正在安裝一些東西
+
+59
+00:02:20,022 --> 00:02:22,315
+with the package manager where we downloaded
+使用我們下載的套件管理器
+
+60
+00:02:22,347 --> 00:02:24,751
+the package from some other website. That
+來自其他網站的包。那
+
+61
+00:02:24,751 --> 00:02:27,043
+kind of traffic, that outbound traffic is
+流量型別，出站流量是
+
+62
+00:02:27,076 --> 00:02:29,304
+allowed by default. You could restrict it,
+預設允許。你可以限制一下，
+
+63
+00:02:29,320 --> 00:02:31,549
+but you don't have to. But it's the inbound
+但你不必這樣做。但這是入境
+
+64
+00:02:31,549 --> 00:02:33,427
+traffic you typically wanna worry about.
+您通常想要擔心的交通。
+
+65
+00:02:34,277 --> 00:02:36,380
+So I'll not do anything about the outbound
+所以我不會對出境做任何事情
+
+66
+00:02:36,444 --> 00:02:39,204
+rules and I'll apply that to that one server
+規則，我會將其套用到該一台伺服器
+
+67
+00:02:39,573 --> 00:02:41,306
+where I set up the firewall.
+我設定防火牆的地方。
+
+68
+00:02:42,397 --> 00:02:44,098
+You could give it a label, could give it a
+你可以給它一個標籤，可以給它一個
+
+69
+00:02:44,098 --> 00:02:45,575
+name, but I'll just create it.
+名稱，但我會創建它。
+
+70
+00:02:46,152 --> 00:02:48,961
+And so now the VPS I created before has this
+現在我之前創建的 VPS 有了這個
+
+71
+00:02:48,961 --> 00:02:50,870
+firewall attached to it.
+防火牆連接到它。
+
+72
+00:02:52,090 --> 00:02:54,529
+And now we could theoretically remove or
+現在我們理論上可以刪除或
+
+73
+00:02:54,577 --> 00:02:56,872
+disable the UFW firewall here
+在這裡禁用 UFW 防火牆
+
+74
+00:02:57,546 --> 00:02:59,960
+And it would still be protected because we
+它仍然會受到保護，因為我們
+
+75
+00:02:59,960 --> 00:03:02,486
+had the Hetzner firewall in my case. But
+在我的例子中，有 Hetzner 防火牆。但
+
+76
+00:03:02,534 --> 00:03:04,497
+here for demo purposes, I'll keep both
+出於演示目的，我將保留兩者
+
+77
+00:03:04,561 --> 00:03:04,963
+running. But
+跑步。但
+
+78
+00:03:05,607 --> 00:03:07,586
+of course you technically don't need both.
+當然，從技術上講，您不需要兩者。
+
+79
+00:03:07,843 --> 00:03:08,873
+You get my point, I guess.
+我想你明白我的意思了。

@@ -1,0 +1,631 @@
+1
+00:00:02,212 --> 00:00:05,049
+Now let's conclude the SOLID principles by
+
+2
+00:00:05,065 --> 00:00:07,646
+having a look at the last principle in this
+
+3
+00:00:07,646 --> 00:00:08,079
+list here,
+
+4
+00:00:09,153 --> 00:00:12,663
+the Dependency Inversion Principle. What is
+
+5
+00:00:12,759 --> 00:00:13,801
+this principle about?
+
+6
+00:00:14,539 --> 00:00:17,569
+The Dependency Inversion Principle says that
+
+7
+00:00:17,569 --> 00:00:20,438
+you should depend upon abstractions, not
+
+8
+00:00:20,694 --> 00:00:21,416
+concretions.
+
+9
+00:00:22,634 --> 00:00:24,846
+And that's a super fancy term which
+
+10
+00:00:25,503 --> 00:00:27,748
+I don't know about you, but which might be
+
+11
+00:00:27,748 --> 00:00:29,062
+totally unclear.
+
+12
+00:00:29,671 --> 00:00:31,980
+At least this sentence was totally unclear
+
+13
+00:00:32,893 --> 00:00:34,063
+when I first read it.
+
+14
+00:00:35,137 --> 00:00:37,862
+It is, however, not even close as complex
+
+15
+00:00:37,862 --> 00:00:40,619
+and complicated as it sounds. And if you are
+
+16
+00:00:40,811 --> 00:00:42,879
+following the other principles already,
+
+17
+00:00:43,552 --> 00:00:45,684
+then chances are pretty high that you're
+
+18
+00:00:45,860 --> 00:00:47,511
+already following this one as well,
+
+19
+00:00:48,104 --> 00:00:50,492
+or at least that it's very easy to follow
+
+20
+00:00:50,589 --> 00:00:51,278
+this one as well.
+
+21
+00:00:52,031 --> 00:00:54,676
+Now here I got another example which
+
+22
+00:00:54,756 --> 00:00:57,032
+actually is very close to the interface
+
+23
+00:00:57,112 --> 00:00:59,725
+segregation principle we covered in the last
+
+24
+00:00:59,725 --> 00:01:00,061
+lecture.
+
+25
+00:01:00,847 --> 00:01:03,238
+Following the interface segregation
+
+26
+00:01:03,270 --> 00:01:05,998
+principle, I got 2 interfaces here, a
+
+27
+00:01:06,239 --> 00:01:08,999
+database and remote database interface,
+
+28
+00:01:09,608 --> 00:01:13,058
+and then I got 2 classes, the SQL database
+
+29
+00:01:13,058 --> 00:01:15,625
+class and the in-memory database class,
+
+30
+00:01:16,251 --> 00:01:18,562
+which actually use these interfaces.
+
+31
+00:01:20,022 --> 00:01:22,637
+Now, I also got an app class down there
+
+32
+00:01:23,151 --> 00:01:26,424
+where I actually need a database as an
+
+33
+00:01:26,521 --> 00:01:27,997
+argument in the constructor.
+
+34
+00:01:28,610 --> 00:01:31,997
+And that database either has to be an SQL
+
+35
+00:01:32,111 --> 00:01:34,688
+database or an in-memory database.
+
+36
+00:01:35,271 --> 00:01:36,535
+This app works with both.
+
+37
+00:01:37,170 --> 00:01:38,545
+But depending on what it is,
+
+38
+00:01:39,144 --> 00:01:42,024
+I have to run the connect method as part of
+
+39
+00:01:42,040 --> 00:01:45,018
+my constructor. That's why I have this if
+
+40
+00:01:45,115 --> 00:01:45,616
+check here.
+
+41
+00:01:47,110 --> 00:01:49,468
+The problem with this example is that we
+
+42
+00:01:49,468 --> 00:01:51,066
+depend on concretions.
+
+43
+00:01:51,890 --> 00:01:55,056
+I depend on the concrete implementation of
+
+44
+00:01:55,056 --> 00:01:55,589
+my database.
+
+45
+00:01:56,467 --> 00:01:59,211
+I accept both types here and therefore I
+
+46
+00:01:59,211 --> 00:02:02,261
+have to check which type I'm getting so that
+
+47
+00:02:02,325 --> 00:02:05,471
+I can execute this extra code which I might
+
+48
+00:02:05,471 --> 00:02:06,353
+need to execute.
+
+49
+00:02:06,995 --> 00:02:08,825
+Now, it should be needless to say that code
+
+50
+00:02:08,825 --> 00:02:11,778
+like this can be hard to maintain because
+
+51
+00:02:11,810 --> 00:02:14,844
+the more types of databases we add, the more
+
+52
+00:02:14,924 --> 00:02:17,636
+if checks we might need to add here. And
+
+53
+00:02:17,668 --> 00:02:20,011
+whenever the connect method changes, we also
+
+54
+00:02:20,011 --> 00:02:22,805
+need to change it in all the places where we
+
+55
+00:02:22,805 --> 00:02:25,390
+do have a check like this and where we do
+
+56
+00:02:25,454 --> 00:02:26,386
+call connect.
+
+57
+00:02:27,686 --> 00:02:30,159
+So therefore, this could become a problem in
+
+58
+00:02:30,433 --> 00:02:33,371
+bigger applications where you maybe also
+
+59
+00:02:33,387 --> 00:02:35,186
+have different kinds of databases.
+
+60
+00:02:36,198 --> 00:02:38,366
+Now, we can change the code to follow the
+
+61
+00:02:38,382 --> 00:02:40,164
+Dependency Inversion Principle though.
+
+62
+00:02:40,774 --> 00:02:43,264
+And changing it will be very simple because
+
+63
+00:02:43,264 --> 00:02:45,014
+I'm already following the Interface
+
+64
+00:02:45,223 --> 00:02:47,808
+Segregation Principle here by having my
+
+65
+00:02:47,856 --> 00:02:49,109
+different interfaces.
+
+66
+00:02:50,364 --> 00:02:52,249
+These interfaces in the end are
+
+67
+00:02:52,443 --> 00:02:53,280
+abstractions.
+
+68
+00:02:53,973 --> 00:02:55,875
+I can use these interfaces to
+
+69
+00:02:56,471 --> 00:02:59,097
+buy certain functionalities, to ensure
+
+70
+00:02:59,242 --> 00:03:00,483
+certain functionalities
+
+71
+00:03:01,079 --> 00:03:03,658
+without knowing how exactly they work under
+
+72
+00:03:03,658 --> 00:03:06,784
+the hood. But I can rely on the fact that,
+
+73
+00:03:06,945 --> 00:03:09,359
+for example, a connect method or a store
+
+74
+00:03:09,473 --> 00:03:10,582
+data method is there.
+
+75
+00:03:12,424 --> 00:03:15,021
+And then here in this app, we could say that
+
+76
+00:03:15,021 --> 00:03:17,764
+in the end, all we want is a database.
+
+77
+00:03:18,743 --> 00:03:21,040
+I don't wanna deal with connecting here.
+
+78
+00:03:21,875 --> 00:03:23,947
+I just want to ensure that the type of
+
+79
+00:03:24,044 --> 00:03:26,164
+database I have here, the type of this
+
+80
+00:03:26,373 --> 00:03:27,320
+argument is
+
+81
+00:03:27,915 --> 00:03:30,918
+of type Database. So it should be a class
+
+82
+00:03:31,288 --> 00:03:34,067
+which implements the Database interface.
+
+83
+00:03:35,528 --> 00:03:38,018
+And the Database interface in the end just
+
+84
+00:03:38,018 --> 00:03:40,331
+ensures that there is a storeData method,
+
+85
+00:03:40,684 --> 00:03:42,949
+not that there is a connect method. Method.
+
+86
+00:03:44,072 --> 00:03:45,868
+So therefore, of course, we should remove
+
+87
+00:03:45,901 --> 00:03:48,307
+this if check because we know we get a
+
+88
+00:03:48,307 --> 00:03:50,730
+database which only has a storeData method
+
+89
+00:03:51,179 --> 00:03:53,136
+and we don't have a connect method here.
+
+90
+00:03:54,227 --> 00:03:57,195
+Instead, it's now the place where we create
+
+91
+00:03:57,276 --> 00:04:00,902
+our app where we have to provide a database
+
+92
+00:04:00,966 --> 00:04:02,634
+as expected by this class.
+
+93
+00:04:03,469 --> 00:04:05,763
+And that's why it's called the Dependency
+
+94
+00:04:05,875 --> 00:04:07,030
+Inversion Principle.
+
+95
+00:04:07,865 --> 00:04:10,993
+We no longer care about the data here in the
+
+96
+00:04:11,073 --> 00:04:13,981
+App class So in the consuming class, we
+
+97
+00:04:13,981 --> 00:04:16,134
+don't wanna check which kind of data we got
+
+98
+00:04:16,134 --> 00:04:16,246
+here.
+
+99
+00:04:16,793 --> 00:04:20,087
+Instead, we invert the dependency and we
+
+100
+00:04:20,167 --> 00:04:22,465
+don't depend on the type of database,
+
+101
+00:04:23,140 --> 00:04:25,598
+but instead we force whoever is
+
+102
+00:04:25,630 --> 00:04:29,005
+instantiating that class to provide us a
+
+103
+00:04:29,166 --> 00:04:32,604
+database which fulfills this contract and
+
+104
+00:04:32,604 --> 00:04:36,027
+just this contract. So wherever we are
+
+105
+00:04:36,220 --> 00:04:39,368
+instantiating the App class, we now need to
+
+106
+00:04:39,432 --> 00:04:42,146
+pass in a new database. And therefore, it's
+
+107
+00:04:42,243 --> 00:04:43,801
+now here in this place
+
+108
+00:04:44,330 --> 00:04:46,707
+where I, for example, need to create a new
+
+109
+00:04:46,820 --> 00:04:48,088
+SQL database
+
+110
+00:04:48,683 --> 00:04:50,481
+and also call connect here
+
+111
+00:04:51,172 --> 00:04:54,512
+because that's now my responsibility here in
+
+112
+00:04:54,705 --> 00:04:55,395
+this place.
+
+113
+00:04:56,391 --> 00:04:58,944
+The app doesn't care about it because it
+
+114
+00:04:58,944 --> 00:05:02,751
+inverted the dependencies. It tells me to
+
+115
+00:05:02,799 --> 00:05:05,671
+provide a proper value It doesn't want to
+
+116
+00:05:05,703 --> 00:05:06,713
+check it internally.
+
+117
+00:05:07,930 --> 00:05:10,174
+And this tends to be more maintainable
+
+118
+00:05:10,510 --> 00:05:12,417
+because you can even use dependency
+
+119
+00:05:12,433 --> 00:05:16,103
+injection frameworks and approaches to have
+
+120
+00:05:16,183 --> 00:05:18,859
+only a few places in your application where
+
+121
+00:05:19,404 --> 00:05:22,112
+things are created. So where, for example,
+
+122
+00:05:22,208 --> 00:05:24,499
+this database is created and connected
+
+123
+00:05:25,076 --> 00:05:27,912
+and to have many places in your app where
+
+124
+00:05:28,040 --> 00:05:31,309
+you then depend on this abstract database.
+
+125
+00:05:32,465 --> 00:05:34,920
+That's the idea of the Dependency Inversion
+
+126
+00:05:35,032 --> 00:05:37,407
+Principle and that's how you write code that
+
+127
+00:05:37,519 --> 00:05:38,643
+follows this principle.
+
+128
+00:05:39,766 --> 00:05:41,820
+Now, of course, like all these principles,
+
+129
+00:05:42,173 --> 00:05:44,420
+there also is a connection to clean code
+
+130
+00:05:44,420 --> 00:05:47,196
+here. By inverting the dependency, of
+
+131
+00:05:47,228 --> 00:05:49,490
+course, we reduce the amount of code we have
+
+132
+00:05:49,490 --> 00:05:51,689
+in here and that, of course, automatically
+
+133
+00:05:51,705 --> 00:05:54,529
+makes this smaller, more readable, and
+
+134
+00:05:54,529 --> 00:05:56,102
+avoids code duplication.
+
+135
+00:05:57,097 --> 00:05:58,429
+So it certainly matters.
+
+136
+00:05:59,183 --> 00:06:01,396
+But the Dependency Inversion Principle is
+
+137
+00:06:01,573 --> 00:06:04,797
+also kind of a result or at least strongly
+
+138
+00:06:04,941 --> 00:06:06,690
+related to the other principles.
+
+139
+00:06:07,428 --> 00:06:10,379
+And in addition, the key benefit definitely
+
+140
+00:06:10,636 --> 00:06:12,978
+is maintainability and extensibility.
+
+141
+00:06:13,700 --> 00:06:15,753
+So of course it matters, all these
+
+142
+00:06:15,785 --> 00:06:18,111
+principles matter, but I would argue it's
+
+143
+00:06:18,111 --> 00:06:21,528
+not as important as the first 2 principles
+
+144
+00:06:21,720 --> 00:06:23,228
+which were covered, the Single
+
+145
+00:06:23,244 --> 00:06:25,458
+Responsibility and the Open-Closed
+
+146
+00:06:25,490 --> 00:06:25,875
+Principle.
+
+147
+00:06:27,013 --> 00:06:29,065
+Nonetheless, we now had a look at all these
+
+148
+00:06:29,242 --> 00:06:32,399
+SOLID principles which are popular for a
+
+149
+00:06:32,464 --> 00:06:32,993
+good reason.
+
+150
+00:06:33,970 --> 00:06:36,776
+And if you are working with classes and
+
+151
+00:06:36,792 --> 00:06:38,876
+especially if you are following a
+
+152
+00:06:38,956 --> 00:06:41,601
+project-oriented approach, if you are
+
+153
+00:06:41,601 --> 00:06:43,845
+writing code in an object-oriented way,
+
+154
+00:06:44,390 --> 00:06:47,179
+you should also consider and respect these
+
+155
+00:06:47,292 --> 00:06:50,065
+principles because ultimately they will lead
+
+156
+00:06:50,097 --> 00:06:53,479
+to more maintainable and extensible code and
+
+157
+00:06:53,688 --> 00:06:56,829
+as a great side effect, they also tend to
+
+158
+00:06:56,910 --> 00:06:57,839
+give you cleaner code.

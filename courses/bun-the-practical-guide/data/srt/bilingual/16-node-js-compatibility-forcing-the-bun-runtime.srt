@@ -1,0 +1,604 @@
+1
+00:00:00,176 --> 00:00:03,093
+Now, I mentioned earlier in the course that
+現在，我在課程前面提到過
+
+2
+00:00:03,157 --> 00:00:06,490
+Bun has great Node.js compatibility and
+Bun 具有出色的 Node.js 相容性，且
+
+3
+00:00:06,522 --> 00:00:09,455
+therefore I rebuilt this entire utility
+因此我重建了整個實用程式
+
+4
+00:00:09,471 --> 00:00:13,782
+project now using just Node.js, no more Bun.
+專案現在只使用 Node.js，不再使用 Bun。
+
+5
+00:00:14,680 --> 00:00:16,843
+For the image processing, I'm therefore
+對於影像處理，我因此
+
+6
+00:00:16,924 --> 00:00:19,552
+using the Sharp package, a third-party
+使用第三方 Sharp 包
+
+7
+00:00:19,568 --> 00:00:22,164
+package which helps with image processing.
+有助於影像處理的包。
+
+8
+00:00:22,228 --> 00:00:24,520
+Guess what? Because Node.js, unlike Bun,
+你猜怎麼著？因為 Node.js 與 Bun 不同，
+
+9
+00:00:25,033 --> 00:00:27,084
+doesn't have built-in image processing
+沒有內建影像處理功能
+
+10
+00:00:27,116 --> 00:00:29,168
+capabilities, at least at the point of time
+能力，至少在當時
+
+11
+00:00:29,264 --> 00:00:31,444
+where I'm recording this. But the rest of
+我正在記錄這個的地方。但其餘的
+
+12
+00:00:31,444 --> 00:00:33,544
+the code doesn't look too different because
+程式碼看起來並沒有太大不同，因為
+
+13
+00:00:33,544 --> 00:00:36,878
+modern Node.js also supports TypeScript and
+現代 Node.js 也支援 TypeScript 和
+
+14
+00:00:36,878 --> 00:00:38,818
+for example, also has a built-in test
+例如，還有一個內建測試
+
+15
+00:00:38,818 --> 00:00:41,126
+runner. So I still have tests, I'm still
+跑步者。所以我還有測試，我仍然
+
+16
+00:00:41,126 --> 00:00:42,777
+using TypeScript and I still have the same
+使用 TypeScript，我仍然有相同的
+
+17
+00:00:42,889 --> 00:00:44,060
+folder structure as before.
+資料夾結構如前。
+
+18
+00:00:44,733 --> 00:00:46,512
+Also added some detailed comments to make it
+還添加了一些詳細的註釋以使其
+
+19
+00:00:46,512 --> 00:00:48,372
+a bit easier to understand what's going on
+更容易理解發生了什麼
+
+20
+00:00:48,372 --> 00:00:49,125
+in the codebase.
+在程式碼庫中。
+
+21
+00:00:49,702 --> 00:00:51,866
+And of course, you also find this project
+當然，你也可以找到這個專案
+
+22
+00:00:51,866 --> 00:00:52,379
+attached.
+隨附的。
+
+23
+00:00:53,004 --> 00:00:55,858
+The important thing here is this all uses
+這裡重要的是這一切都使用
+
+24
+00:00:56,194 --> 00:01:00,266
+only Node.js, no Bun APIs and therefore of
+只有 Node.js，沒有 Bun API，因此
+
+25
+00:01:00,282 --> 00:01:02,847
+course we can run this entire project with
+當然我們可以運行整個專案
+
+26
+00:01:02,863 --> 00:01:05,895
+just Node and we do so. In the scripts, the
+只是 Node，我們就是這麼做的。在腳本中，
+
+27
+00:01:05,976 --> 00:01:09,505
+optimize-images script uses Node to execute
+optimize-images腳本使用Node執行
+
+28
+00:01:09,585 --> 00:01:11,574
+optimize-images.ts, not Bun.
+Optimize-images.ts，而不是 Bun。
+
+29
+00:01:12,504 --> 00:01:14,381
+So I can run npm run
+所以我可以運行 npm run
+
+30
+00:01:15,039 --> 00:01:18,424
+optimize-images to run that script
+優化映像來運行該腳本
+
+31
+00:01:19,049 --> 00:01:21,103
+and just as before, I get an error if there
+和以前一樣，如果有的話我會收到錯誤
+
+32
+00:01:21,456 --> 00:01:24,215
+are some missing inputs. So therefore, just
+是一些缺失的輸入。因此，只需
+
+33
+00:01:24,215 --> 00:01:26,493
+as before, I should provide my images path,
+和以前一樣，我應該提供我的圖像路徑，
+
+34
+00:01:26,942 --> 00:01:28,931
+so my path to the images folder.
+所以我的圖像資料夾的路徑。
+
+35
+00:01:29,573 --> 00:01:32,267
+In my case, that's this local path. I'll add
+就我而言，這就是本地路徑。我會添加
+
+36
+00:01:32,299 --> 00:01:32,957
+--recursive,
+--遞迴,
+
+37
+00:01:34,144 --> 00:01:37,480
+--format I'll set to WebP to get WebP images
+--format 我將設定為 WebP 以取得 WebP 圖像
+
+38
+00:01:37,528 --> 00:01:39,966
+as output, and quality I'll set to 80.
+作為輸出和質量，我將設定為 80。
+
+39
+00:01:40,640 --> 00:01:44,938
+Now, important with npm run here to truly
+現在，重要的是 npm run 在這裡真正
+
+40
+00:01:45,114 --> 00:01:47,985
+pass in these arguments, I need to add
+傳入這些參數，我需要添加
+
+41
+00:01:48,082 --> 00:01:50,776
+double dashes like this between the npm
+npm 之間像這樣的雙破折號
+
+42
+00:01:50,840 --> 00:01:53,471
+script and then the inputs for that npm
+腳本，然後是該 npm 的輸入
+
+43
+00:01:53,471 --> 00:01:55,845
+script. That's simply required here when
+腳本。這只是這裡所需要的，當
+
+44
+00:01:55,957 --> 00:01:58,604
+using npm for executing this. But with that,
+使用 npm 來執行此操作。但這樣一來，
+
+45
+00:01:59,085 --> 00:02:02,006
+it'll go ahead and do its job and produce
+它會繼續完成它的工作並生產
+
+46
+00:02:02,054 --> 00:02:04,430
+these optimized versions of the images.
+這些圖像的最佳化版本。
+
+47
+00:02:05,264 --> 00:02:06,869
+So that works just as before.
+所以這就像以前一樣工作。
+
+48
+00:02:07,655 --> 00:02:09,806
+However, what's worth noting of course is
+不過，當然值得注意的是
+
+49
+00:02:09,918 --> 00:02:10,207
+that
+那
+
+50
+00:02:10,785 --> 00:02:14,220
+we can execute this with npm and Node
+我們可以使用 npm 和 Node 來執行它
+
+51
+00:02:14,316 --> 00:02:15,824
+therefore in the end since that's what I'm
+所以最後因為我就是這樣
+
+52
+00:02:15,841 --> 00:02:16,354
+using here.
+使用這裡。
+
+53
+00:02:17,060 --> 00:02:19,933
+But of course, as mentioned, Bun has that
+但當然，如前面提到的，Bun 具有以下特點：
+
+54
+00:02:19,933 --> 00:02:22,886
+Node.js compatibility so we could also do it
+Node.js 相容性，因此我們也可以做到
+
+55
+00:02:22,902 --> 00:02:23,849
+with Bun instead.
+用髮髻代替。
+
+56
+00:02:24,632 --> 00:02:26,845
+So we could try bun run
+所以我們可以試試bun run
+
+57
+00:02:27,588 --> 00:02:32,677
+optimize-images.ts like that, and we'll get
+像這樣優化images.ts，我們會得到
+
+58
+00:02:32,677 --> 00:02:34,559
+the same error output as before. And
+與之前相同的錯誤輸出。和
+
+59
+00:02:34,559 --> 00:02:35,161
+therefore
+所以
+
+60
+00:02:35,927 --> 00:02:37,783
+here, I'll reuse this
+在這裡，我將重複使用這個
+
+61
+00:02:38,939 --> 00:02:39,813
+and say bun run
+並說包子跑
+
+62
+00:02:41,117 --> 00:02:44,530
+optimize-images.ts like that.
+像這樣優化images.ts。
+
+63
+00:02:45,061 --> 00:02:46,913
+Now we don't need the double dashes with the
+現在我們不需要雙破折號
+
+64
+00:02:46,929 --> 00:02:49,190
+Bun runtime used for executing a file or a
+Bun運行時用於執行檔或
+
+65
+00:02:49,190 --> 00:02:49,856
+script like this.
+像這樣的腳本。
+
+66
+00:02:50,506 --> 00:02:51,742
+And remove the clear at the end
+並去除最後的透明部分
+
+67
+00:02:52,271 --> 00:02:53,795
+and it'll also work.
+它也會起作用。
+
+68
+00:02:54,357 --> 00:02:56,458
+However, there's one important thing to note
+不過，有一點要注意
+
+69
+00:02:56,458 --> 00:02:58,063
+here. For this project,
+這裡。對於這個專案，
+
+70
+00:02:59,025 --> 00:02:59,956
+this command here,
+這個指令在這裡，
+
+71
+00:03:00,549 --> 00:03:03,164
+despite using Bun for running this,
+儘管使用 Bun 來運行這個，
+
+72
+00:03:04,143 --> 00:03:06,325
+will not actually have used Bun as a
+實際上不會使用 Bun 作為
+
+73
+00:03:06,325 --> 00:03:09,389
+runtime. Why? Because in the code I produced
+運行時。為什麼？因為在我產生的程式碼中
+
+74
+00:03:09,389 --> 00:03:10,657
+in optimize-images.ts,
+在optimize-images.ts中，
+
+75
+00:03:11,202 --> 00:03:13,961
+I have this thing here at the top of this
+我在這個的頂部有這個東西
+
+76
+00:03:14,010 --> 00:03:17,218
+root entry file of this program. I have this
+該程式的根入口檔案。我有這個
+
+77
+00:03:17,700 --> 00:03:19,273
+shebang or hashbang
+shebang 或 hashbang
+
+78
+00:03:19,947 --> 00:03:21,792
+annotation here at the root of this file.
+註釋位於該檔案的根目錄中。
+
+79
+00:03:21,888 --> 00:03:24,472
+Now, what does this do? This tells the
+現在，這有什麼作用？這告訴
+
+80
+00:03:24,472 --> 00:03:26,943
+machine that when you run this file, it
+機器，當你運行這個檔案時，它
+
+81
+00:03:26,943 --> 00:03:27,794
+should use this
+應該用這個
+
+82
+00:03:28,693 --> 00:03:31,453
+process, this tool, this software, you could
+流程，這個工具，這個軟體，你可以
+
+83
+00:03:31,453 --> 00:03:31,710
+say,
+說，
+
+84
+00:03:32,239 --> 00:03:33,876
+for executing the file.
+用於執行該檔案。
+
+85
+00:03:34,470 --> 00:03:37,888
+And therefore, despite using bun run here
+因此，儘管在這裡使用bun run
+
+86
+00:03:37,936 --> 00:03:40,472
+for running this, it'll fall back to using
+為了運行這個，它將回退到使用
+
+87
+00:03:40,504 --> 00:03:42,991
+Node.js due to this instruction.
+Node.js 由於這條指令。
+
+88
+00:03:43,553 --> 00:03:45,416
+And I'm mentioning this here because of
+我在這裡提到這一點是因為
+
+89
+00:03:45,465 --> 00:03:47,344
+course I could remove that, it's my code,
+當然我可以刪除它，這是我的程式碼，
+
+90
+00:03:47,649 --> 00:03:50,508
+but sometimes you'll work with packages,
+但有時你會使用包包，
+
+91
+00:03:50,621 --> 00:03:53,753
+with tools that may also use Node.js
+以及也可以使用 Node.js 的工具
+
+92
+00:03:53,753 --> 00:03:55,938
+internally that may have an annotation like
+內部可能有這樣的註釋
+
+93
+00:03:56,002 --> 00:03:58,556
+this inside which you can't easily change
+這裡面你不能輕易改變
+
+94
+00:03:58,572 --> 00:04:00,017
+because it's not your code.
+因為這不是你的程式碼。
+
+95
+00:04:00,740 --> 00:04:03,246
+And to override this instruction, Bun has a
+為了覆蓋這個指令，Bun 有一個
+
+96
+00:04:03,246 --> 00:04:03,776
+special
+特別的
+
+97
+00:04:04,354 --> 00:04:06,571
+parameter you can add to bun run.
+您可以將參數加入bun run。
+
+98
+00:04:07,246 --> 00:04:08,627
+You can add bun run --package-annotations.
+您可以新增bun run --package-annotations。
+
+99
+00:04:10,680 --> 00:04:13,727
+Or single -b does the same, and add that in
+或者 single -b 做同樣的事情，並將其添加到
+
+100
+00:04:13,727 --> 00:04:15,522
+front of the thing, in front of the file,
+在事物的前面，在檔案的前面，
+
+101
+00:04:15,587 --> 00:04:17,703
+for example, or in front of the script name
+例如，或在腳本名稱前面
+
+102
+00:04:18,136 --> 00:04:21,007
+you want to execute. And adding this simply
+你想要執行。並簡單地添加這個
+
+103
+00:04:21,039 --> 00:04:24,005
+tells Bun that you absolutely want to use
+告訴 Bun 你絕對想用
+
+104
+00:04:24,005 --> 00:04:26,250
+the Bun runtime and you want to enforce the
+Bun 運行時並且您想要強制執行
+
+105
+00:04:26,314 --> 00:04:27,757
+usage of the Bun runtime.
+Bun 運作時的使用。
+
+106
+00:04:28,415 --> 00:04:31,205
+So you can always add that when you wanna
+所以你可以隨時添加它
+
+107
+00:04:31,205 --> 00:04:33,803
+use the Bun runtime, but you must add it if
+使用 Bun 運行時，但如果滿足以下條件則必須新增它
+
+108
+00:04:33,851 --> 00:04:36,160
+you otherwise use the Node runtime. So
+否則您將使用 Node 運行時。所以
+
+109
+00:04:36,257 --> 00:04:38,184
+adding this is never wrong, but of course,
+添加這個永遠不會錯，但當然，
+
+110
+00:04:38,216 --> 00:04:40,208
+if you know that you don't have an
+如果你知道你沒有
+
+111
+00:04:40,224 --> 00:04:42,055
+instruction like this in your code, it's
+在你的程式碼中這樣的指令，它是
+
+112
+00:04:42,120 --> 00:04:42,858
+also redundant.
+也是多餘的。
+
+113
+00:04:43,404 --> 00:04:45,203
+But here, if I add this, it'll work like
+但在這裡，如果我添加這個，它會像
+
+114
+00:04:45,268 --> 00:04:46,344
+before, but now
+以前，但現在
+
+115
+00:04:46,874 --> 00:04:49,026
+it'll actually use the Bun runtime. And
+它實際上會使用 Bun 運行時。和
+
+116
+00:04:49,107 --> 00:04:51,082
+that's why it's worth noting that for one,
+這就是為什麼值得注意的是，
+
+117
+00:04:51,532 --> 00:04:53,909
+Bun has that Node.js compatibility, which is
+Bun 具有 Node.js 相容性，即
+
+118
+00:04:53,941 --> 00:04:56,559
+great. You can use your Node tools or web
+偉大的。您可以使用 Node 工具或 Web
+
+119
+00:04:56,576 --> 00:04:59,611
+servers and run them with Bun. But B, you
+伺服器並使用 Bun 運行它們。但是B，你
+
+120
+00:04:59,659 --> 00:05:02,101
+may need to add that to ensure that you're
+可能需要添加它以確保您
+
+121
+00:05:02,278 --> 00:05:03,466
+really using Bun.
+真的用了Bun。

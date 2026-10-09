@@ -1,0 +1,735 @@
+1
+00:00:00,032 --> 00:00:02,069
+Now, as mentioned, here we'll build an
+
+2
+00:00:02,181 --> 00:00:04,748
+example application and the example
+
+3
+00:00:04,748 --> 00:00:06,529
+application we'll build will be a
+
+4
+00:00:06,529 --> 00:00:10,460
+note-taking app that allows users to create
+
+5
+00:00:10,460 --> 00:00:14,567
+notes using a rich text editor to use text
+
+6
+00:00:14,632 --> 00:00:15,450
+formatting in there.
+
+7
+00:00:16,075 --> 00:00:18,691
+Then they can of course view those notes and
+
+8
+00:00:18,723 --> 00:00:21,065
+they can also manage them and for example,
+
+9
+00:00:21,274 --> 00:00:21,659
+edit them
+
+10
+00:00:22,236 --> 00:00:24,932
+or of course also delete those notes.
+
+11
+00:00:25,686 --> 00:00:28,413
+In addition, I also will add a feature that
+
+12
+00:00:28,413 --> 00:00:31,605
+allows users to share notes publicly so that
+
+13
+00:00:31,621 --> 00:00:34,428
+users can view notes that don't belong to
+
+14
+00:00:34,428 --> 00:00:36,898
+them. But therefore, the question now, of
+
+15
+00:00:36,914 --> 00:00:39,304
+course, is how do we start working on this
+
+16
+00:00:39,401 --> 00:00:41,229
+application with Claude Code?
+
+17
+00:00:41,887 --> 00:00:44,357
+Any problem or task you wanna tackle with
+
+18
+00:00:44,389 --> 00:00:46,795
+Claude Code starts with a prompt.
+
+19
+00:00:47,453 --> 00:00:49,426
+So here, when I wanna build a brand new
+
+20
+00:00:49,442 --> 00:00:51,816
+application from scratch, the question is,
+
+21
+00:00:52,073 --> 00:00:54,478
+what is that prompt? And the answer for me
+
+22
+00:00:54,558 --> 00:00:56,899
+at least is that I wanna provide a
+
+23
+00:00:56,979 --> 00:01:00,089
+specification document that describes the
+
+24
+00:01:00,089 --> 00:01:02,076
+application we're working on. And by the
+
+25
+00:01:02,092 --> 00:01:04,016
+way, this is also important if you're
+
+26
+00:01:04,032 --> 00:01:06,645
+working on an existing application, then
+
+27
+00:01:06,773 --> 00:01:07,190
+still
+
+28
+00:01:07,863 --> 00:01:11,133
+you want to provide this information, you
+
+29
+00:01:11,149 --> 00:01:14,468
+wanna describe this application to Claude.
+
+30
+00:01:14,788 --> 00:01:16,664
+So that matters no matter if you're working
+
+31
+00:01:16,696 --> 00:01:18,828
+on a new application or an existing one.
+
+32
+00:01:18,924 --> 00:01:22,034
+Now, I typically build those specification
+
+33
+00:01:22,066 --> 00:01:24,711
+documents with help of AI. So for this demo
+
+34
+00:01:24,775 --> 00:01:28,236
+here, I used ChatGPT and I describe my
+
+35
+00:01:28,316 --> 00:01:30,271
+application to ChatGPT here.
+
+36
+00:01:30,880 --> 00:01:32,930
+By the way, this is a one-time task, of
+
+37
+00:01:32,963 --> 00:01:35,943
+course. I don't do this before every prompt
+
+38
+00:01:36,071 --> 00:01:38,634
+I send to Claude Code. I just wanna make
+
+39
+00:01:38,634 --> 00:01:40,974
+sure I have an initial specification
+
+40
+00:01:40,974 --> 00:01:42,384
+document for this application.
+
+41
+00:01:43,137 --> 00:01:45,748
+So here I'm describing that we are building
+
+42
+00:01:46,245 --> 00:01:48,168
+a note-taking web app.
+
+43
+00:01:48,728 --> 00:01:51,596
+I describe the core features about creating,
+
+44
+00:01:51,692 --> 00:01:53,279
+viewing, updating, deleting, and sharing
+
+45
+00:01:53,391 --> 00:01:56,777
+notes. I describe the tech stack so that I'm
+
+46
+00:01:56,825 --> 00:01:57,210
+using
+
+47
+00:01:57,788 --> 00:02:01,046
+Next.js with Bun and TypeScript in my case,
+
+48
+00:02:01,335 --> 00:02:03,149
+and for styling, Tailwind CSS.
+
+49
+00:02:03,823 --> 00:02:06,375
+For authentication, I'll use a third-party
+
+50
+00:02:06,455 --> 00:02:09,087
+library, the BetterAuth library. The rich
+
+51
+00:02:09,200 --> 00:02:11,495
+text editor will be implemented with help of
+
+52
+00:02:11,511 --> 00:02:14,561
+yet another library, the TipTap library. We
+
+53
+00:02:14,561 --> 00:02:16,792
+also need a database, and here I'll use
+
+54
+00:02:16,792 --> 00:02:19,344
+SQLite because that's an amazing database
+
+55
+00:02:19,456 --> 00:02:21,671
+also for production, but especially also for
+
+56
+00:02:21,703 --> 00:02:24,609
+development because you can view and edit it
+
+57
+00:02:24,673 --> 00:02:25,860
+locally with ease.
+
+58
+00:02:26,757 --> 00:02:29,482
+And then I ask ChatGPT to in the end write
+
+59
+00:02:29,482 --> 00:02:32,110
+me a technical specification document,
+
+60
+00:02:32,847 --> 00:02:34,417
+which I got here.
+
+61
+00:02:35,747 --> 00:02:38,824
+And you see, this is a rather long document.
+
+62
+00:02:39,673 --> 00:02:40,651
+Now what I'll do
+
+63
+00:02:41,180 --> 00:02:43,872
+is I'll then copy that document here,
+
+64
+00:02:44,561 --> 00:02:46,500
+head over to my project, and in there I like
+
+65
+00:02:46,548 --> 00:02:48,967
+to add a spec.md file, though the name is
+
+66
+00:02:48,967 --> 00:02:51,243
+entirely up to you. That's not a file
+
+67
+00:02:51,933 --> 00:02:54,084
+Claude Code expects or anything like that.
+
+68
+00:02:54,164 --> 00:02:57,904
+That's just my choice. This spec.md file now
+
+69
+00:02:58,097 --> 00:03:00,408
+could do with some formatting.
+
+70
+00:03:01,002 --> 00:03:04,213
+So now inside of my editor, I'll save this
+
+71
+00:03:04,213 --> 00:03:07,150
+file and I'll open Claude Code again. And as
+
+72
+00:03:07,182 --> 00:03:09,606
+a first step, I'll let it improve this
+
+73
+00:03:09,670 --> 00:03:12,479
+spec.md file. Again, this is a one-off task
+
+74
+00:03:12,544 --> 00:03:14,646
+when getting started, but it can help
+
+75
+00:03:14,791 --> 00:03:16,460
+further down the road when working on this
+
+76
+00:03:16,573 --> 00:03:19,237
+project. And I'll use Claude Code to first
+
+77
+00:03:19,497 --> 00:03:22,224
+Revise this spec.md file and format it
+
+78
+00:03:22,320 --> 00:03:22,788
+properly.
+
+79
+00:03:23,643 --> 00:03:25,595
+So for that, I'll give it a prompt and say,
+
+80
+00:03:26,354 --> 00:03:29,956
+we're building an app described in @spec.md.
+
+81
+00:03:32,390 --> 00:03:35,267
+And that's the first important thing here.
+
+82
+00:03:35,878 --> 00:03:39,350
+This is the official way of pointing Claude
+
+83
+00:03:39,495 --> 00:03:42,836
+code at a specific file, of including a
+
+84
+00:03:42,868 --> 00:03:46,075
+specific file into the context. I have not
+
+85
+00:03:46,269 --> 00:03:47,986
+added my instructions to this prompt yet,
+
+86
+00:03:48,229 --> 00:03:49,006
+but I'm already starting with the context
+
+87
+00:03:49,006 --> 00:03:49,168
+engineering.
+
+88
+00:03:51,186 --> 00:03:54,598
+If you know that a certain task involves a
+
+89
+00:03:54,646 --> 00:03:57,530
+certain file or that a certain file contains
+
+90
+00:03:57,530 --> 00:04:00,237
+information that's important for a certain
+
+91
+00:04:00,237 --> 00:04:03,185
+task, you wanna typically include it in your
+
+92
+00:04:03,281 --> 00:04:05,540
+prompt like this by pointing at it with
+
+93
+00:04:05,540 --> 00:04:05,652
+that@
+
+94
+00:04:06,357 --> 00:04:09,433
+symbol. You don't wanna include all files
+
+95
+00:04:09,465 --> 00:04:11,515
+that could potentially be relevant because
+
+96
+00:04:11,628 --> 00:04:13,198
+here we enter the territory
+
+97
+00:04:13,774 --> 00:04:16,081
+of including irrelevant context, which we
+
+98
+00:04:16,097 --> 00:04:18,436
+don't want. That will lead to worse results.
+
+99
+00:04:18,917 --> 00:04:20,823
+But if we know that a certain file will be
+
+100
+00:04:20,839 --> 00:04:23,405
+relevant, we wanna include it. And that's
+
+101
+00:04:23,470 --> 00:04:25,799
+what I'm doing here. That is an important
+
+102
+00:04:25,799 --> 00:04:29,093
+part of proper context engineering. Claude
+
+103
+00:04:29,093 --> 00:04:32,852
+Code is absolutely capable of finding useful
+
+104
+00:04:32,868 --> 00:04:34,973
+files itself. You don't need to reference
+
+105
+00:04:34,973 --> 00:04:37,222
+them all. It's no problem if you forgot a
+
+106
+00:04:37,222 --> 00:04:39,006
+file that's important. But if you know about
+
+107
+00:04:39,006 --> 00:04:39,263
+a file,
+
+108
+00:04:39,793 --> 00:04:41,833
+explicitly pointing Claude Code at it
+
+109
+00:04:41,881 --> 00:04:44,420
+doesn't hurt. So here I'm pointing it at
+
+110
+00:04:44,452 --> 00:04:46,525
+that. And then the first task here for me
+
+111
+00:04:46,605 --> 00:04:48,404
+actually is related to that file because
+
+112
+00:04:48,404 --> 00:04:48,902
+I'll say,
+
+113
+00:04:49,432 --> 00:04:52,756
+Please format this file as proper Markdown.
+
+114
+00:04:53,061 --> 00:04:55,308
+So that is my very specific instruction.
+
+115
+00:04:55,389 --> 00:04:56,978
+It's a super simple prompt, but it's my
+
+116
+00:04:56,978 --> 00:04:58,086
+first prompt. Though
+
+117
+00:04:58,664 --> 00:05:01,538
+I don't stop here because I already noticed
+
+118
+00:05:01,538 --> 00:05:03,031
+that in my spec file here,
+
+119
+00:05:03,560 --> 00:05:06,386
+there are some problems. For example, it
+
+120
+00:05:06,514 --> 00:05:10,608
+describes a users table in a certain shape.
+
+121
+00:05:11,186 --> 00:05:13,562
+But as I mentioned, I'll use a third-party
+
+122
+00:05:13,659 --> 00:05:16,308
+library for authentication. I'll use the
+
+123
+00:05:16,404 --> 00:05:19,986
+BetterAuth library and that library expects
+
+124
+00:05:20,163 --> 00:05:22,508
+a very specific database structure.
+
+125
+00:05:23,391 --> 00:05:25,720
+If I take a look at the schema they expect,
+
+126
+00:05:25,864 --> 00:05:29,157
+I can see that they expect a user table, so
+
+127
+00:05:29,350 --> 00:05:30,827
+singular, not plural,
+
+128
+00:05:31,566 --> 00:05:32,353
+with these fields
+
+129
+00:05:33,092 --> 00:05:34,762
+and a couple of other tables as well.
+
+130
+00:05:35,533 --> 00:05:38,006
+So what I'll do is I'll copy that
+
+131
+00:05:38,006 --> 00:05:40,094
+documentation page as Markdown. Many
+
+132
+00:05:40,159 --> 00:05:41,508
+websites offer these nowadays.
+
+133
+00:05:42,086 --> 00:05:43,850
+I could also just copy and paste all the
+
+134
+00:05:43,850 --> 00:05:47,170
+content, but that is the better way, gives
+
+135
+00:05:47,234 --> 00:05:48,773
+me just the relevant content.
+
+136
+00:05:49,463 --> 00:05:51,965
+And I'll go back to my prompt here. And in
+
+137
+00:05:51,965 --> 00:05:52,558
+there I'll say,
+
+138
+00:05:53,152 --> 00:05:56,744
+also update the file and update the part
+
+139
+00:05:57,738 --> 00:05:59,150
+about the users
+
+140
+00:06:00,288 --> 00:06:02,678
+table and auth-related tables.
+
+141
+00:06:03,656 --> 00:06:05,757
+We're using the BetterAuth library, which
+
+142
+00:06:05,757 --> 00:06:07,553
+expects a certain database structure.
+
+143
+00:06:08,484 --> 00:06:11,358
+And then I provide that article which I
+
+144
+00:06:11,358 --> 00:06:14,006
+copied as extra context because context
+
+145
+00:06:14,006 --> 00:06:16,783
+engineering is not just about inserting your
+
+146
+00:06:17,393 --> 00:06:19,288
+instructions and pointing at files.
+
+147
+00:06:19,866 --> 00:06:21,648
+That's important, but it's also about
+
+148
+00:06:21,648 --> 00:06:23,927
+providing any other context you know that's
+
+149
+00:06:24,039 --> 00:06:26,158
+relevant. So in my case here, I know that
+
+150
+00:06:26,158 --> 00:06:28,261
+that BetterAuth database documentation will
+
+151
+00:06:28,310 --> 00:06:31,151
+be relevant for updating this spec.md file.
+
+152
+00:06:31,745 --> 00:06:33,398
+So I'll include it here. And what I
+
+153
+00:06:33,687 --> 00:06:35,566
+personally like to do is if I
+
+154
+00:06:36,320 --> 00:06:39,034
+insert a longer piece of text, a longer
+
+155
+00:06:39,291 --> 00:06:41,410
+error message, or an article from the
+
+156
+00:06:41,410 --> 00:06:43,739
+documentation, I like to use these XML tags.
+
+157
+00:06:43,787 --> 00:06:46,227
+That's not required, but it can help
+
+158
+00:06:46,918 --> 00:06:50,659
+the LLM better identify where your
+
+159
+00:06:51,012 --> 00:06:53,132
+documentation article in this case starts
+
+160
+00:06:53,196 --> 00:06:54,994
+and ends. It's not a must-do,
+
+161
+00:06:55,685 --> 00:06:57,483
+but in my experience it can help with
+
+162
+00:06:57,595 --> 00:06:59,506
+getting good results. So I'll paste this
+
+163
+00:06:59,619 --> 00:07:01,479
+article in there. And then here for me,
+
+164
+00:07:01,607 --> 00:07:03,610
+that's all. That's my complete prompt with
+
+165
+00:07:03,610 --> 00:07:05,004
+the specific instructions,
+
+166
+00:07:05,693 --> 00:07:07,841
+2 instructions in this case about formatting
+
+167
+00:07:08,097 --> 00:07:10,997
+and about updating parts of that file and
+
+168
+00:07:10,997 --> 00:07:12,455
+then providing the relevant context.
+
+169
+00:07:12,984 --> 00:07:13,096
+Now
+
+170
+00:07:13,625 --> 00:07:16,269
+we can send this off and I can do this by
+
+171
+00:07:16,269 --> 00:07:19,234
+hitting Enter or since I know that I wanna
+
+172
+00:07:19,234 --> 00:07:22,551
+accept any edit requests anyways, I'll hit
+
+173
+00:07:22,695 --> 00:07:26,573
+Shift+Tab to switch to this Accept Edits On
+
+174
+00:07:26,637 --> 00:07:29,302
+mode. And then I'll hit Enter here. And now
+
+175
+00:07:29,350 --> 00:07:32,338
+I'll let Claude Code do its thing, read that
+
+176
+00:07:32,338 --> 00:07:35,341
+spec.md file, and then convert that file to
+
+177
+00:07:35,374 --> 00:07:38,634
+proper Markdown. So now here it's done. And
+
+178
+00:07:38,650 --> 00:07:40,867
+if I take a look at spec.md, I can see that
+
+179
+00:07:40,867 --> 00:07:41,429
+now in there
+
+180
+00:07:41,959 --> 00:07:44,481
+we have proper Markdown formatting. Now
+
+181
+00:07:44,690 --> 00:07:46,987
+would be a good time to finally read that
+
+182
+00:07:47,260 --> 00:07:49,525
+document one more time and make any changes
+
+183
+00:07:49,670 --> 00:07:52,545
+with or without AI that need changes, and
+
+184
+00:07:52,561 --> 00:07:54,473
+then continue with the next steps.

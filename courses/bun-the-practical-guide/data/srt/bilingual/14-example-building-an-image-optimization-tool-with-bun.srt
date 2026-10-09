@@ -1,0 +1,2029 @@
+1
+00:00:00,112 --> 00:00:02,438
+So optimise-images.ts is the root entry
+所以 optimise-images.ts 是根條目
+
+2
+00:00:02,502 --> 00:00:05,278
+point. That is what we execute here with
+觀點。這就是我們在這裡執行的
+
+3
+00:00:05,310 --> 00:00:07,347
+that script. And in that file, we start with
+那個腳本。在該檔案中，我們從
+
+4
+00:00:07,347 --> 00:00:08,342
+a bunch of imports,
+一堆進口貨，
+
+5
+00:00:09,000 --> 00:00:11,198
+importing path from Node because as you
+從節點導入路徑，因為當你
+
+6
+00:00:11,246 --> 00:00:13,877
+learned, Bun has that Node.js compatibility
+據了解，Bun 具有 Node.js 相容性
+
+7
+00:00:14,230 --> 00:00:16,123
+and then importing a bunch of functions and
+然後導入一堆函式
+
+8
+00:00:16,315 --> 00:00:18,305
+things from my own files. And of course
+我自己的檔案中的東西。當然還有
+
+9
+00:00:18,305 --> 00:00:19,716
+we'll take a look at all of them. I then
+我們將看看所有這些。我然後
+
+10
+00:00:19,749 --> 00:00:21,032
+have a main function here
+這裡有一個主要功能
+
+11
+00:00:21,690 --> 00:00:23,904
+and a run function. The main function is
+和一個運行函式。主要功能是
+
+12
+00:00:24,096 --> 00:00:26,791
+what's executed when the file here is
+當這裡的檔案是時執行什麼
+
+13
+00:00:26,984 --> 00:00:27,352
+actually
+實際上
+
+14
+00:00:28,090 --> 00:00:30,672
+run with help of bun. So the main function
+在髮髻的幫助下奔跑。所以主要功能
+
+15
+00:00:30,672 --> 00:00:32,998
+here is the main entry point of the program,
+這是程式的主要入口點，
+
+16
+00:00:33,719 --> 00:00:36,125
+and in there I start by loading the
+在那裡我首先載入
+
+17
+00:00:36,205 --> 00:00:39,589
+configuration. So in the end, parsing the
+設定。所以最後，解析
+
+18
+00:00:39,733 --> 00:00:43,454
+user input. When I run this command here, I
+使用者輸入。當我在這裡運行這個命令時，我
+
+19
+00:00:43,502 --> 00:00:45,362
+want to get hold of that path and I want to
+想要抓住那條路，我想要
+
+20
+00:00:45,426 --> 00:00:47,222
+get hold of these options because they
+掌握這些選項，因為它們
+
+21
+00:00:47,431 --> 00:00:49,259
+influence how the program works.
+影響程式的工作方式。
+
+22
+00:00:49,981 --> 00:00:52,370
+That is what main does as a first step. It
+這就是 main 作為第一步所做的事情。它
+
+23
+00:00:52,483 --> 00:00:55,596
+parses the config with this weird code.
+用這個奇怪的程式碼解析設定。
+
+24
+00:00:56,478 --> 00:00:58,468
+Now here we again see Bun. What are we doing
+現在我們又看到包子了。我們在做什麼
+
+25
+00:00:58,500 --> 00:01:00,554
+here though? We're using the argv
+不過在這裡嗎？我們正在使用argv
+
+26
+00:01:01,147 --> 00:01:03,281
+property on the global Bun
+全球包子上的財產
+
+27
+00:01:04,100 --> 00:01:06,041
+object. So that's coming from the Bun
+目的。所以這是來自麵包的
+
+28
+00:01:06,041 --> 00:01:08,127
+runtime, and argv is something that's also
+運行時，argv 也是
+
+29
+00:01:08,127 --> 00:01:09,940
+provided by the runtime. It's a property
+由運行時提供。這是一個財產
+
+30
+00:01:09,972 --> 00:01:11,416
+built into Bun, so to say.
+可以這麼說，內建在 Bun 中。
+
+31
+00:01:12,299 --> 00:01:13,679
+Now what does argv give you?
+現在 argv 給了你什麼？
+
+32
+00:01:14,449 --> 00:01:15,267
+It gives you the
+它為您提供
+
+33
+00:01:15,813 --> 00:01:18,268
+raw arguments passed to the process,
+傳遞給行程的原始參數，
+
+34
+00:01:18,460 --> 00:01:20,418
+including flags passed
+包括通過的標誌
+
+35
+00:01:21,381 --> 00:01:23,741
+So the process is what we start with bun
+所以這個過程就是我們從包子開始的
+
+36
+00:01:23,757 --> 00:01:25,523
+run, and then what we have thereafter,
+運行，然後我們會得到什麼，
+
+37
+00:01:25,539 --> 00:01:27,947
+that's the raw input that's passed to the
+這是傳遞給的原始輸入
+
+38
+00:01:27,947 --> 00:01:30,805
+process, and argv gives us access to that.
+行程，argv 使我們能夠存取該行程。
+
+39
+00:01:31,656 --> 00:01:35,830
+I then use slice 2 to skip the first 2
+然後我使用切片 2 跳過前 2 個
+
+40
+00:01:36,681 --> 00:01:39,041
+things that are passed into that program.
+傳遞到該程式中的東西。
+
+41
+00:01:39,121 --> 00:01:41,674
+And you would think, why am I skipping the
+你可能會想，為什麼我要跳過
+
+42
+00:01:41,674 --> 00:01:44,692
+first option and the path? But that would be
+第一個選項和路徑？但那將是
+
+43
+00:01:44,708 --> 00:01:49,375
+wrong because argv actually gets the path to
+錯誤，因為 argv 實際上取得了路徑
+
+44
+00:01:49,375 --> 00:01:51,778
+the Bun runtime as our first argument by
+Bun 運行時作為我們的第一個參數
+
+45
+00:01:51,778 --> 00:01:54,438
+default, and then the path to the file
+預設，然後是檔案的路徑
+
+46
+00:01:54,502 --> 00:01:56,312
+that's being executed as the second
+這是作為第二個執行的
+
+47
+00:01:56,409 --> 00:01:58,764
+argument. So if I were to use
+爭論。所以如果我要使用
+
+48
+00:01:59,533 --> 00:02:02,401
+argv entirely, then the first input,
+argv 完全，然後是第一個輸入，
+
+49
+00:02:02,817 --> 00:02:04,147
+invisible to what we entered here,
+我們在這裡輸入的內容是看不見的，
+
+50
+00:02:04,740 --> 00:02:07,304
+would be the path to the Bun runtime, and
+將是 Bun 運行時的路徑，並且
+
+51
+00:02:07,320 --> 00:02:09,354
+the second input would be the path to the
+第二個輸入是路徑
+
+52
+00:02:09,386 --> 00:02:12,078
+root entry file, so to optimize-images.ts.
+根入口檔案，因此為optimize-images.ts。
+
+53
+00:02:12,591 --> 00:02:15,331
+And both are things I don't care about in my
+這兩件事我都不關心
+
+54
+00:02:15,331 --> 00:02:17,609
+program. That's why I'm using slice 2 here
+程式.這就是為什麼我在這裡使用切片 2
+
+55
+00:02:17,657 --> 00:02:20,788
+to skip those first 2 inputs so that I only
+跳過前兩個輸入，以便我只
+
+56
+00:02:20,853 --> 00:02:23,406
+get the actual inputs I care about, which is
+取得我關心的實際輸入，即
+
+57
+00:02:23,823 --> 00:02:26,296
+that path here and then all these options.
+這條路徑在這裡，然後是所有這些選項。
+
+58
+00:02:26,649 --> 00:02:29,716
+That is what argv does. It gives us access
+這就是 argv 的作用。它使我們能夠訪問
+
+59
+00:02:30,021 --> 00:02:32,076
+to the inputs to the program, which includes
+程式的輸入，其中包括
+
+60
+00:02:32,108 --> 00:02:34,099
+the.NET runtime and the path to the file
+.NET 執行時期和檔案路徑
+
+61
+00:02:34,099 --> 00:02:36,090
+that's being executed, and then anything
+正在執行，然後就可以了
+
+62
+00:02:36,203 --> 00:02:38,643
+that's passed after this command. So all
+這是在該命令之後通過的。所以所有
+
+63
+00:02:38,932 --> 00:02:40,763
+these options here, and I only care about
+這些選項在這裡，我只關心
+
+64
+00:02:40,763 --> 00:02:41,212
+those here.
+那些在這裡。
+
+65
+00:02:41,966 --> 00:02:44,962
+Now I'm passing this array of inputs to a
+現在我將這個輸入陣列傳遞給
+
+66
+00:02:45,107 --> 00:02:48,440
+parseConfig function then. parseConfig is
+然後是 parseConfig 函式。解析設定是
+
+67
+00:02:48,536 --> 00:02:51,852
+defined in a cli.ts file, which is one of my
+在 cli.ts 檔案中定義，這是我的一個
+
+68
+00:02:52,061 --> 00:02:54,112
+files not built into Bun, that's my own
+檔案沒有內建在 Bun 中，那是我自己的
+
+69
+00:02:54,160 --> 00:02:54,432
+file.
+檔案。
+
+70
+00:02:55,121 --> 00:02:57,413
+And in parseConfig, I'm getting those
+在 parseConfig 中，我得到了這些
+
+71
+00:02:57,525 --> 00:03:00,153
+inputs, an array of strings, that's the
+輸入，一個字串陣列，這就是
+
+72
+00:03:00,153 --> 00:03:02,861
+format Bun gives me when using that argv
+使用該 argv 時，格式 Bun 給了我
+
+73
+00:03:03,133 --> 00:03:03,598
+feature.
+特徵。
+
+74
+00:03:04,399 --> 00:03:08,629
+And then I use parseArgs, which is actually
+然後我使用parseArgs，這實際上是
+
+75
+00:03:09,142 --> 00:03:11,566
+feature coming from Node.js. So not from
+來自 Node.js 的功能。所以不是來自
+
+76
+00:03:11,631 --> 00:03:14,344
+Bun, not from me, but from Node.js. And
+Bun，不是我的，而是 Node.js 的。和
+
+77
+00:03:14,441 --> 00:03:18,792
+parseArgs is all about parsing input and
+parseArgs 是關於解析輸入和
+
+78
+00:03:18,936 --> 00:03:22,373
+especially here checking that only certain
+特別是在這裡檢查是否只有某些
+
+79
+00:03:22,453 --> 00:03:23,448
+options are supported.
+支援選項。
+
+80
+00:03:23,978 --> 00:03:26,868
+The way parseArgs, which again is a function
+parseArgs 的方式，它又是一個函式
+
+81
+00:03:26,868 --> 00:03:27,912
+provided by Node.js,
+由 Node.js 提供，
+
+82
+00:03:28,474 --> 00:03:30,610
+works is that you pass a configuration
+工作原理是你傳遞一個設定
+
+83
+00:03:30,722 --> 00:03:31,284
+object to it.
+反對它。
+
+84
+00:03:31,942 --> 00:03:35,121
+You then give it your args array of input.
+然後你給它你的 args 輸入陣列。
+
+85
+00:03:35,169 --> 00:03:37,766
+So that thing we parsed with help of bun,
+所以我們在bun的幫助下解析了這個東西，
+
+86
+00:03:37,958 --> 00:03:39,449
+that's what we're passing to parseArgs.
+這就是我們傳遞給 parseArgs 的內容。
+
+87
+00:03:40,907 --> 00:03:42,847
+And then we define which options we wanna
+然後我們定義我們想要的選項
+
+88
+00:03:42,847 --> 00:03:45,460
+support. And options are simply these things
+支援。選項就是這些
+
+89
+00:03:45,492 --> 00:03:48,137
+that start with 2 dashes. So we have a
+以 2 個破折號開頭。所以我們有一個
+
+90
+00:03:48,137 --> 00:03:50,205
+format option, we have a quality option, we
+格式選項，我們有品質選項，我們
+
+91
+00:03:50,205 --> 00:03:52,369
+have a recursive option. And these are
+有一個遞迴選項。這些是
+
+92
+00:03:52,369 --> 00:03:54,870
+options that are supported because I specify
+因為我指定而受支援的選項
+
+93
+00:03:54,870 --> 00:03:58,396
+them here as supported recursive, quality,
+它們在這裡作為支援的遞迴、品質、
+
+94
+00:03:58,701 --> 00:04:00,737
+format, and a couple of others. These are
+格式，以及其他一些。這些都是
+
+95
+00:04:00,785 --> 00:04:03,318
+the options I wanna support with my program.
+我想透過我的程式支援的選項。
+
+96
+00:04:03,686 --> 00:04:05,995
+For each option, I can define which type of
+對於每個選項，我可以定義哪種型別
+
+97
+00:04:06,011 --> 00:04:08,704
+input I expect. So Boolean, for example,
+我期望的輸入。例如，布林值：
+
+98
+00:04:08,736 --> 00:04:10,451
+means that it simply is set or not.
+意味著它只是設定或未設定。
+
+99
+00:04:11,060 --> 00:04:13,593
+String means that I want an actual value
+字串意味著我想要一個實際值
+
+100
+00:04:13,609 --> 00:04:15,629
+which must be some text, and so on.
+其中必須是一些文本，等等。
+
+101
+00:04:16,430 --> 00:04:18,162
+And again, that's just a feature provided by
+再說一遍，這只是提供的功能
+
+102
+00:04:18,258 --> 00:04:20,823
+Node.js that it gives you this utility
+Node.js 為您提供了這個實用程式
+
+103
+00:04:20,823 --> 00:04:23,147
+function parseArgs, which you can use for
+函式 parseArgs，您可以使用它
+
+104
+00:04:23,163 --> 00:04:24,622
+parsing input and for
+解析輸入和
+
+105
+00:04:25,247 --> 00:04:27,972
+checking that certain options are used and
+檢查是否使用了某些選項以及
+
+106
+00:04:27,972 --> 00:04:30,200
+no other options. You can also set strict
+沒有其他選擇。還可以設定嚴格
+
+107
+00:04:30,200 --> 00:04:32,380
+here to enforce these options, so to really
+在這裡強制執行這些選項，所以真正
+
+108
+00:04:32,380 --> 00:04:34,079
+make sure that only these options are used.
+確保僅使用這些選項。
+
+109
+00:04:34,528 --> 00:04:37,013
+And allowPositionals here is important and
+這裡的allowPositionals 很重要且
+
+110
+00:04:37,093 --> 00:04:39,626
+is set to true Because images here
+設定為 true 因為圖片在這裡
+
+111
+00:04:40,379 --> 00:04:41,710
+is not an option in this
+不是這個選項
+
+112
+00:04:42,704 --> 00:04:45,381
+--option-name format. Instead, it's passed
+--選項名稱格式。反而是通過了
+
+113
+00:04:45,445 --> 00:04:48,202
+in as a positional argument. It doesn't have
+作為位置參數。它沒有
+
+114
+00:04:48,266 --> 00:04:51,472
+a name. All these other options have a name,
+一個名字。所有這些其他選項都有一個名稱，
+
+115
+00:04:51,777 --> 00:04:54,470
+format for example, and a value. Images has
+例如格式和值。影像有
+
+116
+00:04:54,566 --> 00:04:56,265
+no name, it's just a value. That's a
+沒有名字，它只是一個值。那是一個
+
+117
+00:04:56,329 --> 00:04:58,493
+positional input and I'm allowing those too.
+位置輸入，我也允許這些。
+
+118
+00:04:59,151 --> 00:05:01,635
+A mixture of these flag options here with
+這些標誌選項的混合在這裡
+
+119
+00:05:01,635 --> 00:05:03,447
+names and positional inputs.
+名稱和位置輸入。
+
+120
+00:05:04,344 --> 00:05:05,819
+Okay, so that's the first step. We check
+好的，這是第一步。我們檢查
+
+121
+00:05:05,963 --> 00:05:08,192
+whether some valid input was provided and we
+是否提供了一些有效的輸入，我們
+
+122
+00:05:08,208 --> 00:05:10,986
+get back the parsed value basically an
+基本上會傳回解析的值
+
+123
+00:05:11,164 --> 00:05:14,102
+object with the actually set options.
+具有實際設定選項的物件。
+
+124
+00:05:14,731 --> 00:05:16,878
+We use these parsed values
+我們使用這些解析值
+
+125
+00:05:17,540 --> 00:05:19,703
+which were retrieved with help of parseArgs
+是在 parseArgs 的幫助下檢索的
+
+126
+00:05:20,220 --> 00:05:23,224
+to then do stuff. For example, if the help
+然後做事。例如，如果幫助
+
+127
+00:05:23,353 --> 00:05:24,258
+option was set,
+選項已設置，
+
+128
+00:05:25,857 --> 00:05:27,714
+which you can do by just running --help,
+你可以透過執行 --help 來完成，
+
+129
+00:05:30,477 --> 00:05:32,573
+then you would get this help output. You get
+然後你會得到這個幫助輸出。你得到
+
+130
+00:05:32,573 --> 00:05:34,056
+this because here I'm checking if
+這是因為我在這裡檢查是否
+
+131
+00:05:34,685 --> 00:05:35,007
+the
+這
+
+132
+00:05:35,636 --> 00:05:38,070
+help option was set. In that case, I throw
+幫助選項已設定。在這種情況下，我拋出
+
+133
+00:05:38,612 --> 00:05:41,242
+an error, so to say, a help requested error,
+一個錯誤，也就是說，一個請求幫助的錯誤，
+
+134
+00:05:41,258 --> 00:05:43,374
+which is a custom error I defined down there
+這是我在那裡定義的自訂錯誤
+
+135
+00:05:43,583 --> 00:05:44,304
+in this class.
+在這堂課上。
+
+136
+00:05:44,850 --> 00:05:47,463
+And here I simply output some help text that
+在這裡我只是輸出一些幫助文本
+
+137
+00:05:47,527 --> 00:05:49,083
+describes the supported options.
+描述支援的選項。
+
+138
+00:05:50,141 --> 00:05:53,011
+If that flag was not set, we continue
+如果該標誌沒有設置，我們繼續
+
+139
+00:05:53,605 --> 00:05:55,192
+and we first continue by getting our
+我們首先繼續獲得我們的
+
+140
+00:05:55,192 --> 00:05:57,501
+positionals. Now I only expect one
+位置。現在我只期待一個
+
+141
+00:05:57,533 --> 00:06:00,179
+positional here, which is the path to the
+此處的位置，這是通往
+
+142
+00:06:00,179 --> 00:06:02,728
+images. And actually the program also won't
+圖像。實際上該程式也不會
+
+143
+00:06:02,809 --> 00:06:05,551
+work if that is not provided. I need that
+如果沒有提供，則工作。我需要那個
+
+144
+00:06:05,631 --> 00:06:08,836
+path. So we check if positional length is 0,
+小路。所以我們檢查位置長度是否為0，
+
+145
+00:06:08,900 --> 00:06:11,864
+which means no option was provided. In that
+這意味著沒有提供任何選項。在那
+
+146
+00:06:11,864 --> 00:06:14,124
+case, we throw an error. We need a path. We
+情況下，我們拋出一個錯誤。我們需要一條路。我們
+
+147
+00:06:14,124 --> 00:06:16,623
+need one positional input, that path.
+需要一個位置輸入，即路徑。
+
+148
+00:06:17,248 --> 00:06:19,379
+If more than one positional input was
+如果有多個位置輸入
+
+149
+00:06:19,411 --> 00:06:21,286
+provided though, we also throw an error
+不過，我們也會拋出一個錯誤
+
+150
+00:06:21,334 --> 00:06:23,802
+because we want exactly one path, not
+因為我們只想要一條路徑，而不是
+
+151
+00:06:23,802 --> 00:06:27,151
+multiple paths. So if we have no or too many
+多條路徑。所以如果我們沒有或太多
+
+152
+00:06:27,183 --> 00:06:28,545
+positionals, we throw.
+位置，我們拋出。
+
+153
+00:06:29,250 --> 00:06:32,278
+Otherwise, we continue and then we extract
+否則，我們繼續，然後提取
+
+154
+00:06:32,310 --> 00:06:34,474
+the other values and perform some
+其他值並執行一些操作
+
+155
+00:06:34,474 --> 00:06:36,446
+validation. For example, for the quality
+驗證。例如，對於質量
+
+156
+00:06:36,478 --> 00:06:39,732
+flag, if it is set, we check if the value is
+標誌，如果設定了，我們檢查該值是否為
+
+157
+00:06:39,828 --> 00:06:41,095
+between 1 and 100.
+1 到 100 之間。
+
+158
+00:06:42,313 --> 00:06:44,525
+For raw format, we check that it's one of
+對於原始格式，我們檢查它是否是以下之一
+
+159
+00:06:44,718 --> 00:06:46,064
+our supported formats.
+我們支援的格式。
+
+160
+00:06:46,673 --> 00:06:48,853
+So I have valid formats here, and that's
+所以我這裡有有效的格式，那就是
+
+161
+00:06:48,901 --> 00:06:52,011
+just a set of formats I want to support. So
+只是我想要支援的一組格式。所以
+
+162
+00:06:52,011 --> 00:06:54,239
+we only support conversion to these formats,
+我們只支援轉換為這些格式，
+
+163
+00:06:54,656 --> 00:06:56,916
+and I throw an error if an invalid format
+如果格式無效，我會拋出錯誤
+
+164
+00:06:56,916 --> 00:06:57,686
+would have been set.
+將會被設定。
+
+165
+00:06:58,343 --> 00:07:00,603
+That's the kind of work we do here. So a
+這就是我們在這裡所做的工作。所以一個
+
+166
+00:07:00,603 --> 00:07:02,944
+bunch of validation in the end. Same for
+最後進行一堆驗證。同樣適用於
+
+167
+00:07:03,072 --> 00:07:04,755
+width and height, which can also be set.
+寬度和高度，也可以設定。
+
+168
+00:07:05,402 --> 00:07:07,251
+And then in the end, we return an object
+最後我們回傳一個物件
+
+169
+00:07:07,283 --> 00:07:10,397
+with the validated and parsed configuration
+具有經過驗證和解析的設定
+
+170
+00:07:10,511 --> 00:07:12,181
+options and we hand that back to
+選項，我們將其傳回給
+
+171
+00:07:12,311 --> 00:07:13,008
+optimize-images.ts.
+優化圖像.ts。
+
+172
+00:07:13,960 --> 00:07:16,515
+We get back that config object that has the
+我們取回具有以下內容的設定物件
+
+173
+00:07:16,563 --> 00:07:18,588
+extracted and validated configuration.
+提取並驗證設定。
+
+174
+00:07:19,521 --> 00:07:21,433
+And then we continue. Now we catch any
+然後我們繼續。現在我們抓住任何
+
+175
+00:07:21,530 --> 00:07:22,783
+errors that we might have thrown
+我們可能拋出的錯誤
+
+176
+00:07:23,416 --> 00:07:25,978
+and we output them here to standard output.
+我們在這裡將它們輸出到標準輸出。
+
+177
+00:07:26,207 --> 00:07:28,182
+So we write them to the console in the end.
+所以我們最後將它們寫入控制台。
+
+178
+00:07:30,189 --> 00:07:32,225
+But if we did not get an error, if we make
+但是如果我們沒有得到錯誤，如果我們做了
+
+179
+00:07:32,225 --> 00:07:34,065
+it past this catch block, we run the run
+它通過了這個 catch 區塊，我們運行 run
+
+180
+00:07:34,065 --> 00:07:34,782
+function, which is the function down here.
+函式，就是下面的函式。
+
+181
+00:07:37,697 --> 00:07:40,086
+In that run function, we do the actual image
+在該運行函式中，我們執行實際圖像
+
+182
+00:07:40,278 --> 00:07:40,839
+conversion.
+轉換。
+
+183
+00:07:41,641 --> 00:07:44,110
+We get the target extension, which depends
+我們得到目標擴充功能，這取決於
+
+184
+00:07:44,126 --> 00:07:46,755
+on the format we requested so that we simply
+根據我們要求的格式，以便我們簡單地
+
+185
+00:07:47,236 --> 00:07:50,618
+have.jpeg and so on. So.format,.jpeg,
+有.jpeg等。所以.格式，.jpeg，
+
+186
+00:07:50,779 --> 00:07:53,472
+.png and so on that we generate that. And
+.png 等我們生成的。和
+
+187
+00:07:53,504 --> 00:07:55,316
+then we do the actual image processing
+然後我們進行實際的影像處理
+
+188
+00:07:55,748 --> 00:07:57,881
+because of course we might be processing
+因為當然我們可能正在處理
+
+189
+00:07:57,913 --> 00:08:00,478
+multiple images if we got the path to a
+如果我們得到了多個圖像的路徑
+
+190
+00:08:00,478 --> 00:08:02,802
+folder that contains multiple images. We
+包含多個影像的資料夾。我們
+
+191
+00:08:03,027 --> 00:08:05,657
+also need to differentiate if we should
+還需要區分我們是否應該
+
+192
+00:08:05,706 --> 00:08:08,320
+recursively process a folder or not. So if
+是否遞迴處理資料夾。所以如果
+
+193
+00:08:08,320 --> 00:08:10,710
+we should dive into subfolders too, but in
+我們也應該深入到子資料夾中，但是在
+
+194
+00:08:10,726 --> 00:08:12,619
+the end here, we have a little asynchronous
+到這裡就結束了，我們有一點非同步
+
+195
+00:08:12,731 --> 00:08:15,233
+for loop where we go through all the paths
+for 迴圈，我們遍歷所有路徑
+
+196
+00:08:15,297 --> 00:08:17,703
+of all the images we found. Now, how do we
+我們找到的所有圖像。現在，我們如何
+
+197
+00:08:17,719 --> 00:08:18,457
+find images?
+找到圖像？
+
+198
+00:08:19,003 --> 00:08:21,200
+With help of the input path and this
+在輸入路徑的幫助下
+
+199
+00:08:21,232 --> 00:08:23,029
+findImages function, which is in the
+findImages 函式，位於
+
+200
+00:08:23,029 --> 00:08:24,103
+scanner.ts file.
+Scanner.ts 檔。
+
+201
+00:08:24,841 --> 00:08:27,359
+Now, this is actually a generator where we
+現在，這實際上是一個生成器，我們可以在其中
+
+202
+00:08:27,568 --> 00:08:30,102
+generate value after value.
+產生一個又一個的價值。
+
+203
+00:08:30,712 --> 00:08:33,131
+You can think of it as a loop in the end.
+最後你可以把它想像成一個迴圈。
+
+204
+00:08:33,596 --> 00:08:35,374
+And we do go through
+我們確實經歷了
+
+205
+00:08:35,983 --> 00:08:38,691
+a bunch of files that we get with help of
+我們拿到的一堆檔案
+
+206
+00:08:38,883 --> 00:08:42,520
+glob. Glob is using another Bun API here.
+全域。 Glob 在這裡使用另一個 Bun API。
+
+207
+00:08:43,129 --> 00:08:45,308
+So we're importing glob from Bun. And what
+所以我們從 Bun 導入 glob。還有什麼
+
+208
+00:08:45,308 --> 00:08:49,106
+the glob API does is it simply scans folders
+glob API 的作用只是掃描資料夾
+
+209
+00:08:49,202 --> 00:08:52,711
+and finds files based on a pattern we define
+並根據我們定義的模式查找檔案
+
+210
+00:08:52,903 --> 00:08:53,993
+with help of buildPattern.
+在 buildPattern 的幫助下。
+
+211
+00:08:54,666 --> 00:08:57,886
+buildPattern simply builds a pattern where
+buildPattern 只是建構一個模式，其中
+
+212
+00:08:57,886 --> 00:09:01,143
+it's looking for valid image files. So for
+它正在尋找有效的圖像檔案。所以對於
+
+213
+00:09:01,465 --> 00:09:03,456
+files that have valid image extensions
+具有有效圖像擴充功能名的檔案
+
+214
+00:09:04,034 --> 00:09:06,539
+and it then is constructed differently based
+然後根據不同的方式建構
+
+215
+00:09:06,539 --> 00:09:08,802
+on whether we do recursive scanning or not.
+關於我們是否進行遞迴掃描。
+
+216
+00:09:09,348 --> 00:09:11,452
+This is the regex pattern we use for
+這是我們使用的正規表示式模式
+
+217
+00:09:11,452 --> 00:09:13,652
+scanning for files. If we have recursive
+掃描檔案。如果我們有遞迴
+
+218
+00:09:13,748 --> 00:09:14,406
+option set,
+選項集，
+
+219
+00:09:15,049 --> 00:09:17,393
+we use 2 asterisks here, which means dive
+我們這裡使用2個星號，表示潛水
+
+220
+00:09:17,393 --> 00:09:18,453
+into subfolders too.
+也進入子資料夾。
+
+221
+00:09:18,982 --> 00:09:20,989
+Otherwise we just look for image files in
+否則我們只是在中查找圖像檔案
+
+222
+00:09:20,989 --> 00:09:21,600
+the folder
+資料夾
+
+223
+00:09:22,354 --> 00:09:23,815
+that was passed in as a path.
+它作為路徑傳入。
+
+224
+00:09:24,922 --> 00:09:26,814
+So that's just a regex pattern that's being
+所以這只是一個正規表示式模式
+
+225
+00:09:26,910 --> 00:09:27,680
+constructed here.
+在這裡建造的。
+
+226
+00:09:28,209 --> 00:09:30,806
+And that regex pattern is what the glob API
+正規表示式模式就是 glob API 的內容
+
+227
+00:09:30,934 --> 00:09:31,206
+wants.
+想要。
+
+228
+00:09:31,880 --> 00:09:34,284
+It takes one or more of such patterns and
+它需要一種或多種這樣的模式，並且
+
+229
+00:09:34,284 --> 00:09:36,785
+then it simply finds us all the files that
+然後它只是找到我們所有的檔案
+
+230
+00:09:36,785 --> 00:09:38,195
+fit those patterns
+適合這些模式
+
+231
+00:09:39,013 --> 00:09:41,498
+and returns them. And we just go through
+並回傳它們。我們只是透過
+
+232
+00:09:41,514 --> 00:09:43,774
+those files and yield them file after file.
+這些檔案並逐一產生它們。
+
+233
+00:09:44,078 --> 00:09:45,537
+And that is in the end what we're getting
+這就是我們最終得到的
+
+234
+00:09:45,585 --> 00:09:47,413
+here and what we're then looping through. So
+這裡以及我們接下來要迴圈的內容。所以
+
+235
+00:09:47,509 --> 00:09:50,475
+image file after image file in the path and
+路徑中一個又一個的圖像檔案
+
+236
+00:09:50,491 --> 00:09:52,414
+potentially any subfolders that we
+可能是我們的任何子資料夾
+
+237
+00:09:52,414 --> 00:09:54,963
+specified. That is simply the idea, a little
+指定的。這就是簡單的想法，一點點
+
+238
+00:09:55,203 --> 00:09:56,390
+helper function that finds
+找到的輔助函式
+
+239
+00:09:57,784 --> 00:09:59,099
+By the way, in case you're wondering where
+順便說一句，如果您想知道在哪裡
+
+240
+00:09:59,211 --> 00:10:00,477
+the extensions are coming from,
+擴充功能名來自，
+
+241
+00:10:01,054 --> 00:10:04,421
+extensions are the scanner options here. So
+擴充功能名是此處的掃描器選項。所以
+
+242
+00:10:04,421 --> 00:10:07,771
+we pass our extensions to the scanner and
+我們將擴充功能傳遞給掃描器並
+
+243
+00:10:07,803 --> 00:10:09,615
+that's coming from our configuration.
+這是來自我們的設定。
+
+244
+00:10:10,192 --> 00:10:11,795
+So that's coming from the parsed
+所以這是來自解析的
+
+245
+00:10:11,795 --> 00:10:14,520
+configuration in the end because you can set
+最後設定，因為你可以設定
+
+246
+00:10:14,552 --> 00:10:16,620
+an extensions flag to define which
+一個擴充功能標誌來定義哪個
+
+247
+00:10:16,700 --> 00:10:19,217
+extensions you wanna support or which file
+您想要支援的副檔名或哪個檔案
+
+248
+00:10:19,265 --> 00:10:21,846
+extensions you wanna convert in the end.
+您最終想要轉換的擴充功能名。
+
+249
+00:10:22,535 --> 00:10:26,142
+And if extensions is not set, we use some
+如果未設定擴充功能名，我們將使用一些
+
+250
+00:10:26,238 --> 00:10:28,097
+default extensions, which is what you wanna
+預設擴充功能名，這就是你想要的
+
+251
+00:10:28,097 --> 00:10:31,291
+do. Expect— JPEG, PNG, WebP, AVIF. So we're
+做。預期 — JPEG、PNG、WebP、AVIF。所以我們是
+
+252
+00:10:31,291 --> 00:10:33,345
+going through the images, then we're then
+瀏覽圖像，然後我們
+
+253
+00:10:33,377 --> 00:10:35,159
+constructing absolute paths using the
+使用構造絕對路徑
+
+254
+00:10:35,159 --> 00:10:37,967
+Node.js path API. So again, we're using a
+Node.js 路徑 API。再說一次，我們使用的是
+
+255
+00:10:37,967 --> 00:10:40,872
+mixture of Bun APIs and Node.js APIs here.
+這裡混合了 Bun API 和 Node.js API。
+
+256
+00:10:41,642 --> 00:10:42,750
+Then we get the
+然後我們得到
+
+257
+00:10:43,392 --> 00:10:45,911
+input format by extracting the extension. So
+透過提取擴充功能名來輸入格式。所以
+
+258
+00:10:45,975 --> 00:10:48,062
+we simply trust that the extension of our
+我們只是相信我們的延伸
+
+259
+00:10:48,078 --> 00:10:50,758
+file describes which kind of image is in
+檔案描述了哪種圖像
+
+260
+00:10:50,854 --> 00:10:53,406
+there, so that a.jpeg file has an actual
+在那裡，以便 a.jpeg 檔案具有實際的
+
+261
+00:10:53,502 --> 00:10:54,481
+JPEG image inside.
+裡面有 JPEG 影像。
+
+262
+00:10:55,347 --> 00:10:57,608
+And we set the output format based on the
+我們根據以下內容設定輸出格式
+
+263
+00:10:57,608 --> 00:10:58,538
+configured format.
+設定的格式。
+
+264
+00:10:59,228 --> 00:11:02,194
+If we did not set a configured format, so if
+如果我們沒有設定設定格式，那麼如果
+
+265
+00:11:02,242 --> 00:11:03,797
+we did not pass
+我們沒有通過
+
+266
+00:11:04,487 --> 00:11:06,652
+--format to the command, we simply use the
+--format 指令，我們只需使用
+
+267
+00:11:06,668 --> 00:11:09,939
+input extension to keep the input file type.
+輸入副檔名以保留輸入檔型別。
+
+268
+00:11:10,195 --> 00:11:12,665
+Then we create an encoder
+然後我們創建一個編碼器
+
+269
+00:11:13,242 --> 00:11:15,567
+and that simply depends on which format
+這僅取決於哪種格式
+
+270
+00:11:15,567 --> 00:11:18,020
+we're targeting because that Bun API has
+我們的目標是因為 Bun API 有
+
+271
+00:11:18,197 --> 00:11:20,185
+different encoders for different image
+不同的圖像使用不同的編碼器
+
+272
+00:11:20,297 --> 00:11:20,618
+types.
+型別。
+
+273
+00:11:21,243 --> 00:11:23,907
+So here we simply get a little helper object
+所以這裡我們只是得到一個小輔助物件
+
+274
+00:11:23,907 --> 00:11:24,163
+back
+後退
+
+275
+00:11:24,773 --> 00:11:26,940
+that simply describes which kind of encoder
+這只是描述了哪種編碼器
+
+276
+00:11:26,940 --> 00:11:30,214
+we want and what the quality will be. And in
+我們想要什麼以及品質如何。並且在
+
+277
+00:11:30,246 --> 00:11:32,429
+case of PNG, we're actually converting a
+對於 PNG 來說，我們實際上是在轉換
+
+278
+00:11:32,493 --> 00:11:34,981
+quality to a compression level because PNG
+品質達到壓縮級別，因為 PNG
+
+279
+00:11:34,981 --> 00:11:37,373
+doesn't have the notion of an image quality,
+沒有影像品質的概念，
+
+280
+00:11:37,469 --> 00:11:39,010
+it just has compression level.
+它只是有壓縮等級。
+
+281
+00:11:39,555 --> 00:11:41,016
+So we have a little helper function that
+所以我們有一個小輔助函式
+
+282
+00:11:41,064 --> 00:11:44,130
+converts a quality between 1 and 100 to a
+將 1 到 100 之間的質量轉換為
+
+283
+00:11:44,130 --> 00:11:46,826
+compression level between 0 and 9. That is
+壓縮等級在 0 到 9 之間。即
+
+284
+00:11:46,938 --> 00:11:47,869
+what PNGs want.
+PNG 想要什麼。
+
+285
+00:11:49,264 --> 00:11:52,278
+And once we have that encoder, we can use it
+一旦我們有了編碼器，我們就可以使用它
+
+286
+00:11:52,294 --> 00:11:52,502
+for
+為了
+
+287
+00:11:53,031 --> 00:11:54,858
+encoding down here. Now before we do that,
+在這裡編碼。現在，在我們這樣做之前，
+
+288
+00:11:55,436 --> 00:11:57,487
+we compute the output path, which is simply
+我們計算輸出路徑，這很簡單
+
+289
+00:11:57,503 --> 00:11:59,780
+the path where the optimized image should be
+優化後的影像所在的路徑
+
+290
+00:11:59,780 --> 00:12:00,325
+stored.
+儲存。
+
+291
+00:12:01,351 --> 00:12:03,258
+Got a little helper function for that too,
+也有一個小輔助功能，
+
+292
+00:12:03,771 --> 00:12:05,887
+where we construct the output path by
+我們透過以下方式建構輸出路徑
+
+293
+00:12:05,999 --> 00:12:06,464
+creating
+創造
+
+294
+00:12:07,314 --> 00:12:09,334
+a fitting file name that has the right file
+具有正確檔案的合適檔案名
+
+295
+00:12:09,382 --> 00:12:12,908
+extension and is then stored in an output
+擴充功能名，然後儲存在輸出中
+
+296
+00:12:12,908 --> 00:12:15,361
+path that is defined with help of the output
+在輸出的幫助下定義的路徑
+
+297
+00:12:15,457 --> 00:12:18,984
+dir or the out_dir flag, or if not set, it
+dir 或 out_dir 標誌，或如果未設置，則
+
+298
+00:12:19,064 --> 00:12:20,733
+is by default stored stored in
+預設儲存在
+
+299
+00:12:21,471 --> 00:12:24,891
+an optimized folder next to the input file.
+輸入檔案旁邊的優化資料夾。
+
+300
+00:12:25,662 --> 00:12:27,492
+That is what we do here. We construct the
+這就是我們在這裡所做的。我們建構
+
+301
+00:12:27,589 --> 00:12:30,206
+path where the actual optimized images
+實際優化影像的路徑
+
+302
+00:12:30,318 --> 00:12:31,169
+should be stored.
+應儲存。
+
+303
+00:12:31,747 --> 00:12:34,027
+Now we have a dry run option that can be set
+現在我們有一個可以設定的試運行選項
+
+304
+00:12:34,092 --> 00:12:37,769
+with --dry-run, which would actually not
+與 --dry-run 一起使用，實際上不會
+
+305
+00:12:37,769 --> 00:12:40,001
+convert the images and instead just output
+轉換圖像而不只是輸出
+
+306
+00:12:40,177 --> 00:12:42,104
+what would happen if we would run the
+如果我們運行會發生什麼
+
+307
+00:12:42,104 --> 00:12:44,850
+command without dry run being set. That can
+未設定空運行的命令。那可以
+
+308
+00:12:44,850 --> 00:12:47,321
+be nice for previewing what will happen.
+很高興預覽將會發生的事情。
+
+309
+00:12:47,898 --> 00:12:50,353
+So in that case, we continue, we skip the
+所以在這種情況下，我們繼續，我們跳過
+
+310
+00:12:50,369 --> 00:12:51,540
+rest of this loop here,
+這個迴圈的其餘部分在這裡，
+
+311
+00:12:52,133 --> 00:12:54,235
+and we just write which file we would be
+我們只需寫出我們想要的檔案
+
+312
+00:12:54,235 --> 00:12:54,844
+processing.
+加工。
+
+313
+00:12:55,582 --> 00:12:58,310
+If we have not set try_run, we do the actual
+如果我們沒有設定try_run，我們會執行實際的操作
+
+314
+00:12:58,406 --> 00:12:59,400
+processing down there,
+在那裡進行處理，
+
+315
+00:12:59,994 --> 00:13:02,432
+and we optimize image after image with help
+我們在幫助下優化圖像
+
+316
+00:13:02,432 --> 00:13:04,951
+of the optimize_one function. optimize_one
+的optimize_one函式。優化一
+
+317
+00:13:05,063 --> 00:13:07,999
+gets our encoder as input and also gets the
+獲取我們的編碼器作為輸入，並且還獲取
+
+318
+00:13:08,095 --> 00:13:09,587
+output and the input
+輸出和輸入
+
+319
+00:13:10,181 --> 00:13:13,052
+absolute paths as inputs. So optimizeOne is
+絕對路徑作為輸入。所以optimizeOne是
+
+320
+00:13:13,164 --> 00:13:16,178
+the main function that actually uses that
+實際使用它的主要功能
+
+321
+00:13:16,210 --> 00:13:17,508
+Bun Image API.
+包子圖像 API。
+
+322
+00:13:18,053 --> 00:13:20,137
+And what we're doing in here is we're
+我們在這裡所做的是
+
+323
+00:13:20,201 --> 00:13:22,365
+getting our file, we're reading it with the
+取得我們的檔案，我們用
+
+324
+00:13:22,462 --> 00:13:25,716
+bun.file method, another feature built into
+Bun.file 方法，另一個內建功能
+
+325
+00:13:25,748 --> 00:13:28,441
+the Bun API. So coming right from the Bun
+包子API。所以就從髮髻來
+
+326
+00:13:28,633 --> 00:13:31,727
+runtime, file is there to read files very
+運行時，檔案是用來讀取檔案的
+
+327
+00:13:31,759 --> 00:13:32,321
+efficiently.
+高效。
+
+328
+00:13:33,202 --> 00:13:33,298
+We
+我們
+
+329
+00:13:33,827 --> 00:13:36,809
+get the size of that file here, the number
+在這裡獲取該檔案的大小，數量
+
+330
+00:13:36,809 --> 00:13:37,883
+of bytes in there.
+那裡的位元組數。
+
+331
+00:13:38,973 --> 00:13:41,442
+And then this here, that's the Bun Image
+然後這就是髮髻圖片
+
+332
+00:13:41,442 --> 00:13:43,830
+API. So another feature coming from the Bun
+API。 Bun 的另一個特點是
+
+333
+00:13:44,407 --> 00:13:45,401
+runtime in the end.
+最後運行時。
+
+334
+00:13:45,930 --> 00:13:48,559
+On a file that we read with bun.file and
+在我們用bun.file讀取的檔案上
+
+335
+00:13:48,816 --> 00:13:50,948
+only on files that we read with bun.file,
+僅適用於我們使用bun.file讀取的檔案，
+
+336
+00:13:51,300 --> 00:13:54,026
+not on files that we read with any Node.js
+不在我們使用任何 Node.js 讀取的檔案上
+
+337
+00:13:54,218 --> 00:13:57,055
+API, for example, but on files that we read
+例如，API，但針對我們讀取的檔案
+
+338
+00:13:57,087 --> 00:13:59,700
+with bun.file, we can call image because
+使用bun.file，我們可以呼叫image，因為
+
+339
+00:13:59,796 --> 00:14:01,752
+file and image are both coming from Bun.
+檔案和圖像都來自Bun。
+
+340
+00:14:02,377 --> 00:14:05,872
+And image in the end gives us a handle to an
+最後的圖像為我們提供了一個句柄
+
+341
+00:14:06,048 --> 00:14:09,318
+object that has various optimization and
+具有各種優化和
+
+342
+00:14:09,414 --> 00:14:12,270
+conversion methods. For example, a resize
+轉換方法。例如，調整大小
+
+343
+00:14:12,303 --> 00:14:14,485
+method for changing the file size in case
+更改檔案大小的方法
+
+344
+00:14:14,485 --> 00:14:16,894
+the user did set different width and height
+使用者確實設定了不同的寬度和高度
+
+345
+00:14:16,894 --> 00:14:17,250
+values.
+價值觀。
+
+346
+00:14:17,880 --> 00:14:19,570
+If not, we're not doing any resizing, of
+如果沒有，我們不會進行任何大小調整
+
+347
+00:14:19,604 --> 00:14:19,941
+course.
+課程。
+
+348
+00:14:22,176 --> 00:14:25,952
+And then in the end, we also use the JPEG,
+最後，我們也使用 JPEG，
+
+349
+00:14:25,968 --> 00:14:29,646
+the PNG, WebP, or AWITH methods on that
+PNG、WebP 或 AWITH 方法
+
+350
+00:14:29,663 --> 00:14:31,655
+image handle, again, which is coming from
+圖像句柄再次來自
+
+351
+00:14:32,154 --> 00:14:33,979
+Bun depending on which encoder was picked.
+麵包取決於選擇哪個編碼器。
+
+352
+00:14:34,189 --> 00:14:36,354
+So if we have the JPEG encoder, we call the
+因此，如果我們有 JPEG 編碼器，我們稱
+
+353
+00:14:36,354 --> 00:14:38,114
+JPEG method on that Bun Image API.
+Bun Image API 上的 JPEG 方法。
+
+354
+00:14:38,722 --> 00:14:41,561
+For the PNG encoder, we call PNG and so on.
+對於PNG編碼器，我們稱之為PNG等。
+
+355
+00:14:41,914 --> 00:14:43,422
+So that is what then actually
+那麼實際上就是這樣
+
+356
+00:14:43,999 --> 00:14:47,303
+encodes the optimized image as a JPEG, as a
+將優化後的影像編碼為 JPEG，作為
+
+357
+00:14:47,303 --> 00:14:51,634
+PNG and so on after resizing it. And we set
+調整大小後的PNG等。我們設定
+
+358
+00:14:51,634 --> 00:14:53,351
+the quality level of the encoding here,
+這裡編碼的品質級別，
+
+359
+00:14:53,399 --> 00:14:55,532
+which of course also affects the file size.
+這當然也會影響檔案大小。
+
+360
+00:14:55,965 --> 00:14:58,436
+And then in the end on that encoded image,
+然後最後在該編碼圖像上，
+
+361
+00:14:58,452 --> 00:15:01,467
+we call write, which is another Bun feature,
+我們稱之為 write，這是 Bun 的另一個功能，
+
+362
+00:15:01,900 --> 00:15:04,290
+the write method, which is there to write
+write方法，就是在那裡寫
+
+363
+00:15:04,290 --> 00:15:07,482
+something to a file and we write the image
+將某些內容寫入檔案，然後將圖像寫入
+
+364
+00:15:07,674 --> 00:15:10,287
+in the end into that output path. That is
+最後進入該輸出路徑。那是
+
+365
+00:15:10,383 --> 00:15:12,307
+what actually creates and stores the
+實際創建和儲存的是什麼
+
+366
+00:15:12,387 --> 00:15:13,124
+optimized image.
+優化的圖像。
+
+367
+00:15:14,326 --> 00:15:16,795
+And that is what optimize1 does here. And we
+這就是optimize1 在這裡所做的。而我們
+
+368
+00:15:16,811 --> 00:15:19,440
+do that image after image. We keep track of
+一張接著一張地做。我們追蹤
+
+369
+00:15:19,440 --> 00:15:21,524
+all the images we processed so that we know
+我們處理的所有圖像以便我們知道
+
+370
+00:15:21,604 --> 00:15:23,448
+when to leave that loop once we processed
+一旦我們處理完畢，什麼時候離開該迴圈
+
+371
+00:15:23,528 --> 00:15:25,948
+all images. And we also keep track of the
+所有圖像。我們也跟蹤
+
+372
+00:15:26,028 --> 00:15:28,481
+bytes we read in and the bytes we wrote out
+我們讀入的位元組和我們寫出的位元組
+
+373
+00:15:28,673 --> 00:15:31,126
+to see by how much we optimized the images.
+看看我們對影像進行了多少優化。
+
+374
+00:15:31,543 --> 00:15:33,979
+We also have verbose logging. So you can add
+我們還有詳細的紀錄記錄。所以你可以添加
+
+375
+00:15:33,979 --> 00:15:37,650
+a --verbose option to log more details and
+一個 --verbose 選項來記錄更多詳細資訊和
+
+376
+00:15:37,650 --> 00:15:40,040
+if that is turned on, we do, for example,
+如果開啟該功能，我們會執行以下操作：
+
+377
+00:15:40,056 --> 00:15:42,622
+calculate how much we actually shrank the
+計算我們實際上縮小了多少
+
+378
+00:15:42,622 --> 00:15:45,412
+images and we write that information to the
+圖像，我們將該資訊寫入
+
+379
+00:15:45,412 --> 00:15:46,262
+log too.
+也記錄。
+
+380
+00:15:46,936 --> 00:15:49,069
+And that is essentially it. That is the
+本質上就是這樣。那就是
+
+381
+00:15:49,101 --> 00:15:52,212
+entire program. We are processing images.
+整個程式。我們正在處理圖像。
+
+382
+00:15:52,565 --> 00:15:54,730
+And the main takeaway is of course that
+主要的收穫當然是
+
+383
+00:15:54,795 --> 00:15:57,056
+we're doing this with a mixture of Node.js
+我們使用 Node.js 的混合來做到這一點
+
+384
+00:15:57,056 --> 00:16:00,151
+APIs, but then most importantly also by
+API，但最重要的是
+
+385
+00:16:00,183 --> 00:16:03,712
+using certain Bun APIs like the File API,
+使用某些 Bun API，例如檔案 API，
+
+386
+00:16:03,792 --> 00:16:04,706
+the Image API,
+圖像 API，
+
+387
+00:16:05,235 --> 00:16:07,400
+and that you can build a program like this
+你可以建立一個這樣的程式
+
+388
+00:16:07,400 --> 00:16:10,259
+therefore without any extra dependencies.
+因此沒有任何額外的依賴。
+
+389
+00:16:10,532 --> 00:16:13,729
+It's just the Bun runtime, nothing else, no
+這只是 Bun 運作時，沒有別的，沒有
+
+390
+00:16:13,826 --> 00:16:16,557
+third-party dependencies, just a Bun program
+第三方依賴，只是一個Bun程式
+
+391
+00:16:16,718 --> 00:16:17,762
+executed with Bun.
+與包子一起處死。
+
+392
+00:16:18,485 --> 00:16:20,365
+And I'm not just using the Bun runtime here,
+我在這裡不只是使用 Bun 運行時，
+
+393
+00:16:21,056 --> 00:16:22,743
+and I also used it for setting up the
+我還用它來設置
+
+394
+00:16:22,743 --> 00:16:25,185
+package.json file and installing this one
+package.json 檔案並安裝這個
+
+395
+00:16:25,474 --> 00:16:27,691
+type dependency, but instead we're also
+型別依賴，但我們也
+
+396
+00:16:27,707 --> 00:16:30,181
+using the test runner capabilities because
+使用測試運行程式功能，因為
+
+397
+00:16:30,197 --> 00:16:32,639
+in there, and again, you found it attached,
+在那裡，你再次發現它附在上面，
+
+398
+00:16:33,089 --> 00:16:35,033
+you'll find a bunch of test files where we
+你會發現一堆測試檔案，我們在其中
+
+399
+00:16:35,033 --> 00:16:37,525
+got little testing functions that test the
+幾乎沒有測試功能來測試
+
+400
+00:16:37,525 --> 00:16:41,012
+various aspects of this program to make sure
+該計劃的各個方面，以確保
+
+401
+00:16:41,061 --> 00:16:43,488
+that everything works correctly and that if
+一切正常並且如果
+
+402
+00:16:43,552 --> 00:16:46,172
+we were to change the code, we can quickly
+我們要更改程式碼，我們可以很快
+
+403
+00:16:46,204 --> 00:16:49,049
+validate if it still works as intended. So
+驗證它是否仍然按預期工作。所以
+
+404
+00:16:49,081 --> 00:16:51,299
+again, no third-party package involved here,
+再次強調，這裡不涉及第三方包，
+
+405
+00:16:51,668 --> 00:16:55,253
+just some unit tests written and executed
+只是編寫和執行了一些單元測試
+
+406
+00:16:55,349 --> 00:16:56,940
+with help of the Bun test runner.
+在 Bun 測試運行程式的幫助下。

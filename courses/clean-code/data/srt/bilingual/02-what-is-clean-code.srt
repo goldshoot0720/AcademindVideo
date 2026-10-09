@@ -1,0 +1,669 @@
+1
+00:00:02,373 --> 00:00:06,254
+So what exactly is clean code?
+那麼到底什麼是乾淨的程式碼呢？
+
+2
+00:00:07,072 --> 00:00:09,702
+Have a look at this example. Is this clean
+看看這個例子。這是乾淨嗎
+
+3
+00:00:09,734 --> 00:00:10,103
+code?
+程式碼？
+
+4
+00:00:10,841 --> 00:00:13,711
+Probably not. We can probably all agree that
+可能不會。我們可能都同意
+
+5
+00:00:13,808 --> 00:00:16,486
+this is not clean code. It's a lot of code,
+這不是乾淨的程式碼。程式碼很多，
+
+6
+00:00:16,534 --> 00:00:19,581
+hard to read, a lot of deeply nested control
+難以閱讀，很多深層嵌套的控件
+
+7
+00:00:19,677 --> 00:00:20,287
+structures.
+結構。
+
+8
+00:00:20,960 --> 00:00:22,211
+This doesn't look very clean.
+這看起來不太乾淨。
+
+9
+00:00:23,125 --> 00:00:25,515
+Now consider this example.
+現在考慮這個例子。
+
+10
+00:00:26,166 --> 00:00:27,624
+Is this clean code?
+這是乾淨的程式碼嗎？
+
+11
+00:00:29,720 --> 00:00:32,895
+Well, it's just one line of code and it
+嗯，這只是一行程式碼而已
+
+12
+00:00:32,895 --> 00:00:35,876
+looks like we're calling a function create
+看起來我們正在呼叫一個函式 create
+
+13
+00:00:36,152 --> 00:00:39,784
+which creates a user named Max with an age
+它創建了一個名為 Max 的使用者，年齡為
+
+14
+00:00:39,784 --> 00:00:41,781
+of 31, something like this.
+31，類似這樣的。
+
+15
+00:00:43,150 --> 00:00:46,193
+Well, let's have a look at the entire code.
+好吧，讓我們看一下整個程式碼。
+
+16
+00:00:46,853 --> 00:00:49,480
+This is a Python example and in case you
+這是一個 Python 範例，如果您
+
+17
+00:00:49,480 --> 00:00:52,207
+don't know Python, I'm defining a function
+不懂Python，我正在定義一個函式
+
+18
+00:00:52,207 --> 00:00:55,403
+here and in that function, The lambda
+這裡和那個函式中， lambda
+
+19
+00:00:55,403 --> 00:00:58,588
+keyword here actually is used to create more
+這裡的關鍵字其實是用來創建更多
+
+20
+00:00:59,024 --> 00:01:01,740
+functions which are then returned from that
+然後從中回傳的函式
+
+21
+00:01:01,870 --> 00:01:02,354
+function.
+功能。
+
+22
+00:01:02,936 --> 00:01:06,489
+So take a pause now, pause the video and try
+所以現在暫停一下，暫停影片並嘗試
+
+23
+00:01:06,635 --> 00:01:08,523
+to understand this code now.
+現在就了解這段程式碼。
+
+24
+00:01:09,056 --> 00:01:10,719
+What is this code doing?
+這段程式碼是做什麼的？
+
+25
+00:01:12,800 --> 00:01:15,102
+So did you pause the video? Did you try to
+那你暫停影片了嗎？你嘗試過嗎
+
+26
+00:01:15,102 --> 00:01:17,696
+understand it? And did you understand it?
+明白了嗎？你明白了嗎？
+
+27
+00:01:18,750 --> 00:01:21,462
+What we actually have here is a function,
+我們這裡其實有一個函式，
+
+28
+00:01:21,896 --> 00:01:25,027
+the create function, which does not create
+create 函式，不建立
+
+29
+00:01:25,091 --> 00:01:28,093
+users or anything like that. Instead, it's a
+使用者或類似的東西。相反，它是一個
+
+30
+00:01:28,157 --> 00:01:30,903
+function which creates other functions. So
+建立其他函式的函式。所以
+
+31
+00:01:30,903 --> 00:01:34,210
+it's a factory function or a higher-order
+它是一個工廠函式或一個高階函式
+
+32
+00:01:34,258 --> 00:01:34,756
+function.
+功能。
+
+33
+00:01:35,366 --> 00:01:38,079
+And these other functions which are being
+還有這些其他功能正在被
+
+34
+00:01:38,175 --> 00:01:41,852
+created turn out to be validation functions.
+創建的結果是驗證函式。
+
+35
+00:01:42,590 --> 00:01:45,079
+We preconfigure them with a certain value,
+我們給它們預先設定一個特定的值，
+
+36
+00:01:45,320 --> 00:01:46,732
+for example, 31,
+例如，31，
+
+37
+00:01:47,262 --> 00:01:49,222
+And then we get a function which we can call
+然後我們得到一個可以呼叫的函式
+
+38
+00:01:49,270 --> 00:01:52,932
+thereafter to compare another value against
+此後將另一個值與
+
+39
+00:01:52,948 --> 00:01:55,871
+that created value. And we either check for
+創造了價值。我們要么檢查
+
+40
+00:01:55,935 --> 00:01:58,713
+that value being smaller or bigger depending
+該值較小或更大取決於
+
+41
+00:01:58,810 --> 00:02:00,881
+on whether we chose max or min
+關於我們選擇最大值還是最小值
+
+42
+00:02:01,460 --> 00:02:04,479
+as a parameter for creating our validation
+作為創建驗證的參數
+
+43
+00:02:04,527 --> 00:02:04,977
+function.
+功能。
+
+44
+00:02:06,117 --> 00:02:09,490
+This is absolutely not clean code because it
+這絕對不是乾淨的程式碼，因為它
+
+45
+00:02:09,490 --> 00:02:12,525
+was very confusing. And understanding what
+非常令人困惑。並了解什麼
+
+46
+00:02:12,557 --> 00:02:15,287
+this code does will certainly take a couple
+這段程式碼確實需要一些時間
+
+47
+00:02:15,287 --> 00:02:15,832
+of moments.
+的時刻。
+
+48
+00:02:16,394 --> 00:02:19,267
+And that always is a good sign for bad code
+這對於糟糕的程式碼來說總是一個好兆頭
+
+49
+00:02:19,604 --> 00:02:22,027
+if you have to think about it a lot to
+如果你必須考慮很多
+
+50
+00:02:22,027 --> 00:02:23,359
+understand what it does.
+了解它的作用。
+
+51
+00:02:24,274 --> 00:02:26,650
+Because there's one thing which clean code
+因為有一件事可以讓程式碼變乾淨
+
+52
+00:02:26,746 --> 00:02:27,677
+certainly is not.
+當然不是。
+
+53
+00:02:28,431 --> 00:02:30,678
+It's not code that just works.
+這不是可以正常工作的程式碼。
+
+54
+00:02:31,336 --> 00:02:34,498
+The example I showed you will work, but it's
+我向您展示的示例將起作用，但它是
+
+55
+00:02:34,498 --> 00:02:37,082
+still not clean code because clean code is
+仍然不是乾淨的程式碼，因為乾淨的程式碼是
+
+56
+00:02:37,210 --> 00:02:39,457
+not about whether code works or not.
+與程式碼是否有效無關。
+
+57
+00:02:39,986 --> 00:02:42,921
+Instead, it's about whether code is easy to
+相反，問題在於程式碼是否易於編寫
+
+58
+00:02:42,953 --> 00:02:44,060
+read and understand
+閱讀並理解
+
+59
+00:02:44,798 --> 00:02:47,797
+because it turns out that as a developer, we
+因為事實證明，身為開發人員，我們
+
+60
+00:02:47,797 --> 00:02:50,475
+spend quite a lot of time reading code,
+花費大量時間閱讀程式碼，
+
+61
+00:02:50,972 --> 00:02:52,127
+understanding code.
+理解程式碼。
+
+62
+00:02:52,736 --> 00:02:55,045
+For example, because we have to go back to
+例如，因為我們必須回到
+
+63
+00:02:55,061 --> 00:02:57,964
+code we wrote in the past to fix a bug or
+我們過去為修復錯誤而編寫的程式碼或
+
+64
+00:02:57,964 --> 00:03:01,252
+add a feature, or because maybe we need to
+添加一個功能，或者因為我們可能需要
+
+65
+00:03:01,252 --> 00:03:03,914
+dive into some code written by a colleague
+深入研究同事編寫的一些程式碼
+
+66
+00:03:04,202 --> 00:03:05,421
+or by some other developer.
+或由其他一些開發人員提供。
+
+67
+00:03:05,967 --> 00:03:07,956
+So we need to read a lot of code.
+所以我們需要閱讀大量的程式碼。
+
+68
+00:03:08,534 --> 00:03:11,005
+And therefore reading code and understanding
+因此閱讀程式碼並理解
+
+69
+00:03:11,037 --> 00:03:12,208
+code should be easy
+程式碼應該很簡單
+
+70
+00:03:12,802 --> 00:03:15,417
+because if it's hard, we lose a lot of time
+因為如果很難，我們就會失去很多時間
+
+71
+00:03:15,449 --> 00:03:18,947
+and productivity. And ultimately entire code
+和生產力。最終完整的程式碼
+
+72
+00:03:18,979 --> 00:03:19,942
+bases can die
+基地可能會死
+
+73
+00:03:20,664 --> 00:03:23,279
+because no one's able to fully understand
+因為沒有人能夠完全理解
+
+74
+00:03:23,391 --> 00:03:23,680
+the code.
+程式碼。
+
+75
+00:03:24,531 --> 00:03:26,841
+So for example, here's the same example from
+例如，這是來自的相同範例
+
+76
+00:03:26,841 --> 00:03:27,258
+before,
+前，
+
+77
+00:03:27,788 --> 00:03:29,505
+now slightly rewritten.
+現在稍微重寫一下。
+
+78
+00:03:30,227 --> 00:03:32,826
+To be precise, I basically only chose
+準確來說，我基本上只選了
+
+79
+00:03:32,938 --> 00:03:33,789
+different names.
+不同的名字。
+
+80
+00:03:34,545 --> 00:03:38,270
+And now automatically it becomes cleaner. It
+現在它會自動變得更乾淨。它
+
+81
+00:03:38,318 --> 00:03:41,073
+becomes easier to read and understand. It
+變得更容易閱讀和理解。它
+
+82
+00:03:41,105 --> 00:03:44,023
+won't take you as long to understand what's
+不會花你那麼長的時間去理解什麼
+
+83
+00:03:44,023 --> 00:03:44,724
+going on here
+在這裡進行
+
+84
+00:03:45,327 --> 00:03:46,273
+as it did before.
+就像以前一樣。
+
+85
+00:03:47,970 --> 00:03:50,879
+And we could of course also refactor this in
+我們當然也可以將其重構為
+
+86
+00:03:51,154 --> 00:03:53,482
+other ways. We could, for example, also
+其他方式。例如，我們也可以
+
+87
+00:03:53,482 --> 00:03:56,780
+consider creating a class with good names
+考慮創建一個具有好名稱的類
+
+88
+00:03:57,216 --> 00:03:59,407
+and with all the validation logic baked into
+並將所有驗證邏輯融入其中
+
+89
+00:03:59,457 --> 00:04:00,936
+the class. Something like this.
+班級。像這樣的東西。
+
+90
+00:04:01,691 --> 00:04:04,116
+And of course, just to make this clear right
+當然，只是為了明確這一點
+
+91
+00:04:04,116 --> 00:04:07,360
+away, there will not be a single right way
+遠離，不會有唯一正確的方法
+
+92
+00:04:07,649 --> 00:04:10,491
+of writing clean code. Instead, this is one
+編寫乾淨的程式碼。相反，這是一個
+
+93
+00:04:10,604 --> 00:04:13,575
+possible solution. Using a factory function
+可能的解決方案。使用工廠函式
+
+94
+00:04:13,575 --> 00:04:15,293
+with better names would've been another
+有更好的名字會是另一個
+
+95
+00:04:15,293 --> 00:04:17,670
+solution. And in this course, we're going to
+解決方案。在本課程中，我們將
+
+96
+00:04:17,686 --> 00:04:21,427
+dive into many possible solutions and many
+深入研究許多可能的解決方案和許多
+
+97
+00:04:21,604 --> 00:04:24,029
+different concepts and rules which might
+不同的概念和規則可能會
+
+98
+00:04:24,029 --> 00:04:27,209
+apply to your specific code and situations.
+適用於您的特定程式碼和情況。
+
+99
+00:04:28,621 --> 00:04:29,856
+So what is clean code?
+那什麼是乾淨的程式碼呢？
+
+100
+00:04:30,514 --> 00:04:32,840
+Ultimately, it's code which is readable and
+最終，它是可讀的程式碼
+
+101
+00:04:32,920 --> 00:04:35,150
+understandable and therefore code which is
+可以理解，因此程式碼是
+
+102
+00:04:35,262 --> 00:04:38,069
+readable and meaningful, which reduces the
+可讀且有意義，這減少了
+
+103
+00:04:38,069 --> 00:04:40,652
+cognitive load you have to go through so
+你必須經歷的認知負荷
+
+104
+00:04:40,652 --> 00:04:42,930
+that you have less cognitive load and
+你的認知負荷較少且
+
+105
+00:04:42,962 --> 00:04:44,213
+understanding is easy.
+理解很容易。
+
+106
+00:04:45,192 --> 00:04:47,454
+Clean code should be concise and to the
+乾淨的程式碼應該簡潔並且符合
+
+107
+00:04:47,454 --> 00:04:48,272
+point therefore
+因此點
+
+108
+00:04:48,882 --> 00:04:51,721
+and you for example wanna avoid unintuitive
+例如，你想避免不直觀
+
+109
+00:04:51,801 --> 00:04:55,555
+names, complex nestings, or big code blocks.
+名稱、複雜的嵌套或大的程式碼區塊。
+
+110
+00:04:56,743 --> 00:04:58,893
+You, of course, typically wanna follow
+當然，你通常會想跟隨
+
+111
+00:04:58,909 --> 00:05:02,054
+common best practices and patterns and also
+常見的最佳實踐和模式以及
+
+112
+00:05:02,134 --> 00:05:04,188
+a bunch of concepts and rules which I'm
+我的一堆概念和規則
+
+113
+00:05:04,300 --> 00:05:06,081
+going to teach throughout this course
+將在整個課程中教授
+
+114
+00:05:06,787 --> 00:05:09,082
+because ultimately, it should be fun to
+因為最終，這應該會很有趣
+
+115
+00:05:09,258 --> 00:05:12,532
+write and to maintain code. And with clean
+編寫和維護程式碼。並與乾淨
+
+116
+00:05:12,564 --> 00:05:15,340
+code, you ensure that maintaining can be fun
+程式碼，你確保維護可以很有趣
+
+117
+00:05:15,853 --> 00:05:18,083
+because your code can be understood by
+因為你的程式碼可以被理解
+
+118
+00:05:18,083 --> 00:05:18,308
+others.
+其他的。
+
+119
+00:05:19,319 --> 00:05:21,453
+So clean code is code which is easy to
+所以乾淨的程式碼是易於寫的程式碼
+
+120
+00:05:21,453 --> 00:05:24,629
+understand. Dirty code is not easy to
+理解。髒程式碼不容易
+
+121
+00:05:24,677 --> 00:05:25,206
+understand.
+理解。
+
+122
+00:05:25,943 --> 00:05:28,285
+And as a developer, you should therefore
+因此，作為一名開發人員，您應該
+
+123
+00:05:28,285 --> 00:05:31,267
+treat your code like a good story, like an
+像對待一個好故事一樣對待你的程式碼
+
+124
+00:05:31,395 --> 00:05:31,796
+essay.
+散文。
+
+125
+00:05:32,438 --> 00:05:33,897
+You are an author.
+你是一位作家。
+
+126
+00:05:34,602 --> 00:05:37,521
+As a developer, you are the author of your
+作為開發人員，您是您的作品的作者
+
+127
+00:05:37,745 --> 00:05:38,114
+code.
+程式碼。
+
+128
+00:05:38,707 --> 00:05:41,321
+And you wanna write it such that it's fun
+你想把它寫得有趣
+
+129
+00:05:41,433 --> 00:05:44,416
+and easy to read and understand your code.
+並且易於閱讀和理解您的程式碼。
+
+130
+00:05:45,522 --> 00:05:47,767
+That should be your goal. And with this
+那應該是你的目標。並以此
+
+131
+00:05:47,767 --> 00:05:50,095
+course, you'll be able to achieve it Because
+當然，你將能夠實現它，因為
+
+132
+00:05:50,095 --> 00:05:51,761
+I'm going to teach you a couple of
+我要教你幾個
+
+133
+00:05:51,793 --> 00:05:54,525
+techniques and rules that help you write
+幫助您寫作的技巧和規則
+
+134
+00:05:54,784 --> 00:05:55,479
+cleaner code.
+更乾淨的程式碼。

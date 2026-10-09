@@ -1,0 +1,619 @@
+1
+00:00:00,529 --> 00:00:04,201
+So we are able to add elements to this list,
+
+2
+00:00:04,425 --> 00:00:06,334
+but at the moment, if I then click an
+
+3
+00:00:06,446 --> 00:00:07,649
+element on that list,
+
+4
+00:00:08,274 --> 00:00:11,353
+I add it again, I duplicate it basically.
+
+5
+00:00:12,620 --> 00:00:14,159
+And that's not what I want.
+
+6
+00:00:14,769 --> 00:00:16,901
+Instead, if I click an item here in that
+
+7
+00:00:17,110 --> 00:00:19,996
+dream locations list, I wanna remove it from
+
+8
+00:00:19,996 --> 00:00:23,107
+that list. And I also wanna make sure that
+
+9
+00:00:23,268 --> 00:00:26,042
+items I selected down there disappear from
+
+10
+00:00:26,154 --> 00:00:28,592
+here. And are added up here. And if I then
+
+11
+00:00:28,657 --> 00:00:31,159
+remove them up here, they should be re-added
+
+12
+00:00:31,223 --> 00:00:33,758
+down there so that items basically switch
+
+13
+00:00:34,175 --> 00:00:35,266
+between these 2 lists.
+
+14
+00:00:36,036 --> 00:00:37,127
+That's my next goal.
+
+15
+00:00:38,506 --> 00:00:40,335
+Now let's start with making sure that
+
+16
+00:00:40,591 --> 00:00:43,270
+clicking an item in that upper list sends a
+
+17
+00:00:43,270 --> 00:00:44,153
+DELETE request.
+
+18
+00:00:45,099 --> 00:00:48,147
+At the moment, we always send a POST request
+
+19
+00:00:48,147 --> 00:00:51,323
+because we added hx-post on that location
+
+20
+00:00:51,339 --> 00:00:53,457
+item and we're using that same item in both
+
+21
+00:00:53,457 --> 00:00:53,585
+lists.
+
+22
+00:00:54,965 --> 00:00:58,431
+Now, one way of sending a DELETE request
+
+23
+00:00:58,479 --> 00:01:00,630
+here in that upper list
+
+24
+00:01:01,207 --> 00:01:04,529
+would be to accept a second argument in this
+
+25
+00:01:04,577 --> 00:01:07,498
+renderLocation function that could be named
+
+26
+00:01:07,706 --> 00:01:09,616
+isAvailableLocation
+
+27
+00:01:10,370 --> 00:01:11,189
+or anything like that.
+
+28
+00:01:11,895 --> 00:01:14,141
+And we can assign a default value of true,
+
+29
+00:01:14,382 --> 00:01:15,088
+for example.
+
+30
+00:01:16,452 --> 00:01:18,586
+And I'll use this argument to determine
+
+31
+00:01:18,699 --> 00:01:20,560
+which attributes should be added to the
+
+32
+00:01:20,624 --> 00:01:20,881
+button.
+
+33
+00:01:21,506 --> 00:01:23,864
+So that I can basically tell this function
+
+34
+00:01:24,233 --> 00:01:27,071
+in which kind of list I'm using this item,
+
+35
+00:01:27,712 --> 00:01:30,006
+if it's the available locations list or the
+
+36
+00:01:30,086 --> 00:01:31,625
+interesting locations list.
+
+37
+00:01:32,603 --> 00:01:34,079
+So therefore we could then add an
+
+38
+00:01:34,656 --> 00:01:35,506
+attributes
+
+39
+00:01:36,260 --> 00:01:36,869
+variable here
+
+40
+00:01:38,184 --> 00:01:40,493
+and check if is available location,
+
+41
+00:01:41,102 --> 00:01:41,872
+if that is true.
+
+42
+00:01:42,770 --> 00:01:45,769
+And in that case, I wanna set attributes to
+
+43
+00:01:46,362 --> 00:01:48,962
+a list of attributes or to a string that
+
+44
+00:01:48,962 --> 00:01:51,645
+includes multiple attributes to be precise,
+
+45
+00:01:52,384 --> 00:01:54,778
+where I have this post and this vals
+
+46
+00:01:54,955 --> 00:01:55,662
+attribute
+
+47
+00:01:56,561 --> 00:01:59,091
+and where I also have the target and swap
+
+48
+00:01:59,301 --> 00:01:59,769
+attributes.
+
+49
+00:02:00,786 --> 00:02:03,063
+So I'll cut them from the button down there
+
+50
+00:02:03,337 --> 00:02:06,147
+and instead add them here in this string, in
+
+51
+00:02:06,179 --> 00:02:07,496
+this attributes string.
+
+52
+00:02:09,547 --> 00:02:11,240
+And then of course, down there at the
+
+53
+00:02:11,320 --> 00:02:14,448
+button, I'll inject this attributes string
+
+54
+00:02:14,739 --> 00:02:16,770
+so that in the end on the rendered button
+
+55
+00:02:16,899 --> 00:02:19,227
+element, these attributes will be present
+
+56
+00:02:19,227 --> 00:02:19,437
+again.
+
+57
+00:02:21,089 --> 00:02:23,680
+But now we can also define an else case. So
+
+58
+00:02:23,680 --> 00:02:25,866
+if that location is rendered in the
+
+59
+00:02:25,866 --> 00:02:28,790
+interesting locations list instead of the
+
+60
+00:02:29,096 --> 00:02:32,631
+available locations list, and in that else
+
+61
+00:02:32,631 --> 00:02:32,920
+case,
+
+62
+00:02:33,660 --> 00:02:36,466
+the attributes should be different because
+
+63
+00:02:36,499 --> 00:02:38,830
+in that else case, we wanna send a DELETE
+
+64
+00:02:38,830 --> 00:02:40,966
+request with hx-delete
+
+65
+00:02:42,067 --> 00:02:45,230
+and that DELETE request should be sent to
+
+66
+00:02:45,230 --> 00:02:46,352
+this delete route here.
+
+67
+00:02:47,393 --> 00:02:47,922
+So to
+
+68
+00:02:48,483 --> 00:02:49,653
+/places and then
+
+69
+00:02:50,759 --> 00:02:53,388
+/some ID, the ID of the place that should be
+
+70
+00:02:53,388 --> 00:02:53,805
+deleted.
+
+71
+00:02:54,510 --> 00:02:57,443
+So to /places and then I'll dynamically
+
+72
+00:02:57,475 --> 00:03:00,408
+inject the ID of the place for which I'm
+
+73
+00:03:00,504 --> 00:03:01,995
+rendering this location item,
+
+74
+00:03:02,829 --> 00:03:04,976
+which I can get from this location argument
+
+75
+00:03:05,249 --> 00:03:07,573
+because there it's location.id.
+
+76
+00:03:08,695 --> 00:03:10,618
+That will give me the ID of the place that
+
+77
+00:03:10,618 --> 00:03:12,397
+should be removed from this list.
+
+78
+00:03:13,473 --> 00:03:15,693
+So that will then send this delete request.
+
+79
+00:03:17,370 --> 00:03:19,892
+In addition, here I wanna make sure that I
+
+80
+00:03:20,037 --> 00:03:22,142
+ask the user whether they really wanna
+
+81
+00:03:22,142 --> 00:03:22,640
+continue.
+
+82
+00:03:23,186 --> 00:03:25,821
+And we can do that with hx-confirm as you
+
+83
+00:03:25,821 --> 00:03:26,079
+learned.
+
+84
+00:03:26,641 --> 00:03:29,252
+And here I'll simply ask, are you sure?
+
+85
+00:03:32,147 --> 00:03:34,252
+That should make sure that we send that
+
+86
+00:03:34,252 --> 00:03:35,078
+delete request.
+
+87
+00:03:36,195 --> 00:03:39,596
+Now in app.js, in this delete route, I am
+
+88
+00:03:39,661 --> 00:03:42,296
+then removing that place, which I
+
+89
+00:03:42,825 --> 00:03:45,074
+identify by its ID from the
+
+90
+00:03:45,090 --> 00:03:47,209
+interestingLocations array,
+
+91
+00:03:48,044 --> 00:03:50,277
+and I send back an empty response.
+
+92
+00:03:50,855 --> 00:03:51,047
+And
+
+93
+00:03:51,577 --> 00:03:53,890
+as you learned, if you send back an empty
+
+94
+00:03:53,922 --> 00:03:54,644
+response,
+
+95
+00:03:55,190 --> 00:03:59,398
+you can use that empty response to replace
+
+96
+00:03:59,558 --> 00:04:02,160
+some element with it and therefore to
+
+97
+00:04:02,272 --> 00:04:04,665
+effectively delete it from the DOM.
+
+98
+00:04:05,484 --> 00:04:08,744
+Back in location.js, I wanna tweak those
+
+99
+00:04:08,921 --> 00:04:11,347
+attributes in case I'm sending that DELETE
+
+100
+00:04:11,347 --> 00:04:11,700
+request
+
+101
+00:04:12,455 --> 00:04:14,158
+and I wanna target
+
+102
+00:04:14,721 --> 00:04:17,388
+the element that should be removed from the
+
+103
+00:04:17,453 --> 00:04:17,744
+DOM.
+
+104
+00:04:18,277 --> 00:04:20,702
+So I wanna target this list item.
+
+105
+00:04:22,384 --> 00:04:25,407
+We can target that with closest li.
+
+106
+00:04:26,344 --> 00:04:28,077
+Keep in mind that the attributes are
+
+107
+00:04:28,191 --> 00:04:31,516
+rendered here and the closest list item seen
+
+108
+00:04:31,516 --> 00:04:34,272
+relative from that button is that list item
+
+109
+00:04:34,272 --> 00:04:34,386
+here.
+
+110
+00:04:35,367 --> 00:04:37,535
+So that will make sure that this list item
+
+111
+00:04:37,568 --> 00:04:38,735
+as a whole is targeted.
+
+112
+00:04:40,557 --> 00:04:44,196
+To then remove it and not just its contents,
+
+113
+00:04:44,598 --> 00:04:48,253
+we also should set hx-swap to outerHTML.
+
+114
+00:04:48,623 --> 00:04:51,120
+That will then entirely get rid of that list
+
+115
+00:04:51,120 --> 00:04:51,330
+item.
+
+116
+00:04:52,797 --> 00:04:55,055
+And that should therefore be all the code we
+
+117
+00:04:55,055 --> 00:04:57,086
+need to delete an item.
+
+118
+00:04:59,515 --> 00:05:02,654
+Now with those changes made, if I save
+
+119
+00:05:02,750 --> 00:05:04,420
+everything and I reload,
+
+120
+00:05:05,094 --> 00:05:07,310
+I am able to add places,
+
+121
+00:05:07,968 --> 00:05:09,863
+but when I then click a place, I
+
+122
+00:05:10,489 --> 00:05:11,983
+still duplicate it.
+
+123
+00:05:12,866 --> 00:05:15,740
+Now strangely, if I reload and then click an
+
+124
+00:05:15,772 --> 00:05:18,759
+item, I instead get the intended behavior. I
+
+125
+00:05:18,887 --> 00:05:21,665
+get this prompt and I can click OK to then
+
+126
+00:05:21,714 --> 00:05:22,179
+delete it.
+
+127
+00:05:23,303 --> 00:05:26,017
+But why does this not happen if I just added
+
+128
+00:05:26,049 --> 00:05:28,265
+it and I then click on it? Why is it then
+
+129
+00:05:28,313 --> 00:05:29,469
+still duplicated?
+
+130
+00:05:30,142 --> 00:05:32,995
+Well, it's then still duplicated because of
+
+131
+00:05:33,091 --> 00:05:35,510
+course we must utilize this
+
+132
+00:05:35,654 --> 00:05:38,186
+isAvailableLocation parameter here.
+
+133
+00:05:39,340 --> 00:05:41,904
+We must pass a value for it if it should be
+
+134
+00:05:42,064 --> 00:05:44,067
+other than true, so if it should be false.
+
+135
+00:05:45,429 --> 00:05:47,624
+And currently I'm not really doing that. I
+
+136
+00:05:47,624 --> 00:05:50,316
+mean, I am indeed doing it in index.js.
+
+137
+00:05:50,797 --> 00:05:53,489
+There it was part of the starting code, this
+
+138
+00:05:53,537 --> 00:05:55,203
+false argument here in the
+
+139
+00:05:55,235 --> 00:05:56,501
+interestingLocations list.
+
+140
+00:05:57,687 --> 00:06:00,364
+But if I add a new location with this route
+
+141
+00:06:00,732 --> 00:06:03,617
+and I return that rendered list item, I do
+
+142
+00:06:03,617 --> 00:06:05,636
+not set the second argument here.
+
+143
+00:06:06,438 --> 00:06:09,194
+And we should do that. We should pass false
+
+144
+00:06:09,242 --> 00:06:11,759
+as a second argument to renderLocation here
+
+145
+00:06:12,191 --> 00:06:15,028
+to make sure that these newly created items
+
+146
+00:06:15,172 --> 00:06:17,801
+which are injected into the DOM and into the
+
+147
+00:06:17,801 --> 00:06:21,679
+page after this POST request was sent are
+
+148
+00:06:21,888 --> 00:06:24,837
+also marked as items that are in that
+
+149
+00:06:24,933 --> 00:06:26,391
+interesting places list.
+
+150
+00:06:27,901 --> 00:06:30,550
+And with that change made, indeed now if we
+
+151
+00:06:30,550 --> 00:06:30,968
+reload,
+
+152
+00:06:32,108 --> 00:06:34,549
+if I add items and I then click on them, I
+
+153
+00:06:34,725 --> 00:06:36,653
+also get that intended behavior.
+
+154
+00:06:37,231 --> 00:06:38,901
+And that's therefore another step in the
+
+155
+00:06:38,901 --> 00:06:39,688
+right direction.

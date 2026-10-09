@@ -1,0 +1,235 @@
+1
+00:00:00,112 --> 00:00:03,132
+So what is such a reverse proxy thing?
+
+2
+00:00:03,727 --> 00:00:06,426
+Like this Traefik thing I mentioned we'll
+
+3
+00:00:06,442 --> 00:00:08,740
+have running on our host as a Docker
+
+4
+00:00:08,852 --> 00:00:10,860
+container in addition to our web app
+
+5
+00:00:10,876 --> 00:00:11,358
+container.
+
+6
+00:00:12,628 --> 00:00:15,102
+A reverse proxy is simply a service, a tool
+
+7
+00:00:15,600 --> 00:00:18,492
+that's handling incoming requests and that
+
+8
+00:00:18,492 --> 00:00:21,207
+routes them to your app or to any service
+
+9
+00:00:21,239 --> 00:00:24,276
+you want. And it can handle things like rate
+
+10
+00:00:24,276 --> 00:00:27,343
+limiting, TLS termination, so establish
+
+11
+00:00:27,487 --> 00:00:30,484
+HTTPS connections, load balancing, and more.
+
+12
+00:00:31,093 --> 00:00:33,033
+And that's why you typically wanna use a
+
+13
+00:00:33,097 --> 00:00:36,479
+reverse proxy in front of your app or your
+
+14
+00:00:36,543 --> 00:00:38,066
+container that's running your app
+
+15
+00:00:38,627 --> 00:00:41,352
+on your host machine for handling incoming
+
+16
+00:00:41,448 --> 00:00:44,221
+requests from clients like website visitors.
+
+17
+00:00:44,798 --> 00:00:47,907
+Of course, in theory, you could directly
+
+18
+00:00:48,004 --> 00:00:50,392
+handle those requests with your app or
+
+19
+00:00:50,424 --> 00:00:53,037
+container, but then your app and container
+
+20
+00:00:53,069 --> 00:00:55,313
+would need to take care about TLS
+
+21
+00:00:55,313 --> 00:00:59,054
+termination to have HTTPS requests, about
+
+22
+00:00:59,150 --> 00:01:01,831
+rate limiting if you want that, and possibly
+
+23
+00:01:01,831 --> 00:01:04,367
+more. That's why having such a reverse proxy
+
+24
+00:01:04,367 --> 00:01:06,278
+in front of your web app can be very handy.
+
+25
+00:01:06,775 --> 00:01:09,312
+Also because those proxy tools are of course
+
+26
+00:01:09,424 --> 00:01:12,073
+optimized for performance and can often do
+
+27
+00:01:12,073 --> 00:01:15,492
+tasks like TLS termination quicker or better
+
+28
+00:01:15,781 --> 00:01:18,992
+than your web app could. And this Traefik
+
+29
+00:01:19,217 --> 00:01:21,946
+thing, and I'll explain what exactly this
+
+30
+00:01:21,946 --> 00:01:23,134
+entire syntax here does,
+
+31
+00:01:23,728 --> 00:01:25,140
+this Traefik thing thing
+
+32
+00:01:25,733 --> 00:01:28,811
+is just such a reverse proxy. And there are
+
+33
+00:01:29,003 --> 00:01:31,440
+alternatives to Traefik. You may, for
+
+34
+00:01:31,440 --> 00:01:33,620
+example, have heard about NGINX before.
+
+35
+00:01:34,309 --> 00:01:36,537
+But what's great about Traefik is that it
+
+36
+00:01:36,537 --> 00:01:39,423
+has a first-class support for Docker, so you
+
+37
+00:01:39,423 --> 00:01:41,411
+can easily run it as a container.
+
+38
+00:01:42,068 --> 00:01:44,536
+And it has mechanisms for automatically
+
+39
+00:01:44,649 --> 00:01:47,438
+discovering other Docker containers it
+
+40
+00:01:47,438 --> 00:01:49,762
+should route traffic to, like our app
+
+41
+00:01:49,778 --> 00:01:53,048
+container. And that entire discovery process
+
+42
+00:01:53,209 --> 00:01:55,886
+and the configuration is controlled via
+
+43
+00:01:55,886 --> 00:01:58,723
+so-called Docker which is simply metadata
+
+44
+00:01:58,755 --> 00:02:00,727
+you can attach to your Docker containers.
+
+45
+00:02:01,705 --> 00:02:04,702
+And Traefik also supports things like
+
+46
+00:02:04,911 --> 00:02:08,774
+automatic TLS termination with help of Let's
+
+47
+00:02:08,774 --> 00:02:13,198
+Encrypt, which is a free-to-use SSL/TLS
+
+48
+00:02:13,198 --> 00:02:16,116
+certificate authority. So if you wanna
+
+49
+00:02:16,228 --> 00:02:20,123
+support HTTPS, you'll need a TLS certificate
+
+50
+00:02:20,460 --> 00:02:22,881
+and you can get one for free from Let's
+
+51
+00:02:22,881 --> 00:02:25,445
+Encrypt. And Traefik has built-in support
+
+52
+00:02:25,445 --> 00:02:27,690
+for that and automatically manages this
+
+53
+00:02:27,690 --> 00:02:29,519
+entire certificate lifecycle request and
+
+54
+00:02:29,599 --> 00:02:31,158
+validation chain for you.
+
+55
+00:02:31,768 --> 00:02:33,776
+And I'll get back to the details of that
+
+56
+00:02:34,017 --> 00:02:36,475
+later, but that's why I'm using Traefik here
+
+57
+00:02:36,749 --> 00:02:39,319
+and why I'm using it together with my web
+
+58
+00:02:39,319 --> 00:02:42,099
+app in this compose.yaml file. But let's now
+
+59
+00:02:42,291 --> 00:02:43,834
+understand this file a bit better.

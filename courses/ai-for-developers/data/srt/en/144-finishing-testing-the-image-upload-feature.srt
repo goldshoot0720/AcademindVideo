@@ -1,0 +1,563 @@
+1
+00:00:02,055 --> 00:00:04,463
+So this code here needs to be adjusted.
+
+2
+00:00:05,089 --> 00:00:06,422
+And again, I'll use AI here.
+
+3
+00:00:07,835 --> 00:00:10,484
+If I were using cursor, chances would be
+
+4
+00:00:10,533 --> 00:00:12,957
+high that it would automatically make the
+
+5
+00:00:12,957 --> 00:00:14,290
+appropriate suggestions
+
+6
+00:00:15,430 --> 00:00:17,887
+and I would simply have to confirm them by
+
+7
+00:00:17,935 --> 00:00:20,696
+hitting Tab. Here, when I'm recording this,
+
+8
+00:00:21,130 --> 00:00:23,924
+GitHub Copilot is not that smart and
+
+9
+00:00:23,956 --> 00:00:25,064
+therefore I have to tell it.
+
+10
+00:00:26,530 --> 00:00:27,528
+So here I will tell it,
+
+11
+00:00:28,621 --> 00:00:29,747
+extract the
+
+12
+00:00:30,359 --> 00:00:33,560
+image key and store it in the database.
+
+13
+00:00:34,637 --> 00:00:35,860
+Let's see what that gives us.
+
+14
+00:00:38,719 --> 00:00:39,618
+It extracts it here,
+
+15
+00:00:40,435 --> 00:00:41,351
+stores it here.
+
+16
+00:00:42,218 --> 00:00:42,970
+That's looking good.
+
+17
+00:00:45,070 --> 00:00:45,183
+Yeah,
+
+18
+00:00:45,813 --> 00:00:48,207
+should do the trick. Let's accept it
+
+19
+00:00:48,821 --> 00:00:50,309
+and make the same changes here.
+
+20
+00:00:52,220 --> 00:00:53,422
+Also store image.
+
+21
+00:00:54,023 --> 00:00:56,149
+With the context from before, this hopefully
+
+22
+00:00:56,149 --> 00:00:56,896
+should be enough.
+
+23
+00:00:58,420 --> 00:00:59,412
+Extracts the image key,
+
+24
+00:01:00,975 --> 00:01:02,260
+stores it in the database.
+
+25
+00:01:03,917 --> 00:01:04,304
+Looks good.
+
+26
+00:01:06,996 --> 00:01:08,979
+Of course, we need to make sure that we have
+
+27
+00:01:09,092 --> 00:01:11,638
+an image field in the database though. So in
+
+28
+00:01:11,671 --> 00:01:14,287
+the database.js file, when we create the
+
+29
+00:01:14,287 --> 00:01:16,709
+events table, we must make sure that there
+
+30
+00:01:16,709 --> 00:01:19,703
+is an image field and GitHub Copilot
+
+31
+00:01:19,703 --> 00:01:22,283
+suggests this here due to my latest edits.
+
+32
+00:01:25,210 --> 00:01:25,924
+And of course, therefore I
+
+33
+00:01:26,526 --> 00:01:29,206
+edited the events table, hence I'll delete
+
+34
+00:01:29,206 --> 00:01:33,820
+the database SQLite file to reinitialize it
+
+35
+00:01:34,754 --> 00:01:36,461
+and restart my development server.
+
+36
+00:01:38,217 --> 00:01:40,439
+And that should now ensure that this events
+
+37
+00:01:40,552 --> 00:01:42,795
+table is set up appropriately and with all
+
+38
+00:01:42,973 --> 00:01:45,078
+the other changes made, we should be able to
+
+39
+00:01:45,078 --> 00:01:46,909
+extract and store uploaded images.
+
+40
+00:01:50,127 --> 00:01:53,133
+So to test this image upload feature here,
+
+41
+00:01:54,092 --> 00:01:55,360
+we can go back to Postman.
+
+42
+00:01:57,144 --> 00:01:59,069
+And since I deleted and recreated the
+
+43
+00:01:59,069 --> 00:02:01,156
+database, I'll start by signing up a new
+
+44
+00:02:01,172 --> 00:02:01,722
+user again
+
+45
+00:02:03,372 --> 00:02:05,394
+and I'll grab that token because I'll need
+
+46
+00:02:05,394 --> 00:02:05,491
+it.
+
+47
+00:02:06,750 --> 00:02:09,266
+And I then wanna send a new event here to
+
+48
+00:02:09,266 --> 00:02:09,736
+the backend.
+
+49
+00:02:11,164 --> 00:02:13,517
+So a POST request to /events,
+
+50
+00:02:14,413 --> 00:02:14,866
+With my
+
+51
+00:02:15,482 --> 00:02:15,693
+new
+
+52
+00:02:16,843 --> 00:02:17,345
+token here
+
+53
+00:02:18,139 --> 00:02:18,706
+added to it.
+
+54
+00:02:21,130 --> 00:02:23,572
+But now we need to change the body because
+
+55
+00:02:23,605 --> 00:02:25,559
+now we must include an image here.
+
+56
+00:02:27,527 --> 00:02:29,502
+And I will actually generate an image here
+
+57
+00:02:29,502 --> 00:02:30,474
+with help of ChatGPT.
+
+58
+00:02:32,282 --> 00:02:32,897
+Generate
+
+59
+00:02:34,127 --> 00:02:34,597
+a dummy
+
+60
+00:02:35,196 --> 00:02:35,682
+event
+
+61
+00:02:36,232 --> 00:02:39,859
+image showing a group of people hiking.
+
+62
+00:02:41,207 --> 00:02:43,280
+In the mountains. You can use any image, of
+
+63
+00:02:43,313 --> 00:02:45,208
+course. You don't need to generate with AI,
+
+64
+00:02:45,889 --> 00:02:48,076
+but since this is an AI course, we can of
+
+65
+00:02:48,092 --> 00:02:49,418
+course also do that, I guess.
+
+66
+00:02:51,949 --> 00:02:53,641
+So that will be a dummy image which I want
+
+67
+00:02:53,641 --> 00:02:54,109
+to upload.
+
+68
+00:02:55,290 --> 00:02:56,932
+Yeah, they, they look a bit,
+
+69
+00:02:57,737 --> 00:03:00,233
+well, not too happy, but I'll take it.
+
+70
+00:03:00,877 --> 00:03:05,702
+Download this image, and then here in In
+
+71
+00:03:05,702 --> 00:03:08,167
+Postman, we need to change the body type
+
+72
+00:03:08,686 --> 00:03:09,481
+from JSON
+
+73
+00:03:10,243 --> 00:03:10,422
+to
+
+74
+00:03:11,768 --> 00:03:12,190
+FormData.
+
+75
+00:03:14,506 --> 00:03:17,386
+And then there we again can add title.
+
+76
+00:03:18,560 --> 00:03:19,365
+Now we just
+
+77
+00:03:19,976 --> 00:03:22,167
+use this nice table here to enter that data.
+
+78
+00:03:22,798 --> 00:03:23,170
+Title,
+
+79
+00:03:24,593 --> 00:03:25,369
+description,
+
+80
+00:03:26,032 --> 00:03:26,808
+test event,
+
+81
+00:03:28,215 --> 00:03:28,895
+address,
+
+82
+00:03:31,290 --> 00:03:31,853
+Test
+
+83
+00:03:32,449 --> 00:03:33,561
+Street 5.
+
+84
+00:03:35,494 --> 00:03:35,832
+Date,
+
+85
+00:03:37,540 --> 00:03:39,135
+I'll grab this date here.
+
+86
+00:03:41,535 --> 00:03:42,082
+And then
+
+87
+00:03:43,145 --> 00:03:45,175
+before clicking into the field, you should
+
+88
+00:03:45,175 --> 00:03:47,220
+have a dropdown here where you can select
+
+89
+00:03:47,333 --> 00:03:47,623
+File
+
+90
+00:03:49,522 --> 00:03:52,095
+and give this a name of Image now and then
+
+91
+00:03:52,128 --> 00:03:53,056
+select that file.
+
+92
+00:03:54,854 --> 00:03:57,410
+So I did now select that image which I
+
+93
+00:03:57,443 --> 00:04:01,549
+generated with AI. And if I now send this
+
+94
+00:04:01,549 --> 00:04:02,180
+request,
+
+95
+00:04:02,940 --> 00:04:03,651
+looks like
+
+96
+00:04:04,395 --> 00:04:05,268
+the event was stored.
+
+97
+00:04:07,650 --> 00:04:08,213
+Now actually,
+
+98
+00:04:09,051 --> 00:04:10,518
+I did not change the name
+
+99
+00:04:11,210 --> 00:04:11,791
+of that
+
+100
+00:04:12,419 --> 00:04:12,709
+file,
+
+101
+00:04:13,257 --> 00:04:15,529
+so I got a super long file name here.
+
+102
+00:04:16,205 --> 00:04:17,221
+Should have changed it before.
+
+103
+00:04:19,207 --> 00:04:19,514
+Actually
+
+104
+00:04:20,112 --> 00:04:22,843
+gives me a good opportunity to test this PUT
+
+105
+00:04:22,843 --> 00:04:23,005
+route.
+
+106
+00:04:24,322 --> 00:04:27,292
+And first grab that token again
+
+107
+00:04:29,342 --> 00:04:30,875
+and use that here in the header
+
+108
+00:04:31,924 --> 00:04:32,311
+like this.
+
+109
+00:04:34,463 --> 00:04:36,039
+And then there also change the body
+
+110
+00:04:36,635 --> 00:04:37,439
+to form data,
+
+111
+00:04:38,565 --> 00:04:40,882
+enter all that information like a title,
+
+112
+00:04:41,139 --> 00:04:44,917
+updated event, description updated, dot dot
+
+113
+00:04:44,917 --> 00:04:45,190
+dot,
+
+114
+00:04:47,954 --> 00:04:49,465
+address updated,
+
+115
+00:04:50,204 --> 00:04:51,003
+and date
+
+116
+00:04:51,847 --> 00:04:51,996
+is
+
+117
+00:04:53,017 --> 00:04:53,778
+This state here,
+
+118
+00:04:54,959 --> 00:04:55,882
+again, pick a file
+
+119
+00:04:57,872 --> 00:04:59,393
+and I'll generate another file.
+
+120
+00:05:00,380 --> 00:05:01,076
+Give me another one.
+
+121
+00:05:01,920 --> 00:05:02,693
+Let's see if that works.
+
+122
+00:05:03,418 --> 00:05:03,846
+Here we go.
+
+123
+00:05:05,780 --> 00:05:07,545
+Yeah, sure. Let's take this one
+
+124
+00:05:09,698 --> 00:05:11,690
+and I'll rename it off screen and
+
+125
+00:05:13,580 --> 00:05:14,361
+I'll grab it
+
+126
+00:05:16,053 --> 00:05:18,234
+and also store it under a key named image.
+
+127
+00:05:18,882 --> 00:05:19,557
+Send this
+
+128
+00:05:21,935 --> 00:05:23,349
+and looks like it was updated.
+
+129
+00:05:24,907 --> 00:05:26,578
+And if I now go back to my code, to my
+
+130
+00:05:26,578 --> 00:05:28,749
+project folder here, we should see that in
+
+131
+00:05:28,749 --> 00:05:30,172
+the public/images folder,
+
+132
+00:05:31,191 --> 00:05:32,533
+we got those image files.
+
+133
+00:05:33,778 --> 00:05:36,657
+And if I refresh here with Refresh Explorer,
+
+134
+00:05:37,821 --> 00:05:39,001
+I can indeed see them here.
+
+135
+00:05:40,069 --> 00:05:42,834
+So they were indeed uploaded and stored in
+
+136
+00:05:42,834 --> 00:05:45,793
+that public/images folder. So that image
+
+137
+00:05:45,970 --> 00:05:48,350
+upload functionality is working the way it
+
+138
+00:05:48,350 --> 00:05:48,552
+should work here.
+
+139
+00:05:51,177 --> 00:05:53,678
+Again, you can always tweak it, change parts
+
+140
+00:05:53,678 --> 00:05:55,985
+of it, but the main functionality here is
+
+141
+00:05:56,098 --> 00:05:57,260
+working the way it should.

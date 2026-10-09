@@ -1,0 +1,159 @@
+1
+00:00:00,673 --> 00:00:03,975
+This course is about running large language
+本課程是關於運行大型語言的
+
+2
+00:00:04,103 --> 00:00:04,408
+models,
+模型，
+
+3
+00:00:04,985 --> 00:00:07,855
+openly available large language models
+公開可用的大語言模型
+
+4
+00:00:08,047 --> 00:00:08,736
+specifically,
+具體來說，
+
+5
+00:00:09,474 --> 00:00:11,975
+locally on our machines, on your laptop, on
+本地在我們的機器上、您的筆記型電腦上、
+
+6
+00:00:11,975 --> 00:00:12,696
+my laptop,
+我的筆記型電腦，
+
+7
+00:00:13,321 --> 00:00:16,046
+or of course also on that remote server you
+或者當然也在您的遠端伺服器上
+
+8
+00:00:16,046 --> 00:00:16,672
+maybe rented.
+也許是租的。
+
+9
+00:00:17,730 --> 00:00:20,102
+And therefore, of course, we need to explore
+因此，當然，我們需要探索
+
+10
+00:00:20,311 --> 00:00:23,180
+hardware requirements and an important
+硬體需求和重要的
+
+11
+00:00:23,180 --> 00:00:25,649
+concept called quantization because
+稱為量化的概念是因為
+
+12
+00:00:26,467 --> 00:00:29,256
+As you might guess, running large models
+正如您可能猜到的，運行大型模型
+
+13
+00:00:29,929 --> 00:00:31,019
+could in theory
+理論上可以
+
+14
+00:00:31,596 --> 00:00:32,061
+be tricky
+狡猾
+
+15
+00:00:32,718 --> 00:00:35,043
+if you're not having a supercomputer at
+如果你沒有超級計算機
+
+16
+00:00:35,043 --> 00:00:37,143
+home. But as you'll see in this section,
+家。但正如您將在本節中看到的，
+
+17
+00:00:37,768 --> 00:00:40,269
+it's thankfully not really a problem and you
+值得慶幸的是這不是一個真正的問題，而你
+
+18
+00:00:40,413 --> 00:00:43,122
+can run very capable large language models
+可以運行非常強大的大型語言模型
+
+19
+00:00:43,459 --> 00:00:45,927
+on your laptop, your server, or whichever
+在您的筆記型電腦、伺服器或任何其他裝置上
+
+20
+00:00:45,927 --> 00:00:46,568
+machine you have.
+你有的機器。
+
+21
+00:00:47,306 --> 00:00:49,005
+Now, in order to understand how that's
+現在，為了理解這是怎麼回事
+
+22
+00:00:49,005 --> 00:00:51,313
+possible and which hardware requirements you
+可能的情況以及您的硬體需求
+
+23
+00:00:51,409 --> 00:00:54,728
+do need to meet, we'll take a look at model
+確實需要見面，我們來看看模型
+
+24
+00:00:54,856 --> 00:00:57,533
+parameters and their sizes and why that's
+參數及其大小以及原因
+
+25
+00:00:57,533 --> 00:00:58,319
+important. Important.
+重要的。重要的。
+
+26
+00:00:59,024 --> 00:01:02,232
+We'll then derive some hardware requirements
+然後我們將得出一些硬體要求
+
+27
+00:01:02,376 --> 00:01:05,070
+from that information and we'll then explore
+根據這些資訊，我們將探索
+
+28
+00:01:05,503 --> 00:01:08,774
+how quantization helps us lower these
+量化如何幫助我們降低這些
+
+29
+00:01:08,886 --> 00:01:10,185
+hardware requirements
+硬體需求
+
+30
+00:01:10,715 --> 00:01:14,227
+without getting a bad performance or without
+沒有表現不佳或沒有
+
+31
+00:01:14,403 --> 00:01:16,664
+impacting the performance of these open
+影響這些開放的性能
+
+32
+00:01:16,664 --> 00:01:17,867
+models in a negative way.
+以消極的方式進行建模。

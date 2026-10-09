@@ -1,0 +1,379 @@
+1
+00:00:00,176 --> 00:00:02,212
+Now, before I'll continue working on this
+現在，在我繼續研究這個之前
+
+2
+00:00:02,276 --> 00:00:03,975
+project, there is something important you
+專案，有件事對你來說很重要
+
+3
+00:00:03,975 --> 00:00:06,251
+have to understand about the way Claude
+必須了解克勞德的方式
+
+4
+00:00:06,363 --> 00:00:08,848
+works and what we can do to optimize it.
+工作原理以及我們可以採取哪些措施來優化它。
+
+5
+00:00:09,489 --> 00:00:12,231
+Let's say you wanna use Claude code to check
+假設您想使用克勞德程式碼來檢查
+
+6
+00:00:12,375 --> 00:00:14,908
+whether your current implementation is in
+您目前的實施是否在
+
+7
+00:00:15,020 --> 00:00:17,745
+line with your expectations and the usage
+符合您的期望和使用情況
+
+8
+00:00:17,745 --> 00:00:19,556
+instructions by the libraries you're using.
+您正在使用的庫的說明。
+
+9
+00:00:20,149 --> 00:00:22,794
+For this project where we just implemented
+對於我們剛剛實施的這個專案
+
+10
+00:00:22,794 --> 00:00:25,359
+it and verified it ourselves, this doesn't
+它並自己驗證了它，這並不
+
+11
+00:00:25,359 --> 00:00:27,187
+make too much sense. But of course, for
+太有道理了。但當然，為了
+
+12
+00:00:27,203 --> 00:00:29,896
+bigger projects or existing codebases, you
+更大的專案或現有的程式碼庫，您
+
+13
+00:00:30,152 --> 00:00:32,815
+absolutely might wanna do such a So I'm
+絕對可能想做這樣的所以我
+
+14
+00:00:32,959 --> 00:00:35,175
+asking Claude Code to do that. And I again
+要求克勞德·科德這樣做。而我又
+
+15
+00:00:35,287 --> 00:00:37,375
+tell it to use web search or the Context 7
+告訴它使用網路搜尋或 Context 7
+
+16
+00:00:37,391 --> 00:00:38,804
+MCP to look up the docs.
+MCP 查找檔案。
+
+17
+00:00:39,462 --> 00:00:41,806
+And I'll send it to it like this, not in
+我會像這樣發送它，而不是在
+
+18
+00:00:41,951 --> 00:00:44,552
+edit mode, not in plan mode, because I just
+編輯模式，而不是計劃模式，因為我只是
+
+19
+00:00:44,616 --> 00:00:47,266
+want to get a reply. I just want it to
+想得到答案。我只是想要它
+
+20
+00:00:47,330 --> 00:00:47,796
+analyze.
+分析。
+
+21
+00:00:48,695 --> 00:00:51,456
+Now, the important thing to understand here
+現在，重要的是要理解這裡
+
+22
+00:00:51,826 --> 00:00:55,117
+is that when Claude Code goes to work,
+就是當克勞德·科德開始工作時
+
+23
+00:00:55,760 --> 00:00:58,504
+it will often use several subagents.
+它經常會使用多個子代理程式。
+
+24
+00:00:59,081 --> 00:01:01,566
+In this case, for example, the Explore
+例如，在本例中，探索
+
+25
+00:01:01,774 --> 00:01:05,028
+agent, which is one of the agents built into
+代理，這是內建的代理之一
+
+26
+00:01:05,060 --> 00:01:06,728
+Claude Code. You can tell that it's using
+克勞德·程式碼。你可以看出它正在使用
+
+27
+00:01:06,760 --> 00:01:09,437
+that because there are tasks happening here
+因為這裡有任務發生
+
+28
+00:01:09,886 --> 00:01:12,194
+whilst we have another task running here in
+雖然我們還有另一個任務在這裡運行
+
+29
+00:01:12,194 --> 00:01:13,733
+the background, so to say,
+背景可以這麼說
+
+30
+00:01:14,294 --> 00:01:17,501
+because Claude Code can spin up subagents
+因為 Claude Code 可以啟動子代理
+
+31
+00:01:17,501 --> 00:01:20,563
+that do work whilst it continues with other
+確實有效，同時它繼續與其他
+
+32
+00:01:20,707 --> 00:01:23,144
+agents or the main agent that is running on
+代理或正在運行的主代理
+
+33
+00:01:23,353 --> 00:01:26,581
+other work. So it simultaneously looked up
+其他工作。於是它同時抬頭
+
+34
+00:01:26,806 --> 00:01:29,215
+some documentation with the context 7 MCP
+一些與上下文 7 MCP 相關的文檔
+
+35
+00:01:29,537 --> 00:01:32,637
+whilst the Explore agent is still exploring
+當 Explore 代理仍在探索時
+
+36
+00:01:32,733 --> 00:01:35,287
+folders and files in this project because
+該專案中的資料夾和檔案因為
+
+37
+00:01:35,400 --> 00:01:37,970
+that's the task of this Explore agent that's
+這就是這個探索代理的任務
+
+38
+00:01:37,970 --> 00:01:39,463
+built into Claude Code.
+內建於克勞德程式碼中。
+
+39
+00:01:40,058 --> 00:01:42,419
+It's simply an agent that's optimized for
+它只是一個優化的代理
+
+40
+00:01:42,869 --> 00:01:45,487
+reading and understanding files and folders.
+閱讀和理解檔案和資料夾。
+
+41
+00:01:46,017 --> 00:01:47,174
+So Claude Code will
+所以克勞德·科德將
+
+42
+00:01:47,752 --> 00:01:50,482
+out of the box delegate certain tasks to
+開箱即用地將某些任務委託給
+
+43
+00:01:50,578 --> 00:01:53,517
+built-in subagents and do certain work in
+內建子代理並在中執行某些工作
+
+44
+00:01:53,694 --> 00:01:56,295
+parallel to speed it up and to have
+並行加速並有
+
+45
+00:01:56,359 --> 00:01:59,860
+dedicated experts for certain tasks. You'll
+專門負責某些任務的專家。你會
+
+46
+00:01:59,908 --> 00:02:02,301
+see that it still does quite a lot of work,
+看到它仍然做了很多工作，
+
+47
+00:02:02,317 --> 00:02:04,469
+especially all that documentation lookup
+尤其是所有文檔查找
+
+48
+00:02:04,469 --> 00:02:07,616
+here, step by step on the main agent. So
+到這裡，就主要代理一步步介紹了。所以
+
+49
+00:02:08,066 --> 00:02:10,828
+every node you see here, every bullet,
+你在這裡看到的每個節點，每個專案符號，
+
+50
+00:02:11,053 --> 00:02:13,028
+that's essentially work done in the main
+這基本上是主要完成的工作
+
+51
+00:02:13,124 --> 00:02:15,902
+agent. And this explore task here is then
+代理人。然後這個探索任務就是
+
+52
+00:02:16,031 --> 00:02:18,343
+done with help of a subagent, as you saw
+如您所見，在子代理的幫助下完成
+
+53
+00:02:18,359 --> 00:02:19,691
+when that was still running.
+當它還在運作時。
+
+54
+00:02:20,510 --> 00:02:22,403
+You can also tell that it was a sub-agent
+您也可以看出它是一個子代理
+
+55
+00:02:22,451 --> 00:02:24,296
+because it tells you how many tokens were
+因為它告訴你有多少代幣
+
+56
+00:02:24,360 --> 00:02:26,670
+consumed and how long it took. And the
+消耗以及花了多長時間。還有
+
+57
+00:02:26,686 --> 00:02:28,916
+important thing about sub-agents is
+關於子代理的重要一點是
+
+58
+00:02:29,493 --> 00:02:31,916
+that they don't consume or pollute the
+他們不會消耗或污染
+
+59
+00:02:31,980 --> 00:02:34,338
+context window of the main agent. They have
+主代理的上下文視窗。他們有
+
+60
+00:02:34,338 --> 00:02:37,049
+their own context window, which of course is
+他們自己的上下文窗口，當然是
+
+61
+00:02:37,049 --> 00:02:39,744
+another reason why this feature exists. It
+此功能存在的另一個原因。它
+
+62
+00:02:39,921 --> 00:02:42,905
+allows Claude Code to split up complex work
+允許 Claude Code 分解複雜的工作
+
+63
+00:02:42,969 --> 00:02:45,664
+into smaller building blocks and outsource
+分成更小的建構塊並外包
+
+64
+00:02:45,776 --> 00:02:48,022
+them without putting everything into the
+他們沒有把一切都投入
+
+65
+00:02:48,022 --> 00:02:50,268
+main context window. Instead, it will just
+主上下文視窗。相反，它只會
+
+66
+00:02:50,268 --> 00:02:53,025
+get the result of this sub-agent, so a
+得到這個子代理的結果，所以
+
+67
+00:02:53,025 --> 00:02:55,702
+summary of its exploration work, and load
+勘探工作總結及負荷
+
+68
+00:02:55,958 --> 00:02:57,802
+that into the main context window.
+進入主上下文視窗。
+
+69
+00:02:58,459 --> 00:03:00,768
+That's why this sub-agent feature, which you
+這就是為什麼這個子代理功能，你
+
+70
+00:03:00,848 --> 00:03:03,493
+get for free out of the box, is very useful.
+免費開箱即用，非常有用。
+
+71
+00:03:03,749 --> 00:03:05,994
+And here, of course, I can see that a lot of
+當然，在這裡我可以看到很多
+
+72
+00:03:05,994 --> 00:03:08,398
+things are great. What's not great is that
+一切都很棒。不好的是
+
+73
+00:03:08,398 --> 00:03:10,161
+we got some missing components, which makes
+我們缺少一些元件，這使得
+
+74
+00:03:10,161 --> 00:03:12,021
+sense because we haven't worked on that yet.
+這是有道理的，因為我們還沒有對此進行研究。
+
+75
+00:03:12,229 --> 00:03:15,099
+But before we do that, let's build our own
+但在此之前，讓我們先建構自己的
+
+76
+00:03:15,115 --> 00:03:16,654
+custom sub-agent.
+自訂子代理程式。

@@ -1,0 +1,355 @@
+1
+00:00:02,375 --> 00:00:05,136
+So now we got all this nice error throwing
+
+2
+00:00:05,233 --> 00:00:06,662
+and error handling code.
+
+3
+00:00:07,320 --> 00:00:10,675
+I got one last rule or recommendation
+
+4
+00:00:11,028 --> 00:00:13,003
+related to error handling,
+
+5
+00:00:13,757 --> 00:00:15,410
+and that is that error handling
+
+6
+00:00:15,988 --> 00:00:19,103
+actually is typically considered to be one
+
+7
+00:00:19,520 --> 00:00:19,665
+thing
+
+8
+00:00:20,564 --> 00:00:22,859
+when we talk about functions doing one
+
+9
+00:00:23,293 --> 00:00:23,421
+thing.
+
+10
+00:00:24,352 --> 00:00:26,455
+And what's the implication of that for our
+
+11
+00:00:26,583 --> 00:00:26,888
+code?
+
+12
+00:00:28,027 --> 00:00:30,963
+In the main function at the top, we have all
+
+13
+00:00:31,091 --> 00:00:32,134
+this dummy data,
+
+14
+00:00:33,016 --> 00:00:35,357
+but then here we have our try-catch block.
+
+15
+00:00:35,742 --> 00:00:37,651
+And since this is just dummy data here, we
+
+16
+00:00:37,651 --> 00:00:38,758
+can basically ignore it.
+
+17
+00:00:39,351 --> 00:00:41,757
+This could also be in the try block where we
+
+18
+00:00:41,757 --> 00:00:44,291
+then maybe try to fetch it from a website or
+
+19
+00:00:44,387 --> 00:00:45,141
+anything like that.
+
+20
+00:00:46,264 --> 00:00:48,445
+So here we in the end have just one thing.
+
+21
+00:00:48,718 --> 00:00:51,236
+We just have the try-catch block inside of
+
+22
+00:00:51,236 --> 00:00:51,910
+this function.
+
+23
+00:00:52,503 --> 00:00:54,813
+Of course, we do something in the try and in
+
+24
+00:00:54,813 --> 00:00:56,628
+the catch case, but But that's the entire
+
+25
+00:00:56,741 --> 00:01:00,060
+idea behind try-catch. It's not about not
+
+26
+00:01:00,060 --> 00:01:02,589
+doing anything in here, it's just about not
+
+27
+00:01:02,702 --> 00:01:05,455
+doing anything in addition to this try-catch
+
+28
+00:01:05,573 --> 00:01:07,152
+block, which is the case here.
+
+29
+00:01:08,772 --> 00:01:10,786
+But for process transactions, it's
+
+30
+00:01:10,786 --> 00:01:13,580
+different. Here we validate, then we have a
+
+31
+00:01:13,645 --> 00:01:16,130
+for loop, and then in there we have
+
+32
+00:01:16,227 --> 00:01:16,536
+try-catch.
+
+33
+00:01:17,710 --> 00:01:20,509
+So here we are doing more than just error
+
+34
+00:01:20,606 --> 00:01:22,908
+handling. We are also looping and
+
+35
+00:01:22,941 --> 00:01:23,557
+validating.
+
+36
+00:01:24,643 --> 00:01:24,740
+Now,
+
+37
+00:01:25,275 --> 00:01:27,853
+one way around this could be that we move
+
+38
+00:01:27,885 --> 00:01:29,634
+try-catch actually into
+
+39
+00:01:30,269 --> 00:01:31,522
+processTransaction.
+
+40
+00:01:33,370 --> 00:01:35,591
+So kind of back to where it came from, you
+
+41
+00:01:35,591 --> 00:01:36,013
+could say.
+
+42
+00:01:36,808 --> 00:01:38,835
+So let me grab this catch block, remove the
+
+43
+00:01:38,835 --> 00:01:40,862
+try block so that we just have
+
+44
+00:01:41,340 --> 00:01:42,731
+processTransaction in the loop again.
+
+45
+00:01:43,582 --> 00:01:44,810
+And now inside of processTransaction,
+
+46
+00:01:46,104 --> 00:01:47,697
+we could add a try block here
+
+47
+00:01:48,688 --> 00:01:51,867
+and move validateTransactions as well as all
+
+48
+00:01:52,076 --> 00:01:54,821
+this if code here into this try block
+
+49
+00:01:55,512 --> 00:01:57,728
+and then add the catch block from before
+
+50
+00:01:58,097 --> 00:01:59,430
+with showErrorMessage.
+
+51
+00:02:00,666 --> 00:02:02,818
+This could be one way of fulfilling this
+
+52
+00:02:02,834 --> 00:02:03,348
+rule again
+
+53
+00:02:03,942 --> 00:02:06,077
+and of ensuring that we do only one thing.
+
+54
+00:02:06,768 --> 00:02:08,084
+We try validating
+
+55
+00:02:08,759 --> 00:02:09,770
+and then doing this,
+
+56
+00:02:10,380 --> 00:02:12,709
+and if that fails, we catch the error.
+
+57
+00:02:14,473 --> 00:02:17,693
+Now, having this code in here is still not
+
+58
+00:02:17,693 --> 00:02:18,607
+super clean.
+
+59
+00:02:19,216 --> 00:02:22,228
+It would probably be cleaner to validate and
+
+60
+00:02:22,228 --> 00:02:24,199
+then just call another function which
+
+61
+00:02:24,247 --> 00:02:25,176
+contains this code.
+
+62
+00:02:25,769 --> 00:02:27,852
+But the question is, how would we name this
+
+63
+00:02:27,852 --> 00:02:30,479
+function? Is this a split which really makes
+
+64
+00:02:30,479 --> 00:02:31,185
+a lot of sense?
+
+65
+00:02:32,178 --> 00:02:35,030
+We could try it and for example, add one
+
+66
+00:02:35,126 --> 00:02:35,975
+other function here
+
+67
+00:02:37,129 --> 00:02:40,125
+above useTransaction method maybe, which we
+
+68
+00:02:40,125 --> 00:02:41,279
+name processTransaction.
+
+69
+00:02:42,346 --> 00:02:43,366
+By method,
+
+70
+00:02:44,516 --> 00:02:46,670
+and we pass our transaction in there.
+
+71
+00:02:47,351 --> 00:02:49,084
+And then here we then check for the method
+
+72
+00:02:49,213 --> 00:02:51,718
+and then dispatch our different process
+
+73
+00:02:51,718 --> 00:02:52,185
+functions.
+
+74
+00:02:53,020 --> 00:02:53,856
+And now we could call
+
+75
+00:02:55,029 --> 00:02:58,148
+process by method here and forward the
+
+76
+00:02:58,148 --> 00:03:00,415
+transaction inside of the try block.
+
+77
+00:03:01,543 --> 00:03:02,703
+And now this is cleaner,
+
+78
+00:03:03,460 --> 00:03:05,216
+and this down there is also clean.
+
+79
+00:03:06,997 --> 00:03:09,054
+And that's how I would recommend that we
+
+80
+00:03:09,054 --> 00:03:09,969
+solve this here,
+
+81
+00:03:10,491 --> 00:03:12,780
+though as always, if It always also comes
+
+82
+00:03:12,812 --> 00:03:15,349
+down to personal preference and what you
+
+83
+00:03:15,785 --> 00:03:17,466
+find to be clean and readable.
+
+84
+00:03:19,290 --> 00:03:21,781
+With that, however, we're now really done
+
+85
+00:03:21,974 --> 00:03:23,630
+with all the error handling.
+
+86
+00:03:24,209 --> 00:03:25,784
+Now I wanna come back to
+
+87
+00:03:26,620 --> 00:03:29,577
+this problem of our code duplication down
+
+88
+00:03:29,706 --> 00:03:32,445
+there and how we can maybe solve that in a
+
+89
+00:03:32,445 --> 00:03:32,979
+better way.

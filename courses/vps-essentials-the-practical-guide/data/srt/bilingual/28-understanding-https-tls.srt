@@ -1,0 +1,334 @@
+1
+00:00:00,128 --> 00:00:03,430
+So I mentioned that a reverse proxy can
+所以我提到反向代理可以
+
+2
+00:00:03,558 --> 00:00:06,171
+handle TLS termination, which simply means
+處理 TLS 終止，這意味著
+
+3
+00:00:06,428 --> 00:00:09,922
+it enables HTTPS requests to your server,
+它允許向您的伺服器發出 HTTPS 請求，
+
+4
+00:00:10,195 --> 00:00:12,567
+which you typically wanna have. We don't do
+你通常想要擁有的。我們不做
+
+5
+00:00:12,679 --> 00:00:14,330
+just HTTP anymore.
+不再只是 HTTP 了。
+
+6
+00:00:15,340 --> 00:00:16,927
+But that of course brings us to another
+但這當然為我們帶來了另一個問題
+
+7
+00:00:16,927 --> 00:00:19,877
+question. We have to understand TLS and
+問題。我們必須了解 TLS 和
+
+8
+00:00:19,973 --> 00:00:22,650
+HTTPS, at least the fundamentals of it, how
+HTTPS，至少是它的基礎知識，如何
+
+9
+00:00:22,875 --> 00:00:23,355
+it works.
+有用。
+
+10
+00:00:24,141 --> 00:00:26,257
+And here is how it works. You have your
+這是它的工作原理。你有你的
+
+11
+00:00:26,305 --> 00:00:28,774
+host, your application running on your VPS
+主機，您的應用程式在您的 VPS 上運行
+
+12
+00:00:28,966 --> 00:00:31,146
+with a reverse proxy in front of it. So this
+前面有一個反向代理。所以這個
+
+13
+00:00:31,146 --> 00:00:33,133
+is simply all of it. On your host, the
+就是這一切。在您的主機上，
+
+14
+00:00:33,133 --> 00:00:33,806
+entire thing
+整件事情
+
+15
+00:00:34,335 --> 00:00:36,722
+we have up here, right? So that is what
+我們在這兒，對吧？所以就是這樣
+
+16
+00:00:36,722 --> 00:00:38,261
+you're running on your VPS.
+你正在你的 VPS 上運行。
+
+17
+00:00:39,206 --> 00:00:43,163
+And that host, that application, that setup
+那個主機、那個應用程式、那個設置
+
+18
+00:00:43,692 --> 00:00:48,483
+gets an SSL, or to be precise, a TLS is the
+取得 SSL，或者準確地說，TLS 是
+
+19
+00:00:48,483 --> 00:00:52,200
+modern term, certificate by a certificate
+現代術語，證書的證書
+
+20
+00:00:52,264 --> 00:00:54,652
+authority. There are different authorities
+權威。有不同的權威
+
+21
+00:00:54,684 --> 00:00:57,808
+and you can also pay for such certificates,
+您也可以付費購買此類證書，
+
+22
+00:00:58,209 --> 00:01:02,023
+but Let's Encrypt is a recognized authority
+但 Let's Encrypt 是公認的權威機構
+
+23
+00:01:02,055 --> 00:01:05,005
+that issues free certificates, so you can
+頒發免費證書，因此您可以
+
+24
+00:01:05,101 --> 00:01:06,143
+get them for free.
+免費取得它們。
+
+25
+00:01:07,329 --> 00:01:10,423
+Now, this certificate in the end, along with
+現在，這個證書最後，還有
+
+26
+00:01:10,647 --> 00:01:13,469
+some other data and keys, is stored on your
+一些其他資料和密鑰，儲存在您的
+
+27
+00:01:13,517 --> 00:01:16,386
+host. And when a client, a website visitor,
+主持人。當客戶、網站訪客、
+
+28
+00:01:16,402 --> 00:01:19,223
+for example, sends a request to your
+例如，向您的
+
+29
+00:01:19,432 --> 00:01:21,628
+website, to your VPS, to your host,
+網站、您的 VPS、您的主機，
+
+30
+00:01:22,157 --> 00:01:24,658
+there is a so-called security handshake
+有一個所謂的安全握手
+
+31
+00:01:24,658 --> 00:01:26,613
+where some data, some parameters are
+其中一些資料，一些參數是
+
+32
+00:01:26,661 --> 00:01:30,108
+exchanged, and also the certificate. So the
+交換了，還有證書。所以
+
+33
+00:01:30,108 --> 00:01:32,801
+browser of your website visitor receives
+您網站訪客的瀏覽器收到
+
+34
+00:01:33,058 --> 00:01:35,960
+your certificate that was issued by Let's
+Let's 頒發的證書
+
+35
+00:01:35,960 --> 00:01:36,457
+Encrypt.
+加密。
+
+36
+00:01:37,868 --> 00:01:40,722
+The browser is then able to verify this
+然後瀏覽器就可以驗證這一點
+
+37
+00:01:41,155 --> 00:01:43,784
+certificate, to validate it, because it has
+證書，驗證它，因為它有
+
+38
+00:01:43,880 --> 00:01:47,584
+a built-in local trust store where Let's
+一個內建的本地信任存儲，讓我們
+
+39
+00:01:47,584 --> 00:01:50,550
+Encrypt is a trusted provider and it
+Encrypt 是值得信賴的供應商，它
+
+40
+00:01:50,550 --> 00:01:53,196
+contains a public key issued by Let's
+包含 Let's 頒發的公鑰
+
+41
+00:01:53,196 --> 00:01:54,591
+Encrypt to the browser,
+加密到瀏覽器，
+
+42
+00:01:55,184 --> 00:01:58,054
+not for your request, but in general, that
+不是為了你的要求，但總的來說，
+
+43
+00:01:58,166 --> 00:02:00,523
+allows it to validate the certificate
+允許它驗證證書
+
+44
+00:02:01,052 --> 00:02:03,826
+validity of your certificate so that you did
+您的證書的有效性，以便您這樣做
+
+45
+00:02:04,162 --> 00:02:06,599
+return a valid certificate to the browser.
+傳回一個有效的憑證給瀏覽器。
+
+46
+00:02:07,144 --> 00:02:08,971
+And once this entire handshake and
+一旦整個握手過程結束
+
+47
+00:02:09,051 --> 00:02:12,722
+validation step is done, the traffic between
+驗證步驟完成後，之間的流量
+
+48
+00:02:12,995 --> 00:02:16,265
+the website visitor and your server, so this
+網站訪客和您的伺服器，所以這
+
+49
+00:02:16,265 --> 00:02:19,583
+entire request-response cycle, is encrypted.
+整個請求-回應週期都是加密的。
+
+50
+00:02:19,888 --> 00:02:22,950
+That's how TLS and HTTPS works in a
+這就是 TLS 和 HTTPS 在
+
+51
+00:02:22,950 --> 00:02:26,156
+nutshell, and that is what we get for free
+簡而言之，這就是我們免費得到的
+
+52
+00:02:26,220 --> 00:02:28,672
+essentially with this setup here because
+本質上是因為這裡的設置
+
+53
+00:02:28,784 --> 00:02:32,183
+Traefik, our reverse proxy, interacts with
+Traefik，我們的反向代理，與
+
+54
+00:02:32,183 --> 00:02:35,532
+Let's Encrypt to request and renew that
+讓我們加密來請求和更新
+
+55
+00:02:35,532 --> 00:02:38,465
+certificate and to automatically exchange it
+證書並自動交換
+
+56
+00:02:38,465 --> 00:02:40,948
+with the browser. So that's the convenience
+使用瀏覽器。所以這就是方便
+
+57
+00:02:40,948 --> 00:02:43,336
+we get out of using such a reverse proxy. It
+我們不再使用這樣的反向代理。它
+
+58
+00:02:43,432 --> 00:02:45,019
+does all of that for us.
+為我們做這一切。
+
+59
+00:02:45,596 --> 00:02:48,384
+It just needs to be set up correctly. You
+只需正確設定即可。你
+
+60
+00:02:48,512 --> 00:02:51,877
+need a domain. You can't do it with a server
+需要一個域名。你不能用伺服器來做到這一點
+
+61
+00:02:51,941 --> 00:02:54,073
+that doesn't have a domain pointing at it.
+沒有指向它的域。
+
+62
+00:02:54,649 --> 00:02:56,653
+And you need to provide some environment
+並且你需要提供一些環境
+
+63
+00:02:56,669 --> 00:02:58,916
+variables to which I'll get back when you
+當你
+
+64
+00:02:58,916 --> 00:02:59,531
+deploy this.
+部署這個。
+
+65
+00:03:00,471 --> 00:03:03,451
+So that is the app we have here. And now we
+這就是我們這裡的應用程式。現在我們
+
+66
+00:03:03,451 --> 00:03:06,140
+can finally move on to getting this onto our
+終於可以繼續將其納入我們的
+
+67
+00:03:06,221 --> 00:03:06,740
+VPS.
+虛擬專用伺服器。

@@ -1,0 +1,1339 @@
+1
+00:00:02,344 --> 00:00:04,705
+By now, we learned a lot about keeping our
+到目前為止，我們已經學到了很多關於保持我們的
+
+2
+00:00:05,074 --> 00:00:08,126
+list of function parameters short and
+函式參數列表簡短和
+
+3
+00:00:08,126 --> 00:00:11,257
+concise and keeping the function body short
+簡潔並保持函式體簡短
+
+4
+00:00:11,273 --> 00:00:11,980
+and concise.
+並且簡潔。
+
+5
+00:00:12,638 --> 00:00:13,618
+Now, there is another
+現在，還有另一個
+
+6
+00:00:14,148 --> 00:00:17,392
+aspect of writing clean functions which you
+編寫乾淨函式的一個方面
+
+7
+00:00:17,392 --> 00:00:18,307
+should keep in mind,
+應該記住，
+
+8
+00:00:18,885 --> 00:00:20,764
+and that is that you should try
+那就是你應該嘗試
+
+9
+00:00:21,294 --> 00:00:23,109
+to keep your functions pure.
+保持你的函式純淨。
+
+10
+00:00:24,024 --> 00:00:25,550
+Now, what does this mean though? What is a
+現在，這意味著什麼？什麼是
+
+11
+00:00:25,550 --> 00:00:26,851
+pure function?
+純函式？
+
+12
+00:00:27,412 --> 00:00:30,746
+A pure function is simply a function which
+純函式只是一個函式
+
+13
+00:00:31,243 --> 00:00:34,273
+for the same inputs generates the same
+對於相同的輸入產生相同的
+
+14
+00:00:34,770 --> 00:00:35,171
+output.
+輸出。
+
+15
+00:00:35,812 --> 00:00:39,162
+So for the same input parameter values, you
+因此，對於相同的輸入參數值，您
+
+16
+00:00:39,258 --> 00:00:41,647
+always get back the same output.
+總是得到相同的輸出。
+
+17
+00:00:42,625 --> 00:00:45,350
+And this here would be a simple example,
+這是一個簡單的例子，
+
+18
+00:00:45,590 --> 00:00:47,418
+this generateId function.
+這個generateId函式。
+
+19
+00:00:48,556 --> 00:00:51,746
+It takes a username as a parameter. It then
+它採用使用者名作為參數。那麼它
+
+20
+00:00:52,002 --> 00:00:55,128
+combines that with a hardcoded string and
+將其與硬編碼字串結合起來
+
+21
+00:00:55,224 --> 00:00:58,158
+then it returns this ID string which was
+然後它回傳這個ID字串
+
+22
+00:00:58,350 --> 00:00:58,879
+generated.
+生成的。
+
+23
+00:00:59,873 --> 00:01:01,556
+Now, as you can see, if you have a look at
+現在，正如你所看到的，如果你看一下
+
+24
+00:01:01,556 --> 00:01:05,099
+this code, for the same username value like
+此程式碼，對於相同的使用者名稱值，例如
+
+25
+00:01:05,307 --> 00:01:08,770
+Max, we will always get back exactly the
+麥克斯，我們總是會準確地回傳
+
+26
+00:01:08,770 --> 00:01:10,405
+same return value.
+傳回值相同。
+
+27
+00:01:11,014 --> 00:01:14,637
+This is a function which is 100% predictable
+這是一個 100% 可預測的函式
+
+28
+00:01:15,022 --> 00:01:16,657
+and which therefore is pure.
+因此它是純淨的。
+
+29
+00:01:17,587 --> 00:01:20,248
+Now, here's the same function again, now,
+現在，這裡又是同樣的功能，
+
+30
+00:01:20,536 --> 00:01:23,758
+however, defined as an impure function.
+然而，定義為不純函式。
+
+31
+00:01:24,319 --> 00:01:27,012
+This function, unlike the first one, does
+這個函式與第一個函式不同，
+
+32
+00:01:27,060 --> 00:01:29,866
+not always yield the same result for the
+並不總是產生相同的結果
+
+33
+00:01:29,866 --> 00:01:33,233
+same input, because we do generate a random
+相同的輸入，因為我們確實產生了一個隨機數
+
+34
+00:01:33,297 --> 00:01:35,943
+number which we convert to a string which we
+我們將其轉換為字串
+
+35
+00:01:35,943 --> 00:01:38,396
+then combine with the entered input value.
+然後與輸入的輸入值結合。
+
+36
+00:01:39,407 --> 00:01:42,325
+So for the same input value, we will always
+所以對於相同的輸入值，我們總是
+
+37
+00:01:42,421 --> 00:01:44,458
+get a different output value here.
+在這裡得到不同的輸出值。
+
+38
+00:01:44,987 --> 00:01:47,889
+Hence, this function is not pure.
+因此，這個函式不是純粹的。
+
+39
+00:01:48,691 --> 00:01:52,139
+Now, it's not necessarily bad to have impure
+現在，不純潔不一定是壞事
+
+40
+00:01:52,139 --> 00:01:54,913
+functions in your code and in your program
+您的程式碼和程式中的函式
+
+41
+00:01:55,426 --> 00:01:57,318
+because sometimes you just need something
+因為有時候你只是需要一些東西
+
+42
+00:01:57,351 --> 00:01:59,404
+like this. Sometimes you might need to
+像這樣。有時你可能需要
+
+43
+00:01:59,580 --> 00:02:02,564
+generate a random ID and return that. So
+產生一個隨機 ID 並傳回該 ID。所以
+
+44
+00:02:02,564 --> 00:02:05,644
+it's not the case that impure functions are
+不純函式並非如此
+
+45
+00:02:05,756 --> 00:02:08,820
+always bad, but they are definitely less
+總是不好，但肯定少一些
+
+46
+00:02:08,820 --> 00:02:11,788
+predictable than pure functions. And hence,
+比純函式更可預測。因此，
+
+47
+00:02:11,868 --> 00:02:15,173
+you should only go for impure functions if
+你應該只選擇不純的函式，如果
+
+48
+00:02:15,221 --> 00:02:17,323
+you really need that behavior.
+你確實需要這種行為。
+
+49
+00:02:17,948 --> 00:02:20,371
+And that's especially true if we don't just
+如果我們不只是
+
+50
+00:02:20,371 --> 00:02:23,868
+consider the generation of a random value as
+將隨機值的產生視為
+
+51
+00:02:23,980 --> 00:02:25,825
+part of your function, but if we
+你的功能的一部分，但如果我們
+
+52
+00:02:25,825 --> 00:02:28,199
+specifically have a look at another concept,
+具體看一下另一個概念，
+
+53
+00:02:28,552 --> 00:02:29,385
+side effects.
+副作用。
+
+54
+00:02:30,315 --> 00:02:33,344
+Pure functions shouldn't have side effects,
+純函式不應該有副作用，
+
+55
+00:02:34,065 --> 00:02:36,549
+which again does not mean that you are not
+這並不意味著你不是
+
+56
+00:02:36,549 --> 00:02:38,040
+allowed to have side effects at all,
+允許有任何副作用，
+
+57
+00:02:38,633 --> 00:02:40,732
+but a pure function wouldn't have a side
+但純函式沒有邊
+
+58
+00:02:40,732 --> 00:02:42,912
+effect and therefore you might wanna
+效果，因此你可能想要
+
+59
+00:02:42,912 --> 00:02:45,669
+minimize the number of functions that do
+最小化執行的函式數量
+
+60
+00:02:45,765 --> 00:02:46,630
+have side effects.
+有副作用。
+
+61
+00:02:47,528 --> 00:02:50,204
+Especially when following a functional
+特別是當遵循功能性
+
+62
+00:02:50,333 --> 00:02:52,240
+programming approach, if you're really
+程式設計方法，如果你真的
+
+63
+00:02:52,256 --> 00:02:54,724
+trying to strictly follow such an approach,
+試圖嚴格遵循這樣的方法，
+
+64
+00:02:55,317 --> 00:02:58,427
+it is quite common and expected that the
+這是很常見的現象，也是人們所期望的
+
+65
+00:02:58,443 --> 00:03:01,092
+vast majority of your functions which you
+您的絕大多數功能
+
+66
+00:03:01,092 --> 00:03:03,035
+compose and combine together
+組合在一起
+
+67
+00:03:03,565 --> 00:03:06,101
+are side-effect-free and pure.
+無副作用且純淨。
+
+68
+00:03:07,257 --> 00:03:09,730
+And then you would only have a couple of
+然後你就只有幾個
+
+69
+00:03:09,922 --> 00:03:12,732
+places in your code where you do have side
+在你的程式碼中你確實有觀點的地方
+
+70
+00:03:12,732 --> 00:03:13,181
+effects.
+影響。
+
+71
+00:03:13,792 --> 00:03:15,847
+Now, of course, you don't have to follow the
+當然，現在您不必遵循
+
+72
+00:03:15,847 --> 00:03:17,661
+functional programming approach.
+函式式程式設計方法。
+
+73
+00:03:18,271 --> 00:03:20,390
+You could have an object-oriented approach
+您可以採用物件導向的方法
+
+74
+00:03:20,519 --> 00:03:23,216
+or kind of a mixed approach, an imperative
+或某種混合方法，勢在必行
+
+75
+00:03:23,328 --> 00:03:25,496
+way of writing code, and therefore you don't
+編寫程式碼的方式，因此你不需要
+
+76
+00:03:25,560 --> 00:03:27,953
+always have to be that strict But in
+總是必須那麼嚴格 但在
+
+77
+00:03:28,049 --> 00:03:30,475
+general, as you will also see over the next
+一般情況，您也會在接下來的內容中看到
+
+78
+00:03:30,475 --> 00:03:32,886
+minutes, side effects are definitely
+分鐘，副作用肯定是
+
+79
+00:03:32,886 --> 00:03:35,344
+something you should be aware of when you
+當你
+
+80
+00:03:35,441 --> 00:03:36,469
+write clean code.
+編寫乾淨的程式碼。
+
+81
+00:03:37,851 --> 00:03:40,229
+But for that, let's first of all clarify
+但為此，我們首先要澄清
+
+82
+00:03:40,679 --> 00:03:42,688
+what actually is a side effect.
+實際上什麼是副作用。
+
+83
+00:03:43,555 --> 00:03:45,596
+Well, here's a simple example snippet.
+嗯，這是一個簡單的範例片段。
+
+84
+00:03:46,223 --> 00:03:49,308
+This createUser function does what the name
+這個 createUser 函式執行其名稱
+
+85
+00:03:49,356 --> 00:03:49,886
+implies.
+暗示。
+
+86
+00:03:50,465 --> 00:03:52,522
+It creates a user by
+它透過以下方式創建使用者
+
+87
+00:03:53,052 --> 00:03:55,200
+instantiating a user object by using the
+透過使用實例化使用者物件
+
+88
+00:03:55,200 --> 00:03:55,793
+constructor,
+建構子，
+
+89
+00:03:56,402 --> 00:03:58,181
+and then it returns the user.
+然後它回傳使用者。
+
+90
+00:03:58,759 --> 00:04:02,141
+So like this, it would be a pure function.
+像這樣，它將是一個純函式。
+
+91
+00:04:02,574 --> 00:04:05,299
+It will always give us the same kind of user
+它總是會為我們提供相同型別的使用者
+
+92
+00:04:05,315 --> 00:04:07,752
+object whenever we run this function.
+每當我們運行這個函式時都會物件。
+
+93
+00:04:08,425 --> 00:04:11,294
+However, let's now say we have this line of
+然而，現在假設我們有這一行
+
+94
+00:04:11,391 --> 00:04:12,721
+code in the function as well,
+函式中的程式碼也是如此，
+
+95
+00:04:13,250 --> 00:04:15,863
+this startSession line of code.
+startSession 這行程式碼。
+
+96
+00:04:17,114 --> 00:04:20,752
+Now this function which we call here is very
+現在我們在這裡呼叫的這個函式非常
+
+97
+00:04:20,849 --> 00:04:24,215
+likely to change the overall state
+可能會改變整體狀態
+
+98
+00:04:24,776 --> 00:04:27,469
+of our program and that's what we call a
+我們的計劃，這就是我們所說的
+
+99
+00:04:27,517 --> 00:04:28,271
+side effect.
+副作用.
+
+100
+00:04:28,944 --> 00:04:32,134
+It's an operation which does not just act on
+這是一個不僅僅作用於
+
+101
+00:04:32,182 --> 00:04:34,619
+the function inputs and change the function
+函式輸入並更改函式
+
+102
+00:04:34,796 --> 00:04:35,100
+output
+輸出
+
+103
+00:04:35,757 --> 00:04:38,547
+but which instead changes the overall system
+但這反而改變了整個系統
+
+104
+00:04:38,723 --> 00:04:39,957
+or program state.
+或程式狀態。
+
+105
+00:04:41,064 --> 00:04:43,821
+For example, startSession could change some
+例如，startSession 可以改變一些
+
+106
+00:04:44,109 --> 00:04:47,011
+variable outside of this createUser
+此 createUser 以外的變數
+
+107
+00:04:47,059 --> 00:04:47,476
+function.
+功能。
+
+108
+00:04:48,181 --> 00:04:50,442
+And when you have such a side effect, a
+當你出現這樣的副作用時
+
+109
+00:04:50,442 --> 00:04:53,665
+function is also not considered to be pure
+函式也不被認為是純函式
+
+110
+00:04:54,034 --> 00:04:56,536
+because even if it does always return the
+因為即使它總是回傳
+
+111
+00:04:56,536 --> 00:04:59,390
+same value for the same input, if it does
+相同輸入的相同值（如果是）
+
+112
+00:04:59,583 --> 00:05:03,175
+something else in addition to the work it
+除了工作以外的其他事情
+
+113
+00:05:03,175 --> 00:05:06,142
+does on the inputs, then it's also not
+對輸入起作用，那麼它也不是
+
+114
+00:05:06,142 --> 00:05:07,521
+considered to be pure.
+被認為是純淨的。
+
+115
+00:05:08,339 --> 00:05:11,257
+So a pure function is only pure if it always
+所以純函式只有當它總是時才是純粹的
+
+116
+00:05:11,370 --> 00:05:13,503
+gives us the same output for the same input
+對於相同的輸入給我們相同的輸出
+
+117
+00:05:13,919 --> 00:05:16,421
+and it doesn't have any side effects.
+而且它沒有任何副作用。
+
+118
+00:05:17,223 --> 00:05:19,562
+But what's the problem with such side
+但這樣的一面有什麼問題呢
+
+119
+00:05:19,562 --> 00:05:20,075
+effects?
+影響？
+
+120
+00:05:20,732 --> 00:05:23,200
+Again, you won't be able to always avoid
+再說一次，你將無法總是避免
+
+121
+00:05:23,296 --> 00:05:25,764
+them. Indeed, depending on the kind of
+他們。確實，取決於種類
+
+122
+00:05:25,860 --> 00:05:28,280
+program you're writing, you might need a lot
+你正在編寫的程式，你可能需要很多
+
+123
+00:05:28,280 --> 00:05:31,020
+of side effects because there are a lot of
+因為有很多副作用
+
+124
+00:05:31,084 --> 00:05:33,936
+potential side effects. Starting sessions,
+潛在的副作用。開始會議，
+
+125
+00:05:34,145 --> 00:05:37,061
+sending HTTP requests, even logging
+發送 HTTP 請求，甚至記錄紀錄
+
+126
+00:05:37,109 --> 00:05:39,369
+something to the console or showing some
+控制台的某些內容或顯示一些內容
+
+127
+00:05:39,417 --> 00:05:42,061
+message to the user would all be a side
+向使用者傳達的訊息都是側面
+
+128
+00:05:42,061 --> 00:05:44,918
+effect because it's a change to the state of
+效果，因為它改變了狀態
+
+129
+00:05:44,934 --> 00:05:48,178
+your system and of your program, right? I
+你的系統和你的程式，對嗎？我
+
+130
+00:05:48,178 --> 00:05:49,832
+mean, if you show something to the user,
+意思是，如果你向使用者展示一些東西，
+
+131
+00:05:50,089 --> 00:05:52,128
+that's definitely a different state your
+這絕對是不同的狀態
+
+132
+00:05:52,256 --> 00:05:55,018
+program is in than a second ago when you
+程式是在不到一秒之前，當你
+
+133
+00:05:55,050 --> 00:05:55,934
+didn't show a message.
+沒有顯示訊息。
+
+134
+00:05:57,250 --> 00:06:00,141
+So these changes are everywhere and side
+所以這些變化無所不在
+
+135
+00:06:00,141 --> 00:06:01,409
+effects are everywhere.
+影響無所不在。
+
+136
+00:06:02,052 --> 00:06:05,247
+But side effects do become a problem if they
+但如果副作用確實成為問題
+
+137
+00:06:05,408 --> 00:06:06,564
+are unexpected.
+是出乎意料的。
+
+138
+00:06:07,415 --> 00:06:09,968
+They're not automatically bad, we need them.
+它們不會自動變壞，我們需要它們。
+
+139
+00:06:10,562 --> 00:06:13,501
+But if your side effect is unexpected, then
+但如果你的副作用是意想不到的，那麼
+
+140
+00:06:13,999 --> 00:06:14,737
+it is a problem.
+這是一個問題。
+
+141
+00:06:15,540 --> 00:06:17,884
+For example, in this createUser function,
+例如，在此 createUser 函式中，
+
+142
+00:06:18,254 --> 00:06:21,096
+you could kind of expect a side effect.
+你可能會預料到會有副作用。
+
+143
+00:06:21,481 --> 00:06:24,419
+Maybe createUser implies that the user is
+也許 createUser 暗示使用者是
+
+144
+00:06:24,676 --> 00:06:27,550
+also stored in a database and that would
+也存儲在資料庫中，這將
+
+145
+00:06:27,647 --> 00:06:28,883
+also be a side effect.
+也是一個副作用。
+
+146
+00:06:29,927 --> 00:06:32,544
+Starting a session could also be a kind of
+開始一個工作階段也可以是一種
+
+147
+00:06:32,544 --> 00:06:35,691
+expected side effect. So in this example, it
+預期的副作用。所以在這個例子中，它
+
+148
+00:06:35,691 --> 00:06:37,891
+might not be a bad side effect at all.
+可能根本不是一個糟糕的副作用。
+
+149
+00:06:38,742 --> 00:06:40,857
+But consider this example here.
+但請考慮這裡的這個例子。
+
+150
+00:06:41,450 --> 00:06:44,528
+It's again the generateId function, but now
+又是generateId函式，但現在
+
+151
+00:06:44,736 --> 00:06:47,669
+it's not just generating and returning an
+它不僅僅是生成和回傳
+
+152
+00:06:47,702 --> 00:06:51,789
+ID, it's also assigning that generated ID to
+ID，它還將產生的 ID 分配給
+
+153
+00:06:51,885 --> 00:06:55,636
+some global state, to some global variable
+一些全域狀態，一些全域變數
+
+154
+00:06:55,716 --> 00:06:57,976
+which we have in this program. This is a
+我們在這個程式中擁有這些。這是一個
+
+155
+00:06:57,992 --> 00:07:00,989
+side effect because it's not just work we do
+副作用，因為這不僅僅是我們所做的工作
+
+156
+00:07:01,005 --> 00:07:03,409
+on the input and output of this function, it
+在這個函式的輸入和輸出上，
+
+157
+00:07:03,409 --> 00:07:06,022
+is work we do on some other variable in our
+是我們對我們的其他變數所做的工作
+
+158
+00:07:06,214 --> 00:07:06,663
+program.
+程式.
+
+159
+00:07:07,850 --> 00:07:10,497
+Now maybe we need to keep track of that last
+現在也許我們需要追蹤最後一個
+
+160
+00:07:10,497 --> 00:07:12,758
+assigned ID. Maybe that is some internal
+分配的 ID。也許這是一些內部的
+
+161
+00:07:12,871 --> 00:07:13,464
+work we do,
+我們所做的工作，
+
+162
+00:07:14,090 --> 00:07:16,865
+but maybe it's also not something we expect
+但也許這也不是我們所期望的
+
+163
+00:07:17,041 --> 00:07:20,185
+when we call a function named generateId.
+當我們呼叫一個名為generateId的函式。
+
+164
+00:07:20,971 --> 00:07:23,233
+Maybe a simple change in the name to
+也許只是簡單地將名稱更改為
+
+165
+00:07:23,233 --> 00:07:27,147
+generateUnusedId would suffice here though
+不過，generateUnusedId在這裡就夠了
+
+166
+00:07:27,484 --> 00:07:30,163
+to make it clear that this function will
+明確此功能將
+
+167
+00:07:30,291 --> 00:07:33,178
+need to check whether an ID has been used or
+需要檢查ID是否已使用或
+
+168
+00:07:33,178 --> 00:07:36,002
+not and that therefore it might also
+不是，因此它也可能
+
+169
+00:07:36,066 --> 00:07:38,231
+interact with the global system state.
+與全域系統狀態互動。
+
+170
+00:07:38,809 --> 00:07:40,957
+So that could be one possible fix here
+所以這可能是這裡的一個可能的修復方法
+
+171
+00:07:41,342 --> 00:07:43,603
+instead of just keeping the name generateId
+而非只保留名稱generateId
+
+172
+00:07:43,603 --> 00:07:43,972
+like this
+像這樣
+
+173
+00:07:45,127 --> 00:07:48,062
+because that is the strategy for avoiding
+因為這是避免的策略
+
+174
+00:07:48,559 --> 00:07:51,429
+unexpected side effects. As I said, and I
+意想不到的副作用。正如我所說，而且我
+
+175
+00:07:51,461 --> 00:07:53,690
+really wanna emphasize this, side effects
+真的想強調這一點，副作用
+
+176
+00:07:53,770 --> 00:07:56,320
+are not necessarily bad but your naming
+不一定是壞事，但你的命名
+
+177
+00:07:56,609 --> 00:07:59,960
+matters. Side effects do become bad if they
+很重要。如果副作用確實會變得很嚴重
+
+178
+00:08:00,265 --> 00:08:01,308
+are unexpected
+出乎意料
+
+179
+00:08:02,366 --> 00:08:04,787
+and therefore the name of a function should
+因此函式的名稱應該
+
+180
+00:08:04,787 --> 00:08:06,215
+signal or imply
+發出信號或暗示
+
+181
+00:08:06,776 --> 00:08:09,037
+that a side effect is likely to occur.
+可能會發生副作用。
+
+182
+00:08:09,647 --> 00:08:11,944
+Otherwise, it's considered a bad side effect
+否則，它被認為是一個不好的副作用
+
+183
+00:08:12,072 --> 00:08:15,011
+and therefore not clean code because clean
+因此程式碼不乾淨，因為乾淨
+
+184
+00:08:15,044 --> 00:08:18,465
+code doesn't do unexpected stuff. Clean code
+程式碼不會做意想不到的事情。乾淨的程式碼
+
+185
+00:08:18,561 --> 00:08:21,388
+is, well, clean, easy to read and easy to
+是，嗯，乾淨，易於閱讀和易於使用
+
+186
+00:08:21,388 --> 00:08:24,182
+understand. And if something happens which
+理解。如果發生什麼事情
+
+187
+00:08:24,182 --> 00:08:26,672
+you didn't expect, you clearly did not
+你沒想到，你顯然沒有
+
+188
+00:08:26,688 --> 00:08:28,936
+understand the code, hence the code wasn't
+理解程式碼，因此程式碼不是
+
+189
+00:08:28,936 --> 00:08:29,306
+clean.
+乾淨的。
+
+190
+00:08:30,141 --> 00:08:31,875
+So have a look at these example names here,
+看看這裡的這些範例名稱，
+
+191
+00:08:31,972 --> 00:08:32,598
+for example.
+例如。
+
+192
+00:08:33,128 --> 00:08:36,198
+If you see functions named like this, Where
+如果您看到這樣命名的函式，Where
+
+193
+00:08:36,552 --> 00:08:38,276
+would you expect a side effect?
+你會預期會有副作用嗎？
+
+194
+00:08:40,178 --> 00:08:43,110
+In saveUser, we do expect one, I would
+在 saveUser 中，我們確實期望一個，我會
+
+195
+00:08:43,174 --> 00:08:46,508
+argue, because saveUser implies that this
+爭論，因為 saveUser 意味著這
+
+196
+00:08:46,540 --> 00:08:48,971
+user is probably going to get saved to a
+使用者可能會被儲存到
+
+197
+00:08:48,971 --> 00:08:52,256
+database and saving data to a database
+資料庫並將資料儲存到資料庫
+
+198
+00:08:52,498 --> 00:08:55,216
+definitely is a side effect because it does
+絕對是副作用，因為它確實
+
+199
+00:08:55,248 --> 00:08:57,820
+manipulate the overall system and program
+操縱整個系統和程式
+
+200
+00:08:57,820 --> 00:08:58,222
+state.
+狀態。
+
+201
+00:08:59,170 --> 00:09:01,211
+After all, we write a new entry to a
+畢竟，我們將一個新條目寫入
+
+202
+00:09:01,211 --> 00:09:04,716
+database, we change files. This is a crystal
+資料庫，我們更改檔案。這是水晶
+
+203
+00:09:04,831 --> 00:09:05,680
+clear side effect and we do expect
+明顯的副作用，我們確實預計
+
+204
+00:09:07,470 --> 00:09:10,081
+such a side effect for a function named
+名為的函式的這種副作用
+
+205
+00:09:10,081 --> 00:09:10,802
+saveUser.
+儲存使用者。
+
+206
+00:09:11,972 --> 00:09:13,718
+On the other hand, if we had a function
+另一方面，如果我們有一個函式
+
+207
+00:09:13,782 --> 00:09:15,080
+named isValid,
+命名為有效，
+
+208
+00:09:15,753 --> 00:09:18,477
+then we do not expect any side effects
+那我們預計不會有任何副作用
+
+209
+00:09:18,477 --> 00:09:22,226
+there. We do expect that this function maybe
+那裡。我們確實希望這個功能可能
+
+210
+00:09:22,306 --> 00:09:24,838
+answers the question whether some input or
+回答是否有一些輸入或
+
+211
+00:09:24,966 --> 00:09:27,770
+some email address is valid. It would be
+某些電子郵件地址是有效的。這將是
+
+212
+00:09:27,850 --> 00:09:31,022
+very much unexpected that this function then
+非常出乎意料的是這個功能然後
+
+213
+00:09:31,551 --> 00:09:34,067
+sends a message, writes to the file system,
+發送訊息，寫入檔案系統，
+
+214
+00:09:34,403 --> 00:09:37,207
+shows a message to the user, or changes any
+向使用者顯示一則訊息，或變更任何內容
+
+215
+00:09:37,385 --> 00:09:38,459
+other program state.
+其他程式狀態。
+
+216
+00:09:40,310 --> 00:09:41,442
+Now, what about showMessage?
+現在，showMessage 怎麼樣？
+
+217
+00:09:42,299 --> 00:09:45,760
+showMessage per definition will have a side
+每個定義的 showMessage 將有一個側面
+
+218
+00:09:45,760 --> 00:09:49,286
+effect. If we show a message to the user, no
+影響。如果我們向使用者顯示一條訊息，則不會
+
+219
+00:09:49,302 --> 00:09:51,777
+matter if that's the terminal or console
+不管是終端機還是控制台
+
+220
+00:09:52,456 --> 00:09:56,030
+or if that is an overlay on a website, if we
+或者如果這是網站上的覆蓋層，如果我們
+
+221
+00:09:56,030 --> 00:09:58,246
+show a message to the user, we are
+向使用者顯示一條訊息，我們是
+
+222
+00:09:58,521 --> 00:10:00,683
+definitely changing the program state
+肯定會改變程式狀態
+
+223
+00:10:01,183 --> 00:10:03,844
+because the state will be a different one if
+因為如果
+
+224
+00:10:03,844 --> 00:10:06,749
+we have an overlay on the page than it was a
+我們在頁面上有一個覆蓋層，而不是一個
+
+225
+00:10:06,749 --> 00:10:09,189
+second ago when the overlay was not there.
+第二次之前，當覆蓋層不存在時。
+
+226
+00:10:10,104 --> 00:10:13,073
+So here, because of that name, a side effect
+所以在這裡，因為這個名字，有一個副作用
+
+227
+00:10:13,073 --> 00:10:13,939
+would be expected.
+將會是預期的。
+
+228
+00:10:15,015 --> 00:10:16,315
+Now, what about createUser?
+現在，createUser 怎麼樣？
+
+229
+00:10:17,101 --> 00:10:19,493
+Here, I would say you could go either way.
+在這裡，我想說你可以選擇任何一種方式。
+
+230
+00:10:19,894 --> 00:10:22,398
+You could say that you don't expect a side
+你可以說你不期待一方
+
+231
+00:10:22,398 --> 00:10:26,185
+effect because a function named createUser
+效果是因為一個名為createUser的函式
+
+232
+00:10:26,570 --> 00:10:29,588
+will probably do just that, create a new
+可能會這樣做，創建一個新的
+
+233
+00:10:29,700 --> 00:10:30,021
+user.
+使用者。
+
+234
+00:10:30,888 --> 00:10:33,039
+On the other hand, create is a very
+另一方面，創造是一個非常
+
+235
+00:10:33,777 --> 00:10:37,052
+wide word with a lot of interpretation you
+寬泛的詞有很多解釋
+
+236
+00:10:37,068 --> 00:10:37,790
+can put into it.
+可以放進去。
+
+237
+00:10:38,512 --> 00:10:41,096
+Create could mean that saving that user to
+創建可能意味著將該使用者儲存到
+
+238
+00:10:41,096 --> 00:10:44,034
+the database is part of the creation process
+資料庫是創建過程的一部分
+
+239
+00:10:44,772 --> 00:10:47,966
+or that validation of the inputs and showing
+或驗證輸入並顯示
+
+240
+00:10:47,999 --> 00:10:50,535
+an error message is part of the creation
+錯誤訊息是創作的一部分
+
+241
+00:10:50,567 --> 00:10:51,016
+process.
+過程。
+
+242
+00:10:52,172 --> 00:10:54,628
+So here it really comes down to the overall
+所以這裡真正歸結為整體
+
+243
+00:10:54,724 --> 00:10:57,597
+context of the application in which you use
+您使用的應用程式的上下文
+
+244
+00:10:57,629 --> 00:11:00,054
+this function. A side effect is not
+這個功能。副作用不是
+
+245
+00:11:00,054 --> 00:11:02,832
+necessarily expected, I would say, but it's
+我想說，這是必然的，但它是
+
+246
+00:11:02,912 --> 00:11:04,742
+also not totally unexpected.
+也不完全出乎意料。
+
+247
+00:11:05,401 --> 00:11:07,745
+And over the last lectures, we indeed had a
+在上一堂課中，我們確實有
+
+248
+00:11:07,745 --> 00:11:10,282
+function named createUser which did have
+名為 createUser 的函式確實有
+
+249
+00:11:10,395 --> 00:11:11,743
+various side effects.
+各種副作用。
+
+250
+00:11:13,044 --> 00:11:15,983
+And therefore, long story short, the idea is
+因此，長話短說，這個想法是
+
+251
+00:11:16,015 --> 00:11:19,033
+simple. It is okay to have impure functions
+簡單的。函式不純也沒關係
+
+252
+00:11:19,290 --> 00:11:20,960
+and it is okay to have side effects.
+有副作用也沒關係。
+
+253
+00:11:21,554 --> 00:11:24,172
+But whenever a function is impure, typically
+但每當函式不純時，通常
+
+254
+00:11:24,204 --> 00:11:26,676
+because it does have a side effect, that
+因為它確實有副作用，
+
+255
+00:11:26,676 --> 00:11:28,040
+should at least be expected.
+至少應該是可以預料到的。
+
+256
+00:11:29,002 --> 00:11:31,104
+Your functions should not have unexpected
+你的功能不應該有意外的
+
+257
+00:11:31,104 --> 00:11:31,810
+side effects
+副作用
+
+258
+00:11:32,371 --> 00:11:34,472
+and if you have a side effect or if you need
+如果您有副作用或您需要
+
+259
+00:11:34,472 --> 00:11:36,943
+a side effect, you should therefore either
+副作用，因此你應該
+
+260
+00:11:37,183 --> 00:11:39,237
+choose a function name which implies that,
+選擇一個函式名稱，該名稱意味著，
+
+261
+00:11:39,830 --> 00:11:41,338
+then it's absolutely fine,
+那就絕對沒問題了
+
+262
+00:11:42,076 --> 00:11:44,129
+or you should move that side effect
+或者你應該移動那個副作用
+
+263
+00:11:44,257 --> 00:11:47,065
+operation into a different function where it
+操作到不同的函式中
+
+264
+00:11:47,065 --> 00:11:48,075
+again is expected.
+再次預計。
+
+265
+00:11:48,974 --> 00:11:51,444
+This is important to ensure that you have
+這對於確保您擁有
+
+266
+00:11:51,476 --> 00:11:54,289
+clean code and clean functions. Because it's
+乾淨的程式碼和乾淨的函式。因為它是
+
+267
+00:11:54,289 --> 00:11:57,006
+definitely not clean code if your functions
+如果你的函式絕對不是乾淨的程式碼
+
+268
+00:11:57,120 --> 00:11:59,077
+do something which is not expected.
+做一些不被預期的事情。

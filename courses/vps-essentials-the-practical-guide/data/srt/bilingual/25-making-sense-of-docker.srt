@@ -1,0 +1,504 @@
+1
+00:00:00,112 --> 00:00:00,931
+Now in order to
+現在為了
+
+2
+00:00:01,557 --> 00:00:04,592
+get this application onto the VPS and run it
+將此應用程式載入到 VPS 上並運行它
+
+3
+00:00:04,592 --> 00:00:04,721
+there,
+那裡，
+
+4
+00:00:05,476 --> 00:00:05,508
+I
+我
+
+5
+00:00:06,038 --> 00:00:09,249
+added a deployment.md file to this project
+在該專案中新增了一個deployment.md檔案
+
+6
+00:00:09,330 --> 00:00:11,482
+and it is part of the project which was
+這是該專案的一部分
+
+7
+00:00:11,594 --> 00:00:13,842
+linked in the previous lecture. And in there
+上一講有連結。在那裡
+
+8
+00:00:13,906 --> 00:00:16,428
+I outlined the steps we need to go through.
+我概述了我們需要經歷的步驟。
+
+9
+00:00:16,958 --> 00:00:19,350
+What we need is a VPS and we already have
+我們需要的是 VPS，而且我們已經有了
+
+10
+00:00:19,383 --> 00:00:19,607
+that.
+那。
+
+11
+00:00:20,169 --> 00:00:23,381
+We'll need a domain pointing at that VPS. So
+我們需要一個指向該 VPS 的域。所以
+
+12
+00:00:23,381 --> 00:00:25,292
+if you wanna follow along, you need a domain
+如果你想跟隨，你需要一個域名
+
+13
+00:00:25,324 --> 00:00:29,159
+because you will need one for HTTPS access
+因為您需要一個來進行 HTTPS 訪問
+
+14
+00:00:29,159 --> 00:00:32,589
+for TLS encryption for secure web requests.
+用於安全性 Web 請求的 TLS 加密。
+
+15
+00:00:33,567 --> 00:00:35,860
+And all the rest is already set up in this
+其餘的一切都已在此設置
+
+16
+00:00:35,908 --> 00:00:38,665
+project. Docker, for example, because we are
+專案.以 Docker 为例，因为我们是
+
+17
+00:00:38,873 --> 00:00:39,867
+using Docker here.
+這裡使用 Docker。
+
+18
+00:00:40,621 --> 00:00:42,480
+Now, in case you're not sure what exactly
+現在，如果您不確定到底是什麼
+
+19
+00:00:42,560 --> 00:00:43,089
+Docker is,
+碼頭工人是，
+
+20
+00:00:43,618 --> 00:00:45,414
+it's a tool that allows you to run
+它是一個允許你運行的工具
+
+21
+00:00:45,526 --> 00:00:49,004
+containerized applications where a container
+容器化應用程式，其中容器
+
+22
+00:00:49,133 --> 00:00:50,142
+is really just an
+真的只是一個
+
+23
+00:00:50,880 --> 00:00:53,172
+isolated environment, a box you could say,
+隔離環境，你可以說是一個盒子，
+
+24
+00:00:53,300 --> 00:00:56,234
+that includes your app and all required
+包括您的應用程式和所有必需的
+
+25
+00:00:56,266 --> 00:00:59,135
+dependencies and tools. So the idea is that
+依賴項和工具。所以我們的想法是
+
+26
+00:00:59,135 --> 00:01:01,604
+you put your app, so for example, the app I
+你把你的應用程式，例如，我的應用程式
+
+27
+00:01:01,700 --> 00:01:03,975
+have here, which is a Node.js app, as I
+這裡有一個 Node.js 應用程式，正如我所言
+
+28
+00:01:03,975 --> 00:01:06,588
+mentioned, a Node.js web application, that
+提到了一個 Node.js Web 應用程式，
+
+29
+00:01:06,588 --> 00:01:08,030
+you put that app
+你把那個應用程式
+
+30
+00:01:08,671 --> 00:01:11,059
+into a container and you bundle it up in
+放入容器中，然後將其捆綁在
+
+31
+00:01:11,091 --> 00:01:12,630
+that container together with all the
+該容器連同所有
+
+32
+00:01:12,630 --> 00:01:15,178
+dependencies it needs. So the dependencies
+它需要的依賴項。所以依賴關係
+
+33
+00:01:15,178 --> 00:01:17,278
+we installed here, which are stored in the
+我們安裝在這裡，它們存放在
+
+34
+00:01:17,342 --> 00:01:20,531
+node_modules folder, but also other
+node_modules 資料夾，還有其他
+
+35
+00:01:20,531 --> 00:01:22,823
+dependencies. And you have a Dockerfile,
+依賴關係。你有一個 Dockerfile，
+
+36
+00:01:23,352 --> 00:01:25,852
+which is part of that project already, it's
+這已經是該專案的一部分了
+
+37
+00:01:25,980 --> 00:01:26,429
+already here,
+已經在這裡了，
+
+38
+00:01:27,022 --> 00:01:28,785
+which configures this environment you wanna
+它設定了你想要的環境
+
+39
+00:01:28,785 --> 00:01:31,210
+have. And in that file, I, for example, make
+有。在該檔案中，例如，我使
+
+40
+00:01:31,210 --> 00:01:34,808
+sure that we have a Node image being used
+確保我們有一個正在使用的節點鏡像
+
+41
+00:01:34,808 --> 00:01:38,246
+there as a base so that Node.js is installed
+那裡作為安裝 Node.js 的基礎
+
+42
+00:01:38,358 --> 00:01:40,109
+in that container because that's also a
+在那個容器中，因為這也是一個
+
+43
+00:01:40,125 --> 00:01:41,972
+dependency of the web app. It's not just the
+Web 應用程式的依賴。這不僅僅是
+
+44
+00:01:41,972 --> 00:01:44,703
+packages my web app uses, but it's Node
+我的網頁應用程式使用的包，但它是 Node
+
+45
+00:01:44,703 --> 00:01:45,185
+itself.
+本身。
+
+46
+00:01:45,908 --> 00:01:48,157
+And of course, I did already install Node on
+當然，我已經安裝了 Node
+
+47
+00:01:48,157 --> 00:01:50,776
+my VPS here, but actually I wouldn't need to
+我的 VPS 在這裡，但實際上我不需要
+
+48
+00:01:50,808 --> 00:01:53,121
+do that to run the app here, this app we're
+這樣做是為了在這裡運行應用程式，我們是這個應用程式
+
+49
+00:01:53,137 --> 00:01:53,892
+about to deploy.
+即將部署。
+
+50
+00:01:54,567 --> 00:01:57,553
+I did install it to install that AI agent I
+我確實安裝了它來安裝那個AI代理我
+
+51
+00:01:57,553 --> 00:02:00,325
+showed you before, Pi in my case, but not
+之前向您展示過，在我的例子中為 Pi，但沒有
+
+52
+00:02:00,357 --> 00:02:03,337
+for this web app. That requirement of Node,
+對於這個網路應用程式。 Node 的要求，
+
+53
+00:02:03,418 --> 00:02:05,773
+of a specific Node version even, that is
+甚至是特定的 Node 版本，即
+
+54
+00:02:05,885 --> 00:02:07,760
+included in this Dockerfile.
+包含在這個 Dockerfile 中。
+
+55
+00:02:08,369 --> 00:02:11,013
+And then in that file, I install more stuff
+然後在該檔案中，我安裝了更多東西
+
+56
+00:02:11,157 --> 00:02:14,250
+we may need. And I, for example, make sure
+我們可能需要。例如，我確保
+
+57
+00:02:14,362 --> 00:02:16,173
+that dependencies of the web app are
+Web 應用程式的依賴項是
+
+58
+00:02:16,221 --> 00:02:18,048
+installed. So all those packages and
+安裝。所以所有這些包和
+
+59
+00:02:18,048 --> 00:02:21,044
+libraries my web app uses, I build the web
+我的網頁應用程式使用的函式庫，我建立網路
+
+60
+00:02:21,044 --> 00:02:24,523
+app there. So in short, I do everything in
+那裡的應用程式。簡而言之，我所做的一切都是
+
+61
+00:02:24,555 --> 00:02:26,159
+here to make sure that I have a
+在這裡確保我有一個
+
+62
+00:02:26,159 --> 00:02:29,095
+production-ready container that includes the
+生產就緒容器，包括
+
+63
+00:02:29,191 --> 00:02:32,143
+ready-to-use application. And that is the
+即用型應用程式。這就是
+
+64
+00:02:32,159 --> 00:02:34,308
+idea behind Docker and Docker containers.
+Docker 和 Docker 容器背後的理念。
+
+65
+00:02:34,565 --> 00:02:37,115
+You have that package here in the end, which
+最後你有這個包裹，它
+
+66
+00:02:37,211 --> 00:02:40,420
+you can put onto a host that has Docker
+你可以把它放到有 Docker 的主機上
+
+67
+00:02:40,420 --> 00:02:43,131
+running on it. And then that host can run
+運行在它上面。然後該主機就可以運行
+
+68
+00:02:43,243 --> 00:02:45,777
+that container as it is and doesn't need to
+該容器原樣且不需要
+
+69
+00:02:45,809 --> 00:02:48,199
+worry about making sure that it has the
+擔心確保它具有
+
+70
+00:02:48,199 --> 00:02:50,269
+proper software and packages installed
+安裝正確的軟體和軟體包
+
+71
+00:02:50,349 --> 00:02:52,208
+itself. That's the advantage of Docker.
+本身。這就是 Docker 的優勢。
+
+72
+00:02:52,465 --> 00:02:55,238
+That's what we have here. And Docker is
+這就是我們這裡所擁有的。而 Docker 是
+
+73
+00:02:55,414 --> 00:02:58,059
+indeed the default for, I guess, most web
+我想，這確實是大多數網路的預設設置
+
+74
+00:02:58,059 --> 00:02:59,806
+apps out there. It's a very convenient tool
+那裡的應用程式。這是一個非常方便的工具
+
+75
+00:02:59,918 --> 00:03:02,467
+for deployment and therefore we're using it
+用於部署，因此我們正在使用它
+
+76
+00:03:02,467 --> 00:03:03,413
+in this project too.
+也在這個專案中。
+
+77
+00:03:04,166 --> 00:03:06,378
+Now actually in this project, I have 2
+現在實際上在這個專案中，我有 2
+
+78
+00:03:06,570 --> 00:03:09,103
+Docker-related files. I have the Dockerfile
+Docker 相關檔案。我有 Dockerfile
+
+79
+00:03:09,199 --> 00:03:12,341
+and I have a compose.yaml file. And by the
+我有一個 compose.yaml 檔案。並由
+
+80
+00:03:12,341 --> 00:03:14,024
+way, if you wanna learn even more about
+方式，如果你想了解更多
+
+81
+00:03:14,024 --> 00:03:15,771
+Docker, attached you find a link to my
+Docker，附上你找到我的連結
+
+82
+00:03:15,771 --> 00:03:18,368
+course which does dive in even deeper. But
+當然，這確實更深入。但
+
+83
+00:03:18,368 --> 00:03:20,183
+for this course, it's just important to
+對於本課程，重要的是
+
+84
+00:03:20,183 --> 00:03:22,800
+understand the general idea behind it. Now,
+了解背後的整體思想。現在，
+
+85
+00:03:23,009 --> 00:03:25,578
+I then actually have 2 Docker-related files
+然後我實際上有2個與Docker相關的檔案
+
+86
+00:03:25,578 --> 00:03:27,199
+in this project because I don't just have
+在這個專案中因為我不僅有
+
+87
+00:03:27,199 --> 00:03:29,897
+the Dockerfile but also this compose.yaml
+Dockerfile 還有這個 compose.yaml
+
+88
+00:03:29,897 --> 00:03:30,282
+file.
+檔案。
+
+89
+00:03:31,021 --> 00:03:33,670
+This compose.yaml file actually creates an
+這個 compose.yaml 檔案實際上創建了一個
+
+90
+00:03:33,670 --> 00:03:35,436
+environment that consists of multiple
+環境由多個
+
+91
+00:03:35,533 --> 00:03:36,063
+containers.
+容器。
+
+92
+00:03:36,721 --> 00:03:39,515
+I have one container, my app container, that
+我有一個容器，我的應用程式容器，
+
+93
+00:03:39,691 --> 00:03:39,836
+is
+是
+
+94
+00:03:40,414 --> 00:03:42,405
+configured by this Dockerfile that will
+由這個 Dockerfile 設定，將
+
+95
+00:03:42,437 --> 00:03:44,765
+include my web app. But then I also have
+包括我的網頁應用程式。但後來我也有
+
+96
+00:03:44,765 --> 00:03:47,861
+another container defined in here for a tool
+此處為工具定義的另一個容器
+
+97
+00:03:47,877 --> 00:03:51,183
+called Traefik, which will act as a reverse
+稱為 Traefik，它將充當反向
+
+98
+00:03:51,183 --> 00:03:53,670
+proxy in front of my web app. And
+我的網頁應用程式前面的代理程式。和
+
+99
+00:03:54,296 --> 00:03:56,815
+that of course may sound very confusing. So
+這當然聽起來很令人困惑。所以
+
+100
+00:03:56,815 --> 00:03:59,607
+let's dive a bit deeper into what a reverse
+讓我們更深入地了解什麼是相反的情況
+
+101
+00:03:59,607 --> 00:04:01,260
+proxy actually is.
+代理實際上是。

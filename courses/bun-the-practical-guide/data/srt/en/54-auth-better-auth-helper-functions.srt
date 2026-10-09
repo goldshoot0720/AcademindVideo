@@ -1,0 +1,395 @@
+1
+00:00:00,048 --> 00:00:02,051
+So what are we doing in these route
+
+2
+00:00:02,051 --> 00:00:04,534
+functions? Well, let's take createPost as an
+
+3
+00:00:04,534 --> 00:00:05,143
+example.
+
+4
+00:00:05,800 --> 00:00:08,572
+That clearly is a route handler function
+
+5
+00:00:08,604 --> 00:00:11,072
+that should be called whenever the user
+
+6
+00:00:11,072 --> 00:00:13,620
+tries to create a new post. And what I do in
+
+7
+00:00:13,652 --> 00:00:16,536
+there is first some authentication in the
+
+8
+00:00:16,536 --> 00:00:19,757
+end. requireUser is a function also defined
+
+9
+00:00:19,757 --> 00:00:22,129
+in shared.ts because it's some shared logic
+
+10
+00:00:22,129 --> 00:00:24,596
+used in multiple route-related functions
+
+11
+00:00:25,269 --> 00:00:26,423
+where I use
+
+12
+00:00:27,265 --> 00:00:27,605
+This
+
+13
+00:00:28,237 --> 00:00:28,836
+code here,
+
+14
+00:00:29,516 --> 00:00:31,298
+which in the end is coming from the
+
+15
+00:00:31,395 --> 00:00:33,550
+BetterAuth library, which I'm using for
+
+16
+00:00:33,728 --> 00:00:34,198
+authentication,
+
+17
+00:00:35,237 --> 00:00:37,632
+for checking whether I have an active
+
+18
+00:00:37,841 --> 00:00:40,637
+session for the user who tries to create a
+
+19
+00:00:40,637 --> 00:00:43,272
+post so that only authenticated users can
+
+20
+00:00:43,674 --> 00:00:44,544
+create a post.
+
+21
+00:00:46,100 --> 00:00:48,976
+So auth here is coming from my auth file,
+
+22
+00:00:49,747 --> 00:00:51,787
+which is part of my project. And in there
+
+23
+00:00:51,996 --> 00:00:54,021
+I'm using this BetterAuth library as I
+
+24
+00:00:54,021 --> 00:00:55,947
+mentioned. So this code is not written by
+
+25
+00:00:55,947 --> 00:00:56,667
+me. This is using a third-party library.
+
+26
+00:00:58,756 --> 00:01:00,872
+BetterAuth is a library that helps with
+
+27
+00:01:01,000 --> 00:01:03,725
+authentication. It's amazing, really easy to
+
+28
+00:01:03,725 --> 00:01:05,264
+use. Attached, you find a link to their
+
+29
+00:01:05,264 --> 00:01:07,396
+docs. And in the end, what I'm doing here is
+
+30
+00:01:07,428 --> 00:01:09,544
+I'm configuring BetterAuth. I'm making sure
+
+31
+00:01:09,576 --> 00:01:11,836
+that my frontend, which runs on a different
+
+32
+00:01:11,836 --> 00:01:13,920
+domain, also during development, different
+
+33
+00:01:13,920 --> 00:01:16,725
+port, that this frontend can connect to my
+
+34
+00:01:16,725 --> 00:01:19,851
+backend and can send a cookie in the end to
+
+35
+00:01:19,851 --> 00:01:22,320
+my backend or share a cookie with my backend
+
+36
+00:01:22,320 --> 00:01:24,147
+if you wanna call it like this. And then
+
+37
+00:01:24,260 --> 00:01:26,841
+BetterAuth will handle all the signup and
+
+38
+00:01:26,841 --> 00:01:29,293
+sign-in and session management logic. It
+
+39
+00:01:29,373 --> 00:01:31,682
+also has its own database which it manages,
+
+40
+00:01:32,259 --> 00:01:34,070
+which I remap to different names here.
+
+41
+00:01:34,824 --> 00:01:38,286
+And in shared.ts, I have this requireUser
+
+42
+00:01:38,286 --> 00:01:41,540
+function where I use this auth object, which
+
+43
+00:01:41,588 --> 00:01:43,544
+is set up with help of BetterAuth,
+
+44
+00:01:44,442 --> 00:01:46,622
+access.api on it, which you have to do to
+
+45
+00:01:46,622 --> 00:01:47,936
+check if I have a session
+
+46
+00:01:48,530 --> 00:01:50,870
+for the user that sent this request, which
+
+47
+00:01:50,870 --> 00:01:52,842
+is checked with help of the headers attached
+
+48
+00:01:52,938 --> 00:01:54,701
+to the request because the headers will
+
+49
+00:01:54,717 --> 00:01:56,737
+contain the session cookie if there is one.
+
+50
+00:01:57,668 --> 00:01:59,979
+So that is what BetterAuth does for me. It
+
+51
+00:02:00,075 --> 00:02:02,419
+checks whether that incoming request has a
+
+52
+00:02:02,419 --> 00:02:03,317
+valid session.
+
+53
+00:02:03,863 --> 00:02:06,511
+If I don't, I return null here. If I do, I
+
+54
+00:02:06,511 --> 00:02:09,240
+return information about the session user.
+
+55
+00:02:09,962 --> 00:02:13,156
+And back in post.ts, this is what I get back
+
+56
+00:02:13,156 --> 00:02:16,029
+from requireUser, a user, but that user is
+
+57
+00:02:16,286 --> 00:02:18,517
+either a valid user or null because
+
+58
+00:02:19,207 --> 00:02:20,940
+if there is no session or an invalid
+
+59
+00:02:20,940 --> 00:02:22,449
+session, we get back null.
+
+60
+00:02:23,046 --> 00:02:25,295
+So I check if I don't have a user and if I
+
+61
+00:02:25,295 --> 00:02:27,900
+don't, I send back an authentication
+
+62
+00:02:27,900 --> 00:02:30,958
+required error because of course createPost
+
+63
+00:02:30,958 --> 00:02:32,043
+does require a user.
+
+64
+00:02:33,630 --> 00:02:36,399
+Next step is input validation. So at this
+
+65
+00:02:36,399 --> 00:02:38,326
+point, we know that we have a valid user,
+
+66
+00:02:38,666 --> 00:02:40,124
+but of course we need to check if we got
+
+67
+00:02:40,124 --> 00:02:40,852
+valid data.
+
+68
+00:02:41,434 --> 00:02:45,429
+So I get my request here and I read the body
+
+69
+00:02:45,445 --> 00:02:48,033
+in the end with yet another shared helper
+
+70
+00:02:48,033 --> 00:02:50,919
+function where I extract the parsed request
+
+71
+00:02:51,050 --> 00:02:52,524
+body by calling the JSON method on request.
+
+72
+00:02:54,862 --> 00:02:57,940
+Because the request is a standard Web API
+
+73
+00:02:57,988 --> 00:03:00,970
+request object. And then I just check if
+
+74
+00:03:01,098 --> 00:03:04,160
+that extraction worked and I return the body
+
+75
+00:03:04,160 --> 00:03:06,869
+if it did. So I know I have some valid
+
+76
+00:03:06,869 --> 00:03:09,353
+request body at this point and then I just
+
+77
+00:03:09,353 --> 00:03:11,245
+validate the concrete content in there
+
+78
+00:03:11,293 --> 00:03:13,297
+because when creating a post, I know that I
+
+79
+00:03:13,297 --> 00:03:15,285
+need a content field in there and that's
+
+80
+00:03:15,285 --> 00:03:17,208
+just the name of the field that must be
+
+81
+00:03:17,208 --> 00:03:18,282
+submitted by the frontend.
+
+82
+00:03:19,052 --> 00:03:21,873
+And if we uploaded an image and I'll get
+
+83
+00:03:21,873 --> 00:03:23,668
+back to image upload in just a second too,
+
+84
+00:03:24,502 --> 00:03:26,988
+I expect to get an upload ID in there. So
+
+85
+00:03:27,004 --> 00:03:29,799
+basically an identifier of the upload that
+
+86
+00:03:29,815 --> 00:03:30,666
+was performed.
+
+87
+00:03:31,421 --> 00:03:34,072
+We send back an error if we got invalid data
+
+88
+00:03:34,217 --> 00:03:35,437
+and if we got valid data,
+
+89
+00:03:35,984 --> 00:03:37,092
+I create a random
+
+90
+00:03:37,767 --> 00:03:39,582
+unique ID using
+
+91
+00:03:40,176 --> 00:03:42,506
+this feature from the standard crypto
+
+92
+00:03:42,506 --> 00:03:45,092
+package, which is yet another web standard
+
+93
+00:03:45,156 --> 00:03:46,489
+API supported by Bun.
+
+94
+00:03:47,309 --> 00:03:49,044
+I get the current date and then
+
+95
+00:03:49,638 --> 00:03:49,670
+I
+
+96
+00:03:50,441 --> 00:03:53,060
+insert that post using a database
+
+97
+00:03:53,092 --> 00:03:55,834
+transaction. And therefore, it's now time to
+
+98
+00:03:55,834 --> 00:03:58,614
+take a closer look at how we're interacting
+
+99
+00:03:58,678 --> 00:03:59,810
+with the database here.

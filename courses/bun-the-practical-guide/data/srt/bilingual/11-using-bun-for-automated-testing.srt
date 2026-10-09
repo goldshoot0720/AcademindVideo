@@ -1,0 +1,394 @@
+1
+00:00:00,112 --> 00:00:02,358
+Now, last but not least, I mentioned that
+現在，最後但並非最不重要的一點是，我提到了
+
+2
+00:00:02,358 --> 00:00:05,247
+you can also use Bun for testing, for unit
+您也可以使用 Bun 進行測試，對於單元
+
+3
+00:00:05,247 --> 00:00:07,991
+testing as a test runner. And therefore here
+作為測試運行者進行測試。因此在這裡
+
+4
+00:00:08,055 --> 00:00:10,093
+in this updated version of the project, I
+在該專案的這個更新版本中，我
+
+5
+00:00:10,366 --> 00:00:12,917
+added an index.test.ts file.
+新增了一個index.test.ts檔。
+
+6
+00:00:13,671 --> 00:00:15,340
+And in there you can see I'm importing
+在那裡你可以看到我正在導入
+
+7
+00:00:15,372 --> 00:00:17,891
+something from bun/test, from the test
+來自bun/test的東西，來自測試
+
+8
+00:00:18,004 --> 00:00:19,320
+package that's part of Bun.
+包是 Bun 的一部分。
+
+9
+00:00:20,186 --> 00:00:22,031
+Specifically, I'm importing some functions
+具體來說，我正在導入一些函式
+
+10
+00:00:22,080 --> 00:00:24,743
+you may know from other JavaScript unit
+你可能從其他 JavaScript 單元中了解到
+
+11
+00:00:24,743 --> 00:00:27,375
+testing packages like Jest or Vitest.
+測試 Jest 或 Vitest 等軟體包。
+
+12
+00:00:28,033 --> 00:00:31,213
+Which allow me to set up tests and my test
+這允許我設定測試和我的測試
+
+13
+00:00:31,245 --> 00:00:31,823
+conditions.
+狀況。
+
+14
+00:00:32,530 --> 00:00:32,626
+Now,
+現在，
+
+15
+00:00:33,156 --> 00:00:35,404
+in this test.ts file, I got a little helper
+在這個 test.ts 檔案中，我得到了一個小幫手
+
+16
+00:00:35,404 --> 00:00:38,150
+function that creates a test request, a
+建立測試請求的函式，
+
+17
+00:00:38,150 --> 00:00:41,009
+dummy request, got a beforeEach function
+虛擬請求，有一個 beforeEach 函式
+
+18
+00:00:41,041 --> 00:00:43,803
+that executes before each test to reset my
+在每次測試之前執行以重置我的
+
+19
+00:00:43,835 --> 00:00:46,742
+counter state. And then I got a test suite
+計數器狀態。然後我得到了一個測試套件
+
+20
+00:00:46,742 --> 00:00:49,793
+here with individual tests. For example, a
+這裡有單獨的測試。例如，一個
+
+21
+00:00:49,874 --> 00:00:52,042
+test that renders that the current counter
+測試呈現當前計數器
+
+22
+00:00:52,042 --> 00:00:55,286
+value is rendered inside the HTML page. So I
+值在 HTML 頁面內呈現。所以我
+
+23
+00:00:55,334 --> 00:00:58,128
+call renderCounterPage here, which is just a
+這裡呼叫renderCounterPage，這只是一個
+
+24
+00:00:58,128 --> 00:01:00,665
+helper function in index.ts now, which
+現在index.ts中的輔助函式，其中
+
+25
+00:01:00,713 --> 00:01:02,800
+replaces that count placeholder in my
+替換我的計數佔位符
+
+26
+00:01:02,800 --> 00:01:05,835
+template with a counter value. And I test
+具有計數器值的樣板。我測試
+
+27
+00:01:05,851 --> 00:01:08,324
+whether that works correctly by evaluating
+通過評估是否正確
+
+28
+00:01:08,340 --> 00:01:11,005
+the generated HTML code and checking that
+產生的 HTML 程式碼並檢查
+
+29
+00:01:11,005 --> 00:01:12,868
+the correct counter value is output there.
+那裡輸出正確的計數器值。
+
+30
+00:01:13,398 --> 00:01:15,597
+Now, this is not a unit testing course. I
+現在，這不是單元測試課程。我
+
+31
+00:01:15,790 --> 00:01:18,118
+won't go through all that code in detail.
+不會詳細介紹所有程式碼。
+
+32
+00:01:18,680 --> 00:01:21,346
+I will attach a detailed version with extra
+我將附上額外的詳細版本
+
+33
+00:01:21,346 --> 00:01:21,908
+comments though,
+不過評論，
+
+34
+00:01:22,470 --> 00:01:25,247
+but this is all code that can be executed
+但這是所有可以執行的程式碼
+
+35
+00:01:25,279 --> 00:01:28,091
+with Bun. That doesn't require any extra
+與髮髻。這不需要任何額外的
+
+36
+00:01:28,091 --> 00:01:30,774
+libraries or packages. That's the entire
+庫或包。這就是整個
+
+37
+00:01:30,983 --> 00:01:31,192
+point.
+觀點。
+
+38
+00:01:31,803 --> 00:01:34,647
+So I got these unit tests here that test
+所以我在這裡進行了這些單元測試
+
+39
+00:01:34,679 --> 00:01:37,057
+that the application behaves as intended.
+應用程式的行為符合預期。
+
+40
+00:01:37,571 --> 00:01:41,267
+And then in package.json, I got specific
+然後在 package.json 中，我得到了具體的
+
+41
+00:01:41,267 --> 00:01:42,231
+test scripts.
+測試腳本。
+
+42
+00:01:42,777 --> 00:01:46,425
+And again, no extra dependencies, no Vitest,
+再說一次，沒有額外的依賴，沒有 Vitest，
+
+43
+00:01:46,553 --> 00:01:49,510
+Jest, or anything like that. Instead, using
+開玩笑，或類似的東西。相反，使用
+
+44
+00:01:49,863 --> 00:01:51,711
+built-in features and built-in tests.
+內建功能和內建測試。
+
+45
+00:01:51,872 --> 00:01:55,143
+Built-in commands, specifically the bun test
+內建指令，特別是bun測試
+
+46
+00:01:55,143 --> 00:01:55,576
+command.
+命令。
+
+47
+00:01:56,105 --> 00:01:58,606
+So we have bun run for using the runtime for
+所以我們有bun run來使用運行時
+
+48
+00:01:58,703 --> 00:02:01,140
+executing code with Bun. We have bun build
+用 Bun 執行程式碼。我們有髮髻
+
+49
+00:02:01,172 --> 00:02:03,433
+for building. We have bun add and bun
+用於建築。我們有小圓麵包和小圓麵包
+
+50
+00:02:03,433 --> 00:02:06,207
+install for adding packages and so on. And
+install 用於添加軟體包等。和
+
+51
+00:02:06,223 --> 00:02:09,543
+then we got bun test to run tests, either
+然後我們用bun test來運行測試，要么
+
+52
+00:02:09,591 --> 00:02:11,820
+this command here to simply run all the
+這個命令在這裡簡單地運行所有
+
+53
+00:02:11,820 --> 00:02:14,930
+tests once, and by default it will simply
+測試一次，預設情況下它只會
+
+54
+00:02:14,963 --> 00:02:17,304
+look for files that end with.test.ts or
+尋找以 .test.ts 結尾的檔案或
+
+55
+00:02:17,400 --> 00:02:18,170
+.spec.ts.
+.spec.ts。
+
+56
+00:02:19,020 --> 00:02:20,127
+Spec.ts,
+規格，
+
+57
+00:02:21,042 --> 00:02:23,370
+or we run the tests in watch mode since
+或者我們在觀察模式下執行測試，因為
+
+58
+00:02:23,370 --> 00:02:26,292
+there is a supported --watch flag here too
+這裡也有一個受支援的 --watch 標誌
+
+59
+00:02:26,581 --> 00:02:29,134
+so that tests are re-executed, rerun
+以便重新執行測試，重新執行
+
+60
+00:02:29,230 --> 00:02:31,398
+whenever you change your code, or we
+每當您更改程式碼時，或者我們
+
+61
+00:02:31,398 --> 00:02:33,661
+generate a coverage report to see how much
+產生覆蓋率報告以查看有多少
+
+62
+00:02:33,661 --> 00:02:35,508
+of our code is covered with tests.
+我們的程式碼都經過測試。
+
+63
+00:02:36,391 --> 00:02:40,918
+So if I run bun test or bun run test to run
+所以如果我運行bun test或bun run test來運行
+
+64
+00:02:41,046 --> 00:02:43,760
+this script, though ironically, even if we
+這個腳本，雖然諷刺的是，即使我們
+
+65
+00:02:43,840 --> 00:02:45,269
+wouldn't have that script, we would run
+沒有那個腳本，我們會運行
+
+66
+00:02:45,943 --> 00:02:48,396
+bun test because test is simply a built-in
+麵包測試因為測試只是一個內建的
+
+67
+00:02:48,429 --> 00:02:51,315
+command. If I run bun test, it will simply
+命令。如果我運行髮髻測試，它會簡單地
+
+68
+00:02:51,380 --> 00:02:53,689
+find all the test files in this project, run
+找到本專案中的所有測試檔案，運行
+
+69
+00:02:53,721 --> 00:02:55,165
+them, and give me an overview here.
+他們，並在這裡給我一個概述。
+
+70
+00:02:55,870 --> 00:02:58,517
+And testing is therefore the last important
+因此測試是最後重要的
+
+71
+00:02:58,517 --> 00:03:01,356
+capability of Bun because as mentioned, it's
+Bun 的功能，因為如上所述，它是
+
+72
+00:03:01,660 --> 00:03:04,194
+mostly a runtime. That's what it's known
+主要是運行時。這就是眾所周知的
+
+73
+00:03:04,226 --> 00:03:06,905
+for. But it's also a very capable, secure,
+為了。但它也是一個非常有能力、安全、
+
+74
+00:03:07,033 --> 00:03:10,096
+and fast package manager, a build tool which
+和快速套件管理器，一個建置工具
+
+75
+00:03:10,145 --> 00:03:12,839
+you can use for optimizing your code and for
+您可以用於優化您的程式碼並用於
+
+76
+00:03:13,192 --> 00:03:15,797
+making it production ready, and a test
+使其做好生產準備並進行測試
+
+77
+00:03:15,845 --> 00:03:18,814
+runner, which allows you to set up and run
+跑步者，它允許您設定和運行
+
+78
+00:03:18,926 --> 00:03:22,460
+your unit tests without requiring any extra
+您的單元測試不需要任何額外的
+
+79
+00:03:22,460 --> 00:03:23,734
+libraries or packages.
+庫或包。

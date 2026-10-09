@@ -1,0 +1,787 @@
+1
+00:00:00,098 --> 00:00:02,707
+we can go to the client index.html,
+
+2
+00:00:03,960 --> 00:00:07,035
+which is served by that same server for this
+
+3
+00:00:08,022 --> 00:00:08,572
+/root route.
+
+4
+00:00:10,514 --> 00:00:12,658
+And to show this in action, I can simply run
+
+5
+00:00:12,771 --> 00:00:15,318
+bun run dev to start that server, which does
+
+6
+00:00:15,350 --> 00:00:17,446
+start the server that handles the WebSockets
+
+7
+00:00:17,591 --> 00:00:19,234
+and serves that root route
+
+8
+00:00:20,380 --> 00:00:21,738
+under localhost:3000.
+
+9
+00:00:23,238 --> 00:00:25,109
+And if I open that, I see this chat window.
+
+10
+00:00:25,189 --> 00:00:27,173
+Now here I can choose any name I want, any
+
+11
+00:00:27,269 --> 00:00:28,662
+room name I want, And
+
+12
+00:00:29,884 --> 00:00:31,540
+you see now I get some output here,
+
+13
+00:00:31,733 --> 00:00:34,210
+connected to room general as Max and then
+
+14
+00:00:34,243 --> 00:00:35,722
+Max joined general.
+
+15
+00:00:36,540 --> 00:00:37,766
+Where is this coming from?
+
+16
+00:00:38,508 --> 00:00:40,992
+Well, as mentioned, we're serving the
+
+17
+00:00:40,992 --> 00:00:44,154
+homepage here. So this is this index.html
+
+18
+00:00:44,154 --> 00:00:44,558
+file.
+
+19
+00:00:45,917 --> 00:00:48,312
+And in that file I got of course the HTML
+
+20
+00:00:48,425 --> 00:00:51,046
+and the styling or the imported styles for
+
+21
+00:00:51,046 --> 00:00:51,450
+the look,
+
+22
+00:00:52,000 --> 00:00:53,748
+but then I got client.ts.
+
+23
+00:00:54,828 --> 00:00:56,960
+So I'm importing a TypeScript file here and
+
+24
+00:00:57,040 --> 00:00:59,686
+that will be compiled by Bun because we have
+
+25
+00:00:59,686 --> 00:01:02,812
+it in an HTML file that is imported by a
+
+26
+00:01:02,828 --> 00:01:05,072
+Bun-executed file. You learned about that
+
+27
+00:01:05,072 --> 00:01:07,284
+earlier in the course that Bun would then
+
+28
+00:01:07,381 --> 00:01:09,288
+handle the compilation of these files.
+
+29
+00:01:09,962 --> 00:01:11,533
+So that's what's happening here. But what is
+
+30
+00:01:11,629 --> 00:01:13,120
+in that client.ts file?
+
+31
+00:01:13,649 --> 00:01:14,563
+Well, in there
+
+32
+00:01:15,156 --> 00:01:17,849
+I have some vanilla TypeScript for handling
+
+33
+00:01:17,897 --> 00:01:20,141
+and updating the UI. So I reach out to a
+
+34
+00:01:20,206 --> 00:01:22,562
+bunch of HTML elements in there to be able
+
+35
+00:01:22,562 --> 00:01:24,630
+to interact with them and listen to clicks
+
+36
+00:01:24,630 --> 00:01:24,999
+and so on.
+
+37
+00:01:25,673 --> 00:01:29,594
+But what's important in here is that in the
+
+38
+00:01:29,610 --> 00:01:29,948
+end,
+
+39
+00:01:30,478 --> 00:01:32,390
+I have this listener
+
+40
+00:01:32,969 --> 00:01:35,207
+for the submission of the connect form,
+
+41
+00:01:37,164 --> 00:01:39,945
+which is just this form here at the top. So
+
+42
+00:01:39,945 --> 00:01:41,934
+not the form where I send a message, but
+
+43
+00:01:41,934 --> 00:01:43,179
+this form where I connect it.
+
+44
+00:01:43,728 --> 00:01:45,638
+I have a listener to the submission of that
+
+45
+00:01:45,654 --> 00:01:48,664
+form and in there I have the client side for
+
+46
+00:01:48,664 --> 00:01:50,185
+connecting to the WebSocket server.
+
+47
+00:01:50,760 --> 00:01:53,711
+So here I'm in the end defining a URL I
+
+48
+00:01:53,711 --> 00:01:54,343
+wanna connect to and in the end here that
+
+49
+00:01:54,343 --> 00:01:55,251
+will just be the URL of the server
+
+50
+00:01:57,813 --> 00:02:00,762
+that is serving this site, but the protocol
+
+51
+00:02:01,082 --> 00:02:04,721
+will be WS or if it were deployed, WSS for
+
+52
+00:02:04,721 --> 00:02:06,836
+the secure version of it, which means
+
+53
+00:02:07,093 --> 00:02:10,122
+WebSocket instead of HTTP or HTTPS.
+
+54
+00:02:11,116 --> 00:02:12,478
+But then we target the
+
+55
+00:02:13,023 --> 00:02:15,348
+/chat route, which is in line with what we
+
+56
+00:02:15,380 --> 00:02:18,457
+expect on the server and we pass our room
+
+57
+00:02:18,954 --> 00:02:21,599
+and our name as query parameters to that
+
+58
+00:02:21,599 --> 00:02:24,179
+URL, which again is also in line with what
+
+59
+00:02:24,179 --> 00:02:25,397
+we extract on the server.
+
+60
+00:02:26,440 --> 00:02:29,456
+So that's how we send this, hey, I wanna
+
+61
+00:02:29,456 --> 00:02:31,814
+connect request from the client to the
+
+62
+00:02:31,814 --> 00:02:34,204
+server. And then on the client, so in the
+
+63
+00:02:34,204 --> 00:02:37,028
+browser, we instantiate a WebSocket object.
+
+64
+00:02:37,172 --> 00:02:39,257
+And this is now not Bun, this is a browser
+
+65
+00:02:39,257 --> 00:02:42,450
+API. We instantiate a WebSocket object and
+
+66
+00:02:42,466 --> 00:02:45,450
+we add a listener to open events that may be
+
+67
+00:02:45,450 --> 00:02:48,000
+sent by that WebSocket connection. So by
+
+68
+00:02:48,000 --> 00:02:50,663
+instantiating this with the URL, we're
+
+69
+00:02:50,663 --> 00:02:54,014
+sending a request to the backend. So we send
+
+70
+00:02:54,014 --> 00:02:56,305
+the request that will be handled by the BUN
+
+71
+00:02:56,353 --> 00:02:59,429
+server and there the BUN server will upgrade
+
+72
+00:02:59,461 --> 00:03:01,528
+the connection to a WebSocket connection and
+
+73
+00:03:01,689 --> 00:03:03,964
+that's how this connection is established
+
+74
+00:03:04,092 --> 00:03:05,935
+from both the server and client side. And
+
+75
+00:03:05,951 --> 00:03:08,482
+then here we listen to the open event which
+
+76
+00:03:08,658 --> 00:03:10,661
+will be triggered automatically once the
+
+77
+00:03:10,661 --> 00:03:12,904
+connection was established by both server
+
+78
+00:03:12,920 --> 00:03:15,051
+and client. So just as we have an open
+
+79
+00:03:15,388 --> 00:03:17,791
+method here on the server for confirming it,
+
+80
+00:03:18,047 --> 00:03:20,210
+we have an event to which we can listen on
+
+81
+00:03:20,210 --> 00:03:20,787
+the client.
+
+82
+00:03:21,333 --> 00:03:23,659
+And it's here where I in the end update my
+
+83
+00:03:23,723 --> 00:03:26,066
+UI to say connected to room blah, blah,
+
+84
+00:03:26,082 --> 00:03:26,307
+blah.
+
+85
+00:03:26,852 --> 00:03:29,275
+That is this message you see here. But this
+
+86
+00:03:29,275 --> 00:03:31,345
+message below is coming from the server.
+
+87
+00:03:31,763 --> 00:03:34,346
+This message is sent or published by the
+
+88
+00:03:34,346 --> 00:03:37,218
+server when the connection is confirmed by
+
+89
+00:03:37,282 --> 00:03:38,678
+the server in its open method.
+
+90
+00:03:39,288 --> 00:03:42,642
+Here we send this joined room message
+
+91
+00:03:43,236 --> 00:03:45,273
+and on the client we react to that by adding
+
+92
+00:03:45,322 --> 00:03:47,696
+another event listener for messages sent by
+
+93
+00:03:47,728 --> 00:03:50,135
+the server. So messages published by the
+
+94
+00:03:50,135 --> 00:03:52,109
+server. So whenever the server calls
+
+95
+00:03:52,270 --> 00:03:54,631
+publish, this triggers this message event
+
+96
+00:03:54,631 --> 00:03:56,317
+listener to become active on the client.
+
+97
+00:03:57,120 --> 00:03:58,887
+And here we then extract some data, and
+
+98
+00:03:58,887 --> 00:04:00,381
+therefore of course we need to know which
+
+99
+00:04:00,494 --> 00:04:02,437
+kind of data the server sends because I
+
+100
+00:04:02,485 --> 00:04:04,236
+mentioned that the shape of this data is
+
+101
+00:04:04,268 --> 00:04:06,453
+totally up to you. So as a developer, you
+
+102
+00:04:06,453 --> 00:04:08,204
+have to make sure that on the client side
+
+103
+00:04:08,204 --> 00:04:10,099
+you're working with the same kind of data as
+
+104
+00:04:10,212 --> 00:04:10,870
+on the backend.
+
+105
+00:04:11,641 --> 00:04:13,713
+But we parse the message here that was sent
+
+106
+00:04:13,745 --> 00:04:15,448
+by the server, that was published by the
+
+107
+00:04:15,448 --> 00:04:15,833
+server.
+
+108
+00:04:16,540 --> 00:04:18,803
+I check the message type but I only do that
+
+109
+00:04:18,803 --> 00:04:21,112
+in the end for styling purposes because that
+
+110
+00:04:21,112 --> 00:04:23,452
+all then is client-side logic for adding and
+
+111
+00:04:23,452 --> 00:04:25,231
+displaying a message in a certain style.
+
+112
+00:04:25,921 --> 00:04:28,485
+And I simply show messages differently based
+
+113
+00:04:28,485 --> 00:04:30,281
+on whether they were sent by the system or
+
+114
+00:04:30,281 --> 00:04:30,906
+some user.
+
+115
+00:04:31,611 --> 00:04:33,679
+And that is then how the message text is
+
+116
+00:04:33,791 --> 00:04:34,433
+displayed there.
+
+117
+00:04:34,994 --> 00:04:36,581
+And then on the client side, I also have
+
+118
+00:04:36,597 --> 00:04:39,145
+logic for the connection being closed where
+
+119
+00:04:39,145 --> 00:04:41,742
+I say disconnected from the server and so
+
+120
+00:04:41,871 --> 00:04:42,015
+on.
+
+121
+00:04:42,848 --> 00:04:44,980
+But now on the server, I have more methods,
+
+122
+00:04:45,029 --> 00:04:47,257
+not just open. I also have a message and a
+
+123
+00:04:47,257 --> 00:04:49,709
+close method as I mentioned and messages
+
+124
+00:04:49,790 --> 00:04:52,035
+triggered whenever a client sends a message
+
+125
+00:04:52,227 --> 00:04:53,799
+because in client.ts,
+
+126
+00:04:54,376 --> 00:04:56,733
+I also have this message form where I listen
+
+127
+00:04:56,781 --> 00:04:57,647
+for submit events.
+
+128
+00:04:58,465 --> 00:05:01,336
+And that is that other form on this screen,
+
+129
+00:05:01,688 --> 00:05:04,030
+which is this form down here when a user
+
+130
+00:05:04,030 --> 00:05:07,045
+sends a message. So I can send hi there and
+
+131
+00:05:07,045 --> 00:05:09,691
+if I click send or hit enter, you see that
+
+132
+00:05:09,691 --> 00:05:10,300
+shows up here.
+
+133
+00:05:10,829 --> 00:05:13,154
+And it shows up here because when I submit
+
+134
+00:05:13,154 --> 00:05:15,849
+that form on the client, what's happening is
+
+135
+00:05:16,346 --> 00:05:19,973
+I'm sending that message to my WebSocket
+
+136
+00:05:19,973 --> 00:05:21,577
+connection. So again, this is the
+
+137
+00:05:21,577 --> 00:05:24,049
+client-side JavaScript code. We established
+
+138
+00:05:24,049 --> 00:05:26,777
+a WebSocket connection here, we got a socket
+
+139
+00:05:26,857 --> 00:05:29,778
+handle as a result, and we can use that for
+
+140
+00:05:29,842 --> 00:05:32,072
+communicating with the server. And that's
+
+141
+00:05:32,072 --> 00:05:33,629
+what's happening here. We're sending a
+
+142
+00:05:33,629 --> 00:05:34,817
+message to the server.
+
+143
+00:05:35,459 --> 00:05:38,122
+And on the server, that triggers the message
+
+144
+00:05:38,283 --> 00:05:40,064
+event handler here, as you could say.
+
+145
+00:05:40,594 --> 00:05:42,600
+We get the message as an input here and we
+
+146
+00:05:42,600 --> 00:05:45,232
+then publish it. We publish it to send it to
+
+147
+00:05:45,472 --> 00:05:46,467
+all connected
+
+148
+00:05:47,300 --> 00:05:49,200
+clients, because of course the idea is that
+
+149
+00:05:49,200 --> 00:05:51,921
+multiple clients can connect. I can open
+
+150
+00:05:51,921 --> 00:05:54,078
+this browser window again. So now I have 2,
+
+151
+00:05:54,561 --> 00:05:57,139
+1 and 2, and in the second one I can connect
+
+152
+00:05:57,139 --> 00:05:57,770
+as Andy
+
+153
+00:05:59,823 --> 00:06:01,554
+to the same room. That's important, same
+
+154
+00:06:01,602 --> 00:06:04,109
+identifier, because that is the topic to
+
+155
+00:06:04,109 --> 00:06:05,370
+which messages are published.
+
+156
+00:06:05,952 --> 00:06:08,498
+So now Andy joined on the first window. I
+
+157
+00:06:08,547 --> 00:06:11,092
+can see that Andy joined because again,
+
+158
+00:06:11,204 --> 00:06:14,180
+they're connected through WebSockets to the
+
+159
+00:06:14,180 --> 00:06:17,146
+same server and subscribed to the same
+
+160
+00:06:17,274 --> 00:06:19,550
+topic. That's how messages are shared.
+
+161
+00:06:20,256 --> 00:06:22,019
+And now if I send a new message from Max
+
+162
+00:06:22,019 --> 00:06:22,131
+here,
+
+163
+00:06:23,622 --> 00:06:24,696
+hi Max again,
+
+164
+00:06:25,465 --> 00:06:27,934
+I see it here in that window, but I also see
+
+165
+00:06:27,934 --> 00:06:30,034
+it in that other window, but they are sent
+
+166
+00:06:30,034 --> 00:06:30,852
+from another user.
+
+167
+00:06:31,717 --> 00:06:33,993
+And if I now send, hi, I'm Andy here,
+
+168
+00:06:35,308 --> 00:06:36,398
+you see it shows up here,
+
+169
+00:06:36,991 --> 00:06:39,251
+but of course also for Max, but here sent
+
+170
+00:06:39,251 --> 00:06:41,768
+from another window. So that's how these 2
+
+171
+00:06:42,057 --> 00:06:44,702
+clients, these 2 separate sessions connect
+
+172
+00:06:44,782 --> 00:06:47,110
+to the same server and subscribed to the
+
+173
+00:06:47,110 --> 00:06:50,434
+same topic. That is how this works. And this
+
+174
+00:06:50,466 --> 00:06:52,939
+message handler on the server needs to
+
+175
+00:06:52,971 --> 00:06:55,508
+publish messages sent by the client so that
+
+176
+00:06:55,540 --> 00:06:58,623
+one topic for all clients shows the same
+
+177
+00:06:58,671 --> 00:07:01,128
+messages or receives the same messages.
+
+178
+00:07:02,589 --> 00:07:03,825
+And now if I
+
+179
+00:07:04,676 --> 00:07:05,977
+close this window here,
+
+180
+00:07:06,683 --> 00:07:08,369
+I of course only have Max.
+
+181
+00:07:10,553 --> 00:07:13,220
+If I connect again with some user, I see
+
+182
+00:07:13,220 --> 00:07:15,131
+that user. And if Max should click
+
+183
+00:07:15,131 --> 00:07:15,886
+disconnect here,
+
+184
+00:07:16,963 --> 00:07:19,308
+I also see that there. And sorry, that was
+
+185
+00:07:19,308 --> 00:07:21,959
+Andy, not Max. So I see that here too. And
+
+186
+00:07:21,959 --> 00:07:23,501
+of course we could also try listening to
+
+187
+00:07:23,501 --> 00:07:25,814
+events when the browser closes so that we
+
+188
+00:07:25,814 --> 00:07:28,786
+then also leave the server. Otherwise we'll
+
+189
+00:07:28,786 --> 00:07:30,457
+leave automatically after a certain
+
+190
+00:07:30,457 --> 00:07:32,786
+timeframe. But that is in a nutshell how you
+
+191
+00:07:32,802 --> 00:07:35,919
+can set up a WebSocket server and also a
+
+192
+00:07:35,919 --> 00:07:38,087
+client with help of Bun. Though for the
+
+193
+00:07:38,087 --> 00:07:39,998
+client, it's really worth noting that in
+
+194
+00:07:40,030 --> 00:07:41,347
+this browser example here,
+
+195
+00:07:41,957 --> 00:07:44,734
+we're using the browser WebSocket support.
+
+196
+00:07:44,847 --> 00:07:47,625
+This is not BUN, but for the server it of
+
+197
+00:07:47,641 --> 00:07:48,026
+course is.

@@ -1,0 +1,179 @@
+1
+00:00:00,581 --> 00:00:03,697
+So we got that list of goals here
+
+2
+00:00:07,218 --> 00:00:09,121
+and we can add and remove goals.
+
+3
+00:00:10,021 --> 00:00:13,444
+Now, one thing we might want to add here
+
+4
+00:00:14,119 --> 00:00:15,517
+is a mechanism to
+
+5
+00:00:16,127 --> 00:00:19,582
+ask the user if they really wanna delete a
+
+6
+00:00:19,582 --> 00:00:22,331
+goal before going ahead and deleting it.
+
+7
+00:00:22,572 --> 00:00:24,485
+Because right now, if I click remove, the
+
+8
+00:00:24,501 --> 00:00:27,287
+goal is removed instantly. There is no time
+
+9
+00:00:27,402 --> 00:00:27,581
+to
+
+10
+00:00:28,299 --> 00:00:29,914
+revisit that decision and maybe change it.
+
+11
+00:00:32,229 --> 00:00:34,010
+And since this is a pretty common
+
+12
+00:00:34,091 --> 00:00:36,562
+requirement, HTMX has got you covered.
+
+13
+00:00:37,541 --> 00:00:40,236
+You can add the hx-confirm
+
+14
+00:00:40,894 --> 00:00:44,264
+attribute on an element or on a parent
+
+15
+00:00:44,280 --> 00:00:46,061
+element due to inheritance.
+
+16
+00:00:46,832 --> 00:00:49,752
+And when that element or some child element
+
+17
+00:00:49,880 --> 00:00:53,892
+then sends a request or is about to send a
+
+18
+00:00:53,908 --> 00:00:54,470
+request,
+
+19
+00:00:55,096 --> 00:01:00,407
+hx-confirm will show a confirmation popup
+
+20
+00:00:58,546 --> 00:01:01,886
+question and only if the user confirms it,
+
+21
+00:01:02,175 --> 00:01:04,375
+so if the user clicks yes or okay,
+
+22
+00:01:05,050 --> 00:01:07,604
+only then is the request actually sent.
+
+23
+00:01:09,001 --> 00:01:11,715
+And we specify the message we wanna show to
+
+24
+00:01:11,715 --> 00:01:12,486
+the user here
+
+25
+00:01:13,321 --> 00:01:15,746
+as a value for hx-confirm.
+
+26
+00:01:17,015 --> 00:01:19,585
+And as mentioned, we can add that on the
+
+27
+00:01:19,585 --> 00:01:21,560
+element that sends the request or
+
+28
+00:01:22,090 --> 00:01:24,547
+due to inheritance also on some parent
+
+29
+00:01:24,644 --> 00:01:24,917
+element.
+
+30
+00:01:25,465 --> 00:01:27,773
+For example, here on the unordered list
+
+31
+00:01:30,000 --> 00:01:33,395
+so that there I don't just have hx-swap but
+
+32
+00:01:33,605 --> 00:01:34,853
+also hx-confirm.
+
+33
+00:01:36,822 --> 00:01:39,060
+And with that done, if we save that and
+
+34
+00:01:39,221 --> 00:01:39,624
+reload,
+
+35
+00:01:40,542 --> 00:01:42,377
+if I add a goal and I click remove,
+
+36
+00:01:42,941 --> 00:01:43,215
+this
+
+37
+00:01:43,810 --> 00:01:47,499
+confirmation popup box here opens up first.
+
+38
+00:01:48,021 --> 00:01:49,457
+And if I click cancel here,
+
+39
+00:01:50,142 --> 00:01:52,998
+then nothing happens. No request is sent.
+
+40
+00:01:54,464 --> 00:01:55,639
+Only if I click OK,
+
+41
+00:01:56,170 --> 00:01:59,471
+only then goes HTMX ahead and sends that
+
+42
+00:01:59,471 --> 00:02:01,811
+request, in this case, this DELETE request.
+
+43
+00:02:03,009 --> 00:02:05,131
+And of course, Ajax confirm does not just
+
+44
+00:02:05,131 --> 00:02:07,431
+work with DELETE requests but with all
+
+45
+00:02:08,030 --> 00:02:09,245
+HTMX requests.

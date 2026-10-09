@@ -1,0 +1,547 @@
+1
+00:00:00,578 --> 00:00:03,084
+Now, there's one last setting which you can
+
+2
+00:00:03,228 --> 00:00:04,433
+access as a power user,
+
+3
+00:00:05,236 --> 00:00:06,601
+which I wanna show you.
+
+4
+00:00:07,324 --> 00:00:10,328
+And that's this structured output setting.
+
+5
+00:00:11,019 --> 00:00:13,010
+And the idea here is that you can kind of
+
+6
+00:00:13,428 --> 00:00:14,681
+force the model
+
+7
+00:00:15,291 --> 00:00:17,926
+to give you this output in
+
+8
+00:00:18,488 --> 00:00:21,074
+a structured format, in JSON format
+
+9
+00:00:21,074 --> 00:00:21,845
+specifically.
+
+10
+00:00:22,423 --> 00:00:24,784
+Now, JSON, in case you don't know, is simply
+
+11
+00:00:24,993 --> 00:00:27,595
+a format, a data format that looks like
+
+12
+00:00:27,644 --> 00:00:27,804
+this.
+
+13
+00:00:28,527 --> 00:00:31,272
+This here is JSON. That's an example for a
+
+14
+00:00:31,272 --> 00:00:32,412
+JSON document.
+
+15
+00:00:32,942 --> 00:00:34,130
+It in the end is
+
+16
+00:00:34,805 --> 00:00:37,293
+text that's formatted in a certain way.
+
+17
+00:00:38,257 --> 00:00:40,328
+And having a clearly defined format and
+
+18
+00:00:40,328 --> 00:00:43,009
+having text that follows a certain format,
+
+19
+00:00:43,378 --> 00:00:45,770
+having data that's formatted in a certain
+
+20
+00:00:45,867 --> 00:00:48,949
+way therefore, is of course very useful if
+
+21
+00:00:48,998 --> 00:00:52,112
+you, for example, plan on using this output
+
+22
+00:00:52,225 --> 00:00:54,826
+as an input in another application or
+
+23
+00:00:54,938 --> 00:00:56,961
+another step of an application.
+
+24
+00:00:57,683 --> 00:01:00,488
+That's why it's quite common that you want
+
+25
+00:01:00,873 --> 00:01:01,338
+LLMs
+
+26
+00:01:01,996 --> 00:01:05,603
+to produce JSON output, formatted output, so
+
+27
+00:01:05,603 --> 00:01:07,751
+that you can use the output of an LLM
+
+28
+00:01:08,345 --> 00:01:10,140
+not just as a human, but instead, for
+
+29
+00:01:10,172 --> 00:01:12,128
+example, also in another application.
+
+30
+00:01:12,738 --> 00:01:13,651
+For example, here
+
+31
+00:01:14,261 --> 00:01:17,130
+I might want to extract those key financials
+
+32
+00:01:17,467 --> 00:01:20,481
+not as text, as is the case here,
+
+33
+00:01:21,091 --> 00:01:24,313
+but instead I might want to extract the key
+
+34
+00:01:24,361 --> 00:01:26,205
+financials in a structured format.
+
+35
+00:01:27,183 --> 00:01:29,891
+And to get the model to do that, you can go
+
+36
+00:01:29,891 --> 00:01:31,798
+to the model settings here, turn on
+
+37
+00:01:31,846 --> 00:01:32,951
+structured output,
+
+38
+00:01:33,913 --> 00:01:36,829
+and then you have to define a JSON schema
+
+39
+00:01:36,861 --> 00:01:37,839
+here in this box.
+
+40
+00:01:39,024 --> 00:01:40,883
+Now you can visit this page to learn how a
+
+41
+00:01:40,883 --> 00:01:43,639
+JSON schema looks like. If you scroll down,
+
+42
+00:01:43,751 --> 00:01:45,162
+you will see an example
+
+43
+00:01:45,690 --> 00:01:48,286
+and you see that it is itself a JSON
+
+44
+00:01:48,334 --> 00:01:50,818
+document that describes the structure of the
+
+45
+00:01:50,882 --> 00:01:52,981
+to-be-generated JSON document.
+
+46
+00:01:53,800 --> 00:01:55,711
+So for example, here we can copy this
+
+47
+00:01:55,711 --> 00:01:56,224
+example
+
+48
+00:01:57,220 --> 00:01:58,280
+and paste it in here.
+
+49
+00:01:58,922 --> 00:02:00,383
+Now it's a bit hard to edit here.
+
+50
+00:02:01,235 --> 00:02:02,985
+Later we will also see how we could do this
+
+51
+00:02:03,017 --> 00:02:03,515
+in code,
+
+52
+00:02:04,141 --> 00:02:05,522
+but for now this will have to do.
+
+53
+00:02:06,485 --> 00:02:08,798
+Now the start here can all stay the way it
+
+54
+00:02:08,862 --> 00:02:11,624
+is, the DID, the schema. Now for the title,
+
+55
+00:02:11,640 --> 00:02:12,122
+I'll say
+
+56
+00:02:12,876 --> 00:02:13,487
+financial
+
+57
+00:02:14,177 --> 00:02:14,579
+data.
+
+58
+00:02:15,944 --> 00:02:18,272
+The type should then be object. You need to
+
+59
+00:02:18,272 --> 00:02:20,600
+have a properties key and then you describe
+
+60
+00:02:20,600 --> 00:02:22,784
+the shape of your data, so to say. For
+
+61
+00:02:22,784 --> 00:02:23,443
+example, here,
+
+62
+00:02:23,969 --> 00:02:25,471
+I wanna have a year field,
+
+63
+00:02:26,760 --> 00:02:28,809
+which is of type string, which means text.
+
+64
+00:02:29,842 --> 00:02:32,375
+And I describe what will be in this field.
+
+65
+00:02:32,440 --> 00:02:34,376
+And this description is important because it
+
+66
+00:02:34,376 --> 00:02:36,458
+tells the model which kind of data to put
+
+67
+00:02:36,651 --> 00:02:37,296
+into this field.
+
+68
+00:02:38,425 --> 00:02:41,087
+So here I'll say the year of the report.
+
+69
+00:02:43,013 --> 00:02:44,849
+Then I wanna have another field which could
+
+70
+00:02:44,865 --> 00:02:45,573
+be revenue.
+
+71
+00:02:46,395 --> 00:02:48,585
+And here maybe the type should be,
+
+72
+00:02:50,050 --> 00:02:50,294
+number,
+
+73
+00:02:50,814 --> 00:02:52,800
+and the description here is the total
+
+74
+00:02:52,995 --> 00:02:54,915
+revenue of that year,
+
+75
+00:02:56,706 --> 00:02:57,512
+or of the
+
+76
+00:02:58,641 --> 00:02:58,818
+year.
+
+77
+00:02:59,544 --> 00:03:01,624
+And then here I want to have another field,
+
+78
+00:03:01,640 --> 00:03:01,994
+let's say
+
+79
+00:03:02,672 --> 00:03:04,477
+operating_income,
+
+80
+00:03:06,706 --> 00:03:08,550
+and here the type is
+
+81
+00:03:09,149 --> 00:03:09,926
+integer. Sorry,
+
+82
+00:03:11,010 --> 00:03:12,612
+that should also be integer here for the
+
+83
+00:03:12,612 --> 00:03:13,680
+revenue, not number.
+
+84
+00:03:14,230 --> 00:03:16,481
+That's a specific kind of number. A number
+
+85
+00:03:16,481 --> 00:03:17,805
+without decimal places.
+
+86
+00:03:18,935 --> 00:03:20,663
+So that's the revenue and also the operating
+
+87
+00:03:20,695 --> 00:03:22,633
+income. And it doesn't matter whether the
+
+88
+00:03:22,633 --> 00:03:24,457
+type comes first or the description.
+
+89
+00:03:25,040 --> 00:03:26,572
+So here the description then is
+
+90
+00:03:27,395 --> 00:03:29,686
+operating income for the year.
+
+91
+00:03:31,041 --> 00:03:33,396
+And you could have other requirements like a
+
+92
+00:03:33,396 --> 00:03:35,405
+minimum value of 0, but I don't care about
+
+93
+00:03:35,405 --> 00:03:37,416
+that, so I'll remove it and remove that
+
+94
+00:03:37,449 --> 00:03:38,332
+trailing comma.
+
+95
+00:03:39,834 --> 00:03:42,251
+And you could add more to extract more data,
+
+96
+00:03:42,267 --> 00:03:45,236
+but I will just specify these 3 fields.
+
+97
+00:03:45,510 --> 00:03:46,470
+Fields, year,
+
+98
+00:03:47,007 --> 00:03:47,447
+revenue,
+
+99
+00:03:47,968 --> 00:03:50,150
+operating income. That's all. That's all I
+
+100
+00:03:50,247 --> 00:03:50,394
+want.
+
+101
+00:03:51,610 --> 00:03:52,502
+And now we could
+
+102
+00:03:53,200 --> 00:03:55,391
+set this here by having this checkmark
+
+103
+00:03:55,391 --> 00:03:57,955
+enabled and then go back here to our prompt
+
+104
+00:03:57,972 --> 00:03:58,329
+and say,
+
+105
+00:03:59,786 --> 00:04:02,871
+return the key data as JSON.
+
+106
+00:04:05,008 --> 00:04:07,226
+And that prompt combined with this
+
+107
+00:04:07,515 --> 00:04:10,042
+structured output setting that's set for
+
+108
+00:04:10,107 --> 00:04:11,550
+this chat behind the scenes
+
+109
+00:04:12,126 --> 00:04:14,886
+That should get the model to hopefully
+
+110
+00:04:14,886 --> 00:04:17,823
+return data in that JSON format, a JSON
+
+111
+00:04:17,823 --> 00:04:20,150
+format that follows this structure.
+
+112
+00:04:21,193 --> 00:04:21,305
+Now,
+
+113
+00:04:21,915 --> 00:04:24,161
+as you can see, the results I got here don't
+
+114
+00:04:24,161 --> 00:04:26,199
+look that great. Not only is the year
+
+115
+00:04:26,199 --> 00:04:29,248
+missing, the numbers also look a bit off, to
+
+116
+00:04:29,248 --> 00:04:29,793
+be honest.
+
+117
+00:04:30,916 --> 00:04:34,013
+And therefore, what I recommend when working
+
+118
+00:04:34,126 --> 00:04:36,934
+with structured output is that in your
+
+119
+00:04:36,934 --> 00:04:41,104
+prompt, you also repeat the values you want
+
+120
+00:04:41,104 --> 00:04:44,341
+the model to extract so that you increase
+
+121
+00:04:44,470 --> 00:04:46,810
+the likelihood of it picking the right
+
+122
+00:04:47,034 --> 00:04:47,483
+values.
+
+123
+00:04:48,236 --> 00:04:50,929
+That's the case with all models whenever you
+
+124
+00:04:50,961 --> 00:04:53,349
+are working with structured outputs, not
+
+125
+00:04:53,349 --> 00:04:55,416
+just when working with open models.
+
+126
+00:04:56,105 --> 00:04:58,221
+So structured output is not a strong
+
+127
+00:04:58,317 --> 00:05:00,737
+guarantee that you will definitely get the
+
+128
+00:05:00,737 --> 00:05:04,023
+data in the format you requested, but it
+
+129
+00:05:04,023 --> 00:05:07,597
+makes it way, way more likely. And combined
+
+130
+00:05:07,629 --> 00:05:11,208
+with a strong prompt, that asks for JSON and
+
+131
+00:05:11,240 --> 00:05:13,537
+maybe specifies the key data you're
+
+132
+00:05:13,553 --> 00:05:14,501
+interested in again,
+
+133
+00:05:15,080 --> 00:05:17,120
+which of course has to be in line with your
+
+134
+00:05:17,120 --> 00:05:19,995
+structured output schema here, it is pretty
+
+135
+00:05:19,995 --> 00:05:21,907
+much guaranteed that you will get back a
+
+136
+00:05:21,907 --> 00:05:24,477
+result that is text that is formatted
+
+137
+00:05:24,493 --> 00:05:26,694
+according to your JSON schema here.

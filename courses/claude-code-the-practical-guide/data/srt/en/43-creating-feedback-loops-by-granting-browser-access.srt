@@ -1,0 +1,287 @@
+1
+00:00:00,112 --> 00:00:04,055
+When working with Claude Code or with any AI
+
+2
+00:00:04,183 --> 00:00:07,854
+agents, it's a good idea to give them ways
+
+3
+00:00:08,111 --> 00:00:11,525
+of validating their work. That could be
+
+4
+00:00:11,878 --> 00:00:14,811
+automated tests. I'll get back to that. But
+
+5
+00:00:14,859 --> 00:00:17,585
+it can also be browser access, at least if
+
+6
+00:00:17,585 --> 00:00:19,765
+you're building a web app where they can
+
+7
+00:00:19,973 --> 00:00:22,714
+access a browser and test something. So for
+
+8
+00:00:22,714 --> 00:00:24,878
+example, here I got my development server up
+
+9
+00:00:24,878 --> 00:00:26,930
+and running. For me, it's running on port
+
+10
+00:00:27,042 --> 00:00:30,874
+3001. By default, it would be port 3000 and
+
+11
+00:00:30,954 --> 00:00:34,160
+I could now tell Claude code to test the
+
+12
+00:00:34,160 --> 00:00:36,773
+application it built. So I could say, test
+
+13
+00:00:36,821 --> 00:00:38,424
+the application you built using the
+
+14
+00:00:38,424 --> 00:00:40,989
+Playwright plugin or MCP, it's kind of the
+
+15
+00:00:40,989 --> 00:00:43,489
+same thing. Test all main features step by
+
+16
+00:00:43,489 --> 00:00:45,333
+step and ensure they work correctly.
+
+17
+00:00:45,942 --> 00:00:47,609
+And I also tell it that the application
+
+18
+00:00:47,641 --> 00:00:49,244
+server is already up and running and in my
+
+19
+00:00:49,404 --> 00:00:52,659
+case is running on port 3001. Playwright is
+
+20
+00:00:52,755 --> 00:00:55,047
+a tool that was initially built to help with
+
+21
+00:00:55,400 --> 00:00:57,948
+end-to-end testing of web applications and
+
+22
+00:00:58,061 --> 00:01:00,674
+that still is kind of its main purpose. But
+
+23
+00:01:00,866 --> 00:01:03,848
+with the rise of coding agents, it now is
+
+24
+00:01:03,800 --> 00:01:05,642
+It's also very popular for giving those
+
+25
+00:01:05,739 --> 00:01:07,806
+agents browser access so that they can
+
+26
+00:01:08,222 --> 00:01:10,706
+interactively explore a website and work
+
+27
+00:01:10,786 --> 00:01:11,091
+with it.
+
+28
+00:01:11,668 --> 00:01:13,847
+Now here, I'll not send this in plan mode,
+
+29
+00:01:13,911 --> 00:01:15,898
+but instead with accept edits on.
+
+30
+00:01:16,956 --> 00:01:19,616
+And what this should do now is use that
+
+31
+00:01:19,616 --> 00:01:21,459
+Playwright integration, which we added
+
+32
+00:01:21,459 --> 00:01:24,151
+through that plugin to then spin up a
+
+33
+00:01:24,183 --> 00:01:27,020
+browser window and navigate it on its own
+
+34
+00:01:27,212 --> 00:01:30,065
+and test the application on its own. So here
+
+35
+00:01:30,193 --> 00:01:32,118
+it's initially asking me for permission
+
+36
+00:01:32,118 --> 00:01:34,076
+since it wants to use that Playwright tool
+
+37
+00:01:34,589 --> 00:01:36,594
+and I don't want it to ask again, so I'm
+
+38
+00:01:36,611 --> 00:01:37,429
+fine with that.
+
+39
+00:01:38,215 --> 00:01:40,381
+And it did now open this browser. So this
+
+40
+00:01:40,381 --> 00:01:42,274
+browser window here was opened by Claude
+
+41
+00:01:42,306 --> 00:01:45,370
+Code and navigate to localhost:3001.
+
+42
+00:01:45,980 --> 00:01:47,969
+Now, since this is the first time it's using
+
+43
+00:01:48,386 --> 00:01:50,536
+this plugin, it's asking me for all kinds of
+
+44
+00:01:50,568 --> 00:01:52,413
+permissions related to Playwright. And
+
+45
+00:01:52,413 --> 00:01:54,499
+unless you enabled that mode where you
+
+46
+00:01:54,499 --> 00:01:56,488
+dangerously grant all permissions, you'll
+
+47
+00:01:56,569 --> 00:01:58,686
+have to initially allow them all step by
+
+48
+00:01:58,686 --> 00:01:59,055
+step.
+
+49
+00:01:59,632 --> 00:02:01,443
+But of course that will get better once it
+
+50
+00:02:01,459 --> 00:02:03,590
+used that plugin a bit more. And it can now
+
+51
+00:02:03,638 --> 00:02:05,657
+indeed navigate around and for example
+
+52
+00:02:05,657 --> 00:02:07,916
+navigate to this authentication page here.
+
+53
+00:02:08,364 --> 00:02:10,559
+Now it's asking for more permissions to fill
+
+54
+00:02:10,688 --> 00:02:13,171
+in that form field. So I'll allow that and
+
+55
+00:02:13,171 --> 00:02:15,719
+you see it filled in these form fields. And
+
+56
+00:02:15,735 --> 00:02:17,337
+as a next step, it will likely click this
+
+57
+00:02:17,337 --> 00:02:19,548
+button. Now it wants to take a snapshot of
+
+58
+00:02:19,580 --> 00:02:21,631
+the page so that it can look at it because
+
+59
+00:02:21,823 --> 00:02:24,130
+as mentioned before, Claude Code has image
+
+60
+00:02:24,210 --> 00:02:26,806
+vision and you can give it images, but it
+
+61
+00:02:26,806 --> 00:02:29,723
+can also of course, take a look at images
+
+62
+00:02:29,835 --> 00:02:32,143
+itself. It can also take a look at the
+
+63
+00:02:32,143 --> 00:02:34,371
+network requests that were sent or anything
+
+64
+00:02:34,467 --> 00:02:36,422
+like that. And as you can see, it now made
+
+65
+00:02:36,422 --> 00:02:38,297
+it to the dashboard and it will keep on
+
+66
+00:02:38,329 --> 00:02:40,509
+interacting with this site now creating a
+
+67
+00:02:40,509 --> 00:02:42,576
+new note. And that of course is a very
+
+68
+00:02:42,640 --> 00:02:45,141
+powerful capability since it allows Claude
+
+69
+00:02:45,157 --> 00:02:45,653
+Code to
+
+70
+00:02:46,182 --> 00:02:49,436
+test its UI changes and its website changes
+
+71
+00:02:49,612 --> 00:02:52,978
+on its own. And it creates a feedback loop
+
+72
+00:02:53,074 --> 00:02:54,484
+where Claude Code

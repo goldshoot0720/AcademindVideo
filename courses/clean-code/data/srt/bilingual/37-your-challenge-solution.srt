@@ -1,0 +1,764 @@
+1
+00:00:02,372 --> 00:00:05,931
+So here's my approach to refactoring and to
+這是我的重構方法
+
+2
+00:00:06,123 --> 00:00:07,229
+improving this file.
+改進這個檔案。
+
+3
+00:00:08,207 --> 00:00:10,131
+And I wanna start with the comments.
+我想從評論開始。
+
+4
+00:00:10,772 --> 00:00:12,856
+We got a legal comment right here at the
+我們在此處收到了法律評論
+
+5
+00:00:12,856 --> 00:00:13,273
+start.
+開始。
+
+6
+00:00:13,802 --> 00:00:16,431
+And as you learned, legal comments are all
+如您所知，法律評論都是
+
+7
+00:00:16,463 --> 00:00:18,515
+right if we need to add them. Obviously
+如果我們需要添加它們就對了。明顯地
+
+8
+00:00:18,611 --> 00:00:21,448
+here, I personally don't need to add it, but
+在這裡，我個人不需要添加它，但是
+
+9
+00:00:21,496 --> 00:00:24,542
+let's assume I am in an organization where I
+假設我在一個組織中
+
+10
+00:00:24,622 --> 00:00:27,347
+am required to do that. Then it's of course
+我需要這樣做。那當然是
+
+11
+00:00:27,347 --> 00:00:28,421
+fine to keep this around.
+很好地保留這個。
+
+12
+00:00:29,351 --> 00:00:32,813
+Not fine, however, are these markers here,
+然而，這些標記不太好，
+
+13
+00:00:33,054 --> 00:00:34,064
+these dividers.
+這些分隔線。
+
+14
+00:00:34,801 --> 00:00:37,318
+Yes, these are the imports, but guess what?
+是的，這些是進口產品，但你猜怎麼著？
+
+15
+00:00:37,622 --> 00:00:40,091
+I can tell that they are by the fact that we
+我可以說他們是因為我們
+
+16
+00:00:40,091 --> 00:00:41,501
+have the import keyword here.
+這裡有 import 關鍵字。
+
+17
+00:00:42,335 --> 00:00:44,531
+And that this here is the main code,
+這是主要程式碼，
+
+18
+00:00:45,220 --> 00:00:47,288
+well, obviously it is. It is the only
+嗯，顯然是這樣。這是唯一的
+
+19
+00:00:47,384 --> 00:00:48,635
+remaining code in the file.
+檔案中的剩餘程式碼。
+
+20
+00:00:49,404 --> 00:00:52,257
+So we should remove these dividers or these
+所以我們應該刪除這些分隔線或這些
+
+21
+00:00:52,530 --> 00:00:53,203
+markers here.
+標記在這裡。
+
+22
+00:00:54,454 --> 00:00:57,099
+Now regarding this comment, this is not a
+現在關於這個評論，這不是一個
+
+23
+00:00:57,099 --> 00:00:59,392
+documentation comment, not a valid
+檔案註釋，無效
+
+24
+00:00:59,505 --> 00:01:01,493
+documentation comment as it should be
+文檔註釋應有的樣子
+
+25
+00:01:01,493 --> 00:01:02,327
+written in Python.
+用Python寫的。
+
+26
+00:01:02,952 --> 00:01:05,566
+There you would use a special syntax with
+在那裡你可以使用特殊的語法
+
+27
+00:01:05,982 --> 00:01:06,351
+triple
+三倍
+
+28
+00:01:06,945 --> 00:01:09,077
+quotes, but that's just a Python thing.
+引號，但這只是 Python 的事情。
+
+29
+00:01:09,767 --> 00:01:11,482
+But we actually don't even need it here
+但實際上我們這裡根本不需要它
+
+30
+00:01:11,611 --> 00:01:13,679
+because this comment doesn't make any sense.
+因為這個評論沒有任何意義。
+
+31
+00:01:14,160 --> 00:01:17,287
+It's a class which allows us to create an
+這是一個允許我們創建一個類
+
+32
+00:01:17,287 --> 00:01:18,297
+instance of this class.
+這個類別的實例。
+
+33
+00:01:19,131 --> 00:01:21,632
+Well, that is what classes typically do. So
+嗯，這就是課程通常會做的事情。所以
+
+34
+00:01:21,713 --> 00:01:24,571
+this is a redundant comment and hence I will
+這是多餘的評論，因此我會
+
+35
+00:01:24,747 --> 00:01:25,374
+also remove it.
+也將其刪除。
+
+36
+00:01:26,690 --> 00:01:29,147
+Now further down, I got 3 other comments.
+現在再往下看，我還收到了另外 3 則評論。
+
+37
+00:01:29,580 --> 00:01:32,471
+For example, that create directory must be
+例如，建立目錄必須是
+
+38
+00:01:32,535 --> 00:01:35,008
+called before a file is inserted.
+在插入檔案之前調用。
+
+39
+00:01:35,602 --> 00:01:37,801
+This by the way is the reason why executing
+順便說一句，這就是執行的原因
+
+40
+00:01:37,850 --> 00:01:40,531
+this file would fail. You need to call
+這個檔案將會失敗。你需要打電話
+
+41
+00:01:41,302 --> 00:01:45,348
+log storage create directory before you call
+紀錄儲存在呼叫之前建立目錄
+
+42
+00:01:45,541 --> 00:01:46,151
+insert file.
+插入檔案。
+
+43
+00:01:47,322 --> 00:01:48,395
+But I will remove this for now.
+但我現在將刪除它。
+
+44
+00:01:49,389 --> 00:01:51,696
+We got a warning here and we learned that
+我們在這裡收到警告並了解到
+
+45
+00:01:51,872 --> 00:01:53,490
+warnings can make sense.
+警告是有道理的。
+
+46
+00:01:54,275 --> 00:01:54,804
+However,
+然而，
+
+47
+00:01:55,412 --> 00:01:57,928
+we actually got this warning twice, here
+我們實際上在這裡收到了兩次這個警告
+
+48
+00:01:58,616 --> 00:01:59,209
+and then here.
+然後是這裡。
+
+49
+00:02:00,523 --> 00:02:03,583
+And if we add this warning, I would argue it
+如果我們添加這個警告，我會爭論
+
+50
+00:02:03,583 --> 00:02:06,114
+makes sense in the place where things can
+在事物能夠發生的地方才有意義
+
+51
+00:02:06,146 --> 00:02:08,501
+fail. So in this case, insertFile.
+失敗。所以在這種情況下，insertFile.
+
+52
+00:02:09,366 --> 00:02:11,144
+It's good to know that we should call
+很高興知道我們應該打電話
+
+53
+00:02:11,273 --> 00:02:13,996
+createDirectory before we insert a file, but
+在我們插入檔案之前創建目錄，但是
+
+54
+00:02:14,060 --> 00:02:16,688
+what does this annotation add if it is next
+如果是下一個註釋，該註釋會添加什麼
+
+55
+00:02:16,720 --> 00:02:19,396
+to createDirectory? This is not what will
+建立目錄？這不是將要發生的事
+
+56
+00:02:19,444 --> 00:02:20,230
+fail after all.
+畢竟失敗了。
+
+57
+00:02:20,952 --> 00:02:23,342
+Hence, I will remove this comment and leave
+因此，我將刪除此評論並離開
+
+58
+00:02:23,438 --> 00:02:24,016
+this warning,
+這個警告，
+
+59
+00:02:24,641 --> 00:02:27,368
+though of course I wanna emphasize that the
+當然我想強調的是
+
+60
+00:02:27,464 --> 00:02:30,303
+better way of dealing with this would be to
+處理這個問題的更好方法是
+
+61
+00:02:30,832 --> 00:02:33,494
+properly handle the scenario that a
+正確處理以下情況
+
+62
+00:02:33,559 --> 00:02:35,772
+directory does not exist yet. So for
+目錄尚不存在。所以對於
+
+63
+00:02:35,788 --> 00:02:38,434
+example, to check for its existence and
+例如，檢查它的存在和
+
+64
+00:02:38,434 --> 00:02:40,920
+create it if it's missing and only continue
+如果缺少則創建它並僅繼續
+
+65
+00:02:40,920 --> 00:02:41,498
+if it exists.
+如果存在的話。
+
+66
+00:02:42,637 --> 00:02:44,802
+Nonetheless, if that's not the case, we may
+儘管如此，如果情況並非如此，我們可以
+
+67
+00:02:45,026 --> 00:02:47,560
+keep such a warning comment around Though of
+保留這樣的警告評論雖然
+
+68
+00:02:47,656 --> 00:02:50,221
+course, it is also worth knowing that this
+當然，也值得知道的是，這
+
+69
+00:02:50,221 --> 00:02:52,497
+comment can only be seen if we dive into
+只有深入研究才能看到評論
+
+70
+00:02:52,497 --> 00:02:54,838
+this codebase, not if we just call
+這個程式碼庫，如果我們只是調用
+
+71
+00:02:54,950 --> 00:02:55,607
+insertFile.
+插入檔案。
+
+72
+00:02:56,345 --> 00:02:58,781
+Nonetheless, if we call that and it fails
+儘管如此，如果我們調用它並且它失敗了
+
+73
+00:02:58,957 --> 00:03:01,330
+and we then dive into the codebase, this
+然後我們深入程式碼庫，這個
+
+74
+00:03:01,378 --> 00:03:03,157
+warning comment might help us with
+警告評論可能會幫助我們
+
+75
+00:03:03,302 --> 00:03:05,145
+identifying the problem a bit quicker.
+更快地識別問題。
+
+76
+00:03:05,866 --> 00:03:07,598
+Now, this last comment here is a TODO
+現在，這裡的最後一條評論是 TODO
+
+77
+00:03:07,710 --> 00:03:11,252
+comment and as I said, adding proper error
+評論並正如我所說，添加適當的錯誤
+
+78
+00:03:11,300 --> 00:03:13,272
+handling definitely is a good idea here.
+在這裡處理絕對是一個好主意。
+
+79
+00:03:14,010 --> 00:03:16,253
+You should just do it instead of mentioning
+你應該直接去做而不是提及
+
+80
+00:03:16,445 --> 00:03:19,249
+that you should do it, but mentioning it at
+你應該這樣做，但在
+
+81
+00:03:19,249 --> 00:03:21,445
+least is a good step in the right direction,
+至少是朝著正確方向邁出的良好一步，
+
+82
+00:03:21,749 --> 00:03:22,727
+so I will leave it here.
+所以我會把它留在這裡。
+
+83
+00:03:23,881 --> 00:03:26,460
+And that's it for comments. Now let's talk
+這就是評論。現在我們來談談
+
+84
+00:03:26,460 --> 00:03:27,230
+about formatting.
+關於格式化。
+
+85
+00:03:28,143 --> 00:03:30,258
+The good thing is we got some vertical
+好處是我們有一些垂直的
+
+86
+00:03:30,290 --> 00:03:33,591
+spacing here. So we got the imports, then we
+這裡的間距。所以我們得到了進口，然後我們
+
+87
+00:03:33,591 --> 00:03:35,963
+got this class, we got spacing between all
+上了這堂課，我們在所有課程之間都有間距
+
+88
+00:03:36,059 --> 00:03:37,822
+these methods, and that's all good.
+這些方法，都很好。
+
+89
+00:03:38,639 --> 00:03:40,081
+And we also have spacing down there.
+我們在那裡也有間距。
+
+90
+00:03:40,739 --> 00:03:43,597
+So that all doesn't look too bad, though we
+所以一切看起來都不算太糟糕，儘管我們
+
+91
+00:03:43,693 --> 00:03:46,647
+could also remove the spacing down there and
+也可以刪除那裡的間距
+
+92
+00:03:46,888 --> 00:03:49,810
+argue that the log storage here is created
+爭論這裡的紀錄儲存是創建的
+
+93
+00:03:50,340 --> 00:03:52,924
+and then we operate on this created log
+然後我們對這個創建的紀錄進行操作
+
+94
+00:03:52,924 --> 00:03:55,541
+storage. So we could also keep these 2 lines
+貯存。所以我們也可以保留這兩行
+
+95
+00:03:55,573 --> 00:03:55,959
+together.
+一起。
+
+96
+00:03:57,083 --> 00:03:59,651
+In the JavaScript example from before, that
+在之前的 JavaScript 範例中，
+
+97
+00:03:59,651 --> 00:04:00,598
+was not the case.
+事實並非如此。
+
+98
+00:04:01,193 --> 00:04:03,633
+There we had some spacing between the
+我們之間有一些間距
+
+99
+00:04:03,681 --> 00:04:05,880
+creation of the storages and the file
+建立儲存和檔案
+
+100
+00:04:05,945 --> 00:04:09,012
+insertion. But I primarily added this
+插入。但我主要添加了這個
+
+101
+00:04:09,446 --> 00:04:12,209
+because I also have this setTimeout function
+因為我也有這個setTimeout函式
+
+102
+00:04:12,209 --> 00:04:14,731
+in between. If that would not be there, an
+之間。如果那不存在的話，
+
+103
+00:04:14,828 --> 00:04:17,173
+argument could be made that these lines
+可以說這些行
+
+104
+00:04:17,398 --> 00:04:18,748
+should be right after these lines.
+應該就在這些行之後。
+
+105
+00:04:19,904 --> 00:04:21,864
+Ultimately, that also comes down to your own
+最終，這也取決於你自己
+
+106
+00:04:21,977 --> 00:04:24,788
+preference and to what you think is easier
+偏好以及您認為更容易的
+
+107
+00:04:24,788 --> 00:04:25,061
+to read.
+閱讀。
+
+108
+00:04:26,491 --> 00:04:28,242
+Here you can go for either of the 2
+在這裡您可以選擇 2 個中的任何一個
+
+109
+00:04:28,338 --> 00:04:30,186
+approaches and hence I will remove the
+方法，因此我將刪除
+
+110
+00:04:30,186 --> 00:04:32,627
+vertical spacing, though keeping it also
+垂直間距，但也保留它
+
+111
+00:04:32,740 --> 00:04:33,977
+would be absolutely fine.
+絕對沒問題。
+
+112
+00:04:35,325 --> 00:04:37,026
+If we have a look at the methods, all the
+如果我們看一下這些方法，所有的
+
+113
+00:04:37,026 --> 00:04:39,129
+spacing looks good to me, at least the
+間距對我來說看起來不錯，至少
+
+114
+00:04:39,161 --> 00:04:39,771
+vertical one.
+垂直的一。
+
+115
+00:04:40,381 --> 00:04:42,275
+But what about horizontal spacing?
+但是水平間距呢？
+
+116
+00:04:43,109 --> 00:04:46,191
+We got no super long lines here and yet I
+我們這裡沒有排很長的隊，但我
+
+117
+00:04:46,239 --> 00:04:49,433
+see some small improvement potentials. For
+看到一些小的改進潛力。為了
+
+118
+00:04:49,433 --> 00:04:50,524
+example, here.
+例如，這裡。
+
+119
+00:04:51,215 --> 00:04:54,344
+This is not too long but it could grow over
+這不是太長，但它可以成長
+
+120
+00:04:54,344 --> 00:04:54,633
+time.
+時間。
+
+121
+00:04:55,211 --> 00:04:57,779
+Here we are constructing a file path in the
+這裡我們正在建立一個檔案路徑
+
+122
+00:04:57,859 --> 00:05:00,415
+end and hence what we could do is we could
+結束，因此我們能做的是我們可以
+
+123
+00:05:00,512 --> 00:05:01,773
+extract it from here
+從這裡提取它
+
+124
+00:05:02,371 --> 00:05:03,454
+and simply add a new
+並簡單地添加一個新的
+
+125
+00:05:04,085 --> 00:05:05,669
+filePath variable
+檔案路徑變數
+
+126
+00:05:06,413 --> 00:05:08,999
+in which we then store this derived filePath
+然後我們將派生的檔案路徑儲存在其中
+
+127
+00:05:09,500 --> 00:05:11,280
+and then we use this variable here. This
+然後我們在這裡使用這個變數。這
+
+128
+00:05:11,280 --> 00:05:13,788
+would make this line even shorter and even a
+會使這條線更短，甚至
+
+129
+00:05:13,869 --> 00:05:16,879
+bit easier to read. So I personally am a fan
+更容易閱讀。所以我個人是個粉絲
+
+130
+00:05:16,928 --> 00:05:17,526
+of doing that.
+這樣做的。
+
+131
+00:05:19,068 --> 00:05:21,081
+We could do something similar here for this
+我們可以為此做類似的事情
+
+132
+00:05:21,081 --> 00:05:23,931
+if statement and extract this, for example,
+if 語句並提取它，例如，
+
+133
+00:05:23,995 --> 00:05:26,201
+into a separate variable. But I think here
+到一個單獨的變數。但我想這裡
+
+134
+00:05:26,330 --> 00:05:28,600
+it is still fine to leave it like this. But
+就這樣留下來還是可以的。但
+
+135
+00:05:28,632 --> 00:05:31,150
+if you extracted it, that is definitely also
+如果你提取它，那肯定也是
+
+136
+00:05:31,198 --> 00:05:31,422
+fine.
+美好的。
+
+137
+00:05:32,786 --> 00:05:35,031
+Now last but not least, to fix this file, we
+現在最後但並非最不重要的一點是，要修復此檔案，我們
+
+138
+00:05:35,031 --> 00:05:38,302
+can also call log storage create directory
+也可以呼叫紀錄儲存建立目錄
+
+139
+00:05:38,335 --> 00:05:39,409
+before we insert a file.
+在我們插入檔案之前。
+
+140
+00:05:40,099 --> 00:05:43,114
+And if we do that, then I am indeed a fan of
+如果我們這樣做，那麼我確實是
+
+141
+00:05:43,130 --> 00:05:45,263
+reintroducing the vertical spacing here
+在這裡重新引入垂直間距
+
+142
+00:05:45,712 --> 00:05:48,342
+because now we first create the storage and
+因為現在我們首先創建存儲並且
+
+143
+00:05:48,438 --> 00:05:51,020
+then we have operations on that created
+然後我們對創建的進行操作
+
+144
+00:05:51,020 --> 00:05:53,458
+storage. So you could argue that these are 2
+貯存。所以你可以說這是 2
+
+145
+00:05:53,490 --> 00:05:56,156
+different kinds of code, 2 different
+不同種類的程式碼，2種不同
+
+146
+00:05:56,461 --> 00:05:59,257
+operations. So re-adding a vertical space
+營運.所以重新加入一個垂直空間
+
+147
+00:05:59,257 --> 00:06:00,527
+here could be fine then.
+那這裡就可以了。
+
+148
+00:06:01,909 --> 00:06:04,705
+And that is it. There wasn't too much to
+就是這樣。沒有太多可做的
+
+149
+00:06:04,737 --> 00:06:06,922
+fix, but I hope it's clear to
+修復，但我希望很清楚
+
+150
+00:06:07,533 --> 00:06:10,168
+which aspects you should pay close attention
+您應該密切關注哪些方面
+
+151
+00:06:10,586 --> 00:06:13,157
+and how proper formatting and good comments
+以及如何正確的格式和良好的評論
+
+152
+00:06:13,398 --> 00:06:16,435
+can help with keeping your code readable and
+可以幫助保持程式碼的可讀性
+
+153
+00:06:16,483 --> 00:06:17,078
+maintainable.
+可維護。

@@ -1,0 +1,749 @@
+1
+00:00:00,433 --> 00:00:02,454
+And what you typically would do when
+以及您通常會做什麼
+
+2
+00:00:02,518 --> 00:00:05,246
+building a backend application where you're
+在您所在的位置建立後端應用程式
+
+3
+00:00:05,310 --> 00:00:07,829
+handling a POST request that might be
+處理可能是的 POST 請求
+
+4
+00:00:07,893 --> 00:00:10,509
+received because a form was submitted
+因為提交了表格而收到
+
+5
+00:00:11,407 --> 00:00:14,247
+is you would use the response object to
+你會使用回應物件
+
+6
+00:00:14,552 --> 00:00:18,772
+issue a redirect, to send the user along to
+發出重定向，將使用者發送到
+
+7
+00:00:18,964 --> 00:00:20,119
+a different route.
+不同的路線。
+
+8
+00:00:20,970 --> 00:00:23,312
+And then the browser would load that route
+然後瀏覽器會載入該路線
+
+9
+00:00:23,312 --> 00:00:25,671
+and the page of that route, and that page
+以及該路線的頁面，以及該頁面
+
+10
+00:00:25,783 --> 00:00:28,559
+then might include that latest data that was
+然後可能包括最新的資料
+
+11
+00:00:28,607 --> 00:00:28,703
+sent.
+發送。
+
+12
+00:00:30,139 --> 00:00:33,075
+So here we might redirect to just /nothing,
+所以在這裡我們可能會重定向到/nothing，
+
+13
+00:00:33,285 --> 00:00:36,948
+so to the root page of this site, which is
+所以到這個網站的根頁面，這是
+
+14
+00:00:37,545 --> 00:00:40,580
+in the end this route here so that this page
+最後這條路線在這裡，這樣這個頁面
+
+15
+00:00:40,677 --> 00:00:43,082
+is re-rendered. And since we're outputting
+被重新渲染。由於我們正在輸出
+
+16
+00:00:43,179 --> 00:00:44,164
+all the list items here,
+這裡的所有列表項，
+
+17
+00:00:44,713 --> 00:00:47,426
+our new list item should be included there
+我們的新清單專案應該包含在那裡
+
+18
+00:00:48,105 --> 00:00:49,157
+after we stored it.
+當我們儲存它之後。
+
+19
+00:00:50,775 --> 00:00:52,490
+That's the theory at least.
+至少理論上是這樣。
+
+20
+00:00:53,218 --> 00:00:56,152
+And therefore now if we save everything, and
+因此現在如果我們拯救一切
+
+21
+00:00:56,185 --> 00:00:57,471
+I reload this, if I
+我重新載入這個，如果我
+
+22
+00:00:58,018 --> 00:01:00,928
+enter test here and I click Save Note,
+在這裡輸入測試，然後點擊“儲存註釋”，
+
+23
+00:01:02,521 --> 00:01:02,730
+okay,
+好的，
+
+24
+00:01:03,727 --> 00:01:05,029
+I get this weird result.
+我得到這個奇怪的結果。
+
+25
+00:01:06,570 --> 00:01:06,715
+My
+我的
+
+26
+00:01:07,409 --> 00:01:10,103
+look here changed quite a bit. Suddenly all
+看來這裡變化了不少。突然一切
+
+27
+00:01:10,152 --> 00:01:12,588
+the content is very much in the middle, but
+內容非常在中間，但是
+
+28
+00:01:13,040 --> 00:01:16,122
+this item has actually been added. I can see
+這個專案實際上已經被加入了。我可以看到
+
+29
+00:01:16,122 --> 00:01:16,448
+it here,
+它在這裡，
+
+30
+00:01:17,248 --> 00:01:19,141
+but of course all that content is now
+但當然所有內容現在都是
+
+31
+00:01:19,320 --> 00:01:21,115
+suddenly rendered in the wrong place.
+突然呈現在錯誤的地方。
+
+32
+00:01:22,655 --> 00:01:24,837
+And actually, if you take a closer look,
+事實上，如果你仔細觀察，
+
+33
+00:01:25,383 --> 00:01:28,159
+it looks like the page that was served
+它看起來像是提供的頁面
+
+34
+00:01:28,191 --> 00:01:28,769
+before
+前
+
+35
+00:01:29,459 --> 00:01:29,812
+is now
+現在是
+
+36
+00:01:30,341 --> 00:01:33,133
+rendered again, just in a different place.
+再次渲染，只是在不同的地方。
+
+37
+00:01:34,208 --> 00:01:37,835
+For example, this sentence here is also
+比如這裡這句話也是
+
+38
+00:01:37,963 --> 00:01:38,669
+rendered again.
+再次渲染。
+
+39
+00:01:39,824 --> 00:01:41,830
+And if I scroll down quite a bit,
+如果我向下滾動一點，
+
+40
+00:01:42,536 --> 00:01:44,446
+I have the header here again, and then I
+我又把標題放在這裡了，然後我
+
+41
+00:01:44,462 --> 00:01:46,259
+have the list again, but now
+再次列出清單，但現在
+
+42
+00:01:47,029 --> 00:01:48,939
+without that new item I added.
+沒有我新增的專案。
+
+43
+00:01:50,432 --> 00:01:52,744
+So what's happening here?
+那麼這裡發生了什麼事？
+
+44
+00:01:53,290 --> 00:01:57,191
+Now, what's happening here is that HTMX
+現在，這裡發生的是 HTMX
+
+45
+00:01:57,560 --> 00:01:59,872
+sends that request, that
+發送該請求，即
+
+46
+00:02:00,531 --> 00:02:01,815
+POST request here,
+在這裡發布請求，
+
+47
+00:02:02,843 --> 00:02:03,630
+but it then
+但然後
+
+48
+00:02:04,288 --> 00:02:07,531
+actually also renders the response
+實際上也呈現回應
+
+49
+00:02:08,061 --> 00:02:10,646
+in the element that sent the request.
+在發送請求的元素中。
+
+50
+00:02:11,449 --> 00:02:14,820
+That's what you learned before with hx-get,
+這就是你之前透過 hx-get 學到的，
+
+51
+00:02:15,206 --> 00:02:18,929
+and it's the same for hx-post. And that's
+hx-post 也是如此。那就是
+
+52
+00:02:19,538 --> 00:02:22,055
+really important to understand and keep in
+理解並堅持非常重要
+
+53
+00:02:22,055 --> 00:02:24,540
+mind. With HTMX, you
+頭腦。有了 HTMX，您
+
+54
+00:02:25,165 --> 00:02:28,211
+do not send requests and then it's the
+不發送請求，然後就是
+
+55
+00:02:28,211 --> 00:02:30,776
+backend that redirects the user or anything
+重定向使用者或任何東西的後端
+
+56
+00:02:30,776 --> 00:02:33,549
+like that. But instead, the idea is that you
+像那樣。但相反，這個想法是你
+
+57
+00:02:33,597 --> 00:02:35,825
+send behind-the-scenes requests
+發送後台請求
+
+58
+00:02:36,450 --> 00:02:39,191
+where you then also handle the response that
+然後你也可以處理回應
+
+59
+00:02:39,191 --> 00:02:40,233
+is sent back
+被送回
+
+60
+00:02:40,875 --> 00:02:42,269
+behind the scenes, so to say.
+可以這麼說，在幕後。
+
+61
+00:02:43,503 --> 00:02:45,764
+That is what we did with hx-get.
+這就是我們對 hx-get 所做的。
+
+62
+00:02:46,469 --> 00:02:50,172
+We used HTMX to send a GET request and The
+我們使用 HTMX 發送 GET 請求，
+
+63
+00:02:50,317 --> 00:02:53,352
+data that was sent back, that list,
+發回的資料，該列表，
+
+64
+00:02:53,946 --> 00:02:57,655
+was then rendered in a place of our choice
+然後渲染在我們選擇的地方
+
+65
+00:02:57,864 --> 00:02:59,212
+on the existing page.
+在現有頁面上。
+
+66
+00:03:00,047 --> 00:03:01,862
+And it's now the same thing here with this
+現在這裡也有同樣的事情
+
+67
+00:03:01,974 --> 00:03:04,543
+POST request for this form. We send a POST
+對此表單的 POST 請求。我們發送一個帖子
+
+68
+00:03:04,543 --> 00:03:07,385
+request and the data that's sent back is
+請求和發回的資料是
+
+69
+00:03:07,514 --> 00:03:09,569
+then rendered inside of that form because
+然後在該表單內呈現，因為
+
+70
+00:03:09,665 --> 00:03:12,106
+that's the default behavior of HTMX.
+這是 HTMX 的預設行為。
+
+71
+00:03:12,652 --> 00:03:16,295
+If you did not specify hx-swap, and/or
+如果您沒有指定 hx-swap，和/或
+
+72
+00:03:16,488 --> 00:03:19,695
+hx-target to change where and how the
+hx-target 更改位置和方式
+
+73
+00:03:19,695 --> 00:03:21,924
+response is rendered, it will be rendered
+回應已呈現，它將被呈現
+
+74
+00:03:22,100 --> 00:03:24,217
+inside the element that sent the request.
+在發送請求的元素內。
+
+75
+00:03:25,083 --> 00:03:27,216
+And that's why the form was actually
+這就是為什麼表格實際上是
+
+76
+00:03:27,232 --> 00:03:29,701
+replaced with the page content again, with
+再次替換為頁面內容，
+
+77
+00:03:29,733 --> 00:03:31,128
+the entire page content.
+整個頁面的內容。
+
+78
+00:03:32,059 --> 00:03:33,213
+That's what we see here.
+這就是我們在這裡看到的。
+
+79
+00:03:34,143 --> 00:03:35,218
+Now you might say,
+現在你可能會說，
+
+80
+00:03:36,067 --> 00:03:37,463
+but we did redirect here.
+但我們確實重定向到這裡。
+
+81
+00:03:38,377 --> 00:03:38,505
+Why
+為什麼
+
+82
+00:03:39,114 --> 00:03:41,888
+does HTMX render some response?
+HTMX 是否會做出一些回應？
+
+83
+00:03:42,626 --> 00:03:46,655
+Well, because HTMX follows that redirect.
+嗯，因為 HTMX 遵循該重定向。
+
+84
+00:03:47,682 --> 00:03:48,854
+If I redirect here,
+如果我重定向到這裡，
+
+85
+00:03:49,609 --> 00:03:50,235
+what happens?
+會發生什麼事？
+
+86
+00:03:51,294 --> 00:03:54,520
+This first route here is triggered and that
+這裡的第一條路線被觸發，並且
+
+87
+00:03:54,520 --> 00:03:57,329
+route returns some HTML code and that's
+路由回傳一些 HTML 程式碼，那就是
+
+88
+00:03:57,474 --> 00:04:02,016
+ultimately therefore the final response HTMX
+最終因此最終回應 HTMX
+
+89
+00:04:02,064 --> 00:04:03,316
+receives and renders.
+接收並渲染。
+
+90
+00:04:04,231 --> 00:04:07,169
+That's why this page was now rendered again
+這就是為什麼此頁面現在再次呈現的原因
+
+91
+00:04:07,747 --> 00:04:10,090
+into the element that sent the request.
+到發送請求的元素中。
+
+92
+00:04:11,598 --> 00:04:14,789
+That's how HTMX works. And therefore, when
+這就是 HTMX 的工作原理。因此，當
+
+93
+00:04:14,902 --> 00:04:18,799
+using HTMX, you have to think differently
+使用 HTMX，你必須以不同的方式思考
+
+94
+00:04:18,831 --> 00:04:20,563
+about returning responses.
+關於返迴回應。
+
+95
+00:04:21,220 --> 00:04:23,850
+And that's why it makes a lot of sense to
+這就是為什麼它很有意義
+
+96
+00:04:23,866 --> 00:04:27,058
+also own the backend code so that you can
+還擁有後端程式碼，以便您可以
+
+97
+00:04:27,090 --> 00:04:30,506
+make sure that you are sending responses
+確保您正在發送回复
+
+98
+00:04:31,259 --> 00:04:35,237
+that are useful to HTMX and that can be used
+對 HTMX 有用且可使用的
+
+99
+00:04:35,349 --> 00:04:36,295
+by HTMX.
+由 HTMX 提供。
+
+100
+00:04:36,969 --> 00:04:38,816
+For example, what we could do here
+例如，我們在這裡可以做什麼
+
+101
+00:04:39,345 --> 00:04:40,935
+is instead of redirecting,
+是而不是重定向，
+
+102
+00:04:41,529 --> 00:04:44,227
+which we typically would do in a traditional
+我們通常會在傳統的
+
+103
+00:04:44,484 --> 00:04:45,640
+full-stack application,
+全端應用程式，
+
+104
+00:04:46,330 --> 00:04:47,711
+we can send back the
+我們可以發回
+
+105
+00:04:48,578 --> 00:04:51,532
+HTML code of the updated list, for example.
+例如，更新清單的 HTML 程式碼。
+
+106
+00:04:51,902 --> 00:04:53,523
+So I could grab this code here
+所以我可以在這裡取得這段程式碼
+
+107
+00:04:55,017 --> 00:04:58,437
+and then send back an HTML fragment in the
+然後發回一個 HTML 片段
+
+108
+00:04:58,453 --> 00:04:58,678
+end
+結尾
+
+109
+00:04:59,336 --> 00:05:01,407
+that includes that updated list.
+其中包括更新的清單。
+
+110
+00:05:02,905 --> 00:05:05,632
+So I'm not sending back the entire page, I'm
+所以我不會發回整個頁面，我
+
+111
+00:05:05,632 --> 00:05:08,163
+not redirecting, I'm just sending back the
+不重定向，我只是發回
+
+112
+00:05:08,163 --> 00:05:09,997
+content that needs to be updated.
+需要更新的內容。
+
+113
+00:05:11,630 --> 00:05:13,405
+Now, just like that, it of course still
+現在，就這樣，當然還是
+
+114
+00:05:13,437 --> 00:05:16,149
+wouldn't work. If I reload and I add a brand
+行不通的。如果我重新載入並添加一個品牌
+
+115
+00:05:16,166 --> 00:05:16,714
+new note,
+新筆記，
+
+116
+00:05:17,247 --> 00:05:19,798
+now it would be that list fragment that
+現在就是那個清單片段
+
+117
+00:05:19,798 --> 00:05:22,397
+replaces the form and the old list would
+取代表格，舊列表將
+
+118
+00:05:22,479 --> 00:05:25,478
+then still be there below that form that was
+然後仍然在那個表格下面
+
+119
+00:05:25,576 --> 00:05:26,408
+now replaced.
+現在更換了​​。
+
+120
+00:05:27,149 --> 00:05:29,614
+And this behavior of course makes sense
+這種行為當然是​​有道理的
+
+121
+00:05:29,614 --> 00:05:31,377
+because as I mentioned, the content that is
+因為正如我所提到的，內容是
+
+122
+00:05:31,377 --> 00:05:34,064
+received is rendered into the element that
+收到的內容被渲染到元素中
+
+123
+00:05:34,064 --> 00:05:36,622
+is responsible for sending the request, so
+負責發送請求，所以
+
+124
+00:05:36,655 --> 00:05:37,568
+into the form here.
+進入此處的表格。
+
+125
+00:05:38,930 --> 00:05:40,443
+Therefore, what we should do now
+因此，我們現在應該做什麼
+
+126
+00:05:41,200 --> 00:05:43,148
+is set a different target,
+設定了不同的目標，
+
+127
+00:05:43,937 --> 00:05:46,433
+the unordered list specifically, so that we
+特別是無序列表，這樣我們
+
+128
+00:05:46,433 --> 00:05:50,131
+target this unordered list with hx-target.
+使用 hx-target 來定位這個無序列表。
+
+129
+00:05:51,885 --> 00:05:54,393
+And then we also add hx-swap
+然後我們也加入 hx-swap
+
+130
+00:05:54,942 --> 00:05:55,137
+to
+到
+
+131
+00:05:55,767 --> 00:05:59,601
+replace the entire list because I know that
+替換整個列表，因為我知道
+
+132
+00:05:59,601 --> 00:06:02,546
+I'll be getting back an entirely new list
+我會拿回一份全新的清單
+
+133
+00:06:02,982 --> 00:06:05,000
+due to the way I wrote this code here.
+由於我在這裡編寫這段程式碼的方式。
+
+134
+00:06:05,969 --> 00:06:08,343
+And therefore it's the entire old list that
+因此，這是整個舊列表
+
+135
+00:06:08,375 --> 00:06:09,425
+should be replaced.
+應該更換。
+
+136
+00:06:10,363 --> 00:06:13,452
+And that can be achieved by setting hx-swap
+這可以透過設定 hx-swap 來實現
+
+137
+00:06:13,452 --> 00:06:14,589
+to outerHTML.
+到外部HTML。
+
+138
+00:06:16,503 --> 00:06:18,616
+That will replace not just the content
+這不僅會取代內容
+
+139
+00:06:18,745 --> 00:06:21,858
+inside the target, but instead the entire
+在目標內部，而是整個
+
+140
+00:06:21,987 --> 00:06:24,390
+target with the response content.
+目標與回應內容。
+
+141
+00:06:26,410 --> 00:06:28,491
+And with that, if I save this,
+這樣一來，如果我儲存這個，
+
+142
+00:06:29,178 --> 00:06:31,744
+So now that we added these 3
+現在我們加入了這 3 個
+
+143
+00:06:32,434 --> 00:06:33,765
+attributes, if we save this,
+屬性，如果我們儲存它，
+
+144
+00:06:34,438 --> 00:06:36,715
+and now that we sent back that fragment,
+現在我們發回了那個片段
+
+145
+00:06:37,565 --> 00:06:39,618
+if I reload and I enter test again,
+如果我重新載入並再次進入測試，
+
+146
+00:06:40,147 --> 00:06:43,658
+now it's just the list that was updated and
+現在只是更新了列表
+
+147
+00:06:43,658 --> 00:06:45,887
+it is now updated every time I send a new
+現在每次我發送新的內容時它都會更新
+
+148
+00:06:46,080 --> 00:06:46,641
+request.
+要求。
+
+149
+00:06:47,523 --> 00:06:50,554
+And that's now, for example, the behavior we
+舉例來說，這就是我們現在的行為
+
+150
+00:06:50,554 --> 00:06:51,051
+want here.
+想要這裡。

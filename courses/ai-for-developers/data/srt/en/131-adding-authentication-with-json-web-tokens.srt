@@ -1,0 +1,679 @@
+1
+00:00:02,061 --> 00:00:04,764
+Slowly but steadily, this application is
+
+2
+00:00:04,797 --> 00:00:07,435
+taking shape. I mean, we're still only
+
+3
+00:00:07,468 --> 00:00:09,653
+working on the users part. We haven't
+
+4
+00:00:09,653 --> 00:00:11,676
+started working on the events part yet, but
+
+5
+00:00:11,919 --> 00:00:14,231
+this is of course an important part and
+
+6
+00:00:14,263 --> 00:00:17,642
+we're seeing how we can use AI for different
+
+7
+00:00:17,642 --> 00:00:18,273
+use cases.
+
+8
+00:00:20,199 --> 00:00:22,568
+Now one thing is still missing here for
+
+9
+00:00:23,116 --> 00:00:25,678
+this part regarding authentication, signup,
+
+10
+00:00:25,694 --> 00:00:26,113
+login,
+
+11
+00:00:26,822 --> 00:00:29,897
+and that's the JSON Web Token part.
+
+12
+00:00:31,604 --> 00:00:33,743
+And here I don't wanna go into too much
+
+13
+00:00:33,775 --> 00:00:35,850
+detail because it's not the focus of this
+
+14
+00:00:35,850 --> 00:00:36,139
+course.
+
+15
+00:00:36,670 --> 00:00:39,050
+But in the end, this JSON Web Token thing
+
+16
+00:00:39,790 --> 00:00:42,549
+I'm mentioning here is simply a popular
+
+17
+00:00:42,549 --> 00:00:43,390
+approach for
+
+18
+00:00:43,988 --> 00:00:47,367
+actually adding authentication to REST APIs.
+
+19
+00:00:49,016 --> 00:00:50,633
+Because right now we're able to sign up
+
+20
+00:00:50,633 --> 00:00:53,204
+users and we're able to log in users. But if
+
+21
+00:00:53,220 --> 00:00:56,179
+we had some applications, some frontend that
+
+22
+00:00:56,211 --> 00:00:58,281
+would use this API on the backend,
+
+23
+00:00:58,944 --> 00:00:59,090
+then
+
+24
+00:00:59,766 --> 00:01:02,780
+that frontend application would need some
+
+25
+00:01:03,213 --> 00:01:06,355
+identifier, some token it could store, which
+
+26
+00:01:06,355 --> 00:01:09,369
+it could send with subsequent requests to
+
+27
+00:01:09,786 --> 00:01:10,604
+other routes,
+
+28
+00:01:11,870 --> 00:01:13,778
+for example, to routes that allow us to
+
+29
+00:01:13,810 --> 00:01:15,590
+create or edit events
+
+30
+00:01:16,119 --> 00:01:20,015
+to prove that it previously did sign up or
+
+31
+00:01:20,207 --> 00:01:21,394
+log in a user.
+
+32
+00:01:22,692 --> 00:01:25,482
+So some proof that some decoupled frontend
+
+33
+00:01:25,819 --> 00:01:27,919
+has an authenticated user. We need some
+
+34
+00:01:27,919 --> 00:01:30,622
+proof and that's such a JSON Web Token,
+
+35
+00:01:30,896 --> 00:01:33,156
+which we can generate and issue on the
+
+36
+00:01:33,156 --> 00:01:33,705
+server
+
+37
+00:01:34,835 --> 00:01:37,661
+when the signup or login route is hit and
+
+38
+00:01:37,677 --> 00:01:40,545
+which we then send back to the frontend when
+
+39
+00:01:40,642 --> 00:01:42,236
+that happens. And then the frontend could
+
+40
+00:01:42,252 --> 00:01:44,749
+store it and send it for subsequent
+
+41
+00:01:44,749 --> 00:01:46,923
+requests. And you'll see it, how it gets
+
+42
+00:01:46,923 --> 00:01:50,641
+used in practice over the next minutes and
+
+43
+00:01:50,722 --> 00:01:51,708
+lectures, of course.
+
+44
+00:01:53,971 --> 00:01:56,315
+Now therefore, we need to generate such a
+
+45
+00:01:56,315 --> 00:01:58,284
+token and there is a package that can help
+
+46
+00:01:58,284 --> 00:01:58,686
+us with that.
+
+47
+00:01:59,256 --> 00:02:00,698
+Hence, I'll quit this server
+
+48
+00:02:01,580 --> 00:02:04,320
+and now run npm install to install that
+
+49
+00:02:04,320 --> 00:02:06,372
+package. And the name of that package is
+
+50
+00:02:06,548 --> 00:02:07,894
+jsonwebtoken.
+
+51
+00:02:09,288 --> 00:02:11,676
+And we could ask AI about this. We could
+
+52
+00:02:11,756 --> 00:02:15,538
+also ask ChatGPT or Claude to explain this
+
+53
+00:02:15,538 --> 00:02:17,542
+approach in greater detail. But here I
+
+54
+00:02:17,686 --> 00:02:19,865
+already know what I need to do. So I will
+
+55
+00:02:19,962 --> 00:02:21,356
+just install this package,
+
+56
+00:02:22,333 --> 00:02:23,984
+restart my development server here,
+
+57
+00:02:24,657 --> 00:02:27,446
+and then use this package to create such
+
+58
+00:02:27,478 --> 00:02:29,529
+tokens when users are logged in.
+
+59
+00:02:30,153 --> 00:02:32,059
+Created or logged in.
+
+60
+00:02:34,111 --> 00:02:35,275
+Now we could store
+
+61
+00:02:35,889 --> 00:02:36,680
+the code where we
+
+62
+00:02:37,262 --> 00:02:39,574
+generate such a token here in this users
+
+63
+00:02:39,672 --> 00:02:40,857
+controller JS file,
+
+64
+00:02:41,555 --> 00:02:43,519
+but I'll actually outsource it into a
+
+65
+00:02:43,519 --> 00:02:44,038
+separate
+
+66
+00:02:44,622 --> 00:02:45,402
+folder and file.
+
+67
+00:02:47,143 --> 00:02:48,915
+And for that, I'll add a new folder which
+
+68
+00:02:48,915 --> 00:02:49,350
+I'll name
+
+69
+00:02:49,947 --> 00:02:50,317
+util
+
+70
+00:02:50,849 --> 00:02:53,024
+for utility. And in there I'll add an
+
+71
+00:02:53,169 --> 00:02:56,030
+auth.js file and it's in this file now where
+
+72
+00:02:56,126 --> 00:02:58,956
+I wanna add utility methods for creating and
+
+73
+00:02:58,956 --> 00:03:01,576
+verifying tokens, which I will then need in
+
+74
+00:03:02,236 --> 00:03:03,859
+later in different parts of the app.
+
+75
+00:03:05,903 --> 00:03:08,036
+So it's in this file where I'll now tell
+
+76
+00:03:08,812 --> 00:03:09,571
+Cursor to
+
+77
+00:03:10,412 --> 00:03:11,527
+add functions
+
+78
+00:03:12,270 --> 00:03:12,400
+for
+
+79
+00:03:12,933 --> 00:03:13,693
+generating
+
+80
+00:03:14,373 --> 00:03:18,458
+JWTs with the JSON Web Token package
+
+81
+00:03:20,128 --> 00:03:21,506
+and for verifying JWTs
+
+82
+00:03:23,916 --> 00:03:26,716
+Fine. The JWT, the JSON Web Token, should
+
+83
+00:03:26,893 --> 00:03:30,820
+include the user ID and email of the user to
+
+84
+00:03:30,916 --> 00:03:32,107
+whom it belongs.
+
+85
+00:03:35,227 --> 00:03:38,125
+And now if I hit generate, hopefully the AI
+
+86
+00:03:38,125 --> 00:03:39,042
+again goes ahead
+
+87
+00:03:39,976 --> 00:03:41,377
+and tries to
+
+88
+00:03:42,713 --> 00:03:45,146
+add functions that will do exactly what I
+
+89
+00:03:45,146 --> 00:03:45,921
+told it to do.
+
+90
+00:03:47,325 --> 00:03:47,438
+Now
+
+91
+00:03:47,971 --> 00:03:50,408
+this JWT secret thing here is important
+
+92
+00:03:50,408 --> 00:03:51,280
+because these tokens that are generated are
+
+93
+00:03:51,280 --> 00:03:55,449
+generated with help of a secret key, a
+
+94
+00:03:55,449 --> 00:03:58,034
+secret string, which only we on the backend
+
+95
+00:03:58,082 --> 00:04:00,490
+know, which we will use for verifying the
+
+96
+00:04:00,490 --> 00:04:02,963
+token to make sure that any token that's
+
+97
+00:04:02,995 --> 00:04:04,970
+sent to the backend from some frontend
+
+98
+00:04:05,869 --> 00:04:09,049
+is really a token that has been generated by
+
+99
+00:04:09,177 --> 00:04:09,996
+this backend
+
+100
+00:04:11,361 --> 00:04:14,010
+so that not any arbitrary token is accepted,
+
+101
+00:04:14,074 --> 00:04:16,756
+but only tokens that have been generated by
+
+102
+00:04:16,804 --> 00:04:18,024
+this very backend.
+
+103
+00:04:19,457 --> 00:04:22,514
+And this is confirmed by using a special
+
+104
+00:04:22,530 --> 00:04:25,151
+key, which only we on the backend know for
+
+105
+00:04:25,264 --> 00:04:26,768
+generating those tokens.
+
+106
+00:04:28,172 --> 00:04:30,318
+That's why this part here is important and
+
+107
+00:04:30,415 --> 00:04:32,481
+correctly included by the AI here.
+
+108
+00:04:33,659 --> 00:04:35,886
+And this secret is used for both generating
+
+109
+00:04:36,467 --> 00:04:38,794
+and decoding and verifying tokens.
+
+110
+00:04:40,849 --> 00:04:42,580
+So we got these utility functions here,
+
+111
+00:04:43,761 --> 00:04:44,554
+looking good to me.
+
+112
+00:04:45,878 --> 00:04:48,184
+I will actually remove this error handling
+
+113
+00:04:48,217 --> 00:04:48,717
+code here.
+
+114
+00:04:49,491 --> 00:04:51,395
+Don't need that. Whoops.
+
+115
+00:04:52,717 --> 00:04:53,024
+Like this.
+
+116
+00:04:53,701 --> 00:04:54,847
+And then accept this part.
+
+117
+00:04:56,480 --> 00:04:59,154
+Yeah, sure. And that can be removed too with
+
+118
+00:04:59,186 --> 00:04:59,656
+Tab.
+
+119
+00:05:00,386 --> 00:05:00,742
+Thank you.
+
+120
+00:05:01,374 --> 00:05:03,919
+And therefore this is now the final file.
+
+121
+00:05:05,717 --> 00:05:07,908
+Here you can enter any secret key you want
+
+122
+00:05:07,908 --> 00:05:10,098
+like ABC test token.
+
+123
+00:05:11,224 --> 00:05:12,284
+But again, that is up to you.
+
+124
+00:05:13,456 --> 00:05:15,174
+And now with these functions added and
+
+125
+00:05:15,303 --> 00:05:17,567
+exported here, we can use them in other
+
+126
+00:05:17,567 --> 00:05:20,136
+files like for example in the UserController
+
+127
+00:05:20,136 --> 00:05:20,553
+file
+
+128
+00:05:21,581 --> 00:05:24,969
+where I now want to generate and send back
+
+129
+00:05:25,049 --> 00:05:28,421
+tokens to the frontend who tried to sign up
+
+130
+00:05:28,550 --> 00:05:29,850
+or log in a user.
+
+131
+00:05:31,151 --> 00:05:33,238
+So I will select the entire code here
+
+132
+00:05:34,089 --> 00:05:35,229
+and say use the
+
+133
+00:05:36,355 --> 00:05:38,369
+And then again, I'll point at the generate
+
+134
+00:05:38,369 --> 00:05:39,770
+token function with
+
+135
+00:05:40,866 --> 00:05:42,364
+@code and then generate token
+
+136
+00:05:43,106 --> 00:05:43,653
+function
+
+137
+00:05:44,314 --> 00:05:45,298
+to generate
+
+138
+00:05:46,735 --> 00:05:50,820
+JWTs which are sent back with the response
+
+139
+00:05:51,660 --> 00:05:55,513
+after successful signup or login.
+
+140
+00:05:57,915 --> 00:06:00,139
+And then again, the appropriate changes are
+
+141
+00:06:00,188 --> 00:06:03,190
+hopefully made like adding this import here
+
+142
+00:06:05,074 --> 00:06:06,330
+and then down here,
+
+143
+00:06:07,167 --> 00:06:08,165
+the token is generated
+
+144
+00:06:09,904 --> 00:06:13,330
+and attached to the outgoing response for
+
+145
+00:06:13,555 --> 00:06:15,725
+signup and the same for login.
+
+146
+00:06:17,299 --> 00:06:18,922
+Again, we could have done this manually, but
+
+147
+00:06:19,244 --> 00:06:22,525
+it's arguably maybe a bit quicker if we use
+
+148
+00:06:22,525 --> 00:06:23,153
+AI for that.
+
+149
+00:06:24,473 --> 00:06:26,662
+But as always, it's up to you and it's
+
+150
+00:06:26,662 --> 00:06:29,432
+simply also a game of trial and error to
+
+151
+00:06:29,464 --> 00:06:31,691
+find out what's quicker and what works best
+
+152
+00:06:31,758 --> 00:06:31,942
+for you.
+
+153
+00:06:34,210 --> 00:06:35,071
+With that all done,
+
+154
+00:06:35,607 --> 00:06:36,678
+if you save everything
+
+155
+00:06:37,279 --> 00:06:39,601
+and you try logging in again by again
+
+156
+00:06:39,666 --> 00:06:41,996
+sending a POST request to the login route
+
+157
+00:06:43,363 --> 00:06:45,421
+with valid email and password,
+
+158
+00:06:46,483 --> 00:06:49,394
+you should get back such a token here.
+
+159
+00:06:50,907 --> 00:06:53,290
+And that is a token you would normally store
+
+160
+00:06:53,580 --> 00:06:55,721
+somewhere if you were a frontend, if you
+
+161
+00:06:55,818 --> 00:06:57,766
+were a mobile app, for example, that
+
+162
+00:06:57,766 --> 00:06:59,906
+communicates with the API, you would store
+
+163
+00:07:00,036 --> 00:07:01,894
+that somewhere in your internal storage.
+
+164
+00:07:03,382 --> 00:07:06,064
+And you would then send it back to that REST
+
+165
+00:07:06,129 --> 00:07:09,781
+API for future requests to other routes
+
+166
+00:07:09,926 --> 00:07:12,607
+which are only available to authenticated
+
+167
+00:07:12,607 --> 00:07:13,059
+users.
+
+168
+00:07:14,704 --> 00:07:16,963
+And that's exactly what we'll work on next,
+
+169
+00:07:17,754 --> 00:07:20,077
+other routes which are only available to
+
+170
+00:07:20,174 --> 00:07:21,287
+authenticated users.

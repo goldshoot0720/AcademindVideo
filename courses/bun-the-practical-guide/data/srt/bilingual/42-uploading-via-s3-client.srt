@@ -1,0 +1,749 @@
+1
+00:00:00,112 --> 00:00:03,211
+So how can you use the Bun S3 client?
+那麼如何使用Bun S3使用者端呢？
+
+2
+00:00:04,286 --> 00:00:06,839
+Well, it starts in index.ts for this tool,
+好吧，它從這個工具的index.ts開始，
+
+3
+00:00:06,936 --> 00:00:11,030
+but in there I only parse the input provided
+但在那裡我只解析提供的輸入
+
+4
+00:00:11,030 --> 00:00:13,406
+by the user. For that, I'm using parseArgs
+由使用者。為此，我使用 parseArgs
+
+5
+00:00:13,438 --> 00:00:15,734
+provided by Node.js. That of course has
+由 Node.js 提供。那當然有
+
+6
+00:00:15,766 --> 00:00:18,753
+nothing to do with the S3 client. It's just
+與S3使用者端無關。這只是
+
+7
+00:00:18,961 --> 00:00:21,755
+used here to parse the received input
+此處用於解析接收到的輸入
+
+8
+00:00:21,868 --> 00:00:24,806
+arguments using that bun.argv property,
+使用該bun.argv屬性的參數，
+
+9
+00:00:25,159 --> 00:00:27,005
+which gives us access to all these extra
+這使我們能夠訪問所有這些額外的內容
+
+10
+00:00:27,005 --> 00:00:28,563
+parameters the user entered here.
+使用者在此輸入的參數。
+
+11
+00:00:30,229 --> 00:00:32,296
+So that's just some command parsing and then
+所以這只是一些命令解析然後
+
+12
+00:00:32,296 --> 00:00:34,555
+a switch statement to call different
+呼叫不同的 switch 語句
+
+13
+00:00:34,603 --> 00:00:36,445
+functions depending on which command the
+功能取決於哪個命令
+
+14
+00:00:36,445 --> 00:00:38,785
+user chose. So that's obviously not the
+使用者選擇的。所以這顯然不是
+
+15
+00:00:38,785 --> 00:00:39,505
+interesting part.
+有趣的部分。
+
+16
+00:00:40,467 --> 00:00:43,270
+Instead, the interesting part starts in the
+相反，有趣的部分始於
+
+17
+00:00:43,350 --> 00:00:44,937
+backup.ts file, for example.
+例如，backup.ts 檔案。
+
+18
+00:00:45,497 --> 00:00:47,211
+In there, you can see I have the backup
+在那裡，你可以看到我有備份
+
+19
+00:00:47,276 --> 00:00:47,644
+function
+功能
+
+20
+00:00:48,237 --> 00:00:50,736
+and in there, I do a couple of checks to see
+在那裡，我做了一些檢查來看看
+
+21
+00:00:50,960 --> 00:00:52,947
+what the user is trying to back up, if it's
+使用者嘗試備份的內容（如果是）
+
+22
+00:00:52,947 --> 00:00:55,526
+a file or a folder, if the recursive option
+檔案或資料夾，如果遞迴選項
+
+23
+00:00:55,526 --> 00:00:55,927
+is set.
+已設定。
+
+24
+00:00:56,471 --> 00:00:58,794
+But then once I know which files the user
+但是一旦我知道使用者哪些檔案
+
+25
+00:00:58,794 --> 00:00:59,371
+wants to back up,
+想要備份，
+
+26
+00:01:00,559 --> 00:01:03,144
+I call uploadFile, which is another function
+我呼叫 uploadFile，這是另一個函式
+
+27
+00:01:03,144 --> 00:01:05,826
+provided by me, which expects to get a
+由我提供，期望得到
+
+28
+00:01:05,938 --> 00:01:08,781
+client, an S3 client as an input.
+client，S3 使用者端作為輸入。
+
+29
+00:01:09,391 --> 00:01:11,800
+Where is this client coming from? Well, that
+這個客戶來自哪裡？嗯，那個
+
+30
+00:01:11,976 --> 00:01:14,305
+already is a client received by the backup
+已經是備份收到的使用者端
+
+31
+00:01:14,305 --> 00:01:16,296
+function. So it was a parameter there too.
+功能。所以它也是一個參數。
+
+32
+00:01:16,890 --> 00:01:18,849
+So it's set up in index.ts.
+所以它是在index.ts中設定的。
+
+33
+00:01:19,523 --> 00:01:21,739
+There, before we have that switch statement,
+在我們有 switch 語句之前，
+
+34
+00:01:22,157 --> 00:01:25,513
+I create that S3 client and createClient is
+我建立了 S3 使用者端，createClient 是
+
+35
+00:01:25,545 --> 00:01:27,440
+a function in the config.ts file
+config.ts 檔案中的函式
+
+36
+00:01:28,034 --> 00:01:30,923
+where I instantiate a new S3 client. S3
+我在其中實例化一個新的 S3 使用者端。 S3
+
+37
+00:01:30,923 --> 00:01:33,248
+client and despite the name, as mentioned
+客戶，儘管有名字，如上所述
+
+38
+00:01:33,248 --> 00:01:36,215
+before, this works with all S3 compatible
+之前，這適用於所有 S3 相容的
+
+39
+00:01:36,215 --> 00:01:37,113
+storage providers.
+儲存提供者。
+
+40
+00:01:38,444 --> 00:01:41,154
+Now S3 client is coming from Bun because
+現在S3使用者端來自Bun，因為
+
+41
+00:01:41,507 --> 00:01:43,591
+again, it's a built-in feature, no extra
+再說一次，這是一個內建功能，沒有額外的
+
+42
+00:01:43,591 --> 00:01:44,377
+dependency needed.
+需要依賴。
+
+43
+00:01:45,259 --> 00:01:47,007
+So in this config.ts file, I have some
+所以在這個 config.ts 檔案中，我有一些
+
+44
+00:01:47,119 --> 00:01:50,021
+function to validate whether all the env
+函式來驗證是否所有環境
+
+45
+00:01:50,246 --> 00:01:53,645
+vars are set and then I instantiate that
+變數被設置，然後我實例化它
+
+46
+00:01:53,758 --> 00:01:56,275
+client and return the instantiated client
+使用者端並傳回實例化的使用者端
+
+47
+00:01:56,644 --> 00:01:58,825
+and I set the access key ID to whatever I
+我將訪問密鑰 ID 設定為我想要的任何內容
+
+48
+00:01:58,825 --> 00:02:00,797
+found in the env vars and the same for all
+在環境變數中找到並且對於所有的都相同
+
+49
+00:02:00,925 --> 00:02:01,839
+these other settings.
+這些其他設定。
+
+50
+00:02:02,496 --> 00:02:04,884
+Now, one very important note here, I'm doing
+現在，這裡有一個非常重要的註釋，我正在做
+
+51
+00:02:04,916 --> 00:02:07,640
+this all explicitly here to show you how you
+這一切都明確地向您展示如何
+
+52
+00:02:07,640 --> 00:02:09,002
+can configure that client,
+可以設定該使用者端，
+
+53
+00:02:09,547 --> 00:02:11,085
+but we actually wouldn't have to do that
+但我們實際上不必這樣做
+
+54
+00:02:11,085 --> 00:02:14,402
+here because the env var names I chose here
+這裡是因為我在這裡選擇的環境變數名稱
+
+55
+00:02:14,915 --> 00:02:17,158
+are in line with what Bun expects.
+符合Bun的預期。
+
+56
+00:02:17,767 --> 00:02:19,514
+So it will actually look for them
+所以它實際上會尋找它們
+
+57
+00:02:19,722 --> 00:02:20,524
+automatically
+自動地
+
+58
+00:02:21,084 --> 00:02:23,264
+and we could therefore also create the
+因此我們也可以創建
+
+59
+00:02:23,264 --> 00:02:24,241
+client like this
+客戶喜歡這樣
+
+60
+00:02:24,850 --> 00:02:27,158
+and that would work as well. So passing in
+那也行。所以傳入
+
+61
+00:02:27,270 --> 00:02:28,103
+no config at all.
+根本沒有設定。
+
+62
+00:02:29,097 --> 00:02:32,545
+You see, if I now run this command, it works
+你看，如果我現在運行這個命令，它就會起作用
+
+63
+00:02:32,545 --> 00:02:33,475
+just as before
+就像以前一樣
+
+64
+00:02:34,004 --> 00:02:36,425
+because again, we already used the defaults.
+因為我們已經使用了預設值。
+
+65
+00:02:36,874 --> 00:02:38,478
+I'm just providing this explicit
+我只是提供這個明確的
+
+66
+00:02:38,478 --> 00:02:40,226
+configuration here for demo purposes.
+此處設定用於演示目的。
+
+67
+00:02:41,140 --> 00:02:44,331
+But that is the main thing that creates this
+但這就是創造這個的主要原因
+
+68
+00:02:44,331 --> 00:02:46,785
+client and then this client is used in
+使用者端，然後該使用者端用於
+
+69
+00:02:46,833 --> 00:02:49,848
+backup.ts and also in the other files.
+backup.ts 以及其他檔案中。
+
+70
+00:02:50,441 --> 00:02:53,263
+In backup.ts, in the uploadFile function,
+在 backup.ts 的 uploadFile 函式中，
+
+71
+00:02:53,712 --> 00:02:56,679
+it's used to Guess what? Upload a file.
+它用來猜猜什麼？上傳檔案。
+
+72
+00:02:57,481 --> 00:02:59,677
+To do that, I first get hold of the file
+為此，我首先取得該檔案
+
+73
+00:02:59,806 --> 00:03:02,516
+using the Bun file API, so of the local file
+使用Bun檔案API，本地檔案的so
+
+74
+00:03:02,548 --> 00:03:03,478
+which I wanna upload,
+我想上傳的，
+
+75
+00:03:04,151 --> 00:03:08,016
+and then I use the S3 client and its file
+然後我使用 S3 使用者端及其檔案
+
+76
+00:03:08,016 --> 00:03:10,758
+method to get hold of a remote file or
+取得遠端檔案的方法或
+
+77
+00:03:10,966 --> 00:03:14,077
+create such a remote file, so a file in that
+創建這樣一個遠端檔案，其中的一個檔案
+
+78
+00:03:14,237 --> 00:03:15,087
+S3 bucket
+S3桶
+
+79
+00:03:15,616 --> 00:03:18,134
+with the file method. That method receives a
+用檔案方法。此方法接收一個
+
+80
+00:03:18,246 --> 00:03:20,427
+key, which is in the end the file name and
+key，最後是檔名和
+
+81
+00:03:20,491 --> 00:03:22,175
+path on that remote storage.
+此遠端儲存上的路徑。
+
+82
+00:03:22,832 --> 00:03:24,963
+And that key is a parameter I'm getting
+這個鍵是我得到的參數
+
+83
+00:03:25,059 --> 00:03:27,127
+here. So this file method here is coming
+這裡。那麼這裡的這個檔案方法就來了
+
+84
+00:03:27,143 --> 00:03:30,252
+from the S3 client and this file handle then
+來自 S3 使用者端和該檔案句柄
+
+85
+00:03:30,348 --> 00:03:32,303
+has various methods we can call. For
+有各種我們可以呼叫的方法。為了
+
+86
+00:03:32,303 --> 00:03:34,867
+example, delete to delete the file, exists
+例如，delete 刪除檔案，存在
+
+87
+00:03:35,011 --> 00:03:37,271
+to check if that file exists in the remote
+檢查該檔案是否存在於遠端中
+
+88
+00:03:37,271 --> 00:03:37,703
+storage
+貯存
+
+89
+00:03:38,521 --> 00:03:39,498
+or also a
+或者還有一個
+
+90
+00:03:40,059 --> 00:03:40,396
+write
+寫
+
+91
+00:03:41,005 --> 00:03:43,681
+method to create the file and fill it with
+建立檔案並填充它的方法
+
+92
+00:03:43,745 --> 00:03:46,726
+some content or stat in this case here,
+在這種情況下，一些內容或統計資料在這裡，
+
+93
+00:03:47,255 --> 00:03:49,081
+which gives us some statistics, some
+這給了我們一些統計資料，一些
+
+94
+00:03:49,113 --> 00:03:51,325
+information about that file, specifically
+有關該檔案的資訊，特別是
+
+95
+00:03:51,581 --> 00:03:53,568
+the size which I'm using for this basic size
+我用於此基本尺寸的尺寸
+
+96
+00:03:53,745 --> 00:03:53,937
+check.
+查看。
+
+97
+00:03:55,140 --> 00:03:56,970
+To determine whether something should be
+確定某事是否應該
+
+98
+00:03:56,970 --> 00:03:57,275
+skipped.
+跳過了。
+
+99
+00:03:57,949 --> 00:03:59,875
+If it should not be skipped, I also check
+如果不應該跳過，我也會檢查
+
+100
+00:04:00,003 --> 00:04:02,539
+the file size and I have a large file
+檔案大小，我有一個大檔案
+
+101
+00:04:02,731 --> 00:04:05,106
+threshold set up here to 10 megabytes.
+此處將閾值設為 10 兆位元組。
+
+102
+00:04:05,780 --> 00:04:08,139
+And if the file which I'm trying to upload,
+如果我要上傳的檔案，
+
+103
+00:04:08,187 --> 00:04:10,097
+which I'm trying to back up is large,
+我要備份的資料很大，
+
+104
+00:04:10,675 --> 00:04:12,809
+I use a slightly different approach for
+我使用稍微不同的方法
+
+105
+00:04:12,841 --> 00:04:15,618
+uploading that to take advantage of Bun's
+上傳它以利用 Bun 的
+
+106
+00:04:15,666 --> 00:04:19,325
+built-in multipart uploading feature because
+內建分段上傳功能，因為
+
+107
+00:04:19,437 --> 00:04:23,436
+Bun does support uploading both small and
+Bun 確實支援上傳小型和
+
+108
+00:04:23,453 --> 00:04:26,313
+large files to S3 and compatible storage
+大檔案到 S3 和相容存儲
+
+109
+00:04:26,345 --> 00:04:28,851
+providers. And for large files, it uses a
+提供者。對於大檔案，它使用
+
+110
+00:04:28,916 --> 00:04:31,213
+process called multipart uploading, which
+稱為分段上傳的過程，其中
+
+111
+00:04:31,246 --> 00:04:33,736
+simply splits those files into smaller
+只需將這些檔案分割成更小的檔案
+
+112
+00:04:33,736 --> 00:04:36,612
+chunks and uploads them chunk by chunk and
+塊並逐塊上傳它們
+
+113
+00:04:36,693 --> 00:04:38,765
+gives you a stream to which you can listen
+為您提供可以收聽的串流
+
+114
+00:04:38,798 --> 00:04:40,983
+to see the live progress. And that's what
+查看即時進度。就是這樣
+
+115
+00:04:40,983 --> 00:04:43,200
+we're setting up here. Again, using the S3
+我們就在這裡安頓下來再次，使用S3
+
+116
+00:04:43,200 --> 00:04:45,016
+client and that remote file handle,
+使用者端和遠端檔案句柄，
+
+117
+00:04:45,546 --> 00:04:48,356
+we create a writer which is an object that
+我們創建一個 writer，它是一個物件
+
+118
+00:04:48,356 --> 00:04:50,827
+allows us to upload files chunk by chunk
+允許我們逐塊上傳檔案
+
+119
+00:04:51,229 --> 00:04:53,154
+where we define the chunk size of each
+我們定義每個區塊的大小
+
+120
+00:04:53,234 --> 00:04:55,305
+individual chunk. So the chunks into which
+單獨的塊。所以這些塊
+
+121
+00:04:55,353 --> 00:04:57,471
+this big file will be split automatically,
+這個大檔案會自動分割，
+
+122
+00:04:57,968 --> 00:04:59,798
+how many parts should be uploaded in
+應上傳多少部分
+
+123
+00:04:59,830 --> 00:05:02,173
+parallel and how often we wanna retry if a
+並行以及我們想要重試的頻率
+
+124
+00:05:02,237 --> 00:05:04,724
+part fails. And then we have this for loop
+部分失敗。然後我們有這個 for 迴圈
+
+125
+00:05:04,724 --> 00:05:07,260
+to go through all these chunks and simply
+遍歷所有這些區塊並簡單地
+
+126
+00:05:07,436 --> 00:05:09,860
+write them to that remote storage and upload
+將它們寫入遠端儲存並上傳
+
+127
+00:05:09,860 --> 00:05:11,849
+them to the remote storage chunk by chunk.
+將它們逐塊傳輸到遠端儲存。
+
+128
+00:05:12,347 --> 00:05:14,304
+That's what we do for large files. For small
+這就是我們對大檔案所做的事情。對於小
+
+129
+00:05:14,433 --> 00:05:16,052
+files, we don't need that. Instead, we use
+檔案，我們不需要那個。相反，我們使用
+
+130
+00:05:16,052 --> 00:05:18,731
+that remote file handle and just call write
+遠端檔案句柄，只需呼叫 write
+
+131
+00:05:18,779 --> 00:05:21,152
+to just create that remote file and fill it
+只需創建該遠端檔案並填充它
+
+132
+00:05:21,152 --> 00:05:22,643
+with the content of the local file.
+與本地檔案的內容。
+
+133
+00:05:23,173 --> 00:05:26,428
+That is how we upload a file to S3 using
+這就是我們使用以下方法將檔案上傳到 S3 的方式
+
+134
+00:05:26,540 --> 00:05:28,000
+Bun's S3 client.
+Bun的S3使用者端。
+
+135
+00:05:29,267 --> 00:05:31,207
+We can also pass some metadata to write
+我們也可以傳遞一些元資料來寫入
+
+136
+00:05:31,592 --> 00:05:34,238
+where we set the type of the file to the
+我們將檔案的型別設定為
+
+137
+00:05:34,238 --> 00:05:36,435
+local file type, where we also can set how
+本地檔案型別，我們也可以在其中設定方式
+
+138
+00:05:36,483 --> 00:05:39,017
+often this should be retried and a couple of
+通常應該重試並且進行幾次
+
+139
+00:05:39,049 --> 00:05:39,819
+other settings.
+其他設定。
+
+140
+00:05:40,557 --> 00:05:43,027
+And indeed, this will also support multipart
+事實上，這也將支援多部分
+
+141
+00:05:43,139 --> 00:05:45,273
+uploads out of the box, so you wouldn't even
+開箱即用上傳，所以你甚至不需要
+
+142
+00:05:45,385 --> 00:05:47,855
+need this more complex approach, but this
+需要這種更複雜的方法，但是這個
+
+143
+00:05:47,855 --> 00:05:50,165
+approach gives you more control and allows
+方法給你更多的控制權並允許
+
+144
+00:05:50,181 --> 00:05:52,443
+you to manually go through chunk by chunk
+你手動逐塊檢查
+
+145
+00:05:52,443 --> 00:05:54,978
+and for example, add detailed logging. But
+例如，新增詳細的紀錄記錄。但
+
+146
+00:05:55,154 --> 00:05:56,806
+even just using this approach would
+即使只是使用這種方法也會
+
+147
+00:05:56,999 --> 00:05:59,229
+automatically handle large files as well. I
+也自動處理大檔案。我
+
+148
+00:05:59,261 --> 00:06:01,106
+just have this approach in here for demo
+只是在這裡使用這種方法進行演示
+
+149
+00:06:01,186 --> 00:06:01,795
+purposes.
+目的。
+
+150
+00:06:03,047 --> 00:06:04,923
+So that's how files are uploaded.
+這就是檔案上傳的方式。

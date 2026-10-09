@@ -1,0 +1,799 @@
+1
+00:00:00,578 --> 00:00:04,064
+Now, thankfully, this memory problem can be
+現在，值得慶幸的是，這個記憶體問題可以解決
+
+2
+00:00:04,064 --> 00:00:07,550
+solved because the goal is not to run these
+解決了，因為目標不是運行這些
+
+3
+00:00:07,743 --> 00:00:11,310
+raw trained models with their float32 or
+原始訓練模型及其 float32 或
+
+4
+00:00:11,438 --> 00:00:12,900
+float16 values.
+float16 值。
+
+5
+00:00:13,768 --> 00:00:15,471
+Because of course, if you were to ask
+因為當然，如果你問
+
+6
+00:00:15,471 --> 00:00:17,543
+yourself whether that runs on your machine
+你自己是否在你的機器上運行
+
+7
+00:00:17,543 --> 00:00:19,921
+or not, the answer would pretty much always
+或不，答案幾乎總是
+
+8
+00:00:19,953 --> 00:00:22,732
+be no, except for super small models.
+不會，除了超小型型號。
+
+9
+00:00:23,632 --> 00:00:25,383
+That's why we have a solution called
+這就是為什麼我們有一個名為的解決方案
+
+10
+00:00:25,415 --> 00:00:28,354
+quantization. That helps us with running
+量化。這對我們跑步很有幫助
+
+11
+00:00:28,867 --> 00:00:29,637
+bigger models
+更大的型號
+
+12
+00:00:30,455 --> 00:00:32,397
+on your or mine machine.
+在你或我的機器上。
+
+13
+00:00:33,215 --> 00:00:35,782
+So it's a solution that helps us reduce
+所以這是一個可以幫助我們減少
+
+14
+00:00:35,846 --> 00:00:37,258
+these memory requirements.
+這些記憶體要求。
+
+15
+00:00:37,996 --> 00:00:40,579
+How does this work? Well, in the end, it's a
+這是如何運作的？好吧，最後，這是一個
+
+16
+00:00:40,579 --> 00:00:43,917
+compression mechanism. Quantized large
+壓縮機制。量化大
+
+17
+00:00:44,013 --> 00:00:46,757
+language models are compressed large
+語言模型被壓縮得很大
+
+18
+00:00:46,837 --> 00:00:47,767
+language models.
+語言模型。
+
+19
+00:00:48,602 --> 00:00:50,832
+And that's achieved by taking the original
+這是透過採用原始方法來實現的
+
+20
+00:00:50,848 --> 00:00:53,351
+trained model, which is not quantized and
+經過訓練的模型，未量化且
+
+21
+00:00:53,351 --> 00:00:54,955
+which would therefore take up lots of
+因此，這將佔用大量的
+
+22
+00:00:55,004 --> 00:00:55,340
+memory,
+記憶，
+
+23
+00:00:56,366 --> 00:00:59,379
+And then through a mathematical process,
+然後透過數學過程，
+
+24
+00:01:00,212 --> 00:01:03,497
+these parameter values are transformed to
+這些參數值被轉換為
+
+25
+00:01:03,754 --> 00:01:07,936
+less precise numbers. So instead of float16,
+不太精確的數字。所以代替 float16，
+
+26
+00:01:08,160 --> 00:01:09,218
+float32,
+浮點32，
+
+27
+00:01:09,763 --> 00:01:12,855
+they are converted to int4, int8 numbers
+它們被轉換為 int4、int8 數字
+
+28
+00:01:12,968 --> 00:01:13,448
+typically.
+通常。
+
+29
+00:01:14,249 --> 00:01:15,788
+And int numbers are
+int 數字是
+
+30
+00:01:16,477 --> 00:01:18,496
+numbers without a decimal place. So
+沒有小數位的數字。所以
+
+31
+00:01:18,496 --> 00:01:20,467
+something like 4, 5, 10,
+類似 4、5、10、
+
+32
+00:01:21,220 --> 00:01:23,916
+-3. These would be integer numbers.
+-3。這些將是整數。
+
+33
+00:01:24,591 --> 00:01:27,466
+And these parameter values are transformed
+而這些參數值經過變換
+
+34
+00:01:27,466 --> 00:01:28,735
+to such integer numbers
+對於這樣的整數
+
+35
+00:01:29,409 --> 00:01:31,931
+so that they therefore take up way less
+因此它們佔用的空間更少
+
+36
+00:01:32,076 --> 00:01:34,115
+space per parameter. And
+每個參數的空間。和
+
+37
+00:01:34,694 --> 00:01:37,569
+the great news is that the quantization
+好消息是量化
+
+38
+00:01:37,746 --> 00:01:39,850
+algorithms that are used for that
+用於該目的的演算法
+
+39
+00:01:39,850 --> 00:01:40,669
+transformation
+轉變
+
+40
+00:01:41,359 --> 00:01:44,427
+are so good that the model performance, the
+是如此之好以至於模型的性能，
+
+41
+00:01:44,492 --> 00:01:46,965
+quality of the model is essentially
+模型的質量本質上是
+
+42
+00:01:47,142 --> 00:01:47,897
+unchanged.
+不變。
+
+43
+00:01:48,442 --> 00:01:50,975
+At least for the commonly used quantization
+至少對於常用的量化來說
+
+44
+00:01:51,007 --> 00:01:52,498
+mechanisms and solutions.
+機制和解決方案。
+
+45
+00:01:53,331 --> 00:01:55,063
+So you get the best of both worlds,
+這樣你就可以兩全其美，
+
+46
+00:01:55,640 --> 00:01:58,477
+a model that does perform great, but that
+一個確實表現出色的模型，但是
+
+47
+00:01:58,525 --> 00:02:01,314
+does not take up as much space and memory as
+不佔用那麼多的空間和記憶體
+
+48
+00:02:01,346 --> 00:02:04,200
+the originally trained model would have. In
+最初訓練的模型會有。在
+
+49
+00:02:04,312 --> 00:02:07,037
+addition, inference speed may also be
+此外，推理速度也可能是
+
+50
+00:02:07,037 --> 00:02:07,342
+better.
+更好的。
+
+51
+00:02:08,480 --> 00:02:10,532
+Now, the good news is that you don't need to
+現在，好消息是您不需要
+
+52
+00:02:10,628 --> 00:02:12,648
+perform this quantization yourself.
+自己執行此量化。
+
+53
+00:02:13,305 --> 00:02:15,982
+So in case you were afraid, you don't need
+所以如果你害怕的話，你不需要
+
+54
+00:02:16,094 --> 00:02:18,675
+to do that. You don't need to understand the
+這樣做。你不需要理解
+
+55
+00:02:18,739 --> 00:02:21,177
+mathematical process that's being used for
+正在使用的數學過程
+
+56
+00:02:21,289 --> 00:02:22,476
+transforming these values.
+改變這些價值觀。
+
+57
+00:02:23,134 --> 00:02:25,075
+You just should have heard the term and you
+您應該聽過這個詞並且您
+
+58
+00:02:25,075 --> 00:02:26,695
+should understand that it's about
+應該明白這是關於
+
+59
+00:02:26,984 --> 00:02:29,711
+compressing these parameter values to make
+壓縮這些參數值以使得
+
+60
+00:02:29,711 --> 00:02:31,877
+them way smaller. Because if we're talking
+它們小得多。因為如果我們在說話
+
+61
+00:02:31,909 --> 00:02:36,529
+about half a byte or 1 byte instead of 2 or
+大約半個位元組或 1 個位元組而不是 2 個或
+
+62
+00:02:36,529 --> 00:02:38,839
+4 bytes per parameter,
+每個參數 4 個位元組，
+
+63
+00:02:39,416 --> 00:02:41,807
+we of course essentially only need around
+我們當然基本上只需要周圍
+
+64
+00:02:41,983 --> 00:02:42,673
+1/4
+1/4
+
+65
+00:02:43,427 --> 00:02:46,539
+of the originally predicted space in memory.
+最初預測的記憶體空間。
+
+66
+00:02:47,228 --> 00:02:50,307
+So therefore, this 27 billion parameters
+因此，這 270 億個參數
+
+67
+00:02:50,403 --> 00:02:52,952
+model, all of a sudden, instead of requiring
+模型，突然之間，而不是要求
+
+68
+00:02:53,369 --> 00:02:58,003
+100 gigabytes of RAM, may only require 25
+100 GB RAM，可能只需要 25 GB
+
+69
+00:02:58,099 --> 00:03:00,745
+gigabytes of RAM or even less than that,
+GB 記憶體甚至更少，
+
+70
+00:03:01,081 --> 00:03:04,577
+maybe only 12 gigabytes of RAM, roughly,
+大概只有 12 GB RAM，
+
+71
+00:03:05,250 --> 00:03:07,655
+depending on the quantization mechanism
+取決於量化機制
+
+72
+00:03:07,719 --> 00:03:08,024
+used.
+用過的。
+
+73
+00:03:08,553 --> 00:03:10,990
+I'll also say right away that the amount of
+我也會馬上說
+
+74
+00:03:11,006 --> 00:03:14,549
+memory that's required is not just dependent
+所需的記憶體不僅僅是依賴
+
+75
+00:03:14,694 --> 00:03:17,900
+on the parameters. Though they are the most
+關於參數。雖然他們是最
+
+76
+00:03:17,900 --> 00:03:18,717
+important factor,
+重要因素，
+
+77
+00:03:19,342 --> 00:03:22,260
+but it's also some space that's reserved for
+但它也是保留的一些空間
+
+78
+00:03:22,324 --> 00:03:25,273
+the input and output text of that model
+此模型的輸入和輸出文本
+
+79
+00:03:25,450 --> 00:03:27,742
+because all that text, the so-called
+因為所有這些文字，所謂的
+
+80
+00:03:27,854 --> 00:03:30,788
+context, also needs to be loaded into memory
+context，也需要載入到記憶體中
+
+81
+00:03:30,900 --> 00:03:32,775
+in order to be processed by the model.
+以便被模型處理。
+
+82
+00:03:33,385 --> 00:03:36,094
+But unless you're operating with huge
+但除非你經營的是巨大的
+
+83
+00:03:36,094 --> 00:03:39,123
+amounts of text, that will not take up as
+文字量，不會佔用
+
+84
+00:03:39,155 --> 00:03:41,768
+much space as the model parameters do, for
+與模型參數一樣多的空間，對於
+
+85
+00:03:41,800 --> 00:03:42,361
+example.
+例子。
+
+86
+00:03:43,227 --> 00:03:46,804
+And that's why typically when we aim to run
+這就是為什麼通常當我們打算跑步時
+
+87
+00:03:47,077 --> 00:03:49,226
+open models, no matter if it's locally on
+開放模型，無論它是否在本地
+
+88
+00:03:49,258 --> 00:03:51,424
+your system or on some rented server,
+您的系統或某些租用的伺服器上，
+
+89
+00:03:52,065 --> 00:03:54,520
+we don't use the raw models we find on
+我們不使用我們找到的原始模型
+
+90
+00:03:54,696 --> 00:03:57,246
+Hugging Face. That's also why if I were to
+擁抱臉。這也是為什麼如果我想要
+
+91
+00:03:57,278 --> 00:03:58,834
+click use this model here,
+按一下此處使用此模型，
+
+92
+00:03:59,524 --> 00:04:02,860
+I don't see any local options because this
+我沒有看到任何本地選項，因為這個
+
+93
+00:04:03,197 --> 00:04:05,427
+is simply not prepared to be executed
+根本不准備被處決
+
+94
+00:04:05,443 --> 00:04:05,828
+locally.
+本地。
+
+95
+00:04:06,903 --> 00:04:08,715
+Instead on Hugging Face for all these
+而不是擁抱所有這些
+
+96
+00:04:08,763 --> 00:04:10,801
+models, if you scroll down a bit, you'll
+模型，如果你向下滾動一點，你會
+
+97
+00:04:10,817 --> 00:04:13,530
+find derivatives that are based on this
+找到以此為基礎的衍生性商品
+
+98
+00:04:13,627 --> 00:04:16,132
+model. For example, fine-tuned versions that
+模型。例如，微調版本
+
+99
+00:04:16,132 --> 00:04:18,942
+may be better at certain tasks and very
+可能在某些任務上做得更好並且非常
+
+100
+00:04:18,942 --> 00:04:20,836
+important quantizations.
+重要的量子化。
+
+101
+00:04:21,752 --> 00:04:24,449
+And it's these quantizations that you wanna
+你想要的正是這些量化
+
+102
+00:04:24,465 --> 00:04:24,610
+run
+跑步
+
+103
+00:04:25,268 --> 00:04:25,702
+locally.
+本地。
+
+104
+00:04:26,649 --> 00:04:29,395
+So if I click here, I see quantized versions
+所以如果我點擊這裡，我會看到量化版本
+
+105
+00:04:29,603 --> 00:04:32,124
+of this Gemma 3 model, which I'm using as an
+我正在使用 Gemma 3 模型
+
+106
+00:04:32,124 --> 00:04:32,831
+example here.
+例子在這裡。
+
+107
+00:04:33,537 --> 00:04:35,689
+For example, this one, which actually
+比如說這個，其實
+
+108
+00:04:35,801 --> 00:04:37,969
+technically is a special version because it
+從技術上講是一個特殊版本，因為它
+
+109
+00:04:37,969 --> 00:04:40,795
+was trained by Google with quantization in
+由 Google 進行量化訓練
+
+110
+00:04:40,859 --> 00:04:43,798
+mind, which is why it performs particularly
+頭腦，這就是為什麼它表現得特別
+
+111
+00:04:43,910 --> 00:04:44,022
+well
+出色地
+
+112
+00:04:44,616 --> 00:04:45,772
+when running it locally.
+在本地運行時。
+
+113
+00:04:46,479 --> 00:04:48,791
+But even if you have models that were not
+但即使你的模型不是
+
+114
+00:04:48,791 --> 00:04:51,263
+trained with that in mind, you can use these
+考慮到這一點，您可以使用這些
+
+115
+00:04:51,360 --> 00:04:54,394
+quantized versions basically without loss in
+量化版本基本上沒有損失
+
+116
+00:04:54,426 --> 00:04:58,055
+quality to run them locally with way reduced
+在本地運行它們的質量大大降低
+
+117
+00:04:58,183 --> 00:04:59,371
+memory requirements.
+記憶體要求。
+
+118
+00:05:00,142 --> 00:05:01,876
+So if you click on such a quantized version,
+所以如果你點擊這樣一個量化版本，
+
+119
+00:05:02,197 --> 00:05:04,043
+you get a page that looks similar to what we
+您會看到一個與我們類似的頁面
+
+120
+00:05:04,043 --> 00:05:04,654
+saw before,
+之前看過，
+
+121
+00:05:05,248 --> 00:05:08,491
+but here we now actually got that quantized,
+但現在我們實際上得到了量化，
+
+122
+00:05:08,699 --> 00:05:10,289
+optimized, compressed version.
+優化的壓縮版本。
+
+123
+00:05:10,898 --> 00:05:12,614
+It has the same amount of parameters,
+它具有相同數量的參數，
+
+124
+00:05:13,351 --> 00:05:16,862
+but every parameter is way smaller in size.
+但每個參數的大小都小得多。
+
+125
+00:05:17,872 --> 00:05:21,078
+Originally, it was this float16 value type
+本來就是這個float16值型
+
+126
+00:05:21,206 --> 00:05:23,627
+that was being used for the parameters for
+被用於參數
+
+127
+00:05:23,627 --> 00:05:24,333
+this model here.
+這個模型在這裡。
+
+128
+00:05:25,214 --> 00:05:28,116
+Now it's in the end a 4-bit integer after
+現在最後是一個4位元整數
+
+129
+00:05:28,116 --> 00:05:31,450
+quantization. So it's way, way smaller in
+量化。所以它的尺寸要小得多
+
+130
+00:05:31,499 --> 00:05:31,851
+size.
+尺寸。
+
+131
+00:05:32,781 --> 00:05:35,683
+Now the weird name you see here
+現在你在這裡看到的奇怪的名字
+
+132
+00:05:36,276 --> 00:05:38,119
+essentially shows you that this is a
+本質上告訴你這是一個
+
+133
+00:05:38,119 --> 00:05:40,380
+quantized model, especially whenever you see
+量化模型，尤其是當你看到
+
+134
+00:05:40,380 --> 00:05:43,874
+something like this, Q4_something,
+像這樣的，Q4_something，
+
+135
+00:05:44,547 --> 00:05:47,481
+that is clearly a sign for quantization
+這顯然是量化的標誌
+
+136
+00:05:47,513 --> 00:05:49,517
+because this describes the concrete
+因為這描述了具體的
+
+137
+00:05:49,517 --> 00:05:52,049
+quantization technique that was being used.
+正在使用的量化技術。
+
+138
+00:05:52,643 --> 00:05:54,470
+For example, here that we got 4-bit
+例如，這裡我們有 4 位
+
+139
+00:05:54,550 --> 00:05:55,015
+integers.
+整數。
+
+140
+00:05:56,233 --> 00:05:59,776
+It's also worth noting that this here is a
+還值得注意的是，這是一個
+
+141
+00:05:59,776 --> 00:06:04,361
+so-called GGUF file, which is the file type
+所謂的GGUF檔案，就是檔案型別
+
+142
+00:06:04,409 --> 00:06:06,958
+that's typically used for these quantized
+這通常用於這些量化
+
+143
+00:06:07,134 --> 00:06:08,818
+models because it's a file type that
+模型，因為它是一種檔案型別
+
+144
+00:06:08,818 --> 00:06:10,890
+includes all the quantized parameters,
+包括所有量化參數，
+
+145
+00:06:11,564 --> 00:06:13,940
+but in addition, it contains a lot of
+但除此之外，它還含有許多
+
+146
+00:06:14,213 --> 00:06:14,856
+metadata.
+元資料。
+
+147
+00:06:15,578 --> 00:06:18,115
+That's just a side note. So GGUF is
+這只是一個旁注。所以 GGUF 是
+
+148
+00:06:18,292 --> 00:06:20,138
+typically the file extension you'll work
+通常是您將使用的檔案副檔名
+
+149
+00:06:20,138 --> 00:06:22,611
+with when working with such quantized
+當使用這種量化的
+
+150
+00:06:22,707 --> 00:06:24,987
+models. And you will typically work with
+模型。你通常會與
+
+151
+00:06:25,051 --> 00:06:25,902
+quantized models
+量化模型
+
+152
+00:06:26,577 --> 00:06:29,130
+because there is really no reason to use the
+因為確實沒有理由使用
+
+153
+00:06:29,210 --> 00:06:30,238
+unquantized ones.
+未量化的。
+
+154
+00:06:30,896 --> 00:06:33,385
+It's harder, it takes up way more memory,
+比較難，佔用更多記憶體
+
+155
+00:06:33,706 --> 00:06:35,745
+and in general has way higher hardware
+一般來說有更高的硬體
+
+156
+00:06:35,809 --> 00:06:37,928
+requirements. And as explained before,
+要求。正如之前所解釋的，
+
+157
+00:06:38,602 --> 00:06:40,657
+the quality is, if at all,
+質量，如果有的話，
+
+158
+00:06:41,251 --> 00:06:43,674
+only marginally better. So it's the
+只是稍微好一點。所以這是
+
+159
+00:06:43,674 --> 00:06:46,018
+quantized versions of these models that we
+我們這些模型的量化版本
+
+160
+00:06:46,066 --> 00:06:48,056
+run locally or on our servers.
+在本地或我們的伺服器上運行。

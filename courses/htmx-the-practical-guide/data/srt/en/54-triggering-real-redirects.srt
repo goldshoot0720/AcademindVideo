@@ -1,0 +1,387 @@
+1
+00:00:02,115 --> 00:00:05,022
+So at this point, we had a very close look
+
+2
+00:00:05,151 --> 00:00:08,381
+at how we can configure the requests that
+
+3
+00:00:08,462 --> 00:00:11,057
+are sent and managed by HTMX.
+
+4
+00:00:12,665 --> 00:00:15,542
+But it turns out that we can actually also
+
+5
+00:00:15,719 --> 00:00:19,031
+configure the responses quite a bit and with
+
+6
+00:00:19,241 --> 00:00:19,369
+them
+
+7
+00:00:19,965 --> 00:00:23,794
+also change the behavior of HTMX. And that's
+
+8
+00:00:23,826 --> 00:00:25,129
+what I'll show you next.
+
+9
+00:00:26,847 --> 00:00:29,802
+And I wanna start with submitting the form.
+
+10
+00:00:31,248 --> 00:00:32,918
+When we submit the form,
+
+11
+00:00:33,496 --> 00:00:36,725
+we of course send this POST request to
+
+12
+00:00:36,885 --> 00:00:37,720
+/login.
+
+13
+00:00:39,214 --> 00:00:39,439
+Now,
+
+14
+00:00:40,001 --> 00:00:42,635
+in that login route, we're then validating
+
+15
+00:00:42,828 --> 00:00:45,366
+the inputs and you already saw what happens
+
+16
+00:00:45,542 --> 00:00:47,181
+if an invalid input is entered.
+
+17
+00:00:48,048 --> 00:00:51,469
+But if we succeed, I'm currently not sending
+
+18
+00:00:51,501 --> 00:00:53,477
+back anything. I'm sending back an empty
+
+19
+00:00:53,509 --> 00:00:54,039
+response.
+
+20
+00:00:55,548 --> 00:00:57,190
+Now, what we might wanna do
+
+21
+00:00:57,737 --> 00:01:00,086
+if we're facing a login form like this
+
+22
+00:01:00,778 --> 00:01:03,336
+is that when the user enters valid
+
+23
+00:01:03,368 --> 00:01:03,819
+credentials
+
+24
+00:01:04,564 --> 00:01:05,925
+and we click login,
+
+25
+00:01:06,767 --> 00:01:09,537
+we might want to redirect the user to a new
+
+26
+00:01:09,683 --> 00:01:09,975
+page.
+
+27
+00:01:11,940 --> 00:01:14,726
+So we might want to redirect to
+
+28
+00:01:16,087 --> 00:01:19,376
+/authenticated here, for example, so to this
+
+29
+00:01:19,490 --> 00:01:19,797
+route.
+
+30
+00:01:20,854 --> 00:01:23,157
+Now, of course, if you recall what you
+
+31
+00:01:23,157 --> 00:01:24,940
+learned in earlier sections,
+
+32
+00:01:25,653 --> 00:01:28,167
+we'll have a problem if we try to do that.
+
+33
+00:01:28,920 --> 00:01:29,467
+So here, if I
+
+34
+00:01:29,998 --> 00:01:32,606
+reload and I enter a valid email
+
+35
+00:01:33,460 --> 00:01:35,553
+and then some valid password and I click
+
+36
+00:01:35,617 --> 00:01:36,004
+login,
+
+37
+00:01:37,082 --> 00:01:39,495
+you see the content of the next page is
+
+38
+00:01:39,778 --> 00:01:40,610
+rendered here.
+
+39
+00:01:42,174 --> 00:01:44,918
+It's rendered on the existing page. And that
+
+40
+00:01:44,934 --> 00:01:48,248
+happens because, as you learned, HTMX by
+
+41
+00:01:48,457 --> 00:01:52,069
+default follows redirects like this.
+
+42
+00:01:53,498 --> 00:01:55,697
+And therefore, as a result, we
+
+43
+00:01:56,243 --> 00:01:58,908
+don't load a new page in the browser, but
+
+44
+00:01:58,908 --> 00:02:03,259
+instead HTMX gets the response of that new
+
+45
+00:02:03,773 --> 00:02:06,101
+page or of this GET route here to be
+
+46
+00:02:06,101 --> 00:02:06,599
+precise.
+
+47
+00:02:08,028 --> 00:02:10,821
+And it then renders that into the target of
+
+48
+00:02:10,853 --> 00:02:13,993
+the request we sent, so into this target
+
+49
+00:02:13,993 --> 00:02:14,236
+here.
+
+50
+00:02:15,925 --> 00:02:18,540
+Now, that sometimes is the behavior you
+
+51
+00:02:18,540 --> 00:02:18,865
+want,
+
+52
+00:02:19,417 --> 00:02:21,574
+but sometimes you might want a real
+
+53
+00:02:22,009 --> 00:02:22,573
+redirect.
+
+54
+00:02:24,280 --> 00:02:26,696
+And you can achieve that and change the
+
+55
+00:02:26,696 --> 00:02:30,336
+behavior of HTMX by setting a specific
+
+56
+00:02:30,627 --> 00:02:32,459
+header on the response.
+
+57
+00:02:33,922 --> 00:02:37,120
+And here in Node, when using Express.js, you
+
+58
+00:02:37,152 --> 00:02:39,505
+can do that by calling the setHeader header
+
+59
+00:02:39,505 --> 00:02:42,189
+method on that response object before
+
+60
+00:02:42,189 --> 00:02:42,868
+sending it.
+
+61
+00:02:44,502 --> 00:02:46,426
+And the header I wanna set here
+
+62
+00:02:47,089 --> 00:02:50,698
+is one of the special headers you can set on
+
+63
+00:02:50,730 --> 00:02:53,269
+the responses that are sent back and that
+
+64
+00:02:53,365 --> 00:02:55,293
+will be handled by HTMX.
+
+65
+00:02:56,755 --> 00:02:59,890
+Specifically, you can set the hx-redirect
+
+66
+00:02:59,890 --> 00:03:01,354
+response header to
+
+67
+00:03:01,885 --> 00:03:04,893
+really trigger a client-side redirect to a
+
+68
+00:03:04,893 --> 00:03:05,569
+new page.
+
+69
+00:03:06,489 --> 00:03:10,853
+So to not have HTMX take the response and
+
+70
+00:03:10,853 --> 00:03:13,352
+render it into the target, but to really
+
+71
+00:03:13,627 --> 00:03:15,501
+instead perform a redirect.
+
+72
+00:03:16,851 --> 00:03:19,148
+And you see some other response headers and
+
+73
+00:03:19,181 --> 00:03:21,366
+what they do here as well, but I'll get back
+
+74
+00:03:21,430 --> 00:03:23,551
+to some of them later. For the moment, let's
+
+75
+00:03:23,599 --> 00:03:25,073
+focus on that redirect header.
+
+76
+00:03:27,079 --> 00:03:30,079
+So here it's HX-Redirect, which I wanna set,
+
+77
+00:03:30,954 --> 00:03:32,738
+and I wanna set that to /authenticated.
+
+78
+00:03:35,686 --> 00:03:38,198
+And this will then ensure that we indeed do
+
+79
+00:03:38,649 --> 00:03:41,628
+redirect the user to that page and that that
+
+80
+00:03:41,628 --> 00:03:43,303
+new page is therefore loaded
+
+81
+00:03:43,883 --> 00:03:46,896
+and that HTMX will not just take the content
+
+82
+00:03:46,896 --> 00:03:49,000
+of that page and render it somewhere else.
+
+83
+00:03:50,450 --> 00:03:53,107
+Now, one thing you'll need to do though is
+
+84
+00:03:53,203 --> 00:03:55,619
+you should then not also send such a
+
+85
+00:03:55,635 --> 00:03:58,308
+redirect response here, but instead just
+
+86
+00:03:58,308 --> 00:03:59,725
+send an empty response.
+
+87
+00:04:01,660 --> 00:04:03,579
+But with that, if you save everything,
+
+88
+00:04:04,272 --> 00:04:05,223
+if you reload here
+
+89
+00:04:05,788 --> 00:04:06,803
+and you enter some
+
+90
+00:04:07,626 --> 00:04:09,528
+valid credentials and you click login,
+
+91
+00:04:10,205 --> 00:04:12,132
+you see now I'm really redirected to a new
+
+92
+00:04:12,310 --> 00:04:15,047
+page. We completely replaced the existing
+
+93
+00:04:15,079 --> 00:04:16,262
+page with this one.
+
+94
+00:04:17,987 --> 00:04:19,985
+And of course I can still go back and forth
+
+95
+00:04:20,033 --> 00:04:21,998
+now with the back and forward buttons.
+
+96
+00:04:22,659 --> 00:04:24,898
+And that's the case because we now really
+
+97
+00:04:25,236 --> 00:04:26,461
+redirected the user.

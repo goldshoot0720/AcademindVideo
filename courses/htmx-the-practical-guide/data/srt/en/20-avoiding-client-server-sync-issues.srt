@@ -1,0 +1,515 @@
+1
+00:00:00,689 --> 00:00:03,670
+So what's the problem we're facing here? Why
+
+2
+00:00:03,783 --> 00:00:06,924
+didn't we actually delete Learn Advanced
+
+3
+00:00:06,924 --> 00:00:09,617
+Concepts here when we started with deleting
+
+4
+00:00:09,649 --> 00:00:10,499
+the first item
+
+5
+00:00:11,413 --> 00:00:11,765
+before?
+
+6
+00:00:12,920 --> 00:00:15,613
+Well, because we're using the index for
+
+7
+00:00:15,805 --> 00:00:17,232
+deleting items.
+
+8
+00:00:18,386 --> 00:00:20,005
+And if I add some items here,
+
+9
+00:00:20,710 --> 00:00:23,836
+these indexes of course always start at 0.
+
+10
+00:00:24,477 --> 00:00:26,545
+So the Learn Advanced Concepts
+
+11
+00:00:27,907 --> 00:00:29,926
+has an ID of goal/0
+
+12
+00:00:30,471 --> 00:00:32,330
+and therefore when I click this delete
+
+13
+00:00:32,330 --> 00:00:35,279
+button, I will also send a request, a delete
+
+14
+00:00:35,279 --> 00:00:37,539
+request to goals/0.
+
+15
+00:00:38,821 --> 00:00:41,273
+And for the second list item, I send one to
+
+16
+00:00:41,305 --> 00:00:42,298
+goals/1.
+
+17
+00:00:43,004 --> 00:00:45,952
+Now the problem is if I delete this first
+
+18
+00:00:45,952 --> 00:00:47,972
+item here, that item will be deleted.
+
+19
+00:00:48,837 --> 00:00:49,174
+But now
+
+20
+00:00:49,799 --> 00:00:53,148
+in my UI here, the second item still has the
+
+21
+00:00:53,148 --> 00:00:56,578
+ID goal-1 and I'm sending a delete request
+
+22
+00:00:56,674 --> 00:00:57,491
+to /goals/0.
+
+23
+00:00:58,701 --> 00:01:01,499
+So I'm trying to delete the item with the
+
+24
+00:01:01,499 --> 00:01:02,915
+index 1 therefore.
+
+25
+00:01:04,378 --> 00:01:07,048
+But since I already deleted that other item,
+
+26
+00:01:07,289 --> 00:01:10,148
+this item is the only item left in the array
+
+27
+00:01:10,520 --> 00:01:12,621
+and therefore it will actually have an index
+
+28
+00:01:12,621 --> 00:01:15,014
+of 0 there, not 1.
+
+29
+00:01:16,663 --> 00:01:18,441
+So the problem in the end is that we're
+
+30
+00:01:18,441 --> 00:01:21,269
+using the index for deletion but the index
+
+31
+00:01:21,269 --> 00:01:23,499
+of course changes whenever we delete items.
+
+32
+00:01:23,842 --> 00:01:26,229
+At least if we don't start at the end of the
+
+33
+00:01:26,229 --> 00:01:26,502
+list.
+
+34
+00:01:27,928 --> 00:01:30,924
+Therefore, the workaround here has nothing
+
+35
+00:01:30,972 --> 00:01:34,017
+to do with HTMX but instead is something we
+
+36
+00:01:34,017 --> 00:01:36,453
+should do in general to make sure that we're
+
+37
+00:01:36,453 --> 00:01:38,007
+not deleting the wrong item.
+
+38
+00:01:38,728 --> 00:01:41,276
+And that workaround is that we should assign
+
+39
+00:01:41,372 --> 00:01:45,554
+IDs, unique IDs to these items when we
+
+40
+00:01:45,554 --> 00:01:46,179
+create them.
+
+41
+00:01:47,493 --> 00:01:50,442
+So when we push our goal text here, we
+
+42
+00:01:50,442 --> 00:01:53,490
+should actually not push just that text, but
+
+43
+00:01:53,490 --> 00:01:56,458
+instead maybe an object that has a text
+
+44
+00:01:56,458 --> 00:01:59,394
+property that stores that text, but that
+
+45
+00:01:59,571 --> 00:02:02,202
+also has an ID property which we can then
+
+46
+00:02:02,378 --> 00:02:05,362
+later use for deleting that item.
+
+47
+00:02:06,806 --> 00:02:07,849
+And here to get a
+
+48
+00:02:08,635 --> 00:02:10,159
+unique ID or at least
+
+49
+00:02:10,737 --> 00:02:13,368
+an ID that's unique enough for this demo,
+
+50
+00:02:13,641 --> 00:02:16,563
+I'll construct a new Date object and call
+
+51
+00:02:16,756 --> 00:02:19,091
+getTime. And this will give me the current
+
+52
+00:02:19,091 --> 00:02:21,829
+time in milliseconds, which for this demo
+
+53
+00:02:21,974 --> 00:02:23,262
+app is unique enough.
+
+54
+00:02:24,237 --> 00:02:27,014
+In theory, you could submit 2 items at
+
+55
+00:02:27,079 --> 00:02:29,662
+exactly the same point of time, but for this
+
+56
+00:02:29,662 --> 00:02:32,068
+demo app, this is good enough. And
+
+57
+00:02:32,084 --> 00:02:33,702
+therefore, this will then give us a
+
+58
+00:02:34,350 --> 00:02:36,180
+unique ID in the end.
+
+59
+00:02:38,640 --> 00:02:40,634
+So with that, we of course now need to
+
+60
+00:02:40,634 --> 00:02:43,218
+change the way we render these list items.
+
+61
+00:02:43,562 --> 00:02:46,742
+Because now courseGoals no longer includes
+
+62
+00:02:46,919 --> 00:02:50,051
+just strings. Instead, it includes objects
+
+63
+00:02:50,292 --> 00:02:53,119
+with a text property and an ID property.
+
+64
+00:02:54,484 --> 00:02:55,528
+And therefore, the
+
+65
+00:02:56,074 --> 00:02:58,548
+ID we set here should be goal-
+
+66
+00:02:59,624 --> 00:03:02,532
+and then this ID. Therefore, I'll actually
+
+67
+00:03:02,532 --> 00:03:04,491
+store it in an extra constant
+
+68
+00:03:05,021 --> 00:03:06,467
+so that I can use it
+
+69
+00:03:07,077 --> 00:03:07,447
+here
+
+70
+00:03:08,202 --> 00:03:09,005
+and also here.
+
+71
+00:03:09,826 --> 00:03:12,409
+So that I can use that ID that we generated
+
+72
+00:03:12,409 --> 00:03:14,927
+here to assign that ID to that list item.
+
+73
+00:03:16,790 --> 00:03:19,720
+The text, of course, is still the goal text,
+
+74
+00:03:20,123 --> 00:03:22,023
+but then the request should be sent to
+
+75
+00:03:22,055 --> 00:03:24,551
+goals/id
+
+76
+00:03:25,582 --> 00:03:27,962
+and the target also uses that ID
+
+77
+00:03:29,325 --> 00:03:31,354
+and we no longer need that index.
+
+78
+00:03:34,024 --> 00:03:37,400
+And then here, when we delete an item, I'll
+
+79
+00:03:37,531 --> 00:03:39,276
+rename this dynamic path parameter to ID
+
+80
+00:03:42,011 --> 00:03:43,191
+And extract it here
+
+81
+00:03:45,001 --> 00:03:47,313
+and rename this to ID here as well.
+
+82
+00:03:48,720 --> 00:03:50,657
+And then to delete the course goal, I will
+
+83
+00:03:50,835 --> 00:03:53,579
+actually find the index of the item that
+
+84
+00:03:53,579 --> 00:03:54,500
+should be deleted
+
+85
+00:03:55,032 --> 00:03:57,519
+by accessing my course goals and by then
+
+86
+00:03:57,600 --> 00:03:58,897
+calling findIndex.
+
+87
+00:03:59,902 --> 00:04:01,249
+And this is a built-in method
+
+88
+00:04:01,914 --> 00:04:04,022
+which takes a function as an argument, which
+
+89
+00:04:04,038 --> 00:04:06,309
+will be executed for every item in course
+
+90
+00:04:06,309 --> 00:04:08,976
+goals and which should return true if it's
+
+91
+00:04:08,976 --> 00:04:10,852
+the item we're looking for. And then
+
+92
+00:04:11,510 --> 00:04:14,080
+findIndex will give me the index of that
+
+93
+00:04:14,080 --> 00:04:14,401
+item.
+
+94
+00:04:15,622 --> 00:04:17,919
+And I'm looking for the item where the ID is
+
+95
+00:04:18,111 --> 00:04:22,689
+equal to the ID I got here from my request.
+
+96
+00:04:24,118 --> 00:04:26,206
+Now, what's important to note is that this
+
+97
+00:04:26,223 --> 00:04:27,331
+ID here will be
+
+98
+00:04:27,973 --> 00:04:30,013
+a string because we're extracting it from
+
+99
+00:04:30,077 --> 00:04:30,832
+the URL,
+
+100
+00:04:31,362 --> 00:04:34,462
+whereas this ID will be a number because I'm
+
+101
+00:04:34,558 --> 00:04:36,213
+constructing it as a number here.
+
+102
+00:04:37,941 --> 00:04:40,428
+Therefore, I'll actually call toString here
+
+103
+00:04:40,493 --> 00:04:42,264
+so that we have the same data type.
+
+104
+00:04:46,150 --> 00:04:48,585
+So with that, I have the index and I can
+
+105
+00:04:48,634 --> 00:04:50,236
+then still use splice.
+
+106
+00:04:52,563 --> 00:04:54,914
+Of course, we also need to update this code
+
+107
+00:04:54,914 --> 00:04:57,860
+here now though, because now a goal is no
+
+108
+00:04:57,877 --> 00:05:00,839
+longer just a string. Instead, it's such an
+
+109
+00:05:00,920 --> 00:05:03,638
+object with a text property and an ID
+
+110
+00:05:03,703 --> 00:05:04,325
+property.
+
+111
+00:05:04,848 --> 00:05:08,300
+And therefore, I'll use the ID property here
+
+112
+00:05:07,352 --> 00:05:09,142
+for constructing this listItemId.
+
+113
+00:05:10,238 --> 00:05:12,319
+And I'll use the text property here for
+
+114
+00:05:12,496 --> 00:05:13,238
+outputting the text.
+
+115
+00:05:15,632 --> 00:05:18,830
+And then here it's again goal.id in these
+
+116
+00:05:18,927 --> 00:05:20,300
+places down here.
+
+117
+00:05:22,475 --> 00:05:25,084
+Therefore, I no longer need this index.
+
+118
+00:05:26,816 --> 00:05:27,073
+Okay,
+
+119
+00:05:27,879 --> 00:05:31,167
+if we now save that and we reload, we should
+
+120
+00:05:31,167 --> 00:05:32,327
+therefore now be able
+
+121
+00:05:33,684 --> 00:05:34,854
+to add these items.
+
+122
+00:05:35,769 --> 00:05:38,110
+And if I now start with deleting the first
+
+123
+00:05:38,174 --> 00:05:38,415
+item
+
+124
+00:05:39,040 --> 00:05:41,061
+and I then also delete the second item
+
+125
+00:05:41,927 --> 00:05:44,317
+and I then reload, they're both gone.
+
+126
+00:05:45,456 --> 00:05:48,615
+And they are both gone now because now we're
+
+127
+00:05:48,615 --> 00:05:51,535
+managing these items in a better way because
+
+128
+00:05:51,567 --> 00:05:55,031
+we're now assigning and using unique IDs
+
+129
+00:05:55,560 --> 00:05:56,346
+for these items.

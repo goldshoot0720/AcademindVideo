@@ -1,0 +1,344 @@
+1
+00:00:00,448 --> 00:00:03,880
+So how can we now get HTMX to automatically
+那我們現在該如何讓 HTMX 自動
+
+2
+00:00:03,880 --> 00:00:06,654
+send that GET request every 5 seconds?
+每 5 秒發送一次 GET 請求？
+
+3
+00:00:07,872 --> 00:00:10,085
+Well, for that, we need to adjust the
+那麼，為此，我們需要調整
+
+4
+00:00:10,438 --> 00:00:10,983
+trigger
+扳機
+
+5
+00:00:11,560 --> 00:00:13,404
+of this GET request.
+此 GET 請求的。
+
+6
+00:00:14,463 --> 00:00:17,509
+Remember that the default trigger is the
+請記住，預設觸發器是
+
+7
+00:00:17,910 --> 00:00:21,774
+most obvious event for the element on which
+元素上最明顯的事件
+
+8
+00:00:21,999 --> 00:00:24,051
+this attribute is added. And for an
+該屬性已新增。而對於一個
+
+9
+00:00:24,147 --> 00:00:26,168
+unordered list, like for most elements,
+無序列表，就像大多數元素一樣，
+
+10
+00:00:26,488 --> 00:00:27,611
+that's a click event.
+這是一個點擊事件。
+
+11
+00:00:28,316 --> 00:00:30,415
+That's why at the moment we send this
+這就是為什麼我們現在發送這個
+
+12
+00:00:30,415 --> 00:00:32,338
+request when we click on this element.
+當我們點擊這個元素時發出請求。
+
+13
+00:00:33,380 --> 00:00:35,608
+But now I actually wanna change that trigger
+但現在我真的想改變那個觸發器
+
+14
+00:00:35,624 --> 00:00:39,341
+and we can do that by using hx-trigger.
+我們可以使用 hx-trigger 來做到這一點。
+
+15
+00:00:40,752 --> 00:00:42,707
+But I don't wanna change it to some other
+但我不想把它改成其他的
+
+16
+00:00:42,819 --> 00:00:44,453
+user event. Instead,
+使用者事件。反而，
+
+17
+00:00:44,998 --> 00:00:46,248
+I wanna change it to some
+我想把它改成一些
+
+18
+00:00:46,905 --> 00:00:49,325
+automated polling mechanism.
+自動輪詢機制。
+
+19
+00:00:50,287 --> 00:00:52,947
+And turns out that HTMX got support for
+事實證明 HTMX 得到了支援
+
+20
+00:00:52,947 --> 00:00:55,719
+that. Instead of specifying an event like
+那。而不是指定一個事件，例如
+
+21
+00:00:56,040 --> 00:00:58,091
+mouseenter or click here,
+滑鼠輸入或按一下此處，
+
+22
+00:00:58,620 --> 00:01:00,834
+you can also specify specify every
+您也可以指定指定每個
+
+23
+00:01:01,735 --> 00:01:04,001
+and then some time period like 2s
+然後一段時間，例如 2s
+
+24
+00:01:04,645 --> 00:01:07,892
+for 2 seconds or 5 seconds, which is what I
+2秒或5秒，這就是我的
+
+25
+00:01:08,021 --> 00:01:08,375
+want here.
+想要這裡。
+
+26
+00:01:09,939 --> 00:01:12,438
+And you can learn about all the possible
+你可以了解所有可能的情況
+
+27
+00:01:12,922 --> 00:01:15,970
+triggers and trigger modifiers here in the
+觸發器和觸發器修飾符位於
+
+28
+00:01:15,970 --> 00:01:16,933
+official documentation.
+官方文檔。
+
+29
+00:01:18,010 --> 00:01:19,729
+There you learn about this polling
+在那裡你可以了解這次投票
+
+30
+00:01:20,018 --> 00:01:20,661
+mechanism,
+機制，
+
+31
+00:01:21,866 --> 00:01:23,842
+but you will also learn that you could, for
+但你也會了解到你可以，因為
+
+32
+00:01:23,874 --> 00:01:26,503
+example, add the once modifier to only
+例如，將 Once 修飾符新增至 only
+
+33
+00:01:26,535 --> 00:01:29,294
+listen to the first event of a certain type
+監聽某種型別的第一個事件
+
+34
+00:01:29,423 --> 00:01:33,118
+that occurs, that you could add delays and
+發生這種情況時，您可以添加延遲並
+
+35
+00:01:33,150 --> 00:01:33,344
+more,
+更多的，
+
+36
+00:01:33,876 --> 00:01:35,845
+whatever you need for the application you
+無論您的應用程式需要什麼
+
+37
+00:01:35,894 --> 00:01:36,427
+are building.
+正在建設。
+
+38
+00:01:37,576 --> 00:01:40,100
+Now, in my case here, I'm interested in that
+現在，就我而言，我對此感興趣
+
+39
+00:01:40,100 --> 00:01:42,591
+polling mechanism and that works with help
+輪詢機制並在幫助下工作
+
+40
+00:01:42,591 --> 00:01:44,990
+of that every keyword, which you add here
+您在此處新增的每個關鍵字
+
+41
+00:01:45,610 --> 00:01:47,201
+followed by the timeframe.
+其次是時間範圍。
+
+42
+00:01:48,633 --> 00:01:50,880
+Now, you can also write more advanced code
+現在，您還可以編寫更高級的程式碼
+
+43
+00:01:50,913 --> 00:01:53,990
+here and for example, also combine multiple
+這裡和例如，還組合多個
+
+44
+00:01:54,006 --> 00:01:54,299
+triggers
+觸發器
+
+45
+00:01:54,848 --> 00:01:57,384
+But for our example here, this is all we
+但對於我們這裡的例子來說，這就是我們的全部
+
+46
+00:01:57,384 --> 00:01:57,597
+need.
+需要。
+
+47
+00:02:00,270 --> 00:02:02,755
+Well, and with that code added, if you now
+好吧，添加了該程式碼後，如果您現在
+
+48
+00:02:02,965 --> 00:02:05,676
+reload, you will see that after 5 seconds,
+重新載入，5秒後你會看到，
+
+49
+00:02:06,430 --> 00:02:09,297
+those suggested places will be swapped out
+這些建議的位置將被替換
+
+50
+00:02:09,426 --> 00:02:10,941
+for 2 different places.
+2個不同的地方。
+
+51
+00:02:11,682 --> 00:02:14,324
+And then after 5 seconds, we again have them
+5秒後，我們又看到了它們
+
+52
+00:02:14,437 --> 00:02:17,801
+being replaced and so on. So now HTMX is
+被替換等等。所以現在 HTMX 是
+
+53
+00:02:17,979 --> 00:02:20,490
+polling for new places every 5 seconds. 5
+每 5 秒輪詢一次新地點。 5
+
+54
+00:02:20,779 --> 00:02:21,293
+seconds.
+秒。
+
+55
+00:02:22,352 --> 00:02:24,245
+And of course, we can still add places from
+當然，我們仍然可以添加地點
+
+56
+00:02:24,277 --> 00:02:26,508
+up there. Then we'll automatically refetch
+在那兒。然後我們會自動重新獲取
+
+57
+00:02:26,780 --> 00:02:29,059
+these places, but the polling mechanism will
+這些地方，但是輪詢機制會
+
+58
+00:02:29,123 --> 00:02:32,349
+stay active because we specified it here on
+保持活躍，因為我們在此處指定了它
+
+59
+00:02:32,397 --> 00:02:34,338
+the unordered list. And we're never
+無序列表。而我們從來都不是
+
+60
+00:02:34,467 --> 00:02:36,585
+replacing this unordered list item here
+在這裡替換這個無序列表項
+
+61
+00:02:37,050 --> 00:02:40,211
+because when we do return it, like here when
+因為當我們歸還它時，就像這裡一樣
+
+62
+00:02:40,340 --> 00:02:40,436
+we
+我們
+
+63
+00:02:41,206 --> 00:02:44,191
+added a new place to the dream places, we
+為夢想的地方增加了一個新的地方，我們
+
+64
+00:02:44,191 --> 00:02:46,758
+perform that out-of-band swap such that we
+執行帶外交換，這樣我們
+
+65
+00:02:46,983 --> 00:02:49,703
+only replace the content, the children of
+僅替換內容，
+
+66
+00:02:49,719 --> 00:02:52,234
+this unordered list with the content defined
+這個無序列表的內容已定義
+
+67
+00:02:52,234 --> 00:02:54,378
+here and not the list as a whole.
+這裡而不是整個清單。
+
+68
+00:02:55,280 --> 00:02:57,569
+And that's therefore how you can set up
+這就是你如何設定
+
+69
+00:02:57,634 --> 00:02:59,407
+polling with HTMX.
+使用 HTMX 進行輪詢。

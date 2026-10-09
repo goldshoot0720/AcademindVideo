@@ -1,0 +1,884 @@
+1
+00:00:00,176 --> 00:00:03,514
+Now I tweaked this essential demo here,
+現在我在這裡調整了這個重要的演示，
+
+2
+00:00:03,883 --> 00:00:04,878
+which I showed you a bit more,
+我向你展示了更多一點，
+
+3
+00:00:05,407 --> 00:00:07,863
+and now I have a source folder with 2 files
+現在我有一個包含 2 個檔案的來源資料夾
+
+4
+00:00:07,895 --> 00:00:10,735
+inside instead of just one demo.ts file.
+而不是只有一個 demo.ts 檔。
+
+5
+00:00:11,265 --> 00:00:13,383
+I got an index.ts file and an index.html
+我有一個index.ts檔案和一個index.html
+
+6
+00:00:13,431 --> 00:00:17,186
+file because Bun can of course be used to
+檔案，因為 Bun 當然可以用來
+
+7
+00:00:17,363 --> 00:00:19,994
+build web servers, to build web applications
+建立 Web 伺服器，建立 Web 應用程式
+
+8
+00:00:19,994 --> 00:00:22,963
+and serve websites. That's one of the main
+並提供網站服務。這是主要之一
+
+9
+00:00:22,979 --> 00:00:25,386
+use cases, though you can of course also use
+用例，儘管您當然也可以使用
+
+10
+00:00:25,386 --> 00:00:28,129
+Bun to build utility tools, CLIs and you'll
+Bun 來建立實用工具、CLI，您將
+
+11
+00:00:28,129 --> 00:00:31,704
+see that in later lectures too. But here I
+在後面的講座中也會看到這一點。但在這裡我
+
+12
+00:00:31,704 --> 00:00:34,397
+have a basic index.html file, just a basic
+有一個基本的index.html檔案，只是一個基本的
+
+13
+00:00:34,429 --> 00:00:37,988
+skeleton, some styles and in there I got a
+骨架，一些樣式，在那裡我得到了一個
+
+14
+00:00:38,052 --> 00:00:38,773
+counter.
+櫃檯。
+
+15
+00:00:39,399 --> 00:00:41,739
+I got a placeholder here for the actual
+我在這裡有一個實際的佔位符
+
+16
+00:00:41,739 --> 00:00:45,314
+counter value and then I got a form with 2
+計數器值，然後我得到一個帶有 2 的表格
+
+17
+00:00:45,346 --> 00:00:47,718
+buttons for incrementing and decrementing
+用於遞增和遞減的按鈕
+
+18
+00:00:47,734 --> 00:00:50,716
+the counter and those buttons simply submit
+計數器和那些按鈕只需提交
+
+19
+00:00:50,716 --> 00:00:53,409
+the form. So no JavaScript, no client-side
+形式。所以沒有 JavaScript，沒有使用者端
+
+20
+00:00:53,505 --> 00:00:56,535
+JavaScript involved, just a good old website
+涉及 JavaScript，只是一個很好的舊網站
+
+21
+00:00:56,647 --> 00:00:59,068
+with a form inside and that
+裡面有一個表格
+
+22
+00:01:00,895 --> 00:01:03,668
+And then in index.ts, we got a lot going on,
+然後在index.ts中，我們發生了很多事情，
+
+23
+00:01:04,005 --> 00:01:06,938
+but most importantly, we got bun.serve. And
+但最重要的是，我們得到了bun.serve。和
+
+24
+00:01:06,970 --> 00:01:11,283
+that is one of the new APIs Bun offers.
+這是 Bun 提供的新 API 之一。
+
+25
+00:01:11,860 --> 00:01:13,847
+As mentioned, it has that Node.js
+如前所述，它具有 Node.js
+
+26
+00:01:13,944 --> 00:01:16,140
+compatibility and you can just run your
+相容性，你可以運行你的
+
+27
+00:01:16,188 --> 00:01:18,769
+Node.js app with Bun. You can build your
+帶有 Bun 的 Node.js 應用程式。您可以建立您的
+
+28
+00:01:18,833 --> 00:01:20,853
+Node and Express app or whatever you're
+Node 和 Express 應用程式或其他任何應用程式
+
+29
+00:01:20,853 --> 00:01:23,273
+doing and run it with Bun. But
+做並用 Bun 運行它。但
+
+30
+00:01:23,802 --> 00:01:27,072
+you can also switch to the Bun native APIs
+您也可以切換到 Bun 原生 API
+
+31
+00:01:27,569 --> 00:01:30,278
+to have better ergonomics, potentially
+可能有更好的人體工學設計
+
+32
+00:01:30,374 --> 00:01:30,855
+better performance.
+更好的性能。
+
+33
+00:01:31,513 --> 00:01:34,529
+And Bun serve is one of those native APIs.
+Bunserve 就是這些原生 API 之一。
+
+34
+00:01:35,283 --> 00:01:37,770
+By just calling bun.serve
+只需調用bun.serve
+
+35
+00:01:38,331 --> 00:01:40,096
+and then configuring your server with a
+然後設定你的伺服器
+
+36
+00:01:40,096 --> 00:01:43,015
+JavaScript object you pass to it, but by
+你傳遞給它的 JavaScript 物件，但透過
+
+37
+00:01:43,047 --> 00:01:46,513
+just running bun serve, you start a web
+只要運行bunserve，你就啟動了一個網路
+
+38
+00:01:46,529 --> 00:01:50,186
+server that listens on port 3000 by default,
+預設情況下偵聽連接埠 3000 的伺服器，
+
+39
+00:01:50,267 --> 00:01:51,983
+though you can change that with the port
+雖然你可以透過連接埠改變它
+
+40
+00:01:51,983 --> 00:01:53,234
+setting here if you want to,
+如果你願意的話可以在這裡設置
+
+41
+00:01:53,796 --> 00:01:55,159
+if you run that file.
+如果你運行該檔案。
+
+42
+00:01:55,753 --> 00:01:57,052
+So if I bun run,
+所以如果我跑的話
+
+43
+00:01:57,582 --> 00:01:59,361
+source index.ts here,
+來源index.ts在這裡，
+
+44
+00:01:59,890 --> 00:02:02,230
+you see my server is now up and running on
+你看我的伺服器現在已經啟動並運行了
+
+45
+00:02:02,230 --> 00:02:05,308
+port 3000. And as long as this process here
+端口3000。而且只要這裡有這個行程
+
+46
+00:02:05,436 --> 00:02:07,184
+is running, that server will be up and
+正在運行，該伺服器將啟動並且
+
+47
+00:02:07,184 --> 00:02:09,652
+running. We can quit it with Ctrl+C, of
+跑步。我們可以用Ctrl+C退出它，
+
+48
+00:02:09,684 --> 00:02:10,694
+course, to stop it.
+當然是阻止它。
+
+49
+00:02:11,287 --> 00:02:12,297
+But if it is running,
+但如果它正在運行，
+
+50
+00:02:12,874 --> 00:02:15,776
+we can visit localhost:3000 to see this
+我們可以造訪 localhost:3000 來查看
+
+51
+00:02:15,776 --> 00:02:17,748
+application. And there I can press these
+應用。我可以按這些
+
+52
+00:02:17,860 --> 00:02:19,303
+buttons to change the counter.
+按鈕來更改計數器。
+
+53
+00:02:20,024 --> 00:02:22,284
+Now, how is that counter change handled?
+現在，如何處理計數器變更？
+
+54
+00:02:22,573 --> 00:02:24,849
+Well, not in the index.html file. As I
+嗯，不在index.html 檔案中。正如我
+
+55
+00:02:24,849 --> 00:02:27,622
+mentioned, I got no client-side JavaScript
+提到過，我沒有使用者端 JavaScript
+
+56
+00:02:27,622 --> 00:02:29,882
+code in there. Instead, I got that form
+程式碼在那裡。相反，我得到了那個表格
+
+57
+00:02:29,882 --> 00:02:31,693
+that's submitted when I hit those buttons.
+當我點擊這些按鈕時就提交了。
+
+58
+00:02:32,205 --> 00:02:33,919
+And we're handling this form submission here
+我們在這裡處理這個表單提交
+
+59
+00:02:33,967 --> 00:02:36,611
+in index.ts. So here in index.ts, we're
+在index.ts中。所以在index.ts中，我們
+
+60
+00:02:36,611 --> 00:02:38,726
+doing a couple of things. We got Bun serve
+做幾件事。我們得到了包子服務
+
+61
+00:02:38,774 --> 00:02:41,049
+as mentioned, bringing up that server, but
+如前所述，啟動該伺服器，但是
+
+62
+00:02:41,081 --> 00:02:43,500
+we, for example, also got this import. This
+例如，我們也得到了這種進口。這
+
+63
+00:02:43,500 --> 00:02:46,544
+is not something you could do in just
+這不是你可以做的事情
+
+64
+00:02:46,544 --> 00:02:50,421
+Node.js because here I'm importing an HTML
+Node.js 因為我在這裡導入 HTML
+
+65
+00:02:50,485 --> 00:02:52,295
+file, not a TypeScript, not a JavaScript
+檔案，不是 TypeScript，不是 JavaScript
+
+66
+00:02:52,295 --> 00:02:53,785
+file, an HTML file.
+檔案，一個 HTML 檔案。
+
+67
+00:02:54,538 --> 00:02:57,390
+This is a Bun feature. You can import HTML
+這是一個 Bun 功能。您可以匯入 HTML
+
+68
+00:02:57,502 --> 00:02:59,953
+files into your TypeScript files as well.
+檔案也複製到 TypeScript 檔案中。
+
+69
+00:03:00,627 --> 00:03:04,059
+And I'm doing this to use this HTML file as
+我這樣做是為了將此 HTML 檔案用作
+
+70
+00:03:04,155 --> 00:03:06,786
+a template which I wanna dynamically render
+我想動態渲染的樣板
+
+71
+00:03:06,882 --> 00:03:09,384
+and then serve through that Bun server.
+然後透過 Bun 伺服器提供服務。
+
+72
+00:03:10,042 --> 00:03:11,598
+So in that serve
+所以在那個服務中
+
+73
+00:03:12,416 --> 00:03:14,581
+configuration object here, we're not just
+這裡的設定物件，我們不只是
+
+74
+00:03:14,581 --> 00:03:16,843
+setting up a port, but instead we have a
+設置一個端口，但我們有一個
+
+75
+00:03:16,843 --> 00:03:17,709
+fetch method,
+獲取方法，
+
+76
+00:03:18,351 --> 00:03:20,067
+an async fetch method.
+非同步獲取方法。
+
+77
+00:03:20,773 --> 00:03:22,746
+And that is simply one method, a very
+這只是一種方法，一種非常
+
+78
+00:03:22,762 --> 00:03:24,623
+important method you can add to this
+您可以添加到此的重要方法
+
+79
+00:03:24,623 --> 00:03:26,916
+configuration object that you pass to serve
+您傳遞給服務的設定物件
+
+80
+00:03:27,349 --> 00:03:29,083
+because it's this fetch method fetch method,
+因為這是這個 fetch 方法 fetch 方法，
+
+81
+00:03:29,356 --> 00:03:32,617
+and it must be named fetch, that tells Bun
+它必須命名為 fetch，這告訴 Bun
+
+82
+00:03:33,196 --> 00:03:35,236
+what to do for incoming requests,
+如何處理傳入的請求，
+
+83
+00:03:35,846 --> 00:03:38,481
+which is why fetch also receives such an
+這就是為什麼 fetch 也收到這樣的
+
+84
+00:03:38,658 --> 00:03:39,879
+incoming request.
+傳入請求。
+
+85
+00:03:40,586 --> 00:03:42,899
+This is the request received by that Bun
+這是Bun收到的請求
+
+86
+00:03:42,947 --> 00:03:45,630
+server you spun up. So fetch is the method
+你啟動的伺服器。所以 fetch 是方法
+
+87
+00:03:45,646 --> 00:03:48,522
+you add to control what happens for those
+你會添加來控制那些發生的事情
+
+88
+00:03:48,618 --> 00:03:49,679
+incoming requests.
+傳入的請求。
+
+89
+00:03:50,401 --> 00:03:53,004
+In this case here, I'm extracting the URL
+在本例中，我正在提取 URL
+
+90
+00:03:53,598 --> 00:03:57,147
+using the URL class here, which you may know
+這裡使用你可能知道的 URL 類
+
+91
+00:03:57,532 --> 00:04:00,517
+from browser-side, client-side JavaScript,
+從瀏覽器端、使用者端 JavaScript，
+
+92
+00:04:00,758 --> 00:04:03,438
+because Bun does not just have that built-in
+因為 Bun 不只有那個內建的
+
+93
+00:04:03,551 --> 00:04:06,921
+Node.js compatibility and its own extra
+Node.js 相容性及其自身的額外功能
+
+94
+00:04:06,921 --> 00:04:10,516
+APIs, but it also has broad support for many
+API，但它也對許多
+
+95
+00:04:10,934 --> 00:04:14,127
+general web standards and APIs you may know
+您可能知道的通用 Web 標準和 API
+
+96
+00:04:14,240 --> 00:04:17,337
+from the browser, like this URL class, which
+從瀏覽器中，就像這個 URL 類別一樣，
+
+97
+00:04:17,369 --> 00:04:20,050
+you can just use without problems in your
+你可以毫無問題地使用你的
+
+98
+00:04:20,098 --> 00:04:21,029
+Bun code as well.
+包子程式碼也是如此。
+
+99
+00:04:21,943 --> 00:04:24,735
+And here I'm using it to access the request
+在這裡我用它來存取請求
+
+100
+00:04:24,735 --> 00:04:27,207
+URL. So the request we're getting here is an
+網址。所以我們在這裡收到的請求是
+
+101
+00:04:27,303 --> 00:04:29,742
+object of type request, which by the way is
+request 型別的物件，順便說一句是
+
+102
+00:04:30,031 --> 00:04:31,973
+also an API you could also use in the
+還有一個 API，您也可以在
+
+103
+00:04:31,973 --> 00:04:32,390
+browser.
+瀏覽器。
+
+104
+00:04:33,337 --> 00:04:36,226
+And that request object has a URL property.
+該請求物件有一個 URL 屬性。
+
+105
+00:04:36,868 --> 00:04:39,789
+We now wrap that or convert that into a URL
+我們現在將其包裝或轉換為 URL
+
+106
+00:04:40,062 --> 00:04:40,527
+object.
+目的。
+
+107
+00:04:41,121 --> 00:04:43,897
+And that URL object then has utility
+然後該 URL 物件就具有實用性
+
+108
+00:04:43,929 --> 00:04:46,738
+properties and methods, for example, the
+屬性和方法，例如
+
+109
+00:04:46,738 --> 00:04:49,867
+pathname property, which allows us to find
+pathname 屬性，它允許我們找到
+
+110
+00:04:49,867 --> 00:04:52,388
+out which path was in that URL.
+找出該 URL 中的路徑。
+
+111
+00:04:53,158 --> 00:04:55,165
+The path, of course, is the part after the
+路徑當然是後面的部分
+
+112
+00:04:55,165 --> 00:04:57,155
+domain. So in this case, if there's nothing,
+領域。所以在這種情況下 如果沒有什麼
+
+113
+00:04:57,235 --> 00:04:58,358
+it's just slash.
+這只是斜杠。
+
+114
+00:04:59,257 --> 00:05:01,552
+Typing a slash here is the equivalent to
+此處輸入斜線相當於
+
+115
+00:05:01,584 --> 00:05:02,339
+typing nothing.
+不輸入任何內容。
+
+116
+00:05:03,590 --> 00:05:05,805
+So in this check here, we check if the path
+因此，在此處的檢查中，我們檢查路徑是否
+
+117
+00:05:05,901 --> 00:05:08,469
+is just slash. So if we entered just the
+只是斜杠。所以如果我們只輸入
+
+118
+00:05:08,469 --> 00:05:10,090
+domain and then nothing, essentially.
+域，然後什麼都沒有，本質上。
+
+119
+00:05:10,636 --> 00:05:12,947
+And we check the request method, if it's a
+我們檢查請求方法，如果它是
+
+120
+00:05:13,043 --> 00:05:15,306
+GET request. And in that case, we know that
+獲取請求。在這種情況下，我們知道
+
+121
+00:05:15,306 --> 00:05:17,713
+we wanna return the HTML file which we
+我們想要回傳 HTML 檔案
+
+122
+00:05:17,713 --> 00:05:18,755
+imported, but
+進口的，但是
+
+123
+00:05:19,300 --> 00:05:22,201
+not just that HTML file. Keep in mind that
+不僅僅是那個 HTML 檔案。請記住
+
+124
+00:05:22,201 --> 00:05:24,268
+has that weird placeholder in there to
+裡面有那個奇怪的佔位符
+
+125
+00:05:24,349 --> 00:05:26,833
+render the actual counter value. And that
+渲染實際的計數器值。還有那個
+
+126
+00:05:26,833 --> 00:05:29,734
+counter value is managed here on our server.
+計數器值在我們的伺服器上進行管理。
+
+127
+00:05:30,359 --> 00:05:32,106
+I got a counter variable
+我有一個計數器變數
+
+128
+00:05:32,683 --> 00:05:35,088
+and I changed that variable down here. I'll
+我在這裡更改了該變數。患病的
+
+129
+00:05:35,088 --> 00:05:38,149
+get back to that code. But then I return a
+回到那段程式碼。但後來我回來了
+
+130
+00:05:38,149 --> 00:05:40,794
+new response here for this GET route where
+此處針對此 GET 路線的新回應，其中
+
+131
+00:05:40,794 --> 00:05:42,044
+we wanna serve the site.
+我們想為該網站提供服務。
+
+132
+00:05:42,717 --> 00:05:45,041
+And I take the HTML template
+我採用 HTML 樣板
+
+133
+00:05:46,404 --> 00:05:48,761
+which is just the imported HTML here.
+這裡只是導入的 HTML。
+
+134
+00:05:49,531 --> 00:05:52,753
+And I replace this count placeholder, I look
+我替換了這個計數佔位符，我看
+
+135
+00:05:52,753 --> 00:05:55,864
+for it programmatically in the imported HTML
+在導入的 HTML 中以程式設計方式取得它
+
+136
+00:05:55,864 --> 00:05:58,974
+code and I replace it with the current
+程式碼，我將其替換為當前的
+
+137
+00:05:58,974 --> 00:06:00,001
+counter value
+計數器值
+
+138
+00:06:00,738 --> 00:06:01,925
+converted to a string.
+轉換為字串。
+
+139
+00:06:02,758 --> 00:06:04,987
+And that is then sent back as an HTML
+然後以 HTML 形式發回
+
+140
+00:06:05,083 --> 00:06:05,612
+response.
+回覆.
+
+141
+00:06:06,366 --> 00:06:08,418
+But this app does not just support
+但這個應用程式不僅支援
+
+142
+00:06:09,011 --> 00:06:11,865
+GET requests. We got a form and this form
+獲取請求。我們有一個表格，這個表格
+
+143
+00:06:11,897 --> 00:06:13,853
+uses a POST request for submission.
+使用POST請求提交。
+
+144
+00:06:14,398 --> 00:06:16,482
+So therefore in index.ts, we also have that
+因此在index.ts中，我們也有
+
+145
+00:06:16,611 --> 00:06:18,999
+other route where we also check for being on
+我們也會檢查是否在其他路線上
+
+146
+00:06:19,031 --> 00:06:21,083
+the root route. But if the request method
+根路線。但如果請求方法
+
+147
+00:06:21,115 --> 00:06:24,449
+then is POST, we use the formData method on
+然後是POST，我們使用formData方法
+
+148
+00:06:24,481 --> 00:06:26,677
+that incoming request. And even though it's
+該傳入請求。即使它是
+
+149
+00:06:26,726 --> 00:06:29,579
+shown as deprecated here in my IDE, this is
+在我的 IDE 中顯示為已棄用，這是
+
+150
+00:06:29,691 --> 00:06:32,176
+the official way of extracting the formData
+擷取formData的官方方法
+
+151
+00:06:32,176 --> 00:06:34,228
+of an incoming request according to the Bun
+根據 Bun 的傳入請求
+
+152
+00:06:34,340 --> 00:06:34,628
+docs.
+檔案.
+
+153
+00:06:35,366 --> 00:06:38,796
+And this formData then holds the submitted
+然後這個 formData 儲存提交的
+
+154
+00:06:38,989 --> 00:06:41,377
+value of that form. Now this form has no
+該形式的值。現在這個表格沒有
+
+155
+00:06:41,409 --> 00:06:43,685
+input fields, but it has 2 buttons and each
+輸入欄位，但它有 2 個按鈕，每個按鈕
+
+156
+00:06:43,798 --> 00:06:46,572
+button has its own value attached. The name
+按鈕有其自己的附加價值。名稱
+
+157
+00:06:46,620 --> 00:06:48,739
+of each button is action, but the value is
+每個按鈕的動作都是動作，但值為
+
+158
+00:06:48,771 --> 00:06:51,886
+different. It's decrement or increment. And
+不同的。是減量還是增量。和
+
+159
+00:06:51,902 --> 00:06:54,920
+therefore in index.ts, we get hold of that
+因此在index.ts中，我們得到了
+
+160
+00:06:55,097 --> 00:06:56,028
+action value.
+行動價值。
+
+161
+00:06:56,638 --> 00:06:59,142
+Again, action is the name of these buttons.
+同樣，操作是這些按鈕的名稱。
+
+162
+00:06:59,383 --> 00:07:01,438
+So we get hold of the submitted value and
+所以我們得到了提交的值並且
+
+163
+00:07:01,534 --> 00:07:03,172
+the value then is either increment or
+那麼該值要麼是增量，要麼是
+
+164
+00:07:03,300 --> 00:07:05,853
+decrement as mentioned, and we update the
+如上所述遞減，我們更新
+
+165
+00:07:05,853 --> 00:07:07,442
+counter variable accordingly.
+相應地計數器變數。
+
+166
+00:07:08,197 --> 00:07:10,653
+And then we redirect here with
+然後我們重定向到這裡
+
+167
+00:07:10,669 --> 00:07:13,430
+response.redirect. We redirect to the root
+回應.重定向。我們重定向到根目錄
+
+168
+00:07:13,479 --> 00:07:15,950
+route so that this route gets triggered and
+路由，以便觸發該路由並且
+
+169
+00:07:16,063 --> 00:07:18,098
+we output the updated counter.
+我們輸出更新後的計數器。
+
+170
+00:07:18,772 --> 00:07:20,760
+That's what's happening here. And most of
+這就是這裡發生的事情。並且大多數
+
+171
+00:07:20,776 --> 00:07:23,966
+that code is not very Bun-specific. We're
+該程式碼並不是特定於 Bun 的。是
+
+172
+00:07:23,998 --> 00:07:27,252
+using standard web APIs here and standard
+此處使用標準 Web API 和標準
+
+173
+00:07:27,349 --> 00:07:29,561
+JavaScript logic, but we're doing all that
+JavaScript 邏輯，但我們正在做這一切
+
+174
+00:07:29,689 --> 00:07:32,302
+in that special async fetch method here in
+在這個特殊的非同步獲取方法中
+
+175
+00:07:32,334 --> 00:07:35,733
+that Bun serve object. And that is how you
+那個小圓麵​​包服務物件。這就是你的方式
+
+176
+00:07:35,925 --> 00:07:39,067
+can use Bun native features to build a basic
+可以使用Bun原生功能建構一個基本的
+
+177
+00:07:39,067 --> 00:07:39,613
+web server.
+網路伺服器。

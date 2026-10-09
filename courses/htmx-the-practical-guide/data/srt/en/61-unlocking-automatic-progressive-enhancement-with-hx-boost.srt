@@ -1,0 +1,231 @@
+1
+00:00:00,754 --> 00:00:03,051
+Whilst you can build a single page
+
+2
+00:00:03,147 --> 00:00:06,183
+application like this by using attributes
+
+3
+00:00:06,295 --> 00:00:06,665
+like this,
+
+4
+00:00:07,500 --> 00:00:10,037
+there actually is an easier way of doing
+
+5
+00:00:10,150 --> 00:00:12,029
+that if your goal is to
+
+6
+00:00:12,623 --> 00:00:15,851
+give users that single page application like
+
+7
+00:00:15,931 --> 00:00:16,670
+look and feel.
+
+8
+00:00:17,843 --> 00:00:21,039
+Instead of setting that target and of using
+
+9
+00:00:21,296 --> 00:00:22,067
+push URL,
+
+10
+00:00:22,677 --> 00:00:25,728
+and instead of using hx-get here, you can go
+
+11
+00:00:25,793 --> 00:00:29,100
+back to our regular anchor element as we had
+
+12
+00:00:29,100 --> 00:00:31,396
+it before without using HTMX here.
+
+13
+00:00:32,697 --> 00:00:35,025
+And instead you can add a special attribute
+
+14
+00:00:35,106 --> 00:00:38,060
+onto the body of your element or on any
+
+15
+00:00:38,237 --> 00:00:40,501
+parent element of the element that should be
+
+16
+00:00:40,501 --> 00:00:43,038
+controlled by HTMX. But here I wanna control
+
+17
+00:00:43,294 --> 00:00:45,591
+all the elements on the page with HTMX
+
+18
+00:00:45,880 --> 00:00:48,689
+because the attribute I'll add here on this
+
+19
+00:00:48,689 --> 00:00:51,660
+body element is hx-boost.
+
+20
+00:00:52,630 --> 00:00:54,615
+And that should be set to true here.
+
+21
+00:00:56,790 --> 00:00:59,243
+Now, what does hx-boost do though?
+
+22
+00:00:59,969 --> 00:01:00,082
+Well,
+
+23
+00:01:00,695 --> 00:01:03,149
+this attribute boosts all
+
+24
+00:01:03,746 --> 00:01:07,074
+anchor elements to be controlled by HTMX.
+
+25
+00:01:07,883 --> 00:01:10,618
+And what that means is that now with
+
+26
+00:01:10,699 --> 00:01:12,253
+hx-boost added here,
+
+27
+00:01:12,803 --> 00:01:12,851
+all
+
+28
+00:01:13,385 --> 00:01:16,952
+those anchor elements will actually send a
+
+29
+00:01:16,952 --> 00:01:19,420
+GET request to their target URL
+
+30
+00:01:20,336 --> 00:01:23,453
+and will swap the body of the current page
+
+31
+00:01:23,710 --> 00:01:26,506
+for the body of the incoming response.
+
+32
+00:01:27,117 --> 00:01:29,736
+So essentially, we'll get the behavior we
+
+33
+00:01:29,736 --> 00:01:30,331
+had before
+
+34
+00:01:30,957 --> 00:01:34,059
+but without manually adding hx-get and
+
+35
+00:01:34,251 --> 00:01:36,389
+hx-target here and so on.
+
+36
+00:01:37,304 --> 00:01:40,084
+We also don't need to manually update the
+
+37
+00:01:40,181 --> 00:01:42,591
+URL because that will also be done by
+
+38
+00:01:42,671 --> 00:01:43,459
+hx-boost.
+
+39
+00:01:44,229 --> 00:01:48,140
+So in the end, hx-boost is there to simplify
+
+40
+00:01:48,140 --> 00:01:51,169
+the process of building such a single page
+
+41
+00:01:51,169 --> 00:01:51,650
+application.
+
+42
+00:01:53,029 --> 00:01:56,170
+Because with it added here to this body on
+
+43
+00:01:56,234 --> 00:01:58,478
+this page that renders all products,
+
+44
+00:01:59,520 --> 00:02:02,646
+if I save that and reload, you see I get the
+
+45
+00:02:02,646 --> 00:02:04,041
+same behavior as before.
+
+46
+00:02:04,794 --> 00:02:06,894
+The URL is updated and I can use the back
+
+47
+00:02:06,974 --> 00:02:07,343
+button
+
+48
+00:02:07,920 --> 00:02:10,324
+and this refresh icon never changes to a
+
+49
+00:02:10,324 --> 00:02:10,612
+cross.
+
+50
+00:02:11,302 --> 00:02:13,738
+I got that same behavior, but now
+
+51
+00:02:14,331 --> 00:02:17,215
+this works with help of hx-boost. And
+
+52
+00:02:17,231 --> 00:02:19,475
+therefore, if you wanna build such a single
+
+53
+00:02:19,475 --> 00:02:20,485
+page application
+
+54
+00:02:21,062 --> 00:02:23,001
+where you technically never leave the
+
+55
+00:02:23,001 --> 00:02:25,437
+current page, you can easily do that with
+
+56
+00:02:25,709 --> 00:02:28,498
+hx-boost, which will convert all anchor
+
+57
+00:02:28,514 --> 00:02:31,864
+elements to HTMX-controlled anchor elements.
+
+58
+00:02:32,681 --> 00:02:34,284
+And it'll do even more than that.

@@ -1,0 +1,494 @@
+1
+00:00:00,048 --> 00:00:02,051
+So what are we doing in these route
+那我們在這些路線上做什麼
+
+2
+00:00:02,051 --> 00:00:04,534
+functions? Well, let's take createPost as an
+功能？好吧，讓我們把 createPost 作為
+
+3
+00:00:04,534 --> 00:00:05,143
+example.
+例子。
+
+4
+00:00:05,800 --> 00:00:08,572
+That clearly is a route handler function
+這顯然是路由處理函式
+
+5
+00:00:08,604 --> 00:00:11,072
+that should be called whenever the user
+每當使用者使用時都應該調用它
+
+6
+00:00:11,072 --> 00:00:13,620
+tries to create a new post. And what I do in
+嘗試建立一個新帖子。我所做的
+
+7
+00:00:13,652 --> 00:00:16,536
+there is first some authentication in the
+首先有一些身份驗證
+
+8
+00:00:16,536 --> 00:00:19,757
+end. requireUser is a function also defined
+結尾。 requireUser 也是定義的函式
+
+9
+00:00:19,757 --> 00:00:22,129
+in shared.ts because it's some shared logic
+在shared.ts中，因為它是一些共享邏輯
+
+10
+00:00:22,129 --> 00:00:24,596
+used in multiple route-related functions
+用於多個與路由相關的函式
+
+11
+00:00:25,269 --> 00:00:26,423
+where I use
+我在哪裡使用
+
+12
+00:00:27,265 --> 00:00:27,605
+This
+這
+
+13
+00:00:28,237 --> 00:00:28,836
+code here,
+程式碼在這裡，
+
+14
+00:00:29,516 --> 00:00:31,298
+which in the end is coming from the
+最終來自於
+
+15
+00:00:31,395 --> 00:00:33,550
+BetterAuth library, which I'm using for
+BetterAuth 庫，我正在使用它
+
+16
+00:00:33,728 --> 00:00:34,198
+authentication,
+驗證，
+
+17
+00:00:35,237 --> 00:00:37,632
+for checking whether I have an active
+用於檢查我是否有活動的
+
+18
+00:00:37,841 --> 00:00:40,637
+session for the user who tries to create a
+嘗試建立工作階段的使用者的工作階段
+
+19
+00:00:40,637 --> 00:00:43,272
+post so that only authenticated users can
+以便只有經過身份驗證的使用者才能發布
+
+20
+00:00:43,674 --> 00:00:44,544
+create a post.
+建立一個帖子。
+
+21
+00:00:46,100 --> 00:00:48,976
+So auth here is coming from my auth file,
+所以這裡的身份驗證來自我的身份驗證檔案，
+
+22
+00:00:49,747 --> 00:00:51,787
+which is part of my project. And in there
+這是我專案的一部分。在那裡
+
+23
+00:00:51,996 --> 00:00:54,021
+I'm using this BetterAuth library as I
+我正在使用這個 BetterAuth 庫
+
+24
+00:00:54,021 --> 00:00:55,947
+mentioned. So this code is not written by
+提及。所以這段程式碼不是由
+
+25
+00:00:55,947 --> 00:00:56,667
+me. This is using a third-party library.
+我。這是使用第三方函式庫。
+
+26
+00:00:58,756 --> 00:01:00,872
+BetterAuth is a library that helps with
+BetterAuth 是一個可以幫助
+
+27
+00:01:01,000 --> 00:01:03,725
+authentication. It's amazing, really easy to
+驗證。太神奇了，真的很容易
+
+28
+00:01:03,725 --> 00:01:05,264
+use. Attached, you find a link to their
+使用。在附件中，您可以找到他們的連結
+
+29
+00:01:05,264 --> 00:01:07,396
+docs. And in the end, what I'm doing here is
+檔案.最後，我在這裡做的是
+
+30
+00:01:07,428 --> 00:01:09,544
+I'm configuring BetterAuth. I'm making sure
+我正在設定 BetterAuth。我正在確定
+
+31
+00:01:09,576 --> 00:01:11,836
+that my frontend, which runs on a different
+我的前端，運行在不同的
+
+32
+00:01:11,836 --> 00:01:13,920
+domain, also during development, different
+域，也在開發過程中，不同
+
+33
+00:01:13,920 --> 00:01:16,725
+port, that this frontend can connect to my
+端口，該前端可以連接到我的
+
+34
+00:01:16,725 --> 00:01:19,851
+backend and can send a cookie in the end to
+後端並且可以在最後發送一個cookie到
+
+35
+00:01:19,851 --> 00:01:22,320
+my backend or share a cookie with my backend
+我的後端或與我的後端共用 cookie
+
+36
+00:01:22,320 --> 00:01:24,147
+if you wanna call it like this. And then
+如果你想這樣稱呼它。進而
+
+37
+00:01:24,260 --> 00:01:26,841
+BetterAuth will handle all the signup and
+BetterAuth 將處理所有註冊和
+
+38
+00:01:26,841 --> 00:01:29,293
+sign-in and session management logic. It
+登入和工作階段管理邏輯。它
+
+39
+00:01:29,373 --> 00:01:31,682
+also has its own database which it manages,
+還有它自己管理的資料庫，
+
+40
+00:01:32,259 --> 00:01:34,070
+which I remap to different names here.
+我在這裡將其重新映射為不同的名稱。
+
+41
+00:01:34,824 --> 00:01:38,286
+And in shared.ts, I have this requireUser
+在shared.ts中，我有這個requireUser
+
+42
+00:01:38,286 --> 00:01:41,540
+function where I use this auth object, which
+我使用這個 auth 物件的函式，其中
+
+43
+00:01:41,588 --> 00:01:43,544
+is set up with help of BetterAuth,
+在 BetterAuth 的幫助下設置，
+
+44
+00:01:44,442 --> 00:01:46,622
+access.api on it, which you have to do to
+access.api 就可以了，你必須這麼做
+
+45
+00:01:46,622 --> 00:01:47,936
+check if I have a session
+檢查我是否有工作階段
+
+46
+00:01:48,530 --> 00:01:50,870
+for the user that sent this request, which
+對於發送此請求的使用者，
+
+47
+00:01:50,870 --> 00:01:52,842
+is checked with help of the headers attached
+在附加標題的幫助下進行檢查
+
+48
+00:01:52,938 --> 00:01:54,701
+to the request because the headers will
+到請求，因為標頭將
+
+49
+00:01:54,717 --> 00:01:56,737
+contain the session cookie if there is one.
+包含工作階段 cookie（如果有）。
+
+50
+00:01:57,668 --> 00:01:59,979
+So that is what BetterAuth does for me. It
+這就是 BetterAuth 為我所做的。它
+
+51
+00:02:00,075 --> 00:02:02,419
+checks whether that incoming request has a
+檢查傳入的請求是否有
+
+52
+00:02:02,419 --> 00:02:03,317
+valid session.
+有效工作階段。
+
+53
+00:02:03,863 --> 00:02:06,511
+If I don't, I return null here. If I do, I
+如果不這樣做，我會在這裡回傳 null。如果我這樣做，我
+
+54
+00:02:06,511 --> 00:02:09,240
+return information about the session user.
+傳回有關工作階段使用者的資訊。
+
+55
+00:02:09,962 --> 00:02:13,156
+And back in post.ts, this is what I get back
+回到 post.ts，這就是我得到的結果
+
+56
+00:02:13,156 --> 00:02:16,029
+from requireUser, a user, but that user is
+來自 requireUser，一個使用者，但該使用者是
+
+57
+00:02:16,286 --> 00:02:18,517
+either a valid user or null because
+要嘛是有效使用者，要嘛為空，因為
+
+58
+00:02:19,207 --> 00:02:20,940
+if there is no session or an invalid
+如果沒有工作階段或無效工作階段
+
+59
+00:02:20,940 --> 00:02:22,449
+session, we get back null.
+工作階段，我們回傳 null。
+
+60
+00:02:23,046 --> 00:02:25,295
+So I check if I don't have a user and if I
+所以我檢查我是否沒有使用者以及我是否
+
+61
+00:02:25,295 --> 00:02:27,900
+don't, I send back an authentication
+不，我發回身份驗證
+
+62
+00:02:27,900 --> 00:02:30,958
+required error because of course createPost
+必要的錯誤，因為當然 createPost
+
+63
+00:02:30,958 --> 00:02:32,043
+does require a user.
+確實需要使用者。
+
+64
+00:02:33,630 --> 00:02:36,399
+Next step is input validation. So at this
+下一步是輸入驗證。所以在這個
+
+65
+00:02:36,399 --> 00:02:38,326
+point, we know that we have a valid user,
+一點，我們知道我們有一個有效的使用者，
+
+66
+00:02:38,666 --> 00:02:40,124
+but of course we need to check if we got
+但當然我們需要檢查我們是否得到了
+
+67
+00:02:40,124 --> 00:02:40,852
+valid data.
+有效資料。
+
+68
+00:02:41,434 --> 00:02:45,429
+So I get my request here and I read the body
+所以我在這裡收到我的請求並閱讀了正文
+
+69
+00:02:45,445 --> 00:02:48,033
+in the end with yet another shared helper
+最後與另一個共享助手
+
+70
+00:02:48,033 --> 00:02:50,919
+function where I extract the parsed request
+我提取已解析請求的函式
+
+71
+00:02:51,050 --> 00:02:52,524
+body by calling the JSON method on request.
+透過根據請求呼叫 JSON 方法來獲取正文。
+
+72
+00:02:54,862 --> 00:02:57,940
+Because the request is a standard Web API
+因為請求是標準的Web API
+
+73
+00:02:57,988 --> 00:03:00,970
+request object. And then I just check if
+請求物件。然後我只是檢查是否
+
+74
+00:03:01,098 --> 00:03:04,160
+that extraction worked and I return the body
+提取成功了，我歸還了屍體
+
+75
+00:03:04,160 --> 00:03:06,869
+if it did. So I know I have some valid
+如果是的話。所以我知道我有一些有效的
+
+76
+00:03:06,869 --> 00:03:09,353
+request body at this point and then I just
+此時請求正文，然後我就
+
+77
+00:03:09,353 --> 00:03:11,245
+validate the concrete content in there
+驗證其中的具體內容
+
+78
+00:03:11,293 --> 00:03:13,297
+because when creating a post, I know that I
+因為在創建帖子時，我知道我
+
+79
+00:03:13,297 --> 00:03:15,285
+need a content field in there and that's
+那裡需要一個內容欄位，那就是
+
+80
+00:03:15,285 --> 00:03:17,208
+just the name of the field that must be
+只是必須是的欄位的名稱
+
+81
+00:03:17,208 --> 00:03:18,282
+submitted by the frontend.
+由前端提交。
+
+82
+00:03:19,052 --> 00:03:21,873
+And if we uploaded an image and I'll get
+如果我們上傳一張圖片，我就會得到
+
+83
+00:03:21,873 --> 00:03:23,668
+back to image upload in just a second too,
+也只需一秒鐘即可回傳圖像上傳，
+
+84
+00:03:24,502 --> 00:03:26,988
+I expect to get an upload ID in there. So
+我希望在那裡得到一個上傳ID。所以
+
+85
+00:03:27,004 --> 00:03:29,799
+basically an identifier of the upload that
+基本上是上傳的識別符
+
+86
+00:03:29,815 --> 00:03:30,666
+was performed.
+被執行。
+
+87
+00:03:31,421 --> 00:03:34,072
+We send back an error if we got invalid data
+如果我們收到無效資料，我們會發回錯誤
+
+88
+00:03:34,217 --> 00:03:35,437
+and if we got valid data,
+如果我們得到有效資料，
+
+89
+00:03:35,984 --> 00:03:37,092
+I create a random
+我創建一個隨機的
+
+90
+00:03:37,767 --> 00:03:39,582
+unique ID using
+唯一 ID 使用
+
+91
+00:03:40,176 --> 00:03:42,506
+this feature from the standard crypto
+此功能來自標準加密貨幣
+
+92
+00:03:42,506 --> 00:03:45,092
+package, which is yet another web standard
+包，這是另一個網路標準
+
+93
+00:03:45,156 --> 00:03:46,489
+API supported by Bun.
+Bun 支援的 API。
+
+94
+00:03:47,309 --> 00:03:49,044
+I get the current date and then
+我得到當前日期然後
+
+95
+00:03:49,638 --> 00:03:49,670
+I
+我
+
+96
+00:03:50,441 --> 00:03:53,060
+insert that post using a database
+使用資料庫插入該帖子
+
+97
+00:03:53,092 --> 00:03:55,834
+transaction. And therefore, it's now time to
+交易。因此，現在是時候了
+
+98
+00:03:55,834 --> 00:03:58,614
+take a closer look at how we're interacting
+仔細看看我們如何互動
+
+99
+00:03:58,678 --> 00:03:59,810
+with the database here.
+與這裡的資料庫。

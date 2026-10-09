@@ -1,0 +1,583 @@
+1
+00:00:02,439 --> 00:00:05,168
+So by now, we learned about the difference
+
+2
+00:00:05,168 --> 00:00:05,955
+between real
+
+3
+00:00:06,693 --> 00:00:09,646
+objects and data containers, and we learned
+
+4
+00:00:09,646 --> 00:00:12,712
+that polymorphism is one important aspect
+
+5
+00:00:12,712 --> 00:00:15,248
+that we can keep in mind when we work with
+
+6
+00:00:15,265 --> 00:00:18,379
+classes to avoid code duplication and
+
+7
+00:00:18,491 --> 00:00:21,155
+therefore to stay DRY, which ultimately is a
+
+8
+00:00:21,220 --> 00:00:23,435
+part of writing clean, readable, and
+
+9
+00:00:23,531 --> 00:00:24,350
+maintainable code.
+
+10
+00:00:25,072 --> 00:00:27,528
+Now I wanna have a closer look at classes in
+
+11
+00:00:27,624 --> 00:00:30,610
+general, no matter if we use polymorphism or
+
+12
+00:00:30,610 --> 00:00:33,304
+not. How do you write clean classes in
+
+13
+00:00:33,400 --> 00:00:33,961
+general?
+
+14
+00:00:34,682 --> 00:00:37,295
+Let's say you're writing some new class for
+
+15
+00:00:37,503 --> 00:00:40,261
+whichever data entity you might have and how
+
+16
+00:00:40,389 --> 00:00:41,800
+should you now write this class?
+
+17
+00:00:43,114 --> 00:00:45,647
+Well, clean classes should be small,
+
+18
+00:00:46,224 --> 00:00:48,292
+just like functions in the end.
+
+19
+00:00:49,029 --> 00:00:52,027
+You typically should prefer multiple smaller
+
+20
+00:00:52,235 --> 00:00:55,425
+classes over a few large classes.
+
+21
+00:00:56,499 --> 00:00:58,727
+And of course, that is very similar to what
+
+22
+00:00:58,727 --> 00:01:00,074
+we learned about functions.
+
+23
+00:01:00,651 --> 00:01:03,104
+Clean functions also should be
+
+24
+00:01:03,937 --> 00:01:06,166
+they should be short, they should be focused
+
+25
+00:01:06,262 --> 00:01:09,902
+on one thing, as you learned, to ensure that
+
+26
+00:01:09,902 --> 00:01:12,803
+not too many lines of code are in one
+
+27
+00:01:12,932 --> 00:01:15,705
+function and to ensure that they are always
+
+28
+00:01:16,122 --> 00:01:17,790
+easy to comprehend and read.
+
+29
+00:01:18,688 --> 00:01:20,900
+And it's the same here for classes now.
+
+30
+00:01:21,493 --> 00:01:23,898
+However, there is an important difference
+
+31
+00:01:24,155 --> 00:01:27,169
+when we define what small means exactly.
+
+32
+00:01:27,826 --> 00:01:31,001
+With functions, we had the concept of a
+
+33
+00:01:31,129 --> 00:01:32,524
+function doing one thing. Thing,
+
+34
+00:01:33,118 --> 00:01:35,718
+with classes, we have a related yet
+
+35
+00:01:35,862 --> 00:01:36,905
+different concept.
+
+36
+00:01:37,531 --> 00:01:40,484
+Classes should have a single responsibility.
+
+37
+00:01:41,544 --> 00:01:44,561
+And there is a principle, a well-known
+
+38
+00:01:44,689 --> 00:01:45,331
+principle,
+
+39
+00:01:46,118 --> 00:01:49,247
+the Single Responsibility Principle, which
+
+40
+00:01:49,247 --> 00:01:51,285
+actually also revolves around that.
+
+41
+00:01:51,815 --> 00:01:54,206
+And I will come back to that principle in
+
+42
+00:01:54,222 --> 00:01:55,330
+just a second again.
+
+43
+00:01:55,908 --> 00:01:58,427
+The general idea simply is that a product
+
+44
+00:01:58,427 --> 00:02:01,108
+class, for example, should be responsible
+
+45
+00:02:01,140 --> 00:02:04,172
+for product-related issues, for example,
+
+46
+00:02:04,252 --> 00:02:06,787
+changing the name of a product, not for
+
+47
+00:02:06,995 --> 00:02:09,498
+changing the name of a user, for example.
+
+48
+00:02:09,963 --> 00:02:13,203
+This might sound trivial, but it is easy to
+
+49
+00:02:13,219 --> 00:02:15,898
+mix up these different concepts in reality.
+
+50
+00:02:16,781 --> 00:02:19,636
+Take this dummy online shop class, for
+
+51
+00:02:19,668 --> 00:02:20,262
+example.
+
+52
+00:02:21,016 --> 00:02:23,438
+All the real code is missing, but you can
+
+53
+00:02:23,438 --> 00:02:27,128
+see the API, the methods, the surface area
+
+54
+00:02:27,352 --> 00:02:30,416
+of this class here. And you see I got 3
+
+55
+00:02:30,481 --> 00:02:31,251
+properties here,
+
+56
+00:02:31,844 --> 00:02:34,395
+orders, offered products, customers,
+
+57
+00:02:34,988 --> 00:02:36,625
+whichever data would be stored in there
+
+58
+00:02:36,673 --> 00:02:38,822
+doesn't matter. The names give us a good
+
+59
+00:02:38,822 --> 00:02:40,106
+idea of what is in there.
+
+60
+00:02:40,747 --> 00:02:43,346
+And then we have a bunch of methods here for
+
+61
+00:02:43,475 --> 00:02:45,704
+adding a product, for creating a customer,
+
+62
+00:02:45,801 --> 00:02:46,394
+and so on.
+
+63
+00:02:47,341 --> 00:02:49,827
+And all these methods kind of make sense,
+
+64
+00:02:49,972 --> 00:02:52,506
+right? It's the online shop class after all.
+
+65
+00:02:52,795 --> 00:02:54,961
+So it makes sense that we can add both a
+
+66
+00:02:54,961 --> 00:02:57,370
+product as well as add a customer.
+
+67
+00:02:58,494 --> 00:03:01,386
+But the problem here is not necessarily the
+
+68
+00:03:01,386 --> 00:03:02,719
+number of methods.
+
+69
+00:03:03,378 --> 00:03:05,306
+It could make sense to have that many
+
+70
+00:03:05,306 --> 00:03:06,607
+methods in a class,
+
+71
+00:03:07,249 --> 00:03:09,643
+but the focus of this class, the
+
+72
+00:03:09,643 --> 00:03:11,314
+responsibility of this class,
+
+73
+00:03:12,133 --> 00:03:14,623
+that's the problem. Because this class
+
+74
+00:03:14,639 --> 00:03:17,258
+doesn't just have one responsibility.
+
+75
+00:03:17,756 --> 00:03:20,470
+Instead, this class is dealing with orders,
+
+76
+00:03:20,744 --> 00:03:23,361
+with products, with customers, And even
+
+77
+00:03:23,393 --> 00:03:25,044
+there, it's actually having multiple
+
+78
+00:03:25,140 --> 00:03:25,685
+purposes.
+
+79
+00:03:26,262 --> 00:03:28,826
+It is dealing with updating and adding
+
+80
+00:03:28,922 --> 00:03:31,631
+products and removing products, but then it
+
+81
+00:03:31,631 --> 00:03:33,939
+also is responsible for restocking a
+
+82
+00:03:33,971 --> 00:03:37,161
+product, which is not the same as changing a
+
+83
+00:03:37,161 --> 00:03:38,395
+product name in the end.
+
+84
+00:03:38,940 --> 00:03:40,799
+So this class has a bunch of
+
+85
+00:03:40,847 --> 00:03:43,187
+responsibilities, at least 3,
+
+86
+00:03:43,812 --> 00:03:46,217
+orders, products, and customers, but maybe
+
+87
+00:03:46,313 --> 00:03:47,210
+even more than that.
+
+88
+00:03:47,739 --> 00:03:48,990
+And that would be a problem here.
+
+89
+00:03:49,583 --> 00:03:52,373
+Even if every method would just have one
+
+90
+00:03:52,645 --> 00:03:53,335
+line of code.
+
+91
+00:03:53,993 --> 00:03:56,496
+Then this class wouldn't be big when we
+
+92
+00:03:56,496 --> 00:03:59,786
+count lines of code, but it would be big if
+
+93
+00:03:59,786 --> 00:04:01,759
+we consider its responsibilities.
+
+94
+00:04:02,658 --> 00:04:05,354
+And a better way to write this code would be
+
+95
+00:04:05,386 --> 00:04:08,804
+to split this class into multiple smaller
+
+96
+00:04:08,852 --> 00:04:10,119
+classes, for example.
+
+97
+00:04:11,018 --> 00:04:13,441
+And this is just one possible split here, of
+
+98
+00:04:13,505 --> 00:04:13,810
+course.
+
+99
+00:04:14,387 --> 00:04:17,003
+Here we could have classes which do have
+
+100
+00:04:17,195 --> 00:04:19,089
+separate responsibilities.
+
+101
+00:04:19,922 --> 00:04:22,390
+Again, you might even be able to split this
+
+102
+00:04:22,470 --> 00:04:25,212
+up further, but you can already see the idea
+
+103
+00:04:25,276 --> 00:04:28,225
+here. We have multiple smaller classes
+
+104
+00:04:28,818 --> 00:04:32,121
+where small really means that we have less
+
+105
+00:04:32,329 --> 00:04:35,279
+responsibilities in our individual classes.
+
+106
+00:04:35,776 --> 00:04:39,110
+And this is considered clean code. Small
+
+107
+00:04:39,543 --> 00:04:40,970
+focused classes
+
+108
+00:04:41,563 --> 00:04:43,855
+where I know that if I wanna change
+
+109
+00:04:43,951 --> 00:04:46,454
+something on the product logic, I have to go
+
+110
+00:04:46,454 --> 00:04:47,545
+to the Product class
+
+111
+00:04:48,283 --> 00:04:50,305
+and I don't have to scroll through the
+
+112
+00:04:50,305 --> 00:04:53,547
+entire large class here just to find the
+
+113
+00:04:53,675 --> 00:04:55,922
+product-specific functions I'm looking for.
+
+114
+00:04:57,109 --> 00:04:59,677
+That's the idea behind small classes and
+
+115
+00:04:59,757 --> 00:05:01,763
+what you should focus on when writing
+
+116
+00:05:01,843 --> 00:05:02,357
+classes.
+
+117
+00:05:02,966 --> 00:05:03,817
+Keep them small
+
+118
+00:05:04,411 --> 00:05:06,513
+and define small by looking at their
+
+119
+00:05:06,513 --> 00:05:07,524
+responsibilities.
+
+120
+00:05:08,663 --> 00:05:11,809
+I absolutely wanna highlight that small for
+
+121
+00:05:11,953 --> 00:05:15,865
+classes unlike for functions, does not mean
+
+122
+00:05:16,218 --> 00:05:17,629
+do just one thing.
+
+123
+00:05:18,206 --> 00:05:20,851
+This Product class knows how to update and
+
+124
+00:05:20,947 --> 00:05:23,399
+remove, for example, which is definitely
+
+125
+00:05:23,415 --> 00:05:24,746
+more than one thing,
+
+126
+00:05:25,339 --> 00:05:27,760
+but it's the same responsibility. The
+
+127
+00:05:27,760 --> 00:05:31,190
+responsibility is to manage the product data
+
+128
+00:05:31,190 --> 00:05:33,354
+and the product existence. That's the
+
+129
+00:05:33,354 --> 00:05:34,508
+responsibility here.
+
+130
+00:05:35,454 --> 00:05:37,265
+And that's a core difference to functions.
+
+131
+00:05:38,003 --> 00:05:40,039
+And this difference, of course, makes sense
+
+132
+00:05:40,343 --> 00:05:42,411
+because if we would have the same definition
+
+133
+00:05:42,491 --> 00:05:45,394
+as for functions, then every class would in
+
+134
+00:05:45,394 --> 00:05:48,076
+the end only be allowed to have exactly one
+
+135
+00:05:48,349 --> 00:05:51,080
+method, right? And if you create one class
+
+136
+00:05:51,080 --> 00:05:53,682
+per method, then this is definitely not
+
+137
+00:05:53,682 --> 00:05:56,412
+efficient and you would end up with dozens
+
+138
+00:05:56,460 --> 00:05:59,721
+of super tiny classes which probably then
+
+139
+00:05:59,914 --> 00:06:01,424
+also would have strange names
+
+140
+00:06:02,162 --> 00:06:04,331
+just to have one method per class.
+
+141
+00:06:04,973 --> 00:06:07,174
+This makes no sense at all. It basically
+
+142
+00:06:07,302 --> 00:06:10,000
+defeats the idea of using classes in the
+
+143
+00:06:10,032 --> 00:06:10,659
+first place.
+
+144
+00:06:11,564 --> 00:06:14,121
+So it's not about doing just one thing, it
+
+145
+00:06:14,170 --> 00:06:17,326
+is about having one responsibility per
+
+146
+00:06:17,326 --> 00:06:17,698
+class.

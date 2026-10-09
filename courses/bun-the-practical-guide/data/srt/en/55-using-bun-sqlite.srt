@@ -1,0 +1,239 @@
+1
+00:00:00,048 --> 00:00:02,084
+So when creating a post, but also for many
+
+2
+00:00:02,180 --> 00:00:03,975
+other routes, we're reaching out to the
+
+3
+00:00:04,103 --> 00:00:06,893
+database here to start a transaction, which
+
+4
+00:00:07,005 --> 00:00:09,826
+simply means we have multiple steps which we
+
+5
+00:00:10,436 --> 00:00:14,267
+wanna perform in one go. And if one of them
+
+6
+00:00:14,379 --> 00:00:16,335
+fails, we wanna roll back all of them.
+
+7
+00:00:16,928 --> 00:00:19,589
+Now, not all post routes or routes in
+
+8
+00:00:19,589 --> 00:00:21,160
+general use transactions.
+
+9
+00:00:21,737 --> 00:00:24,222
+For example, for listing my posts, for
+
+10
+00:00:24,399 --> 00:00:26,740
+getting a list of all posts, I don't have a
+
+11
+00:00:26,740 --> 00:00:29,676
+transaction there, I just directly query my
+
+12
+00:00:29,676 --> 00:00:32,324
+database. But how exactly does this work?
+
+13
+00:00:32,725 --> 00:00:33,655
+Well, db
+
+14
+00:00:34,971 --> 00:00:37,330
+is a database object created with the
+
+15
+00:00:37,394 --> 00:00:41,004
+database class coming from Bun's SQLite
+
+16
+00:00:41,068 --> 00:00:41,389
+package.
+
+17
+00:00:41,967 --> 00:00:44,502
+Because this project here uses a SQLite
+
+18
+00:00:44,518 --> 00:00:47,775
+package stored in an app.sqlite file here,
+
+19
+00:00:48,305 --> 00:00:50,535
+and that's all set up in a connection.ts
+
+20
+00:00:50,551 --> 00:00:53,006
+file, which is in the source/db folder in
+
+21
+00:00:53,118 --> 00:00:54,804
+that API app project. Project.
+
+22
+00:00:55,526 --> 00:00:58,272
+So in there, I'm really just setting up my
+
+23
+00:00:58,561 --> 00:01:01,918
+SQLite database. Super simple here, enabling
+
+24
+00:01:02,014 --> 00:01:03,909
+WAL mode, which gives us better performance,
+
+25
+00:01:04,599 --> 00:01:07,409
+enforcing foreign key constraints so that we
+
+26
+00:01:07,409 --> 00:01:09,947
+get an error if we insert invalid foreign
+
+27
+00:01:09,963 --> 00:01:10,236
+keys.
+
+28
+00:01:10,766 --> 00:01:12,211
+And that is about it.
+
+29
+00:01:12,869 --> 00:01:15,503
+The database is stored in a path that's
+
+30
+00:01:15,503 --> 00:01:18,153
+coming from an environment variable, or we
+
+31
+00:01:18,169 --> 00:01:21,107
+use a default path if that's not set. So we
+
+32
+00:01:21,123 --> 00:01:23,339
+do support environment variables here for
+
+33
+00:01:23,452 --> 00:01:26,276
+the database path. And then in our actual
+
+34
+00:01:26,501 --> 00:01:29,132
+app logic, we use this database object with
+
+35
+00:01:29,164 --> 00:01:31,715
+the methods supported by the Bun SQLite
+
+36
+00:01:31,715 --> 00:01:34,698
+client to query the database, to get data,
+
+37
+00:01:35,324 --> 00:01:37,426
+or like in createPost, also to run a
+
+38
+00:01:37,490 --> 00:01:40,730
+transaction where we then also try to insert
+
+39
+00:01:40,730 --> 00:01:42,014
+some data, for example.
+
+40
+00:01:42,623 --> 00:01:44,532
+And we're using features like this query
+
+41
+00:01:44,645 --> 00:01:48,030
+parameters syntax supported by Bun to safely
+
+42
+00:01:48,254 --> 00:01:50,869
+insert dynamic values into our queries.
+
+43
+00:01:51,542 --> 00:01:53,466
+And then this query just gets executed by
+
+44
+00:01:53,466 --> 00:01:55,310
+calling the run method where the concrete
+
+45
+00:01:55,310 --> 00:01:57,842
+values are inserted for these placeholders.
+
+46
+00:01:58,019 --> 00:02:01,193
+And Bun's SQLite package does that in a way
+
+47
+00:02:01,561 --> 00:02:04,126
+that protects against SQL injection attacks,
+
+48
+00:02:04,190 --> 00:02:04,864
+for example.
+
+49
+00:02:05,649 --> 00:02:07,717
+And that's really all that's to that
+
+50
+00:02:07,877 --> 00:02:10,747
+database feature. The only other thing worth
+
+51
+00:02:10,779 --> 00:02:14,209
+noting is that we also import this database
+
+52
+00:02:14,241 --> 00:02:16,021
+into our auth.ts file
+
+53
+00:02:16,614 --> 00:02:19,611
+and there we link it to the database field
+
+54
+00:02:19,659 --> 00:02:21,823
+of the Batteroff package so that the
+
+55
+00:02:21,839 --> 00:02:25,145
+Batteroff package knows where to set up its
+
+56
+00:02:25,273 --> 00:02:27,922
+auth-related tables like the users table,
+
+57
+00:02:28,340 --> 00:02:31,390
+the sessions table, and so on. And the great
+
+58
+00:02:31,390 --> 00:02:33,911
+thing is that BetterAuth natively supports
+
+59
+00:02:33,959 --> 00:02:37,796
+Bun's SQLite package. So using Bun SQLite
+
+60
+00:02:37,812 --> 00:02:39,546
+with BetterAuth is a breeze.

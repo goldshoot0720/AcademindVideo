@@ -1,0 +1,183 @@
+1
+00:00:02,499 --> 00:00:04,358
+Before we're going to explore how
+
+2
+00:00:04,518 --> 00:00:07,002
+composition and polymorphism might be able
+
+3
+00:00:07,002 --> 00:00:09,935
+to help us with that problem of duplicated
+
+4
+00:00:10,047 --> 00:00:12,034
+checks, which I outlined over the last
+
+5
+00:00:12,034 --> 00:00:12,418
+lectures,
+
+6
+00:00:13,091 --> 00:00:15,719
+let's see how utilizing errors can help us
+
+7
+00:00:15,735 --> 00:00:16,825
+with our code overall.
+
+8
+00:00:17,482 --> 00:00:20,206
+Because one mistake which quite a lot of
+
+9
+00:00:20,206 --> 00:00:22,995
+developers make is that they don't utilize
+
+10
+00:00:23,331 --> 00:00:26,151
+errors and throwing custom errors enough.
+
+11
+00:00:26,858 --> 00:00:29,667
+And errors as well as error handling is
+
+12
+00:00:29,924 --> 00:00:32,558
+really your friend because throwing and
+
+13
+00:00:32,558 --> 00:00:35,592
+handling errors in the proper places can
+
+14
+00:00:35,608 --> 00:00:38,820
+actually replace useless if statements and
+
+15
+00:00:38,996 --> 00:00:41,212
+lead to more focused functions.
+
+16
+00:00:42,288 --> 00:00:43,251
+And here's a simple rule.
+
+17
+00:00:43,878 --> 00:00:46,511
+If something is an error, if something has
+
+18
+00:00:46,543 --> 00:00:49,674
+an error character, make it an error. Don't
+
+19
+00:00:49,674 --> 00:00:51,456
+try to solve it with an if statement.
+
+20
+00:00:52,229 --> 00:00:54,552
+For example, here is a short snippet which
+
+21
+00:00:54,584 --> 00:00:56,810
+we don't have in our big example but which
+
+22
+00:00:56,843 --> 00:00:58,585
+you could see in other programs as well.
+
+23
+00:00:59,730 --> 00:01:01,536
+Here we're checking whether something is an
+
+24
+00:01:01,536 --> 00:01:03,988
+email and if we make it into this if block,
+
+25
+00:01:04,343 --> 00:01:05,972
+I do return an object here
+
+26
+00:01:06,537 --> 00:01:09,537
+where I assign some code, probably some kind
+
+27
+00:01:09,586 --> 00:01:11,899
+of error code and a message.
+
+28
+00:01:13,442 --> 00:01:16,398
+And then in other parts of our application,
+
+29
+00:01:16,735 --> 00:01:19,246
+we could check for this object, check the
+
+30
+00:01:19,246 --> 00:01:21,041
+code in there and then run code depending on
+
+31
+00:01:21,041 --> 00:01:21,873
+whether we have code 400
+
+32
+00:01:23,742 --> 00:01:24,319
+22
+
+33
+00:01:24,929 --> 00:01:26,694
+or if we maybe were successful.
+
+34
+00:01:27,448 --> 00:01:29,165
+So in the end, what we're doing here is
+
+35
+00:01:29,261 --> 00:01:31,218
+we're constructing an error
+
+36
+00:01:31,828 --> 00:01:34,828
+without really using the built-in error
+
+37
+00:01:34,828 --> 00:01:37,989
+mechanisms all modern programming languages
+
+38
+00:01:38,246 --> 00:01:38,791
+offer to us.
+
+39
+00:01:39,706 --> 00:01:42,160
+This here would be a better way of writing
+
+40
+00:01:42,192 --> 00:01:42,321
+this.
+
+41
+00:01:43,155 --> 00:01:45,369
+We're having the same check, but now I'm
+
+42
+00:01:45,401 --> 00:01:47,214
+constructing a real error
+
+43
+00:01:47,792 --> 00:01:50,616
+building up on the built-in error object,
+
+44
+00:01:50,776 --> 00:01:53,720
+which also all modern programming languages
+
+45
+00:01:53,834 --> 00:01:56,843
+give you in some way. I then add extra data
+
+46
+00:01:56,843 --> 00:02:00,516
+to this error object. In this

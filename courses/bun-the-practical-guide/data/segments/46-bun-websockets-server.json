@@ -1,0 +1,977 @@
+[
+ {
+  "start": 0.112,
+  "end": 2.827,
+  "en": "Want to build a chat app with Bun? That's no"
+ },
+ {
+  "start": 2.988,
+  "end": 6.056,
+  "en": "problem because Bun has built-in WebSocket"
+ },
+ {
+  "start": 6.056,
+  "end": 8.305,
+  "en": "support. And obviously you can use that"
+ },
+ {
+  "start": 8.305,
+  "end": 10.281,
+  "en": "feature for anything where you need"
+ },
+ {
+  "start": 10.313,
+  "end": 12.787,
+  "en": "real-time synchronization across different"
+ },
+ {
+  "start": 12.787,
+  "end": 15.614,
+  "en": "clients, not just for online chats or"
+ },
+ {
+  "start": 15.63,
+  "end": 16.626,
+  "en": "similar features."
+ },
+ {
+  "start": 17.365,
+  "end": 20.193,
+  "en": "And Bun actually does not just give you the"
+ },
+ {
+  "start": 20.193,
+  "end": 23.373,
+  "en": "server-side WebSocket setup so that you can"
+ },
+ {
+  "start": 23.486,
+  "end": 24.771,
+  "en": "build a WebSocket server,"
+ },
+ {
+  "start": 25.333,
+  "end": 28.672,
+  "en": "but it also gives you the client side if you"
+ },
+ {
+  "start": 28.784,
+  "end": 31.927,
+  "en": "wanna use Bun to, for example, build a CLI"
+ },
+ {
+  "start": 32.071,
+  "end": 34.796,
+  "en": "tool that can connect to a WebSocket server."
+ },
+ {
+  "start": 35.021,
+  "end": 37.089,
+  "en": "And we'll see both in action now because"
+ },
+ {
+  "start": 37.121,
+  "end": 39.381,
+  "en": "here I'm in a brand new project. You find it"
+ },
+ {
+  "start": 39.381,
+  "end": 42.251,
+  "en": "attached as always. And here you already see"
+ },
+ {
+  "start": 42.492,
+  "end": 44.945,
+  "en": "I have a client and a server folder in"
+ },
+ {
+  "start": 45.057,
+  "end": 47.862,
+  "en": "package.json. I got a script for starting my"
+ },
+ {
+  "start": 47.862,
+  "end": 50.444,
+  "en": "server and I got a CLI script for starting"
+ },
+ {
+  "start": 50.508,
+  "end": 53.554,
+  "en": "some CLI client as it seems. And I have that"
+ },
+ {
+  "start": 53.554,
+  "end": 55.959,
+  "en": "exactly for the reason that as mentioned,"
+ },
+ {
+  "start": 56.039,
+  "end": 57.289,
+  "en": "Bun has both"
+ },
+ {
+  "start": 58.203,
+  "end": 60.606,
+  "en": "But let's start with the server. In there, I"
+ },
+ {
+  "start": 60.606,
+  "end": 62.721,
+  "en": "got a server.ts file, which is exactly the"
+ },
+ {
+  "start": 62.769,
+  "end": 65.573,
+  "en": "file this dev script starts. And in that"
+ },
+ {
+  "start": 65.573,
+  "end": 66.487,
+  "en": "server.ts file,"
+ },
+ {
+  "start": 67.24,
+  "end": 70.316,
+  "en": "I have my Bun server set up with bun serve."
+ },
+ {
+  "start": 70.364,
+  "end": 72.784,
+  "en": "So using the default Bun serve API,"
+ },
+ {
+  "start": 73.345,
+  "end": 75.732,
+  "en": "configuring my port, a route to which I'll"
+ },
+ {
+  "start": 75.748,
+  "end": 78.36,
+  "en": "get back, and then this fetch function about"
+ },
+ {
+  "start": 78.456,
+  "end": 80.7,
+  "en": "which you already learned, which is executed"
+ },
+ {
+  "start": 80.7,
+  "end": 83.119,
+  "en": "for incoming requests unless one of the"
+ },
+ {
+  "start": 83.183,
+  "end": 85.477,
+  "en": "routes caught the request first. But for all"
+ },
+ {
+  "start": 85.669,
+  "end": 87.757,
+  "en": "other requests, this fetch function will be"
+ },
+ {
+  "start": 87.757,
+  "end": 88.352,
+  "en": "executed."
+ },
+ {
+  "start": 88.978,
+  "end": 92.159,
+  "en": "And in there, I'm checking if my pathname is"
+ },
+ {
+  "start": 92.367,
+  "end": 92.849,
+  "en": "not"
+ },
+ {
+  "start": 93.62,
+  "end": 96.158,
+  "en": "/chat. So if it's some other request to some"
+ },
+ {
+  "start": 96.271,
+  "end": 99.435,
+  "en": "other path, in which case I send back a 404"
+ },
+ {
+  "start": 99.499,
+  "end": 101.716,
+  "en": "response. But if the path is"
+ },
+ {
+  "start": 102.696,
+  "end": 106.053,
+  "en": "/chat, I set up my WebSocket server or I"
+ },
+ {
+  "start": 106.326,
+  "end": 109.378,
+  "en": "upgrade the connection to use WebSockets to"
+ },
+ {
+  "start": 109.378,
+  "end": 110.069,
+  "en": "be precise."
+ },
+ {
+  "start": 110.646,
+  "end": 112.826,
+  "en": "I also extract some data which the client"
+ },
+ {
+  "start": 112.826,
+  "end": 114.75,
+  "en": "will send because here in this example, I'm"
+ },
+ {
+  "start": 114.75,
+  "end": 117.491,
+  "en": "building an online chat. So I expect to get"
+ },
+ {
+  "start": 117.94,
+  "end": 120.697,
+  "en": "the name of the user as input and the room"
+ },
+ {
+  "start": 120.777,
+  "end": 123.214,
+  "en": "to which the user wants to connect. And then"
+ },
+ {
+  "start": 123.486,
+  "end": 126.259,
+  "en": "this is the important part, server.upgrade."
+ },
+ {
+  "start": 126.612,
+  "end": 128.84,
+  "en": "Server, in case you wonder, is an extra"
+ },
+ {
+  "start": 128.921,
+  "end": 131.614,
+  "en": "argument this fetch function receives. Thus"
+ },
+ {
+  "start": 131.646,
+  "end": 133.521,
+  "en": "far, you already learned that it receives"
+ },
+ {
+  "start": 133.585,
+  "end": 135.91,
+  "en": "the incoming request, but it actually"
+ },
+ {
+  "start": 135.91,
+  "end": 137.721,
+  "en": "receives a second argument as well,"
+ },
+ {
+  "start": 138.298,
+  "end": 140.526,
+  "en": "which is information about the server that"
+ },
+ {
+  "start": 140.542,
+  "end": 142.049,
+  "en": "was created by bun serve."
+ },
+ {
+  "start": 142.868,
+  "end": 145.341,
+  "en": "Often this is not too interesting, but it"
+ },
+ {
+  "start": 145.373,
+  "end": 146.946,
+  "en": "definitely can be interesting"
+ },
+ {
+  "start": 147.524,
+  "end": 150.174,
+  "en": "if you wanna get more details about that"
+ },
+ {
+  "start": 150.174,
+  "end": 152.615,
+  "en": "server, like the hostname of where the"
+ },
+ {
+  "start": 152.615,
+  "end": 153.369,
+  "en": "server is running."
+ },
+ {
+  "start": 153.947,
+  "end": 156.982,
+  "en": "But most importantly, it offers this upgrade"
+ },
+ {
+  "start": 157.03,
+  "end": 157.785,
+  "en": "method to"
+ },
+ {
+  "start": 158.363,
+  "end": 160.515,
+  "en": "upgrade this connection, which was"
+ },
+ {
+  "start": 160.563,
+  "end": 163.068,
+  "en": "established here, to a WebSocket connection."
+ },
+ {
+  "start": 163.678,
+  "end": 165.814,
+  "en": "Therefore, it requires the request, which"
+ },
+ {
+  "start": 166.488,
+  "end": 169.122,
+  "en": "identifies or establishes this connection"
+ },
+ {
+  "start": 169.122,
+  "end": 171.77,
+  "en": "that should be upgraded. And then some extra"
+ },
+ {
+  "start": 171.93,
+  "end": 173.84,
+  "en": "data for that upgrade,"
+ },
+ {
+  "start": 174.37,
+  "end": 177.274,
+  "en": "some extra configuration. And that data here"
+ },
+ {
+  "start": 177.483,
+  "end": 179.312,
+  "en": "is simply some data that will then be"
+ },
+ {
+  "start": 179.392,
+  "end": 182.537,
+  "en": "available in that WebSocket server for this"
+ },
+ {
+  "start": 182.537,
+  "end": 184.447,
+  "en": "connection that was upgraded. Because with"
+ },
+ {
+  "start": 184.463,
+  "end": 186.678,
+  "en": "WebSockets, of course, instead of sending"
+ },
+ {
+  "start": 186.79,
+  "end": 188.94,
+  "en": "back a response and being done with that"
+ },
+ {
+  "start": 188.94,
+  "end": 192.069,
+  "en": "request, you keep the connection open, so to"
+ },
+ {
+  "start": 192.069,
+  "end": 195.038,
+  "en": "say. That is the idea behind WebSockets. So"
+ },
+ {
+  "start": 195.054,
+  "end": 197.188,
+  "en": "therefore, we move to a different model from"
+ },
+ {
+  "start": 197.236,
+  "end": 200.074,
+  "en": "a request-response model to a live"
+ },
+ {
+  "start": 200.17,
+  "end": 201.421,
+  "en": "connection model, you could say."
+ },
+ {
+  "start": 202.014,
+  "end": 204.835,
+  "en": "And we do that with Bun by switching to this"
+ },
+ {
+  "start": 204.835,
+  "end": 206.662,
+  "en": "WebSocket block here. So"
+ },
+ {
+  "start": 207.223,
+  "end": 210.108,
+  "en": "on that configuration object that you pass"
+ },
+ {
+  "start": 210.108,
+  "end": 212.433,
+  "en": "to bun serve, on this entire object here,"
+ },
+ {
+  "start": 212.753,
+  "end": 214.212,
+  "en": "you have your routes, you have your Avra"
+ },
+ {
+  "start": 214.212,
+  "end": 216.536,
+  "en": "configuration, you have fetch, and then you"
+ },
+ {
+  "start": 216.536,
+  "end": 217.546,
+  "en": "have WebSocket."
+ },
+ {
+  "start": 218.203,
+  "end": 221.153,
+  "en": "And this WebSocket part here will only"
+ },
+ {
+  "start": 221.185,
+  "end": 223.91,
+  "en": "become active if you call upgrade in the"
+ },
+ {
+  "start": 223.91,
+  "end": 226.332,
+  "en": "fetch function. So if you upgrade a"
+ },
+ {
+  "start": 226.396,
+  "end": 229.061,
+  "en": "connection and then this data will be"
+ },
+ {
+  "start": 229.189,
+  "end": 231.276,
+  "en": "available in that WebSocket block in there,"
+ },
+ {
+  "start": 231.292,
+  "end": 234.31,
+  "en": "because in that WebSocket block we have an"
+ },
+ {
+  "start": 234.566,
+  "end": 236.733,
+  "en": "open method which will be called when a"
+ },
+ {
+  "start": 236.733,
+  "end": 238.884,
+  "en": "WebSocket connection is opened, which"
+ },
+ {
+  "start": 238.9,
+  "end": 240.874,
+  "en": "happens when we upgrade a connection in the"
+ },
+ {
+  "start": 240.923,
+  "end": 241.099,
+  "en": "end."
+ },
+ {
+  "start": 241.966,
+  "end": 244.968,
+  "en": "We have a message method here which will"
+ },
+ {
+  "start": 245.016,
+  "end": 247.375,
+  "en": "become active whenever a new message is"
+ },
+ {
+  "start": 247.504,
+  "end": 249.992,
+  "en": "received in that ongoing WebSocket"
+ },
+ {
+  "start": 249.992,
+  "end": 251.677,
+  "en": "connection. And you'll see how to send"
+ },
+ {
+  "start": 251.677,
+  "end": 252.977,
+  "en": "messages in just a second."
+ },
+ {
+  "start": 253.719,
+  "end": 255.718,
+  "en": "And we have a close method, which is the"
+ },
+ {
+  "start": 255.735,
+  "end": 257.75,
+  "en": "opposite of open, of course, which will be"
+ },
+ {
+  "start": 257.75,
+  "end": 260.089,
+  "en": "triggered whenever a client disconnects and"
+ },
+ {
+  "start": 260.089,
+  "end": 262.217,
+  "en": "the connection is closed. And we can do some"
+ },
+ {
+  "start": 262.25,
+  "end": 263.07,
+  "en": "cleanup work here."
+ },
+ {
+  "start": 263.595,
+  "end": 265.613,
+  "en": "But again, we'll dive into all of that in"
+ },
+ {
+  "start": 265.646,
+  "end": 266.007,
+  "en": "detail."
+ },
+ {
+  "start": 267.73,
+  "end": 270.643,
+  "en": "So the data that we're passing into this"
+ },
+ {
+  "start": 271.144,
+  "end": 274.656,
+  "en": "WebSocket connection, that data is available"
+ },
+ {
+  "start": 274.656,
+  "end": 276.956,
+  "en": "in all these methods. It's available in open"
+ },
+ {
+  "start": 277.379,
+  "end": 278.778,
+  "en": "here, I'm referring to it here."
+ },
+ {
+  "start": 279.997,
+  "end": 281.23,
+  "en": "It's available in message"
+ },
+ {
+  "start": 282.16,
+  "end": 284.659,
+  "en": "and it's available in close. So that's"
+ },
+ {
+  "start": 284.659,
+  "end": 287.382,
+  "en": "important. That is the data that is tied to"
+ },
+ {
+  "start": 287.382,
+  "end": 289.609,
+  "en": "this connection. And the data here for this"
+ },
+ {
+  "start": 289.609,
+  "end": 292.109,
+  "en": "chat example is the name of the user who"
+ },
+ {
+  "start": 292.109,
+  "end": 294.191,
+  "en": "opened the connection and the room they"
+ },
+ {
+  "start": 294.191,
+  "end": 296.386,
+  "en": "joined. And if the same user wants to join"
+ },
+ {
+  "start": 296.418,
+  "end": 297.94,
+  "en": "different rooms, that would be different"
+ },
+ {
+  "start": 297.956,
+  "end": 300.488,
+  "en": "connections, different upgraded connections"
+ },
+ {
+  "start": 300.52,
+  "end": 301.962,
+  "en": "with different data."
+ },
+ {
+  "start": 302.538,
+  "end": 304.365,
+  "en": "Now in that WebSocket block, you see this"
+ },
+ {
+  "start": 304.365,
+  "end": 307.136,
+  "en": "data part here that may look a bit weird."
+ },
+ {
+  "start": 307.553,
+  "end": 310.423,
+  "en": "This is a, a Bun feature. Or an approach"
+ },
+ {
+  "start": 310.535,
+  "end": 312.975,
+  "en": "that is required by Bun that's documented in"
+ },
+ {
+  "start": 313.024,
+  "end": 315.432,
+  "en": "their docs due to some TypeScript"
+ },
+ {
+  "start": 315.432,
+  "end": 318.257,
+  "en": "limitations in order to be able to properly"
+ },
+ {
+  "start": 318.867,
+  "end": 321.966,
+  "en": "understand and infer the type of data in all"
+ },
+ {
+  "start": 322.03,
+  "end": 324.792,
+  "en": "these methods. So you don't actually set any"
+ },
+ {
+  "start": 324.808,
+  "end": 327.842,
+  "en": "data here, you just set an empty object as"
+ },
+ {
+  "start": 328.275,
+  "end": 331.31,
+  "en": "and then some type to give TypeScript in the"
+ },
+ {
+  "start": 331.326,
+  "end": 333.638,
+  "en": "end some information about the shape of the"
+ },
+ {
+  "start": 333.718,
+  "end": 335.355,
+  "en": "data that will be available in those"
+ },
+ {
+  "start": 335.42,
+  "end": 339.275,
+  "en": "methods. And WebSocket data is a custom type"
+ },
+ {
+  "start": 339.275,
+  "end": 341.67,
+  "en": "defined up there, which is just a JavaScript"
+ },
+ {
+  "start": 341.67,
+  "end": 343.549,
+  "en": "object with a name and a room, which is"
+ },
+ {
+  "start": 343.549,
+  "end": 346.409,
+  "en": "exactly the shape I'm passing into my data"
+ },
+ {
+  "start": 346.409,
+  "end": 348.482,
+  "en": "here. So that's where all these things come"
+ },
+ {
+  "start": 348.595,
+  "end": 348.868,
+  "en": "together."
+ },
+ {
+  "start": 349.478,
+  "end": 351.31,
+  "en": "Now in these methods, you then have a"
+ },
+ {
+  "start": 351.326,
+  "end": 354.218,
+  "en": "WebSocket object. It's passed in as a first"
+ },
+ {
+  "start": 354.283,
+  "end": 355.841,
+  "en": "argument to all these methods,"
+ },
+ {
+  "start": 356.452,
+  "end": 358.155,
+  "en": "all these methods that are supported by"
+ },
+ {
+  "start": 358.155,
+  "end": 359.521,
+  "en": "Bun's WebSocket server,"
+ },
+ {
+  "start": 360.308,
+  "end": 362.059,
+  "en": "and that ws object"
+ },
+ {
+  "start": 362.636,
+  "end": 365.745,
+  "en": "object which you get has various properties"
+ },
+ {
+  "start": 366.001,
+  "end": 366.546,
+  "en": "and methods."
+ },
+ {
+  "start": 367.122,
+  "end": 369.269,
+  "en": "It has a send method, for example, for"
+ },
+ {
+  "start": 369.318,
+  "end": 371.625,
+  "en": "sending a new message into that connection."
+ },
+ {
+  "start": 372.33,
+  "end": 375.294,
+  "en": "It has a data property for accessing the"
+ },
+ {
+  "start": 375.39,
+  "end": 378.162,
+  "en": "data that's connected to that connection, so"
+ },
+ {
+  "start": 378.178,
+  "end": 380.517,
+  "en": "that WebSocket data we defined before to get"
+ },
+ {
+  "start": 380.533,
+  "end": 382.76,
+  "en": "information about the room, for example. And"
+ },
+ {
+  "start": 382.76,
+  "end": 386.045,
+  "en": "it has a subscribe method for subscribing a"
+ },
+ {
+  "start": 386.045,
+  "end": 389.137,
+  "en": "client, so a client is the connected user in"
+ },
+ {
+  "start": 389.169,
+  "end": 389.602,
+  "en": "the end here,"
+ },
+ {
+  "start": 390.131,
+  "end": 392.775,
+  "en": "to updates on a topic."
+ },
+ {
+  "start": 393.336,
+  "end": 395.228,
+  "en": "And a topic can be anything, any string"
+ },
+ {
+  "start": 395.34,
+  "end": 397.52,
+  "en": "identifier of your choice. It's really just"
+ },
+ {
+  "start": 397.584,
+  "end": 399.219,
+  "en": "a string. In our example here,"
+ },
+ {
+  "start": 399.989,
+  "end": 403.131,
+  "en": "a room. So a room identifier in our chat,"
+ },
+ {
+  "start": 403.66,
+  "end": 406.369,
+  "en": "in our online chat, is a topic. So every"
+ },
+ {
+  "start": 406.705,
+  "end": 409.062,
+  "en": "room is a separate topic to which we can"
+ },
+ {
+  "start": 409.062,
+  "end": 411.034,
+  "en": "send messages and to which we can subscribe."
+ },
+ {
+  "start": 411.45,
+  "end": 413.935,
+  "en": "And subscribe is needed to tell the"
+ },
+ {
+  "start": 413.935,
+  "end": 416.179,
+  "en": "connected client, the connected browser, or"
+ },
+ {
+  "start": 416.179,
+  "end": 417.798,
+  "en": "the connected CLI, for example,"
+ },
+ {
+  "start": 418.423,
+  "end": 421.389,
+  "en": "when a new message is received so that the"
+ },
+ {
+  "start": 421.389,
+  "end": 424.563,
+  "en": "frontend UI or the can update what it shows"
+ },
+ {
+  "start": 424.595,
+  "end": 425.221,
+  "en": "to the user."
+ },
+ {
+  "start": 426.279,
+  "end": 429.662,
+  "en": "We also have a publish method, not on the WS"
+ },
+ {
+  "start": 429.79,
+  "end": 432.291,
+  "en": "object though, but instead on the server. So"
+ },
+ {
+  "start": 432.291,
+  "end": 434.327,
+  "en": "the same server we called upgrade on"
+ },
+ {
+  "start": 435.097,
+  "end": 439.602,
+  "en": "to publish a new message to a topic. So we"
+ },
+ {
+  "start": 439.602,
+  "end": 442.007,
+  "en": "subscribe a client to a topic and then the"
+ },
+ {
+  "start": 442.007,
+  "end": 445.117,
+  "en": "server can publish or send messages to that"
+ },
+ {
+  "start": 445.117,
+  "end": 448.388,
+  "en": "topic. So same identifier obviously. And"
+ },
+ {
+  "start": 448.468,
+  "end": 450.969,
+  "en": "here I'm sending some data where I'm"
+ },
+ {
+  "start": 450.969,
+  "end": 453.6,
+  "en": "publishing some data to this topic and the"
+ },
+ {
+  "start": 453.6,
+  "end": 455.784,
+  "en": "shape of that data is totally up to you. It"
+ },
+ {
+  "start": 455.784,
+  "end": 458.354,
+  "en": "can be anything you want. Here it's a"
+ },
+ {
+  "start": 458.9,
+  "end": 461.582,
+  "en": "JSON object in the end where I have a type"
+ },
+ {
+  "start": 461.63,
+  "end": 463.734,
+  "en": "property, again, totally up to me. This"
+ },
+ {
+  "start": 463.734,
+  "end": 465.87,
+  "en": "shape is totally up to me, which I set to"
+ },
+ {
+  "start": 465.886,
+  "end": 468.214,
+  "en": "system here because I wanna send some text"
+ },
+ {
+  "start": 468.214,
+  "end": 470.462,
+  "en": "here where I simply say that a new person"
+ },
+ {
+  "start": 470.462,
+  "end": 472.245,
+  "en": "joined a room because this is in the open"
+ },
+ {
+  "start": 472.245,
+  "end": 472.582,
+  "en": "method"
+ },
+ {
+  "start": 473.112,
+  "end": 474.252,
+  "en": "and I add a timestamp."
+ },
+ {
+  "start": 475.216,
+  "end": 476.629,
+  "en": "Now before we dive deeper into those"
+ },
+ {
+  "start": 476.726,
+  "end": 478.685,
+  "en": "methods, let's take a look at the client"
+ },
+ {
+  "start": 478.685,
+  "end": 481.302,
+  "en": "side to better understand the other side of"
+ },
+ {
+  "start": 481.302,
+  "end": 482.491,
+  "en": "this WebSocket connection."
+ }
+]

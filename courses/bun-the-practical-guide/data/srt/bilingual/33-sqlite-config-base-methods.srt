@@ -1,0 +1,214 @@
+1
+00:00:00,096 --> 00:00:03,398
+Now then you got 2 main commands you have or
+現在你有兩個主要指令或者
+
+2
+00:00:03,398 --> 00:00:05,498
+2 main methods you have to interact with the
+您必須與 2 個主要的方法進行交互
+
+3
+00:00:05,498 --> 00:00:05,850
+database.
+資料庫.
+
+4
+00:00:06,507 --> 00:00:07,854
+You have db.run
+你有 db.run
+
+5
+00:00:08,511 --> 00:00:09,938
+and you have db.query.
+並且您有 db.query。
+
+6
+00:00:10,835 --> 00:00:13,849
+And both can be used for executing SQL
+兩者都可以用來執行SQL
+
+7
+00:00:13,897 --> 00:00:16,381
+commands. But the idea is that you use
+命令。但想法是你使用
+
+8
+00:00:16,381 --> 00:00:20,581
+db.run for one-off commands like here where
+db.run 用於一次性指令，如下所示
+
+9
+00:00:20,613 --> 00:00:23,194
+I ensure that I have a notes table if it
+我確保我有一個註釋表，如果它
+
+10
+00:00:23,194 --> 00:00:24,172
+doesn't exist yet.
+尚不存在。
+
+11
+00:00:24,941 --> 00:00:28,243
+Whereas db.query is meant for reusable
+而 db.query 是為了可重複使用
+
+12
+00:00:28,243 --> 00:00:31,082
+commands because when you use db.query, a
+命令，因為當您使用 db.query 時，
+
+13
+00:00:31,114 --> 00:00:33,599
+cached statement will be created behind the
+快取語句將在後面創建
+
+14
+00:00:33,599 --> 00:00:35,780
+scenes, which is simply a statement that's a
+場景，這只是一個聲明
+
+15
+00:00:35,780 --> 00:00:39,388
+bit faster and more optimized to execute, so
+執行速度更快、更優化，所以
+
+16
+00:00:39,388 --> 00:00:41,440
+to say. So you should use the db.query
+說。所以你應該使用 db.query
+
+17
+00:00:41,472 --> 00:00:44,326
+method for your query commands where you
+查詢命令的方法，您可以在其中
+
+18
+00:00:44,342 --> 00:00:46,235
+fetch data from the database, which are
+從資料庫中取得資料，分別是
+
+19
+00:00:46,443 --> 00:00:49,089
+typically executed a lot, and db.run for
+通常會執行很多次，而 db.run 則用於
+
+20
+00:00:49,089 --> 00:00:51,767
+these one-off commands or tasks,
+這些一次性命令或任務，
+
+21
+00:00:52,520 --> 00:00:54,396
+which is why I'm using db.run here
+這就是我在這裡使用 db.run 的原因
+
+22
+00:00:54,990 --> 00:00:57,506
+to enable WAL mode, and that's just a
+啟用 WAL 模式，這只是一個
+
+23
+00:00:57,506 --> 00:00:59,318
+configuration command which you should
+你應該設定的命令
+
+24
+00:00:59,831 --> 00:01:01,963
+basically execute every time you're working
+基本上每次工作時都會執行
+
+25
+00:01:01,995 --> 00:01:04,159
+with SQLite. It just gives you better
+與 SQLite。它只會給你更好的
+
+26
+00:01:04,159 --> 00:01:06,211
+performance, and there really is no reason
+性能，確實沒有理由
+
+27
+00:01:06,643 --> 00:01:09,288
+to not use WAL mode. It's just not the
+不使用 WAL 模式。這只是不是
+
+28
+00:01:09,369 --> 00:01:11,100
+default for historic reasons.
+由於歷史原因違約。
+
+29
+00:01:12,078 --> 00:01:14,226
+Then again, as mentioned here, I'm executing
+然後，正如這裡提到的，我正在執行
+
+30
+00:01:14,258 --> 00:01:15,813
+a statement to create a notes table,
+建立註釋表的語句，
+
+31
+00:01:16,502 --> 00:01:18,345
+and then I also create an index.
+然後我還創建一個索引。
+
+32
+00:01:19,387 --> 00:01:22,433
+Then here, these commands are executed to
+然後這裡執行這些命令
+
+33
+00:01:22,433 --> 00:01:24,613
+ensure that whenever the database connection
+確保每當資料庫連接
+
+34
+00:01:24,613 --> 00:01:25,335
+is closed,
+已關閉，
+
+35
+00:01:25,960 --> 00:01:28,416
+these extra files here are cleaned up. These
+這裡的這些額外檔案被清理掉了。這些
+
+36
+00:01:28,512 --> 00:01:30,778
+are extra files that are created because of
+是由於以下原因而創建的額外檔案
+
+37
+00:01:30,778 --> 00:01:33,333
+that vol mode, and if that code weren't
+該卷模式，如果該程式碼不是
+
+38
+00:01:33,333 --> 00:01:35,904
+here, they would persist if I stop this
+在這裡，如果我阻止的話他們會堅持下去
+
+39
+00:01:35,904 --> 00:01:36,530
+application.
+應用。
+
+40
+00:01:37,350 --> 00:01:39,439
+That's not necessarily a problem, but I'd
+這不一定是問題，但我會
+
+41
+00:01:39,439 --> 00:01:42,058
+like to have a clean file system. So with my
+喜歡有一個乾淨的檔案系統。所以與我的
+
+42
+00:01:42,122 --> 00:01:44,452
+setup, if I shut the server down, you see
+設置，如果我關閉伺服器，你會看到
+
+43
+00:01:44,452 --> 00:01:45,689
+those files disappeared.
+那些檔案消失了。

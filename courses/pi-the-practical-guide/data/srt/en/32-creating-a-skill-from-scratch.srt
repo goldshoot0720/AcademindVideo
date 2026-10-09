@@ -1,0 +1,947 @@
+1
+00:00:00,048 --> 00:00:03,000
+So one example for a situation where you may
+
+2
+00:00:03,145 --> 00:00:06,049
+want an agent skill is in a project like the
+
+3
+00:00:06,113 --> 00:00:08,553
+one we're building in this course, this
+
+4
+00:00:08,857 --> 00:00:12,099
+Twitter X clone, which I call Shoutout here.
+
+5
+00:00:13,014 --> 00:00:15,581
+In this project, I'm using a framework
+
+6
+00:00:15,661 --> 00:00:19,095
+called TanStack Start. And TanStack Start is
+
+7
+00:00:19,272 --> 00:00:19,288
+a
+
+8
+00:00:19,914 --> 00:00:23,043
+relatively new framework, not brand new, and
+
+9
+00:00:23,059 --> 00:00:25,257
+it will very likely be included in the
+
+10
+00:00:25,370 --> 00:00:27,954
+weights of these AI models. It very likely
+
+11
+00:00:28,098 --> 00:00:30,266
+was included in the training runs, but it's
+
+12
+00:00:30,989 --> 00:00:33,671
+a bit more recent, and it's possible that
+
+13
+00:00:33,799 --> 00:00:36,272
+agents and the AI models used by these
+
+14
+00:00:36,369 --> 00:00:38,424
+agents don't know it that well.
+
+15
+00:00:39,420 --> 00:00:42,198
+I also know that for a 10-stack start, there
+
+16
+00:00:42,326 --> 00:00:43,483
+are certain things to
+
+17
+00:00:44,093 --> 00:00:47,032
+watch out for, and I don't want to repeat
+
+18
+00:00:47,128 --> 00:00:49,794
+that over and over again in my
+
+19
+00:00:50,500 --> 00:00:51,367
+instructions.
+
+20
+00:00:51,962 --> 00:00:54,900
+So that's a situation where a skill could
+
+21
+00:00:54,997 --> 00:00:58,949
+make sense. A TanStack Start skill added to
+
+22
+00:00:58,949 --> 00:01:01,536
+this project, not globally, we could do that
+
+23
+00:01:01,536 --> 00:01:04,428
+as well, but since I don't use TanStack
+
+24
+00:01:04,428 --> 00:01:06,854
+Start in all the tasks I solve with Pi,
+
+25
+00:01:07,448 --> 00:01:08,926
+I rather have a local skill.
+
+26
+00:01:09,473 --> 00:01:11,802
+And I can add a local skill by adding a
+
+27
+00:01:12,348 --> 00:01:15,176
+.agents folder. That's a convention.
+
+28
+00:01:16,526 --> 00:01:17,715
+.agents is the folder name.
+
+29
+00:01:18,309 --> 00:01:22,115
+And then in there, a skills folder. Now, Pi
+
+30
+00:01:22,308 --> 00:01:24,297
+will also look for skills in other
+
+31
+00:01:24,313 --> 00:01:27,472
+locations, but using this path ensures that
+
+32
+00:01:27,552 --> 00:01:29,686
+if you were to use some other coding agent
+
+33
+00:01:29,686 --> 00:01:33,038
+like Codex, it would also find those skills
+
+34
+00:01:33,214 --> 00:01:35,074
+so that you don't have to copy the skill
+
+35
+00:01:35,091 --> 00:01:37,111
+somewhere else just to use another coding
+
+36
+00:01:37,224 --> 00:01:39,742
+agent. Not all agents support this
+
+37
+00:01:40,672 --> 00:01:42,741
+path here. Claude Code doesn't, for example,
+
+38
+00:01:42,757 --> 00:01:43,591
+but most do.
+
+39
+00:01:44,297 --> 00:01:46,446
+So I have a skills subfolder in a.agents
+
+40
+00:01:46,446 --> 00:01:48,306
+subfolder, and then in there I have my
+
+41
+00:01:48,306 --> 00:01:50,937
+tanstack-start skill, let's say. So yet
+
+42
+00:01:50,953 --> 00:01:53,649
+another subfolder inside of.agents, skills.
+
+43
+00:01:54,243 --> 00:01:56,008
+And in that folder, I then have that
+
+44
+00:01:56,008 --> 00:01:57,228
+skill.md file
+
+45
+00:01:57,757 --> 00:02:00,052
+as described on that slide before. And in
+
+46
+00:02:00,181 --> 00:02:02,556
+there, you now put those instructions you
+
+47
+00:02:02,812 --> 00:02:05,091
+want the agent to use when working with
+
+48
+00:02:05,220 --> 00:02:07,739
+TanStack Start projects. And that actually
+
+49
+00:02:07,739 --> 00:02:11,125
+starts with some metadata, which you add by
+
+50
+00:02:11,238 --> 00:02:13,789
+adding front matter. So 3 dashes.
+
+51
+00:02:14,367 --> 00:02:15,844
+Then you should define the name of that
+
+52
+00:02:15,844 --> 00:02:16,758
+skill. That name,
+
+53
+00:02:17,339 --> 00:02:19,018
+should match this folder name.
+
+54
+00:02:20,940 --> 00:02:22,957
+So TanStack Start in my case. And then comes
+
+55
+00:02:22,973 --> 00:02:24,684
+the important part, the description.
+
+56
+00:02:25,329 --> 00:02:27,427
+And this description is super important
+
+57
+00:02:27,427 --> 00:02:30,880
+because the idea behind agent skills is that
+
+58
+00:02:30,961 --> 00:02:33,282
+all the skills you define in your skills
+
+59
+00:02:33,314 --> 00:02:35,668
+folder and all the skills you may have in a
+
+60
+00:02:35,813 --> 00:02:39,802
+global skills folder. So in a global.agents
+
+61
+00:02:39,867 --> 00:02:41,877
+skills folder, which currently is empty for
+
+62
+00:02:41,942 --> 00:02:44,097
+me here because I put my skills, which I
+
+63
+00:02:44,130 --> 00:02:45,977
+actually have into some temporary backup
+
+64
+00:02:45,977 --> 00:02:46,075
+folder.
+
+65
+00:02:46,827 --> 00:02:48,863
+All those skills will be
+
+66
+00:02:49,408 --> 00:02:52,886
+loaded automatically by the agent, by Pi,
+
+67
+00:02:53,335 --> 00:02:55,547
+whenever you start a new session. But
+
+68
+00:02:55,884 --> 00:02:56,830
+loading them means
+
+69
+00:02:57,423 --> 00:02:59,795
+that this front matter, this configuration
+
+70
+00:02:59,891 --> 00:03:03,194
+data here gets loaded, not the entire actual
+
+71
+00:03:03,194 --> 00:03:05,005
+content we're going to put into this skill.
+
+72
+00:03:05,438 --> 00:03:07,987
+That is super important. And the reason for
+
+73
+00:03:07,987 --> 00:03:09,926
+that is simply that if you had a bunch of
+
+74
+00:03:09,926 --> 00:03:13,854
+skills with potentially pretty long skill.md
+
+75
+00:03:13,854 --> 00:03:16,242
+files and maybe some other extra resources
+
+76
+00:03:16,242 --> 00:03:16,531
+as well,
+
+77
+00:03:17,204 --> 00:03:19,079
+that would be a lot of data lot of text that
+
+78
+00:03:19,127 --> 00:03:21,579
+would be loaded into your context window all
+
+79
+00:03:21,707 --> 00:03:23,213
+the time for every session. And you don't
+
+80
+00:03:23,229 --> 00:03:25,472
+want that because you don't need all your
+
+81
+00:03:25,472 --> 00:03:26,802
+skills for all your sessions.
+
+82
+00:03:27,411 --> 00:03:29,366
+So that's why this metadata is so important
+
+83
+00:03:29,398 --> 00:03:32,234
+because this description will be loaded into
+
+84
+00:03:32,282 --> 00:03:34,606
+every session and it should contain some
+
+85
+00:03:34,686 --> 00:03:38,179
+clear hints that tell the agent when to load
+
+86
+00:03:38,211 --> 00:03:41,384
+the rest of this skill so that the agent can
+
+87
+00:03:41,400 --> 00:03:43,883
+make decisions on which skills to activate
+
+88
+00:03:43,899 --> 00:03:46,689
+and load entirely based on this metadata,
+
+89
+00:03:46,786 --> 00:03:49,048
+based on this description. So here we could,
+
+90
+00:03:49,096 --> 00:03:51,005
+for example, say detailed domain knowledge
+
+91
+00:03:51,117 --> 00:03:52,930
+and best practices for TanStack Start.
+
+92
+00:03:53,508 --> 00:03:55,337
+Use this skill whenever working with
+
+93
+00:03:55,369 --> 00:03:57,406
+TanStack Start features or APIs, or when
+
+94
+00:03:57,535 --> 00:03:59,412
+asked to implement a feature in a TanStack
+
+95
+00:03:59,460 --> 00:04:01,802
+Start app. Now you can tweak this, you
+
+96
+00:04:01,802 --> 00:04:03,599
+should tweak this if you see that a skill is
+
+97
+00:04:03,727 --> 00:04:05,605
+not getting loaded in situation where you
+
+98
+00:04:05,701 --> 00:04:07,626
+want the agent to load it, because the agent
+
+99
+00:04:07,626 --> 00:04:09,615
+will tell us, as you'll see. But that is one
+
+100
+00:04:09,728 --> 00:04:11,942
+thing you could put there. And that should
+
+101
+00:04:11,958 --> 00:04:13,739
+hopefully ensure that whenever we work on
+
+102
+00:04:13,755 --> 00:04:15,665
+this app and we implement some feature
+
+103
+00:04:15,665 --> 00:04:18,088
+related to 10-Step Start, we activate that
+
+104
+00:04:18,088 --> 00:04:18,377
+skill.
+
+105
+00:04:19,115 --> 00:04:20,704
+Now, what do we put in the actual content
+
+106
+00:04:20,704 --> 00:04:22,774
+here? Well, whatever feels important to you.
+
+107
+00:04:23,127 --> 00:04:24,941
+And you can of course write this by hand,
+
+108
+00:04:24,973 --> 00:04:26,947
+but the great thing is you can also use an
+
+109
+00:04:27,043 --> 00:04:28,904
+agent to generate that skill. And that's
+
+110
+00:04:28,904 --> 00:04:30,910
+what we'll do here. So we'll basically use
+
+111
+00:04:30,910 --> 00:04:33,077
+Pi to set something up which makes Pi
+
+112
+00:04:33,077 --> 00:04:33,687
+better, which is
+
+113
+00:04:34,264 --> 00:04:36,399
+mind-blowing and pretty amazing. So I'll
+
+114
+00:04:36,431 --> 00:04:38,806
+start a new Pi session here. And save my
+
+115
+00:04:38,854 --> 00:04:41,035
+skill.md file with that metadata I already
+
+116
+00:04:41,035 --> 00:04:43,602
+set up and then tell Pi what it should do.
+
+117
+00:04:44,051 --> 00:04:46,153
+And then I have a prompt like this, for
+
+118
+00:04:46,153 --> 00:04:47,789
+example, where I'm telling Pi that we're
+
+119
+00:04:47,902 --> 00:04:49,442
+building a TanStack Dart skill in this
+
+120
+00:04:49,442 --> 00:04:51,479
+project, that I already added the skill.md
+
+121
+00:04:51,527 --> 00:04:53,901
+file and the description, and that I wanted
+
+122
+00:04:53,933 --> 00:04:54,110
+to
+
+123
+00:04:54,736 --> 00:04:56,965
+do some in-depth web and docs research on
+
+124
+00:04:56,965 --> 00:04:58,891
+TanStack Dart where it should dive into the
+
+125
+00:04:58,891 --> 00:05:01,169
+official docs and also related docs like
+
+126
+00:05:01,233 --> 00:05:03,045
+TanStack Router, which is a dependency
+
+127
+00:05:03,078 --> 00:05:05,227
+TanStack Dart depends on. Which is just
+
+128
+00:05:05,227 --> 00:05:07,438
+something I know as a developer. So your
+
+129
+00:05:07,567 --> 00:05:09,458
+knowledge as a developer still matters, of
+
+130
+00:05:09,490 --> 00:05:09,762
+course.
+
+131
+00:05:10,692 --> 00:05:12,359
+That it should gather information about the
+
+132
+00:05:12,359 --> 00:05:13,913
+latest version of TanStack Start, its
+
+133
+00:05:13,961 --> 00:05:16,173
+features and recommended patterns and best
+
+134
+00:05:16,301 --> 00:05:16,830
+practices.
+
+135
+00:05:17,423 --> 00:05:19,170
+That it should especially also gather
+
+136
+00:05:19,186 --> 00:05:21,718
+information on environment functions, which
+
+137
+00:05:21,815 --> 00:05:24,379
+is just one key feature of TanStack Start,
+
+138
+00:05:24,395 --> 00:05:26,735
+which I know from experience agents often
+
+139
+00:05:26,735 --> 00:05:29,604
+get wrong. So again, combining my experience
+
+140
+00:05:29,604 --> 00:05:31,126
+and knowledge with the powerful coding
+
+141
+00:05:31,190 --> 00:05:31,463
+agent.
+
+142
+00:05:32,088 --> 00:05:33,370
+And I also give it a link to that
+
+143
+00:05:33,370 --> 00:05:35,662
+documentation. And that it then should
+
+144
+00:05:35,774 --> 00:05:38,291
+implement a concise actionable SkillMD file,
+
+145
+00:05:38,740 --> 00:05:41,048
+work on the existing one, and add extra
+
+146
+00:05:41,048 --> 00:05:43,726
+references for the agent to dive deeper when
+
+147
+00:05:43,790 --> 00:05:44,078
+needed.
+
+148
+00:05:44,896 --> 00:05:47,316
+It should also follow the official Agent
+
+149
+00:05:47,316 --> 00:05:50,010
+Skills standard because there is a website,
+
+150
+00:05:50,106 --> 00:05:53,761
+agentskills.io, which has more details about
+
+151
+00:05:53,873 --> 00:05:55,460
+Agent Skills and contains the official
+
+152
+00:05:55,973 --> 00:05:58,666
+specification, which is nice to know so that
+
+153
+00:05:58,762 --> 00:06:00,301
+we set up a correct skill here.
+
+154
+00:06:01,024 --> 00:06:03,464
+Important is also that it should put all
+
+155
+00:06:04,139 --> 00:06:06,563
+code that really runs only on the server
+
+156
+00:06:06,563 --> 00:06:09,277
+side when working with TanStack Start into a
+
+157
+00:06:09,277 --> 00:06:11,171
+function wrapped with createServerFunction
+
+158
+00:06:11,460 --> 00:06:13,323
+or createServerOnlyFunction. And that's
+
+159
+00:06:13,371 --> 00:06:15,378
+again just something I know from experience
+
+160
+00:06:15,378 --> 00:06:17,594
+of working with that framework. So that's
+
+161
+00:06:17,626 --> 00:06:19,665
+some extra instruction I'm adding here to
+
+162
+00:06:19,665 --> 00:06:21,865
+make sure it finds its way into the skill.
+
+163
+00:06:22,700 --> 00:06:25,012
+And with that, we can send it off to Pi. And
+
+164
+00:06:25,012 --> 00:06:27,324
+of course The exact prompt doesn't matter.
+
+165
+00:06:27,372 --> 00:06:29,122
+It's just about making sure that all the
+
+166
+00:06:29,122 --> 00:06:31,305
+appropriate information is gathered and then
+
+167
+00:06:31,305 --> 00:06:33,232
+in the future also included in that skill.
+
+168
+00:06:33,858 --> 00:06:35,399
+And as you see, it's now doing some web
+
+169
+00:06:35,544 --> 00:06:38,176
+research here, which is fine. And then at
+
+170
+00:06:38,176 --> 00:06:40,889
+some point, of course, it should go ahead
+
+171
+00:06:41,307 --> 00:06:42,093
+and it should
+
+172
+00:06:42,928 --> 00:06:44,951
+improve that skill. By the way, nice to
+
+173
+00:06:44,951 --> 00:06:46,974
+know, or nice to see, it already loaded the
+
+174
+00:06:47,006 --> 00:06:49,558
+skill here, understanding that its task has
+
+175
+00:06:49,590 --> 00:06:51,838
+something to do with TanStack Start and with
+
+176
+00:06:51,838 --> 00:06:54,053
+that skill even. But of course, the skill is
+
+177
+00:06:54,085 --> 00:06:55,980
+currently empty, but later, once it's
+
+178
+00:06:55,900 --> 00:06:58,048
+properly set up, whenever a skill gets
+
+179
+00:06:58,160 --> 00:06:59,699
+activated, it will look like this in a
+
+180
+00:06:59,699 --> 00:07:01,735
+session. So that is what you can watch for
+
+181
+00:07:01,783 --> 00:07:04,155
+to see whether a skill you worked on is
+
+182
+00:07:04,348 --> 00:07:05,566
+getting activated or not.
+
+183
+00:07:06,672 --> 00:07:08,564
+And getting activated really just means that
+
+184
+00:07:08,596 --> 00:07:11,048
+the skill file and potentially related files
+
+185
+00:07:11,225 --> 00:07:11,850
+are being read.
+
+186
+00:07:12,844 --> 00:07:15,008
+But with that, I'll let it do its job and
+
+187
+00:07:15,008 --> 00:07:16,002
+get back once it's done.
+
+188
+00:07:16,996 --> 00:07:19,641
+And the agent is done now. So let's take a
+
+189
+00:07:19,641 --> 00:07:19,897
+look.
+
+190
+00:07:20,875 --> 00:07:24,003
+skill.md. Which I set up before, is now
+
+191
+00:07:24,131 --> 00:07:24,693
+populated.
+
+192
+00:07:25,656 --> 00:07:25,768
+Now
+
+193
+00:07:26,314 --> 00:07:27,967
+the agent added something here which has no
+
+194
+00:07:28,063 --> 00:07:30,663
+use. An instruction like this, use this
+
+195
+00:07:30,663 --> 00:07:32,621
+skill for 10-stack start react word,
+
+196
+00:07:33,600 --> 00:07:34,033
+uh, well,
+
+197
+00:07:34,900 --> 00:07:37,307
+this gets only loaded when the skill already
+
+198
+00:07:37,307 --> 00:07:39,426
+was activated. So a use this skill
+
+199
+00:07:39,635 --> 00:07:41,528
+instruction makes no sense here because the
+
+200
+00:07:41,544 --> 00:07:43,904
+agent only reads this after it already
+
+201
+00:07:43,904 --> 00:07:46,183
+started using the skill. So we can remove
+
+202
+00:07:46,215 --> 00:07:48,028
+that. The other sentence here is fine
+
+203
+00:07:48,060 --> 00:07:50,228
+though. It also refined this description a
+
+204
+00:07:50,228 --> 00:07:51,705
+bit, which is fine, and it added more
+
+205
+00:07:51,817 --> 00:07:52,363
+metadata, which
+
+206
+00:07:53,022 --> 00:07:54,868
+frankly just doesn't matter. The description
+
+207
+00:07:54,868 --> 00:07:56,538
+here is the important part in that
+
+208
+00:07:57,116 --> 00:07:57,935
+metadata up here.
+
+209
+00:07:58,658 --> 00:08:00,777
+And then it got some instructions here on
+
+210
+00:08:00,825 --> 00:08:03,153
+how the agent should work its way through
+
+211
+00:08:03,153 --> 00:08:03,828
+the project.
+
+212
+00:08:04,984 --> 00:08:06,846
+It includes my details about create server
+
+213
+00:08:06,911 --> 00:08:09,014
+functions, which is important for— to me,
+
+214
+00:08:09,640 --> 00:08:11,342
+has more details about all these environment
+
+215
+00:08:11,342 --> 00:08:13,125
+functions, which are a key TanStack Start
+
+216
+00:08:13,125 --> 00:08:13,590
+feature.
+
+217
+00:08:14,939 --> 00:08:16,802
+Yeah, has some recommendations on how to
+
+218
+00:08:16,802 --> 00:08:17,942
+organize code,
+
+219
+00:08:18,729 --> 00:08:19,981
+explains data loading.
+
+220
+00:08:20,977 --> 00:08:23,225
+That all looks good. And then it also added
+
+221
+00:08:23,225 --> 00:08:25,505
+references to references like the official
+
+222
+00:08:25,537 --> 00:08:27,962
+docs, which simply just has a list of the
+
+223
+00:08:27,962 --> 00:08:30,194
+key docs the agent might wanna visit to dive
+
+224
+00:08:30,194 --> 00:08:31,944
+deeper, which I guess makes sense.
+
+225
+00:08:32,619 --> 00:08:35,076
+And then a checklist here. Yeah, you could
+
+226
+00:08:35,108 --> 00:08:37,179
+definitely fine-tune this with or without an
+
+227
+00:08:37,179 --> 00:08:38,930
+agent. And again, that is something I would
+
+228
+00:08:38,962 --> 00:08:40,808
+recommend, especially if you see results
+
+229
+00:08:40,808 --> 00:08:42,687
+that are not in line with what you expect,
+
+230
+00:08:43,056 --> 00:08:44,952
+or for example, if there is something
+
+231
+00:08:45,065 --> 00:08:47,317
+related to 10-stack start to this framework,
+
+232
+00:08:47,703 --> 00:08:50,132
+the agent consistently gets wrong, you may
+
+233
+00:08:50,132 --> 00:08:52,063
+just want to dive into the skill and improve
+
+234
+00:08:52,063 --> 00:08:55,376
+it. But that is how you can generally create
+
+235
+00:08:55,376 --> 00:08:57,580
+such an agent skill. And we'll see it in
+
+236
+00:08:57,613 --> 00:08:59,833
+action throughout the rest of the course, of
+
+237
+00:08:59,849 --> 00:09:00,074
+course.

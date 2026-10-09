@@ -1,0 +1,367 @@
+1
+00:00:00,112 --> 00:00:03,398
+What's this clod.md file about? It's an
+
+2
+00:00:03,398 --> 00:00:05,609
+important file you should create in any
+
+3
+00:00:05,722 --> 00:00:08,206
+Claude Code project you are working on. And
+
+4
+00:00:08,206 --> 00:00:11,091
+you're also not limited to just one clod.md
+
+5
+00:00:11,091 --> 00:00:12,710
+file, but I'll get back to that.
+
+6
+00:00:13,575 --> 00:00:15,948
+Your Claude Code projects should typically
+
+7
+00:00:15,964 --> 00:00:18,673
+at least have one clod.md file in the root
+
+8
+00:00:18,929 --> 00:00:19,666
+project folder.
+
+9
+00:00:20,227 --> 00:00:22,519
+And this file and its content will
+
+10
+00:00:22,776 --> 00:00:25,132
+automatically be loaded into every new
+
+11
+00:00:25,212 --> 00:00:27,889
+session you create with Claude Code.
+
+12
+00:00:28,466 --> 00:00:30,507
+And also if you clear the context of a
+
+13
+00:00:30,507 --> 00:00:32,981
+session, this file will be loaded into the
+
+14
+00:00:32,981 --> 00:00:35,326
+newly created context. So what should be in
+
+15
+00:00:35,374 --> 00:00:38,636
+that file? Well, general rules and general
+
+16
+00:00:38,764 --> 00:00:39,857
+pieces of information
+
+17
+00:00:40,435 --> 00:00:40,499
+you
+
+18
+00:00:41,078 --> 00:00:43,070
+think are relevant to Claude Code. For
+
+19
+00:00:43,086 --> 00:00:44,934
+example, here, the information that we're
+
+20
+00:00:44,934 --> 00:00:46,926
+using Bun and that it should
+
+21
+00:00:47,520 --> 00:00:49,946
+use Bun for executing the scripts in this
+
+22
+00:00:50,010 --> 00:00:52,436
+project, that is important. And indeed,
+
+23
+00:00:52,484 --> 00:00:54,493
+there is one change I wanna make here real
+
+24
+00:00:54,509 --> 00:00:56,545
+quick. In this package.json file
+
+25
+00:00:57,074 --> 00:00:59,959
+for the dev server and for building and for
+
+26
+00:00:59,959 --> 00:01:02,875
+start, I'll execute them with this
+
+27
+00:01:03,884 --> 00:01:05,054
+command here, bun run
+
+28
+00:01:05,807 --> 00:01:07,874
+--bun to ensure that the Bun runtime gets
+
+29
+00:01:07,874 --> 00:01:10,342
+used for these commands because that allows
+
+30
+00:01:10,374 --> 00:01:11,944
+me to then use Bun APIs.
+
+31
+00:01:12,553 --> 00:01:14,348
+So that's an important piece of information.
+
+32
+00:01:14,925 --> 00:01:16,767
+We also have some general information about
+
+33
+00:01:16,767 --> 00:01:18,706
+the architecture in there, but as you see,
+
+34
+00:01:19,107 --> 00:01:21,863
+it's a rather slim and simple file.
+
+35
+00:01:22,633 --> 00:01:24,609
+And that's deliberately so because as
+
+36
+00:01:24,705 --> 00:01:26,456
+mentioned, this will be included in every
+
+37
+00:01:26,488 --> 00:01:28,431
+prompt and therefore it shouldn't be super
+
+38
+00:01:28,496 --> 00:01:30,632
+large because you'll just pollute your
+
+39
+00:01:30,648 --> 00:01:33,122
+context if you have a lot of information in
+
+40
+00:01:33,154 --> 00:01:33,314
+there.
+
+41
+00:01:34,021 --> 00:01:36,591
+There are a couple of tweaks I wanna make
+
+42
+00:01:36,591 --> 00:01:37,860
+though. For example, I'll add,
+
+43
+00:01:38,615 --> 00:01:41,393
+we're building the app described in
+
+44
+00:01:42,405 --> 00:01:46,597
+@spec.md to point at this spec.md file,
+
+45
+00:01:46,726 --> 00:01:48,750
+which of course includes a more detailed
+
+46
+00:01:48,894 --> 00:01:51,190
+description of the app we're building. And
+
+47
+00:01:51,222 --> 00:01:54,076
+to ensure that Claude will not always read
+
+48
+00:01:54,108 --> 00:01:56,288
+that file, which is rather large, I'll give
+
+49
+00:01:56,288 --> 00:01:58,740
+it some hint on when it might want to look
+
+50
+00:01:58,837 --> 00:02:01,610
+at this spec.md file, specifically here when
+
+51
+00:02:01,642 --> 00:02:04,159
+tackling general architectural tasks
+
+52
+00:02:04,768 --> 00:02:07,156
+or to double-check the database structure,
+
+53
+00:02:07,172 --> 00:02:09,561
+tech stack, or just application architecture
+
+54
+00:02:09,721 --> 00:02:10,090
+as a whole.
+
+55
+00:02:10,763 --> 00:02:12,142
+I also have one other instruction I
+
+56
+00:02:12,142 --> 00:02:14,226
+typically like to include here. I want
+
+57
+00:02:14,226 --> 00:02:16,983
+Claude Code to give me short replies, no
+
+58
+00:02:17,191 --> 00:02:19,339
+long essays with lots of
+
+59
+00:02:19,900 --> 00:02:21,904
+code snippets in there because all that will
+
+60
+00:02:21,904 --> 00:02:24,294
+be tokens I'm paying for and all that will
+
+61
+00:02:24,327 --> 00:02:27,488
+be tokens that pollute the context as a
+
+62
+00:02:27,537 --> 00:02:30,121
+conversation goes on for longer. So that's
+
+63
+00:02:30,265 --> 00:02:32,512
+one additional instruction I like to have in
+
+64
+00:02:32,512 --> 00:02:33,925
+my Claude MD files.
+
+65
+00:02:34,583 --> 00:02:36,685
+And then there are more tweaks we'll make
+
+66
+00:02:36,685 --> 00:02:38,788
+throughout this project. But for now, that's
+
+67
+00:02:38,932 --> 00:02:40,986
+it. Now I did mention that you can have
+
+68
+00:02:41,019 --> 00:02:44,004
+multiple Claude.md files in your project.
+
+69
+00:02:44,550 --> 00:02:46,716
+And you can indeed add as many as you want
+
+70
+00:02:46,716 --> 00:02:48,834
+by simply putting them into subfolders. The
+
+71
+00:02:49,187 --> 00:02:52,137
+important thing there will just be that
+
+72
+00:02:52,249 --> 00:02:55,503
+those nested clod.md files will only be read
+
+73
+00:02:55,759 --> 00:02:59,190
+and loaded by Claude when it works on files
+
+74
+00:02:59,286 --> 00:03:02,668
+in that subfolder. So if I added a clod.md
+
+75
+00:03:02,733 --> 00:03:04,496
+file here in the app folder,
+
+76
+00:03:05,137 --> 00:03:07,558
+the content of this file, this clod.md file,
+
+77
+00:03:07,862 --> 00:03:09,786
+will be loaded and considered whenever
+
+78
+00:03:09,882 --> 00:03:12,046
+Claude does work on any file in the app
+
+79
+00:03:12,046 --> 00:03:14,018
+folder, which for this project would very
+
+80
+00:03:14,034 --> 00:03:16,054
+often be the case since a lot of our code
+
+81
+00:03:16,054 --> 00:03:16,711
+will go in there.
+
+82
+00:03:17,336 --> 00:03:19,708
+But you get the point and you can have as
+
+83
+00:03:19,741 --> 00:03:21,073
+many levels of nesting of nesting as you
+
+84
+00:03:21,185 --> 00:03:24,479
+want and then add your folder-specific
+
+85
+00:03:24,479 --> 00:03:26,487
+Claude.md files as needed.
+
+86
+00:03:27,049 --> 00:03:29,813
+The core purpose of this Claude.md file
+
+87
+00:03:30,166 --> 00:03:33,636
+therefore simply is to store some long-term
+
+88
+00:03:33,636 --> 00:03:36,078
+memory that should be accessible across
+
+89
+00:03:36,207 --> 00:03:38,826
+different sessions and about having those
+
+90
+00:03:39,260 --> 00:03:39,533
+core
+
+91
+00:03:40,063 --> 00:03:42,537
+instructions that will apply to essentially
+
+92
+00:03:42,714 --> 00:03:43,421
+every prompt.

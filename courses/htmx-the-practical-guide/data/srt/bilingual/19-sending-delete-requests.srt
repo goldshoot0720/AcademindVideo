@@ -1,0 +1,979 @@
+1
+00:00:00,646 --> 00:00:04,701
+So how can we make sure that we can clear
+那我們怎麼才能確保我們能夠清除
+
+2
+00:00:04,927 --> 00:00:06,590
+these list items, that we can make these
+這些清單項，我們可以製作這些
+
+3
+00:00:06,687 --> 00:00:08,222
+remove buttons here work?
+刪除這裡的按鈕有用嗎？
+
+4
+00:00:09,860 --> 00:00:09,957
+Well,
+出色地，
+
+5
+00:00:10,685 --> 00:00:11,946
+back in our code here,
+回到我們的程式碼中，
+
+6
+00:00:12,642 --> 00:00:15,360
+we can simply go to these buttons
+我們只需點擊這些按鈕即可
+
+7
+00:00:16,428 --> 00:00:21,430
+and then add the hx-delete attribute on that
+然後新增 hx-delete 屬性
+
+8
+00:00:21,462 --> 00:00:21,850
+button.
+按鈕。
+
+9
+00:00:23,000 --> 00:00:27,597
+And that will then send a delete request
+然後將發送刪除請求
+
+10
+00:00:25,836 --> 00:00:28,323
+HTTP request whenever that button is
+每當該按鈕按下時都會發出 HTTP 請求
+
+11
+00:00:28,483 --> 00:00:28,820
+clicked.
+點擊。
+
+12
+00:00:29,623 --> 00:00:31,725
+Now, just to make sure that we're all on the
+現在，只是為了確保我們都在
+
+13
+00:00:31,725 --> 00:00:32,399
+same page,
+同一頁，
+
+14
+00:00:32,993 --> 00:00:37,502
+DELETE requests are standard HTTP requests
+DELETE 請求是標準 HTTP 請求
+
+15
+00:00:37,710 --> 00:00:40,759
+just like GET or POST requests. They're just
+就像 GET 或 POST 請求一樣。他們只是
+
+16
+00:00:40,759 --> 00:00:42,749
+using a different HTTP verb.
+使用不同的 HTTP 動詞。
+
+17
+00:00:44,225 --> 00:00:47,306
+Now, just by sending a DELETE request alone,
+現在，只需發送一個 DELETE 請求，
+
+18
+00:00:47,980 --> 00:00:50,483
+you're not going to delete anything though.
+但你不會刪除任何東西。
+
+19
+00:00:51,125 --> 00:00:53,949
+It's instead the backend code you write that
+相反，這是您編寫的後端程式碼
+
+20
+00:00:54,399 --> 00:00:56,613
+in the end decides what's going to happen.
+最終決定將會發生什麼。
+
+21
+00:00:57,288 --> 00:00:59,617
+When you send a POST request, you also don't
+當您發送 POST 請求時，您也不
+
+22
+00:00:59,713 --> 00:01:02,846
+magically add data somewhere. Instead, you
+神奇地在某處添加資料。相反，你
+
+23
+00:01:02,846 --> 00:01:05,577
+just decide to handle a POST request and you
+只要決定處理 POST 請求即可
+
+24
+00:01:05,577 --> 00:01:08,164
+then write the code that controls what
+然後寫控制什麼的程式碼
+
+25
+00:01:08,212 --> 00:01:10,605
+happens upon such a POST request.
+發生在這樣的 POST 請求上。
+
+26
+00:01:12,067 --> 00:01:14,092
+And it's the same now with a DELETE request.
+現在的 DELETE 請求也是如此。
+
+27
+00:01:14,397 --> 00:01:18,188
+We can send a DELETE request or we can get
+我們可以發送 DELETE 請求或我們可以得到
+
+28
+00:01:18,413 --> 00:01:22,285
+HTMX to send one by adding the hx-delete
+HTMX 透過新增 hx-delete 發送一個
+
+29
+00:01:22,349 --> 00:01:25,402
+attribute on an element. And therefore HTMX
+元素上的屬性。因此 HTMX
+
+30
+00:01:25,402 --> 00:01:27,748
+will send such a request whenever the
+每當
+
+31
+00:01:28,390 --> 00:01:29,322
+most obvious
+最明顯的
+
+32
+00:01:29,852 --> 00:01:32,713
+event for an element occurs, which in case
+發生某個元素的事件，以防萬一
+
+33
+00:01:32,713 --> 00:01:33,870
+of a button is a click event.
+按鈕的事件是點擊事件。
+
+34
+00:01:35,126 --> 00:01:37,493
+But we then have to decide to which path
+但接下來我們必須決定走哪條路
+
+35
+00:01:37,799 --> 00:01:40,182
+that request should be sent and we then have
+應該發送該請求，然後我們就可以了
+
+36
+00:01:40,214 --> 00:01:42,903
+to write the code on the backend to handle
+在後端編寫程式碼來處理
+
+37
+00:01:43,032 --> 00:01:45,583
+that incoming request and to then actually
+傳入的請求然後實際上
+
+38
+00:01:45,841 --> 00:01:46,680
+delete something.
+刪除一些東西。
+
+39
+00:01:48,279 --> 00:01:51,265
+Now let's start with the path. Here, I guess
+現在讓我們從路徑開始。在這裡，我猜
+
+40
+00:01:51,265 --> 00:01:53,218
+it makes sense to again send this to /goals.
+再次將其發送到 /goals 是有意義的。
+
+41
+00:01:54,362 --> 00:01:56,433
+But then I actually also
+但後來我其實也
+
+42
+00:01:57,076 --> 00:01:58,618
+wanna incorporate the
+想要合併
+
+43
+00:01:59,244 --> 00:02:03,339
+ID or in this case here, the index of the
+ID 或在本例中為索引
+
+44
+00:02:03,355 --> 00:02:05,090
+element that should be deleted
+應刪除的元素
+
+45
+00:02:05,829 --> 00:02:07,692
+into this path here.
+進入這裡的這條路。
+
+46
+00:02:08,720 --> 00:02:11,273
+Therefore, I'll actually adjust this string
+因此，我實際上會調整這個字串
+
+47
+00:02:11,386 --> 00:02:15,160
+here to dynamically inject the index so that
+在這裡動態注入索引，以便
+
+48
+00:02:15,160 --> 00:02:16,493
+the DELETE request is sent to
+DELETE 請求發送至
+
+49
+00:02:17,071 --> 00:02:20,781
+/goals/0 for the first element in the list,
+/goals/0 表示清單中的第一個元素，
+
+50
+00:02:21,573 --> 00:02:24,393
+/1 for the second element and so on.
+/1 表示第二個元素，依此類推。
+
+51
+00:02:26,210 --> 00:02:28,414
+And that of course now means that we need to
+當然，現在這意味著我們需要
+
+52
+00:02:28,478 --> 00:02:31,325
+add an appropriate route here in this
+在此處添加適當的路線
+
+53
+00:02:31,325 --> 00:02:32,966
+Express demo application.
+快速演示應用程式。
+
+54
+00:02:34,222 --> 00:02:37,039
+And there we can set up a route for DELETE
+在那裡我們可以設定刪除的路線
+
+55
+00:02:37,039 --> 00:02:39,422
+requests by using the DELETE method on this
+對此使用 DELETE 方法請求
+
+56
+00:02:39,679 --> 00:02:40,516
+app object
+應用程式物件
+
+57
+00:02:41,370 --> 00:02:42,883
+and by then defining the path
+然後定義路徑
+
+58
+00:02:43,463 --> 00:02:45,781
+for which we wanna listen to DELETE
+我們想聽 DELETE
+
+59
+00:02:45,781 --> 00:02:46,294
+requests.
+請求。
+
+60
+00:02:47,274 --> 00:02:49,490
+And in my case here, that's /goals
+就我而言，這就是/目標
+
+61
+00:02:50,149 --> 00:02:53,938
+and then this dynamic segment, which is 0
+然後是這個動態段，它是 0
+
+62
+00:02:54,098 --> 00:02:56,089
+for the first element, 1 for the second
+第一個元素為 1，第二個元素為 1
+
+63
+00:02:56,170 --> 00:02:57,197
+element, and so on.
+元素等。
+
+64
+00:02:58,257 --> 00:03:00,778
+And when using Express, that can be
+使用 Express 時，可以是
+
+65
+00:03:00,826 --> 00:03:04,102
+represented by using a colon and then any
+使用冒號表示，然後使用任何
+
+66
+00:03:04,214 --> 00:03:06,526
+identifier of your choice, like for example,
+您選擇的標識符，例如，
+
+67
+00:03:06,639 --> 00:03:08,421
+idx for index.
+idx 為索引。
+
+68
+00:03:09,673 --> 00:03:12,307
+This simply tells Express that this will be
+這只是告訴 Express 這將是
+
+69
+00:03:12,307 --> 00:03:14,571
+a dynamic segment which is not known in
+未知的動態段
+
+70
+00:03:14,571 --> 00:03:15,004
+advance,
+進步，
+
+71
+00:03:15,534 --> 00:03:17,976
+but which we will be able to extract for
+但我們可以從中提取
+
+72
+00:03:18,169 --> 00:03:19,394
+every incoming request.
+每個傳入的請求。
+
+73
+00:03:21,103 --> 00:03:23,037
+So therefore here we have that request
+所以我們這裡有這個請求
+
+74
+00:03:23,086 --> 00:03:25,600
+handler and we can now get the index by
+處理程式，我們現在可以透過以下方式取得索引
+
+75
+00:03:25,600 --> 00:03:26,793
+accessing req.params.idx.
+存取 req.params.idx。
+
+76
+00:03:31,089 --> 00:03:34,455
+This is how we extract the actual concrete
+這就是我們提取實際混凝土的方式
+
+77
+00:03:34,650 --> 00:03:38,178
+index that was submitted in that path as
+在該路徑中提交的索引為
+
+78
+00:03:38,356 --> 00:03:39,748
+part of the incoming request.
+傳入請求的一部分。
+
+79
+00:03:40,703 --> 00:03:44,087
+And I'm accessing.idx here because I have
+我在這裡訪問.idx 因為我有
+
+80
+00:03:44,184 --> 00:03:47,698
+chosen idx as an identifier after the colon
+選擇 idx 作為冒號後的標識符
+
+81
+00:03:47,943 --> 00:03:49,234
+here in this route path.
+在此路線路徑中。
+
+82
+00:03:51,410 --> 00:03:53,761
+So that then gives me the index of the item
+這樣我就得到了該物品的索引
+
+83
+00:03:53,777 --> 00:03:54,808
+that should be deleted
+應該刪除的
+
+84
+00:03:55,452 --> 00:03:57,289
+and we can then therefore go ahead
+然後我們就可以繼續
+
+85
+00:03:57,885 --> 00:04:00,542
+and access the courseGoals and then use the
+並造訪 courseGoals，然後使用
+
+86
+00:04:00,542 --> 00:04:04,091
+splice method, which is a standard array
+splice方法，這是一個標準陣列
+
+87
+00:04:04,091 --> 00:04:05,414
+method in JavaScript
+JavaScript 中的方法
+
+88
+00:04:05,946 --> 00:04:08,398
+to remove an element from the array.
+從陣列中刪除一個元素。
+
+89
+00:04:09,753 --> 00:04:12,009
+And for that, we just need to pass the index
+為此，我們只需要傳遞索引
+
+90
+00:04:12,075 --> 00:04:14,241
+of the element that should be removed to
+應刪除的元素的
+
+91
+00:04:14,289 --> 00:04:17,184
+splice and then a 1 thereafter as a second
+拼接，然後是 1 作為第二個
+
+92
+00:04:17,233 --> 00:04:19,724
+argument to make it clear that it's just
+論證顯示這只是
+
+93
+00:04:19,724 --> 00:04:21,875
+this one element that should be removed.
+這一元素應該被刪除。
+
+94
+00:04:23,482 --> 00:04:25,580
+That will therefore then remove it from the
+因此，這會將其從
+
+95
+00:04:25,580 --> 00:04:25,951
+list
+清單
+
+96
+00:04:26,855 --> 00:04:28,485
+and then what?
+然後呢？
+
+97
+00:04:29,114 --> 00:04:30,986
+How do we proceed here?
+我們如何進行這裡？
+
+98
+00:04:32,802 --> 00:04:35,793
+Well, then as a next step, we wanna make
+那麼下一步我們想要
+
+99
+00:04:35,857 --> 00:04:38,816
+sure that this list item is also removed
+確保該清單專案也被刪除
+
+100
+00:04:38,816 --> 00:04:41,935
+here from that rendered list of goals.
+這裡來自渲染的目標清單。
+
+101
+00:04:44,443 --> 00:04:46,917
+And that is something that's fairly easy to
+這是相當容易做到的
+
+102
+00:04:46,934 --> 00:04:50,184
+achieve with HTMX. Because if you're
+使用 HTMX 實作。因為如果你是
+
+103
+00:04:50,249 --> 00:04:52,772
+handling a DELETE request and you then wanna
+處理一個 DELETE 請求然後你想要
+
+104
+00:04:52,772 --> 00:04:56,281
+make sure that the element or some element
+確保該元素或某些元素
+
+105
+00:04:56,699 --> 00:04:59,736
+in the DOM that was responsible for sending
+在負責發送的 DOM 中
+
+106
+00:04:59,768 --> 00:05:01,664
+the request is deleted,
+請求被刪除，
+
+107
+00:05:02,242 --> 00:05:02,999
+all you have to do
+你所要做的一切
+
+108
+00:05:03,622 --> 00:05:06,228
+is send back an empty response.
+發回一個空回應。
+
+109
+00:05:07,280 --> 00:05:09,545
+So a response with an empty body.
+所以用一個空的身體來回應。
+
+110
+00:05:11,566 --> 00:05:15,518
+If you do that, HTMX will take that response
+如果您這樣做，HTMX 將接受該回應
+
+111
+00:05:15,534 --> 00:05:16,938
+content, which is
+內容，即
+
+112
+00:05:17,535 --> 00:05:17,890
+empty,
+空的，
+
+113
+00:05:18,745 --> 00:05:21,747
+and it will then do what it always does with
+然後它會做它一直在做的事情
+
+114
+00:05:21,812 --> 00:05:22,443
+responses.
+回應。
+
+115
+00:05:23,025 --> 00:05:25,760
+It will render it into the element that
+它將把它渲染到元素中
+
+116
+00:05:25,873 --> 00:05:28,785
+triggered that request. So in this case, it
+觸發了該請求。所以在這種情況下，它
+
+117
+00:05:28,785 --> 00:05:30,566
+would render it into this button.
+會將其渲染到此按鈕中。
+
+118
+00:05:31,688 --> 00:05:33,932
+It would essentially delete this text here,
+它基本上會刪除這裡的這段文字，
+
+119
+00:05:34,224 --> 00:05:34,680
+remove,
+消除，
+
+120
+00:05:35,265 --> 00:05:36,484
+and replace it with the empty response.
+並將其替換為空回應。
+
+121
+00:05:37,818 --> 00:05:40,110
+So with nothing, so we would have an empty
+所以什麼都沒有，所以我們會有一個空的
+
+122
+00:05:40,142 --> 00:05:40,513
+button.
+按鈕。
+
+123
+00:05:41,433 --> 00:05:43,048
+That's of course not what I want here
+這當然不是我想要的
+
+124
+00:05:43,048 --> 00:05:43,274
+though.
+儘管。
+
+125
+00:05:44,030 --> 00:05:46,096
+Therefore, what I'll do instead
+因此，我會做什麼
+
+126
+00:05:46,628 --> 00:05:50,616
+is I will add the hx-target element
+我將添加 hx-target 元素
+
+127
+00:05:51,633 --> 00:05:54,827
+and target the entire list item here so that
+並在此處定位整個列表項，以便
+
+128
+00:05:54,891 --> 00:05:57,938
+the content of that list item is replaced
+該列表專案的內容被替換
+
+129
+00:05:57,938 --> 00:05:58,632
+with nothing
+什麼也沒有
+
+130
+00:05:59,293 --> 00:06:01,542
+and it's therefore essentially deleted.
+因此它基本上被刪除了。
+
+131
+00:06:03,292 --> 00:06:07,175
+Now, the CSS selector for targeting this
+現在，用於定位此的 CSS 選擇器
+
+132
+00:06:07,528 --> 00:06:10,357
+list item here can be the ID of that list
+這裡的列表項可以是該清單的 ID
+
+133
+00:06:10,357 --> 00:06:10,598
+item.
+物品。
+
+134
+00:06:11,579 --> 00:06:14,086
+So therefore here I can use #goal-
+所以在這裡我可以使用#goal-
+
+135
+00:06:15,259 --> 00:06:18,064
+and then of course dynamically construct
+然後當然是動態建構
+
+136
+00:06:18,096 --> 00:06:20,970
+that ID by again using the index, which I am
+再次使用索引來取得該 ID，我就是
+
+137
+00:06:21,084 --> 00:06:22,756
+using for setting the ID as well.
+也用於設定 ID。
+
+138
+00:06:24,450 --> 00:06:27,553
+So with that, I'm then targeting this entire
+有了這個，我就瞄準了整個
+
+139
+00:06:27,553 --> 00:06:28,167
+list item.
+列表專案。
+
+140
+00:06:29,897 --> 00:06:32,095
+Now out of the box, as you learned,
+現在開箱即用，正如您所知，
+
+141
+00:06:32,646 --> 00:06:36,577
+HTMLX would then swap the content inside of
+然後 HTMLX 就會交換裡面的內容
+
+142
+00:06:36,593 --> 00:06:39,867
+that list item with the response body. So it
+帶有回應正文的列表項。所以它
+
+143
+00:06:39,867 --> 00:06:42,530
+would delete the content inside the list
+會刪除清單中的內容
+
+144
+00:06:42,595 --> 00:06:44,857
+item in this case here since the response
+自回應以來，本例中的專案在這裡
+
+145
+00:06:44,857 --> 00:06:45,900
+body will be empty.
+身體將是空的。
+
+146
+00:06:46,622 --> 00:06:48,468
+But that's not exactly what I want here.
+但這並不是我想要的。
+
+147
+00:06:48,708 --> 00:06:51,356
+Instead, I wanna replace the entire element
+相反，我想替換整個元素
+
+148
+00:06:51,420 --> 00:06:52,688
+and therefore delete it.
+因此刪除它。
+
+149
+00:06:53,907 --> 00:06:57,117
+Hence, we should also set hx-swap here to
+因此，我們也應該在這裡將 hx-swap 設定為
+
+150
+00:06:57,357 --> 00:07:00,791
+outerHTML so that the entire list item is
+整個清單專案是
+
+151
+00:07:00,888 --> 00:07:03,214
+replaced with the response body, so with
+替換為回應主體，因此
+
+152
+00:07:03,311 --> 00:07:04,255
+that HTML. Empty body
+那個 HTML。身體空虛
+
+153
+00:07:05,024 --> 00:07:07,153
+and therefore the entire list item will be
+因此整個列表專案將是
+
+154
+00:07:07,153 --> 00:07:07,612
+deleted.
+已刪除。
+
+155
+00:07:10,100 --> 00:07:12,274
+Now of course, we should add these same
+當然，現在我們應該添加這些相同的
+
+156
+00:07:12,451 --> 00:07:13,144
+attributes
+屬性
+
+157
+00:07:13,756 --> 00:07:16,623
+down here where I'm also rendering such list
+在這裡我也呈現這樣的列表
+
+158
+00:07:16,719 --> 00:07:18,813
+items. And of course repeating it like this
+專案.當然像這樣重複
+
+159
+00:07:18,813 --> 00:07:21,144
+is not ideal, but for the moment we'll do it
+並不理想，但目前我們會這樣做
+
+160
+00:07:21,144 --> 00:07:21,465
+like this.
+像這樣。
+
+161
+00:07:22,027 --> 00:07:24,823
+I will soon show you an alternative approach
+我很快就會向您展示另一種方法
+
+162
+00:07:24,935 --> 00:07:27,763
+though, but for the moment this is how we'll
+雖然如此，但目前我們將這樣做
+
+163
+00:07:27,827 --> 00:07:28,132
+do it.
+做吧。
+
+164
+00:07:28,936 --> 00:07:31,437
+Of course down here though, I don't have the
+當然，在這裡，我沒有
+
+165
+00:07:31,518 --> 00:07:34,649
+index variable, instead I calculated the
+索引變數，而是我計算了
+
+166
+00:07:34,649 --> 00:07:36,990
+index like this. And since I now need this
+像這樣的索引。因為我現在需要這個
+
+167
+00:07:36,990 --> 00:07:39,573
+in multiple places, I will for convenience
+在多個地方，為了方便我會
+
+168
+00:07:39,573 --> 00:07:42,156
+create that index variable and store the
+建立該索引變數並存儲
+
+169
+00:07:42,156 --> 00:07:42,995
+result of this
+這的結果
+
+170
+00:07:43,525 --> 00:07:45,793
+calculation, if you wanna call it like this,
+計算，如果你想這樣稱呼它，
+
+171
+00:07:46,324 --> 00:07:46,597
+in it.
+在其中。
+
+172
+00:07:47,224 --> 00:07:49,894
+And then use index here and in those other
+然後在此處和其他地方使用索引
+
+173
+00:07:49,942 --> 00:07:50,328
+places.
+地方。
+
+174
+00:07:52,967 --> 00:07:55,374
+With that, if we save that and we reload,
+這樣，如果我們儲存並重新載入，
+
+175
+00:07:56,441 --> 00:07:58,896
+if I enter Learn HTMX, that's added.
+如果我輸入 Learn HTMX，則會新增該內容。
+
+176
+00:07:59,452 --> 00:08:02,034
+If I learn advanced concepts,
+如果我學習先進的概念，
+
+177
+00:08:02,744 --> 00:08:03,454
+that's added.
+已新增。
+
+178
+00:08:04,276 --> 00:08:05,712
+And now if I click on
+現在如果我點擊
+
+179
+00:08:06,470 --> 00:08:07,987
+learn advanced concepts,
+學習先進的概念，
+
+180
+00:08:08,810 --> 00:08:10,504
+that is removed as you see.
+如您所見，該內容已被刪除。
+
+181
+00:08:11,133 --> 00:08:13,667
+And the same happens with learn HTMX.
+學習 HTMX 也會發生同樣的情況。
+
+182
+00:08:15,813 --> 00:08:19,538
+However, we'll face a problem here if we do
+但是，如果我們這樣做的話，我們會遇到一個問題
+
+183
+00:08:19,554 --> 00:08:20,993
+it the other way around.
+反之亦然。
+
+184
+00:08:23,431 --> 00:08:26,454
+If I now start by deleting learn HTMX,
+如果我現在開始刪除 learn HTMX，
+
+185
+00:08:26,996 --> 00:08:29,676
+and I then click Learn Advanced Concepts, it
+然後我點擊“學習高級概念”，它
+
+186
+00:08:29,804 --> 00:08:32,677
+looks like it worked, but if I reload,
+看起來它有效，但如果我重新載入，
+
+187
+00:08:33,334 --> 00:08:34,875
+the advanced concepts are back.
+先進的理念又回來了。
+
+188
+00:08:35,597 --> 00:08:37,988
+They weren't actually deleted even though it
+儘管它們實際上並沒有被刪除
+
+189
+00:08:38,004 --> 00:08:39,288
+looked like this on the UI.
+使用者介面上看起來像這樣。
+
+190
+00:08:40,315 --> 00:08:41,984
+But it only looked like that because of
+但它看起來只是因為
+
+191
+00:08:42,016 --> 00:08:45,209
+course we always return this empty response
+當然我們總是回傳這個空回應
+
+192
+00:08:45,225 --> 00:08:47,375
+and therefore we always in the end delete
+因此我們最終總是刪除
+
+193
+00:08:47,375 --> 00:08:49,076
+the element that sent the request,
+發送請求的元素，
+
+194
+00:08:49,798 --> 00:08:51,997
+but we didn't actually delete it here.
+但我們實際上並沒有在這裡刪除它。
+
+195
+00:08:52,767 --> 00:08:53,617
+And why is
+為什麼是
+
+196
+00:08:54,195 --> 00:08:56,217
+that and how can we solve it?
+那我們該如何解決呢？

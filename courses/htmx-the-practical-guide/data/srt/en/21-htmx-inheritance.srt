@@ -1,0 +1,267 @@
+1
+00:00:00,867 --> 00:00:03,736
+Now that we solved this ID problem,
+
+2
+00:00:04,494 --> 00:00:07,105
+let's get back to HTMX and to
+
+3
+00:00:07,701 --> 00:00:10,103
+features HTMX offers us.
+
+4
+00:00:11,587 --> 00:00:14,765
+And one feature HTMX offers us, which I
+
+5
+00:00:14,878 --> 00:00:15,539
+wanna use here,
+
+6
+00:00:16,176 --> 00:00:17,983
+is a feature that allows me to
+
+7
+00:00:18,757 --> 00:00:21,920
+make this code here a bit leaner.
+
+8
+00:00:22,737 --> 00:00:26,201
+Because one problem I have with this code is
+
+9
+00:00:26,314 --> 00:00:29,783
+that we're setting the target and hx-swap
+
+10
+00:00:30,104 --> 00:00:30,554
+here
+
+11
+00:00:31,229 --> 00:00:31,662
+in our
+
+12
+00:00:32,193 --> 00:00:34,619
+root GET route when we render the entire
+
+13
+00:00:34,619 --> 00:00:34,956
+page.
+
+14
+00:00:35,486 --> 00:00:37,640
+And of course, I'm then repeating that same
+
+15
+00:00:37,640 --> 00:00:40,383
+code down there where I'm rendering that one
+
+16
+00:00:40,593 --> 00:00:42,078
+single list item
+
+17
+00:00:42,659 --> 00:00:45,209
+that is returned when we add a new goal.
+
+18
+00:00:46,932 --> 00:00:49,265
+And we can actually get rid of this
+
+19
+00:00:49,265 --> 00:00:53,094
+duplication of hx-swap at least by getting
+
+20
+00:00:53,190 --> 00:00:54,220
+rid of it here
+
+21
+00:00:54,774 --> 00:00:58,062
+And by also getting rid of it here in our
+
+22
+00:00:58,127 --> 00:00:59,185
+main page content.
+
+23
+00:01:00,850 --> 00:01:03,147
+Now, of course, we need that hx-swap
+
+24
+00:01:03,147 --> 00:01:06,730
+setting, but we can use an HTMX mechanism
+
+25
+00:01:06,746 --> 00:01:10,071
+called inheritance for still applying it to
+
+26
+00:01:10,264 --> 00:01:11,459
+all these list items.
+
+27
+00:01:12,946 --> 00:01:16,714
+Because most HTMX attributes, not all of
+
+28
+00:01:16,730 --> 00:01:20,207
+them, but most of them can actually be set
+
+29
+00:01:20,207 --> 00:01:22,464
+on a parent element and they will then
+
+30
+00:01:22,642 --> 00:01:23,941
+automatically be inherited by all child
+
+31
+00:01:23,941 --> 00:01:24,185
+elements.
+
+32
+00:01:27,565 --> 00:01:28,881
+So we can add this
+
+33
+00:01:29,474 --> 00:01:32,956
+hx-swap attribute to the unordered list,
+
+34
+00:01:33,325 --> 00:01:36,277
+which will in the end hold all list items,
+
+35
+00:01:36,854 --> 00:01:39,325
+no matter if they're rendered here as part
+
+36
+00:01:39,357 --> 00:01:42,293
+of the overall page or if they're injected
+
+37
+00:01:42,405 --> 00:01:44,860
+into the page later because a form was
+
+38
+00:01:44,988 --> 00:01:45,501
+submitted.
+
+39
+00:01:46,657 --> 00:01:50,603
+And we can set hx-swap to outerHTML here
+
+40
+00:01:50,748 --> 00:01:53,090
+therefore, and all the list items and all
+
+41
+00:01:53,234 --> 00:01:55,769
+the buttons in there will use that setting.
+
+42
+00:01:55,930 --> 00:01:59,238
+Setting when they're using other HTMX
+
+43
+00:01:59,318 --> 00:02:01,454
+attributes as we're doing it here, for
+
+44
+00:02:01,486 --> 00:02:02,049
+example.
+
+45
+00:02:03,494 --> 00:02:06,818
+And this inheritance concept is an important
+
+46
+00:02:07,027 --> 00:02:09,677
+concept and you can always find out whether
+
+47
+00:02:09,677 --> 00:02:12,664
+an attribute supports inheritance or not by
+
+48
+00:02:12,664 --> 00:02:15,604
+taking a look at the documentation of that
+
+49
+00:02:15,716 --> 00:02:18,157
+attribute. And if you then scroll down all
+
+50
+00:02:18,350 --> 00:02:20,309
+the way to the bottom, you will find these
+
+51
+00:02:20,598 --> 00:02:23,376
+notes and there you learn that the element
+
+52
+00:02:23,488 --> 00:02:26,441
+is inherited or whether it's not inherited.
+
+53
+00:02:27,822 --> 00:02:30,261
+For example, all those attributes that
+
+54
+00:02:30,486 --> 00:02:33,342
+trigger requests are not inherited,
+
+55
+00:02:33,920 --> 00:02:36,247
+which kind of makes sense because you don't
+
+56
+00:02:36,247 --> 00:02:38,558
+wanna start sending the same kind of request
+
+57
+00:02:38,895 --> 00:02:41,880
+for all the child elements of some element.
+
+58
+00:02:43,084 --> 00:02:46,550
+hx-swap is inherited though, and therefore
+
+59
+00:02:46,695 --> 00:02:49,423
+by setting it on the unordered list, instead
+
+60
+00:02:49,423 --> 00:02:52,228
+of the buttons inside of the list, we can
+
+61
+00:02:52,228 --> 00:02:54,842
+now make sure that if we reload
+
+62
+00:02:55,980 --> 00:02:57,712
+and we again add some items here,
+
+63
+00:02:58,321 --> 00:02:59,957
+we got the same behavior as before.
+
+64
+00:03:00,630 --> 00:03:03,292
+The items are removed here, but we now made
+
+65
+00:03:03,292 --> 00:03:06,434
+the code a bit leaner at least. And most
+
+66
+00:03:06,434 --> 00:03:08,583
+importantly, you now know about this
+
+67
+00:03:08,583 --> 00:03:10,411
+important inheritance concept.

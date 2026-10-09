@@ -1,0 +1,982 @@
+[
+ {
+  "start": 0.646,
+  "end": 4.701,
+  "en": "So how can we make sure that we can clear"
+ },
+ {
+  "start": 4.927,
+  "end": 6.59,
+  "en": "these list items, that we can make these"
+ },
+ {
+  "start": 6.687,
+  "end": 8.222,
+  "en": "remove buttons here work?"
+ },
+ {
+  "start": 9.86,
+  "end": 9.957,
+  "en": "Well,"
+ },
+ {
+  "start": 10.685,
+  "end": 11.946,
+  "en": "back in our code here,"
+ },
+ {
+  "start": 12.642,
+  "end": 15.36,
+  "en": "we can simply go to these buttons"
+ },
+ {
+  "start": 16.428,
+  "end": 21.43,
+  "en": "and then add the hx-delete attribute on that"
+ },
+ {
+  "start": 21.462,
+  "end": 21.85,
+  "en": "button."
+ },
+ {
+  "start": 23.0,
+  "end": 27.597,
+  "en": "And that will then send a delete request"
+ },
+ {
+  "start": 25.836,
+  "end": 28.323,
+  "en": "HTTP request whenever that button is"
+ },
+ {
+  "start": 28.483,
+  "end": 28.82,
+  "en": "clicked."
+ },
+ {
+  "start": 29.623,
+  "end": 31.725,
+  "en": "Now, just to make sure that we're all on the"
+ },
+ {
+  "start": 31.725,
+  "end": 32.399,
+  "en": "same page,"
+ },
+ {
+  "start": 32.993,
+  "end": 37.502,
+  "en": "DELETE requests are standard HTTP requests"
+ },
+ {
+  "start": 37.71,
+  "end": 40.759,
+  "en": "just like GET or POST requests. They're just"
+ },
+ {
+  "start": 40.759,
+  "end": 42.749,
+  "en": "using a different HTTP verb."
+ },
+ {
+  "start": 44.225,
+  "end": 47.306,
+  "en": "Now, just by sending a DELETE request alone,"
+ },
+ {
+  "start": 47.98,
+  "end": 50.483,
+  "en": "you're not going to delete anything though."
+ },
+ {
+  "start": 51.125,
+  "end": 53.949,
+  "en": "It's instead the backend code you write that"
+ },
+ {
+  "start": 54.399,
+  "end": 56.613,
+  "en": "in the end decides what's going to happen."
+ },
+ {
+  "start": 57.288,
+  "end": 59.617,
+  "en": "When you send a POST request, you also don't"
+ },
+ {
+  "start": 59.713,
+  "end": 62.846,
+  "en": "magically add data somewhere. Instead, you"
+ },
+ {
+  "start": 62.846,
+  "end": 65.577,
+  "en": "just decide to handle a POST request and you"
+ },
+ {
+  "start": 65.577,
+  "end": 68.164,
+  "en": "then write the code that controls what"
+ },
+ {
+  "start": 68.212,
+  "end": 70.605,
+  "en": "happens upon such a POST request."
+ },
+ {
+  "start": 72.067,
+  "end": 74.092,
+  "en": "And it's the same now with a DELETE request."
+ },
+ {
+  "start": 74.397,
+  "end": 78.188,
+  "en": "We can send a DELETE request or we can get"
+ },
+ {
+  "start": 78.413,
+  "end": 82.285,
+  "en": "HTMX to send one by adding the hx-delete"
+ },
+ {
+  "start": 82.349,
+  "end": 85.402,
+  "en": "attribute on an element. And therefore HTMX"
+ },
+ {
+  "start": 85.402,
+  "end": 87.748,
+  "en": "will send such a request whenever the"
+ },
+ {
+  "start": 88.39,
+  "end": 89.322,
+  "en": "most obvious"
+ },
+ {
+  "start": 89.852,
+  "end": 92.713,
+  "en": "event for an element occurs, which in case"
+ },
+ {
+  "start": 92.713,
+  "end": 93.87,
+  "en": "of a button is a click event."
+ },
+ {
+  "start": 95.126,
+  "end": 97.493,
+  "en": "But we then have to decide to which path"
+ },
+ {
+  "start": 97.799,
+  "end": 100.182,
+  "en": "that request should be sent and we then have"
+ },
+ {
+  "start": 100.214,
+  "end": 102.903,
+  "en": "to write the code on the backend to handle"
+ },
+ {
+  "start": 103.032,
+  "end": 105.583,
+  "en": "that incoming request and to then actually"
+ },
+ {
+  "start": 105.841,
+  "end": 106.68,
+  "en": "delete something."
+ },
+ {
+  "start": 108.279,
+  "end": 111.265,
+  "en": "Now let's start with the path. Here, I guess"
+ },
+ {
+  "start": 111.265,
+  "end": 113.218,
+  "en": "it makes sense to again send this to /goals."
+ },
+ {
+  "start": 114.362,
+  "end": 116.433,
+  "en": "But then I actually also"
+ },
+ {
+  "start": 117.076,
+  "end": 118.618,
+  "en": "wanna incorporate the"
+ },
+ {
+  "start": 119.244,
+  "end": 123.339,
+  "en": "ID or in this case here, the index of the"
+ },
+ {
+  "start": 123.355,
+  "end": 125.09,
+  "en": "element that should be deleted"
+ },
+ {
+  "start": 125.829,
+  "end": 127.692,
+  "en": "into this path here."
+ },
+ {
+  "start": 128.72,
+  "end": 131.273,
+  "en": "Therefore, I'll actually adjust this string"
+ },
+ {
+  "start": 131.386,
+  "end": 135.16,
+  "en": "here to dynamically inject the index so that"
+ },
+ {
+  "start": 135.16,
+  "end": 136.493,
+  "en": "the DELETE request is sent to"
+ },
+ {
+  "start": 137.071,
+  "end": 140.781,
+  "en": "/goals/0 for the first element in the list,"
+ },
+ {
+  "start": 141.573,
+  "end": 144.393,
+  "en": "/1 for the second element and so on."
+ },
+ {
+  "start": 146.21,
+  "end": 148.414,
+  "en": "And that of course now means that we need to"
+ },
+ {
+  "start": 148.478,
+  "end": 151.325,
+  "en": "add an appropriate route here in this"
+ },
+ {
+  "start": 151.325,
+  "end": 152.966,
+  "en": "Express demo application."
+ },
+ {
+  "start": 154.222,
+  "end": 157.039,
+  "en": "And there we can set up a route for DELETE"
+ },
+ {
+  "start": 157.039,
+  "end": 159.422,
+  "en": "requests by using the DELETE method on this"
+ },
+ {
+  "start": 159.679,
+  "end": 160.516,
+  "en": "app object"
+ },
+ {
+  "start": 161.37,
+  "end": 162.883,
+  "en": "and by then defining the path"
+ },
+ {
+  "start": 163.463,
+  "end": 165.781,
+  "en": "for which we wanna listen to DELETE"
+ },
+ {
+  "start": 165.781,
+  "end": 166.294,
+  "en": "requests."
+ },
+ {
+  "start": 167.274,
+  "end": 169.49,
+  "en": "And in my case here, that's /goals"
+ },
+ {
+  "start": 170.149,
+  "end": 173.938,
+  "en": "and then this dynamic segment, which is 0"
+ },
+ {
+  "start": 174.098,
+  "end": 176.089,
+  "en": "for the first element, 1 for the second"
+ },
+ {
+  "start": 176.17,
+  "end": 177.197,
+  "en": "element, and so on."
+ },
+ {
+  "start": 178.257,
+  "end": 180.778,
+  "en": "And when using Express, that can be"
+ },
+ {
+  "start": 180.826,
+  "end": 184.102,
+  "en": "represented by using a colon and then any"
+ },
+ {
+  "start": 184.214,
+  "end": 186.526,
+  "en": "identifier of your choice, like for example,"
+ },
+ {
+  "start": 186.639,
+  "end": 188.421,
+  "en": "idx for index."
+ },
+ {
+  "start": 189.673,
+  "end": 192.307,
+  "en": "This simply tells Express that this will be"
+ },
+ {
+  "start": 192.307,
+  "end": 194.571,
+  "en": "a dynamic segment which is not known in"
+ },
+ {
+  "start": 194.571,
+  "end": 195.004,
+  "en": "advance,"
+ },
+ {
+  "start": 195.534,
+  "end": 197.976,
+  "en": "but which we will be able to extract for"
+ },
+ {
+  "start": 198.169,
+  "end": 199.394,
+  "en": "every incoming request."
+ },
+ {
+  "start": 201.103,
+  "end": 203.037,
+  "en": "So therefore here we have that request"
+ },
+ {
+  "start": 203.086,
+  "end": 205.6,
+  "en": "handler and we can now get the index by"
+ },
+ {
+  "start": 205.6,
+  "end": 206.793,
+  "en": "accessing req.params.idx."
+ },
+ {
+  "start": 211.089,
+  "end": 214.455,
+  "en": "This is how we extract the actual concrete"
+ },
+ {
+  "start": 214.65,
+  "end": 218.178,
+  "en": "index that was submitted in that path as"
+ },
+ {
+  "start": 218.356,
+  "end": 219.748,
+  "en": "part of the incoming request."
+ },
+ {
+  "start": 220.703,
+  "end": 224.087,
+  "en": "And I'm accessing.idx here because I have"
+ },
+ {
+  "start": 224.184,
+  "end": 227.698,
+  "en": "chosen idx as an identifier after the colon"
+ },
+ {
+  "start": 227.943,
+  "end": 229.234,
+  "en": "here in this route path."
+ },
+ {
+  "start": 231.41,
+  "end": 233.761,
+  "en": "So that then gives me the index of the item"
+ },
+ {
+  "start": 233.777,
+  "end": 234.808,
+  "en": "that should be deleted"
+ },
+ {
+  "start": 235.452,
+  "end": 237.289,
+  "en": "and we can then therefore go ahead"
+ },
+ {
+  "start": 237.885,
+  "end": 240.542,
+  "en": "and access the courseGoals and then use the"
+ },
+ {
+  "start": 240.542,
+  "end": 244.091,
+  "en": "splice method, which is a standard array"
+ },
+ {
+  "start": 244.091,
+  "end": 245.414,
+  "en": "method in JavaScript"
+ },
+ {
+  "start": 245.946,
+  "end": 248.398,
+  "en": "to remove an element from the array."
+ },
+ {
+  "start": 249.753,
+  "end": 252.009,
+  "en": "And for that, we just need to pass the index"
+ },
+ {
+  "start": 252.075,
+  "end": 254.241,
+  "en": "of the element that should be removed to"
+ },
+ {
+  "start": 254.289,
+  "end": 257.184,
+  "en": "splice and then a 1 thereafter as a second"
+ },
+ {
+  "start": 257.233,
+  "end": 259.724,
+  "en": "argument to make it clear that it's just"
+ },
+ {
+  "start": 259.724,
+  "end": 261.875,
+  "en": "this one element that should be removed."
+ },
+ {
+  "start": 263.482,
+  "end": 265.58,
+  "en": "That will therefore then remove it from the"
+ },
+ {
+  "start": 265.58,
+  "end": 265.951,
+  "en": "list"
+ },
+ {
+  "start": 266.855,
+  "end": 268.485,
+  "en": "and then what?"
+ },
+ {
+  "start": 269.114,
+  "end": 270.986,
+  "en": "How do we proceed here?"
+ },
+ {
+  "start": 272.802,
+  "end": 275.793,
+  "en": "Well, then as a next step, we wanna make"
+ },
+ {
+  "start": 275.857,
+  "end": 278.816,
+  "en": "sure that this list item is also removed"
+ },
+ {
+  "start": 278.816,
+  "end": 281.935,
+  "en": "here from that rendered list of goals."
+ },
+ {
+  "start": 284.443,
+  "end": 286.917,
+  "en": "And that is something that's fairly easy to"
+ },
+ {
+  "start": 286.934,
+  "end": 290.184,
+  "en": "achieve with HTMX. Because if you're"
+ },
+ {
+  "start": 290.249,
+  "end": 292.772,
+  "en": "handling a DELETE request and you then wanna"
+ },
+ {
+  "start": 292.772,
+  "end": 296.281,
+  "en": "make sure that the element or some element"
+ },
+ {
+  "start": 296.699,
+  "end": 299.736,
+  "en": "in the DOM that was responsible for sending"
+ },
+ {
+  "start": 299.768,
+  "end": 301.664,
+  "en": "the request is deleted,"
+ },
+ {
+  "start": 302.242,
+  "end": 302.999,
+  "en": "all you have to do"
+ },
+ {
+  "start": 303.622,
+  "end": 306.228,
+  "en": "is send back an empty response."
+ },
+ {
+  "start": 307.28,
+  "end": 309.545,
+  "en": "So a response with an empty body."
+ },
+ {
+  "start": 311.566,
+  "end": 315.518,
+  "en": "If you do that, HTMX will take that response"
+ },
+ {
+  "start": 315.534,
+  "end": 316.938,
+  "en": "content, which is"
+ },
+ {
+  "start": 317.535,
+  "end": 317.89,
+  "en": "empty,"
+ },
+ {
+  "start": 318.745,
+  "end": 321.747,
+  "en": "and it will then do what it always does with"
+ },
+ {
+  "start": 321.812,
+  "end": 322.443,
+  "en": "responses."
+ },
+ {
+  "start": 323.025,
+  "end": 325.76,
+  "en": "It will render it into the element that"
+ },
+ {
+  "start": 325.873,
+  "end": 328.785,
+  "en": "triggered that request. So in this case, it"
+ },
+ {
+  "start": 328.785,
+  "end": 330.566,
+  "en": "would render it into this button."
+ },
+ {
+  "start": 331.688,
+  "end": 333.932,
+  "en": "It would essentially delete this text here,"
+ },
+ {
+  "start": 334.224,
+  "end": 334.68,
+  "en": "remove,"
+ },
+ {
+  "start": 335.265,
+  "end": 336.484,
+  "en": "and replace it with the empty response."
+ },
+ {
+  "start": 337.818,
+  "end": 340.11,
+  "en": "So with nothing, so we would have an empty"
+ },
+ {
+  "start": 340.142,
+  "end": 340.513,
+  "en": "button."
+ },
+ {
+  "start": 341.433,
+  "end": 343.048,
+  "en": "That's of course not what I want here"
+ },
+ {
+  "start": 343.048,
+  "end": 343.274,
+  "en": "though."
+ },
+ {
+  "start": 344.03,
+  "end": 346.096,
+  "en": "Therefore, what I'll do instead"
+ },
+ {
+  "start": 346.628,
+  "end": 350.616,
+  "en": "is I will add the hx-target element"
+ },
+ {
+  "start": 351.633,
+  "end": 354.827,
+  "en": "and target the entire list item here so that"
+ },
+ {
+  "start": 354.891,
+  "end": 357.938,
+  "en": "the content of that list item is replaced"
+ },
+ {
+  "start": 357.938,
+  "end": 358.632,
+  "en": "with nothing"
+ },
+ {
+  "start": 359.293,
+  "end": 361.542,
+  "en": "and it's therefore essentially deleted."
+ },
+ {
+  "start": 363.292,
+  "end": 367.175,
+  "en": "Now, the CSS selector for targeting this"
+ },
+ {
+  "start": 367.528,
+  "end": 370.357,
+  "en": "list item here can be the ID of that list"
+ },
+ {
+  "start": 370.357,
+  "end": 370.598,
+  "en": "item."
+ },
+ {
+  "start": 371.579,
+  "end": 374.086,
+  "en": "So therefore here I can use #goal-"
+ },
+ {
+  "start": 375.259,
+  "end": 378.064,
+  "en": "and then of course dynamically construct"
+ },
+ {
+  "start": 378.096,
+  "end": 380.97,
+  "en": "that ID by again using the index, which I am"
+ },
+ {
+  "start": 381.084,
+  "end": 382.756,
+  "en": "using for setting the ID as well."
+ },
+ {
+  "start": 384.45,
+  "end": 387.553,
+  "en": "So with that, I'm then targeting this entire"
+ },
+ {
+  "start": 387.553,
+  "end": 388.167,
+  "en": "list item."
+ },
+ {
+  "start": 389.897,
+  "end": 392.095,
+  "en": "Now out of the box, as you learned,"
+ },
+ {
+  "start": 392.646,
+  "end": 396.577,
+  "en": "HTMLX would then swap the content inside of"
+ },
+ {
+  "start": 396.593,
+  "end": 399.867,
+  "en": "that list item with the response body. So it"
+ },
+ {
+  "start": 399.867,
+  "end": 402.53,
+  "en": "would delete the content inside the list"
+ },
+ {
+  "start": 402.595,
+  "end": 404.857,
+  "en": "item in this case here since the response"
+ },
+ {
+  "start": 404.857,
+  "end": 405.9,
+  "en": "body will be empty."
+ },
+ {
+  "start": 406.622,
+  "end": 408.468,
+  "en": "But that's not exactly what I want here."
+ },
+ {
+  "start": 408.708,
+  "end": 411.356,
+  "en": "Instead, I wanna replace the entire element"
+ },
+ {
+  "start": 411.42,
+  "end": 412.688,
+  "en": "and therefore delete it."
+ },
+ {
+  "start": 413.907,
+  "end": 417.117,
+  "en": "Hence, we should also set hx-swap here to"
+ },
+ {
+  "start": 417.357,
+  "end": 420.791,
+  "en": "outerHTML so that the entire list item is"
+ },
+ {
+  "start": 420.888,
+  "end": 423.214,
+  "en": "replaced with the response body, so with"
+ },
+ {
+  "start": 423.311,
+  "end": 424.255,
+  "en": "that HTML. Empty body"
+ },
+ {
+  "start": 425.024,
+  "end": 427.153,
+  "en": "and therefore the entire list item will be"
+ },
+ {
+  "start": 427.153,
+  "end": 427.612,
+  "en": "deleted."
+ },
+ {
+  "start": 430.1,
+  "end": 432.274,
+  "en": "Now of course, we should add these same"
+ },
+ {
+  "start": 432.451,
+  "end": 433.144,
+  "en": "attributes"
+ },
+ {
+  "start": 433.756,
+  "end": 436.623,
+  "en": "down here where I'm also rendering such list"
+ },
+ {
+  "start": 436.719,
+  "end": 438.813,
+  "en": "items. And of course repeating it like this"
+ },
+ {
+  "start": 438.813,
+  "end": 441.144,
+  "en": "is not ideal, but for the moment we'll do it"
+ },
+ {
+  "start": 441.144,
+  "end": 441.465,
+  "en": "like this."
+ },
+ {
+  "start": 442.027,
+  "end": 444.823,
+  "en": "I will soon show you an alternative approach"
+ },
+ {
+  "start": 444.935,
+  "end": 447.763,
+  "en": "though, but for the moment this is how we'll"
+ },
+ {
+  "start": 447.827,
+  "end": 448.132,
+  "en": "do it."
+ },
+ {
+  "start": 448.936,
+  "end": 451.437,
+  "en": "Of course down here though, I don't have the"
+ },
+ {
+  "start": 451.518,
+  "end": 454.649,
+  "en": "index variable, instead I calculated the"
+ },
+ {
+  "start": 454.649,
+  "end": 456.99,
+  "en": "index like this. And since I now need this"
+ },
+ {
+  "start": 456.99,
+  "end": 459.573,
+  "en": "in multiple places, I will for convenience"
+ },
+ {
+  "start": 459.573,
+  "end": 462.156,
+  "en": "create that index variable and store the"
+ },
+ {
+  "start": 462.156,
+  "end": 462.995,
+  "en": "result of this"
+ },
+ {
+  "start": 463.525,
+  "end": 465.793,
+  "en": "calculation, if you wanna call it like this,"
+ },
+ {
+  "start": 466.324,
+  "end": 466.597,
+  "en": "in it."
+ },
+ {
+  "start": 467.224,
+  "end": 469.894,
+  "en": "And then use index here and in those other"
+ },
+ {
+  "start": 469.942,
+  "end": 470.328,
+  "en": "places."
+ },
+ {
+  "start": 472.967,
+  "end": 475.374,
+  "en": "With that, if we save that and we reload,"
+ },
+ {
+  "start": 476.441,
+  "end": 478.896,
+  "en": "if I enter Learn HTMX, that's added."
+ },
+ {
+  "start": 479.452,
+  "end": 482.034,
+  "en": "If I learn advanced concepts,"
+ },
+ {
+  "start": 482.744,
+  "end": 483.454,
+  "en": "that's added."
+ },
+ {
+  "start": 484.276,
+  "end": 485.712,
+  "en": "And now if I click on"
+ },
+ {
+  "start": 486.47,
+  "end": 487.987,
+  "en": "learn advanced concepts,"
+ },
+ {
+  "start": 488.81,
+  "end": 490.504,
+  "en": "that is removed as you see."
+ },
+ {
+  "start": 491.133,
+  "end": 493.667,
+  "en": "And the same happens with learn HTMX."
+ },
+ {
+  "start": 495.813,
+  "end": 499.538,
+  "en": "However, we'll face a problem here if we do"
+ },
+ {
+  "start": 499.554,
+  "end": 500.993,
+  "en": "it the other way around."
+ },
+ {
+  "start": 503.431,
+  "end": 506.454,
+  "en": "If I now start by deleting learn HTMX,"
+ },
+ {
+  "start": 506.996,
+  "end": 509.676,
+  "en": "and I then click Learn Advanced Concepts, it"
+ },
+ {
+  "start": 509.804,
+  "end": 512.677,
+  "en": "looks like it worked, but if I reload,"
+ },
+ {
+  "start": 513.334,
+  "end": 514.875,
+  "en": "the advanced concepts are back."
+ },
+ {
+  "start": 515.597,
+  "end": 517.988,
+  "en": "They weren't actually deleted even though it"
+ },
+ {
+  "start": 518.004,
+  "end": 519.288,
+  "en": "looked like this on the UI."
+ },
+ {
+  "start": 520.315,
+  "end": 521.984,
+  "en": "But it only looked like that because of"
+ },
+ {
+  "start": 522.016,
+  "end": 525.209,
+  "en": "course we always return this empty response"
+ },
+ {
+  "start": 525.225,
+  "end": 527.375,
+  "en": "and therefore we always in the end delete"
+ },
+ {
+  "start": 527.375,
+  "end": 529.076,
+  "en": "the element that sent the request,"
+ },
+ {
+  "start": 529.798,
+  "end": 531.997,
+  "en": "but we didn't actually delete it here."
+ },
+ {
+  "start": 532.767,
+  "end": 533.617,
+  "en": "And why is"
+ },
+ {
+  "start": 534.195,
+  "end": 536.217,
+  "en": "that and how can we solve it?"
+ }
+]

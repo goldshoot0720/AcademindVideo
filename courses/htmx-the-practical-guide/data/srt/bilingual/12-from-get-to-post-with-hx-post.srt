@@ -1,0 +1,434 @@
+1
+00:00:00,352 --> 00:00:03,108
+So at this point, you learned about some
+所以此時你已經了解了一些
+
+2
+00:00:03,397 --> 00:00:06,009
+crucial HTMX features and
+重要的 HTMX 功能和
+
+3
+00:00:06,666 --> 00:00:08,990
+attributes which you can add to send and
+您可以添加到發送和
+
+4
+00:00:09,070 --> 00:00:10,143
+configure requests.
+設定請求。
+
+5
+00:00:10,929 --> 00:00:13,252
+But of course, at this point, we only had a
+但當然，此時我們只有一個
+
+6
+00:00:13,252 --> 00:00:13,829
+look at
+看看
+
+7
+00:00:14,358 --> 00:00:17,948
+loading data. But what about submitting
+載入資料。但是提交呢
+
+8
+00:00:18,380 --> 00:00:18,781
+data?
+資料？
+
+9
+00:00:20,047 --> 00:00:22,915
+Well, for that, I prepared an adjusted
+嗯，為此，我準備了一個調整後的
+
+10
+00:00:23,012 --> 00:00:23,332
+version
+版本
+
+11
+00:00:23,973 --> 00:00:26,761
+of this demo application. And attached you
+這個演示應用程式的。並附上你
+
+12
+00:00:26,793 --> 00:00:29,566
+find my adjusted app.js file.
+找到我調整後的 app.js 檔案。
+
+13
+00:00:30,479 --> 00:00:33,171
+And you can and should simply replace yours
+你可以而且應該簡單地更換你的
+
+14
+00:00:33,444 --> 00:00:34,261
+with that.
+與此。
+
+15
+00:00:34,950 --> 00:00:37,931
+And that file gives you almost exactly the
+該檔案幾乎完全準確地為您提供了
+
+16
+00:00:37,931 --> 00:00:40,783
+same page, but instead of giving you this
+同一頁面，但不是給你這個
+
+17
+00:00:41,216 --> 00:00:43,988
+Learn More button that loads all those
+載入所有這些的“了解更多”按鈕
+
+18
+00:00:44,180 --> 00:00:44,517
+items,
+專案,
+
+19
+00:00:45,142 --> 00:00:47,594
+the items are rendered right from the start
+這些專案從一開始就被渲染
+
+20
+00:00:47,850 --> 00:00:51,167
+and there is an extra form above that list.
+該列表上方還有一個額外的表格。
+
+21
+00:00:51,777 --> 00:00:55,150
+And that extra info route which we added
+我們新增的額外資訊路線
+
+22
+00:00:55,246 --> 00:00:55,599
+before
+前
+
+23
+00:00:56,210 --> 00:00:57,495
+doesn't exist anymore.
+不再存在了。
+
+24
+00:00:58,378 --> 00:01:00,514
+Therefore, if you load this page,
+因此，如果您載入此頁面，
+
+25
+00:01:01,108 --> 00:01:01,767
+you'll get
+你會得到
+
+26
+00:01:02,313 --> 00:01:03,694
+this website here.
+這個網站在這裡。
+
+27
+00:01:04,641 --> 00:01:08,014
+And now we have this form where I also wanna
+現在我們有了這個表格，我也想要
+
+28
+00:01:08,014 --> 00:01:11,226
+handle the form submission with HTMX.
+使用 HTMX 處理表單提交。
+
+29
+00:01:11,804 --> 00:01:15,241
+So how can we handle form submissions with
+那我們如何處理表單提交
+
+30
+00:01:15,466 --> 00:01:16,285
+HTMX?
+HTMX？
+
+31
+00:01:17,313 --> 00:01:22,356
+Well, just as we had this hx-get attribute
+好吧，就像我們有這個 hx-get 屬性一樣
+
+32
+00:01:20,702 --> 00:01:24,036
+attribute for triggering GET requests when
+觸發 GET 請求的屬性
+
+33
+00:01:24,148 --> 00:01:28,220
+an element was clicked, we have an hx-post
+點擊了一個元素，我們有一個 hx-post
+
+34
+00:01:28,300 --> 00:01:31,217
+attribute which we can add to an element to
+我們可以加入到元素的屬性
+
+35
+00:01:31,217 --> 00:01:33,045
+submit a POST request.
+提交 POST 請求。
+
+36
+00:01:34,151 --> 00:01:38,126
+And typically when submitting form data, you
+通常在提交表單資料時，您
+
+37
+00:01:38,255 --> 00:01:41,621
+want to send a POST request. That's why I'm
+想要發送 POST 請求。這就是為什麼我
+
+38
+00:01:41,621 --> 00:01:43,849
+using this attribute here now.
+現在在這裡使用這個屬性。
+
+39
+00:01:45,132 --> 00:01:47,296
+I also wanna mention right away and
+我也想馬上提一下
+
+40
+00:01:47,616 --> 00:01:48,241
+emphasize
+強調
+
+41
+00:01:48,915 --> 00:01:52,842
+that you're not limited to using hx-post on
+您不限於使用 hx-post
+
+42
+00:01:52,842 --> 00:01:53,292
+forms,
+表格，
+
+43
+00:01:54,030 --> 00:01:56,035
+you can use it on any element.
+您可以在任何元素上使用它。
+
+44
+00:01:56,677 --> 00:02:00,223
+Any element in your page can trigger a POST
+頁面中的任何元素都可以觸發 POST
+
+45
+00:02:00,223 --> 00:02:04,059
+request, but forms of course are the perfect
+請求，但形式當然是完美的
+
+46
+00:02:04,059 --> 00:02:06,851
+fit because the idea behind forms is to
+適合，因為形式背後的想法是
+
+47
+00:02:06,963 --> 00:02:08,904
+gather data that should be submitted.
+收集應提交的資料。
+
+48
+00:02:10,028 --> 00:02:13,301
+So we can add hx-post on that form and it
+所以我們可以在該表單上新增 hx-post
+
+49
+00:02:13,301 --> 00:02:15,676
+will then automatically be triggered when
+然後會自動觸發
+
+50
+00:02:15,708 --> 00:02:16,879
+that form is submitted,
+該表格已提交，
+
+51
+00:02:17,617 --> 00:02:19,736
+which will happen when that button is
+當該按鈕按下時會發生
+
+52
+00:02:19,864 --> 00:02:22,438
+clicked. That's how forms work.
+點擊。這就是表格的工作原理。
+
+53
+00:02:23,968 --> 00:02:26,785
+Now we could of course add hx-trigger and
+現在我們當然可以加入 hx-trigger 和
+
+54
+00:02:27,027 --> 00:02:28,138
+change that trigger,
+改變那個觸發器，
+
+55
+00:02:28,798 --> 00:02:31,229
+for example, to submit the form whenever we
+例如，每當我們
+
+56
+00:02:31,229 --> 00:02:31,809
+click on it.
+單擊它。
+
+57
+00:02:32,421 --> 00:02:34,514
+So whenever we click anywhere in the form,
+因此，每當我們單擊表單中的任意位置時，
+
+58
+00:02:35,013 --> 00:02:36,994
+but that's of course not what I want here. I
+但這當然不是我想要的。我
+
+59
+00:02:37,090 --> 00:02:39,893
+just wanna emphasize that we could change
+只是想強調我們可以改變
+
+60
+00:02:39,990 --> 00:02:43,283
+that trigger and that the default trigger is
+此觸發器和預設觸發器是
+
+61
+00:02:43,639 --> 00:02:45,866
+different from what we had before with
+與我們之前的不同
+
+62
+00:02:46,044 --> 00:02:49,924
+hx-get and it's not different because we're
+hx-get 並沒有什麼不同，因為我們是
+
+63
+00:02:50,005 --> 00:02:53,500
+using hx-post, but it's different, it's the
+使用hx-post，但它不同，它是
+
+64
+00:02:53,500 --> 00:02:56,835
+submit event because we're using hx-post on
+提交事件，因為我們正在使用 hx-post
+
+65
+00:02:56,899 --> 00:02:57,381
+the form.
+形式。
+
+66
+00:02:58,198 --> 00:03:01,983
+If I were using hx-post on some button
+如果我在某個按鈕上使用 hx-post
+
+67
+00:03:02,672 --> 00:03:04,933
+like this, then it would still be a click
+這樣的話，還是點擊一下
+
+68
+00:03:04,997 --> 00:03:07,723
+event that triggers this POST request.
+觸發此 POST 請求的事件。
+
+69
+00:03:08,845 --> 00:03:11,668
+So it's not the attribute that dictates
+所以這不是屬性決定的
+
+70
+00:03:11,972 --> 00:03:14,923
+which trigger triggers the request, but
+哪個觸發器觸發請求，但是
+
+71
+00:03:14,923 --> 00:03:17,418
+instead the element. On which you use it.
+而不是元素。您在哪一個上使用它。
+
+72
+00:03:19,116 --> 00:03:21,654
+Now here I wanna use hx-post on the form to
+現在我想在表單上使用 hx-post 來
+
+73
+00:03:21,654 --> 00:03:23,789
+send a POST request whenever the form is
+每當表單存在時發送 POST 請求
+
+74
+00:03:23,999 --> 00:03:26,488
+submitted and therefore of course we must
+已提交，因此我們當然必須
+
+75
+00:03:26,553 --> 00:03:29,377
+add a value to this attribute and define the
+向該屬性新增一個值並定義
+
+76
+00:03:29,538 --> 00:03:32,152
+path to which this POST request should be
+此 POST 請求應到達的路徑
+
+77
+00:03:32,152 --> 00:03:32,459
+sent.
+發送。
+
+78
+00:03:33,815 --> 00:03:35,494
+And here we could send it to
+我們可以在這裡將其發送至
+
+79
+00:03:36,886 --> 00:03:38,569
+/nothing if we want to
+/如果我們願意的話什麼都不用
+
+80
+00:03:39,556 --> 00:03:41,077
+or to /note
+或/注意
+
+81
+00:03:42,422 --> 00:03:43,208
+Whatever you want.
+任何你想要的。
+
+82
+00:03:44,091 --> 00:03:46,498
+Since we are the person working on the
+由於我們是從事這項工作的人
+
+83
+00:03:46,514 --> 00:03:47,012
+backend,
+後端，
+
+84
+00:03:47,541 --> 00:03:49,724
+we can then add the appropriate route.
+然後我們可以添加適當的路線。
+
+85
+00:03:50,590 --> 00:03:52,869
+And that's indeed what we'll do now as our
+這確實是我們現在要做的
+
+86
+00:03:52,869 --> 00:03:55,629
+next step. I wanna add a route that handles
+下一步。我想添加一條處理過的路線
+
+87
+00:03:55,726 --> 00:03:59,465
+POST requests to /note on that server here.
+POST 請求到該伺服器上的 /note 。

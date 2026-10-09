@@ -1,0 +1,939 @@
+1
+00:00:02,121 --> 00:00:06,005
+So let's continue working on this REST API.
+那麼讓我們繼續研究這個 REST API。
+
+2
+00:00:06,701 --> 00:00:08,740
+And there are different places where we
+我們有不同的地方
+
+3
+00:00:08,821 --> 00:00:11,460
+could work on next, but I wanna start by
+接下來可以工作，但我想從
+
+4
+00:00:11,460 --> 00:00:13,408
+making sure that we're actually using a
+確保我們實際使用的是
+
+5
+00:00:13,424 --> 00:00:17,015
+database to store the submitted data when
+資料庫用於儲存提交時的資料
+
+6
+00:00:17,047 --> 00:00:19,092
+creating a user, for example.
+例如，建立一個使用者。
+
+7
+00:00:20,751 --> 00:00:22,231
+And of course, therefore, we will need to
+當然，因此，我們需要
+
+8
+00:00:22,343 --> 00:00:24,998
+add some code here to createUser and also to
+在這裡添加一些程式碼來 createUser 以及
+
+9
+00:00:25,078 --> 00:00:27,636
+findUserByEmail. But first I need some code
+透過電子郵件尋找使用者。但首先我需要一些程式碼
+
+10
+00:00:27,668 --> 00:00:30,178
+to add a database set up that database, to
+新增資料庫 設定該資料庫，
+
+11
+00:00:30,178 --> 00:00:31,559
+install the database too.
+也安裝資料庫。
+
+12
+00:00:32,907 --> 00:00:36,103
+And for that, I'll now use the chat that's
+為此，我現在將使用聊天功能
+
+13
+00:00:36,119 --> 00:00:38,463
+integrated in Cursor. We could also use
+整合在遊標中。我們也可以使用
+
+14
+00:00:38,608 --> 00:00:41,225
+Composer again, but to mix things up and
+又是作曲家，但要把東西混合起來
+
+15
+00:00:41,642 --> 00:00:43,553
+show you these different features in action,
+向您展示這些不同的功能的實際應用，
+
+16
+00:00:43,681 --> 00:00:46,251
+I'll use the chat. I'll remove the
+我會使用聊天功能。我將刪除
+
+17
+00:00:46,315 --> 00:00:48,450
+.gitignore file as context here, don't need
+.gitignore 檔案作為上下文，不需要
+
+18
+00:00:48,482 --> 00:00:48,723
+that.
+那。
+
+19
+00:00:49,365 --> 00:00:52,063
+And instead, I'll add this user.js file in
+相反，我將添加此 user.js 檔案
+
+20
+00:00:52,079 --> 00:00:53,669
+the models folder as context.
+models 資料夾作為上下文。
+
+21
+00:00:54,984 --> 00:00:55,738
+And the open file,
+和打開的檔案，
+
+22
+00:00:56,268 --> 00:00:57,696
+at least at the point of time when I'm
+至少在我現在
+
+23
+00:00:57,696 --> 00:01:00,070
+recording this, is automatically added here
+錄製此內容，會自動加入此處
+
+24
+00:01:00,183 --> 00:01:01,996
+as context, as you can tell
+如你所知，作為上下文
+
+25
+00:01:02,830 --> 00:01:05,012
+by looking at this. If it were not added,
+看看這個。如果沒有添加的話，
+
+26
+00:01:05,252 --> 00:01:07,852
+you could do it manually here with a plus.
+您可以在這裡手動新增一個加號。
+
+27
+00:01:08,702 --> 00:01:10,178
+You could add files like this,
+您可以新增這樣的檔案，
+
+28
+00:01:10,772 --> 00:01:10,964
+or
+或者
+
+29
+00:01:11,830 --> 00:01:15,200
+you can also add, add files and then pick a
+您也可以新增，新增檔案，然後選擇一個
+
+30
+00:01:15,200 --> 00:01:16,948
+file you want to add as context.
+您想要新增為上下文的檔案。
+
+31
+00:01:18,248 --> 00:01:20,173
+And as shown before, you could add other
+如前所示，您可以添加其他
+
+32
+00:01:20,173 --> 00:01:22,484
+contexts as well, like the web search, for
+以及上下文，例如網路搜尋，
+
+33
+00:01:22,500 --> 00:01:23,029
+example.
+例子。
+
+34
+00:01:23,956 --> 00:01:27,283
+And I'll do that here and I'll say I want to
+我會在這裡這樣做，我會說我想要
+
+35
+00:01:27,283 --> 00:01:27,703
+store
+店鋪
+
+36
+00:01:28,704 --> 00:01:31,514
+all data in a SQLite database.
+SQLite 資料庫中的所有資料。
+
+37
+00:01:32,980 --> 00:01:34,899
+How do I add one
+如何添加一個
+
+38
+00:01:36,140 --> 00:01:36,817
+to this
+對此
+
+39
+00:01:37,413 --> 00:01:38,042
+application?
+應用？
+
+40
+00:01:40,062 --> 00:01:42,413
+And actually I'll now confirm this by
+實際上我現在將通過以下方式確認這一點
+
+41
+00:01:42,413 --> 00:01:42,687
+hitting
+擊打
+
+42
+00:01:43,443 --> 00:01:44,007
+this button
+這個按鈕
+
+43
+00:01:44,796 --> 00:01:47,549
+or by using this shortcut here so that it
+或在這裡使用這個快捷方式
+
+44
+00:01:47,549 --> 00:01:49,869
+takes my entire codebase into account and
+考慮到我的整個程式碼庫並且
+
+45
+00:01:49,886 --> 00:01:51,520
+therefore understands that it's a Node
+因此明白它是一個​​節點
+
+46
+00:01:51,520 --> 00:01:52,928
+Express application and so on.
+特快申請等。
+
+47
+00:01:55,137 --> 00:01:56,662
+So let's see what it gives me.
+那麼讓我們看看它給了我什麼。
+
+48
+00:01:57,368 --> 00:01:58,973
+Of course, it starts by analyzing all the
+當然，首先要分析所有
+
+49
+00:01:58,973 --> 00:02:00,674
+files and then it tells me that I could
+檔案然後它告訴我我可以
+
+50
+00:02:00,674 --> 00:02:02,647
+install the SQLite3 package,
+安裝 SQLite3 套件，
+
+51
+00:02:03,386 --> 00:02:04,429
+tells me how to do that,
+告訴我該怎麼做，
+
+52
+00:02:05,151 --> 00:02:07,189
+and then how I can adjust
+然後我該如何調整
+
+53
+00:02:07,798 --> 00:02:08,264
+my code,
+我的程式碼，
+
+54
+00:02:09,580 --> 00:02:12,500
+that I can add a new database.js file here
+我可以在此處新增一個新的database.js 檔案
+
+55
+00:02:13,030 --> 00:02:14,667
+in which I initialize the database
+我在其中初始化資料庫
+
+56
+00:02:15,341 --> 00:02:17,411
+and where I then also in this case have
+在這種情況下我也有
+
+57
+00:02:18,020 --> 00:02:20,925
+some code to create an initial table and how
+一些創建初始表的程式碼以及如何
+
+58
+00:02:20,973 --> 00:02:22,948
+to update the other files to call this
+更新其他檔案以呼叫此檔案
+
+59
+00:02:23,061 --> 00:02:26,272
+database initialization code and also to use
+資料庫初始化程式碼以及使用
+
+60
+00:02:26,272 --> 00:02:28,456
+the database, for example, when creating
+資料庫，例如建立時
+
+61
+00:02:28,504 --> 00:02:28,809
+users.
+使用者。
+
+62
+00:02:30,286 --> 00:02:31,458
+Now, that's all fine,
+現在，一切都好啦
+
+63
+00:02:32,052 --> 00:02:34,605
+but I already know that I don't wanna use
+但我已經知道我不想使用
+
+64
+00:02:34,605 --> 00:02:38,090
+that SQLite3 package because I'm an
+那個 SQLite3 套件因為我是
+
+65
+00:02:38,090 --> 00:02:40,530
+experienced Node Express developer. I have
+經驗豐富的 Node Express 開發人員。我有
+
+66
+00:02:40,627 --> 00:02:42,602
+built applications like this before and I
+我之前建立過這樣的應用程式
+
+67
+00:02:42,650 --> 00:02:44,207
+know that I prefer the better
+知道我更喜歡更好的
+
+68
+00:02:44,833 --> 00:02:45,781
+SQLite3 package.
+SQLite3 套件。
+
+69
+00:02:47,991 --> 00:02:50,532
+Package, or BetterSQLite3 is the actual
+包，或者 BetterSQLite3 是實際的
+
+70
+00:02:50,532 --> 00:02:50,710
+name.
+姓名。
+
+71
+00:02:51,518 --> 00:02:53,717
+So I'll send this as a follow-up message. I
+因此，我將將此作為後續訊息發送。我
+
+72
+00:02:53,830 --> 00:02:54,816
+want to use the
+想要使用
+
+73
+00:02:55,382 --> 00:02:57,623
+BetterSQLite3 package
+BetterSQLite3 包
+
+74
+00:02:58,224 --> 00:03:01,391
+instead of the SQLite3 package.
+而不是 SQLite3 套件。
+
+75
+00:03:02,105 --> 00:03:02,641
+Update
+更新
+
+76
+00:03:03,161 --> 00:03:04,363
+your response
+你的回應
+
+77
+00:03:05,631 --> 00:03:07,841
+accordingly. That sentence is probably not
+因此。這句話大概不是
+
+78
+00:03:07,955 --> 00:03:08,507
+required,
+必需的，
+
+79
+00:03:09,271 --> 00:03:10,197
+but I'll still add it here.
+但我還是會在這裡添加它。
+
+80
+00:03:12,084 --> 00:03:13,521
+And with that, it hopefully gives me some
+有了這個，它希望能給我一些
+
+81
+00:03:13,700 --> 00:03:15,561
+updated instructions. For example, how to
+更新了說明。例如，如何
+
+82
+00:03:15,561 --> 00:03:15,888
+install this package.
+安裝這個包。
+
+83
+00:03:18,723 --> 00:03:20,654
+Well, it's just a different name of course,
+當然，這只是一個不同的名字
+
+84
+00:03:21,040 --> 00:03:23,196
+but then also regarding initialization
+但也關於初始化
+
+85
+00:03:23,952 --> 00:03:26,060
+that I could add this code here
+我可以在這裡添加這段程式碼
+
+86
+00:03:28,523 --> 00:03:30,681
+and that I should call some of that code
+我應該調用其中的一些程式碼
+
+87
+00:03:30,681 --> 00:03:32,372
+from inside user.js here in the models
+從模型中的 user.js 內部
+
+88
+00:03:32,468 --> 00:03:32,903
+folder
+資料夾
+
+89
+00:03:34,320 --> 00:03:35,983
+and that I also need to call
+我還需要打電話
+
+90
+00:03:36,210 --> 00:03:38,671
+initializeDatabase in the app.js folder.
+在 app.js 資料夾中初始化資料庫。
+
+91
+00:03:40,161 --> 00:03:41,877
+Again, we could have used Composer for that
+同樣，我們可以使用 Composer 來實現這一點
+
+92
+00:03:41,877 --> 00:03:44,229
+as well, but here I'll go with the chat
+也是一樣，但我會在這裡進行聊天
+
+93
+00:03:44,848 --> 00:03:46,804
+and I'll start by installing that package.
+我將從安裝軟體包開始。
+
+94
+00:03:47,692 --> 00:03:49,972
+So I'll press Apply here,
+所以我會在這裡按“應用”​​，
+
+95
+00:03:51,298 --> 00:03:53,789
+but no, I don't want to apply the C2user.js.
+但不，我不想套用 C2user.js。
+
+96
+00:03:55,030 --> 00:03:56,176
+So at least right now, it's not
+所以至少現在還不是
+
+97
+00:03:56,176 --> 00:03:57,953
+understanding that this is a terminal
+了解這是一個終端機
+
+98
+00:03:57,969 --> 00:04:00,004
+command. So I'll instead copy it
+命令。所以我會複製它
+
+99
+00:04:01,441 --> 00:04:03,670
+and then run it in my terminal here in the
+然後在我的終端機中運行它
+
+100
+00:04:03,670 --> 00:04:04,399
+project folder
+專案資料夾
+
+101
+00:04:05,405 --> 00:04:08,001
+to install this package. That's the first
+安裝這個包。這是第一個
+
+102
+00:04:08,001 --> 00:04:08,423
+step
+步
+
+103
+00:04:09,282 --> 00:04:09,574
+like this.
+像這樣。
+
+104
+00:04:11,489 --> 00:04:12,202
+And then let's see.
+然後讓我們看看。
+
+105
+00:04:13,076 --> 00:04:13,092
+I
+我
+
+106
+00:04:13,974 --> 00:04:14,903
+then want to
+然後想要
+
+107
+00:04:15,800 --> 00:04:16,473
+apply
+申請
+
+108
+00:04:17,659 --> 00:04:19,117
+these changes here to the
+這些變化在這裡
+
+109
+00:04:19,726 --> 00:04:21,777
+to-be-created database.js file.
+待創建的database.js 檔案。
+
+110
+00:04:23,188 --> 00:04:25,351
+But if I click Apply, it wants to apply to
+但是如果我點擊應用，它想要應用到
+
+111
+00:04:25,351 --> 00:04:25,928
+user.js.
+使用者.js。
+
+112
+00:04:27,049 --> 00:04:28,203
+So that's not working
+所以這不起作用
+
+113
+00:04:28,796 --> 00:04:30,799
+because it will essentially always apply it
+因為它基本上總是會應用它
+
+114
+00:04:30,799 --> 00:04:33,139
+to the file I have currently open, at least
+至少到我目前打開的檔案
+
+115
+00:04:33,203 --> 00:04:34,196
+right now when I
+現在當我
+
+116
+00:04:34,805 --> 00:04:37,433
+record this. So what I'll do instead is I'll
+記錄一下。所以我要做的是
+
+117
+00:04:37,433 --> 00:04:40,428
+add a database.js file, Next to app.js in my
+新增一個database.js檔案，在我的app.js旁邊
+
+118
+00:04:40,428 --> 00:04:40,671
+case.
+案件。
+
+119
+00:04:41,966 --> 00:04:43,632
+We could also store it in a subfolder,
+我們也可以將其儲存在子資料夾中，
+
+120
+00:04:44,134 --> 00:04:44,700
+that's up to you.
+這取決於你。
+
+121
+00:04:45,526 --> 00:04:47,872
+And then with that newly added database.js
+然後使用新加入的database.js
+
+122
+00:04:47,872 --> 00:04:51,352
+file, with that open, I'll click Apply, now
+檔案，打開該檔案後，我現在將單擊“應用”
+
+123
+00:04:51,497 --> 00:04:52,899
+apply to that file
+應用於該檔案
+
+124
+00:04:55,118 --> 00:04:55,568
+like this,
+像這樣，
+
+125
+00:04:57,191 --> 00:05:00,051
+and I'll accept this.
+我會接受這一點。
+
+126
+00:05:01,064 --> 00:05:03,664
+And then again, I'll take a look whether I
+然後我再看看我是否
+
+127
+00:05:03,731 --> 00:05:04,418
+wanna tweak this.
+想調整這個。
+
+128
+00:05:05,740 --> 00:05:08,029
+But this looks almost good to me, though
+但這對我來說看起來還不錯
+
+129
+00:05:08,029 --> 00:05:10,415
+I'll remove auto-increment here. No reason
+我將在這裡刪除自動增量。沒有理由
+
+130
+00:05:10,512 --> 00:05:11,876
+to add this with SQLite.
+使用 SQLite 添加它。
+
+131
+00:05:13,140 --> 00:05:14,992
+This is all we need. It will automatically
+這就是我們所需要的。它會自動
+
+132
+00:05:15,104 --> 00:05:17,891
+be incremented by default, so the ID will
+預設會遞增，因此 ID 將
+
+133
+00:05:18,068 --> 00:05:20,081
+automatically be generated by default even
+甚至預設自動生成
+
+134
+00:05:20,097 --> 00:05:22,418
+without auto-increment. And auto-increment
+沒有自動增量。並且自動遞增
+
+135
+00:05:22,418 --> 00:05:23,110
+can actually
+實際上可以
+
+136
+00:05:23,670 --> 00:05:25,976
+lead to worse performance, so I'll not add
+導致性能更差，所以我不會添加
+
+137
+00:05:25,976 --> 00:05:26,305
+it here.
+就在這裡。
+
+138
+00:05:28,056 --> 00:05:29,595
+Email should be unique, password should be
+電子郵件應該是唯一的，密碼應該是
+
+139
+00:05:29,595 --> 00:05:31,280
+text, and I don't need anything else here,
+文本，我不需要任何其他東西，
+
+140
+00:05:31,572 --> 00:05:32,706
+so that's looking good.
+所以看起來不錯。
+
+141
+00:05:34,268 --> 00:05:34,397
+Now
+現在
+
+142
+00:05:35,072 --> 00:05:37,388
+then I have this getDatabase function which
+然後我有這個 getDatabase 函式
+
+143
+00:05:37,484 --> 00:05:39,896
+will give me access to this database object
+將使我能夠存取該資料庫物件
+
+144
+00:05:39,896 --> 00:05:41,328
+which is initialized when calling
+呼叫時初始化
+
+145
+00:05:41,360 --> 00:05:43,499
+initializeDatabase. So that's looking good.
+初始化資料庫。所以這看起來不錯。
+
+146
+00:05:46,060 --> 00:05:48,653
+Next, I wanna update my models/user.js file.
+接下來，我想更新我的 models/user.js 檔案。
+
+147
+00:05:49,821 --> 00:05:51,717
+I can click on that link to be taken there
+我可以點擊該連結前往那裡
+
+148
+00:05:52,074 --> 00:05:53,160
+and then I'll click Apply
+然後我將點擊“應用程式”
+
+149
+00:05:53,776 --> 00:05:54,636
+to update this file.
+更新此檔案。
+
+150
+00:05:56,145 --> 00:05:56,794
+And there it
+就在那裡
+
+151
+00:05:57,362 --> 00:05:59,497
+will add this import
+將新增此導入
+
+152
+00:06:00,125 --> 00:06:02,831
+to the getDatabase function so that I get
+到 getDatabase 函式，以便我得到
+
+153
+00:06:02,863 --> 00:06:05,086
+access to the database, and then it will try
+存取資料庫，然後它會嘗試
+
+154
+00:06:05,280 --> 00:06:05,570
+to
+到
+
+155
+00:06:06,166 --> 00:06:08,165
+insert data into the database.
+將資料插入資料庫。
+
+156
+00:06:09,571 --> 00:06:12,092
+And here in findUserByEmail, it does the
+在 findUserByEmail 中，它執行以下操作
+
+157
+00:06:12,092 --> 00:06:14,499
+same thing but tries to find a user with a
+同樣的事情，但試圖找到一個使用者
+
+158
+00:06:14,580 --> 00:06:15,436
+given email address.
+給定的電子郵件地址。
+
+159
+00:06:17,416 --> 00:06:20,031
+So I'll accept this as well. Looks good to
+所以我也會接受這一點。看起來不錯
+
+160
+00:06:20,031 --> 00:06:22,532
+me. We'll test it soon anyways, and if there
+我。無論如何，我們很快就會測試它，如果有的話
+
+161
+00:06:22,532 --> 00:06:24,698
+are any problems, we'll fix them. But on
+如有任何問題，我們將解決它們。但在
+
+162
+00:06:24,698 --> 00:06:26,080
+first sight, this looks good.
+第一眼看上去，這看起來不錯。
+
+163
+00:06:27,706 --> 00:06:29,792
+And that's by the way the flow I prefer. You
+順便說一下，這就是我喜歡的流程。你
+
+164
+00:06:29,824 --> 00:06:31,813
+could analyze the code in greater depth
+可以更深入地分析程式碼
+
+165
+00:06:32,088 --> 00:06:33,236
+before you accept it.
+在你接受之前。
+
+166
+00:06:33,851 --> 00:06:37,150
+I just tend to take a brief look across it
+我只是傾向於簡單瀏覽一下
+
+167
+00:06:37,150 --> 00:06:38,954
+and then just test it and tweak it
+然後測試並調整它
+
+168
+00:06:38,954 --> 00:06:39,373
+thereafter.
+此後。
+
+169
+00:06:40,566 --> 00:06:42,967
+But there are definitely different ways or
+但肯定有不同的方式或
+
+170
+00:06:42,967 --> 00:06:44,449
+different approaches you could take
+你可以採取不同的方法
+
+171
+00:06:44,594 --> 00:06:45,142
+regarding this.
+關於這一點。
+
+172
+00:06:47,170 --> 00:06:48,815
+Now as a last step, I'll go to App.js.
+現在，作為最後一步，我將轉到 App.js。
+
+173
+00:06:50,561 --> 00:06:51,917
+And apply the changes here as well.
+並在此處應用更改。
+
+174
+00:06:52,514 --> 00:06:55,065
+And here it's the import of this initialize
+這是這個初始化的導入
+
+175
+00:06:55,178 --> 00:06:55,695
+database
+資料庫
+
+176
+00:06:56,309 --> 00:06:58,456
+function that's added. And then this is
+新增的功能。然後這是
+
+177
+00:06:58,553 --> 00:06:59,005
+called here.
+打電話到這裡。
+
+178
+00:07:00,757 --> 00:07:03,239
+And if that fails, the server is shut down.
+如果失敗，伺服器將關閉。
+
+179
+00:07:03,434 --> 00:07:05,851
+So that makes sense. And then thereafter we
+所以這是有道理的。然後我們
+
+180
+00:07:05,851 --> 00:07:06,565
+have this code.
+有這個程式碼。
+
+181
+00:07:08,540 --> 00:07:09,396
+So that here
+所以說這裡
+
+182
+00:07:10,270 --> 00:07:10,464
+will
+將要
+
+183
+00:07:11,143 --> 00:07:12,647
+run to initialize the database,
+運行初始化資料庫，
+
+184
+00:07:13,261 --> 00:07:15,492
+though I'm not 100% happy with that,
+雖然我對此並不是百分百滿意
+
+185
+00:07:16,171 --> 00:07:18,063
+but I'll change that manually. So for now
+但我會手動更改它。所以現在
+
+186
+00:07:18,080 --> 00:07:19,695
+I'll accept this and then tweak it manually.
+我會接受這一點，然後手動調整它。
+
+187
+00:07:22,319 --> 00:07:24,874
+So that's the general logic added now. And
+這就是現在要新增的一般邏輯。和
+
+188
+00:07:25,035 --> 00:07:27,365
+with that, I'll now make some manual tweaks.
+這樣，我現在將進行一些手動調整。

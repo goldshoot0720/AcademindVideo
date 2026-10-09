@@ -1,0 +1,315 @@
+1
+00:00:00,096 --> 00:00:03,686
+Using the UFW firewall is good. It works on
+
+2
+00:00:03,862 --> 00:00:06,122
+any Linux system in the end. It's therefore
+
+3
+00:00:06,122 --> 00:00:07,067
+a great choice.
+
+4
+00:00:07,724 --> 00:00:10,209
+But if you're using a provider that has a
+
+5
+00:00:10,209 --> 00:00:12,132
+built-in firewall solution, which many
+
+6
+00:00:12,132 --> 00:00:12,805
+providers do,
+
+7
+00:00:13,414 --> 00:00:15,401
+you might wanna use that instead for a
+
+8
+00:00:15,401 --> 00:00:17,485
+couple of reasons. One big reason is that
+
+9
+00:00:17,485 --> 00:00:19,745
+you can configure it from outside the VPS.
+
+10
+00:00:20,161 --> 00:00:22,918
+So if you had logged out yourself, you could
+
+11
+00:00:22,934 --> 00:00:25,274
+change it from outside so you would not
+
+12
+00:00:25,274 --> 00:00:27,646
+really be locked out. That would be one big
+
+13
+00:00:27,678 --> 00:00:29,569
+reason for using that firewall instead.
+
+14
+00:00:30,162 --> 00:00:32,854
+It's probably also a bit easier to quickly
+
+15
+00:00:32,886 --> 00:00:35,097
+change something here. It has a nice visual
+
+16
+00:00:35,129 --> 00:00:35,914
+user interface
+
+17
+00:00:36,795 --> 00:00:39,182
+and it's also not something that runs on
+
+18
+00:00:39,278 --> 00:00:41,825
+your VPS. It doesn't consume resources
+
+19
+00:00:41,857 --> 00:00:42,050
+there.
+
+20
+00:00:42,578 --> 00:00:45,766
+It can't be hacked if your VPS were to be
+
+21
+00:00:45,766 --> 00:00:46,856
+hacked in some way.
+
+22
+00:00:47,689 --> 00:00:50,813
+It's simply an extra layer of security to
+
+23
+00:00:50,813 --> 00:00:54,626
+use that provider-provided firewall. So if
+
+24
+00:00:54,674 --> 00:00:56,805
+you have it, you may wanna consider using
+
+25
+00:00:56,901 --> 00:00:59,176
+it. So here on Hetzner, I'll create a new
+
+26
+00:00:59,240 --> 00:00:59,769
+firewall.
+
+27
+00:01:00,442 --> 00:01:00,683
+Free,
+
+28
+00:01:01,229 --> 00:01:02,995
+and as mentioned, other providers have
+
+29
+00:01:02,995 --> 00:01:03,862
+similar features.
+
+30
+00:01:04,521 --> 00:01:05,693
+And here I wanna allow
+
+31
+00:01:06,367 --> 00:01:09,996
+access to port 22, which is the SSH port via
+
+32
+00:01:09,996 --> 00:01:12,293
+TCP. That is fine, that is the underlying
+
+33
+00:01:12,389 --> 00:01:14,187
+protocol we're using with SSH.
+
+34
+00:01:14,894 --> 00:01:17,287
+And I want to allow that access from any IP
+
+35
+00:01:17,367 --> 00:01:19,535
+address for now. We'll change that later to
+
+36
+00:01:19,535 --> 00:01:21,767
+make it even more secure, but for now, any
+
+37
+00:01:21,783 --> 00:01:24,320
+IP, so any computer on the entire world
+
+38
+00:01:24,689 --> 00:01:27,515
+could connect to our server via port 22.
+
+39
+00:01:28,303 --> 00:01:30,864
+Which sounds insecure, but keep in mind they
+
+40
+00:01:30,864 --> 00:01:33,474
+will still need the SSH key, which only we
+
+41
+00:01:33,602 --> 00:01:36,196
+have on our system. So it's still very
+
+42
+00:01:36,196 --> 00:01:36,550
+secure.
+
+43
+00:01:37,450 --> 00:01:39,051
+But again, we'll lock that down even more
+
+44
+00:01:39,181 --> 00:01:39,488
+later.
+
+45
+00:01:40,297 --> 00:01:42,125
+You could add more here.
+
+46
+00:01:43,902 --> 00:01:45,226
+So you could add another rule
+
+47
+00:01:46,453 --> 00:01:50,183
+and for example, grant access to port 443 if
+
+48
+00:01:50,183 --> 00:01:52,412
+you had a web server that is able to
+
+49
+00:01:53,255 --> 00:01:55,835
+resolve TLS, so that is able to handle
+
+50
+00:01:55,851 --> 00:01:58,025
+secured connections running on that machine.
+
+51
+00:01:58,686 --> 00:01:59,456
+You could open that.
+
+52
+00:02:00,049 --> 00:02:02,886
+But here I'll keep it focused on port 22.
+
+53
+00:02:03,912 --> 00:02:06,845
+You can add outbound rules, but by default,
+
+54
+00:02:07,102 --> 00:02:09,779
+all outbound traffic is allowed. So if you
+
+55
+00:02:09,843 --> 00:02:12,135
+run something on your VPS and you're sending
+
+56
+00:02:12,167 --> 00:02:15,117
+a request to the World Wide Web, like we did
+
+57
+00:02:15,117 --> 00:02:17,842
+when we ran apt install, for example, we
+
+58
+00:02:17,858 --> 00:02:19,413
+were installing something
+
+59
+00:02:20,022 --> 00:02:22,315
+with the package manager where we downloaded
+
+60
+00:02:22,347 --> 00:02:24,751
+the package from some other website. That
+
+61
+00:02:24,751 --> 00:02:27,043
+kind of traffic, that outbound traffic is
+
+62
+00:02:27,076 --> 00:02:29,304
+allowed by default. You could restrict it,
+
+63
+00:02:29,320 --> 00:02:31,549
+but you don't have to. But it's the inbound
+
+64
+00:02:31,549 --> 00:02:33,427
+traffic you typically wanna worry about.
+
+65
+00:02:34,277 --> 00:02:36,380
+So I'll not do anything about the outbound
+
+66
+00:02:36,444 --> 00:02:39,204
+rules and I'll apply that to that one server
+
+67
+00:02:39,573 --> 00:02:41,306
+where I set up the firewall.
+
+68
+00:02:42,397 --> 00:02:44,098
+You could give it a label, could give it a
+
+69
+00:02:44,098 --> 00:02:45,575
+name, but I'll just create it.
+
+70
+00:02:46,152 --> 00:02:48,961
+And so now the VPS I created before has this
+
+71
+00:02:48,961 --> 00:02:50,870
+firewall attached to it.
+
+72
+00:02:52,090 --> 00:02:54,529
+And now we could theoretically remove or
+
+73
+00:02:54,577 --> 00:02:56,872
+disable the UFW firewall here
+
+74
+00:02:57,546 --> 00:02:59,960
+And it would still be protected because we
+
+75
+00:02:59,960 --> 00:03:02,486
+had the Hetzner firewall in my case. But
+
+76
+00:03:02,534 --> 00:03:04,497
+here for demo purposes, I'll keep both
+
+77
+00:03:04,561 --> 00:03:04,963
+running. But
+
+78
+00:03:05,607 --> 00:03:07,586
+of course you technically don't need both.
+
+79
+00:03:07,843 --> 00:03:08,873
+You get my point, I guess.

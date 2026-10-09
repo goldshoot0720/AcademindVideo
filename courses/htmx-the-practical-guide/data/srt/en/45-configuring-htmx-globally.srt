@@ -1,0 +1,295 @@
+1
+00:00:00,817 --> 00:00:04,921
+So at this point, I'm pretty much done with
+
+2
+00:00:05,001 --> 00:00:08,175
+this example here, but there are 2 remaining
+
+3
+00:00:08,832 --> 00:00:09,682
+features or
+
+4
+00:00:10,275 --> 00:00:13,080
+things you should know about HTMX.
+
+5
+00:00:14,042 --> 00:00:17,280
+And the first thing you should know is that
+
+6
+00:00:17,408 --> 00:00:20,502
+HTMX also offers you some configuration
+
+7
+00:00:20,614 --> 00:00:20,999
+options.
+
+8
+00:00:21,592 --> 00:00:24,590
+Now, again, as always, the official docs are
+
+9
+00:00:24,782 --> 00:00:27,106
+a great place to learn about all the
+
+10
+00:00:27,106 --> 00:00:29,767
+options, but in the end, the idea is that
+
+11
+00:00:29,832 --> 00:00:31,867
+HTMX offers some options
+
+12
+00:00:32,573 --> 00:00:35,473
+you can set up to achieve a certain default
+
+13
+00:00:35,521 --> 00:00:38,229
+behavior which you might not have otherwise.
+
+14
+00:00:39,223 --> 00:00:42,876
+For example, if you find yourself setting
+
+15
+00:00:43,133 --> 00:00:47,395
+hx-swap to outerHTML all the time and you
+
+16
+00:00:47,395 --> 00:00:50,728
+therefore want that as a default instead of
+
+17
+00:00:50,904 --> 00:00:53,452
+innerHTML, which it normally would be, you
+
+18
+00:00:53,484 --> 00:00:56,497
+could achieve that by overriding the default
+
+19
+00:00:56,673 --> 00:00:57,939
+HTMX configuration.
+
+20
+00:00:58,933 --> 00:01:00,376
+And there are 2 ways of doing that.
+
+21
+00:01:01,001 --> 00:01:01,418
+One way
+
+22
+00:01:01,963 --> 00:01:04,175
+is to go into your main.js file
+
+23
+00:01:05,009 --> 00:01:06,932
+and then there you'll have access to a
+
+24
+00:01:06,932 --> 00:01:10,042
+globally available HTMX variable which is
+
+25
+00:01:10,074 --> 00:01:13,809
+created by HTMX. Now you can console.log
+
+26
+00:01:13,841 --> 00:01:14,435
+that to
+
+27
+00:01:14,980 --> 00:01:16,294
+see what's inside of it.
+
+28
+00:01:17,448 --> 00:01:19,276
+And if you do that, you'll see that it's an
+
+29
+00:01:19,436 --> 00:01:21,985
+object which has a nested config object
+
+30
+00:01:22,161 --> 00:01:24,053
+which has all the options you can set.
+
+31
+00:01:24,938 --> 00:01:27,090
+And for example, here you also see that
+
+32
+00:01:27,429 --> 00:01:30,665
+defaultSwapStyle, which is set to innerHTML
+
+33
+00:01:30,681 --> 00:01:31,393
+out of the box.
+
+34
+00:01:33,603 --> 00:01:36,022
+Now we could change this here and set
+
+35
+00:01:36,103 --> 00:01:36,931
+HTMX.CONFIG.defaultSwapStyle,
+
+36
+00:01:40,706 --> 00:01:42,239
+and you must make sure that you got the
+
+37
+00:01:42,239 --> 00:01:44,578
+casing right and that you got no typo.
+
+38
+00:01:45,546 --> 00:01:46,805
+And then you can set this to
+
+39
+00:01:47,563 --> 00:01:49,999
+outerHTML here, for example.
+
+40
+00:01:52,687 --> 00:01:55,195
+With that, if you save that and you reload,
+
+41
+00:01:55,761 --> 00:01:58,576
+you'll see that this is now the default that
+
+42
+00:01:58,576 --> 00:01:59,174
+is assumed.
+
+43
+00:01:59,910 --> 00:02:01,926
+Now as a result, our app would actually
+
+44
+00:02:01,958 --> 00:02:05,104
+break here because I'm relying on this not
+
+45
+00:02:05,104 --> 00:02:06,960
+being the default. But if you had an app
+
+46
+00:02:07,024 --> 00:02:09,117
+where you need a different default, this is
+
+47
+00:02:09,134 --> 00:02:09,956
+how you could set it up.
+
+48
+00:02:12,226 --> 00:02:16,574
+An alternative way of configuring HTMX is to
+
+49
+00:02:16,639 --> 00:02:17,828
+do it via HTML.
+
+50
+00:02:19,028 --> 00:02:21,579
+You can go to your head section of the page
+
+51
+00:02:21,675 --> 00:02:22,590
+that's currently active.
+
+52
+00:02:23,600 --> 00:02:26,007
+And then there you can add a meta
+
+53
+00:02:26,649 --> 00:02:27,082
+element
+
+54
+00:02:28,269 --> 00:02:31,927
+and give it a name of HTMX-config because
+
+55
+00:02:31,959 --> 00:02:34,607
+that is a name HTMX will be looking for.
+
+56
+00:02:35,970 --> 00:02:38,473
+And then there as a content, you can set up
+
+57
+00:02:38,521 --> 00:02:39,628
+your configuration.
+
+58
+00:02:40,767 --> 00:02:44,106
+For that, you must pass some JSON data. To
+
+59
+00:02:44,218 --> 00:02:46,696
+content and hence I'll wrap this with
+
+60
+00:02:47,227 --> 00:02:49,271
+single quotes because I need the double
+
+61
+00:02:49,303 --> 00:02:50,638
+quotes to wrap my keys.
+
+62
+00:02:51,860 --> 00:02:53,566
+And then here we could also set up the
+
+63
+00:02:53,905 --> 00:02:57,141
+default swap style and set it to
+
+64
+00:02:57,914 --> 00:02:59,718
+outerHTML, for example.
+
+65
+00:03:01,248 --> 00:03:05,025
+So that would then be the HTML approach of
+
+66
+00:03:05,074 --> 00:03:06,504
+configuring HTMX.
+
+67
+00:03:07,581 --> 00:03:09,687
+With that added, if I save that and reload,
+
+68
+00:03:10,267 --> 00:03:11,746
+you'll see that in config,
+
+69
+00:03:12,327 --> 00:03:14,449
+This is now again the default swap style
+
+70
+00:03:14,979 --> 00:03:17,375
+and therefore again, this app here breaks.
+
+71
+00:03:17,728 --> 00:03:19,963
+But if you need to configure something, that
+
+72
+00:03:19,979 --> 00:03:21,651
+is an alternative way of doing it.
+
+73
+00:03:22,294 --> 00:03:24,448
+Here, however, I don't need that and
+
+74
+00:03:24,480 --> 00:03:25,557
+therefore I'll remove it.

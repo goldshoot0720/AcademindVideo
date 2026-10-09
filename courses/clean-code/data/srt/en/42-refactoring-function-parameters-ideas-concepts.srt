@@ -1,0 +1,351 @@
+1
+00:00:02,374 --> 00:00:04,493
+Now here are a couple of examples,
+
+2
+00:00:05,086 --> 00:00:08,023
+and let's start with this example where I
+
+3
+00:00:08,119 --> 00:00:10,911
+have a saveUser function which takes an
+
+4
+00:00:11,008 --> 00:00:13,960
+email and a password, so 2 parameters,
+
+5
+00:00:14,698 --> 00:00:17,475
+and where we then create a user object on
+
+6
+00:00:17,523 --> 00:00:20,106
+the fly. This is all written in JavaScript,
+
+7
+00:00:20,170 --> 00:00:20,572
+by the way.
+
+8
+00:00:21,358 --> 00:00:23,460
+And in this object, I save the email and the
+
+9
+00:00:23,460 --> 00:00:26,477
+password. I also add a randomly generated
+
+10
+00:00:26,509 --> 00:00:29,636
+new ID which is not a perfect unique ID by
+
+11
+00:00:29,636 --> 00:00:31,736
+the way, but good enough for this example.
+
+12
+00:00:32,281 --> 00:00:34,461
+And then we reach out to some database as it
+
+13
+00:00:34,461 --> 00:00:36,561
+seems, we could have also named this
+
+14
+00:00:36,689 --> 00:00:39,286
+database of course, and insert this user
+
+15
+00:00:39,414 --> 00:00:42,027
+into a users table or collection.
+
+16
+00:00:42,700 --> 00:00:44,752
+Now don't get me wrong, this function is
+
+17
+00:00:45,009 --> 00:00:48,167
+absolutely not horrible and if you have code
+
+18
+00:00:48,167 --> 00:00:49,690
+like this, it's not the end of the world.
+
+19
+00:00:50,651 --> 00:00:53,104
+Still, if you call this function, it would
+
+20
+00:00:53,120 --> 00:00:54,258
+look something like this
+
+21
+00:00:54,867 --> 00:00:58,073
+and you probably would have to take a closer
+
+22
+00:00:58,073 --> 00:01:00,383
+look at the function to understand that it
+
+23
+00:01:00,480 --> 00:01:02,647
+wants an email address and a password and
+
+24
+00:01:02,728 --> 00:01:04,510
+that the email should be the first and the
+
+25
+00:01:04,510 --> 00:01:06,212
+password should be the second argument.
+
+26
+00:01:06,677 --> 00:01:08,428
+Again, not the end of the world and
+
+27
+00:01:08,444 --> 00:01:10,980
+definitely also not totally unexpected.
+
+28
+00:01:11,847 --> 00:01:14,079
+Still, when we write code like this, we
+
+29
+00:01:14,079 --> 00:01:16,006
+might be able to come up with a better
+
+30
+00:01:16,006 --> 00:01:16,680
+solution.
+
+31
+00:01:17,290 --> 00:01:19,297
+For example, we could come up with a
+
+32
+00:01:19,426 --> 00:01:21,658
+function like this, which only takes one
+
+33
+00:01:21,850 --> 00:01:24,307
+argument, which is the already finished
+
+34
+00:01:24,484 --> 00:01:24,837
+user.
+
+35
+00:01:25,719 --> 00:01:28,863
+So we would outsource this task of creating
+
+36
+00:01:28,911 --> 00:01:31,702
+the user out of this function into another
+
+37
+00:01:31,702 --> 00:01:32,505
+place in code.
+
+38
+00:01:33,066 --> 00:01:35,440
+So obviously this only works if we construct
+
+39
+00:01:35,552 --> 00:01:38,007
+a user ahead of time, but then we have a
+
+40
+00:01:38,055 --> 00:01:41,183
+simpler saveUser function, which ultimately
+
+41
+00:01:41,183 --> 00:01:43,220
+of course also is very easy to call.
+
+42
+00:01:43,749 --> 00:01:46,123
+Still, it takes one argument, but now I
+
+43
+00:01:46,219 --> 00:01:48,225
+would say it's easier to understand and
+
+44
+00:01:48,321 --> 00:01:48,513
+call,
+
+45
+00:01:49,187 --> 00:01:51,786
+and it doesn't leave us guessing whether
+
+46
+00:01:51,834 --> 00:01:54,304
+email or password should be first and which
+
+47
+00:01:54,400 --> 00:01:56,309
+kind of values this function might want.
+
+48
+00:01:57,142 --> 00:01:59,546
+Now, an even better solution could be this
+
+49
+00:01:59,546 --> 00:02:03,071
+one here. Here we have a class User which
+
+50
+00:02:03,215 --> 00:02:06,276
+acts as a blueprint for new User objects,
+
+51
+00:02:06,741 --> 00:02:08,904
+which then has a save method which can be
+
+52
+00:02:08,904 --> 00:02:10,570
+called without any arguments.
+
+53
+00:02:11,307 --> 00:02:14,256
+Therefore, user.save is very easy to read
+
+54
+00:02:14,352 --> 00:02:16,162
+and very clear and understandable.
+
+55
+00:02:16,851 --> 00:02:17,749
+And instead, we now
+
+56
+00:02:18,518 --> 00:02:21,546
+outsourced the problem of passing in values
+
+57
+00:02:21,578 --> 00:02:23,822
+for the email address and the password to
+
+58
+00:02:23,822 --> 00:02:25,701
+the User constructor function.
+
+59
+00:02:26,295 --> 00:02:28,351
+And there you could argue it's a bit more
+
+60
+00:02:28,383 --> 00:02:31,805
+expected and obvious than on a saveUser
+
+61
+00:02:31,853 --> 00:02:32,335
+function.
+
+62
+00:02:33,218 --> 00:02:35,451
+As I mentioned, that also wasn't horrible,
+
+63
+00:02:35,708 --> 00:02:38,422
+but this code might make even more sense and
+
+64
+00:02:38,502 --> 00:02:40,574
+might be even easier to understand.
+
+65
+00:02:41,410 --> 00:02:43,594
+And therefore, this acts as an example of
+
+66
+00:02:43,658 --> 00:02:46,308
+how you could transform code to be
+
+67
+00:02:46,855 --> 00:02:49,537
+easier to understand and to not use any
+
+68
+00:02:49,665 --> 00:02:52,219
+arguments on certain parts of your code
+
+69
+00:02:52,572 --> 00:02:55,318
+where arguments might not be obvious and the
+
+70
+00:02:55,382 --> 00:02:56,618
+order could be unclear.
+
+71
+00:02:57,790 --> 00:03:00,648
+I also got one other example of a function
+
+72
+00:03:00,680 --> 00:03:03,008
+that takes no arguments and that would be
+
+73
+00:03:03,088 --> 00:03:03,811
+this one here.
+
+74
+00:03:04,356 --> 00:03:07,391
+Let's say we have an isLoggedIn state which
+
+75
+00:03:07,487 --> 00:03:09,462
+we manage somewhere and then we have a
+
+76
+00:03:09,510 --> 00:03:11,790
+function which just changes that state.
+
+77
+00:03:12,721 --> 00:03:15,113
+Therefore, this function does something but
+
+78
+00:03:15,113 --> 00:03:18,035
+it simply needs no arguments for that. It
+
+79
+00:03:18,163 --> 00:03:21,374
+just inverts this isLoggedIn state all the
+
+80
+00:03:21,374 --> 00:03:21,695
+time.
+
+81
+00:03:22,273 --> 00:03:24,120
+So that would be another example of a
+
+82
+00:03:24,120 --> 00:03:26,497
+function without any arguments because in
+
+83
+00:03:26,529 --> 00:03:28,022
+this case, it doesn't need any.
+
+84
+00:03:29,162 --> 00:03:31,153
+So these are some examples and again, I
+
+85
+00:03:31,169 --> 00:03:33,723
+wanna emphasize that this original solution
+
+86
+00:03:34,092 --> 00:03:37,223
+still isn't horrible but maybe the other
+
+87
+00:03:37,223 --> 00:03:39,808
+solutions we derived make more sense or
+
+88
+00:03:39,921 --> 00:03:41,703
+improve readability even more.

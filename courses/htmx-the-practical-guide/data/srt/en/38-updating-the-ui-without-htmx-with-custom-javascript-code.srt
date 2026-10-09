@@ -1,0 +1,495 @@
+1
+00:00:00,801 --> 00:00:03,323
+So let's show a confirmation modal here.
+
+2
+00:00:04,364 --> 00:00:06,801
+And for that, I'll create a new constant
+
+3
+00:00:06,801 --> 00:00:06,930
+here,
+
+4
+00:00:07,464 --> 00:00:10,440
+confirmationModal,
+
+5
+00:00:12,461 --> 00:00:14,531
+and I'll store a string in there. I'll store
+
+6
+00:00:14,564 --> 00:00:16,957
+the HTML code in there that should be shown
+
+7
+00:00:17,006 --> 00:00:17,491
+on the screen.
+
+8
+00:00:18,542 --> 00:00:21,760
+And I actually prepared that markup for you.
+
+9
+00:00:22,099 --> 00:00:24,250
+You find it attached so that you can just
+
+10
+00:00:24,347 --> 00:00:26,740
+paste it into your string here. So that's
+
+11
+00:00:26,740 --> 00:00:28,669
+the markup you find attached to this
+
+12
+00:00:28,767 --> 00:00:29,061
+lecture.
+
+13
+00:00:31,250 --> 00:00:33,783
+This will render a dialog with a class of
+
+14
+00:00:33,783 --> 00:00:37,060
+modal, with some text and with 2 buttons,
+
+15
+00:00:37,495 --> 00:00:40,045
+one for confirming the submission and one
+
+16
+00:00:40,158 --> 00:00:41,223
+for canceling it.
+
+17
+00:00:42,901 --> 00:00:45,111
+Now, adding this constant here, of course,
+
+18
+00:00:45,240 --> 00:00:47,790
+won't achieve anything. Instead, we'll need
+
+19
+00:00:47,822 --> 00:00:50,467
+to make sure that this confirmation modal is
+
+20
+00:00:50,587 --> 00:00:51,584
+rendered onto the screen.
+
+21
+00:00:52,935 --> 00:00:54,770
+And we can achieve this by reaching out to
+
+22
+00:00:54,770 --> 00:00:55,607
+our document
+
+23
+00:00:56,154 --> 00:00:57,571
+and then there the body element.
+
+24
+00:00:58,328 --> 00:00:59,745
+And on that body we can call
+
+25
+00:00:59,922 --> 00:01:00,517
+insertAdjacentHTML,
+
+26
+00:01:03,512 --> 00:01:05,874
+which allows us to insert some HTML into the
+
+27
+00:01:05,922 --> 00:01:06,211
+body.
+
+28
+00:01:06,789 --> 00:01:08,862
+And this specific method allows us to
+
+29
+00:01:08,878 --> 00:01:10,597
+control where we wanna add it.
+
+30
+00:01:11,368 --> 00:01:13,489
+Here I wanna add it to the end or at the end
+
+31
+00:01:13,489 --> 00:01:14,004
+of the body.
+
+32
+00:01:15,083 --> 00:01:17,353
+And then the HTML I wanna add is of course
+
+33
+00:01:17,643 --> 00:01:20,202
+this HTML markup, which is stored in this
+
+34
+00:01:20,315 --> 00:01:21,329
+confirmation modal.
+
+35
+00:01:24,272 --> 00:01:26,719
+Constant. So that should add the dialog on
+
+36
+00:01:26,752 --> 00:01:27,218
+the screen,
+
+37
+00:01:28,054 --> 00:01:30,995
+but this dialog element actually works such
+
+38
+00:01:31,108 --> 00:01:33,949
+that by default it's invisible. The dialog
+
+39
+00:01:33,949 --> 00:01:35,544
+is not open by default.
+
+40
+00:01:37,017 --> 00:01:39,508
+Therefore, what we have to do here is
+
+41
+00:01:40,333 --> 00:01:43,003
+open the dialog manually after it has been
+
+42
+00:01:43,003 --> 00:01:43,439
+inserted.
+
+43
+00:01:44,718 --> 00:01:48,271
+So I'll select that inserted dialog by using
+
+44
+00:01:48,448 --> 00:01:51,751
+document.querySelector and selecting the
+
+45
+00:01:51,751 --> 00:01:54,686
+first, and in this case, only dialog element
+
+46
+00:01:54,686 --> 00:01:57,364
+I'll find on the page, which is the dialog
+
+47
+00:01:57,364 --> 00:01:59,016
+that was inserted by this line of code.
+
+48
+00:02:00,330 --> 00:02:02,143
+And then we can use that underlying
+
+49
+00:02:02,255 --> 00:02:05,767
+JavaScript object that is made available by
+
+50
+00:02:05,767 --> 00:02:08,525
+querySelector for this dialog DOM element.
+
+51
+00:02:09,776 --> 00:02:12,486
+We can use that to call showModal, which is
+
+52
+00:02:12,582 --> 00:02:15,638
+a built-in method. Provided by the browser
+
+53
+00:02:15,879 --> 00:02:18,040
+for this dialog HTML element.
+
+54
+00:02:18,717 --> 00:02:20,973
+And that will then actually open it and show
+
+55
+00:02:20,973 --> 00:02:21,618
+it on the screen.
+
+56
+00:02:23,762 --> 00:02:26,382
+So that will show us this modal, but we'll
+
+57
+00:02:26,398 --> 00:02:27,191
+have a problem.
+
+58
+00:02:27,951 --> 00:02:28,032
+The
+
+59
+00:02:28,824 --> 00:02:32,447
+HTTP request which HTMX wants to send
+
+60
+00:02:33,045 --> 00:02:36,328
+will still be sent no matter if we show this
+
+61
+00:02:36,360 --> 00:02:37,217
+dialog or not.
+
+62
+00:02:38,122 --> 00:02:41,114
+And of course, I don't wanna send it just
+
+63
+00:02:41,114 --> 00:02:43,420
+yet. I wanna send it later once we know that
+
+64
+00:02:43,436 --> 00:02:46,879
+the user confirmed the submission with this
+
+65
+00:02:46,976 --> 00:02:48,964
+Yes button and I don't wanna send it at all
+
+66
+00:02:49,158 --> 00:02:50,678
+if the user clicked the No button.
+
+67
+00:02:52,486 --> 00:02:54,475
+And therefore what we can do here
+
+68
+00:02:55,074 --> 00:02:57,080
+is accept an event argument
+
+69
+00:02:57,678 --> 00:02:59,732
+which will be passed into this function
+
+70
+00:03:00,201 --> 00:03:02,254
+since it's defined as the event handling
+
+71
+00:03:02,351 --> 00:03:04,627
+function down there automatically by the
+
+72
+00:03:04,627 --> 00:03:05,111
+browser.
+
+73
+00:03:06,548 --> 00:03:09,760
+And the event object we'll receive here will
+
+74
+00:03:09,873 --> 00:03:12,706
+be an event object that has a preventDefault
+
+75
+00:03:12,706 --> 00:03:15,244
+method default method, which in the end
+
+76
+00:03:15,277 --> 00:03:18,449
+cancels the event, which then in turn will
+
+77
+00:03:18,513 --> 00:03:22,104
+make sure that HTMX will not proceed and
+
+78
+00:03:22,185 --> 00:03:23,926
+will not send that request.
+
+79
+00:03:25,678 --> 00:03:29,447
+I'll also console.log this event object so
+
+80
+00:03:29,447 --> 00:03:31,437
+that we can see what else is in there,
+
+81
+00:03:32,214 --> 00:03:34,365
+which kind of information might be attached
+
+82
+00:03:34,494 --> 00:03:35,013
+to this event.
+
+83
+00:03:36,426 --> 00:03:38,488
+Because in the end, we're handling a custom
+
+84
+00:03:38,618 --> 00:03:41,671
+event created by HTMX and it's definitely
+
+85
+00:03:41,720 --> 00:03:43,036
+interesting to see which extra metadata
+
+86
+00:03:44,842 --> 00:03:47,781
+information is attached to that event object
+
+87
+00:03:48,215 --> 00:03:50,672
+by HTMX. That's why I'm logging it here.
+
+88
+00:03:52,070 --> 00:03:54,897
+But with this code, we're now canceling the
+
+89
+00:03:54,897 --> 00:03:57,097
+event. We're making sure that the request is
+
+90
+00:03:57,226 --> 00:03:59,218
+not getting sent. We're looking into the
+
+91
+00:03:59,218 --> 00:04:02,189
+event and we're showing that dialog.
+
+92
+00:04:03,474 --> 00:04:06,285
+So if you save everything and you reload,
+
+93
+00:04:07,313 --> 00:04:08,743
+if you click on one of these items,
+
+94
+00:04:09,642 --> 00:04:11,982
+you should see that it's not added here to
+
+95
+00:04:11,982 --> 00:04:12,727
+the list at the top,
+
+96
+00:04:13,455 --> 00:04:15,088
+that instead we have this dialog
+
+97
+00:04:15,719 --> 00:04:17,806
+where we need to replace this placeholder
+
+98
+00:04:18,065 --> 00:04:19,891
+with more useful text in the future
+
+99
+00:04:20,712 --> 00:04:22,545
+and where those buttons don't do anything
+
+100
+00:04:22,577 --> 00:04:22,819
+yet,
+
+101
+00:04:23,703 --> 00:04:26,679
+but where we also have this custom event
+
+102
+00:04:26,679 --> 00:04:28,417
+here in our developer tools.
+
+103
+00:04:30,402 --> 00:04:33,528
+And this event object has some default
+
+104
+00:04:33,608 --> 00:04:36,089
+properties which all JavaScript events have.
+
+105
+00:04:36,927 --> 00:04:39,784
+But we also have a detail property there
+
+106
+00:04:39,897 --> 00:04:42,481
+which holds an object with some extra data
+
+107
+00:04:42,561 --> 00:04:44,487
+that is added by HTMX.
+
+108
+00:04:45,755 --> 00:04:47,617
+And here, for example, in that detail
+
+109
+00:04:47,617 --> 00:04:49,912
+property on that event object, we have an
+
+110
+00:04:50,249 --> 00:04:53,604
+elt property which gives us access to the
+
+111
+00:04:53,700 --> 00:04:56,685
+element that triggered the event in case we
+
+112
+00:04:56,685 --> 00:04:57,552
+might need that.
+
+113
+00:04:58,274 --> 00:05:00,634
+For this specific event, which is about
+
+114
+00:05:00,634 --> 00:05:03,362
+sending an HTTP request, we, for example,
+
+115
+00:05:03,491 --> 00:05:06,730
+also get the configured XMLHttpRequest
+
+116
+00:05:06,858 --> 00:05:09,839
+object as a property in the event data.
+
+117
+00:05:11,201 --> 00:05:13,572
+And you can use all that event data in
+
+118
+00:05:13,829 --> 00:05:16,281
+whatever way you need to use it for your
+
+119
+00:05:16,409 --> 00:05:17,018
+application.
+
+120
+00:05:18,316 --> 00:05:20,463
+And indeed, in the next lecture, we're going
+
+121
+00:05:20,479 --> 00:05:23,700
+to use this detail object to improve the
+
+122
+00:05:23,764 --> 00:05:26,488
+text in this dialog before we then of course
+
+123
+00:05:26,568 --> 00:05:28,811
+also make sure that these buttons work and
+
+124
+00:05:28,892 --> 00:05:29,420
+do something.

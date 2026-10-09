@@ -1,0 +1,589 @@
+1
+00:00:00,192 --> 00:00:02,856
+So here I'm in a basic project which doesn't
+所以我現在處於一個基本專案中，但沒有
+
+2
+00:00:02,856 --> 00:00:04,895
+have any actual logic yet, and I'm in an
+還沒有任何實際的邏輯，而且我正處於一個
+
+3
+00:00:05,152 --> 00:00:06,869
+ongoing PySession here.
+這裡正在進行 PySession。
+
+4
+00:00:07,640 --> 00:00:09,309
+And if we take a look at the context window,
+如果我們看一下上下文窗口，
+
+5
+00:00:09,405 --> 00:00:12,631
+there is still plenty of space. So I'll stay
+還有足夠的空間。所以我會留下來
+
+6
+00:00:12,631 --> 00:00:14,910
+in that context window because again, it's
+在那個上下文視窗中，因為同樣，它是
+
+7
+00:00:15,039 --> 00:00:16,965
+always a trade-off starting a new session
+開始新工作階段始終是一種權衡
+
+8
+00:00:16,965 --> 00:00:19,597
+versus continuing in an existing one. And
+與繼續現有的。和
+
+9
+00:00:19,597 --> 00:00:21,812
+you definitely want to avoid polluting your
+你肯定想避免污染你的
+
+10
+00:00:21,924 --> 00:00:24,701
+context window or continuing in a session
+上下文視窗或在工作階段中繼續
+
+11
+00:00:24,733 --> 00:00:27,606
+that has a lot of context that's not related
+有很多不相關的上下文
+
+12
+00:00:27,719 --> 00:00:30,348
+to your next step, your next task.
+到你的下一步，你的下一個任務。
+
+13
+00:00:30,925 --> 00:00:33,280
+But here my next task is to continue setting
+但這裡我的下一個任務是繼續設置
+
+14
+00:00:33,328 --> 00:00:35,827
+up this project. So all the context I have
+了這個專案。所以我所擁有的所有背景
+
+15
+00:00:35,827 --> 00:00:36,708
+is very useful.
+非常有用。
+
+16
+00:00:37,429 --> 00:00:39,560
+So here my next step is that I wanna set up
+所以我的下一步是我想要設置
+
+17
+00:00:39,576 --> 00:00:42,252
+the database connection and connection in
+資料庫連接和連接
+
+18
+00:00:42,300 --> 00:00:44,719
+quotes because it's a SQLite database. There
+引號，因為它是 SQLite 資料庫。那裡
+
+19
+00:00:44,847 --> 00:00:46,786
+is no connection to a database server
+沒有連接到資料庫伺服器
+
+20
+00:00:46,786 --> 00:00:48,692
+because there is no server, but still.
+因為沒有伺服器，但還是。
+
+21
+00:00:49,493 --> 00:00:51,993
+And that I wanted to add a custom migration
+我想新增自訂遷移
+
+22
+00:00:51,993 --> 00:00:54,027
+script with support for up and down
+支援向上和向下的腳本
+
+23
+00:00:54,316 --> 00:00:57,809
+migrations. So also for rollbacks in.sql
+遷徙。 .sql 中的回溯也是如此
+
+24
+00:00:57,921 --> 00:00:58,369
+files.
+檔案。
+
+25
+00:00:59,108 --> 00:01:01,613
+And then I have an important addition here.
+然後我在這裡有一個重要的補充。
+
+26
+00:01:02,336 --> 00:01:05,163
+You may know from other coding agents that
+您可能從其他編碼代理商處了解到
+
+27
+00:01:05,211 --> 00:01:08,375
+they have a plan mode so that you can kick
+他們有一個計劃模式，這樣你就可以踢
+
+28
+00:01:08,375 --> 00:01:10,527
+off a task by first letting the agent and
+首先讓代理完成任務並
+
+29
+00:01:10,527 --> 00:01:13,162
+model create a plan before getting to work.
+模型在開始工作之前製定計劃。
+
+30
+00:01:13,740 --> 00:01:15,169
+Pi doesn't have that.
+皮沒有這個。
+
+31
+00:01:15,828 --> 00:01:16,952
+Instead, with Pi,
+相反，對於 Pi，
+
+32
+00:01:17,659 --> 00:01:20,245
+and also with those other agents like Codex
+以及 Codex 等其他代理
+
+33
+00:01:20,245 --> 00:01:21,321
+and Claude Code, by the way,
+順便說一下，還有克勞德·科德，
+
+34
+00:01:21,851 --> 00:01:24,196
+you can just ask the agent and model to
+你可以直接問經紀人和模特
+
+35
+00:01:24,726 --> 00:01:26,877
+make a plan, and it will follow this
+制定一個計劃，它將遵循這個計劃
+
+36
+00:01:26,973 --> 00:01:29,846
+instruction very well typically. I've never
+通常指導得很好。我從來沒有
+
+37
+00:01:29,862 --> 00:01:31,820
+had a case where it would then ignore that
+有一種情況會忽略它
+
+38
+00:01:31,820 --> 00:01:33,216
+and get to work immediately.
+並立即開始工作。
+
+39
+00:01:33,955 --> 00:01:35,495
+So here I'm telling it that it should
+所以我在這裡告訴它應該
+
+40
+00:01:35,640 --> 00:01:37,437
+analyze the project and also point to that
+分析該專案並指出
+
+41
+00:01:37,502 --> 00:01:40,198
+project MD again without an@ symbol because
+再次投影 MD 時不帶 @ 符號，因為
+
+42
+00:01:40,455 --> 00:01:42,012
+it's already in the context. In the end,
+它已經在上下文中了。到底，
+
+43
+00:01:42,076 --> 00:01:43,231
+doesn't really matter. It will
+沒關係。它將
+
+44
+00:01:43,906 --> 00:01:46,185
+analyze this project correctly and should
+正確分析該專案並應
+
+45
+00:01:46,313 --> 00:01:48,640
+think about this task and that it should ask
+考慮一下這個任務，它應該問
+
+46
+00:01:48,721 --> 00:01:50,069
+any questions it may have.
+可能有的任何問題。
+
+47
+00:01:50,743 --> 00:01:52,493
+And then once ready, it should create and
+然後一旦準備好，它應該創建並
+
+48
+00:01:52,573 --> 00:01:55,062
+share a detailed implementation plan. And
+分享詳細的實施計畫。和
+
+49
+00:01:55,062 --> 00:01:57,133
+that will be enough to ensure that it does
+這足以確保它確實
+
+50
+00:01:57,246 --> 00:01:59,526
+not get to work immediately and that it will
+不會立即開始工作，並且會
+
+51
+00:01:59,558 --> 00:02:02,095
+instead first analyze and then create a plan
+相反，首先分析然後製定計劃
+
+52
+00:02:02,207 --> 00:02:04,150
+and share that plan with me. And then we can
+並與我分享該計劃。然後我們就可以
+
+53
+00:02:04,150 --> 00:02:05,964
+take a look at that plan and if we're happy,
+看看那個計劃，如果我們滿意的話
+
+54
+00:02:06,478 --> 00:02:08,405
+then tell the model to implement it.
+然後告訴模型去實現它。
+
+55
+00:02:08,967 --> 00:02:11,263
+So here I'll send this prompt to the model
+所以在這裡我將這個提示發送給模型
+
+56
+00:02:11,375 --> 00:02:13,591
+and it'll go ahead. But it's really
+它會繼續進行。但這確實是
+
+57
+00:02:13,623 --> 00:02:15,823
+important to understand that even though Pi
+重要的是要理解即使 Pi
+
+58
+00:02:15,935 --> 00:02:19,147
+has no built-in plan mode, you can and for
+沒有內建計劃模式，您可以並為
+
+59
+00:02:19,227 --> 00:02:21,924
+many tasks you probably should still
+您可能仍然應該完成許多任務
+
+60
+00:02:22,598 --> 00:02:26,306
+get it to create a plan first before you get
+在你得到之前先讓它制定一個計劃
+
+61
+00:02:26,306 --> 00:02:26,707
+to work.
+去工作。
+
+62
+00:02:27,911 --> 00:02:29,565
+So here you see it's already
+所以在這裡你看到它已經
+
+63
+00:02:30,159 --> 00:02:32,133
+generating the plan because it got so much
+制定計劃是因為它有太多
+
+64
+00:02:32,149 --> 00:02:34,348
+useful knowledge in its context already, or
+已經在其上下文中有用的知識，或者
+
+65
+00:02:34,653 --> 00:02:36,467
+so much important information about this
+關於此的很多重要資訊
+
+66
+00:02:36,580 --> 00:02:38,891
+project. And it got some questions for me
+專案.它問了我一些問題
+
+67
+00:02:38,891 --> 00:02:38,956
+here,
+這裡，
+
+68
+00:02:40,192 --> 00:02:42,680
+like if the database file path is okay to be
+就像資料庫檔案路徑可以一樣
+
+69
+00:02:42,680 --> 00:02:45,585
+in a data folder and then shout out SQLite.
+放在資料資料夾中，然後喊出 SQLite。
+
+70
+00:02:46,374 --> 00:02:48,903
+And I want to change that, so I'll share my
+我想改變這一點，所以我會分享我的
+
+71
+00:02:48,985 --> 00:02:49,461
+answers.
+答案。
+
+72
+00:02:51,160 --> 00:02:52,649
+So I want a different
+所以我想要一個不同的
+
+73
+00:02:53,216 --> 00:02:55,613
+database name, dev.db instead of
+資料庫名稱，dev.db 而不是
+
+74
+00:02:55,662 --> 00:02:57,071
+shoutout.sqlite.
+喊出.sqlite。
+
+75
+00:02:58,852 --> 00:03:00,981
+And then for the other questions, it's the
+然後對於其他問題，就是
+
+76
+00:03:00,981 --> 00:03:03,125
+migration file names, I will be fine with
+遷移檔名，我會同意的
+
+77
+00:03:03,125 --> 00:03:05,946
+that. SQL file format, I'll be fine with
+那。 SQL 檔案格式，我就可以了
+
+78
+00:03:05,946 --> 00:03:06,317
+that.
+那。
+
+79
+00:03:07,008 --> 00:03:09,655
+If the first migration should be all the
+如果第一次遷移應該是全部
+
+80
+00:03:09,655 --> 00:03:12,189
+tables including the better auth tables or
+表包括更好的身份驗證表或
+
+81
+00:03:12,318 --> 00:03:14,303
+if it should create multiple migration files
+是否應該建立多個遷移檔案
+
+82
+00:03:14,884 --> 00:03:16,191
+and if it's okay to add these commands,
+如果可以新增這些命令，
+
+83
+00:03:19,313 --> 00:03:19,634
+So
+所以
+
+84
+00:03:20,197 --> 00:03:20,309
+2,
+2、
+
+85
+00:03:21,723 --> 00:03:22,398
+3, 4,
+3, 4,
+
+86
+00:03:23,073 --> 00:03:23,620
+and 5,
+和 5,
+
+87
+00:03:24,198 --> 00:03:25,130
+all fine by me.
+我一切都很好。
+
+88
+00:03:27,910 --> 00:03:29,169
+Go with your suggestions.
+採納你的建議。
+
+89
+00:03:30,107 --> 00:03:31,725
+So I'll tell it to go ahead and implement
+所以我會告訴它繼續實施
+
+90
+00:03:31,725 --> 00:03:33,326
+this plan. Then a little addition I
+這個計劃。然後一點補充我
+
+91
+00:03:33,326 --> 00:03:35,687
+personally like to add, that it should go
+個人喜歡補充一點，它應該去
+
+92
+00:03:35,687 --> 00:03:37,612
+step by step without rushing. Take your
+循序漸進，不急不躁。帶上你的
+
+93
+00:03:37,612 --> 00:03:39,824
+time, work your way through the plan step by
+時間，一步一步完成計劃
+
+94
+00:03:39,872 --> 00:03:40,260
+step.
+步。
+
+95
+00:03:41,148 --> 00:03:42,811
+And here, after a short while,
+而在這裡，過了一會兒，
+
+96
+00:03:43,344 --> 00:03:44,119
+it's done again.
+又完成了。
+
+97
+00:03:45,887 --> 00:03:49,039
+And in my project, it added a scripts folder
+在我的專案中，它添加了一個腳本資料夾
+
+98
+00:03:49,103 --> 00:03:50,606
+with a migrate.ts file.
+使用 migrate.ts 檔。
+
+99
+00:03:51,876 --> 00:03:54,880
+And we can ignore this type error here. This
+我們可以在這裡忽略這種型別錯誤。這
+
+100
+00:03:54,880 --> 00:03:57,690
+is just an error in my editor. It will work.
+只是我的編輯器中的一個錯誤。它會起作用的。
+
+101
+00:03:59,416 --> 00:04:01,670
+And a db folder with a migrations folder
+和一個帶有遷移資料夾的 db 資料夾
+
+102
+00:04:01,670 --> 00:04:03,828
+with a SQL file that includes the SQL
+使用包含 SQL 的 SQL 檔案
+
+103
+00:04:03,876 --> 00:04:06,114
+instructions that should be executed to set
+應該執行的指令來設定
+
+104
+00:04:06,114 --> 00:04:08,063
+up the database. And it did actually also
+上資料庫。事實上也確實如此
+
+105
+00:04:08,127 --> 00:04:10,841
+test this already. If we scroll up a bit, it
+已經測試過了。如果我们向上滚动一点，
+
+106
+00:04:10,972 --> 00:04:12,517
+already ran those migrations.
+已經運行了這些遷移。
+
+107
+00:04:13,102 --> 00:04:14,645
+And then also rolled them back
+然後也將它們回滾
+
+108
+00:04:15,288 --> 00:04:17,698
+and then ran them again to basically just
+然後再次運行它們基本上只是
+
+109
+00:04:17,762 --> 00:04:20,301
+check whether it works. And therefore I have
+檢查它是否有效。因此我有
+
+110
+00:04:20,334 --> 00:04:22,873
+my database here already, my dev database
+我的資料庫已經在這裡了，我的開發資料庫
+
+111
+00:04:22,969 --> 00:04:24,255
+setup in that data folder.
+在該資料資料夾中進行設定。
+
+112
+00:04:25,058 --> 00:04:25,364
+And
+和
+
+113
+00:04:25,942 --> 00:04:28,112
+then it correctly also added these database
+然後它也正確地添加了這些資料庫
+
+114
+00:04:28,112 --> 00:04:29,638
+files to.gitignore.
+檔案到.gitignore。
+
+115
+00:04:30,313 --> 00:04:32,338
+So with that I can say git commit again or
+這樣我就可以再說 git commit 或者
+
+116
+00:04:32,563 --> 00:04:34,813
+of course do it manually and we got another
+當然手動做，我們得到了另一個
+
+117
+00:04:34,813 --> 00:04:36,709
+important step in this project out of the
+該專案的重要一步
+
+118
+00:04:36,709 --> 00:04:36,886
+way.
+方式。

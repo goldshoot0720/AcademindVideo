@@ -1,0 +1,579 @@
+1
+00:00:02,055 --> 00:00:04,881
+So I'm in this Node Express project which I
+
+2
+00:00:04,929 --> 00:00:07,659
+created earlier in this section and you find
+
+3
+00:00:07,659 --> 00:00:09,890
+it attached by the way so that you can start
+
+4
+00:00:09,890 --> 00:00:12,668
+with exactly the same project setup as I
+
+5
+00:00:12,781 --> 00:00:13,150
+have here.
+
+6
+00:00:13,985 --> 00:00:16,393
+The exact setup theoretically isn't too
+
+7
+00:00:16,393 --> 00:00:18,625
+important. We're not going to build a real
+
+8
+00:00:18,802 --> 00:00:22,045
+app here just yet. We'll do that later. But
+
+9
+00:00:22,045 --> 00:00:23,442
+nonetheless, to have the same starting
+
+10
+00:00:23,474 --> 00:00:25,144
+point, you find it attached.
+
+11
+00:00:26,368 --> 00:00:29,357
+And now I wanna tweak that code a little
+
+12
+00:00:29,357 --> 00:00:31,526
+bit. I wanna add some new code to this
+
+13
+00:00:31,526 --> 00:00:33,278
+project, change the code a little bit,
+
+14
+00:00:33,840 --> 00:00:36,523
+and of course I wanna use GitHub Copilot for
+
+15
+00:00:36,523 --> 00:00:36,700
+that.
+
+16
+00:00:38,451 --> 00:00:41,167
+Now I could use the suggestions and
+
+17
+00:00:41,231 --> 00:00:43,673
+completions feature to start writing code on
+
+18
+00:00:43,673 --> 00:00:46,225
+my own and have GitHub Copilot complete it.
+
+19
+00:00:47,198 --> 00:00:49,645
+And that could be very efficient, might be
+
+20
+00:00:49,645 --> 00:00:50,537
+the most efficient way,
+
+21
+00:00:51,104 --> 00:00:53,714
+but of course I could also use the chat. To
+
+22
+00:00:53,922 --> 00:00:55,893
+generate and change some code. And I'll do
+
+23
+00:00:55,909 --> 00:00:58,233
+that here to dive a bit into that prompt
+
+24
+00:00:58,249 --> 00:00:59,130
+engineering part.
+
+25
+00:01:00,572 --> 00:01:02,736
+So let's say we wanna build an application
+
+26
+00:01:02,736 --> 00:01:02,848
+here
+
+27
+00:01:03,457 --> 00:01:04,466
+where we can
+
+28
+00:01:05,364 --> 00:01:05,684
+book
+
+29
+00:01:06,245 --> 00:01:08,697
+restaurant tables. We can reserve a table in
+
+30
+00:01:08,745 --> 00:01:10,652
+a restaurant. We can also cancel that
+
+31
+00:01:10,892 --> 00:01:13,136
+reservation. And we won't build the entire
+
+32
+00:01:13,136 --> 00:01:13,873
+application here.
+
+33
+00:01:14,418 --> 00:01:16,677
+It's just a theoretical example.
+
+34
+00:01:18,119 --> 00:01:20,317
+Now what we could do, of course, is open up
+
+35
+00:01:20,767 --> 00:01:23,258
+the chat, the sidebar here, let's say,
+
+36
+00:01:24,302 --> 00:01:24,688
+and say,
+
+37
+00:01:26,375 --> 00:01:30,061
+I want to build a restaurant table booking
+
+38
+00:01:30,497 --> 00:01:30,949
+website,
+
+39
+00:01:31,530 --> 00:01:32,675
+and hit enter.
+
+40
+00:01:34,531 --> 00:01:37,436
+Now, that's not very specific. Sure, I'm
+
+41
+00:01:37,436 --> 00:01:39,424
+making it clear what I'm trying to build,
+
+42
+00:01:40,266 --> 00:01:42,467
+but that's about it. So therefore, of
+
+43
+00:01:42,531 --> 00:01:45,250
+course, I will get back a response, and it
+
+44
+00:01:45,283 --> 00:01:47,522
+might be the response I'm looking for,
+
+45
+00:01:48,279 --> 00:01:49,342
+but it might also not be.
+
+46
+00:01:50,871 --> 00:01:52,175
+Now, for example, here I'm getting
+
+47
+00:01:52,175 --> 00:01:54,349
+instructions on how to initialize a project
+
+48
+00:01:54,414 --> 00:01:56,328
+even though I already have a project.
+
+49
+00:01:57,730 --> 00:01:59,915
+Now again, you might be getting different
+
+50
+00:01:59,915 --> 00:02:01,780
+results, but what you can see here and what
+
+51
+00:02:01,780 --> 00:02:04,432
+you probably can also see in the results
+
+52
+00:02:04,496 --> 00:02:05,203
+you're getting is
+
+53
+00:02:05,798 --> 00:02:07,040
+that whatever you get back here
+
+54
+00:02:08,066 --> 00:02:10,556
+might be helpful, but it's not really
+
+55
+00:02:11,061 --> 00:02:13,831
+helpful for this specific project we have
+
+56
+00:02:13,931 --> 00:02:14,131
+here.
+
+57
+00:02:16,154 --> 00:02:17,251
+So let's start a new chat.
+
+58
+00:02:18,218 --> 00:02:20,283
+And I'll start by bringing in the workspace
+
+59
+00:02:20,396 --> 00:02:22,524
+as a participant. And then I'll say I want
+
+60
+00:02:22,573 --> 00:02:23,153
+to build a
+
+61
+00:02:24,010 --> 00:02:24,930
+restaurant
+
+62
+00:02:25,480 --> 00:02:27,984
+table reservation website.
+
+63
+00:02:29,438 --> 00:02:30,876
+And I'll actually add a new
+
+64
+00:02:31,458 --> 00:02:33,284
+file here in the routes folder,
+
+65
+00:02:34,125 --> 00:02:36,518
+tables.js, which is empty right now,
+
+66
+00:02:38,430 --> 00:02:40,068
+which I now wanna reference in my chat.
+
+67
+00:02:40,920 --> 00:02:41,178
+In the
+
+68
+00:02:44,168 --> 00:02:45,655
+tables.js file,
+
+69
+00:02:47,384 --> 00:02:47,691
+add
+
+70
+00:02:48,450 --> 00:02:50,142
+the following routes.
+
+71
+00:02:52,030 --> 00:02:54,308
+And now I'll just add a couple of bullet
+
+72
+00:02:54,308 --> 00:02:54,829
+points here.
+
+73
+00:02:55,932 --> 00:02:56,528
+A route for
+
+74
+00:02:57,141 --> 00:02:59,608
+creating a new reservation
+
+75
+00:03:03,430 --> 00:03:05,933
+and then some information, number of people,
+
+76
+00:03:07,192 --> 00:03:08,257
+Time, date,
+
+77
+00:03:08,912 --> 00:03:10,173
+that seems reasonable.
+
+78
+00:03:13,040 --> 00:03:13,428
+A route for
+
+79
+00:03:14,773 --> 00:03:15,389
+deleting,
+
+80
+00:03:16,556 --> 00:03:17,253
+canceling
+
+81
+00:03:19,068 --> 00:03:19,603
+an existing
+
+82
+00:03:20,672 --> 00:03:23,211
+reservation. Now we could add more to edit
+
+83
+00:03:23,517 --> 00:03:25,465
+reservations, but here I'll keep it simple.
+
+84
+00:03:25,851 --> 00:03:28,218
+But I'm adding this extra context here.
+
+85
+00:03:29,873 --> 00:03:32,127
+And that's very important context for my
+
+86
+00:03:32,127 --> 00:03:34,396
+intent here, which is in the end that I want
+
+87
+00:03:34,445 --> 00:03:36,199
+the AI to generate the appropriate routes.
+
+88
+00:03:38,268 --> 00:03:39,859
+And therefore maybe we should say that.
+
+89
+00:03:40,132 --> 00:03:42,591
+Maybe we should add this sentence here as
+
+90
+00:03:42,687 --> 00:03:44,632
+context that we're building a restaurant
+
+91
+00:03:44,632 --> 00:03:46,191
+table reservation website, but then
+
+92
+00:03:47,107 --> 00:03:49,893
+add more specific intent here and say
+
+93
+00:03:50,569 --> 00:03:51,213
+generate
+
+94
+00:03:52,211 --> 00:03:52,469
+some
+
+95
+00:03:53,145 --> 00:03:53,902
+express
+
+96
+00:03:54,836 --> 00:03:55,367
+routes
+
+97
+00:03:56,044 --> 00:03:57,373
+for this website
+
+98
+00:03:58,966 --> 00:04:00,949
+in the, and then again, I'll
+
+99
+00:04:01,486 --> 00:04:02,363
+just add this
+
+100
+00:04:03,140 --> 00:04:05,504
+tables.js file to be really clear that it's
+
+101
+00:04:05,504 --> 00:04:07,353
+this file that should contain the routes.
+
+102
+00:04:08,157 --> 00:04:10,135
+Then I'll refer to it again.
+
+103
+00:04:11,570 --> 00:04:13,106
+So actually now we can get rid of that since
+
+104
+00:04:13,106 --> 00:04:13,924
+I'm referring to it here
+
+105
+00:04:14,447 --> 00:04:16,066
+and I describe these routes.
+
+106
+00:04:18,761 --> 00:04:22,054
+And if I now hit Enter, my chances are much
+
+107
+00:04:22,151 --> 00:04:24,455
+higher that I'll get a result that's
+
+108
+00:04:24,666 --> 00:04:26,321
+actually helpful for me
+
+109
+00:04:28,010 --> 00:04:30,690
+because indeed now it understands that,
+
+110
+00:04:30,853 --> 00:04:32,363
+well, it should just generate these routes
+
+111
+00:04:32,363 --> 00:04:32,656
+so I can apply them here.
+
+112
+00:04:35,350 --> 00:04:37,381
+To my tables.js file.
+
+113
+00:04:40,283 --> 00:04:40,750
+Here we go.
+
+114
+00:04:41,492 --> 00:04:42,588
+Accept those changes.
+
+115
+00:04:44,502 --> 00:04:46,847
+And I got these basic routes. Of course, I
+
+116
+00:04:46,912 --> 00:04:49,694
+would yet have to add the logic. It did not
+
+117
+00:04:50,002 --> 00:04:52,654
+do that because I did not ask it to do that,
+
+118
+00:04:53,059 --> 00:04:56,023
+but it set up the basic route where it tries
+
+119
+00:04:56,056 --> 00:04:59,130
+to extract the data I specified in my prompt
+
+120
+00:04:59,259 --> 00:05:00,289
+from the request body.
+
+121
+00:05:02,015 --> 00:05:04,409
+And also that route for deleting a
+
+122
+00:05:04,409 --> 00:05:06,884
+reservation. And it also tells me how to
+
+123
+00:05:06,900 --> 00:05:07,430
+adjust my
+
+124
+00:05:08,105 --> 00:05:09,294
+main starting
+
+125
+00:05:09,969 --> 00:05:12,764
+file, the root entry file, the app.js file.
+
+126
+00:05:14,576 --> 00:05:16,226
+It tells me how to adjust this
+
+127
+00:05:16,986 --> 00:05:18,700
+here. By the way, you can also click on a
+
+128
+00:05:18,700 --> 00:05:20,057
+file here to be taken to it.
+
+129
+00:05:21,905 --> 00:05:25,584
+And I can also apply these changes to update
+
+130
+00:05:25,616 --> 00:05:28,637
+this file to, as you see, also bring in
+
+131
+00:05:28,653 --> 00:05:31,789
+those table routes and then route requests
+
+132
+00:05:32,485 --> 00:05:33,182
+that target
+
+133
+00:05:33,716 --> 00:05:34,072
+/api,
+
+134
+00:05:36,032 --> 00:05:38,405
+which does not look like what I want, but
+
+135
+00:05:38,470 --> 00:05:39,933
+anyways, to these routes.
+
+136
+00:05:41,310 --> 00:05:42,768
+So for the moment, I'll accept these
+
+137
+00:05:42,800 --> 00:05:45,522
+changes, but I'll tweak this soon. Indeed,
+
+138
+00:05:45,555 --> 00:05:47,223
+I'll tweak the overall code soon.
+
+139
+00:05:49,104 --> 00:05:51,350
+But this already shows you how important it
+
+140
+00:05:51,350 --> 00:05:53,514
+is to be specific and how to add the right
+
+141
+00:05:53,611 --> 00:05:55,929
+context to your prompt. And whilst this
+
+142
+00:05:55,945 --> 00:05:58,438
+might seem obvious, it is indeed what many
+
+143
+00:05:58,438 --> 00:05:59,854
+people get wrong.
+
+144
+00:06:00,915 --> 00:06:03,698
+Now, here's another thing many people get
+
+145
+00:06:03,730 --> 00:06:03,875
+wrong.

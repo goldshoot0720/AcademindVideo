@@ -1,0 +1,1144 @@
+1
+00:00:00,288 --> 00:00:04,264
+So we did now deploy a web app onto a VPS,
+所以我們現在將一個 Web 應用程式部署到 VPS 上，
+
+2
+00:00:04,376 --> 00:00:06,572
+and that is of course one common thing you
+這當然是你常見的一件事
+
+3
+00:00:07,149 --> 00:00:10,740
+may wanna do with a VPS. It's not the only
+可能想用 VPS 來做。這不是唯一的
+
+4
+00:00:11,076 --> 00:00:12,792
+thing though. As mentioned, we'll also take
+不過事情。如前所述，我們也將採取
+
+5
+00:00:12,792 --> 00:00:14,924
+a look at other use cases, and next we'll
+看看其他用例，接下來我們將
+
+6
+00:00:14,924 --> 00:00:18,354
+explore how you can run scripts or workflows
+探索如何運行腳本或工作流程
+
+7
+00:00:18,611 --> 00:00:21,079
+or automations on a VPS.
+或 VPS 上的自動化。
+
+8
+00:00:21,817 --> 00:00:24,445
+And for this example, I'll actually stay in
+對於這個例子，我實際上會留在
+
+9
+00:00:24,462 --> 00:00:26,914
+that demo app we worked on before, and I
+我們之前開發的演示應用程式，我
+
+10
+00:00:27,187 --> 00:00:30,697
+added a backup script to it, and attached
+新增了一個備份腳本，並附加
+
+11
+00:00:30,874 --> 00:00:32,814
+you find an update updated version of this
+你找到了這個的更新版本
+
+12
+00:00:32,814 --> 00:00:34,995
+project, which includes this backup script
+專案，其中包含此備份腳本
+
+13
+00:00:35,364 --> 00:00:38,155
+and also this backup instructions MD file
+還有這個備份說明 MD 檔案
+
+14
+00:00:38,252 --> 00:00:40,994
+with instructions on how to use this script.
+以及有關如何使用此腳本的說明。
+
+15
+00:00:42,181 --> 00:00:44,379
+And of course, that's just one example
+當然，這只是一個例子
+
+16
+00:00:44,379 --> 00:00:47,411
+script, just one example workflow or
+腳本，只是一個範例工作流程或
+
+17
+00:00:47,411 --> 00:00:49,785
+automation or however you wanna call it
+自動化或你想怎麼稱呼它
+
+18
+00:00:50,378 --> 00:00:53,554
+that you might wanna execute on a VPS. Of
+您可能想要在 VPS 上執行。的
+
+19
+00:00:53,570 --> 00:00:56,281
+course, your imagination is the limit and
+當然，你的想像力是有限的
+
+20
+00:00:56,554 --> 00:00:59,505
+you could run all kinds of work on a VPS.
+您可以在 VPS 上運行各種工作。
+
+21
+00:00:59,906 --> 00:01:02,315
+You could run a web crawler there that
+你可以在那裡運行一個網路爬蟲
+
+22
+00:01:02,331 --> 00:01:04,885
+crawls websites. You could run some data
+抓取網站。你可以運行一些資料
+
+23
+00:01:04,885 --> 00:01:05,800
+analytics script,
+分析腳本，
+
+24
+00:01:06,346 --> 00:01:09,670
+whatever you need. Here, we'll just use this
+無論你需要什麼。在這裡，我們將只使用這個
+
+25
+00:01:09,702 --> 00:01:11,420
+backup script as a demo.
+備份腳本作為演示。
+
+26
+00:01:12,030 --> 00:01:14,070
+Now, this script is relatively
+現在，這個腳本相對
+
+27
+00:01:14,070 --> 00:01:17,458
+straightforward. It requires us to install
+直截了當。需要我們安裝
+
+28
+00:01:17,731 --> 00:01:17,876
+one
+一
+
+29
+00:01:18,534 --> 00:01:21,938
+tool, one program on the VPS, the SQLite3
+工具，VPS上的一個程式，SQLite3
+
+30
+00:01:22,003 --> 00:01:25,439
+program, which is used to query our SQLite
+程式，用於查詢我們的SQLite
+
+31
+00:01:25,439 --> 00:01:27,574
+database because in that script, we have a
+資料庫，因為在該腳本中，我們有一個
+
+32
+00:01:27,702 --> 00:01:30,235
+path to the database we wanna back up and
+我們想要備份的資料庫的路徑
+
+33
+00:01:30,652 --> 00:01:32,255
+you have to check that this is the correct
+你必須檢查這是否正確
+
+34
+00:01:32,255 --> 00:01:34,227
+path. I'll show you how to do that in a
+小路。我將向您展示如何做到這一點
+
+35
+00:01:34,275 --> 00:01:34,852
+second.
+第二。
+
+36
+00:01:35,461 --> 00:01:37,817
+We got some other parameters and then we
+我們得到了一些其他參數，然後我們
+
+37
+00:01:37,946 --> 00:01:40,927
+most importantly got the logic, the logic
+最重要的是要有邏輯，有邏輯
+
+38
+00:01:40,927 --> 00:01:43,588
+for actually connecting to the database with
+用於實際連接到資料庫
+
+39
+00:01:43,636 --> 00:01:46,810
+that SQLite3 tool we're installing. And then
+我們正在安裝的 SQLite3 工具。進而
+
+40
+00:01:47,099 --> 00:01:50,946
+with that connection, we're simply using the
+透過這種連接，我們只需使用
+
+41
+00:01:51,026 --> 00:01:53,335
+backup command that is provided by the
+提供的備份指令
+
+42
+00:01:53,351 --> 00:01:57,535
+SQLite3 tool here to create a snapshot, a
+這裡使用SQLite3工具建立快照，
+
+43
+00:01:57,679 --> 00:02:00,534
+backup of the database. And that backup is
+資料庫的備份。那個備份是
+
+44
+00:02:00,871 --> 00:02:04,193
+then stored in a backup directory, which we
+然後儲存在我們的備份目錄中
+
+45
+00:02:04,402 --> 00:02:07,290
+also control here in a variable. In my case,
+也在變數中控制這裡。就我而言，
+
+46
+00:02:07,306 --> 00:02:09,649
+it's in the user home folder and then the db
+它位於使用者主資料夾中，然後是資料庫
+
+47
+00:02:09,714 --> 00:02:12,201
+backup folder. That's the script.
+備份資料夾。這就是劇本。
+
+48
+00:02:13,004 --> 00:02:15,267
+Again, it is part of this updated project.
+同樣，它是這個更新專案的一部分。
+
+49
+00:02:15,347 --> 00:02:16,839
+So of course, what you could do
+當然，你可以做什麼
+
+50
+00:02:17,481 --> 00:02:20,113
+is you could just clone that project onto
+你可以將該專案克隆到
+
+51
+00:02:20,145 --> 00:02:20,835
+your VPS
+你的VPS
+
+52
+00:02:21,686 --> 00:02:23,981
+to make the script available there in that
+使腳本在那裡可用
+
+53
+00:02:23,997 --> 00:02:25,345
+VPS course demo.
+VPS 課程演示。
+
+54
+00:02:26,067 --> 00:02:28,089
+Alternatively, you can also take a look at
+或者，您也可以看看
+
+55
+00:02:28,089 --> 00:02:30,880
+the backup instructions MD file. I mean, in
+備份說明MD檔。我的意思是，在
+
+56
+00:02:30,880 --> 00:02:33,351
+general, that's a good idea, but in there I
+總的來說，這是個好主意，但在那裡我
+
+57
+00:02:33,528 --> 00:02:36,255
+also mentioned that we can again use SCP,
+也提到我們可以再次使用SCP，
+
+58
+00:02:36,271 --> 00:02:39,785
+this SSH copy command, to copy the script
+此 SSH 複製命令，用於複製腳本
+
+59
+00:02:39,785 --> 00:02:42,015
+over. And that's what I'll do here to show
+超過。這就是我在這裡要展示的
+
+60
+00:02:42,031 --> 00:02:44,085
+you how you could get the script onto your
+你如何才能把腳本放到你的
+
+61
+00:02:44,117 --> 00:02:45,545
+VPS with that command.
+VPS 使用該指令。
+
+62
+00:02:46,540 --> 00:02:48,818
+Now, in order to do that, first here I
+現在，為了做到這一點，我首先在這裡
+
+63
+00:02:48,866 --> 00:02:53,006
+connected to my VPS via SSH and I'll create
+透過 SSH 連接到我的 VPS，我將創建
+
+64
+00:02:53,182 --> 00:02:56,388
+a new folder scripts here, not needed, but I
+這裡有一個新資料夾腳本，不需要，但我
+
+65
+00:02:56,468 --> 00:02:59,032
+wanna have a separate scripts folder next to
+想要旁邊有一個單獨的腳本資料夾
+
+66
+00:02:59,032 --> 00:03:00,169
+my project folder.
+我的專案資料夾。
+
+67
+00:03:00,954 --> 00:03:03,774
+And I wanna copy my backup script into that
+我想將我的備份腳本複製到其中
+
+68
+00:03:03,774 --> 00:03:04,703
+scripts folder.
+腳本資料夾。
+
+69
+00:03:05,472 --> 00:03:08,772
+So next I will copy this command here
+接下來我將把這個命令複製到這裡
+
+70
+00:03:09,686 --> 00:03:11,720
+and I wanna execute it, but not
+我想執行它，但不是
+
+71
+00:03:12,329 --> 00:03:12,666
+on my
+在我的
+
+72
+00:03:13,451 --> 00:03:16,078
+remote server, not in this SSH session
+遠端伺服器，不在該 SSH 工作階段中
+
+73
+00:03:16,270 --> 00:03:18,914
+because I wanna copy from my local system to
+因為我想從本機系統複製到
+
+74
+00:03:18,914 --> 00:03:21,878
+that VPS. So I won't run the script in the
+那個VPS。所以我不會運行腳本
+
+75
+00:03:21,878 --> 00:03:24,409
+VPS or on the VPS. Instead, I'll run it
+VPS 或 VPS 上。相反，我會運行它
+
+76
+00:03:24,425 --> 00:03:24,633
+here.
+這裡。
+
+77
+00:03:25,162 --> 00:03:27,102
+And for that, I opened a new terminal here
+為此，我在這裡打開了一個新終端機
+
+78
+00:03:27,246 --> 00:03:29,523
+in Visual Studio Code, which is running on
+在 Visual Studio Code 中，它運行在
+
+79
+00:03:29,571 --> 00:03:31,479
+my system, and I'll copy the command in
+我的系統，我會將命令複製到
+
+80
+00:03:31,576 --> 00:03:33,019
+there, but I need to tweak it.
+在那裡，但我需要調整它。
+
+81
+00:03:33,740 --> 00:03:35,889
+First of all, the folder I wanna copy the
+首先，我要複製的資料夾
+
+82
+00:03:35,889 --> 00:03:37,701
+script to is a bit different. For me, it's
+腳本有點不同。對我來說，它是
+
+83
+00:03:37,813 --> 00:03:41,372
+just scripts, just the scripts folder in my
+只是腳本，只是我的腳本資料夾
+
+84
+00:03:41,677 --> 00:03:44,739
+user folder, and my user is named Max on my
+user 資料夾，我的使用者名稱為 Max
+
+85
+00:03:44,884 --> 00:03:47,786
+remote system so that we copy it into this
+遠端系統，以便我們將其複製到此
+
+86
+00:03:48,475 --> 00:03:49,004
+folder here.
+資料夾在這裡。
+
+87
+00:03:49,999 --> 00:03:54,167
+And here I wanna use my SSH alias, the alias
+在這裡我想使用我的 SSH 別名，別名
+
+88
+00:03:54,167 --> 00:03:56,460
+I created earlier in that SSH config file
+我之前在 SSH 設定檔中建立了
+
+89
+00:03:57,005 --> 00:03:59,458
+since that's the remote host, the VPS I
+因為那是遠端主機，VPS 我
+
+90
+00:03:59,458 --> 00:04:00,740
+wanna connect to and copy to.
+想要連接並複製到。
+
+91
+00:04:01,622 --> 00:04:03,706
+With that, if I hit Enter, this gets copied
+這樣，如果我按 Enter 鍵，就會複製它
+
+92
+00:04:03,706 --> 00:04:04,941
+over. And now here,
+超過。而現在在這裡，
+
+93
+00:04:05,550 --> 00:04:08,179
+if I inspect my scripts folder, I have that
+如果我檢查我的腳本資料夾，我有
+
+94
+00:04:08,211 --> 00:04:10,824
+backup sqlite live.sh file in there.
+在那裡備份 sqlite live.sh 檔案。
+
+95
+00:04:11,498 --> 00:04:13,742
+Again, we could have just cloned or pulled
+同樣，我們可以直接克隆或拉取
+
+96
+00:04:13,742 --> 00:04:15,714
+from the repo, but this is another way of
+來自回購協議，但這是另一種方式
+
+97
+00:04:15,826 --> 00:04:17,333
+getting the script onto the VPS.
+將腳本載入到 VPS 上。
+
+98
+00:04:18,071 --> 00:04:21,117
+Now we can edit the script as needed to make
+現在我們可以根據需要編輯腳本來製作
+
+99
+00:04:21,117 --> 00:04:23,489
+sure that we're using the right DB path
+確保我們使用正確的資料庫路徑
+
+100
+00:04:24,147 --> 00:04:26,939
+Now, regarding that DB_PATH, it's worth
+現在，關於 DB_PATH，值得
+
+101
+00:04:27,051 --> 00:04:30,388
+noting that we were using, or I was using
+注意到我們正在使用，或者我正在使用
+
+102
+00:04:30,565 --> 00:04:33,790
+Docker for serving this course demo here.
+Docker 用於在此處提供本課程演示。
+
+103
+00:04:34,432 --> 00:04:37,127
+And that is an important detail because
+這是一個重要的細節，因為
+
+104
+00:04:37,384 --> 00:04:39,694
+actually, because I was using Docker,
+實際上，因為我使用的是 Docker，
+
+105
+00:04:40,432 --> 00:04:40,625
+the
+這
+
+106
+00:04:41,572 --> 00:04:44,764
+database was written onto the VPS, on the
+資料庫寫入VPS上
+
+107
+00:04:44,764 --> 00:04:46,417
+hard drive of the VPS,
+VPS的硬碟，
+
+108
+00:04:46,946 --> 00:04:49,738
+but we don't know where exactly Docker wrote
+但我們不知道 Docker 到底寫在哪裡
+
+109
+00:04:49,738 --> 00:04:51,423
+it to. We can make some assumptions, but we
+它到。我們可以做一些假設，但我們
+
+110
+00:04:51,423 --> 00:04:53,092
+have to check them. Because
+必須檢查它們。因為
+
+111
+00:04:53,670 --> 00:04:55,901
+our app is running in that Docker container.
+我們的應用程式正在該 Docker 容器中運行。
+
+112
+00:04:55,949 --> 00:04:58,790
+So by default, the database file would be in
+所以預設情況下，資料庫檔案位於
+
+113
+00:04:58,886 --> 00:05:01,390
+that Docker container and we get it onto the
+Docker 容器，我們把它放到
+
+114
+00:05:01,390 --> 00:05:05,001
+VPS hard drive or we get it saved on the VPS
+VPS 硬碟或我們將其儲存在 VPS 上
+
+115
+00:05:05,001 --> 00:05:08,179
+hard drive with that concept called volumes.
+硬碟機具有稱為磁碟區的概念。
+
+116
+00:05:08,532 --> 00:05:11,389
+That is simply a Docker concept that allows
+這只是一個 Docker 概念，它允許
+
+117
+00:05:11,485 --> 00:05:11,967
+you to,
+你到，
+
+118
+00:05:12,865 --> 00:05:15,674
+you could say, mirror data from inside the
+你可以說，從內部鏡像資料
+
+119
+00:05:15,674 --> 00:05:18,178
+container onto the hard drive of the host.
+容器到主機的硬碟上。
+
+120
+00:05:18,499 --> 00:05:20,810
+So onto the hard drive of the VPS in our
+所以到我們的VPS的硬碟上
+
+121
+00:05:20,810 --> 00:05:21,019
+case.
+案件。
+
+122
+00:05:21,676 --> 00:05:23,984
+My Docker setup was using that volumes
+我的 Docker 設定正在使用該卷
+
+123
+00:05:24,161 --> 00:05:26,869
+feature, so I know that the database file
+功能，所以我知道資料庫檔案
+
+124
+00:05:26,901 --> 00:05:29,386
+will have been mirrored onto the VPS host
+將被鏡像到VPS主機上
+
+125
+00:05:29,386 --> 00:05:31,934
+hard drive. I just have to find out what the
+硬碟.我只需要找出是什麼
+
+126
+00:05:31,934 --> 00:05:34,386
+concrete folder is where Docker stored this.
+特定資料夾是 Docker 儲存它的位置。
+
+127
+00:05:34,915 --> 00:05:37,384
+And you can find out by first running sudo
+你可以透過先運行 sudo 來找出
+
+128
+00:05:37,384 --> 00:05:39,868
+docker ps on the VPS to see all running
+VPS 上的 docker ps 查看所有運行情況
+
+129
+00:05:39,948 --> 00:05:40,413
+containers.
+容器。
+
+130
+00:05:41,246 --> 00:05:44,211
+And then you wanna get the ID of your app
+然後你想取得你的應用程式的ID
+
+131
+00:05:44,292 --> 00:05:44,901
+container
+容器
+
+132
+00:05:46,375 --> 00:05:49,501
+and run sudo docker inspect and then that
+並運行 sudo docker inform 然後
+
+133
+00:05:49,501 --> 00:05:49,741
+ID.
+ID。
+
+134
+00:05:50,927 --> 00:05:52,707
+And that gives you some information about
+這給了你一些關於
+
+135
+00:05:52,707 --> 00:05:55,159
+that container. And that may look very
+那個容器。這可能看起來很
+
+136
+00:05:55,271 --> 00:05:58,093
+overwhelming, but if you scroll up a bit,
+勢不可擋，但如果你向上滾動一點，
+
+137
+00:05:58,878 --> 00:06:02,485
+you will at some point find this mounts
+你會在某個時候發現這個坐騎
+
+138
+00:06:02,629 --> 00:06:05,643
+area. And that is where your volumes are
+區域。這就是你的捲所在的地方
+
+139
+00:06:05,771 --> 00:06:06,380
+registered.
+掛號的。
+
+140
+00:06:07,134 --> 00:06:10,051
+So I only had one volume and I only see one
+所以我只有一卷，我也只看到一本
+
+141
+00:06:10,179 --> 00:06:11,782
+volume here therefore.
+因此這裡的體積。
+
+142
+00:06:12,488 --> 00:06:13,706
+And here I see the
+在這裡我看到
+
+143
+00:06:14,828 --> 00:06:17,088
+path inside of the container. So where the
+容器內部的路徑。那麼哪裡
+
+144
+00:06:17,153 --> 00:06:19,268
+database file would've been stored inside of
+資料庫檔案將儲存在
+
+145
+00:06:19,317 --> 00:06:21,865
+the container. But I then also see the local
+容器。但我隨後也看到了當地的
+
+146
+00:06:21,865 --> 00:06:24,688
+path local path on my host where the data
+path 我的主機上資料所在的本機路徑
+
+147
+00:06:24,688 --> 00:06:27,543
+will be mirrored to. And that is the path
+將被鏡像到。這就是路徑
+
+148
+00:06:27,655 --> 00:06:29,643
+where we will see the actual database.
+我們將在其中看到實際的資料庫。
+
+149
+00:06:30,862 --> 00:06:34,070
+We can confirm this by running sudo ls and
+我們可以透過執行 sudo ls 來確認這一點
+
+150
+00:06:34,070 --> 00:06:36,074
+then you paste in that path and here you
+然後你貼到該路徑中，在這裡你
+
+151
+00:06:36,074 --> 00:06:38,576
+should find your ideas.db file. That's the
+應該找到你的 ideas.db 檔案。這就是
+
+152
+00:06:38,705 --> 00:06:41,014
+actual database to which our web app was
+我們的網頁應用程式所在的實際資料庫
+
+153
+00:06:41,190 --> 00:06:41,479
+writing.
+寫作。
+
+154
+00:06:42,586 --> 00:06:43,885
+So with that out of the way,
+所以既然這樣，
+
+155
+00:06:44,799 --> 00:06:45,344
+we can
+我們可以
+
+156
+00:06:46,082 --> 00:06:47,509
+open the nano editor
+打開奈米編輯器
+
+157
+00:06:48,105 --> 00:06:50,236
+to open our script here
+在這裡打開我們的腳本
+
+158
+00:06:51,641 --> 00:06:54,611
+on the VPS and edit it. And here we have a
+在 VPS 上並編輯它。在這裡我們有一個
+
+159
+00:06:54,643 --> 00:06:57,788
+DB path, and you must make sure that this DB
+DB路徑，並且必須確保該DB
+
+160
+00:06:57,788 --> 00:07:01,279
+path matches the actual path of your
+路徑與您的實際路徑相符
+
+161
+00:07:01,327 --> 00:07:03,371
+database on your system, which you just saw.
+您剛剛看到的系統上的資料庫。
+
+162
+00:07:05,002 --> 00:07:07,508
+So in my case, I copied that path. So what I
+所以就我而言，我複製了該路徑。那麼我
+
+163
+00:07:07,508 --> 00:07:09,529
+can do, of course, is just delete the
+當然，能做的就是刪除
+
+164
+00:07:09,594 --> 00:07:12,036
+default path here and paste in the one I
+此處預設路徑並貼上我的路徑
+
+165
+00:07:12,036 --> 00:07:14,041
+just copied, just to be sure that I have the
+剛剛複製，只是為了確保我有
+
+166
+00:07:14,041 --> 00:07:14,445
+correct one.
+正確的一個。
+
+167
+00:07:15,148 --> 00:07:17,368
+Important, I have to add my database name
+重要的是，我必須添加我的資料庫名稱
+
+168
+00:07:17,401 --> 00:07:17,903
+here at the end.
+最後在這裡。
+
+169
+00:07:19,904 --> 00:07:21,239
+With that, I wanna save this
+有了這個，我想儲存這個
+
+170
+00:07:22,639 --> 00:07:24,778
+and now I know that we'll be trying to
+現在我知道我們會努力
+
+171
+00:07:24,810 --> 00:07:26,547
+connect to the correct database.
+連接到正確的資料庫。
+
+172
+00:07:27,510 --> 00:07:30,130
+So as a next step, as mentioned, I wanna
+因此，正如前面提到的，下一步我想要
+
+173
+00:07:30,130 --> 00:07:32,011
+make sure that we have installed this
+確保我們已經安裝了這個
+
+174
+00:07:32,011 --> 00:07:34,600
+SQLite3 tool which we need,
+我們需要的SQLite3工具，
+
+175
+00:07:36,607 --> 00:07:36,966
+this one.
+這個。
+
+176
+00:07:38,010 --> 00:07:39,674
+So therefore, we should run
+因此，我們應該運行
+
+177
+00:07:40,424 --> 00:07:42,553
+these 2 commands here. To make sure we have
+這兩個命令在這裡。為了確保我們有
+
+178
+00:07:42,553 --> 00:07:43,643
+an updated registry
+更新的註冊表
+
+179
+00:07:44,381 --> 00:07:47,619
+and we then also install that software, that
+然後我們也安裝該軟體
+
+180
+00:07:47,619 --> 00:07:48,661
+SQLite3 tool.
+SQLite3 工具。
+
+181
+00:07:50,007 --> 00:07:51,498
+With that out of the way, the script has
+有了這個，腳本就可以了
+
+182
+00:07:51,674 --> 00:07:52,716
+everything it needs to
+它所需要的一切
+
+183
+00:07:53,277 --> 00:07:54,031
+run, to work.
+跑，去上班。
+
+184
+00:07:54,640 --> 00:07:56,355
+You can run this command to check that
+您可以執行此命令來檢查
+
+185
+00:07:56,355 --> 00:07:59,209
+SQLite3 was installed correctly. This should
+SQLite3 已正確安裝。這應該
+
+186
+00:07:59,225 --> 00:08:02,030
+output something, no error, that's the
+輸出一些東西，沒有錯誤，就是這樣
+
+187
+00:08:02,030 --> 00:08:02,639
+important thing.
+重要的事情。
+
+188
+00:08:03,312 --> 00:08:06,246
+And then we can run the script manually.
+然後我們就可以手動執行這個腳本了。
+
+189
+00:08:06,983 --> 00:08:08,714
+Now, running the script manually is one
+現在，手動運行腳本是一種
+
+190
+00:08:08,827 --> 00:08:10,814
+thing you can do on a VPS if you have
+如果你有的話，你可以在 VPS 上做的事情
+
+191
+00:08:10,991 --> 00:08:13,572
+one-time tasks or tasks that you only need
+一次性任務或您只需要的任務
+
+192
+00:08:13,540 --> 00:08:13,588
+to
+到
+
+193
+00:08:14,214 --> 00:08:15,562
+execute from time to time.
+時不時地執行。
+
+194
+00:08:16,204 --> 00:08:19,060
+If you have recurring tasks, and arguably a
+如果您有重複性任務，並且可以說是
+
+195
+00:08:19,253 --> 00:08:21,772
+backup would be a great candidate for a
+備份將是一個很好的候選人
+
+196
+00:08:21,836 --> 00:08:23,842
+recurring task, you can also run it on a
+重複任務，您也可以在
+
+197
+00:08:23,842 --> 00:08:26,394
+schedule, and I'll get back to that. But
+時間表，我會再談這個。但
+
+198
+00:08:26,394 --> 00:08:28,545
+first, to also test it, we'll run it
+首先，為了測試它，我們將運行它
+
+199
+00:08:28,721 --> 00:08:31,209
+manually. In order to run it manually, we
+手動。為了手動運行它，我們
+
+200
+00:08:31,209 --> 00:08:33,600
+wanna make it executable with this command.
+想用這個指令使它可執行。
+
+201
+00:08:33,712 --> 00:08:35,590
+We wanna make that file executable.
+我們想讓該檔案可執行。
+
+202
+00:08:36,761 --> 00:08:40,421
+So I need to edit this path here a bit. In
+所以我需要在這裡稍微編輯一下這條路徑。在
+
+203
+00:08:40,517 --> 00:08:43,018
+my case, the user is named Max and the
+在我的例子中，使用者名為 Max，
+
+204
+00:08:43,018 --> 00:08:45,696
+script is in a scripts folder like this for
+腳本位於這樣的腳本資料夾中
+
+205
+00:08:45,712 --> 00:08:45,938
+me.
+我。
+
+206
+00:08:46,842 --> 00:08:48,519
+So that should run without an error.
+所以運行應該不會出現錯誤。
+
+207
+00:08:50,373 --> 00:08:52,999
+And then we can run it with this command
+然後我們可以用這個命令運行它
+
+208
+00:08:53,015 --> 00:08:53,224
+here.
+這裡。
+
+209
+00:08:54,787 --> 00:08:57,702
+Or you should also be able to just navigate
+或者你也應該能夠導航
+
+210
+00:08:57,767 --> 00:09:00,027
+into that scripts folder, for example, and
+例如，進入該腳本資料夾，並且
+
+211
+00:09:00,107 --> 00:09:01,531
+there you find that script file
+在那裡你可以找到該腳本檔案
+
+212
+00:09:02,211 --> 00:09:03,570
+and you should be able to run it like this.
+你應該能夠像這樣運行它。
+
+213
+00:09:04,234 --> 00:09:06,159
+Now here I'm getting an error, DB file not
+現在我收到一個錯誤，資料庫檔案不是
+
+214
+00:09:06,192 --> 00:09:08,453
+found, and the reason for that is Actually
+發現了，原因其實是
+
+215
+00:09:08,453 --> 00:09:11,087
+not that the file was not found, but that
+並不是沒有找到該檔案，而是
+
+216
+00:09:11,087 --> 00:09:12,516
+I'm running the script with the wrong
+我正在運行錯誤的腳本
+
+217
+00:09:12,629 --> 00:09:14,717
+permissions, with my max user, which by
+權限，與我的最大使用者，由
+
+218
+00:09:14,781 --> 00:09:16,981
+default doesn't have access to this root
+預設無權存取此根目錄
+
+219
+00:09:17,029 --> 00:09:17,351
+folder.
+資料夾。
+
+220
+00:09:18,170 --> 00:09:19,374
+So to work around that,
+所以為了解決這個問題，
+
+221
+00:09:20,161 --> 00:09:22,490
+we need to run that script with sudo, and
+我們需要使用 sudo 運行該腳本，並且
+
+222
+00:09:22,506 --> 00:09:23,164
+now it works.
+現在可以了。
+
+223
+00:09:24,417 --> 00:09:26,409
+And you see a backup was created
+您會看到備份已創建
+
+224
+00:09:27,469 --> 00:09:28,657
+here in this path.
+就在這條路上。
+
+225
+00:09:29,573 --> 00:09:31,693
+And therefore, if I run sudo ls
+因此，如果我運行 sudo ls
+
+226
+00:09:32,688 --> 00:09:34,551
+root/db_backup,
+根/db_backup，
+
+227
+00:09:36,876 --> 00:09:39,120
+I can see my backup files here.
+我可以在這裡看到我的備份檔案。
+
+228
+00:09:40,444 --> 00:09:42,736
+And that is how we can run the script one
+這就是我們如何運行腳本一
+
+229
+00:09:42,849 --> 00:09:43,156
+time.
+時間。

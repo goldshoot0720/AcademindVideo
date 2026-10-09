@@ -1,0 +1,647 @@
+1
+00:00:00,513 --> 00:00:03,706
+So the model file concept is an important
+
+2
+00:00:03,786 --> 00:00:06,433
+concept. It allows you to build customized
+
+3
+00:00:06,433 --> 00:00:06,979
+versions
+
+4
+00:00:07,556 --> 00:00:09,225
+based on existing models.
+
+5
+00:00:10,059 --> 00:00:12,466
+You can also take it a step further though.
+
+6
+00:00:13,092 --> 00:00:16,445
+You can technically also build new models
+
+7
+00:00:16,638 --> 00:00:17,697
+with a model file
+
+8
+00:00:18,242 --> 00:00:21,515
+that are not based on base models from the
+
+9
+00:00:21,595 --> 00:00:22,590
+Ollama catalog.
+
+10
+00:00:23,938 --> 00:00:27,275
+Instead, you could have a GGUF file, which
+
+11
+00:00:27,323 --> 00:00:29,441
+is a file format that stores stores these
+
+12
+00:00:29,634 --> 00:00:32,409
+parameters, these weights, along with some
+
+13
+00:00:32,441 --> 00:00:33,083
+metadata.
+
+14
+00:00:33,788 --> 00:00:36,580
+And you could get such a GGUF file because
+
+15
+00:00:36,596 --> 00:00:39,708
+you train the model yourself or from Hugging
+
+16
+00:00:39,804 --> 00:00:40,029
+Face.
+
+17
+00:00:40,783 --> 00:00:41,665
+Now, for example, here
+
+18
+00:00:42,290 --> 00:00:46,301
+I have the QuEN-3 model, or to be precise, a
+
+19
+00:00:46,301 --> 00:00:47,889
+quantized version of that model.
+
+20
+00:00:48,563 --> 00:00:51,338
+It's a normal model shared on Hugging Face.
+
+21
+00:00:52,092 --> 00:00:54,434
+And that is a model that is indeed already
+
+22
+00:00:54,434 --> 00:00:55,621
+supported by Ollama.
+
+23
+00:00:56,198 --> 00:00:59,053
+So you do find Quentn 3 in their model
+
+24
+00:00:59,069 --> 00:00:59,839
+catalog as well.
+
+25
+00:01:00,577 --> 00:01:02,469
+But if it would not be included there,
+
+26
+00:01:03,303 --> 00:01:05,324
+and for some models on Hugging Face, that
+
+27
+00:01:05,324 --> 00:01:07,633
+might be the case, because whilst most
+
+28
+00:01:07,633 --> 00:01:09,590
+models and definitely all important and
+
+29
+00:01:09,654 --> 00:01:10,808
+popular models are
+
+30
+00:01:11,562 --> 00:01:13,952
+part of the Ollama model catalog, some
+
+31
+00:01:14,064 --> 00:01:15,171
+models might not be.
+
+32
+00:01:15,988 --> 00:01:17,833
+And therefore, for such situations, you
+
+33
+00:01:17,833 --> 00:01:21,008
+could download such a GGUF file from Hugging
+
+34
+00:01:21,104 --> 00:01:23,529
+Face. So you could download the model, the
+
+35
+00:01:23,529 --> 00:01:25,954
+parameters from Hugging Face, and then use
+
+36
+00:01:26,083 --> 00:01:30,114
+that downloaded GGUF file as a base to set
+
+37
+00:01:30,114 --> 00:01:32,636
+up your own Ollama-compatible model.
+
+38
+00:01:33,792 --> 00:01:35,494
+How do you do that? Well, here for this
+
+39
+00:01:35,494 --> 00:01:37,181
+example, and you'll find a link to that
+
+40
+00:01:37,181 --> 00:01:38,594
+attached, there is
+
+41
+00:01:39,574 --> 00:01:42,529
+a list of download links here for different
+
+42
+00:01:42,561 --> 00:01:44,778
+quantized versions of that model. And I want
+
+43
+00:01:44,778 --> 00:01:47,572
+to use the Q4KM version here.
+
+44
+00:01:48,567 --> 00:01:50,732
+And in general, as you also see here, it's
+
+45
+00:01:50,732 --> 00:01:53,474
+recommended to go for the Q4 versions, the
+
+46
+00:01:53,474 --> 00:01:56,521
+4-bit quantized versions, and then KM or KS.
+
+47
+00:01:57,403 --> 00:01:59,728
+These typically give you the best trade-off
+
+48
+00:01:59,728 --> 00:02:02,743
+between quality and performance and reducing
+
+49
+00:02:02,759 --> 00:02:03,897
+hardware requirements.
+
+50
+00:02:04,683 --> 00:02:06,656
+And you can download this file here
+
+51
+00:02:07,425 --> 00:02:08,917
+directly from Hugging Face.
+
+52
+00:02:09,590 --> 00:02:11,402
+And again, this is just an example. You
+
+53
+00:02:11,418 --> 00:02:13,118
+could also have a model that you trained
+
+54
+00:02:13,118 --> 00:02:14,289
+yourself, of course.
+
+55
+00:02:15,274 --> 00:02:17,494
+And then you could create a model file next
+
+56
+00:02:17,591 --> 00:02:20,020
+to that downloaded model. So next to this
+
+57
+00:02:20,020 --> 00:02:22,674
+downloaded GGUF file, which is a file that
+
+58
+00:02:22,674 --> 00:02:24,493
+contains all these parameters and weights
+
+59
+00:02:24,750 --> 00:02:25,974
+and some metadata.
+
+60
+00:02:26,618 --> 00:02:28,454
+And now with the from instruction, you would
+
+61
+00:02:28,551 --> 00:02:30,435
+point at that downloaded file.
+
+62
+00:02:31,369 --> 00:02:33,205
+So you would use that file name including
+
+63
+00:02:33,221 --> 00:02:34,076
+the file extension
+
+64
+00:02:35,641 --> 00:02:37,126
+and specify it like this here.
+
+65
+00:02:38,207 --> 00:02:40,858
+And now you would build a brand new model or
+
+66
+00:02:40,858 --> 00:02:42,947
+you would define a brand new model based on
+
+67
+00:02:42,979 --> 00:02:45,376
+that downloaded model, based on these
+
+68
+00:02:45,489 --> 00:02:46,526
+parameters and weights.
+
+69
+00:02:48,133 --> 00:02:49,538
+Of course, you can still add a system
+
+70
+00:02:49,538 --> 00:02:51,007
+message and parameters,
+
+71
+00:02:52,412 --> 00:02:54,560
+but you also might want to specify a
+
+72
+00:02:54,592 --> 00:02:55,141
+template.
+
+73
+00:02:56,060 --> 00:02:58,807
+Now, the great thing about GGUF files is
+
+74
+00:02:58,920 --> 00:03:01,360
+that, as I explained, they do not just
+
+75
+00:03:01,425 --> 00:03:04,140
+contain the parameters but also some
+
+76
+00:03:04,140 --> 00:03:04,657
+metadata.
+
+77
+00:03:05,449 --> 00:03:07,534
+And one important piece of metadata they do
+
+78
+00:03:07,566 --> 00:03:10,613
+include is the chat template, which in case
+
+79
+00:03:10,613 --> 00:03:13,118
+of Quen 3 is rather complex, as you see.
+
+80
+00:03:14,387 --> 00:03:15,703
+You can also see that
+
+81
+00:03:16,233 --> 00:03:18,240
+on the Quen 3 page of Ollama.
+
+82
+00:03:19,059 --> 00:03:20,809
+There, if you open the template, you got a
+
+83
+00:03:20,809 --> 00:03:22,624
+rather complex template there as well.
+
+84
+00:03:24,037 --> 00:03:25,578
+By the way, these template formats are
+
+85
+00:03:25,642 --> 00:03:26,092
+different.
+
+86
+00:03:27,071 --> 00:03:29,592
+Ollama uses the Go templating language.
+
+87
+00:03:30,363 --> 00:03:32,852
+On Hugging Face here, that is a different
+
+88
+00:03:32,852 --> 00:03:33,205
+language.
+
+89
+00:03:34,170 --> 00:03:36,986
+So you would need to use that Go templating
+
+90
+00:03:37,051 --> 00:03:39,592
+language expected by Ollama if you were to
+
+91
+00:03:39,592 --> 00:03:40,644
+set up your own template.
+
+92
+00:03:42,060 --> 00:03:43,915
+Now I'll first show you what happens if you
+
+93
+00:03:43,931 --> 00:03:46,093
+don't specify a template though. So I'll
+
+94
+00:03:46,271 --> 00:03:48,917
+just set up a basic model file that just has
+
+95
+00:03:48,949 --> 00:03:51,030
+this from instruction and nothing else. And
+
+96
+00:03:51,030 --> 00:03:52,656
+of course we could add a system prompt
+
+97
+00:03:52,656 --> 00:03:54,296
+parameters, but I won't add anything.
+
+98
+00:03:55,774 --> 00:03:58,748
+And I'll then create my own Quen model
+
+99
+00:03:58,764 --> 00:04:01,126
+version based on that model file with ollama
+
+100
+00:04:01,126 --> 00:04:01,631
+create.
+
+101
+00:04:03,886 --> 00:04:05,061
+And if I now run this
+
+102
+00:04:06,543 --> 00:04:07,623
+and I ask it something,
+
+103
+00:04:08,557 --> 00:04:10,329
+I get a super weird response.
+
+104
+00:04:14,664 --> 00:04:17,077
+And I got this weird response by the model
+
+105
+00:04:17,515 --> 00:04:20,834
+because it had no structure at all. It had
+
+106
+00:04:20,834 --> 00:04:24,059
+no template. It did not understand my
+
+107
+00:04:24,059 --> 00:04:25,634
+message I sent to it in the end.
+
+108
+00:04:26,694 --> 00:04:29,489
+The message I sent to it was not structured
+
+109
+00:04:29,602 --> 00:04:30,727
+in a way, was not wrapped with the right
+
+110
+00:04:30,727 --> 00:04:31,819
+identifiers. It knew from the text,
+
+111
+00:04:33,836 --> 00:04:34,622
+training process.
+
+112
+00:04:35,456 --> 00:04:37,285
+Now, of course, I can use the chat template
+
+113
+00:04:37,285 --> 00:04:39,868
+here from Hugging Face and try to use that.
+
+114
+00:04:39,949 --> 00:04:42,355
+But as mentioned, this must be adjusted to
+
+115
+00:04:42,355 --> 00:04:44,409
+use the Golang templating language.
+
+116
+00:04:45,003 --> 00:04:46,447
+And whilst you could, of course, try to
+
+117
+00:04:46,447 --> 00:04:49,174
+convert this manually or with help of AI,
+
+118
+00:04:49,720 --> 00:04:52,624
+here I'll take the easy route and I'll just
+
+119
+00:04:52,624 --> 00:04:54,886
+use the one that was built by Ollama. And of
+
+120
+00:04:54,934 --> 00:04:56,651
+course, in reality, I would use the entire
+
+121
+00:04:56,795 --> 00:04:59,619
+model that was published by Ollama. This is
+
+122
+00:04:59,667 --> 00:05:01,769
+just a demo here, but here I'll just use
+
+123
+00:05:01,769 --> 00:05:02,475
+their template.
+
+124
+00:05:03,444 --> 00:05:04,635
+Copy all of that,
+
+125
+00:05:05,697 --> 00:05:07,949
+go back to my model file and add such a
+
+126
+00:05:07,949 --> 00:05:08,368
+template.
+
+127
+00:05:09,220 --> 00:05:10,411
+Add the triple quotes
+
+128
+00:05:11,505 --> 00:05:14,477
+to insert a multiline template and insert
+
+129
+00:05:14,477 --> 00:05:15,317
+this here
+
+130
+00:05:16,739 --> 00:05:17,111
+like this.
+
+131
+00:05:18,840 --> 00:05:20,606
+Now you can ignore the fact that something's
+
+132
+00:05:20,606 --> 00:05:22,318
+red here. This should work.
+
+133
+00:05:23,780 --> 00:05:27,536
+So now with that template added, I'll first
+
+134
+00:05:27,536 --> 00:05:30,419
+of all remove my model, my broken model.
+
+135
+00:05:31,375 --> 00:05:32,807
+And then I'll repeat the command for
+
+136
+00:05:32,823 --> 00:05:33,434
+creating it,
+
+137
+00:05:34,030 --> 00:05:36,217
+now based on this updated model file, which
+
+138
+00:05:36,266 --> 00:05:38,019
+does now include a proper template.
+
+139
+00:05:39,252 --> 00:05:41,276
+And if I now run this updated model
+
+140
+00:05:41,864 --> 00:05:43,513
+and I ask, how are you?
+
+141
+00:05:45,678 --> 00:05:48,399
+I get a more reasonable output. Now this
+
+142
+00:05:48,592 --> 00:05:50,733
+model, the QWEN model, is actually a
+
+143
+00:05:50,765 --> 00:05:53,341
+reasoning model which tries to think first
+
+144
+00:05:53,341 --> 00:05:55,371
+before it responds, which is why we see this
+
+145
+00:05:55,371 --> 00:05:55,641
+block.
+
+146
+00:05:56,326 --> 00:05:58,652
+But it generally understood my message and
+
+147
+00:05:58,684 --> 00:06:00,240
+it gave a reasonable response.
+
+148
+00:06:01,250 --> 00:06:03,239
+So that's working the way it should.
+
+149
+00:06:04,442 --> 00:06:06,335
+And that therefore does not just show you
+
+150
+00:06:06,431 --> 00:06:09,816
+how you can set up models from scratch just
+
+151
+00:06:09,816 --> 00:06:12,719
+based on such a GGUF file, for example, but
+
+152
+00:06:12,719 --> 00:06:15,077
+it also shows you the importance of adding
+
+153
+00:06:15,414 --> 00:06:16,040
+templates.
+
+154
+00:06:16,810 --> 00:06:19,024
+Again, because it's important, you don't
+
+155
+00:06:19,024 --> 00:06:21,045
+need those when using the models that are
+
+156
+00:06:21,045 --> 00:06:24,077
+published in the Ollama model catalog. And
+
+157
+00:06:24,077 --> 00:06:26,007
+you also don't need to specify templates
+
+158
+00:06:26,023 --> 00:06:28,000
+when building your own customized versions
+
+159
+00:06:28,113 --> 00:06:29,608
+based off those models.
+
+160
+00:06:30,284 --> 00:06:32,374
+But if you build a model from scratch, as I
+
+161
+00:06:32,374 --> 00:06:34,963
+just showed you, then these templates do
+
+162
+00:06:34,963 --> 00:06:35,397
+matter.

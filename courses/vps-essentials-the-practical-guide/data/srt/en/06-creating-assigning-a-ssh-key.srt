@@ -1,0 +1,459 @@
+1
+00:00:00,176 --> 00:00:02,709
+Now, there are different ways of creating
+
+2
+00:00:02,821 --> 00:00:05,948
+these SSH keys that you typically wanna use
+
+3
+00:00:05,948 --> 00:00:08,577
+for connecting to those remote servers.
+
+4
+00:00:09,315 --> 00:00:11,143
+And when you're using a service like AWS,
+
+5
+00:00:11,720 --> 00:00:14,301
+they give you options to create these key
+
+6
+00:00:14,301 --> 00:00:16,594
+pairs right from inside their user
+
+7
+00:00:16,610 --> 00:00:18,582
+interfaces. Many providers do that.
+
+8
+00:00:19,352 --> 00:00:22,174
+Here on Hetzner, you can click Add SSH Key,
+
+9
+00:00:22,639 --> 00:00:25,188
+and then you would have to paste an SSH key
+
+10
+00:00:25,268 --> 00:00:27,016
+in there. So they don't create it for you,
+
+11
+00:00:27,433 --> 00:00:29,148
+you would have to paste it in there. Now, if
+
+12
+00:00:29,196 --> 00:00:32,177
+you have something like 1Password installed
+
+13
+00:00:32,177 --> 00:00:34,789
+on your machine, 1Password is a password
+
+14
+00:00:34,805 --> 00:00:35,975
+manager, a paid one,
+
+15
+00:00:36,809 --> 00:00:39,645
+it offers that option to create an SSH key,
+
+16
+00:00:39,710 --> 00:00:41,793
+but I'll not use that here because you might
+
+17
+00:00:41,793 --> 00:00:42,402
+not have that.
+
+18
+00:00:43,235 --> 00:00:45,736
+Instead, what you can do both on macOS and
+
+19
+00:00:46,104 --> 00:00:47,995
+Windows, at least Windows 11,
+
+20
+00:00:48,749 --> 00:00:52,114
+you can run a program called SSH Keygen that
+
+21
+00:00:52,210 --> 00:00:54,070
+should be available there. On Windows, if
+
+22
+00:00:54,070 --> 00:00:56,746
+it's not available, you may wanna use it in
+
+23
+00:00:56,778 --> 00:00:58,701
+your WSL2 environment.
+
+24
+00:01:00,050 --> 00:01:02,095
+Ssh-keygen, as the name kind of suggests,
+
+25
+00:01:02,337 --> 00:01:04,640
+will generate SSH keys for you.
+
+26
+00:01:05,462 --> 00:01:07,266
+Now, you can configure this with
+
+27
+00:01:07,798 --> 00:01:11,443
+-t. You can configure which exact algorithm
+
+28
+00:01:11,669 --> 00:01:13,848
+should be used for creating the keys. And
+
+29
+00:01:13,848 --> 00:01:16,930
+here the recommended choice is ed25519.
+
+30
+00:01:20,142 --> 00:01:22,176
+That is simply the name of the algorithm
+
+31
+00:01:22,192 --> 00:01:23,914
+that's used for generating the key.
+
+32
+00:01:24,961 --> 00:01:26,147
+Then you can add
+
+33
+00:01:26,976 --> 00:01:27,772
+a label with
+
+34
+00:01:28,390 --> 00:01:28,796
+-c,
+
+35
+00:01:31,720 --> 00:01:32,790
+like VPS course,
+
+36
+00:01:36,328 --> 00:01:36,844
+and
+
+37
+00:01:37,377 --> 00:01:40,862
+-f to define where that key should be
+
+38
+00:01:40,862 --> 00:01:41,314
+stored,
+
+39
+00:01:42,395 --> 00:01:44,609
+the path to the key file, so to say.
+
+40
+00:01:45,553 --> 00:01:47,327
+And here I'll use ~/.ssh/vps-course.
+
+41
+00:01:51,451 --> 00:01:54,758
+If you are on Windows, that should typically
+
+42
+00:01:54,790 --> 00:01:55,390
+be C
+
+43
+00:01:57,043 --> 00:01:59,053
+colon, and then you would be using
+
+44
+00:01:59,248 --> 00:01:59,507
+backslashes,
+
+45
+00:02:00,326 --> 00:02:02,943
+and the full path would typically be Users,
+
+46
+00:02:04,250 --> 00:02:06,352
+your username, so whatever your Windows
+
+47
+00:02:06,449 --> 00:02:08,698
+username is, and then there.ssh.
+
+48
+00:02:11,303 --> 00:02:12,765
+But I'm on a Mac, so it's
+
+49
+00:02:14,276 --> 00:02:15,095
+this here for me.
+
+50
+00:02:16,365 --> 00:02:19,386
+Now, if I run that, I start this generation
+
+51
+00:02:19,643 --> 00:02:20,013
+process.
+
+52
+00:02:21,127 --> 00:02:23,948
+And you can enter a passphrase here, it's
+
+53
+00:02:24,093 --> 00:02:27,122
+optional, but that is simply a passphrase
+
+54
+00:02:27,154 --> 00:02:29,447
+that will be used for encoding the key so
+
+55
+00:02:29,463 --> 00:02:32,300
+that the key is not stored in plaintext
+
+56
+00:02:32,428 --> 00:02:34,801
+format on your system. You typically may
+
+57
+00:02:34,849 --> 00:02:37,350
+wanna do that, but here I'll not do that to
+
+58
+00:02:37,350 --> 00:02:40,059
+show you how the plaintext key looks like.
+
+59
+00:02:40,459 --> 00:02:43,168
+That, however, is not perfectly secure if
+
+60
+00:02:43,168 --> 00:02:45,557
+you don't choose a passphrase because if
+
+61
+00:02:45,589 --> 00:02:47,449
+that key file which will be created here
+
+62
+00:02:47,577 --> 00:02:50,735
+will be stolen, then whoever stole that key
+
+63
+00:02:50,783 --> 00:02:52,771
+file can access the server server to which
+
+64
+00:02:52,819 --> 00:02:53,413
+it belongs.
+
+65
+00:02:53,942 --> 00:02:56,829
+Still, for educational purposes here, I'll
+
+66
+00:02:56,877 --> 00:02:59,203
+not assign a key phrase. So I'll leave that
+
+67
+00:02:59,444 --> 00:03:01,754
+empty and just hit Enter twice.
+
+68
+00:03:02,412 --> 00:03:05,604
+And now you see for me here, my keys have
+
+69
+00:03:05,636 --> 00:03:06,775
+been stored here.
+
+70
+00:03:07,384 --> 00:03:09,775
+I have a public key and then this
+
+71
+00:03:10,111 --> 00:03:11,812
+identification thing here, that is my
+
+72
+00:03:11,892 --> 00:03:14,394
+private key. So if we take a brief look at
+
+73
+00:03:14,459 --> 00:03:16,560
+that, first at the public key,
+
+74
+00:03:17,089 --> 00:03:19,752
+that is how the public key looks like. And
+
+75
+00:03:19,752 --> 00:03:22,684
+it's this text here, which you would copy
+
+76
+00:03:23,437 --> 00:03:25,456
+and then here on Hetzner, paste in here
+
+77
+00:03:26,722 --> 00:03:28,564
+and then click Add SSH Key.
+
+78
+00:03:29,285 --> 00:03:31,721
+Now I'll also show you the private key here
+
+79
+00:03:31,993 --> 00:03:34,172
+because I'll delete those keys after
+
+80
+00:03:34,172 --> 00:03:36,463
+recording this course. But in general, as
+
+81
+00:03:36,479 --> 00:03:38,482
+the name suggests, the private key is of
+
+82
+00:03:38,482 --> 00:03:40,453
+course not something you would want to share
+
+83
+00:03:40,501 --> 00:03:42,488
+with anybody. But if we take a look at it,
+
+84
+00:03:42,744 --> 00:03:44,891
+this is how my private key looks like. And
+
+85
+00:03:45,067 --> 00:03:47,471
+that is what you would only store on your
+
+86
+00:03:47,471 --> 00:03:50,198
+system. So not on the remote system, not on
+
+87
+00:03:50,198 --> 00:03:52,220
+the VPS, on your system instead.
+
+88
+00:03:52,749 --> 00:03:55,509
+And this is now the unencrypted private key.
+
+89
+00:03:55,574 --> 00:03:58,398
+So if I would not delete it, you could use
+
+90
+00:03:58,462 --> 00:04:01,030
+that key to connect to that server I'm about
+
+91
+00:04:01,030 --> 00:04:03,806
+to launch in this course here, but I will
+
+92
+00:04:03,838 --> 00:04:06,245
+delete it and I will also delete the server
+
+93
+00:04:06,245 --> 00:04:06,775
+once I'm done.
+
+94
+00:04:07,369 --> 00:04:09,359
+But if that were stolen, people could
+
+95
+00:04:09,359 --> 00:04:11,990
+connect to your servers where you were using
+
+96
+00:04:12,023 --> 00:04:14,221
+that key. So where you were using your
+
+97
+00:04:14,349 --> 00:04:16,999
+public key. So with that, I shared my public
+
+98
+00:04:16,999 --> 00:04:19,103
+key here. I added it here on Hetzner. And as
+
+99
+00:04:19,168 --> 00:04:21,320
+the name suggests, sharing your public key
+
+100
+00:04:21,400 --> 00:04:24,131
+is safe. You cannot just put it on the VPS,
+
+101
+00:04:24,147 --> 00:04:25,978
+but you could share it with anybody. It's
+
+102
+00:04:25,978 --> 00:04:28,693
+not recommended, but it alone doesn't do any
+
+103
+00:04:28,709 --> 00:04:28,982
+harm.
+
+104
+00:04:29,592 --> 00:04:31,391
+And on Hetzner, you can configure more, but
+
+105
+00:04:31,391 --> 00:04:33,094
+I'll ignore all of that for now
+
+106
+00:04:34,090 --> 00:04:35,760
+and instead just give that a name,
+
+107
+00:04:36,515 --> 00:04:37,399
+VPS Course,
+
+108
+00:04:37,945 --> 00:04:40,531
+and I'll then create that server.
+
+109
+00:04:42,393 --> 00:04:45,492
+Now it will take a few seconds for that to
+
+110
+00:04:45,572 --> 00:04:47,772
+launch, maybe a minute or so, but it should
+
+111
+00:04:47,836 --> 00:04:49,795
+be quick. Yeah, now it's already up and
+
+112
+00:04:49,827 --> 00:04:50,052
+running.
+
+113
+00:04:50,726 --> 00:04:52,797
+And now you see I have a public IP here and
+
+114
+00:04:52,877 --> 00:04:55,301
+I can use that to now connect to that server
+
+115
+00:04:55,623 --> 00:04:57,308
+with help of that SSH key.

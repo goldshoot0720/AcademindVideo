@@ -1,0 +1,523 @@
+1
+00:00:02,050 --> 00:00:06,309
+So I did now open up Cursor here in a brand
+
+2
+00:00:06,309 --> 00:00:07,826
+new folder, an empty folder
+
+3
+00:00:08,406 --> 00:00:09,165
+where I wanna,
+
+4
+00:00:09,778 --> 00:00:12,522
+well, put all that code for my REST API.
+
+5
+00:00:13,556 --> 00:00:16,028
+Now I got one example folder structure
+
+6
+00:00:16,093 --> 00:00:19,131
+suggested here and I'll at least implement
+
+7
+00:00:19,131 --> 00:00:20,374
+parts of that.
+
+8
+00:00:22,279 --> 00:00:25,039
+I will need a package.json file to manage my
+
+9
+00:00:25,039 --> 00:00:27,298
+dependencies. I wanna have a root entry
+
+10
+00:00:27,298 --> 00:00:27,557
+file.
+
+11
+00:00:28,757 --> 00:00:31,094
+Though I will name mine app.js.
+
+12
+00:00:32,447 --> 00:00:35,703
+I will add such a.env file to store, for
+
+13
+00:00:35,703 --> 00:00:38,272
+example, my JSON Web Tokens secret.
+
+14
+00:00:39,872 --> 00:00:40,907
+And I will add
+
+15
+00:00:41,506 --> 00:00:43,931
+some of these folders, though not in a
+
+16
+00:00:43,931 --> 00:00:46,434
+source subfolder, but instead directly in
+
+17
+00:00:46,434 --> 00:00:47,446
+the root directory.
+
+18
+00:00:48,025 --> 00:00:49,776
+And I also won't add all of them.
+
+19
+00:00:51,270 --> 00:00:54,403
+So to get started, I'll first run npm init
+
+20
+00:00:54,628 --> 00:00:57,335
+-y to create this package.json file.
+
+21
+00:00:58,475 --> 00:01:01,173
+And I could ask AI for that, of course.
+
+22
+00:01:01,847 --> 00:01:04,127
+I could use that inline chat here to say,
+
+23
+00:01:04,801 --> 00:01:07,354
+generate a new package.json file,
+
+24
+00:01:08,109 --> 00:01:11,063
+and it likely would suggest the same
+
+25
+00:01:11,063 --> 00:01:12,011
+command. Yes, it does.
+
+26
+00:01:12,846 --> 00:01:14,949
+But of course, that is already a first
+
+27
+00:01:14,949 --> 00:01:17,936
+example for something where I could use AI,
+
+28
+00:01:18,305 --> 00:01:21,163
+but it actually takes me more time because I
+
+29
+00:01:21,195 --> 00:01:22,448
+already know the command.
+
+30
+00:01:23,840 --> 00:01:25,866
+Nonetheless, now that I showed you how you
+
+31
+00:01:25,980 --> 00:01:26,645
+could use AI,
+
+32
+00:01:27,212 --> 00:01:29,353
+I'll just use this command and click Run
+
+33
+00:01:29,369 --> 00:01:29,499
+here
+
+34
+00:01:30,115 --> 00:01:32,309
+to run it. And this generates this
+
+35
+00:01:32,309 --> 00:01:33,572
+package.json file.
+
+36
+00:01:35,590 --> 00:01:37,880
+Now here in that file, I already wanna
+
+37
+00:01:37,880 --> 00:01:40,365
+change some things. And again, I'll do that
+
+38
+00:01:40,365 --> 00:01:43,204
+manually because I know exactly what I wanna
+
+39
+00:01:43,204 --> 00:01:43,576
+change.
+
+40
+00:01:45,230 --> 00:01:46,022
+I'll put in my
+
+41
+00:01:46,832 --> 00:01:47,443
+name here.
+
+42
+00:01:48,636 --> 00:01:49,549
+And the name of my
+
+43
+00:01:50,399 --> 00:01:50,864
+company.
+
+44
+00:01:52,243 --> 00:01:52,772
+I will
+
+45
+00:01:53,381 --> 00:01:55,353
+change the main file to App.js because
+
+46
+00:01:55,385 --> 00:01:56,395
+that's the name I'll choose.
+
+47
+00:01:56,924 --> 00:02:00,451
+I'll add type module, getting a nice
+
+48
+00:02:00,595 --> 00:02:02,599
+suggestion here, which I'll just confirm by
+
+49
+00:02:02,599 --> 00:02:03,144
+hitting Tab,
+
+50
+00:02:03,785 --> 00:02:05,709
+which allows me to use a different import
+
+51
+00:02:05,725 --> 00:02:07,697
+and export format in this application.
+
+52
+00:02:08,915 --> 00:02:09,300
+And
+
+53
+00:02:10,118 --> 00:02:12,426
+I also will change that script. I'm getting
+
+54
+00:02:12,474 --> 00:02:15,263
+some suggestions here. Bit hard to see, let
+
+55
+00:02:15,263 --> 00:02:15,792
+me zoom out.
+
+56
+00:02:17,106 --> 00:02:19,156
+Yeah, these are not exactly the scripts I
+
+57
+00:02:19,253 --> 00:02:19,525
+want.
+
+58
+00:02:20,550 --> 00:02:23,210
+Instead, I will add a dev script, but
+
+59
+00:02:23,835 --> 00:02:25,630
+I will accept the suggestion here, but I
+
+60
+00:02:25,662 --> 00:02:28,209
+will not run app.js with an extra tool
+
+61
+00:02:28,626 --> 00:02:31,141
+called nodemon. Instead, since I'm using a
+
+62
+00:02:31,205 --> 00:02:34,170
+fairly recent version of Node.js, I'll use
+
+63
+00:02:34,170 --> 00:02:35,964
+the built-in watch mode, which is now
+
+64
+00:02:36,092 --> 00:02:37,390
+suggested to me to
+
+65
+00:02:38,015 --> 00:02:39,954
+run my application in watch mode where the
+
+66
+00:02:39,954 --> 00:02:42,085
+server will be restarted whenever I make
+
+67
+00:02:42,085 --> 00:02:42,469
+changes.
+
+68
+00:02:44,590 --> 00:02:46,630
+Now we could add more scripts, but that's
+
+69
+00:02:46,630 --> 00:02:49,431
+the basic behavior I want and need here.
+
+70
+00:02:51,310 --> 00:02:53,592
+Okay, so that's the package.json file
+
+71
+00:02:53,673 --> 00:02:56,489
+edited. As mentioned, I'll add a.env file
+
+72
+00:02:57,071 --> 00:02:58,172
+to hold some
+
+73
+00:02:58,868 --> 00:03:00,324
+environment variables which I'll need later.
+
+74
+00:03:02,083 --> 00:03:04,230
+And I'll actually also add a.gitignore file
+
+75
+00:03:04,440 --> 00:03:06,668
+even though it was not suggested because I
+
+76
+00:03:06,764 --> 00:03:09,057
+plan on using Git here for this project.
+
+77
+00:03:10,600 --> 00:03:12,347
+And that's why I add this file.
+
+78
+00:03:12,962 --> 00:03:14,531
+And here I wanna ignore
+
+79
+00:03:15,469 --> 00:03:17,086
+this special file here, which is a
+
+80
+00:03:17,086 --> 00:03:18,170
+Mac-specific file,
+
+81
+00:03:18,860 --> 00:03:21,689
+the.env file for sure, and node_modules.
+
+82
+00:03:22,384 --> 00:03:24,098
+So I'll accept these suggestions here,
+
+83
+00:03:24,535 --> 00:03:24,729
+whoops,
+
+84
+00:03:25,278 --> 00:03:27,170
+like this, and that's my.gitignore file.
+
+85
+00:03:29,612 --> 00:03:31,986
+Well, and now I'll add an app.js file,
+
+86
+00:03:32,583 --> 00:03:35,345
+which will be my root entry file for this
+
+87
+00:03:35,345 --> 00:03:35,830
+application.
+
+88
+00:03:37,959 --> 00:03:39,125
+I also need to install
+
+89
+00:03:40,064 --> 00:03:40,679
+dependencies,
+
+90
+00:03:41,343 --> 00:03:43,853
+one dependency to get started, and that will
+
+91
+00:03:43,853 --> 00:03:46,670
+be the Express.js package, which I can
+
+92
+00:03:46,670 --> 00:03:49,235
+install with this command here because I'll
+
+93
+00:03:49,284 --> 00:03:52,011
+use the Express framework to build this
+
+94
+00:03:52,011 --> 00:03:53,399
+Node.js REST API.
+
+95
+00:03:55,093 --> 00:03:56,926
+But again, you don't need to know Express or
+
+96
+00:03:56,975 --> 00:03:59,211
+Node. You can just copy my code, follow
+
+97
+00:03:59,227 --> 00:04:00,337
+along, and you'll be fine.
+
+98
+00:04:02,037 --> 00:04:04,929
+Now, if you don't know Node.js though, it's
+
+99
+00:04:04,929 --> 00:04:07,484
+worth noting that you need to visit
+
+100
+00:04:08,062 --> 00:04:09,283
+nodejs.org
+
+101
+00:04:10,729 --> 00:04:12,978
+and download Node.js from there. It's
+
+102
+00:04:12,978 --> 00:04:15,051
+available for all operating systems and
+
+103
+00:04:15,131 --> 00:04:17,750
+install it on your system so that you will
+
+104
+00:04:17,814 --> 00:04:20,096
+be able to run this application.
+
+105
+00:04:21,558 --> 00:04:24,080
+Actually, this npm init command from before
+
+106
+00:04:24,225 --> 00:04:26,313
+will already fail if you don't have Node.js
+
+107
+00:04:26,313 --> 00:04:28,209
+installed. So you will need that.
+
+108
+00:04:29,524 --> 00:04:31,490
+And with that, I got the most important
+
+109
+00:04:31,490 --> 00:04:33,926
+files set up here. Now I will also add a
+
+110
+00:04:33,926 --> 00:04:35,680
+couple of folders though, a couple of
+
+111
+00:04:35,778 --> 00:04:36,736
+folders which I'll need,
+
+112
+00:04:37,450 --> 00:04:39,862
+some of which have been suggested here by
+
+113
+00:04:39,862 --> 00:04:40,535
+ChatGPT.
+
+114
+00:04:41,863 --> 00:04:44,070
+For example, I will add a controllers, a
+
+115
+00:04:44,119 --> 00:04:45,660
+models, and a routes folder.
+
+116
+00:04:47,330 --> 00:04:50,504
+So I'll do that here, not inside of an src
+
+117
+00:04:50,504 --> 00:04:52,949
+folder though, but instead here in the root.
+
+118
+00:04:54,078 --> 00:04:56,648
+Project folder, Controllers, Models,
+
+119
+00:04:57,489 --> 00:04:58,039
+and Routes.
+
+120
+00:05:00,302 --> 00:05:03,777
+And I'll also, in addition, add a public
+
+121
+00:05:03,777 --> 00:05:06,210
+folder which will, for example, later hold
+
+122
+00:05:06,210 --> 00:05:09,047
+my uploaded images in an images subfolder.
+
+123
+00:05:11,189 --> 00:05:12,989
+So these are some folders I wanna create
+
+124
+00:05:13,166 --> 00:05:15,544
+even though they hold no files yet
+
+125
+00:05:16,557 --> 00:05:18,887
+because that's what I'll now try to do in a
+
+126
+00:05:18,887 --> 00:05:22,719
+next step with more help. By Cursor because
+
+127
+00:05:22,993 --> 00:05:25,187
+up to this point I did basically all of that
+
+128
+00:05:25,187 --> 00:05:27,107
+manually because I knew exactly what I
+
+129
+00:05:27,107 --> 00:05:27,445
+needed.
+
+130
+00:05:28,623 --> 00:05:31,349
+Now I'll try to generate some code and files
+
+131
+00:05:31,607 --> 00:05:32,591
+with help of Cursor.

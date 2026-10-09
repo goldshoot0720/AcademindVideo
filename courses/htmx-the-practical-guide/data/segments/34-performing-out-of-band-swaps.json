@@ -1,0 +1,682 @@
+[
+ {
+  "start": 0.577,
+  "end": 1.828,
+  "en": "Now, I mentioned before"
+ },
+ {
+  "start": 2.357,
+  "end": 4.65,
+  "en": "that I don't just wanna make sure that I can"
+ },
+ {
+  "start": 4.682,
+  "end": 7.152,
+  "en": "remove items from there, but instead, if I"
+ },
+ {
+  "start": 7.392,
+  "end": 9.942,
+  "en": "add an item to that dreams location list,"
+ },
+ {
+  "start": 10.52,
+  "end": 12.62,
+  "en": "I wanna update the list down there in the"
+ },
+ {
+  "start": 12.62,
+  "end": 15.331,
+  "en": "available locations and I wanna remove the"
+ },
+ {
+  "start": 15.411,
+  "end": 17.143,
+  "en": "item which I just added here"
+ },
+ {
+  "start": 17.736,
+  "end": 19.195,
+  "en": "from that list down here."
+ },
+ {
+  "start": 20.462,
+  "end": 22.948,
+  "en": "And vice versa, if I then delete it from up"
+ },
+ {
+  "start": 22.948,
+  "end": 25.53,
+  "en": "here, it should be re-added to that list at"
+ },
+ {
+  "start": 25.53,
+  "end": 27.685,
+  "en": "the bottom. So how can we achieve this"
+ },
+ {
+  "start": 27.685,
+  "end": 28.104,
+  "en": "behavior?"
+ },
+ {
+  "start": 28.973,
+  "end": 31.373,
+  "en": "Well, you could definitely come up with"
+ },
+ {
+  "start": 31.631,
+  "end": 32.661,
+  "en": "different solutions,"
+ },
+ {
+  "start": 33.257,
+  "end": 35.48,
+  "en": "but one way of implementing this"
+ },
+ {
+  "start": 35.48,
+  "end": 36.175,
+  "en": "functionality"
+ },
+ {
+  "start": 36.806,
+  "end": 40.041,
+  "en": "would be to perform an out-of-band swap."
+ },
+ {
+  "start": 40.753,
+  "end": 42.662,
+  "en": "And what's that now?"
+ },
+ {
+  "start": 44.312,
+  "end": 47.349,
+  "en": "An out-of-band swap is a technique you can"
+ },
+ {
+  "start": 47.413,
+  "end": 49.125,
+  "en": "apply with HTMX"
+ },
+ {
+  "start": 49.658,
+  "end": 54.26,
+  "en": "that allows you to return multiple HTML"
+ },
+ {
+  "start": 54.324,
+  "end": 57.983,
+  "en": "fragments in your response that are marked"
+ },
+ {
+  "start": 58.111,
+  "end": 60.823,
+  "en": "to target different places in the DOM."
+ },
+ {
+  "start": 61.786,
+  "end": 64.787,
+  "en": "So instead of returning just one fragment or"
+ },
+ {
+  "start": 65.14,
+  "end": 67.932,
+  "en": "one HTML structure, which then is"
+ },
+ {
+  "start": 68.509,
+  "end": 72.28,
+  "en": "used to swap some part of the website that"
+ },
+ {
+  "start": 72.28,
+  "end": 75.008,
+  "en": "is defined with help of hx-target and"
+ },
+ {
+  "start": 75.008,
+  "end": 75.907,
+  "en": "hx-swap,"
+ },
+ {
+  "start": 76.533,
+  "end": 79.165,
+  "en": "instead of just doing that, you can use this"
+ },
+ {
+  "start": 79.421,
+  "end": 82.662,
+  "en": "out-of-band swap functionality to return"
+ },
+ {
+  "start": 82.79,
+  "end": 85.437,
+  "en": "multiple fragments for multiple targets."
+ },
+ {
+  "start": 86.48,
+  "end": 87.956,
+  "en": "And here's how that works."
+ },
+ {
+  "start": 88.886,
+  "end": 91.004,
+  "en": "Let's start in that POST route here."
+ },
+ {
+  "start": 92.191,
+  "end": 95.11,
+  "en": "Here I first of all wanna determine the"
+ },
+ {
+  "start": 95.319,
+  "end": 98.415,
+  "en": "available locations after adding a location"
+ },
+ {
+  "start": 98.527,
+  "end": 99.939,
+  "en": "to the interesting locations."
+ },
+ {
+  "start": 101.238,
+  "end": 104.013,
+  "en": "And I can do that with help of this logic I"
+ },
+ {
+  "start": 104.061,
+  "end": 107.173,
+  "en": "have up here in the root route. I can indeed"
+ },
+ {
+  "start": 107.173,
+  "end": 110.315,
+  "en": "just copy this availableLocations constant"
+ },
+ {
+  "start": 110.755,
+  "end": 112.43,
+  "en": "down here into this POST route."
+ },
+ {
+  "start": 114.919,
+  "end": 117.94,
+  "en": "With that done, I'll cut this code here,"
+ },
+ {
+  "start": 118.101,
+  "end": 120.911,
+  "en": "this renderLocation code, and I'll instead"
+ },
+ {
+  "start": 120.911,
+  "end": 123.545,
+  "en": "return a string in here in my response"
+ },
+ {
+  "start": 124.857,
+  "end": 127.837,
+  "en": "where I inject this renderedLocation. So"
+ },
+ {
+  "start": 127.935,
+  "end": 130.477,
+  "en": "this list item, that's the part with which I"
+ },
+ {
+  "start": 130.477,
+  "end": 132.302,
+  "en": "start my response content."
+ },
+ {
+  "start": 133.645,
+  "end": 138.443,
+  "en": "But thereafter, I'll add some extra content"
+ },
+ {
+  "start": 136.83,
+  "end": 139.76,
+  "en": "which is then not meant to be used"
+ },
+ {
+  "start": 140.71,
+  "end": 143.48,
+  "en": "to replace this target here where the POST"
+ },
+ {
+  "start": 143.529,
+  "end": 146.153,
+  "en": "request was sent, but which instead should"
+ },
+ {
+  "start": 146.202,
+  "end": 148.4,
+  "en": "perform such an out-of-band swap."
+ },
+ {
+  "start": 149.193,
+  "end": 150.939,
+  "en": "And in my case here, I wanna return an"
+ },
+ {
+  "start": 151.197,
+  "end": 152.119,
+  "en": "unordered list."
+ },
+ {
+  "start": 154.521,
+  "end": 157.691,
+  "en": "To be precise, I wanna return this available"
+ },
+ {
+  "start": 157.885,
+  "end": 159.422,
+  "en": "locations unordered list."
+ },
+ {
+  "start": 161.226,
+  "end": 163.498,
+  "en": "And therefore indeed we can copy that. And"
+ },
+ {
+  "start": 163.514,
+  "end": 165.9,
+  "en": "it's important that you copy the available"
+ },
+ {
+  "start": 165.9,
+  "end": 166.485,
+  "en": "locations list, not the interesting"
+ },
+ {
+  "start": 166.485,
+  "end": 166.745,
+  "en": "locations list."
+ },
+ {
+  "start": 169.64,
+  "end": 172.01,
+  "en": "Because it's the available locations list I"
+ },
+ {
+  "start": 172.074,
+  "end": 176.137,
+  "en": "wanna update here. I'll copy that and return"
+ },
+ {
+  "start": 176.266,
+  "end": 179.235,
+  "en": "that here as that second piece of content in"
+ },
+ {
+  "start": 179.235,
+  "end": 181.114,
+  "en": "my response in this POST route."
+ },
+ {
+  "start": 182.636,
+  "end": 183.413,
+  "en": "Now, right now,"
+ },
+ {
+  "start": 183.948,
+  "end": 185.777,
+  "en": "this would still all be treated as"
+ },
+ {
+  "start": 186.441,
+  "end": 186.668,
+  "en": "one"
+ },
+ {
+  "start": 187.251,
+  "end": 190.291,
+  "en": "response, so to say, one piece of content,"
+ },
+ {
+  "start": 190.534,
+  "end": 192.122,
+  "en": "and it would be this entire piece of"
+ },
+ {
+  "start": 192.154,
+  "end": 195.522,
+  "en": "content, so this list item, and this list"
+ },
+ {
+  "start": 196.195,
+  "end": 199.448,
+  "en": "that would be swapped in for this targeted"
+ },
+ {
+  "start": 199.48,
+  "end": 202.253,
+  "en": "location. So for this interesting locations"
+ },
+ {
+  "start": 202.285,
+  "end": 202.621,
+  "en": "list."
+ },
+ {
+  "start": 203.711,
+  "end": 205.811,
+  "en": "And that's of course not what I want here. I"
+ },
+ {
+  "start": 205.971,
+  "end": 209.609,
+  "en": "only wanna swap in this first element into"
+ },
+ {
+  "start": 209.657,
+  "end": 211.276,
+  "en": "this interesting locations list."
+ },
+ {
+  "start": 211.805,
+  "end": 215.09,
+  "en": "And this second element here, this available"
+ },
+ {
+  "start": 215.267,
+  "end": 218.713,
+  "en": "locations list, should instead replace the"
+ },
+ {
+  "start": 218.713,
+  "end": 221.998,
+  "en": "existing available locations list that's"
+ },
+ {
+  "start": 222.078,
+  "end": 223.649,
+  "en": "already on the screen, on the page."
+ },
+ {
+  "start": 225.455,
+  "end": 227.514,
+  "en": "And we can achieve this by adding a special"
+ },
+ {
+  "start": 227.691,
+  "end": 230.907,
+  "en": "attribute to this unordered list in this"
+ },
+ {
+  "start": 230.907,
+  "end": 231.599,
+  "en": "response here."
+ },
+ {
+  "start": 233.023,
+  "end": 237.697,
+  "en": "And that's the hx-swap-oob"
+ },
+ {
+  "start": 238.263,
+  "end": 240.463,
+  "en": "for out-of-band attribute."
+ },
+ {
+  "start": 241.676,
+  "end": 244.884,
+  "en": "And you can set this to true to tell HTMX"
+ },
+ {
+  "start": 245.383,
+  "end": 248.17,
+  "en": "that this part of the response body"
+ },
+ {
+  "start": 249.395,
+  "end": 251.983,
+  "en": "should actually not be swapped be used to"
+ },
+ {
+  "start": 252.016,
+  "end": 254.891,
+  "en": "replace this target in the place where the"
+ },
+ {
+  "start": 254.891,
+  "end": 258.587,
+  "en": "request was sent, but that instead, HTMX"
+ },
+ {
+  "start": 258.747,
+  "end": 261.093,
+  "en": "should look for an element with that ID"
+ },
+ {
+  "start": 261.575,
+  "end": 263.021,
+  "en": "because it's that ID"
+ },
+ {
+  "start": 263.664,
+  "end": 264.114,
+  "en": "by which"
+ },
+ {
+  "start": 264.772,
+  "end": 268.066,
+  "en": "HTMX identifies these out-of-band swap"
+ },
+ {
+  "start": 268.066,
+  "end": 268.532,
+  "en": "targets."
+ },
+ {
+  "start": 269.431,
+  "end": 272.934,
+  "en": "And if HTMX finds an element with that ID on"
+ },
+ {
+  "start": 272.982,
+  "end": 276.244,
+  "en": "the page, it will replace that element with"
+ },
+ {
+  "start": 276.581,
+  "end": 277.529,
+  "en": "this element here."
+ },
+ {
+  "start": 278.926,
+  "end": 282.605,
+  "en": "Now, if for some reason you can't or don't"
+ },
+ {
+  "start": 282.701,
+  "end": 285.834,
+  "en": "want to use an ID for this out-of-band swap,"
+ },
+ {
+  "start": 286.3,
+  "end": 288.661,
+  "en": "you can also instead of true"
+ },
+ {
+  "start": 289.223,
+  "end": 292.051,
+  "en": "specify a CSS selector here."
+ },
+ {
+  "start": 292.886,
+  "end": 296.018,
+  "en": "And you can also add swap settings like"
+ },
+ {
+  "start": 296.018,
+  "end": 297.127,
+  "en": "before end."
+ },
+ {
+  "start": 297.802,
+  "end": 300.565,
+  "en": "The default here indeed is outerHTML."
+ },
+ {
+  "start": 301.111,
+  "end": 303.681,
+  "en": "So the existing element will entirely be"
+ },
+ {
+  "start": 303.729,
+  "end": 305.207,
+  "en": "replaced with this element."
+ },
+ {
+  "start": 306.02,
+  "end": 308.562,
+  "en": "But you could change this to before-end or"
+ },
+ {
+  "start": 308.594,
+  "end": 311.897,
+  "en": "any other swap value. So any other value you"
+ },
+ {
+  "start": 311.914,
+  "end": 313.646,
+  "en": "could also set on hx-swap."
+ },
+ {
+  "start": 315.612,
+  "end": 317.846,
+  "en": "And then separated by a colon, you could"
+ },
+ {
+  "start": 317.846,
+  "end": 321.383,
+  "en": "specify a CSS selector that identifies the"
+ },
+ {
+  "start": 321.463,
+  "end": 323.488,
+  "en": "element that should be replaced with this"
+ },
+ {
+  "start": 323.488,
+  "end": 325.026,
+  "en": "part of the response body."
+ },
+ {
+  "start": 326.248,
+  "end": 327.095,
+  "en": "So for example,"
+ },
+ {
+  "start": 327.616,
+  "end": 329.717,
+  "en": "the first unordered list that is found."
+ },
+ {
+  "start": 331.465,
+  "end": 333.205,
+  "en": "But I don't need that here. Instead, here"
+ },
+ {
+  "start": 333.205,
+  "end": 335.331,
+  "en": "I'll just set this to true, which means I"
+ },
+ {
+  "start": 335.411,
+  "end": 337.73,
+  "en": "want the default behavior, which means that"
+ },
+ {
+  "start": 337.811,
+  "end": 340.404,
+  "en": "HTMX will look for an element with this ID"
+ },
+ {
+  "start": 340.629,
+  "end": 342.625,
+  "en": "and will then entirely replace it."
+ },
+ {
+  "start": 343.527,
+  "end": 346.376,
+  "en": "And that allows me to now return 2"
+ },
+ {
+  "start": 346.988,
+  "end": 349.789,
+  "en": "elements in this response content that will"
+ },
+ {
+  "start": 349.886,
+  "end": 352.631,
+  "en": "be rendered in different parts of the page"
+ },
+ {
+  "start": 352.745,
+  "end": 353.119,
+  "en": "DOM."
+ },
+ {
+  "start": 355.182,
+  "end": 356.173,
+  "en": "And therefore with this,"
+ },
+ {
+  "start": 357.988,
+  "end": 359.414,
+  "en": "If I now save that"
+ },
+ {
+  "start": 360.071,
+  "end": 362.683,
+  "en": "and I reload, you'll see that if I add this"
+ },
+ {
+  "start": 362.876,
+  "end": 363.292,
+  "en": "item here,"
+ },
+ {
+  "start": 364.478,
+  "end": 366.706,
+  "en": "it disappears from this list at the bottom."
+ },
+ {
+  "start": 367.539,
+  "end": 369.702,
+  "en": "And that happens for every item I add here"
+ },
+ {
+  "start": 369.702,
+  "end": 370.712,
+  "en": "to the top list."
+ },
+ {
+  "start": 372.202,
+  "end": 374.75,
+  "en": "Now, of course, if I delete items, they are"
+ },
+ {
+  "start": 374.75,
+  "end": 377.17,
+  "en": "not re-added though. This list down here is"
+ },
+ {
+  "start": 377.17,
+  "end": 377.939,
+  "en": "not updated."
+ },
+ {
+  "start": 378.5,
+  "end": 381.305,
+  "en": "And that's of course not how it should work."
+ },
+ {
+  "start": 381.417,
+  "end": 383.228,
+  "en": "So that's something we'll have to implement."
+ }
+]

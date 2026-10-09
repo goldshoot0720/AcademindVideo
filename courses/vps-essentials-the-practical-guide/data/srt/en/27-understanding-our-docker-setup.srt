@@ -1,0 +1,419 @@
+1
+00:00:00,048 --> 00:00:02,324
+So now that we know what a reverse proxy is,
+
+2
+00:00:02,581 --> 00:00:04,569
+the question of course is what exactly is
+
+3
+00:00:04,601 --> 00:00:07,391
+this compose.yaml file about? I mean, I
+
+4
+00:00:07,391 --> 00:00:08,577
+mentioned before that we have this
+
+5
+00:00:08,689 --> 00:00:10,693
+Dockerfile which configures the environment
+
+6
+00:00:10,693 --> 00:00:12,938
+for our web app. And in there we simply have
+
+7
+00:00:12,938 --> 00:00:14,493
+a bunch of instructions that install
+
+8
+00:00:14,621 --> 00:00:16,609
+required software and make sure that in the
+
+9
+00:00:16,690 --> 00:00:19,207
+end we have the web app ready to use.
+
+10
+00:00:19,992 --> 00:00:22,846
+But what's this other file about and where's
+
+11
+00:00:22,958 --> 00:00:24,722
+the Dockerfile for Traefik?
+
+12
+00:00:25,524 --> 00:00:28,217
+Well, Traefik doesn't have a Dockerfile in
+
+13
+00:00:28,394 --> 00:00:30,783
+our project. And to understand this,
+
+14
+00:00:31,761 --> 00:00:33,910
+it's important to understand that Docker
+
+15
+00:00:33,926 --> 00:00:36,717
+containers are actually built based on
+
+16
+00:00:36,813 --> 00:00:38,481
+so-called Docker images.
+
+17
+00:00:39,074 --> 00:00:41,319
+Now, this Dockerfile I showed you for the
+
+18
+00:00:41,319 --> 00:00:44,511
+web app does technically define such an
+
+19
+00:00:44,511 --> 00:00:47,333
+image. It defines an image for our
+
+20
+00:00:47,333 --> 00:00:47,959
+container.
+
+21
+00:00:48,697 --> 00:00:51,407
+This image then is turned into the actual
+
+22
+00:00:51,423 --> 00:00:53,572
+container by the instructions in the
+
+23
+00:00:53,572 --> 00:00:56,445
+compose.yaml file. For our web app here,
+
+24
+00:00:57,040 --> 00:00:59,611
+we have this build part in this
+
+25
+00:00:59,611 --> 00:01:02,198
+configuration and here we point at our
+
+26
+00:01:02,327 --> 00:01:05,588
+Dockerfile and this simply does create this
+
+27
+00:01:05,637 --> 00:01:08,320
+Docker image and then instruct Docker
+
+28
+00:01:08,433 --> 00:01:11,614
+overall to create a container based on that
+
+29
+00:01:11,743 --> 00:01:13,687
+image. That is how you can think about that.
+
+30
+00:01:13,912 --> 00:01:15,985
+So the Dockerfile defines the image, the
+
+31
+00:01:16,001 --> 00:01:18,154
+Docker Compose file then makes sure that
+
+32
+00:01:18,154 --> 00:01:20,661
+this image gets used for this app container.
+
+33
+00:01:20,822 --> 00:01:22,585
+That is the idea here.
+
+34
+00:01:23,370 --> 00:01:24,781
+And we will therefore be
+
+35
+00:01:25,310 --> 00:01:25,919
+launching
+
+36
+00:01:26,576 --> 00:01:29,285
+our web app based on this Compose file later
+
+37
+00:01:29,462 --> 00:01:30,151
+on the VPS.
+
+38
+00:01:31,145 --> 00:01:32,860
+In that Compose file, we then have
+
+39
+00:01:32,860 --> 00:01:34,992
+additional instructions as well. For
+
+40
+00:01:34,992 --> 00:01:37,188
+example, how this container should be
+
+41
+00:01:37,397 --> 00:01:40,138
+restarted. So for example, that it should be
+
+42
+00:01:40,362 --> 00:01:42,799
+restarted whenever it crashes unless we
+
+43
+00:01:42,799 --> 00:01:44,065
+stopped it explicitly.
+
+44
+00:01:44,787 --> 00:01:46,951
+We can add so-called volumes, which is a
+
+45
+00:01:46,951 --> 00:01:49,307
+more advanced concept, but the idea here
+
+46
+00:01:49,451 --> 00:01:50,381
+simply is that
+
+47
+00:01:50,958 --> 00:01:53,701
+data written in the container actually
+
+48
+00:01:53,749 --> 00:01:55,980
+survives container restarts by being
+
+49
+00:01:56,093 --> 00:01:58,725
+mirrored to the hard drive of the host that
+
+50
+00:01:58,886 --> 00:01:59,705
+runs the container.
+
+51
+00:02:00,347 --> 00:02:03,092
+So the host is our VPS, keep in mind, and
+
+52
+00:02:03,156 --> 00:02:05,885
+volumes simply are a link from data in the
+
+53
+00:02:05,885 --> 00:02:07,410
+container onto our host.
+
+54
+00:02:08,116 --> 00:02:10,781
+The network here simply defines that the
+
+55
+00:02:11,166 --> 00:02:13,237
+other container I'll get back to, which
+
+56
+00:02:13,333 --> 00:02:16,030
+contains the reverse proxy, is in the same
+
+57
+00:02:16,142 --> 00:02:18,855
+network as our app container so that the 2
+
+58
+00:02:18,887 --> 00:02:19,979
+can talk to each other.
+
+59
+00:02:20,653 --> 00:02:24,408
+And then these labels here are used by the
+
+60
+00:02:24,408 --> 00:02:27,971
+reverse proxy container for registering our
+
+61
+00:02:28,180 --> 00:02:31,646
+app as an app that is managed by our reverse
+
+62
+00:02:31,646 --> 00:02:33,845
+proxy. So these labels are really just there
+
+63
+00:02:34,278 --> 00:02:37,633
+for the reverse proxy, the traffic proxy, to
+
+64
+00:02:37,729 --> 00:02:40,377
+detect and use our web app correctly. And
+
+65
+00:02:40,409 --> 00:02:42,046
+then we got some logging set up here which
+
+66
+00:02:42,158 --> 00:02:44,469
+makes sure that log messages written by the
+
+67
+00:02:44,469 --> 00:02:46,684
+web app that's running in our container are
+
+68
+00:02:47,053 --> 00:02:50,088
+written to the host. Just as we wanna keep
+
+69
+00:02:50,184 --> 00:02:52,737
+the app data, the database data that's
+
+70
+00:02:52,753 --> 00:02:54,728
+written in the container and wanna persist
+
+71
+00:02:54,825 --> 00:02:57,635
+that on the host, we also wanna persist our
+
+72
+00:02:57,651 --> 00:03:01,263
+logs. So we write them to our localhost in
+
+73
+00:03:01,263 --> 00:03:04,603
+the end and we also restricted the max size
+
+74
+00:03:04,635 --> 00:03:07,365
+of the log files to 10 megabytes and the max
+
+75
+00:03:07,381 --> 00:03:10,319
+number of log files that are written to 5 so
+
+76
+00:03:10,319 --> 00:03:11,909
+that we don't flood our hard drive.
+
+77
+00:03:12,743 --> 00:03:14,618
+But that's the idea behind the Compose file
+
+78
+00:03:15,147 --> 00:03:17,359
+and the idea behind images. So why does
+
+79
+00:03:17,456 --> 00:03:20,325
+Traefik not have a Dockerfile then? Well,
+
+80
+00:03:20,437 --> 00:03:22,810
+because here we have an image
+
+81
+00:03:23,884 --> 00:03:25,727
+entry, an image property in the
+
+82
+00:03:25,727 --> 00:03:27,699
+configuration, which we didn't have for our
+
+83
+00:03:27,731 --> 00:03:30,664
+web app. There we had build instead. And the
+
+84
+00:03:30,681 --> 00:03:33,261
+idea simply is that we build the image for
+
+85
+00:03:33,277 --> 00:03:35,409
+the web app based on our own Dockerfile,
+
+86
+00:03:35,730 --> 00:03:38,247
+whereas we use a prebuilt image here for
+
+87
+00:03:38,295 --> 00:03:40,667
+Traefik. And that is simply the official
+
+88
+00:03:40,779 --> 00:03:43,296
+image by the Traefik team, so to say. So we
+
+89
+00:03:43,296 --> 00:03:44,820
+don't need a Dockerfile. Dockerfile here
+
+90
+00:03:45,124 --> 00:03:47,450
+because they already created one for us.
+
+91
+00:03:48,075 --> 00:03:51,524
+And indeed they publish that on GitHub. So
+
+92
+00:03:51,620 --> 00:03:55,437
+there you could actually find Dockerfiles
+
+93
+00:03:55,533 --> 00:03:57,201
+and you find a link to one example
+
+94
+00:03:57,217 --> 00:03:59,238
+Dockerfile attached. So we could
+
+95
+00:03:59,783 --> 00:04:00,120
+also
+
+96
+00:04:00,762 --> 00:04:03,857
+try to build our own Dockerfile and copy
+
+97
+00:04:03,873 --> 00:04:05,862
+this one, for example, but they already did
+
+98
+00:04:05,894 --> 00:04:07,771
+that for us, did publish it to
+
+99
+00:04:08,300 --> 00:04:10,545
+the Docker Hub, which is a Docker registry
+
+100
+00:04:10,545 --> 00:04:12,951
+for images. So we can just pull it in like
+
+101
+00:04:12,951 --> 00:04:14,934
+this. That's the only reason why we don't
+
+102
+00:04:14,950 --> 00:04:15,756
+have a Dockerfile.
+
+103
+00:04:16,805 --> 00:04:18,676
+Again, if you wanna dive deeper into Docker,
+
+104
+00:04:18,740 --> 00:04:20,950
+I have a dedicated course on that, but this
+
+105
+00:04:20,950 --> 00:04:23,305
+should explain what we generally have here.

@@ -1,0 +1,627 @@
+1
+00:00:00,432 --> 00:00:03,124
+Creating customized versions,
+
+2
+00:00:03,717 --> 00:00:05,688
+adjusted versions of
+
+3
+00:00:06,425 --> 00:00:09,085
+open large language models, as you learned
+
+4
+00:00:09,085 --> 00:00:11,728
+it in the previous lectures, is one of the
+
+5
+00:00:12,129 --> 00:00:15,686
+big advantages or core features offered by
+
+6
+00:00:15,718 --> 00:00:16,327
+Ollama.
+
+7
+00:00:17,080 --> 00:00:19,307
+And you saw how you can set the system
+
+8
+00:00:19,307 --> 00:00:22,368
+message or parameters or even a chat history
+
+9
+00:00:22,384 --> 00:00:25,909
+and then save that as a new model to reuse
+
+10
+00:00:25,909 --> 00:00:27,479
+it for future use.
+
+11
+00:00:28,377 --> 00:00:32,915
+Now besides using set and save to configure
+
+12
+00:00:32,964 --> 00:00:33,829
+and save a model,
+
+13
+00:00:34,471 --> 00:00:36,812
+you can also use another approach.
+
+14
+00:00:37,694 --> 00:00:40,533
+You can create a so-called model file.
+
+15
+00:00:41,222 --> 00:00:43,387
+And here I'm doing this in Visual Studio
+
+16
+00:00:43,387 --> 00:00:45,889
+Code, which is simply a text editor. You can
+
+17
+00:00:45,937 --> 00:00:48,118
+also use a regular text editor. You don't
+
+18
+00:00:48,118 --> 00:00:49,642
+need a code editor for this.
+
+19
+00:00:50,299 --> 00:00:52,256
+And you can do this anywhere on your system
+
+20
+00:00:52,304 --> 00:00:53,763
+in any folder of your choice.
+
+21
+00:00:54,436 --> 00:00:56,151
+This is also a file without a file
+
+22
+00:00:56,151 --> 00:00:58,634
+extension. It's just a file called model
+
+23
+00:00:58,634 --> 00:00:58,987
+file
+
+24
+00:01:00,220 --> 00:01:03,169
+because Ollama has this concept of model
+
+25
+00:01:03,345 --> 00:01:05,171
+files, which in the end is inspired by
+
+26
+00:01:05,268 --> 00:01:06,117
+Dockerfiles.
+
+27
+00:01:06,886 --> 00:01:08,440
+Now, you don't need to know Docker. If
+
+28
+00:01:08,472 --> 00:01:10,427
+Dockerfiles don't tell you anything, that's
+
+29
+00:01:10,555 --> 00:01:11,196
+no problem.
+
+30
+00:01:11,821 --> 00:01:13,904
+The idea behind these model files is
+
+31
+00:01:13,904 --> 00:01:17,333
+essentially that you can configure models,
+
+32
+00:01:17,765 --> 00:01:20,185
+adjust models just as we did it with
+
+33
+00:01:21,130 --> 00:01:21,627
+/set,
+
+34
+00:01:22,172 --> 00:01:24,474
+but without doing it in the command line,
+
+35
+00:01:24,667 --> 00:01:26,970
+and then you can load models based on that
+
+36
+00:01:27,163 --> 00:01:27,920
+model file.
+
+37
+00:01:28,451 --> 00:01:30,802
+So you can simply configure a model in a
+
+38
+00:01:30,802 --> 00:01:33,268
+more convenient way here, so to say.
+
+39
+00:01:34,820 --> 00:01:37,370
+Therefore, every model file starts with a
+
+40
+00:01:37,370 --> 00:01:39,921
+FROM instruction, which defines the base
+
+41
+00:01:40,051 --> 00:01:41,481
+model you wanna build up on.
+
+42
+00:01:42,376 --> 00:01:46,097
+In my case here, Gemma 3, and then 12b,
+
+43
+00:01:46,903 --> 00:01:47,467
+and then -i.
+
+44
+00:01:48,516 --> 00:01:49,815
+It-qat,
+
+45
+00:01:50,953 --> 00:01:53,486
+so using that same identifier I used all the
+
+46
+00:01:53,486 --> 00:01:53,822
+time.
+
+47
+00:01:54,848 --> 00:01:57,381
+That will tell Ollama that this is the
+
+48
+00:01:57,413 --> 00:01:59,240
+general AI model I wanna use.
+
+49
+00:02:00,315 --> 00:02:03,312
+But now I can override or adjust certain
+
+50
+00:02:03,344 --> 00:02:04,819
+settings about this model.
+
+51
+00:02:05,348 --> 00:02:07,656
+For example, as you also see in the official
+
+52
+00:02:07,688 --> 00:02:10,253
+docs, which unfortunately are only available
+
+53
+00:02:10,253 --> 00:02:12,882
+on GitHub, you'll find a link to that model
+
+54
+00:02:12,914 --> 00:02:15,320
+file documentation attached. For example,
+
+55
+00:02:15,368 --> 00:02:17,567
+you can set parameters with the parameter
+
+56
+00:02:17,567 --> 00:02:18,193
+instruction.
+
+57
+00:02:19,237 --> 00:02:21,612
+You can set a system message with the system
+
+58
+00:02:21,644 --> 00:02:22,206
+instruction.
+
+59
+00:02:23,233 --> 00:02:25,834
+You can also set more advanced things, but
+
+60
+00:02:25,834 --> 00:02:26,973
+I'll get back to
+
+61
+00:02:27,567 --> 00:02:30,713
+one advanced concept, the template, a little
+
+62
+00:02:30,713 --> 00:02:31,115
+bit later.
+
+63
+00:02:31,837 --> 00:02:34,052
+For now, I'll focus on parameters, system,
+
+64
+00:02:34,550 --> 00:02:35,417
+and also message.
+
+65
+00:02:36,508 --> 00:02:39,590
+So let's do that here. Let's set a parameter
+
+66
+00:02:40,088 --> 00:02:43,282
+and I'll set the num_ctx parameter, which
+
+67
+00:02:43,394 --> 00:02:46,138
+defines the available context window length,
+
+68
+00:02:47,565 --> 00:02:49,537
+and I'll set that to 10,000 tokens.
+
+69
+00:02:50,291 --> 00:02:52,599
+We can also set another parameter, for
+
+70
+00:02:52,599 --> 00:02:53,994
+example, the temperature
+
+71
+00:02:54,523 --> 00:02:56,351
+to let's say 0.5.
+
+72
+00:02:57,265 --> 00:02:58,996
+The default for the Gemma model at this
+
+73
+00:02:59,109 --> 00:03:02,058
+point of time is 1 actually. Here I'm
+
+74
+00:03:02,058 --> 00:03:04,271
+setting it to 0.5 to make it a bit less
+
+75
+00:03:04,319 --> 00:03:04,848
+creative.
+
+76
+00:03:05,906 --> 00:03:08,006
+And don't forget, you find the default
+
+77
+00:03:08,006 --> 00:03:10,636
+params for the model you're using in the
+
+78
+00:03:10,636 --> 00:03:13,153
+Ollama models catalog on the detail page of
+
+79
+00:03:13,153 --> 00:03:16,231
+a given model. There under params, you find
+
+80
+00:03:16,328 --> 00:03:17,434
+the default parameters.
+
+81
+00:03:18,268 --> 00:03:20,450
+So here for Gemma 3, the default temperature
+
+82
+00:03:20,450 --> 00:03:20,786
+is 1.
+
+83
+00:03:21,316 --> 00:03:23,561
+Now I'm setting it to 0.5 here.
+
+84
+00:03:24,443 --> 00:03:26,545
+And I'm doing that through that parameter
+
+85
+00:03:26,545 --> 00:03:28,983
+instruction in that model file. And that is
+
+86
+00:03:29,079 --> 00:03:30,779
+one of the officially supported
+
+87
+00:03:30,779 --> 00:03:31,389
+instructions.
+
+88
+00:03:32,062 --> 00:03:33,746
+Of course, you can only include the
+
+89
+00:03:33,746 --> 00:03:35,896
+instructions you find here because these are
+
+90
+00:03:35,896 --> 00:03:37,901
+the only instructions Ollama will
+
+91
+00:03:37,917 --> 00:03:41,285
+understand. I'll also add a system message
+
+92
+00:03:41,285 --> 00:03:43,627
+and that can of course be anything you want.
+
+93
+00:03:44,109 --> 00:03:46,238
+It can be a short one, it can be a long one,
+
+94
+00:03:46,415 --> 00:03:47,932
+like, you are a friendly
+
+95
+00:03:48,528 --> 00:03:48,819
+assistant.
+
+96
+00:03:50,441 --> 00:03:54,090
+You will not answer any questions related to
+
+97
+00:03:54,253 --> 00:03:55,328
+LM Studio.
+
+98
+00:03:57,272 --> 00:03:59,172
+Now, you should make sure that it's all in
+
+99
+00:03:59,188 --> 00:04:01,377
+one line. Here, it's getting wrapped by my
+
+100
+00:04:01,377 --> 00:04:03,937
+code editor, but that's just a visual wrap.
+
+101
+00:04:04,259 --> 00:04:06,207
+Technically, it's all in one line. And you
+
+102
+00:04:06,207 --> 00:04:07,934
+should ensure that this is the case because
+
+103
+00:04:07,982 --> 00:04:09,808
+if you would split it across multiple lines,
+
+104
+00:04:10,228 --> 00:04:12,313
+this would be interpreted as a new
+
+105
+00:04:12,410 --> 00:04:14,991
+instruction, but an unknown instruction
+
+106
+00:04:15,055 --> 00:04:17,187
+because Ollama only understands from,
+
+107
+00:04:17,539 --> 00:04:18,934
+parameter, system,
+
+108
+00:04:19,527 --> 00:04:21,338
+and whatever else is specified here.
+
+109
+00:04:22,124 --> 00:04:23,518
+So that's why that should all be in one
+
+110
+00:04:23,615 --> 00:04:25,570
+line. Again, here it looks like it's in a
+
+111
+00:04:25,570 --> 00:04:28,023
+new line because my code editor breaks it
+
+112
+00:04:28,023 --> 00:04:30,331
+across multiple lines visually, but it is in
+
+113
+00:04:30,427 --> 00:04:32,431
+one line as you can also tell by the line
+
+114
+00:04:32,463 --> 00:04:32,896
+numbers.
+
+115
+00:04:33,954 --> 00:04:35,781
+What's also an interesting setting is the
+
+116
+00:04:35,781 --> 00:04:36,823
+message setting.
+
+117
+00:04:37,400 --> 00:04:40,783
+This allows you to add messages to this
+
+118
+00:04:40,783 --> 00:04:42,900
+model file and therefore to the model you'll
+
+119
+00:04:43,028 --> 00:04:44,440
+build based on that file.
+
+120
+00:04:45,434 --> 00:04:47,327
+And for that, remember that a couple of
+
+121
+00:04:47,359 --> 00:04:50,022
+lectures ago when I first showed you the
+
+122
+00:04:50,022 --> 00:04:53,551
+/save command, I did that to save a chat
+
+123
+00:04:53,679 --> 00:04:56,149
+history and to reuse that chat history.
+
+124
+00:04:57,048 --> 00:05:00,111
+Here we can bake a chat history into this
+
+125
+00:05:00,111 --> 00:05:00,705
+model file
+
+126
+00:05:01,395 --> 00:05:03,608
+and that history will then be used by any
+
+127
+00:05:03,656 --> 00:05:06,415
+models we build based on that file, which is
+
+128
+00:05:06,447 --> 00:05:07,907
+something I'll show you in a second.
+
+129
+00:05:08,517 --> 00:05:10,779
+Now after message, you should specify who
+
+130
+00:05:10,779 --> 00:05:13,089
+sent the message and that can either be user
+
+131
+00:05:13,506 --> 00:05:16,330
+if it's you, if you wanna simulate that you
+
+132
+00:05:16,570 --> 00:05:18,030
+sent the message to the AI
+
+133
+00:05:19,105 --> 00:05:21,159
+or assistant if you wanna simulate or
+
+134
+00:05:21,929 --> 00:05:25,266
+kind of fake that the AI assistant sent the
+
+135
+00:05:25,266 --> 00:05:25,602
+message.
+
+136
+00:05:26,597 --> 00:05:29,212
+So here we could for example send a user
+
+137
+00:05:29,212 --> 00:05:29,565
+message
+
+138
+00:05:30,431 --> 00:05:31,506
+and say something like, hi,
+
+139
+00:05:32,196 --> 00:05:33,752
+this is a question
+
+140
+00:05:34,908 --> 00:05:38,357
+Submitted via the contact form on the
+
+141
+00:05:38,438 --> 00:05:38,970
+website.
+
+142
+00:05:39,953 --> 00:05:42,210
+Again, there is no real line break here and
+
+143
+00:05:42,291 --> 00:05:44,290
+there shouldn't be one. It's just a visual
+
+144
+00:05:44,323 --> 00:05:45,906
+line break by my editor.
+
+145
+00:05:47,066 --> 00:05:48,659
+And then I'll add another message here.
+
+146
+00:05:49,094 --> 00:05:49,818
+Assistant,
+
+147
+00:05:51,670 --> 00:05:54,857
+hi, thanks for contacting us.
+
+148
+00:05:56,258 --> 00:05:58,622
+And now that would be some made-up chat
+
+149
+00:05:58,687 --> 00:06:01,881
+history with which we always start when we
+
+150
+00:06:01,977 --> 00:06:02,730
+run this
+
+151
+00:06:03,355 --> 00:06:05,407
+adjusted model version, which we're building
+
+152
+00:06:05,439 --> 00:06:06,946
+here with that model file.
+
+153
+00:06:08,148 --> 00:06:10,072
+And that could therefore be one example
+
+154
+00:06:10,168 --> 00:06:12,589
+model file you wanna build. The question now
+
+155
+00:06:12,733 --> 00:06:13,951
+is, how do we now
+
+156
+00:06:14,496 --> 00:06:17,638
+translate this model file into an actual
+
+157
+00:06:17,638 --> 00:06:20,395
+model we can run with the Ollama command?

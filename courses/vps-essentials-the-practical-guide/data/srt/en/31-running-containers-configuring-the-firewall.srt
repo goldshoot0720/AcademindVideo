@@ -1,0 +1,831 @@
+1
+00:00:00,096 --> 00:00:03,259
+Okay, so now the project is on our VPS. How
+
+2
+00:00:03,709 --> 00:00:04,399
+do we continue now?
+
+3
+00:00:05,330 --> 00:00:08,092
+Well, as a next step, we have to make sure
+
+4
+00:00:08,204 --> 00:00:10,195
+that we set up our environment variables
+
+5
+00:00:10,388 --> 00:00:11,930
+because we'll need some, as I mentioned.
+
+6
+00:00:12,315 --> 00:00:15,237
+We'll need to make sure that we do let
+
+7
+00:00:15,767 --> 00:00:18,304
+Docker and Traefik in the end know about
+
+8
+00:00:18,336 --> 00:00:20,311
+which domain we're about to use so that it
+
+9
+00:00:20,343 --> 00:00:23,233
+can request the right certificate and that
+
+10
+00:00:23,233 --> 00:00:25,048
+we provide a valid email address.
+
+11
+00:00:26,207 --> 00:00:28,546
+To do that, we can follow the instructions I
+
+12
+00:00:28,546 --> 00:00:30,384
+shared in this deployment.md file.
+
+13
+00:00:30,950 --> 00:00:32,126
+We wanna cd
+
+14
+00:00:32,738 --> 00:00:34,365
+into our project
+
+15
+00:00:35,332 --> 00:00:37,958
+and then we wanna copy the.env.example
+
+16
+00:00:37,991 --> 00:00:39,070
+file, which you find in there.
+
+17
+00:00:41,647 --> 00:00:44,083
+And now you wanna edit this.env file
+
+18
+00:00:44,083 --> 00:00:45,987
+because we're loading environment variables
+
+19
+00:00:46,083 --> 00:00:46,793
+from that file.
+
+20
+00:00:47,471 --> 00:00:48,826
+We can do this with nano,
+
+21
+00:00:49,390 --> 00:00:50,262
+nano.env,
+
+22
+00:00:50,858 --> 00:00:52,912
+and you see It already has the environment
+
+23
+00:00:52,912 --> 00:00:54,888
+variables filled in, but you need to bring
+
+24
+00:00:55,097 --> 00:00:56,543
+your concrete values here.
+
+25
+00:00:57,202 --> 00:00:58,761
+So as mentioned, if you wanna follow along
+
+26
+00:00:58,857 --> 00:00:59,837
+here, you'll need a domain.
+
+27
+00:01:00,496 --> 00:01:03,115
+So I'll buy a new domain here for this
+
+28
+00:01:03,115 --> 00:01:04,995
+course. Obviously you don't need to do that.
+
+29
+00:01:05,301 --> 00:01:07,245
+You can also use one you got lying around.
+
+30
+00:01:07,711 --> 00:01:10,555
+vps-course is available, so I'll purchase
+
+31
+00:01:10,603 --> 00:01:13,207
+that. And now that I did purchase it, I
+
+32
+00:01:13,319 --> 00:01:16,420
+wanna manage its DNS entries, its DNS
+
+33
+00:01:16,452 --> 00:01:16,999
+records.
+
+34
+00:01:17,592 --> 00:01:20,013
+To make sure that this domain actually
+
+35
+00:01:20,141 --> 00:01:22,834
+routes to my VPS. Here I'm using Cloudflare.
+
+36
+00:01:23,106 --> 00:01:25,302
+Obviously you can use any registrar of your
+
+37
+00:01:25,367 --> 00:01:27,931
+choice. Here on Cloudflare, I do this by
+
+38
+00:01:28,476 --> 00:01:30,608
+going to the DNS records for the domain I
+
+39
+00:01:30,656 --> 00:01:33,830
+just acquired, click Add Record, add an A
+
+40
+00:01:33,862 --> 00:01:37,196
+record, and then add for root so that really
+
+41
+00:01:37,212 --> 00:01:39,520
+the root domain points at a certain
+
+42
+00:01:40,194 --> 00:01:44,201
+IPv4 address. I grab my server IPv4 address,
+
+43
+00:01:45,389 --> 00:01:47,702
+Add that here. I am fine with proxying
+
+44
+00:01:47,735 --> 00:01:49,582
+traffic through Cloudflare. This is a
+
+45
+00:01:49,646 --> 00:01:51,365
+Cloudflare-specific setting. It's not too
+
+46
+00:01:51,365 --> 00:01:53,759
+important, but it will actually make sure
+
+47
+00:01:53,759 --> 00:01:56,120
+that the Cloudflare CDN is used for
+
+48
+00:01:56,650 --> 00:01:59,430
+caching responses and potentially speeding
+
+49
+00:01:59,606 --> 00:02:03,156
+up responses by my website to end users, as
+
+50
+00:02:03,221 --> 00:02:05,727
+well as protecting against DDoS attacks. But
+
+51
+00:02:05,952 --> 00:02:07,912
+that's not too important. The important part
+
+52
+00:02:07,912 --> 00:02:10,257
+is that we have an A record for our domain
+
+53
+00:02:10,386 --> 00:02:11,751
+pointing at our IP.
+
+54
+00:02:12,314 --> 00:02:12,989
+I save this
+
+55
+00:02:14,742 --> 00:02:17,348
+and with that we know what our domain will
+
+56
+00:02:17,380 --> 00:02:18,618
+be. So back here
+
+57
+00:02:19,374 --> 00:02:21,191
+where I'm editing this.env file,
+
+58
+00:02:23,208 --> 00:02:25,319
+I'll hook this up to vps-course
+
+59
+00:02:26,318 --> 00:02:28,413
+and I'll also enter a valid email address
+
+60
+00:02:28,429 --> 00:02:29,847
+which will be from another domain.
+
+61
+00:02:30,648 --> 00:02:31,812
+It just needs to be valid.
+
+62
+00:02:32,490 --> 00:02:35,044
+With that done, we can save this file and
+
+63
+00:02:35,076 --> 00:02:38,324
+then as a next step, run docker-compose up
+
+64
+00:02:38,389 --> 00:02:39,569
+-d --build,
+
+65
+00:02:40,236 --> 00:02:42,303
+which will simply pick up our Docker Compose
+
+66
+00:02:42,400 --> 00:02:42,544
+file
+
+67
+00:02:43,121 --> 00:02:45,397
+and create these 2 containers, the Traefik
+
+68
+00:02:45,525 --> 00:02:48,475
+container and the app container, which
+
+69
+00:02:48,571 --> 00:02:49,869
+contains the actual web app.
+
+70
+00:02:50,575 --> 00:02:53,252
+By the way, here in those labels, in that
+
+71
+00:02:53,252 --> 00:02:55,736
+metadata, which in the end configures how
+
+72
+00:02:56,041 --> 00:02:57,804
+these containers are connected or how
+
+73
+00:02:57,804 --> 00:02:58,381
+Traefik
+
+74
+00:02:58,926 --> 00:03:02,613
+routes requests to our app server, you see
+
+75
+00:03:02,693 --> 00:03:05,130
+that it's here where this app domain value
+
+76
+00:03:05,418 --> 00:03:08,408
+we added to the.env file is injected and
+
+77
+00:03:08,699 --> 00:03:12,169
+connects this certificate in the end to this
+
+78
+00:03:12,331 --> 00:03:12,508
+app
+
+79
+00:03:13,057 --> 00:03:15,624
+and where the email address is used, the
+
+80
+00:03:15,721 --> 00:03:16,593
+Acme email address,
+
+81
+00:03:18,310 --> 00:03:20,675
+which is also required for requesting that
+
+82
+00:03:20,675 --> 00:03:22,116
+certificate. You don't need to change
+
+83
+00:03:22,116 --> 00:03:24,125
+anything here. This is just how the things
+
+84
+00:03:24,222 --> 00:03:25,161
+are linked up together.
+
+85
+00:03:26,515 --> 00:03:27,504
+So docker-compose
+
+86
+00:03:28,168 --> 00:03:31,262
+up it is. We can copy this command, execute
+
+87
+00:03:31,262 --> 00:03:33,741
+it inside of our project folder on the VPS.
+
+88
+00:03:33,854 --> 00:03:34,405
+That's important.
+
+89
+00:03:35,207 --> 00:03:37,519
+And you may be getting a permission denied
+
+90
+00:03:38,017 --> 00:03:40,666
+error here because we're on a user
+
+91
+00:03:41,309 --> 00:03:43,813
+that doesn't have root privileges by
+
+92
+00:03:43,813 --> 00:03:46,623
+default. Of course, we can run sudo docker
+
+93
+00:03:46,623 --> 00:03:49,337
+composer up though to overcome this. So if
+
+94
+00:03:49,337 --> 00:03:50,477
+we run this command,
+
+95
+00:03:51,119 --> 00:03:53,029
+you see now it works and now it's
+
+96
+00:03:53,029 --> 00:03:54,876
+downloading that Traefik image, which I
+
+97
+00:03:54,876 --> 00:03:56,787
+mentioned would be a prebuilt image.
+
+98
+00:03:57,477 --> 00:03:59,131
+It's building our own image based on the
+
+99
+00:03:59,147 --> 00:04:01,395
+Dockerfile we shared, that was part of the
+
+100
+00:04:01,395 --> 00:04:03,369
+project. That's what it's currently doing
+
+101
+00:04:03,401 --> 00:04:03,626
+here.
+
+102
+00:04:04,284 --> 00:04:05,761
+And that can take a short while,
+
+103
+00:04:06,436 --> 00:04:08,458
+but in the end it should be done, should
+
+104
+00:04:08,458 --> 00:04:09,662
+finish without an error.
+
+105
+00:04:10,529 --> 00:04:11,878
+And you can thereafter
+
+106
+00:04:12,857 --> 00:04:14,254
+run sudo docker
+
+107
+00:04:15,442 --> 00:04:15,875
+ps
+
+108
+00:04:16,726 --> 00:04:19,263
+and that will list running containers. And
+
+109
+00:04:19,680 --> 00:04:21,912
+it's a bit hard to see here since I'm zoomed
+
+110
+00:04:22,008 --> 00:04:23,726
+in quite a bit, but we got 2
+
+111
+00:04:24,352 --> 00:04:26,760
+container IDs. We got 2 containers up and
+
+112
+00:04:26,760 --> 00:04:28,815
+running, the Traefik container and our
+
+113
+00:04:28,992 --> 00:04:30,035
+actual app container.
+
+114
+00:04:31,253 --> 00:04:33,449
+Now with those containers up and running,
+
+115
+00:04:33,658 --> 00:04:35,517
+we're not entirely there yet though.
+
+116
+00:04:36,767 --> 00:04:39,091
+Our containers, specifically the traffic
+
+117
+00:04:39,091 --> 00:04:41,736
+container, listen for traffic on certain
+
+118
+00:04:41,736 --> 00:04:42,233
+ports,
+
+119
+00:04:42,890 --> 00:04:47,554
+specifically on ports 80 and 443. 443 for
+
+120
+00:04:47,762 --> 00:04:47,842
+the
+
+121
+00:04:48,403 --> 00:04:50,102
+encrypted HTTPS traffic.
+
+122
+00:04:50,631 --> 00:04:53,292
+80 also must be kept open even though that
+
+123
+00:04:53,292 --> 00:04:55,472
+is for unsecured traffic because whilst this
+
+124
+00:04:55,536 --> 00:04:57,475
+will not be used to actually access our
+
+125
+00:04:57,620 --> 00:05:00,906
+website, will do that via 443.
+
+126
+00:05:01,707 --> 00:05:03,951
+Whilst it will not be used for that, it must
+
+127
+00:05:03,951 --> 00:05:06,981
+be open for Let's Encrypt to be able to
+
+128
+00:05:06,997 --> 00:05:09,947
+verify that we own the domain we told it the
+
+129
+00:05:09,947 --> 00:05:13,089
+certificate is for. They will send a request
+
+130
+00:05:13,089 --> 00:05:13,602
+to this
+
+131
+00:05:14,515 --> 00:05:16,423
+port here in the end and look for a certain
+
+132
+00:05:16,439 --> 00:05:19,148
+file that is created by Traefik, so we don't
+
+133
+00:05:19,148 --> 00:05:21,184
+need to worry about that. But the port must
+
+134
+00:05:21,184 --> 00:05:23,508
+be open so that Let's Encrypt can verify
+
+135
+00:05:23,749 --> 00:05:26,281
+that we own the domain, and only then will
+
+136
+00:05:26,313 --> 00:05:28,766
+they issue the certificate. That's why both
+
+137
+00:05:29,023 --> 00:05:30,850
+80 and 443 must be open. Open
+
+138
+00:05:31,748 --> 00:05:34,216
+and our compose.yaml file, which configures
+
+139
+00:05:34,313 --> 00:05:36,653
+how the Docker containers are started, takes
+
+140
+00:05:36,653 --> 00:05:37,390
+care about that.
+
+141
+00:05:37,919 --> 00:05:40,308
+For the Traefik service, the Traefik reverse
+
+142
+00:05:40,420 --> 00:05:43,274
+proxy, this entry here ensures that these
+
+143
+00:05:43,450 --> 00:05:46,800
+ports are in the end open and forwarded into
+
+144
+00:05:46,833 --> 00:05:48,211
+the container. But
+
+145
+00:05:48,740 --> 00:05:50,407
+this has one important implication.
+
+146
+00:05:51,081 --> 00:05:53,758
+We also must make sure that the firewall
+
+147
+00:05:53,790 --> 00:05:57,108
+that protects our VPS allows traffic through
+
+148
+00:05:57,156 --> 00:05:59,048
+these ports. Otherwise, this is all
+
+149
+00:05:59,401 --> 00:06:01,646
+pointless and worthless. It's nice that we
+
+150
+00:06:01,742 --> 00:06:04,067
+listen for traffic on these ports. If our
+
+151
+00:06:04,067 --> 00:06:07,114
+firewall blocks access to these ports,
+
+152
+00:06:07,739 --> 00:06:10,096
+there is no way for traffic to reach our
+
+153
+00:06:10,096 --> 00:06:12,854
+server, neither for the Let's Encrypt
+
+154
+00:06:13,271 --> 00:06:16,510
+verification request nor for the regular web
+
+155
+00:06:16,558 --> 00:06:17,792
+traffic we wanna handle.
+
+156
+00:06:18,979 --> 00:06:21,256
+And therefore, we wanna open up these ports.
+
+157
+00:06:21,544 --> 00:06:23,757
+Now, if you're using UFW, which I mentioned
+
+158
+00:06:23,869 --> 00:06:24,254
+earlier,
+
+159
+00:06:25,136 --> 00:06:28,089
+You could add rules that open up these
+
+160
+00:06:28,202 --> 00:06:30,882
+ports, but there actually is an issue here.
+
+161
+00:06:31,732 --> 00:06:34,926
+When using Docker, they themselves mention
+
+162
+00:06:34,926 --> 00:06:37,189
+in their docs that if you're using UFW
+
+163
+00:06:38,329 --> 00:06:40,704
+to manage firewall settings, you must be
+
+164
+00:06:40,720 --> 00:06:40,993
+aware
+
+165
+00:06:41,603 --> 00:06:43,657
+that if you expose container ports using
+
+166
+00:06:43,769 --> 00:06:46,770
+Docker, these ports bypass your firewall
+
+167
+00:06:46,819 --> 00:06:50,285
+rules simply due to how Docker and UFW work
+
+168
+00:06:50,333 --> 00:06:50,879
+internally.
+
+169
+00:06:51,649 --> 00:06:53,367
+So put in other words, you don't really need
+
+170
+00:06:53,399 --> 00:06:56,897
+to open those ports with UFW because using
+
+171
+00:06:56,930 --> 00:06:58,823
+Docker already does that.
+
+172
+00:06:59,497 --> 00:07:02,210
+In my case here, however, I'm using the
+
+173
+00:07:02,210 --> 00:07:04,842
+Hetzner firewall though. And there I have
+
+174
+00:07:04,874 --> 00:07:07,265
+not opened up these ports yet. And that
+
+175
+00:07:07,265 --> 00:07:10,138
+firewall sits in front of my VPS, is not
+
+176
+00:07:10,234 --> 00:07:12,497
+overwritten by Docker, and therefore must be
+
+177
+00:07:12,497 --> 00:07:15,306
+adjusted. And if you are using Hetzner or
+
+178
+00:07:15,306 --> 00:07:16,814
+some other provider that has a
+
+179
+00:07:16,814 --> 00:07:20,040
+provider-specific firewall, you must do that
+
+180
+00:07:20,040 --> 00:07:20,185
+too.
+
+181
+00:07:20,780 --> 00:07:23,807
+So you wanna allow traffic from any IPv4 and
+
+182
+00:07:23,887 --> 00:07:26,222
+IPv6 address via TCP
+
+183
+00:07:26,801 --> 00:07:27,494
+to port 80.
+
+184
+00:07:29,281 --> 00:07:32,810
+And you wanna do the same for port 443 for
+
+185
+00:07:32,924 --> 00:07:33,475
+HTTPS.
+
+186
+00:07:34,221 --> 00:07:35,583
+You have to save these changes.
+
+187
+00:07:37,402 --> 00:07:40,230
+And on the VPS, you can actually disable UFW
+
+188
+00:07:40,471 --> 00:07:42,897
+if you are using such an extra firewall.
+
+189
+00:07:43,668 --> 00:07:47,049
+The problem is that of course I did start my
+
+190
+00:07:47,049 --> 00:07:48,629
+Docker container before I
+
+191
+00:07:49,188 --> 00:07:50,077
+opened up my ports. So in case you did that
+
+192
+00:07:50,126 --> 00:07:50,225
+too,
+
+193
+00:07:52,106 --> 00:07:54,820
+you can restart it with sudo docker compose
+
+194
+00:07:55,719 --> 00:07:58,240
+restart traffic. Traffic is the name of that
+
+195
+00:07:58,240 --> 00:08:00,279
+specific service I wanna restart. And if you
+
+196
+00:08:00,311 --> 00:08:02,158
+run that, it does just what the name implies
+
+197
+00:08:02,158 --> 00:08:05,048
+and that should trigger a new certificate
+
+198
+00:08:05,449 --> 00:08:08,002
+request and that should then work since we
+
+199
+00:08:08,002 --> 00:08:09,046
+did open up that port.
+
+200
+00:08:09,688 --> 00:08:11,567
+And with that done, you should be able to
+
+201
+00:08:11,567 --> 00:08:12,001
+visit
+
+202
+00:08:12,579 --> 00:08:14,794
+your domain, in my case, vpscourse.com
+
+203
+00:08:15,790 --> 00:08:16,898
+and see your site.
+
+204
+00:08:18,296 --> 00:08:20,452
+And I should also be able to submit an idea.
+
+205
+00:08:21,014 --> 00:08:21,722
+And that works.
+
+206
+00:08:23,202 --> 00:08:25,389
+And this is how you can deploy a web
+
+207
+00:08:25,389 --> 00:08:28,880
+application with Docker with HTTPS support
+
+208
+00:08:29,459 --> 00:08:30,761
+onto a VPS.

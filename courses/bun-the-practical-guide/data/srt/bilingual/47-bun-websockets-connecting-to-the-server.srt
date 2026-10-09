@@ -1,0 +1,984 @@
+1
+00:00:00,098 --> 00:00:02,707
+we can go to the client index.html,
+我們可以轉到使用者端index.html，
+
+2
+00:00:03,960 --> 00:00:07,035
+which is served by that same server for this
+由同一台伺服器為此提供服務
+
+3
+00:00:08,022 --> 00:00:08,572
+/root route.
+/根路徑。
+
+4
+00:00:10,514 --> 00:00:12,658
+And to show this in action, I can simply run
+為了在行動中展示這一點，我可以簡單地運行
+
+5
+00:00:12,771 --> 00:00:15,318
+bun run dev to start that server, which does
+Bun run dev 來啟動該伺服器，這會
+
+6
+00:00:15,350 --> 00:00:17,446
+start the server that handles the WebSockets
+啟動處理 WebSocket 的伺服器
+
+7
+00:00:17,591 --> 00:00:19,234
+and serves that root route
+並服務該根路由
+
+8
+00:00:20,380 --> 00:00:21,738
+under localhost:3000.
+在本地主機：3000下。
+
+9
+00:00:23,238 --> 00:00:25,109
+And if I open that, I see this chat window.
+如果我打開它，我會看到這個聊天視窗。
+
+10
+00:00:25,189 --> 00:00:27,173
+Now here I can choose any name I want, any
+現在我可以在這裡選擇任何我想要的名字，任何
+
+11
+00:00:27,269 --> 00:00:28,662
+room name I want, And
+我想要的房間名稱，以及
+
+12
+00:00:29,884 --> 00:00:31,540
+you see now I get some output here,
+你現在看到我在這裡得到一些輸出，
+
+13
+00:00:31,733 --> 00:00:34,210
+connected to room general as Max and then
+作為 Max 連接到一般房間，然後
+
+14
+00:00:34,243 --> 00:00:35,722
+Max joined general.
+麥克斯加入將軍。
+
+15
+00:00:36,540 --> 00:00:37,766
+Where is this coming from?
+這是從哪裡來的？
+
+16
+00:00:38,508 --> 00:00:40,992
+Well, as mentioned, we're serving the
+嗯，正如前面提到的，我們正在服務
+
+17
+00:00:40,992 --> 00:00:44,154
+homepage here. So this is this index.html
+主頁在這裡。這就是這個index.html
+
+18
+00:00:44,154 --> 00:00:44,558
+file.
+檔案。
+
+19
+00:00:45,917 --> 00:00:48,312
+And in that file I got of course the HTML
+在那個檔案中我當然得到了 HTML
+
+20
+00:00:48,425 --> 00:00:51,046
+and the styling or the imported styles for
+以及樣式或匯入的樣式
+
+21
+00:00:51,046 --> 00:00:51,450
+the look,
+外觀，
+
+22
+00:00:52,000 --> 00:00:53,748
+but then I got client.ts.
+但後來我得到了 client.ts。
+
+23
+00:00:54,828 --> 00:00:56,960
+So I'm importing a TypeScript file here and
+所以我在這裡導入一個 TypeScript 檔案
+
+24
+00:00:57,040 --> 00:00:59,686
+that will be compiled by Bun because we have
+這將由 Bun 編譯，因為我們有
+
+25
+00:00:59,686 --> 00:01:02,812
+it in an HTML file that is imported by a
+它位於由 a 導入的 HTML 檔案中
+
+26
+00:01:02,828 --> 00:01:05,072
+Bun-executed file. You learned about that
+Bun 執行的檔案。你了解了這一點
+
+27
+00:01:05,072 --> 00:01:07,284
+earlier in the course that Bun would then
+在課程的早期，Bun 會
+
+28
+00:01:07,381 --> 00:01:09,288
+handle the compilation of these files.
+處理這些檔案的編譯。
+
+29
+00:01:09,962 --> 00:01:11,533
+So that's what's happening here. But what is
+這就是這裡發生的事情。但什麼是
+
+30
+00:01:11,629 --> 00:01:13,120
+in that client.ts file?
+在那個 client.ts 檔案中？
+
+31
+00:01:13,649 --> 00:01:14,563
+Well, in there
+嗯，在那裡
+
+32
+00:01:15,156 --> 00:01:17,849
+I have some vanilla TypeScript for handling
+我有一些普通的 TypeScript 可以處理
+
+33
+00:01:17,897 --> 00:01:20,141
+and updating the UI. So I reach out to a
+並更新使用者介面。所以我聯繫了
+
+34
+00:01:20,206 --> 00:01:22,562
+bunch of HTML elements in there to be able
+裡面有一堆 HTML 元素
+
+35
+00:01:22,562 --> 00:01:24,630
+to interact with them and listen to clicks
+與他們互動並聆聽點擊聲
+
+36
+00:01:24,630 --> 00:01:24,999
+and so on.
+等等。
+
+37
+00:01:25,673 --> 00:01:29,594
+But what's important in here is that in the
+但這裡重要的是
+
+38
+00:01:29,610 --> 00:01:29,948
+end,
+結尾，
+
+39
+00:01:30,478 --> 00:01:32,390
+I have this listener
+我有這個聽眾
+
+40
+00:01:32,969 --> 00:01:35,207
+for the submission of the connect form,
+提交連接表格，
+
+41
+00:01:37,164 --> 00:01:39,945
+which is just this form here at the top. So
+這就是頂部的這個表格。所以
+
+42
+00:01:39,945 --> 00:01:41,934
+not the form where I send a message, but
+不是我發送訊息的形式，但是
+
+43
+00:01:41,934 --> 00:01:43,179
+this form where I connect it.
+這是我連接它的形式。
+
+44
+00:01:43,728 --> 00:01:45,638
+I have a listener to the submission of that
+我有一個聽眾正在聽這個提交
+
+45
+00:01:45,654 --> 00:01:48,664
+form and in there I have the client side for
+表格，在那裡我有使用者端
+
+46
+00:01:48,664 --> 00:01:50,185
+connecting to the WebSocket server.
+連接到 WebSocket 伺服器。
+
+47
+00:01:50,760 --> 00:01:53,711
+So here I'm in the end defining a URL I
+所以在這裡我最終定義了一個 URL I
+
+48
+00:01:53,711 --> 00:01:54,343
+wanna connect to and in the end here that
+想要連接到並最終在這裡
+
+49
+00:01:54,343 --> 00:01:55,251
+will just be the URL of the server
+只是伺服器的 URL
+
+50
+00:01:57,813 --> 00:02:00,762
+that is serving this site, but the protocol
+正在為該網站提供服務，但是協議
+
+51
+00:02:01,082 --> 00:02:04,721
+will be WS or if it were deployed, WSS for
+將是 WS，或如果已部署，則為 WSS
+
+52
+00:02:04,721 --> 00:02:06,836
+the secure version of it, which means
+它的安全版本，這意味著
+
+53
+00:02:07,093 --> 00:02:10,122
+WebSocket instead of HTTP or HTTPS.
+WebSocket 而不是 HTTP 或 HTTPS。
+
+54
+00:02:11,116 --> 00:02:12,478
+But then we target the
+但接下來我們的目標是
+
+55
+00:02:13,023 --> 00:02:15,348
+/chat route, which is in line with what we
+/chat 路線，這和我們的一致
+
+56
+00:02:15,380 --> 00:02:18,457
+expect on the server and we pass our room
+等待伺服器，我們經過我們的房間
+
+57
+00:02:18,954 --> 00:02:21,599
+and our name as query parameters to that
+以及我們的名字作為查詢參數
+
+58
+00:02:21,599 --> 00:02:24,179
+URL, which again is also in line with what
+URL，這也符合什麼
+
+59
+00:02:24,179 --> 00:02:25,397
+we extract on the server.
+我們在伺服器上提取。
+
+60
+00:02:26,440 --> 00:02:29,456
+So that's how we send this, hey, I wanna
+這就是我們發送的方式，嘿，我想要
+
+61
+00:02:29,456 --> 00:02:31,814
+connect request from the client to the
+將使用者端的連線請求傳送到
+
+62
+00:02:31,814 --> 00:02:34,204
+server. And then on the client, so in the
+伺服器.然後在使用者端，所以在
+
+63
+00:02:34,204 --> 00:02:37,028
+browser, we instantiate a WebSocket object.
+瀏覽器中，我們實例化一個 WebSocket 物件。
+
+64
+00:02:37,172 --> 00:02:39,257
+And this is now not Bun, this is a browser
+這現在不是 Bun，這是瀏覽器
+
+65
+00:02:39,257 --> 00:02:42,450
+API. We instantiate a WebSocket object and
+API。我們實例化一個 WebSocket 物件並
+
+66
+00:02:42,466 --> 00:02:45,450
+we add a listener to open events that may be
+我們新增一個偵聽器來開啟事件，這些事件可能是
+
+67
+00:02:45,450 --> 00:02:48,000
+sent by that WebSocket connection. So by
+由該 WebSocket 連線發送。所以透過
+
+68
+00:02:48,000 --> 00:02:50,663
+instantiating this with the URL, we're
+用 URL 實例化它，我們是
+
+69
+00:02:50,663 --> 00:02:54,014
+sending a request to the backend. So we send
+向後端發送請求。所以我們發送
+
+70
+00:02:54,014 --> 00:02:56,305
+the request that will be handled by the BUN
+將由 BUN 處理的請求
+
+71
+00:02:56,353 --> 00:02:59,429
+server and there the BUN server will upgrade
+伺服器，BUN 伺服器將升級
+
+72
+00:02:59,461 --> 00:03:01,528
+the connection to a WebSocket connection and
+到 WebSocket 連線的連線以及
+
+73
+00:03:01,689 --> 00:03:03,964
+that's how this connection is established
+這就是建立連線的方式
+
+74
+00:03:04,092 --> 00:03:05,935
+from both the server and client side. And
+來自伺服器端和使用者端。和
+
+75
+00:03:05,951 --> 00:03:08,482
+then here we listen to the open event which
+然後我們在這裡監聽 open 事件
+
+76
+00:03:08,658 --> 00:03:10,661
+will be triggered automatically once the
+一旦
+
+77
+00:03:10,661 --> 00:03:12,904
+connection was established by both server
+兩台伺服器都建立了連接
+
+78
+00:03:12,920 --> 00:03:15,051
+and client. So just as we have an open
+和客戶。所以就像我們有一個開放的
+
+79
+00:03:15,388 --> 00:03:17,791
+method here on the server for confirming it,
+伺服器上的方法用於確認，
+
+80
+00:03:18,047 --> 00:03:20,210
+we have an event to which we can listen on
+我們有一個活動可以收聽
+
+81
+00:03:20,210 --> 00:03:20,787
+the client.
+客戶。
+
+82
+00:03:21,333 --> 00:03:23,659
+And it's here where I in the end update my
+在這裡我最終更新了我的
+
+83
+00:03:23,723 --> 00:03:26,066
+UI to say connected to room blah, blah,
+UI 說連接到房間等等，等等，
+
+84
+00:03:26,082 --> 00:03:26,307
+blah.
+廢話。
+
+85
+00:03:26,852 --> 00:03:29,275
+That is this message you see here. But this
+這就是您在這裡看到的消息。但這
+
+86
+00:03:29,275 --> 00:03:31,345
+message below is coming from the server.
+下面的訊息來自伺服器。
+
+87
+00:03:31,763 --> 00:03:34,346
+This message is sent or published by the
+此訊息由以下機構發送或發布
+
+88
+00:03:34,346 --> 00:03:37,218
+server when the connection is confirmed by
+伺服器確認連線時
+
+89
+00:03:37,282 --> 00:03:38,678
+the server in its open method.
+伺服器在其 open 方法中。
+
+90
+00:03:39,288 --> 00:03:42,642
+Here we send this joined room message
+我們在這裡發送這條加入房間的訊息
+
+91
+00:03:43,236 --> 00:03:45,273
+and on the client we react to that by adding
+在使用者端，我們透過添加來對此做出反應
+
+92
+00:03:45,322 --> 00:03:47,696
+another event listener for messages sent by
+發送訊息的另一個事件偵聽器
+
+93
+00:03:47,728 --> 00:03:50,135
+the server. So messages published by the
+伺服器.所以發布的消息
+
+94
+00:03:50,135 --> 00:03:52,109
+server. So whenever the server calls
+伺服器.所以每當伺服器調用
+
+95
+00:03:52,270 --> 00:03:54,631
+publish, this triggers this message event
+發布，這會觸發此訊息事件
+
+96
+00:03:54,631 --> 00:03:56,317
+listener to become active on the client.
+監聽器在使用者端上變得活躍。
+
+97
+00:03:57,120 --> 00:03:58,887
+And here we then extract some data, and
+然後我們在這裡提取一些資料，然後
+
+98
+00:03:58,887 --> 00:04:00,381
+therefore of course we need to know which
+因此我們當然需要知道哪一個
+
+99
+00:04:00,494 --> 00:04:02,437
+kind of data the server sends because I
+伺服器發送的資料型別，因為我
+
+100
+00:04:02,485 --> 00:04:04,236
+mentioned that the shape of this data is
+提到這個資料的形狀是
+
+101
+00:04:04,268 --> 00:04:06,453
+totally up to you. So as a developer, you
+完全取決於你。因此，作為一名開發人員，您
+
+102
+00:04:06,453 --> 00:04:08,204
+have to make sure that on the client side
+必須確保在使用者端
+
+103
+00:04:08,204 --> 00:04:10,099
+you're working with the same kind of data as
+您正在使用與以下相同型別的資料
+
+104
+00:04:10,212 --> 00:04:10,870
+on the backend.
+在後端。
+
+105
+00:04:11,641 --> 00:04:13,713
+But we parse the message here that was sent
+但是我們在這裡解析發送的訊息
+
+106
+00:04:13,745 --> 00:04:15,448
+by the server, that was published by the
+由伺服器發布，由
+
+107
+00:04:15,448 --> 00:04:15,833
+server.
+伺服器.
+
+108
+00:04:16,540 --> 00:04:18,803
+I check the message type but I only do that
+我檢查訊息型別，但我只這樣做
+
+109
+00:04:18,803 --> 00:04:21,112
+in the end for styling purposes because that
+最終出於造型目的，因為
+
+110
+00:04:21,112 --> 00:04:23,452
+all then is client-side logic for adding and
+然後就是用來新增和的使用者端邏輯
+
+111
+00:04:23,452 --> 00:04:25,231
+displaying a message in a certain style.
+以某種風格顯示訊息。
+
+112
+00:04:25,921 --> 00:04:28,485
+And I simply show messages differently based
+我只是根據不同的方式顯示訊息
+
+113
+00:04:28,485 --> 00:04:30,281
+on whether they were sent by the system or
+是否是系統發送的或
+
+114
+00:04:30,281 --> 00:04:30,906
+some user.
+一些使用者。
+
+115
+00:04:31,611 --> 00:04:33,679
+And that is then how the message text is
+這就是訊息文字的樣子
+
+116
+00:04:33,791 --> 00:04:34,433
+displayed there.
+顯示在那裡。
+
+117
+00:04:34,994 --> 00:04:36,581
+And then on the client side, I also have
+然後在使用者端，我也有
+
+118
+00:04:36,597 --> 00:04:39,145
+logic for the connection being closed where
+關閉連接的邏輯，其中
+
+119
+00:04:39,145 --> 00:04:41,742
+I say disconnected from the server and so
+我說與伺服器斷開連接，所以
+
+120
+00:04:41,871 --> 00:04:42,015
+on.
+在。
+
+121
+00:04:42,848 --> 00:04:44,980
+But now on the server, I have more methods,
+但現在在伺服器上，我有更多的方法，
+
+122
+00:04:45,029 --> 00:04:47,257
+not just open. I also have a message and a
+不只是開放。我也有留言和
+
+123
+00:04:47,257 --> 00:04:49,709
+close method as I mentioned and messages
+正如我所提到的關閉方法和訊息
+
+124
+00:04:49,790 --> 00:04:52,035
+triggered whenever a client sends a message
+每當使用者端發送訊息時觸發
+
+125
+00:04:52,227 --> 00:04:53,799
+because in client.ts,
+因為在 client.ts 中，
+
+126
+00:04:54,376 --> 00:04:56,733
+I also have this message form where I listen
+我也有這個留言表供我收聽
+
+127
+00:04:56,781 --> 00:04:57,647
+for submit events.
+用於提交事件。
+
+128
+00:04:58,465 --> 00:05:01,336
+And that is that other form on this screen,
+這就是螢幕上的另一種形式，
+
+129
+00:05:01,688 --> 00:05:04,030
+which is this form down here when a user
+當使用者
+
+130
+00:05:04,030 --> 00:05:07,045
+sends a message. So I can send hi there and
+發送訊息。這樣我就可以向那裡打招呼
+
+131
+00:05:07,045 --> 00:05:09,691
+if I click send or hit enter, you see that
+如果我單擊“發送”或按 Enter 鍵，您會看到
+
+132
+00:05:09,691 --> 00:05:10,300
+shows up here.
+出現在這裡。
+
+133
+00:05:10,829 --> 00:05:13,154
+And it shows up here because when I submit
+它出現在這裡是因為當我提交時
+
+134
+00:05:13,154 --> 00:05:15,849
+that form on the client, what's happening is
+使用者端上的那個表格，發生的事情是
+
+135
+00:05:16,346 --> 00:05:19,973
+I'm sending that message to my WebSocket
+我正在將該訊息發送到我的 WebSocket
+
+136
+00:05:19,973 --> 00:05:21,577
+connection. So again, this is the
+聯繫。再說一遍，這就是
+
+137
+00:05:21,577 --> 00:05:24,049
+client-side JavaScript code. We established
+使用者端 JavaScript 程式碼。我們成立了
+
+138
+00:05:24,049 --> 00:05:26,777
+a WebSocket connection here, we got a socket
+這裡有一個 WebSocket 連接，我們有一個套接字
+
+139
+00:05:26,857 --> 00:05:29,778
+handle as a result, and we can use that for
+處理結果，我們可以將其用於
+
+140
+00:05:29,842 --> 00:05:32,072
+communicating with the server. And that's
+與伺服器通訊。那就是
+
+141
+00:05:32,072 --> 00:05:33,629
+what's happening here. We're sending a
+這裡發生了什麼事。我們正在發送一個
+
+142
+00:05:33,629 --> 00:05:34,817
+message to the server.
+訊息到伺服器。
+
+143
+00:05:35,459 --> 00:05:38,122
+And on the server, that triggers the message
+在伺服器上，這會觸發訊息
+
+144
+00:05:38,283 --> 00:05:40,064
+event handler here, as you could say.
+正如你可以說的，事件處理程式在這裡。
+
+145
+00:05:40,594 --> 00:05:42,600
+We get the message as an input here and we
+我們在這裡獲取消息作為輸入，然後我們
+
+146
+00:05:42,600 --> 00:05:45,232
+then publish it. We publish it to send it to
+然後發布它。我們將其發布並行送至
+
+147
+00:05:45,472 --> 00:05:46,467
+all connected
+全部連接
+
+148
+00:05:47,300 --> 00:05:49,200
+clients, because of course the idea is that
+客戶，因為當然這個想法是
+
+149
+00:05:49,200 --> 00:05:51,921
+multiple clients can connect. I can open
+可以連接多個使用者端。我可以打開
+
+150
+00:05:51,921 --> 00:05:54,078
+this browser window again. So now I have 2,
+再次出現此瀏覽器視窗。所以現在我有2個，
+
+151
+00:05:54,561 --> 00:05:57,139
+1 and 2, and in the second one I can connect
+1 和 2，在第二個中我可以連接
+
+152
+00:05:57,139 --> 00:05:57,770
+as Andy
+飾演安迪
+
+153
+00:05:59,823 --> 00:06:01,554
+to the same room. That's important, same
+到同一個房間。這點很重要，一樣的
+
+154
+00:06:01,602 --> 00:06:04,109
+identifier, because that is the topic to
+標識符，因為這是主題
+
+155
+00:06:04,109 --> 00:06:05,370
+which messages are published.
+發布了哪些消息。
+
+156
+00:06:05,952 --> 00:06:08,498
+So now Andy joined on the first window. I
+現在安迪加入了第一個視窗。我
+
+157
+00:06:08,547 --> 00:06:11,092
+can see that Andy joined because again,
+可以看到安迪加入了，因為再次，
+
+158
+00:06:11,204 --> 00:06:14,180
+they're connected through WebSockets to the
+它們透過 WebSockets 連接到
+
+159
+00:06:14,180 --> 00:06:17,146
+same server and subscribed to the same
+相同的伺服器並訂閱相同的
+
+160
+00:06:17,274 --> 00:06:19,550
+topic. That's how messages are shared.
+話題。這就是訊息的共享方式。
+
+161
+00:06:20,256 --> 00:06:22,019
+And now if I send a new message from Max
+現在如果我從 Max 發送一條新訊息
+
+162
+00:06:22,019 --> 00:06:22,131
+here,
+這裡，
+
+163
+00:06:23,622 --> 00:06:24,696
+hi Max again,
+嗨，麥克斯，
+
+164
+00:06:25,465 --> 00:06:27,934
+I see it here in that window, but I also see
+我在那個窗口中看到它，但我也看到
+
+165
+00:06:27,934 --> 00:06:30,034
+it in that other window, but they are sent
+它在另一個視窗中，但它們被發送
+
+166
+00:06:30,034 --> 00:06:30,852
+from another user.
+來自另一個使用者。
+
+167
+00:06:31,717 --> 00:06:33,993
+And if I now send, hi, I'm Andy here,
+如果我現在發送，嗨，我是安迪，
+
+168
+00:06:35,308 --> 00:06:36,398
+you see it shows up here,
+你看到它出現在這裡，
+
+169
+00:06:36,991 --> 00:06:39,251
+but of course also for Max, but here sent
+當然也適合麥克斯，但這裡發送了
+
+170
+00:06:39,251 --> 00:06:41,768
+from another window. So that's how these 2
+從另一個視窗。這就是這2個
+
+171
+00:06:42,057 --> 00:06:44,702
+clients, these 2 separate sessions connect
+使用者端，這兩個單獨的工作階段連接
+
+172
+00:06:44,782 --> 00:06:47,110
+to the same server and subscribed to the
+到同一台伺服器並訂閱
+
+173
+00:06:47,110 --> 00:06:50,434
+same topic. That is how this works. And this
+相同的主題。這就是它的工作原理。還有這個
+
+174
+00:06:50,466 --> 00:06:52,939
+message handler on the server needs to
+伺服器上的消息處理程式需要
+
+175
+00:06:52,971 --> 00:06:55,508
+publish messages sent by the client so that
+發布使用者端發送的訊息，以便
+
+176
+00:06:55,540 --> 00:06:58,623
+one topic for all clients shows the same
+所有客戶的一個主題顯示相同
+
+177
+00:06:58,671 --> 00:07:01,128
+messages or receives the same messages.
+訊息或收到相同的訊息。
+
+178
+00:07:02,589 --> 00:07:03,825
+And now if I
+現在如果我
+
+179
+00:07:04,676 --> 00:07:05,977
+close this window here,
+在這裡關閉這個窗口，
+
+180
+00:07:06,683 --> 00:07:08,369
+I of course only have Max.
+我當然只有Max。
+
+181
+00:07:10,553 --> 00:07:13,220
+If I connect again with some user, I see
+如果我再次與某個使用者連接，我會看到
+
+182
+00:07:13,220 --> 00:07:15,131
+that user. And if Max should click
+那個使用者。如果麥克斯應該點擊
+
+183
+00:07:15,131 --> 00:07:15,886
+disconnect here,
+在這裡斷開連接，
+
+184
+00:07:16,963 --> 00:07:19,308
+I also see that there. And sorry, that was
+我也在那裡看到了這一點。抱歉，那是
+
+185
+00:07:19,308 --> 00:07:21,959
+Andy, not Max. So I see that here too. And
+安迪，不是麥克斯。所以我在這裡也看到了這一點。和
+
+186
+00:07:21,959 --> 00:07:23,501
+of course we could also try listening to
+當然我們也可以嘗試聽
+
+187
+00:07:23,501 --> 00:07:25,814
+events when the browser closes so that we
+瀏覽器關閉時發生的事件，以便我們
+
+188
+00:07:25,814 --> 00:07:28,786
+then also leave the server. Otherwise we'll
+然後也離開伺服器。否則我們會
+
+189
+00:07:28,786 --> 00:07:30,457
+leave automatically after a certain
+一定時間後自動離開
+
+190
+00:07:30,457 --> 00:07:32,786
+timeframe. But that is in a nutshell how you
+大體時間。但簡而言之，這就是你如何
+
+191
+00:07:32,802 --> 00:07:35,919
+can set up a WebSocket server and also a
+可以設定一個WebSocket伺服器，也可以設定一個
+
+192
+00:07:35,919 --> 00:07:38,087
+client with help of Bun. Though for the
+客戶在 Bun 的幫助下。雖然對於
+
+193
+00:07:38,087 --> 00:07:39,998
+client, it's really worth noting that in
+客戶，確實值得注意的是
+
+194
+00:07:40,030 --> 00:07:41,347
+this browser example here,
+這個瀏覽器範例在這裡，
+
+195
+00:07:41,957 --> 00:07:44,734
+we're using the browser WebSocket support.
+我們正在使用瀏覽器的 WebSocket 支援。
+
+196
+00:07:44,847 --> 00:07:47,625
+This is not BUN, but for the server it of
+這不是 BUN，而是用於伺服器的
+
+197
+00:07:47,641 --> 00:07:48,026
+course is.
+當然是。

@@ -1,0 +1,535 @@
+1
+00:00:00,048 --> 00:00:01,972
+So you can use Bun for managing your
+
+2
+00:00:02,036 --> 00:00:04,089
+dependencies in your project, but you can
+
+3
+00:00:04,186 --> 00:00:07,105
+also use it to kind of manage the project
+
+4
+00:00:07,105 --> 00:00:09,976
+itself. Specifically, you can, for example,
+
+5
+00:00:10,120 --> 00:00:12,526
+add scripts which you can then execute with
+
+6
+00:00:12,526 --> 00:00:13,151
+help of Bun.
+
+7
+00:00:13,825 --> 00:00:16,359
+You probably already know that feature from
+
+8
+00:00:16,391 --> 00:00:19,727
+Node.js apps. It's not Bun-specific, but in
+
+9
+00:00:19,823 --> 00:00:22,694
+those scripts, I am now using Bun for doing
+
+10
+00:00:22,726 --> 00:00:25,004
+different things. For example, we got this
+
+11
+00:00:25,212 --> 00:00:26,207
+dev script here
+
+12
+00:00:26,736 --> 00:00:29,319
+where we run the index.ts file. You may
+
+13
+00:00:29,367 --> 00:00:31,712
+remember that I did that manually before
+
+14
+00:00:31,712 --> 00:00:34,362
+like this. Well, if we run this frequently,
+
+15
+00:00:34,442 --> 00:00:37,397
+we can of course wrap it in a script and we
+
+16
+00:00:37,397 --> 00:00:38,168
+use the special
+
+17
+00:00:39,019 --> 00:00:41,107
+--watch feature here, which is offered by
+
+18
+00:00:41,107 --> 00:00:41,316
+Bun,
+
+19
+00:00:41,910 --> 00:00:44,769
+which does what the name implies. It watches
+
+20
+00:00:45,186 --> 00:00:48,575
+a file and the files used by that file, the
+
+21
+00:00:48,575 --> 00:00:51,145
+files imported into that file. And if any of
+
+22
+00:00:51,145 --> 00:00:53,682
+those files changes, the server is updated
+
+23
+00:00:53,779 --> 00:00:55,529
+automatically so that you don't have to
+
+24
+00:00:55,545 --> 00:00:57,778
+restart it manually just to show those
+
+25
+00:00:57,810 --> 00:00:58,789
+latest changes. Changes.
+
+26
+00:00:59,575 --> 00:01:02,031
+You also may notice that there is no run in
+
+27
+00:01:02,047 --> 00:01:03,234
+here. It's just bun,
+
+28
+00:01:03,892 --> 00:01:06,925
+then this flag, and then the path, because
+
+29
+00:01:07,037 --> 00:01:09,685
+indeed you can also execute files and
+
+30
+00:01:09,701 --> 00:01:11,563
+scripts just like this without run.
+
+31
+00:01:12,092 --> 00:01:14,339
+If you do add run though, you get
+
+32
+00:01:14,483 --> 00:01:15,109
+autocompletion.
+
+33
+00:01:16,361 --> 00:01:19,538
+So if I type bun source slash and I hit Tab,
+
+34
+00:01:19,859 --> 00:01:20,469
+I get nothing.
+
+35
+00:01:21,079 --> 00:01:23,727
+If I type bun run source slash and I hit
+
+36
+00:01:23,727 --> 00:01:26,261
+Tab, I get autocompletion. That's one reason
+
+37
+00:01:26,357 --> 00:01:28,666
+for using Run, at least at the point of time
+
+38
+00:01:28,842 --> 00:01:29,788
+where I'm recording this.
+
+39
+00:01:30,605 --> 00:01:32,449
+Now, since we have those scripts here, we
+
+40
+00:01:32,449 --> 00:01:34,677
+can also run those instead of typing these
+
+41
+00:01:34,773 --> 00:01:37,659
+commands manually. So I can invoke a script
+
+42
+00:01:37,659 --> 00:01:39,855
+by running Bun and then the script name like
+
+43
+00:01:39,983 --> 00:01:43,285
+dev or bun run again. If I hit Tab here, I
+
+44
+00:01:43,285 --> 00:01:45,610
+get nice autocompletion and I see all the
+
+45
+00:01:45,610 --> 00:01:47,485
+things I could run, all the scripts I can
+
+46
+00:01:47,533 --> 00:01:48,351
+run, for example.
+
+47
+00:01:48,896 --> 00:01:50,547
+And for example, I can run the dev script to
+
+48
+00:01:50,579 --> 00:01:52,759
+start that dev server but now in watch mode.
+
+49
+00:01:52,999 --> 00:01:54,907
+So if we were to make any changes to the
+
+50
+00:01:54,907 --> 00:01:56,734
+code, it would reload and restart
+
+51
+00:01:56,751 --> 00:01:57,167
+automatically.
+
+52
+00:01:58,617 --> 00:01:59,231
+There also is
+
+53
+00:02:00,070 --> 00:02:02,555
+--hot for a hot reload, which does to try to
+
+54
+00:02:02,555 --> 00:02:05,298
+do the same, watching and reloading, but
+
+55
+00:02:05,379 --> 00:02:07,895
+unlike watch, it doesn't restart the server,
+
+56
+00:02:08,217 --> 00:02:10,858
+losing your state, but instead it tries to
+
+57
+00:02:10,858 --> 00:02:13,643
+just inject the new code into the running
+
+58
+00:02:13,692 --> 00:02:15,913
+server. Doesn't always work, but something
+
+59
+00:02:15,930 --> 00:02:16,316
+worth knowing.
+
+60
+00:02:18,180 --> 00:02:20,582
+Now, besides the watch mode here and my
+
+61
+00:02:20,582 --> 00:02:23,017
+normal start script, which is exactly the
+
+62
+00:02:23,017 --> 00:02:24,948
+same command I ran manually before,
+
+63
+00:02:25,476 --> 00:02:27,549
+You'll also notice that there is a build
+
+64
+00:02:27,645 --> 00:02:31,036
+script because as mentioned, Bun is also a
+
+65
+00:02:31,100 --> 00:02:33,816
+build tool and bundler. You can use it to
+
+66
+00:02:34,073 --> 00:02:36,756
+optimize code for production, to compile
+
+67
+00:02:36,885 --> 00:02:38,684
+your TypeScript code to JavaScript, for
+
+68
+00:02:38,732 --> 00:02:40,098
+example, so that this
+
+69
+00:02:40,661 --> 00:02:43,023
+on-the-fly compilation doesn't have to
+
+70
+00:02:43,071 --> 00:02:45,095
+happen and could therefore give you another
+
+71
+00:02:45,095 --> 00:02:45,979
+performance boost.
+
+72
+00:02:46,622 --> 00:02:49,064
+And you use those build tool and bundler
+
+73
+00:02:49,112 --> 00:02:51,538
+capabilities by running bun build. Build,
+
+74
+00:02:52,083 --> 00:02:54,438
+and then some configuration flags, and then
+
+75
+00:02:54,567 --> 00:02:57,082
+the file you wanna build. And if that file
+
+76
+00:02:57,130 --> 00:02:59,903
+imports other files, all those files are of
+
+77
+00:02:59,935 --> 00:03:01,697
+course built and bundled together.
+
+78
+00:03:02,498 --> 00:03:04,582
+So in my case here, I'm targeting the source
+
+79
+00:03:04,662 --> 00:03:05,479
+index.ts file,
+
+80
+00:03:06,008 --> 00:03:08,524
+which does import Svelte here. It's a
+
+81
+00:03:08,572 --> 00:03:11,712
+dependency I added off screen. It's a type
+
+82
+00:03:11,712 --> 00:03:13,683
+checking dependency, has nothing to do with
+
+83
+00:03:13,715 --> 00:03:13,844
+Bun.
+
+84
+00:03:14,501 --> 00:03:17,161
+And I'm importing index.html. And if we
+
+85
+00:03:17,241 --> 00:03:18,636
+build the index.ts file,
+
+86
+00:03:19,166 --> 00:03:22,361
+those packages of course also get optimized
+
+87
+00:03:22,377 --> 00:03:24,207
+and bundled into the final output.
+
+88
+00:03:25,186 --> 00:03:28,782
+Now, when running Bun build, you can specify
+
+89
+00:03:28,878 --> 00:03:31,960
+a target which allows you to configure for
+
+90
+00:03:32,169 --> 00:03:34,786
+which target you wanna build. So Bun would
+
+91
+00:03:34,818 --> 00:03:35,332
+build a
+
+92
+00:03:36,022 --> 00:03:38,478
+Bun application that can use all the Bun
+
+93
+00:03:38,510 --> 00:03:40,501
+features but wouldn't run in the browser,
+
+94
+00:03:40,517 --> 00:03:42,122
+for example. If you were building a
+
+95
+00:03:42,122 --> 00:03:44,193
+client-side application, your target should
+
+96
+00:03:44,193 --> 00:03:44,723
+be browser.
+
+97
+00:03:45,396 --> 00:03:46,951
+If you know that you're actually building a
+
+98
+00:03:46,951 --> 00:03:49,628
+Node.js application that you plan on running
+
+99
+00:03:49,805 --> 00:03:52,289
+with Node.js but you wanna use Bun as a
+
+100
+00:03:52,369 --> 00:03:54,854
+build tool, you can also set the target to
+
+101
+00:03:54,854 --> 00:03:55,159
+Node.
+
+102
+00:03:55,736 --> 00:03:57,627
+Here the target is Bun because this is a
+
+103
+00:03:57,675 --> 00:04:00,048
+server-side application that does use Bun
+
+104
+00:04:00,224 --> 00:04:02,949
+features like bun serve and won't run in the
+
+105
+00:04:02,965 --> 00:04:03,366
+browser.
+
+106
+00:04:04,408 --> 00:04:05,578
+So the target is set to Bun,
+
+107
+00:04:06,316 --> 00:04:08,111
+--production ensures that the code is
+
+108
+00:04:08,239 --> 00:04:10,804
+optimized and improved as much as possible.
+
+109
+00:04:11,445 --> 00:04:13,193
+And then you can also set an output
+
+110
+00:04:13,289 --> 00:04:15,982
+directory with outDir, which simply sets up
+
+111
+00:04:16,046 --> 00:04:18,259
+the directory the optimized files will be
+
+112
+00:04:18,340 --> 00:04:18,709
+output in.
+
+113
+00:04:19,383 --> 00:04:21,484
+And if you would then run this script here,
+
+114
+00:04:21,645 --> 00:04:22,928
+so the build script here,
+
+115
+00:04:23,634 --> 00:04:25,656
+or you would run this command manually in
+
+116
+00:04:25,656 --> 00:04:27,485
+the command line, of course, you'll see
+
+117
+00:04:27,822 --> 00:04:30,101
+it'll do that. It'll build that program
+
+118
+00:04:30,694 --> 00:04:32,892
+and it added a dist folder here for me with
+
+119
+00:04:32,892 --> 00:04:36,615
+an index.js file. And that index.js file has
+
+120
+00:04:36,807 --> 00:04:37,064
+the
+
+121
+00:04:37,594 --> 00:04:38,845
+JavaScript code in there.
+
+122
+00:04:40,016 --> 00:04:42,231
+So that includes that Svelte code which
+
+123
+00:04:42,327 --> 00:04:45,359
+we're using, but then also the HTML template
+
+124
+00:04:45,616 --> 00:04:48,136
+all in that JavaScript file and then my
+
+125
+00:04:48,424 --> 00:04:50,976
+actual Bun code down here, bun serve and so
+
+126
+00:04:50,992 --> 00:04:53,303
+on. That is my Bun code but you see it's all
+
+127
+00:04:53,319 --> 00:04:55,967
+heavily optimized to be as small as possible
+
+128
+00:04:56,288 --> 00:04:58,390
+with the variable names shortened and with
+
+129
+00:04:58,390 --> 00:05:01,247
+it all being in one line essentially down
+
+130
+00:05:01,295 --> 00:05:01,471
+here.
+
+131
+00:05:02,546 --> 00:05:04,681
+And therefore, you cannot just use Bun to
+
+132
+00:05:04,713 --> 00:05:07,040
+use Bun features in your code or to use it
+
+133
+00:05:07,040 --> 00:05:09,607
+for package management but also to build and
+
+134
+00:05:09,848 --> 00:05:11,068
+optimize your program.

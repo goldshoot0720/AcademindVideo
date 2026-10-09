@@ -1,0 +1,734 @@
+1
+00:00:00,112 --> 00:00:03,623
+Now, SSH hardening is about more than just
+現在，SSH 強化不僅僅是
+
+2
+00:00:03,623 --> 00:00:05,900
+using Fail2Ban. It's also about, for
+使用 Fail2Ban。這也是關於，為了
+
+3
+00:00:05,900 --> 00:00:08,834
+example, not even allowing root user access
+例如，甚至不允許 root 使用者訪問
+
+4
+00:00:08,914 --> 00:00:11,864
+or password-based access. Because at the
+或基於密碼的存取。因為在
+
+5
+00:00:11,864 --> 00:00:14,221
+moment, and that's really important to
+這一刻，這對於
+
+6
+00:00:14,221 --> 00:00:16,690
+understand, if I were to open a new terminal
+明白，如果我要打開一個新終端機
+
+7
+00:00:17,091 --> 00:00:18,999
+on my Mac or on your Windows machine,
+在我的 Mac 或 Windows 機器上，
+
+8
+00:00:19,656 --> 00:00:22,125
+you could also connect to that VPS by using
+您也可以使用以下方式連接到該 VPS
+
+9
+00:00:22,237 --> 00:00:24,931
+SSH as we did before, and then your username
+像我們之前一樣使用 SSH，然後是你的使用者名
+
+10
+00:00:25,588 --> 00:00:28,394
+root, or in my case, Max, and then add the
+root，或者在我的例子中是 Max，然後添加
+
+11
+00:00:28,410 --> 00:00:28,875
+IP.
+智慧財產.
+
+12
+00:00:29,516 --> 00:00:32,724
+And not use that SSH key. So I'm not adding
+並且不要使用該 SSH 金鑰。所以我不加
+
+13
+00:00:33,525 --> 00:00:34,760
+-i as we did before.
+-i 就像我們之前所做的那樣。
+
+14
+00:00:35,386 --> 00:00:36,909
+And if I hit Enter, I'm asked for my
+如果我按 Enter 鍵，系統會問我的
+
+15
+00:00:36,989 --> 00:00:38,994
+password. Now in the past, I didn't know
+密碼。現在過去我不知道
+
+16
+00:00:39,074 --> 00:00:40,902
+what my root user password is, but I know
+我的 root 使用者密碼是什麼，但我知道
+
+17
+00:00:40,918 --> 00:00:42,842
+the password for my Max user.
+我的 Max 使用者的密碼。
+
+18
+00:00:43,788 --> 00:00:44,959
+And if I enter that, boom,
+如果我輸入那個，繁榮，
+
+19
+00:00:45,552 --> 00:00:46,065
+I'm connected.
+我已連接。
+
+20
+00:00:46,835 --> 00:00:48,567
+And that is a little security issue here
+這是一個小安全問題
+
+21
+00:00:48,775 --> 00:00:50,475
+because that means that of course,
+因為這當然意味著
+
+22
+00:00:50,844 --> 00:00:53,073
+theoretically, people could try to brute
+理論上，人們可以嘗試暴力
+
+23
+00:00:53,185 --> 00:00:55,543
+force their way into that or guess your
+強行進入或猜你的
+
+24
+00:00:55,591 --> 00:00:58,461
+password. And sure, Fail2Ban makes it a bit
+密碼。當然，Fail2Ban 讓它變得有點
+
+25
+00:00:58,461 --> 00:01:00,289
+harder, but it's not impossible.
+更難，但這並非不可能。
+
+26
+00:01:01,204 --> 00:01:03,435
+And for that reason, you typically wanna
+出於這個原因，你通常想要
+
+27
+00:01:03,531 --> 00:01:06,388
+disable password authentication entirely,
+完全禁用密碼驗證，
+
+28
+00:01:06,902 --> 00:01:10,096
+forcing people to log in with that SSH key.
+強迫人們使用該 SSH 金鑰登入。
+
+29
+00:01:10,577 --> 00:01:12,968
+And you typically also wanna disable root
+而且您通常還想停用 root
+
+30
+00:01:13,466 --> 00:01:15,809
+login so that people have to go through a
+登錄，以便人們必須透過
+
+31
+00:01:15,954 --> 00:01:19,421
+user who does not have full root access by
+沒有完全 root 存取權限的使用者
+
+32
+00:01:19,421 --> 00:01:19,742
+default.
+預設.
+
+33
+00:01:20,303 --> 00:01:22,278
+So installing and running Fail2Ban is one
+所以安裝和運行 Fail2Ban 就是其中之一
+
+34
+00:01:22,550 --> 00:01:24,492
+important step, but not the only one. We
+重要的一步，但不是唯一的一步。我們
+
+35
+00:01:24,781 --> 00:01:27,654
+also wanna go through further SSH hardening
+還想進一步強化 SSH
+
+36
+00:01:27,750 --> 00:01:30,174
+to make connecting via SSH more difficult.
+使透過 SSH 連線變得更加困難。
+
+37
+00:01:31,377 --> 00:01:33,592
+And for that, we wanna tweak the SSH
+為此，我們想要調整 SSH
+
+38
+00:01:33,624 --> 00:01:36,497
+configuration on our VPS because that
+我們的 VPS 上的設定，因為
+
+39
+00:01:36,497 --> 00:01:39,289
+controls how other people, other machines
+控制其他人、其他機器的方式
+
+40
+00:01:39,402 --> 00:01:41,632
+like our MacBook, our Windows machine can
+就像我們的 MacBook 一樣，我們的 Windows 機器也可以
+
+41
+00:01:41,729 --> 00:01:42,579
+connect to it.
+連接到它。
+
+42
+00:01:43,494 --> 00:01:44,650
+And to do that, we use
+為此，我們使用
+
+43
+00:01:45,340 --> 00:01:48,582
+again the nano text editor and we could now
+再次使用 Nano 文字編輯器，我們現在可以
+
+44
+00:01:48,774 --> 00:01:52,305
+access /etc/ssh/
+訪問/etc/ssh/
+
+45
+00:01:55,310 --> 00:01:57,300
+/sshd_config, and that gives us access to
+/sshd_config，這使我們可以訪問
+
+46
+00:01:57,300 --> 00:02:00,989
+the configuration file for SSH on that VPS.
+該 VPS 上的 SSH 設定檔。
+
+47
+00:02:01,798 --> 00:02:03,627
+Now you can edit this file, you can
+現在你可以編輯這個檔案了，你可以
+
+48
+00:02:03,740 --> 00:02:04,371
+absolutely do that,
+絕對這樣做，
+
+49
+00:02:05,130 --> 00:02:08,212
+but a better pattern is to create a
+但更好的模式是創建一個
+
+50
+00:02:08,438 --> 00:02:09,842
+dedicated config file
+專用設定檔
+
+51
+00:02:10,698 --> 00:02:13,313
+that will be merged with this config file
+將與此設定檔合併
+
+52
+00:02:13,523 --> 00:02:16,026
+and override parts of it. So that's what
+並覆蓋其中的一部分。所以就是這樣
+
+53
+00:02:16,026 --> 00:02:18,204
+we'll do here. So I'll hit Ctrl+X to close
+我們就在這裡做。所以我會按 Ctrl+X 關閉
+
+54
+00:02:18,237 --> 00:02:18,481
+this,
+這，
+
+55
+00:02:19,348 --> 00:02:20,439
+And I'll then
+然後我會
+
+56
+00:02:20,969 --> 00:02:24,115
+again use sudo nano, same path, but add
+再次使用 sudo nano，相同的路徑，但添加
+
+57
+00:02:24,805 --> 00:02:24,997
+.d
+.d
+
+58
+00:02:25,688 --> 00:02:27,646
+after the config file name. That's important
+在設定檔名之後。這很重要
+
+59
+00:02:27,871 --> 00:02:29,941
+because that is now a directory with that
+因為那現在是目錄
+
+60
+00:02:29,941 --> 00:02:31,771
+name next to this config file,
+該設定檔旁邊的名稱，
+
+61
+00:02:32,589 --> 00:02:33,360
+forward slash,
+正斜杠，
+
+62
+00:02:34,050 --> 00:02:35,479
+and then any name of your choice, but a
+然後是您選擇的任何名稱，但
+
+63
+00:02:35,479 --> 00:02:39,299
+common choice is 99-hardening.conf. Now what
+常見的選擇是 99-hardening.conf。現在什麼
+
+64
+00:02:39,411 --> 00:02:39,941
+will that do?
+這樣可以嗎？
+
+65
+00:02:41,177 --> 00:02:43,006
+That will add a new file with that name
+這將添加一個具有該名稱的新檔案
+
+66
+00:02:43,584 --> 00:02:46,939
+in that path. And I chose this name because
+在那條路上。我選擇這個名字是因為
+
+67
+00:02:47,196 --> 00:02:49,908
+in that sshd_config.d folder,
+在該 sshd_config.d 資料夾中，
+
+68
+00:02:50,503 --> 00:02:52,759
+Files will be ordered alphabetically. So
+檔案將按字母順序排序。所以
+
+69
+00:02:52,759 --> 00:02:55,304
+this naturally will come last. At the
+這自然是最後的。在
+
+70
+00:02:55,304 --> 00:02:56,980
+moment, it should be the only file, but if
+此刻，它應該是唯一的檔案，但如果
+
+71
+00:02:57,028 --> 00:02:58,801
+we had more files, it will come last.
+我們還有更多檔案，它將排在最後。
+
+72
+00:02:59,622 --> 00:03:03,472
+And the files in that folder will override
+並且該資料夾中的檔案將覆蓋
+
+73
+00:03:03,505 --> 00:03:06,287
+the base configuration and the topmost file
+基本設定和最頂層檔案
+
+74
+00:03:06,482 --> 00:03:09,310
+will have the highest priority. So 99 will
+將具有最高優先權。所以99會
+
+75
+00:03:09,391 --> 00:03:12,518
+have a pretty low priority. So using 99
+優先順序相當低。所以用99
+
+76
+00:03:12,550 --> 00:03:14,452
+hardening.conf here simply allows us to have
+這裡的hardening.conf只是讓我們能夠
+
+77
+00:03:14,468 --> 00:03:16,418
+some config which we could override by in
+一些我們可以覆蓋的設定
+
+78
+00:03:16,418 --> 00:03:17,571
+the future adding a
+未來增加一個
+
+79
+00:03:18,155 --> 00:03:18,706
+99
+99
+
+80
+00:03:19,327 --> 00:03:20,963
+8-something file in front of it.
+8-東西檔在它前面。
+
+81
+00:03:21,509 --> 00:03:23,162
+But in general, the file name is up to you.
+但一般來說，檔案名稱由您決定。
+
+82
+00:03:23,660 --> 00:03:26,420
+All.conf files in that folder will be
+該資料夾中的所有.conf 檔案將是
+
+83
+00:03:26,420 --> 00:03:28,217
+merged with the base config and will
+與基本設定合併並將
+
+84
+00:03:28,554 --> 00:03:30,737
+overwrite the base config regarding the
+覆蓋有關的基本設定
+
+85
+00:03:30,737 --> 00:03:31,556
+settings they touch.
+他們接觸的設定。
+
+86
+00:03:32,727 --> 00:03:35,520
+So if I hit Enter, I enter a brand new empty
+所以如果我按 Enter 鍵，我會輸入一個全新的空
+
+87
+00:03:35,552 --> 00:03:37,638
+file because this file is literally just
+檔案，因為這個檔案其實只是
+
+88
+00:03:37,638 --> 00:03:39,403
+created in this moment. It didn't exist
+在這一刻創建。它不存在
+
+89
+00:03:39,403 --> 00:03:39,676
+before.
+前。
+
+90
+00:03:40,447 --> 00:03:42,276
+And we can paste some settings in there and
+我們可以在那裡粘貼一些設置
+
+91
+00:03:42,372 --> 00:03:44,828
+you'll find those settings attached, of
+您會發現附加的這些設置
+
+92
+00:03:44,860 --> 00:03:45,149
+course.
+課程。
+
+93
+00:03:46,541 --> 00:03:48,641
+Now, what do these settings do?
+現在，這些設定有什麼作用？
+
+94
+00:03:50,285 --> 00:03:51,197
+Pub key authentication,
+公鑰身份驗證，
+
+95
+00:03:51,988 --> 00:03:52,278
+yes,
+是的，
+
+96
+00:03:53,198 --> 00:03:56,601
+ensures that we can connect via SSH to this
+確保我們可以透過 SSH 連接到此
+
+97
+00:03:56,601 --> 00:03:59,552
+VPS using an SSH key, which is the method
+使用SSH金鑰的VPS，就是這個方法
+
+98
+00:03:59,568 --> 00:04:00,197
+we've been using.
+我們一直在使用。
+
+99
+00:04:01,530 --> 00:04:03,944
+Password authentication, no, disables
+密碼驗證，否，停用
+
+100
+00:04:04,218 --> 00:04:06,134
+password-based authentication though. And
+不過，基於密碼的身份驗證。和
+
+101
+00:04:06,311 --> 00:04:09,611
+that's big and important because in the past
+這很重要，因為在過去
+
+102
+00:04:09,611 --> 00:04:11,398
+we could connect via passwords
+我們可以透過密碼連接
+
+103
+00:04:12,026 --> 00:04:14,065
+And as mentioned, that's not perfectly
+正如前面提到的，這並不完美
+
+104
+00:04:14,065 --> 00:04:16,216
+secure. So we typically wanna disable this,
+安全的。所以我們通常會想要停用這個，
+
+105
+00:04:16,538 --> 00:04:17,918
+which is just what this setting does.
+這正是此設定的作用。
+
+106
+00:04:19,026 --> 00:04:21,515
+KBD interactive authentication is a
+KBD 互動式身分驗證是
+
+107
+00:04:21,515 --> 00:04:24,372
+different authentication mechanism approach
+不同的認證機制方法
+
+108
+00:04:24,469 --> 00:04:26,106
+we're not using here, so we disable it.
+我們在這裡不使用，所以我們禁用它。
+
+109
+00:04:26,893 --> 00:04:29,141
+Permit empty passwords, we disable so that
+允許空密碼，我們停用，以便
+
+110
+00:04:29,141 --> 00:04:31,372
+users can't even try to connect without a
+使用者甚至無法嘗試在沒有
+
+111
+00:04:31,372 --> 00:04:31,918
+password.
+密碼。
+
+112
+00:04:32,528 --> 00:04:32,833
+So
+所以
+
+113
+00:04:33,941 --> 00:04:36,093
+that kind of goes together with disabling
+這種與禁用一起使用
+
+114
+00:04:36,205 --> 00:04:37,859
+password authentication overall.
+密碼認證整體。
+
+115
+00:04:38,773 --> 00:04:41,145
+Permit_root_login is another important one.
+Permit_root_login 是另一個重要的。
+
+116
+00:04:41,257 --> 00:04:43,037
+This ensures that we won't be able to
+這確保了我們無法
+
+117
+00:04:43,085 --> 00:04:45,313
+connect as the root user anymore. If you
+不再以 root 使用者身分連線。如果你
+
+118
+00:04:45,345 --> 00:04:47,557
+have an ongoing connection as the root user,
+以 root 使用者身分保持持續連接，
+
+119
+00:04:48,070 --> 00:04:49,914
+that will keep on going, it will not be
+這將繼續下去，不會是
+
+120
+00:04:49,914 --> 00:04:51,837
+terminated, but you won't be able to
+已終止，但您將無法
+
+121
+00:04:51,837 --> 00:04:53,921
+establish a new one. You can only connect
+建立一個新的。您只能連接
+
+122
+00:04:54,306 --> 00:04:57,528
+via your user instead, the max user in my
+透過你的使用者，我的最大使用者
+
+123
+00:04:57,528 --> 00:04:57,736
+case.
+案件。
+
+124
+00:04:58,346 --> 00:05:00,782
+So permit_root_login set to no is a very
+所以將permit_root_login設定為no是一個非常
+
+125
+00:05:00,814 --> 00:05:03,187
+important setting because it ensures that
+重要的設置，因為它確保
+
+126
+00:05:03,203 --> 00:05:05,816
+there isn't even a theoretical way of
+甚至沒有一種理論上的方法
+
+127
+00:05:05,864 --> 00:05:08,140
+connecting as a root user to your VPS,
+以 root 使用者身分連線到您的 VPS，
+
+128
+00:05:08,813 --> 00:05:10,883
+which is good because root users have
+這很好，因為 root 使用者有
+
+129
+00:05:11,301 --> 00:05:13,597
+unlimited power on the VPS.
+VPS 上的無限電量。
+
+130
+00:05:14,208 --> 00:05:17,260
+Max auth tries is self-explanatory, I guess.
+我想 Max auth attempts 是不言自明的。
+
+131
+00:05:17,742 --> 00:05:21,131
+And X11 forwarding is another interface
+而X11轉發是另一個介面
+
+132
+00:05:21,179 --> 00:05:22,110
+we're disabling here,
+我們在這裡禁用，
+
+133
+00:05:22,705 --> 00:05:24,150
+which could be used for connecting some
+它可以用於連接一些
+
+134
+00:05:24,231 --> 00:05:26,736
+graphical user interfaces to the VPS, which
+VPS 的圖形使用者介面，
+
+135
+00:05:26,736 --> 00:05:28,423
+is something we're not using. If you want to
+是我們沒有使用的東西。如果你想
+
+136
+00:05:28,423 --> 00:05:30,431
+connect a monitor or something like that.
+連接顯示器或類似的東西。
+
+137
+00:05:30,993 --> 00:05:34,013
+Allow users, here you simply list the users
+允許使用者，這裡只需列出使用者
+
+138
+00:05:34,270 --> 00:05:36,567
+that should be able to connect. And in my
+應該能夠連接。而在我的
+
+139
+00:05:36,615 --> 00:05:38,237
+case, I only want to allow Max.
+情況下，我只想允許Max。
+
+140
+00:05:39,106 --> 00:05:42,780
+So now I'll quit this with Ctrl+X and hit Y
+所以現在我將使用 Ctrl+X 退出此操作並按 Y
+
+141
+00:05:42,894 --> 00:05:44,974
+to save and hit Enter to confirm the file
+儲存並按 Enter 鍵確認檔案
+
+142
+00:05:45,039 --> 00:05:45,218
+name.
+姓名。
+
+143
+00:05:48,990 --> 00:05:50,922
+And with that done, nothing will happen
+完成後，什麼事都不會發生
+
+144
+00:05:51,116 --> 00:05:53,403
+because we changed the config, but it will
+因為我們改變了設定，但它會
+
+145
+00:05:53,468 --> 00:05:55,256
+not have been applied yet.
+尚未應用。
+
+146
+00:05:55,852 --> 00:05:56,754
+To apply it,
+要應用它，
+
+147
+00:05:57,301 --> 00:05:59,637
+you wanna run sudo sshd -t.
+你想運行 sudo sshd -t。

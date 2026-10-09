@@ -1,0 +1,651 @@
+1
+00:00:00,048 --> 00:00:02,131
+So Bun's Markdown feature can be very
+
+2
+00:00:02,339 --> 00:00:04,326
+useful, especially when building
+
+3
+00:00:04,423 --> 00:00:06,858
+content-heavy sites. And that's therefore
+
+4
+00:00:06,923 --> 00:00:08,333
+another example I got here.
+
+5
+00:00:08,910 --> 00:00:11,490
+Attached you find a new project and this
+
+6
+00:00:11,490 --> 00:00:13,653
+time it's a complete website in the end, a
+
+7
+00:00:13,653 --> 00:00:15,705
+complete website project.
+
+8
+00:00:16,458 --> 00:00:18,797
+Again, without any extra dependencies,
+
+9
+00:00:18,878 --> 00:00:21,105
+nothing other than Bun in here.
+
+10
+00:00:21,666 --> 00:00:24,775
+And in index.ts, you'll see that we got a
+
+11
+00:00:24,871 --> 00:00:26,986
+bunch of code in there, but it's actually
+
+12
+00:00:27,099 --> 00:00:29,567
+quite straightforward. Most importantly,
+
+13
+00:00:29,663 --> 00:00:31,972
+we're setting up a Bun server. Something I
+
+14
+00:00:32,149 --> 00:00:34,060
+already covered in other lectures.
+
+15
+00:00:34,880 --> 00:00:37,049
+This server has a couple of routes.
+
+16
+00:00:37,611 --> 00:00:39,539
+It has a root route for the homepage and
+
+17
+00:00:39,635 --> 00:00:41,772
+then it has an articles route for rendering
+
+18
+00:00:42,206 --> 00:00:44,696
+an overview, a list of some articles and
+
+19
+00:00:44,696 --> 00:00:48,504
+then an article detail route which has this
+
+20
+00:00:48,777 --> 00:00:51,573
+route placeholder, this dynamic path segment
+
+21
+00:00:51,990 --> 00:00:54,898
+for rendering a page for a single article
+
+22
+00:00:54,898 --> 00:00:57,276
+because what we're building here is a very
+
+23
+00:00:57,389 --> 00:01:00,611
+basic personal homepage with a blog in it
+
+24
+00:01:00,675 --> 00:01:02,342
+where you can share some articles, some
+
+25
+00:01:02,342 --> 00:01:03,944
+tutorials, whatever you wanna write.
+
+26
+00:01:04,585 --> 00:01:06,732
+For that, I have this articles folder and in
+
+27
+00:01:06,764 --> 00:01:08,238
+there I have again
+
+28
+00:01:08,847 --> 00:01:12,164
+Markdown files using regular Markdown but
+
+29
+00:01:12,693 --> 00:01:15,737
+this time with some front matter as this is
+
+30
+00:01:15,818 --> 00:01:19,343
+called separated by these 3 dashes. There is
+
+31
+00:01:19,343 --> 00:01:21,025
+some metadata in there as you can see, the
+
+32
+00:01:21,025 --> 00:01:23,397
+title, the release date and a short summary
+
+33
+00:01:23,653 --> 00:01:25,175
+but then the rest of the file is some static
+
+34
+00:01:25,175 --> 00:01:25,384
+content
+
+35
+00:01:26,556 --> 00:01:27,487
+for both files.
+
+36
+00:01:28,226 --> 00:01:31,453
+And in index.ts, which is the only relevant
+
+37
+00:01:31,453 --> 00:01:32,577
+source code file here,
+
+38
+00:01:33,123 --> 00:01:36,189
+I then make sure that I load these Markdown
+
+39
+00:01:36,189 --> 00:01:39,513
+files using the Bun glob API for finding all
+
+40
+00:01:39,786 --> 00:01:42,660
+Markdown files. And getArticleFiles is
+
+41
+00:01:42,772 --> 00:01:46,032
+called by getArticleSummaries here, which is
+
+42
+00:01:46,241 --> 00:01:48,215
+simply a function that gets me all the
+
+43
+00:01:48,296 --> 00:01:51,587
+article files and then splits them the front
+
+44
+00:01:51,587 --> 00:01:54,296
+matter and the Markdown in the end. So in
+
+45
+00:01:54,328 --> 00:01:57,198
+this function here, we load the entire
+
+46
+00:01:57,198 --> 00:01:59,683
+Markdown file. So the Markdown files we have
+
+47
+00:01:59,699 --> 00:02:01,639
+in there, but as mentioned, those contain a
+
+48
+00:02:01,639 --> 00:02:02,713
+front matter as well.
+
+49
+00:02:03,402 --> 00:02:05,519
+So what we're doing here is we're using
+
+50
+00:02:05,695 --> 00:02:08,469
+parseMarkdownFile on the raw Markdown. So on
+
+51
+00:02:08,517 --> 00:02:11,210
+the complete file content to extract the
+
+52
+00:02:11,242 --> 00:02:13,631
+front matter, the metadata at the top. And
+
+53
+00:02:13,647 --> 00:02:17,126
+to do that, parseMarkdownFile simply looks
+
+54
+00:02:17,174 --> 00:02:19,820
+for these separators, the 3 dashes followed
+
+55
+00:02:19,820 --> 00:02:22,210
+by a line break, or a line break followed by
+
+56
+00:02:22,227 --> 00:02:25,036
+the 3 dashes. And that then clearly tells us
+
+57
+00:02:25,036 --> 00:02:27,042
+where the front matter, where the metadata
+
+58
+00:02:27,058 --> 00:02:29,915
+starts and ends. And then we just extract it
+
+59
+00:02:29,915 --> 00:02:32,387
+and we return that extracted front matter
+
+60
+00:02:32,484 --> 00:02:34,201
+and then what comes thereafter, which is the
+
+61
+00:02:34,330 --> 00:02:37,652
+raw, pure, real Markdown content. That is
+
+62
+00:02:37,700 --> 00:02:40,253
+what parse Markdown file does and that is
+
+63
+00:02:40,285 --> 00:02:42,965
+what get article summaries uses. So at this
+
+64
+00:02:43,094 --> 00:02:46,368
+point, absolutely no Bun Markdown API
+
+65
+00:02:46,384 --> 00:02:48,359
+involved, just some standard
+
+66
+00:02:49,177 --> 00:02:51,565
+and custom logic for extracting the
+
+67
+00:02:51,565 --> 00:02:52,078
+metadata.
+
+68
+00:02:52,719 --> 00:02:55,028
+I then also sorted the articles based on the
+
+69
+00:02:55,028 --> 00:02:57,496
+release date. But getArticleSummaries is
+
+70
+00:02:57,608 --> 00:03:01,327
+then used by the renderArticles page where I
+
+71
+00:03:01,376 --> 00:03:03,988
+then in the end return an HTML response for
+
+72
+00:03:04,021 --> 00:03:06,393
+the articles page. And for that, I load
+
+73
+00:03:06,489 --> 00:03:07,659
+articleCard.html
+
+74
+00:03:08,188 --> 00:03:10,561
+that is in the templates folder, simply some
+
+75
+00:03:10,737 --> 00:03:13,158
+reusable HTML snippet for outputting the
+
+76
+00:03:13,158 --> 00:03:15,338
+information about a single article. And that
+
+77
+00:03:15,338 --> 00:03:17,855
+is then all combined with my base layout,
+
+78
+00:03:17,887 --> 00:03:19,778
+which is this layout.html file, which has
+
+79
+00:03:19,826 --> 00:03:20,580
+the base HTML structure
+
+80
+00:03:21,718 --> 00:03:25,150
+to render the articles page. Because if you
+
+81
+00:03:25,182 --> 00:03:27,684
+run this project with bun run dev to bring
+
+82
+00:03:27,684 --> 00:03:31,276
+up the dev server on localhost:3000, you'll
+
+83
+00:03:31,276 --> 00:03:33,506
+see that it's a very basic page where we
+
+84
+00:03:33,506 --> 00:03:35,847
+have this articles page and that is exactly
+
+85
+00:03:35,847 --> 00:03:38,220
+the page that is being rendered by the code
+
+86
+00:03:38,253 --> 00:03:39,006
+I describe here.
+
+87
+00:03:39,552 --> 00:03:41,620
+So here we have that article card, that
+
+88
+00:03:41,620 --> 00:03:44,074
+reusable snippet I mentioned injected into
+
+89
+00:03:44,090 --> 00:03:47,331
+the root page layout in the end. And that
+
+90
+00:03:47,395 --> 00:03:49,547
+data here is coming from the Markdown files,
+
+91
+00:03:49,563 --> 00:03:51,812
+from the front matter. But if we then click
+
+92
+00:03:52,117 --> 00:03:52,325
+this
+
+93
+00:03:52,855 --> 00:03:54,670
+link here, we end up on
+
+94
+00:03:55,666 --> 00:03:59,023
+/articles/ the slug of a specific article,
+
+95
+00:03:59,119 --> 00:04:01,914
+which acts as the ID so to say. And that
+
+96
+00:04:01,914 --> 00:04:04,708
+here then is the rendered Markdown rendered
+
+97
+00:04:04,740 --> 00:04:07,117
+just as you learned it before with help of
+
+98
+00:04:07,230 --> 00:04:10,137
+Bun's Markdown API. And that is happening
+
+99
+00:04:10,185 --> 00:04:12,979
+here in the renderArticlePage function.
+
+100
+00:04:14,352 --> 00:04:16,825
+In that function, we get an article by its
+
+101
+00:04:16,874 --> 00:04:20,721
+slug. The slug is encoded in the page URL.
+
+102
+00:04:20,834 --> 00:04:22,159
+That's where this is coming from
+
+103
+00:04:22,935 --> 00:04:25,166
+because renderArticlePage is called here in
+
+104
+00:04:25,263 --> 00:04:28,546
+our Bun router and we extract the slug from
+
+105
+00:04:28,594 --> 00:04:29,855
+the request parameters.
+
+106
+00:04:31,760 --> 00:04:34,036
+And then in there, we get an article by its
+
+107
+00:04:34,036 --> 00:04:35,456
+slug simply by
+
+108
+00:04:35,989 --> 00:04:38,620
+diving back into the file system and looking
+
+109
+00:04:38,717 --> 00:04:41,812
+for a file in the articles folder with that
+
+110
+00:04:41,812 --> 00:04:42,840
+slug and then.md at the end.
+
+111
+00:04:44,960 --> 00:04:46,740
+And we of course return null if we don't
+
+112
+00:04:46,740 --> 00:04:48,632
+find it, but if we do find it, we again
+
+113
+00:04:48,760 --> 00:04:50,829
+extract markdown and front matter and we
+
+114
+00:04:50,845 --> 00:04:51,951
+return all of that.
+
+115
+00:04:52,513 --> 00:04:55,544
+And then here in renderArticlePage, we get
+
+116
+00:04:55,576 --> 00:04:58,029
+that article, which is that combination of
+
+117
+00:04:58,061 --> 00:05:00,306
+markdown and front matter, and we pass the
+
+118
+00:05:00,306 --> 00:05:02,712
+markdown, not the front matter, just the
+
+119
+00:05:02,712 --> 00:05:05,791
+pure real markdown below the front matter to
+
+120
+00:05:06,079 --> 00:05:09,158
+Bun's Markdown API, again using the HTML
+
+121
+00:05:09,206 --> 00:05:11,981
+method to convert it to HTML code
+
+122
+00:05:12,558 --> 00:05:15,172
+with some markdown options which are defined
+
+123
+00:05:15,220 --> 00:05:15,573
+up here.
+
+124
+00:05:16,278 --> 00:05:18,507
+Again, same options as before, controlling
+
+125
+00:05:18,587 --> 00:05:20,366
+which Markdown features we wanna support.
+
+126
+00:05:20,991 --> 00:05:23,396
+And then once we got the rendered HTML or
+
+127
+00:05:23,396 --> 00:05:26,425
+the HTML which we can output, we construct a
+
+128
+00:05:26,425 --> 00:05:29,455
+response by using the article HTML template,
+
+129
+00:05:29,567 --> 00:05:31,796
+which is just another HTML snippet I
+
+130
+00:05:31,796 --> 00:05:33,944
+prepared in advance for displaying the
+
+131
+00:05:33,944 --> 00:05:36,252
+Markdown content or the rendered HTML
+
+132
+00:05:36,364 --> 00:05:36,909
+content then.
+
+133
+00:05:37,582 --> 00:05:39,602
+And to render template, I pass a
+
+134
+00:05:39,666 --> 00:05:42,391
+configuration object. That is what my render
+
+135
+00:05:42,391 --> 00:05:44,235
+template function wants here. It's not a
+
+136
+00:05:44,235 --> 00:05:46,271
+function by Bun, it's my own function, a
+
+137
+00:05:46,319 --> 00:05:48,323
+function which takes the template file as an
+
+138
+00:05:48,323 --> 00:05:51,208
+input, so these various HTML files so that
+
+139
+00:05:51,208 --> 00:05:53,436
+it knows which template to load. And then it
+
+140
+00:05:53,436 --> 00:05:55,343
+simply looks for the placeholders in those
+
+141
+00:05:55,375 --> 00:05:57,443
+templates. So these are the things with the
+
+142
+00:05:57,459 --> 00:06:00,231
+double curly braces. It looks for them, gets
+
+143
+00:06:00,344 --> 00:06:02,748
+the key names in there and replaces them
+
+144
+00:06:02,828 --> 00:06:04,655
+with the values that are passed to
+
+145
+00:06:04,671 --> 00:06:07,252
+renderTemplate. And the values passed to
+
+146
+00:06:07,316 --> 00:06:09,367
+renderTemplate for the article page
+
+147
+00:06:09,480 --> 00:06:10,441
+rendering function here
+
+148
+00:06:10,986 --> 00:06:13,615
+is exactly this object where we do provide
+
+149
+00:06:13,631 --> 00:06:15,779
+concrete values for title, summary, and so
+
+150
+00:06:15,875 --> 00:06:18,587
+on. And the actual article, which is that
+
+151
+00:06:18,603 --> 00:06:20,337
+rendered article HTML file
+
+152
+00:06:21,188 --> 00:06:23,435
+created with Bun's Markdown API.
+
+153
+00:06:24,157 --> 00:06:26,982
+And that is all, that's all that is to this
+
+154
+00:06:27,047 --> 00:06:29,904
+basic server, this basic example, which
+
+155
+00:06:30,177 --> 00:06:33,355
+produces a totally valid working website
+
+156
+00:06:33,468 --> 00:06:36,116
+with articles. So as you see, if you want
+
+157
+00:06:36,116 --> 00:06:38,620
+your own content-heavy site, your own blog,
+
+158
+00:06:38,669 --> 00:06:40,659
+a page where you can share tutorials or
+
+159
+00:06:40,755 --> 00:06:43,099
+whatever, you don't need any complex setup,
+
+160
+00:06:43,163 --> 00:06:45,459
+you don't need any extra dependencies, you
+
+161
+00:06:45,587 --> 00:06:48,642
+can use just Bun. Bun for doing that. That
+
+162
+00:06:48,642 --> 00:06:50,911
+is all you need to get started, as this
+
+163
+00:06:50,911 --> 00:06:51,973
+example shows here.

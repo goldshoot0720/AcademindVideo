@@ -1,0 +1,372 @@
+[
+ {
+  "start": 0.632,
+  "end": 3.11,
+  "en": "Now let's assume that submitting a goal"
+ },
+ {
+  "start": 3.224,
+  "end": 4.26,
+  "en": "takes a bit longer."
+ },
+ {
+  "start": 5.184,
+  "end": 7.209,
+  "en": "And we can actually simulate this by going"
+ },
+ {
+  "start": 7.209,
+  "end": 9.282,
+  "en": "to this postGoals handler here."
+ },
+ {
+  "start": 10.105,
+  "end": 13.025,
+  "en": "And then there we can use the setTimeout"
+ },
+ {
+  "start": 13.025,
+  "end": 13.477,
+  "en": "function"
+ },
+ {
+  "start": 14.074,
+  "end": 16.123,
+  "en": "to set a timeout of 1 second, let's say."
+ },
+ {
+  "start": 17.85,
+  "end": 20.29,
+  "en": "And then I only send the response after that"
+ },
+ {
+  "start": 20.29,
+  "end": 21.227,
+  "en": "timeout expired."
+ },
+ {
+  "start": 22.245,
+  "end": 24.072,
+  "en": "So now it will take 1 second for the"
+ },
+ {
+  "start": 24.072,
+  "end": 26.448,
+  "en": "response to arrive. And with that, I'm just"
+ },
+ {
+  "start": 26.512,
+  "end": 28.209,
+  "en": "simulating a slower backend."
+ },
+ {
+  "start": 29.017,
+  "end": 30.236,
+  "en": "If we do that,"
+ },
+ {
+  "start": 30.798,
+  "end": 32.594,
+  "en": "you will see that if we reload here"
+ },
+ {
+  "start": 33.188,
+  "end": 35.129,
+  "en": "and we send a new request,"
+ },
+ {
+  "start": 35.69,
+  "end": 36.925,
+  "en": "it'll still work like before."
+ },
+ {
+  "start": 37.535,
+  "end": 38.834,
+  "en": "But now you can of course see"
+ },
+ {
+  "start": 39.364,
+  "end": 41.77,
+  "en": "that the input is only reset after the"
+ },
+ {
+  "start": 41.77,
+  "end": 42.556,
+  "en": "response arrived."
+ },
+ {
+  "start": 43.63,
+  "end": 45.62,
+  "en": "And therefore there is this time window"
+ },
+ {
+  "start": 45.78,
+  "end": 48.122,
+  "en": "where we could hammer this button because we"
+ },
+ {
+  "start": 48.122,
+  "end": 49.341,
+  "en": "don't understand"
+ },
+ {
+  "start": 49.871,
+  "end": 50.223,
+  "en": "that"
+ },
+ {
+  "start": 50.833,
+  "end": 53.785,
+  "en": "a request was on its way because the input"
+ },
+ {
+  "start": 53.817,
+  "end": 55.068,
+  "en": "wasn't cleared immediately."
+ },
+ {
+  "start": 55.806,
+  "end": 58.177,
+  "en": "And we therefore by accident might send an"
+ },
+ {
+  "start": 58.305,
+  "end": 60.565,
+  "en": "extra request which we don't wanna send."
+ },
+ {
+  "start": 61.574,
+  "end": 63.818,
+  "en": "Now, of course, one solution for this"
+ },
+ {
+  "start": 63.818,
+  "end": 64.17,
+  "en": "problem"
+ },
+ {
+  "start": 64.795,
+  "end": 67.295,
+  "en": "would be to immediately clear the input"
+ },
+ {
+  "start": 67.295,
+  "end": 69.682,
+  "en": "again right after a goal was submitted."
+ },
+ {
+  "start": 70.419,
+  "end": 72.471,
+  "en": "So back on this form here, instead of"
+ },
+ {
+  "start": 72.471,
+  "end": 75.002,
+  "en": "listening to after request, we could again"
+ },
+ {
+  "start": 75.115,
+  "end": 77.021,
+  "en": "listen to the built-in submit event again."
+ },
+ {
+  "start": 77.935,
+  "end": 80.483,
+  "en": "But maybe we only wanna clear it after we"
+ },
+ {
+  "start": 80.483,
+  "end": 82.149,
+  "en": "know that the request succeeded."
+ },
+ {
+  "start": 83.133,
+  "end": 86.143,
+  "en": "In that case, a better workaround would be"
+ },
+ {
+  "start": 86.143,
+  "end": 89.363,
+  "en": "to simply disable this button whilst the"
+ },
+ {
+  "start": 89.379,
+  "end": 90.755,
+  "en": "request is on its way."
+ },
+ {
+  "start": 91.85,
+  "end": 94.017,
+  "en": "And since this is such a common requirement,"
+ },
+ {
+  "start": 94.47,
+  "end": 96.023,
+  "en": "HTMX has got us covered."
+ },
+ {
+  "start": 96.719,
+  "end": 101.513,
+  "en": "It offers an hx-disabled-elt"
+ },
+ {
+  "start": 102.388,
+  "end": 102.972,
+  "en": "attribute,"
+ },
+ {
+  "start": 103.62,
+  "end": 105.564,
+  "en": "and elt stands for element."
+ },
+ {
+  "start": 106.662,
+  "end": 108.836,
+  "en": "And what this attribute does is"
+ },
+ {
+  "start": 109.36,
+  "end": 110.193,
+  "en": "it allows you"
+ },
+ {
+  "start": 110.776,
+  "end": 113.137,
+  "en": "to specify a CSS selector"
+ },
+ {
+  "start": 113.748,
+  "end": 116.269,
+  "en": "of an element you wanna disable here as a"
+ },
+ {
+  "start": 116.269,
+  "end": 117.939,
+  "en": "value for this attribute."
+ },
+ {
+  "start": 118.967,
+  "end": 121.922,
+  "en": "And it'll then go ahead and add the disabled"
+ },
+ {
+  "start": 122.26,
+  "end": 124.99,
+  "en": "attribute and set this element to disabled,"
+ },
+ {
+  "start": 125.568,
+  "end": 127.993,
+  "en": "this element you're targeting here, whenever"
+ },
+ {
+  "start": 127.993,
+  "end": 130.772,
+  "en": "some request for this element on which you"
+ },
+ {
+  "start": 130.852,
+  "end": 132.715,
+  "en": "added this attribute is on its way."
+ },
+ {
+  "start": 133.839,
+  "end": 136.264,
+  "en": "So whenever this POST request is on its way,"
+ },
+ {
+  "start": 136.329,
+  "end": 136.987,
+  "en": "for example."
+ },
+ {
+  "start": 138.336,
+  "end": 141.035,
+  "en": "So here I can target this button"
+ },
+ {
+  "start": 141.87,
+  "end": 145.195,
+  "en": "by using button as a CSS selector or"
+ },
+ {
+  "start": 145.5,
+  "end": 146.721,
+  "en": "form-button"
+ },
+ {
+  "start": 147.251,
+  "end": 149.5,
+  "en": "to look for a button inside of a form, which"
+ },
+ {
+  "start": 149.5,
+  "end": 151.363,
+  "en": "is definitely only this button."
+ },
+ {
+  "start": 152.552,
+  "end": 155.17,
+  "en": "And then this button will be disabled due to"
+ },
+ {
+  "start": 155.202,
+  "end": 158.383,
+  "en": "this attribute whenever this POST request is"
+ },
+ {
+  "start": 158.559,
+  "end": 159.089,
+  "en": "on its way."
+ },
+ {
+  "start": 160.519,
+  "end": 162.511,
+  "en": "So with that, if we reload,"
+ },
+ {
+  "start": 163.234,
+  "end": 165.902,
+  "en": "and I again learn HTMX, you see that now the"
+ },
+ {
+  "start": 165.966,
+  "end": 167.026,
+  "en": "button is disabled"
+ },
+ {
+  "start": 167.718,
+  "end": 169.646,
+  "en": "and it's disabled for the duration of the"
+ },
+ {
+  "start": 169.646,
+  "end": 172.379,
+  "en": "request after which it is enabled again. But"
+ },
+ {
+  "start": 172.379,
+  "end": 174.344,
+  "en": "of course then the input was cleared"
+ },
+ {
+  "start": 174.875,
+  "end": 177.097,
+  "en": "due to this event handler code here."
+ },
+ {
+  "start": 178.857,
+  "end": 181.035,
+  "en": "And therefore this is another very useful"
+ },
+ {
+  "start": 181.133,
+  "end": 183.213,
+  "en": "attribute and feature you should be aware"
+ },
+ {
+  "start": 183.343,
+  "end": 183.392,
+  "en": "of."
+ }
+]

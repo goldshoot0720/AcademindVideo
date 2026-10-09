@@ -1,0 +1,247 @@
+[
+ {
+  "start": 0.592,
+  "end": 3.861,
+  "en": "So in order to make sure that when we delete"
+ },
+ {
+  "start": 3.941,
+  "end": 7.802,
+  "en": "an item, we also update the available places"
+ },
+ {
+  "start": 7.866,
+  "end": 11.391,
+  "en": "list and we re-add the deleted item to that"
+ },
+ {
+  "start": 11.391,
+  "end": 11.695,
+  "en": "list,"
+ },
+ {
+  "start": 12.352,
+  "end": 14.947,
+  "en": "we have to tweak the response we send back"
+ },
+ {
+  "start": 14.995,
+  "end": 16.806,
+  "en": "in that delete request handler."
+ },
+ {
+  "start": 17.895,
+  "end": 20.731,
+  "en": "Because whilst an empty response is great to"
+ },
+ {
+  "start": 20.859,
+  "end": 23.631,
+  "en": "delete the item or some item that was"
+ },
+ {
+  "start": 23.727,
+  "end": 26.034,
+  "en": "responsible for sending the delete request,"
+ },
+ {
+  "start": 26.466,
+  "end": 28.821,
+  "en": "it's not enough if we also wanna perform"
+ },
+ {
+  "start": 28.87,
+  "end": 30.215,
+  "en": "such an out-of-band swap."
+ },
+ {
+  "start": 31.108,
+  "end": 32.814,
+  "en": "And that is indeed what I wanna do here."
+ },
+ {
+  "start": 33.361,
+  "end": 36.725,
+  "en": "I wanna do both. I wanna send back an empty"
+ },
+ {
+  "start": 36.741,
+  "end": 39.77,
+  "en": "response body essentially for this"
+ },
+ {
+  "start": 40.546,
+  "end": 42.858,
+  "en": "element here that sent the DELETE request."
+ },
+ {
+  "start": 44.249,
+  "end": 46.334,
+  "en": "But at the same time, I wanna attach some"
+ },
+ {
+  "start": 46.593,
+  "end": 48.995,
+  "en": "other content that should be used for an"
+ },
+ {
+  "start": 49.197,
+  "end": 50.225,
+  "en": "out-of-band swap."
+ },
+ {
+  "start": 51.804,
+  "end": 53.149,
+  "en": "And that is something you can do."
+ },
+ {
+  "start": 53.936,
+  "end": 55.395,
+  "en": "Here I can simply"
+ },
+ {
+  "start": 55.986,
+  "end": 59.264,
+  "en": "repeat the code from my POST route handler"
+ },
+ {
+  "start": 60.164,
+  "end": 63.313,
+  "en": "and derive the available locations as a"
+ },
+ {
+  "start": 63.313,
+  "end": 64.036,
+  "en": "first step"
+ },
+ {
+  "start": 64.839,
+  "end": 67.116,
+  "en": "like this by copying this constant."
+ },
+ {
+  "start": 69.163,
+  "end": 72.247,
+  "en": "And then I'll return this unordered list"
+ },
+ {
+  "start": 72.393,
+  "end": 75.33,
+  "en": "with the available locations just as I did"
+ },
+ {
+  "start": 75.33,
+  "end": 75.769,
+  "en": "it before"
+ },
+ {
+  "start": 76.449,
+  "end": 77.291,
+  "en": "with that"
+ },
+ {
+  "start": 78.715,
+  "end": 81.305,
+  "en": "out-of-band swap attribute added to it."
+ },
+ {
+  "start": 83.352,
+  "end": 85.846,
+  "en": "Now you might say, okay, great, but now it's"
+ },
+ {
+  "start": 85.846,
+  "end": 88.341,
+  "en": "not an empty response anymore, but you would"
+ },
+ {
+  "start": 88.406,
+  "end": 88.937,
+  "en": "be wrong."
+ },
+ {
+  "start": 89.83,
+  "end": 92.037,
+  "en": "This part of the response body"
+ },
+ {
+  "start": 92.708,
+  "end": 95.324,
+  "en": "is meant to be used in an out-of-band swap."
+ },
+ {
+  "start": 96.831,
+  "end": 100.081,
+  "en": "And the remaining part of the response body"
+ },
+ {
+  "start": 100.195,
+  "end": 101.682,
+  "en": "is then essentially nothing."
+ },
+ {
+  "start": 102.743,
+  "end": 105.798,
+  "en": "So the element that sent the DELETE request"
+ },
+ {
+  "start": 106.301,
+  "end": 108.56,
+  "en": "in the end still gets back an empty"
+ },
+ {
+  "start": 108.576,
+  "end": 112.234,
+  "en": "response. Because the non-empty part is used"
+ },
+ {
+  "start": 112.234,
+  "end": 113.643,
+  "en": "for this out-of-band swap."
+ },
+ {
+  "start": 115.366,
+  "end": 117.263,
+  "en": "And therefore, by making this simple"
+ },
+ {
+  "start": 117.295,
+  "end": 119.609,
+  "en": "adjustment, we can again save everything,"
+ },
+ {
+  "start": 120.188,
+  "end": 123.226,
+  "en": "but we'll now be able to switch these items"
+ },
+ {
+  "start": 123.258,
+  "end": 124.532,
+  "en": "between these 2 lists."
+ },
+ {
+  "start": 125.116,
+  "end": 127.355,
+  "en": "And as I remove an item from the top list,"
+ },
+ {
+  "start": 127.565,
+  "end": 130.566,
+  "en": "it's re-added to the bottom list and vice"
+ },
+ {
+  "start": 130.777,
+  "end": 131.199,
+  "en": "versa."
+ },
+ {
+  "start": 132.166,
+  "end": 134.459,
+  "en": "And that's therefore now working the way it"
+ },
+ {
+  "start": 134.459,
+  "end": 135.213,
+  "en": "should work here."
+ }
+]

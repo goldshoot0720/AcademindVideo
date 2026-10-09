@@ -1,0 +1,244 @@
+1
+00:00:00,592 --> 00:00:03,861
+So in order to make sure that when we delete
+所以為了確保當我們刪除時
+
+2
+00:00:03,941 --> 00:00:07,802
+an item, we also update the available places
+一個專案，我們還更新了可用的地方
+
+3
+00:00:07,866 --> 00:00:11,391
+list and we re-add the deleted item to that
+列表，我們將刪除的專案重新添加到該列表中
+
+4
+00:00:11,391 --> 00:00:11,695
+list,
+列表，
+
+5
+00:00:12,352 --> 00:00:14,947
+we have to tweak the response we send back
+我們必須調整我們發回的回應
+
+6
+00:00:14,995 --> 00:00:16,806
+in that delete request handler.
+在刪除請求處理程式中。
+
+7
+00:00:17,895 --> 00:00:20,731
+Because whilst an empty response is great to
+因為雖然空洞的回應很好
+
+8
+00:00:20,859 --> 00:00:23,631
+delete the item or some item that was
+刪除該專案或某些專案
+
+9
+00:00:23,727 --> 00:00:26,034
+responsible for sending the delete request,
+負責發送刪除請求，
+
+10
+00:00:26,466 --> 00:00:28,821
+it's not enough if we also wanna perform
+如果我們也想表演那是不夠的
+
+11
+00:00:28,870 --> 00:00:30,215
+such an out-of-band swap.
+這樣的帶外交換。
+
+12
+00:00:31,108 --> 00:00:32,814
+And that is indeed what I wanna do here.
+這確實是我想在這裡做的事情。
+
+13
+00:00:33,361 --> 00:00:36,725
+I wanna do both. I wanna send back an empty
+我想兩者都做。我想寄回一個空的
+
+14
+00:00:36,741 --> 00:00:39,770
+response body essentially for this
+回應體主要是為了這個
+
+15
+00:00:40,546 --> 00:00:42,858
+element here that sent the DELETE request.
+此處傳送 DELETE 請求的元素。
+
+16
+00:00:44,249 --> 00:00:46,334
+But at the same time, I wanna attach some
+但同時我想附上一些
+
+17
+00:00:46,593 --> 00:00:48,995
+other content that should be used for an
+應該用於的其他內容
+
+18
+00:00:49,197 --> 00:00:50,225
+out-of-band swap.
+帶外交換。
+
+19
+00:00:51,804 --> 00:00:53,149
+And that is something you can do.
+這是你可以做的事情。
+
+20
+00:00:53,936 --> 00:00:55,395
+Here I can simply
+在這裡我可以簡單地
+
+21
+00:00:55,986 --> 00:00:59,264
+repeat the code from my POST route handler
+重複我的 POST 路由處理程式中的程式碼
+
+22
+00:01:00,164 --> 00:01:03,313
+and derive the available locations as a
+並將可用位置匯出為
+
+23
+00:01:03,313 --> 00:01:04,036
+first step
+第一步
+
+24
+00:01:04,839 --> 00:01:07,116
+like this by copying this constant.
+像這樣透過複製這個常數。
+
+25
+00:01:09,163 --> 00:01:12,247
+And then I'll return this unordered list
+然後我將回傳這個無序列表
+
+26
+00:01:12,393 --> 00:01:15,330
+with the available locations just as I did
+就像我一樣，有可用的位置
+
+27
+00:01:15,330 --> 00:01:15,769
+it before
+之前
+
+28
+00:01:16,449 --> 00:01:17,291
+with that
+與那個
+
+29
+00:01:18,715 --> 00:01:21,305
+out-of-band swap attribute added to it.
+新增了帶外交換屬性。
+
+30
+00:01:23,352 --> 00:01:25,846
+Now you might say, okay, great, but now it's
+現在你可能會說，好吧，太好了，但現在是
+
+31
+00:01:25,846 --> 00:01:28,341
+not an empty response anymore, but you would
+不再是空洞的回應，但你會
+
+32
+00:01:28,406 --> 00:01:28,937
+be wrong.
+錯了。
+
+33
+00:01:29,830 --> 00:01:32,037
+This part of the response body
+回應體的這一部分
+
+34
+00:01:32,708 --> 00:01:35,324
+is meant to be used in an out-of-band swap.
+用於帶外交換。
+
+35
+00:01:36,831 --> 00:01:40,081
+And the remaining part of the response body
+以及回應主體的剩餘部分
+
+36
+00:01:40,195 --> 00:01:41,682
+is then essentially nothing.
+那麼基本上什麼都沒有。
+
+37
+00:01:42,743 --> 00:01:45,798
+So the element that sent the DELETE request
+所以發送 DELETE 請求的元素
+
+38
+00:01:46,301 --> 00:01:48,560
+in the end still gets back an empty
+最後還是回傳一個空
+
+39
+00:01:48,576 --> 00:01:52,234
+response. Because the non-empty part is used
+回覆.因為使用了非空部分
+
+40
+00:01:52,234 --> 00:01:53,643
+for this out-of-band swap.
+對於這個帶外交換。
+
+41
+00:01:55,366 --> 00:01:57,263
+And therefore, by making this simple
+因此，透過使這個簡單
+
+42
+00:01:57,295 --> 00:01:59,609
+adjustment, we can again save everything,
+調整後，我們可以再次儲存一切，
+
+43
+00:02:00,188 --> 00:02:03,226
+but we'll now be able to switch these items
+但我們現在可以切換這些專案
+
+44
+00:02:03,258 --> 00:02:04,532
+between these 2 lists.
+在這兩個列表之間。
+
+45
+00:02:05,116 --> 00:02:07,355
+And as I remove an item from the top list,
+當我從頂部列表中刪除一個專案時，
+
+46
+00:02:07,565 --> 00:02:10,566
+it's re-added to the bottom list and vice
+它被重新添加到底部列表中
+
+47
+00:02:10,777 --> 00:02:11,199
+versa.
+反之亦然。
+
+48
+00:02:12,166 --> 00:02:14,459
+And that's therefore now working the way it
+因此現在就是這樣運作的
+
+49
+00:02:14,459 --> 00:02:15,213
+should work here.
+應該在這裡工作。

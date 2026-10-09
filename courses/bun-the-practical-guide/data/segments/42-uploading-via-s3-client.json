@@ -1,0 +1,752 @@
+[
+ {
+  "start": 0.112,
+  "end": 3.211,
+  "en": "So how can you use the Bun S3 client?"
+ },
+ {
+  "start": 4.286,
+  "end": 6.839,
+  "en": "Well, it starts in index.ts for this tool,"
+ },
+ {
+  "start": 6.936,
+  "end": 11.03,
+  "en": "but in there I only parse the input provided"
+ },
+ {
+  "start": 11.03,
+  "end": 13.406,
+  "en": "by the user. For that, I'm using parseArgs"
+ },
+ {
+  "start": 13.438,
+  "end": 15.734,
+  "en": "provided by Node.js. That of course has"
+ },
+ {
+  "start": 15.766,
+  "end": 18.753,
+  "en": "nothing to do with the S3 client. It's just"
+ },
+ {
+  "start": 18.961,
+  "end": 21.755,
+  "en": "used here to parse the received input"
+ },
+ {
+  "start": 21.868,
+  "end": 24.806,
+  "en": "arguments using that bun.argv property,"
+ },
+ {
+  "start": 25.159,
+  "end": 27.005,
+  "en": "which gives us access to all these extra"
+ },
+ {
+  "start": 27.005,
+  "end": 28.563,
+  "en": "parameters the user entered here."
+ },
+ {
+  "start": 30.229,
+  "end": 32.296,
+  "en": "So that's just some command parsing and then"
+ },
+ {
+  "start": 32.296,
+  "end": 34.555,
+  "en": "a switch statement to call different"
+ },
+ {
+  "start": 34.603,
+  "end": 36.445,
+  "en": "functions depending on which command the"
+ },
+ {
+  "start": 36.445,
+  "end": 38.785,
+  "en": "user chose. So that's obviously not the"
+ },
+ {
+  "start": 38.785,
+  "end": 39.505,
+  "en": "interesting part."
+ },
+ {
+  "start": 40.467,
+  "end": 43.27,
+  "en": "Instead, the interesting part starts in the"
+ },
+ {
+  "start": 43.35,
+  "end": 44.937,
+  "en": "backup.ts file, for example."
+ },
+ {
+  "start": 45.497,
+  "end": 47.211,
+  "en": "In there, you can see I have the backup"
+ },
+ {
+  "start": 47.276,
+  "end": 47.644,
+  "en": "function"
+ },
+ {
+  "start": 48.237,
+  "end": 50.736,
+  "en": "and in there, I do a couple of checks to see"
+ },
+ {
+  "start": 50.96,
+  "end": 52.947,
+  "en": "what the user is trying to back up, if it's"
+ },
+ {
+  "start": 52.947,
+  "end": 55.526,
+  "en": "a file or a folder, if the recursive option"
+ },
+ {
+  "start": 55.526,
+  "end": 55.927,
+  "en": "is set."
+ },
+ {
+  "start": 56.471,
+  "end": 58.794,
+  "en": "But then once I know which files the user"
+ },
+ {
+  "start": 58.794,
+  "end": 59.371,
+  "en": "wants to back up,"
+ },
+ {
+  "start": 60.559,
+  "end": 63.144,
+  "en": "I call uploadFile, which is another function"
+ },
+ {
+  "start": 63.144,
+  "end": 65.826,
+  "en": "provided by me, which expects to get a"
+ },
+ {
+  "start": 65.938,
+  "end": 68.781,
+  "en": "client, an S3 client as an input."
+ },
+ {
+  "start": 69.391,
+  "end": 71.8,
+  "en": "Where is this client coming from? Well, that"
+ },
+ {
+  "start": 71.976,
+  "end": 74.305,
+  "en": "already is a client received by the backup"
+ },
+ {
+  "start": 74.305,
+  "end": 76.296,
+  "en": "function. So it was a parameter there too."
+ },
+ {
+  "start": 76.89,
+  "end": 78.849,
+  "en": "So it's set up in index.ts."
+ },
+ {
+  "start": 79.523,
+  "end": 81.739,
+  "en": "There, before we have that switch statement,"
+ },
+ {
+  "start": 82.157,
+  "end": 85.513,
+  "en": "I create that S3 client and createClient is"
+ },
+ {
+  "start": 85.545,
+  "end": 87.44,
+  "en": "a function in the config.ts file"
+ },
+ {
+  "start": 88.034,
+  "end": 90.923,
+  "en": "where I instantiate a new S3 client. S3"
+ },
+ {
+  "start": 90.923,
+  "end": 93.248,
+  "en": "client and despite the name, as mentioned"
+ },
+ {
+  "start": 93.248,
+  "end": 96.215,
+  "en": "before, this works with all S3 compatible"
+ },
+ {
+  "start": 96.215,
+  "end": 97.113,
+  "en": "storage providers."
+ },
+ {
+  "start": 98.444,
+  "end": 101.154,
+  "en": "Now S3 client is coming from Bun because"
+ },
+ {
+  "start": 101.507,
+  "end": 103.591,
+  "en": "again, it's a built-in feature, no extra"
+ },
+ {
+  "start": 103.591,
+  "end": 104.377,
+  "en": "dependency needed."
+ },
+ {
+  "start": 105.259,
+  "end": 107.007,
+  "en": "So in this config.ts file, I have some"
+ },
+ {
+  "start": 107.119,
+  "end": 110.021,
+  "en": "function to validate whether all the env"
+ },
+ {
+  "start": 110.246,
+  "end": 113.645,
+  "en": "vars are set and then I instantiate that"
+ },
+ {
+  "start": 113.758,
+  "end": 116.275,
+  "en": "client and return the instantiated client"
+ },
+ {
+  "start": 116.644,
+  "end": 118.825,
+  "en": "and I set the access key ID to whatever I"
+ },
+ {
+  "start": 118.825,
+  "end": 120.797,
+  "en": "found in the env vars and the same for all"
+ },
+ {
+  "start": 120.925,
+  "end": 121.839,
+  "en": "these other settings."
+ },
+ {
+  "start": 122.496,
+  "end": 124.884,
+  "en": "Now, one very important note here, I'm doing"
+ },
+ {
+  "start": 124.916,
+  "end": 127.64,
+  "en": "this all explicitly here to show you how you"
+ },
+ {
+  "start": 127.64,
+  "end": 129.002,
+  "en": "can configure that client,"
+ },
+ {
+  "start": 129.547,
+  "end": 131.085,
+  "en": "but we actually wouldn't have to do that"
+ },
+ {
+  "start": 131.085,
+  "end": 134.402,
+  "en": "here because the env var names I chose here"
+ },
+ {
+  "start": 134.915,
+  "end": 137.158,
+  "en": "are in line with what Bun expects."
+ },
+ {
+  "start": 137.767,
+  "end": 139.514,
+  "en": "So it will actually look for them"
+ },
+ {
+  "start": 139.722,
+  "end": 140.524,
+  "en": "automatically"
+ },
+ {
+  "start": 141.084,
+  "end": 143.264,
+  "en": "and we could therefore also create the"
+ },
+ {
+  "start": 143.264,
+  "end": 144.241,
+  "en": "client like this"
+ },
+ {
+  "start": 144.85,
+  "end": 147.158,
+  "en": "and that would work as well. So passing in"
+ },
+ {
+  "start": 147.27,
+  "end": 148.103,
+  "en": "no config at all."
+ },
+ {
+  "start": 149.097,
+  "end": 152.545,
+  "en": "You see, if I now run this command, it works"
+ },
+ {
+  "start": 152.545,
+  "end": 153.475,
+  "en": "just as before"
+ },
+ {
+  "start": 154.004,
+  "end": 156.425,
+  "en": "because again, we already used the defaults."
+ },
+ {
+  "start": 156.874,
+  "end": 158.478,
+  "en": "I'm just providing this explicit"
+ },
+ {
+  "start": 158.478,
+  "end": 160.226,
+  "en": "configuration here for demo purposes."
+ },
+ {
+  "start": 161.14,
+  "end": 164.331,
+  "en": "But that is the main thing that creates this"
+ },
+ {
+  "start": 164.331,
+  "end": 166.785,
+  "en": "client and then this client is used in"
+ },
+ {
+  "start": 166.833,
+  "end": 169.848,
+  "en": "backup.ts and also in the other files."
+ },
+ {
+  "start": 170.441,
+  "end": 173.263,
+  "en": "In backup.ts, in the uploadFile function,"
+ },
+ {
+  "start": 173.712,
+  "end": 176.679,
+  "en": "it's used to Guess what? Upload a file."
+ },
+ {
+  "start": 177.481,
+  "end": 179.677,
+  "en": "To do that, I first get hold of the file"
+ },
+ {
+  "start": 179.806,
+  "end": 182.516,
+  "en": "using the Bun file API, so of the local file"
+ },
+ {
+  "start": 182.548,
+  "end": 183.478,
+  "en": "which I wanna upload,"
+ },
+ {
+  "start": 184.151,
+  "end": 188.016,
+  "en": "and then I use the S3 client and its file"
+ },
+ {
+  "start": 188.016,
+  "end": 190.758,
+  "en": "method to get hold of a remote file or"
+ },
+ {
+  "start": 190.966,
+  "end": 194.077,
+  "en": "create such a remote file, so a file in that"
+ },
+ {
+  "start": 194.237,
+  "end": 195.087,
+  "en": "S3 bucket"
+ },
+ {
+  "start": 195.616,
+  "end": 198.134,
+  "en": "with the file method. That method receives a"
+ },
+ {
+  "start": 198.246,
+  "end": 200.427,
+  "en": "key, which is in the end the file name and"
+ },
+ {
+  "start": 200.491,
+  "end": 202.175,
+  "en": "path on that remote storage."
+ },
+ {
+  "start": 202.832,
+  "end": 204.963,
+  "en": "And that key is a parameter I'm getting"
+ },
+ {
+  "start": 205.059,
+  "end": 207.127,
+  "en": "here. So this file method here is coming"
+ },
+ {
+  "start": 207.143,
+  "end": 210.252,
+  "en": "from the S3 client and this file handle then"
+ },
+ {
+  "start": 210.348,
+  "end": 212.303,
+  "en": "has various methods we can call. For"
+ },
+ {
+  "start": 212.303,
+  "end": 214.867,
+  "en": "example, delete to delete the file, exists"
+ },
+ {
+  "start": 215.011,
+  "end": 217.271,
+  "en": "to check if that file exists in the remote"
+ },
+ {
+  "start": 217.271,
+  "end": 217.703,
+  "en": "storage"
+ },
+ {
+  "start": 218.521,
+  "end": 219.498,
+  "en": "or also a"
+ },
+ {
+  "start": 220.059,
+  "end": 220.396,
+  "en": "write"
+ },
+ {
+  "start": 221.005,
+  "end": 223.681,
+  "en": "method to create the file and fill it with"
+ },
+ {
+  "start": 223.745,
+  "end": 226.726,
+  "en": "some content or stat in this case here,"
+ },
+ {
+  "start": 227.255,
+  "end": 229.081,
+  "en": "which gives us some statistics, some"
+ },
+ {
+  "start": 229.113,
+  "end": 231.325,
+  "en": "information about that file, specifically"
+ },
+ {
+  "start": 231.581,
+  "end": 233.568,
+  "en": "the size which I'm using for this basic size"
+ },
+ {
+  "start": 233.745,
+  "end": 233.937,
+  "en": "check."
+ },
+ {
+  "start": 235.14,
+  "end": 236.97,
+  "en": "To determine whether something should be"
+ },
+ {
+  "start": 236.97,
+  "end": 237.275,
+  "en": "skipped."
+ },
+ {
+  "start": 237.949,
+  "end": 239.875,
+  "en": "If it should not be skipped, I also check"
+ },
+ {
+  "start": 240.003,
+  "end": 242.539,
+  "en": "the file size and I have a large file"
+ },
+ {
+  "start": 242.731,
+  "end": 245.106,
+  "en": "threshold set up here to 10 megabytes."
+ },
+ {
+  "start": 245.78,
+  "end": 248.139,
+  "en": "And if the file which I'm trying to upload,"
+ },
+ {
+  "start": 248.187,
+  "end": 250.097,
+  "en": "which I'm trying to back up is large,"
+ },
+ {
+  "start": 250.675,
+  "end": 252.809,
+  "en": "I use a slightly different approach for"
+ },
+ {
+  "start": 252.841,
+  "end": 255.618,
+  "en": "uploading that to take advantage of Bun's"
+ },
+ {
+  "start": 255.666,
+  "end": 259.325,
+  "en": "built-in multipart uploading feature because"
+ },
+ {
+  "start": 259.437,
+  "end": 263.436,
+  "en": "Bun does support uploading both small and"
+ },
+ {
+  "start": 263.453,
+  "end": 266.313,
+  "en": "large files to S3 and compatible storage"
+ },
+ {
+  "start": 266.345,
+  "end": 268.851,
+  "en": "providers. And for large files, it uses a"
+ },
+ {
+  "start": 268.916,
+  "end": 271.213,
+  "en": "process called multipart uploading, which"
+ },
+ {
+  "start": 271.246,
+  "end": 273.736,
+  "en": "simply splits those files into smaller"
+ },
+ {
+  "start": 273.736,
+  "end": 276.612,
+  "en": "chunks and uploads them chunk by chunk and"
+ },
+ {
+  "start": 276.693,
+  "end": 278.765,
+  "en": "gives you a stream to which you can listen"
+ },
+ {
+  "start": 278.798,
+  "end": 280.983,
+  "en": "to see the live progress. And that's what"
+ },
+ {
+  "start": 280.983,
+  "end": 283.2,
+  "en": "we're setting up here. Again, using the S3"
+ },
+ {
+  "start": 283.2,
+  "end": 285.016,
+  "en": "client and that remote file handle,"
+ },
+ {
+  "start": 285.546,
+  "end": 288.356,
+  "en": "we create a writer which is an object that"
+ },
+ {
+  "start": 288.356,
+  "end": 290.827,
+  "en": "allows us to upload files chunk by chunk"
+ },
+ {
+  "start": 291.229,
+  "end": 293.154,
+  "en": "where we define the chunk size of each"
+ },
+ {
+  "start": 293.234,
+  "end": 295.305,
+  "en": "individual chunk. So the chunks into which"
+ },
+ {
+  "start": 295.353,
+  "end": 297.471,
+  "en": "this big file will be split automatically,"
+ },
+ {
+  "start": 297.968,
+  "end": 299.798,
+  "en": "how many parts should be uploaded in"
+ },
+ {
+  "start": 299.83,
+  "end": 302.173,
+  "en": "parallel and how often we wanna retry if a"
+ },
+ {
+  "start": 302.237,
+  "end": 304.724,
+  "en": "part fails. And then we have this for loop"
+ },
+ {
+  "start": 304.724,
+  "end": 307.26,
+  "en": "to go through all these chunks and simply"
+ },
+ {
+  "start": 307.436,
+  "end": 309.86,
+  "en": "write them to that remote storage and upload"
+ },
+ {
+  "start": 309.86,
+  "end": 311.849,
+  "en": "them to the remote storage chunk by chunk."
+ },
+ {
+  "start": 312.347,
+  "end": 314.304,
+  "en": "That's what we do for large files. For small"
+ },
+ {
+  "start": 314.433,
+  "end": 316.052,
+  "en": "files, we don't need that. Instead, we use"
+ },
+ {
+  "start": 316.052,
+  "end": 318.731,
+  "en": "that remote file handle and just call write"
+ },
+ {
+  "start": 318.779,
+  "end": 321.152,
+  "en": "to just create that remote file and fill it"
+ },
+ {
+  "start": 321.152,
+  "end": 322.643,
+  "en": "with the content of the local file."
+ },
+ {
+  "start": 323.173,
+  "end": 326.428,
+  "en": "That is how we upload a file to S3 using"
+ },
+ {
+  "start": 326.54,
+  "end": 328.0,
+  "en": "Bun's S3 client."
+ },
+ {
+  "start": 329.267,
+  "end": 331.207,
+  "en": "We can also pass some metadata to write"
+ },
+ {
+  "start": 331.592,
+  "end": 334.238,
+  "en": "where we set the type of the file to the"
+ },
+ {
+  "start": 334.238,
+  "end": 336.435,
+  "en": "local file type, where we also can set how"
+ },
+ {
+  "start": 336.483,
+  "end": 339.017,
+  "en": "often this should be retried and a couple of"
+ },
+ {
+  "start": 339.049,
+  "end": 339.819,
+  "en": "other settings."
+ },
+ {
+  "start": 340.557,
+  "end": 343.027,
+  "en": "And indeed, this will also support multipart"
+ },
+ {
+  "start": 343.139,
+  "end": 345.273,
+  "en": "uploads out of the box, so you wouldn't even"
+ },
+ {
+  "start": 345.385,
+  "end": 347.855,
+  "en": "need this more complex approach, but this"
+ },
+ {
+  "start": 347.855,
+  "end": 350.165,
+  "en": "approach gives you more control and allows"
+ },
+ {
+  "start": 350.181,
+  "end": 352.443,
+  "en": "you to manually go through chunk by chunk"
+ },
+ {
+  "start": 352.443,
+  "end": 354.978,
+  "en": "and for example, add detailed logging. But"
+ },
+ {
+  "start": 355.154,
+  "end": 356.806,
+  "en": "even just using this approach would"
+ },
+ {
+  "start": 356.999,
+  "end": 359.229,
+  "en": "automatically handle large files as well. I"
+ },
+ {
+  "start": 359.261,
+  "end": 361.106,
+  "en": "just have this approach in here for demo"
+ },
+ {
+  "start": 361.186,
+  "end": 361.795,
+  "en": "purposes."
+ },
+ {
+  "start": 363.047,
+  "end": 364.923,
+  "en": "So that's how files are uploaded."
+ }
+]

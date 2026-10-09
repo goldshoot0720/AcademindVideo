@@ -1,0 +1,327 @@
+1
+00:00:02,292 --> 00:00:04,728
+Now here's an example where we do repeat
+
+2
+00:00:04,825 --> 00:00:05,450
+ourselves.
+
+3
+00:00:06,123 --> 00:00:08,688
+By the way, don't wonder why the createUser
+
+4
+00:00:08,688 --> 00:00:10,740
+function looks different than the final
+
+5
+00:00:10,772 --> 00:00:12,647
+function form we derived before.
+
+6
+00:00:13,176 --> 00:00:16,078
+I will simply dive into errors and handling
+
+7
+00:00:16,206 --> 00:00:18,402
+errors in the next course section.
+
+8
+00:00:18,867 --> 00:00:21,688
+Therefore, I again removed that code, which
+
+9
+00:00:21,833 --> 00:00:23,580
+would have been the perfect final code
+
+10
+00:00:23,580 --> 00:00:25,616
+though, just to make this clear, and I went
+
+11
+00:00:25,680 --> 00:00:28,436
+back to this second best solution here
+
+12
+00:00:28,965 --> 00:00:31,224
+where we actually have more levels of
+
+13
+00:00:31,224 --> 00:00:34,188
+abstraction inside of createUser. But that's
+
+14
+00:00:34,188 --> 00:00:35,823
+not the function we're going to focus on
+
+15
+00:00:36,079 --> 00:00:36,384
+anyways.
+
+16
+00:00:37,137 --> 00:00:40,069
+This createSupportChannel function is new.
+
+17
+00:00:40,662 --> 00:00:42,633
+It's a dummy function which doesn't actually
+
+18
+00:00:42,729 --> 00:00:45,196
+do a lot, but it does one important thing.
+
+19
+00:00:45,693 --> 00:00:48,481
+It takes an email address because with that
+
+20
+00:00:48,513 --> 00:00:50,804
+we then, for example, create a new support
+
+21
+00:00:50,836 --> 00:00:53,480
+channel where customers can contact us,
+
+22
+00:00:53,560 --> 00:00:54,041
+whatever.
+
+23
+00:00:54,666 --> 00:00:57,455
+And this email needs to be validated before
+
+24
+00:00:57,712 --> 00:00:58,850
+anything is done with it.
+
+25
+00:00:59,651 --> 00:01:01,447
+This of course should sound familiar.
+
+26
+00:01:02,056 --> 00:01:04,701
+We did already validate an email when we
+
+27
+00:01:04,765 --> 00:01:07,506
+created a user in the createUser function up
+
+28
+00:01:07,570 --> 00:01:07,843
+there.
+
+29
+00:01:08,853 --> 00:01:12,203
+Here we got this inputIsValid validation
+
+30
+00:01:12,315 --> 00:01:12,764
+function
+
+31
+00:01:13,341 --> 00:01:16,643
+where we do also validate the email together
+
+32
+00:01:16,643 --> 00:01:17,573
+with the password.
+
+33
+00:01:18,583 --> 00:01:20,634
+So in the end, we have some duplication
+
+34
+00:01:20,634 --> 00:01:23,506
+here. It's not exactly the same code because
+
+35
+00:01:23,602 --> 00:01:26,089
+down there we check for the positive case
+
+36
+00:01:26,346 --> 00:01:29,090
+and here we check for the negative case, but
+
+37
+00:01:29,090 --> 00:01:30,774
+it's the same goal in the end.
+
+38
+00:01:31,801 --> 00:01:34,898
+And that's important. Code duplication and
+
+39
+00:01:34,914 --> 00:01:37,642
+repeating yourself does not mean that it's
+
+40
+00:01:37,722 --> 00:01:40,786
+always the exact same code, but that it's
+
+41
+00:01:40,786 --> 00:01:43,658
+the same task you're doing, the same logic
+
+42
+00:01:43,658 --> 00:01:46,001
+you have. And here it's definitely the same.
+
+43
+00:01:47,124 --> 00:01:49,419
+By the way, also for the error message,
+
+44
+00:01:49,836 --> 00:01:51,491
+We're logging an error message here.
+
+45
+00:01:52,101 --> 00:01:54,158
+Well, we did this in createUser as well.
+
+46
+00:01:54,833 --> 00:01:56,568
+There we then just created this
+
+47
+00:01:57,146 --> 00:01:59,605
+showErrorMessage function which we are
+
+48
+00:01:59,733 --> 00:02:00,103
+calling.
+
+49
+00:02:01,500 --> 00:02:03,959
+Now because we created this showErrorMessage
+
+50
+00:02:04,071 --> 00:02:06,626
+function, we can at least get rid of this
+
+51
+00:02:06,626 --> 00:02:10,273
+console.log duplication because if we ever
+
+52
+00:02:10,401 --> 00:02:13,229
+would decide that we don't want to log
+
+53
+00:02:13,294 --> 00:02:15,286
+errors to the console but handle
+
+54
+00:02:15,318 --> 00:02:15,896
+differently,
+
+55
+00:02:16,442 --> 00:02:18,557
+we would have to make this change down there
+
+56
+00:02:18,909 --> 00:02:20,255
+in showErrorMessage.
+
+57
+00:02:20,912 --> 00:02:23,796
+And if we don't use this function here, we
+
+58
+00:02:23,796 --> 00:02:25,766
+would have to make this change here as well.
+
+59
+00:02:27,000 --> 00:02:29,259
+That's exactly why we don't want to repeat
+
+60
+00:02:29,259 --> 00:02:29,868
+ourselves.
+
+61
+00:02:30,461 --> 00:02:32,303
+So here we can of course also use
+
+62
+00:02:32,303 --> 00:02:34,514
+showErrorMessage instead of calling
+
+63
+00:02:34,610 --> 00:02:37,542
+console.log and we already improved this
+
+64
+00:02:37,574 --> 00:02:37,879
+code.
+
+65
+00:02:39,032 --> 00:02:40,955
+But what about the email validation?
+
+66
+00:02:41,676 --> 00:02:44,368
+Well, the fact that we need to validate an
+
+67
+00:02:44,400 --> 00:02:48,266
+email here as well, but not a password could
+
+68
+00:02:48,330 --> 00:02:50,948
+be another reason for splitting up this code
+
+69
+00:02:51,124 --> 00:02:51,783
+even further.
+
+70
+00:02:52,730 --> 00:02:55,058
+Without the new createSupportChannel
+
+71
+00:02:55,074 --> 00:02:55,572
+function,
+
+72
+00:02:56,102 --> 00:02:59,024
+there wasn't really a strong reason for
+
+73
+00:02:59,088 --> 00:03:01,914
+splitting inputIsValid into multiple
+
+74
+00:03:01,914 --> 00:03:03,070
+sub-functions.
+
+75
+00:03:03,905 --> 00:03:06,121
+But with the existence of this new function,
+
+76
+00:03:06,394 --> 00:03:07,646
+there is a strong reason.
+
+77
+00:03:08,401 --> 00:03:10,585
+Because now we could add a new function
+
+78
+00:03:12,954 --> 00:03:14,913
+emailIsValid, which takes just an email
+
+79
+00:03:15,043 --> 00:03:15,432
+address,
+
+80
+00:03:16,112 --> 00:03:18,865
+which in the end returns this part here.
+
+81
+00:03:20,197 --> 00:03:22,156
+And in inputIsValid here,
+
+82
+00:03:22,803 --> 00:03:25,928
+we could then just call emailIsValid and

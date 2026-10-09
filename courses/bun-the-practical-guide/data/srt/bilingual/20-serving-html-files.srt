@@ -1,0 +1,349 @@
+1
+00:00:00,096 --> 00:00:02,405
+Now, obviously, when you are working on a
+現在，顯然，當你正在研究一個
+
+2
+00:00:02,437 --> 00:00:04,184
+real project, you probably don't wanna
+真正的專案，你可能不想要
+
+3
+00:00:04,200 --> 00:00:06,349
+encode HTML code like this.
+像這樣編碼 HTML 程式碼。
+
+4
+00:00:07,167 --> 00:00:09,459
+Instead, you might want separate files. You
+相反，您可能需要單獨的檔案。你
+
+5
+00:00:09,476 --> 00:00:10,742
+might want pages
+可能需要頁面
+
+6
+00:00:11,319 --> 00:00:13,500
+where you have your index.html file for the
+你的index.html 檔案在哪裡
+
+7
+00:00:13,500 --> 00:00:16,210
+main page, your courses.html file for the
+主頁，您的 course.html 檔案
+
+8
+00:00:16,210 --> 00:00:19,144
+courses page, and your 404.html file for,
+課程頁面，以及您的 404.html 檔案，
+
+9
+00:00:19,433 --> 00:00:21,084
+well, the 404 errors.
+好吧，404 錯誤。
+
+10
+00:00:21,918 --> 00:00:24,387
+And then maybe you also want some assets
+然後也許你還想要一些資產
+
+11
+00:00:24,387 --> 00:00:27,177
+here like your style.css file and maybe some
+這裡就像你的 style.css 檔案，也許還有一些
+
+12
+00:00:27,273 --> 00:00:30,994
+frontend script. So therefore, I did now use
+前端腳本。因此，我現在使用
+
+13
+00:00:31,122 --> 00:00:34,073
+AI to generate some dummy content and styles
+人工智慧產生一些虛擬內容和樣式
+
+14
+00:00:34,105 --> 00:00:36,719
+here. So in all these HTML files
+這裡。所以在所有這些 HTML 檔案中
+
+15
+00:00:37,537 --> 00:00:40,167
+and in the CSS file, I got some styles and
+在 CSS 檔案中，我得到了一些樣式
+
+16
+00:00:40,199 --> 00:00:42,941
+some dummy content. And you find these files
+一些虛擬內容。然後你找到這些檔案
+
+17
+00:00:42,941 --> 00:00:45,170
+attached so that you can use them if you
+附上以便您可以使用它們，如果您
+
+18
+00:00:45,234 --> 00:00:46,181
+wanna follow along.
+想要跟隨。
+
+19
+00:00:47,239 --> 00:00:50,912
+index.ts has now also been changed slightly.
+index.ts 現在也進行了輕微更改。
+
+20
+00:00:51,729 --> 00:00:54,295
+In there, I'm now importing these styles
+在那裡，我現在會匯入這些樣式
+
+21
+00:00:54,536 --> 00:00:58,495
+HTML files. So the 3 HTML files I added
+HTML 檔案。所以我新增了 3 個 HTML 檔案
+
+22
+00:00:58,495 --> 00:01:00,772
+here, I'm importing them because Bun
+在這裡，我導入它們是因為 Bun
+
+23
+00:01:00,948 --> 00:01:04,571
+natively supports HTML imports. That's not a
+原生支援 HTML 導入。那不是一個
+
+24
+00:01:04,571 --> 00:01:06,896
+standard JavaScript or TypeScript feature,
+標準 JavaScript 或 TypeScript 功能，
+
+25
+00:01:06,960 --> 00:01:09,220
+but it's a Bun feature. Now, what's the
+但這是包子的特色。現在，什麼是
+
+26
+00:01:09,220 --> 00:01:11,849
+purpose of adding those imports? Well, I'm
+添加這些導入的目的是什麼？嗯，我是
+
+27
+00:01:11,929 --> 00:01:14,125
+in the end passing those imported
+最後透過那些進口的
+
+28
+00:01:14,654 --> 00:01:17,684
+objects, which these things here turn out to
+物件，這些東西在這裡變成了
+
+29
+00:01:17,716 --> 00:01:17,796
+be,
+是，
+
+30
+00:01:18,342 --> 00:01:20,345
+to a servePage helper function, which I
+到一個servePage輔助函式，我
+
+31
+00:01:20,345 --> 00:01:22,061
+added, this function here. It's a very
+補充一下，這個功能在這裡。這是一個非常
+
+32
+00:01:22,061 --> 00:01:24,129
+simple helper function. It's just there to
+簡單的輔助函式。它只是在那裡
+
+33
+00:01:24,129 --> 00:01:26,341
+construct the response. So that I don't have
+建構回應。這樣我就沒有
+
+34
+00:01:26,357 --> 00:01:28,521
+to repeat that new response code over and
+重複該新回應程式碼並
+
+35
+00:01:28,521 --> 00:01:28,970
+over again.
+再來一次。
+
+36
+00:01:29,723 --> 00:01:33,362
+And in there I get that page thing which is
+在那裡我得到了那個頁面的東西
+
+37
+00:01:33,362 --> 00:01:36,071
+of type BunHtmlBundle. That's what these
+BunHtmlBundle 型別。就是這些
+
+38
+00:01:36,071 --> 00:01:38,716
+imported things are. And in there we have a
+進口的東西都是。在那裡我們有一個
+
+39
+00:01:38,716 --> 00:01:41,650
+couple of properties, specifically a files
+幾個屬性，特別是檔案
+
+40
+00:01:41,682 --> 00:01:43,445
+and an index property. And the index
+和一個索引屬性。和索引
+
+41
+00:01:43,445 --> 00:01:47,485
+property simply is a path to that file, to
+屬性只是該檔案的路徑，
+
+42
+00:01:47,517 --> 00:01:48,591
+the HTML file.
+HTML 檔案。
+
+43
+00:01:49,120 --> 00:01:50,899
+So if I would move that around, the import
+所以如果我把它移到一下，導入
+
+44
+00:01:50,899 --> 00:01:53,672
+path would update and page index, this code
+路徑將更新和頁面索引，此程式碼
+
+45
+00:01:53,688 --> 00:01:55,516
+would stay the same. That's the advantage of
+會保持不變。這就是優點
+
+46
+00:01:55,548 --> 00:01:56,365
+using this approach.
+使用這種方法。
+
+47
+00:01:57,215 --> 00:01:59,530
+We're then using bun.file here, which is
+然後我們在這裡使用bun.file，它是
+
+48
+00:01:59,562 --> 00:02:02,408
+another native Bun API for reading a file,
+另一個用於讀取檔案的原生 Bun API，
+
+49
+00:02:02,923 --> 00:02:06,207
+to read the file content of that HTML file.
+讀取該 HTML 檔案的檔案內容。
+
+50
+00:02:07,129 --> 00:02:08,212
+And then I set the
+然後我設定了
+
+51
+00:02:08,908 --> 00:02:10,816
+appropriate header. So that's how I'm
+適當的標題。所以我就是這樣
+
+52
+00:02:10,913 --> 00:02:13,565
+returning these HTML files as responses.
+傳回這些 HTML 檔案作為回應。
+
+53
+00:02:14,018 --> 00:02:16,198
+Now, there also is one other new route I
+現在，我還有另一條新路線
+
+54
+00:02:16,407 --> 00:02:18,843
+added here, which is simply there to handle
+添加到這裡，這只是為了處理
+
+55
+00:02:18,843 --> 00:02:19,730
+requests to
+要求
+
+56
+00:02:21,436 --> 00:02:24,844
+/assets/styles.css because in those pages, I
+/assets/styles.css 因為在這些頁面中，我
+
+57
+00:02:25,123 --> 00:02:27,801
+make that request or The browser will make
+發出該請求或瀏覽器將發出
+
+58
+00:02:27,929 --> 00:02:29,630
+that request because I'm linking the
+該請求是因為我正在連結
+
+59
+00:02:29,630 --> 00:02:30,304
+stylesheet here.
+樣式表在這裡。
+
+60
+00:02:30,834 --> 00:02:32,422
+And that's simply needed to make sure that
+這只是為了確保
+
+61
+00:02:32,422 --> 00:02:34,733
+the styles are served correctly.
+樣式服務正確。
+
+62
+00:02:35,873 --> 00:02:38,344
+And with that out of the way, if I reload,
+有了這個，如果我重新載入，
+
+63
+00:02:38,761 --> 00:02:41,136
+that's what the page looks like right now.
+這就是頁面現在的樣子。
+
+64
+00:02:41,345 --> 00:02:45,421
+And for invalid paths, I got a proper 404
+對於無效路徑，我得到了正確的 404
+
+65
+00:02:45,437 --> 00:02:45,967
+page too.
+頁面也是。
+
+66
+00:02:47,122 --> 00:02:48,727
+And that's of course therefore another
+這當然是另一個
+
+67
+00:02:48,727 --> 00:02:51,664
+convenient feature, but we can still do
+方便的功能，但我們仍然可以做
+
+68
+00:02:51,760 --> 00:02:53,702
+better when it comes to setting up a web
+建立人脈時效果更好
+
+69
+00:02:53,702 --> 00:02:56,382
+server and using Bun for making our life
+伺服器並使用 Bun 來創造我們的生活
+
+70
+00:02:56,574 --> 00:02:56,911
+easier.
+更輕鬆。

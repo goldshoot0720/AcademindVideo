@@ -1,0 +1,479 @@
+1
+00:00:02,153 --> 00:00:05,279
+Now with HTMX, if multiple requests are
+現在使用 HTMX，如果有多個請求
+
+2
+00:00:05,327 --> 00:00:08,128
+triggered around the same time and we only
+大約在同一時間觸發，我們只
+
+3
+00:00:08,161 --> 00:00:09,731
+wanna send one of those requests,
+想發送其中一個請求，
+
+4
+00:00:10,380 --> 00:00:13,335
+we can achieve this behavior with help of
+我們可以在以下的幫助下實現這種行為
+
+5
+00:00:13,335 --> 00:00:15,381
+another special attribute.
+另一個特殊屬性。
+
+6
+00:00:16,637 --> 00:00:18,318
+And it's an attribute which I'll add to that
+我將添加一個屬性
+
+7
+00:00:18,512 --> 00:00:19,271
+form element here.
+此處的表單元素。
+
+8
+00:00:20,774 --> 00:00:22,665
+And the attribute I'm talking about is the
+我所說的屬性是
+
+9
+00:00:22,859 --> 00:00:25,218
+hx-sync attribute.
+hx-sync 屬性。
+
+10
+00:00:27,229 --> 00:00:29,842
+This attribute exists to allow you to
+該屬性的存在是為了讓您能夠
+
+11
+00:00:30,146 --> 00:00:34,266
+synchronize the sending or the handling of
+同步發送或處理
+
+12
+00:00:34,378 --> 00:00:36,398
+multiple requests at the same time.
+同時多個請求。
+
+13
+00:00:37,440 --> 00:00:40,518
+Specifically, the idea behind this attribute
+具體來說，這個屬性背後的想法
+
+14
+00:00:41,015 --> 00:00:43,211
+is to make it easier for you
+是為了讓您更輕鬆
+
+15
+00:00:43,740 --> 00:00:44,942
+to cancel
+取消
+
+16
+00:00:45,503 --> 00:00:48,869
+other requests if this element here sends a
+如果這裡的這個元素發送一個其他請求
+
+17
+00:00:48,869 --> 00:00:49,286
+request.
+要求。
+
+18
+00:00:50,633 --> 00:00:54,352
+Or to be precise, hx-sync actually takes a
+或者準確地說，hx-sync 實際上需要一個
+
+19
+00:00:54,352 --> 00:00:58,392
+CSS selector that allows you to pick an
+CSS 選擇器，讓您選擇
+
+20
+00:00:58,408 --> 00:01:01,072
+element which might eventually send a
+最終可能發送一個元素
+
+21
+00:01:01,072 --> 00:01:01,794
+request,
+要求，
+
+22
+00:01:02,837 --> 00:01:06,624
+and then you can tell HTMX what to do with
+然後你可以告訴 HTMX 做什麼
+
+23
+00:01:06,752 --> 00:01:09,705
+that element's request if another request is
+如果另一個請求是該元素的請求
+
+24
+00:01:09,753 --> 00:01:11,646
+sent from some other element at the same
+同時從其他某個元素發送
+
+25
+00:01:11,646 --> 00:01:11,999
+time.
+時間。
+
+26
+00:01:13,042 --> 00:01:15,850
+So here we could select our form by using
+所以在這裡我們可以透過使用來選擇我們的表單
+
+27
+00:01:15,899 --> 00:01:16,813
+this form selector,
+這個表單選擇器，
+
+28
+00:01:18,065 --> 00:01:21,146
+or since I'm actually already using hx-sync
+或者因為我實際上已經在使用 hx-sync
+
+29
+00:01:21,274 --> 00:01:24,018
+on the element which does send the request I
+在發送請求的元素上
+
+30
+00:01:24,162 --> 00:01:26,510
+wanna control, we can actually also use
+想要控制，我們其實也可以使用
+
+31
+00:01:26,655 --> 00:01:26,912
+this.
+這。
+
+32
+00:01:28,040 --> 00:01:30,359
+That's something HTMX allows you to do.
+這就是 HTMX 允許您做的事情。
+
+33
+00:01:31,358 --> 00:01:34,370
+So with that, I'm telling HTMX that it's the
+因此，我告訴 HTMX 這就是
+
+34
+00:01:34,370 --> 00:01:37,324
+request sent by this form element that I
+我透過此表單元素發送的請求
+
+35
+00:01:37,324 --> 00:01:40,003
+wanna synchronize with some other requests
+想與其他一些請求同步
+
+36
+00:01:40,003 --> 00:01:40,782
+by other elements.
+由其他元素。
+
+37
+00:01:42,831 --> 00:01:45,143
+And you then just have to tell HTMX what to
+然後您只需告訴 HTMX 要做什麼
+
+38
+00:01:45,175 --> 00:01:45,288
+do
+做
+
+39
+00:01:45,903 --> 00:01:46,048
+with
+和
+
+40
+00:01:46,727 --> 00:01:50,236
+this request here if some other requests are
+如果還有其他請求，則在此請求
+
+41
+00:01:50,850 --> 00:01:53,488
+executed at the same time where this element
+該元素同時執行
+
+42
+00:01:53,488 --> 00:01:54,626
+here sends a request.
+這裡發送一個請求。
+
+43
+00:01:56,062 --> 00:01:58,219
+You do that by adding a colon after your
+你可以透過在你的後面加上一個冒號來做到這一點
+
+44
+00:01:58,267 --> 00:02:00,423
+selector and then by specifying the
+選擇器，然後透過指定
+
+45
+00:02:00,423 --> 00:02:01,164
+strategy.
+戰略。
+
+46
+00:02:02,590 --> 00:02:05,092
+Now regarding the strategy, you got various
+現在關於策略，你有各種各樣的
+
+47
+00:02:05,206 --> 00:02:06,928
+options as you can see here.
+您可以在此處看到選項。
+
+48
+00:02:08,366 --> 00:02:10,846
+And in my case here, the strategy is
+就我而言，策略是
+
+49
+00:02:10,878 --> 00:02:11,442
+replace,
+代替，
+
+50
+00:02:12,151 --> 00:02:13,101
+which simply means
+這僅僅意味著
+
+51
+00:02:13,842 --> 00:02:16,129
+if this element here sends a request
+如果這裡的這個元素發送一個請求
+
+52
+00:02:16,660 --> 00:02:19,130
+and there are some other requests going on
+還有一些其他請求正在進行中
+
+53
+00:02:19,341 --> 00:02:21,167
+or started at the same time,
+或同時開始，
+
+54
+00:02:21,785 --> 00:02:25,133
+those other requests will be replaced with
+那些其他請求將被替換為
+
+55
+00:02:25,262 --> 00:02:26,637
+this element's request.
+該元素的請求。
+
+56
+00:02:27,785 --> 00:02:30,243
+So they will be canceled and it's then only
+所以它們會被取消，然後就只有
+
+57
+00:02:30,275 --> 00:02:32,206
+the request of this element that will
+該元素的請求將
+
+58
+00:02:32,256 --> 00:02:32,783
+survive.
+存活。
+
+59
+00:02:34,807 --> 00:02:36,777
+Alternatively, if I would specify abort
+或者，如果我指定中止
+
+60
+00:02:36,777 --> 00:02:37,656
+here, for example,
+在這裡，例如，
+
+61
+00:02:38,225 --> 00:02:39,593
+we would achieve the opposite.
+我們會得到相反的結果。
+
+62
+00:02:40,869 --> 00:02:42,782
+That would be another strategy which would
+這將是另一種策略
+
+63
+00:02:42,831 --> 00:02:45,230
+make sure that the other requests continue
+確保其他請求繼續
+
+64
+00:02:45,587 --> 00:02:47,694
+but the request of this element would be
+但這個元素的請求是
+
+65
+00:02:47,694 --> 00:02:48,116
+aborted.
+中止了。
+
+66
+00:02:48,707 --> 00:02:50,868
+Now that's not what I want here. Instead, I
+現在這不是我想要的。相反，我
+
+67
+00:02:50,966 --> 00:02:53,160
+want the opposite. So replace is the
+想要相反的。所以替換是
+
+68
+00:02:53,160 --> 00:02:54,265
+strategy I need here.
+我在這裡需要策略。
+
+69
+00:02:56,050 --> 00:02:58,568
+Well, and with this attribute added, we
+好吧，添加了這個屬性後，我們
+
+70
+00:02:58,584 --> 00:03:00,360
+therefore now got a different behavior.
+因此現在有不同的行為。
+
+71
+00:03:00,909 --> 00:03:03,686
+If I reload and I again open that network
+如果我重新載入並再次打開該網路
+
+72
+00:03:03,686 --> 00:03:05,930
+tab so that we can see outgoing requests,
+分頁以便我們可以看到傳出的請求，
+
+73
+00:03:06,511 --> 00:03:08,691
+of course, if I enter an email address here,
+當然，如果我在這裡輸入電子郵件地址，
+
+74
+00:03:09,401 --> 00:03:10,612
+that request is sent.
+該請求已發送。
+
+75
+00:03:12,389 --> 00:03:13,745
+But if I now enter a password,
+但如果我現在輸入密碼，
+
+76
+00:03:14,309 --> 00:03:16,709
+and I then don't tab out of that field or
+然後我不會跳出該欄位或
+
+77
+00:03:16,920 --> 00:03:19,092
+anything like that, but instead I just hit
+類似的事情，但我只是打了
+
+78
+00:03:19,173 --> 00:03:20,373
+Enter to submit the form,
+輸入提交表格，
+
+79
+00:03:21,200 --> 00:03:23,185
+you see this validate request here
+你在這裡看到這個驗證請求
+
+80
+00:03:24,683 --> 00:03:26,181
+was actually canceled.
+實際上被取消了。
+
+81
+00:03:27,744 --> 00:03:30,210
+You can also see the status here. It was
+您也可以在此處查看狀態。原來是
+
+82
+00:03:30,242 --> 00:03:30,933
+canceled
+取消
+
+83
+00:03:31,688 --> 00:03:35,672
+by HTMX and only that login POST request was
+透過 HTMX 並且只有登入 POST 請求是
+
+84
+00:03:35,881 --> 00:03:36,138
+sent.
+發送。
+
+85
+00:03:37,215 --> 00:03:39,464
+And that led to that validation and to that
+這導致了驗證
+
+86
+00:03:39,464 --> 00:03:40,363
+list of error messages.
+錯誤訊息列表。
+
+87
+00:03:40,990 --> 00:03:43,205
+But we now don't have that behavior we saw
+但我們現在沒有看到這種行為
+
+88
+00:03:43,205 --> 00:03:46,343
+before where both requests would be sent and
+在發送兩個請求之前
+
+89
+00:03:46,424 --> 00:03:46,845
+handled.
+處理。
+
+90
+00:03:48,390 --> 00:03:50,344
+And therefore, whenever you have a situation
+因此，每當你遇到某種情況時
+
+91
+00:03:50,344 --> 00:03:52,170
+like this where multiple requests are
+像這樣有多個要求的地方
+
+92
+00:03:52,235 --> 00:03:54,125
+started or sent at the same time
+同時開始或發送
+
+93
+00:03:54,707 --> 00:03:56,419
+and you don't want that to happen,
+而你不希望這種事發生
+
+94
+00:03:57,630 --> 00:04:00,064
+you can use HX-SYNC to control which
+您可以使用 HX-SYNC 來控制
+
+95
+00:04:00,178 --> 00:04:02,580
+requests might be canceled and which
+請求可能會被取消，並且
+
+96
+00:04:02,678 --> 00:04:04,382
+requests will still be sent.
+請求仍將被發送。

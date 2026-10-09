@@ -1,0 +1,275 @@
+1
+00:00:00,448 --> 00:00:03,880
+So how can we now get HTMX to automatically
+
+2
+00:00:03,880 --> 00:00:06,654
+send that GET request every 5 seconds?
+
+3
+00:00:07,872 --> 00:00:10,085
+Well, for that, we need to adjust the
+
+4
+00:00:10,438 --> 00:00:10,983
+trigger
+
+5
+00:00:11,560 --> 00:00:13,404
+of this GET request.
+
+6
+00:00:14,463 --> 00:00:17,509
+Remember that the default trigger is the
+
+7
+00:00:17,910 --> 00:00:21,774
+most obvious event for the element on which
+
+8
+00:00:21,999 --> 00:00:24,051
+this attribute is added. And for an
+
+9
+00:00:24,147 --> 00:00:26,168
+unordered list, like for most elements,
+
+10
+00:00:26,488 --> 00:00:27,611
+that's a click event.
+
+11
+00:00:28,316 --> 00:00:30,415
+That's why at the moment we send this
+
+12
+00:00:30,415 --> 00:00:32,338
+request when we click on this element.
+
+13
+00:00:33,380 --> 00:00:35,608
+But now I actually wanna change that trigger
+
+14
+00:00:35,624 --> 00:00:39,341
+and we can do that by using hx-trigger.
+
+15
+00:00:40,752 --> 00:00:42,707
+But I don't wanna change it to some other
+
+16
+00:00:42,819 --> 00:00:44,453
+user event. Instead,
+
+17
+00:00:44,998 --> 00:00:46,248
+I wanna change it to some
+
+18
+00:00:46,905 --> 00:00:49,325
+automated polling mechanism.
+
+19
+00:00:50,287 --> 00:00:52,947
+And turns out that HTMX got support for
+
+20
+00:00:52,947 --> 00:00:55,719
+that. Instead of specifying an event like
+
+21
+00:00:56,040 --> 00:00:58,091
+mouseenter or click here,
+
+22
+00:00:58,620 --> 00:01:00,834
+you can also specify specify every
+
+23
+00:01:01,735 --> 00:01:04,001
+and then some time period like 2s
+
+24
+00:01:04,645 --> 00:01:07,892
+for 2 seconds or 5 seconds, which is what I
+
+25
+00:01:08,021 --> 00:01:08,375
+want here.
+
+26
+00:01:09,939 --> 00:01:12,438
+And you can learn about all the possible
+
+27
+00:01:12,922 --> 00:01:15,970
+triggers and trigger modifiers here in the
+
+28
+00:01:15,970 --> 00:01:16,933
+official documentation.
+
+29
+00:01:18,010 --> 00:01:19,729
+There you learn about this polling
+
+30
+00:01:20,018 --> 00:01:20,661
+mechanism,
+
+31
+00:01:21,866 --> 00:01:23,842
+but you will also learn that you could, for
+
+32
+00:01:23,874 --> 00:01:26,503
+example, add the once modifier to only
+
+33
+00:01:26,535 --> 00:01:29,294
+listen to the first event of a certain type
+
+34
+00:01:29,423 --> 00:01:33,118
+that occurs, that you could add delays and
+
+35
+00:01:33,150 --> 00:01:33,344
+more,
+
+36
+00:01:33,876 --> 00:01:35,845
+whatever you need for the application you
+
+37
+00:01:35,894 --> 00:01:36,427
+are building.
+
+38
+00:01:37,576 --> 00:01:40,100
+Now, in my case here, I'm interested in that
+
+39
+00:01:40,100 --> 00:01:42,591
+polling mechanism and that works with help
+
+40
+00:01:42,591 --> 00:01:44,990
+of that every keyword, which you add here
+
+41
+00:01:45,610 --> 00:01:47,201
+followed by the timeframe.
+
+42
+00:01:48,633 --> 00:01:50,880
+Now, you can also write more advanced code
+
+43
+00:01:50,913 --> 00:01:53,990
+here and for example, also combine multiple
+
+44
+00:01:54,006 --> 00:01:54,299
+triggers
+
+45
+00:01:54,848 --> 00:01:57,384
+But for our example here, this is all we
+
+46
+00:01:57,384 --> 00:01:57,597
+need.
+
+47
+00:02:00,270 --> 00:02:02,755
+Well, and with that code added, if you now
+
+48
+00:02:02,965 --> 00:02:05,676
+reload, you will see that after 5 seconds,
+
+49
+00:02:06,430 --> 00:02:09,297
+those suggested places will be swapped out
+
+50
+00:02:09,426 --> 00:02:10,941
+for 2 different places.
+
+51
+00:02:11,682 --> 00:02:14,324
+And then after 5 seconds, we again have them
+
+52
+00:02:14,437 --> 00:02:17,801
+being replaced and so on. So now HTMX is
+
+53
+00:02:17,979 --> 00:02:20,490
+polling for new places every 5 seconds. 5
+
+54
+00:02:20,779 --> 00:02:21,293
+seconds.
+
+55
+00:02:22,352 --> 00:02:24,245
+And of course, we can still add places from
+
+56
+00:02:24,277 --> 00:02:26,508
+up there. Then we'll automatically refetch
+
+57
+00:02:26,780 --> 00:02:29,059
+these places, but the polling mechanism will
+
+58
+00:02:29,123 --> 00:02:32,349
+stay active because we specified it here on
+
+59
+00:02:32,397 --> 00:02:34,338
+the unordered list. And we're never
+
+60
+00:02:34,467 --> 00:02:36,585
+replacing this unordered list item here
+
+61
+00:02:37,050 --> 00:02:40,211
+because when we do return it, like here when
+
+62
+00:02:40,340 --> 00:02:40,436
+we
+
+63
+00:02:41,206 --> 00:02:44,191
+added a new place to the dream places, we
+
+64
+00:02:44,191 --> 00:02:46,758
+perform that out-of-band swap such that we
+
+65
+00:02:46,983 --> 00:02:49,703
+only replace the content, the children of
+
+66
+00:02:49,719 --> 00:02:52,234
+this unordered list with the content defined
+
+67
+00:02:52,234 --> 00:02:54,378
+here and not the list as a whole.
+
+68
+00:02:55,280 --> 00:02:57,569
+And that's therefore how you can set up
+
+69
+00:02:57,634 --> 00:02:59,407
+polling with HTMX.

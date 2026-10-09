@@ -1,0 +1,347 @@
+1
+00:00:00,048 --> 00:00:03,110
+So let's start configuring our VPS and let's
+
+2
+00:00:03,110 --> 00:00:05,211
+start with updating the system. As an
+
+3
+00:00:05,243 --> 00:00:08,738
+important side note, for all these steps and
+
+4
+00:00:08,770 --> 00:00:09,780
+other parts of this course,
+
+5
+00:00:10,373 --> 00:00:13,372
+we'll work with important core Linux
+
+6
+00:00:13,420 --> 00:00:16,065
+commands and you could create an entire
+
+7
+00:00:16,065 --> 00:00:19,561
+course about just Linux, a 40-hour course,
+
+8
+00:00:19,673 --> 00:00:21,790
+and that's not what this course is about.
+
+9
+00:00:22,800 --> 00:00:25,253
+Nonetheless, in the next lecture, you'll
+
+10
+00:00:25,269 --> 00:00:27,834
+find more details and a cheat sheet that
+
+11
+00:00:27,834 --> 00:00:30,495
+lists all the crucial commands you should
+
+12
+00:00:30,559 --> 00:00:33,363
+know and how they work and what they do so
+
+13
+00:00:33,459 --> 00:00:35,142
+that you can always take a look at that
+
+14
+00:00:35,142 --> 00:00:37,369
+resource if you're stuck or if you're not
+
+15
+00:00:37,369 --> 00:00:39,469
+sure what a certain command does. Of course,
+
+16
+00:00:39,485 --> 00:00:41,712
+I'll also explain those commands when we use
+
+17
+00:00:41,712 --> 00:00:42,930
+them for the first time though.
+
+18
+00:00:43,731 --> 00:00:45,991
+So let's start configuring our new VPS.
+
+19
+00:00:46,119 --> 00:00:48,042
+Let's start making it a bit more secure and
+
+20
+00:00:48,042 --> 00:00:50,061
+let's start by updating the system. So by
+
+21
+00:00:50,061 --> 00:00:52,417
+making sure that the software installed on
+
+22
+00:00:52,449 --> 00:00:54,983
+this brand new VPS is fully up to date.
+
+23
+00:00:55,657 --> 00:00:58,002
+And I'll do that still as my root user here.
+
+24
+00:00:58,549 --> 00:01:02,516
+And as that root user on a Ubuntu system, I
+
+25
+00:01:02,645 --> 00:01:06,532
+can use the apt command for managing my
+
+26
+00:01:06,580 --> 00:01:09,295
+packages, my software on that server.
+
+27
+00:01:09,873 --> 00:01:13,150
+That stands for Advanced Package Tool, and
+
+28
+00:01:13,150 --> 00:01:15,720
+it's very common on Debian-based
+
+29
+00:01:15,720 --> 00:01:17,519
+distributions like Ubuntu.
+
+30
+00:01:18,450 --> 00:01:22,065
+On other distributions, you might have dnf,
+
+31
+00:01:22,466 --> 00:01:25,564
+as a package manager with commands like dnf
+
+32
+00:01:25,788 --> 00:01:29,737
+install or dnf upgrade for installing or
+
+33
+00:01:29,769 --> 00:01:32,048
+upgrading packages. But in general, you
+
+34
+00:01:32,048 --> 00:01:34,087
+should of course look up the documentation
+
+35
+00:01:34,183 --> 00:01:36,735
+of your Linux distribution to find out which
+
+36
+00:01:37,008 --> 00:01:38,934
+package manager should be used there. For
+
+37
+00:01:39,078 --> 00:01:40,780
+Ubuntu, as mentioned, it's apt.
+
+38
+00:01:41,486 --> 00:01:44,182
+And there you can run apt install to install
+
+39
+00:01:44,391 --> 00:01:47,489
+a new package or like in our case, upgrade
+
+40
+00:01:47,665 --> 00:01:50,490
+to upgrade a package to install its latest
+
+41
+00:01:50,490 --> 00:01:50,795
+version.
+
+42
+00:01:51,517 --> 00:01:53,843
+And in order to run that, you first need to
+
+43
+00:01:53,843 --> 00:01:58,270
+run apt update. So not upgrade, but update.
+
+44
+00:01:58,896 --> 00:02:02,569
+And update will first update the registry of
+
+45
+00:02:02,681 --> 00:02:03,211
+packages
+
+46
+00:02:03,788 --> 00:02:06,740
+this server is aware of. So there is an
+
+47
+00:02:06,836 --> 00:02:08,745
+official package registry
+
+48
+00:02:09,322 --> 00:02:11,809
+which registers all the packages you could
+
+49
+00:02:11,809 --> 00:02:14,728
+install with apt. And in order to make sure
+
+50
+00:02:14,728 --> 00:02:16,541
+that we have the latest version of that
+
+51
+00:02:16,541 --> 00:02:20,836
+registry on this new VPS here, we run apt
+
+52
+00:02:21,046 --> 00:02:22,674
+update as a first step.
+
+53
+00:02:24,678 --> 00:02:26,799
+So that gets us the latest information about
+
+54
+00:02:26,831 --> 00:02:29,275
+which packages are available and what their
+
+55
+00:02:29,564 --> 00:02:30,641
+latest versions are.
+
+56
+00:02:31,557 --> 00:02:33,891
+And after running this, you can run apt
+
+57
+00:02:33,972 --> 00:02:37,767
+upgrade to pull those latest versions that
+
+58
+00:02:37,865 --> 00:02:40,265
+were now identified and install them. Now,
+
+59
+00:02:40,314 --> 00:02:42,390
+that will not install all packages that are
+
+60
+00:02:42,390 --> 00:02:44,715
+available, just the latest versions of the
+
+61
+00:02:44,781 --> 00:02:46,664
+packages you already have on your system.
+
+62
+00:02:47,416 --> 00:02:50,621
+If you add -y here, you will not be asked
+
+63
+00:02:50,621 --> 00:02:52,801
+for confirmation and instead it will just
+
+64
+00:02:52,801 --> 00:02:54,980
+download and install all these updates in
+
+65
+00:02:55,108 --> 00:02:57,752
+one go without asking you for permission for
+
+66
+00:02:57,832 --> 00:02:58,489
+every package.
+
+67
+00:02:59,451 --> 00:03:01,390
+Now that can of course take a while until
+
+68
+00:03:01,518 --> 00:03:03,777
+all these latest versions are installed,
+
+69
+00:03:04,563 --> 00:03:04,851
+but then
+
+70
+00:03:05,604 --> 00:03:06,293
+in the end here,
+
+71
+00:03:06,822 --> 00:03:07,896
+it is done.
+
+72
+00:03:08,441 --> 00:03:09,963
+Now here it's telling me that
+
+73
+00:03:10,492 --> 00:03:12,639
+I should consider rebooting
+
+74
+00:03:13,296 --> 00:03:15,396
+And I'll do that by running reboot, which is
+
+75
+00:03:15,396 --> 00:03:17,961
+another handy command, of course. Now that
+
+76
+00:03:18,041 --> 00:03:20,894
+terminates my connection naturally because
+
+77
+00:03:20,926 --> 00:03:23,203
+that remote server is restarting.
+
+78
+00:03:24,116 --> 00:03:26,136
+And therefore I'm back on my Mac here and I
+
+79
+00:03:26,200 --> 00:03:28,909
+can reestablish my connection by rerunning
+
+80
+00:03:28,942 --> 00:03:30,496
+that SSH command from before.
+
+81
+00:03:31,426 --> 00:03:33,013
+And you can simply wait a couple of seconds
+
+82
+00:03:33,013 --> 00:03:35,113
+and then try again and it should be up
+
+83
+00:03:35,113 --> 00:03:37,999
+again. So with that, we made sure that the
+
+84
+00:03:37,999 --> 00:03:39,922
+software installed on that server is up to
+
+85
+00:03:39,922 --> 00:03:41,974
+date, which is always a good idea to patch
+
+86
+00:03:42,231 --> 00:03:44,010
+any security holes that might have been
+
+87
+00:03:44,010 --> 00:03:45,534
+found in the meantime. And so on.

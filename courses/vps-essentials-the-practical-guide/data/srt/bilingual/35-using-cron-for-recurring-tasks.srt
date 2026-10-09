@@ -1,0 +1,464 @@
+1
+00:00:00,096 --> 00:00:02,597
+Now, running scripts manually as we did here
+現在，像我們在這裡一樣手動運行腳本
+
+2
+00:00:02,597 --> 00:00:05,339
+is one thing you may wanna do for irregular
+這是你可能想做的一件事
+
+3
+00:00:05,660 --> 00:00:08,177
+tasks, tasks that just need to be executed
+任務，只需要執行的任務
+
+4
+00:00:08,193 --> 00:00:10,534
+from time to time. But of course, often you
+時。但當然，很多時候你
+
+5
+00:00:10,598 --> 00:00:12,907
+also have recurring tasks and a backup, as
+還有重複任務和備份，如
+
+6
+00:00:12,923 --> 00:00:15,120
+mentioned, is a great example for a
+提到的，就是一個很好的例子
+
+7
+00:00:15,184 --> 00:00:16,130
+recurring task.
+重複任務。
+
+8
+00:00:16,948 --> 00:00:19,577
+Therefore, we also may wanna run our script
+因此，我們也可能想運行我們的腳本
+
+9
+00:00:19,577 --> 00:00:22,479
+on a schedule using a feature called cron.
+使用名為 cron 的功能按計劃進行。
+
+10
+00:00:22,944 --> 00:00:25,558
+And cron is simply a feature of Linux
+而cron只是Linux的功能
+
+11
+00:00:25,606 --> 00:00:29,853
+systems, a pre-installed process or tool,
+系統、預先安裝的流程或工具，
+
+12
+00:00:29,869 --> 00:00:30,386
+you could say,
+你可以說，
+
+13
+00:00:31,082 --> 00:00:35,236
+that allows you to run scripts, files, tasks
+允許您運行腳本、檔案、任務
+
+14
+00:00:35,753 --> 00:00:38,082
+on a schedule. Now, first of all, we can
+按計劃進行。現在，首先我們可以
+
+15
+00:00:38,098 --> 00:00:40,946
+check whether cron is enabled on our system
+檢查我們的系統是否啟用了 cron
+
+16
+00:00:40,962 --> 00:00:41,873
+with this command.
+用這個命令。
+
+17
+00:00:44,417 --> 00:00:46,616
+And you see it is active for me here. It
+你看它對我來說很活躍。它
+
+18
+00:00:46,616 --> 00:00:47,521
+should be for you too.
+也應該適合你。
+
+19
+00:00:49,025 --> 00:00:52,032
+If it's not active, this is how you can make
+如果它不活躍，這就是你可以做的
+
+20
+00:00:52,032 --> 00:00:54,129
+sure you got it installed and how you can
+確保您已安裝它以及如何安裝
+
+21
+00:00:54,129 --> 00:00:54,714
+enable it.
+啟用它。
+
+22
+00:00:55,845 --> 00:00:58,100
+And then we could run our backup script on a
+然後我們可以在
+
+23
+00:00:58,100 --> 00:01:00,597
+schedule every day at 9:00 AM, for example.
+例如，每天安排在上午 9:00。
+
+24
+00:01:01,483 --> 00:01:03,512
+Now, to do that, you can run a command
+現在，為此，您可以運行命令
+
+25
+00:01:03,560 --> 00:01:04,317
+called crontab,
+稱為 crontab，
+
+26
+00:01:04,920 --> 00:01:06,774
+which allows you to manage your cron
+它允許你管理你的 cron
+
+27
+00:01:07,049 --> 00:01:09,258
+entries, your schedules, so to say.
+條目，你的日程安排，可以這麼說。
+
+28
+00:01:09,952 --> 00:01:12,710
+However, we don't wanna run crontab like
+但是，我們不想像這樣運行 crontab
+
+29
+00:01:12,710 --> 00:01:14,549
+this, but instead with sudo.
+這個，但用 sudo 代替。
+
+30
+00:01:16,113 --> 00:01:18,615
+So here I'll run sudo crontab -e,
+所以在這裡我將運行 sudo crontab -e，
+
+31
+00:01:20,229 --> 00:01:22,457
+and this shows me my crontab, and currently,
+這顯示了我的 crontab，目前，
+
+32
+00:01:22,822 --> 00:01:25,650
+It's empty because I haven't created any
+它是空的，因為我還沒有創建任何
+
+33
+00:01:25,650 --> 00:01:26,533
+schedules before.
+之前的時間表。
+
+34
+00:01:27,176 --> 00:01:29,023
+So therefore, since this is the first time
+所以，既然這是第一次
+
+35
+00:01:29,023 --> 00:01:30,244
+I'm trying to edit this file,
+我正在嘗試編輯這個檔案，
+
+36
+00:01:30,919 --> 00:01:32,847
+I have to choose which editor I wanna use
+我必須選擇我想要使用的編輯器
+
+37
+00:01:32,847 --> 00:01:35,867
+and I'll use nano, so number 1 or nothing
+我會使用 nano，所以選擇 1 或什麼都不用
+
+38
+00:01:35,996 --> 00:01:38,647
+since that is the default and hit Enter and
+因為這是預設設置，然後按 Enter 並
+
+39
+00:01:38,647 --> 00:01:41,619
+that opens up a simple file that contains my
+打開一個簡單的檔案，其中包含我的
+
+40
+00:01:41,715 --> 00:01:42,310
+schedules.
+時間表。
+
+41
+00:01:43,225 --> 00:01:45,796
+Now cron schedules have their very own
+現在 cron 計劃有自己的
+
+42
+00:01:45,957 --> 00:01:49,105
+notation and attached you find a link to
+符號並附上您找到的連結
+
+43
+00:01:49,636 --> 00:01:52,702
+more details about how you can configure
+有關如何設定的更多詳細資訊
+
+44
+00:01:52,702 --> 00:01:54,886
+cron tasks. And of course, your favorite AI
+計劃任務。當然，還有你最喜歡的人工智慧
+
+45
+00:01:55,015 --> 00:01:56,909
+agent can also help you with that, or
+代理人也可以幫助您，或者
+
+46
+00:01:57,118 --> 00:01:57,857
+ChatGPT.
+聊天GPT。
+
+47
+00:01:58,868 --> 00:02:00,137
+Here in my case,
+就我而言，
+
+48
+00:02:00,795 --> 00:02:01,662
+I already
+我已經
+
+49
+00:02:02,320 --> 00:02:02,706
+have
+有
+
+50
+00:02:03,958 --> 00:02:05,772
+some code which I want to paste in, so I'll
+我想貼上一些程式碼，所以我會
+
+51
+00:02:05,772 --> 00:02:06,591
+copy that,
+複製那個，
+
+52
+00:02:07,555 --> 00:02:08,711
+paste it into that file,
+將其貼到該檔案中，
+
+53
+00:02:09,385 --> 00:02:12,002
+and I now also want to edit this here. Now
+我現在也想在這裡編輯它。現在
+
+54
+00:02:12,372 --> 00:02:14,588
+this just says every day at 9 AM
+這只是說每天上午 9 點
+
+55
+00:02:15,198 --> 00:02:15,877
+system time,
+系統時間，
+
+56
+00:02:16,541 --> 00:02:19,598
+and my user is called Max. My script, of
+我的使用者叫Max。我的劇本，
+
+57
+00:02:19,614 --> 00:02:21,814
+course, is directly stored in a scripts
+當然，是直接儲存在腳本中
+
+58
+00:02:21,879 --> 00:02:22,218
+folder,
+資料夾，
+
+59
+00:02:23,815 --> 00:02:25,233
+and that is then the script name.
+這就是腳本名稱。
+
+60
+00:02:25,974 --> 00:02:29,826
+And I then also write my logs to a dedicated
+然後我還將紀錄寫入專用的
+
+61
+00:02:29,923 --> 00:02:33,050
+log file. This forwards my output from the
+記錄檔.這轉發了我的輸出
+
+62
+00:02:33,050 --> 00:02:34,177
+script to that log file.
+腳本到該紀錄檔案。
+
+63
+00:02:35,498 --> 00:02:36,174
+And that is all
+這就是全部
+
+64
+00:02:36,722 --> 00:02:38,897
+it should take to run this script on a
+應該需要在
+
+65
+00:02:38,897 --> 00:02:41,555
+schedule. Of course, you must make sure that
+日程。當然，您必須確保
+
+66
+00:02:41,555 --> 00:02:43,860
+the script works. That's why I ran it
+腳本有效。這就是我運行它的原因
+
+67
+00:02:43,860 --> 00:02:46,192
+manually in the previous lectures.
+在前面的講座中手動進行。
+
+68
+00:02:47,250 --> 00:02:50,873
+With that, I can exit out of this file, save
+這樣，我就可以退出該檔案，並儲存
+
+69
+00:02:50,873 --> 00:02:53,437
+it so that this new entry is saved,
+這樣就可以儲存這個新條目，
+
+70
+00:02:53,982 --> 00:02:56,884
+and that is all it should take. You can now
+這就是它應該做的一切。你現在可以
+
+71
+00:02:57,188 --> 00:02:59,561
+run sudo crontab -l
+運行 sudo crontab -l
+
+72
+00:03:00,186 --> 00:03:03,119
+to see basically the content of that file
+基本上就是查看該檔案的內容
+
+73
+00:03:03,520 --> 00:03:05,267
+and to see that this was saved and is
+並看到它已被儲存並且正在
+
+74
+00:03:05,380 --> 00:03:06,678
+registered. So
+掛號的。所以
+
+75
+00:03:07,223 --> 00:03:08,425
+-l simply lists it,
+-l 只是列出它，
+
+76
+00:03:09,050 --> 00:03:11,968
+-e edits that file. That is what we did. You
+-e 編輯該檔案。這就是我們所做的。你
+
+77
+00:03:12,176 --> 00:03:16,665
+can also run the timedatectl command to see
+也可以運行timedatectl指令查看
+
+78
+00:03:16,745 --> 00:03:20,720
+your local time because this runs after your
+您當地時間，因為它在您之後運行
+
+79
+00:03:21,153 --> 00:03:24,696
+local time on the VPS. So you'll see for me,
+VPS 上的當地時間。所以你會看到我，
+
+80
+00:03:25,321 --> 00:03:29,954
+I'm recording this at 6:00 AM local time on
+我在當地時間上午 6:00 錄製此內容
+
+81
+00:03:30,210 --> 00:03:33,496
+the VPS. So it's still almost 3 hours for me
+VPS。所以對我來說還有將近3個小時
+
+82
+00:03:33,496 --> 00:03:34,282
+for this to run.
+為了讓它運行。
+
+83
+00:03:34,971 --> 00:03:36,606
+So in case you're waiting for it to run,
+所以如果你正在等待它運行，
+
+84
+00:03:36,718 --> 00:03:39,636
+don't use your local time of where you are,
+不要使用您所在地點的當地時間，
+
+85
+00:03:40,085 --> 00:03:42,618
+check the local time of your VPS instead.
+請檢查您的 VPS 的當地時間。
+
+86
+00:03:42,794 --> 00:03:44,978
+That's important. And then you can check
+這很重要。然後你可以檢查
+
+87
+00:03:45,042 --> 00:03:48,162
+whether it executed after your local time
+是否在您當地時間之後執行
+
+88
+00:03:48,757 --> 00:03:51,813
+made it past the script execution time, the
+超過了腳本執行時間，
+
+89
+00:03:51,877 --> 00:03:54,498
+cron time you configured. And that is all
+您設定的 cron 時間。這就是全部
+
+90
+00:03:54,707 --> 00:03:58,293
+you need to do to run any script, any
+你需要做的來運行任何腳本，任何
+
+91
+00:03:58,631 --> 00:04:01,799
+program, any command of your choice on a
+程式，您選擇的任何命令
+
+92
+00:04:01,799 --> 00:04:04,919
+schedule. It's as simple as that on a Linux
+日程。就像在 Linux 上一樣簡單
+
+93
+00:04:04,919 --> 00:04:05,369
+VPS.
+虛擬專用伺服器。

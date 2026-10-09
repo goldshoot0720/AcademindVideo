@@ -1,0 +1,329 @@
+1
+00:00:00,032 --> 00:00:02,998
+So giving Claude Code browser access, for
+因此，給予 Claude Code 瀏覽器存取權限，以便
+
+2
+00:00:02,998 --> 00:00:05,772
+example, through the Playwright plugin, can
+例如，透過 Playwright 外掛，可以
+
+3
+00:00:05,885 --> 00:00:08,370
+be pretty helpful. But in general,
+很有幫助。但總的來說，
+
+4
+00:00:08,931 --> 00:00:12,652
+giving AI tools a way of verifying their
+為人工智慧工具提供一種驗證其能力的方法
+
+5
+00:00:12,780 --> 00:00:15,570
+work can be useful. And browser access is
+工作可能有用。並且瀏覽器訪問是
+
+6
+00:00:15,586 --> 00:00:17,302
+not the only thing you can do there.
+這不是您在那裡可以做的唯一事情。
+
+7
+00:00:17,815 --> 00:00:20,910
+Instead, another powerful way of giving AI
+相反，另一種賦予人工智慧的強大方式
+
+8
+00:00:20,958 --> 00:00:23,716
+agents a way of verifying their work is by
+代理驗證其工作的一種方法是
+
+9
+00:00:23,765 --> 00:00:26,378
+using good old testing. Unit testing,
+使用良好的舊測試。單元測試，
+
+10
+00:00:26,475 --> 00:00:28,848
+integration testing, end-to-end testing, all
+整合測試，端到端測試，所有
+
+11
+00:00:29,056 --> 00:00:30,820
+these kinds of automated tests can be
+這些型別的自動化測試可以
+
+12
+00:00:30,820 --> 00:00:31,189
+helpful.
+有幫助。
+
+13
+00:00:32,167 --> 00:00:36,287
+So here in this project, I'll add Vitest
+所以在這個專案中，我將添加 Vitest
+
+14
+00:00:37,056 --> 00:00:37,810
+as a new
+作為一個新的
+
+15
+00:00:38,435 --> 00:00:39,685
+testing library.
+測試庫。
+
+16
+00:00:40,583 --> 00:00:42,571
+It's a very popular JavaScript testing
+這是一個非常受歡迎的 JavaScript 測試
+
+17
+00:00:42,603 --> 00:00:42,971
+library.
+圖書館.
+
+18
+00:00:43,645 --> 00:00:46,530
+And now of course we could set up tests
+現在我們當然可以設定測試
+
+19
+00:00:46,610 --> 00:00:48,662
+manually, but the good thing about Claude
+手動，但克勞德的好處
+
+20
+00:00:48,694 --> 00:00:51,339
+Code and AI in general of course is that we
+程式碼和人工智慧一般來說當然是我們
+
+21
+00:00:51,339 --> 00:00:53,824
+can hand off tasks like that to AI.
+可以將這樣的任務交給人工智慧。
+
+22
+00:00:54,449 --> 00:00:56,084
+And we could send a prompt like this to
+我們可以發送這樣的提示到
+
+23
+00:00:56,084 --> 00:00:58,440
+Claude Code informing us that we installed
+克勞德程式碼通知我們我們安裝了
+
+24
+00:00:58,473 --> 00:01:00,492
+that testing library and that we wanna do
+那個測試庫和我們想做的
+
+25
+00:01:00,781 --> 00:01:02,031
+unit testing in my case here
+我的例子在這裡進行單元測試
+
+26
+00:01:02,560 --> 00:01:04,083
+and that it should set up the
+並且應該設立
+
+27
+00:01:04,885 --> 00:01:07,274
+library appropriately and add unit tests for
+適當地庫並添加單元測試
+
+28
+00:01:07,274 --> 00:01:08,220
+all the key features,
+所有關鍵功能，
+
+29
+00:01:08,797 --> 00:01:11,619
+add mocks as needed, and split complex
+根據需要添加模擬，並拆分複雜的
+
+30
+00:01:11,619 --> 00:01:14,152
+functions to simplify testing if needed.
+如果需要的話可以簡化測試。
+
+31
+00:01:14,601 --> 00:01:16,445
+I'll run this in plan mode because maybe it
+我會在計劃模式下運行它，因為也許它
+
+32
+00:01:16,445 --> 00:01:18,882
+needs more information. Now indeed it does
+需要更多資訊。現在確實如此
+
+33
+00:01:18,914 --> 00:01:20,854
+have one follow-up question here
+這裡有一個後續問題
+
+34
+00:01:21,800 --> 00:01:24,767
+and I want to work with a tests folder.
+我想使用測試資料夾。
+
+35
+00:01:25,408 --> 00:01:26,338
+Got another question,
+還有一個問題，
+
+36
+00:01:26,947 --> 00:01:29,881
+extract those validation schemas and submit
+提取這些驗證模式並提交
+
+37
+00:01:29,881 --> 00:01:31,629
+the answers to let it continue planning.
+讓它繼續計劃的答案。
+
+38
+00:01:32,768 --> 00:01:35,049
+And it seems like it wants to install a
+看起來它想安裝一個
+
+39
+00:01:35,049 --> 00:01:37,233
+couple of dependencies, then set up the
+幾個依賴項，然後設定
+
+40
+00:01:37,233 --> 00:01:38,835
+configuration file for Vitest,
+Vitest的設定檔案，
+
+41
+00:01:41,385 --> 00:01:42,952
+and then add a bunch of tests for
+然後添加一堆測試
+
+42
+00:01:43,324 --> 00:01:47,379
+sanitization, for rendering of the rich text
+清理，用於呈現富文本
+
+43
+00:01:47,427 --> 00:01:48,089
+content,
+內容，
+
+44
+00:01:49,590 --> 00:01:50,723
+for validation,
+為了驗證，
+
+45
+00:01:52,456 --> 00:01:55,517
+plan some refactoring to simplify testing
+計劃一些重構以簡化測試
+
+46
+00:01:55,760 --> 00:01:57,768
+and improve the code therefore overall.
+並因此整體改行程式碼。
+
+47
+00:01:58,793 --> 00:02:00,542
+And also as a mocking strategy.
+也作為一種嘲笑策略。
+
+48
+00:02:04,346 --> 00:02:06,276
+So that's looking good, then I'll accept
+所以看起來不錯，那我就接受
+
+49
+00:02:06,276 --> 00:02:08,819
+that. Actually, I have one follow-up note
+那。事實上，我還有一個後續說明
+
+50
+00:02:08,851 --> 00:02:10,910
+which I sent to Claude Code. As mentioned,
+我把它發給了克勞德·科德。如前所述，
+
+51
+00:02:11,007 --> 00:02:13,483
+you can always inject messages into an
+你總是可以將訊息注入到
+
+52
+00:02:13,531 --> 00:02:16,584
+existing task and I accidentally canceled,
+現有任務，我不小心取消了，
+
+53
+00:02:16,649 --> 00:02:18,561
+which is why I need to send another one. And
+這就是為什麼我需要再寄一份。和
+
+54
+00:02:18,577 --> 00:02:20,746
+I sent this one because Bun, the runtime I'm
+我發送這個是因為 Bun，我的運行時間
+
+55
+00:02:20,746 --> 00:02:22,778
+using here, has its own built-in test
+在這裡使用，有自己的內建測試
+
+56
+00:02:22,827 --> 00:02:24,711
+runner, but I want to use that Vitest
+跑者，但我想用 Vitest
+
+57
+00:02:24,711 --> 00:02:26,660
+library instead and that's why I sent this
+相反，這就是我發送這個的原因
+
+58
+00:02:26,660 --> 00:02:27,245
+extra message.
+額外的消息。
+
+59
+00:02:27,792 --> 00:02:30,843
+So it looks like it now did add its test. So
+所以看起來它現在確實添加了測試。所以
+
+60
+00:02:31,469 --> 00:02:32,176
+let it run it.
+讓它運行它。
+
+61
+00:02:32,850 --> 00:02:34,922
+And that's exactly the kind of feedback loop
+這正是反饋迴圈的型別
+
+62
+00:02:35,002 --> 00:02:36,238
+I was talking about.
+我正在談論。
+
+63
+00:02:36,848 --> 00:02:39,755
+It can now run its own tests
+現在它可以運行自己的測試
+
+64
+00:02:40,301 --> 00:02:43,062
+and fix any errors it detects.
+並修復它檢測到的任何錯誤。
+
+65
+00:02:43,704 --> 00:02:46,193
+So now it looks like all tests passed. Now,
+所以現在看起來所有測試都通過了。現在，
+
+66
+00:02:46,402 --> 00:02:50,288
+one thing to watch out for is that AI can be
+需要注意的一件事是人工智慧可以

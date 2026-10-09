@@ -1,0 +1,294 @@
+1
+00:00:00,112 --> 00:00:03,132
+So what is such a reverse proxy thing?
+那什麼是反向代理呢？
+
+2
+00:00:03,727 --> 00:00:06,426
+Like this Traefik thing I mentioned we'll
+就像我提到的 Traefik 一樣，我們會
+
+3
+00:00:06,442 --> 00:00:08,740
+have running on our host as a Docker
+作為 Docker 在我們的主機上運行
+
+4
+00:00:08,852 --> 00:00:10,860
+container in addition to our web app
+除了我們的網頁應用程式之外的容器
+
+5
+00:00:10,876 --> 00:00:11,358
+container.
+容器。
+
+6
+00:00:12,628 --> 00:00:15,102
+A reverse proxy is simply a service, a tool
+反向代理只是一種服務、一種工具
+
+7
+00:00:15,600 --> 00:00:18,492
+that's handling incoming requests and that
+正在處理傳入的請求
+
+8
+00:00:18,492 --> 00:00:21,207
+routes them to your app or to any service
+將它們路由到您的應用程式或任何服務
+
+9
+00:00:21,239 --> 00:00:24,276
+you want. And it can handle things like rate
+你想要的。它可以處理諸如費率之類的事情
+
+10
+00:00:24,276 --> 00:00:27,343
+limiting, TLS termination, so establish
+限制，TLS 終止，因此建立
+
+11
+00:00:27,487 --> 00:00:30,484
+HTTPS connections, load balancing, and more.
+HTTPS 連線、負載平衡等。
+
+12
+00:00:31,093 --> 00:00:33,033
+And that's why you typically wanna use a
+這就是為什麼你通常想要使用
+
+13
+00:00:33,097 --> 00:00:36,479
+reverse proxy in front of your app or your
+在您的應用程式或您的應用程式前面的反向代理
+
+14
+00:00:36,543 --> 00:00:38,066
+container that's running your app
+運行您的應用程式的容器
+
+15
+00:00:38,627 --> 00:00:41,352
+on your host machine for handling incoming
+在您的主機上用於處理傳入的
+
+16
+00:00:41,448 --> 00:00:44,221
+requests from clients like website visitors.
+來自網站訪客等客戶的請求。
+
+17
+00:00:44,798 --> 00:00:47,907
+Of course, in theory, you could directly
+當然，理論上，你可以直接
+
+18
+00:00:48,004 --> 00:00:50,392
+handle those requests with your app or
+使用您的應用程式處理這些請求或
+
+19
+00:00:50,424 --> 00:00:53,037
+container, but then your app and container
+容器，然後是你的應用程式和容器
+
+20
+00:00:53,069 --> 00:00:55,313
+would need to take care about TLS
+需要注意 TLS
+
+21
+00:00:55,313 --> 00:00:59,054
+termination to have HTTPS requests, about
+終止 HTTPS 請求，約
+
+22
+00:00:59,150 --> 00:01:01,831
+rate limiting if you want that, and possibly
+如果您想要的話，可以限制速率，並且可能
+
+23
+00:01:01,831 --> 00:01:04,367
+more. That's why having such a reverse proxy
+更多的。這就是為什麼有這樣一個反向代理
+
+24
+00:01:04,367 --> 00:01:06,278
+in front of your web app can be very handy.
+在您的網頁應用程式前面可以非常方便。
+
+25
+00:01:06,775 --> 00:01:09,312
+Also because those proxy tools are of course
+也因為那些代理工具當然是
+
+26
+00:01:09,424 --> 00:01:12,073
+optimized for performance and can often do
+針對效能進行最佳化並且通常可以做到
+
+27
+00:01:12,073 --> 00:01:15,492
+tasks like TLS termination quicker or better
+更快或更好地完成 TLS 終止等任務
+
+28
+00:01:15,781 --> 00:01:18,992
+than your web app could. And this Traefik
+比你的網頁應用程式還可以。還有這個特拉菲克
+
+29
+00:01:19,217 --> 00:01:21,946
+thing, and I'll explain what exactly this
+事情，我會解釋一下這到底是什麼
+
+30
+00:01:21,946 --> 00:01:23,134
+entire syntax here does,
+這裡的整個文法都是這樣的，
+
+31
+00:01:23,728 --> 00:01:25,140
+this Traefik thing thing
+這 Traefik 的事
+
+32
+00:01:25,733 --> 00:01:28,811
+is just such a reverse proxy. And there are
+就是這樣一個反向代理。還有
+
+33
+00:01:29,003 --> 00:01:31,440
+alternatives to Traefik. You may, for
+Traefik 的替代品。你可以，為了
+
+34
+00:01:31,440 --> 00:01:33,620
+example, have heard about NGINX before.
+例如，以前聽過 NGINX。
+
+35
+00:01:34,309 --> 00:01:36,537
+But what's great about Traefik is that it
+但 Traefik 的偉大之處在於它
+
+36
+00:01:36,537 --> 00:01:39,423
+has a first-class support for Docker, so you
+對 Docker 擁有一流的支援，因此您
+
+37
+00:01:39,423 --> 00:01:41,411
+can easily run it as a container.
+可以輕鬆地將其作為容器運行。
+
+38
+00:01:42,068 --> 00:01:44,536
+And it has mechanisms for automatically
+並且它具有自動機制
+
+39
+00:01:44,649 --> 00:01:47,438
+discovering other Docker containers it
+發現其他 Docker 容器
+
+40
+00:01:47,438 --> 00:01:49,762
+should route traffic to, like our app
+應該將流量路由到，例如我們的應用程式
+
+41
+00:01:49,778 --> 00:01:53,048
+container. And that entire discovery process
+容器。整個發現過程
+
+42
+00:01:53,209 --> 00:01:55,886
+and the configuration is controlled via
+並且設定通過控制
+
+43
+00:01:55,886 --> 00:01:58,723
+so-called Docker which is simply metadata
+所謂的 Docker，就是簡單的元資料
+
+44
+00:01:58,755 --> 00:02:00,727
+you can attach to your Docker containers.
+您可以附加到 Docker 容器。
+
+45
+00:02:01,705 --> 00:02:04,702
+And Traefik also supports things like
+Traefik 也支援諸如
+
+46
+00:02:04,911 --> 00:02:08,774
+automatic TLS termination with help of Let's
+在 Let's 的幫助下自動終止 TLS
+
+47
+00:02:08,774 --> 00:02:13,198
+Encrypt, which is a free-to-use SSL/TLS
+Encrypt，這是一個免費使用的 SSL/TLS
+
+48
+00:02:13,198 --> 00:02:16,116
+certificate authority. So if you wanna
+證書頒發機構。所以如果你想
+
+49
+00:02:16,228 --> 00:02:20,123
+support HTTPS, you'll need a TLS certificate
+支援 HTTPS，您需要 TLS 憑證
+
+50
+00:02:20,460 --> 00:02:22,881
+and you can get one for free from Let's
+您可以從 Let's 免費獲得一份
+
+51
+00:02:22,881 --> 00:02:25,445
+Encrypt. And Traefik has built-in support
+加密。 Traefik 具有內建支援
+
+52
+00:02:25,445 --> 00:02:27,690
+for that and automatically manages this
+為此並自動管理此
+
+53
+00:02:27,690 --> 00:02:29,519
+entire certificate lifecycle request and
+整個證書生命週期請求和
+
+54
+00:02:29,599 --> 00:02:31,158
+validation chain for you.
+為您提供驗證鏈。
+
+55
+00:02:31,768 --> 00:02:33,776
+And I'll get back to the details of that
+我會回到細節
+
+56
+00:02:34,017 --> 00:02:36,475
+later, but that's why I'm using Traefik here
+稍後，但這就是我在這裡使用 Traefik 的原因
+
+57
+00:02:36,749 --> 00:02:39,319
+and why I'm using it together with my web
+以及為什麼我將它與我的網路一起使用
+
+58
+00:02:39,319 --> 00:02:42,099
+app in this compose.yaml file. But let's now
+應用程式在此 compose.yaml 檔案中。但現在讓我們
+
+59
+00:02:42,291 --> 00:02:43,834
+understand this file a bit better.
+更好地理解這個檔案。

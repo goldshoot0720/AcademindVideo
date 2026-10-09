@@ -1,0 +1,523 @@
+1
+00:00:00,673 --> 00:00:01,811
+So now that we
+
+2
+00:00:02,357 --> 00:00:06,045
+learned a lot about more advanced HTMX
+
+3
+00:00:06,045 --> 00:00:06,814
+techniques already,
+
+4
+00:00:07,472 --> 00:00:10,278
+let's dive even deeper. And let's say we
+
+5
+00:00:10,278 --> 00:00:11,127
+wanna add a new
+
+6
+00:00:11,833 --> 00:00:14,559
+section, you could say, here above the dream
+
+7
+00:00:14,607 --> 00:00:15,152
+locations.
+
+8
+00:00:15,810 --> 00:00:18,503
+And in that section, I wanna show some
+
+9
+00:00:18,792 --> 00:00:22,448
+suggested locations, but those locations
+
+10
+00:00:22,865 --> 00:00:26,553
+should actually switch every 5 seconds. They
+
+11
+00:00:26,553 --> 00:00:29,346
+should be refreshed every 5 seconds.
+
+12
+00:00:30,101 --> 00:00:32,753
+And as you'll see, HTMX makes building a
+
+13
+00:00:32,753 --> 00:00:35,325
+feature like this or implementing a feature
+
+14
+00:00:35,325 --> 00:00:35,759
+like this
+
+15
+00:00:36,289 --> 00:00:37,223
+a breeze as well.
+
+16
+00:00:38,934 --> 00:00:41,968
+Now, I'll get started in the app.js file
+
+17
+00:00:42,645 --> 00:00:45,679
+and attached you'll find a JavaScript file
+
+18
+00:00:45,970 --> 00:00:46,825
+with a function,
+
+19
+00:00:47,568 --> 00:00:50,540
+a get suggested locations function,
+
+20
+00:00:51,218 --> 00:00:53,834
+which you should simply insert into your
+
+21
+00:00:54,028 --> 00:00:54,739
+app.js file.
+
+22
+00:00:56,123 --> 00:00:57,759
+So that function in that attached file,
+
+23
+00:00:58,229 --> 00:01:01,096
+simply insert it right below these imports
+
+24
+00:01:01,517 --> 00:01:02,797
+in the app.js file.
+
+25
+00:01:04,194 --> 00:01:06,349
+We could also put it into a separate file,
+
+26
+00:01:06,365 --> 00:01:08,793
+but here I'll keep it all together to make
+
+27
+00:01:08,793 --> 00:01:10,996
+it a bit easier to switch between these code
+
+28
+00:01:11,012 --> 00:01:11,382
+snippets.
+
+29
+00:01:13,116 --> 00:01:16,505
+Now, what this function does is it in the
+
+30
+00:01:16,505 --> 00:01:18,224
+end picks 2
+
+31
+00:01:18,818 --> 00:01:21,790
+random locations if we have more than 2
+
+32
+00:01:22,047 --> 00:01:23,011
+locations left,
+
+33
+00:01:23,938 --> 00:01:27,631
+And it returns an array with these 2 random
+
+34
+00:01:27,631 --> 00:01:28,321
+locations here.
+
+35
+00:01:29,558 --> 00:01:33,202
+And I can now use this function here in my
+
+36
+00:01:33,732 --> 00:01:37,104
+root GET route so that I don't just get my
+
+37
+00:01:37,120 --> 00:01:40,781
+available locations but also my suggested
+
+38
+00:01:40,958 --> 00:01:43,960
+locations simply by calling this newly added
+
+39
+00:01:44,330 --> 00:01:46,706
+getSuggestedLocations function here.
+
+40
+00:01:48,923 --> 00:01:52,373
+Next, I wanna pass these suggested locations
+
+41
+00:01:52,795 --> 00:01:55,970
+to the renderLocationsPage function, let's
+
+42
+00:01:55,970 --> 00:01:57,525
+say as a first argument.
+
+43
+00:01:59,730 --> 00:02:01,192
+Now, of course, at the moment, this
+
+44
+00:02:01,192 --> 00:02:04,615
+renderLocationsPage function doesn't expect
+
+45
+00:02:04,824 --> 00:02:07,604
+3 arguments yet. So I'll go to that function
+
+46
+00:02:08,102 --> 00:02:09,663
+and add a new parameter here,
+
+47
+00:02:10,066 --> 00:02:14,001
+suggestedLocations, so that I do expect 3.
+
+48
+00:02:14,576 --> 00:02:14,882
+And
+
+49
+00:02:16,778 --> 00:02:19,575
+now of course I wanna output those suggested
+
+50
+00:02:19,575 --> 00:02:20,185
+locations.
+
+51
+00:02:20,844 --> 00:02:24,045
+And for that, here in the main section above
+
+52
+00:02:24,303 --> 00:02:25,254
+the section
+
+53
+00:02:25,834 --> 00:02:28,719
+of interesting locations, I'll add a new
+
+54
+00:02:28,848 --> 00:02:29,864
+section element.
+
+55
+00:02:31,537 --> 00:02:34,851
+And in that section, I'll add an unordered
+
+56
+00:02:34,851 --> 00:02:35,659
+list element.
+
+57
+00:02:37,049 --> 00:02:40,073
+And on that unordered list, I'll add a class
+
+58
+00:02:40,202 --> 00:02:40,865
+of suggestions.
+
+59
+00:02:42,180 --> 00:02:42,834
+Locations
+
+60
+00:02:43,506 --> 00:02:46,928
+and an ID of suggested-locations.
+
+61
+00:02:49,961 --> 00:02:51,930
+And it's now in that unordered list where I
+
+62
+00:02:51,996 --> 00:02:54,713
+wanna output these suggested locations here.
+
+63
+00:02:56,440 --> 00:02:58,324
+So therefore we can simply grab the code
+
+64
+00:02:58,324 --> 00:03:00,063
+from down there from the interesting
+
+65
+00:03:00,159 --> 00:03:01,576
+locations and output them here,
+
+66
+00:03:02,510 --> 00:03:05,264
+the suggested locations like this.
+
+67
+00:03:07,123 --> 00:03:09,708
+The second argument here should not be set
+
+68
+00:03:09,756 --> 00:03:12,261
+though so that it falls back to the default
+
+69
+00:03:12,261 --> 00:03:13,208
+value of true.
+
+70
+00:03:14,043 --> 00:03:16,548
+Since I wanna treat the locations that are
+
+71
+00:03:16,596 --> 00:03:19,310
+rendered here just like the locations that
+
+72
+00:03:19,390 --> 00:03:21,799
+are rendered in the available locations
+
+73
+00:03:21,799 --> 00:03:22,136
+list,
+
+74
+00:03:23,019 --> 00:03:25,893
+we should be able to pick them from that
+
+75
+00:03:25,893 --> 00:03:28,013
+list and add them to the dream locations.
+
+76
+00:03:29,185 --> 00:03:31,369
+And therefore with that done, if we save
+
+77
+00:03:31,369 --> 00:03:31,738
+everything,
+
+78
+00:03:32,654 --> 00:03:34,712
+and we reload, we should have these
+
+79
+00:03:34,840 --> 00:03:36,191
+suggested locations here.
+
+80
+00:03:37,156 --> 00:03:39,841
+Now I actually also wanna add a little title
+
+81
+00:03:39,889 --> 00:03:40,082
+here.
+
+82
+00:03:41,460 --> 00:03:43,598
+So I'll add an H2 element here where I'll
+
+83
+00:03:43,598 --> 00:03:46,157
+say, Currently suggested,
+
+84
+00:03:47,064 --> 00:03:47,372
+like this.
+
+85
+00:03:50,869 --> 00:03:53,017
+And I'll give that section an ID of
+
+86
+00:03:54,482 --> 00:03:55,328
+suggested-locations-section.
+
+87
+00:03:58,253 --> 00:03:59,765
+For styling purposes.
+
+88
+00:04:01,760 --> 00:04:03,891
+With that done, if I save that and reload, I
+
+89
+00:04:04,052 --> 00:04:05,440
+also got this title here.
+
+90
+00:04:06,942 --> 00:04:09,912
+And therefore now I have 2 randomly chosen
+
+91
+00:04:09,961 --> 00:04:11,587
+suggested elements here.
+
+92
+00:04:13,002 --> 00:04:14,994
+Now if I click on one of them, I get that
+
+93
+00:04:14,994 --> 00:04:15,959
+same dialog
+
+94
+00:04:16,521 --> 00:04:19,044
+as before. And if I click yes, it is indeed
+
+95
+00:04:19,173 --> 00:04:21,316
+added to the dream locations. It's also
+
+96
+00:04:21,365 --> 00:04:23,205
+still available here though, so that's
+
+97
+00:04:23,205 --> 00:04:24,318
+something we'll have to change.
+
+98
+00:04:25,494 --> 00:04:26,777
+But adding it works.
+
+99
+00:04:27,579 --> 00:04:29,216
+Now to make sure that it's not available
+
+100
+00:04:29,264 --> 00:04:30,516
+here in the suggested
+
+101
+00:04:31,173 --> 00:04:31,863
+places anymore,
+
+102
+00:04:32,617 --> 00:04:34,783
+I have to go back to the app.js file.
+
+103
+00:04:35,842 --> 00:04:38,361
+And there in this POST route, we should now
+
+104
+00:04:38,409 --> 00:04:42,019
+not just update the available locations list
+
+105
+00:04:42,083 --> 00:04:44,650
+but also the suggested locations list so
+
+106
+00:04:44,650 --> 00:04:46,640
+that if we picked a location, we also
+
+107
+00:04:47,137 --> 00:04:50,009
+recreate the list of suggested locations.
+
+108
+00:04:50,827 --> 00:04:53,522
+So I'll also get my suggested locations here
+
+109
+00:04:54,051 --> 00:04:55,142
+by calling that same
+
+110
+00:04:55,736 --> 00:04:57,934
+getSuggestedLocations function.
+
+111
+00:04:59,329 --> 00:05:01,880
+And then I also wanna use out-of-band
+
+112
+00:05:01,928 --> 00:05:04,543
+swapping here to update the suggested
+
+113
+00:05:04,543 --> 00:05:05,489
+locations list.
+
+114
+00:05:06,163 --> 00:05:09,035
+So we can copy this unordered list with the
+
+115
+00:05:09,035 --> 00:05:11,954
+suggested locations from the index.js file
+
+116
+00:05:13,446 --> 00:05:15,868
+and also add that here to the response of
+
+117
+00:05:15,868 --> 00:05:16,895
+this POST route.
+
+118
+00:05:20,502 --> 00:05:22,665
+And then of course, I also wanna add
+
+119
+00:05:22,842 --> 00:05:27,668
+hx-swap-OOB to this unordered list so that
+
+120
+00:05:27,845 --> 00:05:30,421
+this unordered list is also swapped out of
+
+121
+00:05:30,454 --> 00:05:30,876
+band.
+
+122
+00:05:34,157 --> 00:05:36,928
+With that done, if I reload, if I add a
+
+123
+00:05:37,041 --> 00:05:39,457
+place from the suggested places to the dream
+
+124
+00:05:39,473 --> 00:05:42,644
+locations, you see these suggestions also
+
+125
+00:05:42,776 --> 00:05:43,337
+were updated.
+
+126
+00:05:44,999 --> 00:05:47,586
+So that's working, but that's just the first
+
+127
+00:05:47,586 --> 00:05:50,769
+step. The main goal was to make sure that
+
+128
+00:05:51,508 --> 00:05:54,321
+this list here is regenerated and
+
+129
+00:05:54,321 --> 00:05:57,938
+re-rendered every 5 seconds so that we see
+
+130
+00:05:57,938 --> 00:06:01,281
+new suggestions every 5 seconds. And that's
+
+131
+00:06:01,394 --> 00:06:02,358
+what we'll do next.

@@ -1,0 +1,219 @@
+1
+00:00:00,449 --> 00:00:02,728
+So we got our server up and running
+這樣我們的伺服器就啟動並運行了
+
+2
+00:00:03,306 --> 00:00:06,019
+and I was able to connect to it via an SSH
+我可以透過 SSH 連接到它
+
+3
+00:00:06,132 --> 00:00:07,592
+key using my root user.
+使用我的根使用者密鑰。
+
+4
+00:00:08,122 --> 00:00:10,386
+And that's already the first problem. The
+這已經是第一個問題了。這
+
+5
+00:00:10,530 --> 00:00:13,163
+root user is not ideal because it has
+root 使用者並不理想，因為它有
+
+6
+00:00:13,741 --> 00:00:16,903
+full access to everything on that server.
+對該伺服器上所有內容的完全存取權。
+
+7
+00:00:17,192 --> 00:00:20,387
+And if some other person were able to gain
+如果其他人能夠獲得
+
+8
+00:00:20,483 --> 00:00:23,228
+access to that server in the same way I did
+以與我相同的方式存取該伺服器
+
+9
+00:00:23,228 --> 00:00:23,420
+here,
+這裡，
+
+10
+00:00:23,966 --> 00:00:25,748
+if they, for example, got access to my
+例如，如果他們能夠存取我的
+
+11
+00:00:25,796 --> 00:00:27,803
+machine and could connect to that server,
+機器並可以連接到該伺服器，
+
+12
+00:00:28,284 --> 00:00:30,227
+they would have full access to that server.
+他們將擁有對該伺服器的完全存取權。
+
+13
+00:00:30,420 --> 00:00:32,637
+So that's not ideal, that's something we may
+所以這並不理想，我們可以這樣做
+
+14
+00:00:32,765 --> 00:00:33,360
+wanna change.
+想改變。
+
+15
+00:00:34,212 --> 00:00:36,606
+And in general, there are a couple of
+一般來說，有以下幾種
+
+16
+00:00:36,718 --> 00:00:39,498
+crucial steps you wanna go through when
+您想要執行的關鍵步驟
+
+17
+00:00:39,530 --> 00:00:43,194
+configuring a new VPS, so a brand new server
+設定新的VPS，所以是全新的伺服器
+
+18
+00:00:43,210 --> 00:00:44,736
+you just brought online.
+你剛剛上線。
+
+19
+00:00:45,395 --> 00:00:47,725
+You wanna update the system and the software
+您想更新系統和軟體
+
+20
+00:00:47,725 --> 00:00:49,782
+installed on it, you wanna create a new
+安裝了它，你想創建一個新的
+
+21
+00:00:49,894 --> 00:00:52,385
+non-root user which you in the future wanna
+您將來想要的非 root 使用者
+
+22
+00:00:52,385 --> 00:00:54,843
+use for connecting to the server so that you
+用於連接到伺服器，以便您
+
+23
+00:00:54,939 --> 00:00:57,718
+don't have the problem that if someone were
+沒有問題，如果有人
+
+24
+00:00:57,831 --> 00:00:59,581
+to gain access, they would have full
+為了獲得訪問權，他們將擁有充分的
+
+25
+00:01:00,159 --> 00:01:00,946
+root access.
+根訪問。
+
+26
+00:01:01,781 --> 00:01:03,788
+You also wanna install and configure a
+您還想安裝和設定
+
+27
+00:01:03,788 --> 00:01:04,960
+firewall, typically
+防火牆，通常
+
+28
+00:01:05,635 --> 00:01:08,397
+perform certain steps to make connecting via
+執行某些步驟以透過以下方式建立連接
+
+29
+00:01:08,429 --> 00:01:11,769
+SSH more difficult so that really only you
+SSH 更難所以真的只有你
+
+30
+00:01:11,961 --> 00:01:14,338
+can connect. You wanna ensure that some
+可以連接。你想確保一些
+
+31
+00:01:14,466 --> 00:01:16,506
+software, some software updates are
+軟體，一些軟體更新是
+
+32
+00:01:16,875 --> 00:01:19,444
+installed automatically so that your server
+自動安裝，以便您的伺服器
+
+33
+00:01:19,444 --> 00:01:21,387
+is kept up to date without you
+無需您也能保持最新狀態
+
+34
+00:01:21,997 --> 00:01:24,390
+logging in and thinking about manually
+手動登入並思考
+
+35
+00:01:24,502 --> 00:01:26,060
+installing updates all the time.
+一直安裝更新。
+
+36
+00:01:27,232 --> 00:01:27,344
+You
+你
+
+37
+00:01:27,875 --> 00:01:30,253
+as a bonus, but as a strongly recommended
+作為獎勵，但作為強烈推薦
+
+38
+00:01:30,285 --> 00:01:30,558
+bonus,
+獎金，
+
+39
+00:01:31,168 --> 00:01:34,221
+wanna consider using an extra free service
+想要考慮使用額外的免費服務
+
+40
+00:01:34,221 --> 00:01:36,872
+called Tailscale for securing your setup
+稱為 Tailscale，用於保護您的設置
+
+41
+00:01:36,872 --> 00:01:38,479
+even more, and I'll get back to that.
+甚至更多，我會回過頭來討論這一點。
+
+42
+00:01:39,057 --> 00:01:41,966
+So let's dive in and let's start making our
+所以讓我們深入研究並開始製作我們的
+
+43
+00:01:42,110 --> 00:01:44,376
+server more secure and configure it
+伺服器更安全並設定它
+
+44
+00:01:44,408 --> 00:01:44,842
+properly.
+適當地。

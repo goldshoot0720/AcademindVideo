@@ -1,0 +1,359 @@
+1
+00:00:00,048 --> 00:00:02,516
+So we added a sub-agent and because of the
+
+2
+00:00:02,901 --> 00:00:05,033
+description we added there, there are high
+
+3
+00:00:05,161 --> 00:00:07,053
+chances that Claude Code will use it
+
+4
+00:00:07,085 --> 00:00:08,816
+whenever it needs to look up documentation.
+
+5
+00:00:09,233 --> 00:00:10,547
+But we can do better than hoping.
+
+6
+00:00:11,397 --> 00:00:13,817
+Remember that Claude MD file? I mentioned
+
+7
+00:00:13,817 --> 00:00:16,110
+that it would be loaded into every new
+
+8
+00:00:16,623 --> 00:00:19,156
+Claude Code session and therefore we can add
+
+9
+00:00:19,268 --> 00:00:21,528
+very specific instructions here. So instead
+
+10
+00:00:21,528 --> 00:00:23,933
+of hoping, we can add this instruction to
+
+11
+00:00:23,933 --> 00:00:24,942
+the Claude MD file.
+
+12
+00:00:25,519 --> 00:00:27,363
+Whenever working with any third-party
+
+13
+00:00:27,427 --> 00:00:30,152
+library or something similar, you must look
+
+14
+00:00:30,152 --> 00:00:32,092
+up the official documentation to ensure that
+
+15
+00:00:32,092 --> 00:00:33,823
+you're working with up-to-date information,
+
+16
+00:00:34,239 --> 00:00:36,964
+use the Docs Explorer subagent for efficient
+
+17
+00:00:36,964 --> 00:00:39,817
+documentation lookup. By adding this here,
+
+18
+00:00:40,249 --> 00:00:42,653
+we don't need to add it into our prompts and
+
+19
+00:00:42,653 --> 00:00:45,570
+we have almost 100% certainty that this
+
+20
+00:00:45,570 --> 00:00:47,846
+subagent will be used and that Claude Code
+
+21
+00:00:47,942 --> 00:00:49,400
+will do documentation lookup.
+
+22
+00:00:50,346 --> 00:00:52,397
+So now we can send a prompt like this
+
+23
+00:00:53,070 --> 00:00:55,667
+and it should automatically spin up that
+
+24
+00:00:55,731 --> 00:00:59,353
+subagent, that Docs Explorer subagent to
+
+25
+00:00:59,721 --> 00:01:01,740
+look up the documentation of better auth and
+
+26
+00:01:01,740 --> 00:01:04,483
+so on. So here it's spinning up the Explorer
+
+27
+00:01:04,643 --> 00:01:06,744
+subagent to explore the codebase, but also
+
+28
+00:01:06,793 --> 00:01:08,749
+the Docs Explorer, actually multiple
+
+29
+00:01:08,797 --> 00:01:10,305
+instances of the Docs Explorer
+
+30
+00:01:10,963 --> 00:01:11,155
+to
+
+31
+00:01:11,845 --> 00:01:14,171
+explore the BetterAuth documentation and the
+
+32
+00:01:14,171 --> 00:01:17,186
+Bun SQLite documentation, which is 100%
+
+33
+00:01:17,218 --> 00:01:19,544
+correct for the kind of task I gave it. Now
+
+34
+00:01:19,544 --> 00:01:21,469
+it's asking for permission to do web search
+
+35
+00:01:21,469 --> 00:01:23,618
+and so on. And yeah, I granted that. But
+
+36
+00:01:23,779 --> 00:01:26,586
+with that, we now have multiple agents
+
+37
+00:01:26,586 --> 00:01:29,633
+running in parallel for efficient work and
+
+38
+00:01:29,874 --> 00:01:32,937
+also for avoiding a pollution of the main
+
+39
+00:01:33,017 --> 00:01:35,807
+context window. And that is a great use case
+
+40
+00:01:36,128 --> 00:01:38,887
+for a custom subagent that makes a lot of
+
+41
+00:01:38,935 --> 00:01:41,244
+sense and how to efficiently use and
+
+42
+00:01:41,340 --> 00:01:44,227
+leverage such a subagent. So compared to the
+
+43
+00:01:44,227 --> 00:01:46,728
+last time, you now see that it did not
+
+44
+00:01:46,728 --> 00:01:49,022
+perform any research tasks in the main
+
+45
+00:01:49,118 --> 00:01:51,459
+agent, but instead outsourced all of that to
+
+46
+00:01:51,459 --> 00:01:53,592
+subagents. And now it's just reading the
+
+47
+00:01:53,608 --> 00:01:55,934
+main files in the main agent or the
+
+48
+00:01:55,934 --> 00:01:57,986
+important files that were delivered by the
+
+49
+00:01:58,018 --> 00:01:58,804
+Explore agent
+
+50
+00:01:59,382 --> 00:02:01,932
+in the main agent and gives me a summary,
+
+51
+00:02:02,044 --> 00:02:03,616
+which of course is the same summary as
+
+52
+00:02:03,728 --> 00:02:06,054
+before, but now implemented with help of a
+
+53
+00:02:06,054 --> 00:02:08,700
+sub-agent that will automatically be used
+
+54
+00:02:08,700 --> 00:02:10,913
+now whenever we work with a third-party
+
+55
+00:02:10,945 --> 00:02:12,757
+library. At least that's the plan.
+
+56
+00:02:13,367 --> 00:02:15,660
+Now actually here for me in this project
+
+57
+00:02:15,660 --> 00:02:17,906
+where I just wanted to use this as a demo,
+
+58
+00:02:17,922 --> 00:02:20,712
+this extra review did find something that
+
+59
+00:02:20,712 --> 00:02:21,659
+must be improved.
+
+60
+00:02:22,252 --> 00:02:24,946
+This next cookies plugin must be used in
+
+61
+00:02:24,979 --> 00:02:27,912
+this auth TS file. File here because indeed
+
+62
+00:02:28,024 --> 00:02:30,460
+BetterAuth, the authentication library I
+
+63
+00:02:30,572 --> 00:02:32,591
+want to use here in this demo project,
+
+64
+00:02:33,152 --> 00:02:33,841
+does have
+
+65
+00:02:34,578 --> 00:02:36,901
+an official Next.js integration guide and
+
+66
+00:02:36,997 --> 00:02:39,128
+Next.js is the framework I'm using.
+
+67
+00:02:39,801 --> 00:02:42,798
+And in there it has 2 main things you
+
+68
+00:02:43,391 --> 00:02:44,080
+must do.
+
+69
+00:02:44,673 --> 00:02:46,643
+For one, when setting up those API routes,
+
+70
+00:02:46,692 --> 00:02:49,464
+you must use toNext.js handler and that is
+
+71
+00:02:49,496 --> 00:02:52,252
+something Claude Code did set up for me here
+
+72
+00:02:52,604 --> 00:02:55,685
+in that file. But in order to then later
+
+73
+00:02:55,814 --> 00:02:59,844
+properly work with BetterAuth, we also must
+
+74
+00:02:59,988 --> 00:03:03,441
+add this next cookies plugin here to the
+
+75
+00:03:03,521 --> 00:03:06,748
+auth setup in the auth.ts file. And that
+
+76
+00:03:06,748 --> 00:03:07,824
+indeed is missing here
+
+77
+00:03:08,434 --> 00:03:11,116
+and was identified by my review here. So I
+
+78
+00:03:11,148 --> 00:03:13,412
+can actually now tell Claude Code to fix
+
+79
+00:03:13,412 --> 00:03:15,082
+that next cookies issue and don't do
+
+80
+00:03:15,082 --> 00:03:17,587
+anything else. Of course, we could also do
+
+81
+00:03:17,587 --> 00:03:20,205
+that manually though. So if we wanna save
+
+82
+00:03:20,237 --> 00:03:20,960
+those tokens,
+
+83
+00:03:21,523 --> 00:03:22,905
+we can also just go to
+
+84
+00:03:23,532 --> 00:03:24,753
+this BetterAuth setup
+
+85
+00:03:25,380 --> 00:03:28,321
+according to their docs and add plugins,
+
+86
+00:03:28,739 --> 00:03:29,848
+import next cookies
+
+87
+00:03:30,427 --> 00:03:32,468
+and call next cookies as a function there
+
+88
+00:03:32,837 --> 00:03:35,103
+like this. That's of course the cheaper way,
+
+89
+00:03:35,345 --> 00:03:37,434
+but we could have also told Claude Code to
+
+90
+00:03:37,434 --> 00:03:37,836
+fix that.

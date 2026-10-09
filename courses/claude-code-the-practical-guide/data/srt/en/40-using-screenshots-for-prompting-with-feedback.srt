@@ -1,0 +1,339 @@
+1
+00:00:00,112 --> 00:00:03,222
+In this app, at this point, I can add notes,
+
+2
+00:00:03,238 --> 00:00:05,818
+but I don't see any notes I added on this
+
+3
+00:00:05,883 --> 00:00:08,175
+dashboard, and therefore I can't also really
+
+4
+00:00:08,271 --> 00:00:11,221
+view them or edit them or delete them. So
+
+5
+00:00:11,413 --> 00:00:13,657
+naturally, that would be the next things I
+
+6
+00:00:13,657 --> 00:00:16,783
+wanna work on. And I'll start with the first
+
+7
+00:00:16,847 --> 00:00:19,845
+step. I want Claude to add a functionality
+
+8
+00:00:19,973 --> 00:00:23,323
+to show the notes that belong to a user on
+
+9
+00:00:23,355 --> 00:00:24,237
+the dashboard route,
+
+10
+00:00:24,782 --> 00:00:26,722
+to make them clickable and link to the
+
+11
+00:00:26,722 --> 00:00:29,126
+viewing page. And on that viewing page, we
+
+12
+00:00:29,126 --> 00:00:30,954
+should then be able to view the notes, so it
+
+13
+00:00:30,954 --> 00:00:31,819
+should be rendered there.
+
+14
+00:00:32,498 --> 00:00:34,567
+As always, I'll start in plan mode.
+
+15
+00:00:35,472 --> 00:00:35,892
+And
+
+16
+00:00:36,442 --> 00:00:39,400
+after giving me a plan, which I accepted, it
+
+17
+00:00:39,433 --> 00:00:41,955
+went to work. And now I can view my notes
+
+18
+00:00:41,955 --> 00:00:42,925
+here. I can click them.
+
+19
+00:00:43,492 --> 00:00:46,469
+They are then also rendered here. So that's
+
+20
+00:00:46,469 --> 00:00:46,938
+looking good.
+
+21
+00:00:47,698 --> 00:00:49,672
+Next, I wanna make sure that notes are
+
+22
+00:00:49,964 --> 00:00:52,620
+editable and deletable. So that's the prompt
+
+23
+00:00:52,685 --> 00:00:53,906
+I'm using for that,
+
+24
+00:00:55,578 --> 00:00:58,374
+asking the AI to add edit and delete buttons
+
+25
+00:00:58,551 --> 00:01:01,338
+with the appropriate functionality to link
+
+26
+00:01:01,338 --> 00:01:01,880
+to the edit page where I can
+
+27
+00:01:03,216 --> 00:01:05,941
+edit a note or to show a confirmation dialog
+
+28
+00:01:06,261 --> 00:01:08,553
+using the native dialog element. A little
+
+29
+00:01:08,553 --> 00:01:10,829
+bit of extra context I'm giving Claude Code
+
+30
+00:01:10,829 --> 00:01:12,608
+here to ensure that I'm getting the solution
+
+31
+00:01:12,608 --> 00:01:14,756
+I have in mind. And then of course a note
+
+32
+00:01:14,756 --> 00:01:17,641
+should be removed from the database and the
+
+33
+00:01:17,641 --> 00:01:19,003
+user should be navigated back to the
+
+34
+00:01:19,099 --> 00:01:21,696
+dashboard route. And again, I'll start this
+
+35
+00:01:21,744 --> 00:01:23,795
+in plan mode to make sure that if there
+
+36
+00:01:23,907 --> 00:01:25,959
+should be any clarification
+
+37
+00:01:26,616 --> 00:01:29,405
+questions the AI wants to ask, it can do so
+
+38
+00:01:29,581 --> 00:01:31,841
+and it can in general create a proper plan.
+
+39
+00:01:33,028 --> 00:01:34,343
+And after more work,
+
+40
+00:01:35,289 --> 00:01:35,898
+it did then
+
+41
+00:01:36,555 --> 00:01:38,849
+add those buttons. But here
+
+42
+00:01:39,378 --> 00:01:41,751
+we have an issue. It decided to output the
+
+43
+00:01:41,847 --> 00:01:44,381
+raw JSON, which is the format in which the
+
+44
+00:01:45,054 --> 00:01:47,460
+entered content is stored in that editor.
+
+45
+00:01:47,540 --> 00:01:48,823
+And that's of course not right.
+
+46
+00:01:49,704 --> 00:01:52,334
+So of course we can describe this problem to
+
+47
+00:01:52,687 --> 00:01:54,884
+the AI and I'll do that, but we can also
+
+48
+00:01:54,932 --> 00:01:58,299
+pass screenshots into our prompts. So I took
+
+49
+00:01:58,299 --> 00:02:00,882
+a screenshot here. And I pasted that
+
+50
+00:02:00,882 --> 00:02:02,647
+screenshot into my prompt and
+
+51
+00:02:03,176 --> 00:02:04,829
+you can see that it's attached here.
+
+52
+00:02:05,438 --> 00:02:07,893
+And this screenshot will be passed along to
+
+53
+00:02:07,909 --> 00:02:10,059
+Claude Code because Claude Code does have
+
+54
+00:02:10,107 --> 00:02:12,625
+image vision and can take a look at images.
+
+55
+00:02:13,299 --> 00:02:15,529
+Now I'm also providing a prompt to it here
+
+56
+00:02:15,529 --> 00:02:18,497
+to describe the problem, but I also pointed
+
+57
+00:02:18,513 --> 00:02:20,374
+at the screenshot there so that it really
+
+58
+00:02:20,374 --> 00:02:22,251
+sees what the problem is. And for some
+
+59
+00:02:22,364 --> 00:02:24,898
+problems, especially of course UI problems,
+
+60
+00:02:25,300 --> 00:02:27,628
+this can make a lot of sense. If you got an
+
+61
+00:02:27,724 --> 00:02:30,068
+error message or anything like that, just
+
+62
+00:02:30,068 --> 00:02:32,075
+copy and pasting the raw text into the
+
+63
+00:02:32,075 --> 00:02:34,950
+prompt is better typically. But when you got
+
+64
+00:02:34,950 --> 00:02:37,679
+UI problems, something that's displayed in a
+
+65
+00:02:37,679 --> 00:02:39,654
+wrong way or anything like that, a
+
+66
+00:02:39,686 --> 00:02:42,111
+screenshot in addition to a prompt can help
+
+67
+00:02:42,191 --> 00:02:44,969
+achieve better results. And with that, it
+
+68
+00:02:45,258 --> 00:02:47,506
+implemented a fix. And indeed, now I can see
+
+69
+00:02:47,731 --> 00:02:50,364
+I got editable text again. I can save that.
+
+70
+00:02:51,023 --> 00:02:53,010
+Edit it again and the formatting is
+
+71
+00:02:53,203 --> 00:02:55,932
+preserved. And if I try deleting that, I got
+
+72
+00:02:55,932 --> 00:02:59,162
+a dialog which is positioned incorrectly and
+
+73
+00:02:59,243 --> 00:03:01,122
+also styled incorrectly. So that's another
+
+74
+00:03:01,122 --> 00:03:02,305
+case for a screenshot.
+
+75
+00:03:04,787 --> 00:03:06,185
+And I'm taking a screenshot of the entire
+
+76
+00:03:06,313 --> 00:03:07,759
+page here to make it clear that the
+
+77
+00:03:07,776 --> 00:03:09,318
+positioning really is off
+
+78
+00:03:10,346 --> 00:03:13,335
+besides the styling. So I'm sharing this
+
+79
+00:03:13,496 --> 00:03:15,798
+screenshot with Claude Code now along with
+
+80
+00:03:15,928 --> 00:03:17,845
+some extra instructions and descriptions.
+
+81
+00:03:19,666 --> 00:03:21,955
+And with that, it went to work again and now
+
+82
+00:03:22,181 --> 00:03:24,437
+this looks a lot better. And if I confirm
+
+83
+00:03:24,437 --> 00:03:26,855
+this, indeed it is deleted and I'm navigated
+
+84
+00:03:26,920 --> 00:03:28,999
+back here where I can delete all my notes.
+
+85
+00:03:29,612 --> 00:03:31,111
+So that all seems to work.

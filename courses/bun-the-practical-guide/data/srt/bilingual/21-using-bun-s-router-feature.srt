@@ -1,0 +1,579 @@
+1
+00:00:00,192 --> 00:00:02,419
+Now, building a web server like this with
+現在，建立一個像這樣的網頁伺服器
+
+2
+00:00:02,419 --> 00:00:05,206
+our own fetch method where we do routing
+我們自己的 fetch 方法，我們在其中進行路由
+
+3
+00:00:05,238 --> 00:00:08,202
+manually and import HTML files and serve
+手動導入 HTML 檔案並提供服務
+
+4
+00:00:08,202 --> 00:00:08,779
+them like this
+他們喜歡這樣
+
+5
+00:00:09,323 --> 00:00:12,479
+will only work for very basic projects. For
+只適用於非常基本的專案。為了
+
+6
+00:00:12,848 --> 00:00:15,331
+more realistic projects, we wanna use
+更現實的專案，我們想使用
+
+7
+00:00:15,331 --> 00:00:16,693
+another Bun feature.
+另一個包子功能。
+
+8
+00:00:17,574 --> 00:00:19,961
+We wanna use its routes feature.
+我們想使用它的路線功能。
+
+9
+00:00:20,522 --> 00:00:22,620
+So here I'm in an updated version of this
+所以我這裡是這個的更新版本
+
+10
+00:00:22,620 --> 00:00:25,264
+project and you find this updated version
+專案，你會發現這個更新版本
+
+11
+00:00:25,264 --> 00:00:25,760
+attached.
+隨附的。
+
+12
+00:00:26,449 --> 00:00:29,124
+It's the same server as before, but with a
+它與以前的伺服器相同，但具有
+
+13
+00:00:29,349 --> 00:00:31,319
+vastly simpler fetch method
+更簡單的取得方法
+
+14
+00:00:31,897 --> 00:00:34,787
+I now only return one response here without
+我現在只在這裡回傳一個回复，沒有
+
+15
+00:00:34,787 --> 00:00:36,715
+any filtering, without any if statements,
+任何過濾，沒有任何 if 語句，
+
+16
+00:00:36,731 --> 00:00:38,674
+and it's always a 404 response.
+並且始終是 404 回應。
+
+17
+00:00:39,862 --> 00:00:42,528
+And it is always a 404 response because I
+它始終是 404 回應，因為我
+
+18
+00:00:42,673 --> 00:00:44,198
+added this new routes key here.
+在這裡新增了這個新的路由鍵。
+
+19
+00:00:44,760 --> 00:00:47,731
+This is another very useful Bun feature.
+這是另一個非常有用的 Bun 功能。
+
+20
+00:00:48,358 --> 00:00:50,509
+Routes allows us to register
+路線允許我們註冊
+
+21
+00:00:51,168 --> 00:00:51,521
+routes.
+路線。
+
+22
+00:00:52,067 --> 00:00:55,584
+You have your paths as keys in that routes
+您將路徑作為該路線中的鍵
+
+23
+00:00:55,665 --> 00:00:58,202
+object, and then the value can be an
+物件，然後該值可以是
+
+24
+00:00:58,395 --> 00:01:00,627
+imported HTML file like here for the
+導入的 HTML 檔案如下所示
+
+25
+00:01:00,643 --> 00:01:01,109
+homepage,
+首頁，
+
+26
+00:01:02,083 --> 00:01:05,890
+It can be a file you read like here for the
+它可以是您在此處閱讀的檔案
+
+27
+00:01:05,890 --> 00:01:09,097
+styles.css file using Bun file to make sure
+使用 Bun 檔案來確保 styles.css 檔案
+
+28
+00:01:09,146 --> 00:01:10,782
+that those styles can be served.
+可以提供這些風格。
+
+29
+00:01:11,496 --> 00:01:15,063
+But it can also be a nested object like here
+但它也可以是像這裡這樣的嵌套物件
+
+30
+00:01:15,225 --> 00:01:16,181
+for courses.
+對於課程。
+
+31
+00:01:17,046 --> 00:01:18,941
+It could, by the way, also be
+順便說一下，它也可以是
+
+32
+00:01:21,062 --> 00:01:22,331
+a handler function
+處理函式
+
+33
+00:01:23,247 --> 00:01:23,809
+like that.
+像那樣。
+
+34
+00:01:24,773 --> 00:01:27,008
+Can also be an async one, just needs to
+也可以是非同步的，只需
+
+35
+00:01:27,008 --> 00:01:28,789
+return a response. That's why I'm getting an
+返迴回應。這就是為什麼我得到一個
+
+36
+00:01:28,789 --> 00:01:29,923
+error here because I don't.
+這裡出錯，因為我沒有。
+
+37
+00:01:30,452 --> 00:01:32,218
+But it could also just be a function. But if
+但它也可能只是一個函式。但如果
+
+38
+00:01:32,218 --> 00:01:34,801
+you need full control, it can be an object
+你需要完全控制，它可以是一個物件
+
+39
+00:01:35,026 --> 00:01:37,177
+and in that object, you can then register
+然後在該物件中，您可以註冊
+
+40
+00:01:37,273 --> 00:01:40,386
+GET and POST functions, which also can be
+GET 和 POST 函式，也可以是
+
+41
+00:01:40,467 --> 00:01:41,333
+async if needed.
+如果需要，非同步。
+
+42
+00:01:42,168 --> 00:01:44,158
+And that allows you to handle different
+這可以讓你處理不同的
+
+43
+00:01:44,174 --> 00:01:46,661
+request types, GET requests, POST requests,
+請求型別，GET 請求，POST 請求，
+
+44
+00:01:46,741 --> 00:01:49,325
+PATCH requests, and so on for one and the
+PATCH 請求，等等
+
+45
+00:01:49,325 --> 00:01:49,903
+same path.
+相同的路徑。
+
+46
+00:01:50,754 --> 00:01:53,257
+So here, for example, I have this GET
+例如，在這裡我有這個 GET
+
+47
+00:01:53,321 --> 00:01:56,403
+request handler where I construct and return
+我建構並傳回的請求處理程式
+
+48
+00:01:56,451 --> 00:01:58,665
+a response where I read the courses page
+我閱讀課程頁面的回复
+
+49
+00:01:58,842 --> 00:02:01,266
+index.html file. The same approach you saw
+index.html 檔案。與您看到的方法相同
+
+50
+00:02:01,331 --> 00:02:03,981
+before when we used just fetch, but now in
+以前我們只用 fetch，但現在
+
+51
+00:02:03,981 --> 00:02:04,688
+this GET method.
+這個 GET 方法。
+
+52
+00:02:05,667 --> 00:02:08,494
+And I have this POST method where I expect
+我有我期望的 POST 方法
+
+53
+00:02:08,494 --> 00:02:09,089
+to get some
+得到一些
+
+54
+00:02:09,699 --> 00:02:13,233
+request or some formData, which I extract
+請求或一些我提取的表單資料
+
+55
+00:02:13,233 --> 00:02:14,775
+with formData. And it's
+與表單資料。這是
+
+56
+00:02:15,305 --> 00:02:17,280
+actually looking like it's not valid anymore
+實際上看起來它不再有效了
+
+57
+00:02:17,409 --> 00:02:19,657
+here in my IDE, but it is according to the
+在我的 IDE 中，但它是根據
+
+58
+00:02:19,657 --> 00:02:22,051
+Bun docs. This is still how you extract
+麵包文檔。這仍然是你提取的方式
+
+59
+00:02:22,051 --> 00:02:23,962
+formData from an incoming request
+來自傳入請求的 formData
+
+60
+00:02:24,540 --> 00:02:25,697
+in this Bun router.
+在這個 Bun 路由器中。
+
+61
+00:02:27,205 --> 00:02:28,953
+And I extract an email and a course field
+我提取了一封電子郵件和一個課程欄位
+
+62
+00:02:28,969 --> 00:02:31,278
+and just log them here. And then I return a
+然後將它們記錄在這裡。然後我回傳一個
+
+63
+00:02:31,294 --> 00:02:34,085
+redirect back to /courses using the standard
+使用標準重定向回 /courses
+
+64
+00:02:34,085 --> 00:02:35,672
+response Web API again.
+再次回應Web API。
+
+65
+00:02:36,667 --> 00:02:38,912
+Now in the HTML files, we got almost the
+現在在 HTML 檔案中，我們幾乎得到了
+
+66
+00:02:38,912 --> 00:02:41,109
+same as before, but in courses.html, I now
+和以前一樣，但是在 course.html 中，我現在
+
+67
+00:02:41,157 --> 00:02:42,248
+got a form at the bottom
+底部有一個表格
+
+68
+00:02:43,002 --> 00:02:45,616
+using a good old HTML form with the action
+使用一個好的舊 HTML 表單來執行操作
+
+69
+00:02:45,664 --> 00:02:48,743
+set to /courses so that requests are sent to
+設定為 /courses 以便將請求傳送到
+
+70
+00:02:48,775 --> 00:02:51,501
+that, method set to POST so that a POST
+即，方法設定為 POST，以便 POST
+
+71
+00:02:51,501 --> 00:02:53,795
+request is set. And then my inputs have
+請求已設定。然後我的輸入有
+
+72
+00:02:53,907 --> 00:02:57,469
+names and these names email and course are
+姓名和這些姓名電子郵件和課程是
+
+73
+00:02:57,597 --> 00:02:59,813
+then used for getting hold of the actual
+然後用於獲取實際的
+
+74
+00:03:00,005 --> 00:03:01,916
+data. That's what's happening here. And
+資料。這就是這裡發生的事情。和
+
+75
+00:03:02,558 --> 00:03:04,500
+that all again still does not use
+還是沒用
+
+76
+00:03:04,500 --> 00:03:06,507
+client-side JavaScript, does not use other
+使用者端 JavaScript，不使用其他
+
+77
+00:03:06,507 --> 00:03:09,461
+packages. It's just Bun, vanilla Bun with
+包。這只是麵包，香草麵包
+
+78
+00:03:09,477 --> 00:03:10,729
+built-in features.
+內建功能。
+
+79
+00:03:11,660 --> 00:03:13,683
+Now, one word about the styles route here.
+現在，簡單介紹一下這裡的樣式路線。
+
+80
+00:03:14,357 --> 00:03:16,428
+It is required because
+這是必需的，因為
+
+81
+00:03:17,246 --> 00:03:18,129
+if I removed it,
+如果我刪除它，
+
+82
+00:03:18,771 --> 00:03:21,372
+you would see that the homepage actually
+你會看到主頁實際上
+
+83
+00:03:21,372 --> 00:03:22,817
+still works and looks good.
+仍然有效並且看起來不錯。
+
+84
+00:03:23,346 --> 00:03:26,601
+Because if you assign an imported HTML file
+因為如果您指派匯入的 HTML 檔案
+
+85
+00:03:26,794 --> 00:03:28,510
+directly to a route like this,
+直接到這樣的路線，
+
+86
+00:03:29,215 --> 00:03:31,412
+Bun will actually parse that file
+Bun 實際上會解析該檔案
+
+87
+00:03:32,166 --> 00:03:35,998
+and resolve any CSS or script links you have
+並解析您擁有的所有 CSS 或腳本連結
+
+88
+00:03:36,094 --> 00:03:38,403
+in there and make sure that they're loaded
+在那裡並確保它們已載入
+
+89
+00:03:38,436 --> 00:03:40,777
+correctly automatically. So you wouldn't
+自動正確。所以你不會
+
+90
+00:03:40,777 --> 00:03:43,150
+need a dedicated route for styles or
+需要專門的樣式路徑或
+
+91
+00:03:43,423 --> 00:03:44,978
+client-side JavaScript code then.
+然後是使用者端 JavaScript 程式碼。
+
+92
+00:03:45,972 --> 00:03:49,259
+But since the courses page is served
+但由於提供了課程頁面
+
+93
+00:03:49,340 --> 00:03:52,020
+differently, by manually reading the file
+不同的是，透過手動讀取檔案
+
+94
+00:03:52,148 --> 00:03:52,887
+content,
+內容，
+
+95
+00:03:53,577 --> 00:03:55,632
+we need to bring back this
+我們需要把這個帶回來
+
+96
+00:03:56,804 --> 00:03:57,639
+style route here
+風格路線在這裡
+
+97
+00:03:58,233 --> 00:04:00,802
+because without it, you'll see that the
+因為如果沒有它，你會發現
+
+98
+00:04:00,802 --> 00:04:03,997
+courses page has no styling because Bun does
+課程頁面沒有樣式，因為 Bun 有
+
+99
+00:04:04,125 --> 00:04:07,818
+not parse and automatically load scripts or
+不解析並自動載入腳本或
+
+100
+00:04:07,818 --> 00:04:10,660
+CSS code if a file is read like this.
+CSS 程式碼，如果一個檔案是這樣讀取的。
+
+101
+00:04:11,318 --> 00:04:13,421
+And unfortunately, we have to read it like
+不幸的是，我們必須這樣讀
+
+102
+00:04:13,421 --> 00:04:15,203
+this, at least at the point of time where
+這，至少在當時
+
+103
+00:04:15,203 --> 00:04:17,402
+I'm recording this because registering
+我錄製此內容是因為要註冊
+
+104
+00:04:17,434 --> 00:04:19,984
+courses page like that as a value for the
+像這樣的課程頁面作為值
+
+105
+00:04:19,984 --> 00:04:22,261
+GET request is not allowed.
+不允許 GET 請求。
+
+106
+00:04:22,966 --> 00:04:25,131
+That's just something worth knowing. And
+這只是值得了解的事。和
+
+107
+00:04:25,196 --> 00:04:27,617
+it's also worth knowing that routes or the
+還值得了解的是路線或
+
+108
+00:04:27,697 --> 00:04:29,028
+Bun router would
+包子路由器會
+
+109
+00:04:29,606 --> 00:04:31,915
+automatically load styles and JavaScript
+自動載入樣式和 JavaScript
+
+110
+00:04:32,027 --> 00:04:35,074
+files if you only set up routes like this.
+檔案，如果你只設定這樣的路線。
+
+111
+00:04:35,539 --> 00:04:37,608
+But as soon as you start loading files
+但是一旦你開始載入檔案
+
+112
+00:04:37,640 --> 00:04:39,532
+manually, you also have to handle those
+手動，你還必須處理這些
+
+113
+00:04:39,709 --> 00:04:41,729
+assets manually and set up appropriate
+手動資產並設定適當的
+
+114
+00:04:41,729 --> 00:04:44,601
+routes for them. But that router is then of
+他們的路線。但那個路由器是
+
+115
+00:04:44,617 --> 00:04:47,141
+course a very powerful feature that makes
+當然是一個非常強大的功能，使得
+
+116
+00:04:47,141 --> 00:04:48,532
+registering routes a breeze.
+輕鬆註冊路線。

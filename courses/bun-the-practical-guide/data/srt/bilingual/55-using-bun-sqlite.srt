@@ -1,0 +1,299 @@
+1
+00:00:00,048 --> 00:00:02,084
+So when creating a post, but also for many
+所以在創建貼文的時候，也是對於很多
+
+2
+00:00:02,180 --> 00:00:03,975
+other routes, we're reaching out to the
+其他路線，我們正在聯繫
+
+3
+00:00:04,103 --> 00:00:06,893
+database here to start a transaction, which
+資料庫在這裡啟動一個交易，其中
+
+4
+00:00:07,005 --> 00:00:09,826
+simply means we have multiple steps which we
+只是意味著我們有多個步驟
+
+5
+00:00:10,436 --> 00:00:14,267
+wanna perform in one go. And if one of them
+想要一口氣表演。如果其中之一
+
+6
+00:00:14,379 --> 00:00:16,335
+fails, we wanna roll back all of them.
+失敗了，我們想回滾所有這些。
+
+7
+00:00:16,928 --> 00:00:19,589
+Now, not all post routes or routes in
+現在，並非所有發布路線或路線
+
+8
+00:00:19,589 --> 00:00:21,160
+general use transactions.
+一般用途交易。
+
+9
+00:00:21,737 --> 00:00:24,222
+For example, for listing my posts, for
+例如，為了列出我的帖子，
+
+10
+00:00:24,399 --> 00:00:26,740
+getting a list of all posts, I don't have a
+獲取所有帖子的列表，我沒有
+
+11
+00:00:26,740 --> 00:00:29,676
+transaction there, I just directly query my
+交易在那裡，我只是直接查詢我的
+
+12
+00:00:29,676 --> 00:00:32,324
+database. But how exactly does this work?
+資料庫.但這到底是如何運作的呢？
+
+13
+00:00:32,725 --> 00:00:33,655
+Well, db
+嗯，資料庫
+
+14
+00:00:34,971 --> 00:00:37,330
+is a database object created with the
+是使用以下命令建立的資料庫物件
+
+15
+00:00:37,394 --> 00:00:41,004
+database class coming from Bun's SQLite
+來自 Bun 的 SQLite 的資料庫類
+
+16
+00:00:41,068 --> 00:00:41,389
+package.
+包裹。
+
+17
+00:00:41,967 --> 00:00:44,502
+Because this project here uses a SQLite
+因為這裡的專案使用了SQLite
+
+18
+00:00:44,518 --> 00:00:47,775
+package stored in an app.sqlite file here,
+套件儲存在此處的 app.sqlite 檔案中，
+
+19
+00:00:48,305 --> 00:00:50,535
+and that's all set up in a connection.ts
+這一切都在 connection.ts 中設置
+
+20
+00:00:50,551 --> 00:00:53,006
+file, which is in the source/db folder in
+檔案，位於 source/db 資料夾中
+
+21
+00:00:53,118 --> 00:00:54,804
+that API app project. Project.
+該 API 應用程式專案。專案.
+
+22
+00:00:55,526 --> 00:00:58,272
+So in there, I'm really just setting up my
+所以在那裡，我真的只是設定我的
+
+23
+00:00:58,561 --> 00:01:01,918
+SQLite database. Super simple here, enabling
+SQLite 資料庫。這裡超簡單，啟用
+
+24
+00:01:02,014 --> 00:01:03,909
+WAL mode, which gives us better performance,
+WAL模式，為我們帶來更好的效能，
+
+25
+00:01:04,599 --> 00:01:07,409
+enforcing foreign key constraints so that we
+強制執行外鍵約束，以便我們
+
+26
+00:01:07,409 --> 00:01:09,947
+get an error if we insert invalid foreign
+如果我們插入無效的外來訊息，則會出現錯誤
+
+27
+00:01:09,963 --> 00:01:10,236
+keys.
+鍵。
+
+28
+00:01:10,766 --> 00:01:12,211
+And that is about it.
+就是這樣。
+
+29
+00:01:12,869 --> 00:01:15,503
+The database is stored in a path that's
+資料庫儲存在以下路徑中
+
+30
+00:01:15,503 --> 00:01:18,153
+coming from an environment variable, or we
+來自環境變數，或者我們
+
+31
+00:01:18,169 --> 00:01:21,107
+use a default path if that's not set. So we
+如果未設置，則使用預設路徑。所以我們
+
+32
+00:01:21,123 --> 00:01:23,339
+do support environment variables here for
+此處支援環境變數
+
+33
+00:01:23,452 --> 00:01:26,276
+the database path. And then in our actual
+資料庫路徑。然後在我們實際的
+
+34
+00:01:26,501 --> 00:01:29,132
+app logic, we use this database object with
+應用程式邏輯，我們使用這個資料庫物件
+
+35
+00:01:29,164 --> 00:01:31,715
+the methods supported by the Bun SQLite
+Bun SQLite 支援的方法
+
+36
+00:01:31,715 --> 00:01:34,698
+client to query the database, to get data,
+使用者端查詢資料庫，取得資料，
+
+37
+00:01:35,324 --> 00:01:37,426
+or like in createPost, also to run a
+或者像 createPost 一樣，也運行
+
+38
+00:01:37,490 --> 00:01:40,730
+transaction where we then also try to insert
+然後我們也嘗試插入交易
+
+39
+00:01:40,730 --> 00:01:42,014
+some data, for example.
+例如，一些資料。
+
+40
+00:01:42,623 --> 00:01:44,532
+And we're using features like this query
+我們正在使用像這樣的查詢功能
+
+41
+00:01:44,645 --> 00:01:48,030
+parameters syntax supported by Bun to safely
+Bun 支援的參數語法可以安全地
+
+42
+00:01:48,254 --> 00:01:50,869
+insert dynamic values into our queries.
+將動態值插入我們的查詢。
+
+43
+00:01:51,542 --> 00:01:53,466
+And then this query just gets executed by
+然後這個查詢就被執行了
+
+44
+00:01:53,466 --> 00:01:55,310
+calling the run method where the concrete
+具體地呼叫哪裡的run方法
+
+45
+00:01:55,310 --> 00:01:57,842
+values are inserted for these placeholders.
+為這些佔位符插入值。
+
+46
+00:01:58,019 --> 00:02:01,193
+And Bun's SQLite package does that in a way
+Bun 的 SQLite 套件以某種方式做到了這一點
+
+47
+00:02:01,561 --> 00:02:04,126
+that protects against SQL injection attacks,
+防止 SQL 注入攻擊，
+
+48
+00:02:04,190 --> 00:02:04,864
+for example.
+例如。
+
+49
+00:02:05,649 --> 00:02:07,717
+And that's really all that's to that
+這就是真正的全部內容
+
+50
+00:02:07,877 --> 00:02:10,747
+database feature. The only other thing worth
+資料庫功能。唯一值得的另一件事
+
+51
+00:02:10,779 --> 00:02:14,209
+noting is that we also import this database
+值得注意的是我們也導入了這個資料庫
+
+52
+00:02:14,241 --> 00:02:16,021
+into our auth.ts file
+進入我們的 auth.ts 檔案
+
+53
+00:02:16,614 --> 00:02:19,611
+and there we link it to the database field
+我們將其連結到資料庫欄位
+
+54
+00:02:19,659 --> 00:02:21,823
+of the Batteroff package so that the
+Batteroff 包的
+
+55
+00:02:21,839 --> 00:02:25,145
+Batteroff package knows where to set up its
+Batteroff 套件知道在哪裡設定它的
+
+56
+00:02:25,273 --> 00:02:27,922
+auth-related tables like the users table,
+與身份驗證相關的表，例如使用者表，
+
+57
+00:02:28,340 --> 00:02:31,390
+the sessions table, and so on. And the great
+工作階段表等。還有偉大的
+
+58
+00:02:31,390 --> 00:02:33,911
+thing is that BetterAuth natively supports
+事情是 BetterAuth 本身支援
+
+59
+00:02:33,959 --> 00:02:37,796
+Bun's SQLite package. So using Bun SQLite
+Bun 的 SQLite 套件。所以使用Bun SQLite
+
+60
+00:02:37,812 --> 00:02:39,546
+with BetterAuth is a breeze.
+使用 BetterAuth 輕而易舉。

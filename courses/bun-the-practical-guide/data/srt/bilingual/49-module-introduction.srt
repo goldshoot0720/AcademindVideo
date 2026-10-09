@@ -1,0 +1,279 @@
+1
+00:00:00,257 --> 00:00:02,843
+You know the core Bun features, you heard
+你知道 Bun 的核心功能，你聽過
+
+2
+00:00:02,843 --> 00:00:05,461
+about them, you maybe used them in some tiny
+關於它們，你可能在一些微小的事情上使用過它們
+
+3
+00:00:05,558 --> 00:00:06,120
+demo apps.
+演示應用程式。
+
+4
+00:00:06,923 --> 00:00:09,027
+It's of course best to see them in a
+當然最好是在
+
+5
+00:00:09,252 --> 00:00:11,871
+complete realistic web app and that's
+完整的現實網路應用程式，那就是
+
+6
+00:00:11,919 --> 00:00:14,730
+exactly what this section is about. In this
+這正是本節的內容。在這個
+
+7
+00:00:14,730 --> 00:00:18,826
+section, I'll show you in detail a complete
+部分，我將詳細向您展示完整的
+
+8
+00:00:19,228 --> 00:00:22,457
+Bun demo web app, a social network web
+Bun 示範網路應用程式，一個社交網路網路
+
+9
+00:00:22,505 --> 00:00:25,509
+application which includes authentication
+包含身份驗證的應用程式
+
+10
+00:00:25,638 --> 00:00:28,433
+using another library but powered by Bun
+使用另一個庫，但由 Bun 提供支援
+
+11
+00:00:28,609 --> 00:00:30,874
+under the hood, of course. We'll use Bun's
+當然，在幕後。我們將使用Bun's
+
+12
+00:00:30,954 --> 00:00:34,713
+web server and routing feature, Bun's SQLite
+Web 伺服器和路由功能，Bun 的 SQLite
+
+13
+00:00:34,713 --> 00:00:37,765
+client for accessing a SQLite database for
+用於存取 SQLite 資料庫的使用者端
+
+14
+00:00:37,781 --> 00:00:40,994
+data storage. We'll have images stored in
+資料儲存。我們將圖像儲存在
+
+15
+00:00:40,994 --> 00:00:43,885
+the cloud on Cloudflare R2, but we could be
+Cloudflare R2 上的雲，但我們可以
+
+16
+00:00:43,885 --> 00:00:46,824
+using Amazon S3 too if we wanted to because
+如果我們願意的話也可以使用 Amazon S3，因為
+
+17
+00:00:46,840 --> 00:00:49,796
+we'll be using Bun's S3 client. We'll have
+我們將使用 Bun 的 S3 使用者端。我們會有
+
+18
+00:00:49,973 --> 00:00:54,152
+automated tests and so much more. It'll be a
+自動化測試等等。這將是一個
+
+19
+00:00:54,233 --> 00:00:55,749
+web application which requires
+網路應用程式需要
+
+20
+00:00:56,007 --> 00:00:57,635
+authentication and of course it also
+身份驗證，當然還有
+
+21
+00:00:57,635 --> 00:00:59,409
+supports account creation therefore.
+因此支援帳戶創建。
+
+22
+00:01:01,770 --> 00:01:03,953
+And once you have an account, you're in this
+一旦你擁有了一個帳戶，你就進入了這個
+
+23
+00:01:04,228 --> 00:01:07,204
+basic yet fully functional social network
+基本但功能齊全的社交網路
+
+24
+00:01:07,204 --> 00:01:09,663
+where you can follow other people,
+在那裡你可以關注其他人，
+
+25
+00:01:10,359 --> 00:01:13,508
+where you can see the posts of people you
+在那裡你可以看到你的人的帖子
+
+26
+00:01:13,540 --> 00:01:16,091
+follow on your personal feed page, your
+在您的個人動態頁面上關注您的
+
+27
+00:01:16,140 --> 00:01:16,920
+starting page,
+起始頁，
+
+28
+00:01:17,521 --> 00:01:19,797
+you can like those posts, You can of course
+你可以喜歡這些帖子，當然可以
+
+29
+00:01:19,877 --> 00:01:21,432
+also read them in full
+也完整閱讀它們
+
+30
+00:01:22,041 --> 00:01:24,574
+and you can also share your own posts where
+您也可以在其中分享您自己的帖子
+
+31
+00:01:24,606 --> 00:01:26,033
+you can also attach images.
+您也可以附加圖像。
+
+32
+00:01:26,562 --> 00:01:29,079
+So that's the application I built and which
+這就是我建立的應用程式
+
+33
+00:01:29,095 --> 00:01:31,611
+we'll now explore in greater detail in this
+我們現在將更詳細地探討這一點
+
+34
+00:01:31,692 --> 00:01:34,144
+section. You'll find the finished project
+部分。你會發現完成的專案
+
+35
+00:01:34,176 --> 00:01:37,030
+attached so that you can play around with it
+附上以便您可以使用它
+
+36
+00:01:37,270 --> 00:01:37,815
+on your own.
+靠你自己。
+
+37
+00:01:38,392 --> 00:01:41,165
+There is a detailed README.md file in there
+裡面有詳細的README.md檔案
+
+38
+00:01:41,694 --> 00:01:43,602
+which contains more details about the
+其中包含有關的更多詳細資訊
+
+39
+00:01:43,602 --> 00:01:45,766
+project, though of course we'll go through
+專案，當然我們會經歷
+
+40
+00:01:45,846 --> 00:01:48,283
+it over the next lectures, but it also
+接下來的講座會講到，但它也
+
+41
+00:01:48,331 --> 00:01:50,559
+contains detailed installation and setup
+包含詳細的安裝和設置
+
+42
+00:01:50,559 --> 00:01:52,018
+instructions instructions you should go
+說明 說明 你該去的地方
+
+43
+00:01:52,018 --> 00:01:52,258
+through
+透過
+
+44
+00:01:52,819 --> 00:01:54,663
+if you want to run this on your own because
+如果你想自己運行這個因為
+
+45
+00:01:54,663 --> 00:01:56,442
+you'll need to install dependencies. You
+你需要安裝依賴項。你
+
+46
+00:01:56,442 --> 00:01:59,600
+have 2 apps in there. I'll get back to why
+裡面有 2 個應用程式。我會回到為什麼
+
+47
+00:01:59,808 --> 00:02:01,203
+and what these 2 apps are.
+以及這兩個應用程式是什麼。
+
+48
+00:02:02,037 --> 00:02:06,076
+You need to set up a Cloudflare R2 bucket or
+您需要設定 Cloudflare R2 儲存桶或
+
+49
+00:02:06,140 --> 00:02:09,282
+some other S3-compatible bucket which you
+您可以使用其他一些與 S3 相容的儲存桶
+
+50
+00:02:09,282 --> 00:02:11,591
+can use, and there are instructions for that
+可以使用，並且有相關說明
+
+51
+00:02:11,591 --> 00:02:12,264
+in here too,
+也在這裡，
+
+52
+00:02:12,937 --> 00:02:15,101
+and so on. So that is the way to go if you
+等等。所以這就是要走的路，如果你
+
+53
+00:02:15,101 --> 00:02:17,089
+wanna run this on your own. But of course,
+想自己運行這個。但當然，
+
+54
+00:02:17,201 --> 00:02:20,135
+now we'll dive in and see what exactly these
+現在我們將深入了解這些到底是什麼
+
+55
+00:02:20,167 --> 00:02:22,619
+2 apps are about and which fun features
+2 個應用程式的相關內容以及哪些有趣的功能
+
+56
+00:02:22,813 --> 00:02:23,496
+we're using here.
+我們這裡用的是
