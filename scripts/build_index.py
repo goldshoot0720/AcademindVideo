@@ -112,43 +112,8 @@ def bar(done, total, color):
 
 
 # Appended verbatim (not an f-string) so the braces stay single.
-# Reads the av:last record the player writes and offers to jump back into it.
-RESUME_JS = """
-<script>
-(function(){
-  var el=document.getElementById("resume"); if(!el) return;
-  var last=null;
-  try{ last=JSON.parse(localStorage.getItem("av:last")||"null"); }catch(e){}
-  if(!last||!last.course||!last.lesson) return;
-  if(Date.now()-(last.at||0) > 12*3600*1000) return;   // ignore stale sessions
-  function fmtT(s){ s=Math.max(0,s||0); var m=Math.floor(s/60), x=Math.floor(s%60);
-    return (m<10?"0":"")+m+":"+(x<10?"0":"")+x; }
-  var href="courses/"+last.course+"/player/#"+encodeURIComponent(last.lesson);
-  document.getElementById("rsV").textContent=(last.courseTitle||last.course)+" · "
-    +(last.lessonNumber?last.lessonNumber+" · ":"")+(last.title||last.lesson)
-    +(last.t>3?(" · "+fmtT(last.t)):"");
-  document.getElementById("rsGo").href=href;
-  el.hidden=false;
-  var cd=document.getElementById("rsCd"), timer=null, n=4;
-  function stop(){ if(timer){ clearInterval(timer); timer=null; } if(cd) cd.textContent=""; }
-  document.getElementById("rsX").addEventListener("click",stop);
-  // auto-continue on reload; the player links back with ?stay=1 so the list
-  // stays reachable instead of bouncing the visitor straight back
-  if(!/[?&]stay=1/.test(location.search)){
-    cd.textContent="（"+n+" 秒後自動繼續）";
-    timer=setInterval(function(){
-      n--;
-      if(n<=0){ stop(); location.href=href; return; }
-      cd.textContent="（"+n+" 秒後自動繼續）";
-    },1000);
-  }
-})();
-</script>
-"""
-
-
-# Appended verbatim as well. Fills in the per-card "已觀看" row from the
-# av:watched record the player writes when a lecture plays through to the end.
+# Fills in the per-card "已觀看" row from the av:watched record the player
+# writes when a lecture plays through to the end.
 WATCH_JS = """
 <script>
 (function(){
@@ -183,13 +148,57 @@ WATCH_JS = """
 """
 
 
-def card(c):
+# Reorders the course grid client-side. The chosen mode is remembered in
+# localStorage so the list comes back the way the visitor left it.
+SORT_JS = """
+<script>
+(function(){
+  var grid=document.querySelector(".grid"), seg=document.getElementById("sortSeg");
+  if(!grid||!seg) return;
+  var cards=Array.prototype.slice.call(grid.querySelectorAll(".card[data-slug]"));
+  if(!cards.length) return;
+  function name(c){ return c.getAttribute("data-name")||""; }
+  function secs(c){ return parseFloat(c.getAttribute("data-seconds"))||0; }
+  function order(c){ return parseFloat(c.getAttribute("data-order"))||0; }
+  function byName(a,b){ return name(a).localeCompare(name(b),undefined,{numeric:true,sensitivity:"base"}); }
+  var cmp={
+    "default":   function(a,b){ return order(a)-order(b); },
+    "name":      byName,
+    "name-desc": function(a,b){ return byName(b,a); },
+    "dur":       function(a,b){ return secs(a)-secs(b); },
+    "dur-desc":  function(a,b){ return secs(b)-secs(a); }
+  };
+  function apply(mode){
+    if(!cmp[mode]) mode="default";
+    cards.sort(cmp[mode]);
+    var frag=document.createDocumentFragment();
+    cards.forEach(function(c){ frag.appendChild(c); });
+    grid.appendChild(frag);
+    Array.prototype.forEach.call(seg.querySelectorAll("button[data-sort]"),function(b){
+      b.classList.toggle("on", b.getAttribute("data-sort")===mode);
+    });
+    try{ localStorage.setItem("av:sort", mode); }catch(e){}
+  }
+  seg.addEventListener("click",function(e){
+    var b=e.target.closest("button[data-sort]"); if(!b) return;
+    apply(b.getAttribute("data-sort"));
+  });
+  var saved="default";
+  try{ saved=localStorage.getItem("av:sort")||"default"; }catch(e){}
+  apply(saved);
+})();
+</script>
+"""
+
+
+def card(c, i=0):
     title = html.escape(c["series"])
     link = f'courses/{c["slug"]}/player/'
     src = (f'<a class="src" href="{html.escape(c["seriesUrl"])}" target="_blank" '
            f'rel="noopener">課程頁 ↗</a>') if c.get("seriesUrl") else ""
     return f"""
-    <div class="card" data-slug="{html.escape(c['slug'])}" data-playable="{c['videos']}">
+    <div class="card" data-slug="{html.escape(c['slug'])}" data-playable="{c['videos']}"
+         data-name="{html.escape(c['series'])}" data-seconds="{c['seconds']}" data-order="{i}">
       <a class="cardlink" href="{link}" aria-label="{title} — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,{c['c1']},{c['c2']})">
         <div class="logo">{html.escape(c['logo'])}</div>
@@ -227,7 +236,7 @@ def main():
     total_seconds = sum(c["seconds"] for c in courses)
     total_time = fmt_dur(total_seconds)
 
-    cards = "\n".join(card(c) for c in courses) or \
+    cards = "\n".join(card(c, i) for i, c in enumerate(courses)) or \
         '<div class="empty">尚無課程。將課程資料夾放進 <code>courses/</code> 後執行 <code>python3 scripts/build_index.py</code>。</div>'
 
     page = f"""<!doctype html>
@@ -299,20 +308,15 @@ def main():
     border-top:1px solid var(--line);padding-top:20px}}
   footer a{{color:#7c5cff;text-decoration:none}}
 
-  /* ---------- continue-watching banner ---------- */
-  .resume{{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel);
-    border:1px solid #e3dcff;border-left:4px solid #7c5cff;border-radius:14px;
-    padding:13px 16px;margin:0 0 24px;box-shadow:var(--shadow)}}
-  .rs-txt{{min-width:0;flex:1}}
-  .rs-k{{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7c5cff}}
-  .rs-v{{font-size:13.5px;font-weight:600;overflow-wrap:anywhere}}
-  .rs-cd{{font-size:11.5px;color:var(--muted);font-weight:500}}
-  .rs-go{{background:#7c5cff;color:#fff;text-decoration:none;font-weight:700;font-size:13px;
-    padding:8px 14px;border-radius:9px;white-space:nowrap}}
-  .rs-x{{background:transparent;border:1px solid var(--line);color:var(--muted);cursor:pointer;
-    font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:9px;font-family:inherit;
-    white-space:nowrap}}
-  .rs-x:hover{{color:var(--ink);border-color:var(--muted)}}
+  /* ---------- sort bar ---------- */
+  .sortbar{{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 18px}}
+  .sortbar .sortlabel{{font-size:12.5px;color:var(--muted);font-weight:700;letter-spacing:.02em}}
+  .seg{{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--panel);
+    border:1px solid var(--line);border-radius:12px;padding:4px}}
+  .seg button{{border:0;background:transparent;color:var(--muted);font-size:12.5px;font-weight:600;
+    padding:6px 11px;border-radius:8px;cursor:pointer;font-family:inherit;white-space:nowrap}}
+  .seg button:hover{{color:var(--ink);background:#f2f4f7}}
+  .seg button.on{{background:#7c5cff;color:#fff}}
 
   /* ---------- responsive: 100% and 150% browser zoom ---------- */
   @media (max-width:1024px){{
@@ -355,13 +359,15 @@ def main():
     </div>
   </header>
 
-  <div class="resume" id="resume" hidden>
-    <div class="rs-txt">
-      <div class="rs-k">繼續上次播放 <span class="rs-cd" id="rsCd"></span></div>
-      <div class="rs-v" id="rsV"></div>
+  <div class="sortbar">
+    <span class="sortlabel">排序</span>
+    <div class="seg" id="sortSeg" role="group" aria-label="課程排序方式">
+      <button type="button" data-sort="default" class="on">預設</button>
+      <button type="button" data-sort="name">名稱 A→Z</button>
+      <button type="button" data-sort="name-desc">名稱 Z→A</button>
+      <button type="button" data-sort="dur">時長 短→長</button>
+      <button type="button" data-sort="dur-desc">時長 長→短</button>
     </div>
-    <a class="rs-go" id="rsGo" href="#">繼續播放 →</a>
-    <button class="rs-x" id="rsX" type="button">留在列表</button>
   </div>
 
   <div class="grid">
@@ -374,7 +380,7 @@ def main():
     影片與原始課程內容版權屬 Academind 與原作者所有，僅供個人學習用途，請勿再散布。
   </footer>
 </div>
-""" + RESUME_JS + WATCH_JS + "\n</body>\n</html>\n"
+""" + WATCH_JS + SORT_JS + "\n</body>\n</html>\n"
     out = os.path.join(ROOT, "index.html")
     open(out, "w", encoding="utf-8").write(page)
     print(f"wrote {os.path.relpath(out, ROOT)} — {len(courses)} course(s), "
