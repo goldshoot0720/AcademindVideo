@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Academind 課程 · 中英雙語動態字幕</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c5cff'/%3E%3Cpath d='M12 9l12 7-12 7z' fill='white'/%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#f6f7f9; --panel:#fff; --ink:#101828; --muted:#667085;
@@ -24,9 +25,12 @@
   .stats div{font-size:13px;color:var(--muted)}
   .stats b{display:block;font-size:22px;color:var(--ink);letter-spacing:-.01em}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:22px}
-  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+  .card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
     border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;
     box-shadow:var(--shadow);transition:transform .16s ease,box-shadow .16s ease}
+  .cardlink{position:absolute;inset:0;z-index:1;border-radius:18px}
+  .cardlink:focus-visible{outline:2px solid #7c5cff;outline-offset:2px}
+  .card .src{position:relative;z-index:2}
   .card:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(16,24,40,.06),0 22px 44px -16px rgba(16,24,40,.24)}
   .chead{display:flex;gap:14px;align-items:center;padding:20px 20px 18px;color:#fff}
   .logo{width:52px;height:52px;border-radius:13px;background:rgba(255,255,255,.22);
@@ -40,6 +44,7 @@
   .chip{font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border:1px solid var(--line);
     padding:3px 10px;border-radius:999px}
   .chip.dur{color:#5b45e0;background:#f4f1ff;border-color:#e3dcff;font-variant-numeric:tabular-nums}
+  .chip.done{color:#fff;background:#12b76a;border-color:#12b76a}
   .cov{display:flex;flex-direction:column;gap:11px}
   .covrow{display:flex;align-items:center;gap:10px}
   .lbl{width:66px;flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:600}
@@ -47,6 +52,9 @@
   .bar span{display:block;height:100%;border-radius:999px}
   .barlab{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
   .barlab b{color:var(--ink)}
+  .covrow.watch .lbl{color:#0a7a45}
+  .covrow.watch .wfill{display:block;height:100%;border-radius:999px;background:#12b76a;transition:width .25s ease}
+  .card.allwatched{border-color:#bfe9d3}
   .cfoot{display:flex;align-items:center;justify-content:space-between;
     padding:14px 20px;border-top:1px solid var(--line);margin-top:14px}
   .enter{font-weight:700;font-size:13.5px;color:#7c5cff}
@@ -109,8 +117,9 @@
       <div><b>15</b>課程</div>
       <div><b>1082</b>課</div>
       <div><b>69h 37m</b>總時長</div>
-      <div><b>990</b>部影片已下載</div>
+      <div><b>896</b>部影片已下載</div>
       <div><b>896</b>課雙語字幕</div>
+      <div id="statWatch" hidden><b id="statWatchV">0</b>課已觀看 · <span id="statDone">0</span> 門課程已完成</div>
     </div>
   </header>
 
@@ -125,7 +134,8 @@
 
   <div class="grid">
 
-    <a class="card" href="courses/ai-agents-workflows-the-practical-guide/player/">
+    <div class="card" data-slug="ai-agents-workflows-the-practical-guide" data-playable="93">
+      <a class="cardlink" href="courses/ai-agents-workflows-the-practical-guide/player/" aria-label="AI Agents &amp; Workflows - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">
         <div class="logo">AG</div>
         <div class="chead-txt">
@@ -138,9 +148,11 @@
           <span class="chip">10 章</span>
           <span class="chip">116 課</span>
           <span class="chip dur">時長 6h 48m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:93%;background:#7c3aed"></span></div><div class="barlab"><b>108</b> / 116</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 93</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:80%;background:#7c3aed"></span></div><div class="barlab"><b>93</b> / 116</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:80%;background:#12b76a"></span></div><div class="barlab"><b>93</b> / 116</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:80%;background:#94a3b8"></span></div><div class="barlab"><b>93</b> / 116</div></div>
         </div>
@@ -149,9 +161,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/ai-agents-workflows-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/ai-for-developers/player/">
+    <div class="card" data-slug="ai-for-developers" data-playable="76">
+      <a class="cardlink" href="courses/ai-for-developers/player/" aria-label="AI For Developers With GitHub Copilot, Cursor AI &amp; ChatGPT — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#7c5cff,#3b82f6)">
         <div class="logo">AI</div>
         <div class="chead-txt">
@@ -164,9 +177,11 @@
           <span class="chip">8 章</span>
           <span class="chip">146 課</span>
           <span class="chip dur">時長 7h 58m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:53%;background:#3b82f6"></span></div><div class="barlab"><b>78</b> / 146</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 76</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:52%;background:#3b82f6"></span></div><div class="barlab"><b>76</b> / 146</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:52%;background:#12b76a"></span></div><div class="barlab"><b>76</b> / 146</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:52%;background:#94a3b8"></span></div><div class="barlab"><b>76</b> / 146</div></div>
         </div>
@@ -175,9 +190,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/ai-for-developers-with-github-copilot-cursor-chatgpt" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/ai-key-concepts-terms-the-missing-guide/player/">
+    <div class="card" data-slug="ai-key-concepts-terms-the-missing-guide" data-playable="59">
+      <a class="cardlink" href="courses/ai-key-concepts-terms-the-missing-guide/player/" aria-label="AI Key Concepts &amp; Terms - The Missing Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#a855f7,#6366f1)">
         <div class="logo">AK</div>
         <div class="chead-txt">
@@ -190,8 +206,10 @@
           <span class="chip">7 章</span>
           <span class="chip">60 課</span>
           <span class="chip dur">時長 1h 55m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 59</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:98%;background:#6366f1"></span></div><div class="barlab"><b>59</b> / 60</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:98%;background:#12b76a"></span></div><div class="barlab"><b>59</b> / 60</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:98%;background:#94a3b8"></span></div><div class="barlab"><b>59</b> / 60</div></div>
@@ -201,9 +219,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/ai-key-terms-concepts-the-missing-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/bun-the-practical-guide/player/">
+    <div class="card" data-slug="bun-the-practical-guide" data-playable="56">
+      <a class="cardlink" href="courses/bun-the-practical-guide/player/" aria-label="Bun - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#f472b6,#f59e0b)">
         <div class="logo">Bun</div>
         <div class="chead-txt">
@@ -216,8 +235,10 @@
           <span class="chip">3 章</span>
           <span class="chip">58 課</span>
           <span class="chip dur">時長 4h 04m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 56</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:97%;background:#f59e0b"></span></div><div class="barlab"><b>56</b> / 58</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:97%;background:#12b76a"></span></div><div class="barlab"><b>56</b> / 58</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:97%;background:#94a3b8"></span></div><div class="barlab"><b>56</b> / 58</div></div>
@@ -227,9 +248,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/bun-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/chatgpt-the-advanced-guide/player/">
+    <div class="card" data-slug="chatgpt-the-advanced-guide" data-playable="37">
+      <a class="cardlink" href="courses/chatgpt-the-advanced-guide/player/" aria-label="ChatGPT - The Advanced Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#10a37f,#0d8a6a)">
         <div class="logo">GPT</div>
         <div class="chead-txt">
@@ -242,8 +264,10 @@
           <span class="chip">6 章</span>
           <span class="chip">37 課</span>
           <span class="chip dur">時長 1h 50m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 37</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:100%;background:#0d8a6a"></span></div><div class="barlab"><b>37</b> / 37</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:100%;background:#12b76a"></span></div><div class="barlab"><b>37</b> / 37</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:100%;background:#94a3b8"></span></div><div class="barlab"><b>37</b> / 37</div></div>
@@ -253,9 +277,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/chatgpt-the-advanced-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/claude-code-the-practical-guide/player/">
+    <div class="card" data-slug="claude-code-the-practical-guide" data-playable="35">
+      <a class="cardlink" href="courses/claude-code-the-practical-guide/player/" aria-label="Claude Code - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#d97757,#c2410c)">
         <div class="logo">CC</div>
         <div class="chead-txt">
@@ -268,8 +293,10 @@
           <span class="chip">4 章</span>
           <span class="chip">61 課</span>
           <span class="chip dur">時長 3h 19m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 35</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:57%;background:#c2410c"></span></div><div class="barlab"><b>35</b> / 61</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:57%;background:#12b76a"></span></div><div class="barlab"><b>35</b> / 61</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:57%;background:#94a3b8"></span></div><div class="barlab"><b>35</b> / 61</div></div>
@@ -279,9 +306,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/claude-code-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/claude-cowork-the-practical-guide/player/">
+    <div class="card" data-slug="claude-cowork-the-practical-guide" data-playable="32">
+      <a class="cardlink" href="courses/claude-cowork-the-practical-guide/player/" aria-label="Claude Cowork - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#d97757,#a855f7)">
         <div class="logo">CW</div>
         <div class="chead-txt">
@@ -294,9 +322,11 @@
           <span class="chip">4 章</span>
           <span class="chip">33 課</span>
           <span class="chip dur">時長 2h 16m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:100%;background:#a855f7"></span></div><div class="barlab"><b>33</b> / 33</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 32</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:97%;background:#a855f7"></span></div><div class="barlab"><b>32</b> / 33</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:97%;background:#12b76a"></span></div><div class="barlab"><b>32</b> / 33</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:97%;background:#94a3b8"></span></div><div class="barlab"><b>32</b> / 33</div></div>
         </div>
@@ -305,9 +335,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/claude-cowork-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/clean-code/player/">
+    <div class="card" data-slug="clean-code" data-playable="85">
+      <a class="cardlink" href="courses/clean-code/player/" aria-label="Clean Code — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#34d399,#059669)">
         <div class="logo">CC</div>
         <div class="chead-txt">
@@ -320,8 +351,10 @@
           <span class="chip">8 章</span>
           <span class="chip">95 課</span>
           <span class="chip dur">時長 6h 40m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 85</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:89%;background:#059669"></span></div><div class="barlab"><b>85</b> / 95</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:89%;background:#12b76a"></span></div><div class="barlab"><b>85</b> / 95</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:89%;background:#94a3b8"></span></div><div class="barlab"><b>85</b> / 95</div></div>
@@ -331,9 +364,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/clean-code" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/codex-the-practical-guide/player/">
+    <div class="card" data-slug="codex-the-practical-guide" data-playable="48">
+      <a class="cardlink" href="courses/codex-the-practical-guide/player/" aria-label="Codex - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#14b8a6,#047857)">
         <div class="logo">CDX</div>
         <div class="chead-txt">
@@ -346,9 +380,11 @@
           <span class="chip">3 章</span>
           <span class="chip">67 課</span>
           <span class="chip dur">時長 3h 17m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:78%;background:#047857"></span></div><div class="barlab"><b>52</b> / 67</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 48</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:72%;background:#047857"></span></div><div class="barlab"><b>48</b> / 67</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:72%;background:#12b76a"></span></div><div class="barlab"><b>48</b> / 67</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:72%;background:#94a3b8"></span></div><div class="barlab"><b>48</b> / 67</div></div>
         </div>
@@ -357,9 +393,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/codex-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/htmx-the-practical-guide/player/">
+    <div class="card" data-slug="htmx-the-practical-guide" data-playable="60">
+      <a class="cardlink" href="courses/htmx-the-practical-guide/player/" aria-label="HTMX - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#38bdf8,#0ea5e9)">
         <div class="logo">HX</div>
         <div class="chead-txt">
@@ -372,9 +409,11 @@
           <span class="chip">6 章</span>
           <span class="chip">64 課</span>
           <span class="chip dur">時長 4h 04m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:95%;background:#0ea5e9"></span></div><div class="barlab"><b>61</b> / 64</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 60</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:94%;background:#0ea5e9"></span></div><div class="barlab"><b>60</b> / 64</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:94%;background:#12b76a"></span></div><div class="barlab"><b>60</b> / 64</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:94%;background:#94a3b8"></span></div><div class="barlab"><b>60</b> / 64</div></div>
         </div>
@@ -383,9 +422,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/htmx-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/javascript-algorithms-the-fundamentals/player/">
+    <div class="card" data-slug="javascript-algorithms-the-fundamentals" data-playable="91">
+      <a class="cardlink" href="courses/javascript-algorithms-the-fundamentals/player/" aria-label="JavaScript Algorithms - The Fundamentals — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#f7df1e,#eab308)">
         <div class="logo">JS</div>
         <div class="chead-txt">
@@ -398,9 +438,11 @@
           <span class="chip">9 章</span>
           <span class="chip">101 課</span>
           <span class="chip dur">時長 9h 22m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:91%;background:#eab308"></span></div><div class="barlab"><b>92</b> / 101</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 91</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:90%;background:#eab308"></span></div><div class="barlab"><b>91</b> / 101</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:90%;background:#12b76a"></span></div><div class="barlab"><b>91</b> / 101</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:90%;background:#94a3b8"></span></div><div class="barlab"><b>91</b> / 101</div></div>
         </div>
@@ -409,9 +451,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/javascript-algorithms-the-fundamentals" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/javascript-data-structures-the-fundamentals/player/">
+    <div class="card" data-slug="javascript-data-structures-the-fundamentals" data-playable="95">
+      <a class="cardlink" href="courses/javascript-data-structures-the-fundamentals/player/" aria-label="JavaScript Data Structures - The Fundamentals — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#f7df1e,#f97316)">
         <div class="logo">DS</div>
         <div class="chead-txt">
@@ -424,9 +467,11 @@
           <span class="chip">6 章</span>
           <span class="chip">104 課</span>
           <span class="chip dur">時長 9h 13m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
-          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:159%;background:#f97316"></span></div><div class="barlab"><b>165</b> / 104</div></div>
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 95</div></div>
+          <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:91%;background:#f97316"></span></div><div class="barlab"><b>95</b> / 104</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:91%;background:#12b76a"></span></div><div class="barlab"><b>95</b> / 104</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:91%;background:#94a3b8"></span></div><div class="barlab"><b>95</b> / 104</div></div>
         </div>
@@ -435,9 +480,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/javascript-datastructures-the-fundamentals" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/local-llms-via-ollama-lm-studio-the-practical-guide/player/">
+    <div class="card" data-slug="local-llms-via-ollama-lm-studio-the-practical-guide" data-playable="51">
+      <a class="cardlink" href="courses/local-llms-via-ollama-lm-studio-the-practical-guide/player/" aria-label="Local LLMs via Ollama &amp; LM Studio - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#22c55e,#0891b2)">
         <div class="logo">LLM</div>
         <div class="chead-txt">
@@ -450,8 +496,10 @@
           <span class="chip">5 章</span>
           <span class="chip">56 課</span>
           <span class="chip dur">時長 3h 53m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 51</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:91%;background:#0891b2"></span></div><div class="barlab"><b>51</b> / 56</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:91%;background:#12b76a"></span></div><div class="barlab"><b>51</b> / 56</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:91%;background:#94a3b8"></span></div><div class="barlab"><b>51</b> / 56</div></div>
@@ -461,9 +509,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/local-llms-via-ollama-lm-studio-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/pi-the-practical-guide/player/">
+    <div class="card" data-slug="pi-the-practical-guide" data-playable="45">
+      <a class="cardlink" href="courses/pi-the-practical-guide/player/" aria-label="Pi - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#f2b705,#e8590c)">
         <div class="logo">Pi</div>
         <div class="chead-txt">
@@ -476,8 +525,10 @@
           <span class="chip">5 章</span>
           <span class="chip">47 課</span>
           <span class="chip dur">時長 2h 36m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 45</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:96%;background:#e8590c"></span></div><div class="barlab"><b>45</b> / 47</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:96%;background:#12b76a"></span></div><div class="barlab"><b>45</b> / 47</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:96%;background:#94a3b8"></span></div><div class="barlab"><b>45</b> / 47</div></div>
@@ -487,9 +538,10 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/courses/pi-the-practical-guide" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
 
-    <a class="card" href="courses/vps-essentials-the-practical-guide/player/">
+    <div class="card" data-slug="vps-essentials-the-practical-guide" data-playable="33">
+      <a class="cardlink" href="courses/vps-essentials-the-practical-guide/player/" aria-label="VPS Essentials - The Practical Guide — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,#0ea5e9,#1e40af)">
         <div class="logo">VPS</div>
         <div class="chead-txt">
@@ -502,8 +554,10 @@
           <span class="chip">3 章</span>
           <span class="chip">37 課</span>
           <span class="chip dur">時長 2h 22m</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / 33</div></div>
           <div class="covrow"><span class="lbl">影片</span><div class="bar"><span style="width:89%;background:#1e40af"></span></div><div class="barlab"><b>33</b> / 37</div></div>
           <div class="covrow"><span class="lbl">雙語字幕</span><div class="bar"><span style="width:89%;background:#12b76a"></span></div><div class="barlab"><b>33</b> / 37</div></div>
           <div class="covrow"><span class="lbl">英文轉錄</span><div class="bar"><span style="width:89%;background:#94a3b8"></span></div><div class="barlab"><b>33</b> / 37</div></div>
@@ -513,7 +567,7 @@
         <span class="enter">進入播放器 →</span>
         <a class="src" href="https://pro.academind.com/p/vps-essentials" target="_blank" rel="noopener">課程頁 ↗</a>
       </div>
-    </a>
+    </div>
   </div>
 
   <footer>
@@ -553,5 +607,37 @@
   }
 })();
 </script>
+
+<script>
+(function(){
+  var all={};
+  try{ all=JSON.parse(localStorage.getItem("av:watched")||"{}")||{}; }catch(e){}
+  var cards=document.querySelectorAll(".card[data-slug]");
+  var totW=0, totP=0, doneCourses=0, seen={};
+  Array.prototype.forEach.call(cards,function(card){
+    var slug=card.getAttribute("data-slug");
+    if(seen[slug]) return; seen[slug]=1;
+    var playable=parseInt(card.getAttribute("data-playable"),10)||0;
+    var m=(all&&all[slug])||{}, n=0;
+    for(var k in m){ if(Object.prototype.hasOwnProperty.call(m,k)) n++; }
+    if(playable && n>playable) n=playable;
+    var row=card.querySelector(".covrow.watch");
+    var wn=row&&row.querySelector(".wn"), wf=row&&row.querySelector(".wfill");
+    if(wn) wn.textContent=n;
+    if(wf) wf.style.width=(playable?Math.round(100*n/playable):0)+"%";
+    if(n>0 && row) row.classList.add("has");
+    if(playable && n>=playable){
+      card.classList.add("allwatched");
+      var db=card.querySelector(".chip.done"); if(db) db.hidden=false;
+      doneCourses++;
+    }
+    totW+=n; totP+=playable;
+  });
+  var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
+  var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
+  var box=document.getElementById("statWatch"); if(box && totW>0) box.hidden=false;
+})();
+</script>
+
 </body>
 </html>

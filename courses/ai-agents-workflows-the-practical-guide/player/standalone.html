@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pi: The Practical Guide · 中英雙語動態字幕播放器</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c5cff'/%3E%3Cpath d='M12 9l12 7-12 7z' fill='white'/%3E%3C/svg%3E">
 <style>
   :root{
     --bg:#f6f7f9; --panel:#ffffff; --ink:#171a1f; --muted:#6b7280;
@@ -76,6 +77,28 @@
   .pill.en{background:#f1f2f5;color:#6b7280}
   html[data-theme="dark"] .pill.zh{background:#12301f;color:#5fd39a}
   html[data-theme="dark"] .pill.en{background:#232833;color:#98a2b3}
+
+  /* ---------- 已觀看 (watched) ---------- */
+  .pill.done{background:#e7f7ee;color:#0a7a45;border:1px solid #c2e9d5;cursor:pointer}
+  .pill.done:hover{background:#d5f1e2}
+  html[data-theme="dark"] .pill.done{background:#12301f;color:#5fd39a;border-color:#1f4a34}
+  html[data-theme="dark"] .pill.done:hover{background:#173c28}
+  .lesson.watched .num{color:#0a7a45}
+  html[data-theme="dark"] .lesson.watched .num{color:#5fd39a}
+  .watch-prog{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--line2);
+    font-size:11.5px;color:var(--muted);flex:0 0 auto}
+  .watch-prog .wbar{flex:1;height:5px;border-radius:3px;background:var(--line);overflow:hidden}
+  .watch-prog .wfill{display:block;height:100%;width:0;background:linear-gradient(90deg,#34d399,#0a7a45);
+    transition:width .25s ease}
+  .watch-prog b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .watch-prog .wdone{display:none;margin-left:auto;font-weight:800;color:#0a7a45;white-space:nowrap}
+  .watch-prog.complete{background:linear-gradient(90deg,#e7f7ee,rgba(231,247,238,0));border-bottom-color:#c2e9d5}
+  .watch-prog.complete .wdone{display:inline}
+  html[data-theme="dark"] .watch-prog .wdone{color:#5fd39a}
+  html[data-theme="dark"] .watch-prog.complete{background:linear-gradient(90deg,#12301f,rgba(18,48,31,0));border-bottom-color:#1f4a34}
+  .badge.done{display:none;background:#e7f7ee;border-color:#c2e9d5;color:#0a7a45;font-weight:800}
+  .badge.done.on{display:inline-flex}
+  html[data-theme="dark"] .badge.done{background:#12301f;border-color:#1f4a34;color:#5fd39a}
 
   /* ---------- main ---------- */
   .main{display:flex;flex-direction:column;min-width:0}
@@ -262,6 +285,11 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </button>
     </div>
+    <div class="watch-prog" id="watchProg" title="完整播放到結束的課程會自動標記為「已觀看」；全部看完即完成本課程">
+      <span>已觀看 <b id="watchN">0</b> / <span id="watchT">0</span></span>
+      <span class="wbar"><span class="wfill" id="watchFill"></span></span>
+      <span class="wdone" id="watchDone">✓ 課程已完成</span>
+    </div>
     <div class="lessons" id="lessonList"></div>
   </aside>
 
@@ -275,6 +303,7 @@
         <div class="t" id="curTitle">載入中…</div>
         <div class="sub" id="curSub"></div>
       </div>
+      <span class="badge done" id="doneBadge">✓ 課程已完成</span>
       <div class="spacer"></div>
       <span class="badge"><span class="dot" id="modeDot"></span><span id="modeBadge">示範模式</span></span>
       <button class="btn" id="connectBtn">影片來源</button>
@@ -542,6 +571,58 @@
     toast("已是本課程最後一課");
   }
 
+  // ---------- 已觀看 (watched) ----------
+  // A lecture is marked watched only after it plays through to the end.
+  // Stored as { courseSlug: { lessonSlug: timestamp } } under one key so the
+  // course list (same origin) can read the progress of every course.
+  var WATCH_KEY="av:watched";
+  function readWatched(){
+    try{ var j=JSON.parse(localStorage.getItem(WATCH_KEY)||"{}"); return (j&&typeof j==="object")?j:{}; }
+    catch(e){ return {}; }
+  }
+  function courseWatched(){
+    var m=readWatched()[COURSE_SLUG]; return (m&&typeof m==="object")?m:{};
+  }
+  function isWatched(slug){ return !!(slug && courseWatched()[slug]); }
+  function setWatched(slug,on){
+    if(!slug) return;
+    try{
+      var all=readWatched(), m=all[COURSE_SLUG]||{};
+      if(on) m[slug]=Date.now(); else delete m[slug];
+      if(Object.keys(m).length) all[COURSE_SLUG]=m; else delete all[COURSE_SLUG];
+      localStorage.setItem(WATCH_KEY, JSON.stringify(all));
+    }catch(e){}
+    renderList(); updateWatchProgress();
+  }
+  function markWatched(slug){
+    var l=S.lesson;
+    if(!l || !l.videoFile || l.slug!==slug) return false;  // only real lectures with a video
+    if(isWatched(slug)) return false;
+    setWatched(slug,true);
+    if(courseComplete()){
+      toast("🎉 恭喜！《"+((DATA.series)||"本課程")+"》全部課程已完成");
+    } else {
+      toast("已標記為已觀看："+(l.title||slug));
+    }
+    return true;
+  }
+  function playableCount(){ var n=0; lessons.forEach(function(l){ if(l.videoFile) n++; }); return n; }
+  function watchedCount(){
+    var m=courseWatched(), n=0;
+    lessons.forEach(function(l){ if(l.videoFile && m[l.slug]) n++; });
+    return n;
+  }
+  function courseComplete(){ var t=playableCount(); return t>0 && watchedCount()>=t; }
+  function updateWatchProgress(){
+    var n=watchedCount(), t=playableCount(), done=(t>0 && n>=t);
+    var ne=$("watchN"), te=$("watchT"), fl=$("watchFill");
+    if(ne) ne.textContent=n;
+    if(te) te.textContent=t;
+    if(fl) fl.style.width=(t?Math.round(100*n/t):0)+"%";
+    var wp=$("watchProg"); if(wp) wp.classList.toggle("complete", done);
+    var db=$("doneBadge"); if(db) db.classList.toggle("on", done);
+  }
+
   function toast(m){ toastEl.textContent=m; toastEl.classList.add("on"); clearTimeout(toastEl._t); toastEl._t=setTimeout(function(){toastEl.classList.remove("on")},1900); }
   // jsdom and some embedded browsers return undefined from play(), so guard it
   function safePlay(onErr){
@@ -558,10 +639,12 @@
       if(q && t.indexOf(q)<0 && n.indexOf(q)<0) return;
       var sec=l.sectionTitle||("Section "+(l.section||"?"));
       if(sec!==lastSec){ html+='<div class="module">'+esc(sec)+'</div>'; lastSec=sec; }
-      html+='<div class="lesson'+(S.lesson&&S.lesson.slug===l.slug?" on":"")+'" data-i="'+i+'">'
+      var w=isWatched(l.slug);
+      html+='<div class="lesson'+(S.lesson&&S.lesson.slug===l.slug?" on":"")+(w?" watched":"")+'" data-i="'+i+'">'
         +'<div class="num">'+p2(l.number||0)+'</div><div style="min-width:0">'
         +'<div class="ttl">'+esc(l.title||l.slug)+'</div>'
         +'<div class="meta"><span>'+(l.duration||"")+'</span>'
+        +(w?'<span class="pill done" data-watch="'+esc(l.slug)+'" title="完整播放過 · 點擊可取消標記">✓ 已觀看</span>':'')
         +(l.hasZh?'<span class="pill zh">中英雙語</span>':(l.hasEn?'<span class="pill en">僅英文</span>':'<span class="pill no">無影片</span>'))
         +'</div></div></div>';
     });
@@ -570,6 +653,9 @@
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 
   lessonList.addEventListener("click",function(e){
+    var pill=e.target.closest(".pill.done");
+    if(pill){ e.preventDefault(); e.stopPropagation();
+      setWatched(pill.dataset.watch,false); toast("已取消「已觀看」標記"); return; }
     var el=e.target.closest(".lesson"); if(!el) return;
     selectLesson(parseInt(el.dataset.i,10));
   });
@@ -730,7 +816,7 @@
     var dt=(ts-S.lastTs)/1000; S.lastTs=ts;
     var rate=parseFloat(rateSel.value)||1;
     S.vtime+=dt*rate;
-    if(S.vtime>=(S.vDuration||0)){ S.vtime=S.vDuration; render(false); updateTransport(); pause(); return; }
+    if(S.vtime>=(S.vDuration||0)){ S.vtime=S.vDuration; render(false); updateTransport(); pause(); markWatched(S.lesson&&S.lesson.slug); return; }
     render(false); updateTransport();
     S.raf=requestAnimationFrame(loop);
   }
@@ -884,6 +970,7 @@
   video.addEventListener("ended",function(){
     S.playing=false; playBtn.textContent="▶";
     writeLast(video.currentTime);
+    markWatched(S.lesson&&S.lesson.slug);
     autoNext();
   });
   // last chance to persist the position when the tab goes away
@@ -1100,6 +1187,7 @@
 
   // ---------- boot ----------
   function boot(){
+    try{ document.title=(DATA.series||"課程")+" · 中英雙語動態字幕播放器"; }catch(e){}
     $("size").dispatchEvent(new Event("input"));
     $("scrim").dispatchEvent(new Event("input"));
     var zhCount=lessons.filter(function(l){return l.hasZh;}).length;
@@ -1119,6 +1207,7 @@
     }
     selectLesson(idx);
     if(RESUME_T>1) toast("回到上次播放："+fmt(RESUME_T));
+    updateWatchProgress();
     detectServer();
   }
   boot();

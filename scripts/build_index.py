@@ -74,7 +74,12 @@ def collect():
         lib = json.load(open(meta_path, encoding="utf-8"))
         slug = os.path.basename(d)
         lessons = lib.get("lessons", [])
-        n_video = len(glob.glob(os.path.join(d, "video", "*.mp4")))
+        # Only count real lecture videos: the mirror downloads can leave
+        # fragmented ".fN.mp4" parts behind, which would otherwise push the
+        # progress bars past 100%. Matches how build.py sets lesson.videoFile.
+        n_video = sum(1 for l in lessons
+                      if l.get("slug")
+                      and os.path.exists(os.path.join(d, "video", f"{l['slug']}.mp4")))
         n_bilingual = len(glob.glob(os.path.join(d, "data", "srt", "bilingual", "*.srt")))
         n_en = len(glob.glob(os.path.join(d, "data", "srt", "en", "*.srt")))
         g = STYLE.get(slug, ("#64748b", "#0ea5e9", (lib.get("series") or slug)[:2].upper()))
@@ -139,8 +144,42 @@ RESUME_JS = """
   }
 })();
 </script>
-</body>
-</html>
+"""
+
+
+# Appended verbatim as well. Fills in the per-card "已觀看" row from the
+# av:watched record the player writes when a lecture plays through to the end.
+WATCH_JS = """
+<script>
+(function(){
+  var all={};
+  try{ all=JSON.parse(localStorage.getItem("av:watched")||"{}")||{}; }catch(e){}
+  var cards=document.querySelectorAll(".card[data-slug]");
+  var totW=0, totP=0, doneCourses=0, seen={};
+  Array.prototype.forEach.call(cards,function(card){
+    var slug=card.getAttribute("data-slug");
+    if(seen[slug]) return; seen[slug]=1;
+    var playable=parseInt(card.getAttribute("data-playable"),10)||0;
+    var m=(all&&all[slug])||{}, n=0;
+    for(var k in m){ if(Object.prototype.hasOwnProperty.call(m,k)) n++; }
+    if(playable && n>playable) n=playable;
+    var row=card.querySelector(".covrow.watch");
+    var wn=row&&row.querySelector(".wn"), wf=row&&row.querySelector(".wfill");
+    if(wn) wn.textContent=n;
+    if(wf) wf.style.width=(playable?Math.round(100*n/playable):0)+"%";
+    if(n>0 && row) row.classList.add("has");
+    if(playable && n>=playable){
+      card.classList.add("allwatched");
+      var db=card.querySelector(".chip.done"); if(db) db.hidden=false;
+      doneCourses++;
+    }
+    totW+=n; totP+=playable;
+  });
+  var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
+  var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
+  var box=document.getElementById("statWatch"); if(box && totW>0) box.hidden=false;
+})();
+</script>
 """
 
 
@@ -150,7 +189,8 @@ def card(c):
     src = (f'<a class="src" href="{html.escape(c["seriesUrl"])}" target="_blank" '
            f'rel="noopener">課程頁 ↗</a>') if c.get("seriesUrl") else ""
     return f"""
-    <a class="card" href="{link}">
+    <div class="card" data-slug="{html.escape(c['slug'])}" data-playable="{c['videos']}">
+      <a class="cardlink" href="{link}" aria-label="{title} — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,{c['c1']},{c['c2']})">
         <div class="logo">{html.escape(c['logo'])}</div>
         <div class="chead-txt">
@@ -163,8 +203,10 @@ def card(c):
           <span class="chip">{c['sections']} 章</span>
           <span class="chip">{c['lessons']} 課</span>
           <span class="chip dur">時長 {html.escape(c['totalDuration'])}</span>
+          <span class="chip done" hidden>✓ 課程已完成</span>
         </div>
         <div class="cov">
+          <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / {c['videos']}</div></div>
           <div class="covrow"><span class="lbl">影片</span>{bar(c['videos'], c['lessons'], c['c2'])}</div>
           <div class="covrow"><span class="lbl">雙語字幕</span>{bar(c['bilingual'], c['lessons'], '#12b76a')}</div>
           <div class="covrow"><span class="lbl">英文轉錄</span>{bar(c['en'], c['lessons'], '#94a3b8')}</div>
@@ -174,7 +216,7 @@ def card(c):
         <span class="enter">進入播放器 →</span>
         {src}
       </div>
-    </a>"""
+    </div>"""
 
 
 def main():
@@ -194,6 +236,7 @@ def main():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Academind 課程 · 中英雙語動態字幕</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c5cff'/%3E%3Cpath d='M12 9l12 7-12 7z' fill='white'/%3E%3C/svg%3E">
 <style>
   :root{{
     --bg:#f6f7f9; --panel:#fff; --ink:#101828; --muted:#667085;
@@ -214,9 +257,12 @@ def main():
   .stats div{{font-size:13px;color:var(--muted)}}
   .stats b{{display:block;font-size:22px;color:var(--ink);letter-spacing:-.01em}}
   .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:22px}}
-  .card{{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+  .card{{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
     border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;
     box-shadow:var(--shadow);transition:transform .16s ease,box-shadow .16s ease}}
+  .cardlink{{position:absolute;inset:0;z-index:1;border-radius:18px}}
+  .cardlink:focus-visible{{outline:2px solid #7c5cff;outline-offset:2px}}
+  .card .src{{position:relative;z-index:2}}
   .card:hover{{transform:translateY(-3px);box-shadow:0 2px 4px rgba(16,24,40,.06),0 22px 44px -16px rgba(16,24,40,.24)}}
   .chead{{display:flex;gap:14px;align-items:center;padding:20px 20px 18px;color:#fff}}
   .logo{{width:52px;height:52px;border-radius:13px;background:rgba(255,255,255,.22);
@@ -230,6 +276,7 @@ def main():
   .chip{{font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border:1px solid var(--line);
     padding:3px 10px;border-radius:999px}}
   .chip.dur{{color:#5b45e0;background:#f4f1ff;border-color:#e3dcff;font-variant-numeric:tabular-nums}}
+  .chip.done{{color:#fff;background:#12b76a;border-color:#12b76a}}
   .cov{{display:flex;flex-direction:column;gap:11px}}
   .covrow{{display:flex;align-items:center;gap:10px}}
   .lbl{{width:66px;flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:600}}
@@ -237,6 +284,9 @@ def main():
   .bar span{{display:block;height:100%;border-radius:999px}}
   .barlab{{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}}
   .barlab b{{color:var(--ink)}}
+  .covrow.watch .lbl{{color:#0a7a45}}
+  .covrow.watch .wfill{{display:block;height:100%;border-radius:999px;background:#12b76a;transition:width .25s ease}}
+  .card.allwatched{{border-color:#bfe9d3}}
   .cfoot{{display:flex;align-items:center;justify-content:space-between;
     padding:14px 20px;border-top:1px solid var(--line);margin-top:14px}}
   .enter{{font-weight:700;font-size:13.5px;color:#7c5cff}}
@@ -301,6 +351,7 @@ def main():
       <div><b>{total_time}</b>總時長</div>
       <div><b>{total_videos}</b>部影片已下載</div>
       <div><b>{total_bilingual}</b>課雙語字幕</div>
+      <div id="statWatch" hidden><b id="statWatchV">0</b>課已觀看 · <span id="statDone">0</span> 門課程已完成</div>
     </div>
   </header>
 
@@ -323,7 +374,7 @@ def main():
     影片與原始課程內容版權屬 Academind 與原作者所有，僅供個人學習用途，請勿再散布。
   </footer>
 </div>
-""" + RESUME_JS
+""" + RESUME_JS + WATCH_JS + "\n</body>\n</html>\n"
     out = os.path.join(ROOT, "index.html")
     open(out, "w", encoding="utf-8").write(page)
     print(f"wrote {os.path.relpath(out, ROOT)} — {len(courses)} course(s), "
