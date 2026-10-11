@@ -935,7 +935,25 @@
     window.addEventListener("touchend",end);
   })();
   playBtn.addEventListener("click",toggle);
-  rateSel.addEventListener("change",function(){ if(!S.demo) video.playbackRate=parseFloat(rateSel.value); });
+  // ---------- playback speed (remembered across sessions) ----------
+  // The <video> element resets playbackRate to defaultPlaybackRate on load(),
+  // so both are set here and re-applied whenever a new lecture loads.
+  var RATE_KEY="av:rate";
+  function savedRate(){
+    try{ var r=parseFloat(localStorage.getItem(RATE_KEY)); return (r>0 && r<=4)?r:1; }catch(e){ return 1; }
+  }
+  function hasRateOption(r){
+    for(var i=0;i<rateSel.options.length;i++){ if(parseFloat(rateSel.options[i].value)===r) return true; }
+    return false;
+  }
+  function applyRate(r,persist){
+    r=parseFloat(r)||1;
+    if(!hasRateOption(r)) r=1;
+    try{ rateSel.value=String(r); }catch(e){}
+    try{ video.playbackRate=r; video.defaultPlaybackRate=r; }catch(e){}
+    if(persist){ try{ localStorage.setItem(RATE_KEY,String(r)); }catch(e){} }
+  }
+  rateSel.addEventListener("change",function(){ applyRate(rateSel.value,true); });
   offsetEl.addEventListener("input",function(){ S.offset=parseInt(offsetEl.value,10); offsetV.textContent=S.offset+"ms"; render(true); });
   $("copyCue").addEventListener("click",function(){
     var s=S.segs[S.activeIdx]; if(!s){ toast("目前沒有字幕"); return; }
@@ -956,6 +974,8 @@
   video.addEventListener("pause",function(){ S.playing=false; playBtn.textContent="▶"; writeLast(video.currentTime); });
   video.addEventListener("loadedmetadata",function(){
     if(S.demo) setDemo(false);
+    // load() resets playbackRate, so re-apply the remembered speed
+    try{ video.playbackRate=parseFloat(rateSel.value)||1; }catch(e){}
     // resume where the user stopped, but only for the lecture we restored
     if(RESUME_T>1 && S.lesson && S.lesson.slug===RESUME_SLUG
        && video.duration && RESUME_T<video.duration-2){
@@ -1186,6 +1206,7 @@
   // ---------- boot ----------
   function boot(){
     try{ document.title=(DATA.series||"課程")+" · 中英雙語動態字幕播放器"; }catch(e){}
+    applyRate(savedRate(), false);   // restore the remembered playback speed
     $("size").dispatchEvent(new Event("input"));
     $("scrim").dispatchEvent(new Event("input"));
     var zhCount=lessons.filter(function(l){return l.hasZh;}).length;
