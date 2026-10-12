@@ -1,0 +1,259 @@
+1
+00:00:02,517 --> 00:00:05,468
+Now the next thing which I wanted to do is I
+現在我想做的下一件事是
+
+2
+00:00:05,468 --> 00:00:08,322
+want to make sure that invalid routes are
+想要確保無效的路由
+
+3
+00:00:08,450 --> 00:00:10,262
+showing a proper error page
+顯示正確的錯誤頁面
+
+4
+00:00:11,160 --> 00:00:12,507
+and not this dummy page.
+而不是這個虛擬頁面。
+
+5
+00:00:13,501 --> 00:00:15,987
+And I will build this, or I will add such a
+我將建構這個，或者我將添加這樣一個
+
+6
+00:00:15,987 --> 00:00:20,685
+404 route by using Oak's middleware focus.
+404 路由使用 Oak 的中介層焦點。
+
+7
+00:00:21,824 --> 00:00:23,780
+You might remember that I mentioned that the
+你可能還記得我有提到過
+
+8
+00:00:23,780 --> 00:00:26,490
+middlewares are executed step by step after
+之後中介層一步步執行
+
+9
+00:00:26,490 --> 00:00:27,051
+each other.
+彼此。
+
+10
+00:00:27,999 --> 00:00:30,360
+And that we could call next to commence to
+我們接下來可以打電話開始
+
+11
+00:00:30,360 --> 00:00:32,432
+the next one, and that we also—
+下一個，我們也——
+
+12
+00:00:32,994 --> 00:00:35,869
+I showed this earlier— can await next and
+我之前展示過這一點——接下來可以等待
+
+13
+00:00:35,885 --> 00:00:38,423
+then execute code thereafter, which
+然後執行此後的程式碼，其中
+
+14
+00:00:38,536 --> 00:00:40,383
+basically means that all the other
+基本上意味著所有其他
+
+15
+00:00:40,383 --> 00:00:42,005
+middlewares will be executed
+中介層將被執行
+
+16
+00:00:42,535 --> 00:00:45,105
+and then code execution comes back to this
+然後程式碼執行回到這裡
+
+17
+00:00:45,105 --> 00:00:45,925
+first middleware,
+第一個中介軟體，
+
+18
+00:00:46,487 --> 00:00:48,495
+or wherever you awaited and then did
+或者無論你等待然後做了什麼
+
+19
+00:00:48,495 --> 00:00:51,065
+something thereafter, to execute that extra
+之後的事情，執行額外的事情
+
+20
+00:00:51,065 --> 00:00:52,735
+code which comes after next.
+接下來的程式碼。
+
+21
+00:00:53,313 --> 00:00:55,096
+And I'm going to use this here. I'm adding a
+我將在這裡使用它。我正在添加一個
+
+22
+00:00:55,096 --> 00:00:57,168
+middleware as the first middleware here,
+中介軟體作為這裡的第一個中介層，
+
+23
+00:00:57,971 --> 00:01:00,379
+and it's a regular middleware which gets the
+它是一個常規的中介層，可以獲取
+
+24
+00:01:00,379 --> 00:01:02,917
+context object and the next function.
+上下文物件和下一個函式。
+
+25
+00:01:03,672 --> 00:01:04,089
+And in there,
+在那裡，
+
+26
+00:01:04,860 --> 00:01:07,494
+I will call next and await this.
+我接下來會打電話等待。
+
+27
+00:01:08,232 --> 00:01:09,967
+And for that, we also need to turn this into
+為此，我們還需要將其變成
+
+28
+00:01:10,015 --> 00:01:10,947
+an async function.
+一個非同步函式。
+
+29
+00:01:11,621 --> 00:01:14,351
+This simply means that we execute the next
+這僅僅意味著我們執行下一個
+
+30
+00:01:14,351 --> 00:01:15,122
+middleware inline
+內嵌中介軟體
+
+31
+00:01:15,780 --> 00:01:18,414
+and wait until it's completed. So that means
+並等待它完成。所以這意味著
+
+32
+00:01:18,446 --> 00:01:20,871
+we execute this one, that in turn will
+我們執行這個，這反過來會
+
+33
+00:01:20,935 --> 00:01:23,986
+execute the routes here, and And we'll await
+執行這裡的路線，我們會等待
+
+34
+00:01:23,986 --> 00:01:26,298
+that. And once all that is done, once the
+那。一旦這一切都完成了，一旦
+
+35
+00:01:26,314 --> 00:01:28,481
+routes are done and all of that, we'll come
+路線已經完成，所有這些我們都會來
+
+36
+00:01:28,546 --> 00:01:30,279
+back to that first middleware, to the line
+回到第一個中介軟體，回到該行
+
+37
+00:01:30,552 --> 00:01:31,339
+after next.
+下一個之後。
+
+38
+00:01:32,655 --> 00:01:34,181
+And now what do I wanna execute here?
+現在我想在這裡執行什麼？
+
+39
+00:01:35,064 --> 00:01:37,263
+Well, I don't wanna execute anything after
+好吧，我不想執行任何事情
+
+40
+00:01:37,311 --> 00:01:39,655
+it like this. Instead, I'll simply wrap
+像這樣。相反，我會簡單包裝
+
+41
+00:01:39,719 --> 00:01:42,208
+await next into a try block
+等待下一個進入 try 區塊
+
+42
+00:01:42,930 --> 00:01:45,659
+and then catch any errors that might occur.
+然後捕獲可能發生的任何錯誤。
+
+43
+00:01:46,285 --> 00:01:48,597
+So with that, what I'm doing is I'm making
+因此，我正在做的是我正在做
+
+44
+00:01:48,693 --> 00:01:52,356
+sure that if any middleware somewhere down
+確保如果有任何中介層在某個地方
+
+45
+00:01:52,404 --> 00:01:53,256
+the other middlewares
+其他中介軟體
+
+46
+00:01:53,834 --> 00:01:54,830
+throws an error,
+拋出錯誤，
+
+47
+00:01:55,537 --> 00:01:57,915
+and that includes Oak itself, if it throws
+這包括 Oak 本身，如果它拋出
+
+48
+00:01:57,947 --> 00:02:00,244
+an error because we had no middleware that
+一個錯誤，因為我們沒有中介層
+
+49
+00:02:00,341 --> 00:02:02,509
+would've handled the request and sent back a
+會處理該請求並行回
+
+50
+00:02:02,509 --> 00:02:03,088
+response,
+回覆,
+
+51
+00:02:03,634 --> 00:02:06,301
+if it doesn't find any response for this
+如果沒有找到任何回應
+
+52
+00:02:06,301 --> 00:02:06,847
+request somewhere,
+請求某處，

@@ -1,0 +1,304 @@
+1
+00:00:02,199 --> 00:00:05,651
+Before we continue and get that HTML code
+在我們繼續取得 HTML 程式碼之前
+
+2
+00:00:06,037 --> 00:00:07,980
+out of this file, it's time for a quick
+出了這個檔案，是時候快速了解了
+
+3
+00:00:07,980 --> 00:00:10,067
+summary on what we learned, because we
+總結我們所學到的知識，因為我們
+
+4
+00:00:10,067 --> 00:00:12,524
+learned a lot. We learned about third-party
+學到了很多。我們了解了第三方
+
+5
+00:00:12,556 --> 00:00:15,157
+modules, which are essentially kind of the
+模組，本質上是一種
+
+6
+00:00:15,189 --> 00:00:18,176
+same like standard library modules, just not
+與標準庫模組相同，只是不同
+
+7
+00:00:18,176 --> 00:00:20,407
+maintained by the core Deno team, but
+由核心 Deno 團隊維護，但是
+
+8
+00:00:20,407 --> 00:00:21,917
+instead by community members.
+而是由社區成員。
+
+9
+00:00:22,575 --> 00:00:24,261
+Just like the standard library though,
+就像標準庫一樣，
+
+10
+00:00:24,598 --> 00:00:27,150
+community Third-party modules can make
+社群第三方模組可以使
+
+11
+00:00:27,150 --> 00:00:30,216
+certain things easier. For example, the Oak
+某些事情變得更容易。例如，橡樹
+
+12
+00:00:30,280 --> 00:00:33,089
+module here makes spinning up a web server
+這裡的模組可以啟動一個網路伺服器
+
+13
+00:00:33,329 --> 00:00:36,539
+and reacting to requests much, much easier.
+對請求做出反應變得非常非常容易。
+
+14
+00:00:37,277 --> 00:00:39,749
+Now, speaking of that, here we are using the
+現在，說到這一點，我們在這裡使用
+
+15
+00:00:39,829 --> 00:00:41,033
+Oak module.
+橡木模組。
+
+16
+00:00:41,675 --> 00:00:44,227
+We're creating an app with the application
+我們正在使用該應用程式創建一個應用程式
+
+17
+00:00:44,419 --> 00:00:46,618
+constructor function, which is exposed by
+建構子，由
+
+18
+00:00:46,650 --> 00:00:47,308
+that module.
+那個模組。
+
+19
+00:00:47,870 --> 00:00:50,839
+And on that app object, we can register
+在該應用程式物件上，我們可以註冊
+
+20
+00:00:50,839 --> 00:00:53,661
+middleware. Because the Oak library is a
+中介軟體.因為 Oak 圖書館是一個
+
+21
+00:00:53,661 --> 00:00:55,424
+middleware-driven framework.
+中介層驅動的框架。
+
+22
+00:00:56,274 --> 00:00:58,903
+Middleware-driven simply means that every
+中介層驅動簡單地意味著每個
+
+23
+00:00:59,079 --> 00:01:02,558
+request is funneled through middleware until
+請求透過中介層傳送，直到
+
+24
+00:01:02,686 --> 00:01:04,113
+all middleware functions have been
+所有中介軟體功能都已
+
+25
+00:01:04,145 --> 00:01:06,677
+processed, at which time the response will
+已處理，此時回應將
+
+26
+00:01:06,709 --> 00:01:07,511
+be sent back.
+被遣返。
+
+27
+00:01:08,152 --> 00:01:10,364
+You can funnel requests from middleware to
+您可以將請求從中介軟體集中到
+
+28
+00:01:10,380 --> 00:01:12,336
+middleware by calling the next method.
+中介層透過呼叫 next 方法。
+
+29
+00:01:12,865 --> 00:01:15,093
+And if you have a middleware that does
+如果你有一個中介層
+
+30
+00:01:15,125 --> 00:01:18,011
+something asynchronous, you should await
+非同步的東西，你應該等待
+
+31
+00:01:18,011 --> 00:01:20,353
+next to make sure that this middleware
+接下來要確保這個中介層
+
+32
+00:01:20,818 --> 00:01:23,594
+doesn't send back the response too early.
+不會太早發迴回應。
+
+33
+00:01:24,685 --> 00:01:27,124
+A special kind of middleware, so to say, is
+可以說，一種特殊的中介層是
+
+34
+00:01:27,317 --> 00:01:29,643
+our router middleware created with the
+我們的路由器中介軟體是用
+
+35
+00:01:29,643 --> 00:01:31,007
+router object.
+路由器物件。
+
+36
+00:01:31,633 --> 00:01:33,815
+This makes it very easy to register
+這使得註冊變得非常容易
+
+37
+00:01:33,815 --> 00:01:36,527
+different conditions for incoming requests
+傳入請求的不同條件
+
+38
+00:01:36,768 --> 00:01:40,362
+to execute some logic, some code only if
+執行一些邏輯，有些程式碼僅當
+
+39
+00:01:40,378 --> 00:01:43,331
+certain HTTP method and path combinations
+某些 HTTP 方法和路徑組合
+
+40
+00:01:43,363 --> 00:01:46,315
+are met. For example, here we return this
+都滿足了。例如，這裡我們回傳這個
+
+41
+00:01:46,396 --> 00:01:49,573
+HTML code for GET requests to /nothing.
+對 /nothing 的 GET 請求的 HTML 程式碼。
+
+42
+00:01:50,166 --> 00:01:53,439
+And we do this here, parse the request body
+我們在這裡執行此操作，解析請求正文
+
+43
+00:01:53,552 --> 00:01:56,857
+and redirect, if POST requests are sent to
+並且重定向，如果 POST 請求發送到
+
+44
+00:01:56,985 --> 00:01:57,932
+/add-goal.
+/新增目標。
+
+45
+00:01:58,525 --> 00:02:01,140
+This, of course, is way more convenient than
+當然，這比
+
+46
+00:02:01,237 --> 00:02:04,028
+what we had to do before where we manually
+在我們手動之前我們必須做什麼
+
+47
+00:02:04,141 --> 00:02:06,499
+did all of that. And that's why we use
+做了所有這些。這就是我們使用的原因
+
+48
+00:02:06,708 --> 00:02:09,756
+something like Oak in the end. Oak is a
+最後像橡樹。橡木是一種
+
+49
+00:02:09,756 --> 00:02:12,580
+great framework, a great third-party module,
+很棒的框架，很棒的第三方模組，
+
+50
+00:02:13,109 --> 00:02:16,141
+and with it, handling requests simply is
+有了它，處理請求就變得簡單了
+
+51
+00:02:16,269 --> 00:02:17,937
+much, much easier.
+容易得多。
+
+52
+00:02:18,562 --> 00:02:20,310
+With that, however, we still have one
+儘管如此，我們仍然有一個
+
+53
+00:02:21,144 --> 00:02:24,367
+problem or one thing, one area that we can
+問題或一件事，我們可以解決的一個領域
+
+54
+00:02:24,367 --> 00:02:27,542
+improve, and that's the fact that our HTML
+改進，這就是我們的 HTML
+
+55
+00:02:27,558 --> 00:02:30,204
+code is still hardcoded like this in our
+程式碼仍然像這樣硬編碼在我們的
+
+56
+00:02:30,204 --> 00:02:31,038
+TypeScript file.
+打字稿檔案。
+
+57
+00:02:31,727 --> 00:02:33,860
+This is not how we really wanna do that
+這不是我們真正想要的方式
+
+58
+00:02:34,052 --> 00:02:36,971
+because in realistic apps, we have way more
+因為在現實的應用程式中，我們有更多
+
+59
+00:02:37,163 --> 00:02:39,697
+HTML code than just short snippets like this
+HTML 程式碼不僅僅是像這樣的簡短片段
+
+60
+00:02:39,825 --> 00:02:42,182
+one. Therefore, now we'll dive into
+一。因此，現在我們將深入探討
+
+61
+00:02:42,230 --> 00:02:44,202
+templates and templating engines.
+樣板和樣板引擎。

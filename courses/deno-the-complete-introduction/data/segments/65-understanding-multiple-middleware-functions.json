@@ -1,0 +1,277 @@
+[
+ {
+  "start": 2.116,
+  "end": 5.837,
+  "en": "Indeed, Oak is about combining multiple"
+ },
+ {
+  "start": 5.869,
+  "end": 7.857,
+  "en": "middleware functions that might be doing"
+ },
+ {
+  "start": 7.889,
+  "end": 8.659,
+  "en": "different things."
+ },
+ {
+  "start": 9.332,
+  "end": 11.898,
+  "en": "One middleware function might extract data"
+ },
+ {
+  "start": 11.978,
+  "end": 14.544,
+  "en": "from the incoming request, another function"
+ },
+ {
+  "start": 14.544,
+  "end": 15.987,
+  "en": "might prepare the response."
+ },
+ {
+  "start": 16.773,
+  "end": 19.676,
+  "en": "Here, I'll add a second function simply by"
+ },
+ {
+  "start": 19.676,
+  "end": 20.975,
+  "en": "repeating app.use,"
+ },
+ {
+  "start": 21.68,
+  "end": 24.07,
+  "en": "and I will console.log middleware2 here and"
+ },
+ {
+  "start": 24.086,
+  "end": 25.769,
+  "en": "change my message to message from"
+ },
+ {
+  "start": 25.769,
+  "end": 26.379,
+  "en": "middleware2."
+ },
+ {
+  "start": 27.304,
+  "end": 28.784,
+  "en": "Now if we save it like this"
+ },
+ {
+  "start": 29.315,
+  "end": 30.811,
+  "en": "and we maybe delete these logs,"
+ },
+ {
+  "start": 31.953,
+  "end": 33.416,
+  "en": "our server restarts here."
+ },
+ {
+  "start": 35.025,
+  "end": 36.972,
+  "en": "But if I now reload, you will still see"
+ },
+ {
+  "start": 36.972,
+  "end": 38.276,
+  "en": "message from middleware 1."
+ },
+ {
+  "start": 39.066,
+  "end": 41.224,
+  "en": "So it doesn't look like our second"
+ },
+ {
+  "start": 41.224,
+  "end": 44.428,
+  "en": "middleware ran. We also don't see this log"
+ },
+ {
+  "start": 44.428,
+  "end": 46.729,
+  "en": "somewhere down there in the console. We only"
+ },
+ {
+  "start": 46.729,
+  "end": 49.516,
+  "en": "see the log from middleware 1 about the URL,"
+ },
+ {
+  "start": 49.728,
+  "end": 51.308,
+  "en": "which seems to be this object here,"
+ },
+ {
+  "start": 51.83,
+  "end": 53.455,
+  "en": "and about the request method."
+ },
+ {
+  "start": 54.242,
+  "end": 56.618,
+  "en": "The reason for that is that we need to call"
+ },
+ {
+  "start": 57.068,
+  "end": 60.793,
+  "en": "next in order to tell Oak that after this"
+ },
+ {
+  "start": 60.922,
+  "end": 63.699,
+  "en": "middleware, we wanna forward the incoming"
+ },
+ {
+  "start": 63.732,
+  "end": 65.867,
+  "en": "request to the next middleware in line."
+ },
+ {
+  "start": 66.525,
+  "end": 69.576,
+  "en": "And when I say in line, I mean the next"
+ },
+ {
+  "start": 69.576,
+  "end": 72.29,
+  "en": "middleware below it because a request"
+ },
+ {
+  "start": 72.306,
+  "end": 74.361,
+  "en": "basically travels through your middleware"
+ },
+ {
+  "start": 74.409,
+  "end": 76.818,
+  "en": "functions from top to bottom. That is how"
+ },
+ {
+  "start": 76.818,
+  "end": 79.05,
+  "en": "you can think about it. So it will first"
+ },
+ {
+  "start": 79.067,
+  "end": 81.477,
+  "en": "reach this middleware and if you call next"
+ },
+ {
+  "start": 81.541,
+  "end": 83.582,
+  "en": "in there, it will move on to the next"
+ },
+ {
+  "start": 83.63,
+  "end": 86.105,
+  "en": "middleware in line. If you don't call next,"
+ },
+ {
+  "start": 86.378,
+  "end": 89.166,
+  "en": "this middleware here will not be reached as"
+ },
+ {
+  "start": 89.182,
+  "end": 89.779,
+  "en": "you just saw."
+ },
+ {
+  "start": 91.134,
+  "end": 94.005,
+  "en": "Now, if a middleware does not call next, the"
+ },
+ {
+  "start": 94.038,
+  "end": 95.634,
+  "en": "response will be sent back."
+ },
+ {
+  "start": 97.05,
+  "end": 98.74,
+  "en": "With that, if we save this"
+ },
+ {
+  "start": 100.479,
+  "end": 102.397,
+  "en": "and we reload, we should see message from"
+ },
+ {
+  "start": 102.446,
+  "end": 103.372,
+  "en": "middleware 2 here."
+ },
+ {
+  "start": 103.902,
+  "end": 106.035,
+  "en": "Because now the second middleware was"
+ },
+ {
+  "start": 106.211,
+  "end": 108.681,
+  "en": "reached and since we set the response body"
+ },
+ {
+  "start": 108.697,
+  "end": 111.631,
+  "en": "here as well, we override what we set here"
+ },
+ {
+  "start": 112.08,
+  "end": 114.373,
+  "en": "and therefore it's this response body which"
+ },
+ {
+  "start": 114.422,
+  "end": 117.18,
+  "en": "is actually sent back to the client. This is"
+ },
+ {
+  "start": 117.276,
+  "end": 120.002,
+  "en": "how the middleware functions generally work"
+ },
+ {
+  "start": 120.002,
+  "end": 120.13,
+  "en": "here."
+ },
+ {
+  "start": 121.125,
+  "end": 123.674,
+  "en": "Now when Oak is out of middleware functions"
+ },
+ {
+  "start": 123.69,
+  "end": 125.679,
+  "en": "that should be processed, it will send the"
+ },
+ {
+  "start": 125.711,
+  "end": 128.357,
+  "en": "response back to the client. As long as you"
+ },
+ {
+  "start": 128.357,
+  "end": 130.249,
+  "en": "keep on going through middleware functions,"
+ },
+ {
+  "start": 130.603,
+  "end": 132.927,
+  "en": "It will continue doing that and the response"
+ },
+ {
+  "start": 132.943,
+  "end": 135.897,
+  "en": "will only be sent back once you, well, went"
+ },
+ {
+  "start": 136.01,
+  "end": 136.639,
+  "en": "through all the middleware."
+ }
+]

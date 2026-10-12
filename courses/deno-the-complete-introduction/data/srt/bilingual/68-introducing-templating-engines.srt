@@ -1,0 +1,299 @@
+1
+00:00:02,197 --> 00:00:04,058
+Let me first of all clarify what a
+首先讓我澄清什麼是
+
+2
+00:00:04,187 --> 00:00:06,721
+templating engine is and what templates are
+樣板引擎是什麼以及什麼是樣板
+
+3
+00:00:06,994 --> 00:00:08,518
+and why we need that.
+以及為什麼我們需要它。
+
+4
+00:00:09,577 --> 00:00:12,400
+Of course, ultimately the goal here is that
+當然，最終的目標是
+
+5
+00:00:12,448 --> 00:00:15,593
+we return some HTML code because we're not
+我們回傳一些 HTML 程式碼，因為我們沒有
+
+6
+00:00:15,593 --> 00:00:17,694
+building an API that should just return
+建立一個應該回傳的 API
+
+7
+00:00:17,758 --> 00:00:20,486
+data, right? That's what I mentioned earlier
+資料，對嗎？這就是我之前提到的
+
+8
+00:00:20,486 --> 00:00:22,587
+in this module. We could do that, but we're
+在這個模組中。我們可以做到這一點，但我們
+
+9
+00:00:22,651 --> 00:00:23,550
+going to do that later.
+稍後再做。
+
+10
+00:00:24,095 --> 00:00:26,357
+So here we wanna return HTML code.
+所以這裡我們想要回傳 HTML 程式碼。
+
+11
+00:00:27,689 --> 00:00:29,822
+Potentially code that looks like this. But
+可能的程式碼看起來像這樣。但
+
+12
+00:00:29,870 --> 00:00:32,533
+in this very simple snippet, we can already
+在這個非常簡單的片段中，我們已經可以
+
+13
+00:00:32,533 --> 00:00:33,672
+spot a problem.
+發現問題。
+
+14
+00:00:34,507 --> 00:00:36,464
+A lot of the code which you want to send
+很多你想發送的程式碼
+
+15
+00:00:36,512 --> 00:00:40,378
+back will contain dynamic data, so data
+回傳將包含動態資料，因此資料
+
+16
+00:00:40,459 --> 00:00:42,464
+that, for example, is fetched from a
+例如，是從
+
+17
+00:00:42,464 --> 00:00:42,993
+database.
+資料庫.
+
+18
+00:00:43,651 --> 00:00:45,560
+And therefore, you don't want to always
+因此，你不想總是
+
+19
+00:00:45,672 --> 00:00:48,769
+return the same HTML page. Instead, you
+傳回相同的 HTML 頁面。相反，你
+
+20
+00:00:48,801 --> 00:00:51,817
+might want to return the same HTML skeleton
+可能想要回傳相同的 HTML 骨架
+
+21
+00:00:52,410 --> 00:00:54,735
+with different data inside of it though.
+但裡面有不同的資料。
+
+22
+00:00:55,360 --> 00:00:57,909
+Data may depend on the user, the point of
+資料可能取決於使用者、觀點
+
+23
+00:00:57,941 --> 00:01:00,954
+time when the request is sent, and a lot of
+發送請求的時間，以及很多
+
+24
+00:01:01,050 --> 00:01:01,916
+other factors.
+其他因素。
+
+25
+00:01:02,669 --> 00:01:05,298
+Your HTML page should be dynamic.
+您的 HTML 頁面應該是動態的。
+
+26
+00:01:06,100 --> 00:01:08,937
+After all, if you visit amazon.com, what you
+畢竟，如果您訪問 amazon.com，您會
+
+27
+00:01:08,937 --> 00:01:11,549
+see on this screen is not the same for every
+每個螢幕上看到的內容並不相同
+
+28
+00:01:11,630 --> 00:01:14,338
+user. The skeleton and how the page
+使用者。頁面的骨架和方式
+
+29
+00:01:14,531 --> 00:01:17,608
+generally looks like is the same. The header
+大體看起來是一樣的。標題
+
+30
+00:01:17,801 --> 00:01:20,269
+might be the same, but what's on the page
+可能是一樣的，但是頁面上的內容
+
+31
+00:01:20,526 --> 00:01:23,476
+that differs. That's data which is fetched
+這是不同的。這就是所獲得的資料
+
+32
+00:01:23,492 --> 00:01:25,881
+for me, for you, for anyone else.
+為了我，為了你，為了任何人。
+
+33
+00:01:26,955 --> 00:01:29,953
+And therefore, we can't just store HTML
+因此，我們不能只儲存 HTML
+
+34
+00:01:30,162 --> 00:01:32,455
+documents on the server and send back those
+伺服器上的檔案並將其發送回
+
+35
+00:01:32,487 --> 00:01:34,475
+documents, or at least that's not what we
+檔案，或者至少我們不是這樣
+
+36
+00:01:34,475 --> 00:01:35,004
+wanna do here.
+想在這裡做
+
+37
+00:01:35,613 --> 00:01:37,697
+But instead, we need so-called templates,
+但相反，我們需要所謂的樣板，
+
+38
+00:01:38,162 --> 00:01:40,070
+basically HTML pages
+基本上是 HTML 頁面
+
+39
+00:01:40,728 --> 00:01:44,447
+with a specific custom templating language
+使用特定的自訂樣板語言
+
+40
+00:01:44,528 --> 00:01:45,377
+inside of it,
+在它裡面，
+
+41
+00:01:45,939 --> 00:01:49,675
+which is then parsed dynamically by Deno to
+然後由 Deno 動態解析為
+
+42
+00:01:50,188 --> 00:01:53,910
+output actual data in those placeholders. So
+輸出這些佔位符中的實際資料。所以
+
+43
+00:01:53,910 --> 00:01:56,076
+that orange text here on the right side, for
+右側的橙色文字，用於
+
+44
+00:01:56,076 --> 00:01:56,606
+example,
+例子，
+
+45
+00:01:57,247 --> 00:01:59,798
+that would be the EJS templating language in
+這就是 EJS 樣板語言
+
+46
+00:01:59,830 --> 00:02:02,574
+this example. And this allows us to prepare
+這個例子。這使我們能夠做好準備
+
+47
+00:02:02,718 --> 00:02:03,954
+a general skeleton
+一般骨架
+
+48
+00:02:04,483 --> 00:02:06,681
+but then have dynamic, you could say,
+但然後有動態，你可以說，
+
+49
+00:02:06,890 --> 00:02:10,788
+injection points where actual data can be
+實際資料可以的注入點
+
+50
+00:02:10,804 --> 00:02:13,452
+injected and rendered. And that is what I
+注入並渲染。這就是我
+
+51
+00:02:13,532 --> 00:02:14,543
+ultimately want here.
+最終想要這裡。
+
+52
+00:02:15,233 --> 00:02:17,756
+Because even with our dummy app here, when
+因為即使使用我們的虛擬應用程式，當
+
+53
+00:02:17,805 --> 00:02:18,624
+we are able to
+我們能夠
+
+54
+00:02:19,155 --> 00:02:21,855
+add course goals, it would also be nice if
+增加課程目標，如果
+
+55
+00:02:21,903 --> 00:02:25,037
+we could display course goals, right? And
+我們可以顯示課程目標，對嗎？和
+
+56
+00:02:25,101 --> 00:02:27,126
+for that, we need to store them somewhere
+為此，我們需要將它們儲存在某個地方
+
+57
+00:02:27,271 --> 00:02:30,228
+and then inject the stored goals dynamically
+然後動態注入儲存的目標
+
+58
+00:02:30,566 --> 00:02:32,462
+into our templates. And that's what we're
+進入我們的樣板。這就是我們
+
+59
+00:02:32,575 --> 00:02:35,114
+going to do. And by doing that, we'll also
+要去做什麼。透過這樣做，我們也將
+
+60
+00:02:35,227 --> 00:02:37,654
+get the HTML code out of this file.
+從此檔案中取得 HTML 程式碼。

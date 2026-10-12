@@ -1,0 +1,1334 @@
+1
+00:00:02,134 --> 00:00:04,895
+So we got started with Oak. We understand,
+所以我們開始使用橡木。我們明白，
+
+2
+00:00:05,232 --> 00:00:07,239
+hopefully, that it's about middleware and
+希望這是關於中介層和
+
+3
+00:00:07,255 --> 00:00:09,036
+that our request travels through the
+我們的請求透過
+
+4
+00:00:09,085 --> 00:00:11,123
+different middleware functions and we can do
+不同的中介軟體功能，我們可以做
+
+5
+00:00:11,123 --> 00:00:12,584
+something to the request there.
+那裡有一些要求。
+
+6
+00:00:13,579 --> 00:00:15,361
+Now that's nice, but it might not be the
+現在這很好，但可能不是
+
+7
+00:00:15,361 --> 00:00:18,089
+huge leap forward you hoped for.
+您所希望的巨大飛躍。
+
+8
+00:00:18,796 --> 00:00:21,364
+Well, we're going to make a quite big step
+好吧，我們將邁出相當大的一步
+
+9
+00:00:21,364 --> 00:00:22,038
+forward now.
+現在前進。
+
+10
+00:00:23,065 --> 00:00:23,322
+The
+這
+
+11
+00:00:23,852 --> 00:00:26,901
+Oak module does not just expose this
+Oak 模組不僅暴露這個
+
+12
+00:00:26,901 --> 00:00:30,033
+application object, it also exposes a router
+應用程式物件，它還公開了一個路由器
+
+13
+00:00:30,130 --> 00:00:33,022
+object or a router constructor function. And
+物件或路由器建構函式。和
+
+14
+00:00:33,022 --> 00:00:34,211
+just like the overall app,
+就像整個應用程式一樣，
+
+15
+00:00:34,870 --> 00:00:36,974
+you can instantiate this router.
+你可以實例化這個路由器。
+
+16
+00:00:37,681 --> 00:00:39,320
+Now, what does the router allow you to do?
+現在，路由器允許您做什麼？
+
+17
+00:00:39,770 --> 00:00:42,550
+The router allows you to create a special
+路由器允許您創建一個特殊的
+
+18
+00:00:42,566 --> 00:00:44,831
+kind of middleware which you later can then
+一種中介層，您稍後可以使用
+
+19
+00:00:44,896 --> 00:00:47,547
+hook into your app with the use method. You
+使用 use 方法連接到您的應用程式。你
+
+20
+00:00:47,547 --> 00:00:50,086
+can use this router object to call various
+可以使用這個路由器物件來呼叫各種
+
+21
+00:00:50,198 --> 00:00:52,946
+methods on it and you will have a method for
+方法，你將有一個方法
+
+22
+00:00:53,251 --> 00:00:56,074
+every key HTTP method which is out there.
+現有的每個關鍵 HTTP 方法。
+
+23
+00:00:56,475 --> 00:00:59,119
+You can add a GET method, you can add a POST
+可以加入GET方法，也可以加入POST方法
+
+24
+00:00:59,119 --> 00:01:02,693
+method, a PUT method, a DELETE method, and
+方法、PUT 方法、DELETE 方法，以及
+
+25
+00:01:02,789 --> 00:01:06,138
+so on. And these are all valid HTTP verbs,
+很快。這些都是有效的 HTTP 動詞，
+
+26
+00:01:06,410 --> 00:01:09,647
+so HTTP methods that can be sent for sending
+所以可以發送的HTTP方法
+
+27
+00:01:09,840 --> 00:01:10,994
+HTTP requests.
+HTTP 請求。
+
+28
+00:01:11,779 --> 00:01:13,910
+And if you, for example, use the GET method,
+例如，如果您使用 GET 方法，
+
+29
+00:01:14,166 --> 00:01:14,711
+you're saying
+你是說
+
+30
+00:01:15,609 --> 00:01:19,054
+I want to register a route for incoming GET
+我想註冊傳入 GET 的路由
+
+31
+00:01:19,054 --> 00:01:19,583
+requests
+要求
+
+32
+00:01:20,193 --> 00:01:22,023
+And then you need to pass in an argument
+然後你需要傳入一個參數
+
+33
+00:01:22,023 --> 00:01:24,175
+which describes the path for which this
+它描述了該路徑
+
+34
+00:01:24,272 --> 00:01:26,440
+route should become active. For example,
+路線應該變得活躍。例如，
+
+35
+00:01:27,002 --> 00:01:30,583
+/nothing, which means every GET request to
+/nothing，這意味著每個 GET 請求
+
+36
+00:01:31,097 --> 00:01:33,330
+mydomain.com/nothing
+mydomain.com/無
+
+37
+00:01:33,908 --> 00:01:36,493
+should now trigger the second argument you
+現在應該觸發你的第二個參數
+
+38
+00:01:36,493 --> 00:01:37,569
+have to pass to GET,
+必須傳遞給 GET，
+
+39
+00:01:38,244 --> 00:01:39,256
+a function.
+一個函式。
+
+40
+00:01:40,251 --> 00:01:42,644
+And that is a regular middleware function as
+這是一個常規的中介軟體函式
+
+41
+00:01:42,676 --> 00:01:43,528
+we have it down there,
+我們有它在那裡，
+
+42
+00:01:44,122 --> 00:01:46,033
+and you should therefore accept your context
+因此你應該接受你的背景
+
+43
+00:01:46,113 --> 00:01:48,542
+object here. You can also accept the next
+對像在這裡。您也可以接受下一個
+
+44
+00:01:48,542 --> 00:01:49,792
+function here if you want to,
+如果你想的話，你可以在這裡運行，
+
+45
+00:01:50,327 --> 00:01:52,146
+but here I only need the context.
+但在這裡我只需要上下文。
+
+46
+00:01:54,680 --> 00:01:55,968
+And now this function
+現在這個功能
+
+47
+00:01:56,628 --> 00:01:59,044
+should be triggered for every incoming GET
+應該為每個傳入的 GET 觸發
+
+48
+00:01:59,044 --> 00:02:01,074
+request to, in our case,
+在我們的例子中，要求
+
+49
+00:02:01,236 --> 00:02:03,548
+localhost:3000/nothing.
+本機：3000/無。
+
+50
+00:02:04,713 --> 00:02:07,526
+And here we can then set up a response and
+然後我們可以在這裡設定回應並
+
+51
+00:02:07,558 --> 00:02:10,356
+set the body, for example, again to some
+例如，再次將主體設定為某個
+
+52
+00:02:10,356 --> 00:02:11,114
+HTML code.
+HTML 程式碼。
+
+53
+00:02:11,728 --> 00:02:13,908
+We'll also refine this later with help of a
+稍後我們還將在以下人員的幫助下完善這一點
+
+54
+00:02:13,908 --> 00:02:15,875
+templating engine. For the moment, I'll
+樣板引擎。暫時我會
+
+55
+00:02:15,875 --> 00:02:17,168
+again hardcode it like this.
+再像這樣硬編碼。
+
+56
+00:02:17,976 --> 00:02:20,642
+And I'll set this to, let's say, an h2 tag
+我會將其設定為 h2 標籤
+
+57
+00:02:20,642 --> 00:02:21,095
+where I say
+我說的地方
+
+58
+00:02:22,744 --> 00:02:23,616
+Course Goals.
+課程目標。
+
+59
+00:02:27,370 --> 00:02:28,288
+And below that,
+在那之下，
+
+60
+00:02:28,917 --> 00:02:31,399
+a form. So basically what we had before too,
+一種形式。所以基本上我們之前也有過，
+
+61
+00:02:32,317 --> 00:02:34,686
+a form where we can set the action to,
+我們可以將操作設定為的表單，
+
+62
+00:02:35,379 --> 00:02:38,866
+let's say, /add-goal and the method to POST.
+比方說，/add-goal 和 POST 方法。
+
+63
+00:02:39,964 --> 00:02:41,821
+And in there, we can then have an input of
+在那裡，我們可以輸入
+
+64
+00:02:41,821 --> 00:02:44,665
+type text with a name of new goal
+輸入帶有新目標名稱的文本
+
+65
+00:02:46,440 --> 00:02:47,489
+and a button
+和一個按鈕
+
+66
+00:02:48,296 --> 00:02:49,862
+of type submit
+提交型別
+
+67
+00:02:51,137 --> 00:02:53,485
+where we say add goal. And this will be a
+我們說添加目標。這將是一個
+
+68
+00:02:53,485 --> 00:02:56,160
+very ugly unstyled button, but it should
+非常醜陋的無樣式按鈕，但它應該
+
+69
+00:02:56,160 --> 00:02:58,803
+submit that form. And when the form is
+提交該表格。當表格是
+
+70
+00:02:58,836 --> 00:03:01,197
+submitted, a request should be sent to add
+已提交，應發送請求以添加
+
+71
+00:03:01,229 --> 00:03:03,850
+goal, and that request should automatically
+目標，並且該請求應該自動
+
+72
+00:03:03,866 --> 00:03:05,859
+use the POST HTTP method.
+使用 POST HTTP 方法。
+
+73
+00:03:07,000 --> 00:03:10,027
+And with that incoming requests to GET
+隨著傳入的 GET 請求
+
+74
+00:03:10,402 --> 00:03:12,662
+/nothing should return a response that has
+/nothing 應該回傳一個回應
+
+75
+00:03:12,776 --> 00:03:13,313
+this body.
+這個身體。
+
+76
+00:03:14,270 --> 00:03:15,077
+Now we can also
+現在我們也可以
+
+77
+00:03:15,738 --> 00:03:17,078
+reach out to the router again
+再次連接到路由器
+
+78
+00:03:17,917 --> 00:03:18,224
+and
+和
+
+79
+00:03:18,983 --> 00:03:20,952
+register a POST route to
+註冊一個 POST 路由到
+
+80
+00:03:22,034 --> 00:03:22,502
+/add-goal.
+/新增目標。
+
+81
+00:03:23,180 --> 00:03:25,594
+So now we're saying if a request is a POST
+現在我們說請求是否為 POST
+
+82
+00:03:25,594 --> 00:03:28,924
+request and it's targeting mydomain.com, or
+請求且其目標是 mydomain.com，或者
+
+83
+00:03:28,957 --> 00:03:30,517
+in our case localhost:3000/add-goal,
+在我們的例子中 localhost:3000/add-goal,
+
+84
+00:03:33,197 --> 00:03:33,449
+then
+然後
+
+85
+00:03:34,099 --> 00:03:36,760
+this function here should be executed.
+這裡應該要執行這個函式。
+
+86
+00:03:39,420 --> 00:03:41,395
+And here we can then do whatever we wanna
+在這裡我們可以做任何我們想做的事
+
+87
+00:03:41,460 --> 00:03:42,643
+do. For example,
+做。例如，
+
+88
+00:03:43,177 --> 00:03:45,736
+we can parse the incoming body
+我們可以解析傳入的body
+
+89
+00:03:46,335 --> 00:03:48,004
+by reaching out to context.request.body.
+透過聯絡 context.request.body。
+
+90
+00:03:50,700 --> 00:03:53,920
+And body is now a method. And this method
+身體現在是一種方法。還有這個方法
+
+91
+00:03:54,097 --> 00:03:55,288
+does something amazing.
+做了一些令人驚奇的事。
+
+92
+00:03:56,029 --> 00:03:59,652
+It automatically parses the incoming request
+它會自動解析傳入的請求
+
+93
+00:03:59,668 --> 00:04:00,892
+body. Isn't that amazing?
+身體。這不是很神奇嗎？
+
+94
+00:04:01,476 --> 00:04:04,042
+That means that now we don't have to do that
+這意味著現在我們不必這樣做
+
+95
+00:04:04,042 --> 00:04:06,913
+manual parsing from before. Instead, that
+之前的手動解析。相反，那
+
+96
+00:04:07,089 --> 00:04:09,046
+should give us some usable data
+應該給我們一些可用的資料
+
+97
+00:04:09,174 --> 00:04:09,912
+automatically.
+自動地。
+
+98
+00:04:10,794 --> 00:04:13,424
+We can just console.log the body here to see
+我們可以在這裡console.log主體來查看
+
+99
+00:04:13,905 --> 00:04:14,611
+what we're getting.
+我們得到了什麼。
+
+100
+00:04:15,364 --> 00:04:17,577
+And thereafter, we might want to redirect.
+此後，我們可能想要重定向。
+
+101
+00:04:18,251 --> 00:04:20,705
+And on the context object on the response,
+在回應的上下文物件上，
+
+102
+00:04:20,817 --> 00:04:22,613
+there is a redirect method we can call.
+我們可以呼叫一個重定向方法。
+
+103
+00:04:22,966 --> 00:04:25,195
+However, not if you're using version 4 of
+但是，如果您使用的是版本 4，則不然
+
+104
+00:04:25,227 --> 00:04:28,081
+this package, as I realized. So I did remove
+正如我所意識到的，這個包裹。所以我確實刪除了
+
+105
+00:04:28,113 --> 00:04:29,186
+the version number here now.
+現在這裡的版本號碼。
+
+106
+00:04:29,779 --> 00:04:31,653
+As I mentioned, it's all under development.
+正如我所提到的，這一切都在開發中。
+
+107
+00:04:31,974 --> 00:04:35,066
+So only on the latest version, this redirect
+所以只有在最新版本上，這個重定向
+
+108
+00:04:35,066 --> 00:04:37,645
+method is available. And to redirect, we can
+方法可用。為了重定向，我們可以
+
+109
+00:04:37,645 --> 00:04:40,625
+pass the URL to which we wanna redirect. So
+傳遞我們想要重新導向到的 URL。所以
+
+110
+00:04:40,625 --> 00:04:42,948
+this is now also much easier than before
+現在這也比以前容易得多
+
+111
+00:04:43,252 --> 00:04:45,720
+where we manually had to set the redirect
+我們必須手動設定重定向
+
+112
+00:04:45,720 --> 00:04:46,104
+headers.
+標頭。
+
+113
+00:04:47,178 --> 00:04:48,908
+And with that, we're parsing the request
+這樣，我們就可以解析請求了
+
+114
+00:04:48,940 --> 00:04:50,574
+body and redirecting thereafter.
+身體並隨後重定向。
+
+115
+00:04:51,343 --> 00:04:53,714
+And now we registered 2 different routes and
+現在我們註冊了 2 條不同的路線
+
+116
+00:04:53,890 --> 00:04:56,518
+all the heavy lifting and the overhead code
+所有繁重的工作和開銷程式碼
+
+117
+00:04:56,854 --> 00:04:59,806
+of manually looking into the request method
+手動查看請求方法
+
+118
+00:04:59,838 --> 00:05:03,530
+and URL and of manually parsing the body and
+和 URL 以及手動解析內文和
+
+119
+00:05:03,530 --> 00:05:07,110
+of manually redirecting is gone. The only
+手動重定向的功能消失了。唯一的
+
+120
+00:05:07,142 --> 00:05:09,695
+annoying thing is the HTML code here in the
+煩人的是這裡的 HTML 程式碼
+
+121
+00:05:09,695 --> 00:05:11,942
+TypeScript file and we'll get rid of that
+TypeScript 檔案，我們將擺脫它
+
+122
+00:05:11,942 --> 00:05:14,912
+later as well. But we already shortened this
+以後也一樣。但我們已經縮短了這個
+
+123
+00:05:14,992 --> 00:05:15,329
+a lot.
+很多。
+
+124
+00:05:16,212 --> 00:05:18,653
+Now, the only thing to make this work is now
+現在，唯一能讓這份工作成功的就是現在
+
+125
+00:05:18,845 --> 00:05:22,393
+that we need to make Oak and its middleware
+我們需要製作 Oak 及其中介層
+
+126
+00:05:22,393 --> 00:05:22,746
+chain
+鏈
+
+127
+00:05:23,356 --> 00:05:25,891
+down there with the use method aware of our
+下面的使用方法了解我們的
+
+128
+00:05:25,923 --> 00:05:28,535
+router because just creating such a router
+路由器，因為只是創建這樣一個路由器
+
+129
+00:05:28,647 --> 00:05:30,313
+and adding some routes is not enough.
+增加一些路線還不夠。
+
+130
+00:05:31,275 --> 00:05:33,935
+Instead, down here I will remove these dummy
+相反，我將在這裡刪除這些虛擬物件
+
+131
+00:05:33,935 --> 00:05:34,832
+middleware functions.
+中介層功能。
+
+132
+00:05:35,457 --> 00:05:36,242
+I will now call
+我現在打電話
+
+133
+00:05:36,803 --> 00:05:39,351
+app.use, and now we need to reach out to the
+app.use，現在我們需要聯繫
+
+134
+00:05:39,367 --> 00:05:39,767
+router,
+路由器，
+
+135
+00:05:40,344 --> 00:05:40,777
+and there
+在那裡
+
+136
+00:05:42,107 --> 00:05:44,078
+we need to execute the routes method,
+我們需要執行routes方法，
+
+137
+00:05:44,670 --> 00:05:46,545
+and that will return a valid middleware
+這將傳回一個有效的中介層
+
+138
+00:05:46,754 --> 00:05:47,811
+which can be registered.
+可以註冊。
+
+139
+00:05:48,500 --> 00:05:51,497
+And we also need to execute the allowed
+而我們還需要執行允許的
+
+140
+00:05:51,497 --> 00:05:51,897
+methods
+方法
+
+141
+00:05:52,603 --> 00:05:55,477
+method. And both these methods, routes and
+方法。這些方法、路線和
+
+142
+00:05:55,557 --> 00:05:58,175
+allowedMethods, return middlewares which can
+allowedMethods，回傳可以的中介軟體
+
+143
+00:05:58,223 --> 00:06:00,455
+and should be registered with app.use.
+並且應該在 app.use 中註冊。
+
+144
+00:06:01,258 --> 00:06:03,216
+You don't need to call next anywhere here
+你不需要在這裡任何地方呼叫 next
+
+145
+00:06:03,522 --> 00:06:06,299
+because I'm fine with just executing these
+因為我只要執行這些就好了
+
+146
+00:06:06,588 --> 00:06:07,584
+standalone functions,
+獨立功能，
+
+147
+00:06:08,178 --> 00:06:09,751
+but you could absolutely
+但你絕對可以
+
+148
+00:06:10,330 --> 00:06:13,172
+also add your own middleware before or after
+也可以在之前或之後添加您自己的中介層
+
+149
+00:06:13,380 --> 00:06:14,071
+the router here.
+路由器在這裡。
+
+150
+00:06:18,918 --> 00:06:20,809
+My middleware like this,
+我的中介軟體是這樣的
+
+151
+00:06:21,418 --> 00:06:23,166
+and it will run besides the router
+它會在路由器旁邊運行
+
+152
+00:06:23,166 --> 00:06:25,266
+middleware. You should add it before the
+中介軟體.您應該在之前添加它
+
+153
+00:06:25,266 --> 00:06:27,606
+router middleware though, unless you called
+路由器中介軟體，除非你打電話
+
+154
+00:06:27,606 --> 00:06:30,139
+next in your router functions. Here we're
+接下來是路由器功能。我們在這裡
+
+155
+00:06:30,139 --> 00:06:32,832
+not calling next, so any middleware after
+不呼叫 next，所以之後的任何中介層
+
+156
+00:06:32,880 --> 00:06:34,787
+the router middleware here would not be
+這裡的路由器中介層不會是
+
+157
+00:06:34,867 --> 00:06:37,609
+executed. We would have to call next for
+被執行。接下來我們必須打電話詢問
+
+158
+00:06:37,609 --> 00:06:38,330
+that to happen.
+那將會發生。
+
+159
+00:06:39,308 --> 00:06:41,696
+So here I'm using my own middleware,
+所以在這裡我使用我自己的中介層，
+
+160
+00:06:42,257 --> 00:06:44,309
+and if we now run this application
+如果我們現在運行這個應用程式
+
+161
+00:06:45,079 --> 00:06:46,794
+It's getting compiled and executed,
+它正在被編譯和執行，
+
+162
+00:06:48,013 --> 00:06:50,803
+and it doesn't load anything because of
+並且它不會載入任何東西，因為
+
+163
+00:06:50,819 --> 00:06:53,593
+course we should call next here in our own
+當然我們應該自己呼叫 next 這裡
+
+164
+00:06:53,641 --> 00:06:53,993
+middleware.
+中介軟體.
+
+165
+00:06:54,747 --> 00:06:56,366
+Otherwise, we never reach the next
+否則我們永遠無法到達下一個
+
+166
+00:06:56,366 --> 00:06:57,986
+middleware in line, which is the router
+排隊的中介軟體，就是路由器
+
+167
+00:06:57,986 --> 00:07:00,519
+middleware, which would be nice to reach. So
+中介層，這將是很好的接觸。所以
+
+168
+00:07:00,519 --> 00:07:02,379
+let's add next here in the custom
+讓我們在自訂中新增下一個
+
+169
+00:07:02,379 --> 00:07:02,732
+middleware.
+中介軟體.
+
+170
+00:07:03,421 --> 00:07:06,083
+And if we now reload, we see something, but
+如果我們現在重新載入，我們會看到一些東西，但是
+
+171
+00:07:06,147 --> 00:07:08,873
+this is not rendered HTML. This is just some
+這不是渲染的 HTML。這只是一些
+
+172
+00:07:08,873 --> 00:07:09,290
+text.
+文字.
+
+173
+00:07:09,995 --> 00:07:11,775
+But we can easily fix this by reaching out
+但我們可以透過聯繫來輕鬆解決這個問題
+
+174
+00:07:11,775 --> 00:07:14,801
+to the response And there we can set the
+到回應我們可以設置
+
+175
+00:07:14,801 --> 00:07:16,156
+response type here
+此處的回應型別
+
+176
+00:07:19,011 --> 00:07:20,108
+to text/html,
+到文字/html，
+
+177
+00:07:21,270 --> 00:07:22,803
+and this will add the appropriate
+這將添加適當的
+
+178
+00:07:22,835 --> 00:07:25,337
+Content-Type header to the response. We
+回應的 Content-Type 標頭。我們
+
+179
+00:07:25,402 --> 00:07:28,162
+could also manually set that Content-Type
+也可以手動設定 Content-Type
+
+180
+00:07:28,162 --> 00:07:30,390
+header, but using this approach is a bit
+header，但用這種方法有點
+
+181
+00:07:30,390 --> 00:07:30,759
+shorter.
+更短。
+
+182
+00:07:31,466 --> 00:07:34,519
+And once we do that and reload, now this is
+一旦我們這樣做並重新載入，現在就是這樣
+
+183
+00:07:34,583 --> 00:07:36,640
+getting rendered because now the browser
+被渲染，因為現在瀏覽器
+
+184
+00:07:36,752 --> 00:07:39,468
+receives the information about which kind of
+接收有關哪種型別的資訊
+
+185
+00:07:39,500 --> 00:07:41,126
+data is attached to the response.
+資料附加到回應中。
+
+186
+00:07:42,195 --> 00:07:44,631
+Now if I submit this, my message,
+現在如果我提交這個，我的消息，
+
+187
+00:07:46,534 --> 00:07:49,051
+you see we again end up on localhost:3000,
+你看我們又回到了 localhost:3000，
+
+188
+00:07:49,930 --> 00:07:51,949
+which is a good sign. It means that our
+這是一個好兆頭。這意味著我們的
+
+189
+00:07:52,242 --> 00:07:53,480
+redirection seems to work.
+重定向似乎有效。
+
+190
+00:07:54,034 --> 00:07:56,984
+And back here in the console, we also see
+回到控制台，我們也看到
+
+191
+00:07:57,274 --> 00:07:59,876
+that the body which we logged here seems to
+我們在這裡記錄的身體似乎
+
+192
+00:07:59,876 --> 00:08:02,251
+be a promise, and indeed it is.
+是一個承諾，而且確實如此。
+
+193
+00:08:03,415 --> 00:08:05,722
+So let's actually await body here
+所以讓我們在這裡等待屍體
+
+194
+00:08:06,569 --> 00:08:08,377
+and therefore turn this into an async
+因此將其變成非同步
+
+195
+00:08:08,377 --> 00:08:11,522
+function so that we can use await to see
+函式以便我們可以使用await來查看
+
+196
+00:08:11,618 --> 00:08:12,756
+what's inside the body.
+身體裡面有什麼。
+
+197
+00:08:13,493 --> 00:08:14,487
+So let's save that
+所以讓我們來儲存它
+
+198
+00:08:15,545 --> 00:08:16,571
+and test this again.
+並再次測試這一點。
+
+199
+00:08:17,709 --> 00:08:19,216
+And now the app crashes.
+現在應用程式崩潰了。
+
+200
+00:08:20,130 --> 00:08:22,085
+And the reason for the error is that now
+錯誤的原因是現在
+
+201
+00:08:22,197 --> 00:08:24,442
+here we're using async await, which is
+這裡我們使用 async wait，即
+
+202
+00:08:24,442 --> 00:08:25,307
+absolutely fine,
+絕對沒問題，
+
+203
+00:08:25,980 --> 00:08:27,439
+but now with our own middleware,
+但現在有了我們自己的中介層，
+
+204
+00:08:27,984 --> 00:08:30,741
+we should definitely await next here.
+我們絕對應該在這裡等待下一步。
+
+205
+00:08:31,992 --> 00:08:33,963
+And therefore we need to use async here as
+因此我們需要在這裡使用 async 作為
+
+206
+00:08:34,059 --> 00:08:34,188
+well
+出色地
+
+207
+00:08:34,797 --> 00:08:37,569
+because if we don't, what happens is that
+因為如果我們不這樣做，就會發生這樣的情況
+
+208
+00:08:37,665 --> 00:08:40,613
+next triggers the routing functions. One of
+接下來觸發路由功能。之一
+
+209
+00:08:40,645 --> 00:08:42,872
+those functions is asynchronous, so it
+這些函式是非同步的，所以它
+
+210
+00:08:42,872 --> 00:08:45,211
+returns a promise, but we don't wait for
+回傳一個承諾，但我們不等待
+
+211
+00:08:45,227 --> 00:08:47,679
+that promise to resolve, and therefore we
+承諾解決，因此我們
+
+212
+00:08:47,759 --> 00:08:50,242
+immediately basically tell Oak that we're
+立即基本上告訴奧克我們是
+
+213
+00:08:50,339 --> 00:08:52,261
+done and that it should send back the
+完成並應該發回
+
+214
+00:08:52,261 --> 00:08:55,161
+response when actually one of our router
+當實際上是我們的路由器之一時的回應
+
+215
+00:08:55,225 --> 00:08:58,414
+functions wasn't done yet. So we have to
+功能還沒完成。所以我們必須
+
+216
+00:08:58,494 --> 00:09:01,170
+await next here so that all the next
+在這裡等待下一個，以便接下來的一切
+
+217
+00:09:01,234 --> 00:09:03,461
+middleware in line, so all our router
+中介層一致，所以我們所有的路由器
+
+218
+00:09:03,461 --> 00:09:05,848
+functions have a chance of completing.
+功能有機會完成。
+
+219
+00:09:06,362 --> 00:09:09,169
+Otherwise, the response will be sent back
+否則，回應將被發回
+
+220
+00:09:09,169 --> 00:09:10,018
+too early.
+太早了。
+
+221
+00:09:11,253 --> 00:09:13,964
+And with that, we cannot just extract the
+這樣，我們就不能只是提取
+
+222
+00:09:14,060 --> 00:09:16,545
+body, but also we will be able to redirect.
+身體，而且我們也將能夠重新導向。
+
+223
+00:09:17,091 --> 00:09:18,999
+And now to extract the body properly,
+現在要正確地提取屍體，
+
+224
+00:09:19,657 --> 00:09:20,426
+I will await here
+我會在這裡等待
+
+225
+00:09:21,020 --> 00:09:23,265
+so that body now really is the extracted
+所以現在的身體確實是被提取出來的
+
+226
+00:09:23,265 --> 00:09:23,569
+body.
+身體.
+
+227
+00:09:24,387 --> 00:09:27,739
+And in our case, when the type is form, as
+在我們的例子中，當型別是 form 時，如
+
+228
+00:09:27,771 --> 00:09:30,321
+we can see, so if we send some form data
+我們可以看到，所以如果我們發送一些表單資料
+
+229
+00:09:30,417 --> 00:09:32,069
+because a form was submitted
+因為已提交表格
+
+230
+00:09:32,828 --> 00:09:36,130
+we will be able to get our value from that
+我們將能夠從中獲得我們的價值
+
+231
+00:09:36,130 --> 00:09:38,914
+value object, which is basically of
+值物件，基本上是
+
+232
+00:09:39,060 --> 00:09:39,837
+URLSearchParams,
+URL搜尋參數，
+
+233
+00:09:40,970 --> 00:09:42,372
+which is a browser API.
+這是一個瀏覽器 API。
+
+234
+00:09:43,421 --> 00:09:44,759
+And on the body value,
+而論身材價值，
+
+235
+00:09:45,743 --> 00:09:47,323
+we can then call get
+然後我們可以調用 get
+
+236
+00:09:48,081 --> 00:09:49,081
+and get our
+並得到我們的
+
+237
+00:09:50,821 --> 00:09:53,093
+new goal here because that's the name we're
+這裡有新目標，因為這就是我們的名字
+
+238
+00:09:53,158 --> 00:09:55,511
+using up there. So we can get a value by
+在那裡使用。所以我們可以透過以下方式得到一個值
+
+239
+00:09:55,511 --> 00:09:56,864
+that key with the get method.
+使用 get 方法的那個鍵。
+
+240
+00:09:59,381 --> 00:10:01,115
+And I'll store it here in newGoal.
+我將把它存儲在 newGoal 中。
+
+241
+00:10:02,047 --> 00:10:04,375
+And I will console.log newGoal for now to
+我現在將 console.log newGoal 到
+
+242
+00:10:04,439 --> 00:10:07,153
+prove that this works. And if we now save
+證明這有效。如果我們現在儲存
+
+243
+00:10:07,185 --> 00:10:07,474
+that
+那
+
+244
+00:10:08,630 --> 00:10:11,248
+and we go back to localhost:3000
+我們回到 localhost:3000
+
+245
+00:10:12,243 --> 00:10:14,267
+and I add the goal finish the course,
+我添加了完成課程的目標，
+
+246
+00:10:15,278 --> 00:10:17,607
+you see we are redirected. And here we're
+你看我們被重定向了。我們在這裡
+
+247
+00:10:17,623 --> 00:10:20,995
+also printing finish the course. So now this
+也列印完成課程。所以現在這個
+
+248
+00:10:20,995 --> 00:10:23,693
+really works. And this is now how we can
+真的有效。現在我們可以這樣
+
+249
+00:10:23,725 --> 00:10:27,013
+parse a request body how we can send back
+解析請求正文我們如何發回
+
+250
+00:10:27,013 --> 00:10:29,304
+responses and a redirect, and how we could
+回應和重新導向，以及我們如何能夠
+
+251
+00:10:29,336 --> 00:10:30,794
+still add our own middleware
+還是加入我們自己的中介層
+
+252
+00:10:31,323 --> 00:10:33,486
+correctly with await if we got some
+正確地等待，如果我們得到一些
+
+253
+00:10:33,486 --> 00:10:34,864
+asynchronous code thereafter,
+此後的非同步程式碼，
+
+254
+00:10:35,408 --> 00:10:36,241
+if we wanted to.
+如果我們願意的話。
+
+255
+00:10:37,107 --> 00:10:39,462
+Now that's Oak and the router in a nutshell.
+簡而言之，這就是 Oak 和路由器。
+
+256
+00:10:40,055 --> 00:10:42,762
+A lot of new concepts, but a lot of cool
+很多新概念，但也很酷
+
+257
+00:10:42,778 --> 00:10:45,662
+concepts that make building realistic web
+建構現實網路的概念
+
+258
+00:10:45,662 --> 00:10:48,482
+apps much easier because now we as a
+應用程式變得更加容易，因為現在我們作為
+
+259
+00:10:48,482 --> 00:10:50,468
+developer don't have to take care about the
+開發者不必關心
+
+260
+00:10:50,468 --> 00:10:52,711
+nitty-gritty details. We don't have to do
+細節。我們不必做
+
+261
+00:10:52,791 --> 00:10:55,323
+all that parsing and all those if checks on
+所有的解析和所有的 if 檢查
+
+262
+00:10:55,355 --> 00:10:57,747
+our own. Instead, we just define different
+我們自己的。相反，我們只是定義不同的
+
+263
+00:10:57,763 --> 00:10:59,337
+routes and what should happen in those
+路線以及這些路線中應該發生什麼
+
+264
+00:10:59,450 --> 00:11:00,960
+routes, and that's it.
+路線，僅此而已。
+
+265
+00:11:01,795 --> 00:11:04,285
+Now, as a next step, let's make sure we get
+現在，下一步，讓我們確保我們得到
+
+266
+00:11:04,285 --> 00:11:07,595
+that HTML out of this and that we also get
+HTML 從中我們也得到
+
+267
+00:11:07,595 --> 00:11:10,518
+some dynamic content into that HTML code.
+HTML 程式碼中加入一些動態內容。

@@ -1,0 +1,262 @@
+[
+ {
+  "start": 2.517,
+  "end": 5.468,
+  "en": "Now the next thing which I wanted to do is I"
+ },
+ {
+  "start": 5.468,
+  "end": 8.322,
+  "en": "want to make sure that invalid routes are"
+ },
+ {
+  "start": 8.45,
+  "end": 10.262,
+  "en": "showing a proper error page"
+ },
+ {
+  "start": 11.16,
+  "end": 12.507,
+  "en": "and not this dummy page."
+ },
+ {
+  "start": 13.501,
+  "end": 15.987,
+  "en": "And I will build this, or I will add such a"
+ },
+ {
+  "start": 15.987,
+  "end": 20.685,
+  "en": "404 route by using Oak's middleware focus."
+ },
+ {
+  "start": 21.824,
+  "end": 23.78,
+  "en": "You might remember that I mentioned that the"
+ },
+ {
+  "start": 23.78,
+  "end": 26.49,
+  "en": "middlewares are executed step by step after"
+ },
+ {
+  "start": 26.49,
+  "end": 27.051,
+  "en": "each other."
+ },
+ {
+  "start": 27.999,
+  "end": 30.36,
+  "en": "And that we could call next to commence to"
+ },
+ {
+  "start": 30.36,
+  "end": 32.432,
+  "en": "the next one, and that we also—"
+ },
+ {
+  "start": 32.994,
+  "end": 35.869,
+  "en": "I showed this earlier— can await next and"
+ },
+ {
+  "start": 35.885,
+  "end": 38.423,
+  "en": "then execute code thereafter, which"
+ },
+ {
+  "start": 38.536,
+  "end": 40.383,
+  "en": "basically means that all the other"
+ },
+ {
+  "start": 40.383,
+  "end": 42.005,
+  "en": "middlewares will be executed"
+ },
+ {
+  "start": 42.535,
+  "end": 45.105,
+  "en": "and then code execution comes back to this"
+ },
+ {
+  "start": 45.105,
+  "end": 45.925,
+  "en": "first middleware,"
+ },
+ {
+  "start": 46.487,
+  "end": 48.495,
+  "en": "or wherever you awaited and then did"
+ },
+ {
+  "start": 48.495,
+  "end": 51.065,
+  "en": "something thereafter, to execute that extra"
+ },
+ {
+  "start": 51.065,
+  "end": 52.735,
+  "en": "code which comes after next."
+ },
+ {
+  "start": 53.313,
+  "end": 55.096,
+  "en": "And I'm going to use this here. I'm adding a"
+ },
+ {
+  "start": 55.096,
+  "end": 57.168,
+  "en": "middleware as the first middleware here,"
+ },
+ {
+  "start": 57.971,
+  "end": 60.379,
+  "en": "and it's a regular middleware which gets the"
+ },
+ {
+  "start": 60.379,
+  "end": 62.917,
+  "en": "context object and the next function."
+ },
+ {
+  "start": 63.672,
+  "end": 64.089,
+  "en": "And in there,"
+ },
+ {
+  "start": 64.86,
+  "end": 67.494,
+  "en": "I will call next and await this."
+ },
+ {
+  "start": 68.232,
+  "end": 69.967,
+  "en": "And for that, we also need to turn this into"
+ },
+ {
+  "start": 70.015,
+  "end": 70.947,
+  "en": "an async function."
+ },
+ {
+  "start": 71.621,
+  "end": 74.351,
+  "en": "This simply means that we execute the next"
+ },
+ {
+  "start": 74.351,
+  "end": 75.122,
+  "en": "middleware inline"
+ },
+ {
+  "start": 75.78,
+  "end": 78.414,
+  "en": "and wait until it's completed. So that means"
+ },
+ {
+  "start": 78.446,
+  "end": 80.871,
+  "en": "we execute this one, that in turn will"
+ },
+ {
+  "start": 80.935,
+  "end": 83.986,
+  "en": "execute the routes here, and And we'll await"
+ },
+ {
+  "start": 83.986,
+  "end": 86.298,
+  "en": "that. And once all that is done, once the"
+ },
+ {
+  "start": 86.314,
+  "end": 88.481,
+  "en": "routes are done and all of that, we'll come"
+ },
+ {
+  "start": 88.546,
+  "end": 90.279,
+  "en": "back to that first middleware, to the line"
+ },
+ {
+  "start": 90.552,
+  "end": 91.339,
+  "en": "after next."
+ },
+ {
+  "start": 92.655,
+  "end": 94.181,
+  "en": "And now what do I wanna execute here?"
+ },
+ {
+  "start": 95.064,
+  "end": 97.263,
+  "en": "Well, I don't wanna execute anything after"
+ },
+ {
+  "start": 97.311,
+  "end": 99.655,
+  "en": "it like this. Instead, I'll simply wrap"
+ },
+ {
+  "start": 99.719,
+  "end": 102.208,
+  "en": "await next into a try block"
+ },
+ {
+  "start": 102.93,
+  "end": 105.659,
+  "en": "and then catch any errors that might occur."
+ },
+ {
+  "start": 106.285,
+  "end": 108.597,
+  "en": "So with that, what I'm doing is I'm making"
+ },
+ {
+  "start": 108.693,
+  "end": 112.356,
+  "en": "sure that if any middleware somewhere down"
+ },
+ {
+  "start": 112.404,
+  "end": 113.256,
+  "en": "the other middlewares"
+ },
+ {
+  "start": 113.834,
+  "end": 114.83,
+  "en": "throws an error,"
+ },
+ {
+  "start": 115.537,
+  "end": 117.915,
+  "en": "and that includes Oak itself, if it throws"
+ },
+ {
+  "start": 117.947,
+  "end": 120.244,
+  "en": "an error because we had no middleware that"
+ },
+ {
+  "start": 120.341,
+  "end": 122.509,
+  "en": "would've handled the request and sent back a"
+ },
+ {
+  "start": 122.509,
+  "end": 123.088,
+  "en": "response,"
+ },
+ {
+  "start": 123.634,
+  "end": 126.301,
+  "en": "if it doesn't find any response for this"
+ },
+ {
+  "start": 126.301,
+  "end": 126.847,
+  "en": "request somewhere,"
+ }
+]
