@@ -1,0 +1,267 @@
+1
+00:00:02,116 --> 00:00:03,959
+Let's start with some theory though.
+
+2
+00:00:04,745 --> 00:00:07,390
+Deno is browser compatible,
+
+3
+00:00:08,112 --> 00:00:10,693
+and I put that between quotes because it
+
+4
+00:00:10,693 --> 00:00:13,418
+does not mean that you can take any Deno
+
+5
+00:00:13,498 --> 00:00:15,903
+program and run the same code in the
+
+6
+00:00:15,903 --> 00:00:16,384
+browser.
+
+7
+00:00:17,090 --> 00:00:19,318
+For one, this does not work because
+
+8
+00:00:20,312 --> 00:00:22,492
+Deno is able to use TypeScript, the browser
+
+9
+00:00:22,492 --> 00:00:25,442
+is not. And in addition, Deno of course
+
+10
+00:00:25,458 --> 00:00:28,536
+exposes certain features like working with
+
+11
+00:00:28,569 --> 00:00:29,498
+the file system,
+
+12
+00:00:30,156 --> 00:00:31,855
+which simply are not supported by the
+
+13
+00:00:31,855 --> 00:00:32,320
+browser.
+
+14
+00:00:32,881 --> 00:00:35,798
+But what it means is that where it makes
+
+15
+00:00:35,862 --> 00:00:36,455
+sense,
+
+16
+00:00:37,209 --> 00:00:40,639
+APIs that you find in the browser are also
+
+17
+00:00:40,671 --> 00:00:42,306
+made available in Deno.
+
+18
+00:00:42,899 --> 00:00:43,749
+For example,
+
+19
+00:00:44,438 --> 00:00:47,211
+setting a timer with setTimeout, or sending
+
+20
+00:00:47,324 --> 00:00:50,626
+an HTTP request with fetch, or listening to
+
+21
+00:00:50,626 --> 00:00:53,639
+the startup of the script basically with the
+
+22
+00:00:53,720 --> 00:00:54,794
+onload event.
+
+23
+00:00:55,643 --> 00:00:56,493
+These are all
+
+24
+00:00:57,487 --> 00:00:58,676
+all APIs
+
+25
+00:00:59,270 --> 00:01:02,256
+that are available in the browser. You could
+
+26
+00:01:02,256 --> 00:01:04,889
+set a timer with setTimeout in the browser.
+
+27
+00:01:05,274 --> 00:01:08,389
+You can send an HTTP request with fetch in
+
+28
+00:01:08,485 --> 00:01:10,749
+the browser. So this all works in the
+
+29
+00:01:10,813 --> 00:01:13,896
+browser and this all also works in Deno
+
+30
+00:01:13,896 --> 00:01:14,426
+scripts.
+
+31
+00:01:15,325 --> 00:01:17,974
+And that's important. They are available on
+
+32
+00:01:17,974 --> 00:01:20,559
+the global window object in Deno.
+
+33
+00:01:21,282 --> 00:01:23,995
+So even though, if you think about it, we
+
+34
+00:01:23,995 --> 00:01:27,044
+don't really have a window for our demo
+
+35
+00:01:27,140 --> 00:01:29,657
+script. It's not running in the browser
+
+36
+00:01:29,689 --> 00:01:30,426
+window at least.
+
+37
+00:01:31,068 --> 00:01:33,953
+Still, there is a global window object where
+
+38
+00:01:34,098 --> 00:01:37,128
+these core functionalities are exposed. And
+
+39
+00:01:37,128 --> 00:01:39,853
+again, the idea is to be as close to the
+
+40
+00:01:39,853 --> 00:01:41,296
+browser as possible
+
+41
+00:01:42,098 --> 00:01:43,236
+because that's another
+
+42
+00:01:43,957 --> 00:01:45,673
+probably minor flaw
+
+43
+00:01:46,202 --> 00:01:50,274
+that the creator of Node found in Node after
+
+44
+00:01:50,274 --> 00:01:51,540
+it was created, obviously,
+
+45
+00:01:52,214 --> 00:01:55,500
+that in Node, certain things are not
+
+46
+00:01:55,500 --> 00:01:58,147
+available that are available in the browser
+
+47
+00:01:58,452 --> 00:02:00,747
+and that would make sense in Node as well,
+
+48
+00:02:01,437 --> 00:02:04,197
+or if they are available, some things are
+
+49
+00:02:04,309 --> 00:02:07,021
+named differently. For example, there is no
+
+50
+00:02:07,278 --> 00:02:09,428
+window object in Node.
+
+51
+00:02:10,327 --> 00:02:13,553
+And he wanted to fix this for Deno so that
+
+52
+00:02:13,553 --> 00:02:16,409
+we basically don't have to learn a lot of
+
+53
+00:02:16,457 --> 00:02:19,362
+new things, or at least not as much, but
+
+54
+00:02:19,410 --> 00:02:22,282
+that we can reuse our knowledge which we
+
+55
+00:02:22,363 --> 00:02:24,545
+already have from the browser. And if we
+
+56
+00:02:24,545 --> 00:02:27,353
+wanna send an HTTP request, which you
+
+57
+00:02:27,353 --> 00:02:30,243
+sometimes wanna do in a server-side code
+
+58
+00:02:30,243 --> 00:02:32,651
+snippet as well, for example, you can just
+
+59
+00:02:32,651 --> 00:02:34,737
+use the Fetch API and you don't have to
+
+60
+00:02:34,737 --> 00:02:37,402
+learn about a new Deno-exclusive API for
+
+61
+00:02:37,450 --> 00:02:37,900
+doing that.
+
+62
+00:02:38,429 --> 00:02:41,206
+That's the idea of making it browser
+
+63
+00:02:41,399 --> 00:02:43,004
+compatible between quotes.
+
+64
+00:02:43,951 --> 00:02:46,102
+Now let's take a closer look at that and in
+
+65
+00:02:46,199 --> 00:02:46,584
+general,
+
+66
+00:02:47,162 --> 00:02:49,714
+let's take a closer look at the built-in
+
+67
+00:02:49,810 --> 00:02:51,496
+features Deno ships with.

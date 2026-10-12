@@ -1,0 +1,715 @@
+1
+00:00:02,262 --> 00:00:04,171
+With all of that, we learned a lot about
+
+2
+00:00:04,203 --> 00:00:07,316
+Deno and I wanna conclude this section about
+
+3
+00:00:07,316 --> 00:00:10,540
+the core APIs in a second and move on to the
+
+4
+00:00:10,540 --> 00:00:12,738
+standard library, which is the next logical
+
+5
+00:00:12,770 --> 00:00:13,107
+step.
+
+6
+00:00:13,653 --> 00:00:16,428
+Not before talking about the Deno program
+
+7
+00:00:16,541 --> 00:00:19,445
+lifecycle though, because that is important.
+
+8
+00:00:20,231 --> 00:00:22,990
+Your Deno program, for example, the one from
+
+9
+00:00:23,039 --> 00:00:25,333
+the assignment, has a lifecycle.
+
+10
+00:00:25,864 --> 00:00:27,430
+And that simply means that there are
+
+11
+00:00:27,494 --> 00:00:30,593
+specific events which are automatically
+
+12
+00:00:30,868 --> 00:00:32,724
+emitted and to which you can listen
+
+13
+00:00:33,354 --> 00:00:36,304
+when certain things happen in your script
+
+14
+00:00:36,337 --> 00:00:36,952
+execution.
+
+15
+00:00:39,006 --> 00:00:40,572
+If we run our demo file,
+
+16
+00:00:41,347 --> 00:00:43,123
+script execution of course starts and
+
+17
+00:00:43,140 --> 00:00:45,449
+executes the file start to end, but during
+
+18
+00:00:45,481 --> 00:00:48,471
+that execution, we got these various events,
+
+19
+00:00:48,536 --> 00:00:49,833
+these various steps.
+
+20
+00:00:50,416 --> 00:00:53,025
+For example, we get the load event right
+
+21
+00:00:53,074 --> 00:00:55,018
+when the file was compiled and loaded and
+
+22
+00:00:55,018 --> 00:00:55,456
+the execution started.
+
+23
+00:00:57,128 --> 00:00:59,515
+And we can listen to that event and execute
+
+24
+00:00:59,515 --> 00:01:01,005
+code in response to it.
+
+25
+00:01:01,742 --> 00:01:03,921
+We can also execute asynchronous code there
+
+26
+00:01:03,921 --> 00:01:04,578
+if we want to.
+
+27
+00:01:05,187 --> 00:01:08,311
+So this allows us to execute some extra code
+
+28
+00:01:08,311 --> 00:01:10,138
+which we don't wanna put into our main
+
+29
+00:01:10,666 --> 00:01:13,983
+script code whenever the script starts.
+
+30
+00:01:14,800 --> 00:01:16,642
+Well, then we have the regular script
+
+31
+00:01:16,642 --> 00:01:18,661
+execution of all the code we have in the
+
+32
+00:01:18,661 --> 00:01:21,529
+script, and then we also have the unload
+
+33
+00:01:21,529 --> 00:01:24,365
+event that's going to trigger right before
+
+34
+00:01:24,429 --> 00:01:25,999
+the script will shut down.
+
+35
+00:01:26,673 --> 00:01:29,736
+The script will end whenever the end of the
+
+36
+00:01:29,864 --> 00:01:31,885
+file is reached, so whenever there is no
+
+37
+00:01:31,885 --> 00:01:34,579
+more code to execute, and if there are no
+
+38
+00:01:34,675 --> 00:01:37,546
+ongoing processes. For example, later you
+
+39
+00:01:37,578 --> 00:01:40,464
+will see when we start a web server, the
+
+40
+00:01:40,464 --> 00:01:42,774
+script is never going to end because it's
+
+41
+00:01:42,774 --> 00:01:44,682
+continuously waiting for new incoming
+
+42
+00:01:44,778 --> 00:01:45,307
+requests.
+
+43
+00:01:45,917 --> 00:01:48,643
+But whenever your process does end, for
+
+44
+00:01:48,643 --> 00:01:51,129
+example, also with the web server, if that
+
+45
+00:01:51,129 --> 00:01:53,534
+server crashes the unload event is
+
+46
+00:01:53,614 --> 00:01:56,179
+triggered. And there you also can listen to
+
+47
+00:01:56,179 --> 00:01:58,102
+it and execute code, though
+
+48
+00:01:58,647 --> 00:01:59,994
+only synchronous code.
+
+49
+00:02:00,523 --> 00:02:03,456
+So no code that uses promises or callbacks
+
+50
+00:02:03,456 --> 00:02:06,021
+to do something asynchronous. You can't send
+
+51
+00:02:06,021 --> 00:02:08,522
+an HTTP request there, for example, or at
+
+52
+00:02:08,522 --> 00:02:10,766
+least you won't be able to react to the
+
+53
+00:02:10,766 --> 00:02:13,459
+response. You can only do synchronous things
+
+54
+00:02:13,491 --> 00:02:14,501
+here if you want to.
+
+55
+00:02:15,559 --> 00:02:17,867
+And these events can be useful to have some
+
+56
+00:02:17,964 --> 00:02:20,112
+general setup work that should be done
+
+57
+00:02:20,224 --> 00:02:22,821
+whenever the script starts and to have some
+
+58
+00:02:22,933 --> 00:02:25,339
+general cleanup work whenever the script
+
+59
+00:02:25,435 --> 00:02:25,724
+ends.
+
+60
+00:02:26,301 --> 00:02:28,307
+Now let's quickly see how we can listen to
+
+61
+00:02:28,307 --> 00:02:28,772
+these events.
+
+62
+00:02:29,767 --> 00:02:31,404
+For that, I'll add another new file,
+
+63
+00:02:32,174 --> 00:02:34,629
+demo_lifeCycle.ts,
+
+64
+00:02:35,447 --> 00:02:36,940
+and that will be a very trivial file.
+
+65
+00:02:38,175 --> 00:02:39,539
+For one, I'll console.log
+
+66
+00:02:40,117 --> 00:02:43,069
+main script, and that's my main script
+
+67
+00:02:43,069 --> 00:02:45,428
+execution code, so the main code that should
+
+68
+00:02:45,492 --> 00:02:46,294
+be in my script.
+
+69
+00:02:46,936 --> 00:02:49,584
+But I also wanna listen to that load event,
+
+70
+00:02:49,888 --> 00:02:52,119
+and for listening, we got 2 options.
+
+71
+00:02:52,875 --> 00:02:56,079
+We can reach out to this window object and
+
+72
+00:02:56,095 --> 00:02:58,640
+set the onload property
+
+73
+00:02:59,300 --> 00:03:01,763
+equal to a function, for example, equal to
+
+74
+00:03:01,780 --> 00:03:02,663
+an arrow function.
+
+75
+00:03:03,563 --> 00:03:05,475
+This function will then run
+
+76
+00:03:06,069 --> 00:03:07,965
+whenever the onload event occurs,
+
+77
+00:03:08,961 --> 00:03:11,483
+and we'll get an event object here. And then
+
+78
+00:03:11,516 --> 00:03:12,748
+I can console.log
+
+79
+00:03:14,678 --> 00:03:16,088
+onload event
+
+80
+00:03:16,705 --> 00:03:18,958
+and also console.log the event object.
+
+81
+00:03:21,137 --> 00:03:23,720
+The alternative way of listening would be
+
+82
+00:03:23,864 --> 00:03:24,297
+that you
+
+83
+00:03:25,613 --> 00:03:28,629
+add an event listener to window and listen
+
+84
+00:03:28,661 --> 00:03:31,244
+to the load event. So not onload here, but
+
+85
+00:03:31,389 --> 00:03:32,014
+just load.
+
+86
+00:03:32,608 --> 00:03:34,260
+And then the second argument here is the
+
+87
+00:03:34,292 --> 00:03:36,458
+function that should be executed upon the
+
+88
+00:03:36,458 --> 00:03:36,747
+event.
+
+89
+00:03:37,421 --> 00:03:40,710
+And there I will add that same code, onload
+
+90
+00:03:40,710 --> 00:03:42,635
+event via listener.
+
+91
+00:03:43,582 --> 00:03:46,085
+The important difference just like in the
+
+92
+00:03:46,150 --> 00:03:46,519
+browser
+
+93
+00:03:47,129 --> 00:03:49,104
+where you also have different ways of adding
+
+94
+00:03:49,136 --> 00:03:49,746
+event listeners,
+
+95
+00:03:50,324 --> 00:03:53,038
+is that with that you can only define one
+
+96
+00:03:53,150 --> 00:03:53,600
+function.
+
+97
+00:03:54,419 --> 00:03:54,772
+If I
+
+98
+00:03:55,494 --> 00:03:57,919
+set a new function to onload, it will
+
+99
+00:03:58,112 --> 00:04:00,135
+override the previously added function.
+
+100
+00:04:00,938 --> 00:04:03,073
+On the other hand, you can add multiple
+
+101
+00:04:03,170 --> 00:04:05,658
+event listeners with addEventListener. So if
+
+102
+00:04:05,658 --> 00:04:07,874
+you need multiple listeners which should all
+
+103
+00:04:08,147 --> 00:04:11,021
+run, you should use addEventListener If you
+
+104
+00:04:11,053 --> 00:04:13,205
+have just one code snippet that needs to
+
+105
+00:04:13,205 --> 00:04:15,679
+execute, you can use the onload property.
+
+106
+00:04:17,076 --> 00:04:19,597
+Now with that, we're printing onload twice
+
+107
+00:04:19,726 --> 00:04:21,814
+in the end because we set up a listener with
+
+108
+00:04:21,814 --> 00:04:24,062
+this approach and with addEventListener.
+
+109
+00:04:25,186 --> 00:04:27,113
+And thereafter, I'm going to copy this.
+
+110
+00:04:28,157 --> 00:04:29,313
+We can do the same for
+
+111
+00:04:30,390 --> 00:04:30,968
+onload
+
+112
+00:04:32,397 --> 00:04:35,689
+and print onload event. And here also we
+
+113
+00:04:35,689 --> 00:04:37,167
+want to listen to unload
+
+114
+00:04:37,716 --> 00:04:39,953
+and print onUnload here as well.
+
+115
+00:04:42,076 --> 00:04:43,470
+Now let's see how that works.
+
+116
+00:04:43,996 --> 00:04:45,097
+If I now save this
+
+117
+00:04:45,939 --> 00:04:49,632
+and I run this demo lifecycle.ts file,
+
+118
+00:04:51,460 --> 00:04:53,417
+you see script execution finished. And what
+
+119
+00:04:53,417 --> 00:04:56,475
+you see is we got the main script actually
+
+120
+00:04:56,507 --> 00:04:57,996
+being output first.
+
+121
+00:04:58,675 --> 00:05:00,422
+Now the order in which we see this here
+
+122
+00:05:00,520 --> 00:05:02,955
+shouldn't confuse you, shouldn't matter too
+
+123
+00:05:02,955 --> 00:05:05,066
+much. These listeners, the onLoad listeners,
+
+124
+00:05:05,099 --> 00:05:06,317
+do also run right at the beginning just
+
+125
+00:05:06,317 --> 00:05:09,223
+because the event needs to be processed
+
+126
+00:05:09,276 --> 00:05:09,629
+succeeded.
+
+127
+00:05:10,255 --> 00:05:11,202
+This main script,
+
+128
+00:05:11,861 --> 00:05:14,157
+the simple console.log statement was running
+
+129
+00:05:14,253 --> 00:05:16,180
+first and logging this to the console, but
+
+130
+00:05:16,260 --> 00:05:18,139
+onload also runs right when the script
+
+131
+00:05:18,139 --> 00:05:18,588
+starts.
+
+132
+00:05:19,648 --> 00:05:21,174
+And you see the event object which we're
+
+133
+00:05:21,254 --> 00:05:23,389
+getting is a very simple one, it just has
+
+134
+00:05:23,421 --> 00:05:24,883
+the isTrusted flag in there.
+
+135
+00:05:26,071 --> 00:05:29,073
+And then we have the onload event once the
+
+136
+00:05:29,122 --> 00:05:30,535
+script execution finishes.
+
+137
+00:05:31,369 --> 00:05:34,003
+And to see a difference, I will now actually
+
+138
+00:05:35,528 --> 00:05:38,355
+wait for some user input by going to demo
+
+139
+00:05:38,499 --> 00:05:38,933
+input
+
+140
+00:05:39,945 --> 00:05:42,867
+and copying this code we had in there
+
+141
+00:05:42,932 --> 00:05:43,333
+before.
+
+142
+00:05:44,361 --> 00:05:46,898
+And below my main script console.log, I will
+
+143
+00:05:47,589 --> 00:05:50,769
+again listen to that input here, get my
+
+144
+00:05:50,801 --> 00:05:51,202
+input.
+
+145
+00:05:52,069 --> 00:05:54,093
+By the way, close all our files. If you
+
+146
+00:05:54,093 --> 00:05:55,907
+should be getting an error regarding
+
+147
+00:05:57,144 --> 00:05:58,750
+constant names which you're using in
+
+148
+00:05:58,814 --> 00:06:00,709
+multiple files, that is fine to do.
+
+149
+00:06:01,239 --> 00:06:03,455
+My IDE just doesn't understand that these
+
+150
+00:06:03,568 --> 00:06:06,013
+files don't run as one big process,
+
+151
+00:06:06,770 --> 00:06:08,607
+which is why it does complain about name
+
+152
+00:06:08,639 --> 00:06:10,105
+clashes. This code is fine.
+
+153
+00:06:10,637 --> 00:06:13,133
+So here we now got the code to listen to
+
+154
+00:06:13,133 --> 00:06:13,877
+user input,
+
+155
+00:06:14,443 --> 00:06:15,626
+and now you'll see a difference.
+
+156
+00:06:16,289 --> 00:06:18,216
+If I now run this code
+
+157
+00:06:18,977 --> 00:06:19,706
+again here,
+
+158
+00:06:21,320 --> 00:06:24,046
+deno run deno lifecycle.ts,
+
+159
+00:06:25,450 --> 00:06:25,967
+you see
+
+160
+00:06:27,645 --> 00:06:28,613
+we have main script,
+
+161
+00:06:29,420 --> 00:06:31,100
+please enter your message. Then we got the
+
+162
+00:06:31,181 --> 00:06:33,346
+onload events, of course, because the script
+
+163
+00:06:33,623 --> 00:06:34,193
+just loaded.
+
+164
+00:06:34,762 --> 00:06:37,022
+But we don't see the onUnload events yet
+
+165
+00:06:37,151 --> 00:06:38,818
+because the script is still running.
+
+166
+00:06:40,036 --> 00:06:42,473
+And if I cancel the script, for example,
+
+167
+00:06:42,521 --> 00:06:45,438
+with Ctrl+C, we also don't see it because I
+
+168
+00:06:45,487 --> 00:06:47,987
+hard canceled it. If it would have crashed
+
+169
+00:06:47,987 --> 00:06:49,879
+because of an error, on the other hand, we
+
+170
+00:06:49,975 --> 00:06:50,440
+would see it.
+
+171
+00:06:51,354 --> 00:06:53,710
+Now if I do enter something here,
+
+172
+00:06:54,961 --> 00:06:57,445
+you see now it finishes as planned and we
+
+173
+00:06:57,445 --> 00:07:00,219
+see the onUnload event being emitted as
+
+174
+00:07:00,315 --> 00:07:00,427
+well.
+
+175
+00:07:01,455 --> 00:07:03,833
+So that's how the program lifecycle works.
+
+176
+00:07:04,090 --> 00:07:06,050
+You will not need this all the time, but it
+
+177
+00:07:06,098 --> 00:07:08,685
+is important to be aware of these 2 events,
+
+178
+00:07:09,006 --> 00:07:12,236
+load and unload, so that you can do setup
+
+179
+00:07:12,364 --> 00:07:14,517
+and cleanup work if you need to.

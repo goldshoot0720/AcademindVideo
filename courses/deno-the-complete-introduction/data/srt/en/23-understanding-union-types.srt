@@ -1,0 +1,423 @@
+1
+00:00:02,360 --> 00:00:03,917
+So now we added the configuration.
+
+2
+00:00:04,527 --> 00:00:06,710
+Now let's say we actually
+
+3
+00:00:07,240 --> 00:00:07,995
+want to
+
+4
+00:00:08,685 --> 00:00:11,430
+make add a bit more flexible. It should work
+
+5
+00:00:11,430 --> 00:00:13,726
+with numbers, but it should also work with
+
+6
+00:00:13,742 --> 00:00:14,240
+strings.
+
+7
+00:00:14,802 --> 00:00:17,451
+Of course, I wanted to ensure that it works
+
+8
+00:00:17,451 --> 00:00:19,747
+with numbers to show you why TypeScript is
+
+9
+00:00:20,084 --> 00:00:20,469
+awesome,
+
+10
+00:00:21,143 --> 00:00:23,359
+but still, this could be a use case that you
+
+11
+00:00:23,375 --> 00:00:25,558
+have in some app you're building. You want
+
+12
+00:00:25,558 --> 00:00:28,496
+to allow both numbers and strings, because
+
+13
+00:00:28,528 --> 00:00:29,267
+maybe here
+
+14
+00:00:30,375 --> 00:00:32,414
+we want to have a string result as well.
+
+15
+00:00:33,265 --> 00:00:35,882
+And there I want to be able to call add with
+
+16
+00:00:35,898 --> 00:00:36,925
+the string values,
+
+17
+00:00:37,503 --> 00:00:39,815
+and I want to get that concatenated
+
+18
+00:00:40,393 --> 00:00:43,444
+result. So I want to have that concatenated
+
+19
+00:00:44,038 --> 00:00:44,953
+string of numbers.
+
+20
+00:00:46,125 --> 00:00:48,260
+Now currently we're only accepting number
+
+21
+00:00:48,260 --> 00:00:51,375
+here. We could change this to any. Now any
+
+22
+00:00:51,407 --> 00:00:52,547
+kind of data is accepted.
+
+23
+00:00:53,252 --> 00:00:56,202
+But as a downside, we can now, for example,
+
+24
+00:00:56,443 --> 00:00:56,907
+also
+
+25
+00:00:57,661 --> 00:00:59,312
+console.log add
+
+26
+00:00:59,889 --> 00:01:01,989
+and add true and false together.
+
+27
+00:01:02,951 --> 00:01:04,939
+Now I don't want to accept booleans, I want
+
+28
+00:01:04,955 --> 00:01:06,526
+to accept strings and numbers.
+
+29
+00:01:07,359 --> 00:01:09,668
+That's where we can use a feature called the
+
+30
+00:01:09,748 --> 00:01:10,421
+union type.
+
+31
+00:01:11,832 --> 00:01:14,253
+Often in code, you will have code that works
+
+32
+00:01:14,253 --> 00:01:15,455
+with more than one type.
+
+33
+00:01:16,176 --> 00:01:18,148
+Now in that case, you can define multiple
+
+34
+00:01:18,180 --> 00:01:21,433
+types like number and string separated with
+
+35
+00:01:21,465 --> 00:01:23,484
+that single pipe symbol here.
+
+36
+00:01:24,654 --> 00:01:26,208
+This is a union type. It means
+
+37
+00:01:26,737 --> 00:01:30,567
+number num1 is either a number or a string.
+
+38
+00:01:31,945 --> 00:01:34,316
+And we can do this here for num2 as well.
+
+39
+00:01:35,406 --> 00:01:37,169
+Now we get an error here because of that
+
+40
+00:01:37,169 --> 00:01:39,556
+union type thing, because even though the
+
+41
+00:01:39,556 --> 00:01:42,376
+plus operator does work with both number and
+
+42
+00:01:42,376 --> 00:01:44,540
+string, TypeScript at the moment at least
+
+43
+00:01:44,540 --> 00:01:45,645
+doesn't understand this.
+
+44
+00:01:46,608 --> 00:01:48,182
+And even though this here is kind of a
+
+45
+00:01:48,230 --> 00:01:50,847
+strange error because the plus operator of
+
+46
+00:01:50,879 --> 00:01:52,645
+course would work for both numbers and
+
+47
+00:01:52,645 --> 00:01:55,552
+strings, it is also often the case that you
+
+48
+00:01:55,552 --> 00:01:58,153
+accept multiple types but you wanna run
+
+49
+00:01:58,249 --> 00:02:00,304
+slightly different code depending on the
+
+50
+00:02:00,369 --> 00:02:02,360
+type of data you get. So that's actually
+
+51
+00:02:02,424 --> 00:02:04,913
+great that we can do this here as well. And
+
+52
+00:02:04,929 --> 00:02:06,936
+we can do this with a traditional if check.
+
+53
+00:02:07,899 --> 00:02:10,838
+We can check if the type of num1
+
+54
+00:02:11,513 --> 00:02:14,358
+is equal to number. And this is regular
+
+55
+00:02:14,406 --> 00:02:16,928
+JavaScript code now. This is not TypeScript
+
+56
+00:02:16,928 --> 00:02:19,838
+code. The typeof operator exists in
+
+57
+00:02:19,838 --> 00:02:22,712
+JavaScript and it gives us back the types as
+
+58
+00:02:22,889 --> 00:02:24,712
+strings— number and so on.
+
+59
+00:02:25,325 --> 00:02:27,231
+So we can check if num1 is a number
+
+60
+00:02:29,108 --> 00:02:29,949
+and if
+
+61
+00:02:31,082 --> 00:02:33,040
+num2 is a number.
+
+62
+00:02:34,093 --> 00:02:37,051
+And if it is, we return num1 plus num2.
+
+63
+00:02:39,718 --> 00:02:40,510
+Else if
+
+64
+00:02:42,725 --> 00:02:44,293
+typeof num1
+
+65
+00:02:45,618 --> 00:02:46,006
+is,
+
+66
+00:02:46,669 --> 00:02:47,542
+let's say, a string,
+
+67
+00:02:49,096 --> 00:02:49,485
+and
+
+68
+00:02:50,245 --> 00:02:52,446
+typeof num2
+
+69
+00:02:53,304 --> 00:02:54,340
+is a string,
+
+70
+00:02:55,263 --> 00:02:58,259
+then let's say we wanna return num1 plus,
+
+71
+00:02:58,645 --> 00:03:00,349
+and then maybe some whitespace in between.
+
+72
+00:03:00,574 --> 00:03:02,424
+You don't have to add it though. I'm just
+
+73
+00:03:02,424 --> 00:03:03,935
+doing it here so that we see a difference.
+
+74
+00:03:04,373 --> 00:03:05,957
+Besides the different result, I guess.
+
+75
+00:03:07,606 --> 00:03:08,674
+Well, and else,
+
+76
+00:03:09,789 --> 00:03:10,905
+if we have mixed types,
+
+77
+00:03:11,610 --> 00:03:13,220
+it theoretically would work, but in this
+
+78
+00:03:13,397 --> 00:03:15,604
+case we maybe just want to force a
+
+79
+00:03:15,652 --> 00:03:17,858
+conversion to a number so that if we get a
+
+80
+00:03:17,858 --> 00:03:20,322
+string and a number mixed, we always convert
+
+81
+00:03:20,339 --> 00:03:21,063
+both to a number.
+
+82
+00:03:21,689 --> 00:03:23,602
+If we have 2 numbers, we add them like this.
+
+83
+00:03:24,036 --> 00:03:25,788
+If we have 2 strings, we add them like this.
+
+84
+00:03:26,591 --> 00:03:28,937
+This is a so-called type guard because we
+
+85
+00:03:28,937 --> 00:03:31,860
+run different code based on different types
+
+86
+00:03:31,860 --> 00:03:33,909
+we're getting for our values.
+
+87
+00:03:35,820 --> 00:03:37,630
+And now you'll see that down there, I'm not
+
+88
+00:03:37,776 --> 00:03:40,395
+able to call this for booleans because this
+
+89
+00:03:40,395 --> 00:03:43,015
+is neither a number or a string and I'm only
+
+90
+00:03:43,047 --> 00:03:45,472
+allowing these 2 kinds of types with my
+
+91
+00:03:45,617 --> 00:03:46,374
+union type here.
+
+92
+00:03:46,921 --> 00:03:48,161
+Hence, we have to remove this
+
+93
+00:03:48,693 --> 00:03:50,174
+and then we can compile this again.
+
+94
+00:03:50,770 --> 00:03:52,122
+It compiles without errors.
+
+95
+00:03:52,718 --> 00:03:54,666
+And in the generated JavaScript file, of
+
+96
+00:03:54,860 --> 00:03:57,168
+course, the union type is gone. The if
+
+97
+00:03:57,185 --> 00:03:59,051
+checks are still there though because as I
+
+98
+00:03:59,051 --> 00:04:00,149
+mentioned, that is regular JavaScript code
+
+99
+00:04:02,036 --> 00:04:03,796
+And of course, we don't want that code to
+
+100
+00:04:03,812 --> 00:04:06,298
+magically go away. In the end, it does yield
+
+101
+00:04:06,395 --> 00:04:07,267
+different results.
+
+102
+00:04:08,420 --> 00:04:08,731
+So if we now
+
+103
+00:04:10,744 --> 00:04:12,807
+return here and I enter 5 and 11,
+
+104
+00:04:13,997 --> 00:04:16,754
+you see we get both 16 as well as our
+
+105
+00:04:16,754 --> 00:04:19,559
+concatenated string. So union types are
+
+106
+00:04:19,608 --> 00:04:21,100
+another key feature.

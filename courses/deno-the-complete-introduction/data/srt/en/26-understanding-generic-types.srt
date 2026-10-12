@@ -1,0 +1,507 @@
+1
+00:00:02,260 --> 00:00:04,473
+Now last but not least, to sum up this
+
+2
+00:00:04,521 --> 00:00:07,472
+basics refresher, let's talk about generics.
+
+3
+00:00:08,049 --> 00:00:10,663
+Generics are a feature that can look very
+
+4
+00:00:10,679 --> 00:00:12,876
+confusing at first, but it makes a lot of
+
+5
+00:00:12,876 --> 00:00:13,229
+sense.
+
+6
+00:00:14,127 --> 00:00:16,564
+Actually, in our code here, we already have
+
+7
+00:00:16,564 --> 00:00:17,446
+a generic type—
+
+8
+00:00:17,975 --> 00:00:19,306
+our 2 array types here.
+
+9
+00:00:20,156 --> 00:00:22,449
+A generic type simply is a type that
+
+10
+00:00:22,545 --> 00:00:25,977
+interacts with another type. And an array is
+
+11
+00:00:26,009 --> 00:00:26,907
+a great example.
+
+12
+00:00:27,757 --> 00:00:30,418
+An array is a type on its own. It's a list
+
+13
+00:00:30,418 --> 00:00:32,277
+of data. That's the core type.
+
+14
+00:00:33,047 --> 00:00:35,884
+But it interacts with another type, the type
+
+15
+00:00:35,948 --> 00:00:38,481
+of data inside of the array. So you could
+
+16
+00:00:38,513 --> 00:00:41,286
+say the array is the outer type, but then
+
+17
+00:00:41,319 --> 00:00:43,771
+you have all the elements in the array as an
+
+18
+00:00:44,028 --> 00:00:44,621
+inner type.
+
+19
+00:00:45,871 --> 00:00:48,372
+And this here, this way of defining an array
+
+20
+00:00:48,372 --> 00:00:50,584
+type, is actually just a shortcut in
+
+21
+00:00:50,616 --> 00:00:53,583
+TypeScript. The longer form would be that we
+
+22
+00:00:53,583 --> 00:00:55,944
+set numResults to type array.
+
+23
+00:00:56,795 --> 00:00:59,220
+But now array is a so-called generic type
+
+24
+00:00:59,670 --> 00:01:00,843
+and you have to define
+
+25
+00:01:01,437 --> 00:01:04,585
+the wrapped, the inner type, in this case,
+
+26
+00:01:04,906 --> 00:01:08,119
+the value types of the values inside of the
+
+27
+00:01:08,119 --> 00:01:08,360
+array.
+
+28
+00:01:08,922 --> 00:01:11,251
+And you do so by adding angle brackets here,
+
+29
+00:01:11,556 --> 00:01:13,708
+the smaller than and the greater than sign,
+
+30
+00:01:14,142 --> 00:01:17,194
+and between that, the generic type of array.
+
+31
+00:01:17,387 --> 00:01:20,467
+So in this case, number. And this says that
+
+32
+00:01:20,467 --> 00:01:22,695
+numResults is an array full of numbers.
+
+33
+00:01:23,608 --> 00:01:26,284
+Now, what the thing between angle brackets
+
+34
+00:01:26,332 --> 00:01:26,989
+refers to
+
+35
+00:01:27,534 --> 00:01:29,825
+depends on the generic type you're working
+
+36
+00:01:29,857 --> 00:01:30,002
+with.
+
+37
+00:01:30,578 --> 00:01:33,046
+Another example for a generic type would be
+
+38
+00:01:33,062 --> 00:01:33,719
+a promise.
+
+39
+00:01:34,344 --> 00:01:36,715
+Now, for that, we can create a new promise
+
+40
+00:01:36,748 --> 00:01:38,847
+down there, myPromise, by calling new
+
+41
+00:01:38,991 --> 00:01:39,472
+Promise.
+
+42
+00:01:40,417 --> 00:01:42,356
+And by default, this code won't work here
+
+43
+00:01:42,596 --> 00:01:45,080
+because we need to add a library to
+
+44
+00:01:45,080 --> 00:01:48,069
+tsconfig. To basically tell tsconfig
+
+45
+00:01:48,841 --> 00:01:50,757
+which kind of features we wanna support.
+
+46
+00:01:51,658 --> 00:01:53,735
+And for example, by default here, because of
+
+47
+00:01:53,767 --> 00:01:54,475
+this target,
+
+48
+00:01:55,010 --> 00:01:56,989
+it's configured to compile the TypeScript
+
+49
+00:01:56,989 --> 00:01:59,877
+code down to ES5 JavaScript code, which is
+
+50
+00:01:59,974 --> 00:02:00,526
+quite old.
+
+51
+00:02:01,126 --> 00:02:05,577
+If we pick ES6 here, for example,
+
+52
+00:02:07,746 --> 00:02:09,963
+now this will work. We still get an error,
+
+53
+00:02:09,979 --> 00:02:11,166
+but now it's a different error.
+
+54
+00:02:11,700 --> 00:02:13,865
+So we just have to ensure that we're telling
+
+55
+00:02:13,898 --> 00:02:15,646
+TypeScript that we're working with a
+
+56
+00:02:15,646 --> 00:02:17,973
+JavaScript version that supports Promise
+
+57
+00:02:18,470 --> 00:02:20,074
+because Promise of course is not a
+
+58
+00:02:20,074 --> 00:02:22,641
+TypeScript feature. It can't be compiled to
+
+59
+00:02:22,641 --> 00:02:24,743
+something that works in older JavaScript.
+
+60
+00:02:25,032 --> 00:02:27,134
+Instead, we need to tell TypeScript that we
+
+61
+00:02:27,214 --> 00:02:29,588
+wanna compile to JavaScript which natively
+
+62
+00:02:29,621 --> 00:02:31,594
+supports Promise and that's what we just did
+
+63
+00:02:31,851 --> 00:02:33,920
+by changing the target to ES6.
+
+64
+00:02:34,819 --> 00:02:37,033
+With that, we can define our Promise here.
+
+65
+00:02:37,791 --> 00:02:38,890
+And a promise gets
+
+66
+00:02:39,893 --> 00:02:41,979
+an argument which is a function,
+
+67
+00:02:43,693 --> 00:02:45,989
+and that function itself gets 2 arguments, a
+
+68
+00:02:46,118 --> 00:02:47,922
+resolve and a reject function.
+
+69
+00:02:48,549 --> 00:02:50,622
+And inside of the promise, when we define it
+
+70
+00:02:50,702 --> 00:02:51,248
+on our own,
+
+71
+00:02:51,843 --> 00:02:53,658
+we can for example set a timeout
+
+72
+00:02:54,494 --> 00:02:57,293
+to execute some code after a second, and
+
+73
+00:02:57,455 --> 00:02:59,599
+after that second we resolve the promise
+
+74
+00:02:59,712 --> 00:03:01,293
+with it worked.
+
+75
+00:03:02,954 --> 00:03:04,921
+And then we can use our own promise here
+
+76
+00:03:06,698 --> 00:03:08,572
+to listen to the result
+
+77
+00:03:09,983 --> 00:03:12,819
+and console.log it here. And we could also
+
+78
+00:03:12,947 --> 00:03:15,447
+add catch to react to the rejection of the
+
+79
+00:03:15,447 --> 00:03:15,736
+promise.
+
+80
+00:03:16,393 --> 00:03:18,925
+And now let's compile this. By the way, now
+
+81
+00:03:19,053 --> 00:03:21,328
+with a config file, don't select the file
+
+82
+00:03:21,761 --> 00:03:22,226
+manually,
+
+83
+00:03:22,899 --> 00:03:24,774
+otherwise the config file won't be taken
+
+84
+00:03:24,822 --> 00:03:26,921
+into account by the compiler. It is taken
+
+85
+00:03:26,921 --> 00:03:28,652
+into account by the IDE but not by the
+
+86
+00:03:28,652 --> 00:03:29,117
+compiler.
+
+87
+00:03:29,806 --> 00:03:33,140
+Instead, just press tsc like this, enter tsc
+
+88
+00:03:33,140 --> 00:03:34,552
+like this, and it will compile all
+
+89
+00:03:34,744 --> 00:03:36,043
+TypeScript files in the folder.
+
+90
+00:03:36,845 --> 00:03:39,363
+And now it compiled this code. And if we now
+
+91
+00:03:39,635 --> 00:03:40,181
+reload,
+
+92
+00:03:41,255 --> 00:03:43,067
+you see it worked after 1 second.
+
+93
+00:03:43,901 --> 00:03:45,986
+But now why is the promise a generic type?
+
+94
+00:03:46,788 --> 00:03:49,257
+Because it eventually resolves to a value,
+
+95
+00:03:49,498 --> 00:03:51,262
+and the value it resolves to,
+
+96
+00:03:51,823 --> 00:03:54,405
+that's the generic type for the promise. For
+
+97
+00:03:54,421 --> 00:03:56,650
+the array, it was the value stored in the
+
+98
+00:03:56,650 --> 00:03:58,734
+array. For the promise, it's the value the
+
+99
+00:03:59,055 --> 00:04:01,251
+promise resolves to. And for example, here
+
+100
+00:04:01,299 --> 00:04:02,533
+it resolves to a string
+
+101
+00:04:03,062 --> 00:04:04,777
+and hence we should be able to call
+
+102
+00:04:05,867 --> 00:04:07,357
+split here, for example,
+
+103
+00:04:08,111 --> 00:04:09,281
+and split on
+
+104
+00:04:10,739 --> 00:04:11,188
+the W.
+
+105
+00:04:11,877 --> 00:04:13,801
+But this does not work because TypeScript
+
+106
+00:04:13,801 --> 00:04:16,093
+does not understand that this is a string.
+
+107
+00:04:16,590 --> 00:04:18,208
+It does not know the type.
+
+108
+00:04:19,010 --> 00:04:21,174
+Well, by adding angle brackets after
+
+109
+00:04:21,174 --> 00:04:24,251
+promise, we can set the type to which
+
+110
+00:04:24,283 --> 00:04:26,479
+promise will resolve to to a string.
+
+111
+00:04:27,264 --> 00:04:29,717
+Now you can't set angle brackets on every
+
+112
+00:04:29,829 --> 00:04:32,025
+built-in object. It needs to be an object
+
+113
+00:04:32,154 --> 00:04:34,718
+that supports this. But the Promise object,
+
+114
+00:04:34,799 --> 00:04:36,931
+the Promise constructor function, does
+
+115
+00:04:37,107 --> 00:04:39,832
+support generic types because you can set
+
+116
+00:04:39,832 --> 00:04:41,900
+the value the Promise will eventually
+
+117
+00:04:41,932 --> 00:04:42,509
+resolve to.
+
+118
+00:04:43,054 --> 00:04:45,475
+And now you see that split down there works.
+
+119
+00:04:46,164 --> 00:04:46,613
+And if I
+
+120
+00:04:47,206 --> 00:04:48,552
+recompile this and reload,
+
+121
+00:04:49,130 --> 00:04:52,079
+we see an array. It irked because of split.
+
+122
+00:04:52,657 --> 00:04:55,840
+So generic types can be tricky the first
+
+123
+00:04:55,888 --> 00:04:58,379
+time you see them, but they make a lot of
+
+124
+00:04:58,379 --> 00:05:01,642
+sense and they give you extra type safety
+
+125
+00:05:02,141 --> 00:05:04,809
+when working with more complex types or
+
+126
+00:05:04,809 --> 00:05:07,059
+types that are simply connected to each
+
+127
+00:05:07,059 --> 00:05:07,220
+other.

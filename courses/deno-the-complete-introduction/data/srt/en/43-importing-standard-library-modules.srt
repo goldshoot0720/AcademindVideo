@@ -1,0 +1,651 @@
+1
+00:00:02,262 --> 00:00:04,845
+To build this web server with the standard
+
+2
+00:00:04,845 --> 00:00:08,006
+library, we're going to use the HTTP module
+
+3
+00:00:08,215 --> 00:00:09,787
+from the standard library.
+
+4
+00:00:10,365 --> 00:00:13,029
+And thankfully, this module has some
+
+5
+00:00:13,029 --> 00:00:13,879
+documentation,
+
+6
+00:00:14,473 --> 00:00:17,072
+and here we can learn how we can use it, how
+
+7
+00:00:17,120 --> 00:00:19,431
+we can use some basic functionalities. And
+
+8
+00:00:19,511 --> 00:00:21,822
+most importantly, we got a complete snippet
+
+9
+00:00:22,014 --> 00:00:24,164
+which will actually spin up such a web
+
+10
+00:00:24,164 --> 00:00:26,138
+server, but we're going to write it step by
+
+11
+00:00:26,186 --> 00:00:28,593
+step so that we all understand what's
+
+12
+00:00:28,737 --> 00:00:29,315
+happening here.
+
+13
+00:00:30,358 --> 00:00:32,443
+For that, I'm back here in Visual Studio
+
+14
+00:00:32,443 --> 00:00:34,978
+Code in a brand new project which is totally
+
+15
+00:00:35,075 --> 00:00:35,331
+empty,
+
+16
+00:00:36,117 --> 00:00:37,770
+and in there I'm going to add a new file
+
+17
+00:00:39,021 --> 00:00:39,679
+and I'll name it
+
+18
+00:00:41,107 --> 00:00:44,524
+firstwebserver.ts, but you can name it
+
+19
+00:00:44,541 --> 00:00:45,407
+however you want.
+
+20
+00:00:46,386 --> 00:00:48,391
+Now in this file, we need to do something
+
+21
+00:00:48,568 --> 00:00:50,653
+which we haven't done at all thus far.
+
+22
+00:00:51,295 --> 00:00:53,413
+We need to import something.
+
+23
+00:00:54,022 --> 00:00:56,715
+We need to import this standard library
+
+24
+00:00:56,827 --> 00:01:00,193
+module with this line here specifically.
+
+25
+00:01:00,818 --> 00:01:03,896
+And we need to do that because as I
+
+26
+00:01:03,896 --> 00:01:04,986
+mentioned earlier,
+
+27
+00:01:05,963 --> 00:01:08,560
+the standard library is maintained by the
+
+28
+00:01:08,608 --> 00:01:11,573
+Deno team, but it's not built into the Deno
+
+29
+00:01:11,573 --> 00:01:15,613
+tool itself to keep Deno slim and focused on
+
+30
+00:01:15,661 --> 00:01:16,751
+its core features.
+
+31
+00:01:17,825 --> 00:01:19,876
+Therefore, whenever we wanna use something
+
+32
+00:01:20,053 --> 00:01:22,811
+from the standard library, we have to import
+
+33
+00:01:22,811 --> 00:01:26,247
+it. We have to explicitly tell Deno that we
+
+34
+00:01:26,247 --> 00:01:29,154
+need some functionality from some other
+
+35
+00:01:29,154 --> 00:01:32,108
+module, from a module from the standard
+
+36
+00:01:32,108 --> 00:01:33,361
+library to be precise.
+
+37
+00:01:34,741 --> 00:01:37,616
+And we do tell Deno, we do add such an
+
+38
+00:01:37,712 --> 00:01:40,538
+import by writing import,
+
+39
+00:01:41,325 --> 00:01:44,584
+then whatever you wanna import, often but
+
+40
+00:01:44,632 --> 00:01:46,928
+not always wrapped between curly braces.
+
+41
+00:01:47,298 --> 00:01:49,578
+I'll come back to different import syntaxes
+
+42
+00:01:49,835 --> 00:01:50,461
+in a second.
+
+43
+00:01:51,441 --> 00:01:52,372
+And then the source
+
+44
+00:01:53,127 --> 00:01:54,331
+with the from keyword.
+
+45
+00:01:54,893 --> 00:01:57,607
+After that, you have a string which contains
+
+46
+00:01:57,864 --> 00:02:01,140
+a path to that source your content is coming
+
+47
+00:02:01,236 --> 00:02:01,445
+from.
+
+48
+00:02:02,200 --> 00:02:05,717
+And Deno supports imports from URLs.
+
+49
+00:02:06,375 --> 00:02:09,442
+So you don't need to have that source from
+
+50
+00:02:09,442 --> 00:02:12,300
+which you wanna import to be stored locally
+
+51
+00:02:12,638 --> 00:02:15,160
+on your disk here in this folder. Instead,
+
+52
+00:02:15,208 --> 00:02:17,979
+you can point at a file on some other
+
+53
+00:02:18,043 --> 00:02:20,024
+server, and that's exactly what we're going
+
+54
+00:02:20,056 --> 00:02:21,973
+to do here. We're going to point at the
+
+55
+00:02:22,053 --> 00:02:24,018
+denolan server /std/http/server.ts
+
+56
+00:02:28,047 --> 00:02:32,000
+to import from basically this server.ts
+
+57
+00:02:32,000 --> 00:02:32,193
+file.
+
+58
+00:02:33,045 --> 00:02:34,973
+And you can import from all the files you
+
+59
+00:02:34,973 --> 00:02:37,745
+find here except for the ones starting with
+
+60
+00:02:37,745 --> 00:02:40,403
+an underscore. You should not import from
+
+61
+00:02:40,535 --> 00:02:42,924
+those. The underscore signals that this is
+
+62
+00:02:42,956 --> 00:02:45,442
+kind of a private file which is only used
+
+63
+00:02:45,442 --> 00:02:45,971
+internally,
+
+64
+00:02:46,564 --> 00:02:48,938
+but all files that do not start with an
+
+65
+00:02:49,034 --> 00:02:51,888
+underscore can be used to import from them.
+
+66
+00:02:52,802 --> 00:02:55,063
+And before I actually import, if we have a
+
+67
+00:02:55,127 --> 00:02:57,308
+look at server.ts, which we can do by
+
+68
+00:02:57,308 --> 00:02:58,110
+clicking on it,
+
+69
+00:02:58,671 --> 00:03:00,403
+you will see something interesting
+
+70
+00:03:01,141 --> 00:03:01,510
+in there.
+
+71
+00:03:02,584 --> 00:03:05,455
+It's also importing from some other modules
+
+72
+00:03:05,952 --> 00:03:08,405
+here, not from a URL, but since this is all
+
+73
+00:03:08,534 --> 00:03:10,731
+stored on Deno's server, these are now
+
+74
+00:03:11,003 --> 00:03:13,312
+relative paths. To the different modules.
+
+75
+00:03:14,066 --> 00:03:16,167
+But what you'll also see in there is that
+
+76
+00:03:16,215 --> 00:03:19,278
+the Deno namespace APIs are being used here.
+
+77
+00:03:19,519 --> 00:03:21,668
+It's using the global Deno object.
+
+78
+00:03:22,245 --> 00:03:24,698
+Remember, that is what I mentioned— you can
+
+79
+00:03:24,811 --> 00:03:27,152
+build everything with that global object.
+
+80
+00:03:27,457 --> 00:03:29,189
+And that's just what the standard library
+
+81
+00:03:29,285 --> 00:03:32,637
+does. It builds more complex functionality
+
+82
+00:03:33,150 --> 00:03:35,732
+which in the end could be built by you, but
+
+83
+00:03:35,732 --> 00:03:38,105
+since the Deno team already did this for you
+
+84
+00:03:38,667 --> 00:03:40,401
+You don't have to write all this code here.
+
+85
+00:03:40,770 --> 00:03:42,906
+Instead, we can just import from that
+
+86
+00:03:42,922 --> 00:03:45,876
+finished code to basically have an easier
+
+87
+00:03:45,892 --> 00:03:48,333
+way of setting up a web server in this
+
+88
+00:03:48,333 --> 00:03:48,991
+example here.
+
+89
+00:03:49,842 --> 00:03:52,267
+That is how the standard library builds up
+
+90
+00:03:52,395 --> 00:03:53,905
+on the namespace APIs,
+
+91
+00:03:54,499 --> 00:03:55,896
+and that's what we can utilize now.
+
+92
+00:03:56,682 --> 00:03:59,974
+So we wanna import from this URL here, hence
+
+93
+00:03:59,974 --> 00:04:02,318
+I'm going to copy it here like this.
+
+94
+00:04:05,309 --> 00:04:08,008
+And you can also alter this import a little
+
+95
+00:04:08,057 --> 00:04:10,982
+bit and add a version number if you want to.
+
+96
+00:04:12,400 --> 00:04:12,643
+You can
+
+97
+00:04:13,389 --> 00:04:16,521
+add an@ symbol after std
+
+98
+00:04:17,057 --> 00:04:19,280
+and then specify a version number, in my
+
+99
+00:04:19,328 --> 00:04:22,535
+case here 0.50.0.
+
+100
+00:04:23,179 --> 00:04:25,353
+And I'm doing this because I want to make
+
+101
+00:04:25,353 --> 00:04:27,881
+clear that I always want to get this
+
+102
+00:04:27,946 --> 00:04:30,499
+specific version of the standard libraries
+
+103
+00:04:30,936 --> 00:04:33,425
+http/server.ts module.
+
+104
+00:04:34,484 --> 00:04:36,636
+By adding this version number, we make it
+
+105
+00:04:36,652 --> 00:04:39,381
+very clear which version we want, and by
+
+106
+00:04:39,381 --> 00:04:41,565
+doing this, we ensure that the code we're
+
+107
+00:04:41,629 --> 00:04:44,022
+going to write will basically always work,
+
+108
+00:04:44,423 --> 00:04:47,217
+even if the standard library should change
+
+109
+00:04:47,393 --> 00:04:49,754
+and some functionality exposed by the
+
+110
+00:04:49,754 --> 00:04:51,712
+server.ts file should change.
+
+111
+00:04:52,371 --> 00:04:54,522
+As long as we don't use the latest version,
+
+112
+00:04:55,020 --> 00:04:57,764
+our code will still work. Now eventually, we
+
+113
+00:04:57,780 --> 00:04:59,865
+might wanna upgrade to the latest version,
+
+114
+00:04:59,913 --> 00:05:02,174
+of course, but we can always do that, but
+
+115
+00:05:02,238 --> 00:05:04,740
+our code will not magically break. Instead,
+
+116
+00:05:04,756 --> 00:05:07,081
+it will be a deliberate decision made by us
+
+117
+00:05:07,450 --> 00:05:10,144
+that we wanna upgrade. That's why we specify
+
+118
+00:05:10,192 --> 00:05:11,410
+such a version number here.
+
+119
+00:05:12,292 --> 00:05:14,024
+So with that, I'm importing from that
+
+120
+00:05:14,024 --> 00:05:14,329
+version.
+
+121
+00:05:15,307 --> 00:05:17,696
+And to find out which versions exist and
+
+122
+00:05:17,729 --> 00:05:19,092
+which versions you can import,
+
+123
+00:05:20,134 --> 00:05:22,443
+you can search for the Deno GitHub
+
+124
+00:05:22,443 --> 00:05:25,213
+repository and there under releases
+
+125
+00:05:27,442 --> 00:05:29,768
+you find these std releases.
+
+126
+00:05:30,382 --> 00:05:33,764
+So you see actually for me now 0.51 is the
+
+127
+00:05:33,780 --> 00:05:34,566
+latest version,
+
+128
+00:05:36,834 --> 00:05:38,250
+and that allows you to find out which
+
+129
+00:05:38,427 --> 00:05:40,712
+versions are supported. So not these main
+
+130
+00:05:40,776 --> 00:05:43,158
+big versions, that's the Deno tool. You want
+
+131
+00:05:43,158 --> 00:05:45,169
+to look for the std releases.
+
+132
+00:05:45,863 --> 00:05:47,989
+So I'm actually going to use that 5.1
+
+133
+00:05:48,118 --> 00:05:48,520
+version here.
+
+134
+00:05:49,470 --> 00:05:51,757
+Now we can import something from there.
+
+135
+00:05:52,581 --> 00:05:54,934
+And that something in my case is serve.
+
+136
+00:05:56,580 --> 00:05:58,163
+Now I'm currently getting an error here.
+
+137
+00:05:58,470 --> 00:05:59,408
+This will eventually
+
+138
+00:06:00,086 --> 00:06:01,024
+go away, no worries.
+
+139
+00:06:02,220 --> 00:06:04,755
+So I'm now importing serve from there,
+
+140
+00:06:05,304 --> 00:06:08,145
+and I know that I can import serve from
+
+141
+00:06:08,145 --> 00:06:10,810
+there because of the documentation. In this
+
+142
+00:06:10,810 --> 00:06:11,101
+case here,
+
+143
+00:06:11,865 --> 00:06:15,505
+here under HTTP, we see that serve can be
+
+144
+00:06:15,505 --> 00:06:17,992
+imported. You could also look into that file
+
+145
+00:06:18,122 --> 00:06:20,778
+to find out that you can import serve. If I
+
+146
+00:06:20,778 --> 00:06:22,147
+have a look at the server.ts file,
+
+147
+00:06:24,170 --> 00:06:26,187
+essentially everything that's being exported
+
+148
+00:06:26,203 --> 00:06:29,061
+can be imported. So if we have a look at
+
+149
+00:06:29,190 --> 00:06:30,756
+export and we search for that,
+
+150
+00:06:31,350 --> 00:06:33,773
+we find that there are various things,
+
+151
+00:06:34,209 --> 00:06:37,456
+amongst them the serve function. Now this is
+
+152
+00:06:37,456 --> 00:06:39,621
+still a bit clunky. I would assume that we
+
+153
+00:06:39,621 --> 00:06:41,441
+get a nicer documentation and a more
+
+154
+00:06:41,489 --> 00:06:43,471
+complete documentation in the future,
+
+155
+00:06:44,007 --> 00:06:46,064
+but as I mentioned, it It currently is under
+
+156
+00:06:46,193 --> 00:06:48,768
+active development so that documentation and
+
+157
+00:06:48,768 --> 00:06:51,199
+all that stuff is not fully polished right
+
+158
+00:06:51,199 --> 00:06:51,295
+now.
+
+159
+00:06:52,567 --> 00:06:55,271
+Nonetheless, we are now importing serve
+
+160
+00:06:55,287 --> 00:06:55,464
+here.
+
+161
+00:06:56,253 --> 00:06:59,456
+And with serve imported, we can now continue
+
+162
+00:06:59,569 --> 00:07:02,063
+and create our own server. So let's do that
+
+163
+00:07:02,063 --> 00:07:02,401
+next.

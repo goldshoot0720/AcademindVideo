@@ -1,0 +1,443 @@
+1
+00:00:02,135 --> 00:00:04,688
+So let me build the same kind of server with
+
+2
+00:00:04,688 --> 00:00:07,466
+Node just to show you the differences, which
+
+3
+00:00:07,642 --> 00:00:10,356
+I won't do for the entire course, but which
+
+4
+00:00:10,533 --> 00:00:13,246
+really matters here because a lot of you who
+
+5
+00:00:13,262 --> 00:00:15,606
+are taking this course will have worked with
+
+6
+00:00:15,606 --> 00:00:18,705
+Node before or might consider also learning
+
+7
+00:00:18,802 --> 00:00:21,435
+Node thereafter. So I think it's helpful to
+
+8
+00:00:21,451 --> 00:00:23,121
+see how it would look like in Node.
+
+9
+00:00:24,133 --> 00:00:28,500
+So here I'll add my node server.js, not.ts
+
+10
+00:00:28,612 --> 00:00:30,924
+because Node natively doesn't support
+
+11
+00:00:30,924 --> 00:00:32,675
+TypeScript. TypeScript. That's one
+
+12
+00:00:32,707 --> 00:00:33,478
+difference already.
+
+13
+00:00:34,297 --> 00:00:36,016
+And there we also have a different import
+
+14
+00:00:36,016 --> 00:00:38,842
+syntax. With Node, we need to import the
+
+15
+00:00:38,955 --> 00:00:41,765
+HTTP module, but this is how the import
+
+16
+00:00:41,765 --> 00:00:44,351
+syntax looks like in Node. Yeah, it's really
+
+17
+00:00:44,351 --> 00:00:45,090
+quite different.
+
+18
+00:00:46,358 --> 00:00:48,992
+Important, in order to follow along, you
+
+19
+00:00:48,992 --> 00:00:50,904
+need to download the latest version of
+
+20
+00:00:50,920 --> 00:00:54,116
+Node.js from nodejs.org. If you just watch
+
+21
+00:00:54,164 --> 00:00:55,802
+the videos, you of course don't have to do
+
+22
+00:00:55,834 --> 00:00:57,312
+that, but if you want to run the code on
+
+23
+00:00:57,360 --> 00:00:59,564
+your own, you you need to download Node from
+
+24
+00:00:59,664 --> 00:00:59,798
+there.
+
+25
+00:01:01,742 --> 00:01:03,993
+With that, we're importing HTTP
+
+26
+00:01:04,781 --> 00:01:08,528
+and HTTP, the HTTP module got a createServer
+
+27
+00:01:09,236 --> 00:01:09,509
+method.
+
+28
+00:01:11,088 --> 00:01:13,610
+Now I'm getting an error here by my IDE that
+
+29
+00:01:13,610 --> 00:01:15,631
+it can't find the module HTTP.
+
+30
+00:01:16,278 --> 00:01:19,285
+This has to be a false alert though. I got
+
+31
+00:01:19,285 --> 00:01:21,513
+Node installed so it will definitely be able
+
+32
+00:01:21,513 --> 00:01:22,061
+to find this.
+
+33
+00:01:23,366 --> 00:01:26,316
+Hence, now on the HTTP object, we can call
+
+34
+00:01:26,445 --> 00:01:27,348
+createServer
+
+35
+00:01:28,063 --> 00:01:29,828
+And that gives us back a server.
+
+36
+00:01:30,390 --> 00:01:31,947
+But now the differences begin,
+
+37
+00:01:32,477 --> 00:01:34,338
+besides the TypeScript and import thing,
+
+38
+00:01:34,483 --> 00:01:35,735
+which already are different.
+
+39
+00:01:36,955 --> 00:01:39,266
+To createServer, we now don't pass our
+
+40
+00:01:39,282 --> 00:01:41,946
+object where we set up the port. Instead, we
+
+41
+00:01:41,946 --> 00:01:43,118
+pass a function,
+
+42
+00:01:43,712 --> 00:01:46,745
+a function that will receive 2 arguments, a
+
+43
+00:01:46,745 --> 00:01:48,928
+request and a response object.
+
+44
+00:01:49,554 --> 00:01:51,672
+These arguments will always be received
+
+45
+00:01:51,897 --> 00:01:54,963
+because this function will be called by Node
+
+46
+00:01:55,268 --> 00:01:58,479
+whenever a request reaches this server. So
+
+47
+00:01:58,479 --> 00:02:01,016
+this is now our request handling function.
+
+48
+00:02:02,011 --> 00:02:05,447
+And in there, we can call response.end, and
+
+49
+00:02:05,463 --> 00:02:07,631
+this will send back our response. And we can
+
+50
+00:02:07,631 --> 00:02:09,220
+pass a string to it, which will be our
+
+51
+00:02:09,220 --> 00:02:11,644
+response data, message from Node, for
+
+52
+00:02:11,644 --> 00:02:12,142
+example.
+
+53
+00:02:12,688 --> 00:02:15,241
+This will create the server, but it will not
+
+54
+00:02:15,241 --> 00:02:15,995
+start it yet.
+
+55
+00:02:16,702 --> 00:02:19,238
+Instead, you have to call server.listen
+
+56
+00:02:19,834 --> 00:02:22,867
+And there you now pass your port on which
+
+57
+00:02:22,883 --> 00:02:25,077
+you wanna listen. And this will spin up that
+
+58
+00:02:25,077 --> 00:02:27,836
+server and that server in turn will fire
+
+59
+00:02:28,046 --> 00:02:30,086
+this function for every incoming request.
+
+60
+00:02:31,060 --> 00:02:33,465
+And now we can execute this file by running
+
+61
+00:02:33,578 --> 00:02:33,985
+Node,
+
+62
+00:02:35,540 --> 00:02:37,641
+for which again, you need to install Node
+
+63
+00:02:37,657 --> 00:02:38,045
+first,
+
+64
+00:02:39,031 --> 00:02:41,229
+Node, and then node server.js.
+
+65
+00:02:42,296 --> 00:02:45,464
+It's not Node run, it's just Node and then
+
+66
+00:02:45,464 --> 00:02:46,094
+the file name.
+
+67
+00:02:47,409 --> 00:02:49,453
+Now again, this is a process which is stuck
+
+68
+00:02:49,533 --> 00:02:51,898
+in the terminal because just like with Deno,
+
+69
+00:02:52,011 --> 00:02:54,183
+this process keeps on running. You can
+
+70
+00:02:54,183 --> 00:02:56,485
+ignore all the errors I'm getting here, has
+
+71
+00:02:56,501 --> 00:02:58,759
+to be some IDE problem here, because this
+
+72
+00:02:58,856 --> 00:03:02,290
+will work. If I now go back to our server
+
+73
+00:03:02,322 --> 00:03:04,597
+and I reload, we see message from Node
+
+74
+00:03:06,436 --> 00:03:08,502
+simply because that is our running Node
+
+75
+00:03:08,631 --> 00:03:09,018
+server.
+
+76
+00:03:09,825 --> 00:03:11,648
+And with that, I'm going to quit it with
+
+77
+00:03:11,664 --> 00:03:14,696
+Ctrl+C because now I wanna again highlight
+
+78
+00:03:14,696 --> 00:03:15,344
+the differences.
+
+79
+00:03:15,953 --> 00:03:18,441
+Using JavaScript is one difference. This
+
+80
+00:03:18,505 --> 00:03:21,555
+import syntax with Node's own module system
+
+81
+00:03:21,876 --> 00:03:23,096
+is another difference.
+
+82
+00:03:23,642 --> 00:03:25,953
+It's not the same import syntax we use in
+
+83
+00:03:26,066 --> 00:03:26,451
+Deno
+
+84
+00:03:27,013 --> 00:03:30,159
+where we use the ES modules syntax, which is
+
+85
+00:03:30,159 --> 00:03:32,053
+coming from the browser side in the end.
+
+86
+00:03:33,193 --> 00:03:35,874
+And then in Deno, we create our server like
+
+87
+00:03:35,938 --> 00:03:38,169
+this, specifying the port on which we want
+
+88
+00:03:38,169 --> 00:03:38,619
+to listen,
+
+89
+00:03:39,293 --> 00:03:41,942
+and we handle responses with this async
+
+90
+00:03:42,038 --> 00:03:42,809
+iterable code.
+
+91
+00:03:43,483 --> 00:03:46,610
+Which arguably might be strange when you see
+
+92
+00:03:46,610 --> 00:03:49,176
+it the first time. It definitely takes some
+
+93
+00:03:49,176 --> 00:03:50,379
+time to get used to it,
+
+94
+00:03:51,020 --> 00:03:53,538
+but it is very readable and clear after all
+
+95
+00:03:54,051 --> 00:03:57,371
+if you are used to it. The Node code also is
+
+96
+00:03:57,371 --> 00:04:00,370
+not horrible, but you can see what I meant
+
+97
+00:04:00,626 --> 00:04:03,321
+when I said that Node does not embrace all
+
+98
+00:04:03,593 --> 00:04:05,149
+modern JavaScript features.
+
+99
+00:04:05,839 --> 00:04:08,308
+This callback-driven approach is
+
+100
+00:04:08,998 --> 00:04:11,520
+simply a bit older. You can do it, it runs
+
+101
+00:04:11,616 --> 00:04:14,331
+fine, and I would say that this code also is
+
+102
+00:04:14,427 --> 00:04:16,595
+quite readable and quite maintainable,
+
+103
+00:04:17,238 --> 00:04:19,695
+but using callbacks simply is a bit more
+
+104
+00:04:19,984 --> 00:04:22,265
+dated. Sometimes it's still what you wanna
+
+105
+00:04:22,394 --> 00:04:22,490
+do,
+
+106
+00:04:23,116 --> 00:04:25,574
+but the async iterable here definitely is
+
+107
+00:04:25,622 --> 00:04:26,297
+more modern.
+
+108
+00:04:27,373 --> 00:04:29,075
+With that out of the way, however, that's
+
+109
+00:04:29,075 --> 00:04:31,260
+enough of Node. It's a Deno course after
+
+110
+00:04:31,372 --> 00:04:33,765
+all, and therefore let's again focus on
+
+111
+00:04:33,797 --> 00:04:34,119
+Deno.

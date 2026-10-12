@@ -1,0 +1,375 @@
+1
+00:00:02,199 --> 00:00:05,089
+Let's understand how requests reach the
+
+2
+00:00:05,089 --> 00:00:07,225
+server and how we send back responses.
+
+3
+00:00:08,317 --> 00:00:10,292
+So we got an incoming request on the server,
+
+4
+00:00:10,709 --> 00:00:13,118
+and from that server, as you just saw, you
+
+5
+00:00:13,118 --> 00:00:15,173
+can extract various kinds of information.
+
+6
+00:00:15,687 --> 00:00:17,549
+You can extract the headers, but you can
+
+7
+00:00:17,598 --> 00:00:20,151
+also find out what the method or the URL is.
+
+8
+00:00:21,467 --> 00:00:22,977
+Now then, as a next step,
+
+9
+00:00:23,555 --> 00:00:24,775
+and that's what we're going to do in a
+
+10
+00:00:24,775 --> 00:00:27,569
+second, You can extract the body of the
+
+11
+00:00:27,569 --> 00:00:30,748
+request, so any data that might be attached
+
+12
+00:00:30,844 --> 00:00:31,679
+to the request.
+
+13
+00:00:32,209 --> 00:00:35,244
+And I'm saying might because requests don't
+
+14
+00:00:35,276 --> 00:00:37,813
+need to carry data. They can, but they don't
+
+15
+00:00:37,829 --> 00:00:38,262
+have to.
+
+16
+00:00:39,531 --> 00:00:41,104
+Important here at this point
+
+17
+00:00:41,682 --> 00:00:44,557
+is that the body, the data, is actually
+
+18
+00:00:44,653 --> 00:00:47,415
+being streamed in. So when the request hits
+
+19
+00:00:47,479 --> 00:00:48,089
+the server,
+
+20
+00:00:48,667 --> 00:00:50,706
+the data might not be fully there yet.
+
+21
+00:00:51,060 --> 00:00:53,816
+Instead, it's streamed in chunk by chunk
+
+22
+00:00:54,440 --> 00:00:56,924
+and therefore our request handling logic
+
+23
+00:00:57,180 --> 00:01:00,193
+needs to be able to deal with that stream of
+
+24
+00:01:00,289 --> 00:01:00,625
+data.
+
+25
+00:01:01,907 --> 00:01:02,821
+Once we got the
+
+26
+00:01:03,349 --> 00:01:05,513
+data, once all the data is there and we
+
+27
+00:01:05,513 --> 00:01:06,121
+parsed it,
+
+28
+00:01:06,698 --> 00:01:09,518
+we can run our core logic. We can, for
+
+29
+00:01:09,518 --> 00:01:12,226
+example, reach out to a database or to a
+
+30
+00:01:12,226 --> 00:01:14,950
+file to store the data in there if that's
+
+31
+00:01:14,950 --> 00:01:15,623
+what we wanna do.
+
+32
+00:01:16,649 --> 00:01:18,828
+And then we can prepare the response. Set up
+
+33
+00:01:18,877 --> 00:01:21,236
+the body of the response and any metadata
+
+34
+00:01:21,236 --> 00:01:23,628
+like headers that should be added to the
+
+35
+00:01:23,628 --> 00:01:24,254
+response
+
+36
+00:01:24,816 --> 00:01:27,047
+and send the response back to the client.
+
+37
+00:01:27,946 --> 00:01:30,097
+This is how requests and responses are
+
+38
+00:01:30,193 --> 00:01:31,349
+handled on the server.
+
+39
+00:01:32,039 --> 00:01:34,591
+Let's now take care about that body parsing.
+
+40
+00:01:35,651 --> 00:01:36,758
+To parse the body
+
+41
+00:01:37,577 --> 00:01:39,808
+on the request, we got that body
+
+42
+00:01:40,562 --> 00:01:41,092
+property
+
+43
+00:01:41,831 --> 00:01:42,376
+and in
+
+44
+00:01:42,954 --> 00:01:45,330
+the hint here, we even got a snippet on how
+
+45
+00:01:45,394 --> 00:01:47,995
+we could parse this. And this is roughly
+
+46
+00:01:48,172 --> 00:01:49,649
+what we're going to rebuild here
+
+47
+00:01:50,355 --> 00:01:51,206
+because the body
+
+48
+00:01:51,945 --> 00:01:54,771
+object which we actually got here has a read
+
+49
+00:01:54,771 --> 00:01:57,147
+method because as I said, it's a stream of
+
+50
+00:01:57,179 --> 00:02:01,193
+data and the read method wants a Uint8Array
+
+51
+00:02:01,739 --> 00:02:02,526
+as a place
+
+52
+00:02:03,184 --> 00:02:05,432
+where it stores the incoming bytes.
+
+53
+00:02:06,251 --> 00:02:08,066
+And this actually is something which you
+
+54
+00:02:08,082 --> 00:02:09,479
+kind of already saw
+
+55
+00:02:10,249 --> 00:02:11,807
+in the previous course module.
+
+56
+00:02:12,657 --> 00:02:14,916
+There I showed you how you can read user
+
+57
+00:02:14,996 --> 00:02:16,823
+input coming from the console, from the
+
+58
+00:02:16,823 --> 00:02:17,256
+terminal.
+
+59
+00:02:18,186 --> 00:02:22,320
+Now there we also used uint8 array to store
+
+60
+00:02:22,512 --> 00:02:25,061
+the incoming bytes in such an array and then
+
+61
+00:02:25,093 --> 00:02:27,080
+convert that to a string eventually.
+
+62
+00:02:27,817 --> 00:02:30,558
+That's why I did show you these basics first
+
+63
+00:02:30,942 --> 00:02:33,891
+so that we now also understand this next
+
+64
+00:02:33,891 --> 00:02:34,468
+step here.
+
+65
+00:02:35,269 --> 00:02:37,192
+Now here, of course, we're not reading data
+
+66
+00:02:37,192 --> 00:02:39,500
+the user entered into the terminal, but
+
+67
+00:02:39,516 --> 00:02:42,288
+instead we're reading the incoming chunks of
+
+68
+00:02:42,321 --> 00:02:44,952
+data which we're receiving as part of the
+
+69
+00:02:44,952 --> 00:02:45,963
+incoming request.
+
+70
+00:02:47,250 --> 00:02:49,695
+So therefore, we now need such a uint8 array
+
+71
+00:02:49,775 --> 00:02:51,384
+to store the request data.
+
+72
+00:02:52,044 --> 00:02:53,347
+So I'll create my buffer here,
+
+73
+00:02:53,942 --> 00:02:54,232
+a new
+
+74
+00:02:54,831 --> 00:02:56,185
+uint8 array.
+
+75
+00:02:57,866 --> 00:02:59,628
+We can pass the buffer to read.
+
+76
+00:03:00,702 --> 00:03:03,637
+Now we should allocate enough memory though.
+
+77
+00:03:03,864 --> 00:03:06,572
+We should let the uint8 array constructor
+
+78
+00:03:06,620 --> 00:03:08,128
+know how long
+
+79
+00:03:08,732 --> 00:03:11,429
+this stream of data will be, so how many
+
+80
+00:03:11,461 --> 00:03:12,953
+bytes we plan on storing.
+
+81
+00:03:13,788 --> 00:03:16,516
+And thankfully, we get this information on
+
+82
+00:03:16,516 --> 00:03:17,608
+the request
+
+83
+00:03:18,282 --> 00:03:22,358
+content-length field. This tells us how big
+
+84
+00:03:22,374 --> 00:03:24,830
+the request data is, essentially how much
+
+85
+00:03:24,862 --> 00:03:27,430
+space we need to reserve. And therefore,
+
+86
+00:03:27,510 --> 00:03:29,083
+this works together quite well.
+
+87
+00:03:29,998 --> 00:03:31,651
+You can tell, however, that I'm getting an
+
+88
+00:03:31,828 --> 00:03:32,197
+error here,
+
+89
+00:03:32,887 --> 00:03:35,476
+and the core problem is that content-length
+
+90
+00:03:35,686 --> 00:03:37,250
+actually is a union type.
+
+91
+00:03:37,798 --> 00:03:38,895
+It's either a number
+
+92
+00:03:39,476 --> 00:03:39,879
+or null.
+
+93
+00:03:40,540 --> 00:03:42,717
+It's null if we got no information about the
+
+94
+00:03:42,717 --> 00:03:44,798
+content.

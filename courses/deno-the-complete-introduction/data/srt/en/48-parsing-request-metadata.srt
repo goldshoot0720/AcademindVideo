@@ -1,0 +1,243 @@
+1
+00:00:02,311 --> 00:00:04,945
+Now we got our basic website which we're
+
+2
+00:00:04,945 --> 00:00:07,090
+returning here. Not too fancy, of course,
+
+3
+00:00:07,107 --> 00:00:07,984
+but it is a website.
+
+4
+00:00:09,656 --> 00:00:12,261
+Of course, the goal, however, was not just
+
+5
+00:00:12,261 --> 00:00:15,271
+to return this HTML content, but instead,
+
+6
+00:00:15,320 --> 00:00:16,987
+when the user submits the form,
+
+7
+00:00:17,586 --> 00:00:18,782
+we wanna do something else.
+
+8
+00:00:19,622 --> 00:00:21,527
+We might wanna store whatever the user
+
+9
+00:00:21,704 --> 00:00:23,593
+entered here in the input field.
+
+10
+00:00:24,852 --> 00:00:27,483
+And for that, we can use the fact that there
+
+11
+00:00:27,516 --> 00:00:29,004
+is more information we can get out of the
+
+12
+00:00:29,004 --> 00:00:29,996
+request because we will need more
+
+13
+00:00:31,932 --> 00:00:34,176
+more information in order to do something
+
+14
+00:00:34,240 --> 00:00:34,593
+different.
+
+15
+00:00:35,138 --> 00:00:37,767
+We need to be able to find out which kind of
+
+16
+00:00:37,767 --> 00:00:40,828
+request the user sent. Did the user just
+
+17
+00:00:40,892 --> 00:00:43,970
+visit localhost:3000 or did the user submit
+
+18
+00:00:44,018 --> 00:00:46,647
+the form? The request holds that information
+
+19
+00:00:47,321 --> 00:00:50,222
+because on this request object we also, for
+
+20
+00:00:50,222 --> 00:00:53,332
+example, got the body, which is basically
+
+21
+00:00:53,332 --> 00:00:55,336
+the data inside of the request.
+
+22
+00:00:55,881 --> 00:00:58,926
+Now this is not a string or a JavaScript
+
+23
+00:00:59,006 --> 00:01:00,609
+object which we can read like this.
+
+24
+00:01:01,267 --> 00:01:03,607
+Instead, this is basically a so-called Deno
+
+25
+00:01:04,617 --> 00:01:07,839
+which is one of Deno's core objects, and you
+
+26
+00:01:07,839 --> 00:01:11,189
+can think of it as a stream of data which is
+
+27
+00:01:11,189 --> 00:01:12,488
+arriving on our server.
+
+28
+00:01:13,209 --> 00:01:15,533
+Down there, we also see a snippet on how we
+
+29
+00:01:15,533 --> 00:01:17,617
+can parse this, and we're going to write
+
+30
+00:01:17,617 --> 00:01:19,845
+this together. I'll explain it, and I can
+
+31
+00:01:20,086 --> 00:01:22,714
+also already tell you this is not how we'll
+
+32
+00:01:22,730 --> 00:01:24,590
+have to do it throughout the entire course.
+
+33
+00:01:25,215 --> 00:01:27,107
+This is, however, how we will do it for now
+
+34
+00:01:27,732 --> 00:01:30,008
+so that we all understand how this works
+
+35
+00:01:30,184 --> 00:01:30,649
+under the hood.
+
+36
+00:01:31,885 --> 00:01:34,439
+Besides the body, we also get the content
+
+37
+00:01:34,439 --> 00:01:36,848
+length, so basically the amount of bytes
+
+38
+00:01:36,848 --> 00:01:39,513
+we're getting as request body here. This
+
+39
+00:01:39,513 --> 00:01:41,681
+will help us judge whether we do get a
+
+40
+00:01:41,681 --> 00:01:44,106
+request body or not, so whether we should
+
+41
+00:01:44,171 --> 00:01:47,318
+parse it and how much we should parse, or if
+
+42
+00:01:47,318 --> 00:01:48,876
+there is no parsing to be done.
+
+43
+00:01:49,550 --> 00:01:52,024
+We also can extract the request headers, so
+
+44
+00:01:52,104 --> 00:01:54,336
+any metadata attached to the incoming
+
+45
+00:01:54,368 --> 00:01:54,866
+request.
+
+46
+00:01:55,557 --> 00:01:58,288
+We can find out which method was used if it
+
+47
+00:01:58,288 --> 00:02:00,012
+was a GET or POST request.
+
+48
+00:02:00,641 --> 00:02:02,107
+We can also find out
+
+49
+00:02:02,720 --> 00:02:04,637
+what the URL of the request was.
+
+50
+00:02:05,810 --> 00:02:07,426
+And let's maybe see this in action.
+
+51
+00:02:08,088 --> 00:02:10,723
+Let's console.log request.method here,
+
+52
+00:02:14,209 --> 00:02:15,916
+and let's also console.log
+
+53
+00:02:17,108 --> 00:02:19,540
+the request.url to see what's in there.
+
+54
+00:02:20,474 --> 00:02:21,472
+And with that, if we now
+
+55
+00:02:22,004 --> 00:02:24,599
+repeat our run command and start that server
+
+56
+00:02:25,812 --> 00:02:30,082
+and we reload localhost:3000, we see GET and
+
+57
+00:02:30,179 --> 00:02:30,727
+a slash.
+
+58
+00:02:31,484 --> 00:02:34,191
+So the method for this request was GET. It
+
+59
+00:02:34,191 --> 00:02:36,786
+was a GET request, which is indeed the kind
+
+60
+00:02:36,786 --> 00:02:39,444
+of request the browser sends to a server if
+
+61
+00:02:39,444 --> 00:02:40,927
+you just enter a URL.

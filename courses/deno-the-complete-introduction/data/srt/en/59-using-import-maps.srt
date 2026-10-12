@@ -1,0 +1,451 @@
+1
+00:00:02,197 --> 00:00:04,234
+Now we're almost done. There is one last
+
+2
+00:00:04,282 --> 00:00:06,143
+convenience feature which I wanna show you.
+
+3
+00:00:06,849 --> 00:00:08,260
+Once you write more complex Deno
+
+4
+00:00:08,276 --> 00:00:10,682
+applications, you'll have a lot of imports
+
+5
+00:00:10,682 --> 00:00:12,431
+from the standard library or from
+
+6
+00:00:12,607 --> 00:00:13,553
+third-party libraries.
+
+7
+00:00:14,387 --> 00:00:16,970
+Now you can always add your imports like
+
+8
+00:00:17,034 --> 00:00:19,328
+this in every file, and that's perfectly
+
+9
+00:00:19,360 --> 00:00:19,649
+fine,
+
+10
+00:00:20,242 --> 00:00:23,290
+but you also can create a so-called import
+
+11
+00:00:23,290 --> 00:00:27,011
+map so that you can use shorter URLs or
+
+12
+00:00:27,059 --> 00:00:29,946
+identifiers your code files and you have the
+
+13
+00:00:29,946 --> 00:00:32,978
+full URLs in those import maps.
+
+14
+00:00:34,277 --> 00:00:36,009
+For this, you should simply create a new
+
+15
+00:00:36,105 --> 00:00:41,254
+file which you can name import_map.json. The
+
+16
+00:00:41,334 --> 00:00:44,125
+name is up to you, but the extension should
+
+17
+00:00:44,125 --> 00:00:46,515
+be JSON because you have to write some JSON
+
+18
+00:00:46,627 --> 00:00:47,141
+code in there.
+
+19
+00:00:48,151 --> 00:00:50,814
+And in here you can have an imports key,
+
+20
+00:00:51,760 --> 00:00:54,166
+and that imports key allows you to map
+
+21
+00:00:54,166 --> 00:00:56,925
+certain identifiers of your choice which are
+
+22
+00:00:56,973 --> 00:00:57,889
+your key names here,
+
+23
+00:00:58,499 --> 00:01:00,120
+to full URLs.
+
+24
+00:01:00,666 --> 00:01:04,456
+For example, we could map HTTP slash to
+
+25
+00:01:05,788 --> 00:01:08,679
+this full URL. So we can grab—
+
+26
+00:01:09,321 --> 00:01:11,505
+excuse me, this URL. So we can grab this
+
+27
+00:01:11,569 --> 00:01:12,002
+URL,
+
+28
+00:01:12,773 --> 00:01:13,544
+cut it from here,
+
+29
+00:01:14,234 --> 00:01:16,129
+and instead specify it here as a string
+
+30
+00:01:16,241 --> 00:01:18,329
+value for the HTTP identifier,
+
+31
+00:01:19,051 --> 00:01:20,609
+and also add the slash here.
+
+32
+00:01:22,983 --> 00:01:25,773
+With this, we're mapping this URL to the
+
+33
+00:01:25,853 --> 00:01:26,446
+http://
+
+34
+00:01:26,975 --> 00:01:27,568
+identifier.
+
+35
+00:01:28,258 --> 00:01:30,181
+And in our file, we can now use
+
+36
+00:01:30,582 --> 00:01:34,285
+http://server.ts like this, which of course
+
+37
+00:01:34,285 --> 00:01:35,023
+is way shorter.
+
+38
+00:01:35,808 --> 00:01:37,892
+But at the moment, Deno wouldn't be able to
+
+39
+00:01:37,892 --> 00:01:40,409
+make the connection between this code file
+
+40
+00:01:40,682 --> 00:01:41,932
+and our import map here.
+
+41
+00:01:42,862 --> 00:01:45,106
+Instead, to allow Deno to make this
+
+42
+00:01:45,106 --> 00:01:47,687
+connection, we have to run our script with
+
+43
+00:01:47,880 --> 00:01:48,446
+deno run,
+
+44
+00:01:49,354 --> 00:01:51,103
+allow net of course, and then
+
+45
+00:01:52,755 --> 00:01:54,002
+import_map
+
+46
+00:01:54,618 --> 00:01:56,334
+equals and then your map name,
+
+47
+00:01:56,884 --> 00:02:00,182
+import_map.json. And at the moment you're
+
+48
+00:02:00,279 --> 00:02:02,688
+only allowed to have one import map, but of
+
+49
+00:02:02,704 --> 00:02:05,517
+course in there you can map as many packages
+
+50
+00:02:05,695 --> 00:02:08,443
+as you want, as many modules as you want. So
+
+51
+00:02:08,443 --> 00:02:10,838
+you're not limited to just one mapping here.
+
+52
+00:02:12,075 --> 00:02:14,373
+So with that specified, we thereafter have
+
+53
+00:02:14,453 --> 00:02:14,678
+our
+
+54
+00:02:15,470 --> 00:02:16,836
+filename. And if we now
+
+55
+00:02:17,462 --> 00:02:19,937
+hit enter, we see that at the moment at
+
+56
+00:02:19,937 --> 00:02:22,620
+least import map is an unstable feature.
+
+57
+00:02:23,391 --> 00:02:25,336
+This means that it might change in the
+
+58
+00:02:25,336 --> 00:02:27,746
+future. The way it works might change. For
+
+59
+00:02:27,746 --> 00:02:30,156
+example, we might be able to have multiple
+
+60
+00:02:30,172 --> 00:02:31,297
+import maps in the future.
+
+61
+00:02:31,988 --> 00:02:34,784
+To unlock such unstable features, we have to
+
+62
+00:02:34,960 --> 00:02:37,820
+add one extra flag. As you also see here,
+
+63
+00:02:38,351 --> 00:02:40,681
+we have to add the unstable flag.
+
+64
+00:02:41,483 --> 00:02:43,730
+And with this, our file now executes
+
+65
+00:02:43,746 --> 00:02:46,041
+successfully because of this map.
+
+66
+00:02:47,164 --> 00:02:48,673
+Now what you'll also see though is
+
+67
+00:02:49,267 --> 00:02:50,518
+that at least currently
+
+68
+00:02:51,112 --> 00:02:54,306
+my IDE isn't really able to pick up this
+
+69
+00:02:54,306 --> 00:02:56,665
+map. It doesn't really understand this map,
+
+70
+00:02:57,211 --> 00:02:59,746
+and therefore whilst the code runs fine,
+
+71
+00:03:00,420 --> 00:03:03,068
+my IDE support isn't on the level I'd like
+
+72
+00:03:03,068 --> 00:03:03,469
+it to be.
+
+73
+00:03:04,031 --> 00:03:06,535
+Therefore, for the moment, and because this
+
+74
+00:03:06,535 --> 00:03:09,404
+is unstable, I will not use import maps
+
+75
+00:03:09,404 --> 00:03:11,327
+throughout the course, but you absolutely
+
+76
+00:03:11,391 --> 00:03:13,731
+could if you want to. That's why I want to
+
+77
+00:03:13,731 --> 00:03:15,894
+show you this feature because of course it
+
+78
+00:03:15,894 --> 00:03:18,490
+is very handy. It allows you to manage all
+
+79
+00:03:18,699 --> 00:03:22,000
+your URLs in one place and then just use
+
+80
+00:03:22,000 --> 00:03:24,836
+these aliases to import from there, which
+
+81
+00:03:24,948 --> 00:03:27,592
+leads to shorter code here. And if you ever
+
+82
+00:03:27,592 --> 00:03:29,675
+wanna change the version, you just have to
+
+83
+00:03:29,675 --> 00:03:32,287
+do it in one place instead of all code files
+
+84
+00:03:32,560 --> 00:03:35,351
+where you are using library module. So
+
+85
+00:03:35,528 --> 00:03:38,161
+import maps can be useful, but because the
+
+86
+00:03:38,161 --> 00:03:40,730
+developer experience at the moment, because
+
+87
+00:03:40,746 --> 00:03:43,363
+of the IDE not understanding it, is not on
+
+88
+00:03:43,395 --> 00:03:45,723
+the level I want it to be, I will not use
+
+89
+00:03:45,723 --> 00:03:46,012
+them here.
+
+90
+00:03:46,831 --> 00:03:48,870
+Before I revert this back though, let me
+
+91
+00:03:48,934 --> 00:03:50,893
+also show you how to make it work with
+
+92
+00:03:51,086 --> 00:03:51,471
+Denon.
+
+93
+00:03:52,065 --> 00:03:54,120
+There, of course, you now simply have to add
+
+94
+00:03:54,153 --> 00:03:55,293
+this extra argument here
+
+95
+00:03:55,822 --> 00:03:56,497
+where you have
+
+96
+00:03:57,027 --> 00:03:57,813
+unstable
+
+97
+00:03:58,391 --> 00:04:01,954
+and where you have import map endpoint at
+
+98
+00:04:02,483 --> 00:04:04,505
+import_map.json.
+
+99
+00:04:05,147 --> 00:04:06,735
+With that, you would be able to run this
+
+100
+00:04:06,751 --> 00:04:08,307
+with Denon as well now.
+
+101
+00:04:09,174 --> 00:04:10,281
+So this would work,
+
+102
+00:04:10,842 --> 00:04:12,751
+but again, I'm not going to use this
+
+103
+00:04:12,751 --> 00:04:14,789
+feature, so I'm going to remove this here
+
+104
+00:04:14,837 --> 00:04:15,992
+from the Denon config.
+
+105
+00:04:16,858 --> 00:04:18,334
+Therefore, of course, this would now fail.
+
+106
+00:04:18,864 --> 00:04:21,094
+But now I'm also going to revert this back
+
+107
+00:04:21,094 --> 00:04:21,944
+here in my
+
+108
+00:04:22,875 --> 00:04:23,308
+code file
+
+109
+00:04:23,837 --> 00:04:26,052
+and use the full URL. Simply for the
+
+110
+00:04:26,068 --> 00:04:28,543
+improved developer experience with my IDE
+
+111
+00:04:28,801 --> 00:04:29,604
+understanding this.
+
+112
+00:04:30,504 --> 00:04:32,883
+And that's it for the convenience features
+
+113
+00:04:33,076 --> 00:04:33,381
+for now.
