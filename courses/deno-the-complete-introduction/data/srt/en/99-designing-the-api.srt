@@ -1,0 +1,291 @@
+1
+00:00:02,118 --> 00:00:04,959
+So now that we understand what a REST API
+
+2
+00:00:05,071 --> 00:00:07,847
+generally is, let's design our API.
+
+3
+00:00:08,457 --> 00:00:10,431
+And if you listen carefully, you learned
+
+4
+00:00:10,463 --> 00:00:13,930
+that a REST API is defined by its API
+
+5
+00:00:14,138 --> 00:00:17,123
+endpoints, or at least that those API
+
+6
+00:00:17,268 --> 00:00:18,199
+endpoints are
+
+7
+00:00:18,889 --> 00:00:21,007
+an important part of a REST API.
+
+8
+00:00:21,938 --> 00:00:24,345
+Now here as an example, I want to build a
+
+9
+00:00:24,345 --> 00:00:28,196
+learning resources API. A simple API where
+
+10
+00:00:28,196 --> 00:00:31,499
+we can add, fetch, delete, and update
+
+11
+00:00:31,707 --> 00:00:34,337
+learning resources we wanna store. So for
+
+12
+00:00:34,369 --> 00:00:37,079
+example, a good course which we found, a
+
+13
+00:00:37,079 --> 00:00:39,645
+YouTube video, or simply a great blog
+
+14
+00:00:39,741 --> 00:00:40,078
+article.
+
+15
+00:00:40,960 --> 00:00:43,606
+So therefore, this API should have a couple
+
+16
+00:00:43,606 --> 00:00:44,552
+of endpoints.
+
+17
+00:00:45,177 --> 00:00:48,000
+We probably need one endpoint to fetch a
+
+18
+00:00:48,000 --> 00:00:50,213
+list of our resources that we stored.
+
+19
+00:00:50,950 --> 00:00:53,933
+And there, since we wanna fetch data, a GET
+
+20
+00:00:53,933 --> 00:00:56,178
+request makes sense, maybe to
+
+21
+00:00:56,884 --> 00:00:57,509
+/resources.
+
+22
+00:00:58,054 --> 00:01:01,440
+So ourdomain.com/resources,
+
+23
+00:01:02,069 --> 00:01:04,472
+and we don't attach any data to it because
+
+24
+00:01:04,521 --> 00:01:07,246
+it is just a GET request. We just wanna get
+
+25
+00:01:07,246 --> 00:01:07,487
+data.
+
+26
+00:01:08,679 --> 00:01:11,353
+Now, in order to get data, we also need to
+
+27
+00:01:11,353 --> 00:01:14,221
+store data. So we definitely also need an
+
+28
+00:01:14,237 --> 00:01:16,639
+endpoint for adding learning resources.
+
+29
+00:01:17,316 --> 00:01:19,413
+And since we want to add a new resource
+
+30
+00:01:19,494 --> 00:01:22,349
+every time and not override existing ones or
+
+31
+00:01:22,462 --> 00:01:25,042
+anything like that, this would be a POST
+
+32
+00:01:25,042 --> 00:01:25,702
+request to
+
+33
+00:01:26,412 --> 00:01:28,364
+/resources. That would make sense in my
+
+34
+00:01:28,444 --> 00:01:30,960
+opinion. And here we wanna attach some data
+
+35
+00:01:30,960 --> 00:01:33,082
+to the request. Let's say a learning
+
+36
+00:01:33,130 --> 00:01:35,650
+resource is made up by its title, its
+
+37
+00:01:35,698 --> 00:01:39,494
+description, its image URL, and a URL for
+
+38
+00:01:39,494 --> 00:01:40,479
+the resource itself.
+
+39
+00:01:42,570 --> 00:01:44,925
+The image URL is simply a little preview
+
+40
+00:01:44,941 --> 00:01:47,103
+image that we wanna display next to the
+
+41
+00:01:47,103 --> 00:01:49,136
+learning resource. And that's just my
+
+42
+00:01:49,136 --> 00:01:51,185
+definition of a learning resource here. Of
+
+43
+00:01:51,298 --> 00:01:52,961
+course, you could go with a different one.
+
+44
+00:01:54,154 --> 00:01:55,741
+Now we also want to be able to
+
+45
+00:01:56,302 --> 00:01:58,772
+edit or update a resource, so we need an
+
+46
+00:01:58,868 --> 00:01:59,622
+endpoint for that.
+
+47
+00:02:00,151 --> 00:02:02,524
+And it's up to you whether you wanna go with
+
+48
+00:02:02,556 --> 00:02:03,422
+PUT or PATCH.
+
+49
+00:02:03,999 --> 00:02:06,164
+I don't really wanna replace the existing
+
+50
+00:02:06,244 --> 00:02:08,345
+resource, I want to update it instead.
+
+51
+00:02:08,730 --> 00:02:10,926
+Hence, I'll go with a PATCH request to
+
+52
+00:02:11,375 --> 00:02:12,802
+/resources, but then
+
+53
+00:02:13,620 --> 00:02:16,314
+we'll also have a dynamic segment here to
+
+54
+00:02:16,747 --> 00:02:19,537
+have the ID of the resource as part of the
+
+55
+00:02:19,714 --> 00:02:20,227
+URL.
+
+56
+00:02:20,772 --> 00:02:22,809
+And then we can extract that ID on the
+
+57
+00:02:22,857 --> 00:02:25,247
+server side and we'll know which resource to
+
+58
+00:02:25,327 --> 00:02:27,910
+update. And there we also wanna attach some
+
+59
+00:02:27,910 --> 00:02:30,332
+data, the updated title, the updated
+
+60
+00:02:30,332 --> 00:02:30,893
+description,
+
+61
+00:02:31,423 --> 00:02:33,957
+updated image URL, URL, and so on.
+
+62
+00:02:35,128 --> 00:02:37,277
+Well, and last but not least, to complete
+
+63
+00:02:37,373 --> 00:02:38,865
+our CRUD operations,
+
+64
+00:02:39,443 --> 00:02:41,897
+we probably want to be able to delete a
+
+65
+00:02:42,009 --> 00:02:44,768
+resource and that would be a DELETE request
+
+66
+00:02:44,912 --> 00:02:45,073
+to
+
+67
+00:02:45,714 --> 00:02:50,031
+/resources/resource ID, where resource ID
+
+68
+00:02:50,063 --> 00:02:51,107
+again is dynamic
+
+69
+00:02:51,717 --> 00:02:53,982
+and we don't need to append any data to this
+
+70
+00:02:53,982 --> 00:02:57,483
+request. This will be the API I wanna build.
+
+71
+00:02:57,852 --> 00:03:00,775
+Now, before we build it, let's explore JSON
+
+72
+00:03:00,968 --> 00:03:03,345
+because that will be the data format which
+
+73
+00:03:03,441 --> 00:03:04,887
+we use for exchanging data.

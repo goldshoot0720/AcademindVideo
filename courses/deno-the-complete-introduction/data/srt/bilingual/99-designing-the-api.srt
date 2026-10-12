@@ -1,0 +1,364 @@
+1
+00:00:02,118 --> 00:00:04,959
+So now that we understand what a REST API
+現在我們了解了什麼是 REST API
+
+2
+00:00:05,071 --> 00:00:07,847
+generally is, let's design our API.
+一般來說，讓我們設計我們的 API。
+
+3
+00:00:08,457 --> 00:00:10,431
+And if you listen carefully, you learned
+如果你仔細聽，你就會學到
+
+4
+00:00:10,463 --> 00:00:13,930
+that a REST API is defined by its API
+REST API 由其 API 定義
+
+5
+00:00:14,138 --> 00:00:17,123
+endpoints, or at least that those API
+端點，或至少那些 API
+
+6
+00:00:17,268 --> 00:00:18,199
+endpoints are
+端點是
+
+7
+00:00:18,889 --> 00:00:21,007
+an important part of a REST API.
+REST API 的重要組成部分。
+
+8
+00:00:21,938 --> 00:00:24,345
+Now here as an example, I want to build a
+現在作為一個例子，我想建立一個
+
+9
+00:00:24,345 --> 00:00:28,196
+learning resources API. A simple API where
+學習資源API。一個簡單的 API，其中
+
+10
+00:00:28,196 --> 00:00:31,499
+we can add, fetch, delete, and update
+我們可以新增、取得、刪除和更新
+
+11
+00:00:31,707 --> 00:00:34,337
+learning resources we wanna store. So for
+我們想要儲存的學習資源。所以對於
+
+12
+00:00:34,369 --> 00:00:37,079
+example, a good course which we found, a
+例如，我們發現了一門好課程，
+
+13
+00:00:37,079 --> 00:00:39,645
+YouTube video, or simply a great blog
+YouTube 影片，或只是一個很棒的博客
+
+14
+00:00:39,741 --> 00:00:40,078
+article.
+文章。
+
+15
+00:00:40,960 --> 00:00:43,606
+So therefore, this API should have a couple
+因此，這個 API 應該有幾個
+
+16
+00:00:43,606 --> 00:00:44,552
+of endpoints.
+端點數。
+
+17
+00:00:45,177 --> 00:00:48,000
+We probably need one endpoint to fetch a
+我們可能需要一個端點來獲取
+
+18
+00:00:48,000 --> 00:00:50,213
+list of our resources that we stored.
+我們儲存的資源清單。
+
+19
+00:00:50,950 --> 00:00:53,933
+And there, since we wanna fetch data, a GET
+在那裡，因為我們想要獲取資料，所以使用 GET
+
+20
+00:00:53,933 --> 00:00:56,178
+request makes sense, maybe to
+請求是有道理的，也許是為了
+
+21
+00:00:56,884 --> 00:00:57,509
+/resources.
+/資源。
+
+22
+00:00:58,054 --> 00:01:01,440
+So ourdomain.com/resources,
+所以 ourdomain.com/resources，
+
+23
+00:01:02,069 --> 00:01:04,472
+and we don't attach any data to it because
+我們不附加任何資料，因為
+
+24
+00:01:04,521 --> 00:01:07,246
+it is just a GET request. We just wanna get
+這只是一個 GET 請求。我們只是想得到
+
+25
+00:01:07,246 --> 00:01:07,487
+data.
+資料。
+
+26
+00:01:08,679 --> 00:01:11,353
+Now, in order to get data, we also need to
+現在，為了取得資料，我們還需要
+
+27
+00:01:11,353 --> 00:01:14,221
+store data. So we definitely also need an
+儲存資料。所以我們肯定還需要一個
+
+28
+00:01:14,237 --> 00:01:16,639
+endpoint for adding learning resources.
+新增學習資源的端點。
+
+29
+00:01:17,316 --> 00:01:19,413
+And since we want to add a new resource
+由於我們想新增資源
+
+30
+00:01:19,494 --> 00:01:22,349
+every time and not override existing ones or
+每次並且不覆蓋現有的或
+
+31
+00:01:22,462 --> 00:01:25,042
+anything like that, this would be a POST
+類似的東西，這將是一個帖子
+
+32
+00:01:25,042 --> 00:01:25,702
+request to
+要求
+
+33
+00:01:26,412 --> 00:01:28,364
+/resources. That would make sense in my
+/資源。這對我來說是有意義的
+
+34
+00:01:28,444 --> 00:01:30,960
+opinion. And here we wanna attach some data
+觀點。在這裡我們想附加一些資料
+
+35
+00:01:30,960 --> 00:01:33,082
+to the request. Let's say a learning
+到請求。說個學習的
+
+36
+00:01:33,130 --> 00:01:35,650
+resource is made up by its title, its
+資源由其標題、其
+
+37
+00:01:35,698 --> 00:01:39,494
+description, its image URL, and a URL for
+描述、圖像 URL 以及
+
+38
+00:01:39,494 --> 00:01:40,479
+the resource itself.
+資源本身。
+
+39
+00:01:42,570 --> 00:01:44,925
+The image URL is simply a little preview
+圖片網址只是一個小預覽
+
+40
+00:01:44,941 --> 00:01:47,103
+image that we wanna display next to the
+我們想要在旁邊顯示的圖像
+
+41
+00:01:47,103 --> 00:01:49,136
+learning resource. And that's just my
+學習資源。這只是我的
+
+42
+00:01:49,136 --> 00:01:51,185
+definition of a learning resource here. Of
+此處學習資源的定義。的
+
+43
+00:01:51,298 --> 00:01:52,961
+course, you could go with a different one.
+當然，您也可以選擇其他的。
+
+44
+00:01:54,154 --> 00:01:55,741
+Now we also want to be able to
+現在我們也希望能夠
+
+45
+00:01:56,302 --> 00:01:58,772
+edit or update a resource, so we need an
+編輯或更新資源，因此我們需要
+
+46
+00:01:58,868 --> 00:01:59,622
+endpoint for that.
+的終點。
+
+47
+00:02:00,151 --> 00:02:02,524
+And it's up to you whether you wanna go with
+這取決於你是否願意一起去
+
+48
+00:02:02,556 --> 00:02:03,422
+PUT or PATCH.
+放置或修補。
+
+49
+00:02:03,999 --> 00:02:06,164
+I don't really wanna replace the existing
+我真的不想取代現有的
+
+50
+00:02:06,244 --> 00:02:08,345
+resource, I want to update it instead.
+資源，我想更新它。
+
+51
+00:02:08,730 --> 00:02:10,926
+Hence, I'll go with a PATCH request to
+因此，我將提出一個 PATCH 請求
+
+52
+00:02:11,375 --> 00:02:12,802
+/resources, but then
+/資源，但然後
+
+53
+00:02:13,620 --> 00:02:16,314
+we'll also have a dynamic segment here to
+我們這裡還有一個動態部分
+
+54
+00:02:16,747 --> 00:02:19,537
+have the ID of the resource as part of the
+將資源的 ID 作為
+
+55
+00:02:19,714 --> 00:02:20,227
+URL.
+網址。
+
+56
+00:02:20,772 --> 00:02:22,809
+And then we can extract that ID on the
+然後我們可以提取該 ID
+
+57
+00:02:22,857 --> 00:02:25,247
+server side and we'll know which resource to
+伺服器端，我們就會知道要使用哪些資源
+
+58
+00:02:25,327 --> 00:02:27,910
+update. And there we also wanna attach some
+更新。我們還想附上一些
+
+59
+00:02:27,910 --> 00:02:30,332
+data, the updated title, the updated
+資料，更新的標題，更新的
+
+60
+00:02:30,332 --> 00:02:30,893
+description,
+描述，
+
+61
+00:02:31,423 --> 00:02:33,957
+updated image URL, URL, and so on.
+更新了圖片URL、URL等。
+
+62
+00:02:35,128 --> 00:02:37,277
+Well, and last but not least, to complete
+好吧，最後但並非最不重要的一點是，完成
+
+63
+00:02:37,373 --> 00:02:38,865
+our CRUD operations,
+我們的 CRUD 操作，
+
+64
+00:02:39,443 --> 00:02:41,897
+we probably want to be able to delete a
+我們可能希望能夠刪除一個
+
+65
+00:02:42,009 --> 00:02:44,768
+resource and that would be a DELETE request
+資源，這將是一個 DELETE 請求
+
+66
+00:02:44,912 --> 00:02:45,073
+to
+到
+
+67
+00:02:45,714 --> 00:02:50,031
+/resources/resource ID, where resource ID
+/resources/資源 ID，其中資源 ID
+
+68
+00:02:50,063 --> 00:02:51,107
+again is dynamic
+再次是動態的
+
+69
+00:02:51,717 --> 00:02:53,982
+and we don't need to append any data to this
+我們不需要向其中附加任何資料
+
+70
+00:02:53,982 --> 00:02:57,483
+request. This will be the API I wanna build.
+要求。這將是我想要建立的 API。
+
+71
+00:02:57,852 --> 00:03:00,775
+Now, before we build it, let's explore JSON
+現在，在建造它之前，讓我們先探討一下 JSON
+
+72
+00:03:00,968 --> 00:03:03,345
+because that will be the data format which
+因為這將是資料格式
+
+73
+00:03:03,441 --> 00:03:04,887
+we use for exchanging data.
+我們用於交換資料。
