@@ -1,0 +1,299 @@
+1
+00:00:00,528 --> 00:00:02,884
+So let's now dive in, and I'll start by
+現在讓我們深入探討，我將從
+
+2
+00:00:03,060 --> 00:00:05,848
+building a workflow visually. And for that,
+直觀地建構工作流程。為此，
+
+3
+00:00:05,880 --> 00:00:09,646
+we'll use a tool called n8n, which is a very
+我們將使用一個名為 n8n 的工具，這是一個非常
+
+4
+00:00:09,790 --> 00:00:13,909
+popular visual workflow and agent builder.
+流行的可視化工作流程和代理建構器。
+
+5
+00:00:14,229 --> 00:00:15,768
+It can be used for both.
+它可以用於兩者。
+
+6
+00:00:16,457 --> 00:00:18,780
+And this course is not primarily about n8n.
+本課程主要不是關於 n8n。
+
+7
+00:00:18,844 --> 00:00:21,793
+It's just a nice tool for building workflows
+它只是建立工作流程的好工具
+
+8
+00:00:21,825 --> 00:00:24,228
+and agents visually. Now, you can head over
+和代理視覺。現在，你可以過去了
+
+9
+00:00:24,228 --> 00:00:25,847
+to n8n.io and sign up for a free account.
+造訪 n8n.io 並註冊一個免費帳戶。
+
+10
+00:00:26,280 --> 00:00:28,591
+Sign up there if you want to use their
+如果您想使用他們的服務，請在那裡註冊
+
+11
+00:00:28,880 --> 00:00:32,282
+cloud-based builder so that you don't need
+基於雲端的建構器，這樣您就不需要
+
+12
+00:00:32,330 --> 00:00:34,786
+to install anything on your system, and then
+在您的系統上安裝任何東西，然後
+
+13
+00:00:34,963 --> 00:00:37,210
+they would also host those agents and
+他們還將接待這些特工和
+
+14
+00:00:37,306 --> 00:00:39,842
+workflows for you. That can be convenient,
+適合您的工作流程。這樣可以很方便，
+
+15
+00:00:39,954 --> 00:00:40,211
+but
+但
+
+16
+00:00:40,741 --> 00:00:42,249
+that's not the focus of this course, and it
+這不是本課程的重點
+
+17
+00:00:42,346 --> 00:00:44,962
+will cost money. You'll have to pay for
+會花錢。你必須支付
+
+18
+00:00:45,010 --> 00:00:47,369
+that. Still could be interesting for you.
+那。對你來說仍然可能很有趣。
+
+19
+00:00:48,364 --> 00:00:50,194
+In this section, however, we'll choose
+然而，在本節中，我們將選擇
+
+20
+00:00:50,290 --> 00:00:52,602
+another option which they also offer, which
+他們還提供另一種選擇，
+
+21
+00:00:52,698 --> 00:00:55,602
+is to run their product locally. On our
+是在本地運行他們的產品。在我們的
+
+22
+00:00:55,602 --> 00:00:58,054
+machine or on a remote server, but as
+機器或遠端伺服器上，但作為
+
+23
+00:00:58,086 --> 00:01:00,025
+mentioned earlier, we'll stick to our
+前面提到過，我們將堅持我們的
+
+24
+00:01:00,025 --> 00:01:03,022
+machine and we'll build a workflow with N8N
+機器，我們將使用 N8N 建置工作流程
+
+25
+00:01:03,358 --> 00:01:06,547
+on our machine. And for that, attached, you
+在我們的機器上。為此，附上，你
+
+26
+00:01:06,659 --> 00:01:09,288
+find a demo project which I created, a
+找到我創建的一個演示專案，
+
+27
+00:01:09,288 --> 00:01:11,868
+folder you can download and extract,
+您可以下載並解壓縮的資料夾，
+
+28
+00:01:12,412 --> 00:01:15,249
+which contains the entire setup you need to
+其中包含您需要的整個設置
+
+29
+00:01:15,457 --> 00:01:17,044
+run N8N locally.
+本地運行 N8N。
+
+30
+00:01:17,877 --> 00:01:20,553
+The attached folder also contains a README,
+附加資料夾也包含 README，
+
+31
+00:01:22,111 --> 00:01:24,632
+which contains more information about the
+其中包含有關的更多資訊
+
+32
+00:01:24,696 --> 00:01:25,933
+demo workflow in there
+那裡有演示工作流程
+
+33
+00:01:26,607 --> 00:01:29,369
+and most importantly, what you need to do to
+最重要的是，你需要做什麼
+
+34
+00:01:29,433 --> 00:01:30,204
+run it locally.
+在本地運行它。
+
+35
+00:01:30,782 --> 00:01:33,288
+For example, most importantly, you'll need
+例如，最重要的是，您需要
+
+36
+00:01:33,288 --> 00:01:36,740
+to install a tool, a software, a JavaScript
+安裝工具、軟體、JavaScript
+
+37
+00:01:36,740 --> 00:01:39,358
+runtime if you wanna know it exactly called
+運行時如果你想知道它到底叫什麼
+
+38
+00:01:39,390 --> 00:01:40,241
+Node.js.
+Node.js。
+
+39
+00:01:40,980 --> 00:01:43,902
+And you can do so from nodejs.org.
+您可以從 nodejs.org 執行此操作。
+
+40
+00:01:44,432 --> 00:01:46,584
+Over there you can download it and it is
+在那裡你可以下載它
+
+41
+00:01:46,616 --> 00:01:48,849
+available for all operating systems. You can
+適用於所有作業系統。你可以
+
+42
+00:01:48,849 --> 00:01:51,561
+simply pick yours, but again, you'll need to
+只需選擇您的，但同樣，您需要
+
+43
+00:01:51,593 --> 00:01:54,205
+be able to install software on your machine.
+能夠在您的機器上安裝軟體。
+
+44
+00:01:54,397 --> 00:01:56,993
+And then you should follow these steps here
+然後您應該按照此處的以下步驟操作
+
+45
+00:01:57,201 --> 00:01:59,557
+and run them in your command line, in your
+並在你的命令列中運行它們
+
+46
+00:01:59,685 --> 00:02:03,307
+terminal, your PowerShell to install Node.js
+終端機，您的 PowerShell 來安裝 Node.js
+
+47
+00:02:03,371 --> 00:02:05,887
+and also a tool called NVM,
+還有一個叫做 NVM 的工具，
+
+48
+00:02:06,416 --> 00:02:09,060
+the Node Version Manager. I recommend
+節點版本管理器。我推薦
+
+49
+00:02:09,060 --> 00:02:10,213
+installing that too.
+也安裝那個。
+
+50
+00:02:10,742 --> 00:02:13,034
+And then you can start the project by
+然後你可以透過以下方式啟動該專案
+
+51
+00:02:13,050 --> 00:02:15,453
+running these commands or if you did not
+運行這些命令或如果您沒有
+
+52
+00:02:15,534 --> 00:02:17,973
+install NVM, If you instead installed
+安裝 NVM，如果您安裝了
+
+53
+00:02:17,973 --> 00:02:20,514
+Node.js by downloading the installer, which
+透過下載 Node.js 安裝程式，
+
+54
+00:02:20,514 --> 00:02:21,560
+you could also do,
+你也可以這樣做
+
+55
+00:02:22,219 --> 00:02:24,519
+then it's just the bottom 2 commands, which
+那麼它只是底部的 2 個指令，
+
+56
+00:02:24,551 --> 00:02:27,108
+you need to run on your system after you
+你需要在你的系統上運作之後
+
+57
+00:02:27,108 --> 00:02:30,099
+installed Node.js to set this project up
+安裝了 Node.js 來設定這個專案
+
+58
+00:02:30,099 --> 00:02:33,090
+such that it works and that you start the
+這樣它就可以工作並且您可以開始
+
+59
+00:02:33,138 --> 00:02:36,451
+local n8n server, which allows us to work
+本地 n8n 伺服器，它允許我們工作
+
+60
+00:02:36,515 --> 00:02:38,059
+with n8n locally.
+本地使用 n8n。
