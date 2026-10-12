@@ -107,14 +107,20 @@
   .topbar .t{font-weight:700;font-size:14px;letter-spacing:-.2px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .topbar .sub{font-size:11.5px;color:var(--muted)}
   .spacer{flex:1}
-  .btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+  .btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
   .btn:hover{border-color:var(--muted)}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   .btn.primary:hover{filter:brightness(1.06)}
   .btn.ghost{background:transparent}
 
   .wrap{padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start}
-  @media (max-width:1280px){.wrap{grid-template-columns:minmax(0,1fr)}}
+  /* Keep the settings panel BESIDE the video as the viewport narrows, just
+     narrower. Collapsing to one column here dropped the panel below the fold
+     and left the height-capped video floating with ~154px of dead space on
+     each side (the 150% zoom case). Only <=1280 is affected; 100% and 130-140%
+     zoom keep the 380px panel exactly as before. */
+  @media (max-width:1280px){.wrap{grid-template-columns:minmax(0,1fr) 244px;gap:14px;padding:14px}}
+  @media (max-width:1000px){.wrap{grid-template-columns:minmax(0,1fr)}}
 
   /* ---------- responsive: 100% and 150% browser zoom ---------- */
   /* The stage is 16:9, so its HEIGHT is driven by its width. At high browser
@@ -221,11 +227,13 @@
 
   .fld{margin-bottom:13px}
   .fld label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:5px;letter-spacing:.02em}
-  .fld .row{display:flex;gap:8px;align-items:center}
-  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-  .seg button{border:0;background:var(--panel);color:var(--muted);padding:6px 10px;font-size:12px;cursor:pointer}
+  .fld .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .seg{display:inline-flex;flex-wrap:wrap;max-width:100%;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{border:0;background:var(--panel);color:var(--muted);padding:6px 10px;font-size:12px;cursor:pointer;white-space:nowrap}
   .seg button.on{background:var(--accent);color:#fff}
   .chk{display:flex;align-items:center;gap:8px;font-size:12.5px;cursor:pointer;padding:5px 0}
+  /* .fld label is a section heading; it must not also style these checkbox rows */
+  .fld label.chk{display:flex;font-size:12.5px;font-weight:400;color:var(--ink);margin-bottom:0;letter-spacing:normal}
   .chk input{accent-color:var(--accent);width:15px;height:15px}
   .hint{font-size:11.5px;color:var(--muted);line-height:1.65}
   code.k{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:11px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
