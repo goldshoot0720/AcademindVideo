@@ -1,0 +1,622 @@
+[
+ {
+  "start": 2.355,
+  "end": 5.222,
+  "en": "We had a look at iterators, which basically"
+ },
+ {
+  "start": 5.302,
+  "end": 7.69,
+  "en": "allowed us to make objects iterable, which"
+ },
+ {
+  "start": 7.802,
+  "end": 9.308,
+  "en": "means we can use them in loops."
+ },
+ {
+  "start": 9.868,
+  "end": 12.576,
+  "en": "Now we'll have a look at async iterators."
+ },
+ {
+  "start": 13.233,
+  "end": 16.229,
+  "en": "Async iterators are objects that have a next"
+ },
+ {
+  "start": 16.277,
+  "end": 16.581,
+  "en": "method,"
+ },
+ {
+  "start": 17.158,
+  "end": 20.586,
+  "en": "which now returns a promise though, which"
+ },
+ {
+  "start": 20.699,
+  "end": 23.102,
+  "en": "then eventually yields an object with a"
+ },
+ {
+  "start": 23.102,
+  "end": 24.624,
+  "en": "value and a done property."
+ },
+ {
+  "start": 25.329,
+  "end": 27.187,
+  "en": "Previously, we had objects with a next"
+ },
+ {
+  "start": 27.187,
+  "end": 29.286,
+  "en": "method that immediately returned an object"
+ },
+ {
+  "start": 29.35,
+  "end": 31.77,
+  "en": "with value and done. Now we have objects"
+ },
+ {
+  "start": 31.77,
+  "end": 33.868,
+  "en": "with a next method that return a promise"
+ },
+ {
+  "start": 33.885,
+  "end": 35.836,
+  "en": "which then yields value and done, and that's"
+ },
+ {
+  "start": 35.836,
+  "end": 36.714,
+  "en": "an important difference."
+ },
+ {
+  "start": 37.972,
+  "end": 39.949,
+  "en": "Async iterators can be used to make other"
+ },
+ {
+  "start": 40.125,
+  "end": 42.295,
+  "en": "objects async iterable"
+ },
+ {
+  "start": 43.919,
+  "end": 46.137,
+  "en": "with the async iterator symbol."
+ },
+ {
+  "start": 46.812,
+  "end": 48.911,
+  "en": "Now that's very cryptic. How does this work"
+ },
+ {
+  "start": 48.911,
+  "end": 50.332,
+  "en": "and how could it be useful?"
+ },
+ {
+  "start": 51.414,
+  "end": 53.013,
+  "en": "Let's go to the end of this file here"
+ },
+ {
+  "start": 53.578,
+  "end": 54.676,
+  "en": "and let's create our"
+ },
+ {
+  "start": 55.435,
+  "end": 55.564,
+  "en": "own"
+ },
+ {
+  "start": 56.243,
+  "end": 60.458,
+  "en": "async iterator. It's an object with a next"
+ },
+ {
+  "start": 60.458,
+  "end": 62.524,
+  "en": "method, and there we want to return a"
+ },
+ {
+  "start": 62.573,
+  "end": 64.946,
+  "en": "promise. So I'll create a new promise here,"
+ },
+ {
+  "start": 65.317,
+  "end": 67.093,
+  "en": "but we could also return the result of"
+ },
+ {
+  "start": 67.093,
+  "end": 67.384,
+  "en": "fetch."
+ },
+ {
+  "start": 68.533,
+  "end": 68.922,
+  "en": "Actually,"
+ },
+ {
+  "start": 69.828,
+  "end": 71.916,
+  "en": "now that I think about it, let me do that."
+ },
+ {
+  "start": 72.909,
+  "end": 73.974,
+  "en": "I'll go to my promise"
+ },
+ {
+  "start": 75.135,
+  "end": 77.007,
+  "en": "and I'll copy this code here,"
+ },
+ {
+  "start": 81.845,
+  "end": 86.972,
+  "en": "go back to app.js And here in next, I'll put"
+ },
+ {
+  "start": 87.02,
+  "end": 87.695,
+  "en": "that code in there"
+ },
+ {
+  "start": 88.645,
+  "end": 91.122,
+  "en": "and actually add async in front of next. You"
+ },
+ {
+  "start": 91.122,
+  "end": 92.747,
+  "en": "can do this here as well to make this an"
+ },
+ {
+  "start": 92.811,
+  "end": 94.988,
+  "en": "async function so that we can use await in"
+ },
+ {
+  "start": 94.988,
+  "end": 96.926,
+  "en": "here. Alternatively, we could have used the"
+ },
+ {
+  "start": 97.087,
+  "end": 98.493,
+  "en": "then-catch syntax in there."
+ },
+ {
+  "start": 99.952,
+  "end": 102.749,
+  "en": "Now next returns a promise, which is exactly"
+ },
+ {
+  "start": 102.765,
+  "end": 103.412,
+  "en": "what it should do,"
+ },
+ {
+  "start": 104.236,
+  "end": 106.969,
+  "en": "a promise which either throws an error— that"
+ },
+ {
+  "start": 106.969,
+  "end": 107.745,
+  "en": "could happen— or"
+ },
+ {
+  "start": 108.278,
+  "end": 110.326,
+  "en": "that simply does nothing in the end here."
+ },
+ {
+  "start": 110.471,
+  "end": 113.409,
+  "en": "Now that's a problem here. We should return"
+ },
+ {
+  "start": 113.698,
+  "end": 114.79,
+  "en": "an object instead."
+ },
+ {
+  "start": 115.545,
+  "end": 117.359,
+  "en": "We should return an object"
+ },
+ {
+  "start": 118.034,
+  "end": 120.619,
+  "en": "which has a value property and here that"
+ },
+ {
+  "start": 120.667,
+  "end": 122.61,
+  "en": "could be the extracted data we got by this"
+ },
+ {
+  "start": 122.61,
+  "end": 122.867,
+  "en": "point."
+ },
+ {
+  "start": 123.429,
+  "end": 125.741,
+  "en": "So let's remove the logs here and just"
+ },
+ {
+  "start": 125.741,
+  "end": 126.817,
+  "en": "extract it and return."
+ },
+ {
+  "start": 127.989,
+  "end": 128.262,
+  "en": "And then"
+ },
+ {
+  "start": 129.113,
+  "end": 129.787,
+  "en": "I can set done"
+ },
+ {
+  "start": 130.477,
+  "end": 132.517,
+  "en": "to true, for example, to indicate that I'm"
+ },
+ {
+  "start": 132.629,
+  "end": 132.758,
+  "en": "done."
+ },
+ {
+  "start": 135.133,
+  "end": 136.864,
+  "en": "Now next works the way it should."
+ },
+ {
+  "start": 137.457,
+  "end": 139.958,
+  "en": "It yields a promise which eventually returns"
+ },
+ {
+  "start": 140.102,
+  "end": 140.824,
+  "en": "such an object."
+ },
+ {
+  "start": 141.465,
+  "end": 144.158,
+  "en": "Now again, iterators are only really useful"
+ },
+ {
+  "start": 144.575,
+  "end": 146.723,
+  "en": "if we then have an iterable. So just as"
+ },
+ {
+  "start": 146.739,
+  "end": 149.929,
+  "en": "before, I'll create my own, or our own,"
+ },
+ {
+  "start": 150.666,
+  "end": 152.157,
+  "en": "AsyncIterable."
+ },
+ {
+  "start": 153.472,
+  "end": 154.786,
+  "en": "So that's now an object"
+ },
+ {
+  "start": 155.572,
+  "end": 158.746,
+  "en": "which uses Symbol.notIterator"
+ },
+ {
+  "start": 159.804,
+  "end": 160.621,
+  "en": "but Async"
+ },
+ {
+  "start": 163.196,
+  "end": 164.214,
+  "en": "iterator. Now that's a method"
+ },
+ {
+  "start": 165.308,
+  "end": 166.628,
+  "en": "which should return"
+ },
+ {
+  "start": 170.619,
+  "end": 172.785,
+  "en": "an object with a next method, so it should"
+ },
+ {
+  "start": 172.818,
+  "end": 175.318,
+  "en": "basically return such an async iterator."
+ },
+ {
+  "start": 177.39,
+  "end": 179.641,
+  "en": "So here I'll return this async iterator,"
+ },
+ {
+  "start": 181.593,
+  "end": 183.883,
+  "en": "and here in this object we could now have"
+ },
+ {
+  "start": 183.948,
+  "end": 186.32,
+  "en": "multiple URLs, let's say."
+ },
+ {
+  "start": 190.226,
+  "end": 191.903,
+  "en": "Where we have a URL like this,"
+ },
+ {
+  "start": 194.415,
+  "end": 195.77,
+  "en": "but then also the same with"
+ },
+ {
+  "start": 196.44,
+  "end": 197.076,
+  "en": "/2 at the end."
+ },
+ {
+  "start": 198.842,
+  "end": 200.581,
+  "en": "And again, we could have an index because"
+ },
+ {
+  "start": 200.613,
+  "end": 203.189,
+  "en": "iterables are always all about looping. So"
+ },
+ {
+  "start": 203.189,
+  "end": 204.671,
+  "en": "we have an index just as before,"
+ },
+ {
+  "start": 205.604,
+  "end": 208.1,
+  "en": "but now in next, I want to send requests to"
+ },
+ {
+  "start": 208.1,
+  "end": 209.286,
+  "en": "those different URLs."
+ },
+ {
+  "start": 210.115,
+  "end": 212.344,
+  "en": "So I'll first of all store this and that"
+ },
+ {
+  "start": 212.344,
+  "end": 214.898,
+  "en": "again just as before for the same reasons."
+ },
+ {
+  "start": 216.023,
+  "end": 217.466,
+  "en": "And then here inside of next,"
+ },
+ {
+  "start": 218.171,
+  "end": 219.421,
+  "en": "I increment index"
+ },
+ {
+  "start": 220.175,
+  "end": 220.64,
+  "en": "by 1."
+ },
+ {
+  "start": 221.954,
+  "end": 225.368,
+  "en": "But here to fetch, I then pass in that URLs"
+ },
+ {
+  "start": 225.946,
+  "end": 227.757,
+  "en": "for that index minus 1."
+ },
+ {
+  "start": 228.606,
+  "end": 230.835,
+  "en": "Again, same logic as before, but now I'm"
+ },
+ {
+  "start": 230.835,
+  "end": 231.845,
+  "en": "extracting a URL."
+ },
+ {
+  "start": 232.454,
+  "end": 234.538,
+  "en": "And now the interesting thing is now we're"
+ },
+ {
+  "start": 234.538,
+  "end": 236.878,
+  "en": "doing something asynchronous here"
+ },
+ {
+  "start": 238.305,
+  "end": 240.469,
+  "en": "and will therefore return a promise in next"
+ },
+ {
+  "start": 240.469,
+  "end": 241.799,
+  "en": "which yields such an object."
+ },
+ {
+  "start": 242.938,
+  "end": 244.607,
+  "en": "Now since it's an async function, we'll"
+ },
+ {
+  "start": 244.784,
+  "end": 247.031,
+  "en": "always return a promise. And here at the"
+ },
+ {
+  "start": 247.031,
+  "end": 249.294,
+  "en": "bottom, we return the promise for the case"
+ },
+ {
+  "start": 249.294,
+  "end": 250.786,
+  "en": "that we still have URLs."
+ },
+ {
+  "start": 251.525,
+  "end": 253.547,
+  "en": "But just as before, before I increment the"
+ },
+ {
+  "start": 253.547,
+  "end": 256.211,
+  "en": "index for the next time next is called, so"
+ },
+ {
+  "start": 256.211,
+  "end": 256.548,
+  "en": "to say,"
+ },
+ {
+  "start": 257.302,
+  "end": 258.747,
+  "en": "I wanna check whether"
+ },
+ {
+  "start": 259.405,
+  "end": 263.321,
+  "en": "that URL's length is equal to that index, in"
+ },
+ {
+  "start": 263.401,
+  "end": 264.123,
+  "en": "which case I know"
+ },
+ {
+  "start": 264.701,
+  "end": 267.927,
+  "en": "there won't be any items left thereafter."
+ },
+ {
+  "start": 268.557,
+  "end": 269.417,
+  "en": "So in that case,"
+ },
+ {
+  "start": 270.034,
+  "end": 272.941,
+  "en": "I'll yield an object where the value could"
+ },
+ {
+  "start": 273.022,
+  "end": 274.873,
+  "en": "be null and where done is true."
+ },
+ {
+  "start": 275.98,
+  "end": 277.916,
+  "en": "And down there, of course, it's false. We're"
+ },
+ {
+  "start": 277.916,
+  "end": 278.632,
+  "en": "not done yet."
+ },
+ {
+  "start": 280.632,
+  "end": 282.674,
+  "en": "And now we can loop through that as well."
+ },
+ {
+  "start": 283.526,
+  "end": 285.149,
+  "en": "So here we could name this"
+ },
+ {
+  "start": 286.564,
+  "end": 290.266,
+  "en": "request or response data of"
+ },
+ {
+  "start": 291.476,
+  "end": 293.719,
+  "en": "our own async iterable."
+ },
+ {
+  "start": 295.079,
+  "end": 297.47,
+  "en": "And console.log it, but now with a little"
+ },
+ {
+  "start": 297.583,
+  "end": 298.084,
+  "en": "twist."
+ },
+ {
+  "start": 298.714,
+  "end": 299.232,
+  "en": "Now here"
+ },
+ {
+  "start": 300.977,
+  "end": 303.546,
+  "en": "we add await in front of that, so we have a"
+ },
+ {
+  "start": 303.578,
+  "end": 306.431,
+  "en": "for-of loop with await inside of it."
+ },
+ {
+  "start": 307.188,
+  "end": 309.122,
+  "en": "And we actually need to wrap this with a"
+ },
+ {
+  "start": 309.122,
+  "end": 310.879,
+  "en": "function, at least here in regular"
+ },
+ {
+  "start": 310.879,
+  "end": 311.637,
+  "en": "JavaScript,"
+ },
+ {
+  "start": 312.51,
+  "end": 313.436,
+  "en": "async loop,"
+ },
+ {
+  "start": 315.143,
+  "end": 319.468,
+  "en": "because await is only available in async"
+ }
+]

@@ -33,6 +33,7 @@ STYLE = {
     "codex-the-practical-guide": ("#14b8a6", "#047857", "CDX"),
     "javascript-algorithms-the-fundamentals": ("#f7df1e", "#eab308", "JS"),
     "javascript-data-structures-the-fundamentals": ("#f7df1e", "#f97316", "DS"),
+    "deno-the-complete-introduction": ("#111827", "#06b6d4", "DN"),
 }
 
 

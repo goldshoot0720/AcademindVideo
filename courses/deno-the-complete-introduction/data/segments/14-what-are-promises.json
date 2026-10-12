@@ -1,0 +1,1327 @@
+[
+ {
+  "start": 2.182,
+  "end": 5.168,
+  "en": "Now let's dive right in and let's start with"
+ },
+ {
+  "start": 5.473,
+  "end": 8.266,
+  "en": "promises. So here we're in the JavaScript"
+ },
+ {
+  "start": 8.298,
+  "end": 11.845,
+  "en": "refresher part now, and promises are a core"
+ },
+ {
+  "start": 12.134,
+  "end": 14.365,
+  "en": "JavaScript feature, part of modern"
+ },
+ {
+  "start": 14.461,
+  "end": 17.415,
+  "en": "JavaScript, natively supported by modern"
+ },
+ {
+  "start": 17.511,
+  "end": 18.394,
+  "en": "JavaScript."
+ },
+ {
+  "start": 18.972,
+  "end": 21.588,
+  "en": "And a promise is in the end just an object"
+ },
+ {
+  "start": 22.021,
+  "end": 25.986,
+  "en": "that wraps the execution of asynchronous or"
+ },
+ {
+  "start": 26.291,
+  "end": 28.072,
+  "en": "synchronous code, you could say."
+ },
+ {
+  "start": 28.922,
+  "end": 31.614,
+  "en": "It's an object that's tied to a function"
+ },
+ {
+  "start": 31.63,
+  "end": 34.242,
+  "en": "which executes code, asynchronous or"
+ },
+ {
+  "start": 34.306,
+  "end": 37.062,
+  "en": "synchronous code, so code that finishes"
+ },
+ {
+  "start": 37.319,
+  "end": 39.706,
+  "en": "immediately or that takes a bit longer, so"
+ },
+ {
+  "start": 39.738,
+  "end": 40.123,
+  "en": "to say."
+ },
+ {
+  "start": 41.004,
+  "end": 43.312,
+  "en": "And a promise then is able to basically"
+ },
+ {
+  "start": 43.825,
+  "end": 47.318,
+  "en": "react to 2 results of that code execution:"
+ },
+ {
+  "start": 48.055,
+  "end": 50.523,
+  "en": "that the execution completed successfully."
+ },
+ {
+  "start": 50.955,
+  "end": 53.968,
+  "en": "In that case, you can schedule some code to"
+ },
+ {
+  "start": 54.0,
+  "end": 57.338,
+  "en": "be executed once the promise resolved"
+ },
+ {
+  "start": 57.386,
+  "end": 58.221,
+  "en": "successfully"
+ },
+ {
+  "start": 58.896,
+  "end": 61.803,
+  "en": "by calling the then method on the promise"
+ },
+ {
+  "start": 62.252,
+  "end": 65.481,
+  "en": "object and passing a callback to then that"
+ },
+ {
+  "start": 65.481,
+  "end": 68.42,
+  "en": "should execute once that wrapped operation"
+ },
+ {
+  "start": 68.452,
+  "end": 68.87,
+  "en": "finished,"
+ },
+ {
+  "start": 69.721,
+  "end": 72.821,
+  "en": "or that wrapped operation did not finish"
+ },
+ {
+  "start": 72.869,
+  "end": 75.968,
+  "en": "successfully, so it completed with an error."
+ },
+ {
+  "start": 76.627,
+  "end": 78.892,
+  "en": "In that case, the promise gives you another"
+ },
+ {
+  "start": 78.892,
+  "end": 80.723,
+  "en": "method where you can pass a callback"
+ },
+ {
+  "start": 80.739,
+  "end": 82.553,
+  "en": "function to, the catch method,"
+ },
+ {
+  "start": 83.147,
+  "end": 85.458,
+  "en": "and that allows you to execute code if the"
+ },
+ {
+  "start": 85.538,
+  "end": 87.528,
+  "en": "operation did not complete."
+ },
+ {
+  "start": 88.7,
+  "end": 92.263,
+  "en": "Now, both then and catch, so both these"
+ },
+ {
+  "start": 92.375,
+  "end": 94.992,
+  "en": "methods in the end automatically always"
+ },
+ {
+  "start": 95.008,
+  "end": 96.645,
+  "en": "return a new promise"
+ },
+ {
+  "start": 97.174,
+  "end": 100.063,
+  "en": "on which you again can listen with then and"
+ },
+ {
+  "start": 100.16,
+  "end": 102.439,
+  "en": "catch to success or failure."
+ },
+ {
+  "start": 103.594,
+  "end": 105.841,
+  "en": "That might be very abstract, so let's have a"
+ },
+ {
+  "start": 105.841,
+  "end": 106.949,
+  "en": "look at it in code."
+ },
+ {
+  "start": 107.782,
+  "end": 110.362,
+  "en": "Now to see this in code, I prepared a very"
+ },
+ {
+  "start": 110.362,
+  "end": 113.246,
+  "en": "simple starting project which is not a Deno"
+ },
+ {
+  "start": 113.471,
+  "end": 116.05,
+  "en": "project at all. That is just regular"
+ },
+ {
+  "start": 116.114,
+  "end": 118.486,
+  "en": "browser-side JavaScript, but what you learn"
+ },
+ {
+  "start": 118.502,
+  "end": 120.729,
+  "en": "here will apply exactly in the same way to"
+ },
+ {
+  "start": 120.745,
+  "end": 121.018,
+  "en": "Deno."
+ },
+ {
+  "start": 122.027,
+  "end": 124.062,
+  "en": "And you find this starting project attached."
+ },
+ {
+  "start": 124.511,
+  "end": 127.507,
+  "en": "It's a simple HTML skeleton where I import"
+ },
+ {
+  "start": 127.507,
+  "end": 129.382,
+  "en": "the app.js file, which is an empty"
+ },
+ {
+  "start": 129.478,
+  "end": 131.593,
+  "en": "JavaScript file. That's all we have here."
+ },
+ {
+  "start": 132.683,
+  "end": 134.269,
+  "en": "Now we can simply open this in"
+ },
+ {
+  "start": 135.01,
+  "end": 135.627,
+  "en": "the browser"
+ },
+ {
+  "start": 136.796,
+  "end": 139.035,
+  "en": "by double-clicking that index.html file,"
+ },
+ {
+  "start": 140.139,
+  "end": 141.648,
+  "en": "and this will then give you a blank page."
+ },
+ {
+  "start": 142.37,
+  "end": 144.064,
+  "en": "Now to get started with promises,"
+ },
+ {
+  "start": 144.645,
+  "end": 147.244,
+  "en": "we'll use an API made available by the"
+ },
+ {
+  "start": 147.244,
+  "end": 147.857,
+  "en": "browser"
+ },
+ {
+  "start": 148.599,
+  "end": 151.65,
+  "en": "which allows us to send an HTTP request, and"
+ },
+ {
+  "start": 151.65,
+  "end": 152.712,
+  "en": "we'll use jsonplaceholder.typeicode.com,"
+ },
+ {
+  "start": 155.87,
+  "end": 156.76,
+  "en": "which gives us a couple of"
+ },
+ {
+  "start": 157.343,
+  "end": 160.081,
+  "en": "endpoints, a couple of URLs we can send such"
+ },
+ {
+  "start": 160.129,
+  "end": 160.745,
+  "en": "a request to."
+ },
+ {
+  "start": 161.585,
+  "end": 163.32,
+  "en": "And actually, this here is pretty close to"
+ },
+ {
+  "start": 163.336,
+  "end": 164.348,
+  "en": "the code we're going to write."
+ },
+ {
+  "start": 165.28,
+  "end": 167.85,
+  "en": "So let's grab this URL. That will be the"
+ },
+ {
+  "start": 167.995,
+  "end": 170.388,
+  "en": "dummy URL to which we send the request."
+ },
+ {
+  "start": 171.127,
+  "end": 173.858,
+  "en": "And indeed, I will use this fetch method,"
+ },
+ {
+  "start": 174.26,
+  "end": 177.071,
+  "en": "which is available globally in the browser."
+ },
+ {
+  "start": 177.714,
+  "end": 180.686,
+  "en": "Fetch is a method that sends an HTTP"
+ },
+ {
+  "start": 180.702,
+  "end": 181.2,
+  "en": "request."
+ },
+ {
+  "start": 182.003,
+  "end": 184.381,
+  "en": "Now it needs the URL to which the request"
+ },
+ {
+  "start": 184.381,
+  "end": 185.136,
+  "en": "should be sent,"
+ },
+ {
+  "start": 185.682,
+  "end": 187.289,
+  "en": "and then it will give us access to the"
+ },
+ {
+  "start": 187.289,
+  "end": 190.388,
+  "en": "response. But as you can imagine, sending"
+ },
+ {
+  "start": 190.404,
+  "end": 193.294,
+  "en": "such an HTTP request simply can take a bit"
+ },
+ {
+  "start": 193.375,
+  "end": 193.776,
+  "en": "longer."
+ },
+ {
+  "start": 194.659,
+  "end": 196.698,
+  "en": "It needs to send the request to the server,"
+ },
+ {
+  "start": 197.084,
+  "end": 199.637,
+  "en": "the server needs to prepare the response and"
+ },
+ {
+  "start": 199.653,
+  "end": 200.905,
+  "en": "send back the response."
+ },
+ {
+  "start": 201.563,
+  "end": 204.261,
+  "en": "Therefore, fetch actually executes some"
+ },
+ {
+  "start": 204.534,
+  "end": 206.766,
+  "en": "asynchronous operation behind the scenes"
+ },
+ {
+  "start": 207.504,
+  "end": 211.229,
+  "en": "and it leverages promises to allow us as a"
+ },
+ {
+  "start": 211.278,
+  "end": 214.207,
+  "en": "developer to listen to the completion or the"
+ },
+ {
+  "start": 214.207,
+  "end": 216.349,
+  "en": "failure of those operations."
+ },
+ {
+  "start": 218.67,
+  "end": 221.994,
+  "en": "Fetch indeed returns a promise object. So"
+ },
+ {
+  "start": 222.01,
+  "end": 224.819,
+  "en": "fetch gives us such a promise object."
+ },
+ {
+  "start": 225.464,
+  "end": 227.772,
+  "en": "And as I mentioned on the slide, we can call"
+ },
+ {
+  "start": 227.95,
+  "end": 229.396,
+  "en": "then on the promise."
+ },
+ {
+  "start": 230.296,
+  "end": 232.337,
+  "en": "And I just placed it in a new line here."
+ },
+ {
+  "start": 232.562,
+  "end": 234.394,
+  "en": "It's the same as if I would have placed it"
+ },
+ {
+  "start": 234.394,
+  "end": 237.496,
+  "en": "here. I just placed it in a new line for"
+ },
+ {
+  "start": 237.496,
+  "end": 238.252,
+  "en": "better readability."
+ },
+ {
+  "start": 239.53,
+  "end": 242.106,
+  "en": "Then, then takes a function as an argument."
+ },
+ {
+  "start": 242.512,
+  "end": 244.631,
+  "en": "In this case, I'm passing in an anonymous"
+ },
+ {
+  "start": 244.824,
+  "end": 247.296,
+  "en": "arrow function, which is a regular function"
+ },
+ {
+  "start": 247.344,
+  "end": 248.259,
+  "en": "in JavaScript in the end."
+ },
+ {
+  "start": 249.254,
+  "end": 252.224,
+  "en": "And this function will be executed by this"
+ },
+ {
+  "start": 252.224,
+  "end": 252.722,
+  "en": "promise"
+ },
+ {
+  "start": 253.252,
+  "end": 255.82,
+  "en": "when the wrapped operation, which in this"
+ },
+ {
+  "start": 255.82,
+  "end": 258.309,
+  "en": "case is the sending of the HTTP request,"
+ },
+ {
+  "start": 258.549,
+  "end": 261.214,
+  "en": "completed, when it completed successfully to"
+ },
+ {
+  "start": 261.214,
+  "end": 261.84,
+  "en": "be precise."
+ },
+ {
+  "start": 262.418,
+  "end": 264.778,
+  "en": "Here we then get an argument and that will"
+ },
+ {
+  "start": 264.826,
+  "end": 266.929,
+  "en": "be the data the promise resolved to."
+ },
+ {
+  "start": 267.475,
+  "end": 269.209,
+  "en": "So in this case, that will be the response."
+ },
+ {
+  "start": 269.402,
+  "end": 271.392,
+  "en": "The promise will automatically pass the"
+ },
+ {
+  "start": 271.408,
+  "end": 274.138,
+  "en": "response it received as an argument to this"
+ },
+ {
+  "start": 274.138,
+  "end": 275.695,
+  "en": "function which we passed to then."
+ },
+ {
+  "start": 276.53,
+  "end": 278.055,
+  "en": "And in here we can then utilize the"
+ },
+ {
+  "start": 278.055,
+  "end": 278.601,
+  "en": "response."
+ },
+ {
+  "start": 279.677,
+  "end": 281.411,
+  "en": "Now we can, for example,"
+ },
+ {
+  "start": 282.807,
+  "end": 283.289,
+  "en": "get the"
+ },
+ {
+  "start": 284.172,
+  "end": 287.56,
+  "en": "response status code, which indicates"
+ },
+ {
+  "start": 287.608,
+  "end": 289.294,
+  "en": "whether the server sent us back"
+ },
+ {
+  "start": 290.434,
+  "end": 292.649,
+  "en": "useful data or if something went wrong on"
+ },
+ {
+  "start": 292.681,
+  "end": 294.094,
+  "en": "the server. So we can"
+ },
+ {
+  "start": 294.672,
+  "end": 297.032,
+  "en": "analyze that with help of the status code."
+ },
+ {
+  "start": 297.177,
+  "end": 298.397,
+  "en": "And here I'm just logging it."
+ },
+ {
+  "start": 299.93,
+  "end": 302.791,
+  "en": "Now it could also fail, for example, if we"
+ },
+ {
+  "start": 302.791,
+  "end": 304.344,
+  "en": "have no network connection."
+ },
+ {
+  "start": 305.242,
+  "end": 307.846,
+  "en": "And for that, we can add a catch method here"
+ },
+ {
+  "start": 308.039,
+  "end": 308.73,
+  "en": "after then,"
+ },
+ {
+  "start": 309.502,
+  "end": 311.415,
+  "en": "and the function we pass to catch will"
+ },
+ {
+  "start": 311.495,
+  "end": 314.376,
+  "en": "execute if any of the previous promises"
+ },
+ {
+  "start": 315.119,
+  "end": 315.394,
+  "en": "fail."
+ },
+ {
+  "start": 316.186,
+  "end": 318.093,
+  "en": "And here we then get the error with which"
+ },
+ {
+  "start": 318.206,
+  "end": 320.824,
+  "en": "they failed. We can console.log this"
+ },
+ {
+  "start": 321.583,
+  "end": 321.907,
+  "en": "as well."
+ },
+ {
+  "start": 323.862,
+  "end": 326.373,
+  "en": "Now what's important is is that both then"
+ },
+ {
+  "start": 326.629,
+  "end": 327.175,
+  "en": "and catch"
+ },
+ {
+  "start": 327.752,
+  "end": 331.137,
+  "en": "return new promises themselves. That's why"
+ },
+ {
+  "start": 331.137,
+  "end": 333.191,
+  "en": "we can call catch after then."
+ },
+ {
+  "start": 334.009,
+  "end": 336.72,
+  "en": "So just like fetch returns a promise, then"
+ },
+ {
+  "start": 336.912,
+  "end": 339.239,
+  "en": "and catch then also always return new"
+ },
+ {
+  "start": 339.239,
+  "end": 342.062,
+  "en": "promises. You of course then don't have to"
+ },
+ {
+  "start": 342.19,
+  "end": 344.821,
+  "en": "listen to those promises with then, but you"
+ },
+ {
+  "start": 344.853,
+  "end": 345.222,
+  "en": "can."
+ },
+ {
+  "start": 346.137,
+  "end": 348.27,
+  "en": "So even if you don't return anything in"
+ },
+ {
+  "start": 348.286,
+  "end": 350.019,
+  "en": "those anonymous functions on your own,"
+ },
+ {
+  "start": 350.548,
+  "end": 354.044,
+  "en": "then and catch always give you new promises,"
+ },
+ {
+  "start": 355.103,
+  "end": 357.652,
+  "en": "which then of course don't do anything"
+ },
+ {
+  "start": 357.828,
+  "end": 360.153,
+  "en": "asynchronous necessarily, which don't"
+ },
+ {
+  "start": 360.169,
+  "end": 362.542,
+  "en": "necessarily send a new request, but which"
+ },
+ {
+  "start": 362.574,
+  "end": 364.306,
+  "en": "simply resolve instantly."
+ },
+ {
+  "start": 365.621,
+  "end": 367.208,
+  "en": "But it is a promise object."
+ },
+ {
+  "start": 368.507,
+  "end": 370.014,
+  "en": "So in this case, if we save that,"
+ },
+ {
+  "start": 370.591,
+  "end": 372.579,
+  "en": "we go back to our page, and I open up the"
+ },
+ {
+  "start": 372.579,
+  "end": 374.76,
+  "en": "developer tools and the JavaScript console"
+ },
+ {
+  "start": 374.76,
+  "end": 375.77,
+  "en": "there, and I reload,"
+ },
+ {
+  "start": 376.427,
+  "end": 379.217,
+  "en": "we see 200 in this case, which is the status"
+ },
+ {
+  "start": 379.329,
+  "end": 382.31,
+  "en": "code sent back with the response and 200"
+ },
+ {
+  "start": 382.439,
+  "end": 385.018,
+  "en": "indicates that the request was successful."
+ },
+ {
+  "start": 386.204,
+  "end": 388.287,
+  "en": "If I, on the other hand, maybe mess up this"
+ },
+ {
+  "start": 388.287,
+  "end": 389.857,
+  "en": "URL here and save this"
+ },
+ {
+  "start": 390.77,
+  "end": 393.558,
+  "en": "and I reload, now we are in this error case."
+ },
+ {
+  "start": 394.295,
+  "end": 396.875,
+  "en": "I'm printing the error description here. So"
+ },
+ {
+  "start": 396.891,
+  "end": 398.413,
+  "en": "now we're in the catch block"
+ },
+ {
+  "start": 399.359,
+  "end": 402.083,
+  "en": "and I will revert this now. That is how"
+ },
+ {
+  "start": 402.227,
+  "end": 403.204,
+  "en": "promises work."
+ },
+ {
+  "start": 404.166,
+  "end": 406.777,
+  "en": "Now, instead of promises, you can also"
+ },
+ {
+  "start": 406.954,
+  "end": 409.086,
+  "en": "return something For example, here,"
+ },
+ {
+  "start": 409.679,
+  "end": 411.428,
+  "en": "the parsed response body."
+ },
+ {
+  "start": 412.005,
+  "end": 414.074,
+  "en": "You do parse it by calling JSON"
+ },
+ {
+  "start": 414.732,
+  "end": 416.801,
+  "en": "and that actually returns a new promise."
+ },
+ {
+  "start": 417.379,
+  "end": 419.881,
+  "en": "Now, I said that then also always returns a"
+ },
+ {
+  "start": 419.881,
+  "end": 422.015,
+  "en": "new promise and if you then return a new"
+ },
+ {
+  "start": 422.127,
+  "end": 424.26,
+  "en": "promise inside of that anonymous function,"
+ },
+ {
+  "start": 424.838,
+  "end": 427.661,
+  "en": "that default promise, which would always be"
+ },
+ {
+  "start": 427.661,
+  "end": 430.5,
+  "en": "returned, will be replaced by that promise"
+ },
+ {
+  "start": 430.533,
+  "end": 432.506,
+  "en": "you manually returned in there."
+ },
+ {
+  "start": 433.276,
+  "end": 435.233,
+  "en": "And then we can add another then block here"
+ },
+ {
+  "start": 435.682,
+  "end": 438.941,
+  "en": "to get the extracted data in this case"
+ },
+ {
+  "start": 439.776,
+  "end": 442.2,
+  "en": "and console.log that maybe."
+ },
+ {
+  "start": 443.468,
+  "end": 445.941,
+  "en": "And that here is a concept which is also"
+ },
+ {
+  "start": 445.941,
+  "end": 448.574,
+  "en": "sometimes called promise chaining because"
+ },
+ {
+  "start": 448.606,
+  "end": 451.512,
+  "en": "we're chaining handler after handler."
+ },
+ {
+  "start": 452.202,
+  "end": 454.787,
+  "en": "Here we first of all react to the response,"
+ },
+ {
+  "start": 455.108,
+  "end": 457.596,
+  "en": "then we react to the data extraction. And"
+ },
+ {
+  "start": 457.596,
+  "end": 460.55,
+  "en": "this catch here, this error function, will"
+ },
+ {
+  "start": 460.55,
+  "end": 463.633,
+  "en": "execute whenever any of these 3 prior"
+ },
+ {
+  "start": 463.777,
+  "end": 464.789,
+  "en": "promises fails."
+ },
+ {
+  "start": 465.729,
+  "end": 467.21,
+  "en": "So if I now save that and reload,"
+ },
+ {
+  "start": 467.838,
+  "end": 469.706,
+  "en": "we see the extracted data here."
+ },
+ {
+  "start": 470.882,
+  "end": 473.394,
+  "en": "Now that's a promise in a nutshell, and it"
+ },
+ {
+  "start": 473.394,
+  "end": 476.519,
+  "en": "really is a core JavaScript feature baked"
+ },
+ {
+  "start": 476.6,
+  "end": 477.921,
+  "en": "into JavaScript."
+ },
+ {
+  "start": 478.629,
+  "end": 481.19,
+  "en": "Now besides those built-in promises like"
+ },
+ {
+  "start": 481.207,
+  "end": 484.201,
+  "en": "fetch, you can also build your own promises."
+ },
+ {
+  "start": 486.021,
+  "end": 487.816,
+  "en": "So let's build our own promise now,"
+ },
+ {
+  "start": 488.673,
+  "end": 491.115,
+  "en": "and for that I'll have my own promise here"
+ },
+ {
+  "start": 491.752,
+  "end": 493.966,
+  "en": "by calling new Promise."
+ },
+ {
+  "start": 494.72,
+  "end": 497.737,
+  "en": "JavaScript comes with this Promise class,"
+ },
+ {
+  "start": 497.929,
+  "end": 499.902,
+  "en": "with this Promise constructor function,"
+ },
+ {
+  "start": 500.496,
+  "end": 502.373,
+  "en": "and we can instantiate it like this to get a"
+ },
+ {
+  "start": 502.421,
+  "end": 503.464,
+  "en": "Promise object."
+ },
+ {
+  "start": 504.186,
+  "end": 506.993,
+  "en": "Now I mentioned that such a Promise object"
+ },
+ {
+  "start": 507.218,
+  "end": 509.705,
+  "en": "needs to wrap some code that should be"
+ },
+ {
+  "start": 509.705,
+  "end": 512.641,
+  "en": "executed, and that can be synchronous or"
+ },
+ {
+  "start": 512.913,
+  "end": 515.095,
+  "en": "asynchronous code. So it can be code that"
+ },
+ {
+  "start": 515.095,
+  "end": 516.86,
+  "en": "takes a bit longer or that finishes"
+ },
+ {
+  "start": 516.86,
+  "end": 519.568,
+  "en": "immediately. To tell the promise which code"
+ },
+ {
+  "start": 519.568,
+  "end": 522.661,
+  "en": "it should execute, we pass a function to the"
+ },
+ {
+  "start": 522.773,
+  "end": 523.077,
+  "en": "promise."
+ },
+ {
+  "start": 523.734,
+  "end": 525.753,
+  "en": "And in that function, we have the code that"
+ },
+ {
+  "start": 525.753,
+  "end": 527.804,
+  "en": "should be wrapped by the promise."
+ },
+ {
+  "start": 528.38,
+  "end": 531.136,
+  "en": "Here, for example, I could set a timeout"
+ },
+ {
+  "start": 531.761,
+  "end": 533.668,
+  "en": "with the built-in setTimeout function,"
+ },
+ {
+  "start": 534.485,
+  "end": 536.6,
+  "en": "and that takes a callback function, then"
+ },
+ {
+  "start": 537.609,
+  "end": 539.291,
+  "en": "this function here as a first argument,"
+ },
+ {
+  "start": 539.692,
+  "end": 541.358,
+  "en": "which should execute once the timer"
+ },
+ {
+  "start": 541.358,
+  "end": 541.903,
+  "en": "completed."
+ },
+ {
+  "start": 542.912,
+  "end": 546.213,
+  "en": "Now we just need to let the wrapping promise"
+ },
+ {
+  "start": 546.325,
+  "end": 546.565,
+  "en": "know"
+ },
+ {
+  "start": 547.126,
+  "end": 549.788,
+  "en": "once our wrapped operation is done."
+ },
+ {
+  "start": 550.51,
+  "end": 553.14,
+  "en": "And for that, to this function which we pass"
+ },
+ {
+  "start": 553.14,
+  "end": 554.407,
+  "en": "to the promise constructor,"
+ },
+ {
+  "start": 554.984,
+  "end": 558.464,
+  "en": "we can pass 2 parameters, and the values for"
+ },
+ {
+  "start": 558.512,
+  "end": 559.346,
+  "en": "those parameters"
+ },
+ {
+  "start": 559.875,
+  "end": 562.265,
+  "en": "will be provided by the promise,"
+ },
+ {
+  "start": 563.018,
+  "end": 565.071,
+  "en": "and that's the resolve and the reject"
+ },
+ {
+  "start": 565.424,
+  "end": 565.873,
+  "en": "function."
+ },
+ {
+  "start": 566.482,
+  "end": 568.792,
+  "en": "So we get 2 parameters here,"
+ },
+ {
+  "start": 569.337,
+  "end": 571.069,
+  "en": "each of them will get a"
+ },
+ {
+  "start": 571.662,
+  "end": 574.342,
+  "en": "function argument by the promise"
+ },
+ {
+  "start": 574.55,
+  "end": 575.177,
+  "en": "automatically,"
+ },
+ {
+  "start": 575.771,
+  "end": 577.745,
+  "en": "and therefore we can call each of those"
+ },
+ {
+  "start": 577.938,
+  "end": 579.19,
+  "en": "inside of the promise."
+ },
+ {
+  "start": 579.88,
+  "end": 581.887,
+  "en": "So here we can call resolve inside of the"
+ },
+ {
+  "start": 581.887,
+  "end": 584.745,
+  "en": "setTimeout function and then resolve to a"
+ },
+ {
+  "start": 584.761,
+  "end": 587.891,
+  "en": "value of our choice, to a number or for"
+ },
+ {
+  "start": 587.891,
+  "end": 588.983,
+  "en": "example to a string,"
+ },
+ {
+  "start": 589.577,
+  "end": 591.15,
+  "en": "timer completed."
+ },
+ {
+  "start": 592.611,
+  "end": 594.923,
+  "en": "If we would call reject instead,"
+ },
+ {
+  "start": 595.758,
+  "end": 597.636,
+  "en": "we would basically throw an error"
+ },
+ {
+  "start": 598.246,
+  "end": 601.264,
+  "en": "and any catch blocks on that promise would"
+ },
+ {
+  "start": 601.296,
+  "end": 601.714,
+  "en": "trigger."
+ },
+ {
+  "start": 602.324,
+  "end": 604.266,
+  "en": "But I don't wanna reject here, I wanna"
+ },
+ {
+  "start": 604.266,
+  "end": 604.635,
+  "en": "resolve."
+ },
+ {
+  "start": 605.534,
+  "end": 608.407,
+  "en": "And the built-in promise returned by fetch"
+ },
+ {
+  "start": 608.921,
+  "end": 611.313,
+  "en": "basically just has code like this inside of"
+ },
+ {
+  "start": 611.313,
+  "end": 615.02,
+  "en": "it for sending an HTTP request. And then it"
+ },
+ {
+  "start": 615.02,
+  "end": 617.509,
+  "en": "basically just has an if check inside of it"
+ },
+ {
+  "start": 617.509,
+  "end": 619.403,
+  "en": "where it checks whether everything"
+ },
+ {
+  "start": 620.061,
+  "end": 622.308,
+  "en": "worked, in which case it resolves with the"
+ },
+ {
+  "start": 622.308,
+  "end": 625.454,
+  "en": "response, or whether an error occurred, in"
+ },
+ {
+  "start": 625.518,
+  "end": 627.621,
+  "en": "which case it rejects with that error."
+ },
+ {
+  "start": 627.782,
+  "end": 629.758,
+  "en": "That's how you can think about that built-in"
+ },
+ {
+  "start": 629.855,
+  "end": 630.272,
+  "en": "promise."
+ },
+ {
+  "start": 631.14,
+  "end": 633.55,
+  "en": "Here we have our own promise, and on that"
+ },
+ {
+  "start": 633.55,
+  "end": 636.7,
+  "en": "promise we can now again use then to react"
+ },
+ {
+  "start": 636.7,
+  "end": 638.708,
+  "en": "to the completion of the wrapped operation."
+ },
+ {
+  "start": 639.576,
+  "end": 641.97,
+  "en": "We pass a function to it, and here as an"
+ },
+ {
+  "start": 641.986,
+  "end": 644.863,
+  "en": "argument we get the data with which our"
+ },
+ {
+  "start": 644.895,
+  "end": 645.907,
+  "en": "promise resolves."
+ },
+ {
+  "start": 646.598,
+  "end": 649.539,
+  "en": "So in this case, for our own promise, we get"
+ },
+ {
+  "start": 649.539,
+  "end": 650.808,
+  "en": "that string eventually."
+ },
+ {
+  "start": 651.467,
+  "end": 653.508,
+  "en": "So here I can then console.log"
+ },
+ {
+  "start": 654.31,
+  "end": 654.936,
+  "en": "myData."
+ },
+ {
+  "start": 655.978,
+  "end": 658.61,
+  "en": "And if we save that and reload, we don't"
+ },
+ {
+  "start": 658.61,
+  "end": 661.754,
+  "en": "just get the HTTP response but also timer"
+ },
+ {
+  "start": 661.754,
+  "end": 663.535,
+  "en": "completed after 1 second."
+ },
+ {
+  "start": 664.707,
+  "end": 666.808,
+  "en": "Now of course that's just a dummy promise."
+ },
+ {
+  "start": 667.033,
+  "end": 669.905,
+  "en": "This isn't any useful code, but this shows"
+ },
+ {
+  "start": 669.937,
+  "end": 672.52,
+  "en": "you what promises are and how they work."
+ },
+ {
+  "start": 673.066,
+  "end": 675.376,
+  "en": "And we'll see promises a lot throughout this"
+ },
+ {
+  "start": 675.376,
+  "end": 677.061,
+  "en": "course. Therefore, you really need to"
+ },
+ {
+  "start": 677.061,
+  "end": 678.521,
+  "en": "understand this feature."
+ }
+]

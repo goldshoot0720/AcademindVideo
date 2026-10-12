@@ -25,6 +25,14 @@ def cfg():
         return json.load(f)
 
 
+def default_bv(c):
+    """`bv` may be a bare string or a list; used when a part carries no bv."""
+    bv = c.get("bv")
+    if isinstance(bv, (list, tuple)):
+        return bv[0] if bv else ""
+    return bv or ""
+
+
 def run(cmd, **kw):
     return subprocess.run(cmd, capture_output=True, text=True, **kw)
 
@@ -69,7 +77,7 @@ def main():
     ap.add_argument("--max-height", type=int, default=720)
     args = ap.parse_args()
 
-    bv = cfg()["bv"]
+    fallback_bv = default_bv(cfg())
     b = json.load(open("data/bili.json", encoding="utf-8"))
     os.makedirs("video", exist_ok=True)
     os.makedirs("audio", exist_ok=True)
@@ -81,7 +89,8 @@ def main():
     ok = fail = 0
     for i, p in enumerate(parts, 1):
         label = f"#{p.get('lectureNumber') or '--':>2} p{p['page']:02d} {p['slug']}"
-        good, note = download_part(bv, p, args.max_height, args.audio_only)
+        good, note = download_part(p.get("bv") or fallback_bv, p,
+                                   args.max_height, args.audio_only)
         if good:
             ok += 1
             print(f"  [{i:2d}/{len(parts)}] OK  {label}  {note}", flush=True)

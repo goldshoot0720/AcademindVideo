@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Read the Bilibili mirror's part list and map it onto the course lectures.
 
-Reads course.json for the mirror BV id. Parts carry the original lecture
-titles, so the mapping is done by normalised title (with the part's own
-leading number as a tie-breaker for repeated titles like "Module Introduction").
+Reads course.json for the mirror BV id. `bv` may be a single id or a list of
+ids -- some courses are uploaded as several videos ("... part1", "... part2"),
+and their parts are concatenated in the order given. Every part carries the bv
+it lives in, so download.py can build the right `?p=` URL.
 
-Output: data/bili.json  {bvid, title, owner, duration,
-        parts:[{page,cid,title,duration,slug,lectureNumber}]}
+Parts carry the original lecture titles, so the mapping is done by normalised
+title (with the part's own leading number as a tie-breaker for repeated titles
+like "Module Introduction").
+
+Output: data/bili.json  {bvid, title, owner, duration, partCount, mirrors:[...],
+        parts:[{bv,page,cid,title,duration,slug,lectureNumber,lectureTitle}]}
 """
 import json
 import os
@@ -21,6 +26,14 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 def cfg():
     with open("course.json", encoding="utf-8") as f:
         return json.load(f)
+
+
+def bv_list(c):
+    """`bv` may be a bare string or a list of mirror ids."""
+    bv = c.get("bv") or []
+    if isinstance(bv, str):
+        bv = [bv]
+    return [b for b in bv if b]
 
 
 def fetch_initial_state(page_url):
@@ -53,14 +66,17 @@ def norm(t):
     t = t.lower()
     t = re.sub(r"^\d+([-.]\d+)?\s*[-.):]*\s*", "", t)  # leading "1. ", "1-1 -", "12 -"
     t = re.sub(r"\s*\d+k\s*$", "", t)                  # trailing bitrate "3355K"
-    t = re.sub(r"[^a-z0-9]+", " ", t)                  # drop quotes, _ , / , ? , - ...
+    # The mirror drops punctuation the course keeps (and vice versa): "Deno's"
+    # -> "Denos", "Node.js" -> "Nodejs", "Cross-Origin" -> "CrossOrigin". Erase
+    # apostrophes/dots/hyphens outright so both spellings collapse together.
+    t = re.sub(r"['\u2019.\-]", "", t)
+    t = re.sub(r"[^a-z0-9]+", " ", t)                  # drop quotes, _ , / , ? ...
     t = re.sub(r"\s+", " ", t)
     return t.strip()
 
 
-def main():
-    c = cfg()
-    bv = c["bv"]
+def read_mirror(bv):
+    """Fetch one mirror -> (videoData, [part dicts]) with a per-part `bv`."""
     page_url = f"https://www.bilibili.com/video/{bv}/"
     state = fetch_initial_state(page_url)
     v = state["videoData"]
@@ -69,6 +85,7 @@ def main():
         title = re.sub(r"\s*\d+K\s*$", "", p["part"]).strip()
         num = re.match(r"^(\d+)\.", title)
         parts.append({
+            "bv": bv,
             "page": p["page"],
             "cid": p["cid"],
             "title": title,
@@ -76,6 +93,26 @@ def main():
             "key": norm(title),
             "number": int(num.group(1)) if num else None,
         })
+    return v, parts, page_url
+
+
+def main():
+    c = cfg()
+    bvs = bv_list(c)
+    if not bvs:
+        raise SystemExit("course.json has no 'bv'")
+
+    parts = []
+    mirrors = []
+    for bv in bvs:
+        v, ps, page_url = read_mirror(bv)
+        parts.extend(ps)
+        mirrors.append({
+            "bvid": v["bvid"], "title": v["title"],
+            "owner": v["owner"]["name"], "url": page_url,
+            "duration": v["duration"], "partCount": len(ps),
+        })
+        print(f"  {bv}: {len(ps)} parts — {v['title']}")
 
     lib = json.load(open("data/lessons.json", encoding="utf-8"))
     by_number = {l["number"]: l for l in lib["lessons"]}
@@ -86,7 +123,7 @@ def main():
     matched = 0
     pointers = {}      # normalised title -> next unassigned candidate index
     used = set()       # lecture numbers already claimed by a part
-    for p in parts:
+    for i, p in enumerate(parts):
         cands = by_key.get(p["key"], [])
         l = None
         # Repeated titles (e.g. "Module Introduction") keep their relative order
@@ -111,7 +148,7 @@ def main():
             p["lectureTitle"] = l["title"]
             matched += 1
         else:
-            p["slug"] = f"part-{p['page']:02d}"
+            p["slug"] = f"part-{i + 1:03d}"
             p["lectureNumber"] = None
             p["lectureTitle"] = None
 
@@ -121,8 +158,8 @@ def main():
     # video, then fix any adjacent pair whose durations are clearly swapped.
     if matched < len(parts) * 0.5:
         vid = [l for l in lib["lessons"] if l.get("duration")]
-        assign = {p["page"]: (vid[i] if i < len(vid) else None)
-                  for i, p in enumerate(parts)}
+        assign = {i: (vid[i] if i < len(vid) else None)
+                  for i in range(len(parts))}
 
         def secs(d):
             try:
@@ -134,7 +171,7 @@ def main():
         for _ in range(3):
             for i in range(len(parts) - 1):
                 pi, pj = parts[i], parts[i + 1]
-                li, lj = assign.get(pi["page"]), assign.get(pj["page"])
+                li, lj = assign.get(i), assign.get(i + 1)
                 if not li or not lj:
                     continue
                 di, dj = secs(li.get("duration")), secs(lj.get("duration"))
@@ -143,37 +180,44 @@ def main():
                 cur = abs(pi["duration"] - di) + abs(pj["duration"] - dj)
                 swp = abs(pi["duration"] - dj) + abs(pj["duration"] - di)
                 if swp + 60 < cur:          # only obvious swaps
-                    assign[pi["page"]], assign[pj["page"]] = lj, li
+                    assign[i], assign[i + 1] = lj, li
 
         matched = 0
-        for p in parts:
-            l = assign.get(p["page"])
+        for i, p in enumerate(parts):
+            l = assign.get(i)
             if l:
                 p["lectureNumber"] = l["number"]
                 p["slug"] = l["slug"]
                 p["lectureTitle"] = l["title"]
                 matched += 1
             else:
-                p["slug"] = f"part-{p['page']:02d}"
+                p["slug"] = f"part-{i + 1:03d}"
                 p["lectureNumber"] = None
                 p["lectureTitle"] = None
         print(f"title match failed -> positional mapping: {matched}/{len(parts)} parts")
 
+    total_duration = sum(m["duration"] for m in mirrors)
+    title = " + ".join(m["title"] for m in mirrors) if len(mirrors) > 1 else mirrors[0]["title"]
     out = {
-        "bvid": v["bvid"], "aid": v["aid"], "title": v["title"],
-        "owner": v["owner"]["name"], "url": page_url,
-        "duration": v["duration"], "partCount": len(parts),
+        "bvid": mirrors[0]["bvid"],
+        "aid": None,
+        "title": title,
+        "owner": mirrors[0]["owner"],
+        "url": mirrors[0]["url"],
+        "duration": total_duration,
+        "partCount": len(parts),
+        "mirrors": mirrors,
         "parts": parts,
     }
     os.makedirs("data", exist_ok=True)
     json.dump(out, open("data/bili.json", "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
 
-    print(f"{v['title']} — {len(parts)} parts, {v['duration'] // 60} min, "
+    print(f"{title} — {len(parts)} parts, {total_duration // 60} min, "
           f"matched {matched} to lectures")
     for p in parts:
         flag = " " if p["lectureTitle"] else "?"
-        print(f" {flag} p{p['page']:02d} #{p['lectureNumber'] or '--':>2} "
+        print(f" {flag} {p['bv']} p{p['page']:02d} #{p['lectureNumber'] or '--':>2} "
               f"[{p['duration']:>4}s] {p['title'][:52]}")
     covered = {p.get("lectureNumber") for p in parts}
     missing = [f"{l['number']}. {l['title']}" for l in lib["lessons"]

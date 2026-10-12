@@ -1,0 +1,579 @@
+1
+00:00:02,261 --> 00:00:04,604
+Okay, let's now wire up our function to our
+
+2
+00:00:04,604 --> 00:00:05,165
+form here.
+
+3
+00:00:06,047 --> 00:00:09,368
+For that, I'll add IDs to those inputs, num1
+
+4
+00:00:10,283 --> 00:00:10,587
+and
+
+5
+00:00:11,422 --> 00:00:11,919
+num2,
+
+6
+00:00:12,705 --> 00:00:15,111
+so that in our app.ts file we can get access
+
+7
+00:00:15,111 --> 00:00:18,849
+to those elements. num1 element is, for
+
+8
+00:00:18,865 --> 00:00:19,988
+example, accessed with
+
+9
+00:00:19,988 --> 00:00:22,122
+document.getElementById num1.
+
+10
+00:00:22,731 --> 00:00:25,218
+That's some default JavaScript code which we
+
+11
+00:00:25,218 --> 00:00:27,626
+can run in TypeScript. And that's the next
+
+12
+00:00:27,626 --> 00:00:30,631
+important takeaway. TypeScript builds up on
+
+13
+00:00:30,743 --> 00:00:33,796
+JavaScript. This means that any JavaScript
+
+14
+00:00:33,796 --> 00:00:35,628
+code works in TypeScript files.
+
+15
+00:00:36,367 --> 00:00:38,921
+You can learn TypeScript by simply sticking
+
+16
+00:00:38,954 --> 00:00:41,476
+to what you know, and then you add types
+
+17
+00:00:41,701 --> 00:00:44,561
+step by step. Maybe you find some place
+
+18
+00:00:44,561 --> 00:00:46,457
+where you can use some advanced TypeScript
+
+19
+00:00:46,489 --> 00:00:48,466
+feature you heard about, but in a nutshell,
+
+20
+00:00:48,578 --> 00:00:51,004
+you can always just write JavaScript code
+
+21
+00:00:51,470 --> 00:00:54,287
+and it will work. Because TypeScript builds
+
+22
+00:00:54,319 --> 00:00:57,218
+up on JavaScript, all JavaScript code is
+
+23
+00:00:57,348 --> 00:00:58,472
+supported in TypeScript.
+
+24
+00:01:00,212 --> 00:01:02,687
+Therefore, we can use this regular
+
+25
+00:01:02,847 --> 00:01:05,403
+JavaScript code for selecting the num1
+
+26
+00:01:05,435 --> 00:01:05,692
+element.
+
+27
+00:01:06,303 --> 00:01:08,585
+We can duplicate this to get access to the
+
+28
+00:01:08,585 --> 00:01:09,438
+num2 element.
+
+29
+00:01:10,420 --> 00:01:13,045
+We can get access to our button element by
+
+30
+00:01:13,061 --> 00:01:14,494
+reaching out to the button with
+
+31
+00:01:14,527 --> 00:01:16,942
+document.querySelector and selecting the
+
+32
+00:01:16,942 --> 00:01:18,247
+first button which we find.
+
+33
+00:01:19,578 --> 00:01:20,808
+And then we can add a
+
+34
+00:01:21,359 --> 00:01:23,058
+listener, an event listener to button
+
+35
+00:01:23,058 --> 00:01:25,616
+element by calling addEventListener on it.
+
+36
+00:01:27,226 --> 00:01:28,483
+Add a click event listener
+
+37
+00:01:31,418 --> 00:01:33,499
+and define the function that should execute
+
+38
+00:01:33,596 --> 00:01:34,628
+when the button is clicked.
+
+39
+00:01:35,610 --> 00:01:37,781
+Now something interesting you see here is
+
+40
+00:01:37,958 --> 00:01:40,836
+that my IDE knows that I can call
+
+41
+00:01:41,094 --> 00:01:43,088
+addEventListener on the button element.
+
+42
+00:01:43,989 --> 00:01:46,403
+To us, this might be clear. We know that we
+
+43
+00:01:46,403 --> 00:01:48,598
+select a button and we know that the button
+
+44
+00:01:48,726 --> 00:01:50,906
+DOM element has the addEventListener method.
+
+45
+00:01:51,691 --> 00:01:53,438
+But why does my IDE know this?
+
+46
+00:01:54,319 --> 00:01:56,499
+In the end, because of TypeScript.
+
+47
+00:01:57,059 --> 00:01:59,335
+Because it knows that when we select a
+
+48
+00:01:59,463 --> 00:02:00,970
+button with querySelector,
+
+49
+00:02:01,627 --> 00:02:04,495
+what we'll get back is an HTML button
+
+50
+00:02:04,575 --> 00:02:07,155
+element. If I hover over button element, you
+
+51
+00:02:07,155 --> 00:02:09,847
+see here that's something which is called
+
+52
+00:02:10,040 --> 00:02:11,562
+the inferred type.
+
+53
+00:02:12,267 --> 00:02:14,847
+We didn't define this type explicitly.
+
+54
+00:02:15,552 --> 00:02:18,645
+I didn't add colon HTML button element here,
+
+55
+00:02:19,014 --> 00:02:19,542
+though I could.
+
+56
+00:02:20,376 --> 00:02:21,690
+But we don't need to do this here
+
+57
+00:02:22,219 --> 00:02:25,343
+because TypeScript is able to infer types.
+
+58
+00:02:25,664 --> 00:02:28,051
+And it's really smart regarding that. It's
+
+59
+00:02:28,132 --> 00:02:30,728
+able to find out which type of value will
+
+60
+00:02:30,856 --> 00:02:33,003
+eventually be stored in this constant
+
+61
+00:02:33,195 --> 00:02:34,910
+because of this code here.
+
+62
+00:02:35,519 --> 00:02:36,865
+And that's pretty nice, of course.
+
+63
+00:02:38,168 --> 00:02:40,397
+So it knows we'll eventually have a button
+
+64
+00:02:40,511 --> 00:02:42,545
+in there, and that's why it knows that we
+
+65
+00:02:42,626 --> 00:02:44,074
+can call addEventListener.
+
+66
+00:02:46,090 --> 00:02:48,066
+Now here inside the event listener, I now
+
+67
+00:02:48,194 --> 00:02:51,022
+wanna extract the values from num1 and num2
+
+68
+00:02:51,086 --> 00:02:51,520
+element.
+
+69
+00:02:52,146 --> 00:02:53,046
+So here I got my
+
+70
+00:02:53,898 --> 00:02:54,428
+num1
+
+71
+00:02:55,119 --> 00:02:56,292
+by reaching out to num1
+
+72
+00:02:57,113 --> 00:02:57,628
+element,
+
+73
+00:02:58,175 --> 00:02:58,610
+and then there
+
+74
+00:02:59,624 --> 00:03:02,569
+I want to access the value property.
+
+75
+00:03:04,124 --> 00:03:06,242
+Now my IDE does not like this here.
+
+76
+00:03:07,494 --> 00:03:10,560
+The reason for that is that not every HTML
+
+77
+00:03:10,768 --> 00:03:12,710
+element has a value property.
+
+78
+00:03:13,352 --> 00:03:15,567
+Input elements have value properties,
+
+79
+00:03:16,001 --> 00:03:17,670
+paragraphs for example don't.
+
+80
+00:03:18,569 --> 00:03:21,923
+So we need to convince TypeScript that what
+
+81
+00:03:21,923 --> 00:03:25,149
+we get access to here will be an input. For
+
+82
+00:03:25,165 --> 00:03:26,882
+the button, it knew that it's a button
+
+83
+00:03:26,915 --> 00:03:29,001
+because we querySelect by the button tag.
+
+84
+00:03:29,402 --> 00:03:32,366
+Here we select by ID, so TypeScript has no
+
+85
+00:03:32,366 --> 00:03:34,674
+chance of knowing which kind of element will
+
+86
+00:03:34,754 --> 00:03:35,587
+have those IDs.
+
+87
+00:03:36,532 --> 00:03:38,295
+But we can do something else related to
+
+88
+00:03:38,295 --> 00:03:40,586
+types, which is called typecasting.
+
+89
+00:03:41,404 --> 00:03:44,432
+If we as a developer know with certainty
+
+90
+00:03:45,009 --> 00:03:47,508
+that something is of a certain type,
+
+91
+00:03:48,230 --> 00:03:50,761
+we can use the special as keyword, which is
+
+92
+00:03:50,857 --> 00:03:53,982
+added by TypeScript, to tell TypeScript that
+
+93
+00:03:53,982 --> 00:03:56,161
+what we select here will be of that type.
+
+94
+00:03:56,642 --> 00:03:59,721
+And here it will be of the HTMLInputElement
+
+95
+00:03:59,769 --> 00:04:00,026
+type.
+
+96
+00:04:00,811 --> 00:04:02,703
+We can do this on both these elements.
+
+97
+00:04:03,601 --> 00:04:04,547
+Now these types here,
+
+98
+00:04:05,125 --> 00:04:08,717
+HTMLInputElement, HTMLButtonElement, these
+
+99
+00:04:08,893 --> 00:04:11,603
+are general types which are built into
+
+100
+00:04:11,635 --> 00:04:13,784
+TypeScript, so to say. You can always use
+
+101
+00:04:13,784 --> 00:04:15,836
+them just like you can use number and so on.
+
+102
+00:04:16,125 --> 00:04:18,562
+These are some general DOM types which are
+
+103
+00:04:18,594 --> 00:04:20,134
+available in TypeScript.
+
+104
+00:04:21,176 --> 00:04:23,565
+And with that, now we can access value here.
+
+105
+00:04:24,046 --> 00:04:25,907
+Because now we know that there will be a
+
+106
+00:04:25,987 --> 00:04:28,570
+value property on this DOM object.
+
+107
+00:04:29,501 --> 00:04:32,725
+We also get num2 with num2Element.value.
+
+108
+00:04:33,928 --> 00:04:35,436
+And now we can call add,
+
+109
+00:04:36,030 --> 00:04:38,966
+or we can get our result by calling add and
+
+110
+00:04:38,982 --> 00:04:40,698
+passing in num1 and num2.
+
+111
+00:04:41,292 --> 00:04:43,923
+And now again, TypeScript saves our ass.
+
+112
+00:04:44,420 --> 00:04:46,489
+This is the bug I mentioned earlier, which
+
+113
+00:04:46,521 --> 00:04:48,832
+would be easy to introduce. You get the
+
+114
+00:04:48,848 --> 00:04:50,099
+value entered by the user
+
+115
+00:04:50,692 --> 00:04:52,744
+And since the user enters numbers here, you
+
+116
+00:04:52,776 --> 00:04:54,781
+expect that you get numbers here.
+
+117
+00:04:55,422 --> 00:04:56,111
+But value
+
+118
+00:04:56,688 --> 00:05:00,103
+actually always returns a string. Here,
+
+119
+00:05:00,472 --> 00:05:02,701
+that's the return type of this property.
+
+120
+00:05:02,781 --> 00:05:04,561
+It's the type of value stored in this
+
+121
+00:05:04,561 --> 00:05:07,559
+property. And this is always, under all
+
+122
+00:05:08,008 --> 00:05:09,819
+circumstances, a string.
+
+123
+00:05:11,134 --> 00:05:12,705
+Now here we need numbers.
+
+124
+00:05:13,475 --> 00:05:16,377
+So here the fix is easy. We convert this.
+
+125
+00:05:16,746 --> 00:05:18,878
+But now we are forced to make that
+
+126
+00:05:18,910 --> 00:05:22,297
+conversion and we can't forget or overlook
+
+127
+00:05:22,361 --> 00:05:24,705
+it. And that's all TypeScript is about in a
+
+128
+00:05:24,705 --> 00:05:27,290
+nutshell. We are forced to write cleaner
+
+129
+00:05:27,323 --> 00:05:27,628
+code.
+
+130
+00:05:28,768 --> 00:05:31,337
+Well, and then I can console.log the result
+
+131
+00:05:31,337 --> 00:05:31,513
+here.
+
+132
+00:05:32,461 --> 00:05:33,215
+With all of that,
+
+133
+00:05:33,761 --> 00:05:34,275
+let's again
+
+134
+00:05:35,447 --> 00:05:37,021
+run tsc app.ts.
+
+135
+00:05:37,920 --> 00:05:39,076
+This compiles the code.
+
+136
+00:05:39,863 --> 00:05:41,709
+If we have a brief look at the code, you see
+
+137
+00:05:41,774 --> 00:05:44,616
+the as operator is gone, all the types are
+
+138
+00:05:44,680 --> 00:05:46,864
+gone. So this is JavaScript code we could
+
+139
+00:05:46,864 --> 00:05:49,306
+have written on our own But this is now code
+
+140
+00:05:49,660 --> 00:05:52,184
+which was checked in advance during
+
+141
+00:05:52,216 --> 00:05:54,531
+development here in our TypeScript version.
+
+142
+00:05:55,367 --> 00:05:57,473
+And now if I reload here and I enter 5 and
+
+143
+00:05:57,473 --> 00:06:03,438
+11, we get 16 and no unintended 115 or 511
+
+144
+00:06:04,210 --> 00:06:07,184
+because now we were forced to add this type
+
+145
+00:06:07,184 --> 00:06:07,843
+conversion here.

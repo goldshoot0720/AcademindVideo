@@ -1,0 +1,651 @@
+1
+00:00:02,195 --> 00:00:05,527
+Modern JavaScript gives us an alternative
+
+2
+00:00:05,639 --> 00:00:09,020
+promise handling syntax which we can also
+
+3
+00:00:09,068 --> 00:00:11,199
+use instead of then and catch,
+
+4
+00:00:12,289 --> 00:00:14,211
+and that's the async/await syntax.
+
+5
+00:00:15,012 --> 00:00:17,095
+It's also used by Deno, which is why I wanna
+
+6
+00:00:17,095 --> 00:00:17,768
+show it to you here,
+
+7
+00:00:18,297 --> 00:00:20,893
+and it's just syntactic sugar for promises.
+
+8
+00:00:20,941 --> 00:00:21,950
+That's really important.
+
+9
+00:00:23,184 --> 00:00:25,811
+Whenever you see async/await, and you'll see
+
+10
+00:00:25,811 --> 00:00:27,157
+it in action in just a second,
+
+11
+00:00:27,734 --> 00:00:28,407
+under the hood,
+
+12
+00:00:29,113 --> 00:00:31,764
+We have a promise with then and catch. We
+
+13
+00:00:31,764 --> 00:00:34,398
+just don't write that then and catch block
+
+14
+00:00:34,559 --> 00:00:36,904
+on our own. Instead, we use async await
+
+15
+00:00:36,904 --> 00:00:39,234
+because, as you will see, it's a bit easier
+
+16
+00:00:39,298 --> 00:00:41,932
+to write. It's nicer code, easier to read.
+
+17
+00:00:43,009 --> 00:00:45,980
+It makes asynchronous code, promise-based
+
+18
+00:00:45,980 --> 00:00:48,551
+code, look like synchronous code. It looks
+
+19
+00:00:48,551 --> 00:00:48,936
+like
+
+20
+00:00:49,498 --> 00:00:51,603
+we don't have those functions which we pass
+
+21
+00:00:51,603 --> 00:00:54,061
+to then. It looks like we just have lines of
+
+22
+00:00:54,093 --> 00:00:56,886
+code that execute after each other as we're
+
+23
+00:00:56,902 --> 00:00:57,271
+used to.
+
+24
+00:00:58,249 --> 00:01:00,204
+And in order to use async/await, we
+
+25
+00:01:00,268 --> 00:01:04,194
+typically require a function marked as async
+
+26
+00:01:04,194 --> 00:01:06,838
+with the async keyword, and then we can use
+
+27
+00:01:06,838 --> 00:01:10,011
+the await keyword inside of that function to
+
+28
+00:01:10,107 --> 00:01:12,735
+await for a promise to resolve.
+
+29
+00:01:13,328 --> 00:01:16,277
+I'm saying typically here because with Deno,
+
+30
+00:01:16,757 --> 00:01:17,927
+but also with modern
+
+31
+00:01:18,777 --> 00:01:20,027
+Node.js actually,
+
+32
+00:01:20,684 --> 00:01:23,251
+you also can use top-level await. You can
+
+33
+00:01:23,251 --> 00:01:25,596
+use the await keyword outside of async
+
+34
+00:01:25,596 --> 00:01:26,126
+functions.
+
+35
+00:01:26,801 --> 00:01:28,536
+But we're already diving into this a little
+
+36
+00:01:28,568 --> 00:01:29,387
+bit too deeply.
+
+37
+00:01:29,917 --> 00:01:32,696
+Let's first of all see what async await is
+
+38
+00:01:32,824 --> 00:01:35,298
+really all about and how the syntax looks
+
+39
+00:01:35,298 --> 00:01:35,555
+like.
+
+40
+00:01:36,342 --> 00:01:39,619
+So back here in this code, we got this fetch
+
+41
+00:01:39,731 --> 00:01:42,189
+function here. We got this fetch function
+
+42
+00:01:42,285 --> 00:01:44,358
+which then gives us this promise chain.
+
+43
+00:01:45,096 --> 00:01:47,859
+Now it is important to recognize that if we
+
+44
+00:01:47,907 --> 00:01:51,582
+log hello world here after the fetch
+
+45
+00:01:51,694 --> 00:01:52,255
+request,
+
+46
+00:01:52,896 --> 00:01:54,883
+you will actually see the result from that
+
+47
+00:01:54,899 --> 00:01:59,305
+log before you see that or this log message.
+
+48
+00:02:00,171 --> 00:02:00,956
+If we reload,
+
+49
+00:02:01,773 --> 00:02:04,129
+we see hello world first before we see the
+
+50
+00:02:04,129 --> 00:02:06,612
+status code or the extracted data.
+
+51
+00:02:07,237 --> 00:02:10,041
+And that's not by accident or because of a
+
+52
+00:02:10,041 --> 00:02:12,926
+bug, but that happens because JavaScript
+
+53
+00:02:13,006 --> 00:02:14,496
+execution doesn't pause.
+
+54
+00:02:15,233 --> 00:02:16,499
+It executes this line
+
+55
+00:02:17,076 --> 00:02:20,187
+and registers all those then handlers, you
+
+56
+00:02:20,203 --> 00:02:20,572
+could say,
+
+57
+00:02:21,326 --> 00:02:23,138
+but then it moves on right away to the next
+
+58
+00:02:23,186 --> 00:02:25,222
+line and to the next line and to the next
+
+59
+00:02:25,254 --> 00:02:25,463
+line.
+
+60
+00:02:26,297 --> 00:02:29,247
+And those handlers are only registered to
+
+61
+00:02:29,359 --> 00:02:32,486
+run at some point in the future once this
+
+62
+00:02:32,486 --> 00:02:34,491
+promise resolved. That's why we see this
+
+63
+00:02:34,491 --> 00:02:34,827
+first.
+
+64
+00:02:36,094 --> 00:02:38,067
+Now that is regular JavaScript.
+
+65
+00:02:38,981 --> 00:02:41,594
+Now using these then methods and passing
+
+66
+00:02:41,626 --> 00:02:44,433
+those callback functions to then can be a
+
+67
+00:02:44,497 --> 00:02:47,901
+bit cumbersome and you might not like this
+
+68
+00:02:48,029 --> 00:02:48,575
+syntax.
+
+69
+00:02:49,795 --> 00:02:51,930
+For that, you can use async await. And as I
+
+70
+00:02:51,994 --> 00:02:55,156
+said, you need a function marked as
+
+71
+00:02:55,333 --> 00:02:58,046
+asynchronous to use the await keyword in it,
+
+72
+00:02:58,463 --> 00:03:01,048
+at least at the moment in JavaScript. In
+
+73
+00:03:01,208 --> 00:03:01,690
+Deno,
+
+74
+00:03:02,316 --> 00:03:04,483
+which is also JavaScript but with extra
+
+75
+00:03:04,483 --> 00:03:07,517
+features, you will not need this extra async
+
+76
+00:03:07,533 --> 00:03:09,684
+function wrapper, but I'll come back to that
+
+77
+00:03:09,780 --> 00:03:11,209
+once we write some Deno code.
+
+78
+00:03:11,949 --> 00:03:14,509
+So here I'll add a function sendRequest
+
+79
+00:03:15,668 --> 00:03:18,018
+which simply holds all that fetch logic.
+
+80
+00:03:19,612 --> 00:03:21,045
+And then here I just call sendRequest.
+
+81
+00:03:22,422 --> 00:03:24,414
+And now we can actually add the async
+
+82
+00:03:24,414 --> 00:03:26,326
+keyword in front of that function
+
+83
+00:03:26,921 --> 00:03:28,318
+to tell JavaScript
+
+84
+00:03:28,849 --> 00:03:31,146
+that here we wanna use the await keyword
+
+85
+00:03:31,500 --> 00:03:32,435
+inside of that function.
+
+86
+00:03:33,261 --> 00:03:35,965
+Async functions by default return a promise.
+
+87
+00:03:36,030 --> 00:03:38,227
+That's important. Even if you don't have a
+
+88
+00:03:38,227 --> 00:03:40,122
+return statement in there, they always
+
+89
+00:03:40,219 --> 00:03:42,789
+return an empty promise then, but still a
+
+90
+00:03:42,789 --> 00:03:43,271
+promise.
+
+91
+00:03:43,914 --> 00:03:46,581
+And even more importantly for us here, we
+
+92
+00:03:46,581 --> 00:03:47,995
+can use this await keyword.
+
+93
+00:03:48,589 --> 00:03:49,602
+And how do we use it?
+
+94
+00:03:50,437 --> 00:03:52,622
+Well, instead of getting the response in
+
+95
+00:03:52,686 --> 00:03:52,959
+this
+
+96
+00:03:53,731 --> 00:03:54,807
+argument function here,
+
+97
+00:03:55,739 --> 00:03:57,345
+it would be nice if we could type
+
+98
+00:03:57,988 --> 00:04:00,623
+response equals fetch. So the result of
+
+99
+00:04:00,623 --> 00:04:02,551
+fetch, that's what we're used to in
+
+100
+00:04:02,551 --> 00:04:04,959
+JavaScript, right? We call a function, it
+
+101
+00:04:04,976 --> 00:04:07,110
+returns a result, and we can store that
+
+102
+00:04:07,142 --> 00:04:09,116
+result in a constant or variable.
+
+103
+00:04:10,111 --> 00:04:11,989
+Now here that doesn't work because that
+
+104
+00:04:12,182 --> 00:04:15,183
+promise is an object which just eventually
+
+105
+00:04:15,327 --> 00:04:16,884
+gives us the final result.
+
+106
+00:04:17,510 --> 00:04:20,062
+So when I store fetch in response like this,
+
+107
+00:04:20,206 --> 00:04:23,015
+I store the promise in response and not the
+
+108
+00:04:23,015 --> 00:04:25,374
+result the promise yields in the end.
+
+109
+00:04:26,321 --> 00:04:27,894
+We can change this with await.
+
+110
+00:04:28,487 --> 00:04:31,194
+By adding await in front of a promise,
+
+111
+00:04:31,792 --> 00:04:33,700
+and that's important, you can only use it in
+
+112
+00:04:33,733 --> 00:04:34,687
+front of a promise.
+
+113
+00:04:35,511 --> 00:04:37,872
+You wait for that promise to resolve
+
+114
+00:04:38,648 --> 00:04:40,627
+and you store the resolved value
+
+115
+00:04:41,179 --> 00:04:42,446
+in that constant then.
+
+116
+00:04:43,779 --> 00:04:46,135
+And now this replaces this then block.
+
+117
+00:04:47,575 --> 00:04:49,096
+We don't need it anymore. We got the
+
+118
+00:04:49,096 --> 00:04:50,390
+response stored here.
+
+119
+00:04:50,972 --> 00:04:53,754
+We can then console.log response.status here
+
+120
+00:04:54,838 --> 00:04:56,164
+and we can get our
+
+121
+00:04:56,712 --> 00:04:58,730
+data, our extracted data,
+
+122
+00:04:59,618 --> 00:05:03,607
+by awaiting response.json. We await again
+
+123
+00:05:03,736 --> 00:05:06,259
+because JSON also returns
+
+124
+00:05:06,837 --> 00:05:08,275
+a promise, as you can see here.
+
+125
+00:05:10,457 --> 00:05:12,316
+And then we can get rid of this as well and
+
+126
+00:05:12,332 --> 00:05:14,354
+just console.log the extracted data.
+
+127
+00:05:15,551 --> 00:05:17,443
+And I'll talk about catch in a second.
+
+128
+00:05:18,957 --> 00:05:21,586
+So now this replaces the code we had before.
+
+129
+00:05:22,212 --> 00:05:24,138
+And it looks totally different, but under
+
+130
+00:05:24,138 --> 00:05:27,348
+the hood, this code is transformed back into
+
+131
+00:05:27,428 --> 00:05:29,001
+that then chaining.
+
+132
+00:05:29,739 --> 00:05:31,488
+It's really important to keep in mind that
+
+133
+00:05:31,584 --> 00:05:32,788
+this invisibly
+
+134
+00:05:33,671 --> 00:05:35,789
+is kind of transformed back into this
+
+135
+00:05:35,853 --> 00:05:38,309
+function that was passed to then. This is
+
+136
+00:05:38,405 --> 00:05:40,588
+just more readable and looks more like
+
+137
+00:05:40,668 --> 00:05:43,348
+regular JavaScript code we're used to, but
+
+138
+00:05:43,380 --> 00:05:45,595
+it's super important to be aware that it's
+
+139
+00:05:45,627 --> 00:05:48,852
+just a behind-the-scenes transformation that
+
+140
+00:05:48,852 --> 00:05:51,129
+JavaScript doesn't magically change here.
+
+141
+00:05:51,257 --> 00:05:52,235
+That's really important.
+
+142
+00:05:53,486 --> 00:05:55,538
+Now to handle errors, you can then use
+
+143
+00:05:55,666 --> 00:05:56,596
+try-catch
+
+144
+00:05:57,269 --> 00:05:59,931
+and wrap the code that could fail with try
+
+145
+00:06:00,797 --> 00:06:02,432
+to then catch any error here
+
+146
+00:06:03,121 --> 00:06:05,494
+and execute your error handling code
+
+147
+00:06:05,526 --> 00:06:06,023
+thereafter.
+
+148
+00:06:06,889 --> 00:06:09,037
+So that's how you would do it for normal
+
+149
+00:06:09,069 --> 00:06:11,683
+synchronous code and you can also use this
+
+150
+00:06:11,683 --> 00:06:12,629
+on async/await.
+
+151
+00:06:13,462 --> 00:06:15,370
+And with that, if we save that and reload in
+
+152
+00:06:15,370 --> 00:06:17,839
+a modern browser, async/await is supported
+
+153
+00:06:18,176 --> 00:06:20,341
+And we therefore see exactly the same result
+
+154
+00:06:20,341 --> 00:06:20,998
+as before,
+
+155
+00:06:21,624 --> 00:06:23,708
+but this now is a bit more readable.
+
+156
+00:06:24,382 --> 00:06:27,573
+So async/await is optional. Promises are a
+
+157
+00:06:27,637 --> 00:06:29,593
+core feature built into JavaScript.
+
+158
+00:06:30,042 --> 00:06:32,367
+Async/await is just syntactic sugar,
+
+159
+00:06:33,009 --> 00:06:35,687
+also built into JavaScript, but not a brand
+
+160
+00:06:35,751 --> 00:06:39,616
+new feature. Instead, it's just a new syntax
+
+161
+00:06:39,760 --> 00:06:41,251
+for working with promises,
+
+162
+00:06:41,925 --> 00:06:43,817
+and it's important because we will use it in
+
+163
+00:06:43,849 --> 00:06:44,298
+this course.
