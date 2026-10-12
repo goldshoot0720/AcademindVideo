@@ -31,7 +31,10 @@
   /* ---------- layout ---------- */
   /* Fluid sidebar: 290px at 100% zoom, narrower as the effective viewport
      shrinks (e.g. 150% browser zoom), then a slide-in drawer. */
-  .app{display:grid;grid-template-columns:clamp(232px,20vw,290px) minmax(0,1fr);min-height:100vh}
+  /* Cap the whole player so zooming OUT stops inflating it: past 1920px the
+     layout holds its width and just renders smaller, instead of the video
+     growing past what 100% zoom shows. */
+  .app{display:grid;grid-template-columns:clamp(232px,20vw,290px) minmax(0,1fr);min-height:100vh;max-width:1920px;margin-inline:auto}
   .app>*{min-width:0}
   @media (max-width:1200px){.app{grid-template-columns:240px minmax(0,1fr)}}
   @media (max-width:1080px){
@@ -134,14 +137,44 @@
      wrap padding and the transport bar, and centre the stage + transport pair.
      --chrome-h is that reserved height; it only ever kicks in on short/zoomed
      viewports, never at 100% on a normal window. */
-  :root{--chrome-h:190px;--panel-w:380px;--wrap-gap:18px}
-  .stage,.transport{width:min(100%,calc((100dvh - var(--chrome-h)) * 16 / 9));margin-inline:auto}
+  :root{--chrome-h:190px;--panel-w:380px;--wrap-gap:18px;--stage-max:1200px}
+  .stage,.transport{width:min(100%,calc((100dvh - var(--chrome-h)) * 16 / 9),var(--stage-max));margin-inline:auto}
 
   @media (max-width:1280px){:root{--panel-w:244px;--wrap-gap:14px}}
   @media (max-width:1080px){
     .wrap{padding:14px;gap:14px}
     .topbar{padding:10px 12px;gap:8px}
     :root{--chrome-h:184px}
+  }
+  /* High browser zoom on a big screen IS a narrow CSS viewport: at 150% a 1920px
+     screen reports 1280px, at 175% only 1097px. The topbar and the transport are
+     sized in CSS px, so their PHYSICAL height grows with zoom and eats the height
+     the video needs — by 175% the video came out smaller than at 100%. Compacting
+     the chrome as the viewport narrows keeps the video's physical size climbing
+     with zoom. --chrome-h is lowered in step, or the transport bar would be
+     pushed off the bottom of the window (the "control bar disappeared" bug).
+     NOTE: `.transport`/`.trow` are declared further down this sheet, so these
+     overrides need the extra `html` in the selector to win on specificity. */
+  @media (max-width:1280px){
+    .topbar{padding:9px 14px;gap:9px}
+    .wrap{padding:10px 14px 12px}
+    html .transport{padding:9px 12px;margin-top:9px}
+    html .trow{margin-top:7px}
+    :root{--chrome-h:168px}
+  }
+  @media (max-width:1050px){
+    .topbar{padding:7px 12px;gap:8px}
+    html .transport{padding:8px 11px;margin-top:8px}
+    html .trow{margin-top:6px;gap:8px}
+    /* The transport is as wide as the stage, and the stage is capped by the
+       height budget — so at very high zoom the control row gets narrow and used
+       to wrap onto a second line, which grew the chrome and shrank the video
+       further (a feedback loop). Trim the row so it stays on one line; the
+       subtitle-offset slider keeps working, it is also in the settings panel. */
+    html .trow .rng{width:84px}
+    html .trow .time{min-width:78px}
+    html .trow .lbl-s{display:none}
+    :root{--chrome-h:168px}
   }
   @media (max-width:860px){
     .topbar .t{font-size:13px}
@@ -216,6 +249,7 @@
   .bar.dragging .fill{background:var(--accent)}
   .bar .chap{position:absolute;top:50%;height:8px;transform:translateY(-50%);width:1px;background:color-mix(in srgb,var(--ink) 22%,transparent)}
   .trow{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+  .trow .lbl{font-size:11.5px;color:var(--muted)}
   .time{font-variant-numeric:tabular-nums;font-size:12px;color:var(--muted);min-width:92px}
   .rng{-webkit-appearance:none;appearance:none;height:4px;border-radius:3px;background:var(--line2);outline:0;width:110px}
   .rng::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);cursor:pointer;border:2px solid var(--panel)}
@@ -366,11 +400,11 @@
             <button class="btn primary" id="playBtn" style="width:44px;justify-content:center">▶</button>
             <span class="time" id="time">00:00 / 00:00</span>
             <div style="display:flex;gap:8px;align-items:center">
-              <span style="font-size:11.5px;color:var(--muted)">速度</span>
+              <span class="lbl">速度</span>
               <select id="rate"><option>0.5</option><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option><option>1.75</option><option>2</option></select>
             </div>
             <div style="display:flex;gap:8px;align-items:center">
-              <span style="font-size:11.5px;color:var(--muted)">字幕位移</span>
+              <span class="lbl lbl-s">字幕位移</span>
               <input type="range" class="rng" id="offset" min="-2000" max="2000" step="50" value="0">
               <span class="time" id="offsetV" style="min-width:44px">0ms</span>
             </div>
@@ -1167,13 +1201,17 @@
       var panelW=parseFloat(root.getPropertyValue("--panel-w"))||0;
       var gap=parseFloat(root.getPropertyValue("--wrap-gap"))||0;
       var chrome=parseFloat(root.getPropertyValue("--chrome-h"))||190;
+      var maxW=parseFloat(root.getPropertyValue("--stage-max"))||1e9;
       var cs=getComputedStyle(wrap);
       var avail=wrap.getBoundingClientRect().width
               - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-      var capW=(window.innerHeight-chrome)*16/9;   // widest 16:9 that still fits
+      // widest the video can be: column, 16:9 height budget, or the hard cap
+      var videoW=Math.min(avail,(window.innerHeight-chrome)*16/9,maxW);
       var besideW=avail-panelW-gap;
+      // only stack when keeping the panel beside would actually cost the video
+      // real width (5% tolerance), otherwise the beside column is near-free
       document.documentElement.classList.toggle(
-        "panel-stack", panelW<=0 || besideW < capW-1);
+        "panel-stack", panelW<=0 || besideW < videoW*0.95);
     }
     fitPanel();
     window.addEventListener("resize",fitPanel);
