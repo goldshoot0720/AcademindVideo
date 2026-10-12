@@ -1,0 +1,894 @@
+1
+00:00:02,055 --> 00:00:05,427
+So let's make our webpage a little bit more
+所以讓我們讓我們的網頁多一點
+
+2
+00:00:05,555 --> 00:00:08,253
+beautiful. And for that, we can add some CSS
+美麗的。為此，我們可以添加一些 CSS
+
+3
+00:00:08,317 --> 00:00:08,911
+styling.
+造型。
+
+4
+00:00:09,666 --> 00:00:11,817
+For this, at Hatch, you find the app.css
+為此，您可以在 Hatch 中找到 app.css
+
+5
+00:00:11,833 --> 00:00:12,042
+file,
+檔案，
+
+6
+00:00:12,716 --> 00:00:15,494
+which you can just drag and drop. So
+您只需拖放即可。所以
+
+7
+00:00:15,510 --> 00:00:17,405
+download and then drag and drop into your
+下載然後拖放到您的
+
+8
+00:00:17,453 --> 00:00:18,336
+project folder.
+專案資料夾。
+
+9
+00:00:19,364 --> 00:00:22,752
+And here I now want to add a link to import
+現在我想在這裡添加一個導入連結
+
+10
+00:00:22,752 --> 00:00:24,566
+this app.css file like this.
+這個 app.css 檔案是這樣的。
+
+11
+00:00:26,026 --> 00:00:28,141
+The problem is if we just do this
+問題是如果我們這樣做
+
+12
+00:00:29,006 --> 00:00:31,297
+and we run our application, that's not going
+我們運行我們的應用程式，但那不會
+
+13
+00:00:31,394 --> 00:00:31,890
+to work.
+去工作。
+
+14
+00:00:32,627 --> 00:00:35,255
+If we reload, you see it still looks the way
+如果我們重新載入，你會發現它看起來仍然是這樣
+
+15
+00:00:35,255 --> 00:00:35,928
+it did before.
+以前也是這樣。
+
+16
+00:00:36,857 --> 00:00:38,924
+A reason for that can be found if we open up
+如果我們開放的話就能找到原因
+
+17
+00:00:38,924 --> 00:00:39,757
+the developer tools
+開發者工具
+
+18
+00:00:40,526 --> 00:00:42,657
+under network. If we reload, we see a
+網路下。如果我們重新載入，我們會看到
+
+19
+00:00:42,705 --> 00:00:45,749
+failing request for app.css. It gets back
+app.css 請求失敗。它回來了
+
+20
+00:00:45,749 --> 00:00:48,730
+status code 404, so it's not found.
+狀態碼404，所以沒有找到。
+
+21
+00:00:49,274 --> 00:00:51,806
+And the reason for that is simply that in
+原因很簡單
+
+22
+00:00:51,982 --> 00:00:54,870
+our server, in our Deno server which in the
+我們的伺服器，在我們的 Deno 伺服器中
+
+23
+00:00:54,870 --> 00:00:56,681
+end receives all requests,
+end 接收所有請求，
+
+24
+00:00:57,474 --> 00:01:00,336
+we got no route that would return that CSS
+我們沒有找到可以回傳該 CSS 的路由
+
+25
+00:01:00,369 --> 00:01:00,660
+file.
+檔案。
+
+26
+00:01:01,402 --> 00:01:03,529
+Now, this does not mean that we now need to
+現在，這並不意味著我們現在需要
+
+27
+00:01:03,722 --> 00:01:04,109
+add a new
+新增一個新的
+
+28
+00:01:04,785 --> 00:01:05,511
+GET route
+獲取路線
+
+29
+00:01:06,477 --> 00:01:09,378
+for app.css. This is not what we need to do
+對於應用程式.css。這不是我們需要做的
+
+30
+00:01:09,378 --> 00:01:09,700
+here.
+這裡。
+
+31
+00:01:12,069 --> 00:01:13,944
+We don't have to add this route
+我們不必添加這條路線
+
+32
+00:01:14,656 --> 00:01:17,614
+because the CSS file, just like images and
+因為 CSS 檔案，就像圖片一樣
+
+33
+00:01:17,646 --> 00:01:19,796
+so on, which we might have on our page, is
+等等，我們的頁面可能有
+
+34
+00:01:19,829 --> 00:01:21,009
+simply a static file.
+只是一個靜態檔案。
+
+35
+00:01:21,602 --> 00:01:23,927
+We basically want to configure our server
+我們基本上要設定我們的伺服器
+
+36
+00:01:23,927 --> 00:01:27,744
+such that all those requests which are sent
+這樣所有發送的請求
+
+37
+00:01:27,920 --> 00:01:31,031
+automatically from inside our HTML document,
+自動從我們的 HTML 檔案中，
+
+38
+00:01:31,448 --> 00:01:34,174
+like CSS files, like JavaScript files, like
+例如CSS檔案，例如JavaScript檔案，例如
+
+39
+00:01:34,270 --> 00:01:37,300
+images, that all those requests for static
+圖像，所有這些靜態請求
+
+40
+00:01:37,397 --> 00:01:40,924
+resources are just forwarded in the end and
+資源最後只是轉發
+
+41
+00:01:40,924 --> 00:01:43,362
+are just answered automatically by our
+我們的系統會自動回覆
+
+42
+00:01:43,426 --> 00:01:45,013
+server. That's what we want,
+伺服器.這就是我們想要的，
+
+43
+00:01:45,575 --> 00:01:47,419
+and that's something we can easily implement
+這是我們可以輕鬆實現的
+
+44
+00:01:47,419 --> 00:01:48,525
+here with Oak.
+和橡樹在一起。
+
+45
+00:01:49,469 --> 00:01:52,454
+Oak returns a method or a function we can
+Oak 傳回一個我們可以的方法或函式
+
+46
+00:01:52,535 --> 00:01:54,939
+use for that, and that's the send function.
+用於此目的，這就是發送功能。
+
+47
+00:01:55,982 --> 00:01:58,764
+We can use the send function to send a file
+我們可以使用send函式來傳送檔案
+
+48
+00:01:58,974 --> 00:02:01,949
+or send a resource in general back to the
+或將一般資源傳回
+
+49
+00:02:01,949 --> 00:02:03,680
+client when it's requested.
+客戶有要求時。
+
+50
+00:02:04,311 --> 00:02:06,295
+And for this, we need to register a new
+為此，我們需要註冊一個新的
+
+51
+00:02:06,649 --> 00:02:07,147
+middleware.
+中介軟體.
+
+52
+00:02:08,016 --> 00:02:08,611
+I'll add it here,
+我在這裡補充一下
+
+53
+00:02:10,252 --> 00:02:11,426
+and this middleware
+和這個中介層
+
+54
+00:02:13,228 --> 00:02:14,659
+now will basically
+現在基本上會
+
+55
+00:02:15,887 --> 00:02:16,752
+call send.
+呼叫發送。
+
+56
+00:02:17,729 --> 00:02:18,979
+Now we get our context here
+現在我們在這裡得到我們的上下文
+
+57
+00:02:19,668 --> 00:02:22,439
+and send returns a promise which eventually
+並行送回傳一個承諾，最終
+
+58
+00:02:22,536 --> 00:02:24,522
+resolves to a string or to undefined.
+解析為字串或未定義。
+
+59
+00:02:25,179 --> 00:02:28,015
+Now send also wants an argument.
+現在發送也想要一個參數。
+
+60
+00:02:28,560 --> 00:02:30,546
+It essentially needs to get access to the
+它本質上需要訪問
+
+61
+00:02:30,546 --> 00:02:33,254
+request and the response passed in one
+請求和回應合而為一傳遞
+
+62
+00:02:33,510 --> 00:02:35,818
+object which contains both request and
+包含 request 和
+
+63
+00:02:35,850 --> 00:02:36,314
+response.
+回覆.
+
+64
+00:02:37,212 --> 00:02:39,935
+Now we got such an object, the context. It
+現在我們得到了這樣一個物件，上下文。它
+
+65
+00:02:39,935 --> 00:02:42,563
+has access to both request and response so
+可以存取請求和回應，因此
+
+66
+00:02:42,563 --> 00:02:44,951
+we can just forward the context to send.
+我們可以直接轉送要傳送的上下文。
+
+67
+00:02:46,268 --> 00:02:48,436
+But send wants more. It does not just want
+但發送想要更多。它不只是想要
+
+68
+00:02:48,436 --> 00:02:51,182
+this object, it also wants to know for which
+這個物件，它也想知道是哪一個
+
+69
+00:02:51,407 --> 00:02:54,346
+path we should send back a response.
+我們應該發迴回應的路徑。
+
+70
+00:02:55,021 --> 00:02:57,333
+So the second argument here will be the
+所以這裡的第二個參數是
+
+71
+00:02:57,333 --> 00:03:00,786
+context request, and there the URL object,
+上下文請求，以及 URL 物件，
+
+72
+00:03:00,866 --> 00:03:02,970
+and there the path name. That's the
+還有路徑名。這就是
+
+73
+00:03:02,970 --> 00:03:05,877
+requested resource path in the end. So for
+最後請求的資源路徑。所以對於
+
+74
+00:03:05,877 --> 00:03:08,816
+the CSS file, this would essentially be— so
+CSS 檔案，這本質上是——所以
+
+75
+00:03:08,816 --> 00:03:10,807
+for this file here, this would essentially
+對於這裡的這個檔案，這基本上是
+
+76
+00:03:10,920 --> 00:03:11,305
+be
+是
+
+77
+00:03:13,652 --> 00:03:15,638
+/app.css. That would be the path name here.
+/app.css。這就是這裡的路徑名。
+
+78
+00:03:17,010 --> 00:03:19,013
+So we need to forward this to send as well,
+所以我們也需要轉發這個來發送，
+
+79
+00:03:19,240 --> 00:03:21,357
+or pass this information to send as well.
+或也傳遞此訊息來發送。
+
+80
+00:03:23,142 --> 00:03:24,452
+And as a last argument,
+作為最後一個論點，
+
+81
+00:03:24,986 --> 00:03:25,536
+optionally,
+可選地，
+
+82
+00:03:26,134 --> 00:03:29,336
+we can pass in an object where we provide
+我們可以傳入一個我們提供的物件
+
+83
+00:03:29,369 --> 00:03:30,841
+extra information to send.
+要傳送的額外資訊。
+
+84
+00:03:31,779 --> 00:03:33,735
+For example, whether the response should be
+例如，回應是否應該是
+
+85
+00:03:33,735 --> 00:03:35,997
+gzipped, so if it should be minified to be
+gzipped，所以如果它應該縮小為
+
+86
+00:03:35,997 --> 00:03:36,369
+smaller.
+較小。
+
+87
+00:03:37,237 --> 00:03:40,448
+Or what our root folder is in which we wanna
+或者我們想要的根資料夾在哪裡
+
+88
+00:03:40,448 --> 00:03:42,857
+look. By default, it takes the root folder
+看。預設情況下，它採用根資料夾
+
+89
+00:03:42,937 --> 00:03:44,109
+of this application,
+該應用程式的
+
+90
+00:03:44,639 --> 00:03:47,272
+but if your static files are stored in a
+但如果你的靜態檔案儲存在
+
+91
+00:03:47,272 --> 00:03:49,327
+different folder, something we'll do in a
+不同的資料夾，我們將在
+
+92
+00:03:49,375 --> 00:03:51,672
+second, then you should specify a root
+其次，那麼你應該指定一個根
+
+93
+00:03:51,688 --> 00:03:52,025
+folder.
+資料夾。
+
+94
+00:03:52,731 --> 00:03:54,273
+For the moment, we don't need it.
+目前，我們不需要它。
+
+95
+00:03:54,995 --> 00:03:57,837
+Now, by adding this middleware, we enable
+現在，透過新增這個中介層，我們啟用
+
+96
+00:03:57,885 --> 00:04:01,177
+the browser to fetch static resources like
+瀏覽器取得靜態資源，例如
+
+97
+00:04:01,177 --> 00:04:02,028
+CSS files.
+CSS 檔案。
+
+98
+00:04:03,327 --> 00:04:04,993
+Now, if we would leave it like this, it
+現在，如果我們就這樣保留它，它
+
+99
+00:04:05,089 --> 00:04:05,987
+wouldn't work though
+但行不通
+
+100
+00:04:06,531 --> 00:04:08,742
+because this middleware would run before our
+因為這個中介層會在我們的之前運行
+
+101
+00:04:08,935 --> 00:04:11,450
+route functions and essentially that means
+路線功能，本質上意味著
+
+102
+00:04:11,514 --> 00:04:12,107
+that all
+這一切
+
+103
+00:04:12,716 --> 00:04:15,488
+incoming requests would be treated as
+傳入的請求將被視為
+
+104
+00:04:15,584 --> 00:04:17,731
+requests for static resources
+靜態資源請求
+
+105
+00:04:18,308 --> 00:04:20,791
+and we would try to send back such a, well,
+我們會嘗試發回這樣一個，嗯，
+
+106
+00:04:20,807 --> 00:04:22,938
+static resource. And of course, for all
+靜態資源。當然，對所有人來說
+
+107
+00:04:23,067 --> 00:04:25,278
+those requests that normally would be
+那些通常會是的請求
+
+108
+00:04:25,278 --> 00:04:28,178
+handled by our routes, we won't find such a
+以我們的路線處理，我們不會找到這樣的
+
+109
+00:04:28,178 --> 00:04:30,165
+static resource. There is no addGoal
+靜態資源。沒有新增目標
+
+110
+00:04:30,181 --> 00:04:31,831
+function. File, for example.
+功能。以檔案為例。
+
+111
+00:04:32,744 --> 00:04:35,661
+Therefore, this should go after our routes
+因此，這應該遵循我們的路線
+
+112
+00:04:35,885 --> 00:04:38,897
+so that our routes can kick in first and can
+這樣我們的路線就可以先啟動並且可以
+
+113
+00:04:38,897 --> 00:04:41,814
+try to handle the request first. And only if
+首先嘗試處理該請求。並且只有當
+
+114
+00:04:41,942 --> 00:04:43,352
+our routes fail
+我們的路線失敗了
+
+115
+00:04:43,881 --> 00:04:45,900
+and there is no route defined for the
+並且沒有定義路線
+
+116
+00:04:45,964 --> 00:04:49,056
+requested resource, this middleware kicks in
+請求資源，該中介層啟動
+
+117
+00:04:49,473 --> 00:04:50,546
+and will help us out.
+並會幫助我們。
+
+118
+00:04:51,171 --> 00:04:53,847
+In addition, I mentioned that send returns a
+另外，我提到 send 回傳一個
+
+119
+00:04:53,895 --> 00:04:54,408
+promise
+承諾
+
+120
+00:04:55,321 --> 00:04:57,709
+and we should await that promise.
+我們應該等待這項承諾。
+
+121
+00:04:59,024 --> 00:05:01,159
+Because what send does ultimately is
+因為 send 最終要做的是
+
+122
+00:05:01,753 --> 00:05:04,529
+it does not send back a response. Instead,
+它不會發迴回應。反而，
+
+123
+00:05:04,577 --> 00:05:07,852
+it manipulates this response object on the
+它操縱這個回應物件
+
+124
+00:05:07,852 --> 00:05:10,099
+context. That's why we're passing the
+情境.這就是為什麼我們要透過
+
+125
+00:05:10,099 --> 00:05:11,399
+context to send,
+要傳送的上下文，
+
+126
+00:05:12,169 --> 00:05:14,512
+and we need to wait for its manipulation to
+我們需要等待它的操縱
+
+127
+00:05:14,512 --> 00:05:17,257
+finish. If we don't await here, we're
+結束。如果我們不在這裡等待，我們就
+
+128
+00:05:17,385 --> 00:05:20,274
+basically saying to Oak that we're fine and
+基本上就是對奧克說我們很好
+
+129
+00:05:20,274 --> 00:05:22,649
+the response can be sent as soon as this
+可以盡快發送回复
+
+130
+00:05:22,762 --> 00:05:25,764
+line was executed. Not when all the actions
+行已執行。不是當所有的動作
+
+131
+00:05:25,924 --> 00:05:28,044
+started by that finished, but simply when
+從那開始，結束，但只是當
+
+132
+00:05:28,236 --> 00:05:29,970
+this send function was
+這個發送函式是
+
+133
+00:05:30,548 --> 00:05:33,037
+executed, when the execution of send started
+當發送開始執行時執行
+
+134
+00:05:33,037 --> 00:05:33,744
+to be precise.
+準確地說。
+
+135
+00:05:34,418 --> 00:05:36,730
+And that's of course too early. We don't
+這當然還為時過早。我們不
+
+136
+00:05:36,811 --> 00:05:39,075
+wanna send back a response just because we
+想發回回覆只是因為我們
+
+137
+00:05:39,075 --> 00:05:42,896
+started this send process. We wanna await
+開始這個發送過程。我們想要等待
+
+138
+00:05:42,928 --> 00:05:46,156
+for this because ultimately send manipulates
+為此，因為最終發送操作
+
+139
+00:05:46,220 --> 00:05:48,676
+the response and we wanna give send the time
+我們想要的回覆和發送時間
+
+140
+00:05:48,709 --> 00:05:49,351
+to do so.
+這樣做。
+
+141
+00:05:49,897 --> 00:05:51,230
+And it tells us once it's done
+一旦完成它就會告訴我們
+
+142
+00:05:51,761 --> 00:05:53,158
+with this promise here.
+在此承諾。
+
+143
+00:05:53,689 --> 00:05:55,617
+That's why we await the promise. This
+這就是為什麼我們等待承諾。這
+
+144
+00:05:55,617 --> 00:05:58,412
+ensures that we wait until send is done, and
+確保我們等到發送完成，並且
+
+145
+00:05:58,428 --> 00:06:01,561
+only then we inform Oak that we are done
+然後我們才通知 Oak 我們已經完成了
+
+146
+00:06:01,561 --> 00:06:03,955
+with this middleware, and hence the response
+使用這個中介層，因此回應
+
+147
+00:06:04,036 --> 00:06:05,707
+may be sent back to the client.
+可能會被傳送回使用者端。
+
+148
+00:06:06,365 --> 00:06:08,695
+Once we do all of that and we reload, we
+一旦我們完成所有這些並重新載入，我們
+
+149
+00:06:08,695 --> 00:06:11,025
+should see this, which definitely looks
+應該看到這個，它看起來絕對是
+
+150
+00:06:11,041 --> 00:06:11,507
+nicer.
+更好。
+
+151
+00:06:12,085 --> 00:06:14,254
+Not perfect though, and the simple reason
+雖然不完美，但原因很簡單
+
+152
+00:06:14,254 --> 00:06:17,441
+for that is that I added one rule here in
+因為我在這裡加入了一條規則
+
+153
+00:06:17,474 --> 00:06:20,603
+the CSS file that needs an ID being added,
+需要新增 ID 的 CSS 檔案，
+
+154
+00:06:21,103 --> 00:06:23,491
+and it needs an ID being added on this div.
+並且需要在此 div 上新增 ID。
+
+155
+00:06:23,781 --> 00:06:25,895
+So make sure that on this div you add the
+因此請確保在此 div 上添加
+
+156
+00:06:26,008 --> 00:06:28,043
+add-goal-form ID.
+新增目標表單 ID。
+
+157
+00:06:30,384 --> 00:06:32,952
+And if you do that and reload, now you have
+如果你這樣做並重新載入，現在你就擁有了
+
+158
+00:06:32,952 --> 00:06:33,969
+that nicer look here.
+這裡看起來更好。
+
+159
+00:06:36,183 --> 00:06:38,600
+So this is how you can send back static
+這就是你可以發回靜態的方法
+
+160
+00:06:38,664 --> 00:06:41,226
+resources, and this will work for all CSS
+資源，這適用於所有 CSS
+
+161
+00:06:41,339 --> 00:06:43,965
+files, all JavaScript files, and all images
+檔案、所有 JavaScript 檔案和所有圖像
+
+162
+00:06:43,997 --> 00:06:44,529
+you might have.
+你可能有。
+
+163
+00:06:45,324 --> 00:06:49,000
+We basically use send to let Oak manipulate
+我們基本上使用 send 讓 Oak 進行操作
+
+164
+00:06:49,000 --> 00:06:52,227
+the response through the context object, and
+透過上下文物件的回應，以及
+
+165
+00:06:52,291 --> 00:06:53,768
+we wait until it's done with this
+我們等到它完成為止
+
+166
+00:06:53,816 --> 00:06:54,442
+manipulation.
+操縱。
+
+167
+00:06:55,100 --> 00:06:57,059
+And we also let it know for which kind of
+我們也讓它知道哪一種
+
+168
+00:06:57,059 --> 00:06:59,692
+request, for which requested resource, it
+請求，對於哪個請求的資源，它
+
+169
+00:06:59,692 --> 00:07:00,944
+should do this manipulation.
+應該要做這個操縱。
+
+170
+00:07:01,763 --> 00:07:03,754
+As I mentioned, it is important that you do
+正如我所提到的，重要的是你要這樣做
+
+171
+00:07:03,770 --> 00:07:06,322
+this after your routes were processed,
+在處理您的路線後，
+
+172
+00:07:06,675 --> 00:07:08,682
+because if you do it before the routes are
+因為如果你在路線確定之前這樣做
+
+173
+00:07:08,682 --> 00:07:11,042
+processed, Oak will try to handle all
+已處理，Oak 將盡力處理所有
+
+174
+00:07:11,492 --> 00:07:13,812
+incoming requests with this middleware, and
+使用此中介軟體傳入的請求，以及
+
+175
+00:07:13,828 --> 00:07:16,228
+that's not what we want. We only wanna
+這不是我們想要的。我們只想
+
+176
+00:07:16,228 --> 00:07:18,677
+handle the requests that are not handled by
+處理未被處理的請求
+
+177
+00:07:18,677 --> 00:07:21,078
+the routes because that will typically be
+路線，因為這通常是
+
+178
+00:07:21,078 --> 00:07:23,913
+the requests that are reaching out to static
+到達靜態的請求
+
+179
+00:07:23,978 --> 00:07:24,590
+resources.
+資源。

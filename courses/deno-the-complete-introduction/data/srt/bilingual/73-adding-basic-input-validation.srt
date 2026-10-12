@@ -1,0 +1,314 @@
+1
+00:00:02,263 --> 00:00:04,735
+Now we got a nice application here, got some
+現在我們在這裡得到了一個很好的應用程式，並得到了一些
+
+2
+00:00:04,767 --> 00:00:07,175
+key features in here. We learned how Oak
+主要功能都在這裡。我們了解了橡木如何
+
+3
+00:00:07,239 --> 00:00:09,647
+works. We can see how we can build nicer
+作品。我們可以看到如何建立更好的
+
+4
+00:00:09,727 --> 00:00:12,761
+applications with Oak, and we saw templating
+Oak 的應用程式，我們看到了樣板
+
+5
+00:00:12,793 --> 00:00:15,298
+engines, in this case EJS, in action.
+引擎（在本例中為 EJS）正在運轉。
+
+6
+00:00:16,148 --> 00:00:18,043
+Now to finish this up, I wanna make sure
+現在要完成這件事，我想確定一下
+
+7
+00:00:18,332 --> 00:00:20,226
+that we can't add empty goals
+我們不能加入空的目標
+
+8
+00:00:21,141 --> 00:00:22,971
+so that this is not possible.
+所以這是不可能的。
+
+9
+00:00:23,950 --> 00:00:26,358
+I also wanna make sure that we show a
+我還想確保我們展示
+
+10
+00:00:26,358 --> 00:00:27,514
+fallback page a
+後備頁面a
+
+11
+00:00:28,444 --> 00:00:31,605
+404 Not Found page if the user enters
+如果使用者輸入404 Not Found頁面
+
+12
+00:00:31,605 --> 00:00:34,476
+something like /test. So instead of this
+類似/測試之類的東西。所以而不是這個
+
+13
+00:00:34,926 --> 00:00:37,284
+generic error, I wanna show a nicer message.
+一般錯誤，我想顯示更好的訊息。
+
+14
+00:00:38,535 --> 00:00:40,878
+And I also wanna restructure the code a
+我也想重組程式碼
+
+15
+00:00:40,878 --> 00:00:42,947
+little bit and split it across multiple
+一點點並將其分成多個
+
+16
+00:00:42,963 --> 00:00:45,690
+files and work on the general folder
+檔案並在通用資料夾上工作
+
+17
+00:00:45,690 --> 00:00:48,225
+structure. This is not all we'll do in
+結構。這不是我們要做的全部
+
+18
+00:00:48,257 --> 00:00:50,183
+general in this course, but this is what I
+本課程的一般內容，但這就是我的
+
+19
+00:00:50,263 --> 00:00:53,359
+wanna do here to finish up these Oak basics.
+我想在這裡完成這些橡木基礎。
+
+20
+00:00:54,177 --> 00:00:55,603
+Now let's start with validation.
+現在讓我們從驗證開始。
+
+21
+00:00:56,260 --> 00:00:58,857
+For that, here in the add goal POST route,
+為此，在新增目標 POST 路由中，
+
+22
+00:00:59,385 --> 00:01:02,030
+we wanna verify the value the user entered
+我們想驗證使用者輸入的值
+
+23
+00:01:02,030 --> 00:01:03,504
+here as a new goal title.
+此處作為新目標標題。
+
+24
+00:01:04,210 --> 00:01:05,989
+And we can do that with a simple if check,
+我們可以透過一個簡單的 if 檢查來做到這一點，
+
+25
+00:01:06,053 --> 00:01:06,437
+of course.
+當然。
+
+26
+00:01:07,239 --> 00:01:09,467
+We can check if the length
+我們可以檢查長度是否
+
+27
+00:01:10,284 --> 00:01:13,906
+of the trimmed new goal title is 0.
+修剪後的新目標標題為 0。
+
+28
+00:01:14,611 --> 00:01:16,246
+Trim is a built-in method
+Trim 是內建方法
+
+29
+00:01:16,791 --> 00:01:18,121
+that exists on every string
+存在於每個字串上
+
+30
+00:01:18,794 --> 00:01:21,343
+that simply removes excess whitespace at the
+這只是刪除了多餘的空白
+
+31
+00:01:21,359 --> 00:01:23,844
+beginning and at the end. So it makes sure
+開始和結束。所以它確保
+
+32
+00:01:23,844 --> 00:01:25,579
+that if the user enters a bunch of
+如果使用者輸入一堆
+
+33
+00:01:25,595 --> 00:01:28,710
+whitespace, it's also treated as invalid.
+空格，也視為無效。
+
+34
+00:01:29,464 --> 00:01:30,813
+And then by checking the length and
+然後透過檢查長度和
+
+35
+00:01:30,893 --> 00:01:33,189
+comparing it to 0, I make sure that, well,
+將其與 0 進行比較，我確定，嗯，
+
+36
+00:01:33,478 --> 00:01:35,213
+an empty title is not accepted.
+不接受空標題。
+
+37
+00:01:36,047 --> 00:01:38,857
+Now, if we do get this empty title, we can
+現在，如果我們確實得到了這個空標題，我們可以
+
+38
+00:01:38,857 --> 00:01:41,153
+of course do all kinds of things. We can
+當然做各種各樣的事情。我們可以
+
+39
+00:01:41,250 --> 00:01:43,482
+show an error page, we can do whatever we
+顯示錯誤頁面，我們可以做任何我們想做的事情
+
+40
+00:01:43,514 --> 00:01:43,771
+want.
+想。
+
+41
+00:01:44,381 --> 00:01:44,429
+I
+我
+
+42
+00:01:44,959 --> 00:01:45,553
+want to
+想要
+
+43
+00:01:46,420 --> 00:01:48,058
+simply redirect the user
+只需重定向使用者
+
+44
+00:01:49,373 --> 00:01:50,302
+to slash nothing,
+不削減任何東西，
+
+45
+00:01:50,895 --> 00:01:52,321
+but I also want to return this.
+但我也想歸還這個。
+
+46
+00:01:52,962 --> 00:01:54,372
+Why do we need to return here?
+為什麼我們需要回到這裡？
+
+47
+00:01:54,981 --> 00:01:57,017
+Because if we add a return statement here,
+因為如果我們在這裡加入一個 return 語句，
+
+48
+00:01:57,449 --> 00:01:59,757
+we ensure that the other code thereafter is
+我們確保此後的其他程式碼是
+
+49
+00:01:59,869 --> 00:02:00,830
+not executed.
+沒有被執行。
+
+50
+00:02:01,375 --> 00:02:03,202
+And of course it shouldn't be executed,
+當然它不應該被執行，
+
+51
+00:02:03,619 --> 00:02:05,894
+because if it would be executed, we would
+因為如果它被執行，我們就會
+
+52
+00:02:05,894 --> 00:02:06,872
+still store the goal.
+仍然儲存目標。
+
+53
+00:02:07,400 --> 00:02:09,404
+So by returning here, we ensure that this
+因此，透過回傳這裡，我們確保
+
+54
+00:02:09,404 --> 00:02:10,413
+code does not run.
+程式碼不運行。
+
+55
+00:02:11,327 --> 00:02:12,208
+And if we do that,
+如果我們這樣做，
+
+56
+00:02:12,769 --> 00:02:14,307
+indeed, we'll see that if we reload
+事實上，如果我們重新載入，我們會看到
+
+57
+00:02:15,173 --> 00:02:17,434
+If I add an empty goal, nothing happens.
+如果我新增一個空目標，則不會發生任何事情。
+
+58
+00:02:17,979 --> 00:02:20,368
+If we do enter something like finish the
+如果我們輸入諸如完成之類的內容
+
+59
+00:02:20,368 --> 00:02:22,325
+course, it still works of course though.
+當然，它仍然有效。
+
+60
+00:02:23,335 --> 00:02:26,606
+So that's now the basic validation added. Of
+这就是现在添加的基本验证。的
+
+61
+00:02:26,622 --> 00:02:28,466
+course, you could add more complex
+當然，你可以添加更複雜的
+
+62
+00:02:28,466 --> 00:02:30,776
+validation than that, but for here it should
+驗證比那，但在這裡它應該
+
+63
+00:02:30,808 --> 00:02:31,513
+be good enough.
+夠好。

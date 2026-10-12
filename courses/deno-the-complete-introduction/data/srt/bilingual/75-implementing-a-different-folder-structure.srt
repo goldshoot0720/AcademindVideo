@@ -1,0 +1,769 @@
+1
+00:00:02,211 --> 00:00:04,935
+So now we also have the NotFound error
+所以現在我們也有 NotFound 錯誤
+
+2
+00:00:04,983 --> 00:00:07,948
+handling. To now really conclude this basics
+處理。到目前為止真正總結了這個基礎知識
+
+3
+00:00:07,948 --> 00:00:08,557
+module here,
+模組在這裡，
+
+4
+00:00:09,150 --> 00:00:10,800
+let's work on our code structure.
+讓我們研究一下我們的程式碼結構。
+
+5
+00:00:11,409 --> 00:00:13,781
+This is a simple app and having it all in
+這是一個簡單的應用程式，並且擁有一切
+
+6
+00:00:13,877 --> 00:00:15,784
+one file is perfectly fine.
+一個檔案就完全沒問題。
+
+7
+00:00:16,457 --> 00:00:18,220
+But typically you're going to build bigger
+但通常你會建造更大的
+
+8
+00:00:18,284 --> 00:00:20,399
+apps than that and therefore you might wanna
+應用程式比這更多，因此你可能想要
+
+9
+00:00:20,399 --> 00:00:23,396
+split your code across multiple files to
+將您的程式碼拆分為多個檔案
+
+10
+00:00:23,428 --> 00:00:26,282
+keep every file on its own, small and
+將每個檔案單獨儲存，小且
+
+11
+00:00:26,394 --> 00:00:28,946
+manageable so that it's easy to find what
+易於管理，以便輕鬆找到內容
+
+12
+00:00:28,946 --> 00:00:30,551
+you're looking for and you don't have to
+你正在尋找，但你不必尋找
+
+13
+00:00:30,551 --> 00:00:32,814
+scroll through super long files all the
+捲動瀏覽所有超長檔案
+
+14
+00:00:32,814 --> 00:00:33,119
+time.
+時間。
+
+15
+00:00:34,018 --> 00:00:36,554
+And for that, a common folder structure in
+為此，一個通用的資料夾結構
+
+16
+00:00:36,827 --> 00:00:39,844
+Node and therefore also in Deno projects is
+Node 因此在 Deno 專案中也是
+
+17
+00:00:39,892 --> 00:00:43,102
+that we have a separate folder named routes
+我們有一個名為routes的單獨資料夾
+
+18
+00:00:43,231 --> 00:00:45,157
+or router— the name is up to you—
+或路由器——名稱由您決定——
+
+19
+00:00:45,734 --> 00:00:47,917
+which will hold your routing logic.
+這將儲存您的路由邏輯。
+
+20
+00:00:48,688 --> 00:00:50,999
+And here I'll add my goals.ts file
+在這裡我將添加我的 goal.ts 檔案
+
+21
+00:00:51,577 --> 00:00:53,053
+and move my router here
+並將我的路由器移到這裡
+
+22
+00:00:54,225 --> 00:00:56,183
+and the routes which I configure on it
+以及我在其上設定的路由
+
+23
+00:00:57,194 --> 00:00:58,686
+out of the app.ts file
+從 app.ts 檔案中
+
+24
+00:00:59,280 --> 00:01:00,677
+into that goals.ts file.
+進入目標.ts 檔。
+
+25
+00:01:01,945 --> 00:01:03,566
+That of course means that we also
+這當然意味著我們也
+
+26
+00:01:04,496 --> 00:01:07,594
+need to copy that import, remove the router
+需要複製該導入，刪除路由器
+
+27
+00:01:07,722 --> 00:01:08,814
+import in app.ts,
+在 app.ts 中導入，
+
+28
+00:01:09,648 --> 00:01:11,430
+and instead here in goals.ts
+而是在 goal.ts 中
+
+29
+00:01:11,959 --> 00:01:12,778
+add the router.
+新增路由器。
+
+30
+00:01:14,126 --> 00:01:16,550
+Don't import the rest, but add the router
+不導入其餘部分，但添加路由器
+
+31
+00:01:16,550 --> 00:01:17,737
+import from from Oak.
+從橡木進口。
+
+32
+00:01:18,636 --> 00:01:20,594
+And of course, since I'm now rendering my
+當然，因為我現在正在渲染我的
+
+33
+00:01:20,642 --> 00:01:21,316
+templates here,
+樣板在這裡，
+
+34
+00:01:22,006 --> 00:01:25,648
+I also want to import renderFileToString not
+我也想導入 renderFileToString 不
+
+35
+00:01:25,696 --> 00:01:28,553
+just in app.ts but also in goals.ts so that
+不僅在 app.ts 中，也在 goal.ts 中，這樣
+
+36
+00:01:28,585 --> 00:01:29,114
+this works.
+這有效。
+
+37
+00:01:30,350 --> 00:01:31,281
+And the course goals
+以及課程目標
+
+38
+00:01:31,858 --> 00:01:33,255
+should now also be managed there.
+現在也應該在那裡進行管理。
+
+39
+00:01:33,896 --> 00:01:36,143
+So I grab the course goals here and remove
+所以我在這裡抓住課程目標並刪除
+
+40
+00:01:36,143 --> 00:01:37,058
+them from app.ts
+它們來自 app.ts
+
+41
+00:01:37,892 --> 00:01:40,684
+and instead add them here in the goals.ts
+並將它們添加到 goal.ts 中
+
+42
+00:01:40,684 --> 00:01:42,080
+file in the routes folder.
+路徑資料夾中的檔案。
+
+43
+00:01:42,642 --> 00:01:44,327
+Now with that, we have the routes
+現在我們有了路線
+
+44
+00:01:44,953 --> 00:01:45,949
+in one file
+在一個檔案中
+
+45
+00:01:46,719 --> 00:01:49,561
+and our core app logic with the remaining
+以及我們的核心應用程式邏輯和其餘的
+
+46
+00:01:49,834 --> 00:01:52,002
+non-routing middleware in another file.
+另一個檔案中的非路由中介層。
+
+47
+00:01:52,660 --> 00:01:54,732
+Of course, we still need to register our
+當然，我們還是需要註冊一下
+
+48
+00:01:54,732 --> 00:01:55,952
+routes as middleware though,
+雖然路由作為中介層，
+
+49
+00:01:56,514 --> 00:01:58,842
+and therefore in goals.ts, I want to export
+因此在目標.ts 中，我想導出
+
+50
+00:01:58,842 --> 00:02:01,620
+that router, and I will export it as the
+該路由器，我將其匯出為
+
+51
+00:02:01,716 --> 00:02:02,262
+default
+預設
+
+52
+00:02:03,402 --> 00:02:05,473
+object, as the default export here with
+物件，作為此處的預設導出
+
+53
+00:02:05,570 --> 00:02:06,886
+export default Router.
+匯出預設路由器。
+
+54
+00:02:07,513 --> 00:02:10,328
+And in app.ts, we now need to import it. So
+在 app.ts 中，我們現在需要導入它。所以
+
+55
+00:02:10,328 --> 00:02:12,096
+here we can now import our goals
+現在我們可以在這裡導入我們的目標
+
+56
+00:02:12,686 --> 00:02:13,095
+router
+路由器
+
+57
+00:02:13,832 --> 00:02:14,667
+from./routes/goals.ts.
+來自./routes/goals.ts。
+
+58
+00:02:19,790 --> 00:02:21,209
+You can pick any name you want here,
+你可以在這裡選擇任何你想要的名字，
+
+59
+00:02:22,550 --> 00:02:24,750
+and that's how you import relative to the
+這就是你相對於
+
+60
+00:02:24,750 --> 00:02:27,161
+current file by going into the routes folder
+進入路由資料夾中的目前檔案
+
+61
+00:02:27,275 --> 00:02:28,699
+and having a look at goals.ts.
+並查看 goal.ts。
+
+62
+00:02:30,619 --> 00:02:32,670
+Now we can use the goals router down there
+現在我們可以使用那裡的目標路由器
+
+63
+00:02:32,719 --> 00:02:33,825
+to get access to the routes
+訪問路線
+
+64
+00:02:34,428 --> 00:02:35,388
+and the allowed methods.
+以及允許的方法。
+
+65
+00:02:38,209 --> 00:02:41,329
+We could also outsource the error handling
+我們還可以外包錯誤處理
+
+66
+00:02:41,602 --> 00:02:43,436
+if we wanted to. I will leave it here though
+如果我們願意的話。不過我會把它留在這裡
+
+67
+00:02:43,789 --> 00:02:46,105
+so that my core middlewares are here, the
+這樣我的核心中介層就在這裡，
+
+68
+00:02:46,170 --> 00:02:47,932
+dummy middleware and the error handling one.
+虛擬中介層和錯誤處理中介層。
+
+69
+00:02:48,291 --> 00:02:50,168
+But you could also outsource that into a
+但您也可以將其外包給
+
+70
+00:02:50,168 --> 00:02:51,979
+separate file if you wanted to.
+如果您願意，可以單獨檔案。
+
+71
+00:02:53,558 --> 00:02:55,484
+I however want to keep the code as it is,
+不過我想保持程式碼不變，
+
+72
+00:02:55,921 --> 00:02:57,474
+but there still is something I want to do.
+但我還有一件事想做。
+
+73
+00:02:58,106 --> 00:03:00,598
+I want to put my templates into a folder and
+我想將我的樣板放入一個資料夾中
+
+74
+00:03:00,679 --> 00:03:02,803
+we could name it templates. I will name it
+我們可以將其命名為樣板。我將命名它
+
+75
+00:03:02,883 --> 00:03:03,685
+views though
+不過意見
+
+76
+00:03:04,247 --> 00:03:06,300
+because that's the term you commonly use in
+因為這是你常用的術語
+
+77
+00:03:06,412 --> 00:03:07,069
+web development.
+網路開發。
+
+78
+00:03:07,615 --> 00:03:10,261
+And I will move the 2 EJS files into the
+我將把 2 個 EJS 檔案移到
+
+79
+00:03:10,261 --> 00:03:10,919
+views folder.
+視圖資料夾。
+
+80
+00:03:11,945 --> 00:03:13,629
+Now with that, of course, we need to update
+當然，現在我們需要更新
+
+81
+00:03:13,629 --> 00:03:14,463
+our paths here
+我們在這裡的道路
+
+82
+00:03:14,992 --> 00:03:19,644
+in app.ts. We now import from deno cwd, so
+在 app.ts 中我們現在從 eno cwd 導入，所以
+
+83
+00:03:19,644 --> 00:03:21,600
+the root working directory here,
+這裡的根工作目錄，
+
+84
+00:03:22,530 --> 00:03:24,503
+/views/not-found.ejs.
+/views/not-found.ejs。
+
+85
+00:03:25,642 --> 00:03:26,973
+And in goals, it's the same.
+在目標上，也是一樣的。
+
+86
+00:03:27,583 --> 00:03:28,673
+There we also have
+那裡我們也有
+
+87
+00:03:29,427 --> 00:03:30,999
+/views/course-goals.
+/觀點/課程目標。
+
+88
+00:03:31,610 --> 00:03:34,434
+It's all relative from the path in which we
+從我們所處的路徑來看，這都是相對的
+
+89
+00:03:34,966 --> 00:03:37,129
+execute the Deno command, which will always
+執行 Deno 命令，該命令將始終
+
+90
+00:03:37,161 --> 00:03:38,161
+be the root folder here.
+此處為根資料夾。
+
+91
+00:03:40,360 --> 00:03:42,511
+Now I also wanna put my static files into a
+現在我也想把我的靜態檔案放入
+
+92
+00:03:42,511 --> 00:03:45,681
+separate folder, so I'll add a static folder
+單獨的資料夾，所以我將添加一個靜態資料夾
+
+93
+00:03:46,376 --> 00:03:48,980
+and move app.css into that static folder.
+並將 app.css 移到該靜態資料夾中。
+
+94
+00:03:49,514 --> 00:03:51,476
+With that CSS file moved though,
+隨著 CSS 檔案的移動，
+
+95
+00:03:52,087 --> 00:03:54,418
+we have to keep in mind that in course
+我們必須記住，當然
+
+96
+00:03:54,418 --> 00:03:54,724
+goals,
+目標，
+
+97
+00:03:55,383 --> 00:03:57,891
+I do import just app.css like this.
+我只是像這樣導入 app.css 。
+
+98
+00:03:58,644 --> 00:04:00,322
+We now need to update this to
+我們現在需要將其更新為
+
+99
+00:04:00,322 --> 00:04:04,194
+/static/app.css for this to work because
+/static/app.css 才能正常運作，因為
+
+100
+00:04:04,194 --> 00:04:06,679
+otherwise it will look for just app.css, but
+否則它只會找 app.css，但是
+
+101
+00:04:06,776 --> 00:04:08,602
+this file like that does not exist anymore.
+這樣的檔案已經不存在了。
+
+102
+00:04:08,894 --> 00:04:11,878
+A path of just app.css in the root folder of
+根資料夾中的 app.css 路徑
+
+103
+00:04:11,878 --> 00:04:13,905
+the project doesn't exist anymore.
+該專案不再存在。
+
+104
+00:04:14,894 --> 00:04:16,127
+With that all, if we go back,
+話雖如此，如果我們回去，
+
+105
+00:04:18,090 --> 00:04:18,752
+we can reload
+我們可以重新載入
+
+106
+00:04:20,043 --> 00:04:22,449
+and the application still works just fine
+並且該應用程式仍然運行良好
+
+107
+00:04:23,757 --> 00:04:24,467
+as you can tell.
+正如你所知。
+
+108
+00:04:25,457 --> 00:04:26,322
+However, there's one
+然而，有一個
+
+109
+00:04:27,156 --> 00:04:29,944
+alternative to having the static app.css
+靜態 app.css 的替代方案
+
+110
+00:04:29,944 --> 00:04:30,714
+file like this here.
+像這樣的檔案在這裡。
+
+111
+00:04:31,403 --> 00:04:32,861
+You could also remove that here
+您也可以在這裡刪除它
+
+112
+00:04:33,631 --> 00:04:35,458
+and just point at app.css,
+只需指向 app.css，
+
+113
+00:04:36,596 --> 00:04:38,134
+and therefore it would not work.
+因此它不會起作用。
+
+114
+00:04:39,160 --> 00:04:42,414
+But then go to your send function and there
+但是然後轉到您的發送功能
+
+115
+00:04:42,462 --> 00:04:45,106
+pass in a 3rd argument, which is an object
+傳入第三個參數，它是一個物件
+
+116
+00:04:45,106 --> 00:04:46,917
+that allows you to configure that send
+允許您設定發送
+
+117
+00:04:46,933 --> 00:04:47,334
+function.
+功能。
+
+118
+00:04:48,232 --> 00:04:48,504
+And there
+還有那裡
+
+119
+00:04:49,354 --> 00:04:51,726
+you can set the root directory to a
+您可以將根目錄設定為
+
+120
+00:04:51,838 --> 00:04:53,569
+different directory than it would normally
+與平常不同的目錄
+
+121
+00:04:53,665 --> 00:04:53,761
+be.
+是。
+
+122
+00:04:54,393 --> 00:04:56,882
+Normally it takes your project root as the
+通常它以你的專案根目錄為
+
+123
+00:04:56,882 --> 00:04:59,210
+root directory, which means that if we're
+根目錄，這意味著如果我們
+
+124
+00:04:59,226 --> 00:05:01,812
+requesting app.css like this, it will look
+像這樣要求app.css，它會看起來
+
+125
+00:05:01,828 --> 00:05:03,089
+for it in the root folder.
+在根資料夾中找到它。
+
+126
+00:05:03,843 --> 00:05:05,533
+We can change that. We could say that the
+我們可以改變這一點。我們可以說
+
+127
+00:05:05,614 --> 00:05:07,547
+root folder is actually
+根資料夾實際上是
+
+128
+00:05:08,149 --> 00:05:09,351
+static so
+靜態所以
+
+129
+00:05:10,550 --> 00:05:12,737
+that it should take that static folder as
+它應該將該靜態資料夾作為
+
+130
+00:05:12,754 --> 00:05:13,434
+the root folder.
+根資料夾。
+
+131
+00:05:14,002 --> 00:05:16,643
+Now it will look for app.css in the static
+現在它將在靜態中尋找 app.css
+
+132
+00:05:16,643 --> 00:05:19,479
+folder automatically. Hence, if we save that
+自動資料夾。因此，如果我們儲存它
+
+133
+00:05:19,479 --> 00:05:19,949
+and reload
+並重新載入
+
+134
+00:05:21,315 --> 00:05:24,017
+we got our styles back even though we're
+即使我們
+
+135
+00:05:24,017 --> 00:05:26,218
+still importing just app.css here.
+這裡仍然只導入 app.css 。
+
+136
+00:05:26,995 --> 00:05:29,148
+So that simply is an alternative to updating
+所以這只是更新的替代方法
+
+137
+00:05:29,180 --> 00:05:31,377
+the import path here in the template. You
+樣板中的導入路徑。你
+
+138
+00:05:31,377 --> 00:05:34,150
+can either update it here or set a different
+可以在此處更新或設定不同的
+
+139
+00:05:34,166 --> 00:05:36,650
+root folder here, whatever you personally
+根資料夾在這裡，無論你個人如何
+
+140
+00:05:36,762 --> 00:05:37,166
+prefer.
+更喜歡。
+
+141
+00:05:38,992 --> 00:05:42,671
+And with that, we have all the core features
+這樣，我們就擁有了所有的核心功能
+
+142
+00:05:42,865 --> 00:05:46,012
+that you need to have in mind about Oak
+關於橡樹你需要記住的
+
+143
+00:05:46,422 --> 00:05:47,160
+covered. We
+覆蓋。我們
+
+144
+00:05:47,769 --> 00:05:50,239
+had a close look at all the core essentials
+仔細研究了所有核心要素
+
+145
+00:05:50,271 --> 00:05:52,789
+that make up Oak, and you can hopefully see
+構成了橡樹，你希望能看到
+
+146
+00:05:52,998 --> 00:05:56,494
+that building real web apps is way more fun
+建立真正的網頁應用程式更有趣
+
+147
+00:05:56,751 --> 00:05:59,397
+and realistic with a framework like Oak
+並使用像 Oak 這樣的框架來實現現實
+
+148
+00:05:59,718 --> 00:06:01,690
+because we can really focus on our core
+因為我們可以真正專注於我們的核心
+
+149
+00:06:01,819 --> 00:06:04,914
+business logic. We can have the HTML code in
+業務邏輯。我們可以將 HTML 程式碼放在
+
+150
+00:06:05,010 --> 00:06:07,817
+a standalone file, and we don't have to do
+一個獨立的檔案，我們不需要做
+
+151
+00:06:08,057 --> 00:06:10,784
+all the low-level wiring up with Deno
+所有底層連接都與 Deno 相關
+
+152
+00:06:10,864 --> 00:06:11,281
+itself.
+本身。
+
+153
+00:06:11,939 --> 00:06:14,168
+So that's the route which will continue over
+這就是將要繼續的路線
+
+154
+00:06:14,168 --> 00:06:15,098
+the next modules.
+下一個模組。

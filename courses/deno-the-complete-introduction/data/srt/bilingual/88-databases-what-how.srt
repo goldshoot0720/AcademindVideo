@@ -1,0 +1,714 @@
+1
+00:00:02,295 --> 00:00:05,536
+So let's reiterate how we can store data in
+那麼讓我們重申一下如何將資料儲存在
+
+2
+00:00:05,633 --> 00:00:06,515
+Deno apps.
+Deno 應用程式。
+
+3
+00:00:07,157 --> 00:00:09,308
+In our app, we have a lot of data typically,
+在我們的應用程式中，我們通常有很多資料，
+
+4
+00:00:09,741 --> 00:00:11,234
+and we got a couple of different
+我們有幾個不同的
+
+5
+00:00:11,571 --> 00:00:13,994
+alternatives when it comes to how we wanna
+當談到我們想要的方式時，有多種選擇
+
+6
+00:00:13,994 --> 00:00:15,198
+save that data.
+儲存該資料。
+
+7
+00:00:16,000 --> 00:00:18,600
+Now, one alternative which we already are
+現在，我們已經有了一個選擇
+
+8
+00:00:18,793 --> 00:00:21,104
+using in basically any Deno app we're
+基本上在我們正在使用的任何 Deno 應用程式中使用
+
+9
+00:00:21,136 --> 00:00:23,383
+building right from the start is that we
+我們從一開始就建構
+
+10
+00:00:23,383 --> 00:00:27,009
+store data in variables or constants of that
+將資料儲存在變數或常數中
+
+11
+00:00:27,057 --> 00:00:27,746
+application.
+應用。
+
+12
+00:00:28,596 --> 00:00:30,728
+And this means that the data gets stored in
+這意味著資料儲存在
+
+13
+00:00:30,744 --> 00:00:33,213
+memory and that's really important because
+記憶力非常重要，因為
+
+14
+00:00:33,405 --> 00:00:35,794
+the JavaScript engine and Deno in the end
+最後是 JavaScript 引擎和 Deno
+
+15
+00:00:35,890 --> 00:00:38,984
+therefore simply stores all the data you're
+因此只需儲存您的所有資料
+
+16
+00:00:39,080 --> 00:00:41,548
+working with in your program in the memory
+在記憶體中的程式中使用
+
+17
+00:00:41,725 --> 00:00:44,274
+that's allocated to that program. The
+分配給該程式。這
+
+18
+00:00:44,290 --> 00:00:45,235
+advantage of this
+利用這一點
+
+19
+00:00:45,812 --> 00:00:48,441
+is that this is super quick to access and
+是它的存取速度非常快
+
+20
+00:00:48,618 --> 00:00:50,125
+offers great performance.
+提供出色的性能。
+
+21
+00:00:50,862 --> 00:00:53,731
+The memory of your application or the memory
+您的應用程式的記憶體或記憶體
+
+22
+00:00:53,988 --> 00:00:57,146
+on your computer in general is super fast to
+一般來說，在您的計算機上速度非常快
+
+23
+00:00:57,274 --> 00:01:00,111
+access and it's highly optimized for quick
+訪問並且它針對快速進行了高度優化
+
+24
+00:01:00,159 --> 00:01:02,580
+access and for giving you great performance.
+訪問並為您提供出色的性能。
+
+25
+00:01:03,205 --> 00:01:05,546
+That's why the JavaScript engine does use
+這就是 JavaScript 引擎確實使用的原因
+
+26
+00:01:05,546 --> 00:01:08,110
+the memory for storing variables and not
+記憶體用於存儲變數而不是
+
+27
+00:01:08,110 --> 00:01:09,762
+temporary files, for example.
+例如，臨時檔案。
+
+28
+00:01:10,980 --> 00:01:13,801
+Now, the disadvantage, of course, is that
+當然，缺點是
+
+29
+00:01:13,961 --> 00:01:16,959
+this data doesn't persist. It's lost after
+該資料不會持續存在。之後就遺失了
+
+30
+00:01:17,071 --> 00:01:19,700
+every restart. Therefore, variables and
+每次重新啟動。因此，變數和
+
+31
+00:01:19,732 --> 00:01:21,720
+constants are, of course, what you typically
+當然，常數是您通常使用的
+
+32
+00:01:21,800 --> 00:01:24,429
+use for all those results, temporary
+用於所有這些結果，臨時的
+
+33
+00:01:24,525 --> 00:01:27,266
+results, and intermediate results that you
+結果和中間結果
+
+34
+00:01:27,266 --> 00:01:30,024
+derive in your application, for all the data
+在您的應用程式中匯出所有資料
+
+35
+00:01:29,992 --> 00:01:31,113
+currently working with.
+目前正在與.
+
+36
+00:01:31,674 --> 00:01:33,822
+But any data that should last a bit longer,
+但任何應該持續更長時間的資料，
+
+37
+00:01:34,078 --> 00:01:36,722
+for example, the products of an online shop
+例如，網上商店的產品
+
+38
+00:01:36,786 --> 00:01:39,831
+or user data, such data should be stored in
+或使用者資料，此類資料應儲存在
+
+39
+00:01:39,831 --> 00:01:41,049
+a more persistent way.
+更持久的方式。
+
+40
+00:01:41,834 --> 00:01:43,757
+And one way of storing data more
+以及更多儲存資料的一種方式
+
+41
+00:01:43,773 --> 00:01:46,866
+persistently is to store it in files. So
+持久化就是將其儲存在檔案中。所以
+
+42
+00:01:46,962 --> 00:01:48,356
+using the file system,
+使用檔案系統，
+
+43
+00:01:48,965 --> 00:01:51,706
+we can create a new file and write data into
+我們可以建立一個新檔案並將資料寫入
+
+44
+00:01:51,706 --> 00:01:53,949
+it. And of course, we can also read data
+它。當然，我們還可以讀取資料
+
+45
+00:01:54,029 --> 00:01:54,622
+from a file.
+從一個檔案。
+
+46
+00:01:55,472 --> 00:01:57,795
+So storing data in files is not too bad, but
+所以將資料儲存在檔案中並不算太糟糕，但是
+
+47
+00:01:57,955 --> 00:02:01,096
+it has one big disadvantage. It's relatively
+它有一個很大的缺點。是相對的
+
+48
+00:02:01,096 --> 00:02:04,851
+slow. Offers bad performance. Now of course
+慢的。提供糟糕的性能。現在當然
+
+49
+00:02:05,316 --> 00:02:07,098
+it really comes down to the exact use case
+這實際上取決於確切的用例
+
+50
+00:02:07,098 --> 00:02:09,297
+and what you're writing and reading, but in
+以及你正在寫和讀的內容，但是在
+
+51
+00:02:09,425 --> 00:02:11,961
+general you don't want to write data to
+一般你不想寫入資料
+
+52
+00:02:12,057 --> 00:02:14,673
+files which you then need to use right away.
+您需要立即使用的檔案。
+
+53
+00:02:14,962 --> 00:02:17,418
+Or if you need to read in a lot of data, you
+或者如果您需要讀取大量資料，您
+
+54
+00:02:17,530 --> 00:02:19,729
+might not want to do that with files alone.
+可能不想單獨使用檔案來做到這一點。
+
+55
+00:02:20,724 --> 00:02:22,201
+The advantage of course is that the data
+當然好處就是資料
+
+56
+00:02:22,345 --> 00:02:25,363
+does persist though, so it survives restart
+但確實存在，所以它在重新啟動後仍然存在
+
+57
+00:02:25,459 --> 00:02:27,930
+of your Deno app. So that's a good thing to
+您的 Deno 應用程式的。所以這是一件好事
+
+58
+00:02:27,946 --> 00:02:28,171
+have.
+有。
+
+59
+00:02:29,085 --> 00:02:31,618
+But because files are relatively slow to
+但由於檔案傳輸速度相對較慢
+
+60
+00:02:31,714 --> 00:02:34,487
+access, we typically don't use them for
+訪問，我們通常不使用它們
+
+61
+00:02:34,616 --> 00:02:36,972
+permanent storage, or at least not alone.
+永久存儲，或至少不是單獨存儲。
+
+62
+00:02:37,501 --> 00:02:40,563
+Instead, we use databases. And there we got
+相反，我們使用資料庫。我們得到了
+
+63
+00:02:40,563 --> 00:02:42,519
+a couple of different database engines,
+幾個不同的資料庫引擎，
+
+64
+00:02:42,808 --> 00:02:44,635
+different database systems we can use.
+我們可以使用不同的資料庫系統。
+
+65
+00:02:45,196 --> 00:02:47,537
+Now, under the hood, databases also work
+現在，在幕後，資料庫也可以運作
+
+66
+00:02:47,601 --> 00:02:50,567
+with files, but they add an extra layer on
+與檔案，但他們添加了一個額外的層
+
+67
+00:02:50,567 --> 00:02:53,020
+top of those files where they basically can
+這些檔案的頂部，他們基本上可以
+
+68
+00:02:53,052 --> 00:02:55,665
+load data into memory, cache it, and
+將資料載入到記憶體中，快取它，然後
+
+69
+00:02:55,697 --> 00:02:58,070
+therefore make it faster for you to query
+因此讓您查詢速度更快
+
+70
+00:02:58,182 --> 00:03:00,635
+that data and to work with that data. So
+該資料並使用該資料。所以
+
+71
+00:03:00,651 --> 00:03:02,959
+there's simply an extra layer on top of
+上面只是多了一層
+
+72
+00:03:03,152 --> 00:03:06,085
+files, making it faster to work with data in
+檔案，從而可以更快地處理其中的資料
+
+73
+00:03:06,101 --> 00:03:08,570
+general. And therefore you have relatively
+一般的。因此你有相對
+
+74
+00:03:08,586 --> 00:03:11,375
+fast data access when working with databases
+使用資料庫時快速資料存取
+
+75
+00:03:11,712 --> 00:03:12,818
+and a good performance.
+和良好的表現。
+
+76
+00:03:13,427 --> 00:03:15,190
+Certainly not the speed you have with
+當然不是你的速度
+
+77
+00:03:15,238 --> 00:03:17,354
+variables, but you'll have all the speed and
+變數，但你將擁有所有的速度和
+
+78
+00:03:17,354 --> 00:03:20,047
+performance you need in applications to work
+應用程式工作所需的性能
+
+79
+00:03:20,047 --> 00:03:21,153
+with data efficiently.
+有效地利用資料。
+
+80
+00:03:22,051 --> 00:03:24,552
+And of course, the big advantage, just like
+當然還有一個很大的優勢，就像
+
+81
+00:03:24,552 --> 00:03:28,383
+with files, is that data does persist. So it
+對檔案來說，資料確實持久。所以它
+
+82
+00:03:28,463 --> 00:03:31,045
+also survives the restart. Of your Deno app.
+重啟後也能存活。您的 Deno 應用程式。
+
+83
+00:03:31,767 --> 00:03:33,179
+So these are your different storage
+所以這些是你不同的儲存空間
+
+84
+00:03:33,532 --> 00:03:36,098
+mechanisms. All of them matter but for
+機制。所有這些都很重要，但對於
+
+85
+00:03:36,163 --> 00:03:38,200
+different purposes. And now we're going to
+不同的目的。現在我們要
+
+86
+00:03:38,200 --> 00:03:41,136
+have a look at database storage, which is a
+看一下資料庫存儲，這是一個
+
+87
+00:03:41,136 --> 00:03:43,847
+super important way of storing data in any
+在任何環境中儲存資料的超級重要方式
+
+88
+00:03:43,943 --> 00:03:44,730
+app you're building.
+您正在建立的應用程式。
+
+89
+00:03:45,548 --> 00:03:47,216
+Now when it comes to storing data with
+現在說到儲存資料
+
+90
+00:03:47,248 --> 00:03:50,024
+databases, you don't just have one database
+資料庫，您不只有一個資料庫
+
+91
+00:03:50,136 --> 00:03:51,869
+that you can use. There are tons of
+您可以使用。有大量
+
+92
+00:03:51,965 --> 00:03:53,986
+different database engines based on
+基於不同的資料庫引擎
+
+93
+00:03:53,986 --> 00:03:56,922
+different database systems and philosophies.
+不同的資料庫系統和理念。
+
+94
+00:03:57,580 --> 00:04:00,420
+For example, you got SQL-based databases
+例如，您有基於 SQL 的資料庫
+
+95
+00:04:00,645 --> 00:04:03,502
+like MySQL, or MySQL to be precise.
+就像MySQL，或者準確地說是MySQL。
+
+96
+00:04:04,161 --> 00:04:07,773
+MySQL is a very popular SQL database, and
+MySQL 是一個非常受歡迎的 SQL 資料庫，並且
+
+97
+00:04:07,773 --> 00:04:11,112
+SQL in general, no matter if you use MySQL
+一般的 SQL，無論你是否使用 MySQL
+
+98
+00:04:11,385 --> 00:04:13,215
+or another interpretation of it,
+或對其的另一種解釋，
+
+99
+00:04:13,874 --> 00:04:16,892
+is a relational database engine. So it's all
+是一個關係資料庫引擎。所以就這樣了
+
+100
+00:04:17,020 --> 00:04:19,766
+about storing data and relations between
+關於儲存資料和之間的關係
+
+101
+00:04:19,814 --> 00:04:23,651
+data. SQL and MySQL is very popular, and you
+資料。 SQL 和 MySQL 非常流行，你
+
+102
+00:04:23,667 --> 00:04:27,858
+can absolutely use Deno with MySQL or with
+絕對可以將 Deno 與 MySQL 或與
+
+103
+00:04:27,938 --> 00:04:29,994
+any SQL database in general.
+一般而言任何 SQL 資料庫。
+
+104
+00:04:30,814 --> 00:04:33,785
+On Deno land, under third-party modules, if
+在 Deno 土地上，在第三方模組下，如果
+
+105
+00:04:33,785 --> 00:04:35,038
+you search for SQL,
+您搜尋 SQL，
+
+106
+00:04:35,568 --> 00:04:38,604
+you find various modules that help you with
+您會發現各種模組可以幫助您
+
+107
+00:04:38,620 --> 00:04:41,978
+working with SQL, and not just with MySQL
+使用 SQL，而不僅僅是使用 MySQL
+
+108
+00:04:42,074 --> 00:04:44,644
+but also with other database engines based
+而且還可以與基於其他資料庫引擎的
+
+109
+00:04:44,644 --> 00:04:45,576
+on SQL.
+關於 SQL。
+
+110
+00:04:46,154 --> 00:04:49,768
+So you can absolutely use SQL in Deno apps.
+所以你絕對可以在 Deno 應用程式中使用 SQL。
+
+111
+00:04:51,230 --> 00:04:54,667
+Another very popular database engine and
+另一個非常受歡迎的資料庫引擎和
+
+112
+00:04:54,747 --> 00:04:55,773
+philosophy is
+哲學是
+
+113
+00:04:56,526 --> 00:05:00,261
+MongoDB, or in general, NoSQL databases.
+MongoDB，或一般來說，NoSQL 資料庫。
+
+114
+00:05:00,534 --> 00:05:02,938
+Now, as the name suggests, they follow a
+現在，顧名思義，他們遵循
+
+115
+00:05:03,018 --> 00:05:06,497
+different idea than SQL databases. With
+與 SQL 資料庫不同的想法。和
+
+116
+00:05:06,625 --> 00:05:10,039
+NoSQL databases, storing relations between
+NoSQL 資料庫，儲存之間的關係
+
+117
+00:05:10,072 --> 00:05:12,604
+documents is less important and not really
+檔案不太重要，而且也不是那麼重要
+
+118
+00:05:12,636 --> 00:05:15,826
+focused. Instead, SQL databases are all
+專注。相反，SQL 資料庫都是
+
+119
+00:05:15,923 --> 00:05:19,609
+about storing documents which are super fast
+關於超級快速地儲存文檔
+
+120
+00:05:19,609 --> 00:05:22,431
+to query, and therefore NoSQL databases are
+查詢，因此 NoSQL 資料庫是
+
+121
+00:05:22,639 --> 00:05:25,717
+also extremely popular, and MongoDB happens
+也非常受歡迎，MongoDB 就發生了
+
+122
+00:05:25,845 --> 00:05:28,073
+to be the most popular, again,
+再次成為最受歡迎的，
+
+123
+00:05:28,426 --> 00:05:31,632
+interpretation, you could say, of NoSQL.
+您可以說是 NoSQL 的解釋。
+
+124
+00:05:32,017 --> 00:05:34,261
+MongoDB is what we're going to use in this
+我們將在此使用 MongoDB
+
+125
+00:05:34,261 --> 00:05:36,569
+course section, and therefore you'll see in
+課程部分，因此您會看到
+
+126
+00:05:36,666 --> 00:05:39,198
+detail how it works. But in general, under
+詳細說明它是如何工作的。但總體而言，在
+
+127
+00:05:39,407 --> 00:05:41,891
+Deno third-party modules, you will find
+Deno第三方模組，你會發現
+
+128
+00:05:41,956 --> 00:05:43,927
+modules that help you with MongoDB,
+幫助您使用 MongoDB 的模組，
+
+129
+00:05:44,617 --> 00:05:47,742
+for example, the Mongo module. And that's
+例如，Mongo 模組。那就是
+
+130
+00:05:47,742 --> 00:05:49,939
+the module we're going to use in this course
+我們將在本課程中使用的模組
+
+131
+00:05:50,003 --> 00:05:52,664
+section. So long story short, you can use
+部分。長話短說，你可以使用
+
+132
+00:05:52,776 --> 00:05:55,597
+any kind of database with Deno, and it
+任何型別的 Deno 資料庫，它
+
+133
+00:05:55,597 --> 00:05:57,745
+really comes down to your preferences and
+真正取決於你的喜好
+
+134
+00:05:57,825 --> 00:05:59,237
+which kind of data you're storing.
+您正在儲存哪種型別的資料。
+
+135
+00:05:59,767 --> 00:06:01,965
+Attached to this lecture, you'll also find a
+在本講座的附件中，您也會發現
+
+136
+00:06:02,013 --> 00:06:06,378
+comparison of SQL or SQL and NoSQL, NoSQL
+SQL或SQL與NoSQL的比較、NoSQL
+
+137
+00:06:06,426 --> 00:06:08,801
+databases so that you can find out which
+資料庫，以便您可以找出哪些
+
+138
+00:06:08,913 --> 00:06:10,823
+database makes most sense for the
+資料庫最有意義
+
+139
+00:06:10,823 --> 00:06:13,134
+application you're building. In general, you
+您正在建立的應用程式。一般來說，你
+
+140
+00:06:13,230 --> 00:06:15,733
+can build any kind of application with any
+可以用任何建構任何型別的應用程式
+
+141
+00:06:15,733 --> 00:06:17,001
+kind of database engine though.
+不過是一種資料庫引擎。
+
+142
+00:06:17,643 --> 00:06:19,905
+So we're going to go with Mongo in this
+所以我們將在這方面與 Mongo 合作
+
+143
+00:06:19,905 --> 00:06:22,473
+course section. So let's see how that works.
+課程部分。讓我們看看它是如何工作的。

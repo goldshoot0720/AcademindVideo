@@ -1,0 +1,919 @@
+1
+00:00:02,435 --> 00:00:04,486
+We set up our routes and our dummy
+我們設定了路線和虛擬人
+
+2
+00:00:04,502 --> 00:00:06,425
+controllers. We set up the database
+控制器。我們設定資料庫
+
+3
+00:00:06,425 --> 00:00:08,956
+connection. Now let's add a model which then
+聯繫。現在讓我們來新增一個模型
+
+4
+00:00:09,068 --> 00:00:11,167
+should be responsible for interacting with
+應該負責與交互
+
+5
+00:00:11,167 --> 00:00:11,696
+the database.
+資料庫.
+
+6
+00:00:12,545 --> 00:00:15,333
+Now here I'll add a learning-resource.ts
+現在我將在這裡新增一個learning-resource.ts
+
+7
+00:00:15,333 --> 00:00:17,769
+file for the learning resource model.
+學習資源模型的檔案。
+
+8
+00:00:18,522 --> 00:00:21,134
+And again, I will define my model as a class
+再次，我將我的模型定義為一個類
+
+9
+00:00:21,262 --> 00:00:22,416
+LearningResource
+學習資源
+
+10
+00:00:23,008 --> 00:00:24,915
+which will have a bunch of static methods
+其中將會有一堆靜態方法
+
+11
+00:00:25,027 --> 00:00:26,982
+which in the end will allow us to interact
+這最終將使我們能夠互動
+
+12
+00:00:27,094 --> 00:00:29,899
+with the database. I mentioned it before, I
+與資料庫。我之前有提到過，我
+
+13
+00:00:29,899 --> 00:00:32,399
+will mention it again. This is just one way
+會再提及。這只是一種方式
+
+14
+00:00:32,544 --> 00:00:34,900
+of defining such a model. You could also
+定義這樣一個模型。你也可以
+
+15
+00:00:34,900 --> 00:00:36,647
+define a class that needs to be
+定義一個需要的類別
+
+16
+00:00:36,647 --> 00:00:39,116
+instantiated, which then offers methods that
+實例化，然後提供方法
+
+17
+00:00:39,116 --> 00:00:40,302
+interact with the database.
+與資料庫互動。
+
+18
+00:00:40,975 --> 00:00:43,347
+But I simply find this approach to be very
+但我只是覺得這種方法非常
+
+19
+00:00:43,860 --> 00:00:45,543
+understandable and intuitive.
+易於理解且直觀。
+
+20
+00:00:46,505 --> 00:00:48,092
+So here I'll export my class
+所以在這裡我將導出我的類
+
+21
+00:00:48,092 --> 00:00:50,143
+LearningResource, and in there
+LearningResource，在那裡
+
+22
+00:00:50,897 --> 00:00:52,964
+I will need to interact with the database.
+我需要與資料庫進行互動。
+
+23
+00:00:53,381 --> 00:00:56,196
+Hence, I'll import getDatabase from,
+因此，我將從以下位置導入 getDatabase：
+
+24
+00:00:57,939 --> 00:01:00,553
+going up one level, helpers/db.ts.
+上升一級，helpers/db.ts。
+
+25
+00:01:01,102 --> 00:01:04,587
+So that's this exported getDb function which
+這就是導出的 getDb 函式
+
+26
+00:01:04,781 --> 00:01:07,176
+I import under the name getDatabase here.
+我在這裡以 getDatabase 名稱導入。
+
+27
+00:01:07,568 --> 00:01:08,679
+This name is up to you.
+這個名字由你決定。
+
+28
+00:01:10,346 --> 00:01:13,019
+And now inside of the class, we can define a
+現在在類別中，我們可以定義一個
+
+29
+00:01:13,019 --> 00:01:16,079
+couple of methods that allow us to store a
+幾種允許我們儲存的方法
+
+30
+00:01:16,079 --> 00:01:18,752
+new resource, fetch the resources, and so
+新資源，獲取資源等等
+
+31
+00:01:18,881 --> 00:01:19,010
+on.
+在。
+
+32
+00:01:19,803 --> 00:01:21,777
+For example, we can add a static method
+例如我們可以加入一個靜態方法
+
+33
+00:01:24,026 --> 00:01:24,748
+create,
+創造，
+
+34
+00:01:25,293 --> 00:01:27,298
+which should create a new learning resource.
+這應該創造一個新的學習資源。
+
+35
+00:01:28,116 --> 00:01:28,773
+And that
+還有那個
+
+36
+00:01:29,639 --> 00:01:31,548
+method probably wants some data
+方法可能需要一些資料
+
+37
+00:01:32,205 --> 00:01:33,969
+which should be of type object,
+它應該是物件型別，
+
+38
+00:01:34,932 --> 00:01:36,423
+which then should have a couple of fields.
+然後應該有幾個欄位。
+
+39
+00:01:36,856 --> 00:01:39,502
+And now it's up to you how a single resource
+現在由您決定單一資源如何
+
+40
+00:01:39,502 --> 00:01:40,144
+should look like.
+應該看起來像。
+
+41
+00:01:40,705 --> 00:01:42,854
+You can also define your resource as a
+您也可以將您的資源定義為
+
+42
+00:01:42,854 --> 00:01:45,003
+TypeScript interface, which is basically
+TypeScript 介面，基本上是
+
+43
+00:01:45,180 --> 00:01:47,601
+also just a way of defining an object type.
+也只是定義物件型別的一種方法。
+
+44
+00:01:48,227 --> 00:01:50,861
+So there we could say that a resource always
+所以我們可以說資源總是
+
+45
+00:01:50,957 --> 00:01:52,707
+has a title which is a string,
+有一個字串標題，
+
+46
+00:01:53,365 --> 00:01:55,999
+always has a description that is a string,
+總是有一個字串描述，
+
+47
+00:01:56,593 --> 00:01:59,210
+and always has an image URL that is a string
+並且始終有一個字串形式的圖像 URL
+
+48
+00:01:59,708 --> 00:02:02,421
+as well as a regular URL that is a string.
+以及作為字串的常規 URL。
+
+49
+00:02:03,015 --> 00:02:05,584
+And then our data should simply be of type
+然後我們的資料應該只是型別
+
+50
+00:02:05,665 --> 00:02:07,768
+resource. That is something we can do. It's
+資源。這是我們可以做的事情。它是
+
+51
+00:02:07,768 --> 00:02:10,369
+a little bit like a type alias here, just
+這裡有點像是型別別名，只是
+
+52
+00:02:10,385 --> 00:02:12,425
+really focused on object types.
+真正專注於物件型別。
+
+53
+00:02:13,875 --> 00:02:15,817
+So with that, we have the create method.
+這樣，我們就有了 create 方法。
+
+54
+00:02:16,368 --> 00:02:19,201
+Now in the create method, we wanna reach out
+現在在創建方法中，我們想要接觸到
+
+55
+00:02:19,201 --> 00:02:21,386
+to the database. So we wanna get our
+到資料庫。所以我們想要得到我們的
+
+56
+00:02:21,386 --> 00:02:21,840
+database
+資料庫
+
+57
+00:02:22,820 --> 00:02:24,476
+and then store something there.
+然後在那裡存放一些東西。
+
+58
+00:02:26,196 --> 00:02:28,575
+Now we can call collection on the database
+現在我們可以在資料庫上呼叫集合
+
+59
+00:02:28,864 --> 00:02:31,137
+to connect with a specific collection.
+與特定集合連接。
+
+60
+00:02:31,835 --> 00:02:34,560
+MongoDB works with documents which are
+MongoDB 使用的檔案是
+
+61
+00:02:34,625 --> 00:02:37,512
+stored in collections. Collections are a
+儲存在集合中。集合是一個
+
+62
+00:02:37,512 --> 00:02:38,956
+little bit like tables in
+有點像表
+
+63
+00:02:40,508 --> 00:02:42,256
+And here you can pick any collection name
+在這裡您可以選擇任何集合名稱
+
+64
+00:02:42,353 --> 00:02:45,031
+you want. I'll go with resources
+你想要的。我會帶著資源去
+
+65
+00:02:45,720 --> 00:02:48,270
+and this collection will be created if it
+如果滿足的話，就會創造這個集合
+
+66
+00:02:48,302 --> 00:02:49,473
+doesn't exist already.
+尚不存在。
+
+67
+00:02:50,627 --> 00:02:53,722
+Now on this collection, I want to insert one
+現在在這個集合中，我想插入一個
+
+68
+00:02:55,021 --> 00:02:57,811
+element, one new document, which can be done
+element，一個新文檔，可以這樣做
+
+69
+00:02:57,843 --> 00:03:00,088
+with the insertOne method exposed by the
+與暴露的 insertOne 方法
+
+70
+00:03:00,088 --> 00:03:01,179
+collection object.
+集合物件。
+
+71
+00:03:01,917 --> 00:03:03,905
+And the document that should be entered is
+應該輸入的檔案是
+
+72
+00:03:03,937 --> 00:03:06,232
+simply this data which we're getting. I want
+只是我們得到的這些資料。我想
+
+73
+00:03:06,265 --> 00:03:09,090
+to add this data as a document to the
+將此資料作為文檔添加到
+
+74
+00:03:09,090 --> 00:03:09,542
+database
+資料庫
+
+75
+00:03:10,204 --> 00:03:12,270
+and it will get an ID automatically by
+它會自動獲得一個ID
+
+76
+00:03:12,334 --> 00:03:15,452
+MongoDB. So such ID field will be added.
+MongoDB。所以會加入這樣的ID欄位。
+
+77
+00:03:17,009 --> 00:03:20,316
+Now, this is an asynchronous operation and
+現在，這是一個非同步操作
+
+78
+00:03:20,333 --> 00:03:23,170
+hence we can actually turn this here into an
+因此我們實際上可以把這裡變成
+
+79
+00:03:23,170 --> 00:03:25,889
+async function to await this insertion.
+非同步函式等待此插入。
+
+80
+00:03:26,649 --> 00:03:28,202
+And we even get back a value.
+我們甚至還得到一個值。
+
+81
+00:03:28,751 --> 00:03:31,080
+Previously I didn't use it. Now I will show
+以前我沒有使用它。現在我將展示
+
+82
+00:03:31,080 --> 00:03:33,441
+you what we get back here and that's the ID
+你就是我們在這裡得到的，這就是 ID
+
+83
+00:03:33,757 --> 00:03:35,682
+of the inserted document
+插入文檔的
+
+84
+00:03:36,912 --> 00:03:39,566
+because as I mentioned, the ID is generated
+因為正如我所提到的，ID 是產生的
+
+85
+00:03:39,744 --> 00:03:42,106
+automatically by MongoDB.
+由 MongoDB 自動產生。
+
+86
+00:03:43,873 --> 00:03:46,749
+And then here we can return, let's say, an
+然後在這裡我們可以回傳，比方說，
+
+87
+00:03:46,845 --> 00:03:50,545
+object where we return this ID, but there I
+我們回傳此 ID 的物件，但我在那裡
+
+88
+00:03:50,642 --> 00:03:51,822
+wanna return the
+想歸還
+
+89
+00:03:52,744 --> 00:03:55,105
+$oid field because you learned in the
+$oid 欄位，因為您在
+
+90
+00:03:55,105 --> 00:03:57,790
+previous course sections that the ID
+之前課程部分的 ID
+
+91
+00:03:57,936 --> 00:04:01,114
+generated by MongoDB is an object which has
+MongoDB 產生的物件具有
+
+92
+00:04:01,210 --> 00:04:01,306
+a
+一個
+
+93
+00:04:02,093 --> 00:04:04,644
+$oid field which then holds the actual
+$oid 欄位然後儲存實際的
+
+94
+00:04:04,853 --> 00:04:07,388
+string ID. So I just wanna return that
+字串 ID。所以我只想歸還那個
+
+95
+00:04:07,388 --> 00:04:09,651
+string ID here, hence I'll return it like
+這裡是字串 ID，因此我會像這樣回傳它
+
+96
+00:04:09,715 --> 00:04:13,262
+this and extract it from that $oid field.
+並從 $oid 欄位中提取它。
+
+97
+00:04:14,369 --> 00:04:16,728
+So with that, we have a function for adding
+這樣，我們就有了一個添加函式
+
+98
+00:04:16,776 --> 00:04:17,499
+a new resource.
+一個新資源。
+
+99
+00:04:18,237 --> 00:04:20,820
+We also definitely need a function or a
+我們也肯定需要一個函式或一個
+
+100
+00:04:20,820 --> 00:04:23,500
+method for getting all resources.
+獲取所有資源的方法。
+
+101
+00:04:24,271 --> 00:04:26,389
+So let's add another static method
+那麼讓我們再增加一個靜態方法
+
+102
+00:04:28,380 --> 00:04:30,571
+findAll, which should find us all the
+findAll，它應該找到我們所有的
+
+103
+00:04:30,571 --> 00:04:31,204
+resources.
+資源。
+
+104
+00:04:32,292 --> 00:04:32,713
+So here
+所以在這裡
+
+105
+00:04:34,320 --> 00:04:35,830
+we again can await
+我們又可以等待
+
+106
+00:04:36,506 --> 00:04:37,504
+getDatabase
+取得資料庫
+
+107
+00:04:38,277 --> 00:04:40,902
+collection, and now of course use the same
+集合，現在當然使用相同的
+
+108
+00:04:40,934 --> 00:04:43,671
+collection as up there so that we talk to
+收集在那裡，以便我們交談
+
+109
+00:04:43,671 --> 00:04:45,637
+the same collection to which we store our
+我們儲存的同一個集合
+
+110
+00:04:45,669 --> 00:04:46,009
+data.
+資料。
+
+111
+00:04:47,043 --> 00:04:49,857
+And then we can call find on this, and find
+然後我們可以對此調用 find 並找到
+
+112
+00:04:49,970 --> 00:04:52,136
+without a filter argument, which you could
+沒有過濾器參數，你可以
+
+113
+00:04:52,217 --> 00:04:52,751
+pass here,
+經過這裡，
+
+114
+00:04:53,296 --> 00:04:56,148
+find without a filter will simply find all
+不帶過濾器的查找將簡單地查找所有
+
+115
+00:04:56,597 --> 00:04:59,241
+documents, which is exactly what I want. So
+文檔，這正是我想要的。所以
+
+116
+00:04:59,241 --> 00:05:01,276
+this will return all documents found in
+這將回傳在中找到的所有文檔
+
+117
+00:05:01,388 --> 00:05:02,013
+resources.
+資源。
+
+118
+00:05:02,766 --> 00:05:05,459
+Now we await the promise which find returns,
+現在我們等待找到回報的承諾，
+
+119
+00:05:05,811 --> 00:05:08,519
+and hence we get the actual resources in the
+因此我們得到了實際的資源
+
+120
+00:05:08,599 --> 00:05:10,635
+end, which I'll store in the resources
+end，我將其儲存在資源中
+
+121
+00:05:10,699 --> 00:05:11,227
+constant.
+持續的。
+
+122
+00:05:12,541 --> 00:05:15,346
+And then here we can return this as an
+然後在這裡我們可以將其回傳為
+
+123
+00:05:15,346 --> 00:05:17,157
+array, let's say. So we can return
+陣列，比方說。這樣我們就可以回傳
+
+124
+00:05:17,253 --> 00:05:22,080
+resources. However, I wanna transform the ID
+資源。不過我想轉換ID
+
+125
+00:05:22,144 --> 00:05:23,059
+which we have in there.
+我們在那裡有。
+
+126
+00:05:23,669 --> 00:05:24,792
+I want to map it
+我想映射它
+
+127
+00:05:25,530 --> 00:05:27,665
+and we get a resource here as an input
+我們在這裡得到一個資源作為輸入
+
+128
+00:05:28,980 --> 00:05:31,291
+and I wanna return a new JavaScript object
+我想回傳一個新的 JavaScript 物件
+
+129
+00:05:31,291 --> 00:05:32,318
+for every resource
+對於每一個資源
+
+130
+00:05:33,297 --> 00:05:36,153
+where I simply copy the existing resource
+我只需複製現有資源
+
+131
+00:05:36,763 --> 00:05:38,560
+with the spread operator like this
+像這樣的擴充運算符
+
+132
+00:05:39,250 --> 00:05:41,144
+but then I add an ID field.
+但隨後我加入了一個 ID 欄位。
+
+133
+00:05:41,818 --> 00:05:44,739
+By default, there only is an _id field. Now
+預設情況下，只有一個 _id 欄位。現在
+
+134
+00:05:44,851 --> 00:05:46,279
+I add an ID field
+我添加一個ID欄位
+
+135
+00:05:47,031 --> 00:05:47,179
+which
+哪個
+
+136
+00:05:47,704 --> 00:05:50,299
+value is resource._id.$oid.
+值為resource._id.$oid。
+
+137
+00:05:52,740 --> 00:05:56,107
+So again, I basically map the OID, the ID
+再說一次，我基本上映射了 OID、ID
+
+138
+00:05:56,156 --> 00:05:58,617
+which is part of every document,
+這是每個檔案的一部分，
+
+139
+00:05:59,180 --> 00:06:02,336
+into an ID field like this, which just holds
+像這樣的 ID 欄位，它只包含
+
+140
+00:06:02,368 --> 00:06:05,201
+the string ID then and not this object with
+然後是字串 ID，而不是這個物件
+
+141
+00:06:05,201 --> 00:06:06,269
+the OID field.
+OID 欄位。
+
+142
+00:06:06,901 --> 00:06:09,149
+This is simply a little convenience so that
+這只是一點方便，以便
+
+143
+00:06:09,165 --> 00:06:11,832
+on the client we can simply access an ID
+在使用者端我們可以簡單地存取一個ID
+
+144
+00:06:11,832 --> 00:06:14,367
+field on the returned document and we get
+回傳文檔上的欄位，我們得到
+
+145
+00:06:14,367 --> 00:06:16,755
+the string ID right away and we don't have
+立即得到字串 ID，但我們沒有
+
+146
+00:06:16,787 --> 00:06:20,240
+to access the strange _id field and then dig
+訪問奇怪的 _id 欄位然後挖掘
+
+147
+00:06:20,272 --> 00:06:22,902
+into some nested field in there. Instead, we
+進入其中的一些嵌套欄位。相反，我們
+
+148
+00:06:22,902 --> 00:06:25,061
+just have id and that will hold the string
+只要有 id 就可以儲存字串
+
+149
+00:06:25,157 --> 00:06:25,351
+ID.
+ID。
+
+150
+00:06:27,090 --> 00:06:29,296
+Now my IDE is complaining here that this has
+現在我的 IDE 抱怨這已經
+
+151
+00:06:29,360 --> 00:06:30,938
+the implicit type any.
+隱式型別any。
+
+152
+00:06:31,598 --> 00:06:34,344
+Now we can set the type to any explicitly if
+現在我們可以明確地將型別設定為任何 if
+
+153
+00:06:34,344 --> 00:06:34,943
+we want to,
+我們想要，
+
+154
+00:06:35,639 --> 00:06:38,358
+or we are very precise and make it clear
+或者我們非常精確並且說得很清楚
+
+155
+00:06:38,649 --> 00:06:41,529
+that the resource here will be an object and
+這裡的資源將是一個物件並且
+
+156
+00:06:41,610 --> 00:06:44,014
+that object will have an _id field
+該物件將有一個 _id 欄位
+
+157
+00:06:44,691 --> 00:06:45,562
+which is of type
+這是型別
+
+158
+00:06:46,127 --> 00:06:48,773
+ObjectId which you can import
+您可以導入的ObjectId
+
+159
+00:06:49,370 --> 00:06:51,364
+from the Mongo package. You can import
+來自 Mongo 包。您可以匯入
+
+160
+00:06:51,624 --> 00:06:52,110
+ObjectId from
+物件 ID 來自
+
+161
+00:06:52,110 --> 00:06:54,592
+https://deno.land/x/mongo@v0.7.0.
+https://deno.land/x/mongo@v0.7.0。
+
+162
+00:07:06,753 --> 00:07:07,749
+/mod.ts.
+/mod.ts。
+
+163
+00:07:08,584 --> 00:07:11,234
+This is the type that defines this object
+這是定義該物件的型別
+
+164
+00:07:11,234 --> 00:07:15,667
+with the $oid field, and that's what _id
+與 $oid 欄位，這就是 _id
+
+165
+00:07:15,747 --> 00:07:18,541
+will be as a type in the resources, in the
+將作為資源中的一種型別
+
+166
+00:07:18,541 --> 00:07:21,352
+documents we're extracting with find. And
+我們用 find 提取的文檔。和
+
+167
+00:07:21,368 --> 00:07:23,359
+besides the ID, we'll have a title which is
+除了 ID 之外，我們還有一個標題，即
+
+168
+00:07:23,375 --> 00:07:23,745
+a string,
+一個字串，
+
+169
+00:07:24,419 --> 00:07:26,154
+we'll have a description
+我們會有一個描述
+
+170
+00:07:26,748 --> 00:07:27,439
+which is a string,
+這是一個字串，
+
+171
+00:07:28,113 --> 00:07:30,410
+we'll have an image URL which is a string,
+我們將有一個圖像 URL，它是一個字串，
+
+172
+00:07:31,068 --> 00:07:32,979
+and we'll have a URL which is a string.
+我們將得到一個字串形式的 URL。
+
+173
+00:07:33,236 --> 00:07:35,420
+That's how our documents that we fetch from
+這就是我們獲取檔案的方式
+
+174
+00:07:35,420 --> 00:07:36,624
+the database will look like.
+資料庫看起來像。
+
+175
+00:07:37,267 --> 00:07:39,595
+And here we simply map every document to a
+在這裡，我們簡單地將每個檔案映射到
+
+176
+00:07:39,595 --> 00:07:42,485
+new object which has this extra ID field.
+具有此額外 ID 欄位的新物件。
+
+177
+00:07:42,630 --> 00:07:44,814
+That's the only thing I'm doing here as a
+這是我作為一個人在這裡做的唯一一件事
+
+178
+00:07:44,814 --> 00:07:46,757
+little convenience so that we get this
+有點方便，所以我們得到這個
+
+179
+00:07:46,821 --> 00:07:48,395
+transformed data in the client.
+使用者端中轉換的資料。
+
+180
+00:07:49,374 --> 00:07:52,313
+With that, we have create and findAll. And
+這樣，我們就有了 create 和 findAll。和
+
+181
+00:07:52,345 --> 00:07:53,838
+before we work on updating,
+在我們進行更新之前，
+
+182
+00:07:54,368 --> 00:07:57,162
+let's wire up these 2 methods and let's see
+讓我們把這兩種方法連結起來看看
+
+183
+00:07:57,162 --> 00:07:59,764
+how we can test them to verify whether
+我們如何測試它們以驗證是否
+
+184
+00:07:59,908 --> 00:08:00,679
+everything works.
+一切正常。

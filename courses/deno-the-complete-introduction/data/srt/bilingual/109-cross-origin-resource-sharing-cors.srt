@@ -1,0 +1,1009 @@
+1
+00:00:02,281 --> 00:00:04,418
+What's this CORS policy?
+CORS 政策是什麼？
+
+2
+00:00:05,012 --> 00:00:08,547
+CORS stands for Cross-Origin Resource
+CORS 代表跨源資源
+
+3
+00:00:08,547 --> 00:00:08,916
+Sharing.
+分享。
+
+4
+00:00:09,655 --> 00:00:10,812
+And here's what it's all about.
+這就是它的全部內容。
+
+5
+00:00:11,760 --> 00:00:15,054
+We have 2 servers and we typically do if we
+我們有 2 台伺服器，如果我們通常這樣做
+
+6
+00:00:15,054 --> 00:00:18,652
+have a REST API and a frontend. One server
+有一個 REST API 和一個前端。一台伺服器
+
+7
+00:00:18,845 --> 00:00:21,721
+serves the frontend, in our case, the React
+服務前端，在我們的例子中，是 React
+
+8
+00:00:21,721 --> 00:00:23,135
+single page application.
+單頁應用程式。
+
+9
+00:00:23,729 --> 00:00:26,412
+The other server serves our REST API.
+另一台伺服器為我們的 REST API 提供服務。
+
+10
+00:00:27,263 --> 00:00:30,232
+Now we want our frontend app to talk to the
+現在我們希望我們的前端應用程式能夠與
+
+11
+00:00:30,232 --> 00:00:33,200
+REST API to fetch data or to send data.
+用於取得資料或發送資料的 REST API。
+
+12
+00:00:33,826 --> 00:00:35,976
+But the thing you have to know is that
+但你必須知道的是
+
+13
+00:00:35,992 --> 00:00:40,084
+modern browsers by default don't allow this
+現代瀏覽器預設不允許這樣做
+
+14
+00:00:40,084 --> 00:00:43,357
+interaction. They block requests being sent
+相互作用。他們阻止發送的請求
+
+15
+00:00:43,694 --> 00:00:45,796
+from the client to the server. To be
+從使用者端到伺服器。成為
+
+16
+00:00:45,796 --> 00:00:48,428
+precise, they don't block it, but they won't
+準確地說，他們不會阻止它，但他們不會
+
+17
+00:00:48,508 --> 00:00:50,690
+return the response by the server.
+由伺服器回傳回應。
+
+18
+00:00:51,412 --> 00:00:53,851
+This is a security mechanism to make sure
+這是一種安全機制，以確保
+
+19
+00:00:54,381 --> 00:00:57,429
+that your JavaScript code that runs in the
+你的 JavaScript 程式碼運行在
+
+20
+00:00:57,429 --> 00:01:00,204
+browser is only able to talk to your own
+瀏覽器只能與自己的瀏覽器對話
+
+21
+00:01:00,300 --> 00:01:02,578
+server and not to some other server which
+伺服器而不是其他伺服器
+
+22
+00:01:02,866 --> 00:01:03,139
+could be
+可能是
+
+23
+00:01:03,668 --> 00:01:05,143
+used to do something malicious.
+曾經做過一些惡意的事情。
+
+24
+00:01:05,913 --> 00:01:08,255
+Now, of course, when we build an API, we
+當然，現在當我們建立 API 時，我們
+
+25
+00:01:08,255 --> 00:01:11,911
+typically do want to expose it to all kinds
+通常確實想將其暴露給各種型別的人
+
+26
+00:01:11,943 --> 00:01:14,589
+of servers though. We don't want to lock it
+不過伺服器的數量。我們不想鎖定它
+
+27
+00:01:14,589 --> 00:01:16,963
+down to just the server on which the API
+直至 API 所在的伺服器
+
+28
+00:01:17,075 --> 00:01:18,999
+runs because that would mean that
+運行，因為這意味著
+
+29
+00:01:18,999 --> 00:01:21,646
+essentially no one is able to use our API.
+基本上沒有人能夠使用我們的 API。
+
+30
+00:01:21,886 --> 00:01:23,939
+So we wanna circumvent the security
+所以我們想繞過安全措施
+
+31
+00:01:23,939 --> 00:01:27,162
+mechanism which exists for a good reason but
+機制的存在有充分的理由，但是
+
+32
+00:01:27,162 --> 00:01:28,349
+which we don't always want.
+這是我們並不總是想要的。
+
+33
+00:01:29,102 --> 00:01:31,603
+And the good thing is we can disable this
+好處是我們可以停用它
+
+34
+00:01:31,747 --> 00:01:32,757
+CORS checking.
+CORS 檢查。
+
+35
+00:01:33,495 --> 00:01:36,637
+On the server, we can set specific response
+在伺服器上，我們可以設定具體的回應
+
+36
+00:01:36,637 --> 00:01:39,522
+headers to the responses we're sending back
+我們發回的回應的標頭
+
+37
+00:01:39,522 --> 00:01:42,343
+to the client to essentially let the browser
+給使用者端本質上就是讓瀏覽器
+
+38
+00:01:42,343 --> 00:01:45,149
+know that we're fine with returning that
+知道我們可以退貨
+
+39
+00:01:45,149 --> 00:01:47,697
+information and that the browser should get
+瀏覽器應該獲取的資訊
+
+40
+00:01:47,842 --> 00:01:49,765
+out of the way and not block it.
+讓開，不要擋住它。
+
+41
+00:01:50,599 --> 00:01:54,302
+So we can configure our server to allow this
+所以我們可以設定我們的伺服器以允許這樣做
+
+42
+00:01:54,574 --> 00:01:54,975
+access.
+使用權。
+
+43
+00:01:55,633 --> 00:01:57,287
+And it's really important that this is only
+非常重要的是，這只是
+
+44
+00:01:57,319 --> 00:01:58,250
+a browser thing.
+瀏覽器的東西。
+
+45
+00:01:58,828 --> 00:02:01,220
+In Postman, we didn't have any problems
+在 Postman 中，我們沒有遇到任何問題
+
+46
+00:02:01,412 --> 00:02:04,029
+because Postman doesn't have this security
+因為郵差沒有這種安全性
+
+47
+00:02:04,061 --> 00:02:04,623
+concept.
+概念。
+
+48
+00:02:05,169 --> 00:02:07,192
+So it's really just a thing if you have a
+所以如果你有的話，這真的只是一件事
+
+49
+00:02:07,192 --> 00:02:08,011
+browser web app.
+瀏覽器網頁應用程式。
+
+50
+00:02:08,797 --> 00:02:12,891
+But in that case, on the server, in app.ts
+但在這種情況下，在伺服器上，在 app.ts 中
+
+51
+00:02:12,891 --> 00:02:16,230
+for example, you want to set headers that
+例如，您想要設定標題
+
+52
+00:02:16,262 --> 00:02:19,602
+grant the client access to your resources.
+授予使用者端存取您的資源的權限。
+
+53
+00:02:20,517 --> 00:02:21,608
+And that can be done
+這是可以做到的
+
+54
+00:02:22,282 --> 00:02:23,598
+by adding a middleware here
+透過在此處添加中介層
+
+55
+00:02:24,288 --> 00:02:26,951
+in the app.ts file, now back in the Deno
+在 app.ts 檔案中，現在回到 Deno
+
+56
+00:02:27,079 --> 00:02:29,598
+code. So this is now not the frontend, this
+程式碼。所以現在這不是前端，這是
+
+57
+00:02:29,598 --> 00:02:30,480
+is the Deno code.
+是 Deno 程式碼。
+
+58
+00:02:31,347 --> 00:02:32,919
+Here we have a regular middleware with
+這裡我們有一個常規的中介層
+
+59
+00:02:33,031 --> 00:02:34,202
+context and next,
+上下文和接下來，
+
+60
+00:02:35,181 --> 00:02:37,828
+and we now want to reach out to the response
+現在我們想要得到回應
+
+61
+00:02:37,828 --> 00:02:39,096
+on the context object
+在上下文物件上
+
+62
+00:02:39,673 --> 00:02:42,384
+and to the headers there and call set to set
+並到那裡的標題並調用 set 來設置
+
+63
+00:02:42,417 --> 00:02:43,219
+a new header.
+一個新的標題。
+
+64
+00:02:44,085 --> 00:02:47,149
+And now there are 3 headers which we wanna
+現在我們想要 3 個標題
+
+65
+00:02:47,149 --> 00:02:49,918
+set here. The first header is the
+設定在這裡。第一個標頭是
+
+66
+00:02:50,111 --> 00:02:55,947
+Access-Control-Allow-Origin header. And make
+Access-Control-Allow-Origin 標頭。並讓
+
+67
+00:02:55,947 --> 00:02:58,632
+sure you have no typo, all the dashes are
+確保你沒有錯字，所有的破折號都是
+
+68
+00:02:58,680 --> 00:02:59,212
+important.
+重要的。
+
+69
+00:02:59,890 --> 00:03:03,134
+Here, you basically set which origins, so
+在這裡，您基本上設定了哪些原點，所以
+
+70
+00:03:03,263 --> 00:03:05,941
+which other domains are allowed to access
+允許其他哪些網域訪問
+
+71
+00:03:05,941 --> 00:03:06,506
+this API.
+這個API。
+
+72
+00:03:07,055 --> 00:03:09,062
+You could restrict this to some domain
+您可以將其限制為某個網域
+
+73
+00:03:09,741 --> 00:03:12,266
+.com, but I will set it to a wildcard
+.com，但我會將其設定為通配符
+
+74
+00:03:12,412 --> 00:03:15,195
+character to grant any server access to this
+授予任何伺服器對此的存取權限的字符
+
+75
+00:03:15,389 --> 00:03:15,810
+API.
+API。
+
+76
+00:03:17,268 --> 00:03:19,965
+The next header which we need to set here
+我們需要在這裡設定的下一個標頭
+
+77
+00:03:20,563 --> 00:03:25,585
+is the Access-Control-Allow-Methods header.
+是 Access-Control-Allow-Methods 標頭。
+
+78
+00:03:26,280 --> 00:03:29,082
+We defined which domains may access the API.
+我們定義了哪些網域可以存取 API。
+
+79
+00:03:29,677 --> 00:03:32,479
+Now we need to define which HTTP methods
+現在我們需要定義哪些 HTTP 方法
+
+80
+00:03:32,737 --> 00:03:35,169
+should be allowed, so which kind of requests
+應該被允許，那麼什麼樣的請求
+
+81
+00:03:35,410 --> 00:03:36,070
+can be sent.
+可以發送。
+
+82
+00:03:36,779 --> 00:03:39,274
+And here I want to allow GET, POST,
+在這裡我想允許 GET、POST、
+
+83
+00:03:39,919 --> 00:03:40,208
+PATCH,
+修補，
+
+84
+00:03:41,110 --> 00:03:43,679
+and DELETE. All separated by commas.
+並刪除。全部用逗號分隔。
+
+85
+00:03:44,436 --> 00:03:46,417
+And I'm simply going with these methods
+我只是用這些方法
+
+86
+00:03:46,691 --> 00:03:48,881
+because these are the methods I use in my
+因為這些是我在我的工作中所使用的方法
+
+87
+00:03:49,010 --> 00:03:49,332
+routes.
+路線。
+
+88
+00:03:49,911 --> 00:03:51,991
+I'm not allowing PUT requests, for example,
+我不允許 PUT 請求，例如，
+
+89
+00:03:52,024 --> 00:03:53,662
+because we have no PUT route.
+因為我們沒有 PUT 路線。
+
+90
+00:03:55,523 --> 00:03:57,381
+The last header that should be sent here
+應在此處發送的最後一個標頭
+
+91
+00:03:59,143 --> 00:04:04,541
+is the Access-Control-Allow-Headers
+是存取控制允許標頭
+
+92
+00:04:05,937 --> 00:04:06,280
+header.
+標頭。
+
+93
+00:04:06,999 --> 00:04:09,970
+This defines which headers the client may
+這定義了使用者端可以使用哪些標頭
+
+94
+00:04:09,970 --> 00:04:12,773
+set on requests it sends to the server.
+設定發送到伺服器的請求。
+
+95
+00:04:13,366 --> 00:04:16,026
+And here I wanna allow for the Content-Type
+在這裡我想允許 Content-Type
+
+96
+00:04:16,075 --> 00:04:16,331
+header.
+標頭。
+
+97
+00:04:16,956 --> 00:04:19,680
+I do allow this because in the frontend app,
+我確實允許這樣做，因為在前端應用程式中，
+
+98
+00:04:20,241 --> 00:04:22,421
+in the resources folder, in the components
+在資源資料夾中的元件中
+
+99
+00:04:22,421 --> 00:04:25,097
+folder, and there in the resources.js file,
+資料夾，然後在 resources.js 檔案中，
+
+100
+00:04:26,091 --> 00:04:28,992
+there on some requests, for example, on the
+那裡有一些要求，例如
+
+101
+00:04:29,056 --> 00:04:31,988
+POST request or the PATCH request for adding
+POST請求或PATCH請求添加
+
+102
+00:04:32,117 --> 00:04:35,178
+or updating data, I do set the content type
+或更新資料，我確實設定了內容型別
+
+103
+00:04:35,178 --> 00:04:39,136
+to application/json. And we need to send
+到應用程式/json。我們需要發送
+
+104
+00:04:39,328 --> 00:04:40,867
+this content type here
+此處輸入此內容
+
+105
+00:04:41,573 --> 00:04:45,119
+to ensure that in our backend controller, so
+確保在我們的後端控制器中，所以
+
+106
+00:04:45,119 --> 00:04:48,136
+the controller on our server, this body
+我們伺服器上的控制器，這個主體
+
+107
+00:04:48,136 --> 00:04:51,281
+method is able to extract and parse the JSON
+方法能夠擷取並解析 JSON
+
+108
+00:04:51,281 --> 00:04:51,666
+data.
+資料。
+
+109
+00:04:52,308 --> 00:04:55,132
+Without the application/json content-type
+沒有 application/json 內容型別
+
+110
+00:04:55,132 --> 00:04:55,501
+header,
+標頭，
+
+111
+00:04:56,255 --> 00:04:56,544
+body
+身體
+
+112
+00:04:57,282 --> 00:05:00,154
+would extract the body but not convert it
+會提取身體但不會轉換它
+
+113
+00:05:00,186 --> 00:05:03,219
+from JSON, which is text, to a JavaScript
+從 JSON（文字）到 JavaScript
+
+114
+00:05:03,300 --> 00:05:05,819
+object. It would just yield us the text
+目的。它只會為我們提供文本
+
+115
+00:05:05,867 --> 00:05:08,418
+instead and we would have to manually parse
+相反，我們必須手動解析
+
+116
+00:05:08,531 --> 00:05:08,595
+it.
+它。
+
+117
+00:05:09,320 --> 00:05:12,308
+So we need this extra Content-Type header to
+所以我們需要這個額外的 Content-Type 標頭
+
+118
+00:05:12,389 --> 00:05:14,989
+give our backend, in this case the body
+給我們的後端，在本例中是主體
+
+119
+00:05:14,989 --> 00:05:18,121
+method, a hint on how to parse the request
+方法，關於如何解析請求的提示
+
+120
+00:05:18,137 --> 00:05:18,508
+body.
+身體.
+
+121
+00:05:19,428 --> 00:05:22,541
+We didn't need to do this on Postman because
+我們不需要在 Postman 上執行此操作，因為
+
+122
+00:05:22,654 --> 00:05:23,251
+Postman
+郵差
+
+123
+00:05:23,799 --> 00:05:25,945
+simply did this automatically. If you
+只是自動補全了此操作。如果你
+
+124
+00:05:25,945 --> 00:05:27,913
+inspect the headers on the POST request, you
+檢查 POST 請求的標頭，您
+
+125
+00:05:27,913 --> 00:05:31,979
+see that Content-Type was set automatically
+看到 Content-Type 已自動設定
+
+126
+00:05:32,076 --> 00:05:32,205
+there.
+那裡。
+
+127
+00:05:33,866 --> 00:05:35,786
+Now it's not set automatically by the
+現在它不是由
+
+128
+00:05:35,786 --> 00:05:37,924
+frontend. Here it is because I added the
+前端。這是因為我添加了
+
+129
+00:05:37,924 --> 00:05:38,882
+respective code, but therefore we also need
+各自的程式碼，但因此我們還需要
+
+130
+00:05:40,720 --> 00:05:43,395
+to allow the frontend to set this header
+允許前端設定此標頭
+
+131
+00:05:43,395 --> 00:05:44,469
+here with this
+在這裡
+
+132
+00:05:45,142 --> 00:05:45,735
+CORS header.
+CORS 標頭。
+
+133
+00:05:46,985 --> 00:05:49,244
+And with all of that, we can call next to
+有了所有這些，我們可以打電話給
+
+134
+00:05:49,244 --> 00:05:52,305
+ensure that the request doesn't die here but
+確保請求不會在這裡消失，但是
+
+135
+00:05:52,353 --> 00:05:53,619
+instead reaches the routes.
+而是到達路線。
+
+136
+00:05:54,356 --> 00:05:56,583
+Since we do asynchronous things in those
+因為我們在這些中做了非同步的事情
+
+137
+00:05:56,615 --> 00:06:00,108
+routes, we also want to use async here on
+路線，我們也想在這裡使用非同步
+
+138
+00:06:00,140 --> 00:06:02,432
+this middleware function so that we can
+這個中介軟體功能讓我們可以
+
+139
+00:06:02,464 --> 00:06:05,092
+await next here. Otherwise, the response
+接下來在這裡等待。否則，回應
+
+140
+00:06:05,092 --> 00:06:07,191
+would be sent back immediately. Now we're
+會立即被遣返。現在我們是
+
+141
+00:06:07,191 --> 00:06:09,325
+saying, don't just continue to the next
+說，不要只是繼續下一個
+
+142
+00:06:09,357 --> 00:06:11,813
+middleware but also wait for it to complete
+中介層，但也要等它完成
+
+143
+00:06:12,006 --> 00:06:14,029
+so that all the route handling completes
+這樣所有的路由處理就完成了
+
+144
+00:06:14,254 --> 00:06:16,726
+before this middleware finishes and we
+在這個中介層完成之前我們
+
+145
+00:06:16,886 --> 00:06:18,893
+ultimately send back the response therefore.
+因此最終發迴回應。
+
+146
+00:06:20,274 --> 00:06:23,099
+And with this changed, if we quit our Deno
+隨著這種情況的改變，如果我們退出 Deno
+
+147
+00:06:23,099 --> 00:06:24,592
+server and restart it,
+伺服器並重新啟動它，
+
+148
+00:06:25,652 --> 00:06:26,599
+we should be able
+我們應該能夠
+
+149
+00:06:27,241 --> 00:06:29,360
+to reload our frontend app here
+在這裡重新載入我們的前端應用程式
+
+150
+00:06:30,292 --> 00:06:32,443
+and now it's loading and then we see no
+現在正在載入，然後我們看不到
+
+151
+00:06:32,700 --> 00:06:35,030
+error but instead this message. And now we
+錯誤，而是這則訊息。現在我們
+
+152
+00:06:35,030 --> 00:06:36,754
+can add a new learning resource, for
+可以新增新的學習資源，例如
+
+153
+00:06:36,754 --> 00:06:38,397
+example, Deno the course.
+例如，Deno 課程。
+
+154
+00:06:39,460 --> 00:06:39,879
+This is a
+這是一個
+
+155
+00:06:40,685 --> 00:06:42,103
+great Deno course,
+很棒的 Deno 課程，
+
+156
+00:06:44,894 --> 00:06:46,219
+and here I just link to
+在這裡我只是連結到
+
+157
+00:06:46,546 --> 00:06:47,331
+https://acadlink/deno.
+https://acadlink/deno。
+
+158
+00:06:50,810 --> 00:06:53,640
+And then for the image URL, I'm again going
+然後對於圖像 URL，我再次去
+
+159
+00:06:53,737 --> 00:06:54,983
+to go with
+與
+
+160
+00:06:55,517 --> 00:06:55,792
+this
+這
+
+161
+00:06:57,053 --> 00:06:59,221
+image address here. You can pick any image
+圖片地址在這裡。您可以選擇任何影像
+
+162
+00:06:59,415 --> 00:07:00,776
+URL you want, of course.
+當然是你想要的網址。
+
+163
+00:07:01,478 --> 00:07:02,185
+Save this,
+儲存這個，
+
+164
+00:07:02,811 --> 00:07:03,277
+and here it is.
+就是這樣。
+
+165
+00:07:03,871 --> 00:07:05,284
+Here is the course, and this is being
+這是課程，這是
+
+166
+00:07:05,381 --> 00:07:07,019
+fetched from the database. And hence, if I
+從資料庫中獲取。因此，如果我
+
+167
+00:07:07,083 --> 00:07:08,801
+reload, it's also loaded from there.
+重新載入，它也是從那裡載入的。
+
+168
+00:07:09,412 --> 00:07:11,323
+We can click Visit Resource to go to that
+我們可以點擊存取資源來存取該資源
+
+169
+00:07:11,323 --> 00:07:13,250
+link, but we can also edit it.
+連結，但我們也可以編輯它。
+
+170
+00:07:14,069 --> 00:07:16,012
+For example, add a couple of exclamation
+例如，添加幾個感嘆號
+
+171
+00:07:16,012 --> 00:07:17,827
+marks also down there and save this.
+也在那裡標記並儲存它。
+
+172
+00:07:18,951 --> 00:07:20,011
+And we can also delete it,
+我們也可以刪除它，
+
+173
+00:07:20,573 --> 00:07:22,066
+which I want to show you by adding a new
+我想透過添加一個新的內容來向您展示
+
+174
+00:07:22,243 --> 00:07:22,709
+resource,
+資源，
+
+175
+00:07:23,929 --> 00:07:25,246
+test dummy,
+測試假人，
+
+176
+00:07:25,953 --> 00:07:28,008
+and now just some dummy URLs.
+現在只是一些虛擬 URL。
+
+177
+00:07:29,859 --> 00:07:30,311
+For both
+對於兩者
+
+178
+00:07:32,136 --> 00:07:32,765
+image and
+圖像和
+
+179
+00:07:33,718 --> 00:07:36,253
+the resource. If I now delete this, you see
+資源。如果我現在刪除這個，你會看到
+
+180
+00:07:36,253 --> 00:07:36,689
+it's gone.
+它消失了。
+
+181
+00:07:37,450 --> 00:07:39,495
+So this now works, and this is now how a
+現在這可行了，這就是現在
+
+182
+00:07:39,495 --> 00:07:42,331
+frontend could connect to a backend.
+前端可以連接到後端。
+
+183
+00:07:42,943 --> 00:07:46,149
+This is a React application talking to our
+這是一個與我們對話的 React 應用程式
+
+184
+00:07:46,230 --> 00:07:47,830
+Deno REST API here,
+此處 Deno REST API，
+
+185
+00:07:49,091 --> 00:07:51,500
+and this hopefully also makes the difference
+希望這也會有所作為
+
+186
+00:07:51,500 --> 00:07:53,989
+between server-side rendered views and APIs
+伺服器端渲染視圖和 API 之間
+
+187
+00:07:54,406 --> 00:07:55,656
+100% clear.
+100% 清晰。
+
+188
+00:07:56,249 --> 00:07:58,814
+Here we have an API which is only about the
+這裡我們有一個 API，它只涉及
+
+189
+00:07:58,894 --> 00:08:00,289
+data that's being exchanged.
+正在交換的資料。
+
+190
+00:08:00,898 --> 00:08:04,072
+We're not sending or generating any HTML
+我們不會發送或產生任何 HTML
+
+191
+00:08:04,120 --> 00:08:06,701
+code on the Deno server here. Instead, for
+Deno 伺服器上的程式碼位於此處。相反，對於
+
+192
+00:08:06,749 --> 00:08:09,394
+this we have a standalone frontend, a React
+我們有一個獨立的前端，一個 React
+
+193
+00:08:09,394 --> 00:08:11,317
+single-page application that doesn't know
+不知道的單頁應用程式
+
+194
+00:08:11,478 --> 00:08:12,552
+anything about Deno.
+關於德諾的任何事。
+
+195
+00:08:13,177 --> 00:08:15,149
+This is responsible for what we're seeing on
+這就是我們所看到的原因
+
+196
+00:08:15,245 --> 00:08:15,678
+the screen.
+螢幕.
+
+197
+00:08:16,207 --> 00:08:18,194
+Everything you're seeing here is rendered
+您在這裡看到的所有內容均已渲染
+
+198
+00:08:18,291 --> 00:08:21,160
+and generated by the React application So
+並由 React 應用程式生成
+
+199
+00:08:21,176 --> 00:08:23,360
+therefore by JavaScript code that runs in
+因此透過運行在的 JavaScript 程式碼
+
+200
+00:08:23,360 --> 00:08:23,906
+the browser.
+瀏覽器。
+
+201
+00:08:24,629 --> 00:08:27,149
+Only the data that's being used to populate
+僅用於填充的資料
+
+202
+00:08:27,149 --> 00:08:29,799
+this, that data is coming from Deno.
+這個，那個資料來自 Deno。

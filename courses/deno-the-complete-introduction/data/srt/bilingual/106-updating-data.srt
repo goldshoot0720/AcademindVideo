@@ -1,0 +1,1024 @@
+1
+00:00:02,262 --> 00:00:05,134
+So let's continue here with updating.
+那我們就在這裡繼續更新吧。
+
+2
+00:00:06,450 --> 00:00:08,279
+And for that, let's start in the model. We
+為此，我們從模型開始。我們
+
+3
+00:00:08,279 --> 00:00:10,012
+have a create and a findAll
+有一個 create 和一個 findAll
+
+4
+00:00:10,766 --> 00:00:11,087
+method.
+方法。
+
+5
+00:00:11,745 --> 00:00:13,558
+Now we need a method for updating.
+現在我們需要一種更新方法。
+
+6
+00:00:14,135 --> 00:00:16,446
+Hence, I'll add a new static async method
+因此，我將新增一個新的靜態非同步方法
+
+7
+00:00:16,542 --> 00:00:16,606
+here,
+這裡，
+
+8
+00:00:17,184 --> 00:00:20,265
+update. And update needs 2 pieces of
+更新。且更新需要2塊
+
+9
+00:00:20,265 --> 00:00:23,458
+information. It needs the ID of the element
+資訊.它需要元素的 ID
+
+10
+00:00:23,458 --> 00:00:25,207
+that should be updated, the ID of the
+應該更新的ID
+
+11
+00:00:25,207 --> 00:00:25,704
+document,
+檔案,
+
+12
+00:00:26,250 --> 00:00:28,976
+and the new document data, with which the
+以及新的文檔資料，
+
+13
+00:00:29,057 --> 00:00:31,348
+old document should be updated, should be
+舊檔案應該更新，應該是
+
+14
+00:00:31,348 --> 00:00:32,277
+merged, you could say.
+合併，你可以說。
+
+15
+00:00:33,143 --> 00:00:35,466
+Hence, I expect to get an ID as a string and
+因此，我希望獲得一個字串形式的 ID
+
+16
+00:00:35,546 --> 00:00:37,790
+as a second argument some data which in the
+作為第二個參數的一些資料
+
+17
+00:00:37,790 --> 00:00:40,578
+end should again be of that resource type. I
+end 應該再次屬於該資源型別。我
+
+18
+00:00:40,610 --> 00:00:42,789
+again want to get title, description, and so
+再次想要取得標題、描述等
+
+19
+00:00:42,934 --> 00:00:43,046
+on.
+在。
+
+20
+00:00:44,231 --> 00:00:44,568
+So here
+所以在這裡
+
+21
+00:00:45,321 --> 00:00:47,741
+I will add resource as a type,
+我將添加資源作為一種型別，
+
+22
+00:00:48,782 --> 00:00:51,266
+and with that in here we can again get our
+有了它，我們就可以再次得到我們的
+
+23
+00:00:51,266 --> 00:00:51,939
+database,
+資料庫,
+
+24
+00:00:53,093 --> 00:00:54,519
+on there call collection
+在那裡打電話收集
+
+25
+00:00:55,097 --> 00:00:57,852
+and reach out to the resources collection we
+並聯繫我們收集的資源
+
+26
+00:00:57,852 --> 00:00:58,222
+got here
+到了這裡
+
+27
+00:01:01,138 --> 00:01:02,814
+and then call updateOne
+然後調用updateOne
+
+28
+00:01:03,393 --> 00:01:06,282
+on the collection. And now updateOne needs 2
+關於收藏。現在 updateOne 需要 2
+
+29
+00:01:06,315 --> 00:01:09,366
+arguments. The first argument is a filter
+論據。第一個參數是過濾器
+
+30
+00:01:09,705 --> 00:01:11,706
+that picks the one document we want to
+選擇我們想要的一份文檔
+
+31
+00:01:11,723 --> 00:01:14,934
+update, and the second argument is an object
+update，第二個參數是一個物件
+
+32
+00:01:14,934 --> 00:01:16,322
+that describes our update.
+這描述了我們的更新。
+
+33
+00:01:17,113 --> 00:01:18,694
+And here we can use
+在這裡我們可以使用
+
+34
+00:01:19,372 --> 00:01:21,599
+$_set, which is a special property name
+$_set，這是一個特殊的屬性名稱
+
+35
+00:01:21,792 --> 00:01:23,421
+which will be recognized by MongoDB.
+這將被 MongoDB 識別。
+
+36
+00:01:24,152 --> 00:01:27,011
+To define which object should be set or
+定義應設定哪個物件或
+
+37
+00:01:27,123 --> 00:01:30,415
+which fields should be set to new values in
+哪些欄位應設定為新值
+
+38
+00:01:30,415 --> 00:01:31,426
+the database document.
+資料庫文檔。
+
+39
+00:01:32,004 --> 00:01:35,280
+And here I'll set it to data to basically
+在這裡我將其設定為資料基本上
+
+40
+00:01:35,376 --> 00:01:37,865
+update all fields with new data.
+用新資料更新所有欄位。
+
+41
+00:01:39,262 --> 00:01:41,494
+Now for filtering, I wanna look for a
+現在為了過濾，我想找一個
+
+42
+00:01:41,494 --> 00:01:42,393
+specific ID
+特定ID
+
+43
+00:01:42,939 --> 00:01:45,941
+and keep in mind that the original ID is
+並記住原始 ID 是
+
+44
+00:01:46,134 --> 00:01:49,442
+stored in an _id field in the documents. So
+儲存在檔案中的 _id 欄位中。所以
+
+45
+00:01:49,506 --> 00:01:51,815
+I check for _id to match
+我檢查 _id 是否匹配
+
+46
+00:01:52,568 --> 00:01:55,391
+my ID, but now I can't set ID like this
+我的ID，但現在我不能這樣設定ID
+
+47
+00:01:55,615 --> 00:01:57,924
+because my ID is a string and what's
+因為我的 ID 是一個字串，什麼是
+
+48
+00:01:57,924 --> 00:01:59,849
+actually stored in the database, as you
+實際上儲存在資料庫中，就像你一樣
+
+49
+00:01:59,849 --> 00:02:00,233
+learned
+學到了
+
+50
+00:02:01,548 --> 00:02:04,034
+and as you see in Postman, is an object with
+正如你在 Postman 中看到的，是一個帶有
+
+51
+00:02:04,034 --> 00:02:07,449
+a $oid field. That's what's actually stored.
+$oid 欄位。這就是實際儲存的內容。
+
+52
+00:02:07,722 --> 00:02:09,486
+So that's what I need to match it against.
+這就是我需要與之相符的內容。
+
+53
+00:02:10,288 --> 00:02:12,116
+And we can even manually create such an
+我們甚至可以手動建立這樣一個
+
+54
+00:02:12,116 --> 00:02:15,098
+object as we did it before in the database
+物件就像我們之前在資料庫中所做的那樣
+
+55
+00:02:15,098 --> 00:02:16,028
+course section.
+課程部分。
+
+56
+00:02:16,686 --> 00:02:16,734
+Or
+或者
+
+57
+00:02:17,749 --> 00:02:20,037
+we can actually use that ObjectId thing
+我們實際上可以使用 ObjectId 的東西
+
+58
+00:02:20,150 --> 00:02:22,035
+here, which I'm importing from the Mongo
+在這裡，我從 Mongo 導入
+
+59
+00:02:22,164 --> 00:02:25,112
+module because that can be called as a
+模組，因為它可以被稱為
+
+60
+00:02:25,370 --> 00:02:25,694
+function
+功能
+
+61
+00:02:26,375 --> 00:02:29,033
+and we can pass a string ID to it and this
+我們可以將字串 ID 傳遞給它
+
+62
+00:02:29,033 --> 00:02:31,351
+will generate such an ObjectId.
+就會產生這樣一個ObjectId。
+
+63
+00:02:32,007 --> 00:02:33,963
+So this will generate this object which we
+所以這將生成我們的物件
+
+64
+00:02:33,963 --> 00:02:36,841
+need. And with that, we update the correct
+需要。這樣，我們就更新了正確的
+
+65
+00:02:37,116 --> 00:02:38,216
+document, hopefully.
+文檔，希望如此。
+
+66
+00:02:40,107 --> 00:02:42,581
+I will also await this so that this overall
+我也將等待這一點，以便總體上
+
+67
+00:02:42,695 --> 00:02:45,772
+function only completes, you could say, once
+函式只完成，你可以說，一次
+
+68
+00:02:45,772 --> 00:02:46,301
+this is done
+這是完成了
+
+69
+00:02:46,879 --> 00:02:48,626
+or that the promise which this function
+或者這個函式的承諾
+
+70
+00:02:48,658 --> 00:02:50,951
+returns only resolves once this is done.
+只有完成此操作後才會回傳。
+
+71
+00:02:51,224 --> 00:02:52,523
+That would be the more correct way of
+這將是更正確的方法
+
+72
+00:02:52,523 --> 00:02:53,164
+expressing it.
+表達它。
+
+73
+00:02:54,351 --> 00:02:56,563
+And with that, we can then go back to
+有了這個，我們就可以回到
+
+74
+00:02:57,157 --> 00:02:59,610
+the controller, to the resources.ts file in
+控制器，到resources.ts檔案中
+
+75
+00:02:59,642 --> 00:03:01,855
+the controller and there to update
+控制器並在那裡更新
+
+76
+00:03:01,871 --> 00:03:02,416
+resources.
+資源。
+
+77
+00:03:03,426 --> 00:03:06,056
+Now, first of all here, just as with the
+現在，首先在這裡，就像
+
+78
+00:03:06,056 --> 00:03:08,557
+create, the addResource function here, we
+create，這裡的addResource函式，我們
+
+79
+00:03:08,557 --> 00:03:10,995
+need to extract a bunch of data. So we'll
+需要提取一堆資料。所以我們會
+
+80
+00:03:10,995 --> 00:03:14,154
+extract all that data here from the incoming
+從傳入的資料中提取所有資料
+
+81
+00:03:14,236 --> 00:03:14,760
+request.
+要求。
+
+82
+00:03:16,454 --> 00:03:16,816
+And then
+進而
+
+83
+00:03:19,640 --> 00:03:23,011
+I want to call learningResource.update and
+我想呼叫learningResource.update並且
+
+84
+00:03:23,075 --> 00:03:25,485
+pass in the ID and the new data.
+傳入 ID 和新資料。
+
+85
+00:03:26,369 --> 00:03:28,538
+Now the ID is something we don't have yet,
+現在我們還沒有ID，
+
+86
+00:03:28,939 --> 00:03:31,173
+but we can get it from the incoming request
+但我們可以從傳入的請求中取得它
+
+87
+00:03:31,173 --> 00:03:34,117
+as well. We can store the ID by getting it
+以及。我們可以透過取得ID來儲存它
+
+88
+00:03:34,117 --> 00:03:36,176
+from the context object on the params.
+來自參數上的上下文物件。
+
+89
+00:03:36,712 --> 00:03:39,484
+So the params which are encoded in the URL
+所以在 URL 中編碼的參數
+
+90
+00:03:40,052 --> 00:03:40,325
+and there
+在那裡
+
+91
+00:03:41,000 --> 00:03:41,963
+.resourceId.
+.resourceId。
+
+92
+00:03:42,782 --> 00:03:45,077
+Now you can also pick just ID, whatever you
+現在您也可以只選擇 ID，無論您選擇什麼
+
+93
+00:03:45,174 --> 00:03:47,871
+want, but I will go with resource ID. This
+想要，但我會選擇資源 ID。這
+
+94
+00:03:47,983 --> 00:03:50,038
+however means that I also need to update my
+但這意味著我還需要更新我的
+
+95
+00:03:50,086 --> 00:03:50,632
+route. Now
+路線。現在
+
+96
+00:03:51,194 --> 00:03:54,389
+the PATCH route should now include the ID of
+PATCH 路由現在應包含以下 ID
+
+97
+00:03:54,421 --> 00:03:56,749
+the document that should be updated in the
+應更新的檔案
+
+98
+00:03:56,829 --> 00:03:59,365
+URL as a dynamic segment.
+URL 作為動態段。
+
+99
+00:04:00,104 --> 00:04:01,709
+And you learned that earlier in the course.
+您在課程的早期就已經了解了這一點。
+
+100
+00:04:02,287 --> 00:04:05,081
+We add such a dynamic segment after a slash
+我們在斜線後面加入這樣一個動態段
+
+101
+00:04:05,257 --> 00:04:07,473
+by adding a colon and and then any name of
+新增冒號，然後新增任何名稱
+
+102
+00:04:07,489 --> 00:04:10,074
+your choice, for example, resource ID.
+您的選擇，例如資源 ID。
+
+103
+00:04:10,635 --> 00:04:12,337
+And you just need to make sure that this is
+你只需要確保這是
+
+104
+00:04:12,401 --> 00:04:13,316
+then also the name
+然後還有名字
+
+105
+00:04:13,926 --> 00:04:16,319
+by which you try to extract it here. So if
+您嘗試在此處提取它。所以如果
+
+106
+00:04:16,319 --> 00:04:18,662
+you pick resource ID here, it needs to be
+你在這裡選擇資源ID，它需要是
+
+107
+00:04:18,662 --> 00:04:21,038
+resource ID here and the other way around.
+此處為資源 ID，反之亦然。
+
+108
+00:04:22,275 --> 00:04:24,249
+With that, we're extracting that ID from the
+這樣，我們就可以從
+
+109
+00:04:24,281 --> 00:04:24,940
+URL
+網址
+
+110
+00:04:25,485 --> 00:04:27,412
+and I'm passing that ID to update.
+我正在傳遞該 ID 進行更新。
+
+111
+00:04:28,118 --> 00:04:30,318
+Now ID could be null theoretically
+現在理論上ID可以為空
+
+112
+00:04:30,928 --> 00:04:32,678
+and hence I'll add the exclamation mark here
+因此我會在這裡添加感嘆號
+
+113
+00:04:32,710 --> 00:04:35,246
+because I know that we'll always have that
+因為我知道我們將永遠擁有它
+
+114
+00:04:35,278 --> 00:04:37,826
+resource ID when this controller action is
+此控制器操作時的資源 ID
+
+115
+00:04:37,939 --> 00:04:38,182
+reached.
+達到了。
+
+116
+00:04:38,732 --> 00:04:41,173
+I know that this param will always exist
+我知道這個參數將永遠存在
+
+117
+00:04:41,480 --> 00:04:43,663
+because otherwise this update resource
+因為否則這個更新資源
+
+118
+00:04:43,663 --> 00:04:46,056
+action can't trigger. It only triggers for
+動作無法觸發。它僅觸發
+
+119
+00:04:46,105 --> 00:04:47,904
+this route. So I know that it will have a
+這條路線。所以我知道它會有一個
+
+120
+00:04:47,904 --> 00:04:48,747
+value for that.
+的價值。
+
+121
+00:04:50,807 --> 00:04:52,811
+So with that, we have the ID which I forward
+這樣，我們就有了我轉發的 ID
+
+122
+00:04:52,844 --> 00:04:55,560
+to update. The second argument is the object
+更新。第二個參數是物件
+
+123
+00:04:55,657 --> 00:04:57,177
+with which we want to update.
+我們想要更新。
+
+124
+00:04:57,775 --> 00:04:59,893
+And there I'll set the title to title, the
+在那裡我將標題設為 title，
+
+125
+00:04:59,941 --> 00:05:01,022
+description to desc,
+描述到描述，
+
+126
+00:05:01,599 --> 00:05:05,007
+the image URL to image URL, and the regular
+圖像 URL 到圖像 URL，以及常規
+
+127
+00:05:05,185 --> 00:05:07,242
+URL to resource URL.
+URL 到資源 URL。
+
+128
+00:05:07,776 --> 00:05:10,756
+So I'll set my update data to this object
+所以我將更新資料設定到這個物件
+
+129
+00:05:10,756 --> 00:05:10,821
+here.
+這裡。
+
+130
+00:05:12,780 --> 00:05:14,145
+Let's then await for that
+那我們就拭目以待吧
+
+131
+00:05:15,527 --> 00:05:18,098
+and we'll get back the updated resource. So
+我們將取回更新的資源。所以
+
+132
+00:05:18,098 --> 00:05:20,139
+we'll get back the updated document here
+我們將在這裡取回更新後的文檔
+
+133
+00:05:20,910 --> 00:05:23,571
+and then I'll set this on the response by
+然後我將在回應中設置它
+
+134
+00:05:23,571 --> 00:05:25,852
+reaching out to the response body, set this
+聯繫回應主體，設定此
+
+135
+00:05:25,852 --> 00:05:28,586
+to an object. We can also add something else
+到一個物體。我們還可以添加其他東西
+
+136
+00:05:28,586 --> 00:05:30,428
+like a message here. You can of course do
+就像這裡的一則訊息。當然可以
+
+137
+00:05:30,428 --> 00:05:32,334
+that for any response which you're sending
+對於您發送的任何回复
+
+138
+00:05:32,366 --> 00:05:32,673
+back.
+後退。
+
+139
+00:05:33,254 --> 00:05:34,594
+And I'll set this to updated
+我會將其設定為更新
+
+140
+00:05:35,918 --> 00:05:36,516
+resource
+資源
+
+141
+00:05:37,533 --> 00:05:39,329
+and then also attach the
+然後還附上
+
+142
+00:05:40,433 --> 00:05:40,984
+updated
+已更新
+
+143
+00:05:41,812 --> 00:05:42,591
+resource
+資源
+
+144
+00:05:43,937 --> 00:05:46,418
+by pointing at updated resource.
+透過指向更新的資源。
+
+145
+00:05:47,421 --> 00:05:48,408
+Whoops, updated
+哎喲，更新了
+
+146
+00:05:50,883 --> 00:05:51,887
+resource like this.
+像這樣的資源。
+
+147
+00:05:52,615 --> 00:05:54,589
+So this sets the response for updating.
+所以這設定了更新的回應。
+
+148
+00:05:55,248 --> 00:05:57,712
+Now let's see whether updating works. Let's
+現在讓我們看看更新是否有效。讓我們
+
+149
+00:05:57,712 --> 00:06:00,193
+restart our Deno server. Since I'm not using
+重新啟動我們的 Deno 伺服器。因為我沒有使用
+
+150
+00:06:00,306 --> 00:06:02,222
+Denon, I manually need to do this.
+Denon，我需要手動執行此操作。
+
+151
+00:06:03,236 --> 00:06:05,505
+And let's open up a new request tab in
+讓我們打開一個新的請求分頁
+
+152
+00:06:05,537 --> 00:06:06,043
+Postman.
+郵差。
+
+153
+00:06:06,990 --> 00:06:08,247
+Now it's a request to
+現在請求
+
+154
+00:06:08,280 --> 00:06:14,197
+localhost:3000/resources/ the ID of a
+localhost:3000/resources/ 的 ID
+
+155
+00:06:14,197 --> 00:06:16,234
+resource. And of course, we can see this
+資源。當然，我們可以看到這個
+
+156
+00:06:16,234 --> 00:06:18,566
+here in the GET request. This here is the ID
+在 GET 請求中。這是 ID
+
+157
+00:06:18,566 --> 00:06:19,256
+which we want.
+我們想要的。
+
+158
+00:06:20,061 --> 00:06:21,917
+So that's what I'll add here in the URL.
+這就是我將在 URL 中添加的內容。
+
+159
+00:06:22,631 --> 00:06:24,699
+And I'll switch to a PATCH request.
+我將切換到 PATCH 請求。
+
+160
+00:06:25,252 --> 00:06:27,515
+PATCH because that's what we're waiting for
+PATCH 因為這就是我們正在等待的
+
+161
+00:06:27,515 --> 00:06:28,557
+here on the endpoint.
+在端點這裡。
+
+162
+00:06:30,210 --> 00:06:32,401
+Now we also need to add all the data which
+現在我們還需要添加所有資料
+
+163
+00:06:32,401 --> 00:06:35,044
+we want to extract, so title, description,
+我們想要提取，所以標題，描述，
+
+164
+00:06:35,157 --> 00:06:35,833
+image URL,
+圖片網址，
+
+165
+00:06:36,365 --> 00:06:36,736
+and so on.
+等等。
+
+166
+00:06:37,413 --> 00:06:39,604
+Hence, I'll go back to the POST request
+因此，我將回到 POST 請求
+
+167
+00:06:40,217 --> 00:06:42,283
+and actually copy this body there,
+並實際將這個身體複製到那裡，
+
+168
+00:06:43,283 --> 00:06:45,687
+go to the body on the PATCH request, switch
+前往 PATCH 請求的正文，切換
+
+169
+00:06:45,800 --> 00:06:46,575
+to raw JSON,
+到原始 JSON，
+
+170
+00:06:48,800 --> 00:06:50,416
+insert it here and add a couple of
+將其插入此處並添加幾個
+
+171
+00:06:50,432 --> 00:06:53,114
+exclamation marks after the title to see
+標題後面有驚嘆號才能看到
+
+172
+00:06:53,178 --> 00:06:54,132
+whether updating works.
+更新是否有效。
+
+173
+00:06:55,198 --> 00:06:56,345
+And let's then click send.
+然後我們點擊發送。
+
+174
+00:06:58,417 --> 00:07:00,329
+And I get updated resource,
+我得到了更新的資源，
+
+175
+00:07:03,598 --> 00:07:05,478
+but I don't get any other data back.
+但我沒有得到任何其他資料。
+
+176
+00:07:06,249 --> 00:07:07,487
+So it simply looks like
+所以它看起來就像
+
+177
+00:07:09,865 --> 00:07:11,199
+if we console.log this here,
+如果我們在這裡console.log這個，
+
+178
+00:07:11,890 --> 00:07:14,339
+it looks like we actually don't get the
+看來我們其實不明白
+
+179
+00:07:14,339 --> 00:07:15,873
+updated resource back
+更新資源回來了
+
+180
+00:07:18,519 --> 00:07:19,235
+Let's try again.
+讓我們再試一次。
+
+181
+00:07:21,540 --> 00:07:22,753
+Yeah, this is undefined.
+是的，這是未定義的。
+
+182
+00:07:23,552 --> 00:07:24,217
+So my bad.
+所以我的不好。
+
+183
+00:07:25,800 --> 00:07:27,925
+Let's remove this. No need to store it in a
+讓我們刪除這個。無需將其存儲在
+
+184
+00:07:27,925 --> 00:07:29,906
+constant then if we don't get it back. We
+如果我們沒有把它拿回來，那就保持不變。我們
+
+185
+00:07:29,939 --> 00:07:31,646
+could of course manually return it though.
+當然可以手動回傳它。
+
+186
+00:07:32,193 --> 00:07:33,675
+We can return the
+我們可以回傳
+
+187
+00:07:34,674 --> 00:07:36,549
+object which we're also passing to update
+我們也傳遞更新的物件
+
+188
+00:07:36,549 --> 00:07:36,727
+here.
+這裡。
+
+189
+00:07:37,277 --> 00:07:37,860
+That would work.
+那行得通。
+
+190
+00:07:38,394 --> 00:07:40,595
+Also add ID and set it to the ID we're
+還要添加ID並將其設置為我們要的ID
+
+191
+00:07:40,595 --> 00:07:41,922
+getting as an argument here.
+在這裡作為一個論點。
+
+192
+00:07:42,466 --> 00:07:44,374
+Which we extracted from the params— I mean
+我們從參數中提取的——我的意思是
+
+193
+00:07:45,048 --> 00:07:47,213
+that we can also add this. And with that, we
+我們還可以添加這個。就這樣，我們
+
+194
+00:07:47,277 --> 00:07:50,227
+return the de facto updated resource. So
+回傳事實上更新的資源。所以
+
+195
+00:07:50,243 --> 00:07:51,318
+that's something we can do.
+這是我們可以做的事情。
+
+196
+00:07:52,023 --> 00:07:53,001
+Restart thereafter.
+之後重新啟動。
+
+197
+00:07:53,851 --> 00:07:54,621
+And if I now
+如果我現在
+
+198
+00:07:55,310 --> 00:07:57,716
+remove 2 exclamation marks and try this
+去掉2個感嘆號試試這個
+
+199
+00:07:57,716 --> 00:07:58,004
+again,
+再次，
+
+200
+00:07:58,598 --> 00:08:00,554
+now we also have the updated resource here.
+現在我們這裡也有更新的資源。
+
+201
+00:08:01,484 --> 00:08:03,825
+So now that seems to work. And let's verify
+所以現在這似乎有效。讓我們驗證一下
+
+202
+00:08:03,825 --> 00:08:06,696
+it by getting all resources again. And you
+透過再次獲取所有資源來實現。你呢
+
+203
+00:08:06,696 --> 00:08:09,021
+see here, we also got the exclamation marks
+看到這裡，我們還得到了感嘆號
+
+204
+00:08:09,021 --> 00:08:12,074
+now. So that's updating. Now let's also
+現在。所以這就是更新。現在我們也
+
+205
+00:08:12,171 --> 00:08:13,352
+implement deleting.
+實施刪除。

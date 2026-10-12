@@ -1,0 +1,1039 @@
+1
+00:00:02,137 --> 00:00:04,129
+So now that storing works, let's make sure
+現在儲存可以工作了，讓我們確保
+
+2
+00:00:04,129 --> 00:00:06,105
+we can also get data from the database.
+我們也可以從資料庫中取得資料。
+
+3
+00:00:06,523 --> 00:00:08,098
+Let's start with findAll.
+讓我們從 findAll 開始。
+
+4
+00:00:08,628 --> 00:00:10,588
+Instead of returning goals slice,
+而不是回傳目標切片，
+
+5
+00:00:11,183 --> 00:00:13,481
+I now want to call getGoals collection.
+我現在想呼叫 getGoals 集合。
+
+6
+00:00:14,557 --> 00:00:16,501
+Let TypeScript know that I know this won't
+讓 TypeScript 知道我知道這不會
+
+7
+00:00:16,501 --> 00:00:17,208
+be null.
+為空。
+
+8
+00:00:18,494 --> 00:00:21,113
+And then there is a find method which we can
+然後有一個 find 方法，我們可以
+
+9
+00:00:21,225 --> 00:00:24,005
+execute. And find by default will find all
+執行。並且find預設會找到所有
+
+10
+00:00:24,198 --> 00:00:26,671
+the documents in a collection. There also
+集合中的檔案。還有
+
+11
+00:00:26,767 --> 00:00:28,402
+are ways of setting a filter,
+是設定過濾器的方法，
+
+12
+00:00:28,931 --> 00:00:30,887
+of restricting the documents you wanna
+限制你想要的檔案
+
+13
+00:00:30,935 --> 00:00:33,452
+retrieve. But for this course where we wanna
+取回。但是對於我們想要的這門課程
+
+14
+00:00:33,516 --> 00:00:36,594
+focus on Deno, we only need find. Again, I
+關注Deno，我們只需要找到。再說一遍，我
+
+15
+00:00:36,706 --> 00:00:39,271
+have a dedicated MongoDB course if you wanna
+如果您願意，可以參加專門的 MongoDB 課程
+
+16
+00:00:39,271 --> 00:00:40,713
+learn all about MongoDB.
+了解有關 MongoDB 的所有資訊。
+
+17
+00:00:41,435 --> 00:00:43,679
+Here with find, we get all the documents
+這裡用find，我們得到了所有的文檔
+
+18
+00:00:44,336 --> 00:00:45,939
+and hence we can store them in a constant,
+因此我們可以將它們儲存在一個常數中，
+
+19
+00:00:46,163 --> 00:00:46,709
+goalDocs.
+目標文檔。
+
+20
+00:00:47,446 --> 00:00:49,722
+But of course, this is asynchronous code.
+但當然，這是非同步程式碼。
+
+21
+00:00:50,171 --> 00:00:52,351
+Querying the database can take a bit longer.
+查詢資料庫可能需要更長的時間。
+
+22
+00:00:52,912 --> 00:00:54,547
+Hence, I wanna use await here
+因此，我想在這裡使用await
+
+23
+00:00:55,797 --> 00:00:56,791
+and for that, of course,
+當然，為此，
+
+24
+00:00:57,577 --> 00:01:00,911
+I'll add async here in front of findAll so
+我將在 findAll 前面加上 async 所以
+
+25
+00:01:00,911 --> 00:01:02,033
+that we can use await.
+我們可以使用await。
+
+26
+00:01:02,690 --> 00:01:04,918
+Now findAll, by the way, will no longer
+現在findAll，順便說一句，將不再
+
+27
+00:01:04,918 --> 00:01:06,489
+return just the docs
+僅回傳文檔
+
+28
+00:01:07,017 --> 00:01:09,903
+or your array but instead it will return a
+或你的陣列，但它會回傳一個
+
+29
+00:01:09,903 --> 00:01:12,163
+promise that eventually resolves to such an
+最終解決這樣的承諾
+
+30
+00:01:12,163 --> 00:01:12,307
+array.
+大批。
+
+31
+00:01:13,108 --> 00:01:14,519
+And speaking of that, we should return
+說到這裡，我們應該回到
+
+32
+00:01:14,695 --> 00:01:17,356
+goalDocs here but again, the overall
+goalDocs 在這裡，但再次強調，總體
+
+33
+00:01:17,356 --> 00:01:20,450
+function will not directly return those docs
+函式不會直接傳回這些文檔
+
+34
+00:01:20,402 --> 00:01:22,731
+but a promise that resolves to the docs.
+但一個解決文檔的承諾。
+
+35
+00:01:23,357 --> 00:01:25,365
+And hence, we need to go to the place where
+因此，我們需要去那個地方
+
+36
+00:01:25,365 --> 00:01:27,999
+we call findAll and change the code there as
+我們調用 findAll 並將程式碼更改為
+
+37
+00:01:28,096 --> 00:01:28,224
+well.
+出色地。
+
+38
+00:01:28,754 --> 00:01:30,328
+And that would be the goals controller.
+那將是目標控制器。
+
+39
+00:01:31,324 --> 00:01:31,581
+There
+那裡
+
+40
+00:01:32,690 --> 00:01:33,862
+in getAllGoals,
+在 getAllGoals 中，
+
+41
+00:01:34,601 --> 00:01:37,492
+I'm calling findAll here and I'm passing the
+我在這裡調用 findAll 並且傳遞
+
+42
+00:01:37,508 --> 00:01:39,179
+result on to my template.
+結果到我的樣板上。
+
+43
+00:01:39,757 --> 00:01:42,279
+This won't work anymore because now findAll
+這不再有效，因為現在 findAll
+
+44
+00:01:42,408 --> 00:01:45,572
+doesn't return just my documents or my,
+不只歸還我的檔案或我的，
+
+45
+00:01:46,487 --> 00:01:48,863
+elements in general, it returns a promise
+一般來說，它會回傳一個承諾
+
+46
+00:01:48,911 --> 00:01:49,023
+now.
+現在。
+
+47
+00:01:49,938 --> 00:01:51,640
+Hence, I wanna get my
+因此，我想得到我的
+
+48
+00:01:52,844 --> 00:01:53,759
+data or my
+資料或我的
+
+49
+00:01:54,369 --> 00:01:55,043
+goals here
+目標在這裡
+
+50
+00:01:55,877 --> 00:01:58,606
+by calling findAll but by awaiting it
+透過調用 findAll 但等待它
+
+51
+00:01:59,248 --> 00:02:01,897
+so that we resolve that promise and get the
+以便我們履行該承諾並獲得
+
+52
+00:02:01,977 --> 00:02:03,245
+actual documents in the end.
+最後是實際檔案。
+
+53
+00:02:04,224 --> 00:02:06,279
+And now that will resolve the promise
+現在這將解決承諾
+
+54
+00:02:06,552 --> 00:02:07,964
+returned here by findAll,
+由 findAll 回傳這裡，
+
+55
+00:02:08,494 --> 00:02:10,420
+give us the documents that we fetch here,
+給我們我們在這裡獲取的檔案，
+
+56
+00:02:11,303 --> 00:02:13,598
+and pass those documents then on
+然後傳遞這些檔案
+
+57
+00:02:14,611 --> 00:02:16,905
+to goals in the template.
+到樣板中的目標。
+
+58
+00:02:17,922 --> 00:02:20,991
+I will also console.log goals here so that
+我還將在這裡 console.log 目標，以便
+
+59
+00:02:20,991 --> 00:02:22,106
+we see what we're getting.
+我們看到我們得到了什麼。
+
+60
+00:02:22,856 --> 00:02:23,888
+If I now save that
+如果我現在儲存它
+
+61
+00:02:26,002 --> 00:02:28,825
+and I reload this page, you see here's our
+我重新載入此頁面，你會看到這是我們的
+
+62
+00:02:28,825 --> 00:02:30,390
+goal. So loading seems to work,
+目標。所以載入似乎有效，
+
+63
+00:02:30,922 --> 00:02:33,245
+and in the console I also see that in the
+在控制台中我也看到
+
+64
+00:02:33,261 --> 00:02:36,129
+end what it fetched here was an array full
+結束它在這裡獲取的是一個完整的陣列
+
+65
+00:02:36,178 --> 00:02:38,482
+of JavaScript objects where we have the name
+我們有名稱的 JavaScript 物件
+
+66
+00:02:38,982 --> 00:02:40,835
+and this auto-generated ID.
+以及這個自動產生的 ID。
+
+67
+00:02:41,917 --> 00:02:45,267
+And that's also pretty nice about that Mongo
+Mongo 也很好
+
+68
+00:02:45,299 --> 00:02:48,008
+module which we're using. It's automatically
+我們正在使用的模組。是自動的
+
+69
+00:02:48,088 --> 00:02:50,572
+giving us the data in formats that make
+為我們提供資料的格式
+
+70
+00:02:50,572 --> 00:02:53,217
+sense to us. For example, if we query a
+對我們來說。例如，如果我們查詢一個
+
+71
+00:02:53,217 --> 00:02:55,733
+collection and get all the documents, we get
+收集並獲取所有文檔，我們得到
+
+72
+00:02:55,797 --> 00:02:58,201
+back an array full of objects, which is a
+傳回一個充滿物件的陣列，這是一個
+
+73
+00:02:58,201 --> 00:03:00,910
+great representation of that data structure
+此資料結構的優異表現
+
+74
+00:03:00,990 --> 00:03:03,218
+in MongoDB in JavaScript.
+在 JavaScript 中的 MongoDB 中。
+
+75
+00:03:03,971 --> 00:03:06,007
+Now with that, we have the name,
+現在我們有了名字，
+
+76
+00:03:06,536 --> 00:03:08,603
+but we see that of course one thing won't
+但我們看到，當然有一件事不會
+
+77
+00:03:08,699 --> 00:03:09,677
+work in our template.
+在我們的樣板中工作。
+
+78
+00:03:10,398 --> 00:03:10,607
+Here
+這裡
+
+79
+00:03:11,363 --> 00:03:14,210
+we in the end also need the ID, and the ID
+我們最終還需要ID，ID
+
+80
+00:03:14,258 --> 00:03:16,558
+is now stored in a different field. It's now
+現在儲存在不同的欄位中。現在是
+
+81
+00:03:17,475 --> 00:03:20,372
+_id here, as you can see in the log. And
+_id 在這裡，正如您在紀錄中看到的那樣。和
+
+82
+00:03:20,452 --> 00:03:21,226
+then in there
+然後在那裡
+
+83
+00:03:21,983 --> 00:03:24,288
+we actually have another object where the
+我們實際上有另一個物件
+
+84
+00:03:24,482 --> 00:03:27,448
+actual ID here— this is the auto-generated
+此處的實際 ID — 這是自動產生的
+
+85
+00:03:27,560 --> 00:03:28,850
+ID by MongoDB—
+MongoDB 的 ID —
+
+86
+00:03:29,450 --> 00:03:32,666
+where this ID is stored in a property with
+該 ID 儲存在屬性中
+
+87
+00:03:32,731 --> 00:03:33,819
+this strange name.
+這個奇怪的名字。
+
+88
+00:03:34,420 --> 00:03:36,638
+So actually this code here should now
+所以實際上這裡的程式碼現在應該
+
+89
+00:03:36,783 --> 00:03:38,723
+retrieve the ID in our template.
+在我們的範本中檢索 ID。
+
+90
+00:03:39,333 --> 00:03:41,770
+Let's try that, save it and reload.
+讓我們嘗試一下，儲存並重新載入。
+
+91
+00:03:42,716 --> 00:03:44,240
+And now if we click on Finish the Course,
+現在，如果我們點擊“完成課程”，
+
+92
+00:03:44,320 --> 00:03:47,720
+indeed this is loaded as an ID into the URL.
+事實上，它會作為 ID 載入到 URL 中。
+
+93
+00:03:48,505 --> 00:03:50,093
+Of course, I don't find it yet though
+當然，雖然我還沒找到
+
+94
+00:03:50,173 --> 00:03:52,354
+because we haven't implemented the code to
+因為我們還沒有實現程式碼
+
+95
+00:03:52,483 --> 00:03:54,824
+find a single document. So let's do that
+尋找單一文檔。那麼就讓我們這樣做吧
+
+96
+00:03:54,824 --> 00:03:54,920
+now.
+現在。
+
+97
+00:03:55,786 --> 00:03:57,310
+For that, in findById,
+為此，在 findById 中，
+
+98
+00:03:58,015 --> 00:03:59,170
+I want to get my
+我想得到我的
+
+99
+00:03:59,715 --> 00:04:00,549
+goalDoc
+目標文檔
+
+100
+00:04:01,239 --> 00:04:02,153
+by awaiting
+透過等待
+
+101
+00:04:06,030 --> 00:04:06,593
+getGoalsCollection
+取得目標集合
+
+102
+00:04:07,189 --> 00:04:08,736
+with an exclamation mark thereafter,
+其後帶有感嘆號，
+
+103
+00:04:09,428 --> 00:04:10,443
+findOne.
+找到一個。
+
+104
+00:04:11,361 --> 00:04:14,454
+findOne wants an object which acts as a
+findOne 想要一個充當
+
+105
+00:04:14,454 --> 00:04:17,262
+filter or which defines how to filter for
+過濾器或定義如何過濾
+
+106
+00:04:17,262 --> 00:04:19,280
+that one document we want to retrieve.
+我們想要檢索的那一份檔案。
+
+107
+00:04:19,845 --> 00:04:20,120
+And here
+還有這裡
+
+108
+00:04:20,959 --> 00:04:22,687
+I basically set the field
+我基本上設定了欄位
+
+109
+00:04:23,220 --> 00:04:25,077
+on which I want to filter, for example
+例如，我要過濾的內容
+
+110
+00:04:25,740 --> 00:04:29,141
+_id, which is the field MongoDB uses for
+_id，這是 MongoDB 使用的欄位
+
+111
+00:04:29,141 --> 00:04:30,907
+storing that auto-generated ID.
+儲存該自動產生的 ID。
+
+112
+00:04:31,775 --> 00:04:33,766
+And the value for which I then wanna filter
+以及我想要過濾的值
+
+113
+00:04:33,862 --> 00:04:34,714
+is the ID I'm getting.
+是我得到的ID。
+
+114
+00:04:35,308 --> 00:04:37,283
+And with that, I'm saying that I wanna find
+說到這裡，我想說我想找到
+
+115
+00:04:37,380 --> 00:04:40,945
+one document where the ID, the _id field,
+一個文檔，其中 ID、_id 欄位、
+
+116
+00:04:41,154 --> 00:04:43,418
+holds this ID as a value.
+將此 ID 儲存為值。
+
+117
+00:04:44,623 --> 00:04:46,614
+Now we then await for this to get that
+現在我們等待這個得到那個
+
+118
+00:04:46,614 --> 00:04:49,152
+single document and return
+單一檔案和退貨
+
+119
+00:04:50,324 --> 00:04:51,111
+the goalDoc.
+目標Doc.
+
+120
+00:04:52,171 --> 00:04:53,649
+And of course, we should turn this into
+當然，我們應該把它變成
+
+121
+00:04:53,777 --> 00:04:54,661
+async function.
+非同步函式。
+
+122
+00:04:56,410 --> 00:04:58,640
+With that, we can go back to the controller
+這樣，我們就可以回到控制器了
+
+123
+00:04:58,993 --> 00:05:00,967
+and go to the place where we find a single
+然後去我們找到單身的地方
+
+124
+00:05:00,999 --> 00:05:01,978
+document by ID.
+按 ID 記錄檔案。
+
+125
+00:05:02,604 --> 00:05:04,625
+And now we have to await this as well
+現在我們也必須等待
+
+126
+00:05:04,850 --> 00:05:06,984
+because now we get a promise that eventually
+因為現在我們得到了一個承諾，最終
+
+127
+00:05:07,016 --> 00:05:08,637
+resolves to that single document.
+解析為該單一檔案。
+
+128
+00:05:09,182 --> 00:05:11,621
+With that, if we now save all of that,
+有了這個，如果我們現在儲存所有這些，
+
+129
+00:05:12,793 --> 00:05:15,248
+I get an error here that the property name
+我在這裡收到一個錯誤，屬性名稱
+
+130
+00:05:15,280 --> 00:05:16,964
+does not exist on type
+型別上不存在
+
+131
+00:05:17,687 --> 00:05:18,537
+Promise.Any.
+承諾。任何。
+
+132
+00:05:19,772 --> 00:05:21,602
+And that's in the end just an error thrown
+這最終只是拋出一個錯誤
+
+133
+00:05:21,602 --> 00:05:22,613
+from inside the model
+從模型內部
+
+134
+00:05:23,466 --> 00:05:26,081
+here from the update method because there I
+這裡來自更新方法，因為我
+
+135
+00:05:26,130 --> 00:05:28,842
+also use this findById to get a single goal
+也可以使用此 findById 來取得單一目標
+
+136
+00:05:29,585 --> 00:05:31,667
+and I then update the name. And in
+然後我更新名字。並且在
+
+137
+00:05:32,024 --> 00:05:33,964
+TypeScript world, TypeScript doesn't know
+TypeScript 的世界，TypeScript 不知道
+
+138
+00:05:34,209 --> 00:05:36,328
+that the document we're fetching here will
+我們在這裡獲取的文檔將
+
+139
+00:05:36,410 --> 00:05:37,421
+have a name field.
+有一個名稱欄位。
+
+140
+00:05:38,190 --> 00:05:40,559
+So therefore, actually here I wanna set the
+因此，實際上我想在這裡設置
+
+141
+00:05:40,559 --> 00:05:41,922
+return type explicitly
+明確傳回型別
+
+142
+00:05:42,588 --> 00:05:44,357
+and make it clear that we'll return an
+並明確表示我們將回傳
+
+143
+00:05:44,454 --> 00:05:45,120
+object
+目的
+
+144
+00:05:47,955 --> 00:05:48,166
+here
+這裡
+
+145
+00:05:48,784 --> 00:05:50,377
+which has a name field and an
+它有一個名稱欄位和一個
+
+146
+00:05:51,483 --> 00:05:52,296
+_id field.
+_id 欄位。
+
+147
+00:05:52,833 --> 00:05:55,258
+Which then in turn holds an object as a type
+然後又將物件當作型別來儲存
+
+148
+00:05:55,403 --> 00:05:57,105
+where we have that
+我們哪裡有那個
+
+149
+00:05:57,635 --> 00:05:57,989
+$oid
+$oid
+
+150
+00:05:58,519 --> 00:06:00,045
+field which holds a string which is the
+包含一個字串的欄位，該字串是
+
+151
+00:06:00,125 --> 00:06:00,800
+actual ID,
+實際身分證，
+
+152
+00:06:01,892 --> 00:06:01,940
+or
+或者
+
+153
+00:06:03,032 --> 00:06:05,506
+that we return undefined here. That's also
+我們在這裡回傳未定義的。這也是
+
+154
+00:06:05,683 --> 00:06:07,803
+an option that could also happen if we fail
+如果我們失敗也可能發生的選擇
+
+155
+00:06:07,851 --> 00:06:10,485
+to find an object with that ID. With that,
+尋找具有該 ID 的物件。就這樣，
+
+156
+00:06:10,502 --> 00:06:12,574
+we clarify which kind of data will be
+我們澄清哪種資料將是
+
+157
+00:06:12,574 --> 00:06:13,971
+returned by findById,
+由 findById 傳回，
+
+158
+00:06:14,517 --> 00:06:16,943
+and that helps all the places that use
+這對所有使用的地方都有幫助
+
+159
+00:06:17,168 --> 00:06:20,344
+findById. For example, update. Now it knows
+按 ID 尋找。例如，更新。現在它知道了
+
+160
+00:06:20,376 --> 00:06:22,846
+that there will be a name field. The update
+將會有一個名稱欄位。更新內容
+
+161
+00:06:22,846 --> 00:06:25,123
+method like this still won't work, but at
+這樣的方法仍然行不通，但是在
+
+162
+00:06:25,171 --> 00:06:26,983
+least we should get rid of that error now.
+至少我們現在應該消除這個錯誤。
+
+163
+00:06:28,217 --> 00:06:29,757
+And of course, I'm still getting an error
+當然，我仍然收到錯誤
+
+164
+00:06:29,757 --> 00:06:32,338
+because we don't directly return that data.
+因為我們不直接傳回該資料。
+
+165
+00:06:32,948 --> 00:06:35,289
+As it mentions correctly here, we return a
+正如這裡正確提到的，我們回傳一個
+
+166
+00:06:35,289 --> 00:06:37,774
+promise that will resolve to the data, my
+承諾將解決資料問題，我的
+
+167
+00:06:37,774 --> 00:06:38,063
+bad.
+壞的。
+
+168
+00:06:38,592 --> 00:06:40,853
+So let me actually make this clear
+所以讓我說清楚
+
+169
+00:06:41,382 --> 00:06:43,948
+by adding promise here and then between
+透過在此處和然後之間添加承諾
+
+170
+00:06:44,172 --> 00:06:45,375
+angle brackets this type.
+這種型別的尖括號。
+
+171
+00:06:46,016 --> 00:06:48,756
+The type between angle brackets describes
+尖括號之間的型別描述
+
+172
+00:06:48,756 --> 00:06:50,598
+the type that the promise resolves to.
+Promise 解析為的型別。
+
+173
+00:06:51,400 --> 00:06:53,242
+With that, we now return the proper type,
+這樣，我們現在回傳正確的型別，
+
+174
+00:06:53,466 --> 00:06:54,892
+and the error we're now getting
+以及我們現在得到的錯誤
+
+175
+00:06:55,549 --> 00:06:57,696
+makes sense because we're not awaiting
+這是有道理的，因為我們沒有等待
+
+176
+00:06:57,728 --> 00:07:00,516
+findById. Hence, I try to call name on the
+按 ID 尋找。因此，我嘗試在
+
+177
+00:07:00,516 --> 00:07:03,416
+promise itself, not on the value the promise
+承諾本身，而非承諾的價值
+
+178
+00:07:03,416 --> 00:07:03,993
+resolves to.
+決心。
+
+179
+00:07:04,554 --> 00:07:07,326
+So let's add await here and async here. And
+所以我們在這裡添加await，在這裡添加async。和
+
+180
+00:07:07,406 --> 00:07:09,440
+now with that, this code in update also
+現在，這個程式碼也在更新中
+
+181
+00:07:09,489 --> 00:07:12,116
+should theoretically work. It won't really
+理論上應該有效。真的不會
+
+182
+00:07:12,148 --> 00:07:13,975
+work, but it also won't throw an error
+工作，但它也不會拋出錯誤
+
+183
+00:07:13,975 --> 00:07:14,311
+anymore.
+不再了。
+
+184
+00:07:15,072 --> 00:07:16,911
+Now with all those changes, however,
+然而，現在有了這些變化，
+
+185
+00:07:17,492 --> 00:07:19,572
+it still won't work. If we go back and click
+它仍然行不通。如果我們回傳並單擊
+
+186
+00:07:19,572 --> 00:07:22,105
+on Finish the Course, we'll not find that
+完成課程後，我們不會發現
+
+187
+00:07:22,621 --> 00:07:22,863
+course.
+課程。
+
+188
+00:07:23,686 --> 00:07:25,632
+And the reason for that is how we find by
+原因是我們如何找到
+
+189
+00:07:25,632 --> 00:07:25,958
+ID.
+ID。
+
+190
+00:07:26,690 --> 00:07:28,479
+Keep in mind how our ID
+請記住我們的 ID
+
+191
+00:07:29,374 --> 00:07:30,903
+value actually looks like.
+值實際上看起來像。
+
+192
+00:07:32,632 --> 00:07:34,938
+It looks like this, right? The ID that
+看起來是這樣的，對吧？那個ID
+
+193
+00:07:35,212 --> 00:07:38,100
+MongoDB generates is kind of a string, but
+MongoDB 產生的是一種字串，但是
+
+194
+00:07:38,100 --> 00:07:40,035
+in the end it's wrapped in another object.
+最後它被包裹在另一個物體中。
+
+195
+00:07:40,783 --> 00:07:42,276
+And we have to keep this in mind when
+當我們
+
+196
+00:07:42,372 --> 00:07:43,351
+searching for an ID.
+正在尋找 ID。
+
+197
+00:07:44,073 --> 00:07:46,786
+The value we are— we're looking for for the
+我們的價值——我們正在尋找
+
+198
+00:07:46,786 --> 00:07:49,322
+ID field is actually not just the ID string.
+ID欄位實際上不僅僅是ID字串。
+
+199
+00:07:49,707 --> 00:07:51,810
+It should be that object with the
+應該是那個帶有
+
+200
+00:07:52,339 --> 00:07:55,052
+$oid field, which then in turn has the
+$oid 欄位，然後該欄位又具有
+
+201
+00:07:55,052 --> 00:07:56,144
+string ID value.
+字串 ID 值。
+
+202
+00:07:56,737 --> 00:07:58,744
+And if we change our filter to that and
+如果我們將過濾器更改為那個並且
+
+203
+00:07:58,904 --> 00:08:01,697
+respect the layout of the ID object
+尊重 ID 物件的佈局
+
+204
+00:08:02,291 --> 00:08:03,382
+MongoDB uses,
+MongoDB 使用，
+
+205
+00:08:04,297 --> 00:08:06,191
+if we now save all of that and click on
+如果我們現在儲存所有這些並單擊
+
+206
+00:08:06,304 --> 00:08:09,100
+Finish the Course, now we can load. That
+完成課程，現在我們可以載入了。那
+
+207
+00:08:09,100 --> 00:08:09,328
+course.
+課程。
+
+208
+00:08:09,928 --> 00:08:12,380
+So let's now work on updating and deleting.
+現在讓我們來進行更新和刪除。

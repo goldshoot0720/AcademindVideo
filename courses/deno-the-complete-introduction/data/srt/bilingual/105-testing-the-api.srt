@@ -1,0 +1,529 @@
+1
+00:00:02,197 --> 00:00:03,961
+So how can we test this API?
+那我們要如何測試這個API呢？
+
+2
+00:00:04,507 --> 00:00:06,816
+Previously, we could just visit our web page
+以前，我們只能造訪我們的網頁
+
+3
+00:00:07,073 --> 00:00:09,447
+in the browser, but now since we only
+在瀏覽器中，但現在因為我們只
+
+4
+00:00:09,495 --> 00:00:13,184
+exchange data, that's not really possible
+交換資料，這實際上是不可能的
+
+5
+00:00:13,184 --> 00:00:13,585
+anymore.
+不再了。
+
+6
+00:00:14,307 --> 00:00:16,520
+There is a special tool which you can use,
+有一個特殊的工具可以使用，
+
+7
+00:00:16,793 --> 00:00:17,387
+Postman.
+郵差。
+
+8
+00:00:18,221 --> 00:00:20,947
+On postman.com, you can download it, and you
+在 postman.com 上，您可以下載它，然後您
+
+9
+00:00:20,947 --> 00:00:23,979
+can download it for free and also without
+可以免費下載，無需
+
+10
+00:00:24,075 --> 00:00:26,273
+signing up. Simply download it from there
+報名。只需從那裡下載即可
+
+11
+00:00:26,417 --> 00:00:29,111
+and install it on your system It exists for
+並將其安裝在您的系統上它存在的目的是
+
+12
+00:00:29,159 --> 00:00:31,066
+macOS, Windows, and Linux.
+macOS、Windows 和 Linux。
+
+13
+00:00:31,867 --> 00:00:34,478
+Now once you installed it, you can start it.
+現在安裝完畢後，就可以啟動它了。
+
+14
+00:00:35,392 --> 00:00:37,170
+And once it's started, it should look
+一旦開始，它應該看起來
+
+15
+00:00:37,170 --> 00:00:39,109
+something like this. If you got a welcome
+像這樣的東西。如果你受到歡迎
+
+16
+00:00:39,157 --> 00:00:40,487
+screen, you can simply close it.
+螢幕，您只需將其關閉即可。
+
+17
+00:00:41,400 --> 00:00:43,643
+Now here you can open a new tab, and this
+現在您可以在這裡打開一個新分頁，這
+
+18
+00:00:43,643 --> 00:00:45,358
+allows you to send a request. And you can
+允許您發送請求。你可以
+
+19
+00:00:45,406 --> 00:00:47,809
+send GET requests but also a bunch of other
+發送 GET 請求，但也發送一堆其他請求
+
+20
+00:00:47,809 --> 00:00:48,274
+requests.
+請求。
+
+21
+00:00:48,915 --> 00:00:51,158
+Here you will also see more verbs than what
+在這裡你還會看到更多的動詞
+
+22
+00:00:51,158 --> 00:00:52,007
+I showed you before,
+我之前有給你展示過，
+
+23
+00:00:52,616 --> 00:00:54,555
+but these are also niche verbs which you
+但這些也是你所需要的小眾動詞
+
+24
+00:00:54,683 --> 00:00:56,189
+realistically won't really send.
+實際上不會真的發送。
+
+25
+00:00:57,008 --> 00:00:58,629
+The keywords are all on the top,
+關鍵字都在最上面，
+
+26
+00:00:59,416 --> 00:01:02,033
+and we can start with a GET request to
+我們可以從 GET 請求開始
+
+27
+00:01:03,044 --> 00:01:06,223
+localhost:3000. That's where our Deno server
+本機：3000。這就是我們的 Deno 伺服器的所在
+
+28
+00:01:06,239 --> 00:01:06,625
+is running,
+正在運行，
+
+29
+00:01:07,620 --> 00:01:08,230
+/resources,
+/資源，
+
+30
+00:01:08,985 --> 00:01:10,976
+because that's one route we have here.
+因為那是我們這裡的一條路線。
+
+31
+00:01:11,554 --> 00:01:14,845
+A GET request to /resources should trigger
+應觸發對 /resources 的 GET 請求
+
+32
+00:01:14,845 --> 00:01:17,832
+the get resources action, so this action,
+取得資源操作，所以這個操作，
+
+33
+00:01:18,217 --> 00:01:20,128
+and this should get us all the resources and
+這應該為我們提供所有資源
+
+34
+00:01:20,208 --> 00:01:23,170
+return them in an object or or in a JSON
+以物件或 JSON 格式傳回它們
+
+35
+00:01:23,203 --> 00:01:25,947
+document in the end that has a resources key
+最後的文檔有一個資源鍵
+
+36
+00:01:26,045 --> 00:01:27,636
+which holds the fetched resources.
+它儲存獲取的資源。
+
+37
+00:01:30,100 --> 00:01:32,778
+So if we enter this, select a GET request
+因此，如果我們輸入此內容，請選擇 GET 請求
+
+38
+00:01:32,778 --> 00:01:34,327
+here and click Send,
+在這裡，然後點擊“發送”，
+
+39
+00:01:35,538 --> 00:01:37,555
+we're sending the request and indeed,
+我們正在發送請求，事實上，
+
+40
+00:01:38,281 --> 00:01:41,082
+you can see here, we get back such an object
+你可以看到這裡，我們找回了這樣一個物件
+
+41
+00:01:41,082 --> 00:01:43,815
+here. Now this is JSON, you can tell by the
+這裡。現在這是 JSON，您可以透過
+
+42
+00:01:43,815 --> 00:01:44,667
+double quotes here,
+這裡雙引號，
+
+43
+00:01:45,261 --> 00:01:46,692
+but this is in the end what we're sending
+但這就是我們最終要發送的內容
+
+44
+00:01:46,724 --> 00:01:48,813
+back. And it's an empty array because
+後退。這是一個空陣列，因為
+
+45
+00:01:48,813 --> 00:01:50,796
+initially we have no resources.
+最初我們沒有資源。
+
+46
+00:01:51,763 --> 00:01:53,863
+So let's now add one. And for that, we can
+現在讓我們新增一個。為此，我們可以
+
+47
+00:01:53,863 --> 00:01:55,258
+switch to a POST request,
+切換到 POST 請求，
+
+48
+00:01:55,931 --> 00:01:56,813
+still to
+仍然到
+
+49
+00:01:57,678 --> 00:01:59,666
+/resources because that's the endpoint I
+/resources 因為那是端點我
+
+50
+00:01:59,698 --> 00:02:00,291
+defined here,
+此處定義，
+
+51
+00:02:01,205 --> 00:02:03,434
+and then make sure we add all the data which
+然後確保我們添加所有資料
+
+52
+00:02:03,466 --> 00:02:06,431
+we plan to extract there. So we should have
+我們計劃在那裡撤離。所以我們應該有
+
+53
+00:02:06,431 --> 00:02:09,782
+a title, a description, an image URL, and a
+標題、描述、圖像 URL 和
+
+54
+00:02:09,782 --> 00:02:12,299
+URL field on the incoming request.
+傳入請求上的 URL 欄位。
+
+55
+00:02:13,229 --> 00:02:15,617
+In Postman, we can set this data here under
+在 Postman 中，我們可以在此處設定此資料
+
+56
+00:02:15,649 --> 00:02:16,018
+body.
+身體.
+
+57
+00:02:16,772 --> 00:02:18,227
+There we can go to Raw
+在那裡我們可以去Raw
+
+58
+00:02:19,036 --> 00:02:21,429
+and then select JSON here in the dropdown.
+然後在下拉清單中選擇 JSON。
+
+59
+00:02:21,946 --> 00:02:24,582
+And now add curly braces and write a JSON
+現在添加花括號並編寫 JSON
+
+60
+00:02:24,679 --> 00:02:27,424
+document where you have all those fields
+記錄您擁有所有這些欄位的位置
+
+61
+00:02:27,424 --> 00:02:30,243
+which you plan to extract as fields in the
+您計劃將其提取為欄位
+
+62
+00:02:30,243 --> 00:02:31,033
+JSON document.
+JSON 文檔。
+
+63
+00:02:31,887 --> 00:02:33,337
+So here I want to have a title,
+所以在這裡我想要一個標題，
+
+64
+00:02:34,460 --> 00:02:34,767
+let's say
+比方說
+
+65
+00:02:35,302 --> 00:02:35,609
+Demo
+示範
+
+66
+00:02:36,597 --> 00:02:37,504
+the Course,
+課程，
+
+67
+00:02:39,010 --> 00:02:40,046
+a description,
+描述，
+
+68
+00:02:41,147 --> 00:02:41,909
+a great
+一個偉大的
+
+69
+00:02:42,770 --> 00:02:44,159
+and thorough
+和徹底的
+
+70
+00:02:46,888 --> 00:02:48,762
+introduction to Deno.
+德諾簡介。
+
+71
+00:02:50,700 --> 00:02:51,670
+Then we have a
+然後我們有一個
+
+72
+00:02:52,383 --> 00:02:52,917
+URL,
+網址，
+
+73
+00:02:55,394 --> 00:02:55,928
+and that is
+那就是
+
+74
+00:02:57,887 --> 00:02:59,360
+acadlink/deno.
+acadlink/deno.
+
+75
+00:03:01,750 --> 00:03:02,865
+And we have an image
+我們有一個圖像
+
+76
+00:03:03,705 --> 00:03:04,142
+URL
+網址
+
+77
+00:03:04,756 --> 00:03:06,501
+which should simply hold a simple preview
+它應該只包含一個簡單的預覽
+
+78
+00:03:07,019 --> 00:03:07,310
+image
+影像
+
+79
+00:03:08,957 --> 00:03:12,392
+And here you can pick any image URL you
+在這裡你可以選擇任何你想要的圖片網址
+
+80
+00:03:12,424 --> 00:03:14,972
+want. I will just quickly pick one from
+想。我會快速從中挑選一個
+
+81
+00:03:15,810 --> 00:03:18,255
+academind.com, from my site. We'll use this
+academind.com，來自我的網站。我們將使用這個
+
+82
+00:03:19,455 --> 00:03:21,351
+image address here from that thumbnail
+該縮圖的圖像位址位於此處
+
+83
+00:03:25,192 --> 00:03:25,967
+and store this here.
+並將其儲存在這裡。
+
+84
+00:03:27,773 --> 00:03:29,805
+With that, if we now click send,
+這樣，如果我們現在單擊發送，
+
+85
+00:03:30,853 --> 00:03:34,282
+we get back this response. We see that we
+我們收到此回覆。我們看到我們
+
+86
+00:03:34,298 --> 00:03:35,806
+have an inserted resource
+有插入的資源
+
+87
+00:03:36,383 --> 00:03:38,453
+and that we get information about the ID of
+我們得到有關 ID 的資訊
+
+88
+00:03:38,485 --> 00:03:40,779
+that resource. So it looks like the data was
+該資源。所以看起來資料是
+
+89
+00:03:41,020 --> 00:03:43,394
+stored. And of course, we can verify this by
+儲存。當然，我們可以透過以下方式驗證這一點
+
+90
+00:03:43,394 --> 00:03:44,710
+sending another GET request.
+發送另一個 GET 請求。
+
+91
+00:03:45,400 --> 00:03:46,651
+So I will open a new tab
+所以我會打開一個新標籤
+
+92
+00:03:47,309 --> 00:03:49,378
+so that we keep that data around and we
+這樣我們就可以儲存這些資料
+
+93
+00:03:49,378 --> 00:03:51,239
+could easily send a new POST request.
+可以輕鬆發送新的 POST 請求。
+
+94
+00:03:51,881 --> 00:03:54,336
+And here in the new tab, I will send a new
+在新分頁中，我將發送一個新的
+
+95
+00:03:54,512 --> 00:03:57,881
+request to localhost:3000/resources, and
+請求 localhost:3000/resources，以及
+
+96
+00:03:57,897 --> 00:03:59,389
+this is now a GET request again.
+現在這又是一個 GET 請求。
+
+97
+00:04:00,063 --> 00:04:02,741
+So if I now send this again, you see we're
+所以如果我現在再次發送這個，你會看到我們
+
+98
+00:04:02,789 --> 00:04:05,867
+now fetching our resources array and this
+現在取得我們的資源陣列和這個
+
+99
+00:04:05,980 --> 00:04:10,229
+now has our document with that mapped ID and
+現在我們的檔案具有映射的 ID 和
+
+100
+00:04:10,325 --> 00:04:12,153
+with all that other data.
+以及所有其他資料。
+
+101
+00:04:12,955 --> 00:04:16,034
+And that means that our POST and GET route
+這意味著我們的 POST 和 GET 路線
+
+102
+00:04:16,242 --> 00:04:17,189
+is working.
+正在工作。
+
+103
+00:04:18,103 --> 00:04:21,197
+With that, let's now implement the other 2
+現在讓我們實作另外 2 個
+
+104
+00:04:21,310 --> 00:04:23,699
+routes. And of course, definitely try this
+路線。當然，一定要試試這個
+
+105
+00:04:23,699 --> 00:04:26,249
+on your own first. We'll do it together in
+首先靠你自己。我們將一起做
+
+106
+00:04:26,281 --> 00:04:27,002
+the next lecture.
+下一個講座。

@@ -1,0 +1,714 @@
+1
+00:00:02,212 --> 00:00:04,119
+So to finish all of that up, let's make sure
+因此，為了完成所有這些，讓我們確保
+
+2
+00:00:04,119 --> 00:00:06,107
+we can also update and delete.
+我們也可以更新和刪除。
+
+3
+00:00:06,684 --> 00:00:08,431
+Now again, on the documentation of the
+現在再次，關於文檔
+
+4
+00:00:08,431 --> 00:00:09,521
+MongoDB module,
+MongoDB 模組，
+
+5
+00:00:10,050 --> 00:00:13,721
+we also find a method on how to update. And
+我們也找到如何更新的方法。和
+
+6
+00:00:13,737 --> 00:00:16,671
+there we have the updateOne method, which as
+我們有 updateOne 方法，如下所示
+
+7
+00:00:16,703 --> 00:00:19,925
+a first argument basically takes information
+第一個參數基本上需要資訊
+
+8
+00:00:20,053 --> 00:00:22,073
+on the filter we want to set,
+在我們要設定的過濾器上，
+
+9
+00:00:22,955 --> 00:00:25,167
+so to find out which document we want to
+所以找出我們想要的檔案
+
+10
+00:00:25,199 --> 00:00:25,568
+update.
+更新。
+
+11
+00:00:26,145 --> 00:00:30,056
+And then as a second argument, it takes an
+然後作為第二個參數，它需要一個
+
+12
+00:00:30,232 --> 00:00:33,505
+object that describes the update operation
+描述更新操作的物件
+
+13
+00:00:33,618 --> 00:00:36,204
+with the $set field here,
+此處使用 $set 欄位，
+
+14
+00:00:36,990 --> 00:00:38,821
+so that we, for example, want to change the
+例如，我們想要改變
+
+15
+00:00:38,837 --> 00:00:41,150
+username on the identified object.
+已識別物件上的使用者名稱。
+
+16
+00:00:42,226 --> 00:00:43,190
+So let's go back.
+那我們回去吧。
+
+17
+00:00:43,720 --> 00:00:46,386
+And in update, therefore, we indeed want to
+因此，在更新中，我們確實想要
+
+18
+00:00:46,450 --> 00:00:48,875
+find the goal first of all, of course,
+當然首先要找到目標
+
+19
+00:00:49,597 --> 00:00:50,256
+but thereafter
+但此後
+
+20
+00:00:50,882 --> 00:00:53,821
+we need to run a new query, a new command
+我們需要執行一個新的查詢，一個新的命令
+
+21
+00:00:53,934 --> 00:00:55,106
+against our collection.
+反對我們的收藏。
+
+22
+00:00:55,941 --> 00:00:58,270
+Hence here, after we checked that we found a
+因此，在這裡，我們檢查後發現了一個
+
+23
+00:00:58,270 --> 00:00:58,414
+goal
+目標
+
+24
+00:00:58,994 --> 00:01:01,226
+I will call getGoalsCollection
+我將調用 getGoalsCollection
+
+25
+00:01:02,067 --> 00:01:03,135
+with an exclamation mark
+帶驚嘆號
+
+26
+00:01:03,765 --> 00:01:04,849
+and call updateOne.
+並調用 updateOne。
+
+27
+00:01:05,690 --> 00:01:07,938
+And then the first argument to updateOne is
+updateOne 的第一個參數是
+
+28
+00:01:07,986 --> 00:01:10,745
+an object, just as we pass it to findOne,
+一個物件，就像我們將它傳遞給 findOne 一樣，
+
+29
+00:01:11,181 --> 00:01:12,907
+that describes what we wanna update.
+這描述了我們想要更新的內容。
+
+30
+00:01:13,553 --> 00:01:16,602
+So I'll search for a document where the ID
+所以我會搜尋一個包含 ID 的文檔
+
+31
+00:01:17,070 --> 00:01:17,699
+is equal to
+等於
+
+32
+00:01:19,750 --> 00:01:20,364
+goal._id
+目標._id
+
+33
+00:01:20,978 --> 00:01:22,579
+because I'm looking for that same goal in
+因為我正在尋找同樣的目標
+
+34
+00:01:22,611 --> 00:01:22,951
+the end.
+結束。
+
+35
+00:01:23,646 --> 00:01:25,425
+Of course, we therefore also could get rid
+當然，我們因此也可以擺脫
+
+36
+00:01:25,425 --> 00:01:28,161
+of this code here and save that extra step
+將此程式碼放在此處並儲存額外的步驟
+
+37
+00:01:28,322 --> 00:01:30,956
+of redundantly fetching that goal if we then
+如果我們那麼冗餘地獲取該目標
+
+38
+00:01:30,988 --> 00:01:32,160
+refetch it anyways
+無論如何重新獲取它
+
+39
+00:01:32,835 --> 00:01:34,489
+and just copy that whole code
+然後複製整個程式碼
+
+40
+00:01:35,083 --> 00:01:37,573
+and use this instead down there to identify
+並用它來識別
+
+41
+00:01:37,573 --> 00:01:38,825
+the document we wanna update.
+我們要更新的文檔。
+
+42
+00:01:39,661 --> 00:01:41,588
+And then the second argument is an object
+然後第二個參數是一個物件
+
+43
+00:01:41,588 --> 00:01:43,901
+that describes the update with help of the
+描述了更新的幫助
+
+44
+00:01:44,254 --> 00:01:47,273
+$_set field for which MongoDB will look.
+MongoDB 將會尋找的 $_set 欄位。
+
+45
+00:01:48,092 --> 00:01:50,421
+That field takes an object where we
+該欄位需要一個物件，我們在其中
+
+46
+00:01:50,501 --> 00:01:53,232
+basically describe the new object the
+基本上描述了新物件
+
+47
+00:01:53,296 --> 00:01:55,059
+existing one should be merged with.
+現有的應該合併。
+
+48
+00:01:55,796 --> 00:01:57,335
+And there, for example, I can then set the
+例如，我可以在那裡設置
+
+49
+00:01:57,335 --> 00:01:59,179
+name to my new text.
+為我的新文字命名。
+
+50
+00:02:00,605 --> 00:02:02,962
+This is how we can write this code to tell
+這就是我們如何寫這段程式碼來告訴
+
+51
+00:02:03,026 --> 00:02:05,495
+MongoDB that we wanna update the document
+MongoDB 我們想要更新文檔
+
+52
+00:02:05,495 --> 00:02:07,418
+that we identified with this line
+我們用這條線辨識出
+
+53
+00:02:08,300 --> 00:02:10,945
+like this. So that we basically wanna set
+像這樣。所以我們基本上想設定
+
+54
+00:02:10,945 --> 00:02:13,622
+the name of the found document to this new
+找到的文檔的名稱到這個新的
+
+55
+00:02:13,686 --> 00:02:13,991
+name.
+姓名。
+
+56
+00:02:15,097 --> 00:02:17,854
+And we can await this, but I actually didn't
+我們可以等待，但我實際上沒有
+
+57
+00:02:17,918 --> 00:02:21,012
+await onInsert either here, but that's up to
+在這裡等待 onInsert ，但這取決於
+
+58
+00:02:21,028 --> 00:02:23,384
+you whether you wanna await and be sure that
+你是否想等待並確保
+
+59
+00:02:23,432 --> 00:02:25,501
+the operation finished before you continue
+在繼續之前操作已完成
+
+60
+00:02:25,533 --> 00:02:26,610
+with the web app or not.
+是否使用網頁應用程式。
+
+61
+00:02:27,606 --> 00:02:29,196
+I will actually await here
+我其實會在這裡等待
+
+62
+00:02:30,498 --> 00:02:33,197
+and also for updating, therefore, to ensure
+因此，也用於更新，以確保
+
+63
+00:02:33,389 --> 00:02:35,735
+that we only continue after this finished.
+我們只有在完成後才能繼續。
+
+64
+00:02:36,458 --> 00:02:38,386
+For that, of course, in the controller, we
+為此，當然，在控制器中，我們
+
+65
+00:02:38,386 --> 00:02:40,394
+should go to the places where we create
+應該去我們創造的地方
+
+66
+00:02:41,181 --> 00:02:41,679
+and
+和
+
+67
+00:02:42,226 --> 00:02:42,643
+wait,
+等待，
+
+68
+00:02:43,752 --> 00:02:46,306
+await for the creation to finish here as
+在這裡等待創建完成
+
+69
+00:02:46,419 --> 00:02:48,748
+well, to only redirect once that finished,
+好吧，只有在完成後才重定向，
+
+70
+00:02:49,455 --> 00:02:50,885
+and do the same for updating
+並做同樣的更新
+
+71
+00:02:51,479 --> 00:02:51,736
+there.
+那裡。
+
+72
+00:02:52,834 --> 00:02:55,519
+I now also wanna, uh, wait for the update
+我現在也想呃等更新
+
+73
+00:02:55,519 --> 00:02:58,140
+method before we continue so that we're sure
+方法，然後我們繼續，以便我們確定
+
+74
+00:02:58,172 --> 00:03:00,194
+that this finished before we redirect.
+這在我們重定向之前就完成了。
+
+75
+00:03:01,690 --> 00:03:03,544
+If we save that, I get an error.
+如果我們儲存它，我會收到錯誤。
+
+76
+00:03:04,286 --> 00:03:06,286
+Yeah, that of course goal isn't found here
+是的，這個目標當然不是在這裡找到的
+
+77
+00:03:06,382 --> 00:03:08,624
+anymore in update because I commented out
+不再更新，因為我註解掉了
+
+78
+00:03:08,753 --> 00:03:10,394
+this code here. Makes sense.
+這段程式碼在這裡。有道理。
+
+79
+00:03:11,937 --> 00:03:15,214
+And that since now I'm awaiting here in
+從現在起我就在這裡等待
+
+80
+00:03:15,391 --> 00:03:18,476
+create, I of course also wanna add async
+創建，我當然也想添加非同步
+
+81
+00:03:18,525 --> 00:03:18,589
+here.
+這裡。
+
+82
+00:03:19,846 --> 00:03:21,771
+This should be an async function so that we
+這應該是一個非同步函式，以便我們
+
+83
+00:03:21,771 --> 00:03:24,180
+can use await. Didn't have that previously.
+可以使用等待。以前沒有那個。
+
+84
+00:03:24,601 --> 00:03:26,137
+Now since we use await, we need it.
+現在既然我們使用了await，我們就需要它。
+
+85
+00:03:26,962 --> 00:03:27,738
+So now with that,
+那麼現在，
+
+86
+00:03:29,936 --> 00:03:31,983
+if we reload our single goal page here,
+如果我們在這裡重新載入我們的單一目標頁面，
+
+87
+00:03:34,254 --> 00:03:36,239
+we should be able to update it, for example,
+我們應該能夠更新它，例如，
+
+88
+00:03:36,255 --> 00:03:38,433
+by adding multiple exclamation marks.
+透過添加多個感嘆號。
+
+89
+00:03:39,740 --> 00:03:40,692
+And now here we see
+現在我們看到
+
+90
+00:03:41,256 --> 00:03:41,773
+that
+那
+
+91
+00:03:42,321 --> 00:03:43,467
+we somehow fail.
+我們不知何故失敗了。
+
+92
+00:03:45,124 --> 00:03:46,584
+Now what could be the reason for that?
+那麼這可能是什麼原因呢？
+
+93
+00:03:47,547 --> 00:03:50,371
+If we go back, we get an error that in the
+如果我們回傳，我們會收到一個錯誤
+
+94
+00:03:50,484 --> 00:03:53,132
+end something seems to be wrong with our ID.
+最後我們的 ID 似乎有問題。
+
+95
+00:03:53,244 --> 00:03:53,966
+It expected
+它預計
+
+96
+00:03:54,737 --> 00:03:55,202
+a string.
+一個字串。
+
+97
+00:03:56,438 --> 00:03:58,524
+Now the problem is that on a single course
+現在的問題是在單一課程上
+
+98
+00:03:58,524 --> 00:04:01,589
+goal page, we also refer to the goal ID,
+目標頁面，我們也指目標 ID，
+
+99
+00:04:02,376 --> 00:04:04,430
+for example, for deleting and for updating.
+例如，用於刪除和更新。
+
+100
+00:04:05,409 --> 00:04:07,816
+And the ID field doesn't exist like this
+且ID欄位不存在這樣
+
+101
+00:04:07,816 --> 00:04:09,052
+anymore, if you remember.
+再說了，如果你還記得的話。
+
+102
+00:04:09,678 --> 00:04:10,512
+Instead, it's now
+相反，現在是
+
+103
+00:04:12,484 --> 00:04:12,965
+_id,
+_ID，
+
+104
+00:04:13,607 --> 00:04:17,229
+and then on that we have the $_oid field.
+然後我們就有了 $_oid 欄位。
+
+105
+00:04:17,774 --> 00:04:20,387
+And that's what we should use as an ID when
+這就是我們應該在以下情況下使用的 ID：
+
+106
+00:04:20,419 --> 00:04:22,631
+we access the ID data in our template.
+我們在樣板中存取 ID 資料。
+
+107
+00:04:22,968 --> 00:04:24,859
+Otherwise, we'll not really extract the ID,
+否則，我們不會真正提取 ID，
+
+108
+00:04:24,971 --> 00:04:27,552
+we'll have undefined, and that causes that
+我們會有未定義的，這會導致
+
+109
+00:04:27,696 --> 00:04:27,937
+error.
+錯誤。
+
+110
+00:04:28,658 --> 00:04:30,758
+So with that change made, if we go back to
+因此，隨著所做的改變，如果我們回到
+
+111
+00:04:30,758 --> 00:04:33,579
+the single goal page and reload it, if I now
+單一目標頁面並重新載入它，如果我現在
+
+112
+00:04:33,787 --> 00:04:36,176
+add multiple exclamation marks, saving
+添加多個感嘆號，儲存
+
+113
+00:04:36,288 --> 00:04:37,923
+works. And as we can clearly see here
+作品。正如我們在這裡可以清楚地看到的
+
+114
+00:04:38,292 --> 00:04:39,417
+updating worked.
+更新有效。
+
+115
+00:04:40,526 --> 00:04:42,615
+So now let's also delete. And for that, in
+所以現在我們也刪除。為此，在
+
+116
+00:04:42,695 --> 00:04:43,226
+the model,
+模型，
+
+117
+00:04:43,820 --> 00:04:44,206
+again
+再次
+
+118
+00:04:44,784 --> 00:04:47,792
+here in delete, in this case
+在此處刪除，在本例中
+
+119
+00:04:50,343 --> 00:04:50,796
+I will call
+我會打電話
+
+120
+00:04:51,974 --> 00:04:54,235
+getGoalsCollection like this with an
+像這樣的 getGoalsCollection
+
+121
+00:04:54,300 --> 00:04:55,204
+exclamation mark.
+驚嘆號.
+
+122
+00:04:55,753 --> 00:04:58,757
+And now we got a deleteOne method that we
+現在我們有了一個deleteOne方法
+
+123
+00:04:58,757 --> 00:04:59,193
+can use.
+可以使用。
+
+124
+00:05:00,291 --> 00:05:03,246
+So here we can just call deleteOne, pass in
+所以這裡我們可以直接呼叫deleteOne，傳入
+
+125
+00:05:03,278 --> 00:05:05,456
+the object that describes the document we
+描述我們的檔案的物件
+
+126
+00:05:05,456 --> 00:05:07,368
+want to delete, and I'll use the same filter
+想要刪除，我將使用相同的過濾器
+
+127
+00:05:07,368 --> 00:05:08,390
+from before searching for that ID
+從搜尋該 ID 之前開始
+
+128
+00:05:10,838 --> 00:05:12,421
+And if we save all of that
+如果我們儲存所有這些
+
+129
+00:05:14,134 --> 00:05:15,023
+and we go back,
+然後我們回去，
+
+130
+00:05:16,523 --> 00:05:18,513
+reload this page, and click on delete goal,
+重新載入此頁面，然後按一下刪除目標，
+
+131
+00:05:19,370 --> 00:05:19,823
+it's gone.
+它消失了。
+
+132
+00:05:20,422 --> 00:05:22,477
+And we can also await this
+我們也可以等待
+
+133
+00:05:23,091 --> 00:05:24,256
+and add async here
+並在此處添加非同步
+
+134
+00:05:25,097 --> 00:05:27,422
+to ensure that we wait for this operation to
+以確保我們等待此操作
+
+135
+00:05:27,519 --> 00:05:30,134
+finish, or that we can wait for it to finish
+完成，或者我們可以等待它完成
+
+136
+00:05:30,425 --> 00:05:31,539
+here in the goals controller.
+在目標控制器中。
+
+137
+00:05:32,312 --> 00:05:34,539
+There, delete goal can now also be turned
+在那裡，現在也可以打開刪除目標
+
+138
+00:05:34,588 --> 00:05:35,800
+into an async function
+進入非同步函式
+
+139
+00:05:36,736 --> 00:05:39,798
+And we can await for delete to finish so
+我們可以等待刪除完成
+
+140
+00:05:39,798 --> 00:05:41,957
+that we only redirect once the deletion
+我們只在刪除後重定向
+
+141
+00:05:41,957 --> 00:05:44,616
+process is guaranteed to have finished. And
+行程保證已完成。和
+
+142
+00:05:44,712 --> 00:05:47,532
+these are now our core CRUD operations
+這些現在是我們的核心 CRUD 操作
+
+143
+00:05:47,999 --> 00:05:49,949
+implemented with MongoDB.
+使用 MongoDB 實作。

@@ -1,0 +1,1439 @@
+1
+00:00:02,198 --> 00:00:05,200
+So we got read and create built in. Now
+所以我們內建了讀取和創建功能。現在
+
+2
+00:00:05,489 --> 00:00:06,468
+regarding the read
+關於閱讀
+
+3
+00:00:07,415 --> 00:00:10,352
+operation, we might also have an application
+操作，我們可能還有一個應用程式
+
+4
+00:00:10,769 --> 00:00:12,262
+where besides getting all
+除了得到所有
+
+5
+00:00:13,177 --> 00:00:15,408
+elements, so in this case besides getting
+元素，所以在這種情況下除了得到
+
+6
+00:00:15,504 --> 00:00:16,210
+all goals,
+所有目標，
+
+7
+00:00:16,788 --> 00:00:18,698
+we maybe just need a single goal.
+我們也許只需要一個目標。
+
+8
+00:00:19,308 --> 00:00:20,913
+So that's also something we could add.
+這也是我們可以添加的內容。
+
+9
+00:00:21,683 --> 00:00:24,636
+And indeed I will add such a feature even
+事實上我甚至會添加這樣的功能
+
+10
+00:00:24,733 --> 00:00:26,835
+though in this application it doesn't make
+雖然在這個應用程式中它並沒有使
+
+11
+00:00:26,835 --> 00:00:28,408
+too much sense because
+太有意義了，因為
+
+12
+00:00:29,250 --> 00:00:29,330
+Showing
+顯示中
+
+13
+00:00:30,232 --> 00:00:32,631
+all goals on in a list here is perfectly
+這裡列表中的所有目標都是完美的
+
+14
+00:00:32,664 --> 00:00:34,838
+fine and we don't really need to load a
+很好，我們真的不需要載入
+
+15
+00:00:35,015 --> 00:00:37,092
+single goal. Whilst we don't really need
+單一目標。雖然我們其實不需要
+
+16
+00:00:37,092 --> 00:00:39,284
+this here, it's a good practice. So let's
+這是一個很好的做法。那麼讓我們
+
+17
+00:00:39,429 --> 00:00:40,379
+actually start
+真正開始
+
+18
+00:00:40,958 --> 00:00:43,550
+by adding another read operation but for a
+透過新增另一個讀取操作，但對於
+
+19
+00:00:43,566 --> 00:00:44,242
+single
+單身的
+
+20
+00:00:45,224 --> 00:00:45,369
+element.
+元素。
+
+21
+00:00:47,290 --> 00:00:50,019
+And therefore I want another GET route, but
+因此我想要另一條 GET 路線，但是
+
+22
+00:00:50,019 --> 00:00:52,764
+of course now the path should be different.
+當然，現在的道路應該會有所不同。
+
+23
+00:00:53,722 --> 00:00:54,175
+GET for
+獲取
+
+24
+00:00:54,936 --> 00:00:57,008
+/nothing should get us all goals.
+/沒有什麼可以讓我們實現所有目標。
+
+25
+00:00:57,607 --> 00:00:58,789
+Now I want to get a single goal.
+現在我只想實現一個目標。
+
+26
+00:01:00,473 --> 00:01:01,468
+Well, let's see how we can
+好吧，讓我們看看如何
+
+27
+00:01:01,997 --> 00:01:03,617
+adjust the path in a second.
+一秒鐘調整路徑。
+
+28
+00:01:04,163 --> 00:01:06,505
+For the moment, let's write our function
+現在，讓我們來寫我們的函式
+
+29
+00:01:06,505 --> 00:01:08,141
+here. We got the context,
+這裡。我們得到了上下文，
+
+30
+00:01:08,718 --> 00:01:12,584
+and of course we want to return a template
+當然我們想回傳一個樣板
+
+31
+00:01:12,584 --> 00:01:15,135
+in the end. So I'll turn this into an async
+到底。所以我會把它變成非同步的
+
+32
+00:01:15,135 --> 00:01:15,584
+function
+功能
+
+33
+00:01:16,210 --> 00:01:18,969
+so that we can derive our body by awaiting
+這樣我們就可以透過等待來獲得我們的身體
+
+34
+00:01:19,145 --> 00:01:20,413
+renderFileToString.
+渲染檔案到字串。
+
+35
+00:01:21,391 --> 00:01:23,477
+Now we need a file that can be rendered, and
+現在我們需要一個可以渲染的檔案，並且
+
+36
+00:01:23,557 --> 00:01:26,669
+for that I'll add a single course goal EJS
+為此，我將新增一個課程目標 EJS
+
+37
+00:01:27,062 --> 00:01:29,137
+file. So the difference is that this is
+檔案。所以差別在於這是
+
+38
+00:01:29,234 --> 00:01:31,325
+course goal, not course goals.
+課程目標，而不是課程目標。
+
+39
+00:01:32,249 --> 00:01:34,064
+And here I just want to render a single
+在這裡我只想渲染一個
+
+40
+00:01:34,421 --> 00:01:34,566
+goal.
+目標。
+
+41
+00:01:36,902 --> 00:01:37,577
+Therefore, here
+因此，這裡
+
+42
+00:01:39,650 --> 00:01:41,707
+I'll have single goal as a title,
+我將以單一目標作為標題，
+
+43
+00:01:42,350 --> 00:01:45,660
+and then as a body, I want to, well, output
+然後作為一個整體，我想，嗯，輸出
+
+44
+00:01:45,660 --> 00:01:46,755
+that single goal.
+那個單一的目標。
+
+45
+00:01:47,431 --> 00:01:51,506
+And maybe we load that single goal if a user
+如果使用者
+
+46
+00:01:51,764 --> 00:01:53,873
+just clicks on the goal, then we want to
+只需點擊目標，然後我們想要
+
+47
+00:01:53,954 --> 00:01:56,735
+load it full screen. Which probably is a bit
+全螢幕載入它。這可能有點
+
+48
+00:01:56,863 --> 00:01:59,276
+overkill since we don't have any other
+太過分了，因為我們沒有其他的
+
+49
+00:01:59,292 --> 00:02:01,576
+information to show for the goal, but as a
+為目標而顯示的訊息，但作為
+
+50
+00:02:01,624 --> 00:02:03,250
+practice, that should be fine.
+練習一下，應該沒問題。
+
+51
+00:02:04,221 --> 00:02:06,357
+So here I then wanna show that single goal
+所以在這裡我想展示那個單一目標
+
+52
+00:02:06,389 --> 00:02:07,166
+full screen,
+全螢幕,
+
+53
+00:02:07,927 --> 00:02:09,659
+and for that I'll simply add a div here
+為此我只需在此處添加一個 div
+
+54
+00:02:10,516 --> 00:02:13,884
+in which we can output the title of that
+我們可以在其中輸出該標題
+
+55
+00:02:13,884 --> 00:02:14,446
+single goal.
+單一目標。
+
+56
+00:02:15,443 --> 00:02:16,407
+So here we could
+所以在這裡我們可以
+
+57
+00:02:18,174 --> 00:02:20,183
+expect a title property
+期待產權財產
+
+58
+00:02:20,970 --> 00:02:23,425
+or maybe goal text. That's totally up to you
+或者也許是目標文字。這完全取決於你
+
+59
+00:02:23,635 --> 00:02:25,057
+because it will be you passing that
+因為那將是你通過的
+
+60
+00:02:25,057 --> 00:02:25,348
+information
+資訊
+
+61
+00:02:26,317 --> 00:02:28,404
+into the template after all.
+畢竟進入樣板。
+
+62
+00:02:29,261 --> 00:02:30,426
+Now to have some styling,
+現在要進行一些造型，
+
+63
+00:02:31,008 --> 00:02:34,471
+I will import app.css and attach to find an
+我將導入 app.css 並附加以查找
+
+64
+00:02:34,568 --> 00:02:36,238
+updated version of app.css
+app.css 的更新版本
+
+65
+00:02:36,840 --> 00:02:39,327
+which supports styling for the single goal
+支援單一目標的樣式
+
+66
+00:02:39,684 --> 00:02:41,477
+as long as you add the ID
+只要你加ID
+
+67
+00:02:43,486 --> 00:02:43,679
+goal
+目標
+
+68
+00:02:44,917 --> 00:02:47,730
+to it. So add the ID goal to this div and
+到它。因此，將 ID 目標新增至該 div 並
+
+69
+00:02:47,891 --> 00:02:51,333
+add the import here and download the updated
+在此處新增導入並下載更新的
+
+70
+00:02:51,510 --> 00:02:54,246
+app.css file and replace yours in the static
+app.css 檔案並替換你的靜態檔案
+
+71
+00:02:54,246 --> 00:02:55,839
+folder with the updated one.
+包含更新後的資料夾。
+
+72
+00:02:56,821 --> 00:02:59,323
+And once you did that, we got our finished
+一旦你這樣做了，我們就完成了
+
+73
+00:02:59,323 --> 00:02:59,807
+template.
+樣板。
+
+74
+00:03:00,534 --> 00:03:03,229
+Now let's render that template for a single
+現在讓我們為單一渲染該樣板
+
+75
+00:03:03,359 --> 00:03:03,520
+goal.
+目標。
+
+76
+00:03:04,490 --> 00:03:06,267
+And for that, here in goals.ts,
+為此，在 goal.ts 中，
+
+77
+00:03:07,011 --> 00:03:08,126
+I wanna render
+我要渲染
+
+78
+00:03:08,886 --> 00:03:09,371
+Deno
+德諾
+
+79
+00:03:10,260 --> 00:03:15,944
+and get the current working directory plus
+並取得目前工作目錄加上
+
+80
+00:03:16,538 --> 00:03:19,961
+/views/course_goal.ejs
+/views/course_goal.ejs
+
+81
+00:03:20,555 --> 00:03:23,265
+and pass in some data. And the data, the key
+並傳入一些資料。資料是關鍵
+
+82
+00:03:23,377 --> 00:03:24,980
+I wanna pass in here, of course should be
+我想透過這裡，當然應該是
+
+83
+00:03:25,060 --> 00:03:27,078
+goalText because that's the key I'm
+goalText 因為這是我的關鍵
+
+84
+00:03:27,078 --> 00:03:28,568
+referring to in the template.
+參考樣板中的。
+
+85
+00:03:29,738 --> 00:03:30,074
+So here
+所以在這裡
+
+86
+00:03:30,827 --> 00:03:31,981
+in goals.ts,
+在目標.ts 中，
+
+87
+00:03:32,525 --> 00:03:35,409
+it's then goalText and there it should be
+然後是 goalText ，它應該在那裡
+
+88
+00:03:35,409 --> 00:03:38,116
+the single goal text for that goal we're
+我們為該目標的單一目標文本
+
+89
+00:03:38,116 --> 00:03:38,853
+looking for.
+尋找。
+
+90
+00:03:39,494 --> 00:03:41,705
+And that's the problem. How do we know which
+這就是問題所在。我們怎麼知道哪個
+
+91
+00:03:41,801 --> 00:03:44,381
+goal the user is looking for? Currently, we
+使用者正在尋找的目標？目前，我們
+
+92
+00:03:44,541 --> 00:03:45,951
+don't give any hint about this.
+不要對此給出任何提示。
+
+93
+00:03:47,264 --> 00:03:49,651
+Well, I said that for a GET request, all the
+好吧，我說過對於 GET 請求，所有
+
+94
+00:03:49,747 --> 00:03:52,134
+data that should be passed from client to
+應該從使用者端傳遞到的資料
+
+95
+00:03:52,134 --> 00:03:55,022
+server has to be part of the URL.
+伺服器必須是 URL 的一部分。
+
+96
+00:03:55,856 --> 00:03:58,296
+So we could imagine that we actually have,
+所以我們可以想像我們其實有，
+
+97
+00:03:59,195 --> 00:03:59,243
+uh,
+呃，
+
+98
+00:03:59,917 --> 00:04:02,324
+a link here. We can click the goal, we got a
+這裡有一個連結。我們可以點擊目標，我們得到了一個
+
+99
+00:04:02,340 --> 00:04:03,367
+link behind that.
+後面的連結。
+
+100
+00:04:04,025 --> 00:04:06,882
+And when we click the goal, the URL maybe is
+當我們點擊目標時，URL 可能是
+
+101
+00:04:07,411 --> 00:04:10,493
+slash and then the ID of that goal,
+斜線，然後是該目標的 ID，
+
+102
+00:04:11,151 --> 00:04:12,900
+ABC, or whatever the ID is.
+ABC，或任何 ID 是什麼。
+
+103
+00:04:13,751 --> 00:04:15,933
+So we have a different URL for every goal
+所以我們為每個目標都有不同的 URL
+
+104
+00:04:16,463 --> 00:04:17,683
+because we have different IDs.
+因為我們的ID不同。
+
+105
+00:04:18,533 --> 00:04:18,902
+And here
+還有這裡
+
+106
+00:04:19,434 --> 00:04:22,496
+we are able to extract that ID and use it.
+我們能夠提取該 ID 並使用它。
+
+107
+00:04:23,180 --> 00:04:25,395
+And that's indeed something Oak supports.
+這確實是 Oak 支援的。
+
+108
+00:04:26,200 --> 00:04:28,370
+Besides having hard-coded paths here,
+除了這裡有硬編碼的路徑之外，
+
+109
+00:04:29,006 --> 00:04:31,340
+you can also define dynamic segments.
+您也可以定義動態段。
+
+110
+00:04:32,200 --> 00:04:33,685
+You do this by adding a colon here
+您可以透過在此處新增冒號來完成此操作
+
+111
+00:04:34,573 --> 00:04:36,865
+and then thereafter any name of your choice—
+然後是您選擇的任何名稱——
+
+112
+00:04:37,075 --> 00:04:38,480
+goal ID, for example.
+例如，目標 ID。
+
+113
+00:04:40,126 --> 00:04:43,161
+And this is a dynamic segment which you'll
+這是一個動態的部分，您將
+
+114
+00:04:43,209 --> 00:04:45,453
+be able to extract. So you'll be able to
+能夠提取。所以你將能夠
+
+115
+00:04:45,453 --> 00:04:48,893
+extract the concrete value that is in place
+提取現有的具體價值
+
+116
+00:04:49,182 --> 00:04:51,163
+for this placeholder, so to say.
+對於這個佔位符，可以這麼說。
+
+117
+00:04:52,983 --> 00:04:55,222
+We can get this here and store it in an ID
+我們可以在這裡獲取它並將其存儲在 ID 中
+
+118
+00:04:55,222 --> 00:04:57,623
+constant. And we can get the concrete goal
+持續的。我們可以得到具體的目標
+
+119
+00:04:57,736 --> 00:04:59,778
+that is part of the URL by reaching out to
+這是 URL 的一部分，透過訪問
+
+120
+00:04:59,778 --> 00:05:00,588
+the context.
+上下文。
+
+121
+00:05:01,122 --> 00:05:02,905
+And there we'll have a params object.
+在那裡我們將有一個 params 物件。
+
+122
+00:05:03,436 --> 00:05:07,987
+And on params, we'll find goal ID. This will
+在參數上，我們將找到目標 ID。這將
+
+123
+00:05:07,987 --> 00:05:10,601
+exist because that's the identifier I chose
+存在，因為這是我選擇的標識符
+
+124
+00:05:10,617 --> 00:05:10,746
+here.
+這裡。
+
+125
+00:05:11,295 --> 00:05:12,812
+And if you chose a different identifier
+如果您選擇不同的標識符
+
+126
+00:05:12,812 --> 00:05:14,606
+here, you have to retrieve it by that
+在這裡，你必須透過它來檢索它
+
+127
+00:05:14,606 --> 00:05:15,894
+different identifier here.
+這裡有不同的標識符。
+
+128
+00:05:16,806 --> 00:05:18,878
+So this is then the concrete value that was
+這就是具體的數值
+
+129
+00:05:19,056 --> 00:05:22,034
+entered by the user or set by the link the
+由使用者輸入或透過連結設定
+
+130
+00:05:22,050 --> 00:05:24,186
+user clicked in the URL.
+使用者點擊了 URL。
+
+131
+00:05:25,950 --> 00:05:27,710
+And with that ID, we can reach out to the
+有了這個 ID，我們就可以聯絡到
+
+132
+00:05:27,710 --> 00:05:28,710
+course goals array
+課程目標陣列
+
+133
+00:05:29,404 --> 00:05:32,536
+and find the goal that has that ID by using
+並透過使用找到具有該 ID 的目標
+
+134
+00:05:32,568 --> 00:05:34,376
+the built-in find method, which takes a
+內建的 find 方法，它需要一個
+
+135
+00:05:34,424 --> 00:05:36,746
+function which is then executed on every
+然後在每個
+
+136
+00:05:36,826 --> 00:05:37,729
+element in the array.
+陣列中的元素。
+
+137
+00:05:38,454 --> 00:05:40,275
+And that will simply loop through all goals,
+這將簡單地迴圈所有目標，
+
+138
+00:05:40,387 --> 00:05:42,708
+and that function should return true if it's
+如果是，函式應該傳回 true
+
+139
+00:05:42,708 --> 00:05:45,444
+the goal we're looking for. So if goal.id is
+我們正在尋找的目標。所以如果 goal.id 是
+
+140
+00:05:45,636 --> 00:05:48,026
+equal to the ID we extracted, then it's the
+等於我們提取的ID，那麼它就是
+
+141
+00:05:48,026 --> 00:05:50,353
+goal we're looking for. And there I'm just
+我們正在尋找的目標。我只是在那裡
+
+142
+00:05:50,369 --> 00:05:52,615
+interested in the text, so I will access
+對文字感興趣，所以我將訪問
+
+143
+00:05:52,615 --> 00:05:53,048
+name here.
+名字在這裡。
+
+144
+00:05:53,818 --> 00:05:56,128
+This, by the way, this, this question mark
+這個，順便，這個，這個問號
+
+145
+00:05:56,128 --> 00:05:58,117
+which was inserted automatically by my IDE,
+這是我的 IDE 自動插入的，
+
+146
+00:05:58,695 --> 00:06:01,085
+that's a special TypeScript syntax which
+這是一種特殊的 TypeScript 語法
+
+147
+00:06:01,117 --> 00:06:01,839
+basically means
+基本上意味著
+
+148
+00:06:02,385 --> 00:06:03,219
+TypeScript
+打字稿
+
+149
+00:06:04,085 --> 00:06:05,898
+will check whether we do find
+將檢查我們是否找到
+
+150
+00:06:06,572 --> 00:06:06,845
+a goal,
+一個目標，
+
+151
+00:06:08,016 --> 00:06:10,823
+and if we do, we retrieve the name. If we
+如果我們這樣做了，我們就會檢索該名稱。如果我們
+
+152
+00:06:10,903 --> 00:06:13,342
+don't, this overall expression will return
+不要，這個整體表達式將會回傳
+
+153
+00:06:13,390 --> 00:06:13,583
+null.
+無效的。
+
+154
+00:06:14,275 --> 00:06:16,942
+So goal text could be null if we don't find
+因此，如果我們找不到，目標文字可能為空
+
+155
+00:06:16,942 --> 00:06:17,556
+a fitting goal.
+一個合適的目標。
+
+156
+00:06:19,480 --> 00:06:21,476
+Of course, alternatively, you could also
+當然，除此之外，你也可以
+
+157
+00:06:21,525 --> 00:06:23,747
+first check if you find a goal, and if you
+首先檢查你是否找到了目標，如果你
+
+158
+00:06:23,763 --> 00:06:25,937
+don't, you throw an error. And that's
+不，你會拋出一個錯誤。那就是
+
+159
+00:06:25,937 --> 00:06:26,871
+actually what I'll do here.
+實際上我會在這裡做什麼。
+
+160
+00:06:27,580 --> 00:06:28,786
+So here I'll have my goal,
+所以在這裡我將實現我的目標
+
+161
+00:06:30,205 --> 00:06:31,868
+and I'll find it like
+我會發現它就像
+
+162
+00:06:32,407 --> 00:06:32,684
+this,
+這，
+
+163
+00:06:33,252 --> 00:06:35,668
+but that could be undefined if I don't find
+但如果我找不到，那可能是未定義的
+
+164
+00:06:35,668 --> 00:06:38,408
+a goal in the array for that ID. So if goal
+陣列中該 ID 的目標。所以如果目標
+
+165
+00:06:38,408 --> 00:06:38,651
+is
+是
+
+166
+00:06:39,466 --> 00:06:39,530
+is
+是
+
+167
+00:06:40,110 --> 00:06:42,382
+falsy, hence the exclamation mark, if it's
+假的，因此有感嘆號，如果是
+
+168
+00:06:42,382 --> 00:06:44,508
+undefined, if I didn't find a goal, I'll
+未定義，如果我沒有找到目標，我會
+
+169
+00:06:44,556 --> 00:06:48,068
+throw a new error where I say did not find
+在我說沒有找到的地方拋出一個新錯誤
+
+170
+00:06:48,342 --> 00:06:48,551
+goal.
+目標。
+
+171
+00:06:49,308 --> 00:06:51,802
+And if I throw an error here, the execution
+如果我在這裡拋出一個錯誤，執行
+
+172
+00:06:51,802 --> 00:06:53,700
+of this function will stop and will
+該功能將停止並會
+
+173
+00:06:53,748 --> 00:06:56,033
+essentially end up in this error handling
+本質上最終是在這個錯誤處理中
+
+174
+00:06:56,065 --> 00:06:56,693
+middleware here.
+中介層在這裡。
+
+175
+00:06:59,178 --> 00:07:00,921
+So that's how we can retrieve the ID and
+這就是我們如何檢索 ID 並
+
+176
+00:07:00,954 --> 00:07:04,049
+find a goal for that ID. And now at this
+找到該 ID 的目標。現在在這個
+
+177
+00:07:04,049 --> 00:07:06,421
+point, we know that we will have a matching
+點，我們知道我們會有一個匹配的
+
+178
+00:07:06,774 --> 00:07:06,967
+goal.
+目標。
+
+179
+00:07:07,674 --> 00:07:09,199
+So here we can then access the name
+所以在這裡我們可以訪問名稱
+
+180
+00:07:09,809 --> 00:07:13,037
+and ultimately send our response back with a
+並最終發回我們的回复
+
+181
+00:07:13,037 --> 00:07:15,622
+body that is equal to the body we
+身體等於我們的身體
+
+182
+00:07:16,392 --> 00:07:19,523
+got here, so equal to our rendered template.
+到這裡，等於我們渲染的樣板。
+
+183
+00:07:19,941 --> 00:07:21,916
+And that's how we can get a single goal.
+這就是我們如何實現單一目標的方法。
+
+184
+00:07:23,056 --> 00:07:24,678
+Now to see this in action, let's go back to
+現在要看看它的實際效果，讓我們回到
+
+185
+00:07:24,678 --> 00:07:25,609
+course goals
+課程目標
+
+186
+00:07:26,524 --> 00:07:27,760
+and let's add a link here
+讓我們在此處添加一個連結
+
+187
+00:07:31,873 --> 00:07:33,675
+around the goal name.
+圍繞目標名稱。
+
+188
+00:07:36,121 --> 00:07:38,856
+And this link should lead to slash
+這個連結應該會導致斜線
+
+189
+00:07:39,499 --> 00:07:40,915
+and then the ID of that goal.
+然後是該目標的 ID。
+
+190
+00:07:41,688 --> 00:07:44,152
+And every goal is an object with an ID. Of
+每個目標都是一個有 ID 的物件。的
+
+191
+00:07:44,184 --> 00:07:44,587
+course,
+課程，
+
+192
+00:07:45,457 --> 00:07:48,838
+every goal is an object with an ID, so we
+每個目標都是一個有 ID 的物件，所以我們
+
+193
+00:07:48,838 --> 00:07:50,144
+can safely access the ID.
+可以安全地存取該 ID。
+
+194
+00:07:50,792 --> 00:07:53,124
+And we can inject something into this URL
+我們可以在這個 URL 中註入一些東西
+
+195
+00:07:53,286 --> 00:07:53,416
+here
+這裡
+
+196
+00:07:54,112 --> 00:07:56,915
+with EJS as well. So we use the regular EJS
+也可以使用 EJS。所以我們使用常規的EJS
+
+197
+00:07:57,028 --> 00:07:58,291
+injection syntax
+注入語法
+
+198
+00:07:58,960 --> 00:08:01,299
+Then here into that URL to which the link
+然後在這裡進入連結的 URL
+
+199
+00:08:01,299 --> 00:08:03,235
+leads, I'll inject goal.id.
+領導，我將注入 goal.id。
+
+200
+00:08:04,900 --> 00:08:06,455
+Now if you save this and reload, you'll
+現在，如果您儲存並重新載入，您將
+
+201
+00:08:06,455 --> 00:08:07,783
+notice something interesting.
+注意到一些有趣的事情。
+
+202
+00:08:08,496 --> 00:08:09,921
+Now all of a sudden
+現在突然間
+
+203
+00:08:10,585 --> 00:08:11,687
+our styling is gone.
+我們的造型消失了。
+
+204
+00:08:12,610 --> 00:08:13,663
+What could be the reason for that?
+原因可能是什麼？
+
+205
+00:08:15,218 --> 00:08:17,960
+The reason for that is our new route which
+原因是我們的新路線
+
+206
+00:08:17,960 --> 00:08:20,235
+we now added, this dynamic route with this
+我們現在新增了這條動態路線
+
+207
+00:08:20,235 --> 00:08:21,171
+dynamic segment.
+動態段。
+
+208
+00:08:21,929 --> 00:08:24,365
+This handles any GET request to slash
+這會處理任何對斜線的 GET 請求
+
+209
+00:08:24,836 --> 00:08:25,286
+anything,
+任何事物，
+
+210
+00:08:26,121 --> 00:08:28,593
+and the anything part is then interpreted as
+然後 Any 部分被解釋為
+
+211
+00:08:28,609 --> 00:08:28,882
+an ID.
+一個身分證件。
+
+212
+00:08:30,376 --> 00:08:31,082
+The problem is
+問題是
+
+213
+00:08:31,660 --> 00:08:33,137
+the request for our
+對我們的要求
+
+214
+00:08:33,940 --> 00:08:34,759
+stylesheet here
+樣式表在這裡
+
+215
+00:08:35,674 --> 00:08:38,195
+for app.css also technically is just a
+對於 app.css 從技術上來說也只是一個
+
+216
+00:08:38,195 --> 00:08:39,737
+request sent to
+請求發送至
+
+217
+00:08:40,331 --> 00:08:40,973
+/app.css.
+/app.css。
+
+218
+00:08:41,631 --> 00:08:45,035
+So app.css is now interpreted as an ID here
+所以 app.css 現在在這裡被解釋為 ID
+
+219
+00:08:45,405 --> 00:08:46,818
+and therefore handled by this route.
+因此透過這條路線處理。
+
+220
+00:08:47,717 --> 00:08:48,825
+Obviously not what we want.
+顯然不是我們想要的。
+
+221
+00:08:50,238 --> 00:08:52,662
+Now, how can we work around that issue here?
+現在，我們如何解決這個問題？
+
+222
+00:08:53,256 --> 00:08:53,786
+Well, the
+嗯，
+
+223
+00:08:54,541 --> 00:08:56,548
+easiest workaround and the one that makes
+最簡單的解決方法和使
+
+224
+00:08:56,548 --> 00:08:57,800
+the most sense, I'd say,
+最有意義的是，我會說，
+
+225
+00:08:58,475 --> 00:08:59,438
+is to remove that
+就是刪除那個
+
+226
+00:09:00,000 --> 00:09:02,778
+root configuration on our static file
+我們的靜態檔案上的根設定
+
+227
+00:09:03,003 --> 00:09:05,411
+serving function here in app.ts
+app.ts 中的服務函式
+
+228
+00:09:06,359 --> 00:09:07,980
+and instead go back to our
+而是回到我們的
+
+229
+00:09:08,912 --> 00:09:09,602
+templates
+範本
+
+230
+00:09:10,597 --> 00:09:14,547
+and change the path to /static/app.css
+並將路徑更改為/static/app.css
+
+231
+00:09:14,547 --> 00:09:14,869
+there.
+那裡。
+
+232
+00:09:15,817 --> 00:09:17,843
+With that, we change the request that's
+這樣，我們改變了請求
+
+233
+00:09:17,843 --> 00:09:19,577
+being sent, and since it's now
+正在發送，因為現在
+
+234
+00:09:19,723 --> 00:09:20,387
+/static.filename,
+/靜態.檔名,
+
+235
+00:09:22,457 --> 00:09:23,798
+it no longer makes it in there,
+它不再在那裡，
+
+236
+00:09:24,331 --> 00:09:25,672
+which is not prepared to handle
+不準備處理
+
+237
+00:09:25,705 --> 00:09:26,319
+/static.filename.
+/靜態.檔名。
+
+238
+00:09:27,514 --> 00:09:28,417
+It just wants
+它只是想要
+
+239
+00:09:29,008 --> 00:09:30,124
+/some identifier.
+/一些標識符。
+
+240
+00:09:31,208 --> 00:09:31,717
+So with that,
+那麼這樣一來，
+
+241
+00:09:33,308 --> 00:09:35,144
+if you reload, you got your styles back.
+如果你重新載入，你就會恢復你的樣式。
+
+242
+00:09:36,094 --> 00:09:37,512
+Now if we now finish the course,
+現在，如果我們現在完成課程，
+
+243
+00:09:38,365 --> 00:09:41,473
+we get an error because in course goals EJS,
+我們得到一個錯誤，因為在課程目標 EJS 中，
+
+244
+00:09:41,505 --> 00:09:43,919
+of course, this shouldn't be goal ID It
+當然，這不應該是目標ID吧
+
+245
+00:09:43,919 --> 00:09:47,317
+should be goals for index i.id, just as
+應該是索引 i.id 的目標，就像
+
+246
+00:09:47,350 --> 00:09:48,265
+we're doing it for the name.
+我們這樣做是為了名字。
+
+247
+00:09:50,640 --> 00:09:51,027
+So if we now
+所以如果我們現在
+
+248
+00:09:51,559 --> 00:09:53,463
+update this, save it and reload,
+更新它，儲存並重新載入，
+
+249
+00:09:54,640 --> 00:09:55,044
+if I now
+如果我現在
+
+250
+00:09:55,737 --> 00:09:58,496
+finish the course, we get our element
+完成課程，我們得到了我們的元素
+
+251
+00:09:58,496 --> 00:09:59,173
+rendered like this.
+渲染成這樣。
+
+252
+00:09:59,851 --> 00:10:00,754
+And if you click on it,
+如果你點擊它，
+
+253
+00:10:01,302 --> 00:10:03,510
+you see the goal here in full screen mode,
+你可以在全螢幕模式下看到目標，
+
+254
+00:10:03,574 --> 00:10:06,587
+and you see the URL was updated and now
+您會看到 URL 已更新，現在
+
+255
+00:10:06,716 --> 00:10:08,779
+contains that ID of that goal.
+包含該目標的 ID。
+
+256
+00:10:09,442 --> 00:10:11,750
+And if you enter anything else, any invalid
+如果您輸入任何其他內容，則任何無效
+
+257
+00:10:11,750 --> 00:10:14,459
+ID, we get an error here because of our
+ID，我們在這裡收到錯誤，因為我們
+
+258
+00:10:14,636 --> 00:10:17,072
+error handling logic where we simply throw
+我們簡單地拋出錯誤處理邏輯
+
+259
+00:10:17,136 --> 00:10:20,053
+an error here in the single goal getting
+單一目標獲取中出現錯誤
+
+260
+00:10:20,342 --> 00:10:22,907
+function in case we have an invalid ID.
+以防我們的 ID 無效。
+
+261
+00:10:23,548 --> 00:10:25,840
+Of course, you could also throw a NotFound
+當然，你也可以拋出NotFound
+
+262
+00:10:25,936 --> 00:10:28,324
+error here to make sure that the NotFound
+此處出錯以確保 NotFound
+
+263
+00:10:28,421 --> 00:10:30,472
+checking in App.js again works.
+再次檢查 App.js 可以正常運作。
+
+264
+00:10:31,402 --> 00:10:33,229
+And if you would want to do this, you just
+如果你想這樣做，你只需
+
+265
+00:10:33,229 --> 00:10:36,339
+would need to import HTTP error and status
+需要導入 HTTP 錯誤和狀態
+
+266
+00:10:36,756 --> 00:10:40,288
+from Oak. So these 2 extra objects now need
+來自橡樹。所以現在需要這兩個額外的物件
+
+267
+00:10:40,288 --> 00:10:40,963
+to be imported.
+待進口。
+
+268
+00:10:42,295 --> 00:10:44,126
+And then here you could create your own
+然後你可以在這裡創建你自己的
+
+269
+00:10:44,222 --> 00:10:47,947
+error object by instantiating HTTP error,
+透過實例化 HTTP 錯誤來取得錯誤物件，
+
+270
+00:10:48,895 --> 00:10:51,191
+and on that you could set the status to
+然後您可以將狀態設定為
+
+271
+00:10:51,785 --> 00:10:53,487
+status.not_found
+狀態.not_found
+
+272
+00:10:54,177 --> 00:10:57,292
+and throw this custom error. And this error
+並拋出這個自訂錯誤。還有這個錯誤
+
+273
+00:10:57,629 --> 00:11:00,744
+will be of type HTTP error and will have the
+將是 HTTP 錯誤型別並且將具有
+
+274
+00:11:00,744 --> 00:11:01,868
+not found status
+未找到狀態
+
+275
+00:11:02,462 --> 00:11:04,933
+And therefore our check here will work and
+因此我們在這裡的檢查將起作用並且
+
+276
+00:11:05,029 --> 00:11:06,762
+will show the not found page again.
+將再次顯示未找到的頁面。
+
+277
+00:11:07,917 --> 00:11:09,377
+So if I now reload here, we got the not
+所以如果我現在在這裡重新載入，我們得到的不是
+
+278
+00:11:09,425 --> 00:11:09,970
+found page.
+找到頁面。
+
+279
+00:11:10,724 --> 00:11:11,254
+Otherwise,
+否則，
+
+280
+00:11:12,265 --> 00:11:14,687
+it of course works as shown before.
+當然，它的工作原理如前所示。
+
+281
+00:11:15,778 --> 00:11:18,040
+So this is now an example for getting a
+現在這是一個獲取
+
+282
+00:11:18,040 --> 00:11:18,955
+single goal
+單一目標
+
+283
+00:11:19,612 --> 00:11:21,955
+for a single read operation, a single
+對於單一讀取操作，單一
+
+284
+00:11:22,099 --> 00:11:24,538
+element read operation. And most
+元素讀取操作。而大多數
+
+285
+00:11:24,538 --> 00:11:25,131
+importantly,
+重要的是，
+
+286
+00:11:25,725 --> 00:11:28,664
+it is a good example for dynamic path
+這是動態路徑的一個很好的例子
+
+287
+00:11:28,859 --> 00:11:31,839
+segments when using the oak router, and
+使用橡木銑機時的分段，以及
+
+288
+00:11:31,855 --> 00:11:33,361
+that's something you'll need a lot.
+這是你非常需要的東西。

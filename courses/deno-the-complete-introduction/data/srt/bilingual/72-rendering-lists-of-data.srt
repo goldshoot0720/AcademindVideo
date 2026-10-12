@@ -1,0 +1,479 @@
+1
+00:00:02,265 --> 00:00:05,670
+Okay, so now that we got our template here
+好的，現在我們已經有樣板
+
+2
+00:00:05,879 --> 00:00:07,068
+with some styles attached,
+附帶一些樣式，
+
+3
+00:00:07,743 --> 00:00:10,538
+we can store our goals like finish the
+我們可以儲存我們的目標，例如完成
+
+4
+00:00:10,538 --> 00:00:13,349
+course, or we can send them at least. But of
+當然，或者我們至少可以發送它們。但的
+
+5
+00:00:13,429 --> 00:00:16,000
+course, currently nothing happens. We're
+當然，目前什麼事也沒有發生。是
+
+6
+00:00:16,176 --> 00:00:18,152
+redirected back to all goals,
+重定向回所有目標，
+
+7
+00:00:18,731 --> 00:00:20,932
+and whilst the data arrives on the backend,
+當資料到達後端時，
+
+8
+00:00:20,980 --> 00:00:23,132
+we're not doing anything with it. Now that's
+我們沒有用它做任何事。現在就是
+
+9
+00:00:23,165 --> 00:00:24,369
+something we want to change,
+我們想要改變的事情，
+
+10
+00:00:24,916 --> 00:00:28,192
+and later in a separate section I will show
+稍後我將在單獨的部分中展示
+
+11
+00:00:28,208 --> 00:00:30,101
+you how you can store this kind of
+你如何儲存這種
+
+12
+00:00:30,165 --> 00:00:31,480
+information in
+資訊在
+
+13
+00:00:32,074 --> 00:00:32,764
+a database.
+一個資料庫。
+
+14
+00:00:33,421 --> 00:00:35,731
+For the moment, we'll just store it in
+目前，我們將其儲存在
+
+15
+00:00:35,763 --> 00:00:38,539
+memory. So that means we'll just store it in
+記憶。這意味著我們只需將其存儲在
+
+16
+00:00:38,587 --> 00:00:40,961
+some JavaScript constant or a variable,
+一些 JavaScript 常數或變數，
+
+17
+00:00:41,603 --> 00:00:44,442
+and therefore that will be lost whenever our
+因此，每當我們的
+
+18
+00:00:44,442 --> 00:00:46,672
+server restarts because that's when the
+伺服器重新啟動，因為那時
+
+19
+00:00:46,672 --> 00:00:49,239
+memory is cleared essentially. Nonetheless,
+記憶體基本上被清除了。儘管如此，
+
+20
+00:00:49,560 --> 00:00:51,790
+this is good enough for now where I wanna
+這對於我現在想要的地方來說已經足夠了
+
+21
+00:00:51,790 --> 00:00:54,741
+focus on Oak in general and templating
+重點關注 Oak 的整體情況和樣板
+
+22
+00:00:54,998 --> 00:00:57,709
+engines in general. Later, as I just said,
+引擎一般。後來正如我剛才所說，
+
+23
+00:00:57,870 --> 00:01:00,116
+we'll have a whole module dedicated to
+我們將有一個專門用於
+
+24
+00:01:00,148 --> 00:01:01,961
+moving to a real database.
+遷移到真實的資料庫。
+
+25
+00:01:02,940 --> 00:01:05,572
+So therefore right now to store goals, I'll
+所以現在為了儲存目標，我會
+
+26
+00:01:05,668 --> 00:01:07,321
+add a new constant here
+在這裡新增一個常數
+
+27
+00:01:08,075 --> 00:01:09,728
+in this app.ts file
+在此 app.ts 檔案中
+
+28
+00:01:10,643 --> 00:01:12,954
+and I'll name it courseGoals.
+我將其命名為 courseGoals。
+
+29
+00:01:13,611 --> 00:01:15,553
+And that could simply be an array,
+這可能只是一個陣列，
+
+30
+00:01:16,099 --> 00:01:19,164
+an array of courseGoals and initially it's
+一系列 courseGoals 最初是
+
+31
+00:01:19,228 --> 00:01:19,886
+an empty array.
+一個空陣列。
+
+32
+00:01:20,768 --> 00:01:23,737
+Now the idea is that whenever a new POST
+現在的想法是，每當一個新的帖子
+
+33
+00:01:23,737 --> 00:01:26,706
+request arrives, we extract that goal and
+請求到達，我們提取該目標並
+
+34
+00:01:26,706 --> 00:01:29,754
+store that as a goal here in this array.
+將其作為目標儲存在此陣列中。
+
+35
+00:01:30,972 --> 00:01:33,408
+So we could actually rename the extracted
+所以我們實際上可以重命名提取的
+
+36
+00:01:34,018 --> 00:01:34,915
+title of the goal
+目標的標題
+
+37
+00:01:35,444 --> 00:01:35,621
+to
+到
+
+38
+00:01:36,150 --> 00:01:37,240
+newGoalTitle
+新目標標題
+
+39
+00:01:37,913 --> 00:01:39,115
+and then create a new goal
+然後建立一個新目標
+
+40
+00:01:39,836 --> 00:01:40,927
+object down there
+下面有物體
+
+41
+00:01:41,600 --> 00:01:44,293
+which maybe should have a title property or
+也許應該有一個產權財產或
+
+42
+00:01:44,485 --> 00:01:47,034
+a name property, however you wanna name it,
+一個名稱屬性，無論你想如何命名它，
+
+43
+00:01:47,226 --> 00:01:47,884
+totally up to you.
+完全取決於你。
+
+44
+00:01:48,653 --> 00:01:51,042
+And in there I'll store the newGoalTitle
+我將在那裡存儲 newGoalTitle
+
+45
+00:01:51,715 --> 00:01:55,017
+and maybe we also want an ID. This is also
+也許我們還想要一個身分證。這也是
+
+46
+00:01:55,145 --> 00:01:57,646
+optional but it's realistic I would say that
+可選但這是現實的我會說
+
+47
+00:01:57,646 --> 00:02:00,660
+we would want to assign an ID to every newly
+我們希望為每個新的
+
+48
+00:02:00,612 --> 00:02:03,172
+created object. And hence here I'll add an
+創建的物件。因此在這裡我將添加一個
+
+49
+00:02:03,447 --> 00:02:04,128
+ID field
+身分欄位
+
+50
+00:02:04,743 --> 00:02:06,995
+and use the built-in date constructor
+並使用內建的日期建構函式
+
+51
+00:02:06,995 --> 00:02:09,910
+function to take the current date timestamp
+取得當前日期時間戳記的函式
+
+52
+00:02:10,072 --> 00:02:10,881
+as an ID,
+作為身份證，
+
+53
+00:02:11,448 --> 00:02:12,548
+convert this to
+將其轉換為
+
+54
+00:02:14,539 --> 00:02:17,128
+an ISO string, and with that we have a
+一個 ISO 字串，有了它我們就有了
+
+55
+00:02:17,209 --> 00:02:20,098
+unique ID. Theoretically, we could have 2
+唯一的ID。理論上，我們可以有 2
+
+56
+00:02:20,276 --> 00:02:22,858
+goals being created at the same time, so
+目標是同時創建的，所以
+
+57
+00:02:22,874 --> 00:02:25,182
+it's not perfectly unique, but it's good
+它並不完全獨特，但很好
+
+58
+00:02:25,182 --> 00:02:28,017
+enough for now for this dummy application
+現在對於這個虛擬應用程式來說已經足夠了
+
+59
+00:02:28,017 --> 00:02:28,129
+here.
+這裡。
+
+60
+00:02:28,979 --> 00:02:31,142
+So with that, we have a new goal object, and
+這樣，我們就有了一個新的目標物件，而且
+
+61
+00:02:31,238 --> 00:02:33,673
+that will now be added to course goals here
+現在將被添加到此處的課程目標中
+
+62
+00:02:34,106 --> 00:02:35,099
+in the POST route
+在 POST 路由中
+
+63
+00:02:35,724 --> 00:02:37,182
+by pushing the new goal—
+透過推動新目標——
+
+64
+00:02:38,047 --> 00:02:41,204
+whoops— the new goal object as a new element
+哎喲——新目標物件作為新元素
+
+65
+00:02:41,572 --> 00:02:42,454
+to that array.
+到那個陣列。
+
+66
+00:02:43,399 --> 00:02:45,818
+And now again, that's just an array here,
+現在再說一遍，這只是一個陣列，
+
+67
+00:02:45,979 --> 00:02:48,590
+and that means that it will live as long as
+這意味著它會一直存在
+
+68
+00:02:48,638 --> 00:02:49,712
+the application runs.
+應用程式運行。
+
+69
+00:02:50,305 --> 00:02:53,205
+But whenever our server is shut down, this
+但是每當我們的伺服器關閉時，這個
+
+70
+00:02:53,269 --> 00:02:55,963
+data will be lost here. It's not stored
+這裡的資料將會遺失。它沒有被存儲
+
+71
+00:02:55,995 --> 00:02:58,838
+persistently, but this is fine for this
+堅持不懈，但這對此很好
+
+72
+00:02:58,870 --> 00:02:59,818
+dummy application.
+虛擬應用程式。
+
+73
+00:03:00,348 --> 00:03:03,014
+So this is how I wanna store my goals for
+這就是我想要儲存目標的方式
+
+74
+00:03:03,079 --> 00:03:03,641
+the moment.
+那一刻。
+
+75
+00:03:04,573 --> 00:03:07,560
+Now, however, the interesting thing is that
+然而現在有趣的是
+
+76
+00:03:07,560 --> 00:03:09,198
+of course in our template here,
+當然，在我們的樣板中，
+
+77
+00:03:09,953 --> 00:03:13,310
+I have this space which is actually reserved
+我有這個實際上被保留的空間
+
+78
+00:03:13,342 --> 00:03:15,816
+for course goals. I wanna output multiple
+為了課程目標。我想輸出多個
+
+79
+00:03:15,896 --> 00:03:18,209
+course goals here. I wanna render multiple
+課程目標在這裡。我想渲染多個
+
+80
+00:03:18,547 --> 00:03:21,773
+list items here, one list item per course
+在此列出專案，每門課程一個清單專案
+
+81
+00:03:21,773 --> 00:03:22,013
+goal.
+目標。
+
+82
+00:03:22,734 --> 00:03:25,362
+And that's something we can also do with the
+這也是我們可以做的
+
+83
+00:03:25,522 --> 00:03:27,957
+EJS templating engine and language.
+EJS 樣板引擎和語言。
+
+84
+00:03:28,822 --> 00:03:31,209
+You saw how you can inject one single piece
+您看到如何注射一件單件
+
+85
+00:03:31,209 --> 00:03:33,100
+of data like the title here.
+像標題這樣的資料。
+
+86
+00:03:33,949 --> 00:03:36,865
+Now you can do more with EJS than just that.
+現在，您可以使用 EJS 做更多事情。
+
+87
+00:03:37,698 --> 00:03:40,726
+And you can simply search for EJS to find
+您只需搜尋 EJS 即可找到
+
+88
+00:03:40,758 --> 00:03:41,976
+their official webpage.
+他們的官方網頁。
+
+89
+00:03:42,985 --> 00:03:45,501
+And there you can learn all about it and how
+在那裡您可以了解所有相關資訊以及如何
+
+90
+00:03:45,661 --> 00:03:47,888
+it's used. And you can learn the different
+它被使用了。而且你可以學到不同的
+
+91
+00:03:47,888 --> 00:03:50,275
+syntaxes it supports in detail.
+它支援詳細的語法。
+
+92
+00:03:50,839 --> 00:03:53,489
+These tags here are especially important
+這裡的這些標籤尤其重要
+
+93
+00:03:53,683 --> 00:03:55,671
+because that's basically a list of the
+因為這基本上是一個列表
+
+94
+00:03:55,703 --> 00:03:57,044
+different kinds of
+不同種類的
+
+95
+00:03:57,804 --> 00:04:01,052
+commands or markers which you can add in
+您可以新增的命令或標記
+
+96
+00:04:01,181 --> 00:04:01,650
+your
+你的
