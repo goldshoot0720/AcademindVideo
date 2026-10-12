@@ -1,0 +1,259 @@
+1
+00:00:02,261 --> 00:00:04,876
+Now for that attached, you find a simple
+
+2
+00:00:05,229 --> 00:00:08,693
+myapp.ts file which you can download and put
+
+3
+00:00:08,693 --> 00:00:09,832
+into your project folder.
+
+4
+00:00:10,602 --> 00:00:13,313
+And that file contains a couple of errors,
+
+5
+00:00:13,810 --> 00:00:16,120
+and we will now try to find and fix those
+
+6
+00:00:16,312 --> 00:00:18,927
+errors. And along the way, I will share some
+
+7
+00:00:19,039 --> 00:00:21,509
+hints at how you can approach this, how you
+
+8
+00:00:21,509 --> 00:00:24,204
+can find and fix errors you might be facing
+
+9
+00:00:24,252 --> 00:00:27,605
+in your projects, and which tools Deno gives
+
+10
+00:00:27,605 --> 00:00:27,669
+you.
+
+11
+00:00:28,487 --> 00:00:30,671
+Now first of all, what we can immediately
+
+12
+00:00:30,671 --> 00:00:33,161
+see when we open this in our IDE,
+
+13
+00:00:33,883 --> 00:00:35,569
+in Visual Studio Code in my case,
+
+14
+00:00:36,196 --> 00:00:39,086
+is that the IDE itself is showing an error
+
+15
+00:00:39,086 --> 00:00:39,231
+here.
+
+16
+00:00:39,889 --> 00:00:42,844
+It's showing red squiggly lines on content,
+
+17
+00:00:43,503 --> 00:00:45,221
+and whenever you got something like this,
+
+18
+00:00:45,510 --> 00:00:47,855
+that's of course a very clear indicator that
+
+19
+00:00:47,855 --> 00:00:49,011
+something might be wrong.
+
+20
+00:00:49,927 --> 00:00:52,994
+Occasionally the IDE might be wrong, it
+
+21
+00:00:52,994 --> 00:00:55,451
+might not be able to understand your code
+
+22
+00:00:55,483 --> 00:00:58,404
+fully, but in the majority of cases you are
+
+23
+00:00:58,452 --> 00:00:58,661
+wrong.
+
+24
+00:00:59,958 --> 00:01:02,265
+The best thing to do if you get these red
+
+25
+00:01:02,394 --> 00:01:05,213
+squiggly lines is to simply hover over them
+
+26
+00:01:05,325 --> 00:01:06,511
+and see what the problem is.
+
+27
+00:01:07,104 --> 00:01:09,731
+And here we see that an argument of type
+
+28
+00:01:09,731 --> 00:01:12,407
+string is not assignable to a parameter of
+
+29
+00:01:12,455 --> 00:01:13,672
+type uint8 array.
+
+30
+00:01:14,297 --> 00:01:15,627
+So we have a type error here,
+
+31
+00:01:16,300 --> 00:01:19,296
+and we would also get this error message if
+
+32
+00:01:19,344 --> 00:01:21,555
+we would try to run this code, by the way.
+
+33
+00:01:22,644 --> 00:01:24,070
+But we don't even need to do that here.
+
+34
+00:01:24,647 --> 00:01:26,777
+We clearly are passing the wrong kind of
+
+35
+00:01:26,809 --> 00:01:30,497
+data to write file, because if we inspect
+
+36
+00:01:30,497 --> 00:01:33,064
+writeFile, we see that the data it wants
+
+37
+00:01:33,288 --> 00:01:35,470
+should be of type uint8 array,
+
+38
+00:01:36,577 --> 00:01:39,625
+and the content I have here is a string, and
+
+39
+00:01:39,641 --> 00:01:41,806
+that's clearly not a uint8 array.
+
+40
+00:01:42,833 --> 00:01:44,886
+In the example code I provided you,
+
+41
+00:01:45,560 --> 00:01:47,421
+I'm essentially fetching some user input
+
+42
+00:01:47,421 --> 00:01:47,533
+here.
+
+43
+00:01:48,223 --> 00:01:51,239
+Then I have this parseBuffer helper function
+
+44
+00:01:51,511 --> 00:01:54,607
+which just uses the text decoder to decode
+
+45
+00:01:54,784 --> 00:01:55,217
+the buffer.
+
+46
+00:01:55,906 --> 00:01:58,215
+And what I'm doing here is that I'm using
+
+47
+00:01:58,327 --> 00:02:01,100
+the decoded content as an argument for
+
+48
+00:02:01,212 --> 00:02:01,725
+write_file.
+
+49
+00:02:02,478 --> 00:02:05,203
+Now write_file doesn't want that decoded
+
+50
+00:02:05,203 --> 00:02:07,528
+content though. It wants the raw byte
+
+51
+00:02:07,528 --> 00:02:07,912
+content.
+
+52
+00:02:08,521 --> 00:02:11,759
+So the fix here is simple. We pass input
+
+53
+00:02:11,791 --> 00:02:14,452
+buffer like this as an argument. And now
+
+54
+00:02:14,741 --> 00:02:16,119
+this error is gone.
+
+55
+00:02:16,921 --> 00:02:19,341
+Now this program will still have a couple of
+
+56
+00:02:19,486 --> 00:02:21,698
+other problems, but at least we got rid of
+
+57
+00:02:21,794 --> 00:02:24,925
+this error. And the simple core takeaway
+
+58
+00:02:25,183 --> 00:02:26,677
+from this lecture therefore is
+
+59
+00:02:27,256 --> 00:02:29,731
+that if your IDE is showing an error to you,
+
+60
+00:02:30,165 --> 00:02:30,937
+you should simply
+
+61
+00:02:31,515 --> 00:02:33,991
+analyze it, read the error description,
+
+62
+00:02:34,569 --> 00:02:37,784
+and in the vast majority of cases, the error
+
+63
+00:02:37,784 --> 00:02:39,680
+description will be pretty clear, will make
+
+64
+00:02:39,729 --> 00:02:42,091
+sense, and will allow you to fix the error.
+
+65
+00:02:42,445 --> 00:02:44,277
+So let's now move on to the next problem.

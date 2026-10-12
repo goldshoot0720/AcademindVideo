@@ -1,0 +1,831 @@
+1
+00:00:02,340 --> 00:00:04,409
+Let's start with a very important question.
+
+2
+00:00:04,906 --> 00:00:07,134
+Which kind of web application do we want to
+
+3
+00:00:07,166 --> 00:00:10,277
+build? There are essentially 2 kinds of web
+
+4
+00:00:10,277 --> 00:00:12,922
+apps you would build with something like
+
+5
+00:00:12,922 --> 00:00:16,994
+Deno. You either build an API or you're
+
+6
+00:00:17,026 --> 00:00:19,479
+building a web app that returns server-side
+
+7
+00:00:19,495 --> 00:00:20,201
+rendered views.
+
+8
+00:00:20,890 --> 00:00:21,756
+Now, what's the difference?
+
+9
+00:00:22,477 --> 00:00:24,818
+Let's take a closer look at such an API
+
+10
+00:00:24,818 --> 00:00:27,640
+server. Let's say with Deno, we're building
+
+11
+00:00:27,688 --> 00:00:31,280
+such an API server. So a server that exposes
+
+12
+00:00:31,280 --> 00:00:31,937
+an API.
+
+13
+00:00:32,883 --> 00:00:35,593
+In such a case, we would have a standalone
+
+14
+00:00:35,866 --> 00:00:38,640
+frontend application and frontend simply
+
+15
+00:00:38,656 --> 00:00:41,527
+means running on the device your users are
+
+16
+00:00:41,623 --> 00:00:44,028
+using. So running on a mobile phone, for
+
+17
+00:00:44,028 --> 00:00:46,386
+example, if your frontend app is an iOS or
+
+18
+00:00:46,514 --> 00:00:49,320
+Android app built with Swift, Java, Android,
+
+19
+00:00:49,336 --> 00:00:49,785
+and so on,
+
+20
+00:00:50,362 --> 00:00:52,832
+or running in the browser if it's a single
+
+21
+00:00:52,864 --> 00:00:55,767
+page application. That's what SPA stands
+
+22
+00:00:55,831 --> 00:00:58,701
+for, typically built with a framework like
+
+23
+00:00:58,781 --> 00:01:00,497
+Angular, React, Vue, and so on.
+
+24
+00:01:01,284 --> 00:01:04,463
+Now these kinds of apps run on the frontend,
+
+25
+00:01:04,656 --> 00:01:07,482
+so they run on the device of your user.
+
+26
+00:01:08,109 --> 00:01:10,277
+In the case of an app, it's obvious it's a
+
+27
+00:01:10,293 --> 00:01:13,071
+mobile app installed from the App Store, and
+
+28
+00:01:13,087 --> 00:01:16,042
+therefore the app itself is responsible for
+
+29
+00:01:16,042 --> 00:01:18,563
+rendering different screens. If the user
+
+30
+00:01:18,611 --> 00:01:20,554
+touches a button in the app and is taken
+
+31
+00:01:20,554 --> 00:01:22,770
+somewhere else, then that new screen which
+
+32
+00:01:22,819 --> 00:01:25,613
+is being rendered is controlled by the app.
+
+33
+00:01:26,095 --> 00:01:29,047
+It's not some HTML code sent by a server,
+
+34
+00:01:29,127 --> 00:01:31,515
+instead it's written in the code with which
+
+35
+00:01:31,628 --> 00:01:32,637
+the app was written.
+
+36
+00:01:33,310 --> 00:01:35,041
+And you can build something similar on the
+
+37
+00:01:35,073 --> 00:01:37,125
+web with a single page application.
+
+38
+00:01:37,782 --> 00:01:40,859
+That's an application where a single HTML
+
+39
+00:01:40,939 --> 00:01:42,991
+file is requested from a server,
+
+40
+00:01:43,552 --> 00:01:45,315
+and that could be a different server than
+
+41
+00:01:45,395 --> 00:01:46,853
+your API server, by the way.
+
+42
+00:01:47,639 --> 00:01:50,636
+And that single HTML page includes a bunch
+
+43
+00:01:50,636 --> 00:01:52,799
+of JavaScript code, typically
+
+44
+00:01:53,504 --> 00:01:56,918
+using one of the popular frontend JavaScript
+
+45
+00:01:56,934 --> 00:01:59,676
+frameworks, Angular, React, and Vue would be
+
+46
+00:01:59,676 --> 00:02:00,478
+the big ones there.
+
+47
+00:02:01,103 --> 00:02:02,803
+And thereafter, it's that browser-side
+
+48
+00:02:02,803 --> 00:02:05,289
+JavaScript code that is responsible for
+
+49
+00:02:05,289 --> 00:02:07,486
+bringing something onto the screen, for
+
+50
+00:02:07,534 --> 00:02:09,105
+rendering something onto the screen.
+
+51
+00:02:09,843 --> 00:02:12,104
+Now, no matter if you're working with a
+
+52
+00:02:12,104 --> 00:02:14,365
+frontend that's a mobile app or if it's a
+
+53
+00:02:14,365 --> 00:02:15,921
+single-page web application,
+
+54
+00:02:16,739 --> 00:02:17,204
+either way,
+
+55
+00:02:17,781 --> 00:02:21,646
+those apps don't want HTML code because they
+
+56
+00:02:21,726 --> 00:02:23,634
+already know how to bring something on the
+
+57
+00:02:23,634 --> 00:02:26,670
+screen. Instead, they just want data to
+
+58
+00:02:26,767 --> 00:02:29,980
+populate their screens with the actual data.
+
+59
+00:02:30,880 --> 00:02:33,114
+And therefore, they will send requests to
+
+60
+00:02:33,194 --> 00:02:36,183
+your API server requesting certain data, for
+
+61
+00:02:36,183 --> 00:02:38,577
+example, a list of products, let's say.
+
+62
+00:02:39,381 --> 00:02:41,566
+Now, your server might then reach out to a
+
+63
+00:02:41,566 --> 00:02:44,587
+database or to the file system depending on
+
+64
+00:02:44,699 --> 00:02:46,820
+what it needs to do. It will then fetch and
+
+65
+00:02:46,933 --> 00:02:50,114
+prepare that data or maybe store data if the
+
+66
+00:02:49,890 --> 00:02:52,186
+the frontend app sent some data that should
+
+67
+00:02:52,250 --> 00:02:52,668
+be stored.
+
+68
+00:02:53,294 --> 00:02:55,526
+And whenever the server is done, it will
+
+69
+00:02:55,767 --> 00:02:59,942
+respond back with data in that JSON format.
+
+70
+00:03:00,296 --> 00:03:02,785
+So it will send back data. It will never
+
+71
+00:03:02,785 --> 00:03:06,141
+send back HTML code. It will never send back
+
+72
+00:03:06,221 --> 00:03:08,534
+what should be rendered on the screen. It
+
+73
+00:03:08,614 --> 00:03:11,633
+only sends back data and it's then up to the
+
+74
+00:03:11,681 --> 00:03:14,572
+frontend app to decide what to do with that
+
+75
+00:03:14,572 --> 00:03:17,013
+data and what to draw onto the screen.
+
+76
+00:03:18,425 --> 00:03:21,923
+Therefore, in the API case, our API server
+
+77
+00:03:22,052 --> 00:03:24,651
+simply provides multiple so-called
+
+78
+00:03:24,908 --> 00:03:28,823
+endpoints, which are URL HTTP method
+
+79
+00:03:28,855 --> 00:03:29,626
+combinations,
+
+80
+00:03:30,300 --> 00:03:32,931
+something like a POST request being sent to
+
+81
+00:03:33,268 --> 00:03:36,269
+/products or a GET request being sent to
+
+82
+00:03:37,216 --> 00:03:37,793
+/my-account.
+
+83
+00:03:38,563 --> 00:03:40,473
+That would be an endpoint or that would be
+
+84
+00:03:40,553 --> 00:03:43,618
+endpoints and such endpoints are provided by
+
+85
+00:03:43,618 --> 00:03:46,315
+the API server. And depending on which
+
+86
+00:03:46,572 --> 00:03:49,558
+endpoint received a request, something will
+
+87
+00:03:49,622 --> 00:03:51,902
+be done. For example, data will be stored in
+
+88
+00:03:51,902 --> 00:03:53,974
+a database, data will be fetched from a
+
+89
+00:03:53,974 --> 00:03:57,153
+database, and then that data will be sent
+
+90
+00:03:57,185 --> 00:04:01,215
+back in JSON format to the standalone app,
+
+91
+00:04:01,440 --> 00:04:04,378
+which in the API server case is required
+
+92
+00:04:04,811 --> 00:04:08,119
+because such an API server only replies with
+
+93
+00:04:08,247 --> 00:04:11,329
+data, not with HTML. So not with
+
+94
+00:04:11,329 --> 00:04:13,878
+instructions on what or how to render the
+
+95
+00:04:13,878 --> 00:04:16,346
+screen, just with the data. That's the
+
+96
+00:04:16,346 --> 00:04:17,180
+important thing here.
+
+97
+00:04:17,709 --> 00:04:20,530
+And a huge amount of web applications out
+
+98
+00:04:20,530 --> 00:04:23,784
+there are driven by such API servers. And in
+
+99
+00:04:23,816 --> 00:04:26,670
+the end, any mobile app which you're using
+
+100
+00:04:27,006 --> 00:04:29,924
+will talk to such an API server behind the
+
+101
+00:04:29,924 --> 00:04:33,018
+scenes because it's a mobile app. Those apps
+
+102
+00:04:33,018 --> 00:04:34,284
+have no chance of
+
+103
+00:04:35,038 --> 00:04:37,538
+requesting HTML and rendering that. They
+
+104
+00:04:37,538 --> 00:04:40,055
+need data because all the view and the
+
+105
+00:04:40,087 --> 00:04:42,331
+rendering logic is always built into mobile
+
+106
+00:04:42,331 --> 00:04:45,265
+apps. So therefore, API servers are an
+
+107
+00:04:45,314 --> 00:04:47,462
+important building block of the modern web,
+
+108
+00:04:47,863 --> 00:04:49,980
+and therefore we'll have an entire section
+
+109
+00:04:50,012 --> 00:04:52,705
+in this course on how to build a REST API,
+
+110
+00:04:53,218 --> 00:04:55,575
+which is just the most popular form of an
+
+111
+00:04:55,575 --> 00:04:56,361
+API server.
+
+112
+00:04:57,003 --> 00:04:59,247
+But we also have that other approach, which
+
+113
+00:04:59,247 --> 00:05:01,572
+is also very important, and that would be a
+
+114
+00:05:01,572 --> 00:05:04,346
+server returning server-side rendered views.
+
+115
+00:05:05,276 --> 00:05:07,874
+If we compare it to the API server, the
+
+116
+00:05:07,970 --> 00:05:11,498
+difference is that for the server-side
+
+117
+00:05:11,498 --> 00:05:13,023
+rendered views server,
+
+118
+00:05:13,682 --> 00:05:16,635
+we don't have frontend apps. Instead, we
+
+119
+00:05:16,635 --> 00:05:19,171
+just have our client, so the user using a
+
+120
+00:05:19,284 --> 00:05:21,756
+browser, and then we have our server, which
+
+121
+00:05:22,189 --> 00:05:25,560
+I named full-stack server here to indicate
+
+122
+00:05:25,560 --> 00:05:28,257
+that it's responsible for both what happens
+
+123
+00:05:28,433 --> 00:05:30,777
+on the server, so reaching out to database
+
+124
+00:05:30,777 --> 00:05:33,137
+and so on, for example, as well as for
+
+125
+00:05:33,410 --> 00:05:35,207
+what's shown on the screen of the client.
+
+126
+00:05:35,817 --> 00:05:38,820
+This is commonly referred to as full stack
+
+127
+00:05:39,350 --> 00:05:41,615
+if you take care about both what happens on
+
+128
+00:05:41,615 --> 00:05:43,431
+the server as well as on the client.
+
+129
+00:05:44,411 --> 00:05:47,126
+Now here the client, so the browser in the
+
+130
+00:05:47,142 --> 00:05:50,372
+end, requests a view and not just data.
+
+131
+00:05:50,677 --> 00:05:53,553
+Instead, it requests a full HTML page,
+
+132
+00:05:54,292 --> 00:05:56,429
+and it's now the job of the server to
+
+133
+00:05:57,023 --> 00:05:58,743
+reach out to the database, to the file
+
+134
+00:05:58,743 --> 00:06:01,345
+system, do whatever needs to be done, but
+
+135
+00:06:01,378 --> 00:06:01,570
+then
+
+136
+00:06:02,101 --> 00:06:05,922
+to also prepare such a view prepare such an
+
+137
+00:06:05,938 --> 00:06:06,804
+HTML page
+
+138
+00:06:07,381 --> 00:06:10,010
+with help of a templating engine and view
+
+139
+00:06:10,203 --> 00:06:11,213
+templates typically.
+
+140
+00:06:11,950 --> 00:06:15,060
+And once such a view, such an HTML page was
+
+141
+00:06:15,173 --> 00:06:17,978
+prepared by the server, it is sent back to
+
+142
+00:06:17,978 --> 00:06:20,047
+the client, to the browser, which then
+
+143
+00:06:20,047 --> 00:06:21,073
+displays this page.
+
+144
+00:06:22,051 --> 00:06:24,359
+And in the end, our dummy application which
+
+145
+00:06:24,472 --> 00:06:27,373
+we built before would be an example for such
+
+146
+00:06:27,422 --> 00:06:29,522
+a server-side rendered view application
+
+147
+00:06:29,842 --> 00:06:32,376
+because there we prepared and sent back some
+
+148
+00:06:32,552 --> 00:06:35,454
+HTML code on the server. We did not just
+
+149
+00:06:35,454 --> 00:06:38,756
+send back data, we sent back the entire HTML
+
+150
+00:06:38,900 --> 00:06:41,384
+document that should be rendered. So this
+
+151
+00:06:41,384 --> 00:06:43,725
+was an example for a server-side rendered
+
+152
+00:06:43,773 --> 00:06:44,142
+view here.
+
+153
+00:06:45,151 --> 00:06:47,444
+Such applications are also very important.
+
+154
+00:06:47,860 --> 00:06:50,201
+Here we also got different endpoints, so
+
+155
+00:06:50,201 --> 00:06:53,086
+just as on the API server example, but what
+
+156
+00:06:53,086 --> 00:06:55,667
+we return is not just data but the entire
+
+157
+00:06:55,875 --> 00:06:57,718
+view, so the HTML content.
+
+158
+00:06:58,376 --> 00:07:01,389
+And frontend and backend here form one unit.
+
+159
+00:07:01,886 --> 00:07:03,668
+Everything is managed by one server.
+
+160
+00:07:04,310 --> 00:07:07,151
+Now traditionally, if we go back like 10
+
+161
+00:07:07,263 --> 00:07:07,568
+years,
+
+162
+00:07:08,306 --> 00:07:10,457
+every website was such a server-side
+
+163
+00:07:10,489 --> 00:07:11,581
+rendered views thing.
+
+164
+00:07:12,159 --> 00:07:14,903
+Nowadays we got more and more frontend apps,
+
+165
+00:07:15,866 --> 00:07:18,691
+so such single-page applications that talk
+
+166
+00:07:18,691 --> 00:07:21,452
+to APIs, simply because we also got a lot of
+
+167
+00:07:21,468 --> 00:07:23,811
+mobile apps that do the same, and we
+
+168
+00:07:23,811 --> 00:07:25,416
+discovered that this would be a great
+
+169
+00:07:25,416 --> 00:07:26,764
+pattern for the web as well.
+
+170
+00:07:27,567 --> 00:07:29,284
+But this does not mean that server-side
+
+171
+00:07:29,284 --> 00:07:31,417
+rendered views are something you shouldn't
+
+172
+00:07:31,417 --> 00:07:33,916
+use. For a lot of webpages, it's a great
+
+173
+00:07:33,916 --> 00:07:36,031
+approach and it's typically the approach
+
+174
+00:07:36,304 --> 00:07:38,531
+with which you start your developer career,
+
+175
+00:07:38,547 --> 00:07:39,172
+I would argue.
+
+176
+00:07:40,309 --> 00:07:43,017
+And in reality, you find examples for both
+
+177
+00:07:43,129 --> 00:07:44,379
+kinds of applications.
+
+178
+00:07:45,132 --> 00:07:47,246
+If we visit amazon.com
+
+179
+00:07:47,919 --> 00:07:50,323
+and we right-click somewhere on the page and
+
+180
+00:07:50,323 --> 00:07:51,508
+view the page source,
+
+181
+00:07:52,261 --> 00:07:54,985
+we will see that we have a lot of content
+
+182
+00:07:54,985 --> 00:07:57,132
+there. And most importantly, if we scroll
+
+183
+00:07:57,212 --> 00:07:59,663
+down, we see a lot of HTML code here.
+
+184
+00:08:00,433 --> 00:08:02,437
+This is an example for a server-side
+
+185
+00:08:02,437 --> 00:08:02,966
+rendered view.
+
+186
+00:08:03,640 --> 00:08:06,734
+What was returned by the server and rendered
+
+187
+00:08:06,766 --> 00:08:09,556
+by the browser is this page source, and
+
+188
+00:08:09,556 --> 00:08:11,785
+that, as you can tell, is basically
+
+189
+00:08:12,042 --> 00:08:12,427
+everything
+
+190
+00:08:13,020 --> 00:08:15,634
+we see on the screen here. So amazon.com is
+
+191
+00:08:15,666 --> 00:08:18,263
+such a server-side rendered view here. Now
+
+192
+00:08:18,295 --> 00:08:20,444
+in reality, amazon.com is of course a very
+
+193
+00:08:20,556 --> 00:08:24,485
+big site, and subsites of it might also be
+
+194
+00:08:24,485 --> 00:08:27,339
+single-page applications, but this main page
+
+195
+00:08:27,676 --> 00:08:28,993
+is server-side rendered.
+
+196
+00:08:30,006 --> 00:08:33,123
+Now, the Deno manual would be an example for
+
+197
+00:08:33,219 --> 00:08:35,710
+a single-page application that's just
+
+198
+00:08:35,710 --> 00:08:37,814
+fetching data from an API server.
+
+199
+00:08:38,538 --> 00:08:41,237
+If we are on deno.land/manual
+
+200
+00:08:41,896 --> 00:08:43,535
+and we view the page source here,
+
+201
+00:08:44,402 --> 00:08:47,214
+we see, if we take a closer look, that it's
+
+202
+00:08:47,214 --> 00:08:48,082
+primarily
+
+203
+00:08:48,644 --> 00:08:51,343
+JavaScript files that are being loaded here,
+
+204
+00:08:51,649 --> 00:08:53,641
+a bunch of JavaScript files here.
+
+205
+00:08:54,204 --> 00:08:56,375
+And if we search for some content we see
+
+206
+00:08:56,439 --> 00:08:58,867
+here, for example, for feature highlights,
+
+207
+00:08:59,977 --> 00:09:01,730
+we will not find this here in the page
+
+208
+00:09:01,762 --> 00:09:04,303
+source because what we see on the screen is

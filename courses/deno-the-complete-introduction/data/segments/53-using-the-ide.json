@@ -1,0 +1,327 @@
+[
+ {
+  "start": 2.261,
+  "end": 4.876,
+  "en": "Now for that attached, you find a simple"
+ },
+ {
+  "start": 5.229,
+  "end": 8.693,
+  "en": "myapp.ts file which you can download and put"
+ },
+ {
+  "start": 8.693,
+  "end": 9.832,
+  "en": "into your project folder."
+ },
+ {
+  "start": 10.602,
+  "end": 13.313,
+  "en": "And that file contains a couple of errors,"
+ },
+ {
+  "start": 13.81,
+  "end": 16.12,
+  "en": "and we will now try to find and fix those"
+ },
+ {
+  "start": 16.312,
+  "end": 18.927,
+  "en": "errors. And along the way, I will share some"
+ },
+ {
+  "start": 19.039,
+  "end": 21.509,
+  "en": "hints at how you can approach this, how you"
+ },
+ {
+  "start": 21.509,
+  "end": 24.204,
+  "en": "can find and fix errors you might be facing"
+ },
+ {
+  "start": 24.252,
+  "end": 27.605,
+  "en": "in your projects, and which tools Deno gives"
+ },
+ {
+  "start": 27.605,
+  "end": 27.669,
+  "en": "you."
+ },
+ {
+  "start": 28.487,
+  "end": 30.671,
+  "en": "Now first of all, what we can immediately"
+ },
+ {
+  "start": 30.671,
+  "end": 33.161,
+  "en": "see when we open this in our IDE,"
+ },
+ {
+  "start": 33.883,
+  "end": 35.569,
+  "en": "in Visual Studio Code in my case,"
+ },
+ {
+  "start": 36.196,
+  "end": 39.086,
+  "en": "is that the IDE itself is showing an error"
+ },
+ {
+  "start": 39.086,
+  "end": 39.231,
+  "en": "here."
+ },
+ {
+  "start": 39.889,
+  "end": 42.844,
+  "en": "It's showing red squiggly lines on content,"
+ },
+ {
+  "start": 43.503,
+  "end": 45.221,
+  "en": "and whenever you got something like this,"
+ },
+ {
+  "start": 45.51,
+  "end": 47.855,
+  "en": "that's of course a very clear indicator that"
+ },
+ {
+  "start": 47.855,
+  "end": 49.011,
+  "en": "something might be wrong."
+ },
+ {
+  "start": 49.927,
+  "end": 52.994,
+  "en": "Occasionally the IDE might be wrong, it"
+ },
+ {
+  "start": 52.994,
+  "end": 55.451,
+  "en": "might not be able to understand your code"
+ },
+ {
+  "start": 55.483,
+  "end": 58.404,
+  "en": "fully, but in the majority of cases you are"
+ },
+ {
+  "start": 58.452,
+  "end": 58.661,
+  "en": "wrong."
+ },
+ {
+  "start": 59.958,
+  "end": 62.265,
+  "en": "The best thing to do if you get these red"
+ },
+ {
+  "start": 62.394,
+  "end": 65.213,
+  "en": "squiggly lines is to simply hover over them"
+ },
+ {
+  "start": 65.325,
+  "end": 66.511,
+  "en": "and see what the problem is."
+ },
+ {
+  "start": 67.104,
+  "end": 69.731,
+  "en": "And here we see that an argument of type"
+ },
+ {
+  "start": 69.731,
+  "end": 72.407,
+  "en": "string is not assignable to a parameter of"
+ },
+ {
+  "start": 72.455,
+  "end": 73.672,
+  "en": "type uint8 array."
+ },
+ {
+  "start": 74.297,
+  "end": 75.627,
+  "en": "So we have a type error here,"
+ },
+ {
+  "start": 76.3,
+  "end": 79.296,
+  "en": "and we would also get this error message if"
+ },
+ {
+  "start": 79.344,
+  "end": 81.555,
+  "en": "we would try to run this code, by the way."
+ },
+ {
+  "start": 82.644,
+  "end": 84.07,
+  "en": "But we don't even need to do that here."
+ },
+ {
+  "start": 84.647,
+  "end": 86.777,
+  "en": "We clearly are passing the wrong kind of"
+ },
+ {
+  "start": 86.809,
+  "end": 90.497,
+  "en": "data to write file, because if we inspect"
+ },
+ {
+  "start": 90.497,
+  "end": 93.064,
+  "en": "writeFile, we see that the data it wants"
+ },
+ {
+  "start": 93.288,
+  "end": 95.47,
+  "en": "should be of type uint8 array,"
+ },
+ {
+  "start": 96.577,
+  "end": 99.625,
+  "en": "and the content I have here is a string, and"
+ },
+ {
+  "start": 99.641,
+  "end": 101.806,
+  "en": "that's clearly not a uint8 array."
+ },
+ {
+  "start": 102.833,
+  "end": 104.886,
+  "en": "In the example code I provided you,"
+ },
+ {
+  "start": 105.56,
+  "end": 107.421,
+  "en": "I'm essentially fetching some user input"
+ },
+ {
+  "start": 107.421,
+  "end": 107.533,
+  "en": "here."
+ },
+ {
+  "start": 108.223,
+  "end": 111.239,
+  "en": "Then I have this parseBuffer helper function"
+ },
+ {
+  "start": 111.511,
+  "end": 114.607,
+  "en": "which just uses the text decoder to decode"
+ },
+ {
+  "start": 114.784,
+  "end": 115.217,
+  "en": "the buffer."
+ },
+ {
+  "start": 115.906,
+  "end": 118.215,
+  "en": "And what I'm doing here is that I'm using"
+ },
+ {
+  "start": 118.327,
+  "end": 121.1,
+  "en": "the decoded content as an argument for"
+ },
+ {
+  "start": 121.212,
+  "end": 121.725,
+  "en": "write_file."
+ },
+ {
+  "start": 122.478,
+  "end": 125.203,
+  "en": "Now write_file doesn't want that decoded"
+ },
+ {
+  "start": 125.203,
+  "end": 127.528,
+  "en": "content though. It wants the raw byte"
+ },
+ {
+  "start": 127.528,
+  "end": 127.912,
+  "en": "content."
+ },
+ {
+  "start": 128.521,
+  "end": 131.759,
+  "en": "So the fix here is simple. We pass input"
+ },
+ {
+  "start": 131.791,
+  "end": 134.452,
+  "en": "buffer like this as an argument. And now"
+ },
+ {
+  "start": 134.741,
+  "end": 136.119,
+  "en": "this error is gone."
+ },
+ {
+  "start": 136.921,
+  "end": 139.341,
+  "en": "Now this program will still have a couple of"
+ },
+ {
+  "start": 139.486,
+  "end": 141.698,
+  "en": "other problems, but at least we got rid of"
+ },
+ {
+  "start": 141.794,
+  "end": 144.925,
+  "en": "this error. And the simple core takeaway"
+ },
+ {
+  "start": 145.183,
+  "end": 146.677,
+  "en": "from this lecture therefore is"
+ },
+ {
+  "start": 147.256,
+  "end": 149.731,
+  "en": "that if your IDE is showing an error to you,"
+ },
+ {
+  "start": 150.165,
+  "end": 150.937,
+  "en": "you should simply"
+ },
+ {
+  "start": 151.515,
+  "end": 153.991,
+  "en": "analyze it, read the error description,"
+ },
+ {
+  "start": 154.569,
+  "end": 157.784,
+  "en": "and in the vast majority of cases, the error"
+ },
+ {
+  "start": 157.784,
+  "end": 159.68,
+  "en": "description will be pretty clear, will make"
+ },
+ {
+  "start": 159.729,
+  "end": 162.091,
+  "en": "sense, and will allow you to fix the error."
+ },
+ {
+  "start": 162.445,
+  "end": 164.277,
+  "en": "So let's now move on to the next problem."
+ }
+]

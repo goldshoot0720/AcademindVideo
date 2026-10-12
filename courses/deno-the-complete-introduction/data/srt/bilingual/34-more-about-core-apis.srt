@@ -1,0 +1,759 @@
+1
+00:00:02,212 --> 00:00:05,273
+So we had a look at the Deno core APIs here
+
+2
+00:00:06,107 --> 00:00:08,624
+and at the permissions system Deno uses.
+
+3
+00:00:09,489 --> 00:00:11,221
+Now when it comes to the core APIs,
+
+4
+00:00:11,958 --> 00:00:14,651
+we're not going to use those all the time.
+
+5
+00:00:15,020 --> 00:00:17,152
+Reading and writing a file, that actually is
+
+6
+00:00:17,264 --> 00:00:19,236
+something you occasionally need to do,
+
+7
+00:00:19,813 --> 00:00:21,752
+but typically we'll actually use the
+
+8
+00:00:21,752 --> 00:00:24,606
+standard library or third-party libraries.
+
+9
+00:00:24,958 --> 00:00:26,722
+Nonetheless, it is super important to
+
+10
+00:00:26,722 --> 00:00:29,832
+understand how Deno works under the hood and
+
+11
+00:00:29,992 --> 00:00:31,723
+what's happening here, which is why I'm
+
+12
+00:00:31,723 --> 00:00:32,428
+showing showing this to you.
+
+13
+00:00:33,038 --> 00:00:35,779
+And this permissions concept is especially
+
+14
+00:00:35,779 --> 00:00:38,712
+important since this is something we'll need
+
+15
+00:00:39,209 --> 00:00:40,764
+throughout the entire course in the end.
+
+16
+00:00:41,469 --> 00:00:43,842
+Now with that, I want to show you one other
+
+17
+00:00:43,858 --> 00:00:46,920
+example for using these core APIs though,
+
+18
+00:00:47,240 --> 00:00:49,725
+not because we're going to need this all the
+
+19
+00:00:49,725 --> 00:00:51,841
+time, but again because it helps you
+
+20
+00:00:52,130 --> 00:00:55,079
+understand how Deno works under the hood and
+
+21
+00:00:55,159 --> 00:00:58,558
+that it's not just some server technology,
+
+22
+00:00:58,942 --> 00:01:01,074
+but that it's a very low-level language in
+
+23
+00:01:01,171 --> 00:01:03,078
+the end, you could say, with which you can
+
+24
+00:01:03,110 --> 00:01:03,639
+build anything.
+
+25
+00:01:04,569 --> 00:01:08,288
+I'll add a new file, deno-input.ts. The name
+
+26
+00:01:08,320 --> 00:01:09,426
+is fully up to you though.
+
+27
+00:01:10,067 --> 00:01:12,183
+And here I want to let the user enter
+
+28
+00:01:12,183 --> 00:01:14,556
+something in the terminal once the script
+
+29
+00:01:14,556 --> 00:01:16,720
+started. So we want to collect some user
+
+30
+00:01:16,816 --> 00:01:19,397
+input here. Still, this is no server. We're
+
+31
+00:01:19,397 --> 00:01:21,561
+not writing any code that would run on a
+
+32
+00:01:21,561 --> 00:01:24,190
+server and serve a website, but it is an
+
+33
+00:01:24,190 --> 00:01:26,787
+important building block of Deno and how
+
+34
+00:01:26,835 --> 00:01:27,636
+Deno works.
+
+35
+00:01:28,518 --> 00:01:31,372
+Now to collect user input we have something
+
+36
+00:01:31,468 --> 00:01:33,458
+on that global demo object which is called
+
+37
+00:01:33,554 --> 00:01:34,324
+stdin.
+
+38
+00:01:35,014 --> 00:01:37,308
+That stands for standard input in the end,
+
+39
+00:01:37,404 --> 00:01:39,442
+and it gives us access to this standard
+
+40
+00:01:39,506 --> 00:01:42,474
+input. And this terminal where we run our
+
+41
+00:01:42,474 --> 00:01:44,848
+script is the standard input.
+
+42
+00:01:45,762 --> 00:01:48,089
+Now here we have a read method which we can
+
+43
+00:01:48,089 --> 00:01:51,024
+call, and this will basically read the user
+
+44
+00:01:51,056 --> 00:01:52,741
+input and store it somewhere.
+
+45
+00:01:53,784 --> 00:01:56,399
+Now that somewhere where it should be stored
+
+46
+00:01:56,976 --> 00:01:59,208
+is something we have to pass to read. It
+
+47
+00:01:59,304 --> 00:02:02,097
+wants a Uint8Array as an input.
+
+48
+00:02:02,916 --> 00:02:06,127
+Uint8Array is this strange data structure
+
+49
+00:02:06,303 --> 00:02:08,310
+which is already built into JavaScript,
+
+50
+00:02:08,631 --> 00:02:10,558
+which in the end is an array that stores raw
+
+51
+00:02:10,879 --> 00:02:13,110
+bytes. And we can simply create such an
+
+52
+00:02:13,110 --> 00:02:15,454
+array here, maybe name it buffer, because
+
+53
+00:02:15,454 --> 00:02:17,926
+we'll buffer— we'll collect all the user
+
+54
+00:02:17,942 --> 00:02:20,671
+input before we then use it in one big
+
+55
+00:02:20,671 --> 00:02:22,903
+chunk, so to say. We can create it by
+
+56
+00:02:22,903 --> 00:02:23,433
+calling new
+
+57
+00:02:24,340 --> 00:02:27,189
+uint8 array that's built into Deno and
+
+58
+00:02:27,205 --> 00:02:29,067
+available like this. It's actually built
+
+59
+00:02:29,067 --> 00:02:31,333
+into JavaScript even. So it's available like
+
+60
+00:02:31,333 --> 00:02:31,609
+this,
+
+61
+00:02:32,531 --> 00:02:33,987
+and we can pass this buffer
+
+62
+00:02:34,890 --> 00:02:37,323
+to read. However, on this buffer, I'll set
+
+63
+00:02:37,372 --> 00:02:39,660
+the length of the buffer, so basically how
+
+64
+00:02:39,660 --> 00:02:41,433
+much space for how many bytes I want to
+
+65
+00:02:41,481 --> 00:02:43,447
+reserve. And I'll use 1024,
+
+66
+00:02:45,887 --> 00:02:47,802
+which should allow for quite a long input
+
+67
+00:02:47,899 --> 00:02:48,172
+message.
+
+68
+00:02:49,524 --> 00:02:51,745
+So now it's this buffer which we pass to
+
+69
+00:02:52,164 --> 00:02:52,389
+read.
+
+70
+00:02:53,647 --> 00:02:56,324
+And the user input will be stored as bytes
+
+71
+00:02:56,693 --> 00:02:57,270
+in that buffer.
+
+72
+00:02:58,136 --> 00:03:00,172
+At the moment, if we would run this script,
+
+73
+00:03:00,316 --> 00:03:02,368
+we would not be able to do anything with
+
+74
+00:03:02,400 --> 00:03:03,185
+that input though.
+
+75
+00:03:03,826 --> 00:03:06,279
+As you can imagine, waiting for user input
+
+76
+00:03:06,391 --> 00:03:09,453
+is an asynchronous task. We as a developer
+
+77
+00:03:09,453 --> 00:03:11,216
+don't know in advance how long that will
+
+78
+00:03:11,216 --> 00:03:11,617
+take.
+
+79
+00:03:12,338 --> 00:03:14,663
+In the very next line after this read
+
+80
+00:03:14,663 --> 00:03:17,276
+method, we'll not have the result yet
+
+81
+00:03:17,628 --> 00:03:19,520
+because we have to wait until the input is
+
+82
+00:03:19,552 --> 00:03:21,796
+finished. And as you know, JavaScript
+
+83
+00:03:21,796 --> 00:03:23,848
+doesn't wait for this to complete. It moves
+
+84
+00:03:23,944 --> 00:03:25,196
+on to the next line right away
+
+85
+00:03:25,790 --> 00:03:28,360
+and will not have that result in that next
+
+86
+00:03:28,360 --> 00:03:28,585
+line.
+
+87
+00:03:29,404 --> 00:03:32,022
+But that's no problem because read returns a
+
+88
+00:03:32,134 --> 00:03:32,665
+promise.
+
+89
+00:03:33,580 --> 00:03:36,600
+And a promise simply allows us to add this
+
+90
+00:03:37,130 --> 00:03:39,989
+then method. And in the function we pass to
+
+91
+00:03:40,021 --> 00:03:40,213
+then,
+
+92
+00:03:40,743 --> 00:03:42,558
+there we'll have the user input.
+
+93
+00:03:43,233 --> 00:03:43,699
+However,
+
+94
+00:03:44,502 --> 00:03:46,831
+we don't need to use then, of course. We can
+
+95
+00:03:46,847 --> 00:03:49,160
+use async/await as you learned in the
+
+96
+00:03:49,160 --> 00:03:52,465
+JavaScript refresher. And in Deno, we can
+
+97
+00:03:52,529 --> 00:03:54,148
+even use just await.
+
+98
+00:03:54,933 --> 00:03:58,075
+Deno supports top-level await,
+
+99
+00:03:58,620 --> 00:04:00,688
+which means we don't have to wrap this in
+
+100
+00:04:00,736 --> 00:04:03,653
+some async function first. We can just add
+
+101
+00:04:03,750 --> 00:04:04,920
+await in front of this.
+
+102
+00:04:05,449 --> 00:04:06,827
+This is supported by Deno,
+
+103
+00:04:07,356 --> 00:04:11,155
+though to be transparent, from version 14.3
+
+104
+00:04:11,284 --> 00:04:14,522
+on, it's also supported in Node.js. In older
+
+105
+00:04:14,650 --> 00:04:17,359
+versions of Node.js, this was not supported
+
+106
+00:04:17,391 --> 00:04:19,573
+though. So there you always needed that
+
+107
+00:04:19,621 --> 00:04:23,168
+async function. In Node 13.3 and higher, it
+
+108
+00:04:23,232 --> 00:04:25,543
+is supported, and in Deno it's supported as
+
+109
+00:04:25,655 --> 00:04:25,768
+well.
+
+110
+00:04:27,116 --> 00:04:30,438
+So now basically the next line will only run
+
+111
+00:04:30,614 --> 00:04:32,941
+after this line completed, because behind
+
+112
+00:04:32,941 --> 00:04:35,653
+the scenes, as you know and as you learned
+
+113
+00:04:35,750 --> 00:04:38,462
+in the refresher module, behind the scenes
+
+114
+00:04:38,799 --> 00:04:41,864
+when you use await, this is transformed to a
+
+115
+00:04:41,864 --> 00:04:44,560
+promise, and any code you add after await is
+
+116
+00:04:44,592 --> 00:04:46,642
+simply added to the function that you would
+
+117
+00:04:46,755 --> 00:04:48,453
+otherwise pass to the then method.
+
+118
+00:04:49,494 --> 00:04:50,488
+So here we can then
+
+119
+00:04:51,144 --> 00:04:53,243
+output the user input and for that we can
+
+120
+00:04:53,243 --> 00:04:54,365
+create a decoder.
+
+121
+00:04:55,230 --> 00:04:58,130
+Previously in our first example, we created
+
+122
+00:04:58,194 --> 00:05:01,831
+an encoder to basically convert a string to
+
+123
+00:05:01,831 --> 00:05:05,067
+such a Uint8Array. So to an array full of
+
+124
+00:05:05,099 --> 00:05:06,573
+bytes, that's what we did before.
+
+125
+00:05:07,486 --> 00:05:10,514
+Now we have the opposite use case. Now we're
+
+126
+00:05:10,530 --> 00:05:12,533
+getting an array full of bytes and we wanna
+
+127
+00:05:12,533 --> 00:05:14,359
+convert it to a string which we can output.
+
+128
+00:05:15,113 --> 00:05:17,328
+And that's where the decoder helps us. We
+
+129
+00:05:17,360 --> 00:05:20,313
+can create a new TextDecoder that's also
+
+130
+00:05:20,313 --> 00:05:23,041
+available just like this in Deno. We don't
+
+131
+00:05:23,041 --> 00:05:25,417
+need to import anything to use this API
+
+132
+00:05:25,465 --> 00:05:25,689
+here.
+
+133
+00:05:26,508 --> 00:05:28,562
+And we can then get our input by calling
+
+134
+00:05:28,739 --> 00:05:31,595
+decoder.decode and passing in
+
+135
+00:05:32,510 --> 00:05:35,142
+our buffer. Keep in mind that the buffer is
+
+136
+00:05:35,495 --> 00:05:36,907
+where the input will be saved to.
+
+137
+00:05:37,918 --> 00:05:40,647
+So as a final step, let's then console.log
+
+138
+00:05:41,112 --> 00:05:41,929
+the input here
+
+139
+00:05:42,795 --> 00:05:44,174
+to see what the user entered.
+
+140
+00:05:44,879 --> 00:05:47,636
+And with that, I'm going to deno run my
+
+141
+00:05:47,668 --> 00:05:50,506
+deno_input.ts file and see what that gives
+
+142
+00:05:50,554 --> 00:05:50,634
+us.
+
+143
+00:05:52,093 --> 00:05:54,721
+And as you see, it compiles and it does not
+
+144
+00:05:54,721 --> 00:05:56,934
+finish. It's not going back to the initial
+
+145
+00:05:57,527 --> 00:06:00,108
+terminal which had my computer name at the
+
+146
+00:06:00,108 --> 00:06:02,272
+beginning. Instead, it's waiting for input
+
+147
+00:06:02,272 --> 00:06:05,205
+here whilst it's still executing the script.
+
+148
+00:06:05,718 --> 00:06:07,706
+And that makes sense because that's exactly
+
+149
+00:06:07,706 --> 00:06:10,030
+the code we wrote here. We're reading user
+
+150
+00:06:10,046 --> 00:06:12,900
+input and we're waiting until we got that
+
+151
+00:06:12,933 --> 00:06:15,596
+input confirmed by hitting the Enter key.
+
+152
+00:06:17,130 --> 00:06:17,469
+So here
+
+153
+00:06:18,034 --> 00:06:20,972
+I can type, this is my message, for example,
+
+154
+00:06:21,489 --> 00:06:22,055
+and hit Enter.
+
+155
+00:06:22,945 --> 00:06:25,243
+And you see it repeated, but that's now our
+
+156
+00:06:26,003 --> 00:06:27,865
+output here. That's from this console.log
+
+157
+00:06:27,881 --> 00:06:29,451
+input. And to make that clear,
+
+158
+00:06:30,634 --> 00:06:32,454
+we can also add user entered
+
+159
+00:06:33,146 --> 00:06:33,903
+in front of that
+
+160
+00:06:34,482 --> 00:06:36,608
+to have a little bit of context and maybe
+
+161
+00:06:36,736 --> 00:06:37,590
+also let the user
+
+162
+00:06:38,121 --> 00:06:39,699
+know that we're waiting for some input.
+
+163
+00:06:40,450 --> 00:06:42,506
+Please enter your message.
+
+164
+00:06:44,336 --> 00:06:46,780
+And with that, if we now rerun this script,
+
+165
+00:06:47,250 --> 00:06:48,979
+we see please enter your message.
+
+166
+00:06:49,831 --> 00:06:51,871
+Now I can again type this is my message.
+
+167
+00:06:52,739 --> 00:06:55,005
+If I now hit enter, we see user entered this
+
+168
+00:06:55,005 --> 00:06:55,760
+is my message.
+
+169
+00:06:56,354 --> 00:06:59,219
+So this is how we could read user input from
+
+170
+00:06:59,332 --> 00:07:00,347
+the command line.
+
+171
+00:07:01,170 --> 00:07:03,346
+Now we're not handling any errors that could
+
+172
+00:07:03,346 --> 00:07:06,559
+occur here. For example, if I quit this
+
+173
+00:07:06,607 --> 00:07:08,114
+script like this, we're not doing anything
+
+174
+00:07:08,146 --> 00:07:09,027
+in that case either.
+
+175
+00:07:09,749 --> 00:07:11,801
+But you might not need to do that. And here,
+
+176
+00:07:12,057 --> 00:07:14,366
+this is just a small example anyways.
+
+177
+00:07:15,039 --> 00:07:17,203
+Now, just as before, it's not like we're
+
+178
+00:07:17,203 --> 00:07:18,967
+going to write code like this throughout the
+
+179
+00:07:18,967 --> 00:07:21,820
+entire course, but I'm a big fan of teaching
+
+180
+00:07:22,189 --> 00:07:24,850
+a topic thoroughly and making it very clear
+
+181
+00:07:25,058 --> 00:07:27,271
+how it works under the hood so that if you
+
+182
+00:07:27,447 --> 00:07:30,252
+ever face a problem and you need to reach
+
+183
+00:07:30,252 --> 00:07:32,770
+out to these low-level APIs you know them
+
+184
+00:07:33,155 --> 00:07:34,919
+and you don't just know how to use some
+
+185
+00:07:34,919 --> 00:07:37,261
+community libraries and you're totally lost
+
+186
+00:07:37,261 --> 00:07:39,138
+if you ever need to work with the technology
+
+187
+00:07:39,170 --> 00:07:41,736
+itself. That's why I'm teaching it and
+
+188
+00:07:41,736 --> 00:07:44,399
+therefore I hope how Deno works and that we
+
+189
+00:07:44,527 --> 00:07:47,494
+got these core APIs and all about that is
+
+190
+00:07:47,510 --> 00:07:48,970
+now a bit clearer.

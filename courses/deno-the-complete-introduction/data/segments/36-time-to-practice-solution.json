@@ -1,0 +1,857 @@
+[
+ {
+  "start": 2.282,
+  "end": 5.617,
+  "en": "Let's write this new script. I'll name it"
+ },
+ {
+  "start": 6.712,
+  "end": 9.096,
+  "en": "fetchWebContent.ts."
+ },
+ {
+  "start": 10.68,
+  "end": 11.325,
+  "en": "That's my file name."
+ },
+ {
+  "start": 12.407,
+  "end": 14.327,
+  "en": "And in there we got a couple of steps. We"
+ },
+ {
+  "start": 14.327,
+  "end": 16.28,
+  "en": "want to fetch user input. We learned how"
+ },
+ {
+  "start": 16.345,
+  "end": 18.847,
+  "en": "that works. We want to write to a file. We"
+ },
+ {
+  "start": 18.847,
+  "end": 19.702,
+  "en": "learned how that works."
+ },
+ {
+  "start": 21.22,
+  "end": 23.336,
+  "en": "But in between, I also want to send a web"
+ },
+ {
+  "start": 23.336,
+  "end": 24.883,
+  "en": "request, a network request."
+ },
+ {
+  "start": 25.723,
+  "end": 27.885,
+  "en": "So first of all, let's create that buffer"
+ },
+ {
+  "start": 28.062,
+  "end": 30.014,
+  "en": "for collecting the user input, and that's a"
+ },
+ {
+  "start": 30.078,
+  "end": 31.966,
+  "en": "new uint8 array."
+ },
+ {
+  "start": 33.85,
+  "end": 34.56,
+  "en": "And thereafter,"
+ },
+ {
+  "start": 35.254,
+  "end": 39.257,
+  "en": "we can call deno.stdin.read and pass our"
+ },
+ {
+  "start": 39.289,
+  "end": 40.112,
+  "en": "buffer to read."
+ },
+ {
+  "start": 42.544,
+  "end": 44.46,
+  "en": "And I'm going to close the deno.input.ts"
+ },
+ {
+  "start": 44.46,
+  "end": 47.166,
+  "en": "file to help my IDE understand that this"
+ },
+ {
+  "start": 47.697,
+  "end": 49.823,
+  "en": "buffer is not redeclared but in a brand new"
+ },
+ {
+  "start": 49.871,
+  "end": 50.064,
+  "en": "file."
+ },
+ {
+  "start": 50.982,
+  "end": 52.639,
+  "en": "Now I also wanna give this a length."
+ },
+ {
+  "start": 53.216,
+  "end": 53.745,
+  "en": "Of again"
+ },
+ {
+  "start": 54.659,
+  "end": 56.455,
+  "en": "1024 bytes."
+ },
+ {
+  "start": 57.385,
+  "end": 59.791,
+  "en": "And again, we get back a promise here, so,"
+ },
+ {
+  "start": 60.143,
+  "end": 62.789,
+  "en": "so I'll await that promise. Thereafter, we"
+ },
+ {
+  "start": 62.789,
+  "end": 65.002,
+  "en": "know that our buffer is populated with the"
+ },
+ {
+  "start": 65.002,
+  "end": 67.135,
+  "en": "user input. So then we can create our"
+ },
+ {
+  "start": 67.328,
+  "end": 68.274,
+  "en": "decoder again,"
+ },
+ {
+  "start": 69.733,
+  "end": 71.481,
+  "en": "our new TextDecoder,"
+ },
+ {
+  "start": 72.299,
+  "end": 75.201,
+  "en": "to then get the URL which the user should"
+ },
+ {
+  "start": 75.266,
+  "end": 75.65,
+  "en": "enter here"
+ },
+ {
+  "start": 76.949,
+  "end": 79.611,
+  "en": "by calling decoder.decode buffer."
+ },
+ {
+  "start": 80.413,
+  "end": 83.219,
+  "en": "Now to help the user understand what he or"
+ },
+ {
+  "start": 83.219,
+  "end": 85.064,
+  "en": "she should enter, I'm also going to"
+ },
+ {
+  "start": 85.064,
+  "end": 86.092,
+  "en": "console.log,"
+ },
+ {
+  "start": 87.312,
+  "end": 89.591,
+  "en": "please enter a URL here,"
+ },
+ {
+  "start": 90.457,
+  "end": 92.849,
+  "en": "to make it clear that we, well, want a URL"
+ },
+ {
+  "start": 92.994,
+  "end": 93.459,
+  "en": "as input."
+ },
+ {
+  "start": 94.133,
+  "end": 96.107,
+  "en": "And then here we got the URL, hopefully."
+ },
+ {
+  "start": 96.846,
+  "end": 99.574,
+  "en": "Now we wanna send a network request to that"
+ },
+ {
+  "start": 99.574,
+  "end": 99.944,
+  "en": "URL."
+ },
+ {
+  "start": 100.698,
+  "end": 102.801,
+  "en": "So for that, we can use the Fetch API."
+ },
+ {
+  "start": 103.346,
+  "end": 105.69,
+  "en": "As I mentioned, this is available in Deno."
+ },
+ {
+  "start": 106.235,
+  "end": 108.338,
+  "en": "It has this browser compatibility."
+ },
+ {
+  "start": 109.542,
+  "end": 113.249,
+  "en": "So Fetch indeed wants a URL which can be a"
+ },
+ {
+  "start": 113.249,
+  "end": 115.958,
+  "en": "string as a first parameter. So I can just"
+ },
+ {
+  "start": 115.958,
+  "end": 117.465,
+  "en": "pass my URL to it."
+ },
+ {
+  "start": 118.684,
+  "end": 120.495,
+  "en": "And we could configure this request in"
+ },
+ {
+  "start": 120.592,
+  "end": 123.381,
+  "en": "greater detail with a second options object"
+ },
+ {
+  "start": 123.814,
+  "end": 125.818,
+  "en": "where we could change the request method,"
+ },
+ {
+  "start": 126.139,
+  "end": 127.886,
+  "en": "but the default will be a GET request and"
+ },
+ {
+  "start": 127.918,
+  "end": 130.067,
+  "en": "I'm just fine with that. So I'll send a GET"
+ },
+ {
+  "start": 130.067,
+  "end": 130.58,
+  "en": "request here"
+ },
+ {
+  "start": 131.349,
+  "end": 134.235,
+  "en": "and fetch also returns a promise where we"
+ },
+ {
+  "start": 134.299,
+  "end": 136.367,
+  "en": "get back our response object."
+ },
+ {
+  "start": 137.682,
+  "end": 140.552,
+  "en": "So here we can store the response in a"
+ },
+ {
+  "start": 140.552,
+  "end": 143.581,
+  "en": "constant named response, awaiting fetch."
+ },
+ {
+  "start": 144.174,
+  "end": 146.081,
+  "en": "This will send the request and give us the"
+ },
+ {
+  "start": 146.081,
+  "end": 146.738,
+  "en": "response."
+ },
+ {
+  "start": 147.699,
+  "end": 150.119,
+  "en": "Now the response is an object that holds a"
+ },
+ {
+  "start": 150.183,
+  "end": 153.371,
+  "en": "bunch of data, and amongst that data we'll"
+ },
+ {
+  "start": 153.371,
+  "end": 156.303,
+  "en": "have the, the response body, so the core"
+ },
+ {
+  "start": 156.432,
+  "end": 158.803,
+  "en": "data that was enclosed in the response."
+ },
+ {
+  "start": 159.636,
+  "end": 162.36,
+  "en": "To get that, we need to call response dot,"
+ },
+ {
+  "start": 163.001,
+  "end": 163.514,
+  "en": "and then here"
+ },
+ {
+  "start": 164.523,
+  "end": 165.661,
+  "en": "we can call text."
+ },
+ {
+  "start": 166.206,
+  "end": 168.176,
+  "en": "This is a method which will parse the"
+ },
+ {
+  "start": 168.208,
+  "end": 171.589,
+  "en": "response body as text. So this again gives"
+ },
+ {
+  "start": 171.589,
+  "end": 174.121,
+  "en": "us a promise which then ultimately returns a"
+ },
+ {
+  "start": 174.121,
+  "end": 174.698,
+  "en": "string though."
+ },
+ {
+  "start": 175.419,
+  "end": 178.448,
+  "en": "Now if you plan on entering a URL that"
+ },
+ {
+  "start": 178.448,
+  "end": 181.22,
+  "en": "fetches, let's say, JSON data, you can call"
+ },
+ {
+  "start": 181.429,
+  "end": 184.121,
+  "en": "JSON instead to parse that JSON code"
+ },
+ {
+  "start": 184.137,
+  "end": 184.601,
+  "en": "correctly."
+ },
+ {
+  "start": 185.515,
+  "end": 187.534,
+  "en": "Now of course we could also write our script"
+ },
+ {
+  "start": 187.534,
+  "end": 188.752,
+  "en": "in a more flexible way"
+ },
+ {
+  "start": 189.425,
+  "end": 191.668,
+  "en": "where we try to detect which kind of data we"
+ },
+ {
+  "start": 191.668,
+  "end": 194.617,
+  "en": "got back, but I will hardcode this to text"
+ },
+ {
+  "start": 194.905,
+  "end": 197.133,
+  "en": "so that I'm able to deal with text data."
+ },
+ {
+  "start": 198.575,
+  "end": 199.344,
+  "en": "Now this also,"
+ },
+ {
+  "start": 200.001,
+  "end": 202.004,
+  "en": "as I mentioned, gives us a promise, so I"
+ },
+ {
+  "start": 202.004,
+  "end": 203.942,
+  "en": "will await it, and then I got my"
+ },
+ {
+  "start": 205.144,
+  "end": 207.355,
+  "en": "content here, or however you wanna name it."
+ },
+ {
+  "start": 208.028,
+  "end": 209.903,
+  "en": "And that should now be saved to a file."
+ },
+ {
+  "start": 210.928,
+  "end": 213.733,
+  "en": "So that's the last step. We can use"
+ },
+ {
+  "start": 213.861,
+  "end": 215.751,
+  "en": "deno.writeFile"
+ },
+ {
+  "start": 216.761,
+  "end": 218.171,
+  "en": "to write to a file,"
+ },
+ {
+  "start": 218.908,
+  "end": 221.872,
+  "en": "and as a first argument, enter the path to"
+ },
+ {
+  "start": 221.872,
+  "end": 223.779,
+  "en": "the file including the file name."
+ },
+ {
+  "start": 224.698,
+  "end": 225.716,
+  "en": "And I will choose"
+ },
+ {
+  "start": 227.122,
+  "end": 233.184,
+  "en": "website-content.txt as a file name here, but"
+ },
+ {
+  "start": 233.201,
+  "end": 234.283,
+  "en": "the name is of course up to you."
+ },
+ {
+  "start": 235.541,
+  "end": 236.799,
+  "en": "And the second argument should be the"
+ },
+ {
+  "start": 236.799,
+  "end": 237.719,
+  "en": "content, but"
+ },
+ {
+  "start": 238.348,
+  "end": 240.719,
+  "en": "the content as a Uint8Array."
+ },
+ {
+  "start": 241.572,
+  "end": 244.051,
+  "en": "So we first of all need to encode this"
+ },
+ {
+  "start": 244.051,
+  "end": 245.435,
+  "en": "content to such an array,"
+ },
+ {
+  "start": 246.079,
+  "end": 248.398,
+  "en": "and for that I'll create my encoder by"
+ },
+ {
+  "start": 248.398,
+  "end": 249.525,
+  "en": "calling new TextEncoder."
+ },
+ {
+  "start": 250.88,
+  "end": 252.956,
+  "en": "And then get my data by calling"
+ },
+ {
+  "start": 253.134,
+  "end": 256.361,
+  "en": "encoder.encode and passing in the content."
+ },
+ {
+  "start": 257.356,
+  "end": 258.915,
+  "en": "And now it's that data that should be"
+ },
+ {
+  "start": 259.043,
+  "end": 260.634,
+  "en": "written to that file."
+ },
+ {
+  "start": 261.952,
+  "end": 263.978,
+  "en": "And then we can again await this and"
+ },
+ {
+  "start": 263.978,
+  "end": 266.019,
+  "en": "thereafter console.log done."
+ },
+ {
+  "start": 268.12,
+  "end": 270.149,
+  "en": "Theoretically, this should work. Now let's"
+ },
+ {
+  "start": 270.149,
+  "end": 272.082,
+  "en": "give it a try. Let's deno run"
+ },
+ {
+  "start": 272.984,
+  "end": 276.931,
+  "en": "the fetchWebContent.ts file."
+ },
+ {
+  "start": 277.832,
+  "end": 279.91,
+  "en": "And if we run it like this, you will see"
+ },
+ {
+  "start": 280.105,
+  "end": 281.128,
+  "en": "that it wants a URL."
+ },
+ {
+  "start": 281.762,
+  "end": 283.645,
+  "en": "So here indeed I am going to enter"
+ },
+ {
+  "start": 283.645,
+  "end": 284.831,
+  "en": "google.com,"
+ },
+ {
+  "start": 285.48,
+  "end": 285.916,
+  "en": "let's say."
+ },
+ {
+  "start": 287.534,
+  "end": 288.844,
+  "en": "But then I get an error,"
+ },
+ {
+  "start": 289.62,
+  "end": 291.836,
+  "en": "and again I get a permission denied error."
+ },
+ {
+  "start": 292.532,
+  "end": 294.425,
+  "en": "And it's also telling me which permission"
+ },
+ {
+  "start": 294.489,
+  "end": 297.295,
+  "en": "was denied. Network access was the problem."
+ },
+ {
+  "start": 297.537,
+  "end": 299.778,
+  "en": "It also gives me the solution. We should add"
+ },
+ {
+  "start": 299.891,
+  "end": 300.794,
+  "en": "allow net."
+ },
+ {
+  "start": 302.205,
+  "end": 304.318,
+  "en": "Remember, permissions are an important thing"
+ },
+ {
+  "start": 304.495,
+  "end": 306.753,
+  "en": "in Deno, and here we plan on working with"
+ },
+ {
+  "start": 306.753,
+  "end": 306.947,
+  "en": "the network."
+ },
+ {
+  "start": 308.012,
+  "end": 310.916,
+  "en": "Hence, we need to add the allow net flag"
+ },
+ {
+  "start": 310.916,
+  "end": 313.353,
+  "en": "when we execute the script. We could also"
+ },
+ {
+  "start": 313.482,
+  "end": 315.419,
+  "en": "lock it down to specific domains if we"
+ },
+ {
+  "start": 315.435,
+  "end": 315.903,
+  "en": "wanted to."
+ },
+ {
+  "start": 316.82,
+  "end": 319.224,
+  "en": "Side note, since we'll also write to a file"
+ },
+ {
+  "start": 319.353,
+  "end": 322.629,
+  "en": "thereafter, we should also add --allow-write"
+ },
+ {
+  "start": 322.725,
+  "end": 323.29,
+  "en": "as a flag."
+ },
+ {
+  "start": 324.66,
+  "end": 326.841,
+  "en": "So here I'm going to deno run"
+ },
+ {
+  "start": 328.796,
+  "end": 329.022,
+  "en": "with"
+ },
+ {
+  "start": 329.927,
+  "end": 332.706,
+  "en": "--allow-write and --allow-net."
+ },
+ {
+  "start": 334.322,
+  "end": 336.886,
+  "en": "And I will not restrict the network access"
+ },
+ {
+  "start": 336.886,
+  "end": 339.323,
+  "en": "because I typically don't know in advance"
+ },
+ {
+  "start": 339.371,
+  "end": 341.407,
+  "en": "which URL the user is going to enter."
+ },
+ {
+  "start": 342.352,
+  "end": 344.212,
+  "en": "So now thereafter, I'll add the file name"
+ },
+ {
+  "start": 344.34,
+  "end": 345.35,
+  "en": "and execute this again."
+ },
+ {
+  "start": 346.584,
+  "end": 348.428,
+  "en": "And now I'm trying to fetch data from"
+ },
+ {
+  "start": 348.508,
+  "end": 349.101,
+  "en": "google.com."
+ },
+ {
+  "start": 349.63,
+  "end": 352.563,
+  "en": "I get done, I got my website content, and"
+ },
+ {
+  "start": 352.595,
+  "end": 355.208,
+  "en": "that looks quite good. We got some HTML code"
+ },
+ {
+  "start": 355.32,
+  "end": 358.671,
+  "en": "in there, and that very likely is the HTML"
+ },
+ {
+  "start": 358.671,
+  "end": 358.959,
+  "en": "code"
+ },
+ {
+  "start": 359.488,
+  "end": 361.235,
+  "en": "that is used for google.com."
+ },
+ {
+  "start": 362.133,
+  "end": 364.968,
+  "en": "If we visit google.com and we view the page"
+ },
+ {
+  "start": 365.08,
+  "end": 365.497,
+  "en": "source,"
+ },
+ {
+  "start": 366.218,
+  "end": 369.55,
+  "en": "there we have way more than what was loaded."
+ },
+ {
+  "start": 370.063,
+  "end": 372.082,
+  "en": "But chances are that a lot of this content"
+ },
+ {
+  "start": 372.082,
+  "end": 375.158,
+  "en": "is actually loaded only after the page was"
+ },
+ {
+  "start": 375.174,
+  "end": 376.44,
+  "en": "loaded for the first time,"
+ },
+ {
+  "start": 377.097,
+  "end": 379.227,
+  "en": "and/or that the content we're seeing here"
+ },
+ {
+  "start": 379.82,
+  "end": 382.095,
+  "en": "is some content optimized for automated"
+ },
+ {
+  "start": 382.095,
+  "end": 385.043,
+  "en": "scripts or crawlers. And in addition, if you"
+ },
+ {
+  "start": 385.043,
+  "end": 387.575,
+  "en": "scroll to the side, you see we actually did"
+ },
+ {
+  "start": 387.607,
+  "end": 389.465,
+  "en": "fetch quite a lot of content. So this"
+ },
+ {
+  "start": 389.513,
+  "end": 392.713,
+  "en": "definitely is the Google content. Of course,"
+ },
+ {
+  "start": 392.778,
+  "end": 395.104,
+  "en": "we could have also stored it in a file that"
+ },
+ {
+  "start": 395.2,
+  "end": 397.93,
+  "en": "ends with.html if we wanted to create an"
+ },
+ {
+  "start": 398.027,
+  "end": 398.802,
+  "en": "HTML file."
+ },
+ {
+  "start": 399.351,
+  "end": 401.599,
+  "en": "If I now run this script again with this"
+ },
+ {
+  "start": 401.599,
+  "end": 402.2,
+  "en": "changed file"
+ },
+ {
+  "start": 402.817,
+  "end": 403.58,
+  "en": "extension here,"
+ },
+ {
+  "start": 404.912,
+  "end": 405.285,
+  "en": "and I now"
+ },
+ {
+  "start": 405.821,
+  "end": 407.802,
+  "en": "again fetch the content from google.com,"
+ },
+ {
+  "start": 408.715,
+  "end": 411.424,
+  "en": "you see I got this HTML file here. And if I"
+ },
+ {
+  "start": 411.473,
+  "end": 413.415,
+  "en": "reformat this with my IDE,"
+ },
+ {
+  "start": 415.238,
+  "end": 417.436,
+  "en": "this really looks like HTML code to me."
+ },
+ {
+  "start": 418.147,
+  "end": 420.49,
+  "en": "So that is how we can fetch data from a"
+ },
+ {
+  "start": 420.49,
+  "end": 423.487,
+  "en": "website with Deno. And that's another nice"
+ },
+ {
+  "start": 423.536,
+  "end": 426.506,
+  "en": "practice of using the Deno core APIs and"
+ },
+ {
+  "start": 426.602,
+  "end": 429.799,
+  "en": "understanding how Deno works and what Deno"
+ },
+ {
+  "start": 429.912,
+  "end": 430.589,
+  "en": "is about."
+ }
+]

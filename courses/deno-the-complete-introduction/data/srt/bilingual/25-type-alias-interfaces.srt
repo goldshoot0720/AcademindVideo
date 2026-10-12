@@ -1,0 +1,323 @@
+1
+00:00:02,182 --> 00:00:04,573
+Now in our TypeScript code, we have some
+
+2
+00:00:04,926 --> 00:00:07,702
+repetition. Not horrible and definitely
+
+3
+00:00:07,734 --> 00:00:09,964
+bearable, but we have some repetition and
+
+4
+00:00:09,980 --> 00:00:12,403
+some code that could be hard to read. For
+
+5
+00:00:12,403 --> 00:00:14,040
+example, here we have repetition.
+
+6
+00:00:14,698 --> 00:00:17,586
+We reuse the same union type in 2 places.
+
+7
+00:00:18,308 --> 00:00:21,100
+Now this is definitely okay, but you could
+
+8
+00:00:21,277 --> 00:00:23,764
+optimize this or improve this with a type
+
+9
+00:00:23,924 --> 00:00:24,422
+alias.
+
+10
+00:00:24,967 --> 00:00:27,599
+TypeScript has a built-in type operator
+
+11
+00:00:28,176 --> 00:00:29,926
+which does not exist in JavaScript.
+
+12
+00:00:30,519 --> 00:00:33,007
+Don't confuse it with typeof. Type is a
+
+13
+00:00:33,007 --> 00:00:33,536
+different one.
+
+14
+00:00:34,210 --> 00:00:36,714
+This allows you to set up your own type
+
+15
+00:00:36,922 --> 00:00:39,715
+alias so you can give a different type a new
+
+16
+00:00:39,811 --> 00:00:40,116
+name.
+
+17
+00:00:40,790 --> 00:00:42,539
+And that is especially useful if you're
+
+18
+00:00:42,619 --> 00:00:44,545
+working with union types. For example,
+
+19
+00:00:45,203 --> 00:00:48,508
+we can have our num or string type. For
+
+20
+00:00:48,508 --> 00:00:50,739
+example, the name is up to you. You could
+
+21
+00:00:50,739 --> 00:00:51,285
+name it like this.
+
+22
+00:00:52,167 --> 00:00:54,189
+And the value which we store in there is now
+
+23
+00:00:54,189 --> 00:00:54,655
+a type.
+
+24
+00:00:55,490 --> 00:00:56,936
+So for example, this union type.
+
+25
+00:00:57,723 --> 00:01:00,535
+And now we can use num or string in all the
+
+26
+00:01:00,535 --> 00:01:01,065
+places
+
+27
+00:01:01,805 --> 00:01:03,588
+where we previously set up the union type.
+
+28
+00:01:04,456 --> 00:01:05,725
+And you can store anything,
+
+29
+00:01:06,320 --> 00:01:08,425
+any type, in such a type alias.
+
+30
+00:01:09,373 --> 00:01:10,385
+Now if you compile this,
+
+31
+00:01:11,879 --> 00:01:13,036
+if you compile this code,
+
+32
+00:01:13,936 --> 00:01:15,880
+this will be gone. You don't see the type
+
+33
+00:01:15,961 --> 00:01:18,355
+alias there because it's a pure TypeScript
+
+34
+00:01:18,371 --> 00:01:20,219
+feature, but it can save you some
+
+35
+00:01:20,219 --> 00:01:20,781
+repetition.
+
+36
+00:01:21,648 --> 00:01:24,333
+You can also use the type alias to, for
+
+37
+00:01:24,333 --> 00:01:26,404
+example, store your object type.
+
+38
+00:01:27,051 --> 00:01:27,164
+My
+
+39
+00:01:27,956 --> 00:01:30,334
+result, and again, that name is up to you,
+
+40
+00:01:31,089 --> 00:01:34,481
+could be this object type. So I can cut it
+
+41
+00:01:34,481 --> 00:01:35,237
+from down there
+
+42
+00:01:36,330 --> 00:01:38,371
+and now use result down there.
+
+43
+00:01:39,924 --> 00:01:41,594
+And now I'm referring to this object.
+
+44
+00:01:45,190 --> 00:01:47,422
+So type aliases can be very useful.
+
+45
+00:01:48,013 --> 00:01:50,389
+An alternative, at least when you're working
+
+46
+00:01:50,502 --> 00:01:52,059
+with object types,
+
+47
+00:01:52,734 --> 00:01:53,761
+are interfaces.
+
+48
+00:01:54,500 --> 00:01:57,792
+Interfaces also allow you to define the, the
+
+49
+00:01:57,792 --> 00:02:00,280
+structure of an object. For example,
+
+50
+00:02:00,296 --> 00:02:01,822
+ResultObject,
+
+51
+00:02:02,608 --> 00:02:03,973
+to avoid a name clash.
+
+52
+00:02:04,535 --> 00:02:07,008
+Here I could paste in that exact same
+
+53
+00:02:07,040 --> 00:02:10,059
+structure as for my result type alias,
+
+54
+00:02:10,733 --> 00:02:13,622
+and I can now use ResultObject where I
+
+55
+00:02:13,622 --> 00:02:14,921
+previously used Result.
+
+56
+00:02:15,803 --> 00:02:18,736
+Now why would you use an interface or a type
+
+57
+00:02:18,816 --> 00:02:19,922
+alias? What's the difference?
+
+58
+00:02:20,900 --> 00:02:22,743
+If you're just defining the structure of an
+
+59
+00:02:22,743 --> 00:02:24,555
+object, you can use either of the two.
+
+60
+00:02:25,148 --> 00:02:27,344
+Using interfaces is a bit more common but
+
+61
+00:02:27,344 --> 00:02:28,242
+it's not a must-do.
+
+62
+00:02:28,995 --> 00:02:32,570
+Interfaces can however also be used to force
+
+63
+00:02:32,698 --> 00:02:35,215
+classes to implement certain methods or
+
+64
+00:02:35,343 --> 00:02:38,084
+functionalities but that's beyond the scope
+
+65
+00:02:38,084 --> 00:02:40,953
+of this basics refresher. You do learn about
+
+66
+00:02:40,953 --> 00:02:43,118
+it in my Understanding TypeScript course
+
+67
+00:02:43,118 --> 00:02:43,342
+though.
+
+68
+00:02:44,015 --> 00:02:46,901
+So for basic type aliasing, it doesn't
+
+69
+00:02:46,901 --> 00:02:47,205
+matter.
+
+70
+00:02:48,424 --> 00:02:50,556
+So here we have a type alias, here we have
+
+71
+00:02:50,556 --> 00:02:51,758
+the interface.
+
+72
+00:02:52,640 --> 00:02:55,429
+A last important note is that if you would
+
+73
+00:02:55,525 --> 00:02:58,635
+add your own class or constructor function,
+
+74
+00:02:59,052 --> 00:03:01,489
+you could use the class name as a type as
+
+75
+00:03:01,537 --> 00:03:03,509
+well. Just as we're using Date here,
+
+76
+00:03:04,198 --> 00:03:08,369
+we can use Date with new Date to instantiate
+
+77
+00:03:08,369 --> 00:03:10,392
+it and get the current date timestamp,
+
+78
+00:03:11,018 --> 00:03:13,105
+but we can also use it just as a type.
+
+79
+00:03:13,731 --> 00:03:16,251
+And that's true for any constructor function
+
+80
+00:03:16,251 --> 00:03:18,691
+and class, no matter if it's a built-in one
+
+81
+00:03:19,141 --> 00:03:19,895
+or your own one.

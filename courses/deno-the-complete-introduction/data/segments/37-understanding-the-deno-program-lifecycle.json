@@ -1,0 +1,897 @@
+[
+ {
+  "start": 2.262,
+  "end": 4.171,
+  "en": "With all of that, we learned a lot about"
+ },
+ {
+  "start": 4.203,
+  "end": 7.316,
+  "en": "Deno and I wanna conclude this section about"
+ },
+ {
+  "start": 7.316,
+  "end": 10.54,
+  "en": "the core APIs in a second and move on to the"
+ },
+ {
+  "start": 10.54,
+  "end": 12.738,
+  "en": "standard library, which is the next logical"
+ },
+ {
+  "start": 12.77,
+  "end": 13.107,
+  "en": "step."
+ },
+ {
+  "start": 13.653,
+  "end": 16.428,
+  "en": "Not before talking about the Deno program"
+ },
+ {
+  "start": 16.541,
+  "end": 19.445,
+  "en": "lifecycle though, because that is important."
+ },
+ {
+  "start": 20.231,
+  "end": 22.99,
+  "en": "Your Deno program, for example, the one from"
+ },
+ {
+  "start": 23.039,
+  "end": 25.333,
+  "en": "the assignment, has a lifecycle."
+ },
+ {
+  "start": 25.864,
+  "end": 27.43,
+  "en": "And that simply means that there are"
+ },
+ {
+  "start": 27.494,
+  "end": 30.593,
+  "en": "specific events which are automatically"
+ },
+ {
+  "start": 30.868,
+  "end": 32.724,
+  "en": "emitted and to which you can listen"
+ },
+ {
+  "start": 33.354,
+  "end": 36.304,
+  "en": "when certain things happen in your script"
+ },
+ {
+  "start": 36.337,
+  "end": 36.952,
+  "en": "execution."
+ },
+ {
+  "start": 39.006,
+  "end": 40.572,
+  "en": "If we run our demo file,"
+ },
+ {
+  "start": 41.347,
+  "end": 43.123,
+  "en": "script execution of course starts and"
+ },
+ {
+  "start": 43.14,
+  "end": 45.449,
+  "en": "executes the file start to end, but during"
+ },
+ {
+  "start": 45.481,
+  "end": 48.471,
+  "en": "that execution, we got these various events,"
+ },
+ {
+  "start": 48.536,
+  "end": 49.833,
+  "en": "these various steps."
+ },
+ {
+  "start": 50.416,
+  "end": 53.025,
+  "en": "For example, we get the load event right"
+ },
+ {
+  "start": 53.074,
+  "end": 55.018,
+  "en": "when the file was compiled and loaded and"
+ },
+ {
+  "start": 55.018,
+  "end": 55.456,
+  "en": "the execution started."
+ },
+ {
+  "start": 57.128,
+  "end": 59.515,
+  "en": "And we can listen to that event and execute"
+ },
+ {
+  "start": 59.515,
+  "end": 61.005,
+  "en": "code in response to it."
+ },
+ {
+  "start": 61.742,
+  "end": 63.921,
+  "en": "We can also execute asynchronous code there"
+ },
+ {
+  "start": 63.921,
+  "end": 64.578,
+  "en": "if we want to."
+ },
+ {
+  "start": 65.187,
+  "end": 68.311,
+  "en": "So this allows us to execute some extra code"
+ },
+ {
+  "start": 68.311,
+  "end": 70.138,
+  "en": "which we don't wanna put into our main"
+ },
+ {
+  "start": 70.666,
+  "end": 73.983,
+  "en": "script code whenever the script starts."
+ },
+ {
+  "start": 74.8,
+  "end": 76.642,
+  "en": "Well, then we have the regular script"
+ },
+ {
+  "start": 76.642,
+  "end": 78.661,
+  "en": "execution of all the code we have in the"
+ },
+ {
+  "start": 78.661,
+  "end": 81.529,
+  "en": "script, and then we also have the unload"
+ },
+ {
+  "start": 81.529,
+  "end": 84.365,
+  "en": "event that's going to trigger right before"
+ },
+ {
+  "start": 84.429,
+  "end": 85.999,
+  "en": "the script will shut down."
+ },
+ {
+  "start": 86.673,
+  "end": 89.736,
+  "en": "The script will end whenever the end of the"
+ },
+ {
+  "start": 89.864,
+  "end": 91.885,
+  "en": "file is reached, so whenever there is no"
+ },
+ {
+  "start": 91.885,
+  "end": 94.579,
+  "en": "more code to execute, and if there are no"
+ },
+ {
+  "start": 94.675,
+  "end": 97.546,
+  "en": "ongoing processes. For example, later you"
+ },
+ {
+  "start": 97.578,
+  "end": 100.464,
+  "en": "will see when we start a web server, the"
+ },
+ {
+  "start": 100.464,
+  "end": 102.774,
+  "en": "script is never going to end because it's"
+ },
+ {
+  "start": 102.774,
+  "end": 104.682,
+  "en": "continuously waiting for new incoming"
+ },
+ {
+  "start": 104.778,
+  "end": 105.307,
+  "en": "requests."
+ },
+ {
+  "start": 105.917,
+  "end": 108.643,
+  "en": "But whenever your process does end, for"
+ },
+ {
+  "start": 108.643,
+  "end": 111.129,
+  "en": "example, also with the web server, if that"
+ },
+ {
+  "start": 111.129,
+  "end": 113.534,
+  "en": "server crashes the unload event is"
+ },
+ {
+  "start": 113.614,
+  "end": 116.179,
+  "en": "triggered. And there you also can listen to"
+ },
+ {
+  "start": 116.179,
+  "end": 118.102,
+  "en": "it and execute code, though"
+ },
+ {
+  "start": 118.647,
+  "end": 119.994,
+  "en": "only synchronous code."
+ },
+ {
+  "start": 120.523,
+  "end": 123.456,
+  "en": "So no code that uses promises or callbacks"
+ },
+ {
+  "start": 123.456,
+  "end": 126.021,
+  "en": "to do something asynchronous. You can't send"
+ },
+ {
+  "start": 126.021,
+  "end": 128.522,
+  "en": "an HTTP request there, for example, or at"
+ },
+ {
+  "start": 128.522,
+  "end": 130.766,
+  "en": "least you won't be able to react to the"
+ },
+ {
+  "start": 130.766,
+  "end": 133.459,
+  "en": "response. You can only do synchronous things"
+ },
+ {
+  "start": 133.491,
+  "end": 134.501,
+  "en": "here if you want to."
+ },
+ {
+  "start": 135.559,
+  "end": 137.867,
+  "en": "And these events can be useful to have some"
+ },
+ {
+  "start": 137.964,
+  "end": 140.112,
+  "en": "general setup work that should be done"
+ },
+ {
+  "start": 140.224,
+  "end": 142.821,
+  "en": "whenever the script starts and to have some"
+ },
+ {
+  "start": 142.933,
+  "end": 145.339,
+  "en": "general cleanup work whenever the script"
+ },
+ {
+  "start": 145.435,
+  "end": 145.724,
+  "en": "ends."
+ },
+ {
+  "start": 146.301,
+  "end": 148.307,
+  "en": "Now let's quickly see how we can listen to"
+ },
+ {
+  "start": 148.307,
+  "end": 148.772,
+  "en": "these events."
+ },
+ {
+  "start": 149.767,
+  "end": 151.404,
+  "en": "For that, I'll add another new file,"
+ },
+ {
+  "start": 152.174,
+  "end": 154.629,
+  "en": "demo_lifeCycle.ts,"
+ },
+ {
+  "start": 155.447,
+  "end": 156.94,
+  "en": "and that will be a very trivial file."
+ },
+ {
+  "start": 158.175,
+  "end": 159.539,
+  "en": "For one, I'll console.log"
+ },
+ {
+  "start": 160.117,
+  "end": 163.069,
+  "en": "main script, and that's my main script"
+ },
+ {
+  "start": 163.069,
+  "end": 165.428,
+  "en": "execution code, so the main code that should"
+ },
+ {
+  "start": 165.492,
+  "end": 166.294,
+  "en": "be in my script."
+ },
+ {
+  "start": 166.936,
+  "end": 169.584,
+  "en": "But I also wanna listen to that load event,"
+ },
+ {
+  "start": 169.888,
+  "end": 172.119,
+  "en": "and for listening, we got 2 options."
+ },
+ {
+  "start": 172.875,
+  "end": 176.079,
+  "en": "We can reach out to this window object and"
+ },
+ {
+  "start": 176.095,
+  "end": 178.64,
+  "en": "set the onload property"
+ },
+ {
+  "start": 179.3,
+  "end": 181.763,
+  "en": "equal to a function, for example, equal to"
+ },
+ {
+  "start": 181.78,
+  "end": 182.663,
+  "en": "an arrow function."
+ },
+ {
+  "start": 183.563,
+  "end": 185.475,
+  "en": "This function will then run"
+ },
+ {
+  "start": 186.069,
+  "end": 187.965,
+  "en": "whenever the onload event occurs,"
+ },
+ {
+  "start": 188.961,
+  "end": 191.483,
+  "en": "and we'll get an event object here. And then"
+ },
+ {
+  "start": 191.516,
+  "end": 192.748,
+  "en": "I can console.log"
+ },
+ {
+  "start": 194.678,
+  "end": 196.088,
+  "en": "onload event"
+ },
+ {
+  "start": 196.705,
+  "end": 198.958,
+  "en": "and also console.log the event object."
+ },
+ {
+  "start": 201.137,
+  "end": 203.72,
+  "en": "The alternative way of listening would be"
+ },
+ {
+  "start": 203.864,
+  "end": 204.297,
+  "en": "that you"
+ },
+ {
+  "start": 205.613,
+  "end": 208.629,
+  "en": "add an event listener to window and listen"
+ },
+ {
+  "start": 208.661,
+  "end": 211.244,
+  "en": "to the load event. So not onload here, but"
+ },
+ {
+  "start": 211.389,
+  "end": 212.014,
+  "en": "just load."
+ },
+ {
+  "start": 212.608,
+  "end": 214.26,
+  "en": "And then the second argument here is the"
+ },
+ {
+  "start": 214.292,
+  "end": 216.458,
+  "en": "function that should be executed upon the"
+ },
+ {
+  "start": 216.458,
+  "end": 216.747,
+  "en": "event."
+ },
+ {
+  "start": 217.421,
+  "end": 220.71,
+  "en": "And there I will add that same code, onload"
+ },
+ {
+  "start": 220.71,
+  "end": 222.635,
+  "en": "event via listener."
+ },
+ {
+  "start": 223.582,
+  "end": 226.085,
+  "en": "The important difference just like in the"
+ },
+ {
+  "start": 226.15,
+  "end": 226.519,
+  "en": "browser"
+ },
+ {
+  "start": 227.129,
+  "end": 229.104,
+  "en": "where you also have different ways of adding"
+ },
+ {
+  "start": 229.136,
+  "end": 229.746,
+  "en": "event listeners,"
+ },
+ {
+  "start": 230.324,
+  "end": 233.038,
+  "en": "is that with that you can only define one"
+ },
+ {
+  "start": 233.15,
+  "end": 233.6,
+  "en": "function."
+ },
+ {
+  "start": 234.419,
+  "end": 234.772,
+  "en": "If I"
+ },
+ {
+  "start": 235.494,
+  "end": 237.919,
+  "en": "set a new function to onload, it will"
+ },
+ {
+  "start": 238.112,
+  "end": 240.135,
+  "en": "override the previously added function."
+ },
+ {
+  "start": 240.938,
+  "end": 243.073,
+  "en": "On the other hand, you can add multiple"
+ },
+ {
+  "start": 243.17,
+  "end": 245.658,
+  "en": "event listeners with addEventListener. So if"
+ },
+ {
+  "start": 245.658,
+  "end": 247.874,
+  "en": "you need multiple listeners which should all"
+ },
+ {
+  "start": 248.147,
+  "end": 251.021,
+  "en": "run, you should use addEventListener If you"
+ },
+ {
+  "start": 251.053,
+  "end": 253.205,
+  "en": "have just one code snippet that needs to"
+ },
+ {
+  "start": 253.205,
+  "end": 255.679,
+  "en": "execute, you can use the onload property."
+ },
+ {
+  "start": 257.076,
+  "end": 259.597,
+  "en": "Now with that, we're printing onload twice"
+ },
+ {
+  "start": 259.726,
+  "end": 261.814,
+  "en": "in the end because we set up a listener with"
+ },
+ {
+  "start": 261.814,
+  "end": 264.062,
+  "en": "this approach and with addEventListener."
+ },
+ {
+  "start": 265.186,
+  "end": 267.113,
+  "en": "And thereafter, I'm going to copy this."
+ },
+ {
+  "start": 268.157,
+  "end": 269.313,
+  "en": "We can do the same for"
+ },
+ {
+  "start": 270.39,
+  "end": 270.968,
+  "en": "onload"
+ },
+ {
+  "start": 272.397,
+  "end": 275.689,
+  "en": "and print onload event. And here also we"
+ },
+ {
+  "start": 275.689,
+  "end": 277.167,
+  "en": "want to listen to unload"
+ },
+ {
+  "start": 277.716,
+  "end": 279.953,
+  "en": "and print onUnload here as well."
+ },
+ {
+  "start": 282.076,
+  "end": 283.47,
+  "en": "Now let's see how that works."
+ },
+ {
+  "start": 283.996,
+  "end": 285.097,
+  "en": "If I now save this"
+ },
+ {
+  "start": 285.939,
+  "end": 289.632,
+  "en": "and I run this demo lifecycle.ts file,"
+ },
+ {
+  "start": 291.46,
+  "end": 293.417,
+  "en": "you see script execution finished. And what"
+ },
+ {
+  "start": 293.417,
+  "end": 296.475,
+  "en": "you see is we got the main script actually"
+ },
+ {
+  "start": 296.507,
+  "end": 297.996,
+  "en": "being output first."
+ },
+ {
+  "start": 298.675,
+  "end": 300.422,
+  "en": "Now the order in which we see this here"
+ },
+ {
+  "start": 300.52,
+  "end": 302.955,
+  "en": "shouldn't confuse you, shouldn't matter too"
+ },
+ {
+  "start": 302.955,
+  "end": 305.066,
+  "en": "much. These listeners, the onLoad listeners,"
+ },
+ {
+  "start": 305.099,
+  "end": 306.317,
+  "en": "do also run right at the beginning just"
+ },
+ {
+  "start": 306.317,
+  "end": 309.223,
+  "en": "because the event needs to be processed"
+ },
+ {
+  "start": 309.276,
+  "end": 309.629,
+  "en": "succeeded."
+ },
+ {
+  "start": 310.255,
+  "end": 311.202,
+  "en": "This main script,"
+ },
+ {
+  "start": 311.861,
+  "end": 314.157,
+  "en": "the simple console.log statement was running"
+ },
+ {
+  "start": 314.253,
+  "end": 316.18,
+  "en": "first and logging this to the console, but"
+ },
+ {
+  "start": 316.26,
+  "end": 318.139,
+  "en": "onload also runs right when the script"
+ },
+ {
+  "start": 318.139,
+  "end": 318.588,
+  "en": "starts."
+ },
+ {
+  "start": 319.648,
+  "end": 321.174,
+  "en": "And you see the event object which we're"
+ },
+ {
+  "start": 321.254,
+  "end": 323.389,
+  "en": "getting is a very simple one, it just has"
+ },
+ {
+  "start": 323.421,
+  "end": 324.883,
+  "en": "the isTrusted flag in there."
+ },
+ {
+  "start": 326.071,
+  "end": 329.073,
+  "en": "And then we have the onload event once the"
+ },
+ {
+  "start": 329.122,
+  "end": 330.535,
+  "en": "script execution finishes."
+ },
+ {
+  "start": 331.369,
+  "end": 334.003,
+  "en": "And to see a difference, I will now actually"
+ },
+ {
+  "start": 335.528,
+  "end": 338.355,
+  "en": "wait for some user input by going to demo"
+ },
+ {
+  "start": 338.499,
+  "end": 338.933,
+  "en": "input"
+ },
+ {
+  "start": 339.945,
+  "end": 342.867,
+  "en": "and copying this code we had in there"
+ },
+ {
+  "start": 342.932,
+  "end": 343.333,
+  "en": "before."
+ },
+ {
+  "start": 344.361,
+  "end": 346.898,
+  "en": "And below my main script console.log, I will"
+ },
+ {
+  "start": 347.589,
+  "end": 350.769,
+  "en": "again listen to that input here, get my"
+ },
+ {
+  "start": 350.801,
+  "end": 351.202,
+  "en": "input."
+ },
+ {
+  "start": 352.069,
+  "end": 354.093,
+  "en": "By the way, close all our files. If you"
+ },
+ {
+  "start": 354.093,
+  "end": 355.907,
+  "en": "should be getting an error regarding"
+ },
+ {
+  "start": 357.144,
+  "end": 358.75,
+  "en": "constant names which you're using in"
+ },
+ {
+  "start": 358.814,
+  "end": 360.709,
+  "en": "multiple files, that is fine to do."
+ },
+ {
+  "start": 361.239,
+  "end": 363.455,
+  "en": "My IDE just doesn't understand that these"
+ },
+ {
+  "start": 363.568,
+  "end": 366.013,
+  "en": "files don't run as one big process,"
+ },
+ {
+  "start": 366.77,
+  "end": 368.607,
+  "en": "which is why it does complain about name"
+ },
+ {
+  "start": 368.639,
+  "end": 370.105,
+  "en": "clashes. This code is fine."
+ },
+ {
+  "start": 370.637,
+  "end": 373.133,
+  "en": "So here we now got the code to listen to"
+ },
+ {
+  "start": 373.133,
+  "end": 373.877,
+  "en": "user input,"
+ },
+ {
+  "start": 374.443,
+  "end": 375.626,
+  "en": "and now you'll see a difference."
+ },
+ {
+  "start": 376.289,
+  "end": 378.216,
+  "en": "If I now run this code"
+ },
+ {
+  "start": 378.977,
+  "end": 379.706,
+  "en": "again here,"
+ },
+ {
+  "start": 381.32,
+  "end": 384.046,
+  "en": "deno run deno lifecycle.ts,"
+ },
+ {
+  "start": 385.45,
+  "end": 385.967,
+  "en": "you see"
+ },
+ {
+  "start": 387.645,
+  "end": 388.613,
+  "en": "we have main script,"
+ },
+ {
+  "start": 389.42,
+  "end": 391.1,
+  "en": "please enter your message. Then we got the"
+ },
+ {
+  "start": 391.181,
+  "end": 393.346,
+  "en": "onload events, of course, because the script"
+ },
+ {
+  "start": 393.623,
+  "end": 394.193,
+  "en": "just loaded."
+ },
+ {
+  "start": 394.762,
+  "end": 397.022,
+  "en": "But we don't see the onUnload events yet"
+ },
+ {
+  "start": 397.151,
+  "end": 398.818,
+  "en": "because the script is still running."
+ },
+ {
+  "start": 400.036,
+  "end": 402.473,
+  "en": "And if I cancel the script, for example,"
+ },
+ {
+  "start": 402.521,
+  "end": 405.438,
+  "en": "with Ctrl+C, we also don't see it because I"
+ },
+ {
+  "start": 405.487,
+  "end": 407.987,
+  "en": "hard canceled it. If it would have crashed"
+ },
+ {
+  "start": 407.987,
+  "end": 409.879,
+  "en": "because of an error, on the other hand, we"
+ },
+ {
+  "start": 409.975,
+  "end": 410.44,
+  "en": "would see it."
+ },
+ {
+  "start": 411.354,
+  "end": 413.71,
+  "en": "Now if I do enter something here,"
+ },
+ {
+  "start": 414.961,
+  "end": 417.445,
+  "en": "you see now it finishes as planned and we"
+ },
+ {
+  "start": 417.445,
+  "end": 420.219,
+  "en": "see the onUnload event being emitted as"
+ },
+ {
+  "start": 420.315,
+  "end": 420.427,
+  "en": "well."
+ },
+ {
+  "start": 421.455,
+  "end": 423.833,
+  "en": "So that's how the program lifecycle works."
+ },
+ {
+  "start": 424.09,
+  "end": 426.05,
+  "en": "You will not need this all the time, but it"
+ },
+ {
+  "start": 426.098,
+  "end": 428.685,
+  "en": "is important to be aware of these 2 events,"
+ },
+ {
+  "start": 429.006,
+  "end": 432.236,
+  "en": "load and unload, so that you can do setup"
+ },
+ {
+  "start": 432.364,
+  "end": 434.517,
+  "en": "and cleanup work if you need to."
+ }
+]

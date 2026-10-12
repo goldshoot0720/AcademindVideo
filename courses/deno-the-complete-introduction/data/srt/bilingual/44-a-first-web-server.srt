@@ -1,0 +1,543 @@
+1
+00:00:02,179 --> 00:00:04,277
+We spent quite some time on that import, but
+
+2
+00:00:04,293 --> 00:00:06,937
+it is important that you understand how the
+
+3
+00:00:06,937 --> 00:00:09,853
+standard library works and how you import
+
+4
+00:00:09,869 --> 00:00:10,734
+features from it.
+
+5
+00:00:11,391 --> 00:00:13,234
+With serve being imported, we can now
+
+6
+00:00:13,314 --> 00:00:16,022
+execute it because it's a function to spin
+
+7
+00:00:16,118 --> 00:00:16,775
+up a server.
+
+8
+00:00:17,319 --> 00:00:19,258
+Now at the moment, I'm getting no help by my
+
+9
+00:00:19,258 --> 00:00:21,790
+IDE here. The reason for that should be that
+
+10
+00:00:21,886 --> 00:00:24,610
+we haven't run this code once, and therefore
+
+11
+00:00:24,770 --> 00:00:27,109
+this package, which is on some web server,
+
+12
+00:00:27,413 --> 00:00:30,283
+hasn't been downloaded locally yet. That is
+
+13
+00:00:30,315 --> 00:00:32,704
+something which Deno will do eventually, but
+
+14
+00:00:32,720 --> 00:00:34,805
+it hasn't done it yet, and therefore my IDE
+
+15
+00:00:34,965 --> 00:00:37,307
+can't look into this package. It doesn't
+
+16
+00:00:37,307 --> 00:00:39,359
+reach out to that server, and therefore it
+
+17
+00:00:39,359 --> 00:00:40,514
+doesn't know what's in there.
+
+18
+00:00:41,219 --> 00:00:43,673
+Nonetheless, I can tell you serve takes an
+
+19
+00:00:43,849 --> 00:00:46,271
+object to be configured so that we can
+
+20
+00:00:46,271 --> 00:00:47,313
+configure the server,
+
+21
+00:00:47,874 --> 00:00:50,328
+and there we can configure the port on which
+
+22
+00:00:50,344 --> 00:00:52,525
+we want to listen. Now for development, we
+
+23
+00:00:52,589 --> 00:00:56,053
+want to use something like 8000 or 3000.
+
+24
+00:00:56,437 --> 00:00:59,098
+These are common development ports since
+
+25
+00:00:59,098 --> 00:01:01,311
+they're not occupied by other processes.
+
+26
+00:01:02,785 --> 00:01:04,308
+Now this will return us a server,
+
+27
+00:01:05,046 --> 00:01:07,274
+so I'll store it in a constant named server.
+
+28
+00:01:07,819 --> 00:01:10,079
+It's a synchronous process, so we don't need
+
+29
+00:01:10,079 --> 00:01:10,448
+await.
+
+30
+00:01:11,121 --> 00:01:14,343
+But with that, we can now react to incoming
+
+31
+00:01:14,407 --> 00:01:15,016
+requests.
+
+32
+00:01:15,850 --> 00:01:18,126
+And the obvious question is, how does this
+
+33
+00:01:18,158 --> 00:01:18,479
+work?
+
+34
+00:01:19,216 --> 00:01:19,329
+Well,
+
+35
+00:01:19,938 --> 00:01:22,503
+this server thing here actually
+
+36
+00:01:23,049 --> 00:01:25,313
+is an asynchronous iterable,
+
+37
+00:01:25,939 --> 00:01:28,589
+and we had a look at those in the JavaScript
+
+38
+00:01:28,605 --> 00:01:31,431
+and TypeScript refresher section. So if you
+
+39
+00:01:31,431 --> 00:01:34,112
+skip this, in that section you can learn
+
+40
+00:01:34,144 --> 00:01:35,911
+what async iterables are.
+
+41
+00:01:36,473 --> 00:01:38,480
+In the end, it's like a never-ending array,
+
+42
+00:01:38,720 --> 00:01:41,177
+you could say, or potentially never-ending.
+
+43
+00:01:41,290 --> 00:01:43,907
+It could end, but it's like an array full of
+
+44
+00:01:44,083 --> 00:01:46,941
+asynchronous actions, full of promises in
+
+45
+00:01:46,990 --> 00:01:47,327
+the end.
+
+46
+00:01:48,338 --> 00:01:50,681
+And it's not really an array, it's an object
+
+47
+00:01:50,681 --> 00:01:52,655
+that instead continues emitting new
+
+48
+00:01:52,848 --> 00:01:55,801
+promises. And we can loop through this kind
+
+49
+00:01:55,801 --> 00:01:57,470
+of stream of promises
+
+50
+00:01:58,209 --> 00:02:02,687
+with for-of, but with for-await-of.
+
+51
+00:02:03,361 --> 00:02:05,415
+That's a special JavaScript syntax which
+
+52
+00:02:05,463 --> 00:02:07,983
+exists in JavaScript and which is supported
+
+53
+00:02:08,015 --> 00:02:08,417
+by Deno.
+
+54
+00:02:09,380 --> 00:02:09,990
+We can
+
+55
+00:02:10,567 --> 00:02:13,841
+loop through all requests of server. This is
+
+56
+00:02:14,177 --> 00:02:17,736
+how you react to incoming requests in Deno.
+
+57
+00:02:18,457 --> 00:02:20,397
+Now that's quite different to what we do
+
+58
+00:02:20,509 --> 00:02:23,090
+with Node, and I will come back to Node in a
+
+59
+00:02:23,090 --> 00:02:25,639
+second so that we can have a side-by-side
+
+60
+00:02:25,639 --> 00:02:28,220
+comparison. For the moment, let's just add
+
+61
+00:02:28,220 --> 00:02:30,865
+this code and this will basically loop
+
+62
+00:02:31,089 --> 00:02:33,830
+through all incoming requests and whenever a
+
+63
+00:02:33,846 --> 00:02:36,523
+new request is incoming, the loop body will
+
+64
+00:02:36,620 --> 00:02:37,229
+execute again.
+
+65
+00:02:37,774 --> 00:02:40,274
+So this is not kind of collecting all
+
+66
+00:02:40,323 --> 00:02:42,134
+requests and then looping through all of
+
+67
+00:02:42,230 --> 00:02:44,827
+them at once. Instead, it will really fire
+
+68
+00:02:44,971 --> 00:02:47,698
+that loop body for every incoming request
+
+69
+00:02:47,938 --> 00:02:49,109
+when it's incoming.
+
+70
+00:02:50,504 --> 00:02:52,493
+So therefore, in here we can react to the
+
+71
+00:02:52,493 --> 00:02:55,027
+request. And a simple reaction right now
+
+72
+00:02:55,620 --> 00:02:58,667
+is that on the request object, we call the
+
+73
+00:02:58,667 --> 00:03:01,810
+respond method. And respond does what the
+
+74
+00:03:01,810 --> 00:03:04,457
+name implies— it sends back a response.
+
+75
+00:03:05,339 --> 00:03:07,824
+Now, which kind of response? Well, it wants
+
+76
+00:03:07,824 --> 00:03:09,861
+an object here, and in that object we can
+
+77
+00:03:09,909 --> 00:03:10,599
+set a body
+
+78
+00:03:11,257 --> 00:03:13,376
+And that should be some text. And here
+
+79
+00:03:14,388 --> 00:03:16,973
+I will just say response from Deno.
+
+80
+00:03:17,695 --> 00:03:19,542
+You can of course add any text you want.
+
+81
+00:03:20,023 --> 00:03:22,014
+This is the text with which we're going to
+
+82
+00:03:22,014 --> 00:03:22,849
+respond for now.
+
+83
+00:03:23,475 --> 00:03:25,771
+And if you now save this, you can execute
+
+84
+00:03:25,948 --> 00:03:27,313
+this first web server,
+
+85
+00:03:27,971 --> 00:03:28,212
+deno
+
+86
+00:03:29,400 --> 00:03:29,625
+run
+
+87
+00:03:30,379 --> 00:03:33,205
+first-web-server.ts. Now this will crash,
+
+88
+00:03:34,699 --> 00:03:36,047
+as you will see in a second,
+
+89
+00:03:36,641 --> 00:03:39,772
+but what it does first is it downloads the
+
+90
+00:03:39,772 --> 00:03:42,902
+standard library package, or the standard
+
+91
+00:03:42,902 --> 00:03:45,149
+library module as we should call it,
+
+92
+00:03:45,775 --> 00:03:47,204
+and caches it locally.
+
+93
+00:03:48,295 --> 00:03:50,173
+So first, of course, it compiled the code,
+
+94
+00:03:50,510 --> 00:03:52,180
+but then it downloaded server.ts,
+
+95
+00:03:52,998 --> 00:03:55,149
+and it also downloaded other files from the
+
+96
+00:03:55,149 --> 00:03:57,461
+standard library because the server module
+
+97
+00:03:57,589 --> 00:03:59,724
+does actually use other modules from the
+
+98
+00:03:59,724 --> 00:04:02,132
+standard library, and those other modules
+
+99
+00:04:02,164 --> 00:04:04,989
+might then again use other modules. So now
+
+100
+00:04:05,278 --> 00:04:08,422
+Deno downloaded all those modules that are
+
+101
+00:04:08,422 --> 00:04:11,434
+required by us or by the modules our module
+
+102
+00:04:11,627 --> 00:04:12,716
+requires implicitly,
+
+103
+00:04:13,309 --> 00:04:15,440
+and it downloads them locally and caches
+
+104
+00:04:15,472 --> 00:04:15,824
+them here
+
+105
+00:04:16,353 --> 00:04:18,164
+so that we don't have to wait for all those
+
+106
+00:04:18,196 --> 00:04:20,615
+downloads to finish every time we run our
+
+107
+00:04:20,615 --> 00:04:21,160
+script.
+
+108
+00:04:21,704 --> 00:04:23,771
+This also means that if you're on a plane,
+
+109
+00:04:24,188 --> 00:04:26,222
+you just need to run it once before you
+
+110
+00:04:26,287 --> 00:04:28,578
+board the plane, and then you can continue
+
+111
+00:04:28,610 --> 00:04:30,933
+developing on the plane because you don't
+
+112
+00:04:30,933 --> 00:04:32,134
+need to re-download it.
+
+113
+00:04:33,080 --> 00:04:34,858
+If you for some reason would want to
+
+114
+00:04:34,858 --> 00:04:37,871
+re-download it, you can always run your code
+
+115
+00:04:38,466 --> 00:04:38,787
+with the
+
+116
+00:04:39,590 --> 00:04:40,393
+--reload flag.
+
+117
+00:04:40,940 --> 00:04:43,478
+This then forces the downloads to run again.
+
+118
+00:04:44,313 --> 00:04:46,722
+If you don't do that, if you don't add
+
+119
+00:04:46,899 --> 00:04:49,292
+--reload, which typically is the default— so
+
+120
+00:04:49,533 --> 00:04:51,638
+not adding it is the default, I mean— you
+
+121
+00:04:51,638 --> 00:04:53,357
+see it's not getting downloaded again.
+
+122
+00:04:54,369 --> 00:04:56,055
+By the way, it's also not getting compiled
+
+123
+00:04:56,055 --> 00:04:58,336
+again unless you change the code, just to
+
+124
+00:04:58,384 --> 00:04:58,979
+speed this up.
+
+125
+00:04:59,589 --> 00:05:01,485
+And with that, this is all generally
+
+126
+00:05:01,661 --> 00:05:01,967
+working,
+
+127
+00:05:02,561 --> 00:05:04,456
+but of course we got a permission denied
+
+128
+00:05:04,488 --> 00:05:05,002
+error here.
+
+129
+00:05:05,614 --> 00:05:07,772
+And that should make sense because we're
+
+130
+00:05:07,772 --> 00:05:09,350
+trying to use the network here.
+
+131
+00:05:09,881 --> 00:05:11,862
+We're not sending a request, of course, as
+
+132
+00:05:11,959 --> 00:05:12,490
+we did before,
+
+133
+00:05:13,183 --> 00:05:15,196
+but we're trying to create a server that
+
+134
+00:05:15,196 --> 00:05:17,740
+should handle incoming requests and that of
+
+135
+00:05:17,837 --> 00:05:19,157
+course uses the network.
+
+136
+00:05:19,785 --> 00:05:21,637
+And therefore we need to add the protocol.

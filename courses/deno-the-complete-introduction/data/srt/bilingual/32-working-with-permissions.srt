@@ -1,0 +1,307 @@
+1
+00:00:02,259 --> 00:00:05,063
+Deno has this built-in permissions concept,
+
+2
+00:00:05,160 --> 00:00:07,884
+and that's a key difference to Node, in case
+
+3
+00:00:07,884 --> 00:00:08,573
+you know Node.
+
+4
+00:00:09,150 --> 00:00:12,707
+In Node.js, you can execute any script just
+
+5
+00:00:12,755 --> 00:00:15,736
+like this, and Node will not ask for
+
+6
+00:00:15,736 --> 00:00:18,685
+permissions. So any script is allowed to do
+
+7
+00:00:18,845 --> 00:00:19,758
+anything in the end.
+
+8
+00:00:20,464 --> 00:00:21,569
+That's different in Deno.
+
+9
+00:00:22,130 --> 00:00:22,963
+By default,
+
+10
+00:00:23,508 --> 00:00:27,165
+Deno scripts may not read files, write
+
+11
+00:00:27,262 --> 00:00:27,727
+files,
+
+12
+00:00:28,305 --> 00:00:31,035
+or use environment variables, or interact
+
+13
+00:00:31,035 --> 00:00:31,950
+with the network.
+
+14
+00:00:32,721 --> 00:00:34,375
+And there are a couple of other things too,
+
+15
+00:00:34,487 --> 00:00:36,478
+but these are the most important things
+
+16
+00:00:36,510 --> 00:00:38,565
+which are not allowed by default.
+
+17
+00:00:39,705 --> 00:00:42,146
+Now that's a great security mechanism, but
+
+18
+00:00:42,194 --> 00:00:42,820
+sometimes
+
+19
+00:00:43,479 --> 00:00:44,571
+you want to write a file.
+
+20
+00:00:45,823 --> 00:00:48,376
+For example, here in our code, we want to
+
+21
+00:00:48,392 --> 00:00:50,544
+run this code. We don't want it to crash.
+
+22
+00:00:51,202 --> 00:00:53,900
+Well, no worries. Of course, you can still
+
+23
+00:00:54,093 --> 00:00:57,193
+do these things with Deno. You just have to
+
+24
+00:00:57,225 --> 00:00:59,795
+assign the right permissions to your script
+
+25
+00:00:59,795 --> 00:01:01,449
+execution explicitly.
+
+26
+00:01:02,910 --> 00:01:05,014
+And for example, for reading files, that's
+
+27
+00:01:05,014 --> 00:01:05,785
+done by adding
+
+28
+00:01:06,460 --> 00:01:09,383
+the --allow-read flag to your Deno run
+
+29
+00:01:09,511 --> 00:01:12,820
+command. For writing, it's --allow-write.
+
+30
+00:01:13,286 --> 00:01:16,803
+It's --allow-env for accessing environment
+
+31
+00:01:16,803 --> 00:01:19,869
+variables. And it's --allow-net for
+
+32
+00:01:19,869 --> 00:01:21,490
+interacting with the network.
+
+33
+00:01:22,357 --> 00:01:25,455
+There also are variations in case you don't
+
+34
+00:01:25,471 --> 00:01:27,798
+wanna allow reading all files but you wanna
+
+35
+00:01:27,798 --> 00:01:30,141
+restrict it to certain files. You can, for
+
+36
+00:01:30,141 --> 00:01:32,950
+example, also pass the path to the file
+
+37
+00:01:32,950 --> 00:01:35,583
+which should be allowed to allow-read. The
+
+38
+00:01:35,583 --> 00:01:38,135
+same for writing. You can make clear which
+
+39
+00:01:38,167 --> 00:01:40,638
+environment variables should be accessible,
+
+40
+00:01:41,056 --> 00:01:43,592
+and you can, for example, also lock down
+
+41
+00:01:43,624 --> 00:01:45,839
+network access to specific domains.
+
+42
+00:01:46,417 --> 00:01:49,594
+So it's not an either nothing or everything
+
+43
+00:01:49,707 --> 00:01:52,580
+decision, it's a very granular decision
+
+44
+00:01:52,852 --> 00:01:55,131
+where you can really fine-tune this to your
+
+45
+00:01:55,517 --> 00:01:55,870
+needs.
+
+46
+00:01:56,961 --> 00:01:57,330
+So
+
+47
+00:01:57,892 --> 00:01:59,112
+if I go back here,
+
+48
+00:01:59,818 --> 00:02:02,771
+in order to run our code, we need to run
+
+49
+00:02:03,044 --> 00:02:04,055
+deno run
+
+50
+00:02:04,729 --> 00:02:05,002
+and then
+
+51
+00:02:06,478 --> 00:02:07,249
+--allow-write
+
+52
+00:02:07,859 --> 00:02:10,395
+to allow writing to all files,
+
+53
+00:02:11,454 --> 00:02:11,919
+or
+
+54
+00:02:12,689 --> 00:02:15,718
+If we wanna just allow writing to test.txt,
+
+55
+00:02:16,423 --> 00:02:19,019
+allowWrite equals test.txt
+
+56
+00:02:19,724 --> 00:02:22,497
+and then your script file name, so
+
+57
+00:02:22,609 --> 00:02:23,779
+deno-core.ts.
+
+58
+00:02:24,372 --> 00:02:27,145
+And now this compiles and eventually is
+
+59
+00:02:27,337 --> 00:02:29,982
+done. And as you see, it created the
+
+60
+00:02:29,982 --> 00:02:31,697
+test.txt file
+
+61
+00:02:32,306 --> 00:02:36,120
+with the message we specified in our code.
+
+62
+00:02:36,937 --> 00:02:40,031
+So that is how Deno works in general and how
+
+63
+00:02:40,143 --> 00:02:42,564
+you deal with its permissions. But not just
+
+64
+00:02:42,564 --> 00:02:46,626
+that, now you also saw some of the core APIs
+
+65
+00:02:46,803 --> 00:02:47,348
+in action.
+
+66
+00:02:47,926 --> 00:02:50,399
+You saw setTimeout, which is available in
+
+67
+00:02:50,495 --> 00:02:53,417
+Deno, and this global Deno object,
+
+68
+00:02:53,947 --> 00:02:56,724
+which my IDE doesn't recognize right now,
+
+69
+00:02:57,093 --> 00:02:58,121
+but which is available,
+
+70
+00:02:58,843 --> 00:03:01,107
+as you can clearly tell by the fact that the
+
+71
+00:03:01,107 --> 00:03:02,841
+script executed successfully.
+
+72
+00:03:03,499 --> 00:03:06,389
+And this global Deno object gives us access
+
+73
+00:03:06,389 --> 00:03:09,536
+to all these core APIs which essentially
+
+74
+00:03:09,536 --> 00:03:12,124
+contain all you might need to build any kind
+
+75
+00:03:12,124 --> 00:03:15,387
+of application. In this case, a very simple
+
+76
+00:03:15,387 --> 00:03:18,489
+application that writes to a file and
+
+77
+00:03:18,538 --> 00:03:21,206
+creates the file if it doesn't exist yet.

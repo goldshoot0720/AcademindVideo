@@ -1,0 +1,952 @@
+[
+ {
+  "start": 2.212,
+  "end": 5.273,
+  "en": "So we had a look at the Deno core APIs here"
+ },
+ {
+  "start": 6.107,
+  "end": 8.624,
+  "en": "and at the permissions system Deno uses."
+ },
+ {
+  "start": 9.489,
+  "end": 11.221,
+  "en": "Now when it comes to the core APIs,"
+ },
+ {
+  "start": 11.958,
+  "end": 14.651,
+  "en": "we're not going to use those all the time."
+ },
+ {
+  "start": 15.02,
+  "end": 17.152,
+  "en": "Reading and writing a file, that actually is"
+ },
+ {
+  "start": 17.264,
+  "end": 19.236,
+  "en": "something you occasionally need to do,"
+ },
+ {
+  "start": 19.813,
+  "end": 21.752,
+  "en": "but typically we'll actually use the"
+ },
+ {
+  "start": 21.752,
+  "end": 24.606,
+  "en": "standard library or third-party libraries."
+ },
+ {
+  "start": 24.958,
+  "end": 26.722,
+  "en": "Nonetheless, it is super important to"
+ },
+ {
+  "start": 26.722,
+  "end": 29.832,
+  "en": "understand how Deno works under the hood and"
+ },
+ {
+  "start": 29.992,
+  "end": 31.723,
+  "en": "what's happening here, which is why I'm"
+ },
+ {
+  "start": 31.723,
+  "end": 32.428,
+  "en": "showing showing this to you."
+ },
+ {
+  "start": 33.038,
+  "end": 35.779,
+  "en": "And this permissions concept is especially"
+ },
+ {
+  "start": 35.779,
+  "end": 38.712,
+  "en": "important since this is something we'll need"
+ },
+ {
+  "start": 39.209,
+  "end": 40.764,
+  "en": "throughout the entire course in the end."
+ },
+ {
+  "start": 41.469,
+  "end": 43.842,
+  "en": "Now with that, I want to show you one other"
+ },
+ {
+  "start": 43.858,
+  "end": 46.92,
+  "en": "example for using these core APIs though,"
+ },
+ {
+  "start": 47.24,
+  "end": 49.725,
+  "en": "not because we're going to need this all the"
+ },
+ {
+  "start": 49.725,
+  "end": 51.841,
+  "en": "time, but again because it helps you"
+ },
+ {
+  "start": 52.13,
+  "end": 55.079,
+  "en": "understand how Deno works under the hood and"
+ },
+ {
+  "start": 55.159,
+  "end": 58.558,
+  "en": "that it's not just some server technology,"
+ },
+ {
+  "start": 58.942,
+  "end": 61.074,
+  "en": "but that it's a very low-level language in"
+ },
+ {
+  "start": 61.171,
+  "end": 63.078,
+  "en": "the end, you could say, with which you can"
+ },
+ {
+  "start": 63.11,
+  "end": 63.639,
+  "en": "build anything."
+ },
+ {
+  "start": 64.569,
+  "end": 68.288,
+  "en": "I'll add a new file, deno-input.ts. The name"
+ },
+ {
+  "start": 68.32,
+  "end": 69.426,
+  "en": "is fully up to you though."
+ },
+ {
+  "start": 70.067,
+  "end": 72.183,
+  "en": "And here I want to let the user enter"
+ },
+ {
+  "start": 72.183,
+  "end": 74.556,
+  "en": "something in the terminal once the script"
+ },
+ {
+  "start": 74.556,
+  "end": 76.72,
+  "en": "started. So we want to collect some user"
+ },
+ {
+  "start": 76.816,
+  "end": 79.397,
+  "en": "input here. Still, this is no server. We're"
+ },
+ {
+  "start": 79.397,
+  "end": 81.561,
+  "en": "not writing any code that would run on a"
+ },
+ {
+  "start": 81.561,
+  "end": 84.19,
+  "en": "server and serve a website, but it is an"
+ },
+ {
+  "start": 84.19,
+  "end": 86.787,
+  "en": "important building block of Deno and how"
+ },
+ {
+  "start": 86.835,
+  "end": 87.636,
+  "en": "Deno works."
+ },
+ {
+  "start": 88.518,
+  "end": 91.372,
+  "en": "Now to collect user input we have something"
+ },
+ {
+  "start": 91.468,
+  "end": 93.458,
+  "en": "on that global demo object which is called"
+ },
+ {
+  "start": 93.554,
+  "end": 94.324,
+  "en": "stdin."
+ },
+ {
+  "start": 95.014,
+  "end": 97.308,
+  "en": "That stands for standard input in the end,"
+ },
+ {
+  "start": 97.404,
+  "end": 99.442,
+  "en": "and it gives us access to this standard"
+ },
+ {
+  "start": 99.506,
+  "end": 102.474,
+  "en": "input. And this terminal where we run our"
+ },
+ {
+  "start": 102.474,
+  "end": 104.848,
+  "en": "script is the standard input."
+ },
+ {
+  "start": 105.762,
+  "end": 108.089,
+  "en": "Now here we have a read method which we can"
+ },
+ {
+  "start": 108.089,
+  "end": 111.024,
+  "en": "call, and this will basically read the user"
+ },
+ {
+  "start": 111.056,
+  "end": 112.741,
+  "en": "input and store it somewhere."
+ },
+ {
+  "start": 113.784,
+  "end": 116.399,
+  "en": "Now that somewhere where it should be stored"
+ },
+ {
+  "start": 116.976,
+  "end": 119.208,
+  "en": "is something we have to pass to read. It"
+ },
+ {
+  "start": 119.304,
+  "end": 122.097,
+  "en": "wants a Uint8Array as an input."
+ },
+ {
+  "start": 122.916,
+  "end": 126.127,
+  "en": "Uint8Array is this strange data structure"
+ },
+ {
+  "start": 126.303,
+  "end": 128.31,
+  "en": "which is already built into JavaScript,"
+ },
+ {
+  "start": 128.631,
+  "end": 130.558,
+  "en": "which in the end is an array that stores raw"
+ },
+ {
+  "start": 130.879,
+  "end": 133.11,
+  "en": "bytes. And we can simply create such an"
+ },
+ {
+  "start": 133.11,
+  "end": 135.454,
+  "en": "array here, maybe name it buffer, because"
+ },
+ {
+  "start": 135.454,
+  "end": 137.926,
+  "en": "we'll buffer— we'll collect all the user"
+ },
+ {
+  "start": 137.942,
+  "end": 140.671,
+  "en": "input before we then use it in one big"
+ },
+ {
+  "start": 140.671,
+  "end": 142.903,
+  "en": "chunk, so to say. We can create it by"
+ },
+ {
+  "start": 142.903,
+  "end": 143.433,
+  "en": "calling new"
+ },
+ {
+  "start": 144.34,
+  "end": 147.189,
+  "en": "uint8 array that's built into Deno and"
+ },
+ {
+  "start": 147.205,
+  "end": 149.067,
+  "en": "available like this. It's actually built"
+ },
+ {
+  "start": 149.067,
+  "end": 151.333,
+  "en": "into JavaScript even. So it's available like"
+ },
+ {
+  "start": 151.333,
+  "end": 151.609,
+  "en": "this,"
+ },
+ {
+  "start": 152.531,
+  "end": 153.987,
+  "en": "and we can pass this buffer"
+ },
+ {
+  "start": 154.89,
+  "end": 157.323,
+  "en": "to read. However, on this buffer, I'll set"
+ },
+ {
+  "start": 157.372,
+  "end": 159.66,
+  "en": "the length of the buffer, so basically how"
+ },
+ {
+  "start": 159.66,
+  "end": 161.433,
+  "en": "much space for how many bytes I want to"
+ },
+ {
+  "start": 161.481,
+  "end": 163.447,
+  "en": "reserve. And I'll use 1024,"
+ },
+ {
+  "start": 165.887,
+  "end": 167.802,
+  "en": "which should allow for quite a long input"
+ },
+ {
+  "start": 167.899,
+  "end": 168.172,
+  "en": "message."
+ },
+ {
+  "start": 169.524,
+  "end": 171.745,
+  "en": "So now it's this buffer which we pass to"
+ },
+ {
+  "start": 172.164,
+  "end": 172.389,
+  "en": "read."
+ },
+ {
+  "start": 173.647,
+  "end": 176.324,
+  "en": "And the user input will be stored as bytes"
+ },
+ {
+  "start": 176.693,
+  "end": 177.27,
+  "en": "in that buffer."
+ },
+ {
+  "start": 178.136,
+  "end": 180.172,
+  "en": "At the moment, if we would run this script,"
+ },
+ {
+  "start": 180.316,
+  "end": 182.368,
+  "en": "we would not be able to do anything with"
+ },
+ {
+  "start": 182.4,
+  "end": 183.185,
+  "en": "that input though."
+ },
+ {
+  "start": 183.826,
+  "end": 186.279,
+  "en": "As you can imagine, waiting for user input"
+ },
+ {
+  "start": 186.391,
+  "end": 189.453,
+  "en": "is an asynchronous task. We as a developer"
+ },
+ {
+  "start": 189.453,
+  "end": 191.216,
+  "en": "don't know in advance how long that will"
+ },
+ {
+  "start": 191.216,
+  "end": 191.617,
+  "en": "take."
+ },
+ {
+  "start": 192.338,
+  "end": 194.663,
+  "en": "In the very next line after this read"
+ },
+ {
+  "start": 194.663,
+  "end": 197.276,
+  "en": "method, we'll not have the result yet"
+ },
+ {
+  "start": 197.628,
+  "end": 199.52,
+  "en": "because we have to wait until the input is"
+ },
+ {
+  "start": 199.552,
+  "end": 201.796,
+  "en": "finished. And as you know, JavaScript"
+ },
+ {
+  "start": 201.796,
+  "end": 203.848,
+  "en": "doesn't wait for this to complete. It moves"
+ },
+ {
+  "start": 203.944,
+  "end": 205.196,
+  "en": "on to the next line right away"
+ },
+ {
+  "start": 205.79,
+  "end": 208.36,
+  "en": "and will not have that result in that next"
+ },
+ {
+  "start": 208.36,
+  "end": 208.585,
+  "en": "line."
+ },
+ {
+  "start": 209.404,
+  "end": 212.022,
+  "en": "But that's no problem because read returns a"
+ },
+ {
+  "start": 212.134,
+  "end": 212.665,
+  "en": "promise."
+ },
+ {
+  "start": 213.58,
+  "end": 216.6,
+  "en": "And a promise simply allows us to add this"
+ },
+ {
+  "start": 217.13,
+  "end": 219.989,
+  "en": "then method. And in the function we pass to"
+ },
+ {
+  "start": 220.021,
+  "end": 220.213,
+  "en": "then,"
+ },
+ {
+  "start": 220.743,
+  "end": 222.558,
+  "en": "there we'll have the user input."
+ },
+ {
+  "start": 223.233,
+  "end": 223.699,
+  "en": "However,"
+ },
+ {
+  "start": 224.502,
+  "end": 226.831,
+  "en": "we don't need to use then, of course. We can"
+ },
+ {
+  "start": 226.847,
+  "end": 229.16,
+  "en": "use async/await as you learned in the"
+ },
+ {
+  "start": 229.16,
+  "end": 232.465,
+  "en": "JavaScript refresher. And in Deno, we can"
+ },
+ {
+  "start": 232.529,
+  "end": 234.148,
+  "en": "even use just await."
+ },
+ {
+  "start": 234.933,
+  "end": 238.075,
+  "en": "Deno supports top-level await,"
+ },
+ {
+  "start": 238.62,
+  "end": 240.688,
+  "en": "which means we don't have to wrap this in"
+ },
+ {
+  "start": 240.736,
+  "end": 243.653,
+  "en": "some async function first. We can just add"
+ },
+ {
+  "start": 243.75,
+  "end": 244.92,
+  "en": "await in front of this."
+ },
+ {
+  "start": 245.449,
+  "end": 246.827,
+  "en": "This is supported by Deno,"
+ },
+ {
+  "start": 247.356,
+  "end": 251.155,
+  "en": "though to be transparent, from version 14.3"
+ },
+ {
+  "start": 251.284,
+  "end": 254.522,
+  "en": "on, it's also supported in Node.js. In older"
+ },
+ {
+  "start": 254.65,
+  "end": 257.359,
+  "en": "versions of Node.js, this was not supported"
+ },
+ {
+  "start": 257.391,
+  "end": 259.573,
+  "en": "though. So there you always needed that"
+ },
+ {
+  "start": 259.621,
+  "end": 263.168,
+  "en": "async function. In Node 13.3 and higher, it"
+ },
+ {
+  "start": 263.232,
+  "end": 265.543,
+  "en": "is supported, and in Deno it's supported as"
+ },
+ {
+  "start": 265.655,
+  "end": 265.768,
+  "en": "well."
+ },
+ {
+  "start": 267.116,
+  "end": 270.438,
+  "en": "So now basically the next line will only run"
+ },
+ {
+  "start": 270.614,
+  "end": 272.941,
+  "en": "after this line completed, because behind"
+ },
+ {
+  "start": 272.941,
+  "end": 275.653,
+  "en": "the scenes, as you know and as you learned"
+ },
+ {
+  "start": 275.75,
+  "end": 278.462,
+  "en": "in the refresher module, behind the scenes"
+ },
+ {
+  "start": 278.799,
+  "end": 281.864,
+  "en": "when you use await, this is transformed to a"
+ },
+ {
+  "start": 281.864,
+  "end": 284.56,
+  "en": "promise, and any code you add after await is"
+ },
+ {
+  "start": 284.592,
+  "end": 286.642,
+  "en": "simply added to the function that you would"
+ },
+ {
+  "start": 286.755,
+  "end": 288.453,
+  "en": "otherwise pass to the then method."
+ },
+ {
+  "start": 289.494,
+  "end": 290.488,
+  "en": "So here we can then"
+ },
+ {
+  "start": 291.144,
+  "end": 293.243,
+  "en": "output the user input and for that we can"
+ },
+ {
+  "start": 293.243,
+  "end": 294.365,
+  "en": "create a decoder."
+ },
+ {
+  "start": 295.23,
+  "end": 298.13,
+  "en": "Previously in our first example, we created"
+ },
+ {
+  "start": 298.194,
+  "end": 301.831,
+  "en": "an encoder to basically convert a string to"
+ },
+ {
+  "start": 301.831,
+  "end": 305.067,
+  "en": "such a Uint8Array. So to an array full of"
+ },
+ {
+  "start": 305.099,
+  "end": 306.573,
+  "en": "bytes, that's what we did before."
+ },
+ {
+  "start": 307.486,
+  "end": 310.514,
+  "en": "Now we have the opposite use case. Now we're"
+ },
+ {
+  "start": 310.53,
+  "end": 312.533,
+  "en": "getting an array full of bytes and we wanna"
+ },
+ {
+  "start": 312.533,
+  "end": 314.359,
+  "en": "convert it to a string which we can output."
+ },
+ {
+  "start": 315.113,
+  "end": 317.328,
+  "en": "And that's where the decoder helps us. We"
+ },
+ {
+  "start": 317.36,
+  "end": 320.313,
+  "en": "can create a new TextDecoder that's also"
+ },
+ {
+  "start": 320.313,
+  "end": 323.041,
+  "en": "available just like this in Deno. We don't"
+ },
+ {
+  "start": 323.041,
+  "end": 325.417,
+  "en": "need to import anything to use this API"
+ },
+ {
+  "start": 325.465,
+  "end": 325.689,
+  "en": "here."
+ },
+ {
+  "start": 326.508,
+  "end": 328.562,
+  "en": "And we can then get our input by calling"
+ },
+ {
+  "start": 328.739,
+  "end": 331.595,
+  "en": "decoder.decode and passing in"
+ },
+ {
+  "start": 332.51,
+  "end": 335.142,
+  "en": "our buffer. Keep in mind that the buffer is"
+ },
+ {
+  "start": 335.495,
+  "end": 336.907,
+  "en": "where the input will be saved to."
+ },
+ {
+  "start": 337.918,
+  "end": 340.647,
+  "en": "So as a final step, let's then console.log"
+ },
+ {
+  "start": 341.112,
+  "end": 341.929,
+  "en": "the input here"
+ },
+ {
+  "start": 342.795,
+  "end": 344.174,
+  "en": "to see what the user entered."
+ },
+ {
+  "start": 344.879,
+  "end": 347.636,
+  "en": "And with that, I'm going to deno run my"
+ },
+ {
+  "start": 347.668,
+  "end": 350.506,
+  "en": "deno_input.ts file and see what that gives"
+ },
+ {
+  "start": 350.554,
+  "end": 350.634,
+  "en": "us."
+ },
+ {
+  "start": 352.093,
+  "end": 354.721,
+  "en": "And as you see, it compiles and it does not"
+ },
+ {
+  "start": 354.721,
+  "end": 356.934,
+  "en": "finish. It's not going back to the initial"
+ },
+ {
+  "start": 357.527,
+  "end": 360.108,
+  "en": "terminal which had my computer name at the"
+ },
+ {
+  "start": 360.108,
+  "end": 362.272,
+  "en": "beginning. Instead, it's waiting for input"
+ },
+ {
+  "start": 362.272,
+  "end": 365.205,
+  "en": "here whilst it's still executing the script."
+ },
+ {
+  "start": 365.718,
+  "end": 367.706,
+  "en": "And that makes sense because that's exactly"
+ },
+ {
+  "start": 367.706,
+  "end": 370.03,
+  "en": "the code we wrote here. We're reading user"
+ },
+ {
+  "start": 370.046,
+  "end": 372.9,
+  "en": "input and we're waiting until we got that"
+ },
+ {
+  "start": 372.933,
+  "end": 375.596,
+  "en": "input confirmed by hitting the Enter key."
+ },
+ {
+  "start": 377.13,
+  "end": 377.469,
+  "en": "So here"
+ },
+ {
+  "start": 378.034,
+  "end": 380.972,
+  "en": "I can type, this is my message, for example,"
+ },
+ {
+  "start": 381.489,
+  "end": 382.055,
+  "en": "and hit Enter."
+ },
+ {
+  "start": 382.945,
+  "end": 385.243,
+  "en": "And you see it repeated, but that's now our"
+ },
+ {
+  "start": 386.003,
+  "end": 387.865,
+  "en": "output here. That's from this console.log"
+ },
+ {
+  "start": 387.881,
+  "end": 389.451,
+  "en": "input. And to make that clear,"
+ },
+ {
+  "start": 390.634,
+  "end": 392.454,
+  "en": "we can also add user entered"
+ },
+ {
+  "start": 393.146,
+  "end": 393.903,
+  "en": "in front of that"
+ },
+ {
+  "start": 394.482,
+  "end": 396.608,
+  "en": "to have a little bit of context and maybe"
+ },
+ {
+  "start": 396.736,
+  "end": 397.59,
+  "en": "also let the user"
+ },
+ {
+  "start": 398.121,
+  "end": 399.699,
+  "en": "know that we're waiting for some input."
+ },
+ {
+  "start": 400.45,
+  "end": 402.506,
+  "en": "Please enter your message."
+ },
+ {
+  "start": 404.336,
+  "end": 406.78,
+  "en": "And with that, if we now rerun this script,"
+ },
+ {
+  "start": 407.25,
+  "end": 408.979,
+  "en": "we see please enter your message."
+ },
+ {
+  "start": 409.831,
+  "end": 411.871,
+  "en": "Now I can again type this is my message."
+ },
+ {
+  "start": 412.739,
+  "end": 415.005,
+  "en": "If I now hit enter, we see user entered this"
+ },
+ {
+  "start": 415.005,
+  "end": 415.76,
+  "en": "is my message."
+ },
+ {
+  "start": 416.354,
+  "end": 419.219,
+  "en": "So this is how we could read user input from"
+ },
+ {
+  "start": 419.332,
+  "end": 420.347,
+  "en": "the command line."
+ },
+ {
+  "start": 421.17,
+  "end": 423.346,
+  "en": "Now we're not handling any errors that could"
+ },
+ {
+  "start": 423.346,
+  "end": 426.559,
+  "en": "occur here. For example, if I quit this"
+ },
+ {
+  "start": 426.607,
+  "end": 428.114,
+  "en": "script like this, we're not doing anything"
+ },
+ {
+  "start": 428.146,
+  "end": 429.027,
+  "en": "in that case either."
+ },
+ {
+  "start": 429.749,
+  "end": 431.801,
+  "en": "But you might not need to do that. And here,"
+ },
+ {
+  "start": 432.057,
+  "end": 434.366,
+  "en": "this is just a small example anyways."
+ },
+ {
+  "start": 435.039,
+  "end": 437.203,
+  "en": "Now, just as before, it's not like we're"
+ },
+ {
+  "start": 437.203,
+  "end": 438.967,
+  "en": "going to write code like this throughout the"
+ },
+ {
+  "start": 438.967,
+  "end": 441.82,
+  "en": "entire course, but I'm a big fan of teaching"
+ },
+ {
+  "start": 442.189,
+  "end": 444.85,
+  "en": "a topic thoroughly and making it very clear"
+ },
+ {
+  "start": 445.058,
+  "end": 447.271,
+  "en": "how it works under the hood so that if you"
+ },
+ {
+  "start": 447.447,
+  "end": 450.252,
+  "en": "ever face a problem and you need to reach"
+ },
+ {
+  "start": 450.252,
+  "end": 452.77,
+  "en": "out to these low-level APIs you know them"
+ },
+ {
+  "start": 453.155,
+  "end": 454.919,
+  "en": "and you don't just know how to use some"
+ },
+ {
+  "start": 454.919,
+  "end": 457.261,
+  "en": "community libraries and you're totally lost"
+ },
+ {
+  "start": 457.261,
+  "end": 459.138,
+  "en": "if you ever need to work with the technology"
+ },
+ {
+  "start": 459.17,
+  "end": 461.736,
+  "en": "itself. That's why I'm teaching it and"
+ },
+ {
+  "start": 461.736,
+  "end": 464.399,
+  "en": "therefore I hope how Deno works and that we"
+ },
+ {
+  "start": 464.527,
+  "end": 467.494,
+  "en": "got these core APIs and all about that is"
+ },
+ {
+  "start": 467.51,
+  "end": 468.97,
+  "en": "now a bit clearer."
+ }
+]

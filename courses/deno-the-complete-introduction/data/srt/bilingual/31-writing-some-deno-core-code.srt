@@ -1,0 +1,515 @@
+1
+00:00:02,213 --> 00:00:05,388
+Now to play around with Deno and its core
+
+2
+00:00:05,388 --> 00:00:06,494
+namespace APIs,
+
+3
+00:00:07,152 --> 00:00:09,525
+I'm basically in an empty folder again.
+
+4
+00:00:10,215 --> 00:00:11,947
+This just holds some configuration about my
+
+5
+00:00:11,963 --> 00:00:13,711
+IDE. So this is an empty folder
+
+6
+00:00:14,288 --> 00:00:16,518
+and in there I'll add a new file,
+
+7
+00:00:16,550 --> 00:00:18,282
+deno_core.ts.
+
+8
+00:00:18,955 --> 00:00:21,200
+By the way, I named it deno_core
+
+9
+00:00:22,147 --> 00:00:25,017
+because actually in the official style guide
+
+10
+00:00:25,049 --> 00:00:27,904
+which the Deno team released, they recommend
+
+11
+00:00:28,016 --> 00:00:29,940
+that you should name your files like this.
+
+12
+00:00:30,390 --> 00:00:30,662
+So
+
+13
+00:00:31,223 --> 00:00:32,073
+no dashes
+
+14
+00:00:32,650 --> 00:00:35,392
+and no whitespace, instead an underscore.
+
+15
+00:00:35,809 --> 00:00:38,022
+It's not my personal preference if I'm very
+
+16
+00:00:38,102 --> 00:00:40,523
+honest, but of course I wanna follow the
+
+17
+00:00:40,523 --> 00:00:42,816
+official style guide, so that's the naming
+
+18
+00:00:42,848 --> 00:00:43,297
+I'm using.
+
+19
+00:00:44,355 --> 00:00:46,344
+Now for those built-in features,
+
+20
+00:00:47,001 --> 00:00:49,582
+you can always go to the API docs, the
+
+21
+00:00:49,582 --> 00:00:51,186
+official API docs,
+
+22
+00:00:51,907 --> 00:00:52,340
+and there
+
+23
+00:00:53,190 --> 00:00:56,445
+you basically find all the core APIs that
+
+24
+00:00:56,621 --> 00:00:58,321
+are built into Deno.
+
+25
+00:00:59,108 --> 00:01:00,945
+Everything that starts with deno.
+
+26
+00:01:02,121 --> 00:01:03,362
+is accessed like this.
+
+27
+00:01:04,055 --> 00:01:05,296
+So you write deno.
+
+28
+00:01:06,230 --> 00:01:07,740
+and then for example
+
+29
+00:01:09,876 --> 00:01:10,535
+create
+
+30
+00:01:11,804 --> 00:01:15,724
+to create a file. So deno.create, that's
+
+31
+00:01:15,724 --> 00:01:16,810
+something you can write
+
+32
+00:01:17,525 --> 00:01:19,686
+and ignore the error I'm getting by my IDE
+
+33
+00:01:19,963 --> 00:01:20,499
+at the moment.
+
+34
+00:01:21,084 --> 00:01:22,222
+So that's something you can do.
+
+35
+00:01:23,329 --> 00:01:25,585
+Anything that does not start with deno.
+
+36
+00:01:26,372 --> 00:01:27,398
+Like for example,
+
+37
+00:01:28,119 --> 00:01:31,054
+clearInterval or setTimeout, that's
+
+38
+00:01:31,166 --> 00:01:33,844
+available just like this. So you can just
+
+39
+00:01:33,908 --> 00:01:36,281
+write setTimeout. You could also write
+
+40
+00:01:36,554 --> 00:01:39,440
+window.setTimeout since you'll have that
+
+41
+00:01:39,440 --> 00:01:42,455
+global window object in Deno as I mentioned
+
+42
+00:01:42,583 --> 00:01:45,165
+a second ago, but you are also allowed to
+
+43
+00:01:45,213 --> 00:01:47,105
+omit this and set a timer like this.
+
+44
+00:01:48,516 --> 00:01:51,322
+So let's maybe combine that and let's try to
+
+45
+00:01:51,322 --> 00:01:53,519
+create a new file once a timer expired.
+
+46
+00:01:54,392 --> 00:01:57,364
+SetTimeout expects 2 arguments, and the
+
+47
+00:01:57,364 --> 00:01:59,854
+first argument is a function that should be
+
+48
+00:01:59,999 --> 00:02:01,750
+executed when the timer is done,
+
+49
+00:02:02,425 --> 00:02:04,666
+and the second argument is the time the
+
+50
+00:02:04,666 --> 00:02:06,404
+timer should take. And let's maybe use a
+
+51
+00:02:06,469 --> 00:02:08,791
+second here, so 1000 milliseconds.
+
+52
+00:02:09,912 --> 00:02:12,700
+And then I'll call deno.create inside of
+
+53
+00:02:12,732 --> 00:02:15,536
+this function, which is executed once the
+
+54
+00:02:15,536 --> 00:02:16,325
+timer is done.
+
+55
+00:02:18,073 --> 00:02:21,307
+Now this create function as you can see,
+
+56
+00:02:21,628 --> 00:02:22,894
+then takes a path
+
+57
+00:02:23,808 --> 00:02:24,545
+to that file
+
+58
+00:02:25,154 --> 00:02:26,822
+and it returns a promise.
+
+59
+00:02:27,575 --> 00:02:29,643
+This is how you can read this. It returns a
+
+60
+00:02:29,643 --> 00:02:32,271
+promise that gives you access to the created
+
+61
+00:02:32,288 --> 00:02:32,608
+file.
+
+62
+00:02:33,987 --> 00:02:35,622
+And once we created the file,
+
+63
+00:02:36,295 --> 00:02:38,347
+we could then, for example, use writeFile
+
+64
+00:02:39,421 --> 00:02:41,809
+to write to it. Though, as you see, if you
+
+65
+00:02:41,825 --> 00:02:44,213
+have a look at the writeFile documentation,
+
+66
+00:02:44,550 --> 00:02:46,602
+this also automatically creates a new file
+
+67
+00:02:46,906 --> 00:02:49,828
+if needed. So we can actually use that to do
+
+68
+00:02:49,940 --> 00:02:53,168
+both steps in one step, create a new file
+
+69
+00:02:53,232 --> 00:02:54,822
+and write some content to it.
+
+70
+00:02:55,962 --> 00:02:57,760
+So actually here I'll call writeFile
+
+71
+00:02:58,355 --> 00:03:00,362
+and then the first argument is the path to
+
+72
+00:03:00,362 --> 00:03:02,546
+the file and that should be a string as you
+
+73
+00:03:02,546 --> 00:03:02,851
+can tell.
+
+74
+00:03:03,814 --> 00:03:05,565
+And here I wanna create it in the same
+
+75
+00:03:05,661 --> 00:03:07,781
+folder so I'll just use the file name
+
+76
+00:03:08,873 --> 00:03:11,908
+test.txt to create a text file.
+
+77
+00:03:12,807 --> 00:03:14,590
+The second argument is the content of the
+
+78
+00:03:14,590 --> 00:03:17,556
+file And that's the so-called Uint8Array.
+
+79
+00:03:18,197 --> 00:03:20,249
+And as a side note, I am showing you those
+
+80
+00:03:20,361 --> 00:03:22,990
+docs here not because I don't know how to
+
+81
+00:03:23,070 --> 00:03:25,956
+use that, but because I want you to be able
+
+82
+00:03:25,956 --> 00:03:28,793
+to use any API and I want you to be able to
+
+83
+00:03:28,921 --> 00:03:31,150
+read and understand these docs because
+
+84
+00:03:31,246 --> 00:03:31,919
+that's important.
+
+85
+00:03:32,929 --> 00:03:36,215
+So the data should be such a Uint8Array, and
+
+86
+00:03:36,295 --> 00:03:38,924
+that's a type that is part of JavaScript
+
+87
+00:03:39,581 --> 00:03:41,136
+with which you never might have worked
+
+88
+00:03:41,184 --> 00:03:41,521
+before.
+
+89
+00:03:42,223 --> 00:03:43,670
+Creating one is easy though.
+
+90
+00:03:44,457 --> 00:03:46,305
+You see it here in the code snippet. You
+
+91
+00:03:46,305 --> 00:03:48,699
+need to create a so-called text encoder
+
+92
+00:03:49,679 --> 00:03:52,267
+and with that you can encode some text to
+
+93
+00:03:52,428 --> 00:03:54,342
+this uint8 array format.
+
+94
+00:03:55,580 --> 00:03:58,877
+So here I'll just create my encoder, a new
+
+95
+00:03:59,070 --> 00:04:00,098
+text encoder,
+
+96
+00:04:01,014 --> 00:04:01,930
+and then I got my
+
+97
+00:04:04,469 --> 00:04:05,803
+file content here
+
+98
+00:04:06,960 --> 00:04:08,342
+where I use encoder.encode
+
+99
+00:04:09,583 --> 00:04:12,112
+and I pass in some string, and that is, this
+
+100
+00:04:12,306 --> 00:04:16,301
+is the first message we save to a file,
+
+101
+00:04:16,913 --> 00:04:18,579
+or whatever text you wanna save.
+
+102
+00:04:19,590 --> 00:04:21,972
+And then this file content is passed as a
+
+103
+00:04:21,972 --> 00:04:23,392
+second argument to writeFile.
+
+104
+00:04:25,629 --> 00:04:28,536
+Now writeFile also returns a promise, which
+
+105
+00:04:28,649 --> 00:04:30,910
+then does not give us any specific data, but
+
+106
+00:04:30,910 --> 00:04:33,705
+still it will let us know about when it's
+
+107
+00:04:33,882 --> 00:04:34,012
+done.
+
+108
+00:04:36,074 --> 00:04:37,711
+And therefore here we can use then
+
+109
+00:04:38,481 --> 00:04:40,550
+and pass a function to then which will be
+
+110
+00:04:40,550 --> 00:04:41,641
+executed once this
+
+111
+00:04:42,314 --> 00:04:44,704
+file creation and writing to the file is
+
+112
+00:04:44,817 --> 00:04:45,009
+done.
+
+113
+00:04:45,539 --> 00:04:46,758
+And I'll console.log
+
+114
+00:04:47,383 --> 00:04:48,201
+done here.
+
+115
+00:04:49,629 --> 00:04:51,361
+So this is some code. Again, I'm getting
+
+116
+00:04:51,393 --> 00:04:54,152
+some error here, but we can ignore it. This
+
+117
+00:04:54,217 --> 00:04:56,142
+is some code that should work.
+
+118
+00:04:56,847 --> 00:04:58,917
+Now to run it, I'll again use the terminal,
+
+119
+00:04:59,253 --> 00:05:01,708
+the one integrated into the IDE which uses
+
+120
+00:05:01,740 --> 00:05:03,434
+the default system terminal,
+
+121
+00:05:04,147 --> 00:05:05,994
+and we can then deno run
+
+122
+00:05:06,675 --> 00:05:07,128
+deno_core.ts.
+
+123
+00:05:10,462 --> 00:05:11,772
+And this will compile it
+
+124
+00:05:12,387 --> 00:05:13,520
+and crash,
+
+125
+00:05:14,976 --> 00:05:18,034
+and it crashes with a permission denied
+
+126
+00:05:18,131 --> 00:05:18,423
+error.
+
+127
+00:05:19,037 --> 00:05:21,727
+And as I mentioned, permissions are a key
+
+128
+00:05:21,727 --> 00:05:24,158
+thing in Deno, so let's see what's up with
+
+129
+00:05:24,158 --> 00:05:24,386
+those.

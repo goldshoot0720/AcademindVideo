@@ -1,0 +1,595 @@
+1
+00:00:02,118 --> 00:00:04,494
+Okay, so we know about some essential
+
+2
+00:00:04,526 --> 00:00:05,585
+TypeScript basics,
+
+3
+00:00:06,195 --> 00:00:08,057
+actually the core essentials already.
+
+4
+00:00:08,843 --> 00:00:11,026
+But now let's also dive into some other key
+
+5
+00:00:11,026 --> 00:00:13,273
+types which you'll see throughout the course
+
+6
+00:00:13,273 --> 00:00:15,103
+and which you need to know in general. And
+
+7
+00:00:15,199 --> 00:00:17,494
+that are object and array types.
+
+8
+00:00:18,393 --> 00:00:20,704
+Here we're working with numbers and strings,
+
+9
+00:00:20,977 --> 00:00:23,513
+but actually also already with objects.
+
+10
+00:00:24,091 --> 00:00:26,803
+HTMLInputElement And the HTML button
+
+11
+00:00:26,835 --> 00:00:28,151
+element, which is inferred here,
+
+12
+00:00:28,745 --> 00:00:31,699
+is actually an object type because we have
+
+13
+00:00:31,795 --> 00:00:34,299
+DOM objects here in JavaScript.
+
+14
+00:00:35,342 --> 00:00:38,793
+Now, we can also define our own object
+
+15
+00:00:38,793 --> 00:00:39,580
+types, of course.
+
+16
+00:00:40,302 --> 00:00:42,293
+Let's say we have another function,
+
+17
+00:00:42,806 --> 00:00:44,604
+printResult,
+
+18
+00:00:45,535 --> 00:00:48,103
+and here it actually wants a result object,
+
+19
+00:00:48,119 --> 00:00:48,537
+let's say,
+
+20
+00:00:49,933 --> 00:00:54,219
+and it wants that object to have a val, prop
+
+21
+00:00:54,219 --> 00:00:57,607
+so that it console.logs result object val.
+
+22
+00:00:58,201 --> 00:01:00,625
+Now this example clearly is made up here,
+
+23
+00:01:01,091 --> 00:01:03,179
+but it is realistic that in bigger
+
+24
+00:01:03,259 --> 00:01:05,362
+applications which you're writing, you'll
+
+25
+00:01:05,362 --> 00:01:08,301
+have functions that want objects as
+
+26
+00:01:08,333 --> 00:01:09,922
+parameters, for example.
+
+27
+00:01:10,822 --> 00:01:12,186
+So here we want an object
+
+28
+00:01:12,748 --> 00:01:13,712
+which has a val prop.
+
+29
+00:01:14,434 --> 00:01:16,763
+Now you could add any here as an explicit
+
+30
+00:01:16,827 --> 00:01:18,946
+any type to make this code work, but I wanna
+
+31
+00:01:19,011 --> 00:01:21,066
+be very clear that I have an object which
+
+32
+00:01:21,162 --> 00:01:23,905
+has a val prop I also wanna be clear what
+
+33
+00:01:23,905 --> 00:01:26,037
+the type of the val prop value is.
+
+34
+00:01:27,031 --> 00:01:28,954
+And for that, we can set up an object type
+
+35
+00:01:29,035 --> 00:01:31,824
+by adding curly braces here after the type
+
+36
+00:01:31,824 --> 00:01:32,754
+definition colon,
+
+37
+00:01:33,603 --> 00:01:35,895
+and then we simply define the structure of
+
+38
+00:01:35,911 --> 00:01:38,332
+the object here. So with this code, I'm not
+
+39
+00:01:38,332 --> 00:01:41,169
+creating a new object. This is not a place
+
+40
+00:01:41,233 --> 00:01:43,157
+in code where we could create an object.
+
+41
+00:01:43,622 --> 00:01:45,754
+Instead, here I just define
+
+42
+00:01:46,347 --> 00:01:49,537
+the structure of the object I expect to get
+
+43
+00:01:49,537 --> 00:01:52,519
+here on result object. I'm defining a
+
+44
+00:01:52,519 --> 00:01:54,346
+so-called object type. Type.
+
+45
+00:01:55,790 --> 00:01:56,801
+And with that here,
+
+46
+00:01:57,475 --> 00:01:59,689
+we can then say that we want to have a val
+
+47
+00:01:59,817 --> 00:02:00,394
+field in there,
+
+48
+00:02:01,004 --> 00:02:04,084
+and val, let's say, is always a number.
+
+49
+00:02:05,512 --> 00:02:07,212
+Now of course we could have more properties
+
+50
+00:02:07,261 --> 00:02:10,421
+in there separated by a semicolon. We could,
+
+51
+00:02:10,469 --> 00:02:12,731
+for example, also have a
+
+52
+00:02:13,613 --> 00:02:14,624
+timestamp here,
+
+53
+00:02:15,843 --> 00:02:18,266
+and that should actually be of type Date
+
+54
+00:02:18,651 --> 00:02:20,913
+object. The Date object is built into
+
+55
+00:02:20,977 --> 00:02:22,918
+JavaScript, and we can refer to its
+
+56
+00:02:22,918 --> 00:02:25,859
+constructor function as a type like this.
+
+57
+00:02:27,850 --> 00:02:30,370
+And now when we call printResult, we have to
+
+58
+00:02:30,370 --> 00:02:32,552
+ensure that we pass in such an object.
+
+59
+00:02:33,250 --> 00:02:35,316
+So here I can call printResult
+
+60
+00:02:36,575 --> 00:02:39,013
+and pass in an object which has a val key
+
+61
+00:02:39,093 --> 00:02:40,272
+which should hold a number,
+
+62
+00:02:40,853 --> 00:02:43,369
+hence I use result here because that holds a
+
+63
+00:02:43,369 --> 00:02:43,756
+number,
+
+64
+00:02:44,964 --> 00:02:46,784
+and I need the timestamp here.
+
+65
+00:02:47,461 --> 00:02:50,296
+The timestamp can be generated with new Date
+
+66
+00:02:50,296 --> 00:02:50,731
+like this.
+
+67
+00:02:53,940 --> 00:02:56,299
+Now here actually TypeScript is not able to
+
+68
+00:02:56,347 --> 00:02:58,962
+understand correctly that result will always
+
+69
+00:02:59,139 --> 00:02:59,653
+be a number
+
+70
+00:03:00,214 --> 00:03:02,188
+since I'm passing in 2 numbers. It
+
+71
+00:03:02,204 --> 00:03:04,804
+theoretically could be able to infer this,
+
+72
+00:03:05,092 --> 00:03:06,954
+that we then always return a number.
+
+73
+00:03:07,644 --> 00:03:09,281
+But to let TypeScript know that this will
+
+74
+00:03:09,409 --> 00:03:12,041
+always be a number, I can of course cast it
+
+75
+00:03:12,057 --> 00:03:14,384
+with as number because I know that this
+
+76
+00:03:14,464 --> 00:03:15,266
+always is a number.
+
+77
+00:03:16,165 --> 00:03:18,379
+And with that, we're passing such an object
+
+78
+00:03:18,892 --> 00:03:21,424
+And here we're creating the concrete object
+
+79
+00:03:21,616 --> 00:03:22,129
+as a value.
+
+80
+00:03:22,658 --> 00:03:24,965
+We're passing it to printResult where we
+
+81
+00:03:24,965 --> 00:03:28,442
+defined the type of the parameter and that
+
+82
+00:03:28,490 --> 00:03:30,782
+the type should be such an object type.
+
+83
+00:03:31,535 --> 00:03:33,458
+With that, we make it very clear which kind
+
+84
+00:03:33,458 --> 00:03:35,605
+of data we're accepting and how it should
+
+85
+00:03:35,637 --> 00:03:36,102
+look like.
+
+86
+00:03:37,464 --> 00:03:39,579
+Now, objects are nice. Sometimes you of
+
+87
+00:03:39,627 --> 00:03:40,813
+course work with arrays.
+
+88
+00:03:41,566 --> 00:03:43,569
+Let's say instead of logging my results
+
+89
+00:03:43,569 --> 00:03:45,139
+here, I wanna store them in arrays.
+
+90
+00:03:45,897 --> 00:03:46,820
+So I'll add some
+
+91
+00:03:47,743 --> 00:03:48,359
+arrays up there,
+
+92
+00:03:49,930 --> 00:03:52,424
+numResults, which initially is an empty
+
+93
+00:03:52,440 --> 00:03:52,618
+array,
+
+94
+00:03:54,297 --> 00:03:56,874
+and stringResults or
+
+95
+00:03:57,412 --> 00:03:59,760
+textResults, which is an empty array.
+
+96
+00:04:00,837 --> 00:04:02,526
+And here where I
+
+97
+00:04:03,191 --> 00:04:04,214
+generate a new
+
+98
+00:04:05,156 --> 00:04:08,225
+numeric result, I'll reach out to numResults
+
+99
+00:04:08,241 --> 00:04:09,525
+and push the result.
+
+100
+00:04:10,662 --> 00:04:13,815
+And here I'll reach out to textResults and
+
+101
+00:04:13,928 --> 00:04:15,358
+push my string result.
+
+102
+00:04:18,039 --> 00:04:20,525
+And thereafter, I will actually console.log
+
+103
+00:04:21,025 --> 00:04:23,883
+numResults here and textResults.
+
+104
+00:04:26,586 --> 00:04:28,498
+Now you already see that I'm getting an
+
+105
+00:04:28,595 --> 00:04:28,948
+error here,
+
+106
+00:04:29,478 --> 00:04:32,595
+that the type of numResults implicitly is
+
+107
+00:04:33,174 --> 00:04:33,431
+any
+
+108
+00:04:34,459 --> 00:04:36,942
+array, and that describes the problem really
+
+109
+00:04:37,040 --> 00:04:37,170
+well.
+
+110
+00:04:38,257 --> 00:04:40,676
+We are pretty specific about the types of
+
+111
+00:04:40,708 --> 00:04:42,380
+data we accept in this function, for
+
+112
+00:04:42,413 --> 00:04:42,948
+example.
+
+113
+00:04:43,573 --> 00:04:46,351
+We are very unspecific regarding those
+
+114
+00:04:46,383 --> 00:04:46,753
+arrays.
+
+115
+00:04:47,282 --> 00:04:49,723
+Sure, both constants hold arrays,
+
+116
+00:04:50,397 --> 00:04:53,255
+but we're not specific regarding the values
+
+117
+00:04:53,448 --> 00:04:55,584
+stored inside of the arrays.
+
+118
+00:04:56,659 --> 00:04:58,265
+And that's something we can be with
+
+119
+00:04:58,265 --> 00:05:00,690
+TypeScript. We can assign a type to this
+
+120
+00:05:00,738 --> 00:05:03,002
+constant just as we assigned it to a
+
+121
+00:05:03,002 --> 00:05:06,020
+parameter with a colon after the constant or
+
+122
+00:05:06,133 --> 00:05:06,759
+variable name.
+
+123
+00:05:07,658 --> 00:05:10,058
+And then here, We wanna set this to type
+
+124
+00:05:10,075 --> 00:05:12,673
+number, but not like this, but to an array
+
+125
+00:05:12,722 --> 00:05:14,756
+full of numbers. And for that, the
+
+126
+00:05:14,756 --> 00:05:17,177
+TypeScript shortcut, or the TypeScript way
+
+127
+00:05:17,177 --> 00:05:19,766
+of expressing this, is number followed by
+
+128
+00:05:19,766 --> 00:05:23,381
+square brackets. This means that the type of
+
+129
+00:05:23,445 --> 00:05:25,951
+data stored in numResults is an array full
+
+130
+00:05:25,951 --> 00:05:26,465
+of numbers.
+
+131
+00:05:27,220 --> 00:05:29,525
+And here we can set this to string array.
+
+132
+00:05:30,923 --> 00:05:32,796
+Now with that, the push methods down there
+
+133
+00:05:32,925 --> 00:05:35,605
+complain because result is this union type,
+
+134
+00:05:35,831 --> 00:05:37,990
+and therefore it could be a string. It's the
+
+135
+00:05:37,990 --> 00:05:40,497
+same problem as before. So here we can
+
+136
+00:05:40,497 --> 00:05:40,805
+simply
+
+137
+00:05:41,403 --> 00:05:43,296
+tell TypeScript that we know that this is a
+
+138
+00:05:43,361 --> 00:05:45,739
+number and we know that this is a string.
+
+139
+00:05:46,850 --> 00:05:48,705
+With that, everything works and we can
+
+140
+00:05:48,901 --> 00:05:52,238
+compile this code— whoops— compile this code
+
+141
+00:05:52,238 --> 00:05:52,677
+like this,
+
+142
+00:05:54,708 --> 00:05:55,240
+run it here,
+
+143
+00:05:56,739 --> 00:06:00,139
+enter 5 and 11, and we see that those values
+
+144
+00:06:00,445 --> 00:06:02,589
+were added to the respective arrays.
+
+145
+00:06:04,180 --> 00:06:07,277
+These are array types, and array types are
+
+146
+00:06:07,406 --> 00:06:09,342
+of course very important because that
+
+147
+00:06:09,342 --> 00:06:12,535
+ensures that we never add wrong data
+
+148
+00:06:12,568 --> 00:06:15,164
+accidentally to an array that shouldn't hold
+
+149
+00:06:15,164 --> 00:06:15,277
+it.

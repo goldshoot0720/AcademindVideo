@@ -23,7 +23,7 @@ def main():
             continue
         zh = json.load(open(tp, encoding="utf-8"))
         segs = json.load(open(f"data/segments/{slug}.json", encoding="utf-8"))
-        idxs = [i for i, t in enumerate(zh) if not str(t).strip()]
+        idxs = [i for i, t in enumerate(zh) if t is None or not str(t).strip()]
         if not idxs:
             continue
         print(f"{slug}: refilling {len(idxs)} blanks")

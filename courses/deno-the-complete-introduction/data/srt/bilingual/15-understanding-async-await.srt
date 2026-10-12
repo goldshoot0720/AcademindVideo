@@ -1,651 +1,814 @@
 1
 00:00:02,195 --> 00:00:05,527
 Modern JavaScript gives us an alternative
+現代 JavaScript 為我們提供了另一種選擇
 
 2
 00:00:05,639 --> 00:00:09,020
 promise handling syntax which we can also
+我們也可以承諾處理文法
 
 3
 00:00:09,068 --> 00:00:11,199
 use instead of then and catch,
+使用而不是 then 並捕獲，
 
 4
 00:00:12,289 --> 00:00:14,211
 and that's the async/await syntax.
+這就是 async/await 文法。
 
 5
 00:00:15,012 --> 00:00:17,095
 It's also used by Deno, which is why I wanna
+Deno 也使用它，這就是我想要的原因
 
 6
 00:00:17,095 --> 00:00:17,768
 show it to you here,
+在這裡給你展示一下，
 
 7
 00:00:18,297 --> 00:00:20,893
 and it's just syntactic sugar for promises.
+它只是承諾的語法糖。
 
 8
 00:00:20,941 --> 00:00:21,950
 That's really important.
+這真的很重要。
 
 9
 00:00:23,184 --> 00:00:25,811
 Whenever you see async/await, and you'll see
+每當你看到 async/await 時，你都會看到
 
 10
 00:00:25,811 --> 00:00:27,157
 it in action in just a second,
+只需一秒鐘即可啟動，
 
 11
 00:00:27,734 --> 00:00:28,407
 under the hood,
+在引擎蓋下，
 
 12
 00:00:29,113 --> 00:00:31,764
 We have a promise with then and catch. We
+我們有一個承諾，然後趕上。我們
 
 13
 00:00:31,764 --> 00:00:34,398
 just don't write that then and catch block
+只是不要寫 then 和 catch 區塊
 
 14
 00:00:34,559 --> 00:00:36,904
 on our own. Instead, we use async await
+靠我們自己。相反，我們使用非同步等待
 
 15
 00:00:36,904 --> 00:00:39,234
 because, as you will see, it's a bit easier
+因為，正如您將看到的，這更容易一些
 
 16
 00:00:39,298 --> 00:00:41,932
 to write. It's nicer code, easier to read.
+寫。這是更好的程式碼，更容易閱讀。
 
 17
 00:00:43,009 --> 00:00:45,980
 It makes asynchronous code, promise-based
+它使非同步程式碼基於承諾
 
 18
 00:00:45,980 --> 00:00:48,551
 code, look like synchronous code. It looks
+程式碼，看起來像同步程式碼。看起來
 
 19
 00:00:48,551 --> 00:00:48,936
 like
+喜歡
 
 20
 00:00:49,498 --> 00:00:51,603
 we don't have those functions which we pass
+我們沒有傳遞的那些函式
 
 21
 00:00:51,603 --> 00:00:54,061
 to then. It looks like we just have lines of
+到那時。看起來我們只有幾行
 
 22
 00:00:54,093 --> 00:00:56,886
 code that execute after each other as we're
+像我們一樣依序執行的程式碼
 
 23
 00:00:56,902 --> 00:00:57,271
 used to.
+習慣了。
 
 24
 00:00:58,249 --> 00:01:00,204
 And in order to use async/await, we
+為了使用 async/await，我們
 
 25
 00:01:00,268 --> 00:01:04,194
 typically require a function marked as async
+通常需要一個標記為非同步的函式
 
 26
 00:01:04,194 --> 00:01:06,838
 with the async keyword, and then we can use
+與 async 關鍵字一起，然後我們可以使用
 
 27
 00:01:06,838 --> 00:01:10,011
 the await keyword inside of that function to
+該函式內部的await關鍵字
 
 28
 00:01:10,107 --> 00:01:12,735
 await for a promise to resolve.
+等待解決的承諾。
 
 29
 00:01:13,328 --> 00:01:16,277
 I'm saying typically here because with Deno,
+我在這裡說的是典型的，因為對於 Deno，
 
 30
 00:01:16,757 --> 00:01:17,927
 but also with modern
+但也與現代
 
 31
 00:01:18,777 --> 00:01:20,027
 Node.js actually,
+Node.js 實際上，
 
 32
 00:01:20,684 --> 00:01:23,251
 you also can use top-level await. You can
+您還可以使用頂級等待。你可以
 
 33
 00:01:23,251 --> 00:01:25,596
 use the await keyword outside of async
+在 async 之外使用 wait 關鍵字
 
 34
 00:01:25,596 --> 00:01:26,126
 functions.
+功能。
 
 35
 00:01:26,801 --> 00:01:28,536
 But we're already diving into this a little
+但我們已經深入研究了這一點
 
 36
 00:01:28,568 --> 00:01:29,387
 bit too deeply.
+有點太深了。
 
 37
 00:01:29,917 --> 00:01:32,696
 Let's first of all see what async await is
+首先我們來看看什麼是asyncawait
 
 38
 00:01:32,824 --> 00:01:35,298
 really all about and how the syntax looks
+真正關於文法的外觀
 
 39
 00:01:35,298 --> 00:01:35,555
 like.
+喜歡。
 
 40
 00:01:36,342 --> 00:01:39,619
 So back here in this code, we got this fetch
+回到這段程式碼，我們得到了這個 fetch
 
 41
 00:01:39,731 --> 00:01:42,189
 function here. We got this fetch function
+在這裡發揮作用。我們得到了這個 fetch 函式
 
 42
 00:01:42,285 --> 00:01:44,358
 which then gives us this promise chain.
+然後給我們這個承諾鏈。
 
 43
 00:01:45,096 --> 00:01:47,859
 Now it is important to recognize that if we
+現在重要的是要認識到，如果我們
 
 44
 00:01:47,907 --> 00:01:51,582
 log hello world here after the fetch
+取得後請在此記錄 hello world
 
 45
 00:01:51,694 --> 00:01:52,255
 request,
+要求，
 
 46
 00:01:52,896 --> 00:01:54,883
 you will actually see the result from that
+你實際上會看到結果
 
 47
 00:01:54,899 --> 00:01:59,305
 log before you see that or this log message.
+在您看到該紀錄訊息或此紀錄訊息之前進行紀錄記錄。
 
 48
 00:02:00,171 --> 00:02:00,956
 If we reload,
+如果我們重新載入，
 
 49
 00:02:01,773 --> 00:02:04,129
 we see hello world first before we see the
+我們先看到 hello world，然後再看到
 
 50
 00:02:04,129 --> 00:02:06,612
 status code or the extracted data.
+狀態程式碼或提取的資料。
 
 51
 00:02:07,237 --> 00:02:10,041
 And that's not by accident or because of a
+這不是偶然的，也不是因為
 
 52
 00:02:10,041 --> 00:02:12,926
 bug, but that happens because JavaScript
+bug，但發生這種情況是因為 JavaScript
 
 53
 00:02:13,006 --> 00:02:14,496
 execution doesn't pause.
+執行不會暫停。
 
 54
 00:02:15,233 --> 00:02:16,499
 It executes this line
+它執行這一行
 
 55
 00:02:17,076 --> 00:02:20,187
 and registers all those then handlers, you
+並註冊所有這些處理程式，您
 
 56
 00:02:20,203 --> 00:02:20,572
 could say,
+可以說，
 
 57
 00:02:21,326 --> 00:02:23,138
 but then it moves on right away to the next
+但然後它立即轉移到下一個
 
 58
 00:02:23,186 --> 00:02:25,222
 line and to the next line and to the next
+行和下一行和下一行
 
 59
 00:02:25,254 --> 00:02:25,463
 line.
+線。
 
 60
 00:02:26,297 --> 00:02:29,247
 And those handlers are only registered to
+這些處理程式僅註冊到
 
 61
 00:02:29,359 --> 00:02:32,486
 run at some point in the future once this
+一旦這個在未來的某個時刻運行
 
 62
 00:02:32,486 --> 00:02:34,491
 promise resolved. That's why we see this
+承諾解決了。這就是為什麼我們看到這個
 
 63
 00:02:34,491 --> 00:02:34,827
 first.
+第一的。
 
 64
 00:02:36,094 --> 00:02:38,067
 Now that is regular JavaScript.
+現在這就是常規的 JavaScript。
 
 65
 00:02:38,981 --> 00:02:41,594
 Now using these then methods and passing
+現在使用這些 then 方法並傳遞
 
 66
 00:02:41,626 --> 00:02:44,433
 those callback functions to then can be a
+then 的那些回呼函式可以是
 
 67
 00:02:44,497 --> 00:02:47,901
 bit cumbersome and you might not like this
+有點麻煩，你可能不喜歡這個
 
 68
 00:02:48,029 --> 00:02:48,575
 syntax.
+句法。
 
 69
 00:02:49,795 --> 00:02:51,930
 For that, you can use async await. And as I
+為此，您可以使用非同步等待。正如我
 
 70
 00:02:51,994 --> 00:02:55,156
 said, you need a function marked as
+說，你需要一個標記為的函式
 
 71
 00:02:55,333 --> 00:02:58,046
 asynchronous to use the await keyword in it,
+非同步使用其中的await關鍵字，
 
 72
 00:02:58,463 --> 00:03:01,048
 at least at the moment in JavaScript. In
+至少目前在 JavaScript 是如此。在
 
 73
 00:03:01,208 --> 00:03:01,690
 Deno,
+德諾，
 
 74
 00:03:02,316 --> 00:03:04,483
 which is also JavaScript but with extra
+這也是 JavaScript，但有額外的
 
 75
 00:03:04,483 --> 00:03:07,517
 features, you will not need this extra async
+功能，您將不需要這個額外的非同步
 
 76
 00:03:07,533 --> 00:03:09,684
 function wrapper, but I'll come back to that
+函式包裝器，但我會回到那個
 
 77
 00:03:09,780 --> 00:03:11,209
 once we write some Deno code.
+一旦我們編寫了一些 Deno 程式碼。
 
 78
 00:03:11,949 --> 00:03:14,509
 So here I'll add a function sendRequest
+所以這裡我加入一個函式sendRequest
 
 79
 00:03:15,668 --> 00:03:18,018
 which simply holds all that fetch logic.
+它只儲存所有的獲取邏輯。
 
 80
 00:03:19,612 --> 00:03:21,045
 And then here I just call sendRequest.
+然後在這裡我只呼叫sendRequest。
 
 81
 00:03:22,422 --> 00:03:24,414
 And now we can actually add the async
+現在我們實際上可以添加非同步
 
 82
 00:03:24,414 --> 00:03:26,326
 keyword in front of that function
+該函式前面的關鍵字
 
 83
 00:03:26,921 --> 00:03:28,318
 to tell JavaScript
+告訴JavaScript
 
 84
 00:03:28,849 --> 00:03:31,146
 that here we wanna use the await keyword
+在這裡我們想使用await關鍵字
 
 85
 00:03:31,500 --> 00:03:32,435
 inside of that function.
+在該函式內部。
 
 86
 00:03:33,261 --> 00:03:35,965
 Async functions by default return a promise.
+非同步函式預設回傳一個承諾。
 
 87
 00:03:36,030 --> 00:03:38,227
 That's important. Even if you don't have a
+這很重要。即使您沒有
 
 88
 00:03:38,227 --> 00:03:40,122
 return statement in there, they always
+return 語句在那裡，他們總是
 
 89
 00:03:40,219 --> 00:03:42,789
 return an empty promise then, but still a
+然後回傳一個空的承諾，但仍然是
 
 90
 00:03:42,789 --> 00:03:43,271
 promise.
+承諾。
 
 91
 00:03:43,914 --> 00:03:46,581
 And even more importantly for us here, we
+對我們來說更重要的是，我們
 
 92
 00:03:46,581 --> 00:03:47,995
 can use this await keyword.
+可以使用這個await關鍵字。
 
 93
 00:03:48,589 --> 00:03:49,602
 And how do we use it?
+我們如何使用它？
 
 94
 00:03:50,437 --> 00:03:52,622
 Well, instead of getting the response in
+好吧，而不是得到回應
 
 95
 00:03:52,686 --> 00:03:52,959
 this
+這
 
 96
 00:03:53,731 --> 00:03:54,807
 argument function here,
+這裡的參數函式，
 
 97
 00:03:55,739 --> 00:03:57,345
 it would be nice if we could type
+如果我們能打字就好了
 
 98
 00:03:57,988 --> 00:04:00,623
 response equals fetch. So the result of
+回應等於獲取。所以結果是
 
 99
 00:04:00,623 --> 00:04:02,551
 fetch, that's what we're used to in
+fetch，這就是我們習慣的
 
 100
 00:04:02,551 --> 00:04:04,959
 JavaScript, right? We call a function, it
+JavaScript，對吧？我們呼叫一個函式，它
 
 101
 00:04:04,976 --> 00:04:07,110
 returns a result, and we can store that
+傳回一個結果，我們可以儲存它
 
 102
 00:04:07,142 --> 00:04:09,116
 result in a constant or variable.
+結果為常數或變數。
 
 103
 00:04:10,111 --> 00:04:11,989
 Now here that doesn't work because that
+現在這裡不起作用，因為
 
 104
 00:04:12,182 --> 00:04:15,183
 promise is an object which just eventually
+Promise 是一個物件，最終
 
 105
 00:04:15,327 --> 00:04:16,884
 gives us the final result.
+給我們最終的結果。
 
 106
 00:04:17,510 --> 00:04:20,062
 So when I store fetch in response like this,
+所以當我像這樣儲存 fetch 回應時，
 
 107
 00:04:20,206 --> 00:04:23,015
 I store the promise in response and not the
+我將承諾儲存在回應中，而不是
 
 108
 00:04:23,015 --> 00:04:25,374
 result the promise yields in the end.
+結果承諾最終兌現。
 
 109
 00:04:26,321 --> 00:04:27,894
 We can change this with await.
+我們可以用await 來改變這件事。
 
 110
 00:04:28,487 --> 00:04:31,194
 By adding await in front of a promise,
+透過在 Promise 前面新增 wait，
 
 111
 00:04:31,792 --> 00:04:33,700
 and that's important, you can only use it in
+這很重要，你只能在以下情況下使用它
 
 112
 00:04:33,733 --> 00:04:34,687
 front of a promise.
+前面的承諾。
 
 113
 00:04:35,511 --> 00:04:37,872
 You wait for that promise to resolve
+你等待那個承諾的兌現
 
 114
 00:04:38,648 --> 00:04:40,627
 and you store the resolved value
+然後您儲存解析值
 
 115
 00:04:41,179 --> 00:04:42,446
 in that constant then.
+那麼在那個常數中。
 
 116
 00:04:43,779 --> 00:04:46,135
 And now this replaces this then block.
+現在它取代了 then 區塊。
 
 117
 00:04:47,575 --> 00:04:49,096
 We don't need it anymore. We got the
+我們不再需要它了。我們得到了
 
 118
 00:04:49,096 --> 00:04:50,390
 response stored here.
+回應存儲在這裡。
 
 119
 00:04:50,972 --> 00:04:53,754
 We can then console.log response.status here
+然後我們可以在這裡console.log response.status
 
 120
 00:04:54,838 --> 00:04:56,164
 and we can get our
+我們可以得到我們的
 
 121
 00:04:56,712 --> 00:04:58,730
 data, our extracted data,
+資料，我們提取的資料，
 
 122
 00:04:59,618 --> 00:05:03,607
 by awaiting response.json. We await again
+透過等待response.json。我們再次等待
 
 123
 00:05:03,736 --> 00:05:06,259
 because JSON also returns
+因為 JSON 也回傳
 
 124
 00:05:06,837 --> 00:05:08,275
 a promise, as you can see here.
+正如您在此處看到的那樣，這是一個承諾。
 
 125
 00:05:10,457 --> 00:05:12,316
 And then we can get rid of this as well and
+然後我們也可以擺脫這個
 
 126
 00:05:12,332 --> 00:05:14,354
 just console.log the extracted data.
+只需 console.log 提取的資料即可。
 
 127
 00:05:15,551 --> 00:05:17,443
 And I'll talk about catch in a second.
+我稍後會討論catch。
 
 128
 00:05:18,957 --> 00:05:21,586
 So now this replaces the code we had before.
+所以現在這取代了我們之前的程式碼。
 
 129
 00:05:22,212 --> 00:05:24,138
 And it looks totally different, but under
+它看起來完全不同，但在
 
 130
 00:05:24,138 --> 00:05:27,348
 the hood, this code is transformed back into
+引擎蓋，這段程式碼轉換回
 
 131
 00:05:27,428 --> 00:05:29,001
 that then chaining.
+然後連結。
 
 132
 00:05:29,739 --> 00:05:31,488
 It's really important to keep in mind that
+記住這一點非常重要
 
 133
 00:05:31,584 --> 00:05:32,788
 this invisibly
+這在無形中
 
 134
 00:05:33,671 --> 00:05:35,789
 is kind of transformed back into this
+有點變回這個
 
 135
 00:05:35,853 --> 00:05:38,309
 function that was passed to then. This is
+傳遞給 then 的函式。這是
 
 136
 00:05:38,405 --> 00:05:40,588
 just more readable and looks more like
+只是更具可讀性並且看起來更像
 
 137
 00:05:40,668 --> 00:05:43,348
 regular JavaScript code we're used to, but
+我們習慣了常規的 JavaScript 程式碼，但是
 
 138
 00:05:43,380 --> 00:05:45,595
 it's super important to be aware that it's
+意識到它是非常重要的
 
 139
 00:05:45,627 --> 00:05:48,852
 just a behind-the-scenes transformation that
+只是一個幕後的轉變
 
 140
 00:05:48,852 --> 00:05:51,129
 JavaScript doesn't magically change here.
+JavaScript 不會在這裡神奇地改變。
 
 141
 00:05:51,257 --> 00:05:52,235
 That's really important.
+這真的很重要。
 
 142
 00:05:53,486 --> 00:05:55,538
 Now to handle errors, you can then use
+現在要處理錯誤，您可以使用
 
 143
 00:05:55,666 --> 00:05:56,596
 try-catch
+嘗試捕獲
 
 144
 00:05:57,269 --> 00:05:59,931
 and wrap the code that could fail with try
+並用 try 包裝可能失敗的程式碼
 
 145
 00:06:00,797 --> 00:06:02,432
 to then catch any error here
+然後在這裡捕獲任何錯誤
 
 146
 00:06:03,121 --> 00:06:05,494
 and execute your error handling code
+並執行你的錯誤處理程式碼
 
 147
 00:06:05,526 --> 00:06:06,023
 thereafter.
+此後。
 
 148
 00:06:06,889 --> 00:06:09,037
 So that's how you would do it for normal
+這就是你正常情況下該做的
 
 149
 00:06:09,069 --> 00:06:11,683
 synchronous code and you can also use this
+同步程式碼，你也可以使用這個
 
 150
 00:06:11,683 --> 00:06:12,629
 on async/await.
+在非同步/等待上。
 
 151
 00:06:13,462 --> 00:06:15,370
 And with that, if we save that and reload in
+這樣，如果我們儲存並重新載入
 
 152
 00:06:15,370 --> 00:06:17,839
 a modern browser, async/await is supported
+現代瀏覽器，支援 async/await
 
 153
 00:06:18,176 --> 00:06:20,341
 And we therefore see exactly the same result
+因此我們看到了完全相同的結果
 
 154
 00:06:20,341 --> 00:06:20,998
 as before,
+和以前一樣，
 
 155
 00:06:21,624 --> 00:06:23,708
 but this now is a bit more readable.
+但現在更具可讀性了。
 
 156
 00:06:24,382 --> 00:06:27,573
 So async/await is optional. Promises are a
+所以 async/await 是可選的。承諾是一個
 
 157
 00:06:27,637 --> 00:06:29,593
 core feature built into JavaScript.
+JavaScript 內建的核心功能。
 
 158
 00:06:30,042 --> 00:06:32,367
 Async/await is just syntactic sugar,
+Async/await 只是文法糖，
 
 159
 00:06:33,009 --> 00:06:35,687
 also built into JavaScript, but not a brand
+也內建在 JavaScript 中，但不是品牌
 
 160
 00:06:35,751 --> 00:06:39,616
 new feature. Instead, it's just a new syntax
+新功能。相反，它只是一個新語法
 
 161
 00:06:39,760 --> 00:06:41,251
 for working with promises,
+為了兌現承諾，
 
 162
 00:06:41,925 --> 00:06:43,817
 and it's important because we will use it in
+這很重要，因為我們將使用它
 
 163
 00:06:43,849 --> 00:06:44,298
 this course.
+這門課程。

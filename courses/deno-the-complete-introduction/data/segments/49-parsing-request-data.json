@@ -1,0 +1,472 @@
+[
+ {
+  "start": 2.199,
+  "end": 5.089,
+  "en": "Let's understand how requests reach the"
+ },
+ {
+  "start": 5.089,
+  "end": 7.225,
+  "en": "server and how we send back responses."
+ },
+ {
+  "start": 8.317,
+  "end": 10.292,
+  "en": "So we got an incoming request on the server,"
+ },
+ {
+  "start": 10.709,
+  "end": 13.118,
+  "en": "and from that server, as you just saw, you"
+ },
+ {
+  "start": 13.118,
+  "end": 15.173,
+  "en": "can extract various kinds of information."
+ },
+ {
+  "start": 15.687,
+  "end": 17.549,
+  "en": "You can extract the headers, but you can"
+ },
+ {
+  "start": 17.598,
+  "end": 20.151,
+  "en": "also find out what the method or the URL is."
+ },
+ {
+  "start": 21.467,
+  "end": 22.977,
+  "en": "Now then, as a next step,"
+ },
+ {
+  "start": 23.555,
+  "end": 24.775,
+  "en": "and that's what we're going to do in a"
+ },
+ {
+  "start": 24.775,
+  "end": 27.569,
+  "en": "second, You can extract the body of the"
+ },
+ {
+  "start": 27.569,
+  "end": 30.748,
+  "en": "request, so any data that might be attached"
+ },
+ {
+  "start": 30.844,
+  "end": 31.679,
+  "en": "to the request."
+ },
+ {
+  "start": 32.209,
+  "end": 35.244,
+  "en": "And I'm saying might because requests don't"
+ },
+ {
+  "start": 35.276,
+  "end": 37.813,
+  "en": "need to carry data. They can, but they don't"
+ },
+ {
+  "start": 37.829,
+  "end": 38.262,
+  "en": "have to."
+ },
+ {
+  "start": 39.531,
+  "end": 41.104,
+  "en": "Important here at this point"
+ },
+ {
+  "start": 41.682,
+  "end": 44.557,
+  "en": "is that the body, the data, is actually"
+ },
+ {
+  "start": 44.653,
+  "end": 47.415,
+  "en": "being streamed in. So when the request hits"
+ },
+ {
+  "start": 47.479,
+  "end": 48.089,
+  "en": "the server,"
+ },
+ {
+  "start": 48.667,
+  "end": 50.706,
+  "en": "the data might not be fully there yet."
+ },
+ {
+  "start": 51.06,
+  "end": 53.816,
+  "en": "Instead, it's streamed in chunk by chunk"
+ },
+ {
+  "start": 54.44,
+  "end": 56.924,
+  "en": "and therefore our request handling logic"
+ },
+ {
+  "start": 57.18,
+  "end": 60.193,
+  "en": "needs to be able to deal with that stream of"
+ },
+ {
+  "start": 60.289,
+  "end": 60.625,
+  "en": "data."
+ },
+ {
+  "start": 61.907,
+  "end": 62.821,
+  "en": "Once we got the"
+ },
+ {
+  "start": 63.349,
+  "end": 65.513,
+  "en": "data, once all the data is there and we"
+ },
+ {
+  "start": 65.513,
+  "end": 66.121,
+  "en": "parsed it,"
+ },
+ {
+  "start": 66.698,
+  "end": 69.518,
+  "en": "we can run our core logic. We can, for"
+ },
+ {
+  "start": 69.518,
+  "end": 72.226,
+  "en": "example, reach out to a database or to a"
+ },
+ {
+  "start": 72.226,
+  "end": 74.95,
+  "en": "file to store the data in there if that's"
+ },
+ {
+  "start": 74.95,
+  "end": 75.623,
+  "en": "what we wanna do."
+ },
+ {
+  "start": 76.649,
+  "end": 78.828,
+  "en": "And then we can prepare the response. Set up"
+ },
+ {
+  "start": 78.877,
+  "end": 81.236,
+  "en": "the body of the response and any metadata"
+ },
+ {
+  "start": 81.236,
+  "end": 83.628,
+  "en": "like headers that should be added to the"
+ },
+ {
+  "start": 83.628,
+  "end": 84.254,
+  "en": "response"
+ },
+ {
+  "start": 84.816,
+  "end": 87.047,
+  "en": "and send the response back to the client."
+ },
+ {
+  "start": 87.946,
+  "end": 90.097,
+  "en": "This is how requests and responses are"
+ },
+ {
+  "start": 90.193,
+  "end": 91.349,
+  "en": "handled on the server."
+ },
+ {
+  "start": 92.039,
+  "end": 94.591,
+  "en": "Let's now take care about that body parsing."
+ },
+ {
+  "start": 95.651,
+  "end": 96.758,
+  "en": "To parse the body"
+ },
+ {
+  "start": 97.577,
+  "end": 99.808,
+  "en": "on the request, we got that body"
+ },
+ {
+  "start": 100.562,
+  "end": 101.092,
+  "en": "property"
+ },
+ {
+  "start": 101.831,
+  "end": 102.376,
+  "en": "and in"
+ },
+ {
+  "start": 102.954,
+  "end": 105.33,
+  "en": "the hint here, we even got a snippet on how"
+ },
+ {
+  "start": 105.394,
+  "end": 107.995,
+  "en": "we could parse this. And this is roughly"
+ },
+ {
+  "start": 108.172,
+  "end": 109.649,
+  "en": "what we're going to rebuild here"
+ },
+ {
+  "start": 110.355,
+  "end": 111.206,
+  "en": "because the body"
+ },
+ {
+  "start": 111.945,
+  "end": 114.771,
+  "en": "object which we actually got here has a read"
+ },
+ {
+  "start": 114.771,
+  "end": 117.147,
+  "en": "method because as I said, it's a stream of"
+ },
+ {
+  "start": 117.179,
+  "end": 121.193,
+  "en": "data and the read method wants a Uint8Array"
+ },
+ {
+  "start": 121.739,
+  "end": 122.526,
+  "en": "as a place"
+ },
+ {
+  "start": 123.184,
+  "end": 125.432,
+  "en": "where it stores the incoming bytes."
+ },
+ {
+  "start": 126.251,
+  "end": 128.066,
+  "en": "And this actually is something which you"
+ },
+ {
+  "start": 128.082,
+  "end": 129.479,
+  "en": "kind of already saw"
+ },
+ {
+  "start": 130.249,
+  "end": 131.807,
+  "en": "in the previous course module."
+ },
+ {
+  "start": 132.657,
+  "end": 134.916,
+  "en": "There I showed you how you can read user"
+ },
+ {
+  "start": 134.996,
+  "end": 136.823,
+  "en": "input coming from the console, from the"
+ },
+ {
+  "start": 136.823,
+  "end": 137.256,
+  "en": "terminal."
+ },
+ {
+  "start": 138.186,
+  "end": 142.32,
+  "en": "Now there we also used uint8 array to store"
+ },
+ {
+  "start": 142.512,
+  "end": 145.061,
+  "en": "the incoming bytes in such an array and then"
+ },
+ {
+  "start": 145.093,
+  "end": 147.08,
+  "en": "convert that to a string eventually."
+ },
+ {
+  "start": 147.817,
+  "end": 150.558,
+  "en": "That's why I did show you these basics first"
+ },
+ {
+  "start": 150.942,
+  "end": 153.891,
+  "en": "so that we now also understand this next"
+ },
+ {
+  "start": 153.891,
+  "end": 154.468,
+  "en": "step here."
+ },
+ {
+  "start": 155.269,
+  "end": 157.192,
+  "en": "Now here, of course, we're not reading data"
+ },
+ {
+  "start": 157.192,
+  "end": 159.5,
+  "en": "the user entered into the terminal, but"
+ },
+ {
+  "start": 159.516,
+  "end": 162.288,
+  "en": "instead we're reading the incoming chunks of"
+ },
+ {
+  "start": 162.321,
+  "end": 164.952,
+  "en": "data which we're receiving as part of the"
+ },
+ {
+  "start": 164.952,
+  "end": 165.963,
+  "en": "incoming request."
+ },
+ {
+  "start": 167.25,
+  "end": 169.695,
+  "en": "So therefore, we now need such a uint8 array"
+ },
+ {
+  "start": 169.775,
+  "end": 171.384,
+  "en": "to store the request data."
+ },
+ {
+  "start": 172.044,
+  "end": 173.347,
+  "en": "So I'll create my buffer here,"
+ },
+ {
+  "start": 173.942,
+  "end": 174.232,
+  "en": "a new"
+ },
+ {
+  "start": 174.831,
+  "end": 176.185,
+  "en": "uint8 array."
+ },
+ {
+  "start": 177.866,
+  "end": 179.628,
+  "en": "We can pass the buffer to read."
+ },
+ {
+  "start": 180.702,
+  "end": 183.637,
+  "en": "Now we should allocate enough memory though."
+ },
+ {
+  "start": 183.864,
+  "end": 186.572,
+  "en": "We should let the uint8 array constructor"
+ },
+ {
+  "start": 186.62,
+  "end": 188.128,
+  "en": "know how long"
+ },
+ {
+  "start": 188.732,
+  "end": 191.429,
+  "en": "this stream of data will be, so how many"
+ },
+ {
+  "start": 191.461,
+  "end": 192.953,
+  "en": "bytes we plan on storing."
+ },
+ {
+  "start": 193.788,
+  "end": 196.516,
+  "en": "And thankfully, we get this information on"
+ },
+ {
+  "start": 196.516,
+  "end": 197.608,
+  "en": "the request"
+ },
+ {
+  "start": 198.282,
+  "end": 202.358,
+  "en": "content-length field. This tells us how big"
+ },
+ {
+  "start": 202.374,
+  "end": 204.83,
+  "en": "the request data is, essentially how much"
+ },
+ {
+  "start": 204.862,
+  "end": 207.43,
+  "en": "space we need to reserve. And therefore,"
+ },
+ {
+  "start": 207.51,
+  "end": 209.083,
+  "en": "this works together quite well."
+ },
+ {
+  "start": 209.998,
+  "end": 211.651,
+  "en": "You can tell, however, that I'm getting an"
+ },
+ {
+  "start": 211.828,
+  "end": 212.197,
+  "en": "error here,"
+ },
+ {
+  "start": 212.887,
+  "end": 215.476,
+  "en": "and the core problem is that content-length"
+ },
+ {
+  "start": 215.686,
+  "end": 217.25,
+  "en": "actually is a union type."
+ },
+ {
+  "start": 217.798,
+  "end": 218.895,
+  "en": "It's either a number"
+ },
+ {
+  "start": 219.476,
+  "end": 219.879,
+  "en": "or null."
+ },
+ {
+  "start": 220.54,
+  "end": 222.717,
+  "en": "It's null if we got no information about the"
+ },
+ {
+  "start": 222.717,
+  "end": 224.798,
+  "en": "content."
+ }
+]

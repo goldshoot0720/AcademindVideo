@@ -1,0 +1,511 @@
+1
+00:00:02,277 --> 00:00:05,245
+Now I will not dive into all possible types
+
+2
+00:00:05,245 --> 00:00:07,250
+we have. Instead, I wanna focus on a couple
+
+3
+00:00:07,250 --> 00:00:08,341
+of core features.
+
+4
+00:00:09,175 --> 00:00:11,453
+Therefore, as a next step, let's add some
+
+5
+00:00:11,886 --> 00:00:14,356
+configuration to this project so that I can
+
+6
+00:00:14,388 --> 00:00:16,602
+briefly walk you through some core settings,
+
+7
+00:00:16,634 --> 00:00:18,045
+especially one core setting.
+
+8
+00:00:18,639 --> 00:00:20,933
+We can add a configuration file which will
+
+9
+00:00:20,965 --> 00:00:22,874
+then be taken into account by the TypeScript
+
+10
+00:00:22,874 --> 00:00:26,740
+compiler to this project by running tsc
+
+11
+00:00:26,980 --> 00:00:27,301
+--init.
+
+12
+00:00:28,022 --> 00:00:30,218
+This adds a tsconfig.json file
+
+13
+00:00:30,907 --> 00:00:32,701
+which has quite a lot of options you can
+
+14
+00:00:32,749 --> 00:00:33,102
+set.
+
+15
+00:00:34,111 --> 00:00:35,105
+Now you can
+
+16
+00:00:35,938 --> 00:00:38,518
+read through these comments here. I do talk
+
+17
+00:00:38,518 --> 00:00:40,697
+about the options in greater detail in my
+
+18
+00:00:41,467 --> 00:00:42,909
+Understanding TypeScript course.
+
+19
+00:00:43,710 --> 00:00:46,642
+Here I will leave most options as they are,
+
+20
+00:00:47,155 --> 00:00:48,966
+so I will not comment them in,
+
+21
+00:00:49,575 --> 00:00:52,187
+but I want to talk about this strict option
+
+22
+00:00:52,219 --> 00:00:55,154
+because that is important. Strict mode is
+
+23
+00:00:55,331 --> 00:00:56,728
+generally encouraged.
+
+24
+00:00:57,259 --> 00:00:59,813
+It means that certain things are not allowed
+
+25
+00:00:59,845 --> 00:01:01,789
+which normally would be allowed in
+
+26
+00:01:01,837 --> 00:01:02,255
+TypeScript.
+
+27
+00:01:02,994 --> 00:01:05,371
+And we see this in our app.ts file. Just by
+
+28
+00:01:05,371 --> 00:01:07,444
+adding this configuration, I now get an
+
+29
+00:01:07,476 --> 00:01:07,829
+error here
+
+30
+00:01:08,601 --> 00:01:09,918
+that this is possibly null.
+
+31
+00:01:10,753 --> 00:01:12,858
+This is one strict mode feature.
+
+32
+00:01:13,565 --> 00:01:16,360
+We have this strict null check which is
+
+33
+00:01:16,392 --> 00:01:19,605
+turned on. All those checks here are turned
+
+34
+00:01:19,685 --> 00:01:22,063
+on if strict is set to true. Alternatively,
+
+35
+00:01:22,240 --> 00:01:24,682
+you comment out this line and just comment
+
+36
+00:01:24,730 --> 00:01:25,228
+in the
+
+37
+00:01:25,774 --> 00:01:27,011
+features you want down there.
+
+38
+00:01:27,734 --> 00:01:29,774
+So they're all set to true when setting
+
+39
+00:01:29,806 --> 00:01:30,529
+strict to true,
+
+40
+00:01:31,075 --> 00:01:33,003
+and one of these features ensures that
+
+41
+00:01:33,003 --> 00:01:34,593
+you're not calling something
+
+42
+00:01:35,172 --> 00:01:36,987
+on something else which might be null.
+
+43
+00:01:37,919 --> 00:01:38,770
+And here indeed,
+
+44
+00:01:39,846 --> 00:01:42,642
+we select a button, but of course TypeScript
+
+45
+00:01:42,642 --> 00:01:44,714
+can't know whether that button actually
+
+46
+00:01:44,810 --> 00:01:48,409
+exists. It does not check our HTML code.
+
+47
+00:01:49,242 --> 00:01:51,245
+So therefore, this could be null if we don't
+
+48
+00:01:51,245 --> 00:01:53,537
+find a button, if we have no button element.
+
+49
+00:01:54,594 --> 00:01:56,901
+Now to work around this, we have 2 options.
+
+50
+00:01:57,574 --> 00:01:59,369
+We can add some code here
+
+51
+00:02:00,138 --> 00:02:03,070
+where we check if button element is truthy
+
+52
+00:02:04,128 --> 00:02:04,272
+and
+
+53
+00:02:04,945 --> 00:02:06,883
+move that code into that if check.
+
+54
+00:02:07,412 --> 00:02:09,976
+Now we know that if this code runs, button
+
+55
+00:02:09,976 --> 00:02:11,226
+element can't be null
+
+56
+00:02:12,235 --> 00:02:14,238
+because if it would be null, it would be
+
+57
+00:02:14,238 --> 00:02:16,305
+falsy and we wouldn't make it into this if
+
+58
+00:02:16,321 --> 00:02:16,513
+check.
+
+59
+00:02:17,909 --> 00:02:18,696
+Alternatively,
+
+60
+00:02:19,354 --> 00:02:19,851
+we know
+
+61
+00:02:20,558 --> 00:02:23,030
+that there will be a button, just as we know
+
+62
+00:02:23,302 --> 00:02:25,951
+that these elements here are HTML input
+
+63
+00:02:25,951 --> 00:02:26,320
+elements.
+
+64
+00:02:27,074 --> 00:02:28,086
+In such cases,
+
+65
+00:02:28,840 --> 00:02:30,879
+we can add an exclamation mark here.
+
+66
+00:02:32,131 --> 00:02:32,981
+This simply means
+
+67
+00:02:33,736 --> 00:02:35,694
+the statement in front of it, the expression
+
+68
+00:02:35,726 --> 00:02:36,288
+in front of it,
+
+69
+00:02:36,850 --> 00:02:38,968
+could theoretically be null, but we know
+
+70
+00:02:38,968 --> 00:02:39,562
+that it isn't.
+
+71
+00:02:40,333 --> 00:02:43,366
+So please, TypeScript, ignore that null case
+
+72
+00:02:43,447 --> 00:02:46,249
+and take the other value. In this case, take
+
+73
+00:02:46,410 --> 00:02:49,109
+HTML button element as the only value.
+
+74
+00:02:50,289 --> 00:02:50,564
+This
+
+75
+00:02:51,097 --> 00:02:52,794
+is important and that's something I wanted
+
+76
+00:02:52,794 --> 00:02:53,522
+to show you here.
+
+77
+00:02:55,540 --> 00:02:57,017
+One other thing that wouldn't be allowed
+
+78
+00:02:57,017 --> 00:03:00,200
+with strict mode is that you omit the type
+
+79
+00:03:00,200 --> 00:03:01,710
+of one parameter, for example.
+
+80
+00:03:02,392 --> 00:03:04,758
+Now it complains that this parameter
+
+81
+00:03:04,888 --> 00:03:06,634
+implicitly has the any type.
+
+82
+00:03:07,475 --> 00:03:09,965
+There is an any type which you can assign
+
+83
+00:03:10,305 --> 00:03:12,747
+and that also is fine, but that's a very
+
+84
+00:03:12,811 --> 00:03:15,434
+generic fallback type. It basically carries
+
+85
+00:03:15,530 --> 00:03:18,710
+no extra type information. Any kind of value
+
+86
+00:03:18,903 --> 00:03:19,834
+is allowed here.
+
+87
+00:03:20,445 --> 00:03:22,292
+And therefore, this is really just the type
+
+88
+00:03:22,292 --> 00:03:24,589
+you should know if you have no idea which
+
+89
+00:03:24,685 --> 00:03:27,158
+kind of data you can expect. If you do know
+
+90
+00:03:27,190 --> 00:03:29,728
+it better, it is recommended that you are as
+
+91
+00:03:29,824 --> 00:03:32,185
+clear as possible. In this case, that you
+
+92
+00:03:32,185 --> 00:03:34,016
+simply define that you want a number.
+
+93
+00:03:34,819 --> 00:03:37,052
+But even if you don't know it, if you set
+
+94
+00:03:37,052 --> 00:03:38,272
+this to any, it's okay.
+
+95
+00:03:38,915 --> 00:03:41,420
+But not setting any type That's not
+
+96
+00:03:41,420 --> 00:03:42,897
+something the strict mode allows.
+
+97
+00:03:43,492 --> 00:03:46,109
+Because then this is implicitly any but it
+
+98
+00:03:46,125 --> 00:03:48,598
+looks like you simply forgot to look into
+
+99
+00:03:48,614 --> 00:03:50,556
+this argument. And you should at least
+
+100
+00:03:50,556 --> 00:03:53,158
+explicitly set any to make it very clear
+
+101
+00:03:53,206 --> 00:03:55,117
+that you don't know better or that you
+
+102
+00:03:55,133 --> 00:03:57,734
+indeed want to allow any kind of value here.
+
+103
+00:03:58,360 --> 00:04:01,041
+So explicit any is allowed, implicit any
+
+104
+00:04:01,138 --> 00:04:03,498
+isn't and it's even better if you set the
+
+105
+00:04:03,498 --> 00:04:05,746
+specific type you are expecting.
+
+106
+00:04:06,452 --> 00:04:08,695
+Now important, as soon as you added a
+
+107
+00:04:08,695 --> 00:04:10,329
+tsconfig.json file,
+
+108
+00:04:11,002 --> 00:04:12,893
+once you run the TypeScript compiler, you
+
+109
+00:04:13,005 --> 00:04:14,816
+can still select the file,
+
+110
+00:04:15,409 --> 00:04:18,197
+but then the tsconfig.json configuration
+
+111
+00:04:18,213 --> 00:04:19,831
+will not be taken into account.
+
+112
+00:04:20,552 --> 00:04:22,395
+Instead, as soon as you do have such a
+
+113
+00:04:22,395 --> 00:04:23,869
+tsconfig.json file,
+
+114
+00:04:24,622 --> 00:04:26,176
+just run tsc like this
+
+115
+00:04:26,721 --> 00:04:29,173
+and it will compile all TypeScript files in
+
+116
+00:04:29,285 --> 00:04:29,958
+the folder
+
+117
+00:04:30,647 --> 00:04:33,627
+whilst taking the config file into account.
+
+118
+00:04:34,253 --> 00:04:36,615
+So only if you don't point at a specific
+
+119
+00:04:36,663 --> 00:04:39,234
+file, the configuration file will be taken
+
+120
+00:04:39,234 --> 00:04:41,966
+into account and all TypeScript files in the
+
+121
+00:04:41,966 --> 00:04:43,219
+folder will be configured.
+
+122
+00:04:43,894 --> 00:04:46,207
+You can still target the file if you want
+
+123
+00:04:46,207 --> 00:04:48,762
+to, then the configuration file is ignored
+
+124
+00:04:48,794 --> 00:04:50,931
+for the TypeScript compilation though. The
+
+125
+00:04:51,028 --> 00:04:51,205
+IDE
+
+126
+00:04:52,072 --> 00:04:54,707
+always picks up the config.json file, so the
+
+127
+00:04:54,723 --> 00:04:57,889
+IDE support is always provided no matter how
+
+128
+00:04:57,937 --> 00:04:58,805
+you then compile it.

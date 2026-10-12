@@ -1,495 +1,619 @@
 1
 00:00:02,355 --> 00:00:05,222
 We had a look at iterators, which basically
+我們研究了迭代器，它基本上
 
 2
 00:00:05,302 --> 00:00:07,690
 allowed us to make objects iterable, which
+允許我們使物件可迭代，這
 
 3
 00:00:07,802 --> 00:00:09,308
 means we can use them in loops.
+意味著我們可以在迴圈中使用它們。
 
 4
 00:00:09,868 --> 00:00:12,576
 Now we'll have a look at async iterators.
+現在我們來看看非同步迭代器。
 
 5
 00:00:13,233 --> 00:00:16,229
 Async iterators are objects that have a next
+非同步迭代器是具有下一個的物件
 
 6
 00:00:16,277 --> 00:00:16,581
 method,
+方法，
 
 7
 00:00:17,158 --> 00:00:20,586
 which now returns a promise though, which
+現在回傳一個承諾，
 
 8
 00:00:20,699 --> 00:00:23,102
 then eventually yields an object with a
+然後最終產生一個物件
 
 9
 00:00:23,102 --> 00:00:24,624
 value and a done property.
+值和完成的屬性。
 
 10
 00:00:25,329 --> 00:00:27,187
 Previously, we had objects with a next
+以前，我們有帶有 next 的物件
 
 11
 00:00:27,187 --> 00:00:29,286
 method that immediately returned an object
+立即傳回物件的方法
 
 12
 00:00:29,350 --> 00:00:31,770
 with value and done. Now we have objects
+有價值並完成。現在我們有了物件
 
 13
 00:00:31,770 --> 00:00:33,868
 with a next method that return a promise
+使用傳回承諾的 next 方法
 
 14
 00:00:33,885 --> 00:00:35,836
 which then yields value and done, and that's
+然後產生價值並完成，那就是
 
 15
 00:00:35,836 --> 00:00:36,714
 an important difference.
+一個重要的區別。
 
 16
 00:00:37,972 --> 00:00:39,949
 Async iterators can be used to make other
+非同步迭代器可用於製作其他
 
 17
 00:00:40,125 --> 00:00:42,295
 objects async iterable
+物件非同步可迭代
 
 18
 00:00:43,919 --> 00:00:46,137
 with the async iterator symbol.
+與非同步迭代器符號。
 
 19
 00:00:46,812 --> 00:00:48,911
 Now that's very cryptic. How does this work
+現在這非常神秘。這是如何運作的
 
 20
 00:00:48,911 --> 00:00:50,332
 and how could it be useful?
+它有什麼用處？
 
 21
 00:00:51,414 --> 00:00:53,013
 Let's go to the end of this file here
+讓我們在這裡轉到該檔案的末尾
 
 22
 00:00:53,578 --> 00:00:54,676
 and let's create our
+讓我們創建我們的
 
 23
 00:00:55,435 --> 00:00:55,564
 own
+自己的
 
 24
 00:00:56,243 --> 00:01:00,458
 async iterator. It's an object with a next
+非同步迭代器。這是一個有 next 的物件
 
 25
 00:01:00,458 --> 00:01:02,524
 method, and there we want to return a
+方法，我們想要回傳一個
 
 26
 00:01:02,573 --> 00:01:04,946
 promise. So I'll create a new promise here,
+承諾。所以我將在這裡創造一個新的承諾，
 
 27
 00:01:05,317 --> 00:01:07,093
 but we could also return the result of
+但我們也可以回傳結果
 
 28
 00:01:07,093 --> 00:01:07,384
 fetch.
+拿來。
 
 29
 00:01:08,533 --> 00:01:08,922
 Actually,
+實際上，
 
 30
 00:01:09,828 --> 00:01:11,916
 now that I think about it, let me do that.
+既然我想起來了，那就讓我這麼做吧。
 
 31
 00:01:12,909 --> 00:01:13,974
 I'll go to my promise
+我會履行我的承諾
 
 32
 00:01:15,135 --> 00:01:17,007
 and I'll copy this code here,
+我會在這裡複製這段程式碼，
 
 33
 00:01:21,845 --> 00:01:26,972
 go back to app.js And here in next, I'll put
+回到 app.js 接下來，我會把
 
 34
 00:01:27,020 --> 00:01:27,695
 that code in there
+那裡的程式碼
 
 35
 00:01:28,645 --> 00:01:31,122
 and actually add async in front of next. You
+實際上在 next 前面加上 async 。你
 
 36
 00:01:31,122 --> 00:01:32,747
 can do this here as well to make this an
+也可以在這裡執行此操作，使其成為
 
 37
 00:01:32,811 --> 00:01:34,988
 async function so that we can use await in
+async 函式，以便我們可以在中使用await
 
 38
 00:01:34,988 --> 00:01:36,926
 here. Alternatively, we could have used the
+這裡。或者，我們可以使用
 
 39
 00:01:37,087 --> 00:01:38,493
 then-catch syntax in there.
+then-catch 語法在那裡。
 
 40
 00:01:39,952 --> 00:01:42,749
 Now next returns a promise, which is exactly
+現在 next 回傳一個承諾，這正是
 
 41
 00:01:42,765 --> 00:01:43,412
 what it should do,
+它應該做什麼，
 
 42
 00:01:44,236 --> 00:01:46,969
 a promise which either throws an error— that
+一個要么拋出錯誤的承諾——
 
 43
 00:01:46,969 --> 00:01:47,745
 could happen— or
+可能會發生——或者
 
 44
 00:01:48,278 --> 00:01:50,326
 that simply does nothing in the end here.
+這最終在這裡什麼也沒做。
 
 45
 00:01:50,471 --> 00:01:53,409
 Now that's a problem here. We should return
+現在這是一個問題。我們應該回來
 
 46
 00:01:53,698 --> 00:01:54,790
 an object instead.
+而是一個物件。
 
 47
 00:01:55,545 --> 00:01:57,359
 We should return an object
+我們應該回傳一個物件
 
 48
 00:01:58,034 --> 00:02:00,619
 which has a value property and here that
+它有一個 value 屬性，這裡是
 
 49
 00:02:00,667 --> 00:02:02,610
 could be the extracted data we got by this
+可能是我們透過這個提取的資料
 
 50
 00:02:02,610 --> 00:02:02,867
 point.
+觀點。
 
 51
 00:02:03,429 --> 00:02:05,741
 So let's remove the logs here and just
+所以讓我們刪除這裡的紀錄，然後
 
 52
 00:02:05,741 --> 00:02:06,817
 extract it and return.
+提取並回傳。
 
 53
 00:02:07,989 --> 00:02:08,262
 And then
+進而
 
 54
 00:02:09,113 --> 00:02:09,787
 I can set done
+我可以設定完成
 
 55
 00:02:10,477 --> 00:02:12,517
 to true, for example, to indicate that I'm
+為真，例如，表明我是
 
 56
 00:02:12,629 --> 00:02:12,758
 done.
+完畢。
 
 57
 00:02:15,133 --> 00:02:16,864
 Now next works the way it should.
+現在 next 可以正常工作了。
 
 58
 00:02:17,457 --> 00:02:19,958
 It yields a promise which eventually returns
+它產生一個最終回傳的承諾
 
 59
 00:02:20,102 --> 00:02:20,824
 such an object.
+這樣一個物體。
 
 60
 00:02:21,465 --> 00:02:24,158
 Now again, iterators are only really useful
+再說一遍，迭代器只有真正有用的地方
 
 61
 00:02:24,575 --> 00:02:26,723
 if we then have an iterable. So just as
+如果我們有一個可迭代的。所以就像
 
 62
 00:02:26,739 --> 00:02:29,929
 before, I'll create my own, or our own,
+在此之前，我會創造我自己的，或是我們自己的，
 
 63
 00:02:30,666 --> 00:02:32,157
 AsyncIterable.
+非同步迭代。
 
 64
 00:02:33,472 --> 00:02:34,786
 So that's now an object
+所以現在它是一個物件
 
 65
 00:02:35,572 --> 00:02:38,746
 which uses Symbol.notIterator
+它使用 Symbol.notIterator
 
 66
 00:02:39,804 --> 00:02:40,621
 but Async
+但非同步
 
 67
 00:02:43,196 --> 00:02:44,214
 iterator. Now that's a method
+迭代器。現在這是一個方法
 
 68
 00:02:45,308 --> 00:02:46,628
 which should return
+應該回傳
 
 69
 00:02:50,619 --> 00:02:52,785
 an object with a next method, so it should
+具有 next 方法的物件，所以它應該
 
 70
 00:02:52,818 --> 00:02:55,318
 basically return such an async iterator.
+基本上會傳回這樣一個非同步迭代器。
 
 71
 00:02:57,390 --> 00:02:59,641
 So here I'll return this async iterator,
+所以在這裡我將回傳這個非同步迭代器，
 
 72
 00:03:01,593 --> 00:03:03,883
 and here in this object we could now have
+在這個物件中我們現在可以擁有
 
 73
 00:03:03,948 --> 00:03:06,320
 multiple URLs, let's say.
+比方說，有多個 URL。
 
 74
 00:03:10,226 --> 00:03:11,903
 Where we have a URL like this,
+如果我們有這樣的 URL，
 
 75
 00:03:14,415 --> 00:03:15,770
 but then also the same with
+但也同樣如此
 
 76
 00:03:16,440 --> 00:03:17,076
 /2 at the end.
+/2 最後。
 
 77
 00:03:18,842 --> 00:03:20,581
 And again, we could have an index because
+再說一遍，我們可以有索引，因為
 
 78
 00:03:20,613 --> 00:03:23,189
 iterables are always all about looping. So
+可迭代物件總是與迴圈有關。所以
 
 79
 00:03:23,189 --> 00:03:24,671
 we have an index just as before,
+我們有一個像以前一樣的索引，
 
 80
 00:03:25,604 --> 00:03:28,100
 but now in next, I want to send requests to
+但接下來，我想將請求發送到
 
 81
 00:03:28,100 --> 00:03:29,286
 those different URLs.
+那些不同的網址。
 
 82
 00:03:30,115 --> 00:03:32,344
 So I'll first of all store this and that
+所以我首先要儲存這個和那個
 
 83
 00:03:32,344 --> 00:03:34,898
 again just as before for the same reasons.
+出於同樣的原因，又像以前一樣。
 
 84
 00:03:36,023 --> 00:03:37,466
 And then here inside of next,
+然後在下一個裡面，
 
 85
 00:03:38,171 --> 00:03:39,421
 I increment index
+我增加索引
 
 86
 00:03:40,175 --> 00:03:40,640
 by 1.
+1.
 
 87
 00:03:41,954 --> 00:03:45,368
 But here to fetch, I then pass in that URLs
+但是在這裡獲取，然後我傳入該 URL
 
 88
 00:03:45,946 --> 00:03:47,757
 for that index minus 1.
+該指數減 1。
 
 89
 00:03:48,606 --> 00:03:50,835
 Again, same logic as before, but now I'm
+再一次，與之前相同的邏輯，但現在我
 
 90
 00:03:50,835 --> 00:03:51,845
 extracting a URL.
+提取 URL。
 
 91
 00:03:52,454 --> 00:03:54,538
 And now the interesting thing is now we're
+現在有趣的是我們現在
 
 92
 00:03:54,538 --> 00:03:56,878
 doing something asynchronous here
+在這裡做一些非同步的事情
 
 93
 00:03:58,305 --> 00:04:00,469
 and will therefore return a promise in next
+因此將在接下來回傳承諾
 
 94
 00:04:00,469 --> 00:04:01,799
 which yields such an object.
+這會產生這樣一個物件。
 
 95
 00:04:02,938 --> 00:04:04,607
 Now since it's an async function, we'll
+現在由於它是一個非同步函式，我們將
 
 96
 00:04:04,784 --> 00:04:07,031
 always return a promise. And here at the
+總是回報一個承諾。在這裡
 
 97
 00:04:07,031 --> 00:04:09,294
 bottom, we return the promise for the case
+底部，我們回傳該案例的承諾
 
 98
 00:04:09,294 --> 00:04:10,786
 that we still have URLs.
+我們仍然有 URL。
 
 99
 00:04:11,525 --> 00:04:13,547
 But just as before, before I increment the
+但就像以前一樣，在我增加之前
 
 100
 00:04:13,547 --> 00:04:16,211
 index for the next time next is called, so
+下次呼叫 next 的索引，所以
 
 101
 00:04:16,211 --> 00:04:16,548
 to say,
+說，
 
 102
 00:04:17,302 --> 00:04:18,747
 I wanna check whether
+我想檢查是否
 
 103
 00:04:19,405 --> 00:04:23,321
 that URL's length is equal to that index, in
+該 URL 的長度等於該索引，在
 
 104
 00:04:23,401 --> 00:04:24,123
 which case I know
+我知道哪種情況
 
 105
 00:04:24,701 --> 00:04:27,927
 there won't be any items left thereafter.
+此後不會留下任何物品。
 
 106
 00:04:28,557 --> 00:04:29,417
 So in that case,
+所以在那種情況下，
 
 107
 00:04:30,034 --> 00:04:32,941
 I'll yield an object where the value could
+我會產生一個物件，其中的值可以
 
 108
 00:04:33,022 --> 00:04:34,873
 be null and where done is true.
+為 null，且 did 為 true。
 
 109
 00:04:35,980 --> 00:04:37,916
 And down there, of course, it's false. We're
+當然，在下面，這是錯誤的。是
 
 110
 00:04:37,916 --> 00:04:38,632
 not done yet.
+還沒完成。
 
 111
 00:04:40,632 --> 00:04:42,674
 And now we can loop through that as well.
+現在我們也可以迴圈遍歷它。
 
 112
 00:04:43,526 --> 00:04:45,149
 So here we could name this
+所以在這裡我們可以命名這個
 
 113
 00:04:46,564 --> 00:04:50,266
 request or response data of
+請求或回應資料
 
 114
 00:04:51,476 --> 00:04:53,719
 our own async iterable.
+我們自己的非同步迭代。
 
 115
 00:04:55,079 --> 00:04:57,470
 And console.log it, but now with a little
+和 console.log 它，但現在有一點
 
 116
 00:04:57,583 --> 00:04:58,084
 twist.
+捻。
 
 117
 00:04:58,714 --> 00:04:59,232
 Now here
+現在在這裡
 
 118
 00:05:00,977 --> 00:05:03,546
 we add await in front of that, so we have a
+我們在前面添加了await，所以我們有一個
 
 119
 00:05:03,578 --> 00:05:06,431
 for-of loop with await inside of it.
+for-of 記憶環，其中包含await。
 
 120
 00:05:07,188 --> 00:05:09,122
 And we actually need to wrap this with a
+我們實際上需要用一個
 
 121
 00:05:09,122 --> 00:05:10,879
 function, at least here in regular
+功能，至少在這裡是常規的
 
 122
 00:05:10,879 --> 00:05:11,637
 JavaScript,
+JavaScript，
 
 123
 00:05:12,510 --> 00:05:13,436
 async loop,
+非同步迴圈，
 
 124
 00:05:15,143 --> 00:05:19,468
 because await is only available in async
+因為await只能在非同步中使用

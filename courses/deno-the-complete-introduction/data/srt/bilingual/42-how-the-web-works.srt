@@ -1,0 +1,207 @@
+1
+00:00:02,195 --> 00:00:04,727
+In order to build a web server with Deno, we
+
+2
+00:00:04,743 --> 00:00:06,890
+of course have to ensure that we are all on
+
+3
+00:00:06,922 --> 00:00:09,486
+the same page and we understand how the web
+
+4
+00:00:09,566 --> 00:00:12,819
+works. So here is how it works. Using the
+
+5
+00:00:12,851 --> 00:00:14,918
+web, if we simplify it, is just the
+
+6
+00:00:14,918 --> 00:00:16,344
+interaction of 2 parties.
+
+7
+00:00:16,937 --> 00:00:19,773
+We got the client, the user, so maybe you,
+
+8
+00:00:20,382 --> 00:00:23,186
+who might be using a browser or maybe also a
+
+9
+00:00:23,186 --> 00:00:27,016
+mobile app, does not matter. So some tool on
+
+10
+00:00:27,016 --> 00:00:29,505
+the client side, so on your local computer,
+
+11
+00:00:29,586 --> 00:00:33,054
+for example, to then reach out to a web
+
+12
+00:00:33,054 --> 00:00:33,455
+server.
+
+13
+00:00:34,162 --> 00:00:37,277
+Such a web server could host a website, so
+
+14
+00:00:37,309 --> 00:00:40,247
+it could contain multiple HTML files which
+
+15
+00:00:40,424 --> 00:00:40,472
+are
+
+16
+00:00:41,179 --> 00:00:42,768
+served to the clients,
+
+17
+00:00:43,314 --> 00:00:46,269
+or it just serves data and the client,
+
+18
+00:00:46,461 --> 00:00:48,870
+because it's maybe a mobile app, already
+
+19
+00:00:48,870 --> 00:00:52,033
+knows what to render on the screen and just
+
+20
+00:00:52,081 --> 00:00:55,581
+needs some data to, well, fill the screen
+
+21
+00:00:55,613 --> 00:00:57,812
+which is already rendering with some life.
+
+22
+00:00:58,325 --> 00:01:00,235
+That is how the web basically works.
+
+23
+00:01:00,909 --> 00:01:04,119
+Therefore, the server side, which is on a
+
+24
+00:01:04,263 --> 00:01:06,991
+different machine somewhere out there in the
+
+25
+00:01:07,008 --> 00:01:07,377
+world,
+
+26
+00:01:08,211 --> 00:01:11,020
+hosts the so-called backend code. So the
+
+27
+00:01:11,020 --> 00:01:13,427
+code which runs on that server, not on the
+
+28
+00:01:13,427 --> 00:01:16,283
+client side. And that typically is code that
+
+29
+00:01:16,701 --> 00:01:19,284
+reads or writes files, that interacts with a
+
+30
+00:01:19,284 --> 00:01:22,173
+database to store or fetch data Things like
+
+31
+00:01:22,173 --> 00:01:22,463
+that.
+
+32
+00:01:22,993 --> 00:01:26,141
+Now that server can be built and powered by
+
+33
+00:01:26,494 --> 00:01:26,751
+Deno.
+
+34
+00:01:27,313 --> 00:01:30,092
+So we will use Deno to build such a server
+
+35
+00:01:30,284 --> 00:01:33,079
+to which clients can send so-called
+
+36
+00:01:33,079 --> 00:01:33,754
+requests.
+
+37
+00:01:34,525 --> 00:01:37,159
+A request could be that I want to get an
+
+38
+00:01:37,191 --> 00:01:40,242
+HTML document which I, the browser let's
+
+39
+00:01:40,242 --> 00:01:41,881
+say, can render on the screen.
+
+40
+00:01:42,636 --> 00:01:45,462
+Or if the user is using a mobile app, this
+
+41
+00:01:45,462 --> 00:01:47,727
+mobile app could send a request for some
+
+42
+00:01:47,872 --> 00:01:50,040
+extra data which it wants to display on the
+
+43
+00:01:50,040 --> 00:01:50,409
+screen.
+
+44
+00:01:51,164 --> 00:01:53,702
+Now, of course, in order to show something
+
+45
+00:01:53,879 --> 00:01:55,968
+on the screen, which it is all about in the
+
+46
+00:01:55,968 --> 00:01:58,506
+end, sending a request is not enough. The
+
+47
+00:01:58,554 --> 00:02:01,044
+server also needs to send back a so-called
+
+48
+00:02:01,044 --> 00:02:01,767
+response.
+
+49
+00:02:02,650 --> 00:02:04,996
+And that is what we're going to build here.
+
+50
+00:02:05,205 --> 00:02:07,438
+We're going to build a Deno server that is
+
+51
+00:02:07,614 --> 00:02:10,651
+able to handle incoming requests and which
+
+52
+00:02:10,747 --> 00:02:13,301
+will then also send back responses.
