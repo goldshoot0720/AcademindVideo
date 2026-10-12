@@ -1,0 +1,163 @@
+1
+00:00:02,279 --> 00:00:04,735
+Now that we learned about single path
+
+2
+00:00:04,943 --> 00:00:05,537
+segments,
+
+3
+00:00:06,612 --> 00:00:09,325
+we can also work on the update and delete
+
+4
+00:00:09,325 --> 00:00:11,877
+function. And let's continue with deleting
+
+5
+00:00:11,909 --> 00:00:13,033
+because that's a bit easier.
+
+6
+00:00:13,819 --> 00:00:16,339
+As I mentioned, typically you use a POST
+
+7
+00:00:16,387 --> 00:00:18,683
+request for deleting unless you're building
+
+8
+00:00:18,731 --> 00:00:21,058
+a REST API, which we aren't doing here.
+
+9
+00:00:22,262 --> 00:00:24,573
+So therefore, I'll register a new POST
+
+10
+00:00:24,573 --> 00:00:24,926
+route.
+
+11
+00:00:25,536 --> 00:00:27,382
+And now again, the question is, what should
+
+12
+00:00:27,382 --> 00:00:28,201
+be the path here?
+
+13
+00:00:28,826 --> 00:00:31,310
+And I would say for deleting something, we
+
+14
+00:00:31,390 --> 00:00:34,146
+also need the ID of what should be deleted.
+
+15
+00:00:34,755 --> 00:00:37,174
+So even though that's a POST request, we
+
+16
+00:00:37,174 --> 00:00:39,658
+don't even need to transport any data in the
+
+17
+00:00:39,738 --> 00:00:40,667
+request body.
+
+18
+00:00:41,196 --> 00:00:43,663
+It just is a convention to use POST for
+
+19
+00:00:43,727 --> 00:00:45,634
+deleting because we manipulate something on
+
+20
+00:00:45,666 --> 00:00:46,147
+the server.
+
+21
+00:00:46,708 --> 00:00:48,999
+But we won't even need the POST request body
+
+22
+00:00:49,351 --> 00:00:52,364
+because we can again just encode the ID in
+
+23
+00:00:52,460 --> 00:00:53,309
+the URL
+
+24
+00:00:53,902 --> 00:00:56,177
+as we did it for getting a single element.
+
+25
+00:00:56,899 --> 00:00:59,256
+So we can grab that code and do the same
+
+26
+00:00:59,352 --> 00:01:01,982
+thing here for our delete post route.
+
+27
+00:01:02,640 --> 00:01:03,891
+Now these 2 routes here,
+
+28
+00:01:04,644 --> 00:01:06,489
+this GET route and the POST route, will be
+
+29
+00:01:06,505 --> 00:01:08,253
+different even though they have the same
+
+30
+00:01:08,269 --> 00:01:11,236
+path because they act on different HTTP
+
+31
+00:01:11,236 --> 00:01:11,685
+methods.
+
+32
+00:01:12,358 --> 00:01:14,475
+You couldn't have the same method and the
+
+33
+00:01:14,523 --> 00:01:16,832
+same path, that would not work. You must
+
+34
+00:01:16,913 --> 00:01:19,783
+only have one route per path method
+
+35
+00:01:19,879 --> 00:01:22,429
+combination. But here we got the same path
+
+36
+00:01:22,783 --> 00:01:25,005
+but different methods, and therefore these
+
+37
+00:01:25,118 --> 00:01:27,244
+technically are different routes that will
+
+38
+00:01:27,292 --> 00:01:29,692
+be executed for different kinds of incoming
+
+39
+00:01:29,788 --> 00:01:30,255
+requests.
+
+40
+00:01:31,318 --> 00:01:32,558
+And then here we have our good old
+
+41
+00:01:32,558 --> 00:01:34,636
+middleware
