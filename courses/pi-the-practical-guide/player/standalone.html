@@ -36,7 +36,6 @@
   @media (max-width:1200px){.app{grid-template-columns:240px minmax(0,1fr)}}
   @media (max-width:1080px){
     .app{grid-template-columns:minmax(0,1fr)}
-    .side-toggle{display:grid}
   }
 
   /* ---------- sidebar ---------- */
@@ -50,6 +49,8 @@
   .side-toggle{display:none;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);
     background:var(--panel);color:var(--muted);cursor:pointer;place-items:center;flex:0 0 auto}
   .side-toggle:hover{color:var(--ink);border-color:var(--muted)}
+  /* must come AFTER the display:none above, or the drawer has no way to open */
+  @media (max-width:1080px){.side-toggle{display:grid}}
   .side-scrim{position:fixed;inset:0;background:rgba(16,24,40,.38);z-index:55;opacity:0;
     pointer-events:none;transition:opacity .2s ease}
   @media (max-width:1080px){.side-scrim.on{opacity:1;pointer-events:auto}}
@@ -116,14 +117,27 @@
   @media (max-width:1280px){.wrap{grid-template-columns:minmax(0,1fr)}}
 
   /* ---------- responsive: 100% and 150% browser zoom ---------- */
+  /* The stage is 16:9, so its HEIGHT is driven by its width. At high browser
+     zoom the viewport gets short and wide: a full-width stage then overflows,
+     pushing the transport bar and the bottom of the subtitles off-screen
+     (at 150% on a 1920x1080 screen the player needed 740px in a 600px viewport).
+     So cap the stage width by the height actually left after the topbar, the
+     wrap padding and the transport bar, and centre the stage + transport pair.
+     --chrome-h is that reserved height; it only ever kicks in on short/zoomed
+     viewports, never at 100% on a normal window. */
+  :root{--chrome-h:190px}
+  .stage,.transport{width:min(100%,calc((100dvh - var(--chrome-h)) * 16 / 9));margin-inline:auto}
+
   @media (max-width:1080px){
     .wrap{padding:14px;gap:14px}
     .topbar{padding:10px 12px;gap:8px}
+    :root{--chrome-h:184px}
   }
   @media (max-width:860px){
     .topbar .t{font-size:13px}
     .topbar .sub{display:none}
     .btn{padding:6px 10px;font-size:12px}
+    :root{--chrome-h:212px}  /* the topbar starts wrapping onto two rows here */
   }
   @media (max-width:640px){
     .wrap{padding:10px;gap:10px}
