@@ -1,259 +1,324 @@
 1
 00:00:02,261 --> 00:00:04,876
 Now for that attached, you find a simple
+現在對於附件，您會發現一個簡單的
 
 2
 00:00:05,229 --> 00:00:08,693
 myapp.ts file which you can download and put
+myapp.ts 檔案，您可以下載並放置
 
 3
 00:00:08,693 --> 00:00:09,832
 into your project folder.
+進入您的專案資料夾。
 
 4
 00:00:10,602 --> 00:00:13,313
 And that file contains a couple of errors,
+該檔案包含幾個錯誤，
 
 5
 00:00:13,810 --> 00:00:16,120
 and we will now try to find and fix those
+現在我們將嘗試找到並修復這些問題
 
 6
 00:00:16,312 --> 00:00:18,927
 errors. And along the way, I will share some
+錯誤。 And along the way, I will share some
 
 7
 00:00:19,039 --> 00:00:21,509
 hints at how you can approach this, how you
+暗示你如何解決這個問題，你如何
 
 8
 00:00:21,509 --> 00:00:24,204
 can find and fix errors you might be facing
+可以找到並修復您可能遇到的錯誤
 
 9
 00:00:24,252 --> 00:00:27,605
 in your projects, and which tools Deno gives
+在您的專案中，以及 Deno 提供了哪些工具
 
 10
 00:00:27,605 --> 00:00:27,669
 you.
+你。
 
 11
 00:00:28,487 --> 00:00:30,671
 Now first of all, what we can immediately
+現在首先我們可以立即
 
 12
 00:00:30,671 --> 00:00:33,161
 see when we open this in our IDE,
+看看當我們在 IDE 中打開它時，
 
 13
 00:00:33,883 --> 00:00:35,569
 in Visual Studio Code in my case,
+在我的例子中，在 Visual Studio Code 中，
 
 14
 00:00:36,196 --> 00:00:39,086
 is that the IDE itself is showing an error
+是 IDE 本身顯示錯誤
 
 15
 00:00:39,086 --> 00:00:39,231
 here.
+這裡。
 
 16
 00:00:39,889 --> 00:00:42,844
 It's showing red squiggly lines on content,
+它在內容上顯示紅色波浪線，
 
 17
 00:00:43,503 --> 00:00:45,221
 and whenever you got something like this,
+每當你遇到這樣的事情時
 
 18
 00:00:45,510 --> 00:00:47,855
 that's of course a very clear indicator that
+這當然是一個非常明確的指標
 
 19
 00:00:47,855 --> 00:00:49,011
 something might be wrong.
+可能出了問題。
 
 20
 00:00:49,927 --> 00:00:52,994
 Occasionally the IDE might be wrong, it
+有時IDE可能會出錯，
 
 21
 00:00:52,994 --> 00:00:55,451
 might not be able to understand your code
+可能無法理解您的程式碼
 
 22
 00:00:55,483 --> 00:00:58,404
 fully, but in the majority of cases you are
+完全，但在大多數情況下你是
 
 23
 00:00:58,452 --> 00:00:58,661
 wrong.
+錯誤的。
 
 24
 00:00:59,958 --> 00:01:02,265
 The best thing to do if you get these red
+如果你得到這些紅色，最好的辦法
 
 25
 00:01:02,394 --> 00:01:05,213
 squiggly lines is to simply hover over them
+波浪線只需將滑鼠懸停在它們上方
 
 26
 00:01:05,325 --> 00:01:06,511
 and see what the problem is.
+看看問題出在哪裡。
 
 27
 00:01:07,104 --> 00:01:09,731
 And here we see that an argument of type
+在這裡我們看到一個型別的參數
 
 28
 00:01:09,731 --> 00:01:12,407
 string is not assignable to a parameter of
+字串不能分配給參數
 
 29
 00:01:12,455 --> 00:01:13,672
 type uint8 array.
+型別 uint8 陣列。
 
 30
 00:01:14,297 --> 00:01:15,627
 So we have a type error here,
+所以我們這裡有一個型別錯誤，
 
 31
 00:01:16,300 --> 00:01:19,296
 and we would also get this error message if
+如果
 
 32
 00:01:19,344 --> 00:01:21,555
 we would try to run this code, by the way.
+順便說一下，我們會嘗試執行這段程式碼。
 
 33
 00:01:22,644 --> 00:01:24,070
 But we don't even need to do that here.
+但我們甚至不需要在這裡這樣做。
 
 34
 00:01:24,647 --> 00:01:26,777
 We clearly are passing the wrong kind of
+我們顯然正在通過錯誤的型別
 
 35
 00:01:26,809 --> 00:01:30,497
 data to write file, because if we inspect
+資料寫入檔案，因為如果我們檢查
 
 36
 00:01:30,497 --> 00:01:33,064
 writeFile, we see that the data it wants
+writeFile，我們看到它想要的資料
 
 37
 00:01:33,288 --> 00:01:35,470
 should be of type uint8 array,
+應該是 uint8 陣列型別，
 
 38
 00:01:36,577 --> 00:01:39,625
 and the content I have here is a string, and
+我這裡的內容是一個字串，並且
 
 39
 00:01:39,641 --> 00:01:41,806
 that's clearly not a uint8 array.
+這顯然不是一個 uint8 陣列。
 
 40
 00:01:42,833 --> 00:01:44,886
 In the example code I provided you,
+在我提供給您的範例程式碼中，
 
 41
 00:01:45,560 --> 00:01:47,421
 I'm essentially fetching some user input
+我本質上是在獲取一些使用者輸入
 
 42
 00:01:47,421 --> 00:01:47,533
 here.
+這裡。
 
 43
 00:01:48,223 --> 00:01:51,239
 Then I have this parseBuffer helper function
+然後我有這個 parseBuffer 輔助函式
 
 44
 00:01:51,511 --> 00:01:54,607
 which just uses the text decoder to decode
+它只是使用文字解碼器來解碼
 
 45
 00:01:54,784 --> 00:01:55,217
 the buffer.
+緩衝區。
 
 46
 00:01:55,906 --> 00:01:58,215
 And what I'm doing here is that I'm using
+我在這裡所做的是我正在使用
 
 47
 00:01:58,327 --> 00:02:01,100
 the decoded content as an argument for
+解碼後的內容作為參數
 
 48
 00:02:01,212 --> 00:02:01,725
 write_file.
+寫檔案。
 
 49
 00:02:02,478 --> 00:02:05,203
 Now write_file doesn't want that decoded
+現在 write_file 不希望解碼
 
 50
 00:02:05,203 --> 00:02:07,528
 content though. It wants the raw byte
+內容雖然。它想要原始位元組
 
 51
 00:02:07,528 --> 00:02:07,912
 content.
+內容。
 
 52
 00:02:08,521 --> 00:02:11,759
 So the fix here is simple. We pass input
+所以這裡的修復很簡單。我們傳遞輸入
 
 53
 00:02:11,791 --> 00:02:14,452
 buffer like this as an argument. And now
+像這樣的緩衝區作為參數。而現在
 
 54
 00:02:14,741 --> 00:02:16,119
 this error is gone.
+這個錯誤消失了。
 
 55
 00:02:16,921 --> 00:02:19,341
 Now this program will still have a couple of
+現在這個程式仍然有幾個
 
 56
 00:02:19,486 --> 00:02:21,698
 other problems, but at least we got rid of
+其他問題，但至少我們擺脫了
 
 57
 00:02:21,794 --> 00:02:24,925
 this error. And the simple core takeaway
+這個錯誤。以及簡單的核心要點
 
 58
 00:02:25,183 --> 00:02:26,677
 from this lecture therefore is
+因此，從本次講座中可以看出
 
 59
 00:02:27,256 --> 00:02:29,731
 that if your IDE is showing an error to you,
+如果您的 IDE 向您顯示錯誤，
 
 60
 00:02:30,165 --> 00:02:30,937
 you should simply
+你應該簡單地
 
 61
 00:02:31,515 --> 00:02:33,991
 analyze it, read the error description,
+分析一下，閱讀錯誤描述，
 
 62
 00:02:34,569 --> 00:02:37,784
 and in the vast majority of cases, the error
+並且在絕大多數情況下，錯誤
 
 63
 00:02:37,784 --> 00:02:39,680
 description will be pretty clear, will make
+描述會很清楚，將使
 
 64
 00:02:39,729 --> 00:02:42,091
 sense, and will allow you to fix the error.
+感，並允許您修復錯誤。
 
 65
 00:02:42,445 --> 00:02:44,277
 So let's now move on to the next problem.
+現在讓我們繼續討論下一個問題。

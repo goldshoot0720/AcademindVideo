@@ -1,567 +1,709 @@
 1
 00:00:02,056 --> 00:00:04,674
 So into which features should we dig? I
+那我們應該挖掘哪些功能呢？我
 
 2
 00:00:04,674 --> 00:00:06,988
 wanna start with the import syntax. I wanna
+想從匯入文法開始。我想要
 
 3
 00:00:07,004 --> 00:00:08,514
 ensure that you understand it.
+確保您理解它。
 
 4
 00:00:09,590 --> 00:00:12,530
 This actually uses ES Modules.
+這實際上使用了 ES 模組。
 
 5
 00:00:13,189 --> 00:00:14,972
 That's the official name of this import
+這是此導入的正式名稱
 
 6
 00:00:14,972 --> 00:00:17,462
 syntax because it's coming from the browser.
+語法，因為它來自瀏覽器。
 
 7
 00:00:17,784 --> 00:00:21,205
 This same syntax would work in browser-side
+同樣的語法也適用於瀏覽器端
 
 8
 00:00:21,238 --> 00:00:23,792
 code. And in my JavaScript: The Complete
+程式碼。在我的《JavaScript：完整》中
 
 9
 00:00:23,808 --> 00:00:25,832
 Guide course, for example, you'll learn
+例如，指導課程，您將學習
 
 10
 00:00:25,832 --> 00:00:28,226
 about that syntax. So that's again this
+關於該語法。所以又是這個
 
 11
 00:00:28,226 --> 00:00:29,720
 browser compatibility thing.
+瀏覽器相容性的事。
 
 12
 00:00:30,315 --> 00:00:32,725
 You can really run this code like this in
+你真的可以像這樣運行這段程式碼
 
 13
 00:00:32,725 --> 00:00:33,368
 the browser.
+瀏覽器。
 
 14
 00:00:33,914 --> 00:00:35,553
 Of course, you wouldn't be able to spin up a
+當然，你無法啟動
 
 15
 00:00:35,617 --> 00:00:38,614
 server there, but the import syntax is the
+伺服器在那裡，但導入語法是
 
 16
 00:00:38,614 --> 00:00:38,953
 same.
+相同的。
 
 17
 00:00:40,067 --> 00:00:42,036
 Now you cannot just import from
+現在你不能只從
 
 18
 00:00:42,633 --> 00:00:45,458
 URLs leading to other servers. You can also
+指向其他伺服器的 URL。您還可以
 
 19
 00:00:45,458 --> 00:00:46,752
 import local files.
+導入本地檔案。
 
 20
 00:00:47,510 --> 00:00:49,108
 And to show this, I'll add a new file,
+為了展示這一點，我將添加一個新檔案，
 
 21
 00:00:50,650 --> 00:00:51,069
 myserver.ts.
+myserver.ts。
 
 22
 00:00:53,589 --> 00:00:54,666
 And I wanna put
+我想把
 
 23
 00:00:56,804 --> 00:00:57,657
 this code here
+這段程式碼在這裡
 
 24
 00:00:58,509 --> 00:01:01,387
 where I import serve and I create my server
+我在其中導入服務並創建我的伺服器
 
 25
 00:01:01,547 --> 00:01:04,520
 object into my server.ts.
+物件到我的 server.ts 中。
 
 26
 00:01:05,324 --> 00:01:06,898
 Now, of course, not to then
+當然不是現在
 
 27
 00:01:07,573 --> 00:01:09,630
 break this code, but instead to now
+打破這個程式碼，但改為現在
 
 28
 00:01:10,386 --> 00:01:13,799
 import my created server into my first web
+將我創建的伺服器匯入我的第一個網站
 
 29
 00:01:13,799 --> 00:01:14,749
 server file.
+伺服器檔案。
 
 30
 00:01:15,393 --> 00:01:17,373
 That might be a bit redundant for this very
+這對這個來說可能有點多餘
 
 31
 00:01:17,470 --> 00:01:19,788
 basic code snippet here, but it is a good
+基本程式碼片段在這裡，但它是一個很好的
 
 32
 00:01:19,788 --> 00:01:22,095
 practice to work with import statements.
+練習使用 import 語句。
 
 33
 00:01:22,159 --> 00:01:23,315
 That's why I'm doing it here.
+這就是我在這裡這樣做的原因。
 
 34
 00:01:23,909 --> 00:01:25,708
 And you might have a real reason for
+你可能有真正的理由
 
 35
 00:01:25,708 --> 00:01:28,325
 splitting this up. Maybe you want to have
+把這個分開。也許你想擁有
 
 36
 00:01:28,325 --> 00:01:31,328
 this server creation functionality here so
+這個伺服器創建功能在這裡所以
 
 37
 00:01:31,328 --> 00:01:33,206
 that you could use it from different files
+您可以從不同的檔案中使用它
 
 38
 00:01:33,319 --> 00:01:34,812
 which create different servers.
+創建不同的伺服器。
 
 39
 00:01:35,551 --> 00:01:38,569
 And what a server does should then maybe be
+那麼伺服器所做的也許應該是
 
 40
 00:01:38,617 --> 00:01:40,336
 in the server-specific file
+在伺服器特定的檔案中
 
 41
 00:01:40,881 --> 00:01:43,451
 so that we here have our default
+這樣我們就有了預設值
 
 42
 00:01:44,880 --> 00:01:48,332
 server or our dummy response server maybe.
+伺服器或我們的虛擬回應伺服器可能。
 
 43
 00:01:48,878 --> 00:01:51,238
 And it's this dummy response server which
+這就是這個虛擬回應伺服器
 
 44
 00:01:51,366 --> 00:01:53,435
 imports from my server and we might have
+從我的伺服器導入，我們可能有
 
 45
 00:01:53,612 --> 00:01:55,905
 other servers which also should import this
+其他伺服器也應該導入這個
 
 46
 00:01:55,953 --> 00:01:58,968
 preconfigured server here to then do totally
+在這裡預先設定伺服器，然後完全完成
 
 47
 00:01:59,000 --> 00:02:01,646
 different things in their async iterable
+非同步迭代中的不同事物
 
 48
 00:02:01,646 --> 00:02:03,956
 loops. That's why we might wanna split it up
+迴圈。這就是為什麼我們可能想把它分開
 
 49
 00:02:03,956 --> 00:02:04,292
 like this.
+像這樣。
 
 50
 00:02:04,998 --> 00:02:06,939
 Ultimately though, as I said here, it's
+但最終，正如我在這裡所說的，
 
 51
 00:02:06,939 --> 00:02:08,222
 basically also practice.
+基本上也是練習。
 
 52
 00:02:09,007 --> 00:02:11,397
 Now, the key takeaway is that I wanna import
+現在，關鍵的一點是我想導入
 
 53
 00:02:11,525 --> 00:02:14,524
 server, so my server constant into dummy
+伺服器，所以我的伺服器常數變成虛擬的
 
 54
 00:02:14,620 --> 00:02:16,641
 response server. How does this work?
+回應伺服器。這是如何運作的？
 
 55
 00:02:17,987 --> 00:02:21,176
 Well, we can just add the export keyword in
+好吧，我們只需新增export關鍵字即可
 
 56
 00:02:21,208 --> 00:02:24,060
 front of whatever we wanna export. And you
+在我們想要出口的任何東西前面。你呢
 
 57
 00:02:24,093 --> 00:02:27,121
 can export variables and constants and also
+可以導出變數和常數，也可以
 
 58
 00:02:27,121 --> 00:02:28,547
 functions and classes.
+函式和類別。
 
 59
 00:02:29,140 --> 00:02:31,464
 And that basically is all core JavaScript
+這基本上就是所有核心 JavaScript
 
 60
 00:02:31,464 --> 00:02:33,355
 and therefore I'm not going to dive into it
+因此我不會深入探討它
 
 61
 00:02:33,387 --> 00:02:34,268
 too deeply here.
+這裡太深了。
 
 62
 00:02:35,053 --> 00:02:36,591
 You can learn all about that in my
+您可以在我的文章中了解所有相關資訊
 
 63
 00:02:36,736 --> 00:02:38,723
 JavaScript: The Complete Guide course if you
+JavaScript：完整指南課程，如果您
 
 64
 00:02:38,819 --> 00:02:40,726
 want to, as I already mentioned.
+想要，正如我已經提到的。
 
 65
 00:02:41,623 --> 00:02:43,918
 This exports the server And we can now
+這導出了伺服器我們現在可以
 
 66
 00:02:44,112 --> 00:02:44,821
 import it
+導入它
 
 67
 00:02:45,965 --> 00:02:48,770
 from, and now we need a relative import path
+from，現在我們需要一個相對導入路徑
 
 68
 00:02:49,044 --> 00:02:51,430
 pointing at myServer. And you do set up such
+指向我的伺服器。你確實設定了這樣的
 
 69
 00:02:51,478 --> 00:02:52,542
 a path with./myServer.ts.
+帶有 ./myServer.ts 的路徑。
 
 70
 00:02:55,710 --> 00:02:57,275
 You need to add the file extension.
+您需要新增檔案副檔名。
 
 71
 00:02:58,989 --> 00:03:01,430
 at the beginning basically means look in the
+在開始時基本上意味著查看
 
 72
 00:03:01,430 --> 00:03:02,206
 same folder.../
+同一資料夾.../
 
 73
 00:03:03,759 --> 00:03:05,699
 would mean go up one folder,
+意味著向上一個資料夾，
 
 74
 00:03:06,281 --> 00:03:08,432
 but that's not what we need here. We do have
+但這不是我們需要的。我們確實有
 
 75
 00:03:08,480 --> 00:03:10,573
 the other file in the same folder, so we
+同一資料夾中的另一個檔案，所以我們
 
 76
 00:03:10,573 --> 00:03:12,924
 just need slash to look in the same folder.
+只需要斜線即可在同一資料夾中找到。
 
 77
 00:03:15,360 --> 00:03:16,068
 And now here again,
+現在又在這裡，
 
 78
 00:03:16,664 --> 00:03:19,160
 between the curly braces, we put what we
+在大括號之間，我們輸入我們想要的內容
 
 79
 00:03:19,176 --> 00:03:21,350
 want to import, in my case server.
+想要導入，在我的例子中是伺服器。
 
 80
 00:03:22,461 --> 00:03:24,779
 Now that curly brace syntax is required
+現在需要大括號文法
 
 81
 00:03:24,973 --> 00:03:28,195
 whenever you have a so-called named export,
+每當你有一個所謂的命名導出時，
 
 82
 00:03:28,598 --> 00:03:30,176
 which basically is the case if you add
+如果你加的話基本上就是這種情況
 
 83
 00:03:30,289 --> 00:03:32,931
 export in front of a constant or a function
+在常數或函式前面導出
 
 84
 00:03:32,931 --> 00:03:33,708
 that's written like this.
+是這樣寫的。
 
 85
 00:03:34,579 --> 00:03:36,988
 You can also have a default export with a
+您也可以使用預設導出
 
 86
 00:03:36,988 --> 00:03:38,303
 slightly different syntax.
+語法略有不同。
 
 87
 00:03:38,977 --> 00:03:41,141
 You can add export default,
+您可以新增匯出預設值，
 
 88
 00:03:42,168 --> 00:03:43,788
 and default is a keyword here,
+default 是這裡的關鍵字，
 
 89
 00:03:44,589 --> 00:03:44,878
 and then
+進而
 
 90
 00:03:45,552 --> 00:03:47,364
 whatever you wanna export as a default. In
+無論你想導出什麼作為預設值。在
 
 91
 00:03:47,412 --> 00:03:49,015
 my case, the SERVER constant.
+我的例子是 SERVER 常數。
 
 92
 00:03:49,721 --> 00:03:53,041
 Now you don't import it by name, so not by
+現在你不按名稱導入它，所以不要按
 
 93
 00:03:53,827 --> 00:03:55,494
 saying that you want the SERVER.
+說你想要伺服器。
 
 94
 00:03:56,056 --> 00:03:58,381
 Instead, now you can pick any name you want
+相反，現在您可以選擇任何您想要的名稱
 
 95
 00:03:58,381 --> 00:03:59,888
 here when you import,
+當你導入時，
 
 96
 00:04:00,706 --> 00:04:02,647
 but you have to omit the curly braces.
+但你必須省略花括號。
 
 97
 00:04:03,210 --> 00:04:05,537
 So now I could import Server like this or
+所以現在我可以像這樣導入伺服器或者
 
 98
 00:04:05,537 --> 00:04:06,264
 myServer,
+我的伺服器，
 
 99
 00:04:07,218 --> 00:04:09,416
 totally up to you. So now I could import
+完全取決於你。所以現在我可以導入
 
 100
 00:04:09,416 --> 00:04:11,612
 myServer or the default
+myServer 或預設值
 
 101
 00:04:12,175 --> 00:04:12,691
 Server
+伺服器
 
 102
 00:04:14,172 --> 00:04:14,607
 like this.
+像這樣。
 
 103
 00:04:16,331 --> 00:04:18,827
 Now there also are other variations of the
+現在還有其他變體
 
 104
 00:04:18,843 --> 00:04:21,230
 import/export syntax like aliases,
+匯入/匯出語法如別名，
 
 105
 00:04:21,908 --> 00:04:24,233
 but we'll see that when we need it. For the
+但我們會在需要時看到它。對於
 
 106
 00:04:24,233 --> 00:04:26,848
 moment, these are the 2 core import
+此刻，這些是 2 個核心導入
 
 107
 00:04:27,074 --> 00:04:29,604
 approaches I want you to memorize. Named
+我希望你記住的方法。命名
 
 108
 00:04:29,668 --> 00:04:32,414
 exports and imports and the default export
+匯出和匯入以及預設匯出
 
 109
 00:04:32,414 --> 00:04:32,912
 and import.
+並導入。
 
 110
 00:04:34,020 --> 00:04:36,654
 So here from server.ts, we actually have to
+所以從 server.ts 來看，我們其實必須
 
 111
 00:04:36,654 --> 00:04:39,770
 use a named import because server.ts is
+使用命名導入，因為 server.ts 是
 
 112
 00:04:39,866 --> 00:04:41,263
 using a named export.
+使用命名導出。
 
 113
 00:04:41,793 --> 00:04:43,496
 But then here I'm setting up a
+但我在這裡設置了一個
 
 114
 00:04:44,058 --> 00:04:47,318
 default export in my server, and hence we do
+我的伺服器中的預設導出，因此我們這樣做
 
 115
 00:04:47,414 --> 00:04:50,080
 import it like this in dummy response
+在虛擬回應中像這樣導入它
 
 116
 00:04:50,080 --> 00:04:52,312
 server. And that was a lot of talking about
+伺服器.這是很多人談論的
 
 117
 00:04:52,312 --> 00:04:54,721
 imports and exports, but it is crucial that
+進口和出口，但至關重要的是
 
 118
 00:04:54,721 --> 00:04:55,589
 you understand this.
+你明白這一點。
 
 119
 00:04:56,278 --> 00:04:58,115
 With this, we can of course execute this
+有了這個，我們當然可以執行這個
 
 120
 00:04:58,635 --> 00:05:01,105
 by quitting the running server with Ctrl+C
+使用 Ctrl+C 退出正在運行的伺服器
 
 121
 00:05:01,967 --> 00:05:03,634
 and then by calling deno run
+然後透過調用 deno run
 
 122
 00:05:05,517 --> 00:05:09,107
 dummy-response-server.ts. So by running the
+虛擬回應伺服器.ts。所以透過運行
 
 123
 00:05:09,107 --> 00:05:11,473
 main file, which is the file which imports
+main 檔案，這是導入的檔案
 
 124
 00:05:11,473 --> 00:05:13,405
 from the other files, so in my case by
+來自其他檔案，所以就我而言
 
 125
 00:05:13,439 --> 00:05:14,102
 running dummy-response-server.
+運行虛擬回應伺服器。
 
 126
 00:05:16,126 --> 00:05:18,098
 And of course you still need to add
+當然你還需要加入
 
 127
 00:05:18,810 --> 00:05:20,298
 --allow-net here.
+--此處允許網路。
 
 128
 00:05:21,074 --> 00:05:22,820
 And with that, it's compiling that file and
+這樣，它就會編譯該檔案並
 
 129
 00:05:22,852 --> 00:05:24,993
 then you see again, we're stuck in the
+然後你又看到了，我們被困在了
 
 130
 00:05:25,057 --> 00:05:27,284
 terminal because that server is running,
+終端機，因為該伺服器正在運行，
 
 131
 00:05:28,342 --> 00:05:30,168
 as you can confirm by reloading here.
+您可以在此處重新載入來確認。
 
 132
 00:05:31,482 --> 00:05:33,068
 Now, that's one thing I wanted to have a
+現在，這是我想要的一件事
 
 133
 00:05:33,068 --> 00:05:33,373
 look at.
+看看。
 
 134
 00:05:33,950 --> 00:05:36,369
 Async iterables could be another thing, but
+非同步迭代可能是另一回事，但是
 
 135
 00:05:36,369 --> 00:05:38,725
 we do have a closer look at those in the
+我們確實仔細研究了那些
 
 136
 00:05:38,773 --> 00:05:41,304
 refresher module, so you should check out
+複習模組，所以你應該檢查一下
 
 137
 00:05:41,336 --> 00:05:42,490
 that if this is unclear.
+如果這還不清楚。
 
 138
 00:05:43,323 --> 00:05:46,223
 I instead now wanna focus on how this
+我現在想關注的是如何
 
 139
 00:05:46,223 --> 00:05:49,636
 would've looked like in Node.js so that in
+看起來就像 Node.js 中的那樣
 
 140
 00:05:49,652 --> 00:05:52,234
 case you know Node, you know what the
+如果你了解 Node，你就知道什麼是
 
 141
 00:05:52,234 --> 00:05:54,836
 difference are, and you have a clear idea of
+差異是，而且你有一個清晰的想法
 
 142
 00:05:54,884 --> 00:05:56,824
 where Deno takes a different route.
+Deno 採取了不同的路線。

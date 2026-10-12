@@ -1,403 +1,504 @@
 1
 00:00:02,135 --> 00:00:04,190
 So now that we got rid of this error, it
+現在我們已經擺脫了這個錯誤
 
 2
 00:00:04,190 --> 00:00:07,048
 looks like our code is error-free. So let's
+看起來我們的程式碼沒有錯。那麼讓我們
 
 3
 00:00:07,096 --> 00:00:08,590
 maybe try to execute it.
+也許嘗試執行它。
 
 4
 00:00:09,264 --> 00:00:10,837
 For this, I'm going to deno run
+為此，我要運行
 
 5
 00:00:11,576 --> 00:00:12,443
 my-app.ts.
+my-app.ts。
 
 6
 00:00:13,101 --> 00:00:15,847
 But of course, I'm writing to a file here,
+但當然，我在這裡寫入一個檔案，
 
 7
 00:00:16,264 --> 00:00:20,407
 so actually I want to add the --allow-write
+所以實際上我想添加 --allow-write
 
 8
 00:00:20,407 --> 00:00:20,872
 permission.
+允許。
 
 9
 00:00:21,611 --> 00:00:23,409
 Now if we try to run the code like this,
+現在，如果我們嘗試像這樣運行程式碼，
 
 10
 00:00:24,035 --> 00:00:26,508
 we will however get an error. And that's the
+然而我們會得到一個錯誤。這就是
 
 11
 00:00:26,508 --> 00:00:29,318
 next important thing. If you get an error
+下一件重要的事情。如果出現錯誤
 
 12
 00:00:29,318 --> 00:00:32,080
 message, don't panic and just take a
+訊息，不要驚慌，只需採取
 
 13
 00:00:32,080 --> 00:00:35,388
 screenshot and share this in the Q&A forum
+截圖並在問答論壇中分享
 
 14
 00:00:35,581 --> 00:00:36,817
 or on Stack Overflow.
+或者在堆疊溢位上。
 
 15
 00:00:37,363 --> 00:00:37,700
 This
+這
 
 16
 00:00:38,230 --> 00:00:40,703
 will not make you a better developer. You
+不會讓你成為更好的開發人員。你
 
 17
 00:00:40,719 --> 00:00:42,935
 need to be able to solve problems on your
+需要能夠解決您的問題
 
 18
 00:00:42,967 --> 00:00:46,050
 own. And the first step of solving problems
+自己的。以及解決問題的第一步
 
 19
 00:00:46,178 --> 00:00:48,828
 is to read the error message because it
+是閱讀錯誤訊息，因為它
 
 20
 00:00:48,828 --> 00:00:52,055
 turns out a lot of error messages are quite
+事實證明很多錯誤訊息都是相當的
 
 21
 00:00:52,055 --> 00:00:54,800
 clear and really helpful. For example, here,
+清晰而且非常有幫助。例如，在這裡，
 
 22
 00:00:55,570 --> 00:00:58,136
 if we don't panic but we instead read the
+如果我們不驚慌而是閱讀
 
 23
 00:00:58,136 --> 00:00:59,227
 error message, we see
+錯誤訊息，我們看到
 
 24
 00:00:59,837 --> 00:01:01,810
 that we got an uncaught permission denied
+我們得到了一個未捕獲的許可被拒絕
 
 25
 00:01:01,906 --> 00:01:05,018
 error because read access is missing.
+錯誤，因為缺少讀取存取權限。
 
 26
 00:01:05,836 --> 00:01:07,584
 Now of course you might recall that
+現在你當然可能還記得
 
 27
 00:01:07,761 --> 00:01:10,391
 previously we didn't need to provide read
+以前我們不需要提供 read
 
 28
 00:01:10,488 --> 00:01:13,006
 access when we tried to write to a file,
+當我們嘗試寫入檔案時訪問，
 
 29
 00:01:13,632 --> 00:01:15,075
 but it looks like we need to do it here.
+但看來我們需要在這裡做。
 
 30
 00:01:15,332 --> 00:01:17,513
 I'll come back to why we need to do it here
+我會回到為什麼我們需要在這裡這樣做
 
 31
 00:01:17,545 --> 00:01:19,534
 in a second. For the moment, we can simply
+一秒鐘。目前，我們可以簡單地
 
 32
 00:01:19,567 --> 00:01:22,549
 fix the error by following suggestion this
+依照建議修復錯誤
 
 33
 00:01:22,598 --> 00:01:24,762
 error message gives to us. We should run
+錯誤訊息給我們。我們應該跑
 
 34
 00:01:24,762 --> 00:01:27,102
 again with the allow read flag. So let's
+再次使用允許讀取標誌。那麼讓我們
 
 35
 00:01:27,102 --> 00:01:27,824
 just do that.
+就這麼做吧。
 
 36
 00:01:28,449 --> 00:01:30,822
 Let's just run this again and add allow
+讓我們再次運行並添加允許
 
 37
 00:01:30,950 --> 00:01:32,569
 write and allow read.
+寫入並允許讀取。
 
 38
 00:01:33,595 --> 00:01:35,150
 If we now do this and we run it again,
+如果我們現在這樣做並再次運行它，
 
 39
 00:01:35,904 --> 00:01:39,350
 it crashes again though. Again, don't panic.
+但它又崩潰了。再次強調，不要驚慌。
 
 40
 00:01:39,687 --> 00:01:41,017
 Read the error message.
+閱讀錯誤訊息。
 
 41
 00:01:41,931 --> 00:01:44,384
 And here we see that we got a not found
+在這裡我們看到我們沒有找到
 
 42
 00:01:44,480 --> 00:01:46,949
 error. No such file or directory.
+錯誤。沒有這樣的檔案或目錄。
 
 43
 00:01:47,703 --> 00:01:48,024
 Okay,
+好的，
 
 44
 00:01:48,569 --> 00:01:51,184
 it also lets us know for which line number
+它也讓我們知道哪個行號
 
 45
 00:01:51,296 --> 00:01:54,424
 this error occurred— line number 14. So it's
+發生此錯誤 — 第 14 行。所以它是
 
 46
 00:01:54,424 --> 00:01:55,498
 coming from this line.
+來自這條線。
 
 47
 00:01:56,300 --> 00:01:57,199
 So somehow
+所以不知何故
 
 48
 00:01:57,888 --> 00:01:59,829
 we seem to have a problem with working with
+我們似乎在合作上遇到了問題
 
 49
 00:01:59,894 --> 00:02:00,391
 that file.
+那個檔案。
 
 50
 00:02:01,578 --> 00:02:03,342
 We don't find that file.
+我們找不到該檔案。
 
 51
 00:02:03,984 --> 00:02:06,550
 Now previously, when we wrote to a file, we
+之前，當我們寫入檔案時，我們
 
 52
 00:02:06,550 --> 00:02:09,005
 never got this error, even if the file
+即使檔案
 
 53
 00:02:09,021 --> 00:02:10,400
 didn't exist in advance.
+事先並不存在。
 
 54
 00:02:11,186 --> 00:02:12,774
 Well, here's one important difference in
+嗯，這是一個重要的區別
 
 55
 00:02:12,806 --> 00:02:14,635
 this code. You might have already spotted
+這段程式碼。你可能已經發現了
 
 56
 00:02:14,635 --> 00:02:16,430
 it. It's this extra argument.
+它。就是這個額外的參數。
 
 57
 00:02:17,296 --> 00:02:19,620
 This is a 3rd argument which I'm passing to
+這是我要傳遞給的第三個參數
 
 58
 00:02:19,620 --> 00:02:22,554
 writeFile, and it's an object where I set
+writeFile，它是我設定的一個物件
 
 59
 00:02:22,650 --> 00:02:23,403
 the create
+創造
 
 60
 00:02:23,932 --> 00:02:26,481
 option, the create property, to false.
+選項，create 屬性，設定為 false。
 
 61
 00:02:27,299 --> 00:02:28,533
 Now what does create do?
+現在 create 做了什麼？
 
 62
 00:02:29,463 --> 00:02:31,322
 Well, we can always learn more about the
+嗯，我們總是可以了解更多關於
 
 63
 00:02:31,386 --> 00:02:34,127
 built-in features if we go back to the Deno
+如果我們回到 Deno 的內建功能
 
 64
 00:02:34,288 --> 00:02:34,576
 page
+頁
 
 65
 00:02:35,169 --> 00:02:36,804
 and there to the runtime API.
+以及運行時 API。
 
 66
 00:02:37,958 --> 00:02:40,651
 And here, if we have a look at the writeFile
+在這裡，如果我們看一下 writeFile
 
 67
 00:02:40,699 --> 00:02:41,469
 documentation
+檔案
 
 68
 00:02:43,264 --> 00:02:43,761
 we see
+我們看到
 
 69
 00:02:44,370 --> 00:02:47,512
 that on write file we can set create,
+在寫入檔案時我們可以設定創建，
 
 70
 00:02:48,137 --> 00:02:50,430
 and now this will only work if it's
+現在這只有在以下情況才有效
 
 71
 00:02:51,119 --> 00:02:51,408
 false
+錯誤的
 
 72
 00:02:51,985 --> 00:02:54,854
 if the file exists. So setting this create
+如果檔案存在。所以設定這個創建
 
 73
 00:02:54,886 --> 00:02:57,772
 flag simply controls whether the file should
+flag 只是控制檔是否應該
 
 74
 00:02:57,852 --> 00:02:59,871
 be created automatically if it's missing or
+如果缺少或則自動建立
 
 75
 00:02:59,871 --> 00:03:00,208
 not.
+不是。
 
 76
 00:03:00,817 --> 00:03:03,430
 The default is that files that are missing
+預設是缺少的檔案
 
 77
 00:03:03,526 --> 00:03:06,396
 are created, but by setting create to false,
+已創建，但透過將 create 設定為 false，
 
 78
 00:03:06,829 --> 00:03:09,234
 I'm overriding that default. And this is
+我將覆蓋該預設值。這是
 
 79
 00:03:09,234 --> 00:03:10,645
 something you might wanna do in some
+你可能想做的事
 
 80
 00:03:10,693 --> 00:03:12,810
 applications. Of course, sometimes this is
+應用程式.當然，有時這是
 
 81
 00:03:12,843 --> 00:03:14,735
 maybe not what you wanna do, but here it is
+也許不是你想做的，但它就是這樣
 
 82
 00:03:14,847 --> 00:03:15,345
 what I wanna do.
+我想做的事。
 
 83
 00:03:16,034 --> 00:03:18,841
 I want to make sure that this file is not
+我想確保這個檔案不是
 
 84
 00:03:18,841 --> 00:03:21,087
 created if it doesn't exist yet.
+如果尚不存在則創建。
 
 85
 00:03:22,386 --> 00:03:24,953
 Now, this extra option therefore is the
+現在，這個額外的選項是
 
 86
 00:03:24,953 --> 00:03:27,022
 reason why we're getting this error. It's
+我們收到此錯誤的原因。它是
 
 87
 00:03:27,102 --> 00:03:29,347
 also the reason why we had to add the
+這也是我們必須添加的原因
 
 88
 00:03:29,347 --> 00:03:31,866
 allow_read flag, the allow_read permission.
+allow_read標誌，allow_read權限。
 
 89
 00:03:32,315 --> 00:03:34,304
 We see that here as well. allow_read is
+我們在這裡也看到了這一點。允許讀取是
 
 90
 00:03:34,320 --> 00:03:36,469
 required if options.create is false.
+如果 options.create 為 false，則為必要。
 
 91
 00:03:37,544 --> 00:03:39,325
 Now with that, of course, we could set it to
+當然，現在我們可以將其設定為
 
 92
 00:03:39,325 --> 00:03:39,646
 true
+真的
 
 93
 00:03:40,175 --> 00:03:42,566
 or simply omit this entire argument to have
+或乾脆省略整個參數
 
 94
 00:03:42,598 --> 00:03:45,149
 the default again. But let's say we want to
+再次預設。但假設我們想要
 
 95
 00:03:45,149 --> 00:03:45,614
 have this.
+有這個。
 
 96
 00:03:46,448 --> 00:03:49,561
 Now we have a problem. Our program doesn't
+現在我們有一個問題。我們的程式沒有
 
 97
 00:03:49,561 --> 00:03:51,791
 run because the file is missing.
+運行，因為檔案遺失。
 
 98
 00:03:52,545 --> 00:03:54,454
 Now again, we can solve it by removing this,
+現在，我們可以透過刪除它來解決這個問題，
 
 99
 00:03:54,470 --> 00:03:57,118
 but maybe we want a program where this only
+但也許我們想要一個程式，其中只有這個
 
 100
 00:03:57,118 --> 00:03:58,048
 sometimes works.
+有時有效。
 
 101
 00:03:58,626 --> 00:04:00,535
 What can you do in such situations?
+在這種情況下你能做什麼？

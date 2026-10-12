@@ -1,211 +1,264 @@
 1
 00:00:02,264 --> 00:00:04,465
 I don't know about you, but whilst we
+我不了解你，但當我們
 
 2
 00:00:04,995 --> 00:00:06,601
 learned quite a bit about Deno,
+了解了很多關於 Deno 的知識，
 
 3
 00:00:07,164 --> 00:00:10,280
 at this point it doesn't look too appealing,
+此時它看起來不太吸引人，
 
 4
 00:00:10,472 --> 00:00:10,954
 does it?
+是嗎？
 
 5
 00:00:11,661 --> 00:00:14,360
 Writing server-side code like this, having
+像這樣編寫伺服器端程式碼，具有
 
 6
 00:00:14,472 --> 00:00:17,347
 to manually parse different methods and
+手動解析不同的方法和
 
 7
 00:00:17,363 --> 00:00:20,913
 URLs, having to manually parse all the
+URL，必須手動解析所有
 
 8
 00:00:20,913 --> 00:00:22,086
 request bodies,
+請求機構，
 
 9
 00:00:22,664 --> 00:00:25,507
 writing HTML code like this inside of a
+在 a 中寫出這樣的 HTML 程式碼
 
 10
 00:00:25,507 --> 00:00:27,788
 string inside of our TypeScript code
+TypeScript 程式碼中的字串
 
 11
 00:00:28,366 --> 00:00:30,997
 That's really not how we wanna build bigger
+這確實不是我們想要建造更大的方式
 
 12
 00:00:31,094 --> 00:00:33,725
 applications because it would be extremely
+應用程式，因為這將是非常
 
 13
 00:00:33,821 --> 00:00:36,533
 cumbersome. Now, I showed you all this
+麻煩。現在，我向你展示了這一切
 
 14
 00:00:37,126 --> 00:00:40,592
 lower-level stuff so that you know how Deno
+較低等級的東西，讓你知道如何 Deno
 
 15
 00:00:40,736 --> 00:00:43,399
 generally works. And of course, there's
+一般有效。當然，還有
 
 16
 00:00:43,399 --> 00:00:45,645
 nothing wrong with building web apps like
+建立像這樣的網路應用程式並沒有什麼問題
 
 17
 00:00:45,774 --> 00:00:47,795
 this, especially if you're maybe just
+這個，特別是如果你可能只是
 
 18
 00:00:47,876 --> 00:00:49,368
 building simpler web apps.
+建立更簡單的網頁應用程式。
 
 19
 00:00:50,041 --> 00:00:52,095
 But most likely, you don't wanna build
+但最有可能的是，你不想建造
 
 20
 00:00:52,352 --> 00:00:53,363
 bigger web apps like this.
+像這樣更大的網頁應用程式。
 
 21
 00:00:54,053 --> 00:00:56,848
 Therefore, in this module, we will learn how
+因此，在本模組中，我們將學習如何
 
 22
 00:00:56,848 --> 00:00:59,819
 to work with Oak, and I will explain what
+與 Oak 合作，我將解釋什麼
 
 23
 00:00:59,899 --> 00:01:00,285
 Oak is,
+橡樹是，
 
 24
 00:01:00,944 --> 00:01:02,566
 and dynamic templates.
+和動態樣板。
 
 25
 00:01:03,208 --> 00:01:05,923
 In this module, I'll explain both what Oak
+在本模組中，我將解釋 Oak 的含義
 
 26
 00:01:06,003 --> 00:01:08,702
 is as well as what dynamic templates are,
+以及動態樣板是什麼，
 
 27
 00:01:09,232 --> 00:01:11,545
 and by the end of this module, we will have
+在本模組結束時，我們將得到
 
 28
 00:01:11,545 --> 00:01:14,757
 a much, much nicer way of building a web
+一種更好的建構網路的方式
 
 29
 00:01:14,757 --> 00:01:17,841
 application with Deno. I can already take
+與 Deno 的應用程式。我已經可以採取
 
 30
 00:01:17,889 --> 00:01:22,082
 away that both this Oak as well as dynamic
+這橡木既充滿活力又充滿活力
 
 31
 00:01:22,082 --> 00:01:24,444
 templates are features which we'll be able
+樣板是我們能夠實現的功能
 
 32
 00:01:24,476 --> 00:01:24,910
 to use
+使用
 
 33
 00:01:25,456 --> 00:01:28,107
 that allow us as a developer to focus on our
+這使我們作為開發人員能夠專注於我們的
 
 34
 00:01:28,107 --> 00:01:31,449
 core logic and remove the overhead of
+核心邏輯並消除開銷
 
 35
 00:01:31,481 --> 00:01:34,277
 manually parsing requests and bodies and
+手動解析請求和正文
 
 36
 00:01:34,453 --> 00:01:36,623
 writing HTML in TypeScript.
+用 TypeScript 編寫 HTML。
 
 37
 00:01:37,281 --> 00:01:39,691
 Specifically in this module, we will explore
+具體來說，在本模組中，我們將探討
 
 38
 00:01:39,900 --> 00:01:42,407
 which different kinds of web applications we
+我們有哪些不同型別的 Web 應用程式
 
 39
 00:01:42,407 --> 00:01:43,065
 can build
+可以建造
 
 40
 00:01:43,756 --> 00:01:45,861
 with Deno, but also in general.
+與 Deno 一樣，但總的來說也是如此。
 
 41
 00:01:46,423 --> 00:01:49,764
 We will explore what dynamic views are and
+我們將探討什麼是動態視圖以及
 
 42
 00:01:49,796 --> 00:01:51,788
 what templates are and how that is all
+什麼是樣板以及這一切是如何進行的
 
 43
 00:01:51,948 --> 00:01:52,414
 connected.
+連接。
 
 44
 00:01:53,073 --> 00:01:55,627
 And we'll then have way more fun with
+然後我們就會有更多的樂趣
 
 45
 00:01:55,659 --> 00:01:58,743
 building web applications with a tool or a
+使用工具或
 
 46
 00:01:58,775 --> 00:02:01,810
 framework called Oak. And I will explain
+稱為 Oak 的框架。我會解釋
 
 47
 00:02:01,987 --> 00:02:03,706
 what a framework is and what Oak
+什麼是框架以及什麼是 Oak
 
 48
 00:02:03,706 --> 00:02:06,677
 specifically is when we reach that point. So
+具體來說就是當我們達到這一點時。所以
 
 49
 00:02:06,677 --> 00:02:09,199
 by the end of this module, we'll be able to
+在本模組結束時，我們將能夠
 
 50
 00:02:09,231 --> 00:02:11,464
 build a much nicer web application and
+建立一個更好的 Web 應用程式並
 
 51
 00:02:11,560 --> 00:02:13,969
 finally, all the different things will come
+最後，所有不同的事物都會到來
 
 52
 00:02:13,969 --> 00:02:16,225
 together And it'll be more fun to build
+一起建造會更有趣
 
 53
 00:02:16,225 --> 00:02:16,421
 that.
+那。

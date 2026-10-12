@@ -1,307 +1,384 @@
 1
 00:00:02,259 --> 00:00:05,063
 Deno has this built-in permissions concept,
+Deno 有這個內建的權限概念，
 
 2
 00:00:05,160 --> 00:00:07,884
 and that's a key difference to Node, in case
+這是與 Node 的關鍵區別，以防萬一
 
 3
 00:00:07,884 --> 00:00:08,573
 you know Node.
+你知道節點。
 
 4
 00:00:09,150 --> 00:00:12,707
 In Node.js, you can execute any script just
+在 Node.js 中，您可以執行任何腳本
 
 5
 00:00:12,755 --> 00:00:15,736
 like this, and Node will not ask for
+這樣，Node 就不會要求
 
 6
 00:00:15,736 --> 00:00:18,685
 permissions. So any script is allowed to do
+權限。所以任何腳本都可以做
 
 7
 00:00:18,845 --> 00:00:19,758
 anything in the end.
+到底是什麼。
 
 8
 00:00:20,464 --> 00:00:21,569
 That's different in Deno.
+這在 Deno 中有所不同。
 
 9
 00:00:22,130 --> 00:00:22,963
 By default,
+預設情況下，
 
 10
 00:00:23,508 --> 00:00:27,165
 Deno scripts may not read files, write
+Deno 腳本可能無法讀取檔案、寫入
 
 11
 00:00:27,262 --> 00:00:27,727
 files,
+檔案，
 
 12
 00:00:28,305 --> 00:00:31,035
 or use environment variables, or interact
+或使用環境變數，或交互
 
 13
 00:00:31,035 --> 00:00:31,950
 with the network.
+與網路。
 
 14
 00:00:32,721 --> 00:00:34,375
 And there are a couple of other things too,
+還有其他一些事情，
 
 15
 00:00:34,487 --> 00:00:36,478
 but these are the most important things
+但這些是最重要的事情
 
 16
 00:00:36,510 --> 00:00:38,565
 which are not allowed by default.
+預設情況下不允許。
 
 17
 00:00:39,705 --> 00:00:42,146
 Now that's a great security mechanism, but
+這是一個很好的安全機制，但是
 
 18
 00:00:42,194 --> 00:00:42,820
 sometimes
+有時
 
 19
 00:00:43,479 --> 00:00:44,571
 you want to write a file.
+你想寫一個檔案。
 
 20
 00:00:45,823 --> 00:00:48,376
 For example, here in our code, we want to
+例如，在我們的程式碼中，我們想要
 
 21
 00:00:48,392 --> 00:00:50,544
 run this code. We don't want it to crash.
+運行這段程式碼。我們不希望它崩潰。
 
 22
 00:00:51,202 --> 00:00:53,900
 Well, no worries. Of course, you can still
+好吧，不用擔心。當然，你仍然可以
 
 23
 00:00:54,093 --> 00:00:57,193
 do these things with Deno. You just have to
+用 Deno 來做這些事。你只需要
 
 24
 00:00:57,225 --> 00:00:59,795
 assign the right permissions to your script
+為您的腳本分配正確的權限
 
 25
 00:00:59,795 --> 00:01:01,449
 execution explicitly.
+明確執行。
 
 26
 00:01:02,910 --> 00:01:05,014
 And for example, for reading files, that's
+例如，對於讀取檔案，那就是
 
 27
 00:01:05,014 --> 00:01:05,785
 done by adding
+透過添加完成
 
 28
 00:01:06,460 --> 00:01:09,383
 the --allow-read flag to your Deno run
+Deno 運行的 --allow-read 標誌
 
 29
 00:01:09,511 --> 00:01:12,820
 command. For writing, it's --allow-write.
+命令。對於寫入，它是--allow-write。
 
 30
 00:01:13,286 --> 00:01:16,803
 It's --allow-env for accessing environment
+它是 --allow-env 用於存取環境
 
 31
 00:01:16,803 --> 00:01:19,869
 variables. And it's --allow-net for
+變數。它是 --allow-net for
 
 32
 00:01:19,869 --> 00:01:21,490
 interacting with the network.
+與網路互動。
 
 33
 00:01:22,357 --> 00:01:25,455
 There also are variations in case you don't
+如果您不這樣做，也有一些變化
 
 34
 00:01:25,471 --> 00:01:27,798
 wanna allow reading all files but you wanna
+想要允許讀取所有檔案，但你想要
 
 35
 00:01:27,798 --> 00:01:30,141
 restrict it to certain files. You can, for
+將其限制為某些檔案。你可以，為了
 
 36
 00:01:30,141 --> 00:01:32,950
 example, also pass the path to the file
+例如，也傳遞檔案的路徑
 
 37
 00:01:32,950 --> 00:01:35,583
 which should be allowed to allow-read. The
+應該允許允許讀取。這
 
 38
 00:01:35,583 --> 00:01:38,135
 same for writing. You can make clear which
+寫作也一樣。你可以說清楚是哪一個
 
 39
 00:01:38,167 --> 00:01:40,638
 environment variables should be accessible,
+環境變數應該是可存取的，
 
 40
 00:01:41,056 --> 00:01:43,592
 and you can, for example, also lock down
+例如，您也可以鎖定
 
 41
 00:01:43,624 --> 00:01:45,839
 network access to specific domains.
+對特定網域的網路存取。
 
 42
 00:01:46,417 --> 00:01:49,594
 So it's not an either nothing or everything
+所以這不是一無所有或一切
 
 43
 00:01:49,707 --> 00:01:52,580
 decision, it's a very granular decision
+決定，這是一個非常精細的決定
 
 44
 00:01:52,852 --> 00:01:55,131
 where you can really fine-tune this to your
+在那裡你可以真正根據你的情況進行微調
 
 45
 00:01:55,517 --> 00:01:55,870
 needs.
+需要。
 
 46
 00:01:56,961 --> 00:01:57,330
 So
+所以
 
 47
 00:01:57,892 --> 00:01:59,112
 if I go back here,
+如果我回到這裡
 
 48
 00:01:59,818 --> 00:02:02,771
 in order to run our code, we need to run
+為了運行我們的程式碼，我們需要運行
 
 49
 00:02:03,044 --> 00:02:04,055
 deno run
+德諾運行
 
 50
 00:02:04,729 --> 00:02:05,002
 and then
+進而
 
 51
 00:02:06,478 --> 00:02:07,249
 --allow-write
+--允許寫入
 
 52
 00:02:07,859 --> 00:02:10,395
 to allow writing to all files,
+允許寫入所有檔案，
 
 53
 00:02:11,454 --> 00:02:11,919
 or
+或者
 
 54
 00:02:12,689 --> 00:02:15,718
 If we wanna just allow writing to test.txt,
+如果我們只想允許寫入 test.txt，
 
 55
 00:02:16,423 --> 00:02:19,019
 allowWrite equals test.txt
+允許寫入等於test.txt
 
 56
 00:02:19,724 --> 00:02:22,497
 and then your script file name, so
+然後是你的腳本檔名，所以
 
 57
 00:02:22,609 --> 00:02:23,779
 deno-core.ts.
+deno-core.ts。
 
 58
 00:02:24,372 --> 00:02:27,145
 And now this compiles and eventually is
+現在編譯並最終是
 
 59
 00:02:27,337 --> 00:02:29,982
 done. And as you see, it created the
+完畢。正如你所看到的，它創造了
 
 60
 00:02:29,982 --> 00:02:31,697
 test.txt file
+測試.txt 檔案
 
 61
 00:02:32,306 --> 00:02:36,120
 with the message we specified in our code.
+以及我們在程式碼中指定的訊息。
 
 62
 00:02:36,937 --> 00:02:40,031
 So that is how Deno works in general and how
+這就是 Deno 的一般工作方式以及
 
 63
 00:02:40,143 --> 00:02:42,564
 you deal with its permissions. But not just
+你處理它的權限。但不僅僅是
 
 64
 00:02:42,564 --> 00:02:46,626
 that, now you also saw some of the core APIs
+那麼，現在您也看到了一些核心 API
 
 65
 00:02:46,803 --> 00:02:47,348
 in action.
+在行動中。
 
 66
 00:02:47,926 --> 00:02:50,399
 You saw setTimeout, which is available in
+您看到了 setTimeout，它可以在
 
 67
 00:02:50,495 --> 00:02:53,417
 Deno, and this global Deno object,
+Deno，以及這個全域 Deno 物件，
 
 68
 00:02:53,947 --> 00:02:56,724
 which my IDE doesn't recognize right now,
+我的 IDE 目前無法識別，
 
 69
 00:02:57,093 --> 00:02:58,121
 but which is available,
+但可用的是
 
 70
 00:02:58,843 --> 00:03:01,107
 as you can clearly tell by the fact that the
+正如你可以清楚看出的事實
 
 71
 00:03:01,107 --> 00:03:02,841
 script executed successfully.
+腳本執行成功。
 
 72
 00:03:03,499 --> 00:03:06,389
 And this global Deno object gives us access
+這個全域 Deno 物件讓我們可以訪問
 
 73
 00:03:06,389 --> 00:03:09,536
 to all these core APIs which essentially
+所有這些核心 API 本質上都是
 
 74
 00:03:09,536 --> 00:03:12,124
 contain all you might need to build any kind
+包含建構任何型別可能需要的所有內容
 
 75
 00:03:12,124 --> 00:03:15,387
 of application. In this case, a very simple
+的應用程式。在這種情況下，一個非常簡單的
 
 76
 00:03:15,387 --> 00:03:18,489
 application that writes to a file and
+寫入檔案的應用程式和
 
 77
 00:03:18,538 --> 00:03:21,206
 creates the file if it doesn't exist yet.
+如果檔案尚不存在則建立該檔案。

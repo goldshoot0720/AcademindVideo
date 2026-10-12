@@ -1,243 +1,304 @@
 1
 00:00:02,311 --> 00:00:04,945
 Now we got our basic website which we're
+現在我們有了我們的基本網站
 
 2
 00:00:04,945 --> 00:00:07,090
 returning here. Not too fancy, of course,
+回傳這裡。當然，不要太花哨，
 
 3
 00:00:07,107 --> 00:00:07,984
 but it is a website.
+但這是一個網站。
 
 4
 00:00:09,656 --> 00:00:12,261
 Of course, the goal, however, was not just
+當然，目標不僅僅是
 
 5
 00:00:12,261 --> 00:00:15,271
 to return this HTML content, but instead,
+傳回此 HTML 內容，但是，
 
 6
 00:00:15,320 --> 00:00:16,987
 when the user submits the form,
+當使用者提交表單時，
 
 7
 00:00:17,586 --> 00:00:18,782
 we wanna do something else.
+我們想做點別的事。
 
 8
 00:00:19,622 --> 00:00:21,527
 We might wanna store whatever the user
+我們可能想要儲存使用者的任何內容
 
 9
 00:00:21,704 --> 00:00:23,593
 entered here in the input field.
+在輸入欄位中輸入。
 
 10
 00:00:24,852 --> 00:00:27,483
 And for that, we can use the fact that there
+為此，我們可以利用這樣一個事實：
 
 11
 00:00:27,516 --> 00:00:29,004
 is more information we can get out of the
+我們可以從中獲得更多資訊
 
 12
 00:00:29,004 --> 00:00:29,996
 request because we will need more
+請求，因為我們需要更多
 
 13
 00:00:31,932 --> 00:00:34,176
 more information in order to do something
+更多資訊以便做某事
 
 14
 00:00:34,240 --> 00:00:34,593
 different.
+不同的。
 
 15
 00:00:35,138 --> 00:00:37,767
 We need to be able to find out which kind of
+我們需要能夠找出哪一種
 
 16
 00:00:37,767 --> 00:00:40,828
 request the user sent. Did the user just
+使用者發送的請求。使用者是否剛剛
 
 17
 00:00:40,892 --> 00:00:43,970
 visit localhost:3000 or did the user submit
+造訪 localhost:3000 或使用者是否提交
 
 18
 00:00:44,018 --> 00:00:46,647
 the form? The request holds that information
+形式？該請求包含該訊息
 
 19
 00:00:47,321 --> 00:00:50,222
 because on this request object we also, for
+因為在這個請求對像上我們也，
 
 20
 00:00:50,222 --> 00:00:53,332
 example, got the body, which is basically
+例如，得到了身體，基本上就是
 
 21
 00:00:53,332 --> 00:00:55,336
 the data inside of the request.
+請求中的資料。
 
 22
 00:00:55,881 --> 00:00:58,926
 Now this is not a string or a JavaScript
+現在這不是字串或 JavaScript
 
 23
 00:00:59,006 --> 00:01:00,609
 object which we can read like this.
+我們可以像這樣讀取物件。
 
 24
 00:01:01,267 --> 00:01:03,607
 Instead, this is basically a so-called Deno
+相反，這基本上是所謂的 Deno
 
 25
 00:01:04,617 --> 00:01:07,839
 which is one of Deno's core objects, and you
+這是 Deno 的核心物件之一，而你
 
 26
 00:01:07,839 --> 00:01:11,189
 can think of it as a stream of data which is
+可以將其視為資料流
 
 27
 00:01:11,189 --> 00:01:12,488
 arriving on our server.
+到達我們的伺服器。
 
 28
 00:01:13,209 --> 00:01:15,533
 Down there, we also see a snippet on how we
+在那裡，我們也看到了一個關於我們如何
 
 29
 00:01:15,533 --> 00:01:17,617
 can parse this, and we're going to write
+可以解析這個，我們要寫
 
 30
 00:01:17,617 --> 00:01:19,845
 this together. I'll explain it, and I can
+這個一起。我會解釋一下，我可以
 
 31
 00:01:20,086 --> 00:01:22,714
 also already tell you this is not how we'll
+我們也已經告訴你這不是我們的方式
 
 32
 00:01:22,730 --> 00:01:24,590
 have to do it throughout the entire course.
+必須在整個課程中都這樣做。
 
 33
 00:01:25,215 --> 00:01:27,107
 This is, however, how we will do it for now
+然而，這就是我們現在要做的
 
 34
 00:01:27,732 --> 00:01:30,008
 so that we all understand how this works
+讓我們都明白這是如何運作的
 
 35
 00:01:30,184 --> 00:01:30,649
 under the hood.
+在引擎蓋下。
 
 36
 00:01:31,885 --> 00:01:34,439
 Besides the body, we also get the content
+除了正文之外，我們還可以獲得內容
 
 37
 00:01:34,439 --> 00:01:36,848
 length, so basically the amount of bytes
+長度，所以基本上就是位元組數
 
 38
 00:01:36,848 --> 00:01:39,513
 we're getting as request body here. This
+我們在這裡得到請求正文。這
 
 39
 00:01:39,513 --> 00:01:41,681
 will help us judge whether we do get a
+將幫助我們判斷我們是否確實得到了
 
 40
 00:01:41,681 --> 00:01:44,106
 request body or not, so whether we should
+是否請求主體，那麼我們是否應該
 
 41
 00:01:44,171 --> 00:01:47,318
 parse it and how much we should parse, or if
+解析它以及我們應該解析多少，或者如果
 
 42
 00:01:47,318 --> 00:01:48,876
 there is no parsing to be done.
+無需進行任何解析。
 
 43
 00:01:49,550 --> 00:01:52,024
 We also can extract the request headers, so
+我們也可以提取請求標頭，因此
 
 44
 00:01:52,104 --> 00:01:54,336
 any metadata attached to the incoming
+附加到傳入的任何元資料
 
 45
 00:01:54,368 --> 00:01:54,866
 request.
+要求。
 
 46
 00:01:55,557 --> 00:01:58,288
 We can find out which method was used if it
+我們可以找出使用了哪種方法，如果
 
 47
 00:01:58,288 --> 00:02:00,012
 was a GET or POST request.
+是 GET 或 POST 請求。
 
 48
 00:02:00,641 --> 00:02:02,107
 We can also find out
+我們還可以了解到
 
 49
 00:02:02,720 --> 00:02:04,637
 what the URL of the request was.
+請求的 URL 是什麼。
 
 50
 00:02:05,810 --> 00:02:07,426
 And let's maybe see this in action.
+讓我們看看它的實際效果。
 
 51
 00:02:08,088 --> 00:02:10,723
 Let's console.log request.method here,
+讓我們在這裡console.log request.method，
 
 52
 00:02:14,209 --> 00:02:15,916
 and let's also console.log
+我們也可以使用 console.log
 
 53
 00:02:17,108 --> 00:02:19,540
 the request.url to see what's in there.
+request.url 來看看裡面有什麼。
 
 54
 00:02:20,474 --> 00:02:21,472
 And with that, if we now
+有了這個，如果我們現在
 
 55
 00:02:22,004 --> 00:02:24,599
 repeat our run command and start that server
+重複我們的運行命令並啟動該伺服器
 
 56
 00:02:25,812 --> 00:02:30,082
 and we reload localhost:3000, we see GET and
+然後我們重新載入 localhost:3000，我們看到 GET 和
 
 57
 00:02:30,179 --> 00:02:30,727
 a slash.
+斜杠。
 
 58
 00:02:31,484 --> 00:02:34,191
 So the method for this request was GET. It
+所以這個請求的方法是GET。它
 
 59
 00:02:34,191 --> 00:02:36,786
 was a GET request, which is indeed the kind
+是一個GET請求，確實是這種
 
 60
 00:02:36,786 --> 00:02:39,444
 of request the browser sends to a server if
+瀏覽器發送到伺服器的請求，如果
 
 61
 00:02:39,444 --> 00:02:40,927
 you just enter a URL.
+您只需輸入一個網址。

@@ -1,443 +1,554 @@
 1
 00:00:02,135 --> 00:00:04,688
 So let me build the same kind of server with
+所以讓我建立相同型別的伺服器
 
 2
 00:00:04,688 --> 00:00:07,466
 Node just to show you the differences, which
+Node 只是為了向您展示差異，其中
 
 3
 00:00:07,642 --> 00:00:10,356
 I won't do for the entire course, but which
+我不會完成整個課程，但是
 
 4
 00:00:10,533 --> 00:00:13,246
 really matters here because a lot of you who
+這裡真的很重要，因為你們很多人
 
 5
 00:00:13,262 --> 00:00:15,606
 are taking this course will have worked with
+正在學習這門課程將與
 
 6
 00:00:15,606 --> 00:00:18,705
 Node before or might consider also learning
+Node之前或可以考慮也學一下
 
 7
 00:00:18,802 --> 00:00:21,435
 Node thereafter. So I think it's helpful to
+此後節點。所以我認為這有幫助
 
 8
 00:00:21,451 --> 00:00:23,121
 see how it would look like in Node.
+看看它在 Node.js 中是什麼樣子。
 
 9
 00:00:24,133 --> 00:00:28,500
 So here I'll add my node server.js, not.ts
+所以在這裡我將添加我的節點 server.js，而不是 .ts
 
 10
 00:00:28,612 --> 00:00:30,924
 because Node natively doesn't support
+因為Node本身不支援
 
 11
 00:00:30,924 --> 00:00:32,675
 TypeScript. TypeScript. That's one
+打字稿。打字稿。那是一個
 
 12
 00:00:32,707 --> 00:00:33,478
 difference already.
+已經有差別了。
 
 13
 00:00:34,297 --> 00:00:36,016
 And there we also have a different import
+在那裡我們還有一個不同的導入
 
 14
 00:00:36,016 --> 00:00:38,842
 syntax. With Node, we need to import the
+句法。對於 Node，我們需要導入
 
 15
 00:00:38,955 --> 00:00:41,765
 HTTP module, but this is how the import
+HTTP模組，不過是這樣導入的
 
 16
 00:00:41,765 --> 00:00:44,351
 syntax looks like in Node. Yeah, it's really
+語法類似於 Node.js 中的語法。是的，這確實是
 
 17
 00:00:44,351 --> 00:00:45,090
 quite different.
+完全不同。
 
 18
 00:00:46,358 --> 00:00:48,992
 Important, in order to follow along, you
+重要的是，為了跟隨，你
 
 19
 00:00:48,992 --> 00:00:50,904
 need to download the latest version of
+需要下載最新版本的
 
 20
 00:00:50,920 --> 00:00:54,116
 Node.js from nodejs.org. If you just watch
+來自nodejs.org 的 Node.js。如果你只是看
 
 21
 00:00:54,164 --> 00:00:55,802
 the videos, you of course don't have to do
+影片，你當然不必這樣做
 
 22
 00:00:55,834 --> 00:00:57,312
 that, but if you want to run the code on
+但是如果你想運行程式碼
 
 23
 00:00:57,360 --> 00:00:59,564
 your own, you you need to download Node from
+你自己的，你需要從下載 Node
 
 24
 00:00:59,664 --> 00:00:59,798
 there.
+那裡。
 
 25
 00:01:01,742 --> 00:01:03,993
 With that, we're importing HTTP
+這樣，我們就導入了 HTTP
 
 26
 00:01:04,781 --> 00:01:08,528
 and HTTP, the HTTP module got a createServer
+和HTTP，HTTP模組有一個createServer
 
 27
 00:01:09,236 --> 00:01:09,509
 method.
+方法。
 
 28
 00:01:11,088 --> 00:01:13,610
 Now I'm getting an error here by my IDE that
+現在我的 IDE 出現錯誤
 
 29
 00:01:13,610 --> 00:01:15,631
 it can't find the module HTTP.
+它找不到模組 HTTP。
 
 30
 00:01:16,278 --> 00:01:19,285
 This has to be a false alert though. I got
+但這一定是個誤報。我得到了
 
 31
 00:01:19,285 --> 00:01:21,513
 Node installed so it will definitely be able
+Node安裝好了所以絕對可以
 
 32
 00:01:21,513 --> 00:01:22,061
 to find this.
+找到這個。
 
 33
 00:01:23,366 --> 00:01:26,316
 Hence, now on the HTTP object, we can call
+因此，現在在 HTTP 物件上，我們可以調用
 
 34
 00:01:26,445 --> 00:01:27,348
 createServer
+創建伺服器
 
 35
 00:01:28,063 --> 00:01:29,828
 And that gives us back a server.
+這給了我們一個伺服器。
 
 36
 00:01:30,390 --> 00:01:31,947
 But now the differences begin,
+但現在分歧開始了
 
 37
 00:01:32,477 --> 00:01:34,338
 besides the TypeScript and import thing,
+除了 TypeScript 和 import 之外，
 
 38
 00:01:34,483 --> 00:01:35,735
 which already are different.
+這已經是不同的了。
 
 39
 00:01:36,955 --> 00:01:39,266
 To createServer, we now don't pass our
+要創建伺服器，我們現在不傳遞我們的
 
 40
 00:01:39,282 --> 00:01:41,946
 object where we set up the port. Instead, we
+我們設定連接埠的物件。相反，我們
 
 41
 00:01:41,946 --> 00:01:43,118
 pass a function,
+傳遞一個函式，
 
 42
 00:01:43,712 --> 00:01:46,745
 a function that will receive 2 arguments, a
+一個將接收 2 個參數的函式，a
 
 43
 00:01:46,745 --> 00:01:48,928
 request and a response object.
+請求和回應物件。
 
 44
 00:01:49,554 --> 00:01:51,672
 These arguments will always be received
+這些論點總是會被收到
 
 45
 00:01:51,897 --> 00:01:54,963
 because this function will be called by Node
+因為這個函式會被 Node 呼叫
 
 46
 00:01:55,268 --> 00:01:58,479
 whenever a request reaches this server. So
+每當請求到達此伺服器時。所以
 
 47
 00:01:58,479 --> 00:02:01,016
 this is now our request handling function.
+這是我們現在的請求處理函式。
 
 48
 00:02:02,011 --> 00:02:05,447
 And in there, we can call response.end, and
+在那裡，我們可以呼叫response.end，並且
 
 49
 00:02:05,463 --> 00:02:07,631
 this will send back our response. And we can
+這將發回我們的回應。我們可以
 
 50
 00:02:07,631 --> 00:02:09,220
 pass a string to it, which will be our
+將字串傳遞給它，這將是我們的
 
 51
 00:02:09,220 --> 00:02:11,644
 response data, message from Node, for
+回應資料，來自節點的消息，用於
 
 52
 00:02:11,644 --> 00:02:12,142
 example.
+例子。
 
 53
 00:02:12,688 --> 00:02:15,241
 This will create the server, but it will not
+這將創建伺服器，但不會
 
 54
 00:02:15,241 --> 00:02:15,995
 start it yet.
+開始吧。
 
 55
 00:02:16,702 --> 00:02:19,238
 Instead, you have to call server.listen
+相反，你必須呼叫 server.listen
 
 56
 00:02:19,834 --> 00:02:22,867
 And there you now pass your port on which
+現在你就可以通過你的連接埠了
 
 57
 00:02:22,883 --> 00:02:25,077
 you wanna listen. And this will spin up that
+你想聽。這會加速這個過程
 
 58
 00:02:25,077 --> 00:02:27,836
 server and that server in turn will fire
+伺服器，然後該伺服器將觸發
 
 59
 00:02:28,046 --> 00:02:30,086
 this function for every incoming request.
+此函式適用於每個傳入的請求。
 
 60
 00:02:31,060 --> 00:02:33,465
 And now we can execute this file by running
+現在我們可以透過運行來執行這個檔案
 
 61
 00:02:33,578 --> 00:02:33,985
 Node,
+節點，
 
 62
 00:02:35,540 --> 00:02:37,641
 for which again, you need to install Node
+為此，您需要安裝 Node
 
 63
 00:02:37,657 --> 00:02:38,045
 first,
+第一的，
 
 64
 00:02:39,031 --> 00:02:41,229
 Node, and then node server.js.
+Node，然後是 Node server.js。
 
 65
 00:02:42,296 --> 00:02:45,464
 It's not Node run, it's just Node and then
+這不是 Node 運行，只是 Node 然後
 
 66
 00:02:45,464 --> 00:02:46,094
 the file name.
+檔案名。
 
 67
 00:02:47,409 --> 00:02:49,453
 Now again, this is a process which is stuck
+現在，這又是一個被卡住的過程
 
 68
 00:02:49,533 --> 00:02:51,898
 in the terminal because just like with Deno,
+在終端機機中，因為就像 Deno 一樣，
 
 69
 00:02:52,011 --> 00:02:54,183
 this process keeps on running. You can
+這個過程繼續運作。你可以
 
 70
 00:02:54,183 --> 00:02:56,485
 ignore all the errors I'm getting here, has
+忽略我在這裡遇到的所有錯誤，有
 
 71
 00:02:56,501 --> 00:02:58,759
 to be some IDE problem here, because this
+這裡是一些 IDE 問題，因為這個
 
 72
 00:02:58,856 --> 00:03:02,290
 will work. If I now go back to our server
+會起作用的。如果我現在回到我們的伺服器
 
 73
 00:03:02,322 --> 00:03:04,597
 and I reload, we see message from Node
+然後我重新載入，我們看到來自 Node 的訊息
 
 74
 00:03:06,436 --> 00:03:08,502
 simply because that is our running Node
+只是因為那是我們正在運行的節點
 
 75
 00:03:08,631 --> 00:03:09,018
 server.
+伺服器.
 
 76
 00:03:09,825 --> 00:03:11,648
 And with that, I'm going to quit it with
+有了這個，我將退出它
 
 77
 00:03:11,664 --> 00:03:14,696
 Ctrl+C because now I wanna again highlight
+Ctrl+C 因為現在我想再次突出顯示
 
 78
 00:03:14,696 --> 00:03:15,344
 the differences.
+的差異。
 
 79
 00:03:15,953 --> 00:03:18,441
 Using JavaScript is one difference. This
+使用 JavaScript 是一個區別。這
 
 80
 00:03:18,505 --> 00:03:21,555
 import syntax with Node's own module system
+使用 Node 自己的模組系統導入語法
 
 81
 00:03:21,876 --> 00:03:23,096
 is another difference.
+是另一個區別。
 
 82
 00:03:23,642 --> 00:03:25,953
 It's not the same import syntax we use in
+這與我們使用的導入語法不同
 
 83
 00:03:26,066 --> 00:03:26,451
 Deno
+德諾
 
 84
 00:03:27,013 --> 00:03:30,159
 where we use the ES modules syntax, which is
+我們使用 ES 模組語法，即
 
 85
 00:03:30,159 --> 00:03:32,053
 coming from the browser side in the end.
+最終來自瀏覽器端。
 
 86
 00:03:33,193 --> 00:03:35,874
 And then in Deno, we create our server like
+然後在 Deno 中，我們建立伺服器，如下所示
 
 87
 00:03:35,938 --> 00:03:38,169
 this, specifying the port on which we want
+這個，指定我們想要的端口
 
 88
 00:03:38,169 --> 00:03:38,619
 to listen,
+去聽，
 
 89
 00:03:39,293 --> 00:03:41,942
 and we handle responses with this async
+我們用這個非同步處理回應
 
 90
 00:03:42,038 --> 00:03:42,809
 iterable code.
+可迭代的程式碼。
 
 91
 00:03:43,483 --> 00:03:46,610
 Which arguably might be strange when you see
+當你看到這可能會很奇怪
 
 92
 00:03:46,610 --> 00:03:49,176
 it the first time. It definitely takes some
+這是第一次。肯定需要一些
 
 93
 00:03:49,176 --> 00:03:50,379
 time to get used to it,
+是時候習慣它了，
 
 94
 00:03:51,020 --> 00:03:53,538
 but it is very readable and clear after all
+但畢竟它非常可讀且清晰
 
 95
 00:03:54,051 --> 00:03:57,371
 if you are used to it. The Node code also is
+如果你習慣了。節點程式碼也是
 
 96
 00:03:57,371 --> 00:04:00,370
 not horrible, but you can see what I meant
+並不可怕，但你明白我的意思
 
 97
 00:04:00,626 --> 00:04:03,321
 when I said that Node does not embrace all
+當我說 Node 不包含所有內容時
 
 98
 00:04:03,593 --> 00:04:05,149
 modern JavaScript features.
+現代 JavaScript 功能。
 
 99
 00:04:05,839 --> 00:04:08,308
 This callback-driven approach is
+這種回呼驅動的方法是
 
 100
 00:04:08,998 --> 00:04:11,520
 simply a bit older. You can do it, it runs
+只是年紀大了一點。你可以做到，它會運行
 
 101
 00:04:11,616 --> 00:04:14,331
 fine, and I would say that this code also is
+很好，我想說這段程式碼也是
 
 102
 00:04:14,427 --> 00:04:16,595
 quite readable and quite maintainable,
+非常可讀且易於維護，
 
 103
 00:04:17,238 --> 00:04:19,695
 but using callbacks simply is a bit more
+但使用回呼只是有點多
 
 104
 00:04:19,984 --> 00:04:22,265
 dated. Sometimes it's still what you wanna
+日期。有時它仍然是你想要的
 
 105
 00:04:22,394 --> 00:04:22,490
 do,
+做，
 
 106
 00:04:23,116 --> 00:04:25,574
 but the async iterable here definitely is
+但這裡的非同步迭代肯定是
 
 107
 00:04:25,622 --> 00:04:26,297
 more modern.
+更現代。
 
 108
 00:04:27,373 --> 00:04:29,075
 With that out of the way, however, that's
+然而，排除了這一點，那就是
 
 109
 00:04:29,075 --> 00:04:31,260
 enough of Node. It's a Deno course after
+足夠的節點。之後是 Deno 課程
 
 110
 00:04:31,372 --> 00:04:33,765
 all, and therefore let's again focus on
+所有，因此讓我們再次關注
 
 111
 00:04:33,797 --> 00:04:34,119
 Deno.
+德諾。

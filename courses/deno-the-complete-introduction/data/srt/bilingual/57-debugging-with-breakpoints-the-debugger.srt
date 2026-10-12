@@ -1,899 +1,1124 @@
 1
 00:00:02,216 --> 00:00:04,401
 So we're making good progress, but something
+所以我們取得了良好的進展，但有些事情
 
 2
 00:00:04,449 --> 00:00:07,533
 is still not working about our program. If
+仍然無法處理我們的程式。如果
 
 3
 00:00:07,645 --> 00:00:08,368
 we run it,
+我們運行它，
 
 4
 00:00:09,171 --> 00:00:10,103
 we don't get an error,
+我們沒有收到錯誤，
 
 5
 00:00:10,633 --> 00:00:12,673
 but it also doesn't wait for our input.
+但它也不會等待我們的輸入。
 
 6
 00:00:12,721 --> 00:00:15,242
 Instead, it just seems to kind of skip this
+相反，它似乎只是跳過了這個
 
 7
 00:00:15,275 --> 00:00:15,580
 line.
+線。
 
 8
 00:00:16,110 --> 00:00:18,776
 So it looks like we have some logical error
+所以看起來我們有一些邏輯錯誤
 
 9
 00:00:18,905 --> 00:00:21,282
 here. We don't have a technical error that
+這裡。我們沒有出現技術錯誤
 
 10
 00:00:21,298 --> 00:00:23,964
 would crash our script or that would show up
+會使我們的腳本崩潰或出現
 
 11
 00:00:23,964 --> 00:00:24,494
 in the IDE,
+在IDE中，
 
 12
 00:00:25,169 --> 00:00:27,545
 but still, there has to be some bug, some
+但仍然肯定有一些錯誤，一些
 
 13
 00:00:27,561 --> 00:00:31,139
 logical problem in our code that causes this
+我們程式碼中的邏輯問題導致了這種情況
 
 14
 00:00:31,171 --> 00:00:33,033
 line to be skipped effectively.
+要有效跳過的行。
 
 15
 00:00:33,851 --> 00:00:36,660
 Now in such cases, you might wanna debug
+現在在這種情況下，您可能想要除錯
 
 16
 00:00:36,660 --> 00:00:39,500
 your code step by step with the help of
+你的程式碼在以下的幫助下一步一步
 
 17
 00:00:39,532 --> 00:00:41,843
 breakpoints potentially. So you want to be
+潛在的中斷點。所以你想成為
 
 18
 00:00:41,859 --> 00:00:44,603
 able to step through your code whilst it's
+能夠單步執行您的程式碼
 
 19
 00:00:44,667 --> 00:00:47,444
 executing. And that's also something you can
+執行。這也是你可以做的
 
 20
 00:00:47,476 --> 00:00:48,375
 do with Deno.
+與德諾一起做。
 
 21
 00:00:49,305 --> 00:00:51,536
 When you run your script, you can add an
+當您運行腳本時，您可以添加
 
 22
 00:00:51,632 --> 00:00:54,130
 extra flag which is --inspect-brk.
+額外的標誌是 --inspect-brk。
 
 23
 00:00:57,633 --> 00:00:59,503
 And this in the end will now launch your
+這最終將啟動你的
 
 24
 00:00:59,503 --> 00:01:00,951
 script, but it also
+腳本，但它也
 
 25
 00:01:01,536 --> 00:01:04,268
 allows you to listen to script execution.
+允許您監聽腳本執行。
 
 26
 00:01:05,212 --> 00:01:07,445
 And listening is very simple then. You see
+那麼聆聽就非常簡單了。你看
 
 27
 00:01:07,445 --> 00:01:09,454
 now it paused here, but not because it's
+現在它停在這裡，但不是因為它
 
 28
 00:01:09,454 --> 00:01:11,076
 waiting for my input, but because it's
+等待我的輸入，但因為它是
 
 29
 00:01:11,076 --> 00:01:13,005
 waiting for a debugger to connect.
+等待除錯器連接。
 
 30
 00:01:13,631 --> 00:01:15,953
 And such a debugger can be found inside of
+這樣的除錯器可以在裡面找到
 
 31
 00:01:15,985 --> 00:01:16,390
 Chrome.
+鉻合金。
 
 32
 00:01:17,360 --> 00:01:21,241
 You just need to enter chrome://inspect in
+您只需在其中輸入 chrome://inspect
 
 33
 00:01:21,241 --> 00:01:23,474
 the Chrome browser. Make sure you're not
+Chrome 瀏覽器。確保你不是
 
 34
 00:01:23,474 --> 00:01:25,577
 doing this in, in incognito mode but in the
+在隱身模式下執行此操作，但在
 
 35
 00:01:25,577 --> 00:01:26,652
 normal mode instead.
+改為正常模式。
 
 36
 00:01:27,326 --> 00:01:30,423
 And if you do that, you should see Deno as a
+如果你這樣做，你應該將 Deno 視為
 
 37
 00:01:30,439 --> 00:01:31,771
 remote target down there.
+那裡有遠程目標。
 
 38
 00:01:32,541 --> 00:01:34,419
 Now if you click on Inspect here,
+現在，如果您單擊此處的“檢查”，
 
 39
 00:01:35,109 --> 00:01:37,613
 a new window should open up. And this new
+應該會打開一個新視窗。還有這個新
 
 40
 00:01:37,741 --> 00:01:40,582
 window here in the end gives you access to
+最後這裡的視窗讓您可以訪問
 
 41
 00:01:40,806 --> 00:01:43,181
 the running source code of your Deno
+Deno 的運行原始碼
 
 42
 00:01:43,599 --> 00:01:46,487
 application. Here under the Sources tab,
+應用。在“來源”分頁下，
 
 43
 00:01:47,402 --> 00:01:48,542
 if you expand File
+如果你展開檔案
 
 44
 00:01:49,777 --> 00:01:53,147
 you will find your source files for this
+你會找到你的原始檔案
 
 45
 00:01:53,227 --> 00:01:55,522
 application you're currently executing here.
+您目前正在此處執行的應用程式。
 
 46
 00:01:56,694 --> 00:01:58,635
 So in my case, I of course only have one
+所以就我而言，我當然只有一個
 
 47
 00:01:58,700 --> 00:02:00,802
 file that's part of the project, so I see
+檔案是專案的一部分，所以我明白了
 
 48
 00:02:00,866 --> 00:02:02,390
 myapp.ts here.
+myapp.ts 在這裡。
 
 49
 00:02:03,819 --> 00:02:04,525
 Let me zoom in a bit.
+讓我放大一點。
 
 50
 00:02:05,439 --> 00:02:06,932
 Now actually you see 2 files,
+現在實際上你看到了 2 個檔案，
 
 51
 00:02:07,510 --> 00:02:09,403
 uh, italic version and the normal version.
+呃，斜體版和普通版。
 
 52
 00:02:09,933 --> 00:02:12,532
 The italic version here is your raw
+這裡的斜體版本是你的原始版本
 
 53
 00:02:13,158 --> 00:02:15,341
 source code, so the TypeScript code here in
+原始碼，因此 TypeScript 程式碼位於
 
 54
 00:02:15,389 --> 00:02:16,127
 my example.
+我的例子。
 
 55
 00:02:17,138 --> 00:02:19,451
 The non-italic version is the compiled code.
+非斜體版本是編譯後的程式碼。
 
 56
 00:02:20,045 --> 00:02:22,614
 Now the nice thing is that you can debug
+現在好處是你可以除錯
 
 57
 00:02:22,919 --> 00:02:24,669
 directly in your TypeScript code.
+直接在您的 TypeScript 程式碼中。
 
 58
 00:02:25,343 --> 00:02:27,511
 And here you can also place breakpoints by
+在這裡你也可以透過以下方式放置中斷點
 
 59
 00:02:27,511 --> 00:02:29,470
 simply clicking onto a line like this.
+只需點擊這樣的一條線即可。
 
 60
 00:02:30,064 --> 00:02:31,894
 And then when the code execution reaches
+然後當程式碼執行達到
 
 61
 00:02:31,927 --> 00:02:34,544
 this line, it will pause until you continue.
+這條線，它將暫停，直到您繼續。
 
 62
 00:02:35,042 --> 00:02:36,792
 And you can continue with these controls
+您可以繼續使用這些控件
 
 63
 00:02:36,904 --> 00:02:37,386
 down there.
+下面。
 
 64
 00:02:38,189 --> 00:02:40,661
 Now automatically it paused on the very
+現在它自動暫停了
 
 65
 00:02:40,661 --> 00:02:43,484
 first line. But we could continue execution
+第一行。但我們可以繼續執行
 
 66
 00:02:43,484 --> 00:02:45,232
 by clicking on the blue play button here.
+點擊此處的藍色播放按鈕。
 
 67
 00:02:45,911 --> 00:02:47,869
 Before I do that, I'll add the breakpoint
+在此之前，我將添加中斷點
 
 68
 00:02:47,869 --> 00:02:50,729
 here on this await statement. And if I now
+在此等待聲明。如果我現在
 
 69
 00:02:50,861 --> 00:02:53,059
 continue, you see it pauses on this line.
+繼續，您會看到它在此行暫停。
 
 70
 00:02:54,526 --> 00:02:57,387
 Now you can also step into the function call
+現在您也可以單步執行函式調用
 
 71
 00:02:57,435 --> 00:02:59,251
 which is being made here, so into the read
+這是在這裡製作的，所以進入閱讀
 
 72
 00:02:59,267 --> 00:03:01,517
 function, for example. Or if you're inside
+函式，例如。或者如果你在裡面
 
 73
 00:03:01,517 --> 00:03:03,463
 of a function call, you can step out of it.
+函式呼叫的時候，你可以跳出它。
 
 74
 00:03:04,175 --> 00:03:06,766
 You can simply step over that next step, so
+您可以簡單地跳過下一步，所以
 
 75
 00:03:06,766 --> 00:03:08,773
 continue to the next statement basically.
+基本上繼續下一語句。
 
 76
 00:03:09,210 --> 00:03:11,023
 And that's how you can move that file.
+這就是移動該檔案的方法。
 
 77
 00:03:11,809 --> 00:03:14,040
 Now our problem is with this line of code
+現在我們的問題是這行程式碼
 
 78
 00:03:14,056 --> 00:03:15,163
 which seems to be skipped.
+這似乎被跳過了。
 
 79
 00:03:15,756 --> 00:03:17,553
 Well, as we can tell by the debugger, it's
+好吧，正如我們可以透過除錯器得知的那樣，它是
 
 80
 00:03:17,601 --> 00:03:19,783
 clearly not skipped. We are pausing here
+顯然沒有跳過。我們在這裡暫停
 
 81
 00:03:19,831 --> 00:03:20,200
 after all,
+畢竟，
 
 82
 00:03:20,810 --> 00:03:22,270
 but it looks like we're not reading much.
+但看起來我們讀書不多。
 
 83
 00:03:23,201 --> 00:03:24,933
 So what could go wrong here?
+那麼這裡可能會出現什麼問題呢？
 
 84
 00:03:25,479 --> 00:03:27,308
 It's really not that difficult of a code
+程式碼其實沒那麼難
 
 85
 00:03:27,308 --> 00:03:29,570
 snippet, but in the end we can simply check
+片段，但最後我們可以簡單檢查
 
 86
 00:03:29,650 --> 00:03:32,506
 the different parts that are involved. We
+所涉及的不同部分。我們
 
 87
 00:03:32,506 --> 00:03:34,640
 have await here, which makes sense because
+在這裡等待，這是有道理的，因為
 
 88
 00:03:34,672 --> 00:03:35,651
 read returns a promise.
+read 回傳一個承諾。
 
 89
 00:03:36,614 --> 00:03:38,620
 Now this part certainly is correct,
+現在這部分肯定是正確的，
 
 90
 00:03:39,165 --> 00:03:41,428
 but what about the input buffer? If we have
+但是輸入緩衝區呢？如果我們有
 
 91
 00:03:41,428 --> 00:03:43,498
 a look at that, we see it's a uint8 array,
+看一下，我們發現它是一個 uint8 陣列，
 
 92
 00:03:43,514 --> 00:03:43,803
 but
+但
 
 93
 00:03:44,461 --> 00:03:45,488
 this here is interesting.
+這很有趣。
 
 94
 00:03:46,387 --> 00:03:50,817
 Its length is 0. Its byte length is 0.
+它的長度是0。它的位元組長度是0。
 
 95
 00:03:51,635 --> 00:03:55,390
 So maybe that's the problem. Maybe we forgot
+所以也許這就是問題所在。也許我們忘記了
 
 96
 00:03:55,390 --> 00:03:57,316
 to set a length on this array,
+設定該陣列的長度，
 
 97
 00:03:58,038 --> 00:04:00,943
 so we forgot to configure how much bytes
+所以我們忘記要設定多少位元組
 
 98
 00:04:00,991 --> 00:04:02,002
 could be stored in there.
+可以儲存在那裡。
 
 99
 00:04:02,532 --> 00:04:04,859
 And because of that, no content can be
+正因為如此，任何內容都不能
 
 100
 00:04:04,859 --> 00:04:07,153
 stored. And because of that, nothing can be
+儲存。正因為如此，沒有什麼可以
 
 101
 00:04:07,186 --> 00:04:09,609
 read into the array. And hence Deno just,
+讀入陣列。因此德諾只是，
 
 102
 00:04:09,753 --> 00:04:13,010
 well, skips this because it can't use the
+好吧，跳過這個，因為它不能使用
 
 103
 00:04:13,026 --> 00:04:14,792
 user input for anything. There's nothing we
+使用者輸入任何內容。我們什麼都沒有
 
 104
 00:04:14,792 --> 00:04:15,289
 can store.
+可以儲存。
 
 105
 00:04:16,316 --> 00:04:18,755
 Well, let's step over the next function call
+好吧，讓我們跳過下一個函式調用
 
 106
 00:04:18,819 --> 00:04:19,590
 to the next line,
+到下一行，
 
 107
 00:04:20,263 --> 00:04:22,382
 and let's see what is inside of input buffer
+讓我們看看輸入緩衝區裡面有什麼
 
 108
 00:04:22,654 --> 00:04:24,371
 after this line finished.
+這條線完成後。
 
 109
 00:04:25,077 --> 00:04:27,757
 And we see the buffer is empty. It's an
+我們看到緩衝區是空的。這是一個
 
 110
 00:04:27,805 --> 00:04:29,635
 empty array. It has nothing inside of it.
+空陣列。它裡面什麼也沒有。
 
 111
 00:04:30,292 --> 00:04:32,905
 And now this makes a lot of sense. We simply
+現在這很有意義。我們簡單地
 
 112
 00:04:32,921 --> 00:04:36,448
 forgot to set a size here. And for a uint8
+忘記在這裡設定尺寸了。對於 uint8
 
 113
 00:04:36,448 --> 00:04:38,323
 array, you need to do that. You need to
+陣列，你需要這樣做。你需要
 
 114
 00:04:38,532 --> 00:04:41,433
 allocate how much bytes could be stored in
+分配可以儲存多少位元組
 
 115
 00:04:41,433 --> 00:04:41,625
 there.
+那裡。
 
 116
 00:04:42,732 --> 00:04:44,880
 Now by going through our code step by step,
+現在逐步瀏覽我們的程式碼，
 
 117
 00:04:45,120 --> 00:04:47,701
 we were able to narrow this down because we
+我們能夠縮小範圍，因為我們
 
 118
 00:04:47,701 --> 00:04:50,170
 saw that this line is not skipped. And hence
+看到這一行沒有被跳過。因此
 
 119
 00:04:50,170 --> 00:04:52,189
 we could dive into the different parts of
+我們可以深入研究不同的部分
 
 120
 00:04:52,237 --> 00:04:54,546
 that line and find out what could go wrong.
+這條線並找出可能出錯的地方。
 
 121
 00:04:55,059 --> 00:04:57,127
 Now it certainly might take you some time to
+現在你可能需要一些時間
 
 122
 00:04:57,127 --> 00:04:59,371
 really spot this exact error. But
+確實發現了這個確切的錯誤。但
 
 123
 00:04:59,531 --> 00:05:01,343
 ultimately, by going through the code step
+最終，透過程式碼步驟
 
 124
 00:05:01,471 --> 00:05:03,556
 by step, you should be able to do so.
+一步一步地，你應該能夠做到這一點。
 
 125
 00:05:05,000 --> 00:05:08,033
 Now with that, we can resume execution and
+現在我們可以恢復執行並
 
 126
 00:05:08,129 --> 00:05:08,707
 then quit.
+然後退出。
 
 127
 00:05:09,252 --> 00:05:11,066
 And now simply go back to our code
+現在回到我們的程式碼
 
 128
 00:05:11,884 --> 00:05:14,499
 and fix this error and simply give this
+並修復這個錯誤並簡單地給出這個
 
 129
 00:05:14,612 --> 00:05:18,382
 uint8 array some size, for example, 1024
+uint8 陣列一定大小，例如 1024
 
 130
 00:05:18,398 --> 00:05:20,580
 bytes, which should be long enough for a
+位元組，這應該夠長
 
 131
 00:05:20,645 --> 00:05:21,896
 pretty long message.
+相當長的消息。
 
 132
 00:05:22,811 --> 00:05:25,426
 And once we add this and we rerun this code
+一旦我們添加了這個並重新運行這段程式碼
 
 133
 00:05:26,004 --> 00:05:28,427
 now without the inspect flag, because I
+現在沒有檢查標誌，因為我
 
 134
 00:05:28,507 --> 00:05:29,919
 don't want to debug it again,
+不想再除錯了
 
 135
 00:05:30,497 --> 00:05:32,808
 Now you see indeed it is stuck and waiting
+現在你看到它確實被卡住了並等待
 
 136
 00:05:32,904 --> 00:05:33,674
 for my input here.
+在這裡徵求我的意見。
 
 137
 00:05:34,268 --> 00:05:37,077
 So now if I enter this is my text here and
+所以現在如果我輸入這就是我的文字
 
 138
 00:05:37,093 --> 00:05:37,863
 then hit enter,
+然後按回車鍵，
 
 139
 00:05:38,457 --> 00:05:40,704
 you see now that's getting stored in the
+你現在看到它被儲存在
 
 140
 00:05:40,704 --> 00:05:42,341
 user input text file.
+使用者輸入文字檔。
 
 141
 00:05:43,111 --> 00:05:45,615
 But we also see that we got this strange
+但我們也發現這很奇怪
 
 142
 00:05:45,663 --> 00:05:46,835
 content being stored here.
+內容儲存在這裡。
 
 143
 00:05:47,942 --> 00:05:49,676
 Now let's clear the file and see if that's
+現在讓我們清除該檔案，看看是否是這樣
 
 144
 00:05:49,676 --> 00:05:50,671
 getting stored here again.
+再次儲存在這裡。
 
 145
 00:05:51,441 --> 00:05:52,918
 This is my text.
+這是我的文字。
 
 146
 00:05:53,929 --> 00:05:56,445
 Yeah, and it's again getting added. So
+是的，它又被添加了。所以
 
 147
 00:05:56,528 --> 00:05:57,639
 what's up with this?
+這是怎麼回事？
 
 148
 00:05:59,540 --> 00:06:01,831
 Well, maybe let's again debug our code.
+好吧，也許讓我們再次除錯我們的程式碼。
 
 149
 00:06:02,584 --> 00:06:04,253
 Let's again add --inspect-brk,
+讓我們再一次加入 --inspect-brk，
 
 150
 00:06:06,340 --> 00:06:08,867
 go back to Chrome Inspect and inspect our
+回傳 Chrome Inspect 並檢查我們的
 
 151
 00:06:08,867 --> 00:06:09,270
 code here.
+程式碼在這裡。
 
 152
 00:06:10,381 --> 00:06:12,732
 And let's see what we got here for the
+讓我們看看我們在這裡得到了什麼
 
 153
 00:06:12,732 --> 00:06:14,229
 parsed content, for example.
+例如，解析的內容。
 
 154
 00:06:15,775 --> 00:06:17,597
 For this, I now of course have to enter
+為此，我現在當然必須輸入
 
 155
 00:06:17,597 --> 00:06:19,995
 something first. So this is my message.
+首先。這就是我的資訊。
 
 156
 00:06:21,804 --> 00:06:23,792
 And now we're pausing on this breakpoint
+現在我們在這個中斷點處暫停
 
 157
 00:06:24,390 --> 00:06:26,331
 and you see my content doesn't look too bad.
+你看我的內容看起來還不錯。
 
 158
 00:06:26,411 --> 00:06:28,885
 This is my message, the strange symbols are
+這是我的資訊，奇怪的符號是
 
 159
 00:06:28,917 --> 00:06:29,677
 not in there.
+不在那裡。
 
 160
 00:06:30,696 --> 00:06:32,946
 Now let's move on into the try block and
+現在讓我們繼續進入 try 區塊
 
 161
 00:06:32,946 --> 00:06:34,711
 let's see what's inside of input buffer at
+讓我們看看輸入緩衝區裡面有什麼
 
 162
 00:06:34,727 --> 00:06:35,196
 this point.
+這一點。
 
 163
 00:06:35,860 --> 00:06:37,577
 Well, we see there are a bunch of bytes
+好吧，我們看到有一堆位元組
 
 164
 00:06:37,577 --> 00:06:37,674
 here,
+這裡，
 
 165
 00:06:39,722 --> 00:06:41,634
 the first bytes are occupied with some
+第一個位元組被一些佔用
 
 166
 00:06:41,650 --> 00:06:43,273
 values but of course that doesn't tell us
+值，但當然這並沒有告訴我們
 
 167
 00:06:43,273 --> 00:06:43,465
 much.
+很多。
 
 168
 00:06:44,943 --> 00:06:47,161
 But since it's the same input buffer which
+但由於它是相同的輸入緩衝區
 
 169
 00:06:47,193 --> 00:06:49,497
 we parsed here and here we don't have these
+我們在這裡解析了，這裡沒有這些
 
 170
 00:06:49,681 --> 00:06:50,886
 strange characters,
+奇怪的人物，
 
 171
 00:06:51,568 --> 00:06:54,151
 It seems like something is wrong with
+似乎有什麼問題
 
 172
 00:06:54,264 --> 00:06:56,350
 writeFile working with that input buffer.
+writeFile 使用該輸入緩衝區。
 
 173
 00:06:56,848 --> 00:06:59,351
 And actually we can get a hint from hovering
+實際上我們可以透過懸停得到提示
 
 174
 00:06:59,479 --> 00:07:01,389
 over our manually parsed content here.
+在這裡我們手動解析的內​​容。
 
 175
 00:07:02,127 --> 00:07:04,117
 You see there is a line break at the end.
+您會看到末尾有一個換行符。
 
 176
 00:07:04,294 --> 00:07:06,541
 This is my message. And then actually the
+這是我的資訊。然後實際上
 
 177
 00:07:06,541 --> 00:07:09,124
 closing quote is in a new line. And that's
+收盤價換行。那就是
 
 178
 00:07:09,189 --> 00:07:11,259
 not because this is too long. This really is
+不是因為這太長了。這確實是
 
 179
 00:07:11,291 --> 00:07:13,586
 because the line break character is also
+因為換行符號也是
 
 180
 00:07:13,618 --> 00:07:16,105
 part of what we entered. So the enter symbol
+我們輸入的內容的一部分。所以輸入符號
 
 181
 00:07:16,105 --> 00:07:18,079
 at the end is part of what we entered.
+最後是我們輸入內容的一部分。
 
 182
 00:07:18,770 --> 00:07:20,776
 So maybe that's the problem. Let's
+所以也許這就是問題所在。讓我們
 
 183
 00:07:21,306 --> 00:07:22,799
 finish script execution
+完成腳本執行
 
 184
 00:07:23,409 --> 00:07:25,496
 and go back to our code and see what we can
+回到我們的程式碼，看看我們能做什麼
 
 185
 00:07:25,496 --> 00:07:26,187
 do about this.
+做這件事。
 
 186
 00:07:27,327 --> 00:07:29,558
 In the end, the buffer which we're parsing
+最後，我們正在解析的緩衝區
 
 187
 00:07:29,671 --> 00:07:31,565
 and which we're storing in the file does
+我們儲存在檔案中的內容是
 
 188
 00:07:31,661 --> 00:07:34,070
 include that last line break character.
+包括最後一個換行符。
 
 189
 00:07:34,567 --> 00:07:36,638
 Well, we can simply slice the last character
+好吧，我們可以簡單地切片最後一個字符
 
 190
 00:07:36,719 --> 00:07:39,528
 off, and to do so, we can take advantage of
+關閉，為此，我們可以利用
 
 191
 00:07:39,528 --> 00:07:41,872
 the fact that the read promise returns a
+事實上，讀取承諾回傳一個
 
 192
 00:07:41,936 --> 00:07:44,328
 number, which is the amount of bytes read
+number，即讀取的位元組數
 
 193
 00:07:44,361 --> 00:07:44,409
 in.
+在。
 
 194
 00:07:45,003 --> 00:07:47,798
 So here we got our bytes read back.
+所以在這裡我們讀回了位元組。
 
 195
 00:07:48,697 --> 00:07:49,822
 Now how can we use that?
+現在我們如何使用它？
 
 196
 00:07:50,368 --> 00:07:52,648
 Well, we have an array where we allocated
+好吧，我們有一個分配的陣列
 
 197
 00:07:52,648 --> 00:07:54,994
 space for 1024 bytes.
+1024位元組的空間。
 
 198
 00:07:55,668 --> 00:07:57,596
 Now we also know how many bytes were
+現在我們也知道有多少位元組了
 
 199
 00:07:57,676 --> 00:07:59,587
 actually read in, so how many of these
+實際讀入的內容有多少
 
 200
 00:07:59,780 --> 00:08:01,643
 spaces are occupied in the end.
+最後空間被佔用。
 
 201
 00:08:02,350 --> 00:08:05,659
 And with that, we can take a slice of that
+有了這個，我們就可以從中分一杯羹
 
 202
 00:08:06,028 --> 00:08:06,317
 array
+大批
 
 203
 00:08:07,072 --> 00:08:08,052
 to only take the
+只採取
 
 204
 00:08:08,614 --> 00:08:11,264
 bytes that were really read in and and omit
+真正讀入的位元組和並省略
 
 205
 00:08:11,328 --> 00:08:12,307
 the last value.
+最後的值。
 
 206
 00:08:13,254 --> 00:08:13,929
 And to do so,
+而要做到這一點，
 
 207
 00:08:14,619 --> 00:08:15,742
 when we parse the buffer,
+當我們解析緩衝區時，
 
 208
 00:08:16,304 --> 00:08:18,824
 we can call subarray on that to give us a
+我們可以呼叫子陣列來給我們一個
 
 209
 00:08:18,824 --> 00:08:21,938
 new uint8 array which is just a part of the
+新的 uint8 陣列只是其中的一部分
 
 210
 00:08:21,938 --> 00:08:22,580
 original array.
+原始陣列。
 
 211
 00:08:23,527 --> 00:08:25,791
 And there we can specify a begin and end
+在那裡我們可以指定開始和結束
 
 212
 00:08:25,791 --> 00:08:28,150
 index, but the important thing is that the
+索引，但重要的是
 
 213
 00:08:28,263 --> 00:08:30,012
 end index is excluded.
+排除結束索引。
 
 214
 00:08:30,927 --> 00:08:33,415
 So we can call subarray here and start at
+所以我們可以在這裡調用子陣列並從
 
 215
 00:08:33,415 --> 00:08:36,321
 the first element in the input buffer, but
+輸入緩衝區中的第一個元素，但是
 
 216
 00:08:36,385 --> 00:08:38,682
 then go all the way up to bytesRead. And
+然後一直到 bytesRead。和
 
 217
 00:08:38,715 --> 00:08:41,030
 this will be the index of the last element.
+這將是最後一個元素的索引。
 
 218
 00:08:42,017 --> 00:08:43,442
 Now bytesRead could be null,
+現在 bytesRead 可能為 null，
 
 219
 00:08:44,073 --> 00:08:46,987
 so to ensure that it's not, we can check if
+所以為了確保不是這樣，我們可以檢查是否
 
 220
 00:08:47,378 --> 00:08:49,285
 bytesRead is equal to null.
+bytesRead 等於 null。
 
 221
 00:08:50,051 --> 00:08:50,524
 And if it is,
+如果是的話，
 
 222
 00:08:52,517 --> 00:08:55,754
 I simply want to set bytesRead equal to 0.
+我只是想將 bytesRead 設為 0。
 
 223
 00:08:56,334 --> 00:08:58,605
 So I'll set it to a variable here with let,
+所以我在這裡用 let 將它設定為一個變數，
 
 224
 00:08:59,137 --> 00:09:01,360
 and then in here I'll set bytesRead equal to
+然後在這裡我將 bytesRead 設定為等於
 
 225
 00:09:01,360 --> 00:09:03,069
 0. And now it's always an
+0. 現在它總是

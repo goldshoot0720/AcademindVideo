@@ -1,831 +1,1039 @@
 1
 00:00:02,340 --> 00:00:04,409
 Let's start with a very important question.
+讓我們從一個非常重要的問題開始。
 
 2
 00:00:04,906 --> 00:00:07,134
 Which kind of web application do we want to
+我們想要哪種型別的 Web 應用程式
 
 3
 00:00:07,166 --> 00:00:10,277
 build? There are essentially 2 kinds of web
+建造？基本上有兩種網路
 
 4
 00:00:10,277 --> 00:00:12,922
 apps you would build with something like
+你會用類似的東西建立應用程式
 
 5
 00:00:12,922 --> 00:00:16,994
 Deno. You either build an API or you're
+德諾。您要么建立一個 API，要么
 
 6
 00:00:17,026 --> 00:00:19,479
 building a web app that returns server-side
+建立一個回傳伺服器端的 Web 應用程式
 
 7
 00:00:19,495 --> 00:00:20,201
 rendered views.
+渲染視圖。
 
 8
 00:00:20,890 --> 00:00:21,756
 Now, what's the difference?
+現在，有什麼區別？
 
 9
 00:00:22,477 --> 00:00:24,818
 Let's take a closer look at such an API
+讓我們仔細看看這樣一個API
 
 10
 00:00:24,818 --> 00:00:27,640
 server. Let's say with Deno, we're building
+伺服器.假設我們正在使用 Deno 建構
 
 11
 00:00:27,688 --> 00:00:31,280
 such an API server. So a server that exposes
+這樣的API伺服器。所以暴露的伺服器
 
 12
 00:00:31,280 --> 00:00:31,937
 an API.
+一個 API。
 
 13
 00:00:32,883 --> 00:00:35,593
 In such a case, we would have a standalone
+在這種情況下，我們將有一個獨立的
 
 14
 00:00:35,866 --> 00:00:38,640
 frontend application and frontend simply
+前端應用程式和前端簡單
 
 15
 00:00:38,656 --> 00:00:41,527
 means running on the device your users are
+意味著在您的使用者所在的裝置上運行
 
 16
 00:00:41,623 --> 00:00:44,028
 using. So running on a mobile phone, for
+使用。所以在手機上運行，對於
 
 17
 00:00:44,028 --> 00:00:46,386
 example, if your frontend app is an iOS or
+例如，如果您的前端應用程式是 iOS 或
 
 18
 00:00:46,514 --> 00:00:49,320
 Android app built with Swift, Java, Android,
+使用 Swift、Java、Android 建立的 Android 應用程式，
 
 19
 00:00:49,336 --> 00:00:49,785
 and so on,
+等等，
 
 20
 00:00:50,362 --> 00:00:52,832
 or running in the browser if it's a single
+或在瀏覽器中運行（如果是單一）
 
 21
 00:00:52,864 --> 00:00:55,767
 page application. That's what SPA stands
+頁面應用程式。這就是 SPA 的意思
 
 22
 00:00:55,831 --> 00:00:58,701
 for, typically built with a framework like
+對於，通常使用類似的框架建構
 
 23
 00:00:58,781 --> 00:01:00,497
 Angular, React, Vue, and so on.
+Angular、React、Vue 等等。
 
 24
 00:01:01,284 --> 00:01:04,463
 Now these kinds of apps run on the frontend,
+現在這些型別的應用程式在前端運行，
 
 25
 00:01:04,656 --> 00:01:07,482
 so they run on the device of your user.
+所以它們在您使用者的設備上運行。
 
 26
 00:01:08,109 --> 00:01:10,277
 In the case of an app, it's obvious it's a
+就應用程式而言，很明顯它是一個
 
 27
 00:01:10,293 --> 00:01:13,071
 mobile app installed from the App Store, and
+從 App Store 安裝的行動應用程式，以及
 
 28
 00:01:13,087 --> 00:01:16,042
 therefore the app itself is responsible for
+因此應用程式本身負責
 
 29
 00:01:16,042 --> 00:01:18,563
 rendering different screens. If the user
+渲染不同的螢幕。如果使用者
 
 30
 00:01:18,611 --> 00:01:20,554
 touches a button in the app and is taken
+觸摸應用程式中的按鈕並被拍攝
 
 31
 00:01:20,554 --> 00:01:22,770
 somewhere else, then that new screen which
+其他地方，然後是那個新螢幕
 
 32
 00:01:22,819 --> 00:01:25,613
 is being rendered is controlled by the app.
+正在渲染由應用程式控制。
 
 33
 00:01:26,095 --> 00:01:29,047
 It's not some HTML code sent by a server,
+它不是伺服器發送的一些 HTML 程式碼，
 
 34
 00:01:29,127 --> 00:01:31,515
 instead it's written in the code with which
+相反，它寫在程式碼中
 
 35
 00:01:31,628 --> 00:01:32,637
 the app was written.
+該應用程式已編寫。
 
 36
 00:01:33,310 --> 00:01:35,041
 And you can build something similar on the
+你可以在上面建造類似的東西
 
 37
 00:01:35,073 --> 00:01:37,125
 web with a single page application.
+Web 與單頁應用程式。
 
 38
 00:01:37,782 --> 00:01:40,859
 That's an application where a single HTML
+這是一個應用程式，其中單個 HTML
 
 39
 00:01:40,939 --> 00:01:42,991
 file is requested from a server,
+從伺服器請求檔案，
 
 40
 00:01:43,552 --> 00:01:45,315
 and that could be a different server than
+這可能是不同的伺服器
 
 41
 00:01:45,395 --> 00:01:46,853
 your API server, by the way.
+順便說一句，你的 API 伺服器。
 
 42
 00:01:47,639 --> 00:01:50,636
 And that single HTML page includes a bunch
+那個 HTML 頁麵包含了一堆
 
 43
 00:01:50,636 --> 00:01:52,799
 of JavaScript code, typically
+JavaScript 程式碼，通常
 
 44
 00:01:53,504 --> 00:01:56,918
 using one of the popular frontend JavaScript
+使用流行的前端 JavaScript 之一
 
 45
 00:01:56,934 --> 00:01:59,676
 frameworks, Angular, React, and Vue would be
+框架、Angular、React 和 Vue 將是
 
 46
 00:01:59,676 --> 00:02:00,478
 the big ones there.
+那裡的大的。
 
 47
 00:02:01,103 --> 00:02:02,803
 And thereafter, it's that browser-side
+然後就是瀏覽器端
 
 48
 00:02:02,803 --> 00:02:05,289
 JavaScript code that is responsible for
+JavaScript 程式碼負責
 
 49
 00:02:05,289 --> 00:02:07,486
 bringing something onto the screen, for
+將某些東西帶到螢幕上，用於
 
 50
 00:02:07,534 --> 00:02:09,105
 rendering something onto the screen.
+將某些內容渲染到螢幕上。
 
 51
 00:02:09,843 --> 00:02:12,104
 Now, no matter if you're working with a
+現在，無論您是否正在與
 
 52
 00:02:12,104 --> 00:02:14,365
 frontend that's a mobile app or if it's a
+前端是行動應用程式，或是
 
 53
 00:02:14,365 --> 00:02:15,921
 single-page web application,
+單頁網頁應用程式，
 
 54
 00:02:16,739 --> 00:02:17,204
 either way,
+無論哪種方式，
 
 55
 00:02:17,781 --> 00:02:21,646
 those apps don't want HTML code because they
+這些應用程式不需要 HTML 程式碼，因為它們
 
 56
 00:02:21,726 --> 00:02:23,634
 already know how to bring something on the
+已經知道如何帶東西上飛機
 
 57
 00:02:23,634 --> 00:02:26,670
 screen. Instead, they just want data to
+螢幕.相反，他們只是想要資料
 
 58
 00:02:26,767 --> 00:02:29,980
 populate their screens with the actual data.
+用實際資料填滿他們的螢幕。
 
 59
 00:02:30,880 --> 00:02:33,114
 And therefore, they will send requests to
+因此，他們會將請求發送到
 
 60
 00:02:33,194 --> 00:02:36,183
 your API server requesting certain data, for
+您的 API 伺服器請求某些資料，例如
 
 61
 00:02:36,183 --> 00:02:38,577
 example, a list of products, let's say.
+例如，產品清單。
 
 62
 00:02:39,381 --> 00:02:41,566
 Now, your server might then reach out to a
+現在，您的伺服器可能會聯繫
 
 63
 00:02:41,566 --> 00:02:44,587
 database or to the file system depending on
+資料庫或檔案系統，取決於
 
 64
 00:02:44,699 --> 00:02:46,820
 what it needs to do. It will then fetch and
+它需要做什麼。然後它將獲取並
 
 65
 00:02:46,933 --> 00:02:50,114
 prepare that data or maybe store data if the
+準備該資料或可能存儲資料，如果
 
 66
 00:02:49,890 --> 00:02:52,186
 the frontend app sent some data that should
+前端應用程式發送了一些應該的資料
 
 67
 00:02:52,250 --> 00:02:52,668
 be stored.
+被儲存。
 
 68
 00:02:53,294 --> 00:02:55,526
 And whenever the server is done, it will
+每當伺服器完成時，它就會
 
 69
 00:02:55,767 --> 00:02:59,942
 respond back with data in that JSON format.
+使用該 JSON 格式的資料進行回應。
 
 70
 00:03:00,296 --> 00:03:02,785
 So it will send back data. It will never
+所以它會發回資料。它永遠不會
 
 71
 00:03:02,785 --> 00:03:06,141
 send back HTML code. It will never send back
+發回 HTML 程式碼。它永遠不會發回
 
 72
 00:03:06,221 --> 00:03:08,534
 what should be rendered on the screen. It
+應該在螢幕上呈現什麼。它
 
 73
 00:03:08,614 --> 00:03:11,633
 only sends back data and it's then up to the
+只發送回資料，然後由
 
 74
 00:03:11,681 --> 00:03:14,572
 frontend app to decide what to do with that
+前端應用程式來決定如何處理
 
 75
 00:03:14,572 --> 00:03:17,013
 data and what to draw onto the screen.
+資料以及要在螢幕上繪製的內容。
 
 76
 00:03:18,425 --> 00:03:21,923
 Therefore, in the API case, our API server
+因此，在API的情況下，我們的API伺服器
 
 77
 00:03:22,052 --> 00:03:24,651
 simply provides multiple so-called
+只是提供了多個所謂的
 
 78
 00:03:24,908 --> 00:03:28,823
 endpoints, which are URL HTTP method
+端點，是 URL HTTP 方法
 
 79
 00:03:28,855 --> 00:03:29,626
 combinations,
+組合，
 
 80
 00:03:30,300 --> 00:03:32,931
 something like a POST request being sent to
+類似 POST 請求發送到
 
 81
 00:03:33,268 --> 00:03:36,269
 /products or a GET request being sent to
+/products 或 GET 請求發送至
 
 82
 00:03:37,216 --> 00:03:37,793
 /my-account.
+/我的帳戶。
 
 83
 00:03:38,563 --> 00:03:40,473
 That would be an endpoint or that would be
+那將是一個端點或那將是
 
 84
 00:03:40,553 --> 00:03:43,618
 endpoints and such endpoints are provided by
+端點和此類端點由
 
 85
 00:03:43,618 --> 00:03:46,315
 the API server. And depending on which
+API 伺服器。並取決於哪個
 
 86
 00:03:46,572 --> 00:03:49,558
 endpoint received a request, something will
+端點收到請求，有些東西會
 
 87
 00:03:49,622 --> 00:03:51,902
 be done. For example, data will be stored in
+完成吧。例如，資料將儲存在
 
 88
 00:03:51,902 --> 00:03:53,974
 a database, data will be fetched from a
+資料庫，資料將從
 
 89
 00:03:53,974 --> 00:03:57,153
 database, and then that data will be sent
+資料庫，然後資料將被發送
 
 90
 00:03:57,185 --> 00:04:01,215
 back in JSON format to the standalone app,
+以 JSON 格式回傳獨立應用程式，
 
 91
 00:04:01,440 --> 00:04:04,378
 which in the API server case is required
+在 API 伺服器情況下這是必要的
 
 92
 00:04:04,811 --> 00:04:08,119
 because such an API server only replies with
+因為這樣的 API 伺服器只回复
 
 93
 00:04:08,247 --> 00:04:11,329
 data, not with HTML. So not with
+資料，而不是 HTML。所以不與
 
 94
 00:04:11,329 --> 00:04:13,878
 instructions on what or how to render the
+有關渲染什麼或如何渲染的說明
 
 95
 00:04:13,878 --> 00:04:16,346
 screen, just with the data. That's the
+螢幕上只有資料。這就是
 
 96
 00:04:16,346 --> 00:04:17,180
 important thing here.
+這裡有重要的事情。
 
 97
 00:04:17,709 --> 00:04:20,530
 And a huge amount of web applications out
+以及大量的網路應用程式出來
 
 98
 00:04:20,530 --> 00:04:23,784
 there are driven by such API servers. And in
+有這樣的API伺服器驅動。並且在
 
 99
 00:04:23,816 --> 00:04:26,670
 the end, any mobile app which you're using
+最後，您正在使用的任何行動應用程式
 
 100
 00:04:27,006 --> 00:04:29,924
 will talk to such an API server behind the
+會與背後這樣的API伺服器進行對話
 
 101
 00:04:29,924 --> 00:04:33,018
 scenes because it's a mobile app. Those apps
+場景，因為它是一個行動應用程式。那些應用程式
 
 102
 00:04:33,018 --> 00:04:34,284
 have no chance of
+沒有機會
 
 103
 00:04:35,038 --> 00:04:37,538
 requesting HTML and rendering that. They
+請求 HTML 並渲染它。他們
 
 104
 00:04:37,538 --> 00:04:40,055
 need data because all the view and the
+需要資料，因為所有視圖和
 
 105
 00:04:40,087 --> 00:04:42,331
 rendering logic is always built into mobile
+渲染邏輯始終內建於行動裝置中
 
 106
 00:04:42,331 --> 00:04:45,265
 apps. So therefore, API servers are an
+應用程式.因此，API 伺服器是一個
 
 107
 00:04:45,314 --> 00:04:47,462
 important building block of the modern web,
+現代網路的重要組成部分，
 
 108
 00:04:47,863 --> 00:04:49,980
 and therefore we'll have an entire section
+因此我們將有一整個部分
 
 109
 00:04:50,012 --> 00:04:52,705
 in this course on how to build a REST API,
+在本課程中，介紹如何建立 REST API，
 
 110
 00:04:53,218 --> 00:04:55,575
 which is just the most popular form of an
+這只是最受歡迎的形式
 
 111
 00:04:55,575 --> 00:04:56,361
 API server.
+API伺服器。
 
 112
 00:04:57,003 --> 00:04:59,247
 But we also have that other approach, which
+但我們還有另一種方法，
 
 113
 00:04:59,247 --> 00:05:01,572
 is also very important, and that would be a
+也非常重要，這將是
 
 114
 00:05:01,572 --> 00:05:04,346
 server returning server-side rendered views.
+伺服器傳回伺服器端渲染的視圖。
 
 115
 00:05:05,276 --> 00:05:07,874
 If we compare it to the API server, the
+如果我們將其與 API 伺服器進行比較，
 
 116
 00:05:07,970 --> 00:05:11,498
 difference is that for the server-side
+差別在於對於伺服器端
 
 117
 00:05:11,498 --> 00:05:13,023
 rendered views server,
+渲染視圖伺服器，
 
 118
 00:05:13,682 --> 00:05:16,635
 we don't have frontend apps. Instead, we
+我們沒有前端應用程式。相反，我們
 
 119
 00:05:16,635 --> 00:05:19,171
 just have our client, so the user using a
+只是有我們的使用者端，所以使用者使用
 
 120
 00:05:19,284 --> 00:05:21,756
 browser, and then we have our server, which
+瀏覽器，然後我們有我們的伺服器，
 
 121
 00:05:22,189 --> 00:05:25,560
 I named full-stack server here to indicate
+我這裡命名為全端伺服器是為了表明
 
 122
 00:05:25,560 --> 00:05:28,257
 that it's responsible for both what happens
+它對發生的事情負責
 
 123
 00:05:28,433 --> 00:05:30,777
 on the server, so reaching out to database
+在伺服器上，因此可以存取資料庫
 
 124
 00:05:30,777 --> 00:05:33,137
 and so on, for example, as well as for
+等等，例如，以及
 
 125
 00:05:33,410 --> 00:05:35,207
 what's shown on the screen of the client.
+使用者端螢幕上顯示的內容。
 
 126
 00:05:35,817 --> 00:05:38,820
 This is commonly referred to as full stack
+這通常稱為全端
 
 127
 00:05:39,350 --> 00:05:41,615
 if you take care about both what happens on
+如果你同時關心發生的事情
 
 128
 00:05:41,615 --> 00:05:43,431
 the server as well as on the client.
+伺服器以及使用者端。
 
 129
 00:05:44,411 --> 00:05:47,126
 Now here the client, so the browser in the
+現在這裡是使用者端，所以瀏覽器在
 
 130
 00:05:47,142 --> 00:05:50,372
 end, requests a view and not just data.
+最後，請求視圖而不僅僅是資料。
 
 131
 00:05:50,677 --> 00:05:53,553
 Instead, it requests a full HTML page,
+相反，它請求完整的 HTML 頁面，
 
 132
 00:05:54,292 --> 00:05:56,429
 and it's now the job of the server to
+現在伺服器的工作就是
 
 133
 00:05:57,023 --> 00:05:58,743
 reach out to the database, to the file
+存取資料庫、檔案
 
 134
 00:05:58,743 --> 00:06:01,345
 system, do whatever needs to be done, but
+系統，做任何需要做的事情，但是
 
 135
 00:06:01,378 --> 00:06:01,570
 then
+然後
 
 136
 00:06:02,101 --> 00:06:05,922
 to also prepare such a view prepare such an
+也要準備這樣的視圖，準備這樣的
 
 137
 00:06:05,938 --> 00:06:06,804
 HTML page
+HTML 頁面
 
 138
 00:06:07,381 --> 00:06:10,010
 with help of a templating engine and view
+在樣板引擎和視圖的幫助下
 
 139
 00:06:10,203 --> 00:06:11,213
 templates typically.
+通常是樣板。
 
 140
 00:06:11,950 --> 00:06:15,060
 And once such a view, such an HTML page was
+一旦這樣的視圖，這樣的 HTML 頁面就會被
 
 141
 00:06:15,173 --> 00:06:17,978
 prepared by the server, it is sent back to
+由伺服器準備好，發送回
 
 142
 00:06:17,978 --> 00:06:20,047
 the client, to the browser, which then
+使用者端，到瀏覽器，然後
 
 143
 00:06:20,047 --> 00:06:21,073
 displays this page.
+顯示此頁面。
 
 144
 00:06:22,051 --> 00:06:24,359
 And in the end, our dummy application which
+最後，我們的虛擬應用程式
 
 145
 00:06:24,472 --> 00:06:27,373
 we built before would be an example for such
+我們之前建造的就是這樣的一個例子
 
 146
 00:06:27,422 --> 00:06:29,522
 a server-side rendered view application
+伺服器端渲染視圖應用程式
 
 147
 00:06:29,842 --> 00:06:32,376
 because there we prepared and sent back some
+因為我們在那裡準備好並寄回了一些
 
 148
 00:06:32,552 --> 00:06:35,454
 HTML code on the server. We did not just
+伺服器上的 HTML 程式碼。我們不僅
 
 149
 00:06:35,454 --> 00:06:38,756
 send back data, we sent back the entire HTML
+發回資料，我們發回整個HTML
 
 150
 00:06:38,900 --> 00:06:41,384
 document that should be rendered. So this
+應該呈現的文檔。所以這個
 
 151
 00:06:41,384 --> 00:06:43,725
 was an example for a server-side rendered
+是伺服器端渲染的範例
 
 152
 00:06:43,773 --> 00:06:44,142
 view here.
+查看這裡。
 
 153
 00:06:45,151 --> 00:06:47,444
 Such applications are also very important.
+此類應用也非常重要。
 
 154
 00:06:47,860 --> 00:06:50,201
 Here we also got different endpoints, so
+這裡我們也得到了不同的端點，所以
 
 155
 00:06:50,201 --> 00:06:53,086
 just as on the API server example, but what
+就像 API 伺服器範例一樣，但是什麼
 
 156
 00:06:53,086 --> 00:06:55,667
 we return is not just data but the entire
+我們回傳的不僅是資料，而是整個
 
 157
 00:06:55,875 --> 00:06:57,718
 view, so the HTML content.
+視圖，即 HTML 內容。
 
 158
 00:06:58,376 --> 00:07:01,389
 And frontend and backend here form one unit.
+這裡前端和後端合而為一。
 
 159
 00:07:01,886 --> 00:07:03,668
 Everything is managed by one server.
+一切都由一台伺服器管理。
 
 160
 00:07:04,310 --> 00:07:07,151
 Now traditionally, if we go back like 10
+現在傳統上，如果我們回到 10
 
 161
 00:07:07,263 --> 00:07:07,568
 years,
+年，
 
 162
 00:07:08,306 --> 00:07:10,457
 every website was such a server-side
+每個網站都是這樣的伺服器端
 
 163
 00:07:10,489 --> 00:07:11,581
 rendered views thing.
+渲染視圖的事情。
 
 164
 00:07:12,159 --> 00:07:14,903
 Nowadays we got more and more frontend apps,
+現在我們有越來越多的前端應用程式，
 
 165
 00:07:15,866 --> 00:07:18,691
 so such single-page applications that talk
+所以這樣的單頁應用程式會說話
 
 166
 00:07:18,691 --> 00:07:21,452
 to APIs, simply because we also got a lot of
+API，只是因為我們還得到了很多
 
 167
 00:07:21,468 --> 00:07:23,811
 mobile apps that do the same, and we
+具有相同功能的移動應用程式，我們
 
 168
 00:07:23,811 --> 00:07:25,416
 discovered that this would be a great
+發現這將是一個偉大的
 
 169
 00:07:25,416 --> 00:07:26,764
 pattern for the web as well.
+網路模式也是如此。
 
 170
 00:07:27,567 --> 00:07:29,284
 But this does not mean that server-side
+但這並不意味著伺服器端
 
 171
 00:07:29,284 --> 00:07:31,417
 rendered views are something you shouldn't
+渲染視圖是你不應該做的事情
 
 172
 00:07:31,417 --> 00:07:33,916
 use. For a lot of webpages, it's a great
+使用。對於很多網頁來說，這是一個很棒的
 
 173
 00:07:33,916 --> 00:07:36,031
 approach and it's typically the approach
+方法，這通常是方法
 
 174
 00:07:36,304 --> 00:07:38,531
 with which you start your developer career,
+您將以此開始您的開發者職業生涯，
 
 175
 00:07:38,547 --> 00:07:39,172
 I would argue.
+我會爭辯。
 
 176
 00:07:40,309 --> 00:07:43,017
 And in reality, you find examples for both
+事實上，你會找到兩者的例子
 
 177
 00:07:43,129 --> 00:07:44,379
 kinds of applications.
+各種應用程式。
 
 178
 00:07:45,132 --> 00:07:47,246
 If we visit amazon.com
+如果我們造訪 amazon.com
 
 179
 00:07:47,919 --> 00:07:50,323
 and we right-click somewhere on the page and
+然後我們右鍵單擊頁面上的某個位置
 
 180
 00:07:50,323 --> 00:07:51,508
 view the page source,
+查看頁面原始碼，
 
 181
 00:07:52,261 --> 00:07:54,985
 we will see that we have a lot of content
+我們會看到我們有很多內容
 
 182
 00:07:54,985 --> 00:07:57,132
 there. And most importantly, if we scroll
+那裡。最重要的是，如果我們滾動
 
 183
 00:07:57,212 --> 00:07:59,663
 down, we see a lot of HTML code here.
+往下看，我們看到這裡有很多HTML程式碼。
 
 184
 00:08:00,433 --> 00:08:02,437
 This is an example for a server-side
+這是伺服器端的範例
 
 185
 00:08:02,437 --> 00:08:02,966
 rendered view.
+渲染視圖。
 
 186
 00:08:03,640 --> 00:08:06,734
 What was returned by the server and rendered
+伺服器傳回並渲染的內容
 
 187
 00:08:06,766 --> 00:08:09,556
 by the browser is this page source, and
+瀏覽器顯示的是該頁面的原始碼，並且
 
 188
 00:08:09,556 --> 00:08:11,785
 that, as you can tell, is basically
+正如你所知，這基本上是
 
 189
 00:08:12,042 --> 00:08:12,427
 everything
+一切
 
 190
 00:08:13,020 --> 00:08:15,634
 we see on the screen here. So amazon.com is
+我們在螢幕上看到這裡。所以 amazon.com 是
 
 191
 00:08:15,666 --> 00:08:18,263
 such a server-side rendered view here. Now
+這裡是這樣的伺服器端渲染視圖。現在
 
 192
 00:08:18,295 --> 00:08:20,444
 in reality, amazon.com is of course a very
+事實上，amazon.com 當然是一個非常
 
 193
 00:08:20,556 --> 00:08:24,485
 big site, and subsites of it might also be
+大網站，它的子網站也可能是
 
 194
 00:08:24,485 --> 00:08:27,339
 single-page applications, but this main page
+單頁應用程式，但是這個主頁
 
 195
 00:08:27,676 --> 00:08:28,993
 is server-side rendered.
+是伺服器端渲染的。
 
 196
 00:08:30,006 --> 00:08:33,123
 Now, the Deno manual would be an example for
+現在，Deno 手冊就是一個例子
 
 197
 00:08:33,219 --> 00:08:35,710
 a single-page application that's just
+一個單頁應用程式
 
 198
 00:08:35,710 --> 00:08:37,814
 fetching data from an API server.
+從 API 伺服器取得資料。
 
 199
 00:08:38,538 --> 00:08:41,237
 If we are on deno.land/manual
+如果我們在 deno.land/manual 上
 
 200
 00:08:41,896 --> 00:08:43,535
 and we view the page source here,
+我們在這裡查看頁面原始碼，
 
 201
 00:08:44,402 --> 00:08:47,214
 we see, if we take a closer look, that it's
+如果我們仔細觀察，我們會發現
 
 202
 00:08:47,214 --> 00:08:48,082
 primarily
+主要是
 
 203
 00:08:48,644 --> 00:08:51,343
 JavaScript files that are being loaded here,
+正在此處載入的 JavaScript 檔案，
 
 204
 00:08:51,649 --> 00:08:53,641
 a bunch of JavaScript files here.
+這裡有一堆 JavaScript 檔案。
 
 205
 00:08:54,204 --> 00:08:56,375
 And if we search for some content we see
+如果我們搜尋一些內容，我們會看到
 
 206
 00:08:56,439 --> 00:08:58,867
 here, for example, for feature highlights,
+例如，對於功能亮點，
 
 207
 00:08:59,977 --> 00:09:01,730
 we will not find this here in the page
+我們在頁面中找不到這個
 
 208
 00:09:01,762 --> 00:09:04,303
 source because what we see on the screen is
+來源，因為我們在螢幕上看到的是

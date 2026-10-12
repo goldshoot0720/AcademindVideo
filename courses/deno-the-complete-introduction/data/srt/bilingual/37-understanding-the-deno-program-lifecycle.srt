@@ -1,715 +1,894 @@
 1
 00:00:02,262 --> 00:00:04,171
 With all of that, we learned a lot about
+有了這一切，我們學到了很多
 
 2
 00:00:04,203 --> 00:00:07,316
 Deno and I wanna conclude this section about
+Deno 和我想結束本節
 
 3
 00:00:07,316 --> 00:00:10,540
 the core APIs in a second and move on to the
+立即了解核心 API，然後繼續
 
 4
 00:00:10,540 --> 00:00:12,738
 standard library, which is the next logical
+標準函式庫，這是下一個邏輯
 
 5
 00:00:12,770 --> 00:00:13,107
 step.
+步。
 
 6
 00:00:13,653 --> 00:00:16,428
 Not before talking about the Deno program
+在談論 Deno 程式之前
 
 7
 00:00:16,541 --> 00:00:19,445
 lifecycle though, because that is important.
+但生命週期，因為這很重要。
 
 8
 00:00:20,231 --> 00:00:22,990
 Your Deno program, for example, the one from
+例如，您的 Deno 程式來自
 
 9
 00:00:23,039 --> 00:00:25,333
 the assignment, has a lifecycle.
+作業有一個生命週期。
 
 10
 00:00:25,864 --> 00:00:27,430
 And that simply means that there are
+這僅僅意味著有
 
 11
 00:00:27,494 --> 00:00:30,593
 specific events which are automatically
+自動發生的特定事件
 
 12
 00:00:30,868 --> 00:00:32,724
 emitted and to which you can listen
+發出並且您可以聽到
 
 13
 00:00:33,354 --> 00:00:36,304
 when certain things happen in your script
+當腳本中發生某些事情時
 
 14
 00:00:36,337 --> 00:00:36,952
 execution.
+執行。
 
 15
 00:00:39,006 --> 00:00:40,572
 If we run our demo file,
+如果我們運行我們的演示檔案，
 
 16
 00:00:41,347 --> 00:00:43,123
 script execution of course starts and
+腳本執行當然開始且
 
 17
 00:00:43,140 --> 00:00:45,449
 executes the file start to end, but during
+從頭到尾執行檔案，但期間
 
 18
 00:00:45,481 --> 00:00:48,471
 that execution, we got these various events,
+那次執行，我們得到了這些不同的事件，
 
 19
 00:00:48,536 --> 00:00:49,833
 these various steps.
+這些不同的步驟。
 
 20
 00:00:50,416 --> 00:00:53,025
 For example, we get the load event right
+例如我們正確取得load事件
 
 21
 00:00:53,074 --> 00:00:55,018
 when the file was compiled and loaded and
+當檔案被編譯和載入時
 
 22
 00:00:55,018 --> 00:00:55,456
 the execution started.
+行刑開始了。
 
 23
 00:00:57,128 --> 00:00:59,515
 And we can listen to that event and execute
+我們可以監聽該事件並執行
 
 24
 00:00:59,515 --> 00:01:01,005
 code in response to it.
+回應它的程式碼。
 
 25
 00:01:01,742 --> 00:01:03,921
 We can also execute asynchronous code there
+我們還可以在那裡執行非同步程式碼
 
 26
 00:01:03,921 --> 00:01:04,578
 if we want to.
+如果我們願意的話。
 
 27
 00:01:05,187 --> 00:01:08,311
 So this allows us to execute some extra code
+所以這允許我們執行一些額外的程式碼
 
 28
 00:01:08,311 --> 00:01:10,138
 which we don't wanna put into our main
+我們不想把它放入我們的 main 中
 
 29
 00:01:10,666 --> 00:01:13,983
 script code whenever the script starts.
+每當腳本啟動時編寫腳本程式碼。
 
 30
 00:01:14,800 --> 00:01:16,642
 Well, then we have the regular script
+好吧，那我們就有了楷書
 
 31
 00:01:16,642 --> 00:01:18,661
 execution of all the code we have in the
+執行我們的所有程式碼
 
 32
 00:01:18,661 --> 00:01:21,529
 script, and then we also have the unload
+腳本，然後我們還有卸載
 
 33
 00:01:21,529 --> 00:01:24,365
 event that's going to trigger right before
+將在之前觸發的事件
 
 34
 00:01:24,429 --> 00:01:25,999
 the script will shut down.
+該腳本將關閉。
 
 35
 00:01:26,673 --> 00:01:29,736
 The script will end whenever the end of the
+每當結束時腳本就會結束
 
 36
 00:01:29,864 --> 00:01:31,885
 file is reached, so whenever there is no
+已到達檔案，因此每當沒有
 
 37
 00:01:31,885 --> 00:01:34,579
 more code to execute, and if there are no
+更多程式碼要執行，如果沒有
 
 38
 00:01:34,675 --> 00:01:37,546
 ongoing processes. For example, later you
+正在進行的過程。例如，稍後你
 
 39
 00:01:37,578 --> 00:01:40,464
 will see when we start a web server, the
+當我們啟動網頁伺服器時會看到
 
 40
 00:01:40,464 --> 00:01:42,774
 script is never going to end because it's
+腳本永遠不會結束，因為它是
 
 41
 00:01:42,774 --> 00:01:44,682
 continuously waiting for new incoming
+不斷等待新的到來
 
 42
 00:01:44,778 --> 00:01:45,307
 requests.
+請求。
 
 43
 00:01:45,917 --> 00:01:48,643
 But whenever your process does end, for
+但每當你的行程結束時，
 
 44
 00:01:48,643 --> 00:01:51,129
 example, also with the web server, if that
+例如，也可以使用網頁伺服器，如果那樣的話
 
 45
 00:01:51,129 --> 00:01:53,534
 server crashes the unload event is
+伺服器崩潰卸載事件是
 
 46
 00:01:53,614 --> 00:01:56,179
 triggered. And there you also can listen to
+觸發。在那裡你還可以收聽
 
 47
 00:01:56,179 --> 00:01:58,102
 it and execute code, though
+但它並執行程式碼
 
 48
 00:01:58,647 --> 00:01:59,994
 only synchronous code.
+只有同步程式碼。
 
 49
 00:02:00,523 --> 00:02:03,456
 So no code that uses promises or callbacks
+因此沒有使用承諾或回呼的程式碼
 
 50
 00:02:03,456 --> 00:02:06,021
 to do something asynchronous. You can't send
+做一些非同步的事情。你無法發送
 
 51
 00:02:06,021 --> 00:02:08,522
 an HTTP request there, for example, or at
+例如，一個 HTTP 請求，或在
 
 52
 00:02:08,522 --> 00:02:10,766
 least you won't be able to react to the
+至少你將無法做出反應
 
 53
 00:02:10,766 --> 00:02:13,459
 response. You can only do synchronous things
+回覆.你只能做同步的事情
 
 54
 00:02:13,491 --> 00:02:14,501
 here if you want to.
+如果你願意的話就在這裡。
 
 55
 00:02:15,559 --> 00:02:17,867
 And these events can be useful to have some
+這些事件對於有一些有用的
 
 56
 00:02:17,964 --> 00:02:20,112
 general setup work that should be done
+應該完成的一般設定工作
 
 57
 00:02:20,224 --> 00:02:22,821
 whenever the script starts and to have some
+每當腳本啟動並有一些
 
 58
 00:02:22,933 --> 00:02:25,339
 general cleanup work whenever the script
+每當腳本運行時，常規清理工作
 
 59
 00:02:25,435 --> 00:02:25,724
 ends.
+結束。
 
 60
 00:02:26,301 --> 00:02:28,307
 Now let's quickly see how we can listen to
+現在讓我們快速看看如何收聽
 
 61
 00:02:28,307 --> 00:02:28,772
 these events.
+這些事件。
 
 62
 00:02:29,767 --> 00:02:31,404
 For that, I'll add another new file,
+為此，我將添加另一個新檔案，
 
 63
 00:02:32,174 --> 00:02:34,629
 demo_lifeCycle.ts,
+demo_lifeCycle.ts，
 
 64
 00:02:35,447 --> 00:02:36,940
 and that will be a very trivial file.
+這將會是一個非常瑣碎的檔案。
 
 65
 00:02:38,175 --> 00:02:39,539
 For one, I'll console.log
+其一，我將 console.log
 
 66
 00:02:40,117 --> 00:02:43,069
 main script, and that's my main script
+主要腳本，這就是我的主要腳本
 
 67
 00:02:43,069 --> 00:02:45,428
 execution code, so the main code that should
+執行程式碼，所以主要程式碼應該
 
 68
 00:02:45,492 --> 00:02:46,294
 be in my script.
+在我的劇本裡。
 
 69
 00:02:46,936 --> 00:02:49,584
 But I also wanna listen to that load event,
+但我也想聽那個載入事件，
 
 70
 00:02:49,888 --> 00:02:52,119
 and for listening, we got 2 options.
+對於聆聽，我們有兩個選擇。
 
 71
 00:02:52,875 --> 00:02:56,079
 We can reach out to this window object and
+我們可以接觸到這個視窗物件並
 
 72
 00:02:56,095 --> 00:02:58,640
 set the onload property
+設定 onload 屬性
 
 73
 00:02:59,300 --> 00:03:01,763
 equal to a function, for example, equal to
+等於一個函式，例如等於
 
 74
 00:03:01,780 --> 00:03:02,663
 an arrow function.
+箭頭函式。
 
 75
 00:03:03,563 --> 00:03:05,475
 This function will then run
+然後該函式將運行
 
 76
 00:03:06,069 --> 00:03:07,965
 whenever the onload event occurs,
+每當 onload 事件發生時，
 
 77
 00:03:08,961 --> 00:03:11,483
 and we'll get an event object here. And then
+我們將在這裡得到一個事件物件。進而
 
 78
 00:03:11,516 --> 00:03:12,748
 I can console.log
+我可以console.log
 
 79
 00:03:14,678 --> 00:03:16,088
 onload event
+載入事件
 
 80
 00:03:16,705 --> 00:03:18,958
 and also console.log the event object.
+還有 console.log 事件物件。
 
 81
 00:03:21,137 --> 00:03:23,720
 The alternative way of listening would be
+另一種聆聽方式是
 
 82
 00:03:23,864 --> 00:03:24,297
 that you
+那你
 
 83
 00:03:25,613 --> 00:03:28,629
 add an event listener to window and listen
+新增一個事件監聽器到視窗並監聽
 
 84
 00:03:28,661 --> 00:03:31,244
 to the load event. So not onload here, but
+到載入事件。所以不是在這裡載入，但是
 
 85
 00:03:31,389 --> 00:03:32,014
 just load.
+只需載入。
 
 86
 00:03:32,608 --> 00:03:34,260
 And then the second argument here is the
+然後這裡的第二個參數是
 
 87
 00:03:34,292 --> 00:03:36,458
 function that should be executed upon the
+應該執行的函式
 
 88
 00:03:36,458 --> 00:03:36,747
 event.
+事件。
 
 89
 00:03:37,421 --> 00:03:40,710
 And there I will add that same code, onload
+在那裡我將添加相同的程式碼 onload
 
 90
 00:03:40,710 --> 00:03:42,635
 event via listener.
+透過監聽器的事件。
 
 91
 00:03:43,582 --> 00:03:46,085
 The important difference just like in the
+重要的區別就像
 
 92
 00:03:46,150 --> 00:03:46,519
 browser
+瀏覽器
 
 93
 00:03:47,129 --> 00:03:49,104
 where you also have different ways of adding
+您也可以透過不同的方式添加
 
 94
 00:03:49,136 --> 00:03:49,746
 event listeners,
+事件監聽器，
 
 95
 00:03:50,324 --> 00:03:53,038
 is that with that you can only define one
+就是你只能定義一個
 
 96
 00:03:53,150 --> 00:03:53,600
 function.
+功能。
 
 97
 00:03:54,419 --> 00:03:54,772
 If I
+如果我
 
 98
 00:03:55,494 --> 00:03:57,919
 set a new function to onload, it will
+設定一個新函式 onload，它將
 
 99
 00:03:58,112 --> 00:04:00,135
 override the previously added function.
+覆蓋之前新增的功能。
 
 100
 00:04:00,938 --> 00:04:03,073
 On the other hand, you can add multiple
+另一方面，您可以新增多個
 
 101
 00:04:03,170 --> 00:04:05,658
 event listeners with addEventListener. So if
+使用 addEventListener 的事件偵聽器。所以如果
 
 102
 00:04:05,658 --> 00:04:07,874
 you need multiple listeners which should all
+你需要多個監聽器，這些監聽器都應該
 
 103
 00:04:08,147 --> 00:04:11,021
 run, you should use addEventListener If you
+運行，你應該使用 addEventListener 如果你
 
 104
 00:04:11,053 --> 00:04:13,205
 have just one code snippet that needs to
+只有一個程式碼片段需要
 
 105
 00:04:13,205 --> 00:04:15,679
 execute, you can use the onload property.
+執行後，可以使用onload屬性。
 
 106
 00:04:17,076 --> 00:04:19,597
 Now with that, we're printing onload twice
+現在，我們列印 onload 兩次
 
 107
 00:04:19,726 --> 00:04:21,814
 in the end because we set up a listener with
+最後因為我們設定了一個監聽器
 
 108
 00:04:21,814 --> 00:04:24,062
 this approach and with addEventListener.
+這種方法和addEventListener 一樣。
 
 109
 00:04:25,186 --> 00:04:27,113
 And thereafter, I'm going to copy this.
+此後，我將複製此內容。
 
 110
 00:04:28,157 --> 00:04:29,313
 We can do the same for
+我們可以做同樣的事情
 
 111
 00:04:30,390 --> 00:04:30,968
 onload
+載入
 
 112
 00:04:32,397 --> 00:04:35,689
 and print onload event. And here also we
+並列印 onload 事件。我們也在這裡
 
 113
 00:04:35,689 --> 00:04:37,167
 want to listen to unload
+想聽卸載
 
 114
 00:04:37,716 --> 00:04:39,953
 and print onUnload here as well.
+並在這裡列印 onUnload 。
 
 115
 00:04:42,076 --> 00:04:43,470
 Now let's see how that works.
+現在讓我們看看它是如何工作的。
 
 116
 00:04:43,996 --> 00:04:45,097
 If I now save this
+如果我現在儲存這個
 
 117
 00:04:45,939 --> 00:04:49,632
 and I run this demo lifecycle.ts file,
+我運行這個演示生命週期.ts 檔案，
 
 118
 00:04:51,460 --> 00:04:53,417
 you see script execution finished. And what
+您會看到腳本執行完成。還有什麼
 
 119
 00:04:53,417 --> 00:04:56,475
 you see is we got the main script actually
+你看我們實際上得到了主要腳本
 
 120
 00:04:56,507 --> 00:04:57,996
 being output first.
+首先輸出。
 
 121
 00:04:58,675 --> 00:05:00,422
 Now the order in which we see this here
+現在我們在這裡看到的順序
 
 122
 00:05:00,520 --> 00:05:02,955
 shouldn't confuse you, shouldn't matter too
+不應該讓你感到困惑，也不重要
 
 123
 00:05:02,955 --> 00:05:05,066
 much. These listeners, the onLoad listeners,
+很多。這些監聽器，onLoad 監聽器，
 
 124
 00:05:05,099 --> 00:05:06,317
 do also run right at the beginning just
+也可以一開始就跑
 
 125
 00:05:06,317 --> 00:05:09,223
 because the event needs to be processed
+因為事件需要被處理
 
 126
 00:05:09,276 --> 00:05:09,629
 succeeded.
+成功了。
 
 127
 00:05:10,255 --> 00:05:11,202
 This main script,
+這個主要腳本，
 
 128
 00:05:11,861 --> 00:05:14,157
 the simple console.log statement was running
+簡單的 console.log 語句正在執行
 
 129
 00:05:14,253 --> 00:05:16,180
 first and logging this to the console, but
+首先並將其記錄到控制台，但是
 
 130
 00:05:16,260 --> 00:05:18,139
 onload also runs right when the script
+onload 也會在腳本執行時立即執行
 
 131
 00:05:18,139 --> 00:05:18,588
 starts.
+開始。
 
 132
 00:05:19,648 --> 00:05:21,174
 And you see the event object which we're
+你會看到我們正在處理的事件物件
 
 133
 00:05:21,254 --> 00:05:23,389
 getting is a very simple one, it just has
+獲取是一個非常簡單的，它只是有
 
 134
 00:05:23,421 --> 00:05:24,883
 the isTrusted flag in there.
+那裡有 isTrusted 標誌。
 
 135
 00:05:26,071 --> 00:05:29,073
 And then we have the onload event once the
+然後我們就有了 onload 事件
 
 136
 00:05:29,122 --> 00:05:30,535
 script execution finishes.
+腳本執行完成。
 
 137
 00:05:31,369 --> 00:05:34,003
 And to see a difference, I will now actually
+為了看到差異，我現在實際上
 
 138
 00:05:35,528 --> 00:05:38,355
 wait for some user input by going to demo
+透過演示等待一些使用者輸入
 
 139
 00:05:38,499 --> 00:05:38,933
 input
+輸入
 
 140
 00:05:39,945 --> 00:05:42,867
 and copying this code we had in there
+並複製我們在那裡的程式碼
 
 141
 00:05:42,932 --> 00:05:43,333
 before.
+前。
 
 142
 00:05:44,361 --> 00:05:46,898
 And below my main script console.log, I will
+在我的主腳本 console.log 下方，我將
 
 143
 00:05:47,589 --> 00:05:50,769
 again listen to that input here, get my
+再聽這裡的輸入，得到我的
 
 144
 00:05:50,801 --> 00:05:51,202
 input.
+輸入。
 
 145
 00:05:52,069 --> 00:05:54,093
 By the way, close all our files. If you
+順便說一句，關閉我們所有的檔案。如果你
 
 146
 00:05:54,093 --> 00:05:55,907
 should be getting an error regarding
+應該得到一個關於的錯誤
 
 147
 00:05:57,144 --> 00:05:58,750
 constant names which you're using in
+您正在使用的常數名稱
 
 148
 00:05:58,814 --> 00:06:00,709
 multiple files, that is fine to do.
+多個檔案，這樣就可以了。
 
 149
 00:06:01,239 --> 00:06:03,455
 My IDE just doesn't understand that these
+我的 IDE 就是不懂這些
 
 150
 00:06:03,568 --> 00:06:06,013
 files don't run as one big process,
+檔案不作為一個大行程運行，
 
 151
 00:06:06,770 --> 00:06:08,607
 which is why it does complain about name
+這就是為什麼它確實抱怨名字
 
 152
 00:06:08,639 --> 00:06:10,105
 clashes. This code is fine.
+衝突。這段程式碼很好。
 
 153
 00:06:10,637 --> 00:06:13,133
 So here we now got the code to listen to
+現在我們得到了可以聽的程式碼
 
 154
 00:06:13,133 --> 00:06:13,877
 user input,
+使用者輸入，
 
 155
 00:06:14,443 --> 00:06:15,626
 and now you'll see a difference.
+現在你會看到不同。
 
 156
 00:06:16,289 --> 00:06:18,216
 If I now run this code
+如果我現在運行這段程式碼
 
 157
 00:06:18,977 --> 00:06:19,706
 again here,
+又在這裡，
 
 158
 00:06:21,320 --> 00:06:24,046
 deno run deno lifecycle.ts,
+deno 運行 denolifecycle.ts，
 
 159
 00:06:25,450 --> 00:06:25,967
 you see
+你看
 
 160
 00:06:27,645 --> 00:06:28,613
 we have main script,
+我們有主要腳本，
 
 161
 00:06:29,420 --> 00:06:31,100
 please enter your message. Then we got the
+請輸入您的留言。然後我們得到了
 
 162
 00:06:31,181 --> 00:06:33,346
 onload events, of course, because the script
+當然，onload 事件是因為腳本
 
 163
 00:06:33,623 --> 00:06:34,193
 just loaded.
+剛剛載入。
 
 164
 00:06:34,762 --> 00:06:37,022
 But we don't see the onUnload events yet
+但我們還沒看過 onUnload 事件
 
 165
 00:06:37,151 --> 00:06:38,818
 because the script is still running.
+因為腳本仍在運行。
 
 166
 00:06:40,036 --> 00:06:42,473
 And if I cancel the script, for example,
+例如，如果我取消腳本，
 
 167
 00:06:42,521 --> 00:06:45,438
 with Ctrl+C, we also don't see it because I
+使用 Ctrl+C，我們也看不到它，因為我
 
 168
 00:06:45,487 --> 00:06:47,987
 hard canceled it. If it would have crashed
+很難取消它。如果它會崩潰的話
 
 169
 00:06:47,987 --> 00:06:49,879
 because of an error, on the other hand, we
+另一方面，由於錯誤，我們
 
 170
 00:06:49,975 --> 00:06:50,440
 would see it.
+會看到它。
 
 171
 00:06:51,354 --> 00:06:53,710
 Now if I do enter something here,
+現在如果我在這裡輸入一些東西，
 
 172
 00:06:54,961 --> 00:06:57,445
 you see now it finishes as planned and we
+你看現在它按計劃完成了，我們
 
 173
 00:06:57,445 --> 00:07:00,219
 see the onUnload event being emitted as
+看到 onUnload 事件被發出為
 
 174
 00:07:00,315 --> 00:07:00,427
 well.
+出色地。
 
 175
 00:07:01,455 --> 00:07:03,833
 So that's how the program lifecycle works.
+這就是程式生命週期的工作原理。
 
 176
 00:07:04,090 --> 00:07:06,050
 You will not need this all the time, but it
+你不會一直需要這個，但它
 
 177
 00:07:06,098 --> 00:07:08,685
 is important to be aware of these 2 events,
+了解這兩個事件很重要，
 
 178
 00:07:09,006 --> 00:07:12,236
 load and unload, so that you can do setup
+載入和卸載，以便您可以進行設置
 
 179
 00:07:12,364 --> 00:07:14,517
 and cleanup work if you need to.
+如果需要的話，還可以進行清理工作。

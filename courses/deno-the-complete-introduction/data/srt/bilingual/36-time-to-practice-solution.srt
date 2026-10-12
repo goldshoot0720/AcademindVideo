@@ -1,683 +1,854 @@
 1
 00:00:02,282 --> 00:00:05,617
 Let's write this new script. I'll name it
+讓我們來編寫這個新腳本。我來命名它
 
 2
 00:00:06,712 --> 00:00:09,096
 fetchWebContent.ts.
+fetchWebContent.ts。
 
 3
 00:00:10,680 --> 00:00:11,325
 That's my file name.
+這是我的檔案名稱。
 
 4
 00:00:12,407 --> 00:00:14,327
 And in there we got a couple of steps. We
+在那裡我們有幾個步驟。我們
 
 5
 00:00:14,327 --> 00:00:16,280
 want to fetch user input. We learned how
+想要取得使用者輸入。我们学会了如何
 
 6
 00:00:16,345 --> 00:00:18,847
 that works. We want to write to a file. We
+有效。我們想要寫入一個檔案。我們
 
 7
 00:00:18,847 --> 00:00:19,702
 learned how that works.
+了解了它是如何工作的。
 
 8
 00:00:21,220 --> 00:00:23,336
 But in between, I also want to send a web
+但在這之間，我還想發送一個網路
 
 9
 00:00:23,336 --> 00:00:24,883
 request, a network request.
+請求，網路請求。
 
 10
 00:00:25,723 --> 00:00:27,885
 So first of all, let's create that buffer
+首先，讓我們建立該緩衝區
 
 11
 00:00:28,062 --> 00:00:30,014
 for collecting the user input, and that's a
+用於收集使用者輸入，這是
 
 12
 00:00:30,078 --> 00:00:31,966
 new uint8 array.
+新的 uint8 陣列。
 
 13
 00:00:33,850 --> 00:00:34,560
 And thereafter,
+此後，
 
 14
 00:00:35,254 --> 00:00:39,257
 we can call deno.stdin.read and pass our
+我們可以調用 eno.stdin.read 並傳遞我們的
 
 15
 00:00:39,289 --> 00:00:40,112
 buffer to read.
+要讀取的緩衝區。
 
 16
 00:00:42,544 --> 00:00:44,460
 And I'm going to close the deno.input.ts
+我要關閉 deno.input.ts
 
 17
 00:00:44,460 --> 00:00:47,166
 file to help my IDE understand that this
+檔案來幫助我的 IDE 理解這一點
 
 18
 00:00:47,697 --> 00:00:49,823
 buffer is not redeclared but in a brand new
+緩衝區沒有重新聲明，而是在一個全新的中
 
 19
 00:00:49,871 --> 00:00:50,064
 file.
+檔案。
 
 20
 00:00:50,982 --> 00:00:52,639
 Now I also wanna give this a length.
+現在我也想給這個長度。
 
 21
 00:00:53,216 --> 00:00:53,745
 Of again
+再次的
 
 22
 00:00:54,659 --> 00:00:56,455
 1024 bytes.
+1024 位元組。
 
 23
 00:00:57,385 --> 00:00:59,791
 And again, we get back a promise here, so,
+再次，我們在這裡得到了承諾，所以，
 
 24
 00:01:00,143 --> 00:01:02,789
 so I'll await that promise. Thereafter, we
+所以我會等待那個承諾。此後，我們
 
 25
 00:01:02,789 --> 00:01:05,002
 know that our buffer is populated with the
+知道我們的緩衝區填入了
 
 26
 00:01:05,002 --> 00:01:07,135
 user input. So then we can create our
+使用者輸入。那我們就可以創建我們的
 
 27
 00:01:07,328 --> 00:01:08,274
 decoder again,
+再次解碼，
 
 28
 00:01:09,733 --> 00:01:11,481
 our new TextDecoder,
+我們新的文字解碼器，
 
 29
 00:01:12,299 --> 00:01:15,201
 to then get the URL which the user should
+然後取得使用者應該的 URL
 
 30
 00:01:15,266 --> 00:01:15,650
 enter here
+在這裡輸入
 
 31
 00:01:16,949 --> 00:01:19,611
 by calling decoder.decode buffer.
+透過呼叫decode.decode緩衝區。
 
 32
 00:01:20,413 --> 00:01:23,219
 Now to help the user understand what he or
+現在幫助使用者了解他或
 
 33
 00:01:23,219 --> 00:01:25,064
 she should enter, I'm also going to
+她應該進來，我也要去
 
 34
 00:01:25,064 --> 00:01:26,092
 console.log,
+控制台.紀錄,
 
 35
 00:01:27,312 --> 00:01:29,591
 please enter a URL here,
+請在此輸入網址，
 
 36
 00:01:30,457 --> 00:01:32,849
 to make it clear that we, well, want a URL
+明確我們需要一個 URL
 
 37
 00:01:32,994 --> 00:01:33,459
 as input.
+作為輸入。
 
 38
 00:01:34,133 --> 00:01:36,107
 And then here we got the URL, hopefully.
+然後我們就得到了 URL，希望如此。
 
 39
 00:01:36,846 --> 00:01:39,574
 Now we wanna send a network request to that
+現在我們要向其發送網路請求
 
 40
 00:01:39,574 --> 00:01:39,944
 URL.
+網址。
 
 41
 00:01:40,698 --> 00:01:42,801
 So for that, we can use the Fetch API.
+為此，我們可以使用 Fetch API。
 
 42
 00:01:43,346 --> 00:01:45,690
 As I mentioned, this is available in Deno.
+正如我所提到的，這在 Deno 中可用。
 
 43
 00:01:46,235 --> 00:01:48,338
 It has this browser compatibility.
+它具有此瀏覽器相容性。
 
 44
 00:01:49,542 --> 00:01:53,249
 So Fetch indeed wants a URL which can be a
+所以 Fetch 確實需要一個 URL，它可以是
 
 45
 00:01:53,249 --> 00:01:55,958
 string as a first parameter. So I can just
+字串作為第一個參數。所以我只能
 
 46
 00:01:55,958 --> 00:01:57,465
 pass my URL to it.
+將我的網址傳遞給它。
 
 47
 00:01:58,684 --> 00:02:00,495
 And we could configure this request in
+我們可以設定這個請求
 
 48
 00:02:00,592 --> 00:02:03,381
 greater detail with a second options object
+第二個選項物件的更多細節
 
 49
 00:02:03,814 --> 00:02:05,818
 where we could change the request method,
+我們可以在其中更改請求方法，
 
 50
 00:02:06,139 --> 00:02:07,886
 but the default will be a GET request and
+但預設是 GET 請求並且
 
 51
 00:02:07,918 --> 00:02:10,067
 I'm just fine with that. So I'll send a GET
+我對此很滿意。所以我會發送一個 GET
 
 52
 00:02:10,067 --> 00:02:10,580
 request here
+在這裡請求
 
 53
 00:02:11,349 --> 00:02:14,235
 and fetch also returns a promise where we
+並且 fetch 還回傳一個承諾，我們
 
 54
 00:02:14,299 --> 00:02:16,367
 get back our response object.
+取回我們的回應物件。
 
 55
 00:02:17,682 --> 00:02:20,552
 So here we can store the response in a
+所以在這裡我們可以將回應儲存在
 
 56
 00:02:20,552 --> 00:02:23,581
 constant named response, awaiting fetch.
+常數命名回應，等待獲取。
 
 57
 00:02:24,174 --> 00:02:26,081
 This will send the request and give us the
+這將發送請求並向我們提供
 
 58
 00:02:26,081 --> 00:02:26,738
 response.
+回覆.
 
 59
 00:02:27,699 --> 00:02:30,119
 Now the response is an object that holds a
+現在回應是一個包含
 
 60
 00:02:30,183 --> 00:02:33,371
 bunch of data, and amongst that data we'll
+一堆資料，在這些資料中我們將
 
 61
 00:02:33,371 --> 00:02:36,303
 have the, the response body, so the core
+有，回應體，所以核心
 
 62
 00:02:36,432 --> 00:02:38,803
 data that was enclosed in the response.
+回應中包含的資料。
 
 63
 00:02:39,636 --> 00:02:42,360
 To get that, we need to call response dot,
+為此，我們需要呼叫回應點，
 
 64
 00:02:43,001 --> 00:02:43,514
 and then here
+然後在這裡
 
 65
 00:02:44,523 --> 00:02:45,661
 we can call text.
+我們可以調用文字。
 
 66
 00:02:46,206 --> 00:02:48,176
 This is a method which will parse the
+這是一個將解析
 
 67
 00:02:48,208 --> 00:02:51,589
 response body as text. So this again gives
+回應正文作為文字。所以這又給了
 
 68
 00:02:51,589 --> 00:02:54,121
 us a promise which then ultimately returns a
+我們的承諾最終會回傳
 
 69
 00:02:54,121 --> 00:02:54,698
 string though.
+不過字串。
 
 70
 00:02:55,419 --> 00:02:58,448
 Now if you plan on entering a URL that
+現在，如果您打算輸入一個 URL
 
 71
 00:02:58,448 --> 00:03:01,220
 fetches, let's say, JSON data, you can call
+比如說，取得 JSON 資料，您可以調用
 
 72
 00:03:01,429 --> 00:03:04,121
 JSON instead to parse that JSON code
+JSON 來解析 JSON 程式碼
 
 73
 00:03:04,137 --> 00:03:04,601
 correctly.
+正確。
 
 74
 00:03:05,515 --> 00:03:07,534
 Now of course we could also write our script
+現在當然我們也可以寫我們的腳本
 
 75
 00:03:07,534 --> 00:03:08,752
 in a more flexible way
+以更靈活的方式
 
 76
 00:03:09,425 --> 00:03:11,668
 where we try to detect which kind of data we
+我們試圖檢測我們使用哪種資料
 
 77
 00:03:11,668 --> 00:03:14,617
 got back, but I will hardcode this to text
+回來了，但我會將其硬編碼為文本
 
 78
 00:03:14,905 --> 00:03:17,133
 so that I'm able to deal with text data.
+這樣我就能夠處理文字資料。
 
 79
 00:03:18,575 --> 00:03:19,344
 Now this also,
+現在這也，
 
 80
 00:03:20,001 --> 00:03:22,004
 as I mentioned, gives us a promise, so I
+正如我所提到的，給了我們一個承諾，所以我
 
 81
 00:03:22,004 --> 00:03:23,942
 will await it, and then I got my
+會等待它，然後我得到了我的
 
 82
 00:03:25,144 --> 00:03:27,355
 content here, or however you wanna name it.
+內容在這裡，或是你想怎麼命名就怎麼命名。
 
 83
 00:03:28,028 --> 00:03:29,903
 And that should now be saved to a file.
+現在應該將其儲存到檔案中。
 
 84
 00:03:30,928 --> 00:03:33,733
 So that's the last step. We can use
+這是最後一步。我們可以使用
 
 85
 00:03:33,861 --> 00:03:35,751
+deno.writeFile
 deno.writeFile
 
 86
 00:03:36,761 --> 00:03:38,171
 to write to a file,
+寫入檔案，
 
 87
 00:03:38,908 --> 00:03:41,872
 and as a first argument, enter the path to
+作為第一個參數，輸入路徑
 
 88
 00:03:41,872 --> 00:03:43,779
 the file including the file name.
+檔案，包括檔案名。
 
 89
 00:03:44,698 --> 00:03:45,716
 And I will choose
+而我會選擇
 
 90
 00:03:47,122 --> 00:03:53,184
 website-content.txt as a file name here, but
+website-content.txt 在這裡作為檔名，但是
 
 91
 00:03:53,201 --> 00:03:54,283
 the name is of course up to you.
+名稱當然由您決定。
 
 92
 00:03:55,541 --> 00:03:56,799
 And the second argument should be the
+第二個參數應該是
 
 93
 00:03:56,799 --> 00:03:57,719
 content, but
+內容，但是
 
 94
 00:03:58,348 --> 00:04:00,719
 the content as a Uint8Array.
+內容為 Uint8Array。
 
 95
 00:04:01,572 --> 00:04:04,051
 So we first of all need to encode this
+所以我們首先需要對其進行編碼
 
 96
 00:04:04,051 --> 00:04:05,435
 content to such an array,
+內容到這樣的陣列，
 
 97
 00:04:06,079 --> 00:04:08,398
 and for that I'll create my encoder by
+為此我將創建我的編碼器
 
 98
 00:04:08,398 --> 00:04:09,525
 calling new TextEncoder.
+呼叫新的 TextEncoder。
 
 99
 00:04:10,880 --> 00:04:12,956
 And then get my data by calling
+然後透過調用來獲取我的資料
 
 100
 00:04:13,134 --> 00:04:16,361
 encoder.encode and passing in the content.
+encoder.encode並傳入內容。
 
 101
 00:04:17,356 --> 00:04:18,915
 And now it's that data that should be
+現在應該是這些資料
 
 102
 00:04:19,043 --> 00:04:20,634
 written to that file.
+寫入該檔案。
 
 103
 00:04:21,952 --> 00:04:23,978
 And then we can again await this and
+然後我們可以再次等待這個
 
 104
 00:04:23,978 --> 00:04:26,019
 thereafter console.log done.
+此後console.log完成。
 
 105
 00:04:28,120 --> 00:04:30,149
 Theoretically, this should work. Now let's
+從理論上講，這應該可行。現在讓我們
 
 106
 00:04:30,149 --> 00:04:32,082
 give it a try. Let's deno run
+嘗試一下。 Let's deno run
 
 107
 00:04:32,984 --> 00:04:36,931
 the fetchWebContent.ts file.
+fetchWebContent.ts 檔案。
 
 108
 00:04:37,832 --> 00:04:39,910
 And if we run it like this, you will see
+如果我們像這樣運行它，你會看到
 
 109
 00:04:40,105 --> 00:04:41,128
 that it wants a URL.
+它需要一個 URL。
 
 110
 00:04:41,762 --> 00:04:43,645
 So here indeed I am going to enter
+所以我確實要在這裡輸入
 
 111
 00:04:43,645 --> 00:04:44,831
 google.com,
+谷歌網站，
 
 112
 00:04:45,480 --> 00:04:45,916
 let's say.
+這麼說吧。
 
 113
 00:04:47,534 --> 00:04:48,844
 But then I get an error,
+但後來我得到一個錯誤，
 
 114
 00:04:49,620 --> 00:04:51,836
 and again I get a permission denied error.
+我再次收到權限被拒絕的錯誤。
 
 115
 00:04:52,532 --> 00:04:54,425
 And it's also telling me which permission
+它還告訴我哪個權限
 
 116
 00:04:54,489 --> 00:04:57,295
 was denied. Network access was the problem.
+was denied.網路存取是問題所在。
 
 117
 00:04:57,537 --> 00:04:59,778
 It also gives me the solution. We should add
+它也給了我解決方案。 We should add
 
 118
 00:04:59,891 --> 00:05:00,794
 allow net.
+允許網。
 
 119
 00:05:02,205 --> 00:05:04,318
 Remember, permissions are an important thing
+請記住，權限很重要
 
 120
 00:05:04,495 --> 00:05:06,753
 in Deno, and here we plan on working with
+在 Deno，我們計劃與
 
 121
 00:05:06,753 --> 00:05:06,947
 the network.
+網路。
 
 122
 00:05:08,012 --> 00:05:10,916
 Hence, we need to add the allow net flag
+因此，我們需要添加允許網路標誌
 
 123
 00:05:10,916 --> 00:05:13,353
 when we execute the script. We could also
+當我們執行腳本時。我們還可以
 
 124
 00:05:13,482 --> 00:05:15,419
 lock it down to specific domains if we
+如果我們將其鎖定到特定網域
 
 125
 00:05:15,435 --> 00:05:15,903
 wanted to.
+想要。
 
 126
 00:05:16,820 --> 00:05:19,224
 Side note, since we'll also write to a file
+旁注，因為我們也會寫入檔案
 
 127
 00:05:19,353 --> 00:05:22,629
 thereafter, we should also add --allow-write
+此後，我們也應該加入 --allow-write
 
 128
 00:05:22,725 --> 00:05:23,290
 as a flag.
+作為旗幟。
 
 129
 00:05:24,660 --> 00:05:26,841
 So here I'm going to deno run
+所以我要在這裡運行
 
 130
 00:05:28,796 --> 00:05:29,022
 with
+和
 
 131
 00:05:29,927 --> 00:05:32,706
 --allow-write and --allow-net.
+--allow-write 和 --allow-net。
 
 132
 00:05:34,322 --> 00:05:36,886
 And I will not restrict the network access
+而且我不會限制網路訪問
 
 133
 00:05:36,886 --> 00:05:39,323
 because I typically don't know in advance
+因為我通常不提前知道
 
 134
 00:05:39,371 --> 00:05:41,407
 which URL the user is going to enter.
+使用者要輸入哪個 URL。
 
 135
 00:05:42,352 --> 00:05:44,212
 So now thereafter, I'll add the file name
+所以此後，我將添加檔案名
 
 136
 00:05:44,340 --> 00:05:45,350
 and execute this again.
+並再次執行此操作。
 
 137
 00:05:46,584 --> 00:05:48,428
 And now I'm trying to fetch data from
+現在我正在嘗試從中獲取資料
 
 138
 00:05:48,508 --> 00:05:49,101
 google.com.
+google.com。
 
 139
 00:05:49,630 --> 00:05:52,563
 I get done, I got my website content, and
+我完成了，我得到了我的網站內容，並且
 
 140
 00:05:52,595 --> 00:05:55,208
 that looks quite good. We got some HTML code
+看起來不錯。我們得到了一些 HTML 程式碼
 
 141
 00:05:55,320 --> 00:05:58,671
 in there, and that very likely is the HTML
+在那裡，很可能是 HTML
 
 142
 00:05:58,671 --> 00:05:58,959
 code
+程式碼
 
 143
 00:05:59,488 --> 00:06:01,235
 that is used for google.com.
+用於 google.com。
 
 144
 00:06:02,133 --> 00:06:04,968
 If we visit google.com and we view the page
+如果我們造訪 google.com 並且查看該頁面
 
 145
 00:06:05,080 --> 00:06:05,497
 source,
+來源，
 
 146
 00:06:06,218 --> 00:06:09,550
 there we have way more than what was loaded.
+那裡我們的東西比裝載的東西多得多。
 
 147
 00:06:10,063 --> 00:06:12,082
 But chances are that a lot of this content
+但很可能很多這樣的內容
 
 148
 00:06:12,082 --> 00:06:15,158
 is actually loaded only after the page was
+實際上僅在頁面載入後才載入
 
 149
 00:06:15,174 --> 00:06:16,440
 loaded for the first time,
+第一次載入，
 
 150
 00:06:17,097 --> 00:06:19,227
 and/or that the content we're seeing here
+和/或我們在這裡看到的內容
 
 151
 00:06:19,820 --> 00:06:22,095
 is some content optimized for automated
+是否有一些內容針對自動化進行了最佳化
 
 152
 00:06:22,095 --> 00:06:25,043
 scripts or crawlers. And in addition, if you
+腳本或爬蟲。另外，如果你
 
 153
 00:06:25,043 --> 00:06:27,575
 scroll to the side, you see we actually did
+滾動到一側，你會看到我們實際上做到了
 
 154
 00:06:27,607 --> 00:06:29,465
 fetch quite a lot of content. So this
+獲取相當多的內容。所以這個
 
 155
 00:06:29,513 --> 00:06:32,713
 definitely is the Google content. Of course,
+肯定是Google內容。當然，
 
 156
 00:06:32,778 --> 00:06:35,104
 we could have also stored it in a file that
+我們也可以將它儲存在一個檔案中
 
 157
 00:06:35,200 --> 00:06:37,930
 ends with.html if we wanted to create an
+如果我們想創建一個以.html結尾的
 
 158
 00:06:38,027 --> 00:06:38,802
 HTML file.
+HTML 檔案。
 
 159
 00:06:39,351 --> 00:06:41,599
 If I now run this script again with this
+如果我現在再次運行這個腳本
 
 160
 00:06:41,599 --> 00:06:42,200
 changed file
+更改的檔案
 
 161
 00:06:42,817 --> 00:06:43,580
 extension here,
+此處擴充功能，
 
 162
 00:06:44,912 --> 00:06:45,285
 and I now
+而我現在
 
 163
 00:06:45,821 --> 00:06:47,802
 again fetch the content from google.com,
+再次從 google.com 取得內容，
 
 164
 00:06:48,715 --> 00:06:51,424
 you see I got this HTML file here. And if I
+你看我在這裡得到了這個 HTML 檔案。如果我
 
 165
 00:06:51,473 --> 00:06:53,415
 reformat this with my IDE,
+用我的 IDE 重新格式化它，
 
 166
 00:06:55,238 --> 00:06:57,436
 this really looks like HTML code to me.
+對我來說這真的看起來像 HTML 程式碼。
 
 167
 00:06:58,147 --> 00:07:00,490
 So that is how we can fetch data from a
+這就是我們如何從 a 中獲取資料
 
 168
 00:07:00,490 --> 00:07:03,487
 website with Deno. And that's another nice
+與 Deno 的網站。這是另一個不錯的
 
 169
 00:07:03,536 --> 00:07:06,506
 practice of using the Deno core APIs and
+使用 Deno 核心 API 的實踐和
 
 170
 00:07:06,602 --> 00:07:09,799
 understanding how Deno works and what Deno
+了解 Deno 的工作原理以及 Deno 是什麼
 
 171
 00:07:09,912 --> 00:07:10,589
 is about.
+是關於。

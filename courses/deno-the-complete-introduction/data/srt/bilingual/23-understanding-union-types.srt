@@ -1,423 +1,529 @@
 1
 00:00:02,360 --> 00:00:03,917
 So now we added the configuration.
+所以現在我們新增了設定。
 
 2
 00:00:04,527 --> 00:00:06,710
 Now let's say we actually
+現在假設我們實際上
 
 3
 00:00:07,240 --> 00:00:07,995
 want to
+想要
 
 4
 00:00:08,685 --> 00:00:11,430
 make add a bit more flexible. It should work
+使添加更加靈活。應該有效
 
 5
 00:00:11,430 --> 00:00:13,726
 with numbers, but it should also work with
+與數字，但它也應該與
 
 6
 00:00:13,742 --> 00:00:14,240
 strings.
+字串。
 
 7
 00:00:14,802 --> 00:00:17,451
 Of course, I wanted to ensure that it works
+當然，我想確保它有效
 
 8
 00:00:17,451 --> 00:00:19,747
 with numbers to show you why TypeScript is
+用數字告訴你為什麼 TypeScript 是
 
 9
 00:00:20,084 --> 00:00:20,469
 awesome,
+驚人的，
 
 10
 00:00:21,143 --> 00:00:23,359
 but still, this could be a use case that you
+但這仍然可能是您的一個用例
 
 11
 00:00:23,375 --> 00:00:25,558
 have in some app you're building. You want
+在您正在建立的某些應用程式中。你想要
 
 12
 00:00:25,558 --> 00:00:28,496
 to allow both numbers and strings, because
+允許數字和字串，因為
 
 13
 00:00:28,528 --> 00:00:29,267
 maybe here
+也許在這裡
 
 14
 00:00:30,375 --> 00:00:32,414
 we want to have a string result as well.
+我們也想要一個字串結果。
 
 15
 00:00:33,265 --> 00:00:35,882
 And there I want to be able to call add with
+我希望能夠呼叫 add
 
 16
 00:00:35,898 --> 00:00:36,925
 the string values,
+字串值，
 
 17
 00:00:37,503 --> 00:00:39,815
 and I want to get that concatenated
+我想把它連接起來
 
 18
 00:00:40,393 --> 00:00:43,444
 result. So I want to have that concatenated
+結果。所以我想把它串聯起來
 
 19
 00:00:44,038 --> 00:00:44,953
 string of numbers.
+一串數字。
 
 20
 00:00:46,125 --> 00:00:48,260
 Now currently we're only accepting number
+目前我們只接受號碼
 
 21
 00:00:48,260 --> 00:00:51,375
 here. We could change this to any. Now any
+這裡。我們可以將其更改為任何。現在任何
 
 22
 00:00:51,407 --> 00:00:52,547
 kind of data is accepted.
+型別的資料被接受。
 
 23
 00:00:53,252 --> 00:00:56,202
 But as a downside, we can now, for example,
+但作為一個缺點，我們現在可以，例如，
 
 24
 00:00:56,443 --> 00:00:56,907
 also
+也
 
 25
 00:00:57,661 --> 00:00:59,312
 console.log add
+控制台.紀錄添加
 
 26
 00:00:59,889 --> 00:01:01,989
 and add true and false together.
+並將 true 和 false 加在一起。
 
 27
 00:01:02,951 --> 00:01:04,939
 Now I don't want to accept booleans, I want
+現在我不想接受布林值，我想要
 
 28
 00:01:04,955 --> 00:01:06,526
 to accept strings and numbers.
+接受字串和數字。
 
 29
 00:01:07,359 --> 00:01:09,668
 That's where we can use a feature called the
+這就是我們可以使用一個稱為
 
 30
 00:01:09,748 --> 00:01:10,421
 union type.
+聯合型別。
 
 31
 00:01:11,832 --> 00:01:14,253
 Often in code, you will have code that works
+通常在程式碼中，您將擁有可以運行的程式碼
 
 32
 00:01:14,253 --> 00:01:15,455
 with more than one type.
+具有不只一種型別。
 
 33
 00:01:16,176 --> 00:01:18,148
 Now in that case, you can define multiple
+現在在這種情況下，您可以定義多個
 
 34
 00:01:18,180 --> 00:01:21,433
 types like number and string separated with
+諸如數字和字串之類的型別，用 分隔
 
 35
 00:01:21,465 --> 00:01:23,484
 that single pipe symbol here.
+這裡的單管符號。
 
 36
 00:01:24,654 --> 00:01:26,208
 This is a union type. It means
+這是聯合型別。這意味著
 
 37
 00:01:26,737 --> 00:01:30,567
 number num1 is either a number or a string.
+數字 num1 是數字或字串。
 
 38
 00:01:31,945 --> 00:01:34,316
 And we can do this here for num2 as well.
+我們也可以在這裡對 num2 執行此操作。
 
 39
 00:01:35,406 --> 00:01:37,169
 Now we get an error here because of that
+現在我們在這裡得到一個錯誤
 
 40
 00:01:37,169 --> 00:01:39,556
 union type thing, because even though the
+聯合型別的東西，因為即使
 
 41
 00:01:39,556 --> 00:01:42,376
 plus operator does work with both number and
+加號運算子適用於數字和
 
 42
 00:01:42,376 --> 00:01:44,540
 string, TypeScript at the moment at least
+至少目前是字串、TypeScript
 
 43
 00:01:44,540 --> 00:01:45,645
 doesn't understand this.
+不明白這一點。
 
 44
 00:01:46,608 --> 00:01:48,182
 And even though this here is kind of a
+儘管這有點像
 
 45
 00:01:48,230 --> 00:01:50,847
 strange error because the plus operator of
+奇怪的錯誤，因為加號運算符
 
 46
 00:01:50,879 --> 00:01:52,645
 course would work for both numbers and
+當然適用於數字和
 
 47
 00:01:52,645 --> 00:01:55,552
 strings, it is also often the case that you
+字串，也常出現這樣的情況：
 
 48
 00:01:55,552 --> 00:01:58,153
 accept multiple types but you wanna run
+接受多種型別，但你想運行
 
 49
 00:01:58,249 --> 00:02:00,304
 slightly different code depending on the
+程式碼略有不同，取決於
 
 50
 00:02:00,369 --> 00:02:02,360
 type of data you get. So that's actually
+您獲得的資料型別。所以這實際上是
 
 51
 00:02:02,424 --> 00:02:04,913
 great that we can do this here as well. And
+很高興我們也可以在這裡做到這一點。和
 
 52
 00:02:04,929 --> 00:02:06,936
 we can do this with a traditional if check.
+我們可以透過傳統的 if 檢查來做到這一點。
 
 53
 00:02:07,899 --> 00:02:10,838
 We can check if the type of num1
+我們可以檢查 num1 的型別是否
 
 54
 00:02:11,513 --> 00:02:14,358
 is equal to number. And this is regular
+等于数字。這是正常的
 
 55
 00:02:14,406 --> 00:02:16,928
 JavaScript code now. This is not TypeScript
+現在編寫 JavaScript 程式碼。这不是 TypeScript
 
 56
 00:02:16,928 --> 00:02:19,838
 code. The typeof operator exists in
+程式碼。 typeof 运算符存在于
 
 57
 00:02:19,838 --> 00:02:22,712
 JavaScript and it gives us back the types as
+JavaScript 給我們回傳的型別為
 
 58
 00:02:22,889 --> 00:02:24,712
 strings— number and so on.
+字串——數字等等。
 
 59
 00:02:25,325 --> 00:02:27,231
 So we can check if num1 is a number
+所以我們可以檢查 num1 是否是一個數字
 
 60
 00:02:29,108 --> 00:02:29,949
 and if
+如果
 
 61
 00:02:31,082 --> 00:02:33,040
 num2 is a number.
+num2 是一個數字。
 
 62
 00:02:34,093 --> 00:02:37,051
 And if it is, we return num1 plus num2.
+如果是，我們回傳 num1 加 num2。
 
 63
 00:02:39,718 --> 00:02:40,510
 Else if
+否則如果
 
 64
 00:02:42,725 --> 00:02:44,293
 typeof num1
+num1 的型別
 
 65
 00:02:45,618 --> 00:02:46,006
 is,
+是，
 
 66
 00:02:46,669 --> 00:02:47,542
 let's say, a string,
+比方說，一個字串，
 
 67
 00:02:49,096 --> 00:02:49,485
 and
+和
 
 68
 00:02:50,245 --> 00:02:52,446
 typeof num2
+num2 的型別
 
 69
 00:02:53,304 --> 00:02:54,340
 is a string,
+是一個字串，
 
 70
 00:02:55,263 --> 00:02:58,259
 then let's say we wanna return num1 plus,
+那麼假設我們想回傳 num1 plus，
 
 71
 00:02:58,645 --> 00:03:00,349
 and then maybe some whitespace in between.
+然後中間可能會有一些空白。
 
 72
 00:03:00,574 --> 00:03:02,424
 You don't have to add it though. I'm just
+但您不必添加它。我只是
 
 73
 00:03:02,424 --> 00:03:03,935
 doing it here so that we see a difference.
+在這裡這樣做是為了讓我們看到差異。
 
 74
 00:03:04,373 --> 00:03:05,957
 Besides the different result, I guess.
+我猜除了結果不同之外。
 
 75
 00:03:07,606 --> 00:03:08,674
 Well, and else,
+嗯，還有，
 
 76
 00:03:09,789 --> 00:03:10,905
 if we have mixed types,
+如果我們有混合型別，
 
 77
 00:03:11,610 --> 00:03:13,220
 it theoretically would work, but in this
+理論上是可行的，但在這個
 
 78
 00:03:13,397 --> 00:03:15,604
 case we maybe just want to force a
+如果我們可能只是想強制
 
 79
 00:03:15,652 --> 00:03:17,858
 conversion to a number so that if we get a
+轉換為數字，這樣如果我們得到
 
 80
 00:03:17,858 --> 00:03:20,322
 string and a number mixed, we always convert
+字串和數字混合，我們總是進行轉換
 
 81
 00:03:20,339 --> 00:03:21,063
 both to a number.
+兩者都是一個數字。
 
 82
 00:03:21,689 --> 00:03:23,602
 If we have 2 numbers, we add them like this.
+如果我們有 2 個數字，我們像這樣將它們加起來。
 
 83
 00:03:24,036 --> 00:03:25,788
 If we have 2 strings, we add them like this.
+如果我們有 2 個字串，我們像這樣添加它們。
 
 84
 00:03:26,591 --> 00:03:28,937
 This is a so-called type guard because we
+這是所謂的型別保護，因為我們
 
 85
 00:03:28,937 --> 00:03:31,860
 run different code based on different types
+根據不同的型別運行不同的程式碼
 
 86
 00:03:31,860 --> 00:03:33,909
 we're getting for our values.
+我們正在追求我們的價值觀。
 
 87
 00:03:35,820 --> 00:03:37,630
 And now you'll see that down there, I'm not
+現在你會看到下面的，我不是
 
 88
 00:03:37,776 --> 00:03:40,395
 able to call this for booleans because this
+能夠將其稱為布林值，因為這
 
 89
 00:03:40,395 --> 00:03:43,015
 is neither a number or a string and I'm only
+既不是數字也不是字串，我只是
 
 90
 00:03:43,047 --> 00:03:45,472
 allowing these 2 kinds of types with my
+允許這兩種型別與我的
 
 91
 00:03:45,617 --> 00:03:46,374
 union type here.
+此處的聯合型別。
 
 92
 00:03:46,921 --> 00:03:48,161
 Hence, we have to remove this
+因此，我們必須刪除這個
 
 93
 00:03:48,693 --> 00:03:50,174
 and then we can compile this again.
+然後我們可以再次編譯它。
 
 94
 00:03:50,770 --> 00:03:52,122
 It compiles without errors.
+它編譯沒有錯誤。
 
 95
 00:03:52,718 --> 00:03:54,666
 And in the generated JavaScript file, of
+在生成的 JavaScript 檔案中，
 
 96
 00:03:54,860 --> 00:03:57,168
 course, the union type is gone. The if
+當然，union型別已經沒有了。如果
 
 97
 00:03:57,185 --> 00:03:59,051
 checks are still there though because as I
+但支票仍然在那裡，因為當我
 
 98
 00:03:59,051 --> 00:04:00,149
 mentioned, that is regular JavaScript code
+提到過，這是常規的 JavaScript 程式碼
 
 99
 00:04:02,036 --> 00:04:03,796
 And of course, we don't want that code to
+當然，我們不希望該程式碼
 
 100
 00:04:03,812 --> 00:04:06,298
 magically go away. In the end, it does yield
+神奇地消失。最終，它確實產生了
 
 101
 00:04:06,395 --> 00:04:07,267
 different results.
+不同的結果。
 
 102
 00:04:08,420 --> 00:04:08,731
 So if we now
+所以如果我們現在
 
 103
 00:04:10,744 --> 00:04:12,807
 return here and I enter 5 and 11,
+回傳這裡並輸入 5 和 11，
 
 104
 00:04:13,997 --> 00:04:16,754
 you see we get both 16 as well as our
+你看我們得到了 16 以及我們的
 
 105
 00:04:16,754 --> 00:04:19,559
 concatenated string. So union types are
+連接的字串。所以聯合型別是
 
 106
 00:04:19,608 --> 00:04:21,100
 another key feature.
+另一個關鍵功能。

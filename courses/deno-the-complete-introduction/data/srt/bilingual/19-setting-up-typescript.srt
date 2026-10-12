@@ -1,415 +1,519 @@
 1
 00:00:02,211 --> 00:00:05,347
 So let's see how that types thing works. For
+那麼讓我們看看這個型別是如何運作的。為了
 
 2
 00:00:05,347 --> 00:00:05,652
 that,
+那，
 
 3
 00:00:06,199 --> 00:00:09,416
 let me create an index.html file with a base
+讓我創建一個帶有基礎的index.html 檔案
 
 4
 00:00:09,416 --> 00:00:10,849
 HTML skeleton
+HTML 骨架
 
 5
 00:00:11,526 --> 00:00:11,993
 like this.
+像這樣。
 
 6
 00:00:13,282 --> 00:00:13,943
 And in there,
+在那裡，
 
 7
 00:00:14,684 --> 00:00:16,730
 I'll not spend too much time on the styling.
+我不會在造型上花太多時間。
 
 8
 00:00:16,939 --> 00:00:18,952
 I'll simply add an input of type
+我只需新增一個輸入型別
 
 9
 00:00:20,087 --> 00:00:24,282
 number and another input of type number
+數字和另一個數字型別的輸入
 
 10
 00:00:25,043 --> 00:00:26,160
 and a button
+和一個按鈕
 
 11
 00:00:27,134 --> 00:00:28,470
 where I say Add.
+我說添加的地方。
 
 12
 00:00:29,130 --> 00:00:31,769
 And when we click this button, the 2 values
+當我們點擊這個按鈕時，這兩個值
 
 13
 00:00:31,865 --> 00:00:34,198
 entered into these 2 inputs should be added
+應加入這 2 個輸入中的輸入
 
 14
 00:00:34,198 --> 00:00:37,132
 up and should be output in this paragraph
+up 並應在本段中輸出
 
 15
 00:00:37,196 --> 00:00:37,939
 below the button.
+按鈕下方。
 
 16
 00:00:38,568 --> 00:00:40,828
 Now again, this will be a very ugly and
+現在再說一遍，這將是一個非常醜陋且
 
 17
 00:00:40,828 --> 00:00:43,135
 simple page, but it's about TypeScript here.
+簡單的頁面，但這裡是關於 TypeScript 的。
 
 18
 00:00:44,806 --> 00:00:47,923
 Now let's add a little app.ts file.
+現在讓我們新增一個小 app.ts 檔案。
 
 19
 00:00:48,556 --> 00:00:50,326
 .ts because we're going to write some
+.ts 因為我們要寫一些
 
 20
 00:00:50,326 --> 00:00:51,397
 TypeScript code in there.
+TypeScript 程式碼就在那裡。
 
 21
 00:00:52,052 --> 00:00:54,381
 Now we need to install the TypeScript
+現在我們需要安裝 TypeScript
 
 22
 00:00:54,381 --> 00:00:55,120
 compiler.
+編譯器。
 
 23
 00:00:55,747 --> 00:00:58,060
 Now with Deno, we didn't need to install it,
+現在有了 Deno，我們不需要安裝它，
 
 24
 00:00:58,076 --> 00:01:00,294
 but now we do need to install it because
+但現在我們確實需要安裝它，因為
 
 25
 00:01:00,326 --> 00:01:02,302
 we're not going to execute this code with
+我們不會執行這段程式碼
 
 26
 00:01:02,398 --> 00:01:04,760
 Deno. I want to execute it in the browser
+德諾。我想在瀏覽器中執行
 
 27
 00:01:04,760 --> 00:01:06,672
 instead. And as I mentioned, the browser
+反而。正如我所提到的，瀏覽器
 
 28
 00:01:06,672 --> 00:01:07,282
 doesn't run
+不運行
 
 29
 00:01:07,861 --> 00:01:10,415
 TypeScript. So we need to convert TypeScript
+打字稿。所以我們需要轉換TypeScript
 
 30
 00:01:10,672 --> 00:01:12,568
 to JavaScript. And for that, we need the
+到 JavaScript。為此，我們需要
 
 31
 00:01:12,616 --> 00:01:13,661
 TypeScript compiler.
+TypeScript 編譯器。
 
 32
 00:01:14,207 --> 00:01:17,019
 As a side note, Deno also needs to convert
+附帶說明一下，Deno 還需要轉換
 
 33
 00:01:17,019 --> 00:01:19,267
 it. There, the compiler the TypeScript
+它。在那裡，編譯器 TypeScript
 
 34
 00:01:19,267 --> 00:01:21,433
 compiler is just built into Deno.
+編譯器剛剛內建於 Deno 中。
 
 35
 00:01:22,027 --> 00:01:24,305
 But we can install the compiler standalone
+但我們可以獨立安裝編譯器
 
 36
 00:01:24,337 --> 00:01:26,390
 by following the instructions we find on
+按照我們找到的說明進行操作
 
 37
 00:01:26,422 --> 00:01:27,802
 typescriptlang.org.
+typescriptlang.org。
 
 38
 00:01:28,508 --> 00:01:29,968
 And the instructions are very simple.
+而且說明非常簡單。
 
 39
 00:01:30,658 --> 00:01:33,257
 In a terminal on our system, we run npm
+在我們系統的終端機機中，我們運行 npm
 
 40
 00:01:33,305 --> 00:01:33,674
 install
+安裝
 
 41
 00:01:34,444 --> 00:01:35,647
 -g typescript.
+-g 打字稿。
 
 42
 00:01:36,273 --> 00:01:38,503
 And on Mac and Linux, you might need to add
+在 Mac 和 Linux 上，您可能需要添加
 
 43
 00:01:38,519 --> 00:01:40,220
 sudo in front of this to get the right
+sudo 在此前面以獲得正確的
 
 44
 00:01:40,220 --> 00:01:40,749
 permissions.
+權限。
 
 45
 00:01:41,503 --> 00:01:44,295
 Now, the npm command will only work though
+現在，npm 指令只能工作
 
 46
 00:01:44,873 --> 00:01:46,558
 if you installed Node.js.
+如果你安裝了 Node.js。
 
 47
 00:01:47,297 --> 00:01:49,480
 So make sure you do that first. And from
+所以請確保您首先這樣做。並從
 
 48
 00:01:49,528 --> 00:01:52,402
 nodejs.org, you simply install the latest
+nodejs.org，您只需安裝最新的
 
 49
 00:01:52,402 --> 00:01:55,275
 version. This gives you an installer both on
+版本。這為您提供了安裝程式
 
 50
 00:01:55,307 --> 00:01:57,940
 macOS and Windows. You can walk through the
+macOS 和 Windows。您可以步行穿過
 
 51
 00:01:57,940 --> 00:02:00,252
 installer, and once installation finished,
+安裝程式，安裝完成後，
 
 52
 00:02:00,605 --> 00:02:02,917
 you'll be able to run this npm install
+你將能夠運行這個 npm install
 
 53
 00:02:02,917 --> 00:02:03,382
 command.
+命令。
 
 54
 00:02:04,281 --> 00:02:06,577
 If you do so, you might be prompted for your
+如果您這樣做，系統可能會提示您輸入
 
 55
 00:02:06,625 --> 00:02:09,098
 password, and thereafter this will install
+密碼，然後這將安裝
 
 56
 00:02:09,274 --> 00:02:11,281
 TypeScript, the TypeScript compiler,
+TypeScript，TypeScript 編譯器，
 
 57
 00:02:11,522 --> 00:02:13,425
 globally on your system.
+在您的系統上進行全域操作。
 
 58
 00:02:14,344 --> 00:02:16,974
 And once it is installed, you can always run
+一旦安裝完畢，您就可以隨時運行
 
 59
 00:02:17,006 --> 00:02:19,683
 tsc, which is a command which now is
+tsc，這是一個命令，現在是
 
 60
 00:02:19,683 --> 00:02:21,784
 available, and then the file name you want
+可用，然後是你想要的檔案名
 
 61
 00:02:21,784 --> 00:02:22,400
 to compile.
+來編譯。
 
 62
 00:02:23,113 --> 00:02:25,058
 And this will convert this file to a
+這會將該檔案轉換為
 
 63
 00:02:25,058 --> 00:02:25,900
 JavaScript file,
+JavaScript 檔案，
 
 64
 00:02:26,516 --> 00:02:28,396
 which is why you now also see app.js.
+這就是為什麼現在您還可以看到 app.js。
 
 65
 00:02:29,584 --> 00:02:31,639
 And it's the JavaScript file which I'm now
+這就是我現在的 JavaScript 檔案
 
 66
 00:02:31,688 --> 00:02:32,853
 going to import here
+將在這裡導入
 
 67
 00:02:34,665 --> 00:02:37,239
 into my HTML file, app.js.
+到我的 HTML 檔案 app.js 中。
 
 68
 00:02:38,607 --> 00:02:40,676
 And I'll add defer to make sure this only
+我將添加延遲以確保僅此
 
 69
 00:02:40,788 --> 00:02:42,712
 executes once the entire body has been
+一旦整個身體都被執行
 
 70
 00:02:42,712 --> 00:02:43,161
 parsed.
+解析。
 
 71
 00:02:43,835 --> 00:02:45,839
 But now we're not going to work in app.js,
+但現在我們不打算在 app.js 工作，
 
 72
 00:02:46,000 --> 00:02:47,732
 but we're going to work in app.ts.
+但我們將在 app.ts 中工作。
 
 73
 00:02:48,983 --> 00:02:51,773
 Now, when working with Deno, you won't see
+現在，當使用 Deno 時，你不會看到
 
 74
 00:02:51,917 --> 00:02:54,836
 those JS files because they are generated
+那些 JS 檔案，因為它們是產生的
 
 75
 00:02:54,836 --> 00:02:57,049
 and stored behind the scenes, you could say.
+您可以說，並儲存在幕後。
 
 76
 00:02:57,370 --> 00:02:59,438
 We only see it here because this is a very
+我們只在這裡看到它，因為這是一個非常
 
 77
 00:02:59,631 --> 00:03:02,245
 basic project where we control everything on
+我們控制一切的基本專案
 
 78
 00:03:02,341 --> 00:03:04,185
 our own with help of the compiler.
+我們自己在編譯器的幫助下。
 
 79
 00:03:05,164 --> 00:03:06,450
 So now in app.ts,
+所以現在在 app.ts 中，
 
 80
 00:03:07,478 --> 00:03:08,330
 let's add this
+讓我們添加這個
 
 81
 00:03:09,005 --> 00:03:09,856
 add function here.
+在這裡添加功能。
 
 82
 00:03:10,547 --> 00:03:12,009
 num1, num2,
+數字1，數字2，
 
 83
 00:03:13,825 --> 00:03:16,130
 and return num1 plus num2 like this.
+並像這樣回傳 num1 加 num2 。
 
 84
 00:03:17,308 --> 00:03:19,533
 And then first of all, we can call it of
+首先，我們可以稱之為
 
 85
 00:03:19,549 --> 00:03:19,856
 course
+課程
 
 86
 00:03:20,597 --> 00:03:21,791
 as I showed it before
+正如我之前展示的那樣
 
 87
 00:03:23,736 --> 00:03:24,847
 with strings
+帶字串
 
 88
 00:03:25,507 --> 00:03:27,552
 and with numbers just like that.
+和這樣的數字。
 
 89
 00:03:28,503 --> 00:03:31,127
 Now if I save this and I compile this again,
+現在，如果我儲存它並再次編譯它，
 
 90
 00:03:32,552 --> 00:03:34,844
 We can open this page in the browser by
+我們可以透過瀏覽器開啟這個頁面
 
 91
 00:03:34,844 --> 00:03:36,797
 simply opening this HTML file.
+只需開啟此 HTML 檔案即可。
 
 92
 00:03:37,653 --> 00:03:39,557
 And now to see something in the console
+現在可以在控制台中看到一些內容
 
 93
 00:03:39,574 --> 00:03:39,703
 here,
+這裡，
 
 94
 00:03:40,235 --> 00:03:41,027
 we just have to
+我們只需要
 
 95
 00:03:41,674 --> 00:03:44,847
 log our results here. So console.log the
+在這裡記錄我們的結果。所以console.log的
 
 96
 00:03:44,847 --> 00:03:45,688
 result here
+結果在這裡
 
 97
 00:03:46,465 --> 00:03:49,895
 and console.log the result here.
+並在此處 console.log 結果。
 
 98
 00:03:50,891 --> 00:03:52,948
 Once we do that, let's recompile this,
+一旦我們這樣做了，讓我們重新編譯它，
 
 99
 00:03:54,523 --> 00:03:57,029
 reload, and we see 7 and 16. And that's the
+重新載入，我們看到 7 和 16。這就是
 
 100
 00:03:57,029 --> 00:03:58,813
 same behavior we saw before.
+我們之前看到的行為相同。
 
 101
 00:04:00,112 --> 00:04:00,885
 Now, where
+現在，哪裡
 
 102
 00:04:01,658 --> 00:04:03,253
 does TypeScript now help us?
+TypeScript 現在對我們有幫助嗎？
 
 103
 00:04:03,994 --> 00:04:06,652
 Let's dive into type definitions in the next
+接下來讓我們深入研究型別定義
 
 104
 00:04:06,652 --> 00:04:06,926
 lecture.
+演講。

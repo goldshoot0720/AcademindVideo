@@ -1,363 +1,454 @@
 1
 00:00:02,051 --> 00:00:04,889
 Sometimes you have code that just fails
+有時你的程式碼會失敗
 
 2
 00:00:05,226 --> 00:00:07,165
 under certain circumstances and there's
+在某些情況下並且有
 
 3
 00:00:07,165 --> 00:00:09,169
 little you can do about it. Sure, you could
+你對此無能為力。當然，你可以
 
 4
 00:00:09,169 --> 00:00:11,349
 change it such that you don't even try to
+改變它，這樣你甚至不會嘗試
 
 5
 00:00:11,413 --> 00:00:13,145
 write to a file, for example, or that you
+例如，寫入檔案，或者您
 
 6
 00:00:13,161 --> 00:00:15,726
 always create a file. But let's say we want
+總是創建一個檔案。但假設我們想要
 
 7
 00:00:15,726 --> 00:00:17,986
 to make sure that the user created the file
+確保使用者創建了該檔案
 
 8
 00:00:17,986 --> 00:00:20,936
 first before we try writing to it. And
+在我們嘗試寫入之前首先。和
 
 9
 00:00:21,032 --> 00:00:23,885
 therefore here we are perfectly fine with
+因此在這裡我們完全可以
 
 10
 00:00:23,901 --> 00:00:26,722
 this line failing occasionally. The thing we
+這條線偶爾會失敗。我們的事
 
 11
 00:00:26,722 --> 00:00:28,293
 should do in such cases,
+在這種情況下應該要做的，
 
 12
 00:00:28,885 --> 00:00:31,513
 so if you have code that simply fails under
+所以如果你的程式碼在下面失敗了
 
 13
 00:00:31,545 --> 00:00:34,013
 certain circumstances and you as a developer
+某些情況以及您作為開發人員
 
 14
 00:00:34,013 --> 00:00:36,865
 can't really prevent it, in such cases you
+無法真正阻止它，在這種情況下你
 
 15
 00:00:36,961 --> 00:00:39,108
 wanna use try-catch.
+想用try-catch。
 
 16
 00:00:40,006 --> 00:00:42,265
 Try-catch is a built-in mechanism in
+Try-catch是一個內建的機制
 
 17
 00:00:42,265 --> 00:00:44,716
 JavaScript and therefore also available in
+JavaScript，因此也可用於
 
 18
 00:00:44,748 --> 00:00:46,335
 Deno which allows you
+Deno 可以讓你
 
 19
 00:00:46,928 --> 00:00:50,981
 to try a certain code but catch a potential
+嘗試某個程式碼但發現潛力
 
 20
 00:00:51,142 --> 00:00:54,346
 error without crashing your script. So if
+錯誤而不會使您的腳本崩潰。所以如果
 
 21
 00:00:54,346 --> 00:00:55,292
 this code fails,
+這段程式碼失敗了，
 
 22
 00:00:55,950 --> 00:00:58,787
 the script will now not fail if you wrapped
+如果你包裝的話，腳本現在不會失敗
 
 23
 00:00:58,787 --> 00:00:59,428
 it with try.
+嘗試一下吧。
 
 24
 00:01:00,053 --> 00:01:02,169
 Instead, you will end up in this catch block
+相反，你最終會進入這個 catch 區塊
 
 25
 00:01:02,602 --> 00:01:05,376
 if this line or whatever is inside of try
+如果這一行或任何東西在嘗試裡面
 
 26
 00:01:05,728 --> 00:01:06,113
 fails.
+失敗。
 
 27
 00:01:06,931 --> 00:01:09,976
 And now here you can have some fallback
+現在你可以在這裡有一些後備
 
 28
 00:01:10,073 --> 00:01:11,820
 logic. For example, here we could let the
+邏輯。例如，在這裡我們可以讓
 
 29
 00:01:11,820 --> 00:01:12,285
 user know
+使用者知道
 
 30
 00:01:13,102 --> 00:01:18,136
 file user_input.txt does not exist, please
+檔案 user_input.txt 不存在，請
 
 31
 00:01:19,050 --> 00:01:19,755
 create it.
+創建它。
 
 32
 00:01:21,657 --> 00:01:24,666
 First. Now this is a perfectly fine fallback
+第一的。現在這是一個完美的後備方案
 
 33
 00:01:24,973 --> 00:01:27,788
 where we inform the user what went wrong and
+我們通知使用者出了什麼問題並且
 
 34
 00:01:27,885 --> 00:01:30,053
 what the user of our script should do to
+我們腳本的使用者應該做什麼
 
 35
 00:01:30,069 --> 00:01:30,942
 make it work again.
+讓它再次發揮作用。
 
 36
 00:01:31,539 --> 00:01:33,796
 And the next time when the user did create
+下次當使用者建立時
 
 37
 00:01:33,796 --> 00:01:36,344
 that file, the next time the script runs, it
+該檔案，下次腳本運行時，它
 
 38
 00:01:36,441 --> 00:01:36,844
 will work.
+會起作用的。
 
 39
 00:01:37,560 --> 00:01:40,883
 So try-catch is a very useful tool for
+所以try-catch是一個非常有用的工具
 
 40
 00:01:40,932 --> 00:01:43,948
 situations where something might just fail.
+某些事情可能會失敗的情況。
 
 41
 00:01:44,710 --> 00:01:47,425
 As a side note, when interacting with files
+作為旁注，與檔案互動時
 
 42
 00:01:47,898 --> 00:01:50,339
 it's always a great idea to use try-catch
+使用 try-catch 總是一個好主意
 
 43
 00:01:50,756 --> 00:01:53,165
 even if you don't have that createFalse
+即使你沒有那個 createFalse
 
 44
 00:01:53,326 --> 00:01:53,663
 option.
+選項。
 
 45
 00:01:54,369 --> 00:01:54,498
 Why?
+為什麼？
 
 46
 00:01:55,108 --> 00:01:57,710
 Because working with files can easily fail
+因為處理檔案很容易失敗
 
 47
 00:01:57,854 --> 00:01:59,765
 because of missing permissions on the user
+由於缺少使用者權限
 
 48
 00:01:59,765 --> 00:02:03,009
 side, because of some third-party software
+一方面，因為一些第三方軟體
 
 49
 00:02:03,138 --> 00:02:05,691
 like an antivirus tool which simply blocks
+就像一個防毒工具，它只是阻止
 
 50
 00:02:05,691 --> 00:02:08,308
 access. So there are a lot of reasons why
+使用權。所以有很多原因
 
 51
 00:02:08,678 --> 00:02:11,472
 writing to a file could fail even if it
+即使寫入檔案也可能失敗
 
 52
 00:02:11,488 --> 00:02:12,484
 theoretically shouldn't.
+理論上不應該。
 
 53
 00:02:13,078 --> 00:02:16,047
 And it's beyond your control. You being the
+這超出了你的控制範圍。你是
 
 54
 00:02:16,047 --> 00:02:18,355
 developer. It's beyond your control. You
+開發商。這超出了你的控制範圍。你
 
 55
 00:02:18,371 --> 00:02:20,551
 can't know in advance when you write this
+當你寫這篇文章時無法事先知道
 
 56
 00:02:20,551 --> 00:02:23,099
 code whether it might eventually fail. And
+程式碼是否最終會失敗。和
 
 57
 00:02:23,115 --> 00:02:25,567
 therefore, try-catch is great for such
+因此，try-catch 非常適合這樣的情況
 
 58
 00:02:25,583 --> 00:02:26,288
 situations.
+情況。
 
 59
 00:02:27,121 --> 00:02:29,061
 Of course, you should not put your entire
+當然，你不應該把你的全部
 
 60
 00:02:29,189 --> 00:02:31,946
 program into the try block. There are a lot
+程式進入try塊。有很多
 
 61
 00:02:31,946 --> 00:02:34,734
 of errors which you can rule out in advance
+您可以提前排除的錯誤
 
 62
 00:02:34,959 --> 00:02:35,552
 as a developer.
+作為一名開發人員。
 
 63
 00:02:36,096 --> 00:02:38,052
 But there are certain situations like this
+但也有一些這樣的情況
 
 64
 00:02:38,084 --> 00:02:41,353
 one where you can't be 100% certain that it
+一個你不能 100% 確定的地方
 
 65
 00:02:41,369 --> 00:02:43,789
 will work and there's nothing you can do to
+會起作用，你無能為力
 
 66
 00:02:43,789 --> 00:02:46,658
 force it to work well then try-catch is a
+強制它正常工作然後 try-catch 是
 
 67
 00:02:46,658 --> 00:02:47,507
 great fallback.
+偉大的後備。
 
 68
 00:02:48,437 --> 00:02:50,135
 So here in this case, if I now run this
+所以在這種情況下，如果我現在運行這個
 
 69
 00:02:50,183 --> 00:02:52,635
 again, you see now it does not crash.
+再次，您現在看到它沒有崩潰。
 
 70
 00:02:53,004 --> 00:02:54,750
 Instead, it gives us this useful
+相反，它給了我們這個有用的
 
 71
 00:02:54,766 --> 00:02:55,423
 information.
+資訊.
 
 72
 00:02:56,048 --> 00:02:58,548
 And thereafter, you see this code ran just
+此後，您會看到這段程式碼運行了
 
 73
 00:02:58,612 --> 00:03:01,481
 fine because it didn't crash. It just didn't
+很好，因為它沒有崩潰。只是沒有
 
 74
 00:03:01,577 --> 00:03:04,109
 execute this single line here successfully.
+在這裡成功執行這一行。
 
 75
 00:03:04,942 --> 00:03:06,897
 And now we know what we can do. We can
+現在我們知道我們能做什麼。我們可以
 
 76
 00:03:06,945 --> 00:03:09,221
 create a user_input.txt file
+建立 user_input.txt 檔案
 
 77
 00:03:09,830 --> 00:03:12,155
 which is empty here And if we now run that
+這裡是空的如果我們現在運行它
 
 78
 00:03:12,155 --> 00:03:12,508
 again,
+再次，
 
 79
 00:03:13,262 --> 00:03:14,161
 now you see
+現在你看到了
 
 80
 00:03:14,803 --> 00:03:15,813
 we're not getting an error.
+我們沒有收到錯誤。
 
 81
 00:03:16,712 --> 00:03:18,718
 But there also is something else you might
+但還有其他一些你可能會做的事情
 
 82
 00:03:18,718 --> 00:03:19,006
 see,
+看，
 
 83
 00:03:19,921 --> 00:03:22,906
 and that's the fact that our script never
+事實上我們的腳本從來沒有
 
 84
 00:03:22,906 --> 00:03:26,163
 pauses to allow the user to enter something.
+暫停以允許使用者輸入內容。
 
 85
 00:03:26,676 --> 00:03:28,762
 Instead, it just runs from start to end in
+相反，它只是從頭到尾運行
 
 86
 00:03:28,923 --> 00:03:29,436
 one go,
+一去，
 
 87
 00:03:30,030 --> 00:03:32,501
 and we're not even able to enter something
+我們甚至無法輸入某些內容
 
 88
 00:03:32,838 --> 00:03:33,046
 here.
+這裡。
 
 89
 00:03:33,736 --> 00:03:35,662
 So we're not able to enter what should be
+所以我們無法輸入應該輸入的內容
 
 90
 00:03:35,662 --> 00:03:36,496
 stored in the file.
+儲存在檔案中。
 
 91
 00:03:37,411 --> 00:03:39,769
 Well, let's see why this happens next.
+好吧，讓我們看看接下來為什麼會發生這種情況。

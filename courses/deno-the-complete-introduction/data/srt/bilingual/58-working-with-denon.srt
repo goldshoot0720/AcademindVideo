@@ -1,679 +1,849 @@
 1
 00:00:02,115 --> 00:00:04,600
 So now we solved a lot of problems here with
+所以現在我們在這裡解決了很多問題
 
 2
 00:00:04,600 --> 00:00:06,363
 different tools for different kinds of
+針對不同型別的不同工具
 
 3
 00:00:06,363 --> 00:00:08,319
 problems, and therefore hopefully you now
+問題，因此希望你現在
 
 4
 00:00:08,431 --> 00:00:10,980
 have a good toolset for solving problems you
+有一個很好的工具集來解決你的問題
 
 5
 00:00:11,012 --> 00:00:12,983
 might be facing in your programs.
+您的程式中可能會遇到。
 
 6
 00:00:13,657 --> 00:00:16,318
 We're not 100% done though. There is one
+但我們還沒有 100% 完成。有一個
 
 7
 00:00:16,382 --> 00:00:17,680
 last thing what you want to do
+你想做的最後一件事
 
 8
 00:00:18,225 --> 00:00:21,415
 because I did also promise you an improved
+因為我也向你保證過會改進
 
 9
 00:00:21,415 --> 00:00:23,595
 developer experience, and I was not just
+開發人員經驗，我不僅僅是
 
 10
 00:00:23,595 --> 00:00:25,951
 talking about finding and fixing errors when
+談論發現和修復錯誤時
 
 11
 00:00:26,064 --> 00:00:26,929
 I referred to that.
+我提到過這一點。
 
 12
 00:00:27,546 --> 00:00:30,038
 Instead, let's now build a basic server
+相反，現在讓我們建立一個基本伺服器
 
 13
 00:00:30,038 --> 00:00:30,346
 again
+再次
 
 14
 00:00:32,158 --> 00:00:33,705
 where we import serve
+我們在哪裡導入服務
 
 15
 00:00:36,327 --> 00:00:36,778
 from
+從
 
 16
 00:00:37,695 --> 00:00:44,453
 https://deno.land/std/http/server.ts.
+https://deno.land/std/http/server.ts。
 
 17
 00:00:45,970 --> 00:00:46,358
 And there,
+在那裡，
 
 18
 00:00:47,038 --> 00:00:49,985
 let's again use a specific version to make
+讓我們再次使用特定版本來製作
 
 19
 00:00:50,034 --> 00:00:51,264
 sure this will always work.
+確保這永遠有效。
 
 20
 00:00:52,074 --> 00:00:53,466
 And then we can create our server.
+然後我們就可以創建我們的伺服器了。
 
 21
 00:00:54,163 --> 00:00:57,679
 By calling serve, passing in the port 3000,
+透過調用serve，傳入連接埠3000，
 
 22
 00:00:57,695 --> 00:00:58,354
 for example.
+例如。
 
 23
 00:00:59,221 --> 00:01:01,164
 And then you might remember that we can also
+然後你可能會記得我們還可以
 
 24
 00:01:01,212 --> 00:01:03,508
 loop through all the requests with this
+用這個迴圈遍歷所有請求
 
 25
 00:01:03,733 --> 00:01:04,632
 syntax here,
+語法在這裡，
 
 26
 00:01:05,563 --> 00:01:08,180
 and we can then use request.respond to send
+然後我們可以使用 request.respond 來發送
 
 27
 00:01:08,213 --> 00:01:11,408
 back a body where we say message from Deno.
+傳回一個正文，我們在其中表示來自 Deno 的訊息。
 
 28
 00:01:11,745 --> 00:01:13,672
 This is how we can create a simple server
+這就是我們創建一個簡單伺服器的方法
 
 29
 00:01:13,672 --> 00:01:14,234
 with Deno.
+與德諾。
 
 30
 00:01:15,053 --> 00:01:17,092
 Now you also saw that we can run this with
+現在您還看到我們可以運行它
 
 31
 00:01:17,188 --> 00:01:19,901
 deno run basic server, and And of course, we
+deno 運行基本伺服器，當然，我們
 
 32
 00:01:19,901 --> 00:01:23,316
 need to add the allow net permission here so
+需要在這裡添加允許網路權限所以
 
 33
 00:01:23,316 --> 00:01:24,759
 that we can spin up this server
+我們可以啟動這個伺服器
 
 34
 00:01:24,759 --> 00:01:25,481
 successfully.
+成功地。
 
 35
 00:01:26,090 --> 00:01:27,677
 Now this server is running
+現在該伺服器正在運行
 
 36
 00:01:28,415 --> 00:01:30,740
 and on localhost:3000, we can see our
+在 localhost:3000 上，我們可以看到我們的
 
 37
 00:01:30,740 --> 00:01:32,888
 message. But there's one annoying thing
+資訊.但有一點很煩人
 
 38
 00:01:32,985 --> 00:01:33,562
 about that.
+關於那個。
 
 39
 00:01:34,283 --> 00:01:36,993
 Whenever we change something, like for
+每當我們改變一些東西時，例如
 
 40
 00:01:36,993 --> 00:01:37,939
 example, the message,
+例如，訊息，
 
 41
 00:01:38,997 --> 00:01:42,396
 we have to quit the server with Ctrl+C and
+我們必須使用 Ctrl+C 退出伺服器
 
 42
 00:01:42,445 --> 00:01:43,006
 restart it.
+重新啟動它。
 
 43
 00:01:43,743 --> 00:01:46,084
 This is not impossible to do, but if you're
+這並非不可能做到，但如果你
 
 44
 00:01:46,084 --> 00:01:48,281
 doing a lot of development, constantly
+不斷進行大量開發
 
 45
 00:01:48,313 --> 00:01:51,090
 having to quit and restart can get annoying.
+必須退出並重新啟動可能會很煩人。
 
 46
 00:01:51,587 --> 00:01:53,625
 It would be nice if it would automatically
+如果能自動就好了
 
 47
 00:01:53,689 --> 00:01:55,759
 restart whenever we change something in a
+每當我們更改某些內容時就重新啟動
 
 48
 00:01:55,759 --> 00:01:56,353
 file here.
+在此歸檔。
 
 49
 00:01:57,380 --> 00:01:59,947
 Thankfully, Deno has a tool for us. It's
+值得慶幸的是，Deno 為我們提供了一個工具。它是
 
 50
 00:01:59,947 --> 00:02:02,419
 part of the third-party modules, which we
+第三方模組的一部分，我們
 
 51
 00:02:02,579 --> 00:02:04,617
 haven't really used thus far, but we can
+到目前為止還沒有真正使用過，但我們可以
 
 52
 00:02:04,617 --> 00:02:06,527
 have a look at one third-party module right
+看一下第三方模組吧
 
 53
 00:02:06,527 --> 00:02:08,886
 now, and that module is called Denon.
+現在，該模組稱為 Denon。
 
 54
 00:02:09,511 --> 00:02:10,972
 If you search for Denon here,
+如果您在這裡搜尋 Denon，
 
 55
 00:02:12,288 --> 00:02:14,149
 and the scrolling would work correctly on
+並且滾動可以正常工作
 
 56
 00:02:14,149 --> 00:02:14,598
 this page,
+這個頁面，
 
 57
 00:02:15,292 --> 00:02:16,688
 So thanks for that, I guess.
+所以我想謝謝你。
 
 58
 00:02:18,668 --> 00:02:20,843
 You should be able to find this package
+你應該能夠找到這個包
 
 59
 00:02:20,875 --> 00:02:21,119
 here,
+這裡，
 
 60
 00:02:21,640 --> 00:02:21,769
 Denon.
+天龍。
 
 61
 00:02:23,275 --> 00:02:25,120
 Denon is a package,
+天龍是封裝，
 
 62
 00:02:26,108 --> 00:02:28,601
 a module to be precise, to stick to the
+準確地說，是一個模組，堅持
 
 63
 00:02:28,634 --> 00:02:29,978
 wording the Deno team uses,
+Deno 團隊使用的措辭，
 
 64
 00:02:30,540 --> 00:02:33,240
 which in the end allows us to wrap this Deno
+最終讓我們能夠包裝這個 Deno
 
 65
 00:02:33,402 --> 00:02:36,021
 run process with another process
+與另一個行程一起運行行程
 
 66
 00:02:36,733 --> 00:02:39,919
 so that this Denon tool can watch our files
+這樣Denon工具就可以查看我們的檔案
 
 67
 00:02:40,114 --> 00:02:43,148
 and restart Deno run whenever one of our
+並在我們的任一情況下重新啟動 Deno 運行
 
 68
 00:02:43,148 --> 00:02:44,013
 files changed.
+檔案已更改。
 
 69
 00:02:44,590 --> 00:02:47,155
 A similar tool exists for Node, there it's
+Node 也有類似的工具，就在那裡
 
 70
 00:02:47,155 --> 00:02:47,925
 called nodemon.
+稱為nodemon。
 
 71
 00:02:48,534 --> 00:02:50,778
 Well, and here we got denon for Deno.
+好吧，我們在這裡為 Deno 提供了 Denon。
 
 72
 00:02:52,061 --> 00:02:54,273
 Now this is not a module which we're going
+現在這不是我們要討論的模組
 
 73
 00:02:54,305 --> 00:02:56,437
 to include into one of our source files
+包含到我們的原始檔案之一中
 
 74
 00:02:56,549 --> 00:02:59,114
 though, because of course this should not
+不過，因為這當然不應該
 
 75
 00:02:59,114 --> 00:03:01,695
 run as part of our code. Instead, we want to
+作為我們程式碼的一部分運行。相反，我們想要
 
 76
 00:03:01,759 --> 00:03:04,228
 run our code with that tool, so it's the
+使用該工具運行我們的程式碼，所以它是
 
 77
 00:03:04,228 --> 00:03:06,761
 other way around. But you can also install
+反過來說。但你也可以安裝
 
 78
 00:03:06,889 --> 00:03:10,046
 some of Deno's modules globally on your
+您的全球範圍內的一些 Deno 模組
 
 79
 00:03:10,094 --> 00:03:13,267
 system. The vast majority are import modules
+系統。絕大多數是導入模組
 
 80
 00:03:13,620 --> 00:03:16,344
 like the server module here— the HTTP module
+就像這裡的伺服器模組—HTTP 模組
 
 81
 00:03:16,344 --> 00:03:17,513
 in the server file, I mean.
+我的意思是在伺服器檔案中。
 
 82
 00:03:18,090 --> 00:03:20,718
 Most modules are like this. They expose
+大多數模組都是這樣的。他們揭露
 
 83
 00:03:20,814 --> 00:03:22,689
 features which you can use in your code.
+您可以在程式碼中使用的功能。
 
 84
 00:03:23,314 --> 00:03:25,894
 But you also occasionally have modules that
+但有時你也會有這樣的模組
 
 85
 00:03:25,894 --> 00:03:26,807
 expose features
+暴露特徵
 
 86
 00:03:27,544 --> 00:03:29,708
 which you can execute in the command line
+您可以在命令列中執行
 
 87
 00:03:29,708 --> 00:03:31,454
 and which you therefore can install as
+因此您可以將其安裝為
 
 88
 00:03:31,486 --> 00:03:34,178
 global tools. And Denon is one of those
+全域工具。天龍就是其中之一
 
 89
 00:03:34,290 --> 00:03:34,739
 packages.
+包。
 
 90
 00:03:35,477 --> 00:03:37,530
 Now you see the installation command down
+現在你看到安裝指令下來了
 
 91
 00:03:37,658 --> 00:03:40,481
 there, so you can just copy that into your
+那裡，所以你可以將其複製到你的
 
 92
 00:03:40,545 --> 00:03:41,908
 command line, quit the server,
+命令列，退出伺服器，
 
 93
 00:03:42,454 --> 00:03:43,609
 and run this command.
+並運行此命令。
 
 94
 00:03:44,635 --> 00:03:47,249
 And this will install this Deno module as a
+這將將此 Deno 模組安裝為
 
 95
 00:03:47,362 --> 00:03:49,591
 global tool on our system.
+我們系統上的全域工具。
 
 96
 00:03:50,425 --> 00:03:52,526
 So if I hit enter here, this downloads this
+所以如果我在這裡按回車鍵，就會下載這個
 
 97
 00:03:52,574 --> 00:03:54,387
 tool and all its dependencies
+工具及其所有相依性
 
 98
 00:03:55,205 --> 00:03:57,274
 and, well, sets it up globally.
+並且，好吧，在全球範圍內進行設定。
 
 99
 00:03:58,653 --> 00:04:01,364
 Now with Deno installed, we can run Deno as
+現在安裝了 Deno，我們可以運行 Deno
 
 100
 00:04:01,412 --> 00:04:04,412
 a global tool. So now not Deno which also is
+一個全球性的工具。所以現在不是 Deno，它也是
 
 101
 00:04:04,444 --> 00:04:06,162
 still available, but for this purpose here,
+仍然可用，但為此目的，
 
 102
 00:04:06,291 --> 00:04:08,201
 denon, which is now also available,
+Denon，現在也可用，
 
 103
 00:04:08,779 --> 00:04:10,995
 and then your script name. So the root
+然後是你的腳本名稱。所以根
 
 104
 00:04:11,204 --> 00:04:13,291
 script that starts your application, in my
+啟動您的應用程式的腳本，在我的
 
 105
 00:04:13,436 --> 00:04:14,784
 case basic_server.ts.
+案例 basic_server.ts。
 
 106
 00:04:15,587 --> 00:04:17,177
 Now if I hit enter, you'll see that I of
+現在如果我按回車鍵，你會看到我
 
 107
 00:04:17,209 --> 00:04:18,590
 course get a permission error
+當然得到權限錯誤
 
 108
 00:04:19,441 --> 00:04:21,287
 because we didn't specify the network
+因為我們沒有指定網路
 
 109
 00:04:21,287 --> 00:04:23,936
 permissions. But you also see that it didn't
+權限。但你也看到了，它並沒有
 
 110
 00:04:23,952 --> 00:04:26,585
 go back to the command line. Instead, now we
+回傳到命令列。相反，現在我們
 
 111
 00:04:26,585 --> 00:04:27,774
 got a running process.
+得到一個正在運作的行程。
 
 112
 00:04:28,303 --> 00:04:29,941
 I'll come back to that. For the moment,
+我會回到這個主題。就目前而言，
 
 113
 00:04:29,957 --> 00:04:32,928
 let's quit it though with Ctrl+C and add a
+讓我們使用 Ctrl+C 退出並添加一個
 
 114
 00:04:32,928 --> 00:04:33,859
 configuration file.
+設定檔。
 
 115
 00:04:34,630 --> 00:04:35,673
 You can add a
+您可以新增一個
 
 116
 00:04:36,540 --> 00:04:39,993
 .denon or.denon.json or.denonrc or
+.denon 或.denon.json 或.denonrc 或
 
 117
 00:04:40,314 --> 00:04:41,646
 .denonrc.json file.
+.denonrc.json 檔案。
 
 118
 00:04:42,738 --> 00:04:44,360
 It doesn't matter. I'll just go with
+沒關係。我就跟著去
 
 119
 00:04:45,067 --> 00:04:45,420
+.denon
 .denon
 
 120
 00:04:46,271 --> 00:04:48,824
 and add such a file here. And in there you
+並在此處添加這樣的檔案。在那裡你
 
 121
 00:04:48,824 --> 00:04:50,301
 should have some JSON code
+應該有一些 JSON 程式碼
 
 122
 00:04:50,911 --> 00:04:53,255
 where you can set up the settings you see
+您可以在其中設定您看到的設置
 
 123
 00:04:53,336 --> 00:04:55,701
 down there in this example. You can define
+在這個例子中。您可以定義
 
 124
 00:04:55,814 --> 00:04:57,819
 which files should be watched, you can
+應該觀看哪些檔案，您可以
 
 125
 00:04:57,852 --> 00:04:59,922
 define which file extensions should be
+定義檔案副檔名
 
 126
 00:05:00,019 --> 00:05:01,765
 watched, and so on and so on.
+看過，等等。
 
 127
 00:05:02,541 --> 00:05:04,936
 And for me, the Deno args matter because
+對我來說，Deno 參數很重要，因為
 
 128
 00:05:05,033 --> 00:05:07,674
 that allows us to, for example, specify
+例如，這允許我們指定
 
 129
 00:05:07,950 --> 00:05:08,987
 extra permissions.
+額外的權限。
 
 130
 00:05:10,570 --> 00:05:12,865
 So here I'll set up the Deno
+所以在這裡我將設定 Deno
 
 131
 00:05:13,577 --> 00:05:14,320
 args key.
+參數鍵。
 
 132
 00:05:15,517 --> 00:05:18,573
 In JSON files, you should wrap your keys
+在 JSON 檔案中，您應該包裝您的金鑰
 
 133
 00:05:18,605 --> 00:05:20,943
 between double quotes, and I'll actually add
+在雙引號之間，我實際上會添加
 
 134
 00:05:21,042 --> 00:05:23,724
 the.json extension here so that I get
+此處的 .json 擴充功能名以便我得到
 
 135
 00:05:23,724 --> 00:05:25,876
 better autocompletion and support by my IDE.
+我的 IDE 提供了更好的自動補全和支援。
 
 136
 00:05:26,695 --> 00:05:29,633
 And denoArgs should be an array, an array of
+並且 denoArgs 應該是一個陣列，一個陣列
 
 137
 00:05:29,665 --> 00:05:31,720
 your arguments or your flags which you
+你的論點或你的旗幟
 
 138
 00:05:31,736 --> 00:05:33,326
 wanted to add to deno run
+想要加入到 deno run
 
 139
 00:05:33,904 --> 00:05:35,895
 as strings. So in this case, I'll add
+作為字串。所以在這種情況下，我會添加
 
 140
 00:05:36,489 --> 00:05:38,897
 this allowNet string here.
+這裡的allowNet 字串。
 
 141
 00:05:39,941 --> 00:05:42,285
 Now this configuration file, if named like
+現在這個設定檔案，如果命名為
 
 142
 00:05:42,285 --> 00:05:44,597
 this, will automatically be picked up by the
+這將自動拾取
 
 143
 00:05:44,661 --> 00:05:47,101
 deno command. So if I now run deno
+德諾命令。所以如果我現在運行 deno
 
 144
 00:05:47,246 --> 00:05:50,216
 basic-server.ts again you now see we don't
+basic-server.ts 再次你現在看到我們沒有
 
 145
 00:05:50,216 --> 00:05:53,010
 get that permissions error because it looks
+收到該權限錯誤，因為它看起來
 
 146
 00:05:53,010 --> 00:05:55,129
 into this configuration file and takes this
+進入這個設定檔並接受這個
 
 147
 00:05:55,178 --> 00:05:56,559
 configuration into account.
+設定考慮在內。
 
 148
 00:05:57,201 --> 00:05:59,529
 And now the nice thing is if we change this
+現在最好的事情是如果我們改變這一點
 
 149
 00:05:59,529 --> 00:06:02,387
 again and for example remove this and save
+再次，例如刪除它並儲存
 
 150
 00:06:02,419 --> 00:06:02,612
 this,
+這，
 
 151
 00:06:03,302 --> 00:06:05,598
 you see it detected one change and
+你看到它檢測到一個變化並且
 
 152
 00:06:05,711 --> 00:06:07,509
 re-executed our script here.
+在這裡重新執行我們的腳本。
 
 153
 00:06:08,200 --> 00:06:09,869
 And that's what I meant, now it
+這就是我的意思，現在它
 
 154
 00:06:09,966 --> 00:06:12,374
 automatically restarts that script and we
+自動重新啟動該腳本，我們
 
 155
 00:06:12,455 --> 00:06:13,948
 don't have to do this manually.
+不必手動執行此操作。
 
 156
 00:06:14,702 --> 00:06:16,789
 And if we now go back and reload, we
+如果我們現在回傳並重新載入，我們
 
 157
 00:06:16,789 --> 00:06:18,778
 therefore see this updated message.
+因此請參閱此更新的訊息。
 
 158
 00:06:20,078 --> 00:06:21,715
 Now of course you can also look into all
+現在當然你也可以查看所有
 
 159
 00:06:21,844 --> 00:06:24,138
 these other configuration options to really
+這些其他設定選項確實
 
 160
 00:06:24,170 --> 00:06:26,096
 fine-tune this to your requirements,
+根據您的要求進行微調，
 
 161
 00:06:26,658 --> 00:06:28,728
 but for our purposes, this basic
+但就我們的目的而言，這個基本
 
 162
 00:06:28,744 --> 00:06:31,392
 configuration here should be just fine. The
+這裡的設定應該沒問題。這
 
 163
 00:06:31,392 --> 00:06:33,959
 most important thing to not forget is that
+最重要的是不要忘記
 
 164
 00:06:33,959 --> 00:06:35,837
 you should add your permission flags here,
+您應該在此處添加您的權限標誌，
 
 165
 00:06:36,270 --> 00:06:38,661
 otherwise your script will just not run.
+否則你的腳本將無法運作。
 
 166
 00:06:39,480 --> 00:06:41,373
 And with that, I would say we made a huge
+有了這個，我想說我們做了一個巨大的
 
 167
 00:06:41,662 --> 00:06:44,615
 leap towards a more fun developer experience
+邁向更有趣的開發者體驗
 
 168
 00:06:44,792 --> 00:06:46,501
 because we don't continuously have to
+因為我們不必不斷地
 
 169
 00:06:46,630 --> 00:06:48,548
 restart this. Instead, now it's being
+重新啟動這個。相反，現在它正在
 
 170
 00:06:48,581 --> 00:06:49,500
 restarted for us.
+為我們重新啟動。

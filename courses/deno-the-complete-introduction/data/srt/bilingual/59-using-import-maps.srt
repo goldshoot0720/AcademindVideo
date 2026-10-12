@@ -1,451 +1,564 @@
 1
 00:00:02,197 --> 00:00:04,234
 Now we're almost done. There is one last
+現在我們快完成了。還有最後一個
 
 2
 00:00:04,282 --> 00:00:06,143
 convenience feature which I wanna show you.
+我想向您展示的便利功能。
 
 3
 00:00:06,849 --> 00:00:08,260
 Once you write more complex Deno
+一旦你寫了更複雜的 Deno
 
 4
 00:00:08,276 --> 00:00:10,682
 applications, you'll have a lot of imports
+應用程式，你將有很多進口
 
 5
 00:00:10,682 --> 00:00:12,431
 from the standard library or from
+來自標準庫或來自
 
 6
 00:00:12,607 --> 00:00:13,553
 third-party libraries.
+第三方庫。
 
 7
 00:00:14,387 --> 00:00:16,970
 Now you can always add your imports like
+現在您可以隨時新增匯入內容，例如
 
 8
 00:00:17,034 --> 00:00:19,328
 this in every file, and that's perfectly
+每個檔案中都有這個，那就完美了
 
 9
 00:00:19,360 --> 00:00:19,649
 fine,
+美好的，
 
 10
 00:00:20,242 --> 00:00:23,290
 but you also can create a so-called import
+但你也可以創建一個所謂的導入
 
 11
 00:00:23,290 --> 00:00:27,011
 map so that you can use shorter URLs or
+映射，以便您可以使用較短的 URL 或
 
 12
 00:00:27,059 --> 00:00:29,946
 identifiers your code files and you have the
+標識符你的程式碼檔案，你有
 
 13
 00:00:29,946 --> 00:00:32,978
 full URLs in those import maps.
+這些導入映射中的完整 URL。
 
 14
 00:00:34,277 --> 00:00:36,009
 For this, you should simply create a new
+為此，您應該簡單地創建一個新的
 
 15
 00:00:36,105 --> 00:00:41,254
 file which you can name import_map.json. The
+您可以將其命名為 import_map.json 的檔案。這
 
 16
 00:00:41,334 --> 00:00:44,125
 name is up to you, but the extension should
+名稱由您決定，但擴充功能名應該
 
 17
 00:00:44,125 --> 00:00:46,515
 be JSON because you have to write some JSON
+是 JSON 因為你必須寫一些 JSON
 
 18
 00:00:46,627 --> 00:00:47,141
 code in there.
+程式碼在那裡。
 
 19
 00:00:48,151 --> 00:00:50,814
 And in here you can have an imports key,
+在這裡你可以有一個導入金鑰，
 
 20
 00:00:51,760 --> 00:00:54,166
 and that imports key allows you to map
+並且導入密鑰允許您映射
 
 21
 00:00:54,166 --> 00:00:56,925
 certain identifiers of your choice which are
+您選擇的某些識別碼是
 
 22
 00:00:56,973 --> 00:00:57,889
 your key names here,
+您的關鍵名稱在這裡，
 
 23
 00:00:58,499 --> 00:01:00,120
 to full URLs.
+到完整的 URL。
 
 24
 00:01:00,666 --> 00:01:04,456
 For example, we could map HTTP slash to
+例如，我們可以將 HTTP 斜線對應到
 
 25
 00:01:05,788 --> 00:01:08,679
 this full URL. So we can grab—
+這個完整的網址。所以我們可以抓住——
 
 26
 00:01:09,321 --> 00:01:11,505
 excuse me, this URL. So we can grab this
+對不起，這個網址。所以我們可以抓住這個
 
 27
 00:01:11,569 --> 00:01:12,002
 URL,
+網址，
 
 28
 00:01:12,773 --> 00:01:13,544
 cut it from here,
+從這裡剪下來，
 
 29
 00:01:14,234 --> 00:01:16,129
 and instead specify it here as a string
+並在此處將其指定為字串
 
 30
 00:01:16,241 --> 00:01:18,329
 value for the HTTP identifier,
+HTTP 識別碼的值，
 
 31
 00:01:19,051 --> 00:01:20,609
 and also add the slash here.
+並在此處添加斜線。
 
 32
 00:01:22,983 --> 00:01:25,773
 With this, we're mapping this URL to the
+這樣，我們將此 URL 對應到
 
 33
 00:01:25,853 --> 00:01:26,446
+http://
 http://
 
 34
 00:01:26,975 --> 00:01:27,568
 identifier.
+標識符。
 
 35
 00:01:28,258 --> 00:01:30,181
 And in our file, we can now use
+在我們的檔案中，我們現在可以使用
 
 36
 00:01:30,582 --> 00:01:34,285
 http://server.ts like this, which of course
+http://server.ts 像這樣，當然
 
 37
 00:01:34,285 --> 00:01:35,023
 is way shorter.
+是短得多。
 
 38
 00:01:35,808 --> 00:01:37,892
 But at the moment, Deno wouldn't be able to
+但此刻，迪諾無法
 
 39
 00:01:37,892 --> 00:01:40,409
 make the connection between this code file
+建立此程式碼檔案之間的連接
 
 40
 00:01:40,682 --> 00:01:41,932
 and our import map here.
+以及我們的進口地圖。
 
 41
 00:01:42,862 --> 00:01:45,106
 Instead, to allow Deno to make this
+相反，讓 Deno 做到這一點
 
 42
 00:01:45,106 --> 00:01:47,687
 connection, we have to run our script with
+連接，我們必須運行我們的腳本
 
 43
 00:01:47,880 --> 00:01:48,446
 deno run,
+德諾運行，
 
 44
 00:01:49,354 --> 00:01:51,103
 allow net of course, and then
+當然允許網路，然後
 
 45
 00:01:52,755 --> 00:01:54,002
 import_map
+導入映射
 
 46
 00:01:54,618 --> 00:01:56,334
 equals and then your map name,
+等於然後是你的地圖名稱，
 
 47
 00:01:56,884 --> 00:02:00,182
 import_map.json. And at the moment you're
+導入_map.json。而此刻的你
 
 48
 00:02:00,279 --> 00:02:02,688
 only allowed to have one import map, but of
+只允許有一張導入地圖，但是
 
 49
 00:02:02,704 --> 00:02:05,517
 course in there you can map as many packages
+當然你可以在那裡映射盡可能多的包
 
 50
 00:02:05,695 --> 00:02:08,443
 as you want, as many modules as you want. So
+隨心所欲，任意數量的模組。所以
 
 51
 00:02:08,443 --> 00:02:10,838
 you're not limited to just one mapping here.
+您不僅限於此處的一種映射。
 
 52
 00:02:12,075 --> 00:02:14,373
 So with that specified, we thereafter have
+因此，根據指定的內容，我們此後有
 
 53
 00:02:14,453 --> 00:02:14,678
 our
+我們的
 
 54
 00:02:15,470 --> 00:02:16,836
 filename. And if we now
+檔案名。如果我們現在
 
 55
 00:02:17,462 --> 00:02:19,937
 hit enter, we see that at the moment at
+按下回車鍵，我們現在看到
 
 56
 00:02:19,937 --> 00:02:22,620
 least import map is an unstable feature.
+最少導入地圖是一個不穩定的功能。
 
 57
 00:02:23,391 --> 00:02:25,336
 This means that it might change in the
+這意味著它可能會改變
 
 58
 00:02:25,336 --> 00:02:27,746
 future. The way it works might change. For
+未來。它的工作方式可能會改變。為了
 
 59
 00:02:27,746 --> 00:02:30,156
 example, we might be able to have multiple
+例如，我們可能可以有多個
 
 60
 00:02:30,172 --> 00:02:31,297
 import maps in the future.
+將來導入地圖。
 
 61
 00:02:31,988 --> 00:02:34,784
 To unlock such unstable features, we have to
+要解鎖這些不穩定的功能，我們必須
 
 62
 00:02:34,960 --> 00:02:37,820
 add one extra flag. As you also see here,
+添加一個額外的標誌。正如您也在這裡看到的那樣，
 
 63
 00:02:38,351 --> 00:02:40,681
 we have to add the unstable flag.
+我們必須添加不穩定標誌。
 
 64
 00:02:41,483 --> 00:02:43,730
 And with this, our file now executes
+這樣，我們的檔案現在就執行了
 
 65
 00:02:43,746 --> 00:02:46,041
 successfully because of this map.
+因為這張地圖才成功。
 
 66
 00:02:47,164 --> 00:02:48,673
 Now what you'll also see though is
+現在你還會看到的是
 
 67
 00:02:49,267 --> 00:02:50,518
 that at least currently
+至少目前
 
 68
 00:02:51,112 --> 00:02:54,306
 my IDE isn't really able to pick up this
+我的 IDE 確實無法辨識這個
 
 69
 00:02:54,306 --> 00:02:56,665
 map. It doesn't really understand this map,
+地圖。實在看不懂這張地圖
 
 70
 00:02:57,211 --> 00:02:59,746
 and therefore whilst the code runs fine,
+因此，雖然程式碼運行良好，
 
 71
 00:03:00,420 --> 00:03:03,068
 my IDE support isn't on the level I'd like
+我的 IDE 支援未達到我想要的水平
 
 72
 00:03:03,068 --> 00:03:03,469
 it to be.
+就這樣吧。
 
 73
 00:03:04,031 --> 00:03:06,535
 Therefore, for the moment, and because this
+因此，就目前而言，並且因為這
 
 74
 00:03:06,535 --> 00:03:09,404
 is unstable, I will not use import maps
+不穩定，我不會使用導入地圖
 
 75
 00:03:09,404 --> 00:03:11,327
 throughout the course, but you absolutely
+在整個課程中，但你絕對
 
 76
 00:03:11,391 --> 00:03:13,731
 could if you want to. That's why I want to
+如果你願意的話可以。這就是為什麼我想
 
 77
 00:03:13,731 --> 00:03:15,894
 show you this feature because of course it
+向你展示這個功能當然是因為它
 
 78
 00:03:15,894 --> 00:03:18,490
 is very handy. It allows you to manage all
+非常方便。它可以讓你管理所有
 
 79
 00:03:18,699 --> 00:03:22,000
 your URLs in one place and then just use
+您的網址在一處，然後只需使用
 
 80
 00:03:22,000 --> 00:03:24,836
 these aliases to import from there, which
+這些別名從那裡導入，其中
 
 81
 00:03:24,948 --> 00:03:27,592
 leads to shorter code here. And if you ever
+導致這裡的程式碼更短。如果你曾經
 
 82
 00:03:27,592 --> 00:03:29,675
 wanna change the version, you just have to
+想要改變版本，你只需要
 
 83
 00:03:29,675 --> 00:03:32,287
 do it in one place instead of all code files
+在一個地方而不是所有程式碼檔案中執行此操作
 
 84
 00:03:32,560 --> 00:03:35,351
 where you are using library module. So
+您在哪裡使用庫模組。所以
 
 85
 00:03:35,528 --> 00:03:38,161
 import maps can be useful, but because the
+導入地圖可能很有用，但因為
 
 86
 00:03:38,161 --> 00:03:40,730
 developer experience at the moment, because
+目前的開發人員經驗，因為
 
 87
 00:03:40,746 --> 00:03:43,363
 of the IDE not understanding it, is not on
+IDE 不理解它，也不上
 
 88
 00:03:43,395 --> 00:03:45,723
 the level I want it to be, I will not use
+我想要的水平，我不會使用
 
 89
 00:03:45,723 --> 00:03:46,012
 them here.
+他們在這裡。
 
 90
 00:03:46,831 --> 00:03:48,870
 Before I revert this back though, let me
+在我恢復之前，讓我
 
 91
 00:03:48,934 --> 00:03:50,893
 also show you how to make it work with
+也向您展示如何使其與
 
 92
 00:03:51,086 --> 00:03:51,471
 Denon.
+天龍。
 
 93
 00:03:52,065 --> 00:03:54,120
 There, of course, you now simply have to add
+當然，您現在只需添加
 
 94
 00:03:54,153 --> 00:03:55,293
 this extra argument here
+這個額外的參數在這裡
 
 95
 00:03:55,822 --> 00:03:56,497
 where you have
+你在哪裡
 
 96
 00:03:57,027 --> 00:03:57,813
 unstable
+不穩定
 
 97
 00:03:58,391 --> 00:04:01,954
 and where you have import map endpoint at
+以及導入地圖端點的位置
 
 98
 00:04:02,483 --> 00:04:04,505
 import_map.json.
+導入_map.json。
 
 99
 00:04:05,147 --> 00:04:06,735
 With that, you would be able to run this
+這樣，您就可以運行這個
 
 100
 00:04:06,751 --> 00:04:08,307
 with Denon as well now.
+現在與Denon也是如此。
 
 101
 00:04:09,174 --> 00:04:10,281
 So this would work,
+所以這會起作用，
 
 102
 00:04:10,842 --> 00:04:12,751
 but again, I'm not going to use this
+但再說一遍，我不會用這個
 
 103
 00:04:12,751 --> 00:04:14,789
 feature, so I'm going to remove this here
+功能，所以我要在這裡刪除它
 
 104
 00:04:14,837 --> 00:04:15,992
 from the Denon config.
+來自 Denon 設定。
 
 105
 00:04:16,858 --> 00:04:18,334
 Therefore, of course, this would now fail.
+因此，這當然會失敗。
 
 106
 00:04:18,864 --> 00:04:21,094
 But now I'm also going to revert this back
+但現在我也要把它恢復回來
 
 107
 00:04:21,094 --> 00:04:21,944
 here in my
+在我這裡
 
 108
 00:04:22,875 --> 00:04:23,308
 code file
+程式碼檔案
 
 109
 00:04:23,837 --> 00:04:26,052
 and use the full URL. Simply for the
+並使用完整的 URL。簡單來說就是為了
 
 110
 00:04:26,068 --> 00:04:28,543
 improved developer experience with my IDE
+改進了 IDE 的開發人員體驗
 
 111
 00:04:28,801 --> 00:04:29,604
 understanding this.
+了解這一點。
 
 112
 00:04:30,504 --> 00:04:32,883
 And that's it for the convenience features
+這就是便利功能
 
 113
 00:04:33,076 --> 00:04:33,381
 for now.
+目前。
