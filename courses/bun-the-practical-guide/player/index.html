@@ -113,13 +113,16 @@
   .btn.primary:hover{filter:brightness(1.06)}
   .btn.ghost{background:transparent}
 
-  .wrap{padding:18px;display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;align-items:start}
-  /* Keep the settings panel BESIDE the video as the viewport narrows, just
-     narrower. Collapsing to one column here dropped the panel below the fold
-     and left the height-capped video floating with ~154px of dead space on
-     each side (the 150% zoom case). Only <=1280 is affected; 100% and 130-140%
-     zoom keep the 380px panel exactly as before. */
-  @media (max-width:1280px){.wrap{grid-template-columns:minmax(0,1fr) 244px;gap:14px;padding:14px}}
+  .wrap{padding:18px;display:grid;grid-template-columns:minmax(0,1fr) var(--panel-w);gap:var(--wrap-gap);align-items:start}
+  /* The settings panel sits BESIDE the video only when that width is spare:
+     the video is 16:9 and height-capped, so when the cap already binds the
+     panel costs it nothing. When the cap does not bind, the panel stacks below
+     and the video takes the whole column — otherwise the video ends up smaller
+     than the viewport allows (100% was rendering a smaller video than 50%).
+     JS (fitPanel) toggles html.panel-stack on load/resize; if it never runs the
+     panel simply stays beside, which is the harmless fallback. */
+  html.panel-stack .wrap{grid-template-columns:minmax(0,1fr)}
+  @media (max-width:1280px){.wrap{padding:14px}}
   @media (max-width:1000px){.wrap{grid-template-columns:minmax(0,1fr)}}
 
   /* ---------- responsive: 100% and 150% browser zoom ---------- */
@@ -131,9 +134,10 @@
      wrap padding and the transport bar, and centre the stage + transport pair.
      --chrome-h is that reserved height; it only ever kicks in on short/zoomed
      viewports, never at 100% on a normal window. */
-  :root{--chrome-h:190px}
+  :root{--chrome-h:190px;--panel-w:380px;--wrap-gap:18px}
   .stage,.transport{width:min(100%,calc((100dvh - var(--chrome-h)) * 16 / 9));margin-inline:auto}
 
+  @media (max-width:1280px){:root{--panel-w:244px;--wrap-gap:14px}}
   @media (max-width:1080px){
     .wrap{padding:14px;gap:14px}
     .topbar{padding:10px 12px;gap:8px}
@@ -1148,6 +1152,30 @@
     if(scrim) scrim.addEventListener("click",close);
     lessonList.addEventListener("click",function(e){ if(e.target.closest(".lesson")&&narrow()) close(); });
     document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&narrow()) close(); });
+  })();
+
+  // Give the video every pixel it can use: stack the settings panel below it
+  // unless the video is already capped by the viewport height, in which case
+  // the panel column is free width and sits beside it.
+  (function(){
+    var wrap=document.querySelector(".wrap");
+    if(!wrap) return;
+    function fitPanel(){
+      var root=getComputedStyle(document.documentElement);
+      var panelW=parseFloat(root.getPropertyValue("--panel-w"))||0;
+      var gap=parseFloat(root.getPropertyValue("--wrap-gap"))||0;
+      var chrome=parseFloat(root.getPropertyValue("--chrome-h"))||190;
+      var cs=getComputedStyle(wrap);
+      var avail=wrap.getBoundingClientRect().width
+              - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      var capW=(window.innerHeight-chrome)*16/9;   // widest 16:9 that still fits
+      var besideW=avail-panelW-gap;
+      document.documentElement.classList.toggle(
+        "panel-stack", panelW<=0 || besideW < capW-1);
+    }
+    fitPanel();
+    window.addEventListener("resize",fitPanel);
+    window.addEventListener("orientationchange",fitPanel);
   })();
 
   // search
