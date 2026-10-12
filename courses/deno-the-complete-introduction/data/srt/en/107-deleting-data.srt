@@ -1,0 +1,307 @@
+1
+00:00:02,050 --> 00:00:04,454
+To delete something, we first head back to
+
+2
+00:00:04,454 --> 00:00:04,934
+the model,
+
+3
+00:00:05,479 --> 00:00:06,793
+and there we can now add a new
+
+4
+00:00:07,466 --> 00:00:10,270
+last static method, async method,
+
+5
+00:00:10,927 --> 00:00:13,058
+and that's the delete method. Now delete
+
+6
+00:00:13,090 --> 00:00:15,413
+clearly needs the ID of the document that
+
+7
+00:00:15,413 --> 00:00:17,272
+should be deleted, but it doesn't need
+
+8
+00:00:17,400 --> 00:00:19,547
+anything besides that. We don't need any
+
+9
+00:00:19,579 --> 00:00:21,550
+data because we just wanna delete something.
+
+10
+00:00:22,703 --> 00:00:24,882
+Then we can reach out to the database, to
+
+11
+00:00:24,882 --> 00:00:27,782
+the resources collection of course, and call
+
+12
+00:00:27,894 --> 00:00:28,984
+delete 1.
+
+13
+00:00:30,075 --> 00:00:32,209
+And now you need to pass in an object which
+
+14
+00:00:32,241 --> 00:00:34,375
+basically defines how to look for that one
+
+15
+00:00:34,728 --> 00:00:35,947
+document you want to delete.
+
+16
+00:00:36,814 --> 00:00:38,803
+And here I'll use the same check as for
+
+17
+00:00:38,899 --> 00:00:41,033
+updating, hence we can copy this,
+
+18
+00:00:41,707 --> 00:00:45,301
+look for the document where _id is basically
+
+19
+00:00:45,461 --> 00:00:48,911
+equal to our ID just wrapped in this special
+
+20
+00:00:48,991 --> 00:00:49,408
+object.
+
+21
+00:00:50,210 --> 00:00:51,269
+And then let's await this
+
+22
+00:00:52,601 --> 00:00:55,088
+and that will be it. That's all I wanna do
+
+23
+00:00:55,168 --> 00:00:55,296
+here.
+
+24
+00:00:56,050 --> 00:00:57,767
+This should delete a document
+
+25
+00:00:58,300 --> 00:01:00,712
+Now in the controller, we of course need to
+
+26
+00:01:00,745 --> 00:01:03,109
+interact with that delete method.
+
+27
+00:01:03,821 --> 00:01:06,072
+So here on the learning resource, we can
+
+28
+00:01:06,153 --> 00:01:06,817
+call delete
+
+29
+00:01:07,530 --> 00:01:09,118
+and pass in the ID,
+
+30
+00:01:09,733 --> 00:01:12,779
+which I again want to get out of the URL. So
+
+31
+00:01:12,876 --> 00:01:15,145
+from context.params.resourceId,
+
+32
+00:01:16,212 --> 00:01:19,134
+and I know that I will get it because I will
+
+33
+00:01:19,424 --> 00:01:22,088
+add it to the route just as with the PATCH
+
+34
+00:01:22,088 --> 00:01:22,314
+route.
+
+35
+00:01:23,056 --> 00:01:25,577
+On the delete route, we want to have that
+
+36
+00:01:25,577 --> 00:01:29,066
+dynamic path segment which holds the ID of
+
+37
+00:01:29,098 --> 00:01:30,994
+the document that should be deleted.
+
+38
+00:01:32,295 --> 00:01:34,641
+So with that added here, we can extract it
+
+39
+00:01:34,641 --> 00:01:34,834
+here
+
+40
+00:01:35,766 --> 00:01:37,823
+and forward that to delete
+
+41
+00:01:38,658 --> 00:01:41,309
+and then simply await this to make sure that
+
+42
+00:01:41,309 --> 00:01:43,029
+the overall controller action
+
+43
+00:01:43,623 --> 00:01:46,419
+or the promise returned by it only resolves
+
+44
+00:01:46,837 --> 00:01:49,520
+once that delete operation really finished.
+
+45
+00:01:50,468 --> 00:01:53,392
+And then we can set the response body here
+
+46
+00:01:54,002 --> 00:01:56,840
+to, let's say, an object where we simply say
+
+47
+00:01:58,330 --> 00:01:59,966
+deleted resource
+
+48
+00:02:00,559 --> 00:02:02,739
+as a message. But of course, it's totally up
+
+49
+00:02:02,739 --> 00:02:04,198
+to you what you want to return here.
+
+50
+00:02:05,689 --> 00:02:07,420
+With that, we got the delete resource
+
+51
+00:02:08,173 --> 00:02:10,642
+action in place, and we can now test this in
+
+52
+00:02:10,738 --> 00:02:11,476
+a new tab.
+
+53
+00:02:12,502 --> 00:02:14,297
+Grab that ID here,
+
+54
+00:02:15,259 --> 00:02:17,616
+send a DELETE request
+
+55
+00:02:18,433 --> 00:02:19,427
+to localhost
+
+56
+00:02:21,837 --> 00:02:23,051
+3000/resources/this ID,
+
+57
+00:02:23,877 --> 00:02:24,768
+click send,
+
+58
+00:02:26,533 --> 00:02:30,485
+and I get a 405 method not allowed error
+
+59
+00:02:32,948 --> 00:02:35,233
+because I didn't restart the server after
+
+60
+00:02:35,444 --> 00:02:37,178
+changing the route. So let's do that,
+
+61
+00:02:37,794 --> 00:02:38,408
+click send again.
+
+62
+00:02:40,232 --> 00:02:40,943
+Now it works.
+
+63
+00:02:41,669 --> 00:02:44,091
+And now if we try to get all resources
+
+64
+00:02:44,091 --> 00:02:44,398
+again,
+
+65
+00:02:44,979 --> 00:02:46,755
+you see this is an empty array.
+
+66
+00:02:47,619 --> 00:02:48,773
+So with that,
+
+67
+00:02:49,366 --> 00:02:52,459
+we implemented all the CRUD operations again
+
+68
+00:02:52,972 --> 00:02:55,649
+with Deno and Oak and Mongo, but now
+
+69
+00:02:56,403 --> 00:02:59,672
+as a REST API, which is able to communicate
+
+70
+00:02:59,705 --> 00:03:02,766
+with any client. The client could be a tool
+
+71
+00:03:02,910 --> 00:03:05,283
+like Postman, but of course, typically it
+
+72
+00:03:05,315 --> 00:03:07,895
+would be a mobile app or it would be a web
+
+73
+00:03:07,943 --> 00:03:10,123
+app. And that's something we'll now have a
+
+74
+00:03:10,123 --> 00:03:12,496
+look at in the next lecture. I wanna show
+
+75
+00:03:12,528 --> 00:03:15,095
+you how such a client would look like and
+
+76
+00:03:15,095 --> 00:03:17,514
+show you a little gotcha which you have to
+
+77
+00:03:17,514 --> 00:03:18,046
+be aware of.

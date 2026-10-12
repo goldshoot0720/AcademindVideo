@@ -1,0 +1,571 @@
+1
+00:00:02,212 --> 00:00:04,119
+So to finish all of that up, let's make sure
+
+2
+00:00:04,119 --> 00:00:06,107
+we can also update and delete.
+
+3
+00:00:06,684 --> 00:00:08,431
+Now again, on the documentation of the
+
+4
+00:00:08,431 --> 00:00:09,521
+MongoDB module,
+
+5
+00:00:10,050 --> 00:00:13,721
+we also find a method on how to update. And
+
+6
+00:00:13,737 --> 00:00:16,671
+there we have the updateOne method, which as
+
+7
+00:00:16,703 --> 00:00:19,925
+a first argument basically takes information
+
+8
+00:00:20,053 --> 00:00:22,073
+on the filter we want to set,
+
+9
+00:00:22,955 --> 00:00:25,167
+so to find out which document we want to
+
+10
+00:00:25,199 --> 00:00:25,568
+update.
+
+11
+00:00:26,145 --> 00:00:30,056
+And then as a second argument, it takes an
+
+12
+00:00:30,232 --> 00:00:33,505
+object that describes the update operation
+
+13
+00:00:33,618 --> 00:00:36,204
+with the $set field here,
+
+14
+00:00:36,990 --> 00:00:38,821
+so that we, for example, want to change the
+
+15
+00:00:38,837 --> 00:00:41,150
+username on the identified object.
+
+16
+00:00:42,226 --> 00:00:43,190
+So let's go back.
+
+17
+00:00:43,720 --> 00:00:46,386
+And in update, therefore, we indeed want to
+
+18
+00:00:46,450 --> 00:00:48,875
+find the goal first of all, of course,
+
+19
+00:00:49,597 --> 00:00:50,256
+but thereafter
+
+20
+00:00:50,882 --> 00:00:53,821
+we need to run a new query, a new command
+
+21
+00:00:53,934 --> 00:00:55,106
+against our collection.
+
+22
+00:00:55,941 --> 00:00:58,270
+Hence here, after we checked that we found a
+
+23
+00:00:58,270 --> 00:00:58,414
+goal
+
+24
+00:00:58,994 --> 00:01:01,226
+I will call getGoalsCollection
+
+25
+00:01:02,067 --> 00:01:03,135
+with an exclamation mark
+
+26
+00:01:03,765 --> 00:01:04,849
+and call updateOne.
+
+27
+00:01:05,690 --> 00:01:07,938
+And then the first argument to updateOne is
+
+28
+00:01:07,986 --> 00:01:10,745
+an object, just as we pass it to findOne,
+
+29
+00:01:11,181 --> 00:01:12,907
+that describes what we wanna update.
+
+30
+00:01:13,553 --> 00:01:16,602
+So I'll search for a document where the ID
+
+31
+00:01:17,070 --> 00:01:17,699
+is equal to
+
+32
+00:01:19,750 --> 00:01:20,364
+goal._id
+
+33
+00:01:20,978 --> 00:01:22,579
+because I'm looking for that same goal in
+
+34
+00:01:22,611 --> 00:01:22,951
+the end.
+
+35
+00:01:23,646 --> 00:01:25,425
+Of course, we therefore also could get rid
+
+36
+00:01:25,425 --> 00:01:28,161
+of this code here and save that extra step
+
+37
+00:01:28,322 --> 00:01:30,956
+of redundantly fetching that goal if we then
+
+38
+00:01:30,988 --> 00:01:32,160
+refetch it anyways
+
+39
+00:01:32,835 --> 00:01:34,489
+and just copy that whole code
+
+40
+00:01:35,083 --> 00:01:37,573
+and use this instead down there to identify
+
+41
+00:01:37,573 --> 00:01:38,825
+the document we wanna update.
+
+42
+00:01:39,661 --> 00:01:41,588
+And then the second argument is an object
+
+43
+00:01:41,588 --> 00:01:43,901
+that describes the update with help of the
+
+44
+00:01:44,254 --> 00:01:47,273
+$_set field for which MongoDB will look.
+
+45
+00:01:48,092 --> 00:01:50,421
+That field takes an object where we
+
+46
+00:01:50,501 --> 00:01:53,232
+basically describe the new object the
+
+47
+00:01:53,296 --> 00:01:55,059
+existing one should be merged with.
+
+48
+00:01:55,796 --> 00:01:57,335
+And there, for example, I can then set the
+
+49
+00:01:57,335 --> 00:01:59,179
+name to my new text.
+
+50
+00:02:00,605 --> 00:02:02,962
+This is how we can write this code to tell
+
+51
+00:02:03,026 --> 00:02:05,495
+MongoDB that we wanna update the document
+
+52
+00:02:05,495 --> 00:02:07,418
+that we identified with this line
+
+53
+00:02:08,300 --> 00:02:10,945
+like this. So that we basically wanna set
+
+54
+00:02:10,945 --> 00:02:13,622
+the name of the found document to this new
+
+55
+00:02:13,686 --> 00:02:13,991
+name.
+
+56
+00:02:15,097 --> 00:02:17,854
+And we can await this, but I actually didn't
+
+57
+00:02:17,918 --> 00:02:21,012
+await onInsert either here, but that's up to
+
+58
+00:02:21,028 --> 00:02:23,384
+you whether you wanna await and be sure that
+
+59
+00:02:23,432 --> 00:02:25,501
+the operation finished before you continue
+
+60
+00:02:25,533 --> 00:02:26,610
+with the web app or not.
+
+61
+00:02:27,606 --> 00:02:29,196
+I will actually await here
+
+62
+00:02:30,498 --> 00:02:33,197
+and also for updating, therefore, to ensure
+
+63
+00:02:33,389 --> 00:02:35,735
+that we only continue after this finished.
+
+64
+00:02:36,458 --> 00:02:38,386
+For that, of course, in the controller, we
+
+65
+00:02:38,386 --> 00:02:40,394
+should go to the places where we create
+
+66
+00:02:41,181 --> 00:02:41,679
+and
+
+67
+00:02:42,226 --> 00:02:42,643
+wait,
+
+68
+00:02:43,752 --> 00:02:46,306
+await for the creation to finish here as
+
+69
+00:02:46,419 --> 00:02:48,748
+well, to only redirect once that finished,
+
+70
+00:02:49,455 --> 00:02:50,885
+and do the same for updating
+
+71
+00:02:51,479 --> 00:02:51,736
+there.
+
+72
+00:02:52,834 --> 00:02:55,519
+I now also wanna, uh, wait for the update
+
+73
+00:02:55,519 --> 00:02:58,140
+method before we continue so that we're sure
+
+74
+00:02:58,172 --> 00:03:00,194
+that this finished before we redirect.
+
+75
+00:03:01,690 --> 00:03:03,544
+If we save that, I get an error.
+
+76
+00:03:04,286 --> 00:03:06,286
+Yeah, that of course goal isn't found here
+
+77
+00:03:06,382 --> 00:03:08,624
+anymore in update because I commented out
+
+78
+00:03:08,753 --> 00:03:10,394
+this code here. Makes sense.
+
+79
+00:03:11,937 --> 00:03:15,214
+And that since now I'm awaiting here in
+
+80
+00:03:15,391 --> 00:03:18,476
+create, I of course also wanna add async
+
+81
+00:03:18,525 --> 00:03:18,589
+here.
+
+82
+00:03:19,846 --> 00:03:21,771
+This should be an async function so that we
+
+83
+00:03:21,771 --> 00:03:24,180
+can use await. Didn't have that previously.
+
+84
+00:03:24,601 --> 00:03:26,137
+Now since we use await, we need it.
+
+85
+00:03:26,962 --> 00:03:27,738
+So now with that,
+
+86
+00:03:29,936 --> 00:03:31,983
+if we reload our single goal page here,
+
+87
+00:03:34,254 --> 00:03:36,239
+we should be able to update it, for example,
+
+88
+00:03:36,255 --> 00:03:38,433
+by adding multiple exclamation marks.
+
+89
+00:03:39,740 --> 00:03:40,692
+And now here we see
+
+90
+00:03:41,256 --> 00:03:41,773
+that
+
+91
+00:03:42,321 --> 00:03:43,467
+we somehow fail.
+
+92
+00:03:45,124 --> 00:03:46,584
+Now what could be the reason for that?
+
+93
+00:03:47,547 --> 00:03:50,371
+If we go back, we get an error that in the
+
+94
+00:03:50,484 --> 00:03:53,132
+end something seems to be wrong with our ID.
+
+95
+00:03:53,244 --> 00:03:53,966
+It expected
+
+96
+00:03:54,737 --> 00:03:55,202
+a string.
+
+97
+00:03:56,438 --> 00:03:58,524
+Now the problem is that on a single course
+
+98
+00:03:58,524 --> 00:04:01,589
+goal page, we also refer to the goal ID,
+
+99
+00:04:02,376 --> 00:04:04,430
+for example, for deleting and for updating.
+
+100
+00:04:05,409 --> 00:04:07,816
+And the ID field doesn't exist like this
+
+101
+00:04:07,816 --> 00:04:09,052
+anymore, if you remember.
+
+102
+00:04:09,678 --> 00:04:10,512
+Instead, it's now
+
+103
+00:04:12,484 --> 00:04:12,965
+_id,
+
+104
+00:04:13,607 --> 00:04:17,229
+and then on that we have the $_oid field.
+
+105
+00:04:17,774 --> 00:04:20,387
+And that's what we should use as an ID when
+
+106
+00:04:20,419 --> 00:04:22,631
+we access the ID data in our template.
+
+107
+00:04:22,968 --> 00:04:24,859
+Otherwise, we'll not really extract the ID,
+
+108
+00:04:24,971 --> 00:04:27,552
+we'll have undefined, and that causes that
+
+109
+00:04:27,696 --> 00:04:27,937
+error.
+
+110
+00:04:28,658 --> 00:04:30,758
+So with that change made, if we go back to
+
+111
+00:04:30,758 --> 00:04:33,579
+the single goal page and reload it, if I now
+
+112
+00:04:33,787 --> 00:04:36,176
+add multiple exclamation marks, saving
+
+113
+00:04:36,288 --> 00:04:37,923
+works. And as we can clearly see here
+
+114
+00:04:38,292 --> 00:04:39,417
+updating worked.
+
+115
+00:04:40,526 --> 00:04:42,615
+So now let's also delete. And for that, in
+
+116
+00:04:42,695 --> 00:04:43,226
+the model,
+
+117
+00:04:43,820 --> 00:04:44,206
+again
+
+118
+00:04:44,784 --> 00:04:47,792
+here in delete, in this case
+
+119
+00:04:50,343 --> 00:04:50,796
+I will call
+
+120
+00:04:51,974 --> 00:04:54,235
+getGoalsCollection like this with an
+
+121
+00:04:54,300 --> 00:04:55,204
+exclamation mark.
+
+122
+00:04:55,753 --> 00:04:58,757
+And now we got a deleteOne method that we
+
+123
+00:04:58,757 --> 00:04:59,193
+can use.
+
+124
+00:05:00,291 --> 00:05:03,246
+So here we can just call deleteOne, pass in
+
+125
+00:05:03,278 --> 00:05:05,456
+the object that describes the document we
+
+126
+00:05:05,456 --> 00:05:07,368
+want to delete, and I'll use the same filter
+
+127
+00:05:07,368 --> 00:05:08,390
+from before searching for that ID
+
+128
+00:05:10,838 --> 00:05:12,421
+And if we save all of that
+
+129
+00:05:14,134 --> 00:05:15,023
+and we go back,
+
+130
+00:05:16,523 --> 00:05:18,513
+reload this page, and click on delete goal,
+
+131
+00:05:19,370 --> 00:05:19,823
+it's gone.
+
+132
+00:05:20,422 --> 00:05:22,477
+And we can also await this
+
+133
+00:05:23,091 --> 00:05:24,256
+and add async here
+
+134
+00:05:25,097 --> 00:05:27,422
+to ensure that we wait for this operation to
+
+135
+00:05:27,519 --> 00:05:30,134
+finish, or that we can wait for it to finish
+
+136
+00:05:30,425 --> 00:05:31,539
+here in the goals controller.
+
+137
+00:05:32,312 --> 00:05:34,539
+There, delete goal can now also be turned
+
+138
+00:05:34,588 --> 00:05:35,800
+into an async function
+
+139
+00:05:36,736 --> 00:05:39,798
+And we can await for delete to finish so
+
+140
+00:05:39,798 --> 00:05:41,957
+that we only redirect once the deletion
+
+141
+00:05:41,957 --> 00:05:44,616
+process is guaranteed to have finished. And
+
+142
+00:05:44,712 --> 00:05:47,532
+these are now our core CRUD operations
+
+143
+00:05:47,999 --> 00:05:49,949
+implemented with MongoDB.

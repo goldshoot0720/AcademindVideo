@@ -1,0 +1,715 @@
+1
+00:00:02,055 --> 00:00:05,427
+So let's make our webpage a little bit more
+
+2
+00:00:05,555 --> 00:00:08,253
+beautiful. And for that, we can add some CSS
+
+3
+00:00:08,317 --> 00:00:08,911
+styling.
+
+4
+00:00:09,666 --> 00:00:11,817
+For this, at Hatch, you find the app.css
+
+5
+00:00:11,833 --> 00:00:12,042
+file,
+
+6
+00:00:12,716 --> 00:00:15,494
+which you can just drag and drop. So
+
+7
+00:00:15,510 --> 00:00:17,405
+download and then drag and drop into your
+
+8
+00:00:17,453 --> 00:00:18,336
+project folder.
+
+9
+00:00:19,364 --> 00:00:22,752
+And here I now want to add a link to import
+
+10
+00:00:22,752 --> 00:00:24,566
+this app.css file like this.
+
+11
+00:00:26,026 --> 00:00:28,141
+The problem is if we just do this
+
+12
+00:00:29,006 --> 00:00:31,297
+and we run our application, that's not going
+
+13
+00:00:31,394 --> 00:00:31,890
+to work.
+
+14
+00:00:32,627 --> 00:00:35,255
+If we reload, you see it still looks the way
+
+15
+00:00:35,255 --> 00:00:35,928
+it did before.
+
+16
+00:00:36,857 --> 00:00:38,924
+A reason for that can be found if we open up
+
+17
+00:00:38,924 --> 00:00:39,757
+the developer tools
+
+18
+00:00:40,526 --> 00:00:42,657
+under network. If we reload, we see a
+
+19
+00:00:42,705 --> 00:00:45,749
+failing request for app.css. It gets back
+
+20
+00:00:45,749 --> 00:00:48,730
+status code 404, so it's not found.
+
+21
+00:00:49,274 --> 00:00:51,806
+And the reason for that is simply that in
+
+22
+00:00:51,982 --> 00:00:54,870
+our server, in our Deno server which in the
+
+23
+00:00:54,870 --> 00:00:56,681
+end receives all requests,
+
+24
+00:00:57,474 --> 00:01:00,336
+we got no route that would return that CSS
+
+25
+00:01:00,369 --> 00:01:00,660
+file.
+
+26
+00:01:01,402 --> 00:01:03,529
+Now, this does not mean that we now need to
+
+27
+00:01:03,722 --> 00:01:04,109
+add a new
+
+28
+00:01:04,785 --> 00:01:05,511
+GET route
+
+29
+00:01:06,477 --> 00:01:09,378
+for app.css. This is not what we need to do
+
+30
+00:01:09,378 --> 00:01:09,700
+here.
+
+31
+00:01:12,069 --> 00:01:13,944
+We don't have to add this route
+
+32
+00:01:14,656 --> 00:01:17,614
+because the CSS file, just like images and
+
+33
+00:01:17,646 --> 00:01:19,796
+so on, which we might have on our page, is
+
+34
+00:01:19,829 --> 00:01:21,009
+simply a static file.
+
+35
+00:01:21,602 --> 00:01:23,927
+We basically want to configure our server
+
+36
+00:01:23,927 --> 00:01:27,744
+such that all those requests which are sent
+
+37
+00:01:27,920 --> 00:01:31,031
+automatically from inside our HTML document,
+
+38
+00:01:31,448 --> 00:01:34,174
+like CSS files, like JavaScript files, like
+
+39
+00:01:34,270 --> 00:01:37,300
+images, that all those requests for static
+
+40
+00:01:37,397 --> 00:01:40,924
+resources are just forwarded in the end and
+
+41
+00:01:40,924 --> 00:01:43,362
+are just answered automatically by our
+
+42
+00:01:43,426 --> 00:01:45,013
+server. That's what we want,
+
+43
+00:01:45,575 --> 00:01:47,419
+and that's something we can easily implement
+
+44
+00:01:47,419 --> 00:01:48,525
+here with Oak.
+
+45
+00:01:49,469 --> 00:01:52,454
+Oak returns a method or a function we can
+
+46
+00:01:52,535 --> 00:01:54,939
+use for that, and that's the send function.
+
+47
+00:01:55,982 --> 00:01:58,764
+We can use the send function to send a file
+
+48
+00:01:58,974 --> 00:02:01,949
+or send a resource in general back to the
+
+49
+00:02:01,949 --> 00:02:03,680
+client when it's requested.
+
+50
+00:02:04,311 --> 00:02:06,295
+And for this, we need to register a new
+
+51
+00:02:06,649 --> 00:02:07,147
+middleware.
+
+52
+00:02:08,016 --> 00:02:08,611
+I'll add it here,
+
+53
+00:02:10,252 --> 00:02:11,426
+and this middleware
+
+54
+00:02:13,228 --> 00:02:14,659
+now will basically
+
+55
+00:02:15,887 --> 00:02:16,752
+call send.
+
+56
+00:02:17,729 --> 00:02:18,979
+Now we get our context here
+
+57
+00:02:19,668 --> 00:02:22,439
+and send returns a promise which eventually
+
+58
+00:02:22,536 --> 00:02:24,522
+resolves to a string or to undefined.
+
+59
+00:02:25,179 --> 00:02:28,015
+Now send also wants an argument.
+
+60
+00:02:28,560 --> 00:02:30,546
+It essentially needs to get access to the
+
+61
+00:02:30,546 --> 00:02:33,254
+request and the response passed in one
+
+62
+00:02:33,510 --> 00:02:35,818
+object which contains both request and
+
+63
+00:02:35,850 --> 00:02:36,314
+response.
+
+64
+00:02:37,212 --> 00:02:39,935
+Now we got such an object, the context. It
+
+65
+00:02:39,935 --> 00:02:42,563
+has access to both request and response so
+
+66
+00:02:42,563 --> 00:02:44,951
+we can just forward the context to send.
+
+67
+00:02:46,268 --> 00:02:48,436
+But send wants more. It does not just want
+
+68
+00:02:48,436 --> 00:02:51,182
+this object, it also wants to know for which
+
+69
+00:02:51,407 --> 00:02:54,346
+path we should send back a response.
+
+70
+00:02:55,021 --> 00:02:57,333
+So the second argument here will be the
+
+71
+00:02:57,333 --> 00:03:00,786
+context request, and there the URL object,
+
+72
+00:03:00,866 --> 00:03:02,970
+and there the path name. That's the
+
+73
+00:03:02,970 --> 00:03:05,877
+requested resource path in the end. So for
+
+74
+00:03:05,877 --> 00:03:08,816
+the CSS file, this would essentially be— so
+
+75
+00:03:08,816 --> 00:03:10,807
+for this file here, this would essentially
+
+76
+00:03:10,920 --> 00:03:11,305
+be
+
+77
+00:03:13,652 --> 00:03:15,638
+/app.css. That would be the path name here.
+
+78
+00:03:17,010 --> 00:03:19,013
+So we need to forward this to send as well,
+
+79
+00:03:19,240 --> 00:03:21,357
+or pass this information to send as well.
+
+80
+00:03:23,142 --> 00:03:24,452
+And as a last argument,
+
+81
+00:03:24,986 --> 00:03:25,536
+optionally,
+
+82
+00:03:26,134 --> 00:03:29,336
+we can pass in an object where we provide
+
+83
+00:03:29,369 --> 00:03:30,841
+extra information to send.
+
+84
+00:03:31,779 --> 00:03:33,735
+For example, whether the response should be
+
+85
+00:03:33,735 --> 00:03:35,997
+gzipped, so if it should be minified to be
+
+86
+00:03:35,997 --> 00:03:36,369
+smaller.
+
+87
+00:03:37,237 --> 00:03:40,448
+Or what our root folder is in which we wanna
+
+88
+00:03:40,448 --> 00:03:42,857
+look. By default, it takes the root folder
+
+89
+00:03:42,937 --> 00:03:44,109
+of this application,
+
+90
+00:03:44,639 --> 00:03:47,272
+but if your static files are stored in a
+
+91
+00:03:47,272 --> 00:03:49,327
+different folder, something we'll do in a
+
+92
+00:03:49,375 --> 00:03:51,672
+second, then you should specify a root
+
+93
+00:03:51,688 --> 00:03:52,025
+folder.
+
+94
+00:03:52,731 --> 00:03:54,273
+For the moment, we don't need it.
+
+95
+00:03:54,995 --> 00:03:57,837
+Now, by adding this middleware, we enable
+
+96
+00:03:57,885 --> 00:04:01,177
+the browser to fetch static resources like
+
+97
+00:04:01,177 --> 00:04:02,028
+CSS files.
+
+98
+00:04:03,327 --> 00:04:04,993
+Now, if we would leave it like this, it
+
+99
+00:04:05,089 --> 00:04:05,987
+wouldn't work though
+
+100
+00:04:06,531 --> 00:04:08,742
+because this middleware would run before our
+
+101
+00:04:08,935 --> 00:04:11,450
+route functions and essentially that means
+
+102
+00:04:11,514 --> 00:04:12,107
+that all
+
+103
+00:04:12,716 --> 00:04:15,488
+incoming requests would be treated as
+
+104
+00:04:15,584 --> 00:04:17,731
+requests for static resources
+
+105
+00:04:18,308 --> 00:04:20,791
+and we would try to send back such a, well,
+
+106
+00:04:20,807 --> 00:04:22,938
+static resource. And of course, for all
+
+107
+00:04:23,067 --> 00:04:25,278
+those requests that normally would be
+
+108
+00:04:25,278 --> 00:04:28,178
+handled by our routes, we won't find such a
+
+109
+00:04:28,178 --> 00:04:30,165
+static resource. There is no addGoal
+
+110
+00:04:30,181 --> 00:04:31,831
+function. File, for example.
+
+111
+00:04:32,744 --> 00:04:35,661
+Therefore, this should go after our routes
+
+112
+00:04:35,885 --> 00:04:38,897
+so that our routes can kick in first and can
+
+113
+00:04:38,897 --> 00:04:41,814
+try to handle the request first. And only if
+
+114
+00:04:41,942 --> 00:04:43,352
+our routes fail
+
+115
+00:04:43,881 --> 00:04:45,900
+and there is no route defined for the
+
+116
+00:04:45,964 --> 00:04:49,056
+requested resource, this middleware kicks in
+
+117
+00:04:49,473 --> 00:04:50,546
+and will help us out.
+
+118
+00:04:51,171 --> 00:04:53,847
+In addition, I mentioned that send returns a
+
+119
+00:04:53,895 --> 00:04:54,408
+promise
+
+120
+00:04:55,321 --> 00:04:57,709
+and we should await that promise.
+
+121
+00:04:59,024 --> 00:05:01,159
+Because what send does ultimately is
+
+122
+00:05:01,753 --> 00:05:04,529
+it does not send back a response. Instead,
+
+123
+00:05:04,577 --> 00:05:07,852
+it manipulates this response object on the
+
+124
+00:05:07,852 --> 00:05:10,099
+context. That's why we're passing the
+
+125
+00:05:10,099 --> 00:05:11,399
+context to send,
+
+126
+00:05:12,169 --> 00:05:14,512
+and we need to wait for its manipulation to
+
+127
+00:05:14,512 --> 00:05:17,257
+finish. If we don't await here, we're
+
+128
+00:05:17,385 --> 00:05:20,274
+basically saying to Oak that we're fine and
+
+129
+00:05:20,274 --> 00:05:22,649
+the response can be sent as soon as this
+
+130
+00:05:22,762 --> 00:05:25,764
+line was executed. Not when all the actions
+
+131
+00:05:25,924 --> 00:05:28,044
+started by that finished, but simply when
+
+132
+00:05:28,236 --> 00:05:29,970
+this send function was
+
+133
+00:05:30,548 --> 00:05:33,037
+executed, when the execution of send started
+
+134
+00:05:33,037 --> 00:05:33,744
+to be precise.
+
+135
+00:05:34,418 --> 00:05:36,730
+And that's of course too early. We don't
+
+136
+00:05:36,811 --> 00:05:39,075
+wanna send back a response just because we
+
+137
+00:05:39,075 --> 00:05:42,896
+started this send process. We wanna await
+
+138
+00:05:42,928 --> 00:05:46,156
+for this because ultimately send manipulates
+
+139
+00:05:46,220 --> 00:05:48,676
+the response and we wanna give send the time
+
+140
+00:05:48,709 --> 00:05:49,351
+to do so.
+
+141
+00:05:49,897 --> 00:05:51,230
+And it tells us once it's done
+
+142
+00:05:51,761 --> 00:05:53,158
+with this promise here.
+
+143
+00:05:53,689 --> 00:05:55,617
+That's why we await the promise. This
+
+144
+00:05:55,617 --> 00:05:58,412
+ensures that we wait until send is done, and
+
+145
+00:05:58,428 --> 00:06:01,561
+only then we inform Oak that we are done
+
+146
+00:06:01,561 --> 00:06:03,955
+with this middleware, and hence the response
+
+147
+00:06:04,036 --> 00:06:05,707
+may be sent back to the client.
+
+148
+00:06:06,365 --> 00:06:08,695
+Once we do all of that and we reload, we
+
+149
+00:06:08,695 --> 00:06:11,025
+should see this, which definitely looks
+
+150
+00:06:11,041 --> 00:06:11,507
+nicer.
+
+151
+00:06:12,085 --> 00:06:14,254
+Not perfect though, and the simple reason
+
+152
+00:06:14,254 --> 00:06:17,441
+for that is that I added one rule here in
+
+153
+00:06:17,474 --> 00:06:20,603
+the CSS file that needs an ID being added,
+
+154
+00:06:21,103 --> 00:06:23,491
+and it needs an ID being added on this div.
+
+155
+00:06:23,781 --> 00:06:25,895
+So make sure that on this div you add the
+
+156
+00:06:26,008 --> 00:06:28,043
+add-goal-form ID.
+
+157
+00:06:30,384 --> 00:06:32,952
+And if you do that and reload, now you have
+
+158
+00:06:32,952 --> 00:06:33,969
+that nicer look here.
+
+159
+00:06:36,183 --> 00:06:38,600
+So this is how you can send back static
+
+160
+00:06:38,664 --> 00:06:41,226
+resources, and this will work for all CSS
+
+161
+00:06:41,339 --> 00:06:43,965
+files, all JavaScript files, and all images
+
+162
+00:06:43,997 --> 00:06:44,529
+you might have.
+
+163
+00:06:45,324 --> 00:06:49,000
+We basically use send to let Oak manipulate
+
+164
+00:06:49,000 --> 00:06:52,227
+the response through the context object, and
+
+165
+00:06:52,291 --> 00:06:53,768
+we wait until it's done with this
+
+166
+00:06:53,816 --> 00:06:54,442
+manipulation.
+
+167
+00:06:55,100 --> 00:06:57,059
+And we also let it know for which kind of
+
+168
+00:06:57,059 --> 00:06:59,692
+request, for which requested resource, it
+
+169
+00:06:59,692 --> 00:07:00,944
+should do this manipulation.
+
+170
+00:07:01,763 --> 00:07:03,754
+As I mentioned, it is important that you do
+
+171
+00:07:03,770 --> 00:07:06,322
+this after your routes were processed,
+
+172
+00:07:06,675 --> 00:07:08,682
+because if you do it before the routes are
+
+173
+00:07:08,682 --> 00:07:11,042
+processed, Oak will try to handle all
+
+174
+00:07:11,492 --> 00:07:13,812
+incoming requests with this middleware, and
+
+175
+00:07:13,828 --> 00:07:16,228
+that's not what we want. We only wanna
+
+176
+00:07:16,228 --> 00:07:18,677
+handle the requests that are not handled by
+
+177
+00:07:18,677 --> 00:07:21,078
+the routes because that will typically be
+
+178
+00:07:21,078 --> 00:07:23,913
+the requests that are reaching out to static
+
+179
+00:07:23,978 --> 00:07:24,590
+resources.

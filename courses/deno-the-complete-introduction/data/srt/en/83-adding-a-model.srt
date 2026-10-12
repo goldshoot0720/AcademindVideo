@@ -1,0 +1,363 @@
+1
+00:00:02,102 --> 00:00:04,316
+Thus far, we have a views and a routes
+
+2
+00:00:04,429 --> 00:00:06,868
+folder. I'll come back to routes and how
+
+3
+00:00:07,077 --> 00:00:08,698
+those fit into the picture later.
+
+4
+00:00:09,324 --> 00:00:11,907
+Let's now add a new folder on the root level
+
+5
+00:00:11,907 --> 00:00:13,560
+of the project, and that's the models
+
+6
+00:00:13,897 --> 00:00:16,914
+folder. And in there, I'll add a CourseGoal,
+
+7
+00:00:17,925 --> 00:00:19,642
+CourseGoal.ts file,
+
+8
+00:00:20,397 --> 00:00:20,942
+singular.
+
+9
+00:00:22,018 --> 00:00:23,815
+And in there, I'll define a CourseGoal
+
+10
+00:00:23,927 --> 00:00:27,154
+model. Now, often but not always, A model
+
+11
+00:00:27,154 --> 00:00:28,230
+simply is a class
+
+12
+00:00:30,528 --> 00:00:31,942
+because we might want to be able to
+
+13
+00:00:31,975 --> 00:00:32,907
+instantiate
+
+14
+00:00:33,662 --> 00:00:36,651
+a course goal later and use this here as a
+
+15
+00:00:36,715 --> 00:00:37,326
+blueprint,
+
+16
+00:00:38,146 --> 00:00:40,058
+or we might want to be able to call some
+
+17
+00:00:40,107 --> 00:00:42,694
+static methods on this class.
+
+18
+00:00:43,305 --> 00:00:44,930
+And that's actually what I will do here.
+
+19
+00:00:45,643 --> 00:00:48,688
+I will expose a bunch of static methods on
+
+20
+00:00:48,802 --> 00:00:51,118
+this course goal, so methods which we can
+
+21
+00:00:51,151 --> 00:00:53,338
+call directly on the class without
+
+22
+00:00:53,338 --> 00:00:54,375
+instantiating first.
+
+23
+00:00:55,096 --> 00:00:57,115
+Which will help us interact with course
+
+24
+00:00:57,115 --> 00:00:59,855
+goals. For example, I'll add a create method
+
+25
+00:01:00,480 --> 00:01:01,201
+which gets the
+
+26
+00:01:01,922 --> 00:01:04,004
+text, which should be a string, as an
+
+27
+00:01:04,004 --> 00:01:04,501
+argument.
+
+28
+00:01:05,607 --> 00:01:07,497
+And then in here, I want to create a new
+
+29
+00:01:07,609 --> 00:01:08,122
+course goal.
+
+30
+00:01:08,651 --> 00:01:10,301
+Now, telling by the class name, you could
+
+31
+00:01:10,333 --> 00:01:12,416
+think that we actually want to instantiate
+
+32
+00:01:12,416 --> 00:01:12,560
+this,
+
+33
+00:01:13,137 --> 00:01:14,659
+but here I'll actually use a different
+
+34
+00:01:14,659 --> 00:01:16,710
+pattern which you see in a lot of libraries
+
+35
+00:01:16,742 --> 00:01:18,072
+that help you work with models.
+
+36
+00:01:18,889 --> 00:01:21,484
+I will just use this and its static methods
+
+37
+00:01:21,869 --> 00:01:24,275
+to allow the user to interact with course
+
+38
+00:01:24,275 --> 00:01:27,012
+goals in general, and I will simply manage
+
+39
+00:01:27,012 --> 00:01:29,346
+my goals in this file then. So here I'll
+
+40
+00:01:29,346 --> 00:01:32,051
+then have my goals, and that is the same
+
+41
+00:01:32,148 --> 00:01:34,050
+format we know here from the routes file.
+
+42
+00:01:34,584 --> 00:01:37,576
+So it's an array of goals in this format.
+
+43
+00:01:38,304 --> 00:01:39,873
+So we can copy that code here,
+
+44
+00:01:42,428 --> 00:01:44,428
+and in the create method, in that static
+
+45
+00:01:44,428 --> 00:01:46,991
+method, I now want to store a new goal.
+
+46
+00:01:47,587 --> 00:01:50,900
+So we can again go to goals.ts And there in
+
+47
+00:01:50,933 --> 00:01:52,681
+the create action,
+
+48
+00:01:53,507 --> 00:01:55,983
+I actually will copy this code here
+
+49
+00:01:59,572 --> 00:02:00,751
+and create my new goal
+
+50
+00:02:01,430 --> 00:02:02,077
+like this.
+
+51
+00:02:02,740 --> 00:02:05,004
+The name of course should be the text which
+
+52
+00:02:05,004 --> 00:02:06,161
+we're getting as an argument,
+
+53
+00:02:06,879 --> 00:02:09,015
+and then reach out to goals and simply push
+
+54
+00:02:09,015 --> 00:02:10,515
+my new goal to goals.
+
+55
+00:02:12,245 --> 00:02:13,698
+I will also add a
+
+56
+00:02:14,989 --> 00:02:16,799
+findAll method. Method
+
+57
+00:02:17,490 --> 00:02:19,402
+which simply returns goals,
+
+58
+00:02:20,238 --> 00:02:23,018
+but I will then call slice to return a copy
+
+59
+00:02:23,387 --> 00:02:25,299
+so that the original array is not
+
+60
+00:02:25,299 --> 00:02:27,790
+accessible, only a copy of it, so that the
+
+61
+00:02:27,790 --> 00:02:30,071
+original array can really only be
+
+62
+00:02:30,119 --> 00:02:33,269
+manipulated through the CourseGoal class, so
+
+63
+00:02:33,269 --> 00:02:35,502
+that the CourseGoal class basically is like
+
+64
+00:02:35,502 --> 00:02:38,346
+a gatekeeper to my data, so that all
+
+65
+00:02:38,458 --> 00:02:41,126
+manipulations really have to go through that
+
+66
+00:02:41,126 --> 00:02:45,509
+class and I enforce this clear structure of
+
+67
+00:02:45,558 --> 00:02:47,676
+using the model to manipulate data.
+
+68
+00:02:48,307 --> 00:02:50,232
+That's why findAll returns a copy.
+
+69
+00:02:52,212 --> 00:02:55,366
+We also might want to have a findById method
+
+70
+00:02:55,366 --> 00:02:55,706
+here
+
+71
+00:02:56,580 --> 00:02:59,540
+which simply takes the ID as a string as an
+
+72
+00:02:59,637 --> 00:03:00,074
+argument.
+
+73
+00:03:03,975 --> 00:03:05,759
+And then here I return the goal which was
+
+74
+00:03:05,874 --> 00:03:06,254
+found.
+
+75
+00:03:07,692 --> 00:03:10,900
+So I'll return goals.find and then have that
+
+76
+00:03:10,932 --> 00:03:13,456
+function that's executed on every goal and
+
+77
+00:03:13,472 --> 00:03:15,608
+compare its ID to the ID I get as an
+
+78
+00:03:15,624 --> 00:03:18,338
+argument. And this might return undefined,
+
+79
+00:03:19,173 --> 00:03:21,388
+but we have code for dealing with undefined
+
+80
+00:03:21,420 --> 00:03:24,198
+data here in our routing file, which will
+
+81
+00:03:24,311 --> 00:03:26,623
+change soon anyways, by the way. Of course,
+
+82
+00:03:26,639 --> 00:03:28,614
+this routes file needs to be changed soon.
+
+83
+00:03:29,770 --> 00:03:32,178
+So now we have findAll and findById, and we
+
+84
+00:03:32,178 --> 00:03:35,197
+got the create method. We also want an
+
+85
+00:03:35,309 --> 00:03:37,895
+update method. Whoops, update.
+
+86
+00:03:38,988 --> 00:03:41,007
+And there we need the ID of the goal that
+
+87
+00:03:41,007 --> 00:03:43,574
+should be updated and the new text, of
+
+88
+00:03:43,607 --> 00:03:43,914
+course.
+
+89
+00:03:45,448 --> 00:03:47,776
+And once we got both, we can find
+
+90
+00:03:48,704 --> 00:03:49,778
+the goal by ID
+
+91
+00:03:51,486 --> 00:03:52,153
+so we can get our

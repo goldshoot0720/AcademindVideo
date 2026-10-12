@@ -1,0 +1,455 @@
+1
+00:00:02,119 --> 00:00:04,704
+So let's connect a database, and I will
+
+2
+00:00:04,769 --> 00:00:07,932
+again use MongoDB, just as in the database
+
+3
+00:00:08,125 --> 00:00:10,903
+section. In that section, I show how to
+
+4
+00:00:11,657 --> 00:00:14,211
+get started with MongoDB, how it generally
+
+5
+00:00:14,307 --> 00:00:16,587
+works, and how the MongoDB
+
+6
+00:00:17,133 --> 00:00:19,285
+package works, which we can use with Mongo.
+
+7
+00:00:19,622 --> 00:00:21,372
+So definitely make sure you go through that
+
+8
+00:00:21,372 --> 00:00:23,010
+section to learn all about that.
+
+9
+00:00:23,797 --> 00:00:27,234
+Now here I got my cluster already up and
+
+10
+00:00:27,234 --> 00:00:27,458
+running.
+
+11
+00:00:28,037 --> 00:00:29,885
+I already configured the database and
+
+12
+00:00:29,981 --> 00:00:32,971
+network access as shown in the database
+
+13
+00:00:33,051 --> 00:00:36,780
+section. So I added a user and memorized the
+
+14
+00:00:36,780 --> 00:00:40,421
+password, and I ensured that my local IP is
+
+15
+00:00:40,680 --> 00:00:42,460
+unlocked under network access.
+
+16
+00:00:43,204 --> 00:00:44,645
+And with that, we can connect,
+
+17
+00:00:46,273 --> 00:00:48,946
+we can connect our application by using this
+
+18
+00:00:49,156 --> 00:00:49,832
+URL here.
+
+19
+00:00:51,185 --> 00:00:53,326
+Now for that, I will again add a helpers
+
+20
+00:00:53,439 --> 00:00:55,455
+file, which you don't have to do. I just
+
+21
+00:00:55,455 --> 00:00:56,212
+like this pattern.
+
+22
+00:00:56,773 --> 00:00:59,383
+And in there I'll add my db.ts file.
+
+23
+00:01:00,398 --> 00:01:02,170
+And in that db.ts file,
+
+24
+00:01:02,734 --> 00:01:04,135
+I want to import something from
+
+25
+00:01:04,135 --> 00:01:05,295
+https://deno.land/x/mongo.
+
+26
+00:01:09,412 --> 00:01:10,958
+And there I will pick a specific version
+
+27
+00:01:10,958 --> 00:01:12,276
+with @v0.7.0/mod.ts.
+
+28
+00:01:19,034 --> 00:01:19,721
+And from there
+
+29
+00:01:20,244 --> 00:01:21,798
+I import the Mongo
+
+30
+00:01:25,350 --> 00:01:26,320
+Client. With that imported,
+
+31
+00:01:26,900 --> 00:01:29,041
+we can create a new client here
+
+32
+00:01:30,136 --> 00:01:32,889
+by calling new MongoClient. And on this
+
+33
+00:01:32,953 --> 00:01:36,476
+client object, we can call connectWithURL
+
+34
+00:01:37,059 --> 00:01:40,250
+and feed in this URL which we copied here.
+
+35
+00:01:41,330 --> 00:01:43,137
+Now of course, fill in the blanks for a
+
+36
+00:01:43,282 --> 00:01:46,170
+username and password with the user you
+
+37
+00:01:46,347 --> 00:01:48,397
+created here and the password of that user.
+
+38
+00:01:49,493 --> 00:01:52,441
+And you can remove this /test thing here and
+
+39
+00:01:52,521 --> 00:01:54,268
+just have slash and then the query
+
+40
+00:01:54,364 --> 00:01:56,383
+parameters because we'll switch to a
+
+41
+00:01:56,383 --> 00:01:58,787
+different database in a different way
+
+42
+00:01:58,867 --> 00:01:59,235
+anyways.
+
+43
+00:02:00,309 --> 00:02:01,238
+Speaking of that,
+
+44
+00:02:02,568 --> 00:02:03,626
+I'll add a variable here,
+
+45
+00:02:05,020 --> 00:02:05,709
+actually here,
+
+46
+00:02:06,558 --> 00:02:07,231
+database,
+
+47
+00:02:07,760 --> 00:02:11,173
+which will store a value of type Database.
+
+48
+00:02:11,605 --> 00:02:14,137
+And Database is a type you can import from
+
+49
+00:02:14,185 --> 00:02:15,339
+that Mongo package.
+
+50
+00:02:17,070 --> 00:02:19,571
+So that is the type of the database
+
+51
+00:02:19,603 --> 00:02:22,344
+variable. And down here, I'll set database
+
+52
+00:02:22,424 --> 00:02:26,336
+equal to client.database and switch to the
+
+53
+00:02:26,913 --> 00:02:29,446
+learning-resources database.
+
+54
+00:02:30,263 --> 00:02:33,421
+And as mentioned in the database section, if
+
+55
+00:02:33,469 --> 00:02:36,547
+you don't have this database on MongoDB yet,
+
+56
+00:02:36,852 --> 00:02:39,432
+it will be created on the fly once you start
+
+57
+00:02:39,561 --> 00:02:40,202
+writing to it.
+
+58
+00:02:41,356 --> 00:02:43,408
+Now, why am I storing this in a variable
+
+59
+00:02:43,440 --> 00:02:46,566
+like that? Because I actually want to wrap
+
+60
+00:02:46,710 --> 00:02:46,887
+my
+
+61
+00:02:47,432 --> 00:02:50,047
+connection logic here into a function.
+
+62
+00:02:50,577 --> 00:02:52,470
+So I will move that all into a connect
+
+63
+00:02:52,470 --> 00:02:52,888
+function,
+
+64
+00:02:53,449 --> 00:02:55,936
+which is then exported and which we then can
+
+65
+00:02:55,936 --> 00:02:57,605
+call from inside App.ts.
+
+66
+00:02:58,424 --> 00:03:00,799
+And the database itself should be returned
+
+67
+00:03:00,991 --> 00:03:03,238
+by another function, getDb.
+
+68
+00:03:04,120 --> 00:03:05,276
+And here I wanna return
+
+69
+00:03:06,527 --> 00:03:07,057
+database.
+
+70
+00:03:07,731 --> 00:03:09,175
+Now that's a little bit of a different
+
+71
+00:03:09,175 --> 00:03:11,438
+pattern than what I used in the database
+
+72
+00:03:11,502 --> 00:03:12,080
+section.
+
+73
+00:03:12,625 --> 00:03:14,952
+There I returned a collection instead of the
+
+74
+00:03:14,952 --> 00:03:17,038
+entire database. And you could of course
+
+75
+00:03:17,182 --> 00:03:19,349
+again do that. I just want to show this
+
+76
+00:03:19,349 --> 00:03:21,645
+alternative which gives you a bit more
+
+77
+00:03:21,693 --> 00:03:23,780
+flexibility to switch to a different
+
+78
+00:03:23,780 --> 00:03:26,590
+collection in the place where you wanna work
+
+79
+00:03:26,590 --> 00:03:29,062
+with your database. Here we only work with
+
+80
+00:03:29,078 --> 00:03:31,166
+one collection so it wouldn't matter but if
+
+81
+00:03:31,166 --> 00:03:32,610
+you have a bigger app where you need
+
+82
+00:03:32,610 --> 00:03:35,147
+multiple collections, returning the database
+
+83
+00:03:35,500 --> 00:03:37,058
+and letting the place where you want to
+
+84
+00:03:37,250 --> 00:03:39,819
+access the database pick the collection with
+
+85
+00:03:39,835 --> 00:03:42,083
+which you wanna work there, that is another
+
+86
+00:03:42,083 --> 00:03:44,154
+pattern you could implement and that's the
+
+87
+00:03:44,154 --> 00:03:45,428
+pattern will have here.
+
+88
+00:03:48,193 --> 00:03:51,080
+Ultimately, I will then export getDb here as
+
+89
+00:03:51,178 --> 00:03:52,167
+my default.
+
+90
+00:03:53,789 --> 00:03:57,321
+Now with the db.ts file set up like this, in
+
+91
+00:03:57,659 --> 00:03:58,205
+app.ts,
+
+92
+00:03:59,025 --> 00:04:01,660
+I want to import connect
+
+93
+00:04:02,239 --> 00:04:02,689
+from
+
+94
+00:04:03,862 --> 00:04:08,291
+/helpers/db.ts and then simply call connect
+
+95
+00:04:08,291 --> 00:04:11,422
+here when our app starts up. Which it does
+
+96
+00:04:11,519 --> 00:04:13,798
+when the app.ts file is being executed.
+
+97
+00:04:14,505 --> 00:04:16,271
+And that will ensure that database
+
+98
+00:04:16,271 --> 00:04:17,603
+connection is established.
+
+99
+00:04:18,743 --> 00:04:20,734
+Whilst we're here, we can also already
+
+100
+00:04:20,847 --> 00:04:21,746
+import our
+
+101
+00:04:22,275 --> 00:04:26,610
+resource routes from the routes folder, the
+
+102
+00:04:26,610 --> 00:04:27,863
+resources.ts file,
+
+103
+00:04:28,697 --> 00:04:31,411
+and register those routes as middleware with
+
+104
+00:04:31,507 --> 00:04:32,069
+app.use.
+
+105
+00:04:33,129 --> 00:04:35,553
+Then we have our resource routes and there
+
+106
+00:04:35,601 --> 00:04:37,351
+we have the routes method which we need to
+
+107
+00:04:37,367 --> 00:04:37,576
+call
+
+108
+00:04:38,170 --> 00:04:40,241
+and the allowed methods method.
+
+109
+00:04:41,478 --> 00:04:44,031
+With that, the routes are defined and the
+
+110
+00:04:44,111 --> 00:04:45,588
+database is set up.
+
+111
+00:04:46,198 --> 00:04:48,751
+Now with that, we need a model that
+
+112
+00:04:48,847 --> 00:04:51,192
+interacts with the database so that we
+
+113
+00:04:51,256 --> 00:04:53,889
+actually can store and fetch and so on
+
+114
+00:04:54,724 --> 00:04:55,286
+our data.

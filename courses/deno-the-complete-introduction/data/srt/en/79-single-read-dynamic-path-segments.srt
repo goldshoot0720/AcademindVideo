@@ -1,0 +1,1151 @@
+1
+00:00:02,198 --> 00:00:05,200
+So we got read and create built in. Now
+
+2
+00:00:05,489 --> 00:00:06,468
+regarding the read
+
+3
+00:00:07,415 --> 00:00:10,352
+operation, we might also have an application
+
+4
+00:00:10,769 --> 00:00:12,262
+where besides getting all
+
+5
+00:00:13,177 --> 00:00:15,408
+elements, so in this case besides getting
+
+6
+00:00:15,504 --> 00:00:16,210
+all goals,
+
+7
+00:00:16,788 --> 00:00:18,698
+we maybe just need a single goal.
+
+8
+00:00:19,308 --> 00:00:20,913
+So that's also something we could add.
+
+9
+00:00:21,683 --> 00:00:24,636
+And indeed I will add such a feature even
+
+10
+00:00:24,733 --> 00:00:26,835
+though in this application it doesn't make
+
+11
+00:00:26,835 --> 00:00:28,408
+too much sense because
+
+12
+00:00:29,250 --> 00:00:29,330
+Showing
+
+13
+00:00:30,232 --> 00:00:32,631
+all goals on in a list here is perfectly
+
+14
+00:00:32,664 --> 00:00:34,838
+fine and we don't really need to load a
+
+15
+00:00:35,015 --> 00:00:37,092
+single goal. Whilst we don't really need
+
+16
+00:00:37,092 --> 00:00:39,284
+this here, it's a good practice. So let's
+
+17
+00:00:39,429 --> 00:00:40,379
+actually start
+
+18
+00:00:40,958 --> 00:00:43,550
+by adding another read operation but for a
+
+19
+00:00:43,566 --> 00:00:44,242
+single
+
+20
+00:00:45,224 --> 00:00:45,369
+element.
+
+21
+00:00:47,290 --> 00:00:50,019
+And therefore I want another GET route, but
+
+22
+00:00:50,019 --> 00:00:52,764
+of course now the path should be different.
+
+23
+00:00:53,722 --> 00:00:54,175
+GET for
+
+24
+00:00:54,936 --> 00:00:57,008
+/nothing should get us all goals.
+
+25
+00:00:57,607 --> 00:00:58,789
+Now I want to get a single goal.
+
+26
+00:01:00,473 --> 00:01:01,468
+Well, let's see how we can
+
+27
+00:01:01,997 --> 00:01:03,617
+adjust the path in a second.
+
+28
+00:01:04,163 --> 00:01:06,505
+For the moment, let's write our function
+
+29
+00:01:06,505 --> 00:01:08,141
+here. We got the context,
+
+30
+00:01:08,718 --> 00:01:12,584
+and of course we want to return a template
+
+31
+00:01:12,584 --> 00:01:15,135
+in the end. So I'll turn this into an async
+
+32
+00:01:15,135 --> 00:01:15,584
+function
+
+33
+00:01:16,210 --> 00:01:18,969
+so that we can derive our body by awaiting
+
+34
+00:01:19,145 --> 00:01:20,413
+renderFileToString.
+
+35
+00:01:21,391 --> 00:01:23,477
+Now we need a file that can be rendered, and
+
+36
+00:01:23,557 --> 00:01:26,669
+for that I'll add a single course goal EJS
+
+37
+00:01:27,062 --> 00:01:29,137
+file. So the difference is that this is
+
+38
+00:01:29,234 --> 00:01:31,325
+course goal, not course goals.
+
+39
+00:01:32,249 --> 00:01:34,064
+And here I just want to render a single
+
+40
+00:01:34,421 --> 00:01:34,566
+goal.
+
+41
+00:01:36,902 --> 00:01:37,577
+Therefore, here
+
+42
+00:01:39,650 --> 00:01:41,707
+I'll have single goal as a title,
+
+43
+00:01:42,350 --> 00:01:45,660
+and then as a body, I want to, well, output
+
+44
+00:01:45,660 --> 00:01:46,755
+that single goal.
+
+45
+00:01:47,431 --> 00:01:51,506
+And maybe we load that single goal if a user
+
+46
+00:01:51,764 --> 00:01:53,873
+just clicks on the goal, then we want to
+
+47
+00:01:53,954 --> 00:01:56,735
+load it full screen. Which probably is a bit
+
+48
+00:01:56,863 --> 00:01:59,276
+overkill since we don't have any other
+
+49
+00:01:59,292 --> 00:02:01,576
+information to show for the goal, but as a
+
+50
+00:02:01,624 --> 00:02:03,250
+practice, that should be fine.
+
+51
+00:02:04,221 --> 00:02:06,357
+So here I then wanna show that single goal
+
+52
+00:02:06,389 --> 00:02:07,166
+full screen,
+
+53
+00:02:07,927 --> 00:02:09,659
+and for that I'll simply add a div here
+
+54
+00:02:10,516 --> 00:02:13,884
+in which we can output the title of that
+
+55
+00:02:13,884 --> 00:02:14,446
+single goal.
+
+56
+00:02:15,443 --> 00:02:16,407
+So here we could
+
+57
+00:02:18,174 --> 00:02:20,183
+expect a title property
+
+58
+00:02:20,970 --> 00:02:23,425
+or maybe goal text. That's totally up to you
+
+59
+00:02:23,635 --> 00:02:25,057
+because it will be you passing that
+
+60
+00:02:25,057 --> 00:02:25,348
+information
+
+61
+00:02:26,317 --> 00:02:28,404
+into the template after all.
+
+62
+00:02:29,261 --> 00:02:30,426
+Now to have some styling,
+
+63
+00:02:31,008 --> 00:02:34,471
+I will import app.css and attach to find an
+
+64
+00:02:34,568 --> 00:02:36,238
+updated version of app.css
+
+65
+00:02:36,840 --> 00:02:39,327
+which supports styling for the single goal
+
+66
+00:02:39,684 --> 00:02:41,477
+as long as you add the ID
+
+67
+00:02:43,486 --> 00:02:43,679
+goal
+
+68
+00:02:44,917 --> 00:02:47,730
+to it. So add the ID goal to this div and
+
+69
+00:02:47,891 --> 00:02:51,333
+add the import here and download the updated
+
+70
+00:02:51,510 --> 00:02:54,246
+app.css file and replace yours in the static
+
+71
+00:02:54,246 --> 00:02:55,839
+folder with the updated one.
+
+72
+00:02:56,821 --> 00:02:59,323
+And once you did that, we got our finished
+
+73
+00:02:59,323 --> 00:02:59,807
+template.
+
+74
+00:03:00,534 --> 00:03:03,229
+Now let's render that template for a single
+
+75
+00:03:03,359 --> 00:03:03,520
+goal.
+
+76
+00:03:04,490 --> 00:03:06,267
+And for that, here in goals.ts,
+
+77
+00:03:07,011 --> 00:03:08,126
+I wanna render
+
+78
+00:03:08,886 --> 00:03:09,371
+Deno
+
+79
+00:03:10,260 --> 00:03:15,944
+and get the current working directory plus
+
+80
+00:03:16,538 --> 00:03:19,961
+/views/course_goal.ejs
+
+81
+00:03:20,555 --> 00:03:23,265
+and pass in some data. And the data, the key
+
+82
+00:03:23,377 --> 00:03:24,980
+I wanna pass in here, of course should be
+
+83
+00:03:25,060 --> 00:03:27,078
+goalText because that's the key I'm
+
+84
+00:03:27,078 --> 00:03:28,568
+referring to in the template.
+
+85
+00:03:29,738 --> 00:03:30,074
+So here
+
+86
+00:03:30,827 --> 00:03:31,981
+in goals.ts,
+
+87
+00:03:32,525 --> 00:03:35,409
+it's then goalText and there it should be
+
+88
+00:03:35,409 --> 00:03:38,116
+the single goal text for that goal we're
+
+89
+00:03:38,116 --> 00:03:38,853
+looking for.
+
+90
+00:03:39,494 --> 00:03:41,705
+And that's the problem. How do we know which
+
+91
+00:03:41,801 --> 00:03:44,381
+goal the user is looking for? Currently, we
+
+92
+00:03:44,541 --> 00:03:45,951
+don't give any hint about this.
+
+93
+00:03:47,264 --> 00:03:49,651
+Well, I said that for a GET request, all the
+
+94
+00:03:49,747 --> 00:03:52,134
+data that should be passed from client to
+
+95
+00:03:52,134 --> 00:03:55,022
+server has to be part of the URL.
+
+96
+00:03:55,856 --> 00:03:58,296
+So we could imagine that we actually have,
+
+97
+00:03:59,195 --> 00:03:59,243
+uh,
+
+98
+00:03:59,917 --> 00:04:02,324
+a link here. We can click the goal, we got a
+
+99
+00:04:02,340 --> 00:04:03,367
+link behind that.
+
+100
+00:04:04,025 --> 00:04:06,882
+And when we click the goal, the URL maybe is
+
+101
+00:04:07,411 --> 00:04:10,493
+slash and then the ID of that goal,
+
+102
+00:04:11,151 --> 00:04:12,900
+ABC, or whatever the ID is.
+
+103
+00:04:13,751 --> 00:04:15,933
+So we have a different URL for every goal
+
+104
+00:04:16,463 --> 00:04:17,683
+because we have different IDs.
+
+105
+00:04:18,533 --> 00:04:18,902
+And here
+
+106
+00:04:19,434 --> 00:04:22,496
+we are able to extract that ID and use it.
+
+107
+00:04:23,180 --> 00:04:25,395
+And that's indeed something Oak supports.
+
+108
+00:04:26,200 --> 00:04:28,370
+Besides having hard-coded paths here,
+
+109
+00:04:29,006 --> 00:04:31,340
+you can also define dynamic segments.
+
+110
+00:04:32,200 --> 00:04:33,685
+You do this by adding a colon here
+
+111
+00:04:34,573 --> 00:04:36,865
+and then thereafter any name of your choice—
+
+112
+00:04:37,075 --> 00:04:38,480
+goal ID, for example.
+
+113
+00:04:40,126 --> 00:04:43,161
+And this is a dynamic segment which you'll
+
+114
+00:04:43,209 --> 00:04:45,453
+be able to extract. So you'll be able to
+
+115
+00:04:45,453 --> 00:04:48,893
+extract the concrete value that is in place
+
+116
+00:04:49,182 --> 00:04:51,163
+for this placeholder, so to say.
+
+117
+00:04:52,983 --> 00:04:55,222
+We can get this here and store it in an ID
+
+118
+00:04:55,222 --> 00:04:57,623
+constant. And we can get the concrete goal
+
+119
+00:04:57,736 --> 00:04:59,778
+that is part of the URL by reaching out to
+
+120
+00:04:59,778 --> 00:05:00,588
+the context.
+
+121
+00:05:01,122 --> 00:05:02,905
+And there we'll have a params object.
+
+122
+00:05:03,436 --> 00:05:07,987
+And on params, we'll find goal ID. This will
+
+123
+00:05:07,987 --> 00:05:10,601
+exist because that's the identifier I chose
+
+124
+00:05:10,617 --> 00:05:10,746
+here.
+
+125
+00:05:11,295 --> 00:05:12,812
+And if you chose a different identifier
+
+126
+00:05:12,812 --> 00:05:14,606
+here, you have to retrieve it by that
+
+127
+00:05:14,606 --> 00:05:15,894
+different identifier here.
+
+128
+00:05:16,806 --> 00:05:18,878
+So this is then the concrete value that was
+
+129
+00:05:19,056 --> 00:05:22,034
+entered by the user or set by the link the
+
+130
+00:05:22,050 --> 00:05:24,186
+user clicked in the URL.
+
+131
+00:05:25,950 --> 00:05:27,710
+And with that ID, we can reach out to the
+
+132
+00:05:27,710 --> 00:05:28,710
+course goals array
+
+133
+00:05:29,404 --> 00:05:32,536
+and find the goal that has that ID by using
+
+134
+00:05:32,568 --> 00:05:34,376
+the built-in find method, which takes a
+
+135
+00:05:34,424 --> 00:05:36,746
+function which is then executed on every
+
+136
+00:05:36,826 --> 00:05:37,729
+element in the array.
+
+137
+00:05:38,454 --> 00:05:40,275
+And that will simply loop through all goals,
+
+138
+00:05:40,387 --> 00:05:42,708
+and that function should return true if it's
+
+139
+00:05:42,708 --> 00:05:45,444
+the goal we're looking for. So if goal.id is
+
+140
+00:05:45,636 --> 00:05:48,026
+equal to the ID we extracted, then it's the
+
+141
+00:05:48,026 --> 00:05:50,353
+goal we're looking for. And there I'm just
+
+142
+00:05:50,369 --> 00:05:52,615
+interested in the text, so I will access
+
+143
+00:05:52,615 --> 00:05:53,048
+name here.
+
+144
+00:05:53,818 --> 00:05:56,128
+This, by the way, this, this question mark
+
+145
+00:05:56,128 --> 00:05:58,117
+which was inserted automatically by my IDE,
+
+146
+00:05:58,695 --> 00:06:01,085
+that's a special TypeScript syntax which
+
+147
+00:06:01,117 --> 00:06:01,839
+basically means
+
+148
+00:06:02,385 --> 00:06:03,219
+TypeScript
+
+149
+00:06:04,085 --> 00:06:05,898
+will check whether we do find
+
+150
+00:06:06,572 --> 00:06:06,845
+a goal,
+
+151
+00:06:08,016 --> 00:06:10,823
+and if we do, we retrieve the name. If we
+
+152
+00:06:10,903 --> 00:06:13,342
+don't, this overall expression will return
+
+153
+00:06:13,390 --> 00:06:13,583
+null.
+
+154
+00:06:14,275 --> 00:06:16,942
+So goal text could be null if we don't find
+
+155
+00:06:16,942 --> 00:06:17,556
+a fitting goal.
+
+156
+00:06:19,480 --> 00:06:21,476
+Of course, alternatively, you could also
+
+157
+00:06:21,525 --> 00:06:23,747
+first check if you find a goal, and if you
+
+158
+00:06:23,763 --> 00:06:25,937
+don't, you throw an error. And that's
+
+159
+00:06:25,937 --> 00:06:26,871
+actually what I'll do here.
+
+160
+00:06:27,580 --> 00:06:28,786
+So here I'll have my goal,
+
+161
+00:06:30,205 --> 00:06:31,868
+and I'll find it like
+
+162
+00:06:32,407 --> 00:06:32,684
+this,
+
+163
+00:06:33,252 --> 00:06:35,668
+but that could be undefined if I don't find
+
+164
+00:06:35,668 --> 00:06:38,408
+a goal in the array for that ID. So if goal
+
+165
+00:06:38,408 --> 00:06:38,651
+is
+
+166
+00:06:39,466 --> 00:06:39,530
+is
+
+167
+00:06:40,110 --> 00:06:42,382
+falsy, hence the exclamation mark, if it's
+
+168
+00:06:42,382 --> 00:06:44,508
+undefined, if I didn't find a goal, I'll
+
+169
+00:06:44,556 --> 00:06:48,068
+throw a new error where I say did not find
+
+170
+00:06:48,342 --> 00:06:48,551
+goal.
+
+171
+00:06:49,308 --> 00:06:51,802
+And if I throw an error here, the execution
+
+172
+00:06:51,802 --> 00:06:53,700
+of this function will stop and will
+
+173
+00:06:53,748 --> 00:06:56,033
+essentially end up in this error handling
+
+174
+00:06:56,065 --> 00:06:56,693
+middleware here.
+
+175
+00:06:59,178 --> 00:07:00,921
+So that's how we can retrieve the ID and
+
+176
+00:07:00,954 --> 00:07:04,049
+find a goal for that ID. And now at this
+
+177
+00:07:04,049 --> 00:07:06,421
+point, we know that we will have a matching
+
+178
+00:07:06,774 --> 00:07:06,967
+goal.
+
+179
+00:07:07,674 --> 00:07:09,199
+So here we can then access the name
+
+180
+00:07:09,809 --> 00:07:13,037
+and ultimately send our response back with a
+
+181
+00:07:13,037 --> 00:07:15,622
+body that is equal to the body we
+
+182
+00:07:16,392 --> 00:07:19,523
+got here, so equal to our rendered template.
+
+183
+00:07:19,941 --> 00:07:21,916
+And that's how we can get a single goal.
+
+184
+00:07:23,056 --> 00:07:24,678
+Now to see this in action, let's go back to
+
+185
+00:07:24,678 --> 00:07:25,609
+course goals
+
+186
+00:07:26,524 --> 00:07:27,760
+and let's add a link here
+
+187
+00:07:31,873 --> 00:07:33,675
+around the goal name.
+
+188
+00:07:36,121 --> 00:07:38,856
+And this link should lead to slash
+
+189
+00:07:39,499 --> 00:07:40,915
+and then the ID of that goal.
+
+190
+00:07:41,688 --> 00:07:44,152
+And every goal is an object with an ID. Of
+
+191
+00:07:44,184 --> 00:07:44,587
+course,
+
+192
+00:07:45,457 --> 00:07:48,838
+every goal is an object with an ID, so we
+
+193
+00:07:48,838 --> 00:07:50,144
+can safely access the ID.
+
+194
+00:07:50,792 --> 00:07:53,124
+And we can inject something into this URL
+
+195
+00:07:53,286 --> 00:07:53,416
+here
+
+196
+00:07:54,112 --> 00:07:56,915
+with EJS as well. So we use the regular EJS
+
+197
+00:07:57,028 --> 00:07:58,291
+injection syntax
+
+198
+00:07:58,960 --> 00:08:01,299
+Then here into that URL to which the link
+
+199
+00:08:01,299 --> 00:08:03,235
+leads, I'll inject goal.id.
+
+200
+00:08:04,900 --> 00:08:06,455
+Now if you save this and reload, you'll
+
+201
+00:08:06,455 --> 00:08:07,783
+notice something interesting.
+
+202
+00:08:08,496 --> 00:08:09,921
+Now all of a sudden
+
+203
+00:08:10,585 --> 00:08:11,687
+our styling is gone.
+
+204
+00:08:12,610 --> 00:08:13,663
+What could be the reason for that?
+
+205
+00:08:15,218 --> 00:08:17,960
+The reason for that is our new route which
+
+206
+00:08:17,960 --> 00:08:20,235
+we now added, this dynamic route with this
+
+207
+00:08:20,235 --> 00:08:21,171
+dynamic segment.
+
+208
+00:08:21,929 --> 00:08:24,365
+This handles any GET request to slash
+
+209
+00:08:24,836 --> 00:08:25,286
+anything,
+
+210
+00:08:26,121 --> 00:08:28,593
+and the anything part is then interpreted as
+
+211
+00:08:28,609 --> 00:08:28,882
+an ID.
+
+212
+00:08:30,376 --> 00:08:31,082
+The problem is
+
+213
+00:08:31,660 --> 00:08:33,137
+the request for our
+
+214
+00:08:33,940 --> 00:08:34,759
+stylesheet here
+
+215
+00:08:35,674 --> 00:08:38,195
+for app.css also technically is just a
+
+216
+00:08:38,195 --> 00:08:39,737
+request sent to
+
+217
+00:08:40,331 --> 00:08:40,973
+/app.css.
+
+218
+00:08:41,631 --> 00:08:45,035
+So app.css is now interpreted as an ID here
+
+219
+00:08:45,405 --> 00:08:46,818
+and therefore handled by this route.
+
+220
+00:08:47,717 --> 00:08:48,825
+Obviously not what we want.
+
+221
+00:08:50,238 --> 00:08:52,662
+Now, how can we work around that issue here?
+
+222
+00:08:53,256 --> 00:08:53,786
+Well, the
+
+223
+00:08:54,541 --> 00:08:56,548
+easiest workaround and the one that makes
+
+224
+00:08:56,548 --> 00:08:57,800
+the most sense, I'd say,
+
+225
+00:08:58,475 --> 00:08:59,438
+is to remove that
+
+226
+00:09:00,000 --> 00:09:02,778
+root configuration on our static file
+
+227
+00:09:03,003 --> 00:09:05,411
+serving function here in app.ts
+
+228
+00:09:06,359 --> 00:09:07,980
+and instead go back to our
+
+229
+00:09:08,912 --> 00:09:09,602
+templates
+
+230
+00:09:10,597 --> 00:09:14,547
+and change the path to /static/app.css
+
+231
+00:09:14,547 --> 00:09:14,869
+there.
+
+232
+00:09:15,817 --> 00:09:17,843
+With that, we change the request that's
+
+233
+00:09:17,843 --> 00:09:19,577
+being sent, and since it's now
+
+234
+00:09:19,723 --> 00:09:20,387
+/static.filename,
+
+235
+00:09:22,457 --> 00:09:23,798
+it no longer makes it in there,
+
+236
+00:09:24,331 --> 00:09:25,672
+which is not prepared to handle
+
+237
+00:09:25,705 --> 00:09:26,319
+/static.filename.
+
+238
+00:09:27,514 --> 00:09:28,417
+It just wants
+
+239
+00:09:29,008 --> 00:09:30,124
+/some identifier.
+
+240
+00:09:31,208 --> 00:09:31,717
+So with that,
+
+241
+00:09:33,308 --> 00:09:35,144
+if you reload, you got your styles back.
+
+242
+00:09:36,094 --> 00:09:37,512
+Now if we now finish the course,
+
+243
+00:09:38,365 --> 00:09:41,473
+we get an error because in course goals EJS,
+
+244
+00:09:41,505 --> 00:09:43,919
+of course, this shouldn't be goal ID It
+
+245
+00:09:43,919 --> 00:09:47,317
+should be goals for index i.id, just as
+
+246
+00:09:47,350 --> 00:09:48,265
+we're doing it for the name.
+
+247
+00:09:50,640 --> 00:09:51,027
+So if we now
+
+248
+00:09:51,559 --> 00:09:53,463
+update this, save it and reload,
+
+249
+00:09:54,640 --> 00:09:55,044
+if I now
+
+250
+00:09:55,737 --> 00:09:58,496
+finish the course, we get our element
+
+251
+00:09:58,496 --> 00:09:59,173
+rendered like this.
+
+252
+00:09:59,851 --> 00:10:00,754
+And if you click on it,
+
+253
+00:10:01,302 --> 00:10:03,510
+you see the goal here in full screen mode,
+
+254
+00:10:03,574 --> 00:10:06,587
+and you see the URL was updated and now
+
+255
+00:10:06,716 --> 00:10:08,779
+contains that ID of that goal.
+
+256
+00:10:09,442 --> 00:10:11,750
+And if you enter anything else, any invalid
+
+257
+00:10:11,750 --> 00:10:14,459
+ID, we get an error here because of our
+
+258
+00:10:14,636 --> 00:10:17,072
+error handling logic where we simply throw
+
+259
+00:10:17,136 --> 00:10:20,053
+an error here in the single goal getting
+
+260
+00:10:20,342 --> 00:10:22,907
+function in case we have an invalid ID.
+
+261
+00:10:23,548 --> 00:10:25,840
+Of course, you could also throw a NotFound
+
+262
+00:10:25,936 --> 00:10:28,324
+error here to make sure that the NotFound
+
+263
+00:10:28,421 --> 00:10:30,472
+checking in App.js again works.
+
+264
+00:10:31,402 --> 00:10:33,229
+And if you would want to do this, you just
+
+265
+00:10:33,229 --> 00:10:36,339
+would need to import HTTP error and status
+
+266
+00:10:36,756 --> 00:10:40,288
+from Oak. So these 2 extra objects now need
+
+267
+00:10:40,288 --> 00:10:40,963
+to be imported.
+
+268
+00:10:42,295 --> 00:10:44,126
+And then here you could create your own
+
+269
+00:10:44,222 --> 00:10:47,947
+error object by instantiating HTTP error,
+
+270
+00:10:48,895 --> 00:10:51,191
+and on that you could set the status to
+
+271
+00:10:51,785 --> 00:10:53,487
+status.not_found
+
+272
+00:10:54,177 --> 00:10:57,292
+and throw this custom error. And this error
+
+273
+00:10:57,629 --> 00:11:00,744
+will be of type HTTP error and will have the
+
+274
+00:11:00,744 --> 00:11:01,868
+not found status
+
+275
+00:11:02,462 --> 00:11:04,933
+And therefore our check here will work and
+
+276
+00:11:05,029 --> 00:11:06,762
+will show the not found page again.
+
+277
+00:11:07,917 --> 00:11:09,377
+So if I now reload here, we got the not
+
+278
+00:11:09,425 --> 00:11:09,970
+found page.
+
+279
+00:11:10,724 --> 00:11:11,254
+Otherwise,
+
+280
+00:11:12,265 --> 00:11:14,687
+it of course works as shown before.
+
+281
+00:11:15,778 --> 00:11:18,040
+So this is now an example for getting a
+
+282
+00:11:18,040 --> 00:11:18,955
+single goal
+
+283
+00:11:19,612 --> 00:11:21,955
+for a single read operation, a single
+
+284
+00:11:22,099 --> 00:11:24,538
+element read operation. And most
+
+285
+00:11:24,538 --> 00:11:25,131
+importantly,
+
+286
+00:11:25,725 --> 00:11:28,664
+it is a good example for dynamic path
+
+287
+00:11:28,859 --> 00:11:31,839
+segments when using the oak router, and
+
+288
+00:11:31,855 --> 00:11:33,361
+that's something you'll need a lot.

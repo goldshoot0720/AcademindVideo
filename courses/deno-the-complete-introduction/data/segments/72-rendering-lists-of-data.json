@@ -1,0 +1,482 @@
+[
+ {
+  "start": 2.265,
+  "end": 5.67,
+  "en": "Okay, so now that we got our template here"
+ },
+ {
+  "start": 5.879,
+  "end": 7.068,
+  "en": "with some styles attached,"
+ },
+ {
+  "start": 7.743,
+  "end": 10.538,
+  "en": "we can store our goals like finish the"
+ },
+ {
+  "start": 10.538,
+  "end": 13.349,
+  "en": "course, or we can send them at least. But of"
+ },
+ {
+  "start": 13.429,
+  "end": 16.0,
+  "en": "course, currently nothing happens. We're"
+ },
+ {
+  "start": 16.176,
+  "end": 18.152,
+  "en": "redirected back to all goals,"
+ },
+ {
+  "start": 18.731,
+  "end": 20.932,
+  "en": "and whilst the data arrives on the backend,"
+ },
+ {
+  "start": 20.98,
+  "end": 23.132,
+  "en": "we're not doing anything with it. Now that's"
+ },
+ {
+  "start": 23.165,
+  "end": 24.369,
+  "en": "something we want to change,"
+ },
+ {
+  "start": 24.916,
+  "end": 28.192,
+  "en": "and later in a separate section I will show"
+ },
+ {
+  "start": 28.208,
+  "end": 30.101,
+  "en": "you how you can store this kind of"
+ },
+ {
+  "start": 30.165,
+  "end": 31.48,
+  "en": "information in"
+ },
+ {
+  "start": 32.074,
+  "end": 32.764,
+  "en": "a database."
+ },
+ {
+  "start": 33.421,
+  "end": 35.731,
+  "en": "For the moment, we'll just store it in"
+ },
+ {
+  "start": 35.763,
+  "end": 38.539,
+  "en": "memory. So that means we'll just store it in"
+ },
+ {
+  "start": 38.587,
+  "end": 40.961,
+  "en": "some JavaScript constant or a variable,"
+ },
+ {
+  "start": 41.603,
+  "end": 44.442,
+  "en": "and therefore that will be lost whenever our"
+ },
+ {
+  "start": 44.442,
+  "end": 46.672,
+  "en": "server restarts because that's when the"
+ },
+ {
+  "start": 46.672,
+  "end": 49.239,
+  "en": "memory is cleared essentially. Nonetheless,"
+ },
+ {
+  "start": 49.56,
+  "end": 51.79,
+  "en": "this is good enough for now where I wanna"
+ },
+ {
+  "start": 51.79,
+  "end": 54.741,
+  "en": "focus on Oak in general and templating"
+ },
+ {
+  "start": 54.998,
+  "end": 57.709,
+  "en": "engines in general. Later, as I just said,"
+ },
+ {
+  "start": 57.87,
+  "end": 60.116,
+  "en": "we'll have a whole module dedicated to"
+ },
+ {
+  "start": 60.148,
+  "end": 61.961,
+  "en": "moving to a real database."
+ },
+ {
+  "start": 62.94,
+  "end": 65.572,
+  "en": "So therefore right now to store goals, I'll"
+ },
+ {
+  "start": 65.668,
+  "end": 67.321,
+  "en": "add a new constant here"
+ },
+ {
+  "start": 68.075,
+  "end": 69.728,
+  "en": "in this app.ts file"
+ },
+ {
+  "start": 70.643,
+  "end": 72.954,
+  "en": "and I'll name it courseGoals."
+ },
+ {
+  "start": 73.611,
+  "end": 75.553,
+  "en": "And that could simply be an array,"
+ },
+ {
+  "start": 76.099,
+  "end": 79.164,
+  "en": "an array of courseGoals and initially it's"
+ },
+ {
+  "start": 79.228,
+  "end": 79.886,
+  "en": "an empty array."
+ },
+ {
+  "start": 80.768,
+  "end": 83.737,
+  "en": "Now the idea is that whenever a new POST"
+ },
+ {
+  "start": 83.737,
+  "end": 86.706,
+  "en": "request arrives, we extract that goal and"
+ },
+ {
+  "start": 86.706,
+  "end": 89.754,
+  "en": "store that as a goal here in this array."
+ },
+ {
+  "start": 90.972,
+  "end": 93.408,
+  "en": "So we could actually rename the extracted"
+ },
+ {
+  "start": 94.018,
+  "end": 94.915,
+  "en": "title of the goal"
+ },
+ {
+  "start": 95.444,
+  "end": 95.621,
+  "en": "to"
+ },
+ {
+  "start": 96.15,
+  "end": 97.24,
+  "en": "newGoalTitle"
+ },
+ {
+  "start": 97.913,
+  "end": 99.115,
+  "en": "and then create a new goal"
+ },
+ {
+  "start": 99.836,
+  "end": 100.927,
+  "en": "object down there"
+ },
+ {
+  "start": 101.6,
+  "end": 104.293,
+  "en": "which maybe should have a title property or"
+ },
+ {
+  "start": 104.485,
+  "end": 107.034,
+  "en": "a name property, however you wanna name it,"
+ },
+ {
+  "start": 107.226,
+  "end": 107.884,
+  "en": "totally up to you."
+ },
+ {
+  "start": 108.653,
+  "end": 111.042,
+  "en": "And in there I'll store the newGoalTitle"
+ },
+ {
+  "start": 111.715,
+  "end": 115.017,
+  "en": "and maybe we also want an ID. This is also"
+ },
+ {
+  "start": 115.145,
+  "end": 117.646,
+  "en": "optional but it's realistic I would say that"
+ },
+ {
+  "start": 117.646,
+  "end": 120.66,
+  "en": "we would want to assign an ID to every newly"
+ },
+ {
+  "start": 120.612,
+  "end": 123.172,
+  "en": "created object. And hence here I'll add an"
+ },
+ {
+  "start": 123.447,
+  "end": 124.128,
+  "en": "ID field"
+ },
+ {
+  "start": 124.743,
+  "end": 126.995,
+  "en": "and use the built-in date constructor"
+ },
+ {
+  "start": 126.995,
+  "end": 129.91,
+  "en": "function to take the current date timestamp"
+ },
+ {
+  "start": 130.072,
+  "end": 130.881,
+  "en": "as an ID,"
+ },
+ {
+  "start": 131.448,
+  "end": 132.548,
+  "en": "convert this to"
+ },
+ {
+  "start": 134.539,
+  "end": 137.128,
+  "en": "an ISO string, and with that we have a"
+ },
+ {
+  "start": 137.209,
+  "end": 140.098,
+  "en": "unique ID. Theoretically, we could have 2"
+ },
+ {
+  "start": 140.276,
+  "end": 142.858,
+  "en": "goals being created at the same time, so"
+ },
+ {
+  "start": 142.874,
+  "end": 145.182,
+  "en": "it's not perfectly unique, but it's good"
+ },
+ {
+  "start": 145.182,
+  "end": 148.017,
+  "en": "enough for now for this dummy application"
+ },
+ {
+  "start": 148.017,
+  "end": 148.129,
+  "en": "here."
+ },
+ {
+  "start": 148.979,
+  "end": 151.142,
+  "en": "So with that, we have a new goal object, and"
+ },
+ {
+  "start": 151.238,
+  "end": 153.673,
+  "en": "that will now be added to course goals here"
+ },
+ {
+  "start": 154.106,
+  "end": 155.099,
+  "en": "in the POST route"
+ },
+ {
+  "start": 155.724,
+  "end": 157.182,
+  "en": "by pushing the new goal—"
+ },
+ {
+  "start": 158.047,
+  "end": 161.204,
+  "en": "whoops— the new goal object as a new element"
+ },
+ {
+  "start": 161.572,
+  "end": 162.454,
+  "en": "to that array."
+ },
+ {
+  "start": 163.399,
+  "end": 165.818,
+  "en": "And now again, that's just an array here,"
+ },
+ {
+  "start": 165.979,
+  "end": 168.59,
+  "en": "and that means that it will live as long as"
+ },
+ {
+  "start": 168.638,
+  "end": 169.712,
+  "en": "the application runs."
+ },
+ {
+  "start": 170.305,
+  "end": 173.205,
+  "en": "But whenever our server is shut down, this"
+ },
+ {
+  "start": 173.269,
+  "end": 175.963,
+  "en": "data will be lost here. It's not stored"
+ },
+ {
+  "start": 175.995,
+  "end": 178.838,
+  "en": "persistently, but this is fine for this"
+ },
+ {
+  "start": 178.87,
+  "end": 179.818,
+  "en": "dummy application."
+ },
+ {
+  "start": 180.348,
+  "end": 183.014,
+  "en": "So this is how I wanna store my goals for"
+ },
+ {
+  "start": 183.079,
+  "end": 183.641,
+  "en": "the moment."
+ },
+ {
+  "start": 184.573,
+  "end": 187.56,
+  "en": "Now, however, the interesting thing is that"
+ },
+ {
+  "start": 187.56,
+  "end": 189.198,
+  "en": "of course in our template here,"
+ },
+ {
+  "start": 189.953,
+  "end": 193.31,
+  "en": "I have this space which is actually reserved"
+ },
+ {
+  "start": 193.342,
+  "end": 195.816,
+  "en": "for course goals. I wanna output multiple"
+ },
+ {
+  "start": 195.896,
+  "end": 198.209,
+  "en": "course goals here. I wanna render multiple"
+ },
+ {
+  "start": 198.547,
+  "end": 201.773,
+  "en": "list items here, one list item per course"
+ },
+ {
+  "start": 201.773,
+  "end": 202.013,
+  "en": "goal."
+ },
+ {
+  "start": 202.734,
+  "end": 205.362,
+  "en": "And that's something we can also do with the"
+ },
+ {
+  "start": 205.522,
+  "end": 207.957,
+  "en": "EJS templating engine and language."
+ },
+ {
+  "start": 208.822,
+  "end": 211.209,
+  "en": "You saw how you can inject one single piece"
+ },
+ {
+  "start": 211.209,
+  "end": 213.1,
+  "en": "of data like the title here."
+ },
+ {
+  "start": 213.949,
+  "end": 216.865,
+  "en": "Now you can do more with EJS than just that."
+ },
+ {
+  "start": 217.698,
+  "end": 220.726,
+  "en": "And you can simply search for EJS to find"
+ },
+ {
+  "start": 220.758,
+  "end": 221.976,
+  "en": "their official webpage."
+ },
+ {
+  "start": 222.985,
+  "end": 225.501,
+  "en": "And there you can learn all about it and how"
+ },
+ {
+  "start": 225.661,
+  "end": 227.888,
+  "en": "it's used. And you can learn the different"
+ },
+ {
+  "start": 227.888,
+  "end": 230.275,
+  "en": "syntaxes it supports in detail."
+ },
+ {
+  "start": 230.839,
+  "end": 233.489,
+  "en": "These tags here are especially important"
+ },
+ {
+  "start": 233.683,
+  "end": 235.671,
+  "en": "because that's basically a list of the"
+ },
+ {
+  "start": 235.703,
+  "end": 237.044,
+  "en": "different kinds of"
+ },
+ {
+  "start": 237.804,
+  "end": 241.052,
+  "en": "commands or markers which you can add in"
+ },
+ {
+  "start": 241.181,
+  "end": 241.65,
+  "en": "your"
+ }
+]

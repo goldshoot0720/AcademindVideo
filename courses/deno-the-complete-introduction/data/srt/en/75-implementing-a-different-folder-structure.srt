@@ -1,0 +1,615 @@
+1
+00:00:02,211 --> 00:00:04,935
+So now we also have the NotFound error
+
+2
+00:00:04,983 --> 00:00:07,948
+handling. To now really conclude this basics
+
+3
+00:00:07,948 --> 00:00:08,557
+module here,
+
+4
+00:00:09,150 --> 00:00:10,800
+let's work on our code structure.
+
+5
+00:00:11,409 --> 00:00:13,781
+This is a simple app and having it all in
+
+6
+00:00:13,877 --> 00:00:15,784
+one file is perfectly fine.
+
+7
+00:00:16,457 --> 00:00:18,220
+But typically you're going to build bigger
+
+8
+00:00:18,284 --> 00:00:20,399
+apps than that and therefore you might wanna
+
+9
+00:00:20,399 --> 00:00:23,396
+split your code across multiple files to
+
+10
+00:00:23,428 --> 00:00:26,282
+keep every file on its own, small and
+
+11
+00:00:26,394 --> 00:00:28,946
+manageable so that it's easy to find what
+
+12
+00:00:28,946 --> 00:00:30,551
+you're looking for and you don't have to
+
+13
+00:00:30,551 --> 00:00:32,814
+scroll through super long files all the
+
+14
+00:00:32,814 --> 00:00:33,119
+time.
+
+15
+00:00:34,018 --> 00:00:36,554
+And for that, a common folder structure in
+
+16
+00:00:36,827 --> 00:00:39,844
+Node and therefore also in Deno projects is
+
+17
+00:00:39,892 --> 00:00:43,102
+that we have a separate folder named routes
+
+18
+00:00:43,231 --> 00:00:45,157
+or router— the name is up to you—
+
+19
+00:00:45,734 --> 00:00:47,917
+which will hold your routing logic.
+
+20
+00:00:48,688 --> 00:00:50,999
+And here I'll add my goals.ts file
+
+21
+00:00:51,577 --> 00:00:53,053
+and move my router here
+
+22
+00:00:54,225 --> 00:00:56,183
+and the routes which I configure on it
+
+23
+00:00:57,194 --> 00:00:58,686
+out of the app.ts file
+
+24
+00:00:59,280 --> 00:01:00,677
+into that goals.ts file.
+
+25
+00:01:01,945 --> 00:01:03,566
+That of course means that we also
+
+26
+00:01:04,496 --> 00:01:07,594
+need to copy that import, remove the router
+
+27
+00:01:07,722 --> 00:01:08,814
+import in app.ts,
+
+28
+00:01:09,648 --> 00:01:11,430
+and instead here in goals.ts
+
+29
+00:01:11,959 --> 00:01:12,778
+add the router.
+
+30
+00:01:14,126 --> 00:01:16,550
+Don't import the rest, but add the router
+
+31
+00:01:16,550 --> 00:01:17,737
+import from from Oak.
+
+32
+00:01:18,636 --> 00:01:20,594
+And of course, since I'm now rendering my
+
+33
+00:01:20,642 --> 00:01:21,316
+templates here,
+
+34
+00:01:22,006 --> 00:01:25,648
+I also want to import renderFileToString not
+
+35
+00:01:25,696 --> 00:01:28,553
+just in app.ts but also in goals.ts so that
+
+36
+00:01:28,585 --> 00:01:29,114
+this works.
+
+37
+00:01:30,350 --> 00:01:31,281
+And the course goals
+
+38
+00:01:31,858 --> 00:01:33,255
+should now also be managed there.
+
+39
+00:01:33,896 --> 00:01:36,143
+So I grab the course goals here and remove
+
+40
+00:01:36,143 --> 00:01:37,058
+them from app.ts
+
+41
+00:01:37,892 --> 00:01:40,684
+and instead add them here in the goals.ts
+
+42
+00:01:40,684 --> 00:01:42,080
+file in the routes folder.
+
+43
+00:01:42,642 --> 00:01:44,327
+Now with that, we have the routes
+
+44
+00:01:44,953 --> 00:01:45,949
+in one file
+
+45
+00:01:46,719 --> 00:01:49,561
+and our core app logic with the remaining
+
+46
+00:01:49,834 --> 00:01:52,002
+non-routing middleware in another file.
+
+47
+00:01:52,660 --> 00:01:54,732
+Of course, we still need to register our
+
+48
+00:01:54,732 --> 00:01:55,952
+routes as middleware though,
+
+49
+00:01:56,514 --> 00:01:58,842
+and therefore in goals.ts, I want to export
+
+50
+00:01:58,842 --> 00:02:01,620
+that router, and I will export it as the
+
+51
+00:02:01,716 --> 00:02:02,262
+default
+
+52
+00:02:03,402 --> 00:02:05,473
+object, as the default export here with
+
+53
+00:02:05,570 --> 00:02:06,886
+export default Router.
+
+54
+00:02:07,513 --> 00:02:10,328
+And in app.ts, we now need to import it. So
+
+55
+00:02:10,328 --> 00:02:12,096
+here we can now import our goals
+
+56
+00:02:12,686 --> 00:02:13,095
+router
+
+57
+00:02:13,832 --> 00:02:14,667
+from./routes/goals.ts.
+
+58
+00:02:19,790 --> 00:02:21,209
+You can pick any name you want here,
+
+59
+00:02:22,550 --> 00:02:24,750
+and that's how you import relative to the
+
+60
+00:02:24,750 --> 00:02:27,161
+current file by going into the routes folder
+
+61
+00:02:27,275 --> 00:02:28,699
+and having a look at goals.ts.
+
+62
+00:02:30,619 --> 00:02:32,670
+Now we can use the goals router down there
+
+63
+00:02:32,719 --> 00:02:33,825
+to get access to the routes
+
+64
+00:02:34,428 --> 00:02:35,388
+and the allowed methods.
+
+65
+00:02:38,209 --> 00:02:41,329
+We could also outsource the error handling
+
+66
+00:02:41,602 --> 00:02:43,436
+if we wanted to. I will leave it here though
+
+67
+00:02:43,789 --> 00:02:46,105
+so that my core middlewares are here, the
+
+68
+00:02:46,170 --> 00:02:47,932
+dummy middleware and the error handling one.
+
+69
+00:02:48,291 --> 00:02:50,168
+But you could also outsource that into a
+
+70
+00:02:50,168 --> 00:02:51,979
+separate file if you wanted to.
+
+71
+00:02:53,558 --> 00:02:55,484
+I however want to keep the code as it is,
+
+72
+00:02:55,921 --> 00:02:57,474
+but there still is something I want to do.
+
+73
+00:02:58,106 --> 00:03:00,598
+I want to put my templates into a folder and
+
+74
+00:03:00,679 --> 00:03:02,803
+we could name it templates. I will name it
+
+75
+00:03:02,883 --> 00:03:03,685
+views though
+
+76
+00:03:04,247 --> 00:03:06,300
+because that's the term you commonly use in
+
+77
+00:03:06,412 --> 00:03:07,069
+web development.
+
+78
+00:03:07,615 --> 00:03:10,261
+And I will move the 2 EJS files into the
+
+79
+00:03:10,261 --> 00:03:10,919
+views folder.
+
+80
+00:03:11,945 --> 00:03:13,629
+Now with that, of course, we need to update
+
+81
+00:03:13,629 --> 00:03:14,463
+our paths here
+
+82
+00:03:14,992 --> 00:03:19,644
+in app.ts. We now import from deno cwd, so
+
+83
+00:03:19,644 --> 00:03:21,600
+the root working directory here,
+
+84
+00:03:22,530 --> 00:03:24,503
+/views/not-found.ejs.
+
+85
+00:03:25,642 --> 00:03:26,973
+And in goals, it's the same.
+
+86
+00:03:27,583 --> 00:03:28,673
+There we also have
+
+87
+00:03:29,427 --> 00:03:30,999
+/views/course-goals.
+
+88
+00:03:31,610 --> 00:03:34,434
+It's all relative from the path in which we
+
+89
+00:03:34,966 --> 00:03:37,129
+execute the Deno command, which will always
+
+90
+00:03:37,161 --> 00:03:38,161
+be the root folder here.
+
+91
+00:03:40,360 --> 00:03:42,511
+Now I also wanna put my static files into a
+
+92
+00:03:42,511 --> 00:03:45,681
+separate folder, so I'll add a static folder
+
+93
+00:03:46,376 --> 00:03:48,980
+and move app.css into that static folder.
+
+94
+00:03:49,514 --> 00:03:51,476
+With that CSS file moved though,
+
+95
+00:03:52,087 --> 00:03:54,418
+we have to keep in mind that in course
+
+96
+00:03:54,418 --> 00:03:54,724
+goals,
+
+97
+00:03:55,383 --> 00:03:57,891
+I do import just app.css like this.
+
+98
+00:03:58,644 --> 00:04:00,322
+We now need to update this to
+
+99
+00:04:00,322 --> 00:04:04,194
+/static/app.css for this to work because
+
+100
+00:04:04,194 --> 00:04:06,679
+otherwise it will look for just app.css, but
+
+101
+00:04:06,776 --> 00:04:08,602
+this file like that does not exist anymore.
+
+102
+00:04:08,894 --> 00:04:11,878
+A path of just app.css in the root folder of
+
+103
+00:04:11,878 --> 00:04:13,905
+the project doesn't exist anymore.
+
+104
+00:04:14,894 --> 00:04:16,127
+With that all, if we go back,
+
+105
+00:04:18,090 --> 00:04:18,752
+we can reload
+
+106
+00:04:20,043 --> 00:04:22,449
+and the application still works just fine
+
+107
+00:04:23,757 --> 00:04:24,467
+as you can tell.
+
+108
+00:04:25,457 --> 00:04:26,322
+However, there's one
+
+109
+00:04:27,156 --> 00:04:29,944
+alternative to having the static app.css
+
+110
+00:04:29,944 --> 00:04:30,714
+file like this here.
+
+111
+00:04:31,403 --> 00:04:32,861
+You could also remove that here
+
+112
+00:04:33,631 --> 00:04:35,458
+and just point at app.css,
+
+113
+00:04:36,596 --> 00:04:38,134
+and therefore it would not work.
+
+114
+00:04:39,160 --> 00:04:42,414
+But then go to your send function and there
+
+115
+00:04:42,462 --> 00:04:45,106
+pass in a 3rd argument, which is an object
+
+116
+00:04:45,106 --> 00:04:46,917
+that allows you to configure that send
+
+117
+00:04:46,933 --> 00:04:47,334
+function.
+
+118
+00:04:48,232 --> 00:04:48,504
+And there
+
+119
+00:04:49,354 --> 00:04:51,726
+you can set the root directory to a
+
+120
+00:04:51,838 --> 00:04:53,569
+different directory than it would normally
+
+121
+00:04:53,665 --> 00:04:53,761
+be.
+
+122
+00:04:54,393 --> 00:04:56,882
+Normally it takes your project root as the
+
+123
+00:04:56,882 --> 00:04:59,210
+root directory, which means that if we're
+
+124
+00:04:59,226 --> 00:05:01,812
+requesting app.css like this, it will look
+
+125
+00:05:01,828 --> 00:05:03,089
+for it in the root folder.
+
+126
+00:05:03,843 --> 00:05:05,533
+We can change that. We could say that the
+
+127
+00:05:05,614 --> 00:05:07,547
+root folder is actually
+
+128
+00:05:08,149 --> 00:05:09,351
+static so
+
+129
+00:05:10,550 --> 00:05:12,737
+that it should take that static folder as
+
+130
+00:05:12,754 --> 00:05:13,434
+the root folder.
+
+131
+00:05:14,002 --> 00:05:16,643
+Now it will look for app.css in the static
+
+132
+00:05:16,643 --> 00:05:19,479
+folder automatically. Hence, if we save that
+
+133
+00:05:19,479 --> 00:05:19,949
+and reload
+
+134
+00:05:21,315 --> 00:05:24,017
+we got our styles back even though we're
+
+135
+00:05:24,017 --> 00:05:26,218
+still importing just app.css here.
+
+136
+00:05:26,995 --> 00:05:29,148
+So that simply is an alternative to updating
+
+137
+00:05:29,180 --> 00:05:31,377
+the import path here in the template. You
+
+138
+00:05:31,377 --> 00:05:34,150
+can either update it here or set a different
+
+139
+00:05:34,166 --> 00:05:36,650
+root folder here, whatever you personally
+
+140
+00:05:36,762 --> 00:05:37,166
+prefer.
+
+141
+00:05:38,992 --> 00:05:42,671
+And with that, we have all the core features
+
+142
+00:05:42,865 --> 00:05:46,012
+that you need to have in mind about Oak
+
+143
+00:05:46,422 --> 00:05:47,160
+covered. We
+
+144
+00:05:47,769 --> 00:05:50,239
+had a close look at all the core essentials
+
+145
+00:05:50,271 --> 00:05:52,789
+that make up Oak, and you can hopefully see
+
+146
+00:05:52,998 --> 00:05:56,494
+that building real web apps is way more fun
+
+147
+00:05:56,751 --> 00:05:59,397
+and realistic with a framework like Oak
+
+148
+00:05:59,718 --> 00:06:01,690
+because we can really focus on our core
+
+149
+00:06:01,819 --> 00:06:04,914
+business logic. We can have the HTML code in
+
+150
+00:06:05,010 --> 00:06:07,817
+a standalone file, and we don't have to do
+
+151
+00:06:08,057 --> 00:06:10,784
+all the low-level wiring up with Deno
+
+152
+00:06:10,864 --> 00:06:11,281
+itself.
+
+153
+00:06:11,939 --> 00:06:14,168
+So that's the route which will continue over
+
+154
+00:06:14,168 --> 00:06:15,098
+the next modules.

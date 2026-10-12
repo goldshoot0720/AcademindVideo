@@ -1,0 +1,583 @@
+1
+00:00:02,136 --> 00:00:04,625
+So now with delete in place, let's work on
+
+2
+00:00:04,625 --> 00:00:04,979
+the U,
+
+3
+00:00:05,637 --> 00:00:06,392
+on updating.
+
+4
+00:00:07,179 --> 00:00:09,267
+Now for updating, there are different
+
+5
+00:00:09,267 --> 00:00:11,789
+strategies. You could create a brand new
+
+6
+00:00:12,560 --> 00:00:14,857
+template which basically presents an
+
+7
+00:00:14,889 --> 00:00:17,266
+updating form, but I will keep it fairly
+
+8
+00:00:17,298 --> 00:00:19,675
+simple. I'll go to course goals
+
+9
+00:00:20,269 --> 00:00:23,000
+and actually copy this div which holds the
+
+10
+00:00:23,000 --> 00:00:24,349
+form for adding a new goal.
+
+11
+00:00:25,811 --> 00:00:27,899
+And then I'll go to course goal, to that
+
+12
+00:00:27,899 --> 00:00:30,677
+template And here, maybe above the deletion
+
+13
+00:00:30,773 --> 00:00:32,764
+button, below the goal name, I'll add that
+
+14
+00:00:32,796 --> 00:00:35,815
+form with the same IDs so that the styling
+
+15
+00:00:35,927 --> 00:00:38,705
+still applies. Actually, I'll add it
+
+16
+00:00:39,701 --> 00:00:40,953
+below the other div.
+
+17
+00:00:42,125 --> 00:00:44,261
+So now here we have a form, but now I don't
+
+18
+00:00:44,277 --> 00:00:46,188
+want to send a request to add goal
+
+19
+00:00:47,167 --> 00:00:50,009
+but to update goal because now we're not
+
+20
+00:00:50,202 --> 00:00:51,743
+adding a new goal, we're updating an
+
+21
+00:00:51,743 --> 00:00:52,418
+existing goal.
+
+22
+00:00:54,217 --> 00:00:56,319
+I will still use a POST method because
+
+23
+00:00:56,433 --> 00:00:57,850
+that's what we do for updating.
+
+24
+00:00:59,432 --> 00:01:01,258
+And then here, of course, I'll say update
+
+25
+00:01:01,291 --> 00:01:02,454
+goal on the button as well.
+
+26
+00:01:03,214 --> 00:01:03,683
+And here
+
+27
+00:01:04,540 --> 00:01:07,999
+I'll just change the name to goal text
+
+28
+00:01:07,999 --> 00:01:09,504
+maybe. The name is totally up to you, of
+
+29
+00:01:09,602 --> 00:01:11,836
+course. All of that is up to you. You just
+
+30
+00:01:11,901 --> 00:01:13,434
+need to change your code appropriately.
+
+31
+00:01:15,157 --> 00:01:16,548
+With that, if we save that,
+
+32
+00:01:19,363 --> 00:01:20,431
+if we reload,
+
+33
+00:01:21,604 --> 00:01:23,835
+and finish the course and click on that
+
+34
+00:01:23,835 --> 00:01:23,963
+goal,
+
+35
+00:01:24,733 --> 00:01:26,130
+here we have our updating form.
+
+36
+00:01:26,724 --> 00:01:28,104
+And there I want to make sure that when I
+
+37
+00:01:28,248 --> 00:01:29,259
+enter something here,
+
+38
+00:01:30,255 --> 00:01:33,111
+I basically update the existing goal
+
+39
+00:01:33,946 --> 00:01:35,776
+with that updated goal.
+
+40
+00:01:36,450 --> 00:01:38,713
+So I replace the text with the new text.
+
+41
+00:01:39,579 --> 00:01:41,794
+We might want to pre-populate that field
+
+42
+00:01:41,826 --> 00:01:42,805
+with the old text.
+
+43
+00:01:43,351 --> 00:01:44,603
+We can do this with the value
+
+44
+00:01:45,261 --> 00:01:46,497
+attribute on the input here.
+
+45
+00:01:47,428 --> 00:01:50,864
+And inject the old text here with EJS.
+
+46
+00:01:51,635 --> 00:01:53,915
+So that would be goal.name in this case.
+
+47
+00:01:55,071 --> 00:01:57,704
+But with that, let's go back to goals.ts and
+
+48
+00:01:57,784 --> 00:01:59,775
+let's add a new updating function
+
+49
+00:02:00,675 --> 00:02:02,248
+that will be a POST route.
+
+50
+00:02:03,083 --> 00:02:05,331
+And now the question is, what is the URL?
+
+51
+00:02:06,375 --> 00:02:08,847
+Well, the URL should be updateGoal because
+
+52
+00:02:08,960 --> 00:02:10,919
+that's where we're sending the request here.
+
+53
+00:02:12,858 --> 00:02:14,149
+So let's use this as a path.
+
+54
+00:02:15,295 --> 00:02:16,425
+And then here we have the
+
+55
+00:02:17,135 --> 00:02:17,764
+updating function,
+
+56
+00:02:19,140 --> 00:02:20,948
+our middleware function that should update a
+
+57
+00:02:20,948 --> 00:02:21,158
+goal.
+
+58
+00:02:21,739 --> 00:02:24,952
+Now we are able to extract the new goal name
+
+59
+00:02:25,533 --> 00:02:27,180
+from the goal text field here.
+
+60
+00:02:29,827 --> 00:02:32,218
+So we can parse the body just as we're doing
+
+61
+00:02:32,315 --> 00:02:32,574
+it
+
+62
+00:02:35,063 --> 00:02:35,434
+here
+
+63
+00:02:36,275 --> 00:02:38,214
+in the create router action.
+
+64
+00:02:39,023 --> 00:02:42,330
+We can parse the body with these 2 lines. So
+
+65
+00:02:42,330 --> 00:02:44,530
+we can copy that over into the update
+
+66
+00:02:44,562 --> 00:02:47,372
+function, turn this function into an async
+
+67
+00:02:47,372 --> 00:02:49,443
+one, of course, so that we can use await.
+
+68
+00:02:50,744 --> 00:02:53,827
+And now we got the updated goal title here
+
+69
+00:02:54,357 --> 00:02:58,692
+by accessing the goal text field or whatever
+
+70
+00:02:58,772 --> 00:02:59,623
+you are using
+
+71
+00:03:00,201 --> 00:03:01,293
+as an identifier here.
+
+72
+00:03:04,794 --> 00:03:06,624
+And now we need to identify the goal that
+
+73
+00:03:06,624 --> 00:03:08,727
+should be updated and replace it with the
+
+74
+00:03:08,727 --> 00:03:09,177
+new goal.
+
+75
+00:03:09,851 --> 00:03:11,617
+And that's the problem now. How do we
+
+76
+00:03:11,682 --> 00:03:12,549
+identify the goal?
+
+77
+00:03:13,785 --> 00:03:14,877
+By ID typically.
+
+78
+00:03:15,455 --> 00:03:18,280
+So we should make sure that the ID is also
+
+79
+00:03:18,280 --> 00:03:19,485
+sent to the server.
+
+80
+00:03:20,207 --> 00:03:21,989
+Now we could put the ID into the
+
+81
+00:03:22,600 --> 00:03:24,735
+URL, we could look for something like this,
+
+82
+00:03:25,104 --> 00:03:27,191
+that we have the goal ID as a segment in the
+
+83
+00:03:27,191 --> 00:03:28,733
+URL, and that would work.
+
+84
+00:03:29,343 --> 00:03:31,366
+But since we're sending and using the
+
+85
+00:03:31,430 --> 00:03:34,272
+request body anyways, we can also add the ID
+
+86
+00:03:34,336 --> 00:03:34,529
+there.
+
+87
+00:03:35,300 --> 00:03:36,938
+And I'll simply do that by adding a new
+
+88
+00:03:37,130 --> 00:03:39,571
+input here which type is hidden
+
+89
+00:03:40,117 --> 00:03:42,188
+so that the user can't see or edit it.
+
+90
+00:03:42,927 --> 00:03:44,741
+And there I'll set the value to
+
+91
+00:03:45,640 --> 00:03:48,627
+goal ID like this. And this will then also
+
+92
+00:03:48,627 --> 00:03:51,035
+be submitted as long as we give it a name,
+
+93
+00:03:51,116 --> 00:03:53,331
+which will be goal ID here in my case.
+
+94
+00:03:53,925 --> 00:03:55,836
+This will now also be submitted, but the
+
+95
+00:03:55,852 --> 00:03:57,442
+user can't really edit it.
+
+96
+00:03:59,904 --> 00:04:01,318
+And now if you go back to goals,
+
+97
+00:04:01,912 --> 00:04:03,808
+we can of course also extract
+
+98
+00:04:05,768 --> 00:04:06,025
+the
+
+99
+00:04:07,053 --> 00:04:10,000
+updated goal ID by reaching out to body
+
+100
+00:04:10,033 --> 00:04:11,311
+value and getting goal
+
+101
+00:04:11,958 --> 00:04:12,816
+ID like this.
+
+102
+00:04:13,819 --> 00:04:15,810
+And once we got that, we can find the goal
+
+103
+00:04:16,408 --> 00:04:17,509
+and update its name.
+
+104
+00:04:19,026 --> 00:04:20,954
+And a quick and dirty way of doing that is
+
+105
+00:04:20,987 --> 00:04:22,332
+to reach out to course goals,
+
+106
+00:04:22,996 --> 00:04:23,466
+find
+
+107
+00:04:24,714 --> 00:04:26,514
+a goal here by ID
+
+108
+00:04:28,571 --> 00:04:31,013
+by comparing it to updatedGoalId
+
+109
+00:04:32,186 --> 00:04:34,099
+and then setting its name equal to
+
+110
+00:04:34,888 --> 00:04:35,594
+the updatedGoalTitle.
+
+111
+00:04:38,396 --> 00:04:40,501
+Now of course we might not be able to find a
+
+112
+00:04:40,501 --> 00:04:41,626
+goal by that ID,
+
+113
+00:04:42,349 --> 00:04:43,538
+so I'll actually copy that
+
+114
+00:04:44,116 --> 00:04:47,458
+and store it in a separate constant and then
+
+115
+00:04:47,474 --> 00:04:50,658
+check if goal is falsy. So if we didn't find
+
+116
+00:04:50,658 --> 00:04:51,677
+a goal with that ID
+
+117
+00:04:52,384 --> 00:04:54,522
+In which case I'll again throw that NotFound
+
+118
+00:04:54,618 --> 00:04:56,611
+error. So here we can basically
+
+119
+00:04:57,270 --> 00:04:59,633
+copy this error throwing code from the
+
+120
+00:04:59,633 --> 00:05:01,288
+single element read operation
+
+121
+00:05:02,188 --> 00:05:02,863
+and add it here
+
+122
+00:05:04,132 --> 00:05:06,350
+so that once we're down there, we know that
+
+123
+00:05:06,350 --> 00:05:07,041
+we'll have a goal
+
+124
+00:05:07,651 --> 00:05:08,728
+and we can change its name
+
+125
+00:05:09,258 --> 00:05:10,724
+to the updated goal title.
+
+126
+00:05:12,389 --> 00:05:14,134
+And then we can again
+
+127
+00:05:15,152 --> 00:05:17,866
+redirect and redirect back to the starting
+
+128
+00:05:17,899 --> 00:05:18,109
+page.
+
+129
+00:05:18,652 --> 00:05:20,881
+Now the goal text should have changed.
+
+130
+00:05:24,610 --> 00:05:25,400
+So let's give this a try.
+
+131
+00:05:26,159 --> 00:05:27,418
+Let's save this
+
+132
+00:05:30,453 --> 00:05:32,487
+and go back to the starting page and reload.
+
+133
+00:05:33,886 --> 00:05:34,706
+Finish the course.
+
+134
+00:05:35,912 --> 00:05:37,166
+And now change this to
+
+135
+00:05:38,146 --> 00:05:38,886
+Master
+
+136
+00:05:39,834 --> 00:05:43,043
+Deno. Click Update Goal and you see Master
+
+137
+00:05:43,093 --> 00:05:43,657
+Deno here.
+
+138
+00:05:44,355 --> 00:05:47,370
+So this now really works. And now we got all
+
+139
+00:05:47,580 --> 00:05:50,547
+the CRUD operations in place. We got 2 read
+
+140
+00:05:50,547 --> 00:05:52,917
+operations, we got a create operation,
+
+141
+00:05:53,840 --> 00:05:55,035
+we got our new
+
+142
+00:05:58,135 --> 00:05:59,734
+update operation,
+
+143
+00:06:00,477 --> 00:06:02,237
+and we got the delete operation.
+
+144
+00:06:03,497 --> 00:06:05,591
+And we're doing all of that with real data
+
+145
+00:06:05,997 --> 00:06:08,141
+with help of dynamic segments, and most
+
+146
+00:06:08,141 --> 00:06:09,830
+importantly, of course, with Deno.

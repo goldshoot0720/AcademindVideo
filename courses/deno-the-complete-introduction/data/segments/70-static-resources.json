@@ -1,0 +1,897 @@
+[
+ {
+  "start": 2.055,
+  "end": 5.427,
+  "en": "So let's make our webpage a little bit more"
+ },
+ {
+  "start": 5.555,
+  "end": 8.253,
+  "en": "beautiful. And for that, we can add some CSS"
+ },
+ {
+  "start": 8.317,
+  "end": 8.911,
+  "en": "styling."
+ },
+ {
+  "start": 9.666,
+  "end": 11.817,
+  "en": "For this, at Hatch, you find the app.css"
+ },
+ {
+  "start": 11.833,
+  "end": 12.042,
+  "en": "file,"
+ },
+ {
+  "start": 12.716,
+  "end": 15.494,
+  "en": "which you can just drag and drop. So"
+ },
+ {
+  "start": 15.51,
+  "end": 17.405,
+  "en": "download and then drag and drop into your"
+ },
+ {
+  "start": 17.453,
+  "end": 18.336,
+  "en": "project folder."
+ },
+ {
+  "start": 19.364,
+  "end": 22.752,
+  "en": "And here I now want to add a link to import"
+ },
+ {
+  "start": 22.752,
+  "end": 24.566,
+  "en": "this app.css file like this."
+ },
+ {
+  "start": 26.026,
+  "end": 28.141,
+  "en": "The problem is if we just do this"
+ },
+ {
+  "start": 29.006,
+  "end": 31.297,
+  "en": "and we run our application, that's not going"
+ },
+ {
+  "start": 31.394,
+  "end": 31.89,
+  "en": "to work."
+ },
+ {
+  "start": 32.627,
+  "end": 35.255,
+  "en": "If we reload, you see it still looks the way"
+ },
+ {
+  "start": 35.255,
+  "end": 35.928,
+  "en": "it did before."
+ },
+ {
+  "start": 36.857,
+  "end": 38.924,
+  "en": "A reason for that can be found if we open up"
+ },
+ {
+  "start": 38.924,
+  "end": 39.757,
+  "en": "the developer tools"
+ },
+ {
+  "start": 40.526,
+  "end": 42.657,
+  "en": "under network. If we reload, we see a"
+ },
+ {
+  "start": 42.705,
+  "end": 45.749,
+  "en": "failing request for app.css. It gets back"
+ },
+ {
+  "start": 45.749,
+  "end": 48.73,
+  "en": "status code 404, so it's not found."
+ },
+ {
+  "start": 49.274,
+  "end": 51.806,
+  "en": "And the reason for that is simply that in"
+ },
+ {
+  "start": 51.982,
+  "end": 54.87,
+  "en": "our server, in our Deno server which in the"
+ },
+ {
+  "start": 54.87,
+  "end": 56.681,
+  "en": "end receives all requests,"
+ },
+ {
+  "start": 57.474,
+  "end": 60.336,
+  "en": "we got no route that would return that CSS"
+ },
+ {
+  "start": 60.369,
+  "end": 60.66,
+  "en": "file."
+ },
+ {
+  "start": 61.402,
+  "end": 63.529,
+  "en": "Now, this does not mean that we now need to"
+ },
+ {
+  "start": 63.722,
+  "end": 64.109,
+  "en": "add a new"
+ },
+ {
+  "start": 64.785,
+  "end": 65.511,
+  "en": "GET route"
+ },
+ {
+  "start": 66.477,
+  "end": 69.378,
+  "en": "for app.css. This is not what we need to do"
+ },
+ {
+  "start": 69.378,
+  "end": 69.7,
+  "en": "here."
+ },
+ {
+  "start": 72.069,
+  "end": 73.944,
+  "en": "We don't have to add this route"
+ },
+ {
+  "start": 74.656,
+  "end": 77.614,
+  "en": "because the CSS file, just like images and"
+ },
+ {
+  "start": 77.646,
+  "end": 79.796,
+  "en": "so on, which we might have on our page, is"
+ },
+ {
+  "start": 79.829,
+  "end": 81.009,
+  "en": "simply a static file."
+ },
+ {
+  "start": 81.602,
+  "end": 83.927,
+  "en": "We basically want to configure our server"
+ },
+ {
+  "start": 83.927,
+  "end": 87.744,
+  "en": "such that all those requests which are sent"
+ },
+ {
+  "start": 87.92,
+  "end": 91.031,
+  "en": "automatically from inside our HTML document,"
+ },
+ {
+  "start": 91.448,
+  "end": 94.174,
+  "en": "like CSS files, like JavaScript files, like"
+ },
+ {
+  "start": 94.27,
+  "end": 97.3,
+  "en": "images, that all those requests for static"
+ },
+ {
+  "start": 97.397,
+  "end": 100.924,
+  "en": "resources are just forwarded in the end and"
+ },
+ {
+  "start": 100.924,
+  "end": 103.362,
+  "en": "are just answered automatically by our"
+ },
+ {
+  "start": 103.426,
+  "end": 105.013,
+  "en": "server. That's what we want,"
+ },
+ {
+  "start": 105.575,
+  "end": 107.419,
+  "en": "and that's something we can easily implement"
+ },
+ {
+  "start": 107.419,
+  "end": 108.525,
+  "en": "here with Oak."
+ },
+ {
+  "start": 109.469,
+  "end": 112.454,
+  "en": "Oak returns a method or a function we can"
+ },
+ {
+  "start": 112.535,
+  "end": 114.939,
+  "en": "use for that, and that's the send function."
+ },
+ {
+  "start": 115.982,
+  "end": 118.764,
+  "en": "We can use the send function to send a file"
+ },
+ {
+  "start": 118.974,
+  "end": 121.949,
+  "en": "or send a resource in general back to the"
+ },
+ {
+  "start": 121.949,
+  "end": 123.68,
+  "en": "client when it's requested."
+ },
+ {
+  "start": 124.311,
+  "end": 126.295,
+  "en": "And for this, we need to register a new"
+ },
+ {
+  "start": 126.649,
+  "end": 127.147,
+  "en": "middleware."
+ },
+ {
+  "start": 128.016,
+  "end": 128.611,
+  "en": "I'll add it here,"
+ },
+ {
+  "start": 130.252,
+  "end": 131.426,
+  "en": "and this middleware"
+ },
+ {
+  "start": 133.228,
+  "end": 134.659,
+  "en": "now will basically"
+ },
+ {
+  "start": 135.887,
+  "end": 136.752,
+  "en": "call send."
+ },
+ {
+  "start": 137.729,
+  "end": 138.979,
+  "en": "Now we get our context here"
+ },
+ {
+  "start": 139.668,
+  "end": 142.439,
+  "en": "and send returns a promise which eventually"
+ },
+ {
+  "start": 142.536,
+  "end": 144.522,
+  "en": "resolves to a string or to undefined."
+ },
+ {
+  "start": 145.179,
+  "end": 148.015,
+  "en": "Now send also wants an argument."
+ },
+ {
+  "start": 148.56,
+  "end": 150.546,
+  "en": "It essentially needs to get access to the"
+ },
+ {
+  "start": 150.546,
+  "end": 153.254,
+  "en": "request and the response passed in one"
+ },
+ {
+  "start": 153.51,
+  "end": 155.818,
+  "en": "object which contains both request and"
+ },
+ {
+  "start": 155.85,
+  "end": 156.314,
+  "en": "response."
+ },
+ {
+  "start": 157.212,
+  "end": 159.935,
+  "en": "Now we got such an object, the context. It"
+ },
+ {
+  "start": 159.935,
+  "end": 162.563,
+  "en": "has access to both request and response so"
+ },
+ {
+  "start": 162.563,
+  "end": 164.951,
+  "en": "we can just forward the context to send."
+ },
+ {
+  "start": 166.268,
+  "end": 168.436,
+  "en": "But send wants more. It does not just want"
+ },
+ {
+  "start": 168.436,
+  "end": 171.182,
+  "en": "this object, it also wants to know for which"
+ },
+ {
+  "start": 171.407,
+  "end": 174.346,
+  "en": "path we should send back a response."
+ },
+ {
+  "start": 175.021,
+  "end": 177.333,
+  "en": "So the second argument here will be the"
+ },
+ {
+  "start": 177.333,
+  "end": 180.786,
+  "en": "context request, and there the URL object,"
+ },
+ {
+  "start": 180.866,
+  "end": 182.97,
+  "en": "and there the path name. That's the"
+ },
+ {
+  "start": 182.97,
+  "end": 185.877,
+  "en": "requested resource path in the end. So for"
+ },
+ {
+  "start": 185.877,
+  "end": 188.816,
+  "en": "the CSS file, this would essentially be— so"
+ },
+ {
+  "start": 188.816,
+  "end": 190.807,
+  "en": "for this file here, this would essentially"
+ },
+ {
+  "start": 190.92,
+  "end": 191.305,
+  "en": "be"
+ },
+ {
+  "start": 193.652,
+  "end": 195.638,
+  "en": "/app.css. That would be the path name here."
+ },
+ {
+  "start": 197.01,
+  "end": 199.013,
+  "en": "So we need to forward this to send as well,"
+ },
+ {
+  "start": 199.24,
+  "end": 201.357,
+  "en": "or pass this information to send as well."
+ },
+ {
+  "start": 203.142,
+  "end": 204.452,
+  "en": "And as a last argument,"
+ },
+ {
+  "start": 204.986,
+  "end": 205.536,
+  "en": "optionally,"
+ },
+ {
+  "start": 206.134,
+  "end": 209.336,
+  "en": "we can pass in an object where we provide"
+ },
+ {
+  "start": 209.369,
+  "end": 210.841,
+  "en": "extra information to send."
+ },
+ {
+  "start": 211.779,
+  "end": 213.735,
+  "en": "For example, whether the response should be"
+ },
+ {
+  "start": 213.735,
+  "end": 215.997,
+  "en": "gzipped, so if it should be minified to be"
+ },
+ {
+  "start": 215.997,
+  "end": 216.369,
+  "en": "smaller."
+ },
+ {
+  "start": 217.237,
+  "end": 220.448,
+  "en": "Or what our root folder is in which we wanna"
+ },
+ {
+  "start": 220.448,
+  "end": 222.857,
+  "en": "look. By default, it takes the root folder"
+ },
+ {
+  "start": 222.937,
+  "end": 224.109,
+  "en": "of this application,"
+ },
+ {
+  "start": 224.639,
+  "end": 227.272,
+  "en": "but if your static files are stored in a"
+ },
+ {
+  "start": 227.272,
+  "end": 229.327,
+  "en": "different folder, something we'll do in a"
+ },
+ {
+  "start": 229.375,
+  "end": 231.672,
+  "en": "second, then you should specify a root"
+ },
+ {
+  "start": 231.688,
+  "end": 232.025,
+  "en": "folder."
+ },
+ {
+  "start": 232.731,
+  "end": 234.273,
+  "en": "For the moment, we don't need it."
+ },
+ {
+  "start": 234.995,
+  "end": 237.837,
+  "en": "Now, by adding this middleware, we enable"
+ },
+ {
+  "start": 237.885,
+  "end": 241.177,
+  "en": "the browser to fetch static resources like"
+ },
+ {
+  "start": 241.177,
+  "end": 242.028,
+  "en": "CSS files."
+ },
+ {
+  "start": 243.327,
+  "end": 244.993,
+  "en": "Now, if we would leave it like this, it"
+ },
+ {
+  "start": 245.089,
+  "end": 245.987,
+  "en": "wouldn't work though"
+ },
+ {
+  "start": 246.531,
+  "end": 248.742,
+  "en": "because this middleware would run before our"
+ },
+ {
+  "start": 248.935,
+  "end": 251.45,
+  "en": "route functions and essentially that means"
+ },
+ {
+  "start": 251.514,
+  "end": 252.107,
+  "en": "that all"
+ },
+ {
+  "start": 252.716,
+  "end": 255.488,
+  "en": "incoming requests would be treated as"
+ },
+ {
+  "start": 255.584,
+  "end": 257.731,
+  "en": "requests for static resources"
+ },
+ {
+  "start": 258.308,
+  "end": 260.791,
+  "en": "and we would try to send back such a, well,"
+ },
+ {
+  "start": 260.807,
+  "end": 262.938,
+  "en": "static resource. And of course, for all"
+ },
+ {
+  "start": 263.067,
+  "end": 265.278,
+  "en": "those requests that normally would be"
+ },
+ {
+  "start": 265.278,
+  "end": 268.178,
+  "en": "handled by our routes, we won't find such a"
+ },
+ {
+  "start": 268.178,
+  "end": 270.165,
+  "en": "static resource. There is no addGoal"
+ },
+ {
+  "start": 270.181,
+  "end": 271.831,
+  "en": "function. File, for example."
+ },
+ {
+  "start": 272.744,
+  "end": 275.661,
+  "en": "Therefore, this should go after our routes"
+ },
+ {
+  "start": 275.885,
+  "end": 278.897,
+  "en": "so that our routes can kick in first and can"
+ },
+ {
+  "start": 278.897,
+  "end": 281.814,
+  "en": "try to handle the request first. And only if"
+ },
+ {
+  "start": 281.942,
+  "end": 283.352,
+  "en": "our routes fail"
+ },
+ {
+  "start": 283.881,
+  "end": 285.9,
+  "en": "and there is no route defined for the"
+ },
+ {
+  "start": 285.964,
+  "end": 289.056,
+  "en": "requested resource, this middleware kicks in"
+ },
+ {
+  "start": 289.473,
+  "end": 290.546,
+  "en": "and will help us out."
+ },
+ {
+  "start": 291.171,
+  "end": 293.847,
+  "en": "In addition, I mentioned that send returns a"
+ },
+ {
+  "start": 293.895,
+  "end": 294.408,
+  "en": "promise"
+ },
+ {
+  "start": 295.321,
+  "end": 297.709,
+  "en": "and we should await that promise."
+ },
+ {
+  "start": 299.024,
+  "end": 301.159,
+  "en": "Because what send does ultimately is"
+ },
+ {
+  "start": 301.753,
+  "end": 304.529,
+  "en": "it does not send back a response. Instead,"
+ },
+ {
+  "start": 304.577,
+  "end": 307.852,
+  "en": "it manipulates this response object on the"
+ },
+ {
+  "start": 307.852,
+  "end": 310.099,
+  "en": "context. That's why we're passing the"
+ },
+ {
+  "start": 310.099,
+  "end": 311.399,
+  "en": "context to send,"
+ },
+ {
+  "start": 312.169,
+  "end": 314.512,
+  "en": "and we need to wait for its manipulation to"
+ },
+ {
+  "start": 314.512,
+  "end": 317.257,
+  "en": "finish. If we don't await here, we're"
+ },
+ {
+  "start": 317.385,
+  "end": 320.274,
+  "en": "basically saying to Oak that we're fine and"
+ },
+ {
+  "start": 320.274,
+  "end": 322.649,
+  "en": "the response can be sent as soon as this"
+ },
+ {
+  "start": 322.762,
+  "end": 325.764,
+  "en": "line was executed. Not when all the actions"
+ },
+ {
+  "start": 325.924,
+  "end": 328.044,
+  "en": "started by that finished, but simply when"
+ },
+ {
+  "start": 328.236,
+  "end": 329.97,
+  "en": "this send function was"
+ },
+ {
+  "start": 330.548,
+  "end": 333.037,
+  "en": "executed, when the execution of send started"
+ },
+ {
+  "start": 333.037,
+  "end": 333.744,
+  "en": "to be precise."
+ },
+ {
+  "start": 334.418,
+  "end": 336.73,
+  "en": "And that's of course too early. We don't"
+ },
+ {
+  "start": 336.811,
+  "end": 339.075,
+  "en": "wanna send back a response just because we"
+ },
+ {
+  "start": 339.075,
+  "end": 342.896,
+  "en": "started this send process. We wanna await"
+ },
+ {
+  "start": 342.928,
+  "end": 346.156,
+  "en": "for this because ultimately send manipulates"
+ },
+ {
+  "start": 346.22,
+  "end": 348.676,
+  "en": "the response and we wanna give send the time"
+ },
+ {
+  "start": 348.709,
+  "end": 349.351,
+  "en": "to do so."
+ },
+ {
+  "start": 349.897,
+  "end": 351.23,
+  "en": "And it tells us once it's done"
+ },
+ {
+  "start": 351.761,
+  "end": 353.158,
+  "en": "with this promise here."
+ },
+ {
+  "start": 353.689,
+  "end": 355.617,
+  "en": "That's why we await the promise. This"
+ },
+ {
+  "start": 355.617,
+  "end": 358.412,
+  "en": "ensures that we wait until send is done, and"
+ },
+ {
+  "start": 358.428,
+  "end": 361.561,
+  "en": "only then we inform Oak that we are done"
+ },
+ {
+  "start": 361.561,
+  "end": 363.955,
+  "en": "with this middleware, and hence the response"
+ },
+ {
+  "start": 364.036,
+  "end": 365.707,
+  "en": "may be sent back to the client."
+ },
+ {
+  "start": 366.365,
+  "end": 368.695,
+  "en": "Once we do all of that and we reload, we"
+ },
+ {
+  "start": 368.695,
+  "end": 371.025,
+  "en": "should see this, which definitely looks"
+ },
+ {
+  "start": 371.041,
+  "end": 371.507,
+  "en": "nicer."
+ },
+ {
+  "start": 372.085,
+  "end": 374.254,
+  "en": "Not perfect though, and the simple reason"
+ },
+ {
+  "start": 374.254,
+  "end": 377.441,
+  "en": "for that is that I added one rule here in"
+ },
+ {
+  "start": 377.474,
+  "end": 380.603,
+  "en": "the CSS file that needs an ID being added,"
+ },
+ {
+  "start": 381.103,
+  "end": 383.491,
+  "en": "and it needs an ID being added on this div."
+ },
+ {
+  "start": 383.781,
+  "end": 385.895,
+  "en": "So make sure that on this div you add the"
+ },
+ {
+  "start": 386.008,
+  "end": 388.043,
+  "en": "add-goal-form ID."
+ },
+ {
+  "start": 390.384,
+  "end": 392.952,
+  "en": "And if you do that and reload, now you have"
+ },
+ {
+  "start": 392.952,
+  "end": 393.969,
+  "en": "that nicer look here."
+ },
+ {
+  "start": 396.183,
+  "end": 398.6,
+  "en": "So this is how you can send back static"
+ },
+ {
+  "start": 398.664,
+  "end": 401.226,
+  "en": "resources, and this will work for all CSS"
+ },
+ {
+  "start": 401.339,
+  "end": 403.965,
+  "en": "files, all JavaScript files, and all images"
+ },
+ {
+  "start": 403.997,
+  "end": 404.529,
+  "en": "you might have."
+ },
+ {
+  "start": 405.324,
+  "end": 409.0,
+  "en": "We basically use send to let Oak manipulate"
+ },
+ {
+  "start": 409.0,
+  "end": 412.227,
+  "en": "the response through the context object, and"
+ },
+ {
+  "start": 412.291,
+  "end": 413.768,
+  "en": "we wait until it's done with this"
+ },
+ {
+  "start": 413.816,
+  "end": 414.442,
+  "en": "manipulation."
+ },
+ {
+  "start": 415.1,
+  "end": 417.059,
+  "en": "And we also let it know for which kind of"
+ },
+ {
+  "start": 417.059,
+  "end": 419.692,
+  "en": "request, for which requested resource, it"
+ },
+ {
+  "start": 419.692,
+  "end": 420.944,
+  "en": "should do this manipulation."
+ },
+ {
+  "start": 421.763,
+  "end": 423.754,
+  "en": "As I mentioned, it is important that you do"
+ },
+ {
+  "start": 423.77,
+  "end": 426.322,
+  "en": "this after your routes were processed,"
+ },
+ {
+  "start": 426.675,
+  "end": 428.682,
+  "en": "because if you do it before the routes are"
+ },
+ {
+  "start": 428.682,
+  "end": 431.042,
+  "en": "processed, Oak will try to handle all"
+ },
+ {
+  "start": 431.492,
+  "end": 433.812,
+  "en": "incoming requests with this middleware, and"
+ },
+ {
+  "start": 433.828,
+  "end": 436.228,
+  "en": "that's not what we want. We only wanna"
+ },
+ {
+  "start": 436.228,
+  "end": 438.677,
+  "en": "handle the requests that are not handled by"
+ },
+ {
+  "start": 438.677,
+  "end": 441.078,
+  "en": "the routes because that will typically be"
+ },
+ {
+  "start": 441.078,
+  "end": 443.913,
+  "en": "the requests that are reaching out to static"
+ },
+ {
+  "start": 443.978,
+  "end": 444.59,
+  "en": "resources."
+ }
+]

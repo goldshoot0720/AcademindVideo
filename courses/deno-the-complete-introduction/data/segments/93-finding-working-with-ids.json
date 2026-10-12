@@ -1,0 +1,1042 @@
+[
+ {
+  "start": 2.137,
+  "end": 4.129,
+  "en": "So now that storing works, let's make sure"
+ },
+ {
+  "start": 4.129,
+  "end": 6.105,
+  "en": "we can also get data from the database."
+ },
+ {
+  "start": 6.523,
+  "end": 8.098,
+  "en": "Let's start with findAll."
+ },
+ {
+  "start": 8.628,
+  "end": 10.588,
+  "en": "Instead of returning goals slice,"
+ },
+ {
+  "start": 11.183,
+  "end": 13.481,
+  "en": "I now want to call getGoals collection."
+ },
+ {
+  "start": 14.557,
+  "end": 16.501,
+  "en": "Let TypeScript know that I know this won't"
+ },
+ {
+  "start": 16.501,
+  "end": 17.208,
+  "en": "be null."
+ },
+ {
+  "start": 18.494,
+  "end": 21.113,
+  "en": "And then there is a find method which we can"
+ },
+ {
+  "start": 21.225,
+  "end": 24.005,
+  "en": "execute. And find by default will find all"
+ },
+ {
+  "start": 24.198,
+  "end": 26.671,
+  "en": "the documents in a collection. There also"
+ },
+ {
+  "start": 26.767,
+  "end": 28.402,
+  "en": "are ways of setting a filter,"
+ },
+ {
+  "start": 28.931,
+  "end": 30.887,
+  "en": "of restricting the documents you wanna"
+ },
+ {
+  "start": 30.935,
+  "end": 33.452,
+  "en": "retrieve. But for this course where we wanna"
+ },
+ {
+  "start": 33.516,
+  "end": 36.594,
+  "en": "focus on Deno, we only need find. Again, I"
+ },
+ {
+  "start": 36.706,
+  "end": 39.271,
+  "en": "have a dedicated MongoDB course if you wanna"
+ },
+ {
+  "start": 39.271,
+  "end": 40.713,
+  "en": "learn all about MongoDB."
+ },
+ {
+  "start": 41.435,
+  "end": 43.679,
+  "en": "Here with find, we get all the documents"
+ },
+ {
+  "start": 44.336,
+  "end": 45.939,
+  "en": "and hence we can store them in a constant,"
+ },
+ {
+  "start": 46.163,
+  "end": 46.709,
+  "en": "goalDocs."
+ },
+ {
+  "start": 47.446,
+  "end": 49.722,
+  "en": "But of course, this is asynchronous code."
+ },
+ {
+  "start": 50.171,
+  "end": 52.351,
+  "en": "Querying the database can take a bit longer."
+ },
+ {
+  "start": 52.912,
+  "end": 54.547,
+  "en": "Hence, I wanna use await here"
+ },
+ {
+  "start": 55.797,
+  "end": 56.791,
+  "en": "and for that, of course,"
+ },
+ {
+  "start": 57.577,
+  "end": 60.911,
+  "en": "I'll add async here in front of findAll so"
+ },
+ {
+  "start": 60.911,
+  "end": 62.033,
+  "en": "that we can use await."
+ },
+ {
+  "start": 62.69,
+  "end": 64.918,
+  "en": "Now findAll, by the way, will no longer"
+ },
+ {
+  "start": 64.918,
+  "end": 66.489,
+  "en": "return just the docs"
+ },
+ {
+  "start": 67.017,
+  "end": 69.903,
+  "en": "or your array but instead it will return a"
+ },
+ {
+  "start": 69.903,
+  "end": 72.163,
+  "en": "promise that eventually resolves to such an"
+ },
+ {
+  "start": 72.163,
+  "end": 72.307,
+  "en": "array."
+ },
+ {
+  "start": 73.108,
+  "end": 74.519,
+  "en": "And speaking of that, we should return"
+ },
+ {
+  "start": 74.695,
+  "end": 77.356,
+  "en": "goalDocs here but again, the overall"
+ },
+ {
+  "start": 77.356,
+  "end": 80.45,
+  "en": "function will not directly return those docs"
+ },
+ {
+  "start": 80.402,
+  "end": 82.731,
+  "en": "but a promise that resolves to the docs."
+ },
+ {
+  "start": 83.357,
+  "end": 85.365,
+  "en": "And hence, we need to go to the place where"
+ },
+ {
+  "start": 85.365,
+  "end": 87.999,
+  "en": "we call findAll and change the code there as"
+ },
+ {
+  "start": 88.096,
+  "end": 88.224,
+  "en": "well."
+ },
+ {
+  "start": 88.754,
+  "end": 90.328,
+  "en": "And that would be the goals controller."
+ },
+ {
+  "start": 91.324,
+  "end": 91.581,
+  "en": "There"
+ },
+ {
+  "start": 92.69,
+  "end": 93.862,
+  "en": "in getAllGoals,"
+ },
+ {
+  "start": 94.601,
+  "end": 97.492,
+  "en": "I'm calling findAll here and I'm passing the"
+ },
+ {
+  "start": 97.508,
+  "end": 99.179,
+  "en": "result on to my template."
+ },
+ {
+  "start": 99.757,
+  "end": 102.279,
+  "en": "This won't work anymore because now findAll"
+ },
+ {
+  "start": 102.408,
+  "end": 105.572,
+  "en": "doesn't return just my documents or my,"
+ },
+ {
+  "start": 106.487,
+  "end": 108.863,
+  "en": "elements in general, it returns a promise"
+ },
+ {
+  "start": 108.911,
+  "end": 109.023,
+  "en": "now."
+ },
+ {
+  "start": 109.938,
+  "end": 111.64,
+  "en": "Hence, I wanna get my"
+ },
+ {
+  "start": 112.844,
+  "end": 113.759,
+  "en": "data or my"
+ },
+ {
+  "start": 114.369,
+  "end": 115.043,
+  "en": "goals here"
+ },
+ {
+  "start": 115.877,
+  "end": 118.606,
+  "en": "by calling findAll but by awaiting it"
+ },
+ {
+  "start": 119.248,
+  "end": 121.897,
+  "en": "so that we resolve that promise and get the"
+ },
+ {
+  "start": 121.977,
+  "end": 123.245,
+  "en": "actual documents in the end."
+ },
+ {
+  "start": 124.224,
+  "end": 126.279,
+  "en": "And now that will resolve the promise"
+ },
+ {
+  "start": 126.552,
+  "end": 127.964,
+  "en": "returned here by findAll,"
+ },
+ {
+  "start": 128.494,
+  "end": 130.42,
+  "en": "give us the documents that we fetch here,"
+ },
+ {
+  "start": 131.303,
+  "end": 133.598,
+  "en": "and pass those documents then on"
+ },
+ {
+  "start": 134.611,
+  "end": 136.905,
+  "en": "to goals in the template."
+ },
+ {
+  "start": 137.922,
+  "end": 140.991,
+  "en": "I will also console.log goals here so that"
+ },
+ {
+  "start": 140.991,
+  "end": 142.106,
+  "en": "we see what we're getting."
+ },
+ {
+  "start": 142.856,
+  "end": 143.888,
+  "en": "If I now save that"
+ },
+ {
+  "start": 146.002,
+  "end": 148.825,
+  "en": "and I reload this page, you see here's our"
+ },
+ {
+  "start": 148.825,
+  "end": 150.39,
+  "en": "goal. So loading seems to work,"
+ },
+ {
+  "start": 150.922,
+  "end": 153.245,
+  "en": "and in the console I also see that in the"
+ },
+ {
+  "start": 153.261,
+  "end": 156.129,
+  "en": "end what it fetched here was an array full"
+ },
+ {
+  "start": 156.178,
+  "end": 158.482,
+  "en": "of JavaScript objects where we have the name"
+ },
+ {
+  "start": 158.982,
+  "end": 160.835,
+  "en": "and this auto-generated ID."
+ },
+ {
+  "start": 161.917,
+  "end": 165.267,
+  "en": "And that's also pretty nice about that Mongo"
+ },
+ {
+  "start": 165.299,
+  "end": 168.008,
+  "en": "module which we're using. It's automatically"
+ },
+ {
+  "start": 168.088,
+  "end": 170.572,
+  "en": "giving us the data in formats that make"
+ },
+ {
+  "start": 170.572,
+  "end": 173.217,
+  "en": "sense to us. For example, if we query a"
+ },
+ {
+  "start": 173.217,
+  "end": 175.733,
+  "en": "collection and get all the documents, we get"
+ },
+ {
+  "start": 175.797,
+  "end": 178.201,
+  "en": "back an array full of objects, which is a"
+ },
+ {
+  "start": 178.201,
+  "end": 180.91,
+  "en": "great representation of that data structure"
+ },
+ {
+  "start": 180.99,
+  "end": 183.218,
+  "en": "in MongoDB in JavaScript."
+ },
+ {
+  "start": 183.971,
+  "end": 186.007,
+  "en": "Now with that, we have the name,"
+ },
+ {
+  "start": 186.536,
+  "end": 188.603,
+  "en": "but we see that of course one thing won't"
+ },
+ {
+  "start": 188.699,
+  "end": 189.677,
+  "en": "work in our template."
+ },
+ {
+  "start": 190.398,
+  "end": 190.607,
+  "en": "Here"
+ },
+ {
+  "start": 191.363,
+  "end": 194.21,
+  "en": "we in the end also need the ID, and the ID"
+ },
+ {
+  "start": 194.258,
+  "end": 196.558,
+  "en": "is now stored in a different field. It's now"
+ },
+ {
+  "start": 197.475,
+  "end": 200.372,
+  "en": "_id here, as you can see in the log. And"
+ },
+ {
+  "start": 200.452,
+  "end": 201.226,
+  "en": "then in there"
+ },
+ {
+  "start": 201.983,
+  "end": 204.288,
+  "en": "we actually have another object where the"
+ },
+ {
+  "start": 204.482,
+  "end": 207.448,
+  "en": "actual ID here— this is the auto-generated"
+ },
+ {
+  "start": 207.56,
+  "end": 208.85,
+  "en": "ID by MongoDB—"
+ },
+ {
+  "start": 209.45,
+  "end": 212.666,
+  "en": "where this ID is stored in a property with"
+ },
+ {
+  "start": 212.731,
+  "end": 213.819,
+  "en": "this strange name."
+ },
+ {
+  "start": 214.42,
+  "end": 216.638,
+  "en": "So actually this code here should now"
+ },
+ {
+  "start": 216.783,
+  "end": 218.723,
+  "en": "retrieve the ID in our template."
+ },
+ {
+  "start": 219.333,
+  "end": 221.77,
+  "en": "Let's try that, save it and reload."
+ },
+ {
+  "start": 222.716,
+  "end": 224.24,
+  "en": "And now if we click on Finish the Course,"
+ },
+ {
+  "start": 224.32,
+  "end": 227.72,
+  "en": "indeed this is loaded as an ID into the URL."
+ },
+ {
+  "start": 228.505,
+  "end": 230.093,
+  "en": "Of course, I don't find it yet though"
+ },
+ {
+  "start": 230.173,
+  "end": 232.354,
+  "en": "because we haven't implemented the code to"
+ },
+ {
+  "start": 232.483,
+  "end": 234.824,
+  "en": "find a single document. So let's do that"
+ },
+ {
+  "start": 234.824,
+  "end": 234.92,
+  "en": "now."
+ },
+ {
+  "start": 235.786,
+  "end": 237.31,
+  "en": "For that, in findById,"
+ },
+ {
+  "start": 238.015,
+  "end": 239.17,
+  "en": "I want to get my"
+ },
+ {
+  "start": 239.715,
+  "end": 240.549,
+  "en": "goalDoc"
+ },
+ {
+  "start": 241.239,
+  "end": 242.153,
+  "en": "by awaiting"
+ },
+ {
+  "start": 246.03,
+  "end": 246.593,
+  "en": "getGoalsCollection"
+ },
+ {
+  "start": 247.189,
+  "end": 248.736,
+  "en": "with an exclamation mark thereafter,"
+ },
+ {
+  "start": 249.428,
+  "end": 250.443,
+  "en": "findOne."
+ },
+ {
+  "start": 251.361,
+  "end": 254.454,
+  "en": "findOne wants an object which acts as a"
+ },
+ {
+  "start": 254.454,
+  "end": 257.262,
+  "en": "filter or which defines how to filter for"
+ },
+ {
+  "start": 257.262,
+  "end": 259.28,
+  "en": "that one document we want to retrieve."
+ },
+ {
+  "start": 259.845,
+  "end": 260.12,
+  "en": "And here"
+ },
+ {
+  "start": 260.959,
+  "end": 262.687,
+  "en": "I basically set the field"
+ },
+ {
+  "start": 263.22,
+  "end": 265.077,
+  "en": "on which I want to filter, for example"
+ },
+ {
+  "start": 265.74,
+  "end": 269.141,
+  "en": "_id, which is the field MongoDB uses for"
+ },
+ {
+  "start": 269.141,
+  "end": 270.907,
+  "en": "storing that auto-generated ID."
+ },
+ {
+  "start": 271.775,
+  "end": 273.766,
+  "en": "And the value for which I then wanna filter"
+ },
+ {
+  "start": 273.862,
+  "end": 274.714,
+  "en": "is the ID I'm getting."
+ },
+ {
+  "start": 275.308,
+  "end": 277.283,
+  "en": "And with that, I'm saying that I wanna find"
+ },
+ {
+  "start": 277.38,
+  "end": 280.945,
+  "en": "one document where the ID, the _id field,"
+ },
+ {
+  "start": 281.154,
+  "end": 283.418,
+  "en": "holds this ID as a value."
+ },
+ {
+  "start": 284.623,
+  "end": 286.614,
+  "en": "Now we then await for this to get that"
+ },
+ {
+  "start": 286.614,
+  "end": 289.152,
+  "en": "single document and return"
+ },
+ {
+  "start": 290.324,
+  "end": 291.111,
+  "en": "the goalDoc."
+ },
+ {
+  "start": 292.171,
+  "end": 293.649,
+  "en": "And of course, we should turn this into"
+ },
+ {
+  "start": 293.777,
+  "end": 294.661,
+  "en": "async function."
+ },
+ {
+  "start": 296.41,
+  "end": 298.64,
+  "en": "With that, we can go back to the controller"
+ },
+ {
+  "start": 298.993,
+  "end": 300.967,
+  "en": "and go to the place where we find a single"
+ },
+ {
+  "start": 300.999,
+  "end": 301.978,
+  "en": "document by ID."
+ },
+ {
+  "start": 302.604,
+  "end": 304.625,
+  "en": "And now we have to await this as well"
+ },
+ {
+  "start": 304.85,
+  "end": 306.984,
+  "en": "because now we get a promise that eventually"
+ },
+ {
+  "start": 307.016,
+  "end": 308.637,
+  "en": "resolves to that single document."
+ },
+ {
+  "start": 309.182,
+  "end": 311.621,
+  "en": "With that, if we now save all of that,"
+ },
+ {
+  "start": 312.793,
+  "end": 315.248,
+  "en": "I get an error here that the property name"
+ },
+ {
+  "start": 315.28,
+  "end": 316.964,
+  "en": "does not exist on type"
+ },
+ {
+  "start": 317.687,
+  "end": 318.537,
+  "en": "Promise.Any."
+ },
+ {
+  "start": 319.772,
+  "end": 321.602,
+  "en": "And that's in the end just an error thrown"
+ },
+ {
+  "start": 321.602,
+  "end": 322.613,
+  "en": "from inside the model"
+ },
+ {
+  "start": 323.466,
+  "end": 326.081,
+  "en": "here from the update method because there I"
+ },
+ {
+  "start": 326.13,
+  "end": 328.842,
+  "en": "also use this findById to get a single goal"
+ },
+ {
+  "start": 329.585,
+  "end": 331.667,
+  "en": "and I then update the name. And in"
+ },
+ {
+  "start": 332.024,
+  "end": 333.964,
+  "en": "TypeScript world, TypeScript doesn't know"
+ },
+ {
+  "start": 334.209,
+  "end": 336.328,
+  "en": "that the document we're fetching here will"
+ },
+ {
+  "start": 336.41,
+  "end": 337.421,
+  "en": "have a name field."
+ },
+ {
+  "start": 338.19,
+  "end": 340.559,
+  "en": "So therefore, actually here I wanna set the"
+ },
+ {
+  "start": 340.559,
+  "end": 341.922,
+  "en": "return type explicitly"
+ },
+ {
+  "start": 342.588,
+  "end": 344.357,
+  "en": "and make it clear that we'll return an"
+ },
+ {
+  "start": 344.454,
+  "end": 345.12,
+  "en": "object"
+ },
+ {
+  "start": 347.955,
+  "end": 348.166,
+  "en": "here"
+ },
+ {
+  "start": 348.784,
+  "end": 350.377,
+  "en": "which has a name field and an"
+ },
+ {
+  "start": 351.483,
+  "end": 352.296,
+  "en": "_id field."
+ },
+ {
+  "start": 352.833,
+  "end": 355.258,
+  "en": "Which then in turn holds an object as a type"
+ },
+ {
+  "start": 355.403,
+  "end": 357.105,
+  "en": "where we have that"
+ },
+ {
+  "start": 357.635,
+  "end": 357.989,
+  "en": "$oid"
+ },
+ {
+  "start": 358.519,
+  "end": 360.045,
+  "en": "field which holds a string which is the"
+ },
+ {
+  "start": 360.125,
+  "end": 360.8,
+  "en": "actual ID,"
+ },
+ {
+  "start": 361.892,
+  "end": 361.94,
+  "en": "or"
+ },
+ {
+  "start": 363.032,
+  "end": 365.506,
+  "en": "that we return undefined here. That's also"
+ },
+ {
+  "start": 365.683,
+  "end": 367.803,
+  "en": "an option that could also happen if we fail"
+ },
+ {
+  "start": 367.851,
+  "end": 370.485,
+  "en": "to find an object with that ID. With that,"
+ },
+ {
+  "start": 370.502,
+  "end": 372.574,
+  "en": "we clarify which kind of data will be"
+ },
+ {
+  "start": 372.574,
+  "end": 373.971,
+  "en": "returned by findById,"
+ },
+ {
+  "start": 374.517,
+  "end": 376.943,
+  "en": "and that helps all the places that use"
+ },
+ {
+  "start": 377.168,
+  "end": 380.344,
+  "en": "findById. For example, update. Now it knows"
+ },
+ {
+  "start": 380.376,
+  "end": 382.846,
+  "en": "that there will be a name field. The update"
+ },
+ {
+  "start": 382.846,
+  "end": 385.123,
+  "en": "method like this still won't work, but at"
+ },
+ {
+  "start": 385.171,
+  "end": 386.983,
+  "en": "least we should get rid of that error now."
+ },
+ {
+  "start": 388.217,
+  "end": 389.757,
+  "en": "And of course, I'm still getting an error"
+ },
+ {
+  "start": 389.757,
+  "end": 392.338,
+  "en": "because we don't directly return that data."
+ },
+ {
+  "start": 392.948,
+  "end": 395.289,
+  "en": "As it mentions correctly here, we return a"
+ },
+ {
+  "start": 395.289,
+  "end": 397.774,
+  "en": "promise that will resolve to the data, my"
+ },
+ {
+  "start": 397.774,
+  "end": 398.063,
+  "en": "bad."
+ },
+ {
+  "start": 398.592,
+  "end": 400.853,
+  "en": "So let me actually make this clear"
+ },
+ {
+  "start": 401.382,
+  "end": 403.948,
+  "en": "by adding promise here and then between"
+ },
+ {
+  "start": 404.172,
+  "end": 405.375,
+  "en": "angle brackets this type."
+ },
+ {
+  "start": 406.016,
+  "end": 408.756,
+  "en": "The type between angle brackets describes"
+ },
+ {
+  "start": 408.756,
+  "end": 410.598,
+  "en": "the type that the promise resolves to."
+ },
+ {
+  "start": 411.4,
+  "end": 413.242,
+  "en": "With that, we now return the proper type,"
+ },
+ {
+  "start": 413.466,
+  "end": 414.892,
+  "en": "and the error we're now getting"
+ },
+ {
+  "start": 415.549,
+  "end": 417.696,
+  "en": "makes sense because we're not awaiting"
+ },
+ {
+  "start": 417.728,
+  "end": 420.516,
+  "en": "findById. Hence, I try to call name on the"
+ },
+ {
+  "start": 420.516,
+  "end": 423.416,
+  "en": "promise itself, not on the value the promise"
+ },
+ {
+  "start": 423.416,
+  "end": 423.993,
+  "en": "resolves to."
+ },
+ {
+  "start": 424.554,
+  "end": 427.326,
+  "en": "So let's add await here and async here. And"
+ },
+ {
+  "start": 427.406,
+  "end": 429.44,
+  "en": "now with that, this code in update also"
+ },
+ {
+  "start": 429.489,
+  "end": 432.116,
+  "en": "should theoretically work. It won't really"
+ },
+ {
+  "start": 432.148,
+  "end": 433.975,
+  "en": "work, but it also won't throw an error"
+ },
+ {
+  "start": 433.975,
+  "end": 434.311,
+  "en": "anymore."
+ },
+ {
+  "start": 435.072,
+  "end": 436.911,
+  "en": "Now with all those changes, however,"
+ },
+ {
+  "start": 437.492,
+  "end": 439.572,
+  "en": "it still won't work. If we go back and click"
+ },
+ {
+  "start": 439.572,
+  "end": 442.105,
+  "en": "on Finish the Course, we'll not find that"
+ },
+ {
+  "start": 442.621,
+  "end": 442.863,
+  "en": "course."
+ },
+ {
+  "start": 443.686,
+  "end": 445.632,
+  "en": "And the reason for that is how we find by"
+ },
+ {
+  "start": 445.632,
+  "end": 445.958,
+  "en": "ID."
+ },
+ {
+  "start": 446.69,
+  "end": 448.479,
+  "en": "Keep in mind how our ID"
+ },
+ {
+  "start": 449.374,
+  "end": 450.903,
+  "en": "value actually looks like."
+ },
+ {
+  "start": 452.632,
+  "end": 454.938,
+  "en": "It looks like this, right? The ID that"
+ },
+ {
+  "start": 455.212,
+  "end": 458.1,
+  "en": "MongoDB generates is kind of a string, but"
+ },
+ {
+  "start": 458.1,
+  "end": 460.035,
+  "en": "in the end it's wrapped in another object."
+ },
+ {
+  "start": 460.783,
+  "end": 462.276,
+  "en": "And we have to keep this in mind when"
+ },
+ {
+  "start": 462.372,
+  "end": 463.351,
+  "en": "searching for an ID."
+ },
+ {
+  "start": 464.073,
+  "end": 466.786,
+  "en": "The value we are— we're looking for for the"
+ },
+ {
+  "start": 466.786,
+  "end": 469.322,
+  "en": "ID field is actually not just the ID string."
+ },
+ {
+  "start": 469.707,
+  "end": 471.81,
+  "en": "It should be that object with the"
+ },
+ {
+  "start": 472.339,
+  "end": 475.052,
+  "en": "$oid field, which then in turn has the"
+ },
+ {
+  "start": 475.052,
+  "end": 476.144,
+  "en": "string ID value."
+ },
+ {
+  "start": 476.737,
+  "end": 478.744,
+  "en": "And if we change our filter to that and"
+ },
+ {
+  "start": 478.904,
+  "end": 481.697,
+  "en": "respect the layout of the ID object"
+ },
+ {
+  "start": 482.291,
+  "end": 483.382,
+  "en": "MongoDB uses,"
+ },
+ {
+  "start": 484.297,
+  "end": 486.191,
+  "en": "if we now save all of that and click on"
+ },
+ {
+  "start": 486.304,
+  "end": 489.1,
+  "en": "Finish the Course, now we can load. That"
+ },
+ {
+  "start": 489.1,
+  "end": 489.328,
+  "en": "course."
+ },
+ {
+  "start": 489.928,
+  "end": 492.38,
+  "en": "So let's now work on updating and deleting."
+ }
+]

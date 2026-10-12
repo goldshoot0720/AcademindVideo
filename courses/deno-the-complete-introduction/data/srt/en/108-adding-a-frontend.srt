@@ -1,0 +1,391 @@
+1
+00:00:02,115 --> 00:00:04,905
+Now that we built our API and tested it with
+
+2
+00:00:04,921 --> 00:00:07,614
+Postman, let's also test it with a real
+
+3
+00:00:07,726 --> 00:00:09,906
+frontend app because that's the more
+
+4
+00:00:10,131 --> 00:00:11,461
+realistic use case
+
+5
+00:00:12,038 --> 00:00:14,683
+that you build an API which sits on a server
+
+6
+00:00:15,020 --> 00:00:17,504
+and then you want frontend apps to be able
+
+7
+00:00:17,504 --> 00:00:20,214
+to communicate with it, be that a mobile app
+
+8
+00:00:20,454 --> 00:00:22,907
+or a web app. And here I got a web app for
+
+9
+00:00:23,019 --> 00:00:23,083
+you
+
+10
+00:00:23,676 --> 00:00:26,417
+built with React, but you don't need to know
+
+11
+00:00:26,626 --> 00:00:28,886
+React to follow along because we're not
+
+12
+00:00:28,886 --> 00:00:31,210
+building it here. It already is built. We
+
+13
+00:00:31,210 --> 00:00:32,654
+just need to start using it. Started, and I
+
+14
+00:00:32,654 --> 00:00:33,906
+will show you how that works.
+
+15
+00:00:34,965 --> 00:00:37,565
+For that attached, you find a frontend zip
+
+16
+00:00:37,613 --> 00:00:39,892
+file, and you can download and extract this
+
+17
+00:00:40,357 --> 00:00:42,893
+and then simply drag the frontend folder
+
+18
+00:00:42,925 --> 00:00:43,679
+which is in there
+
+19
+00:00:44,915 --> 00:00:45,685
+into your
+
+20
+00:00:46,456 --> 00:00:47,386
+project folder
+
+21
+00:00:48,542 --> 00:00:50,355
+so that you have the frontend folder here
+
+22
+00:00:50,708 --> 00:00:53,742
+next to controllers and so on, on the root
+
+23
+00:00:53,742 --> 00:00:54,929
+level of your project.
+
+24
+00:00:55,507 --> 00:00:58,075
+Now in your terminal, open a new terminal
+
+25
+00:00:58,556 --> 00:01:01,829
+and cd into that frontend folder and then
+
+26
+00:01:01,925 --> 00:01:03,256
+run npm install.
+
+27
+00:01:04,026 --> 00:01:06,577
+This will install all the dependencies this
+
+28
+00:01:06,577 --> 00:01:08,951
+frontend project uses. It's not built with
+
+29
+00:01:08,983 --> 00:01:10,748
+Deno because it's not a server-side
+
+30
+00:01:10,748 --> 00:01:13,170
+application. It's actually a React
+
+31
+00:01:13,170 --> 00:01:16,218
+application set up with create-react-app,
+
+32
+00:01:16,539 --> 00:01:19,009
+and npm install simply downloads all the
+
+33
+00:01:19,009 --> 00:01:21,624
+dependencies this frontend app needs into
+
+34
+00:01:21,672 --> 00:01:24,319
+the frontend folder because there we don't
+
+35
+00:01:24,319 --> 00:01:27,495
+import from URLs as we do it in Deno.
+
+36
+00:01:27,848 --> 00:01:30,396
+Instead, we import from locally stored
+
+37
+00:01:30,429 --> 00:01:32,378
+dependencies. That's how frontend
+
+38
+00:01:32,378 --> 00:01:33,710
+development typically works.
+
+39
+00:01:34,506 --> 00:01:36,682
+So let's wait for npm install to finish
+
+40
+00:01:36,682 --> 00:01:36,926
+here.
+
+41
+00:01:38,512 --> 00:01:40,717
+And once this finished, you can run npm
+
+42
+00:01:40,766 --> 00:01:43,358
+start to run a little script which is part
+
+43
+00:01:43,358 --> 00:01:45,724
+of that frontend folder that starts up the
+
+44
+00:01:45,821 --> 00:01:48,220
+frontend application server. And before you
+
+45
+00:01:48,220 --> 00:01:50,673
+do that, wait a second because it will not
+
+46
+00:01:50,673 --> 00:01:52,787
+work like this. But first of all, let's talk
+
+47
+00:01:52,787 --> 00:01:54,595
+about the frontend server. This is
+
+48
+00:01:54,628 --> 00:01:55,015
+important.
+
+49
+00:01:55,823 --> 00:01:58,646
+Your frontend application runs on a
+
+50
+00:01:58,646 --> 00:02:02,464
+standalone server. Here with npm start, this
+
+51
+00:02:02,464 --> 00:02:04,806
+will be a little local development server.
+
+52
+00:02:05,287 --> 00:02:07,661
+But if you would deploy it later, it would
+
+53
+00:02:07,693 --> 00:02:10,196
+be a different server than your Deno app
+
+54
+00:02:10,324 --> 00:02:13,324
+runs on. You would be working with 2 servers
+
+55
+00:02:13,388 --> 00:02:15,730
+in the end. One server that serves your
+
+56
+00:02:15,778 --> 00:02:18,072
+frontend application, which in the end is a
+
+57
+00:02:18,120 --> 00:02:20,510
+single-page application, which means it's
+
+58
+00:02:20,590 --> 00:02:23,543
+one HTML file which doesn't hold a lot of
+
+59
+00:02:23,559 --> 00:02:26,626
+content but which does import JavaScript
+
+60
+00:02:26,626 --> 00:02:29,148
+then in the end and your entire app is then
+
+61
+00:02:29,276 --> 00:02:31,364
+built with JavaScript and it's the
+
+62
+00:02:31,364 --> 00:02:33,564
+browser-side JavaScript which is part of
+
+63
+00:02:33,613 --> 00:02:36,214
+that app that will then bring something onto
+
+64
+00:02:36,263 --> 00:02:36,760
+the screen.
+
+65
+00:02:37,306 --> 00:02:39,603
+And that single page and all that JavaScript
+
+66
+00:02:39,635 --> 00:02:42,671
+code will be served by one server and that
+
+67
+00:02:42,671 --> 00:02:45,015
+will be a different server than the server
+
+68
+00:02:45,096 --> 00:02:46,429
+your Deno app runs on.
+
+69
+00:02:47,103 --> 00:02:49,593
+And with npm start, you start such a server,
+
+70
+00:02:49,673 --> 00:02:51,841
+however, just a local development server.
+
+71
+00:02:51,986 --> 00:02:53,928
+Still, this will be a different server than
+
+72
+00:02:53,928 --> 00:02:54,811
+your Deno server.
+
+73
+00:02:55,517 --> 00:02:56,897
+And now here's why you should wait with
+
+74
+00:02:56,897 --> 00:03:01,392
+that. This server will also use port 3000 by
+
+75
+00:03:01,392 --> 00:03:01,889
+default.
+
+76
+00:03:02,916 --> 00:03:06,191
+Now our Deno server also uses this port, and
+
+77
+00:03:06,207 --> 00:03:07,620
+to avoid port clashes,
+
+78
+00:03:08,615 --> 00:03:09,690
+I will quit this here
+
+79
+00:03:10,220 --> 00:03:12,756
+and change the Deno port to 8000, which is
+
+80
+00:03:12,932 --> 00:03:14,650
+also a port you can typically use for
+
+81
+00:03:14,698 --> 00:03:15,212
+development.
+
+82
+00:03:16,062 --> 00:03:18,053
+With that, I'll restart the Deno app, which
+
+83
+00:03:18,149 --> 00:03:20,011
+now simply runs on a different port.
+
+84
+00:03:20,652 --> 00:03:23,329
+And now I can also run npm start inside of
+
+85
+00:03:23,378 --> 00:03:25,718
+the frontend folder, and this will now start
+
+86
+00:03:25,782 --> 00:03:26,936
+the development server here.
+
+87
+00:03:28,106 --> 00:03:29,261
+And once it's done,
+
+88
+00:03:30,735 --> 00:03:32,980
+you should actually see a page that looks
+
+89
+00:03:32,980 --> 00:03:33,589
+like this:
+
+90
+00:03:34,422 --> 00:03:37,003
+Easy Learn, and then an error occurred.
+
+91
+00:03:37,949 --> 00:03:39,648
+Now I'll come back to why we have an error
+
+92
+00:03:39,808 --> 00:03:40,786
+in just a second,
+
+93
+00:03:41,412 --> 00:03:43,976
+but this is now our running React
+
+94
+00:03:44,040 --> 00:03:44,778
+application.
+
+95
+00:03:45,579 --> 00:03:47,727
+Now you can't absolutely dive into that
+
+96
+00:03:47,727 --> 00:03:50,404
+React code in detail here if you know React.
+
+97
+00:03:50,773 --> 00:03:53,286
+This is not a React course, so I won't go
+
+98
+00:03:53,286 --> 00:03:55,099
+through the React course with you here.

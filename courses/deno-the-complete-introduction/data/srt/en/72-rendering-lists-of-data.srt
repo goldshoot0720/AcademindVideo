@@ -1,0 +1,383 @@
+1
+00:00:02,265 --> 00:00:05,670
+Okay, so now that we got our template here
+
+2
+00:00:05,879 --> 00:00:07,068
+with some styles attached,
+
+3
+00:00:07,743 --> 00:00:10,538
+we can store our goals like finish the
+
+4
+00:00:10,538 --> 00:00:13,349
+course, or we can send them at least. But of
+
+5
+00:00:13,429 --> 00:00:16,000
+course, currently nothing happens. We're
+
+6
+00:00:16,176 --> 00:00:18,152
+redirected back to all goals,
+
+7
+00:00:18,731 --> 00:00:20,932
+and whilst the data arrives on the backend,
+
+8
+00:00:20,980 --> 00:00:23,132
+we're not doing anything with it. Now that's
+
+9
+00:00:23,165 --> 00:00:24,369
+something we want to change,
+
+10
+00:00:24,916 --> 00:00:28,192
+and later in a separate section I will show
+
+11
+00:00:28,208 --> 00:00:30,101
+you how you can store this kind of
+
+12
+00:00:30,165 --> 00:00:31,480
+information in
+
+13
+00:00:32,074 --> 00:00:32,764
+a database.
+
+14
+00:00:33,421 --> 00:00:35,731
+For the moment, we'll just store it in
+
+15
+00:00:35,763 --> 00:00:38,539
+memory. So that means we'll just store it in
+
+16
+00:00:38,587 --> 00:00:40,961
+some JavaScript constant or a variable,
+
+17
+00:00:41,603 --> 00:00:44,442
+and therefore that will be lost whenever our
+
+18
+00:00:44,442 --> 00:00:46,672
+server restarts because that's when the
+
+19
+00:00:46,672 --> 00:00:49,239
+memory is cleared essentially. Nonetheless,
+
+20
+00:00:49,560 --> 00:00:51,790
+this is good enough for now where I wanna
+
+21
+00:00:51,790 --> 00:00:54,741
+focus on Oak in general and templating
+
+22
+00:00:54,998 --> 00:00:57,709
+engines in general. Later, as I just said,
+
+23
+00:00:57,870 --> 00:01:00,116
+we'll have a whole module dedicated to
+
+24
+00:01:00,148 --> 00:01:01,961
+moving to a real database.
+
+25
+00:01:02,940 --> 00:01:05,572
+So therefore right now to store goals, I'll
+
+26
+00:01:05,668 --> 00:01:07,321
+add a new constant here
+
+27
+00:01:08,075 --> 00:01:09,728
+in this app.ts file
+
+28
+00:01:10,643 --> 00:01:12,954
+and I'll name it courseGoals.
+
+29
+00:01:13,611 --> 00:01:15,553
+And that could simply be an array,
+
+30
+00:01:16,099 --> 00:01:19,164
+an array of courseGoals and initially it's
+
+31
+00:01:19,228 --> 00:01:19,886
+an empty array.
+
+32
+00:01:20,768 --> 00:01:23,737
+Now the idea is that whenever a new POST
+
+33
+00:01:23,737 --> 00:01:26,706
+request arrives, we extract that goal and
+
+34
+00:01:26,706 --> 00:01:29,754
+store that as a goal here in this array.
+
+35
+00:01:30,972 --> 00:01:33,408
+So we could actually rename the extracted
+
+36
+00:01:34,018 --> 00:01:34,915
+title of the goal
+
+37
+00:01:35,444 --> 00:01:35,621
+to
+
+38
+00:01:36,150 --> 00:01:37,240
+newGoalTitle
+
+39
+00:01:37,913 --> 00:01:39,115
+and then create a new goal
+
+40
+00:01:39,836 --> 00:01:40,927
+object down there
+
+41
+00:01:41,600 --> 00:01:44,293
+which maybe should have a title property or
+
+42
+00:01:44,485 --> 00:01:47,034
+a name property, however you wanna name it,
+
+43
+00:01:47,226 --> 00:01:47,884
+totally up to you.
+
+44
+00:01:48,653 --> 00:01:51,042
+And in there I'll store the newGoalTitle
+
+45
+00:01:51,715 --> 00:01:55,017
+and maybe we also want an ID. This is also
+
+46
+00:01:55,145 --> 00:01:57,646
+optional but it's realistic I would say that
+
+47
+00:01:57,646 --> 00:02:00,660
+we would want to assign an ID to every newly
+
+48
+00:02:00,612 --> 00:02:03,172
+created object. And hence here I'll add an
+
+49
+00:02:03,447 --> 00:02:04,128
+ID field
+
+50
+00:02:04,743 --> 00:02:06,995
+and use the built-in date constructor
+
+51
+00:02:06,995 --> 00:02:09,910
+function to take the current date timestamp
+
+52
+00:02:10,072 --> 00:02:10,881
+as an ID,
+
+53
+00:02:11,448 --> 00:02:12,548
+convert this to
+
+54
+00:02:14,539 --> 00:02:17,128
+an ISO string, and with that we have a
+
+55
+00:02:17,209 --> 00:02:20,098
+unique ID. Theoretically, we could have 2
+
+56
+00:02:20,276 --> 00:02:22,858
+goals being created at the same time, so
+
+57
+00:02:22,874 --> 00:02:25,182
+it's not perfectly unique, but it's good
+
+58
+00:02:25,182 --> 00:02:28,017
+enough for now for this dummy application
+
+59
+00:02:28,017 --> 00:02:28,129
+here.
+
+60
+00:02:28,979 --> 00:02:31,142
+So with that, we have a new goal object, and
+
+61
+00:02:31,238 --> 00:02:33,673
+that will now be added to course goals here
+
+62
+00:02:34,106 --> 00:02:35,099
+in the POST route
+
+63
+00:02:35,724 --> 00:02:37,182
+by pushing the new goal—
+
+64
+00:02:38,047 --> 00:02:41,204
+whoops— the new goal object as a new element
+
+65
+00:02:41,572 --> 00:02:42,454
+to that array.
+
+66
+00:02:43,399 --> 00:02:45,818
+And now again, that's just an array here,
+
+67
+00:02:45,979 --> 00:02:48,590
+and that means that it will live as long as
+
+68
+00:02:48,638 --> 00:02:49,712
+the application runs.
+
+69
+00:02:50,305 --> 00:02:53,205
+But whenever our server is shut down, this
+
+70
+00:02:53,269 --> 00:02:55,963
+data will be lost here. It's not stored
+
+71
+00:02:55,995 --> 00:02:58,838
+persistently, but this is fine for this
+
+72
+00:02:58,870 --> 00:02:59,818
+dummy application.
+
+73
+00:03:00,348 --> 00:03:03,014
+So this is how I wanna store my goals for
+
+74
+00:03:03,079 --> 00:03:03,641
+the moment.
+
+75
+00:03:04,573 --> 00:03:07,560
+Now, however, the interesting thing is that
+
+76
+00:03:07,560 --> 00:03:09,198
+of course in our template here,
+
+77
+00:03:09,953 --> 00:03:13,310
+I have this space which is actually reserved
+
+78
+00:03:13,342 --> 00:03:15,816
+for course goals. I wanna output multiple
+
+79
+00:03:15,896 --> 00:03:18,209
+course goals here. I wanna render multiple
+
+80
+00:03:18,547 --> 00:03:21,773
+list items here, one list item per course
+
+81
+00:03:21,773 --> 00:03:22,013
+goal.
+
+82
+00:03:22,734 --> 00:03:25,362
+And that's something we can also do with the
+
+83
+00:03:25,522 --> 00:03:27,957
+EJS templating engine and language.
+
+84
+00:03:28,822 --> 00:03:31,209
+You saw how you can inject one single piece
+
+85
+00:03:31,209 --> 00:03:33,100
+of data like the title here.
+
+86
+00:03:33,949 --> 00:03:36,865
+Now you can do more with EJS than just that.
+
+87
+00:03:37,698 --> 00:03:40,726
+And you can simply search for EJS to find
+
+88
+00:03:40,758 --> 00:03:41,976
+their official webpage.
+
+89
+00:03:42,985 --> 00:03:45,501
+And there you can learn all about it and how
+
+90
+00:03:45,661 --> 00:03:47,888
+it's used. And you can learn the different
+
+91
+00:03:47,888 --> 00:03:50,275
+syntaxes it supports in detail.
+
+92
+00:03:50,839 --> 00:03:53,489
+These tags here are especially important
+
+93
+00:03:53,683 --> 00:03:55,671
+because that's basically a list of the
+
+94
+00:03:55,703 --> 00:03:57,044
+different kinds of
+
+95
+00:03:57,804 --> 00:04:01,052
+commands or markers which you can add in
+
+96
+00:04:01,181 --> 00:04:01,650
+your

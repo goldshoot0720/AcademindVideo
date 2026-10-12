@@ -1,0 +1,447 @@
+1
+00:00:02,163 --> 00:00:04,973
+So let's make sure we use that model. I
+
+2
+00:00:05,038 --> 00:00:06,880
+wanna use it in the controller, of course.
+
+3
+00:00:07,574 --> 00:00:07,994
+So there
+
+4
+00:00:08,592 --> 00:00:09,739
+I will import
+
+5
+00:00:11,418 --> 00:00:13,130
+from models/LearningResource.ts
+
+6
+00:00:16,198 --> 00:00:18,665
+and I will simply import my LearningResource
+
+7
+00:00:18,778 --> 00:00:19,168
+class.
+
+8
+00:00:20,239 --> 00:00:22,025
+And now here in addResource,
+
+9
+00:00:23,297 --> 00:00:24,569
+I in the end wanna call
+
+10
+00:00:25,009 --> 00:00:28,368
+LearningResource.create and pass on my data.
+
+11
+00:00:28,686 --> 00:00:29,151
+However,
+
+12
+00:00:29,889 --> 00:00:32,698
+that data now needs to be extracted from the
+
+13
+00:00:32,714 --> 00:00:33,853
+incoming request.
+
+14
+00:00:34,880 --> 00:00:37,672
+And we can do this by using context.request
+
+15
+00:00:37,688 --> 00:00:39,983
+and then the body method. That's something
+
+16
+00:00:40,015 --> 00:00:42,342
+you also already learned in an earlier
+
+17
+00:00:42,342 --> 00:00:42,856
+section.
+
+18
+00:00:43,626 --> 00:00:46,916
+There we used it to extract the data sent by
+
+19
+00:00:46,916 --> 00:00:47,878
+submitting a form.
+
+20
+00:00:48,504 --> 00:00:51,296
+Now we will extract the data from a request
+
+21
+00:00:51,409 --> 00:00:55,116
+sent by some client app, so not sent through
+
+22
+00:00:55,116 --> 00:00:57,873
+some form. Form submission, but instead sent
+
+23
+00:00:58,466 --> 00:01:01,318
+as part of some JavaScript executing or sent
+
+24
+00:01:01,350 --> 00:01:02,296
+by a mobile app.
+
+25
+00:01:02,937 --> 00:01:05,244
+Therefore, the request body will be in JSON
+
+26
+00:01:05,340 --> 00:01:08,369
+format, and the body method is able to
+
+27
+00:01:08,481 --> 00:01:12,151
+detect this and convert the JSON format data
+
+28
+00:01:12,407 --> 00:01:15,180
+into a native JavaScript object with which
+
+29
+00:01:15,212 --> 00:01:17,183
+we can work. That's very convenient.
+
+30
+00:01:17,936 --> 00:01:20,244
+This is an asynchronous task though, hence
+
+31
+00:01:20,244 --> 00:01:21,590
+we need to await this
+
+32
+00:01:22,263 --> 00:01:25,275
+But ultimately we get our parsed body. So
+
+33
+00:01:25,371 --> 00:01:27,918
+here body will be an object which has
+
+34
+00:01:27,950 --> 00:01:31,187
+basically all the fields in the JSON object
+
+35
+00:01:31,459 --> 00:01:33,959
+as properties that can be accessed through
+
+36
+00:01:33,959 --> 00:01:34,808
+the dot notation.
+
+37
+00:01:35,561 --> 00:01:37,740
+Hence we can extract the title, for example,
+
+38
+00:01:38,108 --> 00:01:38,653
+on body,
+
+39
+00:01:39,326 --> 00:01:41,281
+and then all the data is in a value
+
+40
+00:01:41,649 --> 00:01:44,084
+property, and there with.title
+
+41
+00:01:44,838 --> 00:01:45,575
+and get the
+
+42
+00:01:46,600 --> 00:01:47,786
+description here with
+
+43
+00:01:47,882 --> 00:01:50,848
+body.value.description, for example. And
+
+44
+00:01:50,864 --> 00:01:52,938
+this of course will only work if the
+
+45
+00:01:52,954 --> 00:01:55,547
+incoming request has a title and description
+
+46
+00:01:55,871 --> 00:01:58,237
+and so on field in the JSON data.
+
+47
+00:01:59,130 --> 00:02:01,215
+So let's say we also want the image URL,
+
+48
+00:02:01,829 --> 00:02:03,947
+body.value.imageURL,
+
+49
+00:02:05,289 --> 00:02:07,633
+and we also want a resource URL,
+
+50
+00:02:10,420 --> 00:02:12,108
+body.value.url could be the field on which
+
+51
+00:02:12,140 --> 00:02:12,929
+we expect this.
+
+52
+00:02:14,071 --> 00:02:14,424
+And then
+
+53
+00:02:15,920 --> 00:02:18,220
+we want to pass this all bundled up in one
+
+54
+00:02:18,478 --> 00:02:22,449
+object to create. Because create wants one
+
+55
+00:02:22,562 --> 00:02:24,667
+data object which should have a title, a
+
+56
+00:02:24,731 --> 00:02:27,174
+description, image URL, and URL.
+
+57
+00:02:29,200 --> 00:02:29,588
+So in there
+
+58
+00:02:30,203 --> 00:02:31,580
+I add title and store the
+
+59
+00:02:32,227 --> 00:02:32,665
+title
+
+60
+00:02:33,928 --> 00:02:35,174
+constant value in there,
+
+61
+00:02:36,259 --> 00:02:38,913
+add a description with the desc value,
+
+62
+00:02:39,818 --> 00:02:43,197
+add an image URL with the image URL value,
+
+63
+00:02:43,796 --> 00:02:47,175
+and add a URL with the resource URL value.
+
+64
+00:02:47,977 --> 00:02:50,527
+This object is now passed on to create.
+
+65
+00:02:51,345 --> 00:02:54,040
+Create also returns a promise, so we can
+
+66
+00:02:54,232 --> 00:02:55,323
+also await here.
+
+67
+00:02:56,012 --> 00:02:58,386
+And what we'll get back, of course, is that
+
+68
+00:02:58,482 --> 00:03:01,706
+ID, this object with the ID. That is what
+
+69
+00:03:01,706 --> 00:03:04,336
+create returns as part of its promise. So
+
+70
+00:03:04,352 --> 00:03:06,373
+what the promise returned by create will
+
+71
+00:03:06,582 --> 00:03:07,656
+ultimately resolve to.
+
+72
+00:03:08,507 --> 00:03:09,116
+Hence here,
+
+73
+00:03:09,790 --> 00:03:12,035
+after we awaited the promise, we get the ID
+
+74
+00:03:12,452 --> 00:03:14,553
+and now we can set this on our response,
+
+75
+00:03:14,617 --> 00:03:16,157
+which we're sending back to the client.
+
+76
+00:03:16,846 --> 00:03:18,882
+We can add the body to that response here,
+
+77
+00:03:19,508 --> 00:03:21,303
+and that body should be an object now,
+
+78
+00:03:21,896 --> 00:03:24,125
+which will then again be automatically
+
+79
+00:03:24,237 --> 00:03:27,652
+translated to JSON. So here we set a normal
+
+80
+00:03:27,668 --> 00:03:30,088
+JavaScript object. This is not JSON. It
+
+81
+00:03:30,088 --> 00:03:32,814
+might look like it, but it is not JSON. JSON
+
+82
+00:03:32,814 --> 00:03:34,449
+is just text in the end. This is a
+
+83
+00:03:34,561 --> 00:03:35,539
+JavaScript object,
+
+84
+00:03:36,100 --> 00:03:39,242
+but the Oak package, the Oak module, will
+
+85
+00:03:39,451 --> 00:03:42,658
+automatically translate it to JSON. Whenever
+
+86
+00:03:42,658 --> 00:03:45,500
+you set a body that's an object, it will be
+
+87
+00:03:45,500 --> 00:03:46,849
+sent back as JSON.
+
+88
+00:03:47,571 --> 00:03:49,915
+Whenever you set a string, it will be sent
+
+89
+00:03:49,980 --> 00:03:52,597
+back as plain text unless that string
+
+90
+00:03:52,693 --> 00:03:55,664
+contains HTML content, then it would be sent
+
+91
+00:03:55,664 --> 00:03:56,964
+back as HTML code.
+
+92
+00:03:57,623 --> 00:03:59,260
+If you set an object, it's sent back as
+
+93
+00:03:59,357 --> 00:04:01,926
+JSON. And that's good because that's what we
+
+94
+00:04:01,942 --> 00:04:02,375
+want here.
+
+95
+00:04:03,066 --> 00:04:04,816
+And then we could, for example, add a key,
+
+96
+00:04:05,378 --> 00:04:05,924
+inserted
+
+97
+00:04:06,502 --> 00:04:07,160
+resource,
+
+98
+00:04:07,882 --> 00:04:10,079
+and set the ID which we get back here from
+
+99
+00:04:10,127 --> 00:04:11,972
+the create method as a value.
+
+100
+00:04:12,854 --> 00:04:15,564
+And now we have the AddResourceController
+
+101
+00:04:15,884 --> 00:04:19,493
+which extracts data, stores it, and sets a
+
+102
+00:04:19,493 --> 00:04:20,038
+response.
+
+103
+00:04:21,128 --> 00:04:24,368
+Side note, I do not validate the incoming
+
+104
+00:04:24,400 --> 00:04:24,817
+values.
+
+105
+00:04:25,346 --> 00:04:27,350
+You could of course add an if check and
+
+106
+00:04:27,447 --> 00:04:30,205
+check whether title, description, image URL,
+
+107
+00:04:30,494 --> 00:04:33,011
+or anything of that is empty. Here I will
+
+108
+00:04:33,124 --> 00:04:36,076
+not do it and instead just focus on the core
+
+109
+00:04:36,512 --> 00:04:38,776
+logic, which of course is all about the
+
+110
+00:04:38,776 --> 00:04:41,186
+extraction and storing it in the database.
+
+111
+00:04:43,150 --> 00:04:45,435
+Now let's also work on get resources.
+
+112
+00:04:46,203 --> 00:04:47,885
+There in this controller action,

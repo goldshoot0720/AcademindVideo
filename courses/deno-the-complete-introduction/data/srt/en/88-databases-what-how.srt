@@ -1,0 +1,571 @@
+1
+00:00:02,295 --> 00:00:05,536
+So let's reiterate how we can store data in
+
+2
+00:00:05,633 --> 00:00:06,515
+Deno apps.
+
+3
+00:00:07,157 --> 00:00:09,308
+In our app, we have a lot of data typically,
+
+4
+00:00:09,741 --> 00:00:11,234
+and we got a couple of different
+
+5
+00:00:11,571 --> 00:00:13,994
+alternatives when it comes to how we wanna
+
+6
+00:00:13,994 --> 00:00:15,198
+save that data.
+
+7
+00:00:16,000 --> 00:00:18,600
+Now, one alternative which we already are
+
+8
+00:00:18,793 --> 00:00:21,104
+using in basically any Deno app we're
+
+9
+00:00:21,136 --> 00:00:23,383
+building right from the start is that we
+
+10
+00:00:23,383 --> 00:00:27,009
+store data in variables or constants of that
+
+11
+00:00:27,057 --> 00:00:27,746
+application.
+
+12
+00:00:28,596 --> 00:00:30,728
+And this means that the data gets stored in
+
+13
+00:00:30,744 --> 00:00:33,213
+memory and that's really important because
+
+14
+00:00:33,405 --> 00:00:35,794
+the JavaScript engine and Deno in the end
+
+15
+00:00:35,890 --> 00:00:38,984
+therefore simply stores all the data you're
+
+16
+00:00:39,080 --> 00:00:41,548
+working with in your program in the memory
+
+17
+00:00:41,725 --> 00:00:44,274
+that's allocated to that program. The
+
+18
+00:00:44,290 --> 00:00:45,235
+advantage of this
+
+19
+00:00:45,812 --> 00:00:48,441
+is that this is super quick to access and
+
+20
+00:00:48,618 --> 00:00:50,125
+offers great performance.
+
+21
+00:00:50,862 --> 00:00:53,731
+The memory of your application or the memory
+
+22
+00:00:53,988 --> 00:00:57,146
+on your computer in general is super fast to
+
+23
+00:00:57,274 --> 00:01:00,111
+access and it's highly optimized for quick
+
+24
+00:01:00,159 --> 00:01:02,580
+access and for giving you great performance.
+
+25
+00:01:03,205 --> 00:01:05,546
+That's why the JavaScript engine does use
+
+26
+00:01:05,546 --> 00:01:08,110
+the memory for storing variables and not
+
+27
+00:01:08,110 --> 00:01:09,762
+temporary files, for example.
+
+28
+00:01:10,980 --> 00:01:13,801
+Now, the disadvantage, of course, is that
+
+29
+00:01:13,961 --> 00:01:16,959
+this data doesn't persist. It's lost after
+
+30
+00:01:17,071 --> 00:01:19,700
+every restart. Therefore, variables and
+
+31
+00:01:19,732 --> 00:01:21,720
+constants are, of course, what you typically
+
+32
+00:01:21,800 --> 00:01:24,429
+use for all those results, temporary
+
+33
+00:01:24,525 --> 00:01:27,266
+results, and intermediate results that you
+
+34
+00:01:27,266 --> 00:01:30,024
+derive in your application, for all the data
+
+35
+00:01:29,992 --> 00:01:31,113
+currently working with.
+
+36
+00:01:31,674 --> 00:01:33,822
+But any data that should last a bit longer,
+
+37
+00:01:34,078 --> 00:01:36,722
+for example, the products of an online shop
+
+38
+00:01:36,786 --> 00:01:39,831
+or user data, such data should be stored in
+
+39
+00:01:39,831 --> 00:01:41,049
+a more persistent way.
+
+40
+00:01:41,834 --> 00:01:43,757
+And one way of storing data more
+
+41
+00:01:43,773 --> 00:01:46,866
+persistently is to store it in files. So
+
+42
+00:01:46,962 --> 00:01:48,356
+using the file system,
+
+43
+00:01:48,965 --> 00:01:51,706
+we can create a new file and write data into
+
+44
+00:01:51,706 --> 00:01:53,949
+it. And of course, we can also read data
+
+45
+00:01:54,029 --> 00:01:54,622
+from a file.
+
+46
+00:01:55,472 --> 00:01:57,795
+So storing data in files is not too bad, but
+
+47
+00:01:57,955 --> 00:02:01,096
+it has one big disadvantage. It's relatively
+
+48
+00:02:01,096 --> 00:02:04,851
+slow. Offers bad performance. Now of course
+
+49
+00:02:05,316 --> 00:02:07,098
+it really comes down to the exact use case
+
+50
+00:02:07,098 --> 00:02:09,297
+and what you're writing and reading, but in
+
+51
+00:02:09,425 --> 00:02:11,961
+general you don't want to write data to
+
+52
+00:02:12,057 --> 00:02:14,673
+files which you then need to use right away.
+
+53
+00:02:14,962 --> 00:02:17,418
+Or if you need to read in a lot of data, you
+
+54
+00:02:17,530 --> 00:02:19,729
+might not want to do that with files alone.
+
+55
+00:02:20,724 --> 00:02:22,201
+The advantage of course is that the data
+
+56
+00:02:22,345 --> 00:02:25,363
+does persist though, so it survives restart
+
+57
+00:02:25,459 --> 00:02:27,930
+of your Deno app. So that's a good thing to
+
+58
+00:02:27,946 --> 00:02:28,171
+have.
+
+59
+00:02:29,085 --> 00:02:31,618
+But because files are relatively slow to
+
+60
+00:02:31,714 --> 00:02:34,487
+access, we typically don't use them for
+
+61
+00:02:34,616 --> 00:02:36,972
+permanent storage, or at least not alone.
+
+62
+00:02:37,501 --> 00:02:40,563
+Instead, we use databases. And there we got
+
+63
+00:02:40,563 --> 00:02:42,519
+a couple of different database engines,
+
+64
+00:02:42,808 --> 00:02:44,635
+different database systems we can use.
+
+65
+00:02:45,196 --> 00:02:47,537
+Now, under the hood, databases also work
+
+66
+00:02:47,601 --> 00:02:50,567
+with files, but they add an extra layer on
+
+67
+00:02:50,567 --> 00:02:53,020
+top of those files where they basically can
+
+68
+00:02:53,052 --> 00:02:55,665
+load data into memory, cache it, and
+
+69
+00:02:55,697 --> 00:02:58,070
+therefore make it faster for you to query
+
+70
+00:02:58,182 --> 00:03:00,635
+that data and to work with that data. So
+
+71
+00:03:00,651 --> 00:03:02,959
+there's simply an extra layer on top of
+
+72
+00:03:03,152 --> 00:03:06,085
+files, making it faster to work with data in
+
+73
+00:03:06,101 --> 00:03:08,570
+general. And therefore you have relatively
+
+74
+00:03:08,586 --> 00:03:11,375
+fast data access when working with databases
+
+75
+00:03:11,712 --> 00:03:12,818
+and a good performance.
+
+76
+00:03:13,427 --> 00:03:15,190
+Certainly not the speed you have with
+
+77
+00:03:15,238 --> 00:03:17,354
+variables, but you'll have all the speed and
+
+78
+00:03:17,354 --> 00:03:20,047
+performance you need in applications to work
+
+79
+00:03:20,047 --> 00:03:21,153
+with data efficiently.
+
+80
+00:03:22,051 --> 00:03:24,552
+And of course, the big advantage, just like
+
+81
+00:03:24,552 --> 00:03:28,383
+with files, is that data does persist. So it
+
+82
+00:03:28,463 --> 00:03:31,045
+also survives the restart. Of your Deno app.
+
+83
+00:03:31,767 --> 00:03:33,179
+So these are your different storage
+
+84
+00:03:33,532 --> 00:03:36,098
+mechanisms. All of them matter but for
+
+85
+00:03:36,163 --> 00:03:38,200
+different purposes. And now we're going to
+
+86
+00:03:38,200 --> 00:03:41,136
+have a look at database storage, which is a
+
+87
+00:03:41,136 --> 00:03:43,847
+super important way of storing data in any
+
+88
+00:03:43,943 --> 00:03:44,730
+app you're building.
+
+89
+00:03:45,548 --> 00:03:47,216
+Now when it comes to storing data with
+
+90
+00:03:47,248 --> 00:03:50,024
+databases, you don't just have one database
+
+91
+00:03:50,136 --> 00:03:51,869
+that you can use. There are tons of
+
+92
+00:03:51,965 --> 00:03:53,986
+different database engines based on
+
+93
+00:03:53,986 --> 00:03:56,922
+different database systems and philosophies.
+
+94
+00:03:57,580 --> 00:04:00,420
+For example, you got SQL-based databases
+
+95
+00:04:00,645 --> 00:04:03,502
+like MySQL, or MySQL to be precise.
+
+96
+00:04:04,161 --> 00:04:07,773
+MySQL is a very popular SQL database, and
+
+97
+00:04:07,773 --> 00:04:11,112
+SQL in general, no matter if you use MySQL
+
+98
+00:04:11,385 --> 00:04:13,215
+or another interpretation of it,
+
+99
+00:04:13,874 --> 00:04:16,892
+is a relational database engine. So it's all
+
+100
+00:04:17,020 --> 00:04:19,766
+about storing data and relations between
+
+101
+00:04:19,814 --> 00:04:23,651
+data. SQL and MySQL is very popular, and you
+
+102
+00:04:23,667 --> 00:04:27,858
+can absolutely use Deno with MySQL or with
+
+103
+00:04:27,938 --> 00:04:29,994
+any SQL database in general.
+
+104
+00:04:30,814 --> 00:04:33,785
+On Deno land, under third-party modules, if
+
+105
+00:04:33,785 --> 00:04:35,038
+you search for SQL,
+
+106
+00:04:35,568 --> 00:04:38,604
+you find various modules that help you with
+
+107
+00:04:38,620 --> 00:04:41,978
+working with SQL, and not just with MySQL
+
+108
+00:04:42,074 --> 00:04:44,644
+but also with other database engines based
+
+109
+00:04:44,644 --> 00:04:45,576
+on SQL.
+
+110
+00:04:46,154 --> 00:04:49,768
+So you can absolutely use SQL in Deno apps.
+
+111
+00:04:51,230 --> 00:04:54,667
+Another very popular database engine and
+
+112
+00:04:54,747 --> 00:04:55,773
+philosophy is
+
+113
+00:04:56,526 --> 00:05:00,261
+MongoDB, or in general, NoSQL databases.
+
+114
+00:05:00,534 --> 00:05:02,938
+Now, as the name suggests, they follow a
+
+115
+00:05:03,018 --> 00:05:06,497
+different idea than SQL databases. With
+
+116
+00:05:06,625 --> 00:05:10,039
+NoSQL databases, storing relations between
+
+117
+00:05:10,072 --> 00:05:12,604
+documents is less important and not really
+
+118
+00:05:12,636 --> 00:05:15,826
+focused. Instead, SQL databases are all
+
+119
+00:05:15,923 --> 00:05:19,609
+about storing documents which are super fast
+
+120
+00:05:19,609 --> 00:05:22,431
+to query, and therefore NoSQL databases are
+
+121
+00:05:22,639 --> 00:05:25,717
+also extremely popular, and MongoDB happens
+
+122
+00:05:25,845 --> 00:05:28,073
+to be the most popular, again,
+
+123
+00:05:28,426 --> 00:05:31,632
+interpretation, you could say, of NoSQL.
+
+124
+00:05:32,017 --> 00:05:34,261
+MongoDB is what we're going to use in this
+
+125
+00:05:34,261 --> 00:05:36,569
+course section, and therefore you'll see in
+
+126
+00:05:36,666 --> 00:05:39,198
+detail how it works. But in general, under
+
+127
+00:05:39,407 --> 00:05:41,891
+Deno third-party modules, you will find
+
+128
+00:05:41,956 --> 00:05:43,927
+modules that help you with MongoDB,
+
+129
+00:05:44,617 --> 00:05:47,742
+for example, the Mongo module. And that's
+
+130
+00:05:47,742 --> 00:05:49,939
+the module we're going to use in this course
+
+131
+00:05:50,003 --> 00:05:52,664
+section. So long story short, you can use
+
+132
+00:05:52,776 --> 00:05:55,597
+any kind of database with Deno, and it
+
+133
+00:05:55,597 --> 00:05:57,745
+really comes down to your preferences and
+
+134
+00:05:57,825 --> 00:05:59,237
+which kind of data you're storing.
+
+135
+00:05:59,767 --> 00:06:01,965
+Attached to this lecture, you'll also find a
+
+136
+00:06:02,013 --> 00:06:06,378
+comparison of SQL or SQL and NoSQL, NoSQL
+
+137
+00:06:06,426 --> 00:06:08,801
+databases so that you can find out which
+
+138
+00:06:08,913 --> 00:06:10,823
+database makes most sense for the
+
+139
+00:06:10,823 --> 00:06:13,134
+application you're building. In general, you
+
+140
+00:06:13,230 --> 00:06:15,733
+can build any kind of application with any
+
+141
+00:06:15,733 --> 00:06:17,001
+kind of database engine though.
+
+142
+00:06:17,643 --> 00:06:19,905
+So we're going to go with Mongo in this
+
+143
+00:06:19,905 --> 00:06:22,473
+course section. So let's see how that works.

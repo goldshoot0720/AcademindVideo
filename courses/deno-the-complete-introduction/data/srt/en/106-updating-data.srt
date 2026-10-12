@@ -1,0 +1,819 @@
+1
+00:00:02,262 --> 00:00:05,134
+So let's continue here with updating.
+
+2
+00:00:06,450 --> 00:00:08,279
+And for that, let's start in the model. We
+
+3
+00:00:08,279 --> 00:00:10,012
+have a create and a findAll
+
+4
+00:00:10,766 --> 00:00:11,087
+method.
+
+5
+00:00:11,745 --> 00:00:13,558
+Now we need a method for updating.
+
+6
+00:00:14,135 --> 00:00:16,446
+Hence, I'll add a new static async method
+
+7
+00:00:16,542 --> 00:00:16,606
+here,
+
+8
+00:00:17,184 --> 00:00:20,265
+update. And update needs 2 pieces of
+
+9
+00:00:20,265 --> 00:00:23,458
+information. It needs the ID of the element
+
+10
+00:00:23,458 --> 00:00:25,207
+that should be updated, the ID of the
+
+11
+00:00:25,207 --> 00:00:25,704
+document,
+
+12
+00:00:26,250 --> 00:00:28,976
+and the new document data, with which the
+
+13
+00:00:29,057 --> 00:00:31,348
+old document should be updated, should be
+
+14
+00:00:31,348 --> 00:00:32,277
+merged, you could say.
+
+15
+00:00:33,143 --> 00:00:35,466
+Hence, I expect to get an ID as a string and
+
+16
+00:00:35,546 --> 00:00:37,790
+as a second argument some data which in the
+
+17
+00:00:37,790 --> 00:00:40,578
+end should again be of that resource type. I
+
+18
+00:00:40,610 --> 00:00:42,789
+again want to get title, description, and so
+
+19
+00:00:42,934 --> 00:00:43,046
+on.
+
+20
+00:00:44,231 --> 00:00:44,568
+So here
+
+21
+00:00:45,321 --> 00:00:47,741
+I will add resource as a type,
+
+22
+00:00:48,782 --> 00:00:51,266
+and with that in here we can again get our
+
+23
+00:00:51,266 --> 00:00:51,939
+database,
+
+24
+00:00:53,093 --> 00:00:54,519
+on there call collection
+
+25
+00:00:55,097 --> 00:00:57,852
+and reach out to the resources collection we
+
+26
+00:00:57,852 --> 00:00:58,222
+got here
+
+27
+00:01:01,138 --> 00:01:02,814
+and then call updateOne
+
+28
+00:01:03,393 --> 00:01:06,282
+on the collection. And now updateOne needs 2
+
+29
+00:01:06,315 --> 00:01:09,366
+arguments. The first argument is a filter
+
+30
+00:01:09,705 --> 00:01:11,706
+that picks the one document we want to
+
+31
+00:01:11,723 --> 00:01:14,934
+update, and the second argument is an object
+
+32
+00:01:14,934 --> 00:01:16,322
+that describes our update.
+
+33
+00:01:17,113 --> 00:01:18,694
+And here we can use
+
+34
+00:01:19,372 --> 00:01:21,599
+$_set, which is a special property name
+
+35
+00:01:21,792 --> 00:01:23,421
+which will be recognized by MongoDB.
+
+36
+00:01:24,152 --> 00:01:27,011
+To define which object should be set or
+
+37
+00:01:27,123 --> 00:01:30,415
+which fields should be set to new values in
+
+38
+00:01:30,415 --> 00:01:31,426
+the database document.
+
+39
+00:01:32,004 --> 00:01:35,280
+And here I'll set it to data to basically
+
+40
+00:01:35,376 --> 00:01:37,865
+update all fields with new data.
+
+41
+00:01:39,262 --> 00:01:41,494
+Now for filtering, I wanna look for a
+
+42
+00:01:41,494 --> 00:01:42,393
+specific ID
+
+43
+00:01:42,939 --> 00:01:45,941
+and keep in mind that the original ID is
+
+44
+00:01:46,134 --> 00:01:49,442
+stored in an _id field in the documents. So
+
+45
+00:01:49,506 --> 00:01:51,815
+I check for _id to match
+
+46
+00:01:52,568 --> 00:01:55,391
+my ID, but now I can't set ID like this
+
+47
+00:01:55,615 --> 00:01:57,924
+because my ID is a string and what's
+
+48
+00:01:57,924 --> 00:01:59,849
+actually stored in the database, as you
+
+49
+00:01:59,849 --> 00:02:00,233
+learned
+
+50
+00:02:01,548 --> 00:02:04,034
+and as you see in Postman, is an object with
+
+51
+00:02:04,034 --> 00:02:07,449
+a $oid field. That's what's actually stored.
+
+52
+00:02:07,722 --> 00:02:09,486
+So that's what I need to match it against.
+
+53
+00:02:10,288 --> 00:02:12,116
+And we can even manually create such an
+
+54
+00:02:12,116 --> 00:02:15,098
+object as we did it before in the database
+
+55
+00:02:15,098 --> 00:02:16,028
+course section.
+
+56
+00:02:16,686 --> 00:02:16,734
+Or
+
+57
+00:02:17,749 --> 00:02:20,037
+we can actually use that ObjectId thing
+
+58
+00:02:20,150 --> 00:02:22,035
+here, which I'm importing from the Mongo
+
+59
+00:02:22,164 --> 00:02:25,112
+module because that can be called as a
+
+60
+00:02:25,370 --> 00:02:25,694
+function
+
+61
+00:02:26,375 --> 00:02:29,033
+and we can pass a string ID to it and this
+
+62
+00:02:29,033 --> 00:02:31,351
+will generate such an ObjectId.
+
+63
+00:02:32,007 --> 00:02:33,963
+So this will generate this object which we
+
+64
+00:02:33,963 --> 00:02:36,841
+need. And with that, we update the correct
+
+65
+00:02:37,116 --> 00:02:38,216
+document, hopefully.
+
+66
+00:02:40,107 --> 00:02:42,581
+I will also await this so that this overall
+
+67
+00:02:42,695 --> 00:02:45,772
+function only completes, you could say, once
+
+68
+00:02:45,772 --> 00:02:46,301
+this is done
+
+69
+00:02:46,879 --> 00:02:48,626
+or that the promise which this function
+
+70
+00:02:48,658 --> 00:02:50,951
+returns only resolves once this is done.
+
+71
+00:02:51,224 --> 00:02:52,523
+That would be the more correct way of
+
+72
+00:02:52,523 --> 00:02:53,164
+expressing it.
+
+73
+00:02:54,351 --> 00:02:56,563
+And with that, we can then go back to
+
+74
+00:02:57,157 --> 00:02:59,610
+the controller, to the resources.ts file in
+
+75
+00:02:59,642 --> 00:03:01,855
+the controller and there to update
+
+76
+00:03:01,871 --> 00:03:02,416
+resources.
+
+77
+00:03:03,426 --> 00:03:06,056
+Now, first of all here, just as with the
+
+78
+00:03:06,056 --> 00:03:08,557
+create, the addResource function here, we
+
+79
+00:03:08,557 --> 00:03:10,995
+need to extract a bunch of data. So we'll
+
+80
+00:03:10,995 --> 00:03:14,154
+extract all that data here from the incoming
+
+81
+00:03:14,236 --> 00:03:14,760
+request.
+
+82
+00:03:16,454 --> 00:03:16,816
+And then
+
+83
+00:03:19,640 --> 00:03:23,011
+I want to call learningResource.update and
+
+84
+00:03:23,075 --> 00:03:25,485
+pass in the ID and the new data.
+
+85
+00:03:26,369 --> 00:03:28,538
+Now the ID is something we don't have yet,
+
+86
+00:03:28,939 --> 00:03:31,173
+but we can get it from the incoming request
+
+87
+00:03:31,173 --> 00:03:34,117
+as well. We can store the ID by getting it
+
+88
+00:03:34,117 --> 00:03:36,176
+from the context object on the params.
+
+89
+00:03:36,712 --> 00:03:39,484
+So the params which are encoded in the URL
+
+90
+00:03:40,052 --> 00:03:40,325
+and there
+
+91
+00:03:41,000 --> 00:03:41,963
+.resourceId.
+
+92
+00:03:42,782 --> 00:03:45,077
+Now you can also pick just ID, whatever you
+
+93
+00:03:45,174 --> 00:03:47,871
+want, but I will go with resource ID. This
+
+94
+00:03:47,983 --> 00:03:50,038
+however means that I also need to update my
+
+95
+00:03:50,086 --> 00:03:50,632
+route. Now
+
+96
+00:03:51,194 --> 00:03:54,389
+the PATCH route should now include the ID of
+
+97
+00:03:54,421 --> 00:03:56,749
+the document that should be updated in the
+
+98
+00:03:56,829 --> 00:03:59,365
+URL as a dynamic segment.
+
+99
+00:04:00,104 --> 00:04:01,709
+And you learned that earlier in the course.
+
+100
+00:04:02,287 --> 00:04:05,081
+We add such a dynamic segment after a slash
+
+101
+00:04:05,257 --> 00:04:07,473
+by adding a colon and and then any name of
+
+102
+00:04:07,489 --> 00:04:10,074
+your choice, for example, resource ID.
+
+103
+00:04:10,635 --> 00:04:12,337
+And you just need to make sure that this is
+
+104
+00:04:12,401 --> 00:04:13,316
+then also the name
+
+105
+00:04:13,926 --> 00:04:16,319
+by which you try to extract it here. So if
+
+106
+00:04:16,319 --> 00:04:18,662
+you pick resource ID here, it needs to be
+
+107
+00:04:18,662 --> 00:04:21,038
+resource ID here and the other way around.
+
+108
+00:04:22,275 --> 00:04:24,249
+With that, we're extracting that ID from the
+
+109
+00:04:24,281 --> 00:04:24,940
+URL
+
+110
+00:04:25,485 --> 00:04:27,412
+and I'm passing that ID to update.
+
+111
+00:04:28,118 --> 00:04:30,318
+Now ID could be null theoretically
+
+112
+00:04:30,928 --> 00:04:32,678
+and hence I'll add the exclamation mark here
+
+113
+00:04:32,710 --> 00:04:35,246
+because I know that we'll always have that
+
+114
+00:04:35,278 --> 00:04:37,826
+resource ID when this controller action is
+
+115
+00:04:37,939 --> 00:04:38,182
+reached.
+
+116
+00:04:38,732 --> 00:04:41,173
+I know that this param will always exist
+
+117
+00:04:41,480 --> 00:04:43,663
+because otherwise this update resource
+
+118
+00:04:43,663 --> 00:04:46,056
+action can't trigger. It only triggers for
+
+119
+00:04:46,105 --> 00:04:47,904
+this route. So I know that it will have a
+
+120
+00:04:47,904 --> 00:04:48,747
+value for that.
+
+121
+00:04:50,807 --> 00:04:52,811
+So with that, we have the ID which I forward
+
+122
+00:04:52,844 --> 00:04:55,560
+to update. The second argument is the object
+
+123
+00:04:55,657 --> 00:04:57,177
+with which we want to update.
+
+124
+00:04:57,775 --> 00:04:59,893
+And there I'll set the title to title, the
+
+125
+00:04:59,941 --> 00:05:01,022
+description to desc,
+
+126
+00:05:01,599 --> 00:05:05,007
+the image URL to image URL, and the regular
+
+127
+00:05:05,185 --> 00:05:07,242
+URL to resource URL.
+
+128
+00:05:07,776 --> 00:05:10,756
+So I'll set my update data to this object
+
+129
+00:05:10,756 --> 00:05:10,821
+here.
+
+130
+00:05:12,780 --> 00:05:14,145
+Let's then await for that
+
+131
+00:05:15,527 --> 00:05:18,098
+and we'll get back the updated resource. So
+
+132
+00:05:18,098 --> 00:05:20,139
+we'll get back the updated document here
+
+133
+00:05:20,910 --> 00:05:23,571
+and then I'll set this on the response by
+
+134
+00:05:23,571 --> 00:05:25,852
+reaching out to the response body, set this
+
+135
+00:05:25,852 --> 00:05:28,586
+to an object. We can also add something else
+
+136
+00:05:28,586 --> 00:05:30,428
+like a message here. You can of course do
+
+137
+00:05:30,428 --> 00:05:32,334
+that for any response which you're sending
+
+138
+00:05:32,366 --> 00:05:32,673
+back.
+
+139
+00:05:33,254 --> 00:05:34,594
+And I'll set this to updated
+
+140
+00:05:35,918 --> 00:05:36,516
+resource
+
+141
+00:05:37,533 --> 00:05:39,329
+and then also attach the
+
+142
+00:05:40,433 --> 00:05:40,984
+updated
+
+143
+00:05:41,812 --> 00:05:42,591
+resource
+
+144
+00:05:43,937 --> 00:05:46,418
+by pointing at updated resource.
+
+145
+00:05:47,421 --> 00:05:48,408
+Whoops, updated
+
+146
+00:05:50,883 --> 00:05:51,887
+resource like this.
+
+147
+00:05:52,615 --> 00:05:54,589
+So this sets the response for updating.
+
+148
+00:05:55,248 --> 00:05:57,712
+Now let's see whether updating works. Let's
+
+149
+00:05:57,712 --> 00:06:00,193
+restart our Deno server. Since I'm not using
+
+150
+00:06:00,306 --> 00:06:02,222
+Denon, I manually need to do this.
+
+151
+00:06:03,236 --> 00:06:05,505
+And let's open up a new request tab in
+
+152
+00:06:05,537 --> 00:06:06,043
+Postman.
+
+153
+00:06:06,990 --> 00:06:08,247
+Now it's a request to
+
+154
+00:06:08,280 --> 00:06:14,197
+localhost:3000/resources/ the ID of a
+
+155
+00:06:14,197 --> 00:06:16,234
+resource. And of course, we can see this
+
+156
+00:06:16,234 --> 00:06:18,566
+here in the GET request. This here is the ID
+
+157
+00:06:18,566 --> 00:06:19,256
+which we want.
+
+158
+00:06:20,061 --> 00:06:21,917
+So that's what I'll add here in the URL.
+
+159
+00:06:22,631 --> 00:06:24,699
+And I'll switch to a PATCH request.
+
+160
+00:06:25,252 --> 00:06:27,515
+PATCH because that's what we're waiting for
+
+161
+00:06:27,515 --> 00:06:28,557
+here on the endpoint.
+
+162
+00:06:30,210 --> 00:06:32,401
+Now we also need to add all the data which
+
+163
+00:06:32,401 --> 00:06:35,044
+we want to extract, so title, description,
+
+164
+00:06:35,157 --> 00:06:35,833
+image URL,
+
+165
+00:06:36,365 --> 00:06:36,736
+and so on.
+
+166
+00:06:37,413 --> 00:06:39,604
+Hence, I'll go back to the POST request
+
+167
+00:06:40,217 --> 00:06:42,283
+and actually copy this body there,
+
+168
+00:06:43,283 --> 00:06:45,687
+go to the body on the PATCH request, switch
+
+169
+00:06:45,800 --> 00:06:46,575
+to raw JSON,
+
+170
+00:06:48,800 --> 00:06:50,416
+insert it here and add a couple of
+
+171
+00:06:50,432 --> 00:06:53,114
+exclamation marks after the title to see
+
+172
+00:06:53,178 --> 00:06:54,132
+whether updating works.
+
+173
+00:06:55,198 --> 00:06:56,345
+And let's then click send.
+
+174
+00:06:58,417 --> 00:07:00,329
+And I get updated resource,
+
+175
+00:07:03,598 --> 00:07:05,478
+but I don't get any other data back.
+
+176
+00:07:06,249 --> 00:07:07,487
+So it simply looks like
+
+177
+00:07:09,865 --> 00:07:11,199
+if we console.log this here,
+
+178
+00:07:11,890 --> 00:07:14,339
+it looks like we actually don't get the
+
+179
+00:07:14,339 --> 00:07:15,873
+updated resource back
+
+180
+00:07:18,519 --> 00:07:19,235
+Let's try again.
+
+181
+00:07:21,540 --> 00:07:22,753
+Yeah, this is undefined.
+
+182
+00:07:23,552 --> 00:07:24,217
+So my bad.
+
+183
+00:07:25,800 --> 00:07:27,925
+Let's remove this. No need to store it in a
+
+184
+00:07:27,925 --> 00:07:29,906
+constant then if we don't get it back. We
+
+185
+00:07:29,939 --> 00:07:31,646
+could of course manually return it though.
+
+186
+00:07:32,193 --> 00:07:33,675
+We can return the
+
+187
+00:07:34,674 --> 00:07:36,549
+object which we're also passing to update
+
+188
+00:07:36,549 --> 00:07:36,727
+here.
+
+189
+00:07:37,277 --> 00:07:37,860
+That would work.
+
+190
+00:07:38,394 --> 00:07:40,595
+Also add ID and set it to the ID we're
+
+191
+00:07:40,595 --> 00:07:41,922
+getting as an argument here.
+
+192
+00:07:42,466 --> 00:07:44,374
+Which we extracted from the params— I mean
+
+193
+00:07:45,048 --> 00:07:47,213
+that we can also add this. And with that, we
+
+194
+00:07:47,277 --> 00:07:50,227
+return the de facto updated resource. So
+
+195
+00:07:50,243 --> 00:07:51,318
+that's something we can do.
+
+196
+00:07:52,023 --> 00:07:53,001
+Restart thereafter.
+
+197
+00:07:53,851 --> 00:07:54,621
+And if I now
+
+198
+00:07:55,310 --> 00:07:57,716
+remove 2 exclamation marks and try this
+
+199
+00:07:57,716 --> 00:07:58,004
+again,
+
+200
+00:07:58,598 --> 00:08:00,554
+now we also have the updated resource here.
+
+201
+00:08:01,484 --> 00:08:03,825
+So now that seems to work. And let's verify
+
+202
+00:08:03,825 --> 00:08:06,696
+it by getting all resources again. And you
+
+203
+00:08:06,696 --> 00:08:09,021
+see here, we also got the exclamation marks
+
+204
+00:08:09,021 --> 00:08:12,074
+now. So that's updating. Now let's also
+
+205
+00:08:12,171 --> 00:08:13,352
+implement deleting.

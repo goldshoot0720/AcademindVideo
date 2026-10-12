@@ -1,0 +1,423 @@
+1
+00:00:02,197 --> 00:00:03,961
+So how can we test this API?
+
+2
+00:00:04,507 --> 00:00:06,816
+Previously, we could just visit our web page
+
+3
+00:00:07,073 --> 00:00:09,447
+in the browser, but now since we only
+
+4
+00:00:09,495 --> 00:00:13,184
+exchange data, that's not really possible
+
+5
+00:00:13,184 --> 00:00:13,585
+anymore.
+
+6
+00:00:14,307 --> 00:00:16,520
+There is a special tool which you can use,
+
+7
+00:00:16,793 --> 00:00:17,387
+Postman.
+
+8
+00:00:18,221 --> 00:00:20,947
+On postman.com, you can download it, and you
+
+9
+00:00:20,947 --> 00:00:23,979
+can download it for free and also without
+
+10
+00:00:24,075 --> 00:00:26,273
+signing up. Simply download it from there
+
+11
+00:00:26,417 --> 00:00:29,111
+and install it on your system It exists for
+
+12
+00:00:29,159 --> 00:00:31,066
+macOS, Windows, and Linux.
+
+13
+00:00:31,867 --> 00:00:34,478
+Now once you installed it, you can start it.
+
+14
+00:00:35,392 --> 00:00:37,170
+And once it's started, it should look
+
+15
+00:00:37,170 --> 00:00:39,109
+something like this. If you got a welcome
+
+16
+00:00:39,157 --> 00:00:40,487
+screen, you can simply close it.
+
+17
+00:00:41,400 --> 00:00:43,643
+Now here you can open a new tab, and this
+
+18
+00:00:43,643 --> 00:00:45,358
+allows you to send a request. And you can
+
+19
+00:00:45,406 --> 00:00:47,809
+send GET requests but also a bunch of other
+
+20
+00:00:47,809 --> 00:00:48,274
+requests.
+
+21
+00:00:48,915 --> 00:00:51,158
+Here you will also see more verbs than what
+
+22
+00:00:51,158 --> 00:00:52,007
+I showed you before,
+
+23
+00:00:52,616 --> 00:00:54,555
+but these are also niche verbs which you
+
+24
+00:00:54,683 --> 00:00:56,189
+realistically won't really send.
+
+25
+00:00:57,008 --> 00:00:58,629
+The keywords are all on the top,
+
+26
+00:00:59,416 --> 00:01:02,033
+and we can start with a GET request to
+
+27
+00:01:03,044 --> 00:01:06,223
+localhost:3000. That's where our Deno server
+
+28
+00:01:06,239 --> 00:01:06,625
+is running,
+
+29
+00:01:07,620 --> 00:01:08,230
+/resources,
+
+30
+00:01:08,985 --> 00:01:10,976
+because that's one route we have here.
+
+31
+00:01:11,554 --> 00:01:14,845
+A GET request to /resources should trigger
+
+32
+00:01:14,845 --> 00:01:17,832
+the get resources action, so this action,
+
+33
+00:01:18,217 --> 00:01:20,128
+and this should get us all the resources and
+
+34
+00:01:20,208 --> 00:01:23,170
+return them in an object or or in a JSON
+
+35
+00:01:23,203 --> 00:01:25,947
+document in the end that has a resources key
+
+36
+00:01:26,045 --> 00:01:27,636
+which holds the fetched resources.
+
+37
+00:01:30,100 --> 00:01:32,778
+So if we enter this, select a GET request
+
+38
+00:01:32,778 --> 00:01:34,327
+here and click Send,
+
+39
+00:01:35,538 --> 00:01:37,555
+we're sending the request and indeed,
+
+40
+00:01:38,281 --> 00:01:41,082
+you can see here, we get back such an object
+
+41
+00:01:41,082 --> 00:01:43,815
+here. Now this is JSON, you can tell by the
+
+42
+00:01:43,815 --> 00:01:44,667
+double quotes here,
+
+43
+00:01:45,261 --> 00:01:46,692
+but this is in the end what we're sending
+
+44
+00:01:46,724 --> 00:01:48,813
+back. And it's an empty array because
+
+45
+00:01:48,813 --> 00:01:50,796
+initially we have no resources.
+
+46
+00:01:51,763 --> 00:01:53,863
+So let's now add one. And for that, we can
+
+47
+00:01:53,863 --> 00:01:55,258
+switch to a POST request,
+
+48
+00:01:55,931 --> 00:01:56,813
+still to
+
+49
+00:01:57,678 --> 00:01:59,666
+/resources because that's the endpoint I
+
+50
+00:01:59,698 --> 00:02:00,291
+defined here,
+
+51
+00:02:01,205 --> 00:02:03,434
+and then make sure we add all the data which
+
+52
+00:02:03,466 --> 00:02:06,431
+we plan to extract there. So we should have
+
+53
+00:02:06,431 --> 00:02:09,782
+a title, a description, an image URL, and a
+
+54
+00:02:09,782 --> 00:02:12,299
+URL field on the incoming request.
+
+55
+00:02:13,229 --> 00:02:15,617
+In Postman, we can set this data here under
+
+56
+00:02:15,649 --> 00:02:16,018
+body.
+
+57
+00:02:16,772 --> 00:02:18,227
+There we can go to Raw
+
+58
+00:02:19,036 --> 00:02:21,429
+and then select JSON here in the dropdown.
+
+59
+00:02:21,946 --> 00:02:24,582
+And now add curly braces and write a JSON
+
+60
+00:02:24,679 --> 00:02:27,424
+document where you have all those fields
+
+61
+00:02:27,424 --> 00:02:30,243
+which you plan to extract as fields in the
+
+62
+00:02:30,243 --> 00:02:31,033
+JSON document.
+
+63
+00:02:31,887 --> 00:02:33,337
+So here I want to have a title,
+
+64
+00:02:34,460 --> 00:02:34,767
+let's say
+
+65
+00:02:35,302 --> 00:02:35,609
+Demo
+
+66
+00:02:36,597 --> 00:02:37,504
+the Course,
+
+67
+00:02:39,010 --> 00:02:40,046
+a description,
+
+68
+00:02:41,147 --> 00:02:41,909
+a great
+
+69
+00:02:42,770 --> 00:02:44,159
+and thorough
+
+70
+00:02:46,888 --> 00:02:48,762
+introduction to Deno.
+
+71
+00:02:50,700 --> 00:02:51,670
+Then we have a
+
+72
+00:02:52,383 --> 00:02:52,917
+URL,
+
+73
+00:02:55,394 --> 00:02:55,928
+and that is
+
+74
+00:02:57,887 --> 00:02:59,360
+acadlink/deno.
+
+75
+00:03:01,750 --> 00:03:02,865
+And we have an image
+
+76
+00:03:03,705 --> 00:03:04,142
+URL
+
+77
+00:03:04,756 --> 00:03:06,501
+which should simply hold a simple preview
+
+78
+00:03:07,019 --> 00:03:07,310
+image
+
+79
+00:03:08,957 --> 00:03:12,392
+And here you can pick any image URL you
+
+80
+00:03:12,424 --> 00:03:14,972
+want. I will just quickly pick one from
+
+81
+00:03:15,810 --> 00:03:18,255
+academind.com, from my site. We'll use this
+
+82
+00:03:19,455 --> 00:03:21,351
+image address here from that thumbnail
+
+83
+00:03:25,192 --> 00:03:25,967
+and store this here.
+
+84
+00:03:27,773 --> 00:03:29,805
+With that, if we now click send,
+
+85
+00:03:30,853 --> 00:03:34,282
+we get back this response. We see that we
+
+86
+00:03:34,298 --> 00:03:35,806
+have an inserted resource
+
+87
+00:03:36,383 --> 00:03:38,453
+and that we get information about the ID of
+
+88
+00:03:38,485 --> 00:03:40,779
+that resource. So it looks like the data was
+
+89
+00:03:41,020 --> 00:03:43,394
+stored. And of course, we can verify this by
+
+90
+00:03:43,394 --> 00:03:44,710
+sending another GET request.
+
+91
+00:03:45,400 --> 00:03:46,651
+So I will open a new tab
+
+92
+00:03:47,309 --> 00:03:49,378
+so that we keep that data around and we
+
+93
+00:03:49,378 --> 00:03:51,239
+could easily send a new POST request.
+
+94
+00:03:51,881 --> 00:03:54,336
+And here in the new tab, I will send a new
+
+95
+00:03:54,512 --> 00:03:57,881
+request to localhost:3000/resources, and
+
+96
+00:03:57,897 --> 00:03:59,389
+this is now a GET request again.
+
+97
+00:04:00,063 --> 00:04:02,741
+So if I now send this again, you see we're
+
+98
+00:04:02,789 --> 00:04:05,867
+now fetching our resources array and this
+
+99
+00:04:05,980 --> 00:04:10,229
+now has our document with that mapped ID and
+
+100
+00:04:10,325 --> 00:04:12,153
+with all that other data.
+
+101
+00:04:12,955 --> 00:04:16,034
+And that means that our POST and GET route
+
+102
+00:04:16,242 --> 00:04:17,189
+is working.
+
+103
+00:04:18,103 --> 00:04:21,197
+With that, let's now implement the other 2
+
+104
+00:04:21,310 --> 00:04:23,699
+routes. And of course, definitely try this
+
+105
+00:04:23,699 --> 00:04:26,249
+on your own first. We'll do it together in
+
+106
+00:04:26,281 --> 00:04:27,002
+the next lecture.

@@ -1,0 +1,975 @@
+1
+00:00:02,119 --> 00:00:05,539
+So now we added MongoDB to this little
+
+2
+00:00:05,651 --> 00:00:08,413
+project here. We're using MongoDB to store
+
+3
+00:00:08,541 --> 00:00:09,264
+our data.
+
+4
+00:00:09,826 --> 00:00:11,479
+That means that here in the CourseGoal
+
+5
+00:00:11,512 --> 00:00:13,486
+model, we can of course get rid of the goals
+
+6
+00:00:13,519 --> 00:00:13,679
+array.
+
+7
+00:00:14,546 --> 00:00:18,383
+But it also has one other implication or one
+
+8
+00:00:18,480 --> 00:00:20,326
+other thing we might wanna look into, and
+
+9
+00:00:20,342 --> 00:00:21,835
+that's error handling.
+
+10
+00:00:22,654 --> 00:00:25,416
+Throughout this module, you already saw that
+
+11
+00:00:25,464 --> 00:00:28,210
+sometimes things can go wrong, though I will
+
+12
+00:00:28,210 --> 00:00:31,102
+admit things went wrong because of mistakes
+
+13
+00:00:31,167 --> 00:00:31,874
+on my side.
+
+14
+00:00:32,549 --> 00:00:34,831
+But of course, sometimes you might also fail
+
+15
+00:00:35,024 --> 00:00:37,629
+to query the database because the database
+
+16
+00:00:37,629 --> 00:00:38,534
+server is down,
+
+17
+00:00:39,212 --> 00:00:41,410
+or your users might do something which you
+
+18
+00:00:41,410 --> 00:00:44,578
+didn't anticipate. For example, if I add a
+
+19
+00:00:44,578 --> 00:00:44,820
+new
+
+20
+00:00:46,580 --> 00:00:47,016
+goal here,
+
+21
+00:00:48,275 --> 00:00:49,890
+if I now click on it, we can load it. But
+
+22
+00:00:49,890 --> 00:00:51,601
+what if I manipulate that ID
+
+23
+00:00:52,134 --> 00:00:54,184
+and I therefore try to find a goal that's
+
+24
+00:00:54,232 --> 00:00:54,539
+not there?
+
+25
+00:00:55,303 --> 00:00:57,726
+Now the app actually crashes here
+
+26
+00:00:58,336 --> 00:01:00,503
+because what happens in this case is that I
+
+27
+00:01:00,664 --> 00:01:04,131
+actually manipulated the URL such that I'm
+
+28
+00:01:04,131 --> 00:01:06,442
+passing in an invalid ID.
+
+29
+00:01:07,244 --> 00:01:09,122
+And of course, that is something we should
+
+30
+00:01:09,186 --> 00:01:11,369
+therefore anticipate. That is something we
+
+31
+00:01:11,369 --> 00:01:13,986
+should prepare for. Users might enter
+
+32
+00:01:14,002 --> 00:01:16,249
+incorrect data, or as I just mentioned
+
+33
+00:01:16,249 --> 00:01:18,736
+before, the database might be temporarily
+
+34
+00:01:18,897 --> 00:01:19,491
+unavailable.
+
+35
+00:01:20,165 --> 00:01:22,653
+We are already handling it here when we're
+
+36
+00:01:22,653 --> 00:01:25,785
+creating element. We're trying this, and if
+
+37
+00:01:25,785 --> 00:01:28,479
+it fails, we, well, we log to the console.
+
+38
+00:01:29,117 --> 00:01:31,409
+We might wanna return an error message to
+
+39
+00:01:31,409 --> 00:01:33,814
+the user in such a case though. That might
+
+40
+00:01:33,814 --> 00:01:34,589
+be more appropriate.
+
+41
+00:01:35,180 --> 00:01:37,349
+Hence, in this case, I will actually also
+
+42
+00:01:37,462 --> 00:01:37,786
+throw
+
+43
+00:01:38,450 --> 00:01:38,758
+a new
+
+44
+00:01:39,567 --> 00:01:40,263
+error here
+
+45
+00:01:43,453 --> 00:01:44,515
+where I say failed
+
+46
+00:01:45,089 --> 00:01:46,925
+to create element.
+
+47
+00:01:50,675 --> 00:01:52,959
+Or failed to store
+
+48
+00:01:54,858 --> 00:01:56,225
+goal, something like this.
+
+49
+00:01:57,190 --> 00:01:59,426
+And we might wanna try-catch in all the
+
+50
+00:01:59,507 --> 00:02:02,018
+other parts of this code as well whenever we
+
+51
+00:02:02,018 --> 00:02:04,384
+reach out to the database, simply to also
+
+52
+00:02:04,433 --> 00:02:06,703
+prepare for the case that our database is
+
+53
+00:02:06,767 --> 00:02:09,506
+temporarily not available. So I'll add
+
+54
+00:02:09,506 --> 00:02:10,865
+try-catch here as well.
+
+55
+00:02:11,609 --> 00:02:13,697
+And in all those places, I'll simply throw
+
+56
+00:02:13,713 --> 00:02:15,636
+the error again. Which of course means we
+
+57
+00:02:15,717 --> 00:02:17,644
+also have to handle it again somewhere else
+
+58
+00:02:17,693 --> 00:02:19,799
+then. But that's something I'll do as a next
+
+59
+00:02:19,799 --> 00:02:22,915
+step. I wanna try-catch here though so that
+
+60
+00:02:22,931 --> 00:02:25,524
+here we could also implement any other error
+
+61
+00:02:25,524 --> 00:02:27,713
+handling logic that you might need in your
+
+62
+00:02:27,762 --> 00:02:28,245
+application.
+
+63
+00:02:30,060 --> 00:02:31,345
+So let's quickly
+
+64
+00:02:32,181 --> 00:02:34,881
+wrap all of that here with try-catch
+
+65
+00:02:36,601 --> 00:02:38,738
+and then throw a new Error.
+
+66
+00:02:41,426 --> 00:02:44,100
+Could not find goal by ID.
+
+67
+00:02:46,968 --> 00:02:49,143
+Here of course I also want to say failed to
+
+68
+00:02:49,143 --> 00:02:49,772
+find goal
+
+69
+00:02:50,371 --> 00:02:51,359
+in the findAll method.
+
+70
+00:02:52,540 --> 00:02:54,127
+And let's also try down there,
+
+71
+00:02:58,373 --> 00:02:59,520
+catch the error
+
+72
+00:03:03,122 --> 00:03:05,222
+and maybe console.log here if you want to do
+
+73
+00:03:05,238 --> 00:03:07,887
+that, but then also throw a new error
+
+74
+00:03:08,755 --> 00:03:10,723
+Failed to update goal.
+
+75
+00:03:12,369 --> 00:03:14,289
+And one last time here for deleting.
+
+76
+00:03:15,500 --> 00:03:16,129
+Try this,
+
+77
+00:03:19,873 --> 00:03:20,179
+catch
+
+78
+00:03:20,938 --> 00:03:23,374
+an error, console.log the error,
+
+79
+00:03:24,149 --> 00:03:25,391
+and throw a new
+
+80
+00:03:26,892 --> 00:03:28,974
+error, failed to delete
+
+81
+00:03:29,732 --> 00:03:31,895
+goal. Now I wrapped all those database
+
+82
+00:03:31,895 --> 00:03:34,057
+actions with try-catch, but since I'm always
+
+83
+00:03:34,090 --> 00:03:36,398
+throwing a new error, that also means that I
+
+84
+00:03:36,512 --> 00:03:38,357
+ultimately should handle it here where I
+
+85
+00:03:38,357 --> 00:03:39,654
+then talk to my templates.
+
+86
+00:03:42,320 --> 00:03:43,159
+So in there,
+
+87
+00:03:44,369 --> 00:03:46,177
+whenever we now reach out to the database
+
+88
+00:03:46,290 --> 00:03:49,115
+like here, we also wanna wrap this with
+
+89
+00:03:49,115 --> 00:03:51,780
+try-catch here so that if we throw our error
+
+90
+00:03:51,780 --> 00:03:53,297
+there, we don't crash the entire
+
+91
+00:03:53,492 --> 00:03:54,095
+application.
+
+92
+00:03:55,260 --> 00:03:56,468
+So here we also catch.
+
+93
+00:03:57,611 --> 00:04:00,012
+And this code that depends on the success of
+
+94
+00:04:00,044 --> 00:04:02,492
+the database operation should therefore also
+
+95
+00:04:02,509 --> 00:04:04,055
+of course go into the try block.
+
+96
+00:04:04,594 --> 00:04:06,271
+And in the catch block, we now want to
+
+97
+00:04:06,271 --> 00:04:08,222
+return an alternative response.
+
+98
+00:04:08,786 --> 00:04:11,818
+For example, here we could of course reach
+
+99
+00:04:11,914 --> 00:04:13,488
+out to the context response
+
+100
+00:04:14,121 --> 00:04:16,832
+and set our body simply to some text and say
+
+101
+00:04:18,485 --> 00:04:19,035
+fetching
+
+102
+00:04:20,751 --> 00:04:24,813
+data failed, please try again later. Now
+
+103
+00:04:24,830 --> 00:04:28,079
+that's just a very simple error response. Of
+
+104
+00:04:28,144 --> 00:04:30,149
+course, you could also return a template in
+
+105
+00:04:30,182 --> 00:04:31,151
+that case which
+
+106
+00:04:31,732 --> 00:04:33,829
+holds more useful information and maybe also
+
+107
+00:04:33,829 --> 00:04:36,410
+has some styling. That is something you can
+
+108
+00:04:36,491 --> 00:04:39,249
+also do. I will work with that basic error
+
+109
+00:04:39,249 --> 00:04:42,470
+response and I will repeat this now also
+
+110
+00:04:42,534 --> 00:04:44,045
+here for getting a single goal.
+
+111
+00:04:44,865 --> 00:04:45,781
+Let's try
+
+112
+00:04:47,935 --> 00:04:48,771
+this code here
+
+113
+00:04:50,090 --> 00:04:52,278
+and catch and send the dummy response
+
+114
+00:04:52,342 --> 00:04:52,776
+otherwise.
+
+115
+00:04:53,388 --> 00:04:56,573
+So let's put all that code here into try.
+
+116
+00:04:57,921 --> 00:05:00,083
+And otherwise respond with the default
+
+117
+00:05:00,425 --> 00:05:01,173
+response here.
+
+118
+00:05:02,856 --> 00:05:06,005
+And let's again do this here for creating a
+
+119
+00:05:06,005 --> 00:05:06,198
+goal.
+
+120
+00:05:07,772 --> 00:05:08,286
+Let's try
+
+121
+00:05:10,664 --> 00:05:13,156
+and have our dummy response and move that
+
+122
+00:05:13,156 --> 00:05:14,459
+here into the try block.
+
+123
+00:05:15,585 --> 00:05:17,628
+Now let's then also grab this and go to the
+
+124
+00:05:17,628 --> 00:05:19,961
+next function. And here for updating goal, I
+
+125
+00:05:20,138 --> 00:05:21,071
+already do try.
+
+126
+00:05:21,820 --> 00:05:24,293
+So here we already have an error which I'm
+
+127
+00:05:24,293 --> 00:05:26,426
+sending back, in this case a NotFound error.
+
+128
+00:05:26,948 --> 00:05:28,502
+So we can definitely stick to this error
+
+129
+00:05:28,518 --> 00:05:29,656
+handling here if we want to.
+
+130
+00:05:30,201 --> 00:05:32,332
+And actually, since I return NotFound here,
+
+131
+00:05:32,861 --> 00:05:35,185
+we might also want to return NotFound up
+
+132
+00:05:35,201 --> 00:05:35,377
+there
+
+133
+00:05:35,970 --> 00:05:38,470
+in getAllGoals in the catch block
+
+134
+00:05:39,575 --> 00:05:40,665
+and do the same here
+
+135
+00:05:41,258 --> 00:05:42,348
+for getSingleGoal
+
+136
+00:05:42,877 --> 00:05:45,392
+so that we show our NotFound page if we fail
+
+137
+00:05:45,521 --> 00:05:46,482
+to find data.
+
+138
+00:05:47,684 --> 00:05:50,088
+And with that, the only remaining part that
+
+139
+00:05:50,088 --> 00:05:51,706
+should be wrapped is down there for
+
+140
+00:05:51,770 --> 00:05:52,283
+deleting.
+
+141
+00:05:53,136 --> 00:05:54,364
+Move this here
+
+142
+00:05:55,220 --> 00:05:57,061
+into the try block.
+
+143
+00:05:57,821 --> 00:06:00,647
+And then here for catching the error, we can
+
+144
+00:06:00,647 --> 00:06:03,195
+for example also return NotFound or the
+
+145
+00:06:03,243 --> 00:06:05,566
+dummy response which I'm for example sending
+
+146
+00:06:05,923 --> 00:06:07,337
+for creating a goal.
+
+147
+00:06:08,116 --> 00:06:09,285
+And there of course I want to say
+
+148
+00:06:10,934 --> 00:06:12,778
+creating goal failed.
+
+149
+00:06:13,635 --> 00:06:15,203
+So that's how we can implement error
+
+150
+00:06:15,300 --> 00:06:15,963
+handling here.
+
+151
+00:06:17,014 --> 00:06:18,680
+But even with that, you'll notice that if
+
+152
+00:06:18,680 --> 00:06:20,966
+you restart and you reload for this invalid
+
+153
+00:06:20,999 --> 00:06:22,518
+ID, it still crashes.
+
+154
+00:06:23,046 --> 00:06:24,427
+And we still get this error.
+
+155
+00:06:25,230 --> 00:06:27,221
+Now it's the get_single_goal function where
+
+156
+00:06:27,221 --> 00:06:29,533
+we do try to get_by_id. And even though we
+
+157
+00:06:29,629 --> 00:06:31,620
+wrapped it in try-catch, it still crashes.
+
+158
+00:06:32,214 --> 00:06:33,981
+The reason for this is actually that it
+
+159
+00:06:33,981 --> 00:06:35,538
+crashes at a lower level.
+
+160
+00:06:36,293 --> 00:06:38,862
+It does not even throw an error inside of
+
+161
+00:06:39,119 --> 00:06:41,800
+find_by_id, which we could then catch here
+
+162
+00:06:42,073 --> 00:06:42,539
+as it seems.
+
+163
+00:06:43,117 --> 00:06:46,007
+Instead, the Rust code which runs behind the
+
+164
+00:06:46,007 --> 00:06:49,058
+scenes seems to crash here and that seems to
+
+165
+00:06:49,058 --> 00:06:51,499
+crash the entire application without us
+
+166
+00:06:51,563 --> 00:06:53,779
+having a chance to react to that.
+
+167
+00:06:55,240 --> 00:06:57,793
+I would imagine that this is something which
+
+168
+00:06:57,970 --> 00:07:00,603
+should get polished and fixed over time in
+
+169
+00:07:00,635 --> 00:07:04,119
+the Mongo module so that such errors also
+
+170
+00:07:04,232 --> 00:07:07,299
+can be handled by us here in our JavaScript
+
+171
+00:07:07,299 --> 00:07:08,952
+code. Because at the moment, we
+
+172
+00:07:08,985 --> 00:07:11,313
+unfortunately have no way of reacting to
+
+173
+00:07:11,377 --> 00:07:11,521
+this.
+
+174
+00:07:12,276 --> 00:07:14,187
+Instead, we would have to verify that a
+
+175
+00:07:14,187 --> 00:07:16,820
+correct ID is passed in, but for that, it
+
+176
+00:07:16,836 --> 00:07:19,951
+has to follow a certain pattern. Which is
+
+177
+00:07:20,063 --> 00:07:22,872
+expected by the Mongo package. And whilst we
+
+178
+00:07:22,872 --> 00:07:25,360
+could definitely add some code that checks
+
+179
+00:07:25,360 --> 00:07:28,586
+for such an ID, I would hope for an update
+
+180
+00:07:28,634 --> 00:07:31,202
+to the Mongo module which simply enables us
+
+181
+00:07:31,202 --> 00:07:33,609
+to catch such an error and therefore handle
+
+182
+00:07:33,770 --> 00:07:35,872
+any kind of error that might occur over
+
+183
+00:07:35,872 --> 00:07:36,177
+time.
+
+184
+00:07:37,252 --> 00:07:39,692
+Now for the moment, I'll go to my CourseGoal
+
+185
+00:07:40,045 --> 00:07:40,398
+model,
+
+186
+00:07:41,072 --> 00:07:43,801
+and there when we need an ID, for example
+
+187
+00:07:43,801 --> 00:07:45,213
+for findById,
+
+188
+00:07:45,907 --> 00:07:48,444
+I will add manual validation logic again,
+
+189
+00:07:48,654 --> 00:07:50,997
+though I would expect that the MongoDB
+
+190
+00:07:50,997 --> 00:07:53,179
+module does this for us in the future.
+
+191
+00:07:55,057 --> 00:07:56,682
+For the moment, we can add an if check
+
+192
+00:07:57,229 --> 00:07:58,724
+and simply check if the
+
+193
+00:07:59,802 --> 00:08:00,751
+ID which we're getting
+
+194
+00:08:01,330 --> 00:08:04,177
+matches a certain regular expression. Match
+
+195
+00:08:04,177 --> 00:08:06,338
+is a built-in method that simply checks
+
+196
+00:08:06,338 --> 00:08:08,580
+whether a string matches a certain regular
+
+197
+00:08:08,580 --> 00:08:09,096
+expression.
+
+198
+00:08:09,725 --> 00:08:11,403
+And here, the regular expression which we
+
+199
+00:08:11,403 --> 00:08:15,075
+need which we write like this between 2
+
+200
+00:08:15,559 --> 00:08:17,528
+slashes, 2 forward slashes,
+
+201
+00:08:18,222 --> 00:08:20,642
+starts with this circumflex character here,
+
+202
+00:08:21,756 --> 00:08:24,112
+then in square brackets 0
+
+203
+00:08:24,984 --> 00:08:28,702
+to 9, so 0-9, a-f,
+
+204
+00:08:29,252 --> 00:08:31,614
+and capital A dash capital F.
+
+205
+00:08:33,377 --> 00:08:33,684
+And then
+
+206
+00:08:34,348 --> 00:08:36,794
+after the square brackets in curly braces
+
+207
+00:08:37,505 --> 00:08:38,194
+24,
+
+208
+00:08:39,044 --> 00:08:41,177
+and then thereafter a dollar sign. This is
+
+209
+00:08:41,193 --> 00:08:43,454
+the regular expression that determines
+
+210
+00:08:43,534 --> 00:08:45,025
+whether ID is a valid
+
+211
+00:08:45,603 --> 00:08:48,040
+ID as expected by MongoDB.
+
+212
+00:08:49,050 --> 00:08:51,135
+And if it does, we want to continue. If this
+
+213
+00:08:51,135 --> 00:08:53,251
+returns false, hence the exclamation mark
+
+214
+00:08:53,300 --> 00:08:53,428
+here,
+
+215
+00:08:54,021 --> 00:08:56,202
+I instead want to return immediately here.
+
+216
+00:08:57,389 --> 00:08:59,281
+Or to be precise, I want to throw
+
+217
+00:08:59,810 --> 00:09:00,083
+a new
+
+218
+00:09:00,836 --> 00:09:03,546
+error in that case, which we now can handle
+
+219
+00:09:03,739 --> 00:09:04,460
+internally though.
+
+220
+00:09:05,103 --> 00:09:07,127
+So if we try this and it restarts and I
+
+221
+00:09:07,191 --> 00:09:09,729
+reload this page, now we get an error page
+
+222
+00:09:10,066 --> 00:09:11,977
+instead of the app crashing.
+
+223
+00:09:12,748 --> 00:09:15,028
+So we can do something similar for updating
+
+224
+00:09:15,061 --> 00:09:17,437
+here to make sure that the ID we're getting
+
+225
+00:09:18,032 --> 00:09:20,665
+also works, and the same for deleting. And
+
+226
+00:09:20,746 --> 00:09:23,107
+with that, we're also dealing with this
+
+227
+00:09:23,251 --> 00:09:24,022
+special case.
+
+228
+00:09:25,339 --> 00:09:26,752
+With all of that, we should have an
+
+229
+00:09:26,848 --> 00:09:29,482
+application that in general though just
+
+230
+00:09:29,579 --> 00:09:31,666
+works and with which we can work. And where
+
+231
+00:09:31,666 --> 00:09:34,444
+we now also added error handling to ensure
+
+232
+00:09:34,878 --> 00:09:37,688
+that we as a developer also prepared our app
+
+233
+00:09:37,768 --> 00:09:40,113
+for the scenario that the database is down
+
+234
+00:09:40,113 --> 00:09:42,891
+temporarily or that the user is providing
+
+235
+00:09:42,987 --> 00:09:46,006
+incorrect input. Again, you can return
+
+236
+00:09:46,391 --> 00:09:49,009
+special templates, you can throw different
+
+237
+00:09:49,009 --> 00:09:51,658
+kinds of errors to react differently to
+
+238
+00:09:51,658 --> 00:09:53,634
+different kinds of errors. That's all
+
+239
+00:09:53,682 --> 00:09:55,673
+something you can do with the basics you
+
+240
+00:09:55,689 --> 00:09:56,171
+learned here.
+
+241
+00:09:56,717 --> 00:09:59,448
+Here, we just have basic error handling, But
+
+242
+00:09:59,448 --> 00:10:01,963
+most importantly, we learned how we can in
+
+243
+00:10:01,963 --> 00:10:05,527
+general work with MongoDB inside of a Deno
+
+244
+00:10:05,817 --> 00:10:06,059
+app.

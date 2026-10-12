@@ -1,0 +1,831 @@
+1
+00:00:02,137 --> 00:00:04,129
+So now that storing works, let's make sure
+
+2
+00:00:04,129 --> 00:00:06,105
+we can also get data from the database.
+
+3
+00:00:06,523 --> 00:00:08,098
+Let's start with findAll.
+
+4
+00:00:08,628 --> 00:00:10,588
+Instead of returning goals slice,
+
+5
+00:00:11,183 --> 00:00:13,481
+I now want to call getGoals collection.
+
+6
+00:00:14,557 --> 00:00:16,501
+Let TypeScript know that I know this won't
+
+7
+00:00:16,501 --> 00:00:17,208
+be null.
+
+8
+00:00:18,494 --> 00:00:21,113
+And then there is a find method which we can
+
+9
+00:00:21,225 --> 00:00:24,005
+execute. And find by default will find all
+
+10
+00:00:24,198 --> 00:00:26,671
+the documents in a collection. There also
+
+11
+00:00:26,767 --> 00:00:28,402
+are ways of setting a filter,
+
+12
+00:00:28,931 --> 00:00:30,887
+of restricting the documents you wanna
+
+13
+00:00:30,935 --> 00:00:33,452
+retrieve. But for this course where we wanna
+
+14
+00:00:33,516 --> 00:00:36,594
+focus on Deno, we only need find. Again, I
+
+15
+00:00:36,706 --> 00:00:39,271
+have a dedicated MongoDB course if you wanna
+
+16
+00:00:39,271 --> 00:00:40,713
+learn all about MongoDB.
+
+17
+00:00:41,435 --> 00:00:43,679
+Here with find, we get all the documents
+
+18
+00:00:44,336 --> 00:00:45,939
+and hence we can store them in a constant,
+
+19
+00:00:46,163 --> 00:00:46,709
+goalDocs.
+
+20
+00:00:47,446 --> 00:00:49,722
+But of course, this is asynchronous code.
+
+21
+00:00:50,171 --> 00:00:52,351
+Querying the database can take a bit longer.
+
+22
+00:00:52,912 --> 00:00:54,547
+Hence, I wanna use await here
+
+23
+00:00:55,797 --> 00:00:56,791
+and for that, of course,
+
+24
+00:00:57,577 --> 00:01:00,911
+I'll add async here in front of findAll so
+
+25
+00:01:00,911 --> 00:01:02,033
+that we can use await.
+
+26
+00:01:02,690 --> 00:01:04,918
+Now findAll, by the way, will no longer
+
+27
+00:01:04,918 --> 00:01:06,489
+return just the docs
+
+28
+00:01:07,017 --> 00:01:09,903
+or your array but instead it will return a
+
+29
+00:01:09,903 --> 00:01:12,163
+promise that eventually resolves to such an
+
+30
+00:01:12,163 --> 00:01:12,307
+array.
+
+31
+00:01:13,108 --> 00:01:14,519
+And speaking of that, we should return
+
+32
+00:01:14,695 --> 00:01:17,356
+goalDocs here but again, the overall
+
+33
+00:01:17,356 --> 00:01:20,450
+function will not directly return those docs
+
+34
+00:01:20,402 --> 00:01:22,731
+but a promise that resolves to the docs.
+
+35
+00:01:23,357 --> 00:01:25,365
+And hence, we need to go to the place where
+
+36
+00:01:25,365 --> 00:01:27,999
+we call findAll and change the code there as
+
+37
+00:01:28,096 --> 00:01:28,224
+well.
+
+38
+00:01:28,754 --> 00:01:30,328
+And that would be the goals controller.
+
+39
+00:01:31,324 --> 00:01:31,581
+There
+
+40
+00:01:32,690 --> 00:01:33,862
+in getAllGoals,
+
+41
+00:01:34,601 --> 00:01:37,492
+I'm calling findAll here and I'm passing the
+
+42
+00:01:37,508 --> 00:01:39,179
+result on to my template.
+
+43
+00:01:39,757 --> 00:01:42,279
+This won't work anymore because now findAll
+
+44
+00:01:42,408 --> 00:01:45,572
+doesn't return just my documents or my,
+
+45
+00:01:46,487 --> 00:01:48,863
+elements in general, it returns a promise
+
+46
+00:01:48,911 --> 00:01:49,023
+now.
+
+47
+00:01:49,938 --> 00:01:51,640
+Hence, I wanna get my
+
+48
+00:01:52,844 --> 00:01:53,759
+data or my
+
+49
+00:01:54,369 --> 00:01:55,043
+goals here
+
+50
+00:01:55,877 --> 00:01:58,606
+by calling findAll but by awaiting it
+
+51
+00:01:59,248 --> 00:02:01,897
+so that we resolve that promise and get the
+
+52
+00:02:01,977 --> 00:02:03,245
+actual documents in the end.
+
+53
+00:02:04,224 --> 00:02:06,279
+And now that will resolve the promise
+
+54
+00:02:06,552 --> 00:02:07,964
+returned here by findAll,
+
+55
+00:02:08,494 --> 00:02:10,420
+give us the documents that we fetch here,
+
+56
+00:02:11,303 --> 00:02:13,598
+and pass those documents then on
+
+57
+00:02:14,611 --> 00:02:16,905
+to goals in the template.
+
+58
+00:02:17,922 --> 00:02:20,991
+I will also console.log goals here so that
+
+59
+00:02:20,991 --> 00:02:22,106
+we see what we're getting.
+
+60
+00:02:22,856 --> 00:02:23,888
+If I now save that
+
+61
+00:02:26,002 --> 00:02:28,825
+and I reload this page, you see here's our
+
+62
+00:02:28,825 --> 00:02:30,390
+goal. So loading seems to work,
+
+63
+00:02:30,922 --> 00:02:33,245
+and in the console I also see that in the
+
+64
+00:02:33,261 --> 00:02:36,129
+end what it fetched here was an array full
+
+65
+00:02:36,178 --> 00:02:38,482
+of JavaScript objects where we have the name
+
+66
+00:02:38,982 --> 00:02:40,835
+and this auto-generated ID.
+
+67
+00:02:41,917 --> 00:02:45,267
+And that's also pretty nice about that Mongo
+
+68
+00:02:45,299 --> 00:02:48,008
+module which we're using. It's automatically
+
+69
+00:02:48,088 --> 00:02:50,572
+giving us the data in formats that make
+
+70
+00:02:50,572 --> 00:02:53,217
+sense to us. For example, if we query a
+
+71
+00:02:53,217 --> 00:02:55,733
+collection and get all the documents, we get
+
+72
+00:02:55,797 --> 00:02:58,201
+back an array full of objects, which is a
+
+73
+00:02:58,201 --> 00:03:00,910
+great representation of that data structure
+
+74
+00:03:00,990 --> 00:03:03,218
+in MongoDB in JavaScript.
+
+75
+00:03:03,971 --> 00:03:06,007
+Now with that, we have the name,
+
+76
+00:03:06,536 --> 00:03:08,603
+but we see that of course one thing won't
+
+77
+00:03:08,699 --> 00:03:09,677
+work in our template.
+
+78
+00:03:10,398 --> 00:03:10,607
+Here
+
+79
+00:03:11,363 --> 00:03:14,210
+we in the end also need the ID, and the ID
+
+80
+00:03:14,258 --> 00:03:16,558
+is now stored in a different field. It's now
+
+81
+00:03:17,475 --> 00:03:20,372
+_id here, as you can see in the log. And
+
+82
+00:03:20,452 --> 00:03:21,226
+then in there
+
+83
+00:03:21,983 --> 00:03:24,288
+we actually have another object where the
+
+84
+00:03:24,482 --> 00:03:27,448
+actual ID here— this is the auto-generated
+
+85
+00:03:27,560 --> 00:03:28,850
+ID by MongoDB—
+
+86
+00:03:29,450 --> 00:03:32,666
+where this ID is stored in a property with
+
+87
+00:03:32,731 --> 00:03:33,819
+this strange name.
+
+88
+00:03:34,420 --> 00:03:36,638
+So actually this code here should now
+
+89
+00:03:36,783 --> 00:03:38,723
+retrieve the ID in our template.
+
+90
+00:03:39,333 --> 00:03:41,770
+Let's try that, save it and reload.
+
+91
+00:03:42,716 --> 00:03:44,240
+And now if we click on Finish the Course,
+
+92
+00:03:44,320 --> 00:03:47,720
+indeed this is loaded as an ID into the URL.
+
+93
+00:03:48,505 --> 00:03:50,093
+Of course, I don't find it yet though
+
+94
+00:03:50,173 --> 00:03:52,354
+because we haven't implemented the code to
+
+95
+00:03:52,483 --> 00:03:54,824
+find a single document. So let's do that
+
+96
+00:03:54,824 --> 00:03:54,920
+now.
+
+97
+00:03:55,786 --> 00:03:57,310
+For that, in findById,
+
+98
+00:03:58,015 --> 00:03:59,170
+I want to get my
+
+99
+00:03:59,715 --> 00:04:00,549
+goalDoc
+
+100
+00:04:01,239 --> 00:04:02,153
+by awaiting
+
+101
+00:04:06,030 --> 00:04:06,593
+getGoalsCollection
+
+102
+00:04:07,189 --> 00:04:08,736
+with an exclamation mark thereafter,
+
+103
+00:04:09,428 --> 00:04:10,443
+findOne.
+
+104
+00:04:11,361 --> 00:04:14,454
+findOne wants an object which acts as a
+
+105
+00:04:14,454 --> 00:04:17,262
+filter or which defines how to filter for
+
+106
+00:04:17,262 --> 00:04:19,280
+that one document we want to retrieve.
+
+107
+00:04:19,845 --> 00:04:20,120
+And here
+
+108
+00:04:20,959 --> 00:04:22,687
+I basically set the field
+
+109
+00:04:23,220 --> 00:04:25,077
+on which I want to filter, for example
+
+110
+00:04:25,740 --> 00:04:29,141
+_id, which is the field MongoDB uses for
+
+111
+00:04:29,141 --> 00:04:30,907
+storing that auto-generated ID.
+
+112
+00:04:31,775 --> 00:04:33,766
+And the value for which I then wanna filter
+
+113
+00:04:33,862 --> 00:04:34,714
+is the ID I'm getting.
+
+114
+00:04:35,308 --> 00:04:37,283
+And with that, I'm saying that I wanna find
+
+115
+00:04:37,380 --> 00:04:40,945
+one document where the ID, the _id field,
+
+116
+00:04:41,154 --> 00:04:43,418
+holds this ID as a value.
+
+117
+00:04:44,623 --> 00:04:46,614
+Now we then await for this to get that
+
+118
+00:04:46,614 --> 00:04:49,152
+single document and return
+
+119
+00:04:50,324 --> 00:04:51,111
+the goalDoc.
+
+120
+00:04:52,171 --> 00:04:53,649
+And of course, we should turn this into
+
+121
+00:04:53,777 --> 00:04:54,661
+async function.
+
+122
+00:04:56,410 --> 00:04:58,640
+With that, we can go back to the controller
+
+123
+00:04:58,993 --> 00:05:00,967
+and go to the place where we find a single
+
+124
+00:05:00,999 --> 00:05:01,978
+document by ID.
+
+125
+00:05:02,604 --> 00:05:04,625
+And now we have to await this as well
+
+126
+00:05:04,850 --> 00:05:06,984
+because now we get a promise that eventually
+
+127
+00:05:07,016 --> 00:05:08,637
+resolves to that single document.
+
+128
+00:05:09,182 --> 00:05:11,621
+With that, if we now save all of that,
+
+129
+00:05:12,793 --> 00:05:15,248
+I get an error here that the property name
+
+130
+00:05:15,280 --> 00:05:16,964
+does not exist on type
+
+131
+00:05:17,687 --> 00:05:18,537
+Promise.Any.
+
+132
+00:05:19,772 --> 00:05:21,602
+And that's in the end just an error thrown
+
+133
+00:05:21,602 --> 00:05:22,613
+from inside the model
+
+134
+00:05:23,466 --> 00:05:26,081
+here from the update method because there I
+
+135
+00:05:26,130 --> 00:05:28,842
+also use this findById to get a single goal
+
+136
+00:05:29,585 --> 00:05:31,667
+and I then update the name. And in
+
+137
+00:05:32,024 --> 00:05:33,964
+TypeScript world, TypeScript doesn't know
+
+138
+00:05:34,209 --> 00:05:36,328
+that the document we're fetching here will
+
+139
+00:05:36,410 --> 00:05:37,421
+have a name field.
+
+140
+00:05:38,190 --> 00:05:40,559
+So therefore, actually here I wanna set the
+
+141
+00:05:40,559 --> 00:05:41,922
+return type explicitly
+
+142
+00:05:42,588 --> 00:05:44,357
+and make it clear that we'll return an
+
+143
+00:05:44,454 --> 00:05:45,120
+object
+
+144
+00:05:47,955 --> 00:05:48,166
+here
+
+145
+00:05:48,784 --> 00:05:50,377
+which has a name field and an
+
+146
+00:05:51,483 --> 00:05:52,296
+_id field.
+
+147
+00:05:52,833 --> 00:05:55,258
+Which then in turn holds an object as a type
+
+148
+00:05:55,403 --> 00:05:57,105
+where we have that
+
+149
+00:05:57,635 --> 00:05:57,989
+$oid
+
+150
+00:05:58,519 --> 00:06:00,045
+field which holds a string which is the
+
+151
+00:06:00,125 --> 00:06:00,800
+actual ID,
+
+152
+00:06:01,892 --> 00:06:01,940
+or
+
+153
+00:06:03,032 --> 00:06:05,506
+that we return undefined here. That's also
+
+154
+00:06:05,683 --> 00:06:07,803
+an option that could also happen if we fail
+
+155
+00:06:07,851 --> 00:06:10,485
+to find an object with that ID. With that,
+
+156
+00:06:10,502 --> 00:06:12,574
+we clarify which kind of data will be
+
+157
+00:06:12,574 --> 00:06:13,971
+returned by findById,
+
+158
+00:06:14,517 --> 00:06:16,943
+and that helps all the places that use
+
+159
+00:06:17,168 --> 00:06:20,344
+findById. For example, update. Now it knows
+
+160
+00:06:20,376 --> 00:06:22,846
+that there will be a name field. The update
+
+161
+00:06:22,846 --> 00:06:25,123
+method like this still won't work, but at
+
+162
+00:06:25,171 --> 00:06:26,983
+least we should get rid of that error now.
+
+163
+00:06:28,217 --> 00:06:29,757
+And of course, I'm still getting an error
+
+164
+00:06:29,757 --> 00:06:32,338
+because we don't directly return that data.
+
+165
+00:06:32,948 --> 00:06:35,289
+As it mentions correctly here, we return a
+
+166
+00:06:35,289 --> 00:06:37,774
+promise that will resolve to the data, my
+
+167
+00:06:37,774 --> 00:06:38,063
+bad.
+
+168
+00:06:38,592 --> 00:06:40,853
+So let me actually make this clear
+
+169
+00:06:41,382 --> 00:06:43,948
+by adding promise here and then between
+
+170
+00:06:44,172 --> 00:06:45,375
+angle brackets this type.
+
+171
+00:06:46,016 --> 00:06:48,756
+The type between angle brackets describes
+
+172
+00:06:48,756 --> 00:06:50,598
+the type that the promise resolves to.
+
+173
+00:06:51,400 --> 00:06:53,242
+With that, we now return the proper type,
+
+174
+00:06:53,466 --> 00:06:54,892
+and the error we're now getting
+
+175
+00:06:55,549 --> 00:06:57,696
+makes sense because we're not awaiting
+
+176
+00:06:57,728 --> 00:07:00,516
+findById. Hence, I try to call name on the
+
+177
+00:07:00,516 --> 00:07:03,416
+promise itself, not on the value the promise
+
+178
+00:07:03,416 --> 00:07:03,993
+resolves to.
+
+179
+00:07:04,554 --> 00:07:07,326
+So let's add await here and async here. And
+
+180
+00:07:07,406 --> 00:07:09,440
+now with that, this code in update also
+
+181
+00:07:09,489 --> 00:07:12,116
+should theoretically work. It won't really
+
+182
+00:07:12,148 --> 00:07:13,975
+work, but it also won't throw an error
+
+183
+00:07:13,975 --> 00:07:14,311
+anymore.
+
+184
+00:07:15,072 --> 00:07:16,911
+Now with all those changes, however,
+
+185
+00:07:17,492 --> 00:07:19,572
+it still won't work. If we go back and click
+
+186
+00:07:19,572 --> 00:07:22,105
+on Finish the Course, we'll not find that
+
+187
+00:07:22,621 --> 00:07:22,863
+course.
+
+188
+00:07:23,686 --> 00:07:25,632
+And the reason for that is how we find by
+
+189
+00:07:25,632 --> 00:07:25,958
+ID.
+
+190
+00:07:26,690 --> 00:07:28,479
+Keep in mind how our ID
+
+191
+00:07:29,374 --> 00:07:30,903
+value actually looks like.
+
+192
+00:07:32,632 --> 00:07:34,938
+It looks like this, right? The ID that
+
+193
+00:07:35,212 --> 00:07:38,100
+MongoDB generates is kind of a string, but
+
+194
+00:07:38,100 --> 00:07:40,035
+in the end it's wrapped in another object.
+
+195
+00:07:40,783 --> 00:07:42,276
+And we have to keep this in mind when
+
+196
+00:07:42,372 --> 00:07:43,351
+searching for an ID.
+
+197
+00:07:44,073 --> 00:07:46,786
+The value we are— we're looking for for the
+
+198
+00:07:46,786 --> 00:07:49,322
+ID field is actually not just the ID string.
+
+199
+00:07:49,707 --> 00:07:51,810
+It should be that object with the
+
+200
+00:07:52,339 --> 00:07:55,052
+$oid field, which then in turn has the
+
+201
+00:07:55,052 --> 00:07:56,144
+string ID value.
+
+202
+00:07:56,737 --> 00:07:58,744
+And if we change our filter to that and
+
+203
+00:07:58,904 --> 00:08:01,697
+respect the layout of the ID object
+
+204
+00:08:02,291 --> 00:08:03,382
+MongoDB uses,
+
+205
+00:08:04,297 --> 00:08:06,191
+if we now save all of that and click on
+
+206
+00:08:06,304 --> 00:08:09,100
+Finish the Course, now we can load. That
+
+207
+00:08:09,100 --> 00:08:09,328
+course.
+
+208
+00:08:09,928 --> 00:08:12,380
+So let's now work on updating and deleting.
