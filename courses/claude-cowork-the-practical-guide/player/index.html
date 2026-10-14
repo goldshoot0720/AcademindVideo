@@ -61,6 +61,10 @@
   .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6b5bff,#9d7bff);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.5px;flex:0 0 auto}
   .brand h1{margin:0;font-size:14px;font-weight:700;letter-spacing:-.2px}
   .brand p{margin:2px 0 0;font-size:11.5px;color:var(--muted)}
+  .brand .remain{margin:3px 0 0;font-size:12.5px;font-weight:800;color:var(--accent);
+    font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+  .brand .remain.done{color:#0a7a45}
+  html[data-theme="dark"] .brand .remain.done{color:#5fd39a}
   .side-tools{padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line2)}
   .search{flex:1;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
   .search input{border:0;background:transparent;outline:0;color:var(--ink);width:100%;font-size:12.5px}
@@ -330,7 +334,8 @@
       <div class="logo">Pi</div>
       <div>
         <h1>Pi: The Practical Guide</h1>
-        <p>中英雙語動態字幕</p>
+        <p id="brandSub">中英雙語動態字幕</p>
+        <p class="remain" id="remainTime" title="依目前倍速估算還要看多久。已看完的課不計；正在看的這一課會扣掉播放進度。">剩餘 —</p>
       </div>
     </div>
     <div class="side-tools">
@@ -549,9 +554,9 @@
       document.title=DATA.series+" · 中英雙語動態字幕播放器";
     }
     var g=document.querySelector(".brand .logo"); if(g) g.textContent=logo();
-    var s=document.querySelector(".brand p");
+    var s=document.getElementById("brandSub");
     if(s) s.textContent="中英雙語動態字幕 · "+lessons.length+" 課 · "+label;
-    return {slug:slug, lessons:lessons.length, seconds:sec, label:label};
+    return {slug:slug, lessons:lessons.length, seconds:sec, label:label, toSec:toSec};
   })();
 
   // ---------- element refs ----------
@@ -679,6 +684,52 @@
     if(fl) fl.style.width=(t?Math.round(100*n/t):0)+"%";
     var wp=$("watchProg"); if(wp) wp.classList.toggle("complete", done);
     var db=$("doneBadge"); if(db) db.classList.toggle("on", done);
+    updateRemain();
+  }
+  function fmtLeft(sec){
+    sec=Math.max(0, sec||0);
+    var mins=Math.floor(sec/60);
+    if(mins<1) return "1m";
+    var h=Math.floor(mins/60), m=mins%60;
+    return (h?h+"h ":"")+m+"m";
+  }
+  function lessonDur(l){
+    var fn=window.COURSE_TOTALS&&window.COURSE_TOTALS.toSec;
+    return fn ? fn(l&&l.duration) : 0;
+  }
+  // Unwatched lectures count in full. The open lecture counts only what is
+  // left of it, including a resume point that has not been seeked yet.
+  function remainSec(){
+    var watched=courseWatched(), cur=S.lesson, pos=0;
+    if(cur && cur.videoFile && !watched[cur.slug]){
+      try{ pos=playhead()||0; }catch(e){ pos=0; }
+      if(pos<1 && RESUME_T>1 && cur.slug===RESUME_SLUG) pos=RESUME_T;
+    }
+    var left=0;
+    lessons.forEach(function(l){
+      if(!l.videoFile || watched[l.slug]) return;
+      var dur=lessonDur(l);
+      left += (cur && l.slug===cur.slug) ? Math.max(0, dur-pos) : dur;
+    });
+    return left;
+  }
+  function playbackRate(){
+    var r=1, label="1x";
+    try{
+      r=parseFloat(rateSel.value);
+      if(!(r>0)) r=1;
+      var opt=rateSel.options[rateSel.selectedIndex];
+      label=((opt&&opt.text)?opt.text:String(r))+"x";
+    }catch(e){}
+    return {r:r, label:label};
+  }
+  function updateRemain(){
+    var el=$("remainTime"); if(!el) return;
+    var left=remainSec(), rate=playbackRate();
+    // Wall-clock time still to watch at the selected speed, so 1.5x is shorter than 1x.
+    var label = left<=0 ? "已看完" : ("剩餘 "+fmtLeft(left/rate.r)+" · "+rate.label);
+    if(el.textContent!==label) el.textContent=label;
+    el.classList.toggle("done", left<=0);
   }
 
   function toast(m){ toastEl.textContent=m; toastEl.classList.add("on"); clearTimeout(toastEl._t); toastEl._t=setTimeout(function(){toastEl.classList.remove("on")},1900); }
@@ -968,6 +1019,7 @@
     var cur=playhead(), tot=totalTime()||S.vDuration||0;
     fill.style.width=(tot?(100*cur/tot):0)+"%";
     timeEl.textContent=fmt(cur)+" / "+fmt(tot);
+    updateRemain();
   }
   function barSeek(x){
     var r=bar.getBoundingClientRect();
@@ -1012,6 +1064,7 @@
     try{ rateSel.value=String(r); }catch(e){}
     try{ video.playbackRate=r; video.defaultPlaybackRate=r; }catch(e){}
     if(persist){ try{ localStorage.setItem(RATE_KEY,String(r)); }catch(e){} }
+    updateRemain();
   }
   rateSel.addEventListener("change",function(){ applyRate(rateSel.value,true); });
   offsetEl.addEventListener("input",function(){ S.offset=parseInt(offsetEl.value,10); offsetV.textContent=S.offset+"ms"; render(true); });

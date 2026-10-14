@@ -64,6 +64,14 @@ def fmt_dur(sec):
     return f"{h}h {m:02d}m" if h else f"{m}m"
 
 
+def watch_slug(lib, folder):
+    """Key the player writes into localStorage. It is the last segment of
+    seriesUrl, which is not always the folder name."""
+    url = (lib.get("seriesUrl") or "").strip().rstrip("/")
+    tail = url.split("/")[-1] if url else ""
+    return tail or folder
+
+
 def collect():
     courses = []
     for d in sorted(glob.glob(os.path.join(COURSES, "*"))):
@@ -88,8 +96,23 @@ def collect():
         seconds = dur_to_sec(lib.get("totalDuration"))
         if not seconds:
             seconds = sum(dur_to_sec(l.get("duration")) for l in lessons)
+        lesson_rows = []
+        for lesson in lessons:
+            lesson_slug = lesson.get("slug") or ""
+            has_video = bool(lesson_slug and os.path.exists(
+                os.path.join(d, "video", f"{lesson_slug}.mp4")))
+            lesson_rows.append({
+                "n": lesson.get("number") or 0,
+                "slug": lesson_slug,
+                "title": lesson.get("title") or "",
+                "section": lesson.get("sectionTitle") or "",
+                "duration": lesson.get("duration") or "",
+                "video": 1 if has_video else 0,
+            })
         courses.append({
             "slug": slug,
+            "watch": watch_slug(lib, slug),
+            "lessonRows": lesson_rows,
             "series": lib.get("series") or slug,
             "seriesUrl": lib.get("seriesUrl"),
             "instructor": lib.get("instructor") or "",
@@ -113,37 +136,284 @@ def bar(done, total, color):
 
 
 # Appended verbatim (not an f-string) so the braces stay single.
-# Fills in the per-card "已觀看" row from the av:watched record the player
-# writes when a lecture plays through to the end.
-WATCH_JS = """
+# Paints the per-card "已觀看" row from av:watched, and exports / imports a
+# CSV of every lecture (已播放 / 未播放, plus the resume point).
+PROGRESS_JS = r"""
 <script>
 (function(){
-  var all={};
-  try{ all=JSON.parse(localStorage.getItem("av:watched")||"{}")||{}; }catch(e){}
-  var cards=document.querySelectorAll(".card[data-slug]");
-  var totW=0, totP=0, doneCourses=0, seen={};
-  Array.prototype.forEach.call(cards,function(card){
-    var slug=card.getAttribute("data-slug");
-    if(seen[slug]) return; seen[slug]=1;
-    var playable=parseInt(card.getAttribute("data-playable"),10)||0;
-    var m=(all&&all[slug])||{}, n=0;
-    for(var k in m){ if(Object.prototype.hasOwnProperty.call(m,k)) n++; }
-    if(playable && n>playable) n=playable;
-    var row=card.querySelector(".covrow.watch");
-    var wn=row&&row.querySelector(".wn"), wf=row&&row.querySelector(".wfill");
-    if(wn) wn.textContent=n;
-    if(wf) wf.style.width=(playable?Math.round(100*n/playable):0)+"%";
-    if(n>0 && row) row.classList.add("has");
-    if(playable && n>=playable){
-      card.classList.add("allwatched");
-      var db=card.querySelector(".chip.done"); if(db) db.hidden=false;
-      doneCourses++;
+  var WATCH_KEY="av:watched", LAST_KEY="av:last";
+  var HEADS=["課程代碼","課程名稱","課號","單元代碼","單元標題","章節","時長","有影片","狀態","觀看時間","播放進度秒"];
+  var ALIAS={
+    course:["course_slug","課程代碼","watch_slug"],
+    lesson:["lesson_slug","單元代碼","slug"],
+    status:["status","狀態"],
+    video:["has_video","有影片"],
+    watchedAt:["watched_at","觀看時間"],
+    position:["position_sec","播放進度秒","position"],
+    title:["lesson_title","單元標題"],
+    courseTitle:["course_title","課程名稱"],
+    number:["lesson_number","課號"]
+  };
+
+  function readJson(key, fallback){
+    try{
+      var j=JSON.parse(localStorage.getItem(key)||"");
+      return (j&&typeof j==="object")?j:fallback;
+    }catch(e){ return fallback; }
+  }
+  function readWatched(){ return readJson(WATCH_KEY, {}); }
+  function readLast(){ return readJson(LAST_KEY, null); }
+  function catalog(){
+    var el=document.getElementById("lessonCatalog");
+    if(!el) return [];
+    try{ var j=JSON.parse(el.textContent||"[]"); return Array.isArray(j)?j:[]; }
+    catch(e){ return []; }
+  }
+  function pad(n){ return (n<10?"0":"")+n; }
+  function fmtTime(ms){
+    var d=new Date(Number(ms));
+    if(!ms || isNaN(d.getTime())) return "";
+    return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
+  }
+  function parseTime(s){
+    s=String(s||"").trim();
+    if(!s) return 0;
+    if(/^\d+$/.test(s)){ var n=Number(s); return n<1e12 ? n*1000 : n; }
+    var t=Date.parse(s.replace(" ","T"));
+    return isNaN(t)?0:t;
+  }
+  function statusKind(s){
+    s=String(s||"").trim().toLowerCase();
+    if(!s) return "";
+    if(["已播放","已觀看","played","watched","yes","y","true","1"].indexOf(s)>=0) return "played";
+    if(["未播放","未觀看","unplayed","unwatched","no","n","false","0"].indexOf(s)>=0) return "unplayed";
+    if(["無影片","novideo","none"].indexOf(s)>=0) return "novideo";
+    return "";
+  }
+  function videoFlag(s){
+    s=String(s||"").trim().toLowerCase();
+    if(!s) return "";
+    if(["0","無","no","n","false","無影片"].indexOf(s)>=0) return 0;
+    if(["1","有","yes","y","true"].indexOf(s)>=0) return 1;
+    return "";
+  }
+  function csvCell(v){
+    v=v==null?"":String(v);
+    if(/[",\n\r]/.test(v)) return '"'+v.replace(/"/g,'""')+'"';
+    return v;
+  }
+  function parseCsv(text){
+    text=String(text||"").replace(/^\uFEFF/,"").replace(/\r\n/g,"\n").replace(/\r/g,"\n");
+    var rows=[], row=[], cur="", q=false;
+    for(var i=0;i<text.length;i++){
+      var ch=text[i];
+      if(q){
+        if(ch==='"'){
+          if(text[i+1]==='"'){ cur+='"'; i++; }
+          else q=false;
+        } else cur+=ch;
+      } else if(ch==='"') q=true;
+      else if(ch===","){ row.push(cur); cur=""; }
+      else if(ch==="\n"){ row.push(cur); rows.push(row); row=[]; cur=""; }
+      else cur+=ch;
     }
-    totW+=n; totP+=playable;
-  });
-  var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
-  var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
-  var box=document.getElementById("statWatch"); if(box && totW>0) box.hidden=false;
+    if(cur.length||row.length){ row.push(cur); rows.push(row); }
+    if(rows.length && rows[rows.length-1].every(function(c){ return c===""; })) rows.pop();
+    return rows;
+  }
+  function colIndex(header){
+    var idx={};
+    Object.keys(ALIAS).forEach(function(key){
+      idx[key]=-1;
+      for(var i=0;i<header.length;i++){
+        if(ALIAS[key].indexOf(header[i])>=0){ idx[key]=i; break; }
+      }
+    });
+    return idx;
+  }
+  function cell(row, i){ return i>=0 && i<row.length ? String(row[i]||"").trim() : ""; }
+
+  function paintWatch(){
+    var all=readWatched();
+    var byWatch={};
+    catalog().forEach(function(c){ byWatch[c.slug]=c; });
+    var cards=document.querySelectorAll(".card[data-slug]");
+    var totW=0, doneCourses=0, seen={};
+    Array.prototype.forEach.call(cards,function(card){
+      var slug=card.getAttribute("data-slug");
+      var key=card.getAttribute("data-watch")||slug;
+      if(seen[key]) return; seen[key]=1;
+      var playable=parseInt(card.getAttribute("data-playable"),10)||0;
+      var m=(all&&all[key])||{}, n=0, cat=byWatch[key];
+      if(cat){
+        cat.lessons.forEach(function(l){ if(l.video && m[l.slug]) n++; });
+      } else {
+        for(var k in m){ if(Object.prototype.hasOwnProperty.call(m,k)) n++; }
+        if(playable && n>playable) n=playable;
+      }
+      var row=card.querySelector(".covrow.watch");
+      var wn=row&&row.querySelector(".wn"), wf=row&&row.querySelector(".wfill");
+      if(wn) wn.textContent=n;
+      if(wf) wf.style.width=(playable?Math.round(100*n/playable):0)+"%";
+      if(row) row.classList.toggle("has", n>0);
+      var done=playable && n>=playable;
+      card.classList.toggle("allwatched", done);
+      var db=card.querySelector(".chip.done"); if(db) db.hidden=!done;
+      if(done) doneCourses++;
+      totW+=n;
+    });
+    var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
+    var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
+    var box=document.getElementById("statWatch"); if(box) box.hidden=totW<=0;
+  }
+
+  function buildCsv(){
+    var all=readWatched(), last=readLast(), lines=[HEADS.join(",")], played=0, rows=0, seen={};
+    catalog().forEach(function(c){
+      var m=all[c.slug]||{};
+      (c.lessons||[]).forEach(function(l){
+        if(!l.slug) return;
+        seen[c.slug+"\n"+l.slug]=1;
+        var at=m[l.slug]||0;
+        var status = !l.video ? "無影片" : (at ? "已播放" : "未播放");
+        if(at && l.video) played++;
+        var pos="";
+        if(last && last.course===c.slug && last.lesson===l.slug && last.t!=null && last.t!=="") pos=String(Math.round(Number(last.t)||0));
+        lines.push([c.slug, c.title, l.n, l.slug, l.title, l.section, l.duration, l.video?1:0, status, at?fmtTime(at):"", pos].map(csvCell).join(","));
+        rows++;
+      });
+    });
+    Object.keys(all).forEach(function(course){
+      var m=all[course]||{};
+      Object.keys(m).forEach(function(lesson){
+        if(seen[course+"\n"+lesson]) return;
+        played++;
+        rows++;
+        lines.push([course, "", "", lesson, "", "", "", 1, "已播放", fmtTime(m[lesson]), ""].map(csvCell).join(","));
+      });
+    });
+    return {text: lines.join("\r\n")+"\r\n", rows: rows, played: played};
+  }
+
+  function showMsg(text, kind){
+    var el=document.getElementById("xferMsg");
+    if(!el) return;
+    el.hidden=false;
+    el.textContent=text;
+    el.className="xfermsg"+(kind?(" "+kind):"");
+  }
+
+  function exportCsv(){
+    var built=buildCsv();
+    var blob=new Blob(["\uFEFF"+built.text], {type:"text/csv;charset=utf-8"});
+    var a=document.createElement("a");
+    var url=URL.createObjectURL(blob);
+    var d=new Date();
+    a.href=url;
+    a.download="academind-playback-"+d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+".csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+    showMsg("已匯出 "+built.rows+" 列，其中 "+built.played+" 課已播放", "ok");
+  }
+
+  function parseImport(text){
+    var table=parseCsv(text);
+    if(!table.length) return {error:"CSV 是空的"};
+    var header=table[0].map(function(h){ return String(h||"").trim().toLowerCase(); });
+    var col=colIndex(header);
+    if(col.course<0 || col.lesson<0) return {error:"CSV 需要「課程代碼」和「單元代碼」欄位"};
+    var watchOf={};
+    catalog().forEach(function(c){
+      watchOf[c.slug]=c.slug;
+      if(c.folder) watchOf[c.folder]=c.slug;
+    });
+    var played=0, unplayed=0, skipped=0, position=null;
+    var changes=[];
+    for(var r=1;r<table.length;r++){
+      var row=table[r];
+      if(!row || row.every(function(c){ return String(c||"").trim()===""; })) continue;
+      var courseRaw=cell(row, col.course), lesson=cell(row, col.lesson);
+      if(!courseRaw || !lesson){ skipped++; continue; }
+      var course=watchOf[courseRaw]||courseRaw;
+      var kind=statusKind(cell(row, col.status));
+      var video=videoFlag(cell(row, col.video));
+      if(!kind){ skipped++; continue; }
+      if(kind==="played" && video!==0){
+        var at=parseTime(cell(row, col.watchedAt))||Date.now();
+        changes.push({course:course, lesson:lesson, on:true, at:at});
+        played++;
+      } else if(kind==="unplayed"){
+        changes.push({course:course, lesson:lesson, on:false});
+        unplayed++;
+      } else {
+        changes.push({course:course, lesson:lesson, on:false});
+      }
+      var posRaw=cell(row, col.position);
+      if(posRaw!=="" && isFinite(Number(posRaw))){
+        position={
+          course:course,
+          courseTitle:cell(row, col.courseTitle),
+          lesson:lesson,
+          lessonNumber:parseInt(cell(row, col.number),10)||0,
+          title:cell(row, col.title),
+          t:Math.max(0, Number(posRaw)||0),
+          at:Date.now()
+        };
+      }
+    }
+    if(!changes.length && !position) return {error:"CSV 沒有可套用的播放狀態"};
+    return {played:played, unplayed:unplayed, skipped:skipped, changes:changes, position:position};
+  }
+
+  function applyImport(parsed){
+    var all=readWatched();
+    (parsed.changes||[]).forEach(function(ch){
+      var m=all[ch.course];
+      if(!m || typeof m!=="object") m={};
+      if(ch.on) m[ch.lesson]=ch.at;
+      else delete m[ch.lesson];
+      if(Object.keys(m).length) all[ch.course]=m;
+      else delete all[ch.course];
+    });
+    try{ localStorage.setItem(WATCH_KEY, JSON.stringify(all)); }catch(e){}
+    if(parsed.position){
+      try{ localStorage.setItem(LAST_KEY, JSON.stringify(parsed.position)); }catch(e){}
+    }
+  }
+
+  function importCsv(text){
+    var parsed=parseImport(text);
+    if(parsed.error){ showMsg(parsed.error, "bad"); return; }
+    var note="這份 CSV 記載 "+parsed.played+" 課已播放、"+parsed.unplayed+" 課未播放。匯入後會更新這些課的狀態。";
+    if(parsed.position) note+="並回到「"+((parsed.position.title)||parsed.position.lesson)+"」。";
+    if(!window.confirm(note+"繼續？")){ showMsg("已取消匯入", ""); return; }
+    applyImport(parsed);
+    paintWatch();
+    var msg="已匯入 "+parsed.played+" 課已播放、"+parsed.unplayed+" 課未播放";
+    if(parsed.skipped) msg+="，略過 "+parsed.skipped+" 列";
+    if(parsed.position) msg+="，已記錄播放進度";
+    showMsg(msg, "ok");
+  }
+
+  var exportBtn=document.getElementById("exportCsv");
+  var importBtn=document.getElementById("importCsv");
+  var file=document.getElementById("importCsvFile");
+  if(exportBtn) exportBtn.addEventListener("click", exportCsv);
+  if(importBtn && file){
+    importBtn.addEventListener("click", function(){ file.click(); });
+    file.addEventListener("change", function(){
+      var f=file.files && file.files[0];
+      file.value="";
+      if(!f) return;
+      var reader=new FileReader();
+      reader.onload=function(){ importCsv(String(reader.result||"")); };
+      reader.onerror=function(){ showMsg("無法讀取檔案", "bad"); };
+      reader.readAsText(f);
+    });
+  }
+  paintWatch();
 })();
 </script>
 """
@@ -198,7 +468,7 @@ def card(c, i=0):
     src = (f'<a class="src" href="{html.escape(c["seriesUrl"])}" target="_blank" '
            f'rel="noopener">課程頁 ↗</a>') if c.get("seriesUrl") else ""
     return f"""
-    <div class="card" data-slug="{html.escape(c['slug'])}" data-playable="{c['videos']}"
+    <div class="card" data-slug="{html.escape(c['slug'])}" data-watch="{html.escape(c['watch'])}" data-playable="{c['videos']}"
          data-name="{html.escape(c['series'])}" data-seconds="{c['seconds']}" data-order="{i}">
       <a class="cardlink" href="{link}" aria-label="{title} — 進入播放器"></a>
       <div class="chead" style="background:linear-gradient(135deg,{c['c1']},{c['c2']})">
@@ -239,6 +509,14 @@ def main():
 
     cards = "\n".join(card(c, i) for i, c in enumerate(courses)) or \
         '<div class="empty">尚無課程。將課程資料夾放進 <code>courses/</code> 後執行 <code>python3 scripts/build_index.py</code>。</div>'
+    catalog = [{
+        "slug": c["watch"],
+        "folder": c["slug"],
+        "title": c["series"],
+        "lessons": c["lessonRows"],
+    } for c in courses]
+    catalog_json = json.dumps(catalog, ensure_ascii=False, separators=(",", ":"))
+    catalog_json = catalog_json.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
 
     page = f"""<!doctype html>
 <html lang="zh-Hant">
@@ -318,6 +596,16 @@ def main():
     padding:6px 11px;border-radius:8px;cursor:pointer;font-family:inherit;white-space:nowrap}}
   .seg button:hover{{color:var(--ink);background:#f2f4f7}}
   .seg button.on{{background:#7c5cff;color:#fff}}
+  .sortbar .grow{{flex:1}}
+  .xfer{{display:inline-flex;gap:8px;flex-wrap:wrap}}
+  .xfer button{{border:1px solid var(--line);background:var(--panel);color:var(--ink);
+    font:700 12.5px/1.2 inherit;padding:7px 12px;border-radius:10px;cursor:pointer;white-space:nowrap}}
+  .xfer button:hover{{border-color:#7c5cff;color:#7c5cff}}
+  .xfer button.primary{{background:#7c5cff;border-color:#7c5cff;color:#fff}}
+  .xfer button.primary:hover{{filter:brightness(1.06);color:#fff}}
+  .xfermsg{{margin:-6px 0 16px;font-size:12.5px;color:var(--muted)}}
+  .xfermsg.ok{{color:#0a7a45}}
+  .xfermsg.bad{{color:#b42318}}
 
   /* ---------- responsive: 100% and 150% browser zoom ---------- */
   @media (max-width:1024px){{
@@ -369,7 +657,14 @@ def main():
       <button type="button" data-sort="dur">時長 短→長</button>
       <button type="button" data-sort="dur-desc">時長 長→短</button>
     </div>
+    <span class="grow"></span>
+    <div class="xfer">
+      <button type="button" class="primary" id="exportCsv">匯出 CSV</button>
+      <button type="button" id="importCsv">匯入 CSV</button>
+      <input type="file" id="importCsvFile" accept=".csv,text/csv" hidden>
+    </div>
   </div>
+  <p class="xfermsg" id="xferMsg" hidden></p>
 
   <div class="grid">
 {cards}
@@ -381,7 +676,7 @@ def main():
     影片與原始課程內容版權屬 Academind 與原作者所有，僅供個人學習用途，請勿再散布。
   </footer>
 </div>
-""" + WATCH_JS + SORT_JS + "\n</body>\n</html>\n"
+""" + '<script id="lessonCatalog" type="application/json">' + catalog_json + "</script>\n" + PROGRESS_JS + SORT_JS + "\n</body>\n</html>\n"
     out = os.path.join(ROOT, "index.html")
     open(out, "w", encoding="utf-8").write(page)
     print(f"wrote {os.path.relpath(out, ROOT)} — {len(courses)} course(s), "
