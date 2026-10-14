@@ -20,6 +20,12 @@
     letter-spacing:.04em;text-transform:uppercase;color:#7c5cff;background:#efeaff;
     padding:5px 11px;border-radius:999px;margin-bottom:16px}
   header.top h1{margin:0 0 10px;font-size:34px;letter-spacing:-.02em;line-height:1.2}
+  /* Overall completion, above the title: "112/1001  11.18%".
+     The percent is cut at 2 decimals (not rounded) so 112/1001 stays 11.18. */
+  .donepos{display:flex;align-items:baseline;gap:10px;margin:0 0 14px;
+    font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:1}
+  .donepos .frac{font-size:28px;font-weight:800;color:var(--ink)}
+  .donepos .pct{font-size:22px;font-weight:800;color:#7c5cff}
   header.top p{margin:0;color:var(--muted);font-size:15.5px;max-width:680px}
   .stats{display:flex;gap:26px;margin-top:22px;flex-wrap:wrap}
   .stats div{font-size:13px;color:var(--muted)}
@@ -99,6 +105,8 @@
     header.top h1{font-size:25px}
     header.top p{font-size:14.5px}
     .stats b{font-size:19px}
+    .donepos .frac{font-size:24px}
+    .donepos .pct{font-size:18px}
     .grid{grid-template-columns:1fr;gap:14px}
     .chead{padding:16px 16px 14px}
     .cbody{padding:14px 16px 4px}
@@ -114,6 +122,9 @@
 <body>
 <div class="wrap">
   <header class="top">
+    <div class="donepos" id="donePos" title="已看完的有字幕影片 / 全部有字幕影片">
+      <span class="frac" id="donePosN">–/–</span><span class="pct" id="donePosP"></span>
+    </div>
     <span class="eyebrow">Academind · 個人學習筆記</span>
     <h1>中英雙語動態字幕課程庫</h1>
     <p>課程影片取自公開鏡像並於本機播放；英文字幕由 AssemblyAI 轉錄，翻譯為繁體中文，
@@ -763,6 +774,26 @@
     var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
     var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
     var box=document.getElementById("statWatch"); if(box) box.hidden=totW<=0;
+    var total=0;
+    catalog().forEach(function(c){
+      (c.lessons||[]).forEach(function(l){ if(l.video) total++; });
+    });
+    if(!total){
+      var seenT={};
+      Array.prototype.forEach.call(cards,function(card){
+        var key=card.getAttribute("data-watch")||card.getAttribute("data-slug");
+        if(seenT[key]) return; seenT[key]=1;
+        total+=parseInt(card.getAttribute("data-playable"),10)||0;
+      });
+    }
+    var nEl=document.getElementById("donePosN"), pEl=document.getElementById("donePosP");
+    if(nEl) nEl.textContent=totW+"/"+total;
+    if(pEl){
+      var pct=total?Math.floor(totW/total*10000)/100:0;
+      pEl.textContent=pct.toFixed(2)+"%";
+    }
+    var pos=document.getElementById("donePos");
+    if(pos) pos.title="課程完成度：已看完 "+totW+" 堂有字幕的課，共 "+total+" 堂";
   }
 
   function buildCsv(){

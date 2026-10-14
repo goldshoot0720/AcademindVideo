@@ -57,6 +57,15 @@
   .side-scrim{position:fixed;inset:0;background:rgba(16,24,40,.38);z-index:55;opacity:0;
     pointer-events:none;transition:opacity .2s ease}
   @media (max-width:1080px){.side-scrim.on{opacity:1;pointer-events:auto}}
+  /* Course position sits in the sidebar's top-left corner: "26/56  46.4%". */
+  .side-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px 8px}
+  .side-top .back{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    font-size:12px;font-weight:700;color:var(--muted);text-decoration:none}
+  .side-top .back:hover{color:var(--ink)}
+  .side-top .pos{flex:0 0 auto;display:flex;align-items:baseline;gap:6px;
+    font-variant-numeric:tabular-nums;letter-spacing:-.3px;line-height:1}
+  .side-top .pos .frac{font-size:15px;font-weight:800;color:var(--ink)}
+  .side-top .pos .pct{font-size:13px;font-weight:800;color:var(--accent)}
   .brand{padding:16px 16px 12px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line2)}
   .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6b5bff,#9d7bff);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.5px;flex:0 0 auto}
   .brand h1{margin:0;font-size:14px;font-weight:700;letter-spacing:-.2px}
@@ -325,7 +334,12 @@
 <div class="app">
   <!-- ============ SIDEBAR ============ -->
   <aside class="side">
-    <a href="../../index.html?stay=1" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted);text-decoration:none;padding:2px 2px 12px">← 課程列表</a>
+    <div class="side-top">
+      <div class="pos" id="coursePos" title="有字幕影片的課程序位 / 總數">
+        <span class="frac" id="coursePosN">–/–</span><span class="pct" id="coursePosP"></span>
+      </div>
+      <a class="back" href="../../index.html?stay=1">← 課程列表</a>
+    </div>
     <div class="brand">
       <div class="logo">Pi</div>
       <div>
@@ -720,6 +734,35 @@
     selectLesson(parseInt(el.dataset.i,10));
   });
 
+  // Rank among lectures that actually have a subtitled video, e.g. "26/56 46.4%".
+  // Catalog entries with no video and no captions are left out of both numbers.
+  function subtitledVideo(l){
+    return !!(l && l.videoFile && (l.cueCount || l.hasZh || l.hasEn || (l.segments && l.segments.length)));
+  }
+  function updateCoursePos(l, i){
+    var nEl=$("coursePosN"), pEl=$("coursePosP");
+    if(!nEl||!pEl) return;
+    var total=0, n=0;
+    for(var k=0;k<lessons.length;k++){
+      if(!subtitledVideo(lessons[k])) continue;
+      total++;
+      if(k<=i) n=total;
+    }
+    var box=$("coursePos");
+    if(!subtitledVideo(l)){
+      nEl.textContent="–/"+total;
+      pEl.textContent="";
+      if(box) box.title="這一課沒有字幕影片，不計入 "+total+" 課進度";
+      return;
+    }
+    var pct=total?(n/total*100):0;
+    nEl.textContent=n+"/"+total;
+    pEl.textContent=pct.toFixed(1)+"%";
+    if(box) box.title="課程進度：有字幕的第 "+n+" 課，共 "+total+" 課（"+pct.toFixed(1)+"%）";
+  }
+
+
+
   // ---------- lesson selection ----------
   function selectLesson(i){
     var l=lessons[i]; if(!l) return;
@@ -728,6 +771,7 @@
     clearTimeout(S._retryT);
     renderList();
     curTitle.textContent=(l.number?l.number+" · ":"")+(l.title||l.slug);
+    updateCoursePos(l, i);
     curSub.textContent=(l.duration||"")+" · "+(S.segs.length)+" 句字幕"
       +(l.sectionTitle?(" · "+l.sectionTitle):"");
     posterTitle.textContent=(l.number?l.number+"  ":"")+(l.title||"");
