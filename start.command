@@ -13,6 +13,20 @@ cd "$(dirname "$0")" || exit 1
 PORT="${1:-8788}"
 URL="http://localhost:${PORT}/"
 
+# Finder 雙擊時 PATH 很精簡，逐一找出可用的 python3
+PY=""
+for c in /opt/homebrew/bin/python3 /usr/local/bin/python3 /usr/bin/python3 \
+         "$HOME/.workbuddy-ai/binaries/python/versions/3.13.12/bin/python3"; do
+  if [ -x "$c" ]; then PY="$c"; break; fi
+done
+
+if [ -z "$PY" ]; then
+  echo "✗ 找不到 python3，請先安裝（或安裝 Xcode Command Line Tools）"
+  echo "  按任意鍵關閉…"
+  read -k 1
+  exit 1
+fi
+
 # 若同埠已有服務，直接開啟不重複啟動
 # 注意：--noproxy '*' 繞過系統/環境代理，否則代理會對任何埠都回應成功
 CODE=$(curl --noproxy '*' -s -o /dev/null -w '%{http_code}' --max-time 2 "$URL" 2>/dev/null)
@@ -26,4 +40,4 @@ echo "→ 啟動本地伺服器：$URL"
 echo "  （按 Ctrl-C 可停止）"
 echo
 
-exec python3 scripts/serve.py --port "$PORT" --open
+exec "$PY" scripts/serve.py --port "$PORT" --open
