@@ -32,6 +32,34 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RANGE_RE = re.compile(r"bytes=(\d*)-(\d*)")
 
 
+def parse_range(header, size):
+    """Parse one `Range: bytes=...` header for a file of `size` bytes.
+
+    Returns (start, end) inclusive, False when the range cannot be satisfied
+    (-> 416), or None when the header should be ignored (-> 200 full body).
+
+    Suffix ranges matter: `bytes=-1024` means the *last* 1024 bytes, not the
+    first 1025. Browsers ask for them when they need the tail of an MP4 (the
+    moov atom), and getting the wrong bytes aborts playback.
+    """
+    m = RANGE_RE.match((header or "").strip())
+    if not m:
+        return None
+    first, last = m.group(1), m.group(2)
+    if first == "" and last == "":
+        return None
+    if first == "":
+        n = int(last)
+        if n <= 0 or size <= 0:
+            return False
+        return max(0, size - n), size - 1
+    start = int(first)
+    end = size - 1 if last == "" else min(int(last), size - 1)
+    if start >= size or start > end:
+        return False
+    return start, end
+
+
 class Handler(SimpleHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
@@ -88,23 +116,21 @@ class Handler(SimpleHTTPRequestHandler):
         path = self.translate_path(self.path)
         rng = self.headers.get("Range")
         if rng and os.path.isfile(path):
-            m = RANGE_RE.match(rng.strip())
-            if m:
-                size = os.path.getsize(path)
-                start = int(m.group(1)) if m.group(1) else 0
-                end = int(m.group(2)) if m.group(2) else size - 1
-                end = min(end, size - 1)
-                if start > end or start >= size:
-                    self.send_response(416)
-                    self.send_header("Content-Range", f"bytes */{size}")
-                    self.end_headers()
-                    return None
+            size = os.path.getsize(path)
+            span = parse_range(rng, size)
+            if span is False:                      # unsatisfiable
+                self.send_response(416)
+                self.send_header("Content-Range", f"bytes */{size}")
+                self.send_header("Content-Length", "0")
+                self.end_headers()
+                return None
+            if span:                               # (start, end) inclusive
+                start, end = span
                 self.send_response(206)
                 self.send_header("Content-Type", self.guess_type(path))
                 self.send_header("Accept-Ranges", "bytes")
                 self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
                 self.send_header("Content-Length", str(end - start + 1))
-                self.send_header("Cache-Control", "no-store")
                 self.end_headers()
                 f = open(path, "rb")
                 f.seek(start)

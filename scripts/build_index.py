@@ -592,6 +592,9 @@ def main():
   .chip.dur{{color:#5b45e0;background:#f4f1ff;border-color:#e3dcff;font-variant-numeric:tabular-nums}}
   .chip.done{{color:#fff;background:#12b76a;border-color:#12b76a;
     display:inline-flex;align-items:center;gap:5px;padding-left:7px}}
+  /* `display:inline-flex` above outranks the UA rule for [hidden], so a
+     completed-only badge would show on every card. Restore it explicitly. */
+  .chip.done[hidden]{{display:none}}
   .chip.done .doneico{{width:18px;height:18px;flex:0 0 auto;display:block;
     filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.22))}}
   /* a small pop the moment the badge appears (display:none -> inline-flex restarts it) */
