@@ -127,6 +127,7 @@
   .badge{display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:600}
   .badge.ok{background:var(--ok-soft);color:var(--ok)}
   .badge.miss{background:var(--warn-soft);color:var(--warn)}
+  .badge.pend{background:var(--accent-soft);color:var(--accent)}
   .sec-row td{background:#f8fafc;font-weight:650;color:var(--ink-2);font-size:11.5px;letter-spacing:.3px}
 
   /* ---------- jobs ---------- */
@@ -275,11 +276,12 @@
       <div class="card-b">
         <div class="grid-2">
           <div>
-            <label class="field"><span>來源影片</span>
+            <label class="field" id="srcWrap"><span>來源影片</span>
               <select id="spSource"></select>
             </label>
             <label class="field"><span>分割方式</span>
               <select id="spMode">
+                <option value="parts">按分 P 對應單元（下載後整理，不重切）</option>
                 <option value="lessons">按單元時長（輸出 video/&lt;單元&gt;.mp4）</option>
                 <option value="fixed">固定長度（輸出 video/part_NNN.mp4）</option>
               </select>
@@ -290,7 +292,7 @@
               <input type="number" id="spSeconds" value="600" min="5" step="5">
             </label>
             <div class="row" style="margin-bottom:12px">
-              <label class="check"><input type="checkbox" id="spAccurate"> 精準切割（重新編碼，較慢）</label>
+              <label class="check" id="accWrap"><input type="checkbox" id="spAccurate"> 精準切割（重新編碼，較慢）</label>
               <label class="check"><input type="checkbox" id="spOverwrite"> 覆寫既有檔案</label>
             </div>
             <div class="row">
@@ -468,7 +470,7 @@ function renderHead(c) {
       <div class="v mono" style="margin-top:6px;font-size:11.5px;color:var(--ink-3);font-weight:400">${src}</div>
     </div>
     <div class="meta-cell"><div class="k">單元 / 總長 / 已下載</div>
-      <div class="v">${c.lessonCount} · ${fmtDur(c.totalSeconds)} · ${c.done}/${c.lessonCount}（${pct}%）</div></div>`;
+      <div class="v">${c.lessonCount} · ${fmtDur(c.totalSeconds)} · ${c.done}/${c.lessonCount}（${pct}%）${c.pending ? " · " + c.pending + " 待整理" : ""}</div></div>`;
 
   const btn = $("btnSaveMirror");
   if (btn) btn.onclick = saveMirror;
@@ -502,13 +504,31 @@ function renderSplitForm(c) {
   const sel = $("spSource");
   if (!candidates.length) {
     sel.innerHTML = `<option value="">（沒有可用的來源影片）</option>`;
-    $("spHint").textContent = "請先下載，或手動放到 courses/" + c.slug + "/video/_source/";
   } else {
     sel.innerHTML = candidates.map((f) =>
       `<option value="${esc(f.path)}">${esc(f.path)} · ${fmtSize(f.size)}${f.duration ? " · " + fmtDur(f.duration) : ""}</option>`).join("");
-    $("spHint").textContent = "";
   }
-  $("btnSplit").disabled = !candidates.length || !state.tools.ffmpeg;
+
+  const partsMode = $("spMode").value === "parts";
+  $("secWrap").style.display = $("spMode").value === "fixed" ? "" : "none";
+  $("srcWrap").style.display = partsMode ? "none" : "";
+  $("accWrap").style.display = partsMode ? "none" : "";
+
+  const hasSource = state.sources.some((f) => f.path.indexOf("_source/") === 0);
+  if (partsMode) {
+    $("btnSplit").disabled = !(c.pending > 0);
+    if (c.pending > 0) {
+      $("spHint").textContent = `可對應 ${c.pending} 個單元（來源：video/_source/）`;
+    } else if (hasSource) {
+      $("spHint").textContent = "分 P 都已對應完成，沒有待整理的單元";
+    } else {
+      $("spHint").textContent = "video/_source/ 沒有分 P 檔案（檔名需含「pNN M.」）";
+    }
+  } else {
+    $("btnSplit").disabled = !candidates.length || !state.tools.ffmpeg;
+    $("spHint").textContent = candidates.length
+      ? "" : "請先下載，或手動放到 courses/" + c.slug + "/video/_source/";
+  }
 }
 
 function renderLessons(c) {
@@ -524,9 +544,14 @@ function renderLessons(c) {
       lastSection = l.sectionTitle;
       html += `<tr class="sec-row"><td colspan="5">${esc(l.section ? "§" + l.section + " · " : "")}${esc(l.sectionTitle)}</td></tr>`;
     }
-    const badge = l.video.exists
-      ? `<span class="badge ok">${fmtSize(l.video.size)}</span>`
-      : `<span class="badge miss">缺檔</span>`;
+    let badge;
+    if (l.video.exists) {
+      badge = `<span class="badge ok">${fmtSize(l.video.size)}</span>`;
+    } else if (l.video.pending) {
+      badge = `<span class="badge pend" title="已下載：${esc(l.video.pending)}">待整理</span>`;
+    } else {
+      badge = `<span class="badge miss">缺檔</span>`;
+    }
     html += `<tr>
       <td class="num">${String(l.index).padStart(2, "0")}</td>
       <td>${esc(l.title)}</td>
@@ -536,7 +561,9 @@ function renderLessons(c) {
     </tr>`;
   }
   body.innerHTML = html;
-  $("lessonSummary").textContent = `${c.done}/${c.lessonCount} 已完成`;
+  $("lessonSummary").textContent = c.pending
+    ? `${c.done}/${c.lessonCount} 已完成 · ${c.pending} 待整理`
+    : `${c.done}/${c.lessonCount} 已完成`;
 }
 
 /* ---------------------------------------------------------- 動作 */
@@ -546,7 +573,7 @@ $("dlMode").onchange = () => {
   $("customWrap").style.display = mode === "custom" ? "" : "none";
 };
 $("spMode").onchange = () => {
-  $("secWrap").style.display = $("spMode").value === "fixed" ? "" : "none";
+  if (state.course) renderSplitForm(state.course);
 };
 
 function downloadPayload() {

@@ -141,6 +141,12 @@ def load_course(slug):
         })
         cursor += seconds
 
+    # downloaded parts that have not been mapped to a lesson file yet
+    parts = _scan_parts(base, lessons)
+    for lesson in lessons:
+        has_file = lesson["video"]["exists"]
+        lesson["video"]["pending"] = None if has_file else parts.get(lesson["slug"])
+
     bv = meta.get("bv") or doc.get("bv")
     mirror = (meta.get("mirrorUrl") or doc.get("mirrorUrl") or "").strip()
     bilibili_url = "https://www.bilibili.com/video/%s/" % bv if bv else None
@@ -158,6 +164,7 @@ def load_course(slug):
         "lessonCount": len(lessons),
         "totalSeconds": round(cursor, 3),
         "done": sum(1 for l in lessons if l["video"]["exists"]),
+        "pending": sum(1 for l in lessons if l["video"].get("pending")),
         "lessons": lessons,
     }
 
@@ -196,6 +203,57 @@ def list_sources(slug):
             item = {"path": rel, "name": name, "size": os.path.getsize(full)}
             out.append(item)
     return out
+
+
+MEDIA_EXT = (".mp4", ".mkv", ".webm", ".mov", ".m4v", ".flv", ".ts")
+# "01-Udemy - ... p01 1. Welcome To This Cours.mp4" -> part 1, lecture 1
+PART_RE = re.compile(r"\bp(\d+)\s+(\d+)\.\s*(.+)$", re.I)
+
+
+def _is_media(name):
+    low = name.lower()
+    if not low.endswith(MEDIA_EXT):
+        return False
+    if low.endswith(".part"):
+        return False
+    # yt-dlp keeps per-stream fragments as name.f30080.mp4 while downloading
+    if re.search(r"\.f\d+\.\w+$", low):
+        return False
+    return True
+
+
+def _norm_title(text):
+    return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", (text or "").lower())
+
+
+def _scan_parts(base, lessons):
+    """Map lesson slug -> downloaded part file, using the lecture number in the name.
+
+    The mirror is already split per lecture, so the right move is to match each
+    part to its lesson instead of cutting a single long video by timestamps.
+    """
+    src_dir = os.path.join(base, "video", "_source")
+    if not os.path.isdir(src_dir):
+        return {}
+    by_number, by_title = {}, {}
+    for lesson in lessons:
+        if lesson.get("number") is not None:
+            by_number[str(lesson["number"])] = lesson
+        by_title[_norm_title(lesson.get("title"))] = lesson
+
+    found = {}
+    for name in sorted(os.listdir(src_dir)):
+        if not _is_media(name):
+            continue
+        m = PART_RE.search(name)
+        if not m:
+            continue
+        lesson = by_number.get(str(int(m.group(2))))
+        if lesson is None:            # filenames are truncated, so title is a fallback
+            lesson = by_title.get(_norm_title(m.group(3)))
+        if lesson:
+            found.setdefault(lesson["slug"], name)
+    return found
 
 
 def _child_env():
@@ -247,6 +305,7 @@ class Job:
         self.proc = None
         self.procs = []
         self.step_progress = []
+        self.step_items = []    # per connection: (current item, items in that chunk)
         self.done_steps = 0
         self.detail = ""        # human readable progress tail (speed / ETA / item)
         self.items_total = 0    # playlist length, when known
@@ -294,25 +353,37 @@ class Job:
 
     def _parse_progress_at(self, idx, line):
         """Per-connection progress for parallel downloads (no playlist indexing)."""
+        m = re.search(r"Downloading item (\d+) of (\d+)", line)
+        if m:
+            self.step_items[idx] = (int(m.group(1)), int(m.group(2)))
+            self._step_set(idx, 0.0)
+            self.detail = "%d 條連線 · 第 %s/%s 個" % (
+                len(self.step_progress), m.group(1), m.group(2))
+            return
+
         m = re.search(
             r"\[download\]\s+([\d.]+)%\s+of\s+~?\s*([\d.]+\s*[KMG]?i?B)"
             r"(?:\s+at\s+([\d.]+\s*[KMG]?i?B/s))?(?:\s+ETA\s+([\d:]+))?",
             line,
         )
-        if m:
-            self.step_progress[idx] = float(m.group(1)) / 100.0
-            self.progress = min(0.999, sum(self.step_progress) / len(self.step_progress))
-            bits = [m.group(2)]
-            if m.group(3):
-                bits.append(m.group(3))
-            if m.group(4):
-                bits.append("ETA " + m.group(4))
-            self.detail = "%d 條連線 · %s" % (len(self.step_progress), " · ".join(bits))
+        if not m:
             return
-        m = re.search(r"Downloading item (\d+) of (\d+)", line)
-        if m:
-            self.detail = "%d 條連線 · 第 %s/%s 個" % (
-                len(self.step_progress), m.group(1), m.group(2))
+        pct = float(m.group(1))
+        self._step_set(idx, pct / 100.0)
+        bits = [m.group(2)]
+        if m.group(3):
+            bits.append(m.group(3))
+        if m.group(4):
+            bits.append("ETA " + m.group(4))
+        self.detail = "%d 條連線 · %s" % (len(self.step_progress), " · ".join(bits))
+
+    def _step_set(self, idx, frac):
+        """Store one connection's progress; completed items keep the bar monotonic."""
+        item, total = self.step_items[idx] if idx < len(self.step_items) else (0, 0)
+        if total:
+            frac = ((max(0, item - 1)) + max(0.0, min(1.0, frac))) / total
+        self.step_progress[idx] = max(0.0, min(1.0, frac))
+        self.progress = min(0.999, sum(self.step_progress) / len(self.step_progress))
 
     def _recompute(self):
         """Overall progress: playlist items are equal-sized slices of the job."""
@@ -376,15 +447,25 @@ class Job:
                 return
             self._log("")
             self._log("[%d/%d] %s" % (i + 1, total, label))
-            self._log("$ " + " ".join(cmd))
             if self.kind != "download":
                 self.detail = "%d/%d" % (i + 1, total)
                 self.progress = i / total
-            self.proc = self._spawn(cmd)
-            for line in self.proc.stdout:
-                self._log(line.rstrip())
-                self._parse_progress(line)
-            self.rc = self.proc.wait()
+            if callable(cmd):
+                # in-process step (file copy), no subprocess needed
+                try:
+                    cmd(self)
+                except Exception as exc:  # noqa: BLE001
+                    self.status = "failed"
+                    self._log("[X] %s" % exc)
+                    return
+                self.rc = 0
+            else:
+                self._log("$ " + " ".join(cmd))
+                self.proc = self._spawn(cmd)
+                for line in self.proc.stdout:
+                    self._log(line.rstrip())
+                    self._parse_progress(line)
+                self.rc = self.proc.wait()
             if self.cancelled:
                 return
             if self.rc != 0:
@@ -400,6 +481,7 @@ class Job:
     def _run_parallel(self):
         total = len(self.steps)
         self.step_progress = [0.0] * total
+        self.step_items = [(0, 0)] * total
         errors = []
         lock = threading.Lock()
 
@@ -714,9 +796,57 @@ def build_lesson_ranges(course, src_duration=0.0, calibrate=True):
     return ranges, scaled
 
 
+def _copy_step(src, dst):
+    """In-process file copy, used when a downloaded part already IS the lesson."""
+    def run(job):
+        size = os.path.getsize(src)
+        shutil.copy2(src, dst)
+        job._log("  %s → %s（%.1f MB）" % (os.path.basename(src), os.path.basename(dst),
+                                          size / 1048576.0))
+    return run
+
+
+def _start_map_parts(course, out_dir, overwrite):
+    """Map each downloaded part in video/_source to video/<lesson-slug>.mp4."""
+    base = os.path.join(COURSES_DIR, course["slug"])
+    parts = _scan_parts(base, course["lessons"])
+    if not parts:
+        raise ValueError("video/_source/ 沒有可對應的分 P 檔案"
+                         "（檔名需含「pNN M.」；也可改用按單元時長分割）")
+
+    steps, skipped, unmatched = [], 0, []
+    for lesson in course["lessons"]:
+        name = parts.get(lesson["slug"])
+        if not name:
+            if not lesson["video"]["exists"]:
+                unmatched.append(lesson)
+            continue
+        src = os.path.join(base, "video", "_source", name)
+        dst = os.path.join(out_dir, lesson["slug"] + ".mp4")
+        if os.path.exists(dst) and not overwrite:
+            skipped += 1
+            continue
+        steps.append(("%02d %s" % (lesson["index"], lesson["title"]), _copy_step(src, dst)))
+
+    if not steps:
+        raise ValueError("可對應的單元都已有檔案（可勾選「覆寫」重建）")
+
+    job = Job("split", "整理：%s（%d 個分 P → 單元）" % (course["series"], len(steps)), steps)
+    job._log("[..] 對應到 %d 個單元，略過 %d 個已存在" % (len(steps), skipped))
+    if unmatched:
+        job._log("[..] 另有 %d 個單元在此鏡像中沒有對應分 P" % len(unmatched))
+    return submit(job)
+
+
 def start_split(slug, source, mode="lessons", seconds=600, accurate=False,
                 overwrite=False, calibrate=True, only_missing=True):
     course = _require_course(slug)
+    out_dir = video_root(slug)
+    os.makedirs(out_dir, exist_ok=True)
+
+    if mode == "parts":
+        return _start_map_parts(course, out_dir, overwrite)
+
     if not FFMPEG:
         raise ValueError("找不到 ffmpeg，請先安裝（winget install yt-dlp.FFmpeg）")
 
@@ -724,8 +854,6 @@ def start_split(slug, source, mode="lessons", seconds=600, accurate=False,
     if not os.path.isfile(src):
         raise ValueError("找不到來源影片：%s" % source)
 
-    out_dir = video_root(slug)
-    os.makedirs(out_dir, exist_ok=True)
     base_cmd = [FFMPEG, "-hide_banner", "-loglevel", "error", "-y"]
 
     def encode_args(duration):
