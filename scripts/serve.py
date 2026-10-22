@@ -17,6 +17,7 @@ Usage:
   python3 scripts/serve.py --open
 """
 import argparse
+import json
 import os
 import re
 import socket
@@ -24,6 +25,8 @@ import sys
 import webbrowser
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+
+import admin_api
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RANGE_RE = re.compile(r"bytes=(\d*)-(\d*)")
@@ -42,6 +45,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         p = self.path.split("?", 1)[0].split("#", 1)[0]
+        if p.startswith("/admin/api/"):
+            return self._admin_api("GET")
         target = self.translate_path(p)
         # a bare course folder -> its player
         if os.path.isdir(target) and not os.path.exists(os.path.join(target, "index.html")):
@@ -55,6 +60,28 @@ class Handler(SimpleHTTPRequestHandler):
         if os.path.isdir(target):
             self.path = p.rstrip("/") + "/index.html"
         super().do_GET()
+
+    # ------------------------------------------------------------ admin api
+    def _admin_api(self, method):
+        """JSON endpoint for /admin/api/* (see scripts/admin_api.py)."""
+        try:
+            length = int(self.headers.get("Content-Length") or 0)
+        except ValueError:
+            length = 0
+        body = self.rfile.read(length) if length else b""
+        code, payload = admin_api.route(method, self.path, body)
+        data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers()
+        self.wfile.write(data)
+
+    def do_POST(self):
+        p = self.path.split("?", 1)[0].split("#", 1)[0]
+        if p.startswith("/admin/api/"):
+            return self._admin_api("POST")
+        self.send_error(404, "Not Found")
 
     # ------------------------------------------------------------ range / mp4
     def send_head(self):

@@ -629,6 +629,10 @@ def main():
   .xfer button:hover{{border-color:#7c5cff;color:#7c5cff}}
   .xfer button.primary{{background:#7c5cff;border-color:#7c5cff;color:#fff}}
   .xfer button.primary:hover{{filter:brightness(1.06);color:#fff}}
+  .xfer a.admin{{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);
+    background:var(--panel);color:var(--ink);text-decoration:none;white-space:nowrap;
+    font:700 12.5px/1.2 inherit;padding:7px 12px;border-radius:10px;transition:.15s}}
+  .xfer a.admin:hover{{border-color:#7c5cff;color:#7c5cff;text-decoration:none}}
   .xfermsg{{margin:-6px 0 16px;font-size:12.5px;color:var(--muted)}}
   .xfermsg.ok{{color:#0a7a45}}
   .xfermsg.bad{{color:#b42318}}
@@ -690,6 +694,7 @@ def main():
     </div>
     <span class="grow"></span>
     <div class="xfer">
+      <a class="admin" href="/admin/" title="影片來源下載與分割">⚙ 後台</a>
       <button type="button" class="primary" id="exportCsv">匯出 CSV</button>
       <button type="button" id="importCsv">匯入 CSV</button>
       <input type="file" id="importCsvFile" accept=".csv,text/csv" hidden>
