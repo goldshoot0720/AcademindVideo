@@ -503,7 +503,7 @@ def card(c, i=0):
           <span class="chip">{c['sections']} 章</span>
           <span class="chip">{c['lessons']} 課</span>
           <span class="chip dur">時長 {html.escape(c['totalDuration'])}</span>
-          <span class="chip done" hidden>✓ 課程已完成</span>
+          <span class="chip done" hidden><svg class="doneico" viewBox="0 0 24 24" aria-hidden="true"><path class="star" d="M12 2.4c.35 0 .67.2.83.51l2.5 5.06 5.59.81c.35.05.64.3.75.64.11.34.02.71-.24.96l-4.04 3.94.95 5.56c.06.35-.08.7-.37.91-.29.21-.67.24-.99.08L12 17.99l-4.98 2.62c-.32.16-.7.13-.99-.08a.94.94 0 0 1-.37-.91l.95-5.56L2.57 10.4a.94.94 0 0 1-.24-.96c.11-.34.4-.59.75-.64l5.59-.81 2.5-5.06c.16-.31.48-.51.83-.51z" fill="#FFD44D"/><circle cx="7.1" cy="13.4" r="1.15" fill="#FF8FA3" opacity=".85"/><circle cx="16.9" cy="13.4" r="1.15" fill="#FF8FA3" opacity=".85"/><circle cx="9.3" cy="11.2" r="1.55" fill="#5E3F00"/><circle cx="14.7" cy="11.2" r="1.55" fill="#5E3F00"/><path d="M9.6 14.3c.62.98 1.46 1.47 2.4 1.47.94 0 1.78-.49 2.4-1.47" fill="none" stroke="#5E3F00" stroke-width="1.55" stroke-linecap="round"/></svg>課程已完成</span>
         </div>
         <div class="cov">
           <div class="covrow watch"><span class="lbl">已觀看</span><div class="bar"><span class="wfill" style="width:0"></span></div><div class="barlab"><b class="wn">0</b> / {c['videos']}</div></div>
@@ -590,7 +590,18 @@ def main():
   .chip{{font-size:12px;font-weight:600;color:#475467;background:#f2f4f7;border:1px solid var(--line);
     padding:3px 10px;border-radius:999px}}
   .chip.dur{{color:#5b45e0;background:#f4f1ff;border-color:#e3dcff;font-variant-numeric:tabular-nums}}
-  .chip.done{{color:#fff;background:#12b76a;border-color:#12b76a}}
+  .chip.done{{color:#fff;background:#12b76a;border-color:#12b76a;
+    display:inline-flex;align-items:center;gap:5px;padding-left:7px}}
+  .chip.done .doneico{{width:18px;height:18px;flex:0 0 auto;display:block;
+    filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.22))}}
+  /* a small pop the moment the badge appears (display:none -> inline-flex restarts it) */
+  .chip.done:not([hidden]){{animation:donePop .42s cubic-bezier(.34,1.56,.64,1) both}}
+  .chip.done:not([hidden]) .doneico{{animation:doneTwinkle 2.6s ease-in-out .5s infinite}}
+  @keyframes donePop{{0%{{transform:scale(.55);opacity:0}}100%{{transform:scale(1);opacity:1}}}}
+  @keyframes doneTwinkle{{0%,86%,100%{{transform:rotate(0)}}91%{{transform:rotate(-9deg)}}95%{{transform:rotate(9deg)}}}}
+  @media (prefers-reduced-motion:reduce){{
+    .chip.done:not([hidden]),.chip.done:not([hidden]) .doneico{{animation:none}}
+  }}
   .cov{{display:flex;flex-direction:column;gap:11px}}
   .covrow{{display:flex;align-items:center;gap:10px}}
   .lbl{{width:66px;flex:0 0 auto;font-size:12px;color:var(--muted);font-weight:600}}
