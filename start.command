@@ -27,6 +27,14 @@ if [ -z "$PY" ]; then
   exit 1
 fi
 
+# 自動提交常駐：launchd 在這台機器被擋（bootstrap 一律 EIO），
+# 所以改由每次啟動本檔時把 autopush 拉起來。autopush 自己有單實例鎖，
+# 重複呼叫是安全的；_drive/ 不存在（別台機器）就跳過。
+if [ -f _drive/launch_autopush.py ] && ! pgrep -f "_drive/autopush.py" >/dev/null 2>&1; then
+  env -u HTTP_PROXY -u HTTPS_PROXY -u http_proxy -u https_proxy -u ALL_PROXY -u all_proxy \
+      "$PY" _drive/launch_autopush.py >/dev/null 2>&1
+fi
+
 # 若同埠已有服務，直接開啟不重複啟動
 # 注意：--noproxy '*' 繞過系統/環境代理，否則代理會對任何埠都回應成功
 CODE=$(curl --noproxy '*' -s -o /dev/null -w '%{http_code}' --max-time 2 "$URL" 2>/dev/null)
