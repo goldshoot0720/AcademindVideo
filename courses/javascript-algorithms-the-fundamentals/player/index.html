@@ -930,8 +930,10 @@
   }
   function playhead(){ return S.demo ? S.vtime : (video.currentTime||0); }
   function totalTime(){ return S.demo ? S.vDuration : ((video.duration&&isFinite(video.duration))?video.duration:0); }
-  function seek(subT){
-    var ph=Math.max(0, (subT||0) - S.offset/1000);
+  // seekMedia() takes a MEDIA time; seek() takes a SUBTITLE time and applies
+  // the user's offset. Mixing them up shifted every jump by the offset.
+  function seekMedia(t){
+    var ph=Math.max(0, t||0);
     if(S.demo){ S.vtime=ph; render(true); updateTransport(); }
     else {
       // move the media AND refresh the transport immediately: relying on the
@@ -941,6 +943,7 @@
       updateTransport(); render(true);
     }
   }
+  function seek(subT){ seekMedia((subT||0) - S.offset/1000); }
   // playing state must be read from the real media element in video mode,
   // otherwise the toggle always thinks it is paused (regression fix)
   function isPlaying(){
@@ -1066,7 +1069,7 @@
   function barSeek(x){
     var r=bar.getBoundingClientRect();
     var p=Math.min(1,Math.max(0,(x-r.left)/(r.width||1)));
-    seek(p*(totalTime()||S.vDuration));
+    seekMedia(p*(totalTime()||S.vDuration));
   }
   bar.addEventListener("click",function(e){ barSeek(e.clientX); });
   // drag / swipe to scrub - click-only felt dead on a hairline track
@@ -1315,15 +1318,39 @@
   $("q").addEventListener("input",function(){ S.filter=this.value; renderList(); });
 
   // keyboard
+  // Only *text entry* should swallow shortcuts. A focused range slider or
+  // checkbox used to disable arrow-key seeking for the rest of the session,
+  // because the old guard bailed out on every INPUT element.
+  var TEXTY={text:1,search:1,number:1,email:1,password:1,url:1,tel:1,date:1,time:1,datetime:1,"datetime-local":1,month:1,week:1};
+  function typingInField(el){
+    if(!el||!el.tagName) return false;
+    var tag=el.tagName.toUpperCase();
+    if(tag==="TEXTAREA"||tag==="SELECT") return true;
+    if(el.isContentEditable) return true;
+    if(tag==="INPUT") return !!TEXTY[(el.type||"text").toLowerCase()];
+    return false;
+  }
   document.addEventListener("keydown",function(e){
-    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
-    if(e.code==="Space"){ e.preventDefault(); toggle(); }
-    else if(e.key==="ArrowRight"){ seek(playhead()+5); }
-    else if(e.key==="ArrowLeft"){ seek(playhead()-5); }
-    else if(e.key==="ArrowDown"){ var n=Math.min(S.segs.length-1,S.activeIdx+1); if(S.segs[n]) seek(S.segs[n].start+0.01); }
-    else if(e.key==="ArrowUp"){ var p=Math.max(0,S.activeIdx-1); if(S.segs[p]) seek(S.segs[p].start+0.01); }
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(typingInField(e.target)){
+      // Esc leaves the field so the shortcuts below work again
+      if(e.key==="Escape"&&e.target.blur) e.target.blur();
+      return;
+    }
+    if(e.code==="Space"||e.key===" "){ e.preventDefault(); toggle(); }
+    else if(e.key==="ArrowRight"){ e.preventDefault(); seekMedia(playhead()+5); }
+    else if(e.key==="ArrowLeft"){ e.preventDefault(); seekMedia(playhead()-5); }
+    else if(e.key==="ArrowDown"){ e.preventDefault(); var n=Math.min(S.segs.length-1,S.activeIdx+1); if(S.segs[n]) seek(S.segs[n].start+0.01); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); var p=Math.max(0,S.activeIdx-1); if(S.segs[p]) seek(S.segs[p].start+0.01); }
     else if(e.key==="e"||e.key==="E"){ $("showEn").checked=!$("showEn").checked; $("showEn").dispatchEvent(new Event("change")); }
     else if(e.key==="c"||e.key==="C"){ $("showZh").checked=!$("showZh").checked; $("showZh").dispatchEvent(new Event("change")); }
+  });
+
+  // Clicking the picture hands keyboard focus back to the page, so arrow-key
+  // seeking still works after the user touched a slider or the search box.
+  $("stage").addEventListener("pointerdown",function(){
+    var a=document.activeElement;
+    if(a&&a!==document.body&&a.blur) a.blur();
   });
 
   // ---------- video source ----------

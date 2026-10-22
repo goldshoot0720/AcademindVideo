@@ -70,6 +70,10 @@
   .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#6b5bff,#9d7bff);display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;letter-spacing:-.5px;flex:0 0 auto}
   .brand h1{margin:0;font-size:14px;font-weight:700;letter-spacing:-.2px}
   .brand p{margin:2px 0 0;font-size:11.5px;color:var(--muted)}
+  .brand .remain{margin:3px 0 0;font-size:12.5px;font-weight:800;color:var(--accent);
+    font-variant-numeric:tabular-nums;letter-spacing:-.2px}
+  .brand .remain.done{color:#0a7a45}
+  html[data-theme="dark"] .brand .remain.done{color:#5fd39a}
   .side-tools{padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid var(--line2)}
   .search{flex:1;display:flex;align-items:center;gap:7px;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:7px 10px}
   .search input{border:0;background:transparent;outline:0;color:var(--ink);width:100%;font-size:12.5px}
@@ -344,7 +348,8 @@
       <div class="logo">Pi</div>
       <div>
         <h1>Pi: The Practical Guide</h1>
-        <p>中英雙語動態字幕</p>
+        <p id="brandSub">中英雙語動態字幕</p>
+        <p class="remain" id="remainTime" title="依目前倍速估算還要看多久。已看完的課不計；正在看的這一課會扣掉播放進度。">剩餘 —</p>
       </div>
     </div>
     <div class="side-tools">
@@ -565,9 +570,9 @@
       document.title=DATA.series+" · 中英雙語動態字幕播放器";
     }
     var g=document.querySelector(".brand .logo"); if(g) g.textContent=logo();
-    var s=document.querySelector(".brand p");
+    var s=document.getElementById("brandSub");
     if(s) s.textContent="中英雙語動態字幕 · "+lessons.length+" 課 · "+label;
-    return {slug:slug, lessons:lessons.length, seconds:sec, label:label};
+    return {slug:slug, lessons:lessons.length, seconds:sec, label:label, toSec:toSec};
   })();
 
   // ---------- element refs ----------
@@ -695,6 +700,52 @@
     if(fl) fl.style.width=(t?Math.round(100*n/t):0)+"%";
     var wp=$("watchProg"); if(wp) wp.classList.toggle("complete", done);
     var db=$("doneBadge"); if(db) db.classList.toggle("on", done);
+    updateRemain();
+  }
+  function fmtLeft(sec){
+    sec=Math.max(0, sec||0);
+    var mins=Math.floor(sec/60);
+    if(mins<1) return "1m";
+    var h=Math.floor(mins/60), m=mins%60;
+    return (h?h+"h ":"")+m+"m";
+  }
+  function lessonDur(l){
+    var fn=window.COURSE_TOTALS&&window.COURSE_TOTALS.toSec;
+    return fn ? fn(l&&l.duration) : 0;
+  }
+  // Unwatched lectures count in full. The open lecture counts only what is
+  // left of it, including a resume point that has not been seeked yet.
+  function remainSec(){
+    var watched=courseWatched(), cur=S.lesson, pos=0;
+    if(cur && cur.videoFile && !watched[cur.slug]){
+      try{ pos=playhead()||0; }catch(e){ pos=0; }
+      if(pos<1 && RESUME_T>1 && cur.slug===RESUME_SLUG) pos=RESUME_T;
+    }
+    var left=0;
+    lessons.forEach(function(l){
+      if(!l.videoFile || watched[l.slug]) return;
+      var dur=lessonDur(l);
+      left += (cur && l.slug===cur.slug) ? Math.max(0, dur-pos) : dur;
+    });
+    return left;
+  }
+  function playbackRate(){
+    var r=1, label="1x";
+    try{
+      r=parseFloat(rateSel.value);
+      if(!(r>0)) r=1;
+      var opt=rateSel.options[rateSel.selectedIndex];
+      label=((opt&&opt.text)?opt.text:String(r))+"x";
+    }catch(e){}
+    return {r:r, label:label};
+  }
+  function updateRemain(){
+    var el=$("remainTime"); if(!el) return;
+    var left=remainSec(), rate=playbackRate();
+    // Wall-clock time still to watch at the selected speed, so 1.5x is shorter than 1x.
+    var label = left<=0 ? "已看完" : ("剩餘 "+fmtLeft(left/rate.r)+" · "+rate.label);
+    if(el.textContent!==label) el.textContent=label;
+    el.classList.toggle("done", left<=0);
   }
 
   function toast(m){ toastEl.textContent=m; toastEl.classList.add("on"); clearTimeout(toastEl._t); toastEl._t=setTimeout(function(){toastEl.classList.remove("on")},1900); }
@@ -760,8 +811,6 @@
     pEl.textContent=pct.toFixed(1)+"%";
     if(box) box.title="課程進度：有字幕的第 "+n+" 課，共 "+total+" 課（"+pct.toFixed(1)+"%）";
   }
-
-
 
   // ---------- lesson selection ----------
   function selectLesson(i){
@@ -883,8 +932,10 @@
   }
   function playhead(){ return S.demo ? S.vtime : (video.currentTime||0); }
   function totalTime(){ return S.demo ? S.vDuration : ((video.duration&&isFinite(video.duration))?video.duration:0); }
-  function seek(subT){
-    var ph=Math.max(0, (subT||0) - S.offset/1000);
+  // seekMedia() takes a MEDIA time; seek() takes a SUBTITLE time and applies
+  // the user's offset. Mixing them up shifted every jump by the offset.
+  function seekMedia(t){
+    var ph=Math.max(0, t||0);
     if(S.demo){ S.vtime=ph; render(true); updateTransport(); }
     else {
       // move the media AND refresh the transport immediately: relying on the
@@ -894,6 +945,7 @@
       updateTransport(); render(true);
     }
   }
+  function seek(subT){ seekMedia((subT||0) - S.offset/1000); }
   // playing state must be read from the real media element in video mode,
   // otherwise the toggle always thinks it is paused (regression fix)
   function isPlaying(){
@@ -1014,11 +1066,12 @@
     var cur=playhead(), tot=totalTime()||S.vDuration||0;
     fill.style.width=(tot?(100*cur/tot):0)+"%";
     timeEl.textContent=fmt(cur)+" / "+fmt(tot);
+    updateRemain();
   }
   function barSeek(x){
     var r=bar.getBoundingClientRect();
     var p=Math.min(1,Math.max(0,(x-r.left)/(r.width||1)));
-    seek(p*(totalTime()||S.vDuration));
+    seekMedia(p*(totalTime()||S.vDuration));
   }
   bar.addEventListener("click",function(e){ barSeek(e.clientX); });
   // drag / swipe to scrub - click-only felt dead on a hairline track
@@ -1058,6 +1111,7 @@
     try{ rateSel.value=String(r); }catch(e){}
     try{ video.playbackRate=r; video.defaultPlaybackRate=r; }catch(e){}
     if(persist){ try{ localStorage.setItem(RATE_KEY,String(r)); }catch(e){} }
+    updateRemain();
   }
   rateSel.addEventListener("change",function(){ applyRate(rateSel.value,true); });
   offsetEl.addEventListener("input",function(){ S.offset=parseInt(offsetEl.value,10); offsetV.textContent=S.offset+"ms"; render(true); });
@@ -1108,8 +1162,6 @@
     toggle();
   }
   $("stage").addEventListener("click",stageToggle);
-
-
 
   // A lecture's video can fail transiently (the server is busy writing a file,
   // the request was aborted, the machine just woke up). Retry a few times with
@@ -1268,15 +1320,39 @@
   $("q").addEventListener("input",function(){ S.filter=this.value; renderList(); });
 
   // keyboard
+  // Only *text entry* should swallow shortcuts. A focused range slider or
+  // checkbox used to disable arrow-key seeking for the rest of the session,
+  // because the old guard bailed out on every INPUT element.
+  var TEXTY={text:1,search:1,number:1,email:1,password:1,url:1,tel:1,date:1,time:1,datetime:1,"datetime-local":1,month:1,week:1};
+  function typingInField(el){
+    if(!el||!el.tagName) return false;
+    var tag=el.tagName.toUpperCase();
+    if(tag==="TEXTAREA"||tag==="SELECT") return true;
+    if(el.isContentEditable) return true;
+    if(tag==="INPUT") return !!TEXTY[(el.type||"text").toLowerCase()];
+    return false;
+  }
   document.addEventListener("keydown",function(e){
-    if(e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA") return;
-    if(e.code==="Space"){ e.preventDefault(); toggle(); }
-    else if(e.key==="ArrowRight"){ seek(playhead()+5); }
-    else if(e.key==="ArrowLeft"){ seek(playhead()-5); }
-    else if(e.key==="ArrowDown"){ var n=Math.min(S.segs.length-1,S.activeIdx+1); if(S.segs[n]) seek(S.segs[n].start+0.01); }
-    else if(e.key==="ArrowUp"){ var p=Math.max(0,S.activeIdx-1); if(S.segs[p]) seek(S.segs[p].start+0.01); }
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(typingInField(e.target)){
+      // Esc leaves the field so the shortcuts below work again
+      if(e.key==="Escape"&&e.target.blur) e.target.blur();
+      return;
+    }
+    if(e.code==="Space"||e.key===" "){ e.preventDefault(); toggle(); }
+    else if(e.key==="ArrowRight"){ e.preventDefault(); seekMedia(playhead()+5); }
+    else if(e.key==="ArrowLeft"){ e.preventDefault(); seekMedia(playhead()-5); }
+    else if(e.key==="ArrowDown"){ e.preventDefault(); var n=Math.min(S.segs.length-1,S.activeIdx+1); if(S.segs[n]) seek(S.segs[n].start+0.01); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); var p=Math.max(0,S.activeIdx-1); if(S.segs[p]) seek(S.segs[p].start+0.01); }
     else if(e.key==="e"||e.key==="E"){ $("showEn").checked=!$("showEn").checked; $("showEn").dispatchEvent(new Event("change")); }
     else if(e.key==="c"||e.key==="C"){ $("showZh").checked=!$("showZh").checked; $("showZh").dispatchEvent(new Event("change")); }
+  });
+
+  // Clicking the picture hands keyboard focus back to the page, so arrow-key
+  // seeking still works after the user touched a slider or the search box.
+  $("stage").addEventListener("pointerdown",function(){
+    var a=document.activeElement;
+    if(a&&a!==document.body&&a.blur) a.blur();
   });
 
   // ---------- video source ----------
