@@ -266,6 +266,13 @@ PROGRESS_JS = r"""
     try{ document.dispatchEvent(new CustomEvent("av:progress")); }catch(e){}
     var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
     var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
+    // course-level progress bar
+    var totalCourses=Object.keys(seen).length;
+    var pct=totalCourses?Math.round(100*doneCourses/totalCourses):0;
+    var cd=document.getElementById("courseDone"); if(cd) cd.textContent=doneCourses;
+    var cf=document.getElementById("courseFill"); if(cf) cf.style.width=pct+"%";
+    var cp=document.getElementById("coursePct"); if(cp) cp.textContent=pct+"%";
+    var cb=document.getElementById("courseBar"); if(cb) cb.hidden=!totalCourses;
     var box=document.getElementById("statWatch"); if(box) box.hidden=totW<=0;
     var total=0;
     catalog().forEach(function(c){
@@ -597,6 +604,18 @@ def main():
     font-variant-numeric:tabular-nums;letter-spacing:-.03em;line-height:1}}
   .donepos .frac{{font-size:28px;font-weight:800;color:var(--ink)}}
   .donepos .pct{{font-size:22px;font-weight:800;color:#7c5cff}}
+  /* course-level completion: label + bar + "4 / 16 門" + percent */
+  .coursebar{{display:flex;align-items:center;gap:12px;margin:0 0 16px;flex-wrap:wrap;
+    font-variant-numeric:tabular-nums}}
+  .coursebar .lbl{{font-size:12.5px;font-weight:700;color:var(--muted);letter-spacing:.02em}}
+  .coursebar .track{{flex:0 1 230px;min-width:120px;height:9px;border-radius:999px;
+    background:#eceff4;overflow:hidden;box-shadow:inset 0 1px 2px rgba(16,24,40,.06)}}
+  .coursebar .track i{{display:block;height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,#12b76a,#0ea472);transition:width .5s cubic-bezier(.22,1,.36,1)}}
+  .coursebar .num{{font-size:13px;font-weight:700;color:var(--ink)}}
+  .coursebar .num b{{font-size:16px;font-weight:800}}
+  .coursebar .pc{{font-size:15px;font-weight:800;color:#0a7a45;min-width:44px}}
+  @media (prefers-reduced-motion:reduce){{.coursebar .track i{{transition:none}}}}
   header.top p{{margin:0;color:var(--muted);font-size:15.5px;max-width:680px}}
   .stats{{display:flex;gap:26px;margin-top:22px;flex-wrap:wrap}}
   .stats div{{font-size:13px;color:var(--muted)}}
@@ -729,6 +748,12 @@ def main():
   <header class="top">
     <div class="donepos" id="donePos" title="已看完的有字幕影片 / 全部有字幕影片">
       <span class="frac" id="donePosN">–/–</span><span class="pct" id="donePosP"></span>
+    </div>
+    <div class="coursebar" id="courseBar" title="已完成的課程 / 課程總數">
+      <span class="lbl">課程完成度</span>
+      <span class="track"><i id="courseFill"></i></span>
+      <span class="num"><b id="courseDone">0</b> / {len(courses)} 門已完成</span>
+      <span class="pc" id="coursePct">0%</span>
     </div>
     <span class="eyebrow">Academind · 個人學習筆記</span>
     <h1>中英雙語動態字幕課程庫</h1>
