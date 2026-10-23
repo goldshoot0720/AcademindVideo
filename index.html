@@ -74,6 +74,9 @@
   .barlab b{color:var(--ink)}
   .covrow.watch .lbl{color:#0a7a45}
   .covrow.watch .wfill{display:block;height:100%;border-radius:999px;background:#12b76a;transition:width .25s ease}
+  .card[hidden]{display:none}   /* .card sets display:flex, so [hidden] needs help */
+  .emptyfilter{margin:8px 2px 28px;padding:26px;text-align:center;color:var(--muted);
+    font-size:13.5px;background:var(--panel);border:1px dashed var(--line);border-radius:14px}
   .card.allwatched{border-color:#bfe9d3}
   /* completed: an SVG check badge pinned to the course logo */
   .card.allwatched .logo{position:relative}
@@ -171,6 +174,12 @@
   </header>
 
   <div class="sortbar">
+    <span class="sortlabel">進度</span>
+    <div class="seg" id="doneSeg" role="group" aria-label="依完成狀態篩選">
+      <button type="button" data-done="all" class="on">全部</button>
+      <button type="button" data-done="todo">未完成</button>
+      <button type="button" data-done="done">已完成</button>
+    </div>
     <span class="sortlabel">排序</span>
     <div class="seg" id="sortSeg" role="group" aria-label="課程排序方式">
       <button type="button" data-sort="default" class="on">預設</button>
@@ -671,6 +680,7 @@
       </div>
     </div>
   </div>
+  <p class="emptyfilter" id="doneEmpty" hidden>沒有符合條件的課程。</p>
 
   <footer>
     本機瀏覽：於專案根目錄執行 <code>python3 scripts/serve.py --open</code>，
@@ -803,6 +813,8 @@
       if(done) doneCourses++;
       totW+=n;
     });
+    // let the completion filter know the .allwatched flags just changed
+    try{ document.dispatchEvent(new CustomEvent("av:progress")); }catch(e){}
     var sv=document.getElementById("statWatchV"); if(sv) sv.textContent=totW;
     var sc=document.getElementById("statDone"); if(sc) sc.textContent=doneCourses;
     var box=document.getElementById("statWatch"); if(box) box.hidden=totW<=0;
@@ -1013,6 +1025,35 @@
   var saved="default";
   try{ saved=localStorage.getItem("av:sort")||"default"; }catch(e){}
   apply(saved);
+
+  // ---- completion filter (全部 / 未完成 / 已完成) ---------------------------
+  var dseg=document.getElementById("doneSeg"), dnote=document.getElementById("doneEmpty");
+  var doneMode="all";
+  function applyDone(){
+    var shown=0;
+    cards.forEach(function(c){
+      var isDone=c.classList.contains("allwatched");
+      var hide=(doneMode==="done"&&!isDone)||(doneMode==="todo"&&isDone);
+      c.hidden=hide;
+      if(!hide) shown++;
+    });
+    if(dnote) dnote.hidden=!(doneMode!=="all"&&shown===0);
+    if(dseg) Array.prototype.forEach.call(dseg.querySelectorAll("button[data-done]"),function(b){
+      b.classList.toggle("on", b.getAttribute("data-done")===doneMode);
+    });
+  }
+  if(dseg){
+    try{ var ds=localStorage.getItem("av:done"); if(ds) doneMode=ds; }catch(e){}
+    dseg.addEventListener("click",function(e){
+      var b=e.target.closest("button[data-done]"); if(!b) return;
+      doneMode=b.getAttribute("data-done");
+      applyDone();
+      try{ localStorage.setItem("av:done", doneMode); }catch(err){}
+    });
+    applyDone();
+  }
+  // the progress script computes .allwatched after us -- refilter when it does
+  document.addEventListener("av:progress", applyDone);
 })();
 </script>
 
