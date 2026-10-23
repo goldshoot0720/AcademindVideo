@@ -615,6 +615,19 @@ def main():
   .covrow.watch .lbl{{color:#0a7a45}}
   .covrow.watch .wfill{{display:block;height:100%;border-radius:999px;background:#12b76a;transition:width .25s ease}}
   .card.allwatched{{border-color:#bfe9d3}}
+  /* completed: an SVG check badge pinned to the course logo */
+  .card.allwatched .logo{{position:relative}}
+  .card.allwatched .logo::after{{
+    content:"";position:absolute;right:-7px;bottom:-7px;width:21px;height:21px;
+    border-radius:50%;background:#12b76a;border:2.5px solid #fff;
+    box-shadow:0 2px 7px rgba(16,24,40,.3);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.6 12.7l5.1 5.1 9.7-10.5'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:center;background-size:13px 13px;
+    animation:checkPop .45s cubic-bezier(.34,1.56,.64,1) both;
+  }}
+  @keyframes checkPop{{0%{{transform:scale(0) rotate(-28deg);opacity:0}}
+                       100%{{transform:scale(1) rotate(0);opacity:1}}}}
+  @media (prefers-reduced-motion:reduce){{.card.allwatched .logo::after{{animation:none}}}}
   .cfoot{{display:flex;align-items:center;justify-content:space-between;
     padding:14px 20px;border-top:1px solid var(--line);margin-top:14px}}
   .enter{{font-weight:700;font-size:13.5px;color:#7c5cff}}
