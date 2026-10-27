@@ -162,7 +162,12 @@ PROGRESS_JS = r"""
     }catch(e){ return fallback; }
   }
   function readWatched(){ return readJson(WATCH_KEY, {}); }
-  function readLast(){ return readJson(LAST_KEY, null); }
+  function readLast(){
+    var j=readJson(LAST_KEY,null);
+    if(!j||typeof j!=="object") return {};
+    if(j.course){ var one={}; one[j.course]=j; return one; }   // legacy flat record
+    return j;                                                    // {slug: record}
+  }
   function catalog(){
     var el=document.getElementById("lessonCatalog");
     if(!el) return [];
@@ -174,6 +179,12 @@ PROGRESS_JS = r"""
     var d=new Date(Number(ms));
     if(!ms || isNaN(d.getTime())) return "";
     return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+" "+pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
+  }
+  function clock(sec){
+    var s=Math.max(0,Math.round(Number(sec)||0));
+    var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), r=s%60;
+    function p(n){ return (n<10?"0":"")+n; }
+    return h ? (h+":"+p(m)+":"+p(r)) : (m+":"+p(r));
   }
   function parseTime(s){
     s=String(s||"").trim();
@@ -235,6 +246,7 @@ PROGRESS_JS = r"""
 
   function paintWatch(){
     var all=readWatched();
+    var lastMap=readLast();          // {course slug: {lesson, t, at, ...}}
     var byWatch={};
     catalog().forEach(function(c){ byWatch[c.slug]=c; });
     var cards=document.querySelectorAll(".card[data-slug]");
@@ -259,6 +271,17 @@ PROGRESS_JS = r"""
       var done=playable && n>=playable;
       card.classList.toggle("allwatched", done);
       var db=card.querySelector(".chip.done"); if(db) db.hidden=!done;
+      // "上次看到 12:34 · 第 57 節 xxx" -- per-course resume point
+      var ls=card.querySelector(".lastseen");
+      if(ls){
+        var rec=lastMap[key];
+        if(rec && Number(rec.t)>1){
+          var tb=ls.querySelector(".lst"), lb=ls.querySelector(".lsl");
+          if(tb) tb.textContent=clock(rec.t);
+          if(lb) lb.textContent=(rec.lessonNumber?"· 第 "+rec.lessonNumber+" 節 ":"")+(rec.title||"");
+          ls.hidden=false;
+        } else { ls.hidden=true; }
+      }
       if(done) doneCourses++;
       totW+=n;
     });
@@ -307,7 +330,8 @@ PROGRESS_JS = r"""
         var status = !l.video ? "無影片" : (at ? "已播放" : "未播放");
         if(at && l.video) played++;
         var pos="";
-        if(last && last.course===c.slug && last.lesson===l.slug && last.t!=null && last.t!=="") pos=String(Math.round(Number(last.t)||0));
+        var rec=last[c.slug];
+        if(rec && rec.lesson===l.slug && rec.t!=null && rec.t!=="") pos=String(Math.round(Number(rec.t)||0));
         lines.push([c.slug, c.title, l.n, l.slug, l.title, l.section, l.duration, l.video?1:0, status, at?fmtTime(at):"", pos].map(csvCell).join(","));
         rows++;
       });
@@ -408,7 +432,11 @@ PROGRESS_JS = r"""
     });
     try{ localStorage.setItem(WATCH_KEY, JSON.stringify(all)); }catch(e){}
     if(parsed.position){
-      try{ localStorage.setItem(LAST_KEY, JSON.stringify(parsed.position)); }catch(e){}
+      try{
+        var lm=readLast();                       // {course: record}, legacy migrated
+        lm[parsed.position.course||""]=parsed.position;
+        localStorage.setItem(LAST_KEY, JSON.stringify(lm));
+      }catch(e){}
     }
   }
 
@@ -549,6 +577,7 @@ def card(c, i=0):
           <div class="covrow"><span class="lbl">雙語字幕</span>{bar(c['bilingual'], c['lessons'], '#12b76a')}</div>
           <div class="covrow"><span class="lbl">英文轉錄</span>{bar(c['en'], c['lessons'], '#94a3b8')}</div>
         </div>
+        <div class="lastseen" hidden><span class="lsdot">▶</span>上次看到 <b class="lst">–</b><span class="lsl"></span></div>
       </div>
       <div class="cfoot">
         <span class="enter">進入播放器 →</span>
@@ -664,6 +693,13 @@ def main():
   .barlab b{{color:var(--ink)}}
   .covrow.watch .lbl{{color:#0a7a45}}
   .covrow.watch .wfill{{display:block;height:100%;border-radius:999px;background:#12b76a;transition:width .25s ease}}
+  /* where you stopped in this course (one record per course, written by the player) */
+  .lastseen{{display:flex;align-items:center;gap:6px;margin:10px 0 0;font-size:12px;
+    color:var(--muted);white-space:nowrap;overflow:hidden}}
+  .lastseen[hidden]{{display:none}}
+  .lastseen .lsdot{{color:#12b76a;font-size:9px;line-height:1}}
+  .lastseen b{{color:#0a7a45;font-variant-numeric:tabular-nums;font-weight:800}}
+  .lastseen .lsl{{overflow:hidden;text-overflow:ellipsis;opacity:.9}}
   .card[hidden]{{display:none}}   /* .card sets display:flex, so [hidden] needs help */
   .emptyfilter{{margin:8px 2px 28px;padding:26px;text-align:center;color:var(--muted);
     font-size:13.5px;background:var(--panel);border:1px dashed var(--line);border-radius:14px}}

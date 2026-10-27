@@ -593,26 +593,40 @@
     activeIdx:-1, builtIdx:-1, vDuration:0, filter:"", videoRetry:0
   };
 
-  // ---------- last-played memory ----------
-  // One shared key (av:last) so a reload lands back on the same lecture and
-  // second, and the course list can offer "continue where you left off".
+  // ---------- last-played memory (one record per course) ----------
+  // av:last maps course slug -> {lesson, t, at, ...}. It used to hold a single
+  // flat record for whichever course was played most recently, so opening
+  // course B silently wiped course A's position. readAll() still migrates that
+  // old shape, so nobody loses the position they already have.
   var LS_KEY="av:last", COURSE_SLUG=(window.COURSE_TOTALS||{}).slug||"";
+  var MAX_LAST=40;                     // keep the entry from growing forever
   var RESUME_SLUG="", RESUME_T=0, _lastSave=0;
+  function readAll(){
+    var j=null;
+    try{ j=JSON.parse(localStorage.getItem(LS_KEY)||"null"); }catch(e){}
+    if(!j || typeof j!=="object") return {};
+    if(j.course){ var one={}; one[j.course]=j; return one; }   // legacy flat record
+    return j;
+  }
   function readLast(){
-    try{
-      var j=JSON.parse(localStorage.getItem(LS_KEY)||"null");
-      if(j && j.course===COURSE_SLUG && j.lesson) return j;
-    }catch(e){}
-    return null;
+    var rec=readAll()[COURSE_SLUG];
+    return (rec && rec.lesson) ? rec : null;
   }
   function writeLast(t){
     if(!S.lesson) return;
     try{
-      localStorage.setItem(LS_KEY, JSON.stringify({
+      var all=readAll();
+      all[COURSE_SLUG]={
         course:COURSE_SLUG, courseTitle:DATA.series||"",
         lesson:S.lesson.slug, lessonNumber:S.lesson.number||0,
         title:S.lesson.title||"", t:Math.max(0,t||0), at:Date.now()
-      }));
+      };
+      var keys=Object.keys(all);
+      if(keys.length>MAX_LAST){
+        keys.sort(function(a,b){ return (all[a].at||0)-(all[b].at||0); });
+        keys.slice(0,keys.length-MAX_LAST).forEach(function(k){ delete all[k]; });
+      }
+      localStorage.setItem(LS_KEY, JSON.stringify(all));
     }catch(e){}
   }
   function hashLesson(){ var h=(location.hash||"").replace(/^#/,""); return h?decodeURIComponent(h):""; }
